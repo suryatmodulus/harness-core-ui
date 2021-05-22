@@ -976,6 +976,7 @@ export interface StringsMap {
   'pipeline.duration': string
   'pipeline.enableVerificationOptions': string
   'pipeline.enterDescription': string
+  'pipeline.estimatedTimeRemaining': string
   'pipeline.execution.actions.abortPipeline': string
   'pipeline.execution.actions.abortStage': string
   'pipeline.execution.actions.downloadLogs': string
@@ -1139,6 +1140,7 @@ export interface StringsMap {
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
+  'pipeline.progressPercentage': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
@@ -1403,6 +1405,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.setupAccess.selectLb': string
   'ce.co.autoStoppingRule.setupAccess.selectLbHelpText': string
   'ce.co.breadCrumb.rules': string
+  'ce.co.cloudProviders.aws': string
   'ce.co.dnsSetup.autoURL': string
   'ce.co.dnsSetup.customURL': string
   'ce.co.dnsSetup.isURLaccessible': string
@@ -1448,6 +1451,7 @@ export interface StringsMap {
   'ce.co.gatewayReview.selectCloudAccount': string
   'ce.co.gatewayReview.tags': string
   'ce.co.gatewayReview.type': string
+  'ce.co.getStarted': string
   'ce.co.instanceSelector.ipAddress': string
   'ce.co.instanceSelector.launchTime': string
   'ce.co.instanceSelector.name': string
@@ -1455,6 +1459,7 @@ export interface StringsMap {
   'ce.co.landingPageText': string
   'ce.co.newAutoStoppingRule': string
   'ce.co.noData': string
+  'ce.co.setupCloudProvider': string
   'ce.co.sshSetup': string
   'ce.connector.AWS.crossAccountRole.arn': string
   'ce.connector.AWS.crossAccountRole.externalID': string
@@ -1962,6 +1967,7 @@ export interface StringsMap {
   'ci.testsReports.correlatedWithCodeChanges': string
   'ci.testsReports.coverage': string
   'ci.testsReports.coverageInfo': string
+  'ci.testsReports.description': string
   'ci.testsReports.executionOverview': string
   'ci.testsReports.failedTests': string
   'ci.testsReports.failedWithColon': string
@@ -1985,6 +1991,7 @@ export interface StringsMap {
   'ci.testsReports.skippedWithColon': string
   'ci.testsReports.sortBy': string
   'ci.testsReports.stackTrace': string
+  'ci.testsReports.status': string
   'ci.testsReports.successWithColon': string
   'ci.testsReports.testCaseName': string
   'ci.testsReports.testCasesExecution': string
@@ -1995,6 +2002,7 @@ export interface StringsMap {
   'ci.testsReports.totalExecutedTest': string
   'ci.testsReports.totalTests': string
   'ci.testsReports.totalWithColon': string
+  'ci.testsReports.type': string
   'ci.testsReports.updatedTests': string
   'ci.testsReports.willBeDisplayedIfAvailable': string
   'ci.titleGovernance': string

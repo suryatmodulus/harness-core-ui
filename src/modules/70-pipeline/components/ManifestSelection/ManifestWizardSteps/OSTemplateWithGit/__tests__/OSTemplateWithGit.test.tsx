@@ -74,9 +74,21 @@ describe('Open shift template with git tests', () => {
       skipResourceVersioning: false,
       repoName: ''
     }
+
+    const prevStepData = {
+      connectorRef: {
+        connector: {
+          spec: {
+            connectionType: 'Account',
+            url: 'accounturl-test'
+          }
+        }
+      },
+      store: 'Git'
+    }
     const { container } = render(
       <TestWrapper>
-        <OpenShiftTemplateWithGit {...props} initialValues={initialValues} />
+        <OpenShiftTemplateWithGit {...props} initialValues={initialValues} prevStepData={prevStepData} />
       </TestWrapper>
     )
 
@@ -86,6 +98,7 @@ describe('Open shift template with git tests', () => {
       fireEvent.change(queryByNameAttribute('gitFetchType')!, { target: { value: 'Branch' } })
       fireEvent.change(queryByNameAttribute('branch')!, { target: { value: 'testBranch' } })
       fireEvent.change(queryByNameAttribute('path')!, { target: { value: 'test-path' } })
+      fireEvent.change(queryByNameAttribute('repoName')!, { target: { value: 'repo-name' } })
     })
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() => {
@@ -96,13 +109,12 @@ describe('Open shift template with git tests', () => {
             store: {
               spec: {
                 branch: 'testBranch',
-                commitId: undefined,
-                connectorRef: '',
+                connectorRef: undefined,
                 gitFetchType: 'Branch',
                 paths: ['test-path'],
-                repoName: ''
+                repoName: 'repo-name'
               },
-              type: undefined
+              type: 'Git'
             },
             skipResourceVersioning: false
           }

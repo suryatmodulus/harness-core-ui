@@ -65,8 +65,8 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
         <ExecutionCardPanel
           id={`Stage.${stageIdentifier}.Provisioner`}
           title={getString('common.provisioner')}
-          execution={infrastructure.infrastructureDefinition.provisioner || {}}
-          originalExecution={originalInfrastructure.infrastructureDefinition.provisioner || {}}
+          execution={infrastructure.infrastructureDefinition.provisioner || ({} as any)}
+          originalExecution={originalInfrastructure.infrastructureDefinition.provisioner || ({} as any)}
           metadataMap={metadataMap}
           stageIdentifier={stageIdentifier}
           readonly={readonly}

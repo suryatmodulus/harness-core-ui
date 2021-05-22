@@ -3,7 +3,7 @@ import produce from 'immer'
 import { set } from 'lodash-es'
 import { NestedAccordionPanel } from '@wings-software/uicore'
 
-import type { ExecutionElementConfig, ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
+import type { ExecutionElement, ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 
 import type { PipelineVariablesData } from '../types'
 import { StepCardPanel, StepGroupCardPanel } from './StepCard'
@@ -34,11 +34,11 @@ export interface StepGroupRenderData {
 export interface ExecutionCardProps {
   id: string
   title: string
-  execution: ExecutionElementConfig
-  originalExecution: ExecutionElementConfig
+  execution: ExecutionElement
+  originalExecution: ExecutionElement
   metadataMap: PipelineVariablesData['metadataMap']
   stageIdentifier: string
-  onUpdateExecution(data: ExecutionElementConfig): void
+  onUpdateExecution(data: ExecutionElement): void
   readonly?: boolean
 }
 

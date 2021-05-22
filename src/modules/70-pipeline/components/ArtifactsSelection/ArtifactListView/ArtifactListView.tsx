@@ -4,8 +4,8 @@ import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
 import { getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { SidecarArtifactWrapper } from 'services/cd-ng'
-import { CreationType, getArtifactIconByType } from '../ArtifactHelper'
-import type { ArtifactListViewProps } from '../ArtifactInterface'
+import { ArtifactIconByType } from '../ArtifactHelper'
+import type { ArtifactListViewProps, ArtifactType } from '../ArtifactInterface'
 import css from '../ArtifactsSelection.module.scss'
 
 export enum ModalViewFor {
@@ -29,16 +29,16 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
   const { color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
   return (
     <Layout.Vertical style={{ flexShrink: 'initial' }}>
-      {/* {props.isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={props.stage} />} */}
-
       <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
-        <div className={cx(css.artifactList, css.listHeader)}>
-          <span></span>
-          <span>{getString('artifactRepository')}</span>
-          <span> {getString('location')}</span>
-          <span></span>
-          <span></span>
-        </div>
+        {!!(sideCarArtifact?.length || primaryArtifact?.type) && (
+          <div className={cx(css.artifactList, css.listHeader)}>
+            <span></span>
+            <span>{getString('artifactRepository')}</span>
+            <span> {getString('location')}</span>
+            <span></span>
+            <span></span>
+          </div>
+        )}
 
         <Layout.Vertical style={{ flexShrink: 'initial' }}>
           <section>
@@ -46,30 +46,29 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
               <section className={cx(css.artifactList, css.rowItem)} key={'Dockerhub'}>
                 <div>
                   <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
-                    Primary
+                    {getString('primary')}
                   </Text>
                 </div>
 
-                <div className={css.server}>
+                <span>
                   <Text
                     inline
-                    icon={getArtifactIconByType(primaryArtifact.type)}
+                    icon={ArtifactIconByType[primaryArtifact.type]}
                     iconProps={{ size: 18 }}
-                    width={180}
+                    width={300}
                     lineClamp={1}
+                    rightIcon="full-circle"
+                    rightIconProps={{ size: 12, color }}
                     style={{ color: Color.BLACK, fontWeight: 900 }}
                   >
-                    {primaryArtifact.type}
+                    {primaryArtifact.spec?.connectorRef}
                   </Text>
-
-                  <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
-                </div>
+                </span>
                 <div>
                   <Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}>
                     {primaryArtifact?.spec?.imagePath}
                   </Text>
                 </div>
-                <div>{/* WIP artifact validation */}</div>
                 {overrideSetIdentifier?.length === 0 && !isReadonly && (
                   <span>
                     <Layout.Horizontal spacing="medium" className={css.actionGrid}>
@@ -78,13 +77,6 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                         size={16}
                         onClick={() => editArtifact(ModalViewFor.PRIMARY, primaryArtifact.type)}
                       />
-                      {/* <Icon
-                              name="main-clone"
-                              size={16}
-                              style={{ cursor: 'pointer' }}
-                              className={css.cloneIcon}
-                              // onClick={() => cloneArtifact(manifest)}
-                            /> */}
                       <Icon name="bin-main" size={25} onClick={removePrimary} />
                     </Layout.Horizontal>
                   </span>
@@ -111,26 +103,25 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                         </Text>
                       </Text>
                     </div>
-                    <div className={css.server}>
+                    <span>
                       <Text
                         inline
-                        icon={getArtifactIconByType(sidecar?.type as string)}
+                        icon={ArtifactIconByType[sidecar?.type as ArtifactType]}
                         iconProps={{ size: 18 }}
-                        width={180}
+                        width={300}
+                        rightIcon="full-circle"
+                        rightIconProps={{ size: 12, color: sideCarConnectionColor }}
                         lineClamp={1}
                         style={{ color: Color.BLACK, fontWeight: 900 }}
                       >
-                        {sidecar?.type}
+                        {sidecar?.spec?.connectorRef}
                       </Text>
-
-                      <Text width={200} icon="full-circle" iconProps={{ size: 10, color: sideCarConnectionColor }} />
-                    </div>
+                    </span>
                     <div>
                       <Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}>
                         {sidecar?.spec?.imagePath}
                       </Text>
                     </div>
-                    <div>{/* WIP artifact validation */}</div>
                     {overrideSetIdentifier?.length === 0 && !isReadonly && (
                       <span>
                         <Layout.Horizontal spacing="medium" className={css.actionGrid}>
@@ -138,16 +129,9 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                             name="Edit"
                             size={16}
                             onClick={() => {
-                              editArtifact(ModalViewFor.SIDECAR, sidecar?.type as CreationType, index)
+                              editArtifact(ModalViewFor.SIDECAR, sidecar?.type as ArtifactType, index)
                             }}
                           />
-                          {/* <Icon
-                                    name="main-clone"
-                                    size={16}
-                                    style={{ cursor: 'pointer' }}
-                                    className={css.cloneIcon}
-                                    // onClick={() => cloneArtifact(manifest)}
-                                  /> */}
                           <Icon name="bin-main" size={25} onClick={() => removeSidecar(index)} />
                         </Layout.Horizontal>
                       </span>
@@ -166,22 +150,23 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
           )}
         </Layout.Vertical>
       </Layout.Vertical>
-      <Layout.Vertical>
+
+      <div>
         {!primaryArtifact && overrideSetIdentifier?.length === 0 && !isReadonly && (
-          <div className={css.rowItem}>
-            <Text onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
+          <div className={css.addArtifact}>
+            <Text intent="primary" onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addPrimary" />
             </Text>
           </div>
         )}
         {(!sideCarArtifact || sideCarArtifact?.length === 0) && overrideSetIdentifier?.length === 0 && !isReadonly && (
-          <div className={css.rowItem}>
-            <Text onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
+          <div className={css.addArtifact}>
+            <Text intent="primary" onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
             </Text>
           </div>
         )}
-      </Layout.Vertical>
+      </div>
     </Layout.Vertical>
   )
 }

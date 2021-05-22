@@ -51,8 +51,7 @@ import {
   ManifestToConnectorMap,
   ManifestStoreMap,
   manifestTypeIcons,
-  manifestTypeLabels,
-  ManifestToConnectorLabelMap
+  manifestTypeLabels
 } from './Manifesthelper'
 import ManifestDetails from './ManifestWizardSteps/ManifestDetails/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
@@ -291,8 +290,7 @@ const ManifestListView = ({
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('pipeline.manifestType.specifyManifestRepoType'),
-      secondStepName: `${getString('common.specify')} ${manifestTypeLabels[selectedManifest]} ${getString('store')}`,
-      newConnector: `${getString('newLabel')} ${ManifestToConnectorLabelMap[manifestStore]} ${getString('connector')}`
+      secondStepName: `${getString('common.specify')} ${manifestTypeLabels[selectedManifest]} ${getString('store')}`
     }
   }
 
@@ -628,14 +626,16 @@ const ManifestListView = ({
 
   return (
     <Layout.Vertical spacing="small">
-      <div className={cx(css.manifestList, css.listHeader)}>
-        <span>{getString('common.ID')}</span>
-        <span>{getString('pipelineSteps.serviceTab.manifestList.manifestType')}</span>
-        <span>{getString('pipelineSteps.serviceTab.manifestList.manifestStore')}</span>
-        <span>{getString('location')}</span>
+      {!!listOfManifests?.length && (
+        <div className={cx(css.manifestList, css.listHeader)}>
+          <span>{getString('common.ID')}</span>
+          <span>{getString('pipelineSteps.serviceTab.manifestList.manifestType')}</span>
+          <span>{getString('pipelineSteps.serviceTab.manifestList.manifestStore')}</span>
+          <span>{getString('location')}</span>
 
-        <span></span>
-      </div>
+          <span></span>
+        </div>
+      )}
       <Layout.Vertical spacing="medium">
         <section>
           {listOfManifests &&
@@ -653,20 +653,20 @@ const ManifestListView = ({
                     </Text>
                   </div>
                   <div>{manifestTypeLabels[manifest?.type as ManifestTypes]}</div>
-                  <div className={css.server}>
+                  <span>
                     <Text
                       inline
                       icon={ManifestIconByType[manifest?.spec?.store.type as ManifestStores]}
                       iconProps={{ size: 18 }}
-                      width={200}
+                      width={300}
                       lineClamp={1}
+                      rightIcon="full-circle"
+                      rightIconProps={{ size: 12, color }}
                       style={{ color: Color.BLACK, fontWeight: 900 }}
                     >
-                      {manifest?.spec?.store.type}
+                      {manifest?.spec?.store.spec.connectorRef}
                     </Text>
-
-                    <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
-                  </div>
+                  </span>
 
                   {!!manifest?.spec?.store.spec.paths?.length && (
                     <span>
@@ -707,13 +707,7 @@ const ManifestListView = ({
                             )
                           }
                         />
-                        {/* <Icon
-                              name="main-clone"
-                              size={16}
-                              style={{ cursor: 'pointer' }}
-                              className={css.cloneIcon}
-                              // onClick={() => editManifest(manifest)}
-                            /> */}
+
                         <Icon name="bin-main" size={25} onClick={() => removeManifestConfig(index)} />
                       </Layout.Horizontal>
                     </span>

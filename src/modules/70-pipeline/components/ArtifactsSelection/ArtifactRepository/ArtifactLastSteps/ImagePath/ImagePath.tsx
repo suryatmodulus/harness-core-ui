@@ -71,7 +71,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
     })
   })
 
-  const { data, loading, refetch } = useGetBuildDetailsForDocker({
+  const { data, loading, refetch, error: dockerTagError } = useGetBuildDetailsForDocker({
     queryParams: {
       imagePath: lastImagePath,
       connectorRef: prevStepData?.connectorId?.value
@@ -81,7 +81,8 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
       orgIdentifier,
       projectIdentifier
     },
-    lazy: true
+    lazy: true,
+    debounce: 300
   })
 
   React.useEffect(() => {
@@ -91,7 +92,9 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   }, [data])
 
   React.useEffect(() => {
-    refetch()
+    if (lastImagePath) {
+      refetch()
+    }
   }, [lastImagePath])
   const getSelectItems = React.useCallback(() => {
     const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
@@ -161,7 +164,6 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
 
     handleSubmit(artifactObj)
   }
-
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
     <div key={item.label.toString()}>
       <Menu.Item
@@ -208,13 +210,16 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                   name="imagePath"
                   placeholder={getString('artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
+                  onChange={val => {
+                    setLastImagePath(val as string)
+                  }}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
                       value={formik.values.imagePath as string}
                       type="String"
-                      variableName="dockerConnector"
+                      variableName="imagePath"
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
@@ -244,7 +249,12 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                       selectProps: {
                         defaultSelectedItem: formik.values?.tag,
                         noResults: (
-                          <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
+                          <span className={css.padSmall}>
+                            <Text lineClamp={1}>
+                              {get(dockerTagError, 'data.message', null) ||
+                                getString('pipelineSteps.deploy.errors.notags')}{' '}
+                            </Text>
+                          </span>
                         ),
                         items: tags,
                         addClearBtn: true,
@@ -262,7 +272,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                       <ConfigureOptions
                         value={formik.values.tag as string}
                         type="String"
-                        variableName="dockerConnector"
+                        variableName="tag"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}
@@ -288,7 +298,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                       <ConfigureOptions
                         value={formik.values.tagRegex as string}
                         type="String"
-                        variableName="dockerConnector"
+                        variableName="tagRegex"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}

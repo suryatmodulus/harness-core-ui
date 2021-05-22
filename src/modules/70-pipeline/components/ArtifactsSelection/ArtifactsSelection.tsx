@@ -10,7 +10,7 @@ import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { useGetConnectorListV2, PageConnectorResponse, ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
+import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
@@ -33,14 +33,23 @@ import type {
   ArtifactsSelectionProps,
   ConnectorDataType,
   ConnectorRefLabelType,
-  CreationType,
+  ArtifactType,
   ImagePathProps
 } from './ArtifactInterface'
-import { ENABLED_ARTIFACT_TYPES, getArtifactIconByType } from './ArtifactHelper'
+import {
+  ArtifactToConnectorMap,
+  ENABLED_ARTIFACT_TYPES,
+  ArtifactIconByType,
+  ArtifactTitleIdByType
+} from './ArtifactHelper'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from './ArtifactsSelection.module.scss'
 
-const allowedArtifactTypes: Array<ConnectorInfoDTO['type']> = [Connectors.DOCKER, Connectors.GCP, Connectors.AWS]
+const allowedArtifactTypes: Array<ArtifactType> = [
+  ENABLED_ARTIFACT_TYPES.DockerRegistry,
+  ENABLED_ARTIFACT_TYPES.Gcr,
+  ENABLED_ARTIFACT_TYPES.Ecr
+]
 
 export default function ArtifactsSelection({
   isForOverrideSets = false,
@@ -60,7 +69,7 @@ export default function ArtifactsSelection({
   } = useContext(PipelineContext)
 
   const [isEditMode, setIsEditMode] = React.useState(false)
-  const [selectedArtifact, setSelectedArtifact] = React.useState(Connectors.DOCKER)
+  const [selectedArtifact, setSelectedArtifact] = React.useState(ENABLED_ARTIFACT_TYPES.DockerRegistry)
   const [connectorView, setConnectorView] = React.useState(false)
   const [context, setModalContext] = React.useState(ModalViewFor.PRIMARY)
   const [sidecarIndex, setEditIndex] = React.useState(0)
@@ -257,8 +266,8 @@ export default function ArtifactsSelection({
 
   const addArtifact = (artifactObj: any): void => {
     artifactObj = {
-      ...artifactObj,
-      type: ENABLED_ARTIFACT_TYPES[selectedArtifact]
+      type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
+      ...artifactObj
     }
 
     if (context === ModalViewFor.PRIMARY) {
@@ -353,20 +362,10 @@ export default function ArtifactsSelection({
     refetchConnectorList()
   }
 
-  const editArtifact = (viewType: number, type: CreationType, index?: number): void => {
+  const editArtifact = (viewType: number, type: ArtifactType, index?: number): void => {
     setModalContext(viewType)
     setConnectorView(false)
-    switch (type) {
-      case ENABLED_ARTIFACT_TYPES.Gcp:
-        setSelectedArtifact(Connectors.GCP)
-        break
-      case ENABLED_ARTIFACT_TYPES.Aws:
-        setSelectedArtifact(Connectors.AWS)
-        break
-      case ENABLED_ARTIFACT_TYPES.DockerRegistry:
-      default:
-        setSelectedArtifact(Connectors.DOCKER)
-    }
+    setSelectedArtifact(type)
 
     if (viewType === ModalViewFor.SIDECAR && index !== undefined) {
       setEditIndex(index)
@@ -390,7 +389,7 @@ export default function ArtifactsSelection({
       delete artifacts.primary
     }
     primaryArtifact.spec = undefined
-    setSelectedArtifact(Connectors.DOCKER)
+    setSelectedArtifact(ENABLED_ARTIFACT_TYPES.DockerRegistry)
     updatePipeline(pipeline)
   }
 
@@ -401,9 +400,9 @@ export default function ArtifactsSelection({
 
   const getIconProps = (): IconProps => {
     const iconProps: IconProps = {
-      name: selectedArtifact === Connectors.Aws ? 'ecr-step' : getArtifactIconByType(selectedArtifact)
+      name: ArtifactIconByType[selectedArtifact]
     }
-    if (selectedArtifact === Connectors.DOCKER) {
+    if (selectedArtifact === ENABLED_ARTIFACT_TYPES.DockerRegistry) {
       iconProps.color = Color.WHITE
     }
     return iconProps
@@ -427,14 +426,13 @@ export default function ArtifactsSelection({
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('connectors.specifyArtifactRepoType'),
-      secondStepName: `${getString('select')} ${ENABLED_ARTIFACT_TYPES[selectedArtifact]} ${getString('repository')}`,
-      newConnector: `${getString('newLabel')} ${selectedArtifact} ${getString('connector')}`
+      secondStepName: `${getString(ArtifactTitleIdByType[selectedArtifact])} ${getString('repository')}`
     }
   }
 
   const getNewConnectorSteps = useCallback((): JSX.Element => {
     switch (selectedArtifact) {
-      case Connectors.GCP:
+      case ENABLED_ARTIFACT_TYPES.Gcr:
         return (
           <StepWizard title={getString('connectors.createNewConnector')}>
             <ConnectorDetailsStep
@@ -464,10 +462,14 @@ export default function ArtifactsSelection({
             />
           </StepWizard>
         )
-      case Connectors.AWS:
+      case ENABLED_ARTIFACT_TYPES.Ecr:
         return (
           <StepWizard iconProps={{ size: 37 }} title={getString('connectors.createNewConnector')}>
-            <ConnectorDetailsStep type={Connectors.AWS} name={getString('overview')} isEditMode={isEditMode} />
+            <ConnectorDetailsStep
+              type={ArtifactToConnectorMap[selectedArtifact]}
+              name={getString('overview')}
+              isEditMode={isEditMode}
+            />
             <StepAWSAuthentication
               name={getString('credentials')}
               identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
@@ -493,15 +495,19 @@ export default function ArtifactsSelection({
               connectorInfo={undefined}
               isStep={true}
               isLastStep={false}
-              type={Connectors.AWS}
+              type={ArtifactToConnectorMap[selectedArtifact]}
             />
           </StepWizard>
         )
-      case Connectors.DOCKER:
+      case ENABLED_ARTIFACT_TYPES.DockerRegistry:
       default:
         return (
           <StepWizard title={getString('connectors.createNewConnector')}>
-            <ConnectorDetailsStep type={Connectors.DOCKER} name={getString('overview')} isEditMode={isEditMode} />
+            <ConnectorDetailsStep
+              type={ArtifactToConnectorMap[selectedArtifact]}
+              name={getString('overview')}
+              isEditMode={isEditMode}
+            />
             <StepDockerAuthentication
               name={getString('details')}
               identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
@@ -523,7 +529,7 @@ export default function ArtifactsSelection({
               connectorInfo={undefined}
               isStep={true}
               isLastStep={false}
-              type={Connectors.DOCKER}
+              type={ArtifactToConnectorMap[selectedArtifact]}
             />
           </StepWizard>
         )
@@ -534,13 +540,13 @@ export default function ArtifactsSelection({
     const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
 
     switch (selectedArtifact) {
-      case Connectors.GCP:
+      case ENABLED_ARTIFACT_TYPES.Gcr:
         arr.push(<GCRImagePath {...getImagePathProps()} />)
         break
-      case Connectors.AWS:
+      case ENABLED_ARTIFACT_TYPES.Ecr:
         arr.push(<ECRArtifact {...getImagePathProps()} />)
         break
-      case Connectors.DOCKER:
+      case ENABLED_ARTIFACT_TYPES.DockerRegistry:
       default:
         arr.push(<ImagePath {...getImagePathProps()} />)
         break
@@ -548,7 +554,7 @@ export default function ArtifactsSelection({
     return arr
   }
 
-  const changeArtifactType = (selected: ConnectorInfoDTO['type']): void => {
+  const changeArtifactType = (selected: ArtifactType): void => {
     setSelectedArtifact(selected)
   }
   const handleConnectorViewChange = (isConnectorView: boolean): void => {

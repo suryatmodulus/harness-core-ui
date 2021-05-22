@@ -173,11 +173,16 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
               class="title"
             />
             <div
-              class="pipelineId"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              style="align-items: center;"
             >
-              <span>
-                execution.pipelineIdentifierTextCD
-              </span>
+              <div
+                class="pipelineId"
+              >
+                <span>
+                  execution.pipelineIdentifierTextCD
+                </span>
+              </div>
             </div>
           </div>
           <div

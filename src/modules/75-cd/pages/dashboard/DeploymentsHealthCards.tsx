@@ -3,7 +3,6 @@ import { Container, Text, Icon } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { useParams } from 'react-router-dom'
-import moment from 'moment'
 import { Classes } from '@blueprintjs/core'
 import merge from 'lodash-es/merge'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -28,11 +27,11 @@ export default function DeploymentsHealthCards() {
 
   const { data, loading } = useGetDeploymentHealth({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startInterval: moment(range[0]).format('YYYY-MM-DD'),
-      endInterval: moment(range[1]).format('YYYY-MM-DD')
+      startTime: range[0],
+      endTime: range[1]
     }
   })
 

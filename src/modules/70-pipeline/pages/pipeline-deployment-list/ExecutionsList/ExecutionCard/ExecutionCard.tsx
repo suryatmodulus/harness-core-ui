@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, Icon } from '@wings-software/uicore'
+import { Card, Icon, Layout } from '@wings-software/uicore'
 import { Link, useParams } from 'react-router-dom'
 
 import { isEmpty } from 'lodash-es'
@@ -17,6 +17,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
+import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import ServicesDeployed from './ExecutionDetails/ServicesDeployed'
 import BuildInfo from './ExecutionDetails/BuildInfo/BuildInfo'
@@ -103,6 +104,11 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                 stringID={module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'}
                 vars={pipelineExecution}
               />
+              {pipelineExecution.gitDetails && (
+                <Layout.Horizontal spacing={'small'} inline={true} margin={{ right: 'small' }}>
+                  <GitPopover iconSize={14} data={pipelineExecution.gitDetails} />
+                </Layout.Horizontal>
+              )}
               {!isEmpty(pipelineExecution?.tags) ? (
                 <TagsPopover
                   tags={(pipelineExecution?.tags || []).reduce((val, tag) => {

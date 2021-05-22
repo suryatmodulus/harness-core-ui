@@ -6,15 +6,16 @@ import { useStrings } from 'framework/strings'
 
 export interface GitPopoverProps {
   data: EntityGitDetails
+  iconSize?: number
 }
 
 export default function GitPopover(props: GitPopoverProps): React.ReactElement {
   const { getString } = useStrings()
-  const { data } = props
+  const { data, iconSize = 16 } = props
 
   return (
     <Popover interactionKind={PopoverInteractionKind.HOVER}>
-      <Icon name={'service-github'} color={Color.GREY_500} />
+      <Icon name={'service-github'} color={Color.GREY_500} size={iconSize} />
       <Layout.Vertical padding={{ top: 'large', bottom: 'large', left: 'xlarge', right: 'xlarge' }}>
         <Text font={{ size: 'small', weight: 'bold' }} color={Color.BLACK}>
           {getString('pipeline.gitDetails').toUpperCase()}

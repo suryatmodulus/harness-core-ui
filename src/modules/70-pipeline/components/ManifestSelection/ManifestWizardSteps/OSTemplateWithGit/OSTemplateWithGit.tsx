@@ -17,7 +17,7 @@ import { Form } from 'formik'
 import * as Yup from 'yup'
 import { Tooltip } from '@blueprintjs/core'
 
-import { get, set } from 'lodash-es'
+import { get, isEmpty, set } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeCheckboxField } from '@common/components'
@@ -30,7 +30,6 @@ import { gitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelp
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OSTemplateWithGit.module.scss'
-import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
 interface OpenshiftTemplateWithGITPropType {
@@ -66,34 +65,26 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
 
   const getRepoName = (): string => {
     let repoName = ''
-    if (prevStepData?.connectorRef) {
-      if (connectionType === GitRepoName.Repo) {
-        repoName = prevStepData?.connectorRef?.connector?.spec?.url
-      } else {
-        const connectorScope = getScopeFromValue(initialValues?.spec?.store.spec?.connectorRef)
-        if (connectorScope === Scope.ACCOUNT) {
-          if (
-            initialValues?.spec?.store.spec?.connectorRef ===
-            `account.${prevStepData?.connectorRef?.connector?.identifier}`
-          ) {
-            repoName = initialValues?.spec?.store.spec.repoName
-          } else {
-            repoName = ''
-          }
+    if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
+      repoName = prevStepData?.connectorRef
+    } else if (prevStepData?.connectorRef) {
+      const connectorScope = getScopeFromValue(initialValues?.spec?.store.spec?.connectorRef)
+      if (connectorScope === Scope.ACCOUNT) {
+        if (
+          initialValues?.spec?.store.spec?.connectorRef ===
+          `account.${prevStepData?.connectorRef?.connector?.identifier}`
+        ) {
+          repoName = initialValues?.spec?.store.spec.repoName
         } else {
-          repoName =
-            prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
-              ? initialValues?.spec?.store.spec.repoName
-              : ''
+          repoName = ''
         }
+      } else {
+        repoName =
+          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
+            ? initialValues?.spec?.store.spec.repoName
+            : ''
       }
       return repoName
-    }
-
-    if (prevStepData?.identifier) {
-      if (connectionType === GitRepoName.Repo) {
-        repoName = prevStepData?.url
-      }
     }
     return repoName
   }
@@ -176,6 +167,12 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
           commitId: Yup.string().when('gitFetchType', {
             is: 'Commit',
             then: Yup.string().trim().required(getString('validation.commitId'))
+          }),
+          repoName: Yup.string().test('repoName', getString('pipeline.manifestType.reponameRequired'), value => {
+            if (connectionType === GitRepoName.Repo) {
+              return true
+            }
+            return !isEmpty(value) && value?.length > 0
           })
         })}
         onSubmit={formData => {
@@ -201,16 +198,6 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                 placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                 className={templateCss.halfWidth}
               />
-              {connectionType === GitRepoName.Repo && (
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.Text
-                    label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                    disabled
-                    name="repoName"
-                    style={{ width: '370px' }}
-                  />
-                </div>
-              )}
 
               {!!(connectionType === GitRepoName.Account && accountUrl) && (
                 <GitRepositoryName

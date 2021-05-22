@@ -1,6 +1,5 @@
 .rowItem {
   padding: var(--spacing-medium) 0;
-  // background: white !important;
   border-bottom: solid 1px #d9dae5;
   span.type {
     color: var(--grey-900) !important;
@@ -28,20 +27,18 @@
     }
   }
 }
+.addArtifact {
+  cursor: pointer;
+  margin-top: var(--spacing-medium);
+  margin-bottom: var(--spacing-medium);
+}
 .artifactId {
   color: var(--pipeline-color-dark-grey);
 }
 .paddingVertical {
   padding: var(--spacing-medium) 0;
 }
-div.server {
-  display: grid;
-  grid-template-columns: 150px 50px;
-  text-align: left;
-  p {
-    display: block !important;
-  }
-}
+
 .sideCarBtn {
   width: 150px;
 }
@@ -73,7 +70,7 @@ div.server {
 }
 .artifactList {
   display: grid;
-  grid-template-columns: 230px 200px repeat(3, 1fr);
+  grid-template-columns: 230px 300px repeat(3, 1fr);
   padding-left: var(--spacing-small);
   &.list-header {
     border-bottom: solid 1px #d9dae5;

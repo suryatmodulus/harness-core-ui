@@ -2,6 +2,7 @@ import type { GetListOfExecutionsQueryParams, PipelineExecutionFilterProperties 
 
 export type StringQueryParams = Partial<Record<keyof GetListOfExecutionsQueryParams, string>> & {
   filters?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type QueryParams = Partial<GetListOfExecutionsQueryParams> & {

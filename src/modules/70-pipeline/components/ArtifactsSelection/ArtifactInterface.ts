@@ -1,7 +1,7 @@
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type {
   ArtifactConfig,
-  ArtifactSpecWrapper,
+  PrimaryArtifact,
   PageConnectorResponse,
   SidecarArtifactWrapper,
   StageElementWrapper
@@ -11,10 +11,10 @@ export interface ArtifactListViewProps {
   isForPredefinedSets?: boolean
   stage: StageElementWrapper | undefined
   overrideSetIdentifier?: string
-  primaryArtifact: ArtifactSpecWrapper
+  primaryArtifact: PrimaryArtifact
   sideCarArtifact: SidecarArtifactWrapper[]
   addNewArtifact: (view: number) => void
-  editArtifact: (view: number, type: CreationType, index?: number) => void
+  editArtifact: (view: number, type: ArtifactType, index?: number) => void
   removePrimary: () => void
   removeSidecar: (index: number) => void
   fetchedConnectorResponse: PageConnectorResponse | undefined
@@ -30,9 +30,9 @@ export interface ArtifactsSelectionProps {
   overrideSetIdentifier?: string
 }
 
-export type CreationType = 'Dockerhub' | 'Gcr' | 'Ecr'
+export type ArtifactType = 'DockerRegistry' | 'Gcr' | 'Ecr'
 export interface OrganizationCreationType {
-  type: CreationType
+  type: ArtifactType
 }
 export enum TagTypes {
   Value = 'value',
@@ -63,5 +63,4 @@ export interface ImagePathProps {
 export interface ConnectorRefLabelType {
   firstStepName: string
   secondStepName: string
-  newConnector: string
 }

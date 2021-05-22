@@ -24,6 +24,7 @@ declare const styles: {
   readonly headerContainer: string
   readonly squareCardContainer: string
   readonly squareCard: string
+  readonly sqaureCardTitle: string
   readonly disabled: string
   readonly manifestIcon: string
   readonly advancedStepOpen: string

@@ -1,7 +1,7 @@
 import type { UseGetReturnData } from '@common/utils/testUtils'
-import type { ResponseNGPipelineSummaryResponse } from 'services/cd-ng'
+import type { ResponsePMSPipelineSummaryResponse } from 'services/pipeline-ng'
 
-export const PipelineResponse: UseGetReturnData<ResponseNGPipelineSummaryResponse> = {
+export const PipelineResponse: UseGetReturnData<ResponsePMSPipelineSummaryResponse> = {
   loading: false,
   refetch: jest.fn(),
   error: null,
@@ -11,9 +11,9 @@ export const PipelineResponse: UseGetReturnData<ResponseNGPipelineSummaryRespons
       name: 'testsdfsdf',
       identifier: 'testqqq',
       description: '',
-      numOfStages: 3,
-      numOfErrors: 2,
-      deployments: [0, 4, 0, 3, 4, 2, 1, 5, 2, 4]
+      numOfStages: 3
+      // numOfErrors: 2,
+      // deployments: [0, 4, 0, 3, 4, 2, 1, 5, 2, 4]
     },
     correlationId: '537bada2-d369-443f-9827-7ca8008b576d'
   }

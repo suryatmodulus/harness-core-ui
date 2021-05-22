@@ -63,12 +63,10 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -85,21 +83,16 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -110,8 +103,8 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -243,12 +236,10 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -265,21 +256,16 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -290,8 +276,8 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -423,12 +409,10 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -445,21 +429,16 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -470,8 +449,8 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -603,12 +582,10 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -625,21 +602,16 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -650,8 +622,8 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -823,12 +795,10 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -845,21 +815,16 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -870,8 +835,8 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1003,12 +968,10 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -1025,21 +988,16 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -1050,8 +1008,8 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1183,12 +1141,10 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -1205,21 +1161,16 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -1230,8 +1181,8 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1403,12 +1354,10 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -1425,21 +1374,16 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -1450,8 +1394,8 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1583,12 +1527,10 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -1605,21 +1547,16 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -1630,8 +1567,8 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1763,12 +1700,10 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -1785,21 +1720,16 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -1810,8 +1740,8 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1943,12 +1873,10 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -1965,21 +1893,16 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -1990,8 +1913,8 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -2106,23 +2029,6 @@ exports[`ManifestSelection tests renders Manifest Listview with overrideSetIdent
     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
     <div
-      class="manifestList listHeader"
-    >
-      <span>
-        common.ID
-      </span>
-      <span>
-        pipelineSteps.serviceTab.manifestList.manifestType
-      </span>
-      <span>
-        pipelineSteps.serviceTab.manifestList.manifestStore
-      </span>
-      <span>
-        location
-      </span>
-      <span />
-    </div>
-    <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
       <section />
@@ -2194,12 +2100,10 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -2216,21 +2120,16 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -2241,8 +2140,8 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -2374,12 +2273,10 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -2396,21 +2293,16 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -2421,8 +2313,8 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -2554,12 +2446,10 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -2576,21 +2466,16 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -2601,8 +2486,8 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -2734,12 +2619,10 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
           <div>
             K8s Manifest
           </div>
-          <div
-            class="server"
-          >
+          <span>
             <span
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 200px;"
+              style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -2756,21 +2639,16 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-              Git
-            </span>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center; width: 200px;"
-            >
+              &lt;+input&gt;
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
               >
                 <svg
                   data-icon="full-circle"
-                  height="10"
+                  height="12"
                   viewBox="0 0 16 16"
-                  width="10"
+                  width="12"
                 >
                   <desc>
                     full-circle
@@ -2781,8 +2659,8 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
           <span>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -2900,23 +2778,6 @@ exports[`ManifestSelection tests renders Manifest Wizard popover 1`] = `
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="manifestList listHeader"
-      >
-        <span>
-          common.ID
-        </span>
-        <span>
-          pipelineSteps.serviceTab.manifestList.manifestType
-        </span>
-        <span>
-          pipelineSteps.serviceTab.manifestList.manifestStore
-        </span>
-        <span>
-          location
-        </span>
-        <span />
-      </div>
-      <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <section />
@@ -2943,23 +2804,6 @@ exports[`ManifestSelection tests renders add Manifest option without crashing 1`
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="manifestList listHeader"
-      >
-        <span>
-          common.ID
-        </span>
-        <span>
-          pipelineSteps.serviceTab.manifestList.manifestType
-        </span>
-        <span>
-          pipelineSteps.serviceTab.manifestList.manifestStore
-        </span>
-        <span>
-          location
-        </span>
-        <span />
-      </div>
-      <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <section />
@@ -2985,23 +2829,6 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
-      <div
-        class="manifestList listHeader"
-      >
-        <span>
-          common.ID
-        </span>
-        <span>
-          pipelineSteps.serviceTab.manifestList.manifestType
-        </span>
-        <span>
-          pipelineSteps.serviceTab.manifestList.manifestStore
-        </span>
-        <span>
-          location
-        </span>
-        <span />
-      </div>
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >

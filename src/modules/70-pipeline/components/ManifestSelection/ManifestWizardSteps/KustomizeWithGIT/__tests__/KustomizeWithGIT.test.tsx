@@ -98,9 +98,21 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
       pluginPath: ''
     }
 
+    const prevStepData = {
+      connectorRef: {
+        connector: {
+          spec: {
+            connectionType: 'Account',
+            url: 'accounturl-test'
+          }
+        }
+      },
+      store: 'Git'
+    }
+
     const { container } = render(
       <TestWrapper>
-        <KustomizeWithGIT initialValues={initialValues} {...props} />
+        <KustomizeWithGIT initialValues={initialValues} {...props} prevStepData={prevStepData} />
       </TestWrapper>
     )
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
@@ -110,6 +122,7 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
       fireEvent.change(queryByNameAttribute('branch')!, { target: { value: 'testBranch' } })
       fireEvent.change(queryByNameAttribute('folderPath')!, { target: { value: 'test-path' } })
       fireEvent.change(queryByNameAttribute('pluginPath')!, { target: { value: 'plugin-path' } })
+      fireEvent.change(queryByNameAttribute('repoName')!, { target: { value: 'repo-name' } })
     })
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() => {
@@ -120,12 +133,12 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
             store: {
               spec: {
                 branch: 'testBranch',
-                connectorRef: '',
+                connectorRef: undefined,
                 gitFetchType: 'Branch',
                 folderPath: 'test-path',
-                repoName: ''
+                repoName: 'repo-name'
               },
-              type: undefined
+              type: 'Git'
             },
             pluginPath: 'plugin-path',
             skipResourceVersioning: false

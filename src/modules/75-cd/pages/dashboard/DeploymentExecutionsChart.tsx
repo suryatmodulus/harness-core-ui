@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import moment from 'moment'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { ExecutionsChart } from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
@@ -13,11 +12,11 @@ export default function DeploymentExecutionsChart() {
 
   const { data, loading } = useGetDeploymentExecution({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startInterval: moment(range[0]).format('YYYY-MM-DD'),
-      endInterval: moment(range[1]).format('YYYY-MM-DD')
+      startTime: range[0],
+      endTime: range[1]
     }
   })
 

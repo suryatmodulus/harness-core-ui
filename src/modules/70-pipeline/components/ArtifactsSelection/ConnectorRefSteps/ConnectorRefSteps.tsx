@@ -2,11 +2,11 @@ import React from 'react'
 import { StepWizard, StepProps, Icon } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { String, useStrings } from 'framework/strings'
-import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ArtifactoryRepoType } from '../ArtifactRepository/ArtifactoryRepoType'
 import { ArtifactConnector } from '../ArtifactRepository/ArtifactConnector'
-import type { ConnectorDataType, ConnectorRefLabelType } from '../ArtifactInterface'
-import { getArtifactTitleIdByType } from '../ArtifactHelper'
+import type { ConnectorDataType, ConnectorRefLabelType, ArtifactType } from '../ArtifactInterface'
+import { ArtifactTitleIdByType } from '../ArtifactHelper'
 import css from './ConnectorRefSteps.module.scss'
 
 interface StepChangeData<SharedObject> {
@@ -17,13 +17,13 @@ interface StepChangeData<SharedObject> {
 interface ConnectorRefStepsProps {
   handleViewChange: (isConnectorView: boolean) => void
   connectorData: ConnectorDataType
-  types: Array<ConnectorInfoDTO['type']>
+  types: Array<ArtifactType>
   lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
   newConnectorSteps?: any
   expressions: string[]
   labels: ConnectorRefLabelType
-  selectedArtifact: ConnectorInfoDTO['type']
-  changeArtifactType: (data: ConnectorInfoDTO['type']) => void
+  selectedArtifact: ArtifactType
+  changeArtifactType: (data: ArtifactType) => void
   newConnectorView: boolean
   iconsProps: IconProps
   isReadonly: boolean
@@ -52,7 +52,7 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
   }
 
   const renderSubtitle = (): JSX.Element => {
-    const stringId = getArtifactTitleIdByType(selectedArtifact)
+    const stringId = ArtifactTitleIdByType[selectedArtifact]
     return (
       <div className={css.subtitle} style={{ display: 'flex' }}>
         <Icon size={26} {...iconsProps} />
@@ -76,8 +76,7 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
         isReadonly={isReadonly}
         handleViewChange={() => handleViewChange(true)}
         initialValues={connectorData}
-        connectorType={selectedArtifact}
-        newConnectorLabel={labels.newConnector}
+        selectedArtifact={selectedArtifact}
       />
 
       {newConnectorView ? newConnectorSteps : null}

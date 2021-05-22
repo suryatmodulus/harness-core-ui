@@ -91,6 +91,7 @@ manifestType:
   manifestPlaceholder: Enter Manifest Identifier
   manifestSource: Manifest Source
   manifestDetails: Manifest Details
+  reponameRequired: Repository name is required
   manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'
   specifyManifestRepoType: 'Specify {{ $.manifestsText }} {{ $.typeLabel }}'
   specifyManifestStore: 'Specify {{ $.manifestsText }} {{$.store}}'

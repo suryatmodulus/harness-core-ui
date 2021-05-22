@@ -84,7 +84,6 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
         stepName={labels.secondStepName}
         expressions={expressions}
         isReadonly={isReadonly}
-        newConnectorLabel={labels.newConnector}
         manifestStoreTypes={manifestStoreTypes}
         handleConnectorViewChange={() => handleConnectorViewChange(true)}
         handleStoreChange={handleStoreChange}

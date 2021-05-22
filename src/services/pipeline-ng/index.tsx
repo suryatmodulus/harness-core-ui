@@ -4,6 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
+export const SPEC_VERSION = '2.0'
 export type ConnectorFilterProperties = FilterProperties & {
   connectorNames?: string[]
   connectorIdentifiers?: string[]
@@ -44,7 +45,7 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'MONITORING'
     | 'TICKETING'
   )[]
-  connectivityStatuses?: ('SUCCESS' | 'FAILURE' | 'PARTIAL')[]
+  connectivityStatuses?: ('SUCCESS' | 'FAILURE' | 'PARTIAL' | 'UNKNOWN')[]
   inheritingCredentialsFromDelegate?: boolean
 }
 
@@ -139,6 +140,7 @@ export interface Failure {
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
     | 'INVALID_TOKEN'
+    | 'REVOKED_TOKEN'
     | 'INVALID_CAPTCHA_TOKEN'
     | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
     | 'EXPIRED_TOKEN'
@@ -178,6 +180,7 @@ export interface Failure {
     | 'PLATFORM_SOFTWARE_DELETE_ERROR'
     | 'INVALID_CSV_FILE'
     | 'INVALID_REQUEST'
+    | 'SCHEMA_VALIDATION_FAILED'
     | 'INVALID_INFRA_STATE'
     | 'PIPELINE_ALREADY_TRIGGERED'
     | 'NON_EXISTING_PIPELINE'
@@ -410,6 +413,7 @@ export interface Error {
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
     | 'INVALID_TOKEN'
+    | 'REVOKED_TOKEN'
     | 'INVALID_CAPTCHA_TOKEN'
     | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
     | 'EXPIRED_TOKEN'
@@ -449,6 +453,7 @@ export interface Error {
     | 'PLATFORM_SOFTWARE_DELETE_ERROR'
     | 'INVALID_CSV_FILE'
     | 'INVALID_REQUEST'
+    | 'SCHEMA_VALIDATION_FAILED'
     | 'INVALID_INFRA_STATE'
     | 'PIPELINE_ALREADY_TRIGGERED'
     | 'NON_EXISTING_PIPELINE'
@@ -676,6 +681,7 @@ export interface ResponseMessage {
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
     | 'INVALID_TOKEN'
+    | 'REVOKED_TOKEN'
     | 'INVALID_CAPTCHA_TOKEN'
     | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
     | 'EXPIRED_TOKEN'
@@ -715,6 +721,7 @@ export interface ResponseMessage {
     | 'PLATFORM_SOFTWARE_DELETE_ERROR'
     | 'INVALID_CSV_FILE'
     | 'INVALID_REQUEST'
+    | 'SCHEMA_VALIDATION_FAILED'
     | 'INVALID_INFRA_STATE'
     | 'PIPELINE_ALREADY_TRIGGERED'
     | 'NON_EXISTING_PIPELINE'
@@ -959,11 +966,11 @@ export interface Page {
   size?: number
   content?: { [key: string]: any }[]
   number?: number
-  sort?: Sort
   first?: boolean
-  pageable?: Pageable
+  sort?: Sort
   last?: boolean
   numberOfElements?: number
+  pageable?: Pageable
   empty?: boolean
 }
 
@@ -988,7 +995,7 @@ export interface NGTriggerResponse {
   name?: string
   identifier?: string
   description?: string
-  type?: 'Webhook' | 'NewArtifact' | 'Scheduled'
+  type?: 'Webhook' | 'Scheduled'
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -1045,7 +1052,7 @@ export interface NGTriggerConfig {
 }
 
 export interface NGTriggerSource {
-  type?: 'Webhook' | 'NewArtifact' | 'Scheduled'
+  type?: 'Webhook' | 'Scheduled'
   spec?: NGTriggerSpec
 }
 
@@ -1093,6 +1100,11 @@ export type WebhookTriggerConfig = NGTriggerSpec & {
 }
 
 export interface WebhookTriggerSpec {
+  repoSpec?: RepoSpec
+  payloadConditions?: WebhookCondition[]
+  jexlCondition?: string
+  pathFilters?: string[]
+  headerConditions?: WebhookCondition[]
   actions?: (
     | 'created'
     | 'closed'
@@ -1120,11 +1132,6 @@ export interface WebhookTriggerSpec {
     | 'deleted'
   )[]
   type?: 'GITHUB' | 'GITLAB' | 'BITBUCKET' | 'AWS_CODECOMMIT' | 'CUSTOM'
-  repoSpec?: RepoSpec
-  payloadConditions?: WebhookCondition[]
-  headerConditions?: WebhookCondition[]
-  jexlCondition?: string
-  pathFilters?: string[]
   event?: 'Pull Request' | 'Push' | 'Issue Comment' | 'Delete' | 'Merge Request' | 'Repository' | 'Branch' | 'Tag'
 }
 
@@ -1140,7 +1147,7 @@ export interface NGTriggerDetailsResponse {
   name?: string
   identifier?: string
   description?: string
-  type?: 'Webhook' | 'NewArtifact' | 'Scheduled'
+  type?: 'Webhook' | 'Scheduled'
   lastTriggerExecutionDetails?: LastTriggerExecutionDetails
   webhookDetails?: WebhookDetails
   tags?: {
@@ -1254,6 +1261,28 @@ export interface ResponseString {
   correlationId?: string
 }
 
+export interface DashboardPipelineExecutionInfo {
+  pipelineExecutionInfoList?: PipelineExecutionInfo[]
+}
+
+export interface PipelineCountInfo {
+  total?: number
+  success?: number
+  failure?: number
+}
+
+export interface PipelineExecutionInfo {
+  date?: string
+  count?: PipelineCountInfo
+}
+
+export interface ResponseDashboardPipelineExecutionInfo {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: DashboardPipelineExecutionInfo
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface DashboardPipelineHealthInfo {
   executions?: PipelineHealthInfo
 }
@@ -1285,28 +1314,6 @@ export interface SuccessHealthInfo {
 export interface TotalHealthInfo {
   count?: number
   rate?: number
-}
-
-export interface DashboardPipelineExecutionInfo {
-  pipelineExecutionInfoList?: PipelineExecutionInfo[]
-}
-
-export interface PipelineCountInfo {
-  total?: number
-  success?: number
-  failure?: number
-}
-
-export interface PipelineExecutionInfo {
-  date?: string
-  count?: PipelineCountInfo
-}
-
-export interface ResponseDashboardPipelineExecutionInfo {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: DashboardPipelineExecutionInfo
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export interface ApprovalInstanceDetailsDTO {
@@ -1476,6 +1483,36 @@ export interface EntityGitDetails {
   filePath?: string
 }
 
+export interface InputSetSummaryResponse {
+  identifier?: string
+  name?: string
+  pipelineIdentifier?: string
+  description?: string
+  inputSetType?: 'INPUT_SET' | 'OVERLAY_INPUT_SET'
+  tags?: {
+    [key: string]: string
+  }
+  version?: number
+  gitDetails?: EntityGitDetails
+}
+
+export interface PageInputSetSummaryResponse {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: InputSetSummaryResponse[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponsePageInputSetSummaryResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageInputSetSummaryResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface InputSetError {
   fieldName?: string
   message?: string
@@ -1518,6 +1555,17 @@ export interface ResponseInputSetResponse {
   correlationId?: string
 }
 
+export interface InputSetTemplateResponse {
+  inputSetTemplateYaml?: string
+}
+
+export interface ResponseInputSetTemplateResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: InputSetTemplateResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface OverlayInputSetResponse {
   accountId?: string
   orgIdentifier?: string
@@ -1546,49 +1594,9 @@ export interface ResponseOverlayInputSetResponse {
   correlationId?: string
 }
 
-export interface InputSetSummaryResponse {
-  identifier?: string
-  name?: string
-  pipelineIdentifier?: string
-  description?: string
-  inputSetType?: 'INPUT_SET' | 'OVERLAY_INPUT_SET'
-  tags?: {
-    [key: string]: string
-  }
-  version?: number
-  gitDetails?: EntityGitDetails
-}
-
-export interface PageInputSetSummaryResponse {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: InputSetSummaryResponse[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface ResponsePageInputSetSummaryResponse {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageInputSetSummaryResponse
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface InputSetTemplateResponse {
-  inputSetTemplateYaml?: string
-}
-
-export interface ResponseInputSetTemplateResponse {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: InputSetTemplateResponse
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface MergeInputSetResponse {
   pipelineYaml?: string
+  completePipelineYaml?: string
   inputSetErrorWrapper?: InputSetErrorWrapper
   errorResponse?: boolean
 }
@@ -1602,6 +1610,38 @@ export interface ResponseMergeInputSetResponse {
 
 export interface MergeInputSetRequest {
   inputSetReferences?: string[]
+  withMergedPipelineYaml?: boolean
+}
+
+export interface JsonNode {
+  array?: boolean
+  null?: boolean
+  object?: boolean
+  valueNode?: boolean
+  containerNode?: boolean
+  missingNode?: boolean
+  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
+  pojo?: boolean
+  number?: boolean
+  integralNumber?: boolean
+  floatingPointNumber?: boolean
+  short?: boolean
+  int?: boolean
+  long?: boolean
+  float?: boolean
+  double?: boolean
+  bigDecimal?: boolean
+  bigInteger?: boolean
+  textual?: boolean
+  boolean?: boolean
+  binary?: boolean
+}
+
+export interface ResponseJsonNode {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: JsonNode
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface ByteString {
@@ -1636,20 +1676,20 @@ export interface EnumDescriptor {
 
 export interface EnumOptions {
   unknownFields?: UnknownFieldSet
-  deprecated?: boolean
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  uninterpretedOptionCount?: number
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserEnumOptions
   defaultInstanceForType?: EnumOptions
+  deprecated?: boolean
+  uninterpretedOptionList?: UninterpretedOption[]
+  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
+  uninterpretedOptionCount?: number
   allowAlias?: boolean
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
   allFieldsRaw?: {
     [key: string]: { [key: string]: any }
   }
@@ -1667,19 +1707,19 @@ export interface EnumValueDescriptor {
 
 export interface EnumValueOptions {
   unknownFields?: UnknownFieldSet
-  deprecated?: boolean
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  uninterpretedOptionCount?: number
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserEnumValueOptions
   defaultInstanceForType?: EnumValueOptions
+  deprecated?: boolean
+  uninterpretedOptionList?: UninterpretedOption[]
+  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
+  uninterpretedOptionCount?: number
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
   allFieldsRaw?: {
     [key: string]: { [key: string]: any }
   }
@@ -1715,13 +1755,15 @@ export interface FieldDescriptor {
   containingOneof?: OneofDescriptor
   enumType?: EnumDescriptor
   defaultValue?: { [key: string]: any }
+  required?: boolean
+  repeated?: boolean
+  javaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
   name?: string
   number?: number
   options?: FieldOptions
-  required?: boolean
   optional?: boolean
+  mapField?: boolean
   extension?: boolean
-  packed?: boolean
   liteJavaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
   liteType?:
     | 'DOUBLE'
@@ -1742,32 +1784,30 @@ export interface FieldDescriptor {
     | 'SFIXED64'
     | 'SINT32'
     | 'SINT64'
+  packed?: boolean
   packable?: boolean
-  repeated?: boolean
-  javaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
-  mapField?: boolean
 }
 
 export interface FieldOptions {
   unknownFields?: UnknownFieldSet
-  deprecated?: boolean
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  uninterpretedOptionCount?: number
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserFieldOptions
   defaultInstanceForType?: FieldOptions
+  deprecated?: boolean
+  uninterpretedOptionList?: UninterpretedOption[]
+  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
+  uninterpretedOptionCount?: number
   packed?: boolean
   ctype?: 'STRING' | 'CORD' | 'STRING_PIECE'
   jstype?: 'JS_NORMAL' | 'JS_STRING' | 'JS_NUMBER'
   lazy?: boolean
   weak?: boolean
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
   allFieldsRaw?: {
     [key: string]: { [key: string]: any }
   }
@@ -1780,24 +1820,24 @@ export interface FileDescriptor {
   extensions?: FieldDescriptor[]
   dependencies?: FileDescriptor[]
   publicDependencies?: FileDescriptor[]
+  fullName?: string
   name?: string
   package?: string
   file?: FileDescriptor
   options?: FileOptions
   syntax?: 'UNKNOWN' | 'PROTO2' | 'PROTO3'
-  fullName?: string
 }
 
 export interface FileOptions {
   unknownFields?: UnknownFieldSet
-  deprecated?: boolean
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  uninterpretedOptionCount?: number
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserFileOptions
   defaultInstanceForType?: FileOptions
+  deprecated?: boolean
+  uninterpretedOptionList?: UninterpretedOption[]
+  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
+  uninterpretedOptionCount?: number
   javaStringCheckUtf8?: boolean
   javaPackage?: string
   javaPackageBytes?: ByteString
@@ -1828,10 +1868,10 @@ export interface FileOptions {
   rubyPackage?: string
   rubyPackageBytes?: ByteString
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
   allFieldsRaw?: {
     [key: string]: { [key: string]: any }
   }
@@ -1842,12 +1882,12 @@ export interface Message {
   serializedSize?: number
   initialized?: boolean
   defaultInstanceForType?: MessageLite
+  unknownFields?: UnknownFieldSet
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
 }
 
 export interface MessageLite {
@@ -1859,22 +1899,22 @@ export interface MessageLite {
 
 export interface MessageOptions {
   unknownFields?: UnknownFieldSet
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserMessageOptions
+  defaultInstanceForType?: MessageOptions
+  messageSetWireFormat?: boolean
   noStandardDescriptorAccessor?: boolean
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
-  initialized?: boolean
-  serializedSize?: number
-  parserForType?: ParserMessageOptions
-  defaultInstanceForType?: MessageOptions
   mapEntry?: boolean
-  messageSetWireFormat?: boolean
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
   allFieldsRaw?: {
     [key: string]: { [key: string]: any }
   }
@@ -1887,28 +1927,28 @@ export interface MethodDescriptor {
   service?: ServiceDescriptor
   inputType?: Descriptor
   outputType?: Descriptor
-  clientStreaming?: boolean
-  serverStreaming?: boolean
   name?: string
   options?: MethodOptions
+  clientStreaming?: boolean
+  serverStreaming?: boolean
 }
 
 export interface MethodOptions {
   unknownFields?: UnknownFieldSet
-  deprecated?: boolean
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  uninterpretedOptionCount?: number
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserMethodOptions
   defaultInstanceForType?: MethodOptions
+  deprecated?: boolean
+  uninterpretedOptionList?: UninterpretedOption[]
+  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
+  uninterpretedOptionCount?: number
   idempotencyLevel?: 'IDEMPOTENCY_UNKNOWN' | 'NO_SIDE_EFFECTS' | 'IDEMPOTENT'
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
   allFieldsRaw?: {
     [key: string]: { [key: string]: any }
   }
@@ -1916,31 +1956,31 @@ export interface MethodOptions {
 
 export interface NamePart {
   unknownFields?: UnknownFieldSet
-  namePart?: string
-  namePartBytes?: ByteString
-  isExtension?: boolean
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserNamePart
   defaultInstanceForType?: NamePart
+  namePart?: string
+  namePartBytes?: ByteString
+  isExtension?: boolean
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface NamePartOrBuilder {
   namePart?: string
   namePartBytes?: ByteString
   isExtension?: boolean
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -1957,18 +1997,18 @@ export interface OneofDescriptor {
 
 export interface OneofOptions {
   unknownFields?: UnknownFieldSet
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  uninterpretedOptionCount?: number
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserOneofOptions
   defaultInstanceForType?: OneofOptions
+  uninterpretedOptionList?: UninterpretedOption[]
+  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
+  uninterpretedOptionCount?: number
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
   allFieldsRaw?: {
     [key: string]: { [key: string]: any }
   }
@@ -2048,19 +2088,19 @@ export interface ServiceDescriptor {
 
 export interface ServiceOptions {
   unknownFields?: UnknownFieldSet
-  deprecated?: boolean
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  uninterpretedOptionCount?: number
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserServiceOptions
   defaultInstanceForType?: ServiceOptions
+  deprecated?: boolean
+  uninterpretedOptionList?: UninterpretedOption[]
+  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
+  uninterpretedOptionCount?: number
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
   allFieldsRaw?: {
     [key: string]: { [key: string]: any }
   }
@@ -2068,30 +2108,12 @@ export interface ServiceOptions {
 
 export interface UninterpretedOption {
   unknownFields?: UnknownFieldSet
-  nameCount?: number
-  stringValue?: ByteString
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserUninterpretedOption
   defaultInstanceForType?: UninterpretedOption
-  nameList?: NamePart[]
-  nameOrBuilderList?: NamePartOrBuilder[]
-  identifierValue?: string
-  identifierValueBytes?: ByteString
-  positiveIntValue?: number
-  negativeIntValue?: number
-  aggregateValue?: string
-  aggregateValueBytes?: ByteString
-  doubleValue?: number
-  initializationErrorString?: string
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  descriptorForType?: Descriptor
-}
-
-export interface UninterpretedOptionOrBuilder {
   nameCount?: number
+  doubleValue?: number
   stringValue?: ByteString
   nameList?: NamePart[]
   nameOrBuilderList?: NamePartOrBuilder[]
@@ -2101,14 +2123,32 @@ export interface UninterpretedOptionOrBuilder {
   negativeIntValue?: number
   aggregateValue?: string
   aggregateValueBytes?: ByteString
-  doubleValue?: number
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
+}
+
+export interface UninterpretedOptionOrBuilder {
+  nameCount?: number
+  doubleValue?: number
+  stringValue?: ByteString
+  nameList?: NamePart[]
+  nameOrBuilderList?: NamePartOrBuilder[]
+  identifierValue?: string
+  identifierValueBytes?: ByteString
+  positiveIntValue?: number
+  negativeIntValue?: number
+  aggregateValue?: string
+  aggregateValueBytes?: ByteString
   unknownFields?: UnknownFieldSet
   defaultInstanceForType?: Message
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
   initialized?: boolean
 }
 
@@ -2134,19 +2174,19 @@ export interface VariableResponseMapValue {
 
 export interface YamlProperties {
   unknownFields?: UnknownFieldSet
-  fqn?: string
-  fqnBytes?: ByteString
-  localNameBytes?: ByteString
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserYamlProperties
   defaultInstanceForType?: YamlProperties
   localName?: string
+  fqn?: string
+  fqnBytes?: ByteString
+  localNameBytes?: ByteString
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface PMSPipelineResponseDTO {
@@ -2190,21 +2230,21 @@ export interface PagePMSPipelineSummaryResponse {
   size?: number
   content?: PMSPipelineSummaryResponse[]
   number?: number
-  sort?: Sort
   first?: boolean
-  pageable?: Pageable
+  sort?: Sort
   last?: boolean
   numberOfElements?: number
+  pageable?: Pageable
   empty?: boolean
 }
 
 export interface Pageable {
   offset?: number
   sort?: Sort
-  unpaged?: boolean
-  paged?: boolean
-  pageNumber?: number
   pageSize?: number
+  paged?: boolean
+  unpaged?: boolean
+  pageNumber?: number
 }
 
 export interface ResponsePagePMSPipelineSummaryResponse {
@@ -2257,17 +2297,17 @@ export interface EdgeLayoutList {
 
 export interface ExecutionErrorInfo {
   unknownFields?: UnknownFieldSet
-  message?: string
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserExecutionErrorInfo
   defaultInstanceForType?: ExecutionErrorInfo
+  message?: string
   messageBytes?: ByteString
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ExecutionTriggerInfo {
@@ -2281,43 +2321,43 @@ export interface ExecutionTriggerInfo {
   triggeredBy?: TriggeredBy
   triggeredByOrBuilder?: TriggeredByOrBuilder
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ExpressionBlock {
   unknownFields?: UnknownFieldSet
-  expressionValue?: string
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserExpressionBlock
   defaultInstanceForType?: ExpressionBlock
-  expressionBytes?: ByteString
-  expressionValueBytes?: ByteString
+  expressionValue?: string
   count?: number
   expression?: string
+  expressionBytes?: ByteString
+  expressionValueBytes?: ByteString
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ExpressionBlockOrBuilder {
   expressionValue?: string
-  expressionBytes?: ByteString
-  expressionValueBytes?: ByteString
   count?: number
   expression?: string
+  expressionBytes?: ByteString
+  expressionValueBytes?: ByteString
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -2364,17 +2404,17 @@ export interface NodeRunInfo {
   serializedSize?: number
   parserForType?: ParserNodeRunInfo
   defaultInstanceForType?: NodeRunInfo
-  evaluatedCondition?: boolean
   whenCondition?: string
   whenConditionBytes?: ByteString
   expressionsList?: ExpressionBlock[]
   expressionsOrBuilderList?: ExpressionBlockOrBuilder[]
   expressionsCount?: number
+  evaluatedCondition?: boolean
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface PagePipelineExecutionSummary {
@@ -2383,11 +2423,11 @@ export interface PagePipelineExecutionSummary {
   size?: number
   content?: PipelineExecutionSummary[]
   number?: number
-  sort?: Sort
   first?: boolean
-  pageable?: Pageable
+  sort?: Sort
   last?: boolean
   numberOfElements?: number
+  pageable?: Pageable
   empty?: boolean
 }
 
@@ -2456,6 +2496,7 @@ export interface PipelineExecutionSummary {
   runningStagesCount?: number
   failedStagesCount?: number
   totalStagesCount?: number
+  gitDetails?: EntityGitDetails
 }
 
 export interface ResponsePagePipelineExecutionSummary {
@@ -2475,15 +2516,14 @@ export interface SkipInfo {
   skipConditionBytes?: ByteString
   evaluatedCondition?: boolean
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface TriggeredBy {
   unknownFields?: UnknownFieldSet
-  identifier?: string
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserTriggeredBy
@@ -2498,15 +2538,15 @@ export interface TriggeredBy {
   extraInfoMap?: {
     [key: string]: string
   }
+  identifier?: string
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface TriggeredByOrBuilder {
-  identifier?: string
   uuid?: string
   uuidBytes?: ByteString
   identifierBytes?: ByteString
@@ -2517,81 +2557,82 @@ export interface TriggeredByOrBuilder {
   extraInfoMap?: {
     [key: string]: string
   }
+  identifier?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface AdviserIssuer {
   unknownFields?: UnknownFieldSet
-  adviserTypeValue?: number
-  adviserType?: 'UNKNOWN' | 'NEXT_STEP' | 'RETRY' | 'INTERVENTION_WAIT' | 'END_PLAN' | 'MARK_SUCCESS' | 'UNRECOGNIZED'
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserAdviserIssuer
   defaultInstanceForType?: AdviserIssuer
+  adviserTypeValue?: number
+  adviserType?: 'UNKNOWN' | 'NEXT_STEP' | 'RETRY' | 'INTERVENTION_WAIT' | 'END_PLAN' | 'MARK_SUCCESS' | 'UNRECOGNIZED'
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface AdviserIssuerOrBuilder {
   adviserTypeValue?: number
   adviserType?: 'UNKNOWN' | 'NEXT_STEP' | 'RETRY' | 'INTERVENTION_WAIT' | 'END_PLAN' | 'MARK_SUCCESS' | 'UNRECOGNIZED'
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface AsyncExecutableResponse {
   unknownFields?: UnknownFieldSet
-  mode?: 'RUNNING_MODE' | 'APPROVAL_WAITING_MODE' | 'RESOURCE_WAITING_MODE' | 'UNRECOGNIZED'
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserAsyncExecutableResponse
   defaultInstanceForType?: AsyncExecutableResponse
-  callbackIdsCount?: number
+  mode?: 'RUNNING_MODE' | 'APPROVAL_WAITING_MODE' | 'RESOURCE_WAITING_MODE' | 'UNRECOGNIZED'
   callbackIdsList?: string[]
+  callbackIdsCount?: number
   logKeysList?: string[]
   logKeysCount?: number
   unitsList?: string[]
   unitsCount?: number
   modeValue?: number
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface AsyncExecutableResponseOrBuilder {
   mode?: 'RUNNING_MODE' | 'APPROVAL_WAITING_MODE' | 'RESOURCE_WAITING_MODE' | 'UNRECOGNIZED'
-  callbackIdsCount?: number
   callbackIdsList?: string[]
+  callbackIdsCount?: number
   logKeysList?: string[]
   logKeysCount?: number
   unitsList?: string[]
   unitsCount?: number
   modeValue?: number
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -2604,10 +2645,10 @@ export interface Child {
   childNodeIdBytes?: ByteString
   childNodeId?: string
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ChildChainExecutableResponse {
@@ -2616,35 +2657,35 @@ export interface ChildChainExecutableResponse {
   serializedSize?: number
   parserForType?: ParserChildChainExecutableResponse
   defaultInstanceForType?: ChildChainExecutableResponse
-  nextChildId?: string
   nextChildIdBytes?: ByteString
   previousChildId?: string
+  nextChildId?: string
   previousChildIdBytes?: ByteString
   passThroughData?: ByteString
   lastLink?: boolean
   suspend?: boolean
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ChildChainExecutableResponseOrBuilder {
-  nextChildId?: string
   nextChildIdBytes?: ByteString
   previousChildId?: string
+  nextChildId?: string
   previousChildIdBytes?: ByteString
   passThroughData?: ByteString
   lastLink?: boolean
   suspend?: boolean
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -2656,36 +2697,44 @@ export interface ChildExecutableResponse {
   defaultInstanceForType?: ChildExecutableResponse
   childNodeIdBytes?: ByteString
   childNodeId?: string
+  logKeysList?: string[]
+  logKeysCount?: number
+  unitsList?: string[]
+  unitsCount?: number
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ChildExecutableResponseOrBuilder {
   childNodeIdBytes?: ByteString
   childNodeId?: string
+  logKeysList?: string[]
+  logKeysCount?: number
+  unitsList?: string[]
+  unitsCount?: number
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface ChildOrBuilder {
   childNodeIdBytes?: ByteString
   childNodeId?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -2695,27 +2744,27 @@ export interface ChildrenExecutableResponse {
   serializedSize?: number
   parserForType?: ParserChildrenExecutableResponse
   defaultInstanceForType?: ChildrenExecutableResponse
-  childrenCount?: number
   childrenList?: Child[]
+  childrenCount?: number
   childrenOrBuilderList?: ChildOrBuilder[]
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ChildrenExecutableResponseOrBuilder {
-  childrenCount?: number
   childrenList?: Child[]
+  childrenCount?: number
   childrenOrBuilderList?: ChildOrBuilder[]
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -2728,14 +2777,12 @@ export interface DelegateInfo {
 
 export interface ExecutableResponse {
   unknownFields?: UnknownFieldSet
-  task?: TaskExecutableResponse
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserExecutableResponse
   defaultInstanceForType?: ExecutableResponse
+  task?: TaskExecutableResponse
   async?: AsyncExecutableResponse
-  child?: ChildExecutableResponse
-  sync?: SyncExecutableResponse
   responseCase?:
     | 'ASYNC'
     | 'CHILD'
@@ -2747,6 +2794,7 @@ export interface ExecutableResponse {
     | 'SKIPTASK'
     | 'RESPONSE_NOT_SET'
   asyncOrBuilder?: AsyncExecutableResponseOrBuilder
+  child?: ChildExecutableResponse
   childOrBuilder?: ChildExecutableResponseOrBuilder
   children?: ChildrenExecutableResponse
   childrenOrBuilder?: ChildrenExecutableResponseOrBuilder
@@ -2755,14 +2803,15 @@ export interface ExecutableResponse {
   taskOrBuilder?: TaskExecutableResponseOrBuilder
   taskChain?: TaskChainExecutableResponse
   taskChainOrBuilder?: TaskChainExecutableResponseOrBuilder
+  sync?: SyncExecutableResponse
   syncOrBuilder?: SyncExecutableResponseOrBuilder
   skipTask?: SkipTaskExecutableResponse
   skipTaskOrBuilder?: SkipTaskExecutableResponseOrBuilder
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ExecutionGraph {
@@ -2851,10 +2900,10 @@ export interface InterruptConfig {
   retryInterruptConfig?: RetryInterruptConfig
   retryInterruptConfigOrBuilder?: RetryInterruptConfigOrBuilder
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface InterruptEffect {
@@ -2895,10 +2944,10 @@ export interface IssuedBy {
   timeoutIssuerOrBuilder?: TimeoutIssuerOrBuilder
   issuerCase?: 'MANUALISSUER' | 'ADVISERISSUER' | 'TIMEOUTISSUER' | 'ISSUER_NOT_SET'
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface IssuedByOrBuilder {
@@ -2909,13 +2958,13 @@ export interface IssuedByOrBuilder {
   timeoutIssuer?: TimeoutIssuer
   timeoutIssuerOrBuilder?: TimeoutIssuerOrBuilder
   issuerCase?: 'MANUALISSUER' | 'ADVISERISSUER' | 'TIMEOUTISSUER' | 'ISSUER_NOT_SET'
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -2925,29 +2974,29 @@ export interface ManualIssuer {
   serializedSize?: number
   parserForType?: ParserManualIssuer
   defaultInstanceForType?: ManualIssuer
+  emailId?: string
   emailIdBytes?: ByteString
   userId?: string
-  emailId?: string
   userIdBytes?: ByteString
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ManualIssuerOrBuilder {
+  emailId?: string
   emailIdBytes?: ByteString
   userId?: string
-  emailId?: string
   userIdBytes?: ByteString
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -3037,53 +3086,53 @@ export interface RetryInterruptConfig {
   serializedSize?: number
   parserForType?: ParserRetryInterruptConfig
   defaultInstanceForType?: RetryInterruptConfig
-  retryId?: string
   retryIdBytes?: ByteString
+  retryId?: string
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface RetryInterruptConfigOrBuilder {
-  retryId?: string
   retryIdBytes?: ByteString
+  retryId?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface SkipTaskExecutableResponse {
   unknownFields?: UnknownFieldSet
-  message?: string
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserSkipTaskExecutableResponse
   defaultInstanceForType?: SkipTaskExecutableResponse
+  message?: string
   messageBytes?: ByteString
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface SkipTaskExecutableResponseOrBuilder {
   message?: string
   messageBytes?: ByteString
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -3098,10 +3147,10 @@ export interface SyncExecutableResponse {
   unitsList?: string[]
   unitsCount?: number
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface SyncExecutableResponseOrBuilder {
@@ -3109,13 +3158,13 @@ export interface SyncExecutableResponseOrBuilder {
   logKeysCount?: number
   unitsList?: string[]
   unitsCount?: number
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -3125,45 +3174,45 @@ export interface TaskChainExecutableResponse {
   serializedSize?: number
   parserForType?: ParserTaskChainExecutableResponse
   defaultInstanceForType?: TaskChainExecutableResponse
-  taskId?: string
-  taskName?: string
   logKeysList?: string[]
   logKeysCount?: number
   unitsList?: string[]
   unitsCount?: number
   taskCategoryValue?: number
   taskCategory?: 'UNKNOWN_CATEGORY' | 'DELEGATE_TASK_V1' | 'DELEGATE_TASK_V2' | 'UNRECOGNIZED'
+  passThroughData?: ByteString
   taskNameBytes?: ByteString
   chainEnd?: boolean
-  passThroughData?: ByteString
   taskIdBytes?: ByteString
+  taskId?: string
+  taskName?: string
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface TaskChainExecutableResponseOrBuilder {
-  taskId?: string
-  taskName?: string
   logKeysList?: string[]
   logKeysCount?: number
   unitsList?: string[]
   unitsCount?: number
   taskCategoryValue?: number
   taskCategory?: 'UNKNOWN_CATEGORY' | 'DELEGATE_TASK_V1' | 'DELEGATE_TASK_V2' | 'UNRECOGNIZED'
+  passThroughData?: ByteString
   taskNameBytes?: ByteString
   chainEnd?: boolean
-  passThroughData?: ByteString
   taskIdBytes?: ByteString
+  taskId?: string
+  taskName?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -3173,8 +3222,6 @@ export interface TaskExecutableResponse {
   serializedSize?: number
   parserForType?: ParserTaskExecutableResponse
   defaultInstanceForType?: TaskExecutableResponse
-  taskId?: string
-  taskName?: string
   logKeysList?: string[]
   logKeysCount?: number
   unitsList?: string[]
@@ -3183,16 +3230,16 @@ export interface TaskExecutableResponse {
   taskCategory?: 'UNKNOWN_CATEGORY' | 'DELEGATE_TASK_V1' | 'DELEGATE_TASK_V2' | 'UNRECOGNIZED'
   taskNameBytes?: ByteString
   taskIdBytes?: ByteString
+  taskId?: string
+  taskName?: string
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface TaskExecutableResponseOrBuilder {
-  taskId?: string
-  taskName?: string
   logKeysList?: string[]
   logKeysCount?: number
   unitsList?: string[]
@@ -3201,13 +3248,15 @@ export interface TaskExecutableResponseOrBuilder {
   taskCategory?: 'UNKNOWN_CATEGORY' | 'DELEGATE_TASK_V1' | 'DELEGATE_TASK_V2' | 'UNRECOGNIZED'
   taskNameBytes?: ByteString
   taskIdBytes?: ByteString
+  taskId?: string
+  taskName?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -3218,20 +3267,20 @@ export interface TimeoutIssuer {
   parserForType?: ParserTimeoutIssuer
   defaultInstanceForType?: TimeoutIssuer
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface TimeoutIssuerOrBuilder {
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -3248,41 +3297,28 @@ export interface UnitProgress {
   startTime?: number
   endTime?: number
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
-export interface JsonNode {
-  object?: boolean
-  valueNode?: boolean
-  containerNode?: boolean
-  missingNode?: boolean
-  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
-  pojo?: boolean
-  number?: boolean
-  integralNumber?: boolean
-  floatingPointNumber?: boolean
-  short?: boolean
-  int?: boolean
-  long?: boolean
-  float?: boolean
-  double?: boolean
-  bigDecimal?: boolean
-  bigInteger?: boolean
-  textual?: boolean
-  boolean?: boolean
-  binary?: boolean
-  array?: boolean
-  null?: boolean
-}
-
-export interface ResponseJsonNode {
+export interface ResponseStepCategory {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: JsonNode
+  data?: StepCategory
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+export interface StepCategory {
+  name?: string
+  stepsData?: StepData[]
+  stepCategories?: StepCategory[]
+}
+
+export interface StepData {
+  name?: string
+  type?: string
 }
 
 export interface NotificationChannelWrapper {
@@ -3349,22 +3385,17 @@ export interface ResponseExecutionNode {
   correlationId?: string
 }
 
-export interface ResponseStepCategory {
+export interface ResponsePipelineExecutionInterrupt {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: StepCategory
+  data?: PipelineExecutionInterrupt
   metaData?: { [key: string]: any }
   correlationId?: string
 }
 
-export interface StepCategory {
-  name?: string
-  stepsData?: StepData[]
-  stepCategories?: StepCategory[]
-}
-
-export interface StepData {
-  name?: string
-  type?: string
+export interface PipelineExecutionInterrupt {
+  id?: string
+  type?: 'Abort' | 'Pause' | 'Resume' | 'Ignore' | 'StageRollback' | 'StepGroupRollback' | 'MarkAsSuccess' | 'Retry'
+  planExecutionId?: string
 }
 
 export interface ConnectorCheckResponse {
@@ -3434,50 +3465,54 @@ export interface ResponsePreFlightDTO {
 
 export interface Commit {
   unknownFields?: UnknownFieldSet
-  message?: string
-  link?: string
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserCommit
   defaultInstanceForType?: Commit
-  messageBytes?: ByteString
+  message?: string
   sha?: string
-  linkBytes?: ByteString
   shaBytes?: ByteString
+  linkBytes?: ByteString
   author?: Signature
   authorOrBuilder?: SignatureOrBuilder
+  messageBytes?: ByteString
+  link?: string
   committer?: Signature
   committerOrBuilder?: SignatureOrBuilder
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface CommitOrBuilder {
   message?: string
-  link?: string
-  messageBytes?: ByteString
   sha?: string
-  linkBytes?: ByteString
   shaBytes?: ByteString
+  linkBytes?: ByteString
   author?: Signature
   authorOrBuilder?: SignatureOrBuilder
+  messageBytes?: ByteString
+  link?: string
   committer?: Signature
   committerOrBuilder?: SignatureOrBuilder
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface ExecutionMetadata {
   unknownFields?: UnknownFieldSet
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserExecutionMetadata
+  defaultInstanceForType?: ExecutionMetadata
   yaml?: string
   runSequence?: number
   triggerInfo?: ExecutionTriggerInfo
@@ -3494,16 +3529,12 @@ export interface ExecutionMetadata {
   principalInfoOrBuilder?: ExecutionPrincipalInfoOrBuilder
   processedYaml?: string
   processedYamlBytes?: ByteString
-  initialized?: boolean
-  serializedSize?: number
-  parserForType?: ParserExecutionMetadata
-  defaultInstanceForType?: ExecutionMetadata
   principalInfo?: ExecutionPrincipalInfo
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ExecutionPrincipalInfo {
@@ -3516,11 +3547,12 @@ export interface ExecutionPrincipalInfo {
   principalBytes?: ByteString
   principalTypeValue?: number
   principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'UNRECOGNIZED'
+  shouldValidateRbac?: boolean
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ExecutionPrincipalInfoOrBuilder {
@@ -3528,13 +3560,14 @@ export interface ExecutionPrincipalInfoOrBuilder {
   principalBytes?: ByteString
   principalTypeValue?: number
   principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'UNRECOGNIZED'
+  shouldValidateRbac?: boolean
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -3543,45 +3576,45 @@ export interface ExecutionTriggerInfoOrBuilder {
   triggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'WEBHOOK_CUSTOM' | 'SCHEDULER_CRON' | 'UNRECOGNIZED'
   triggeredBy?: TriggeredBy
   triggeredByOrBuilder?: TriggeredByOrBuilder
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface Label {
   unknownFields?: UnknownFieldSet
-  nameBytes?: ByteString
-  name?: string
-  color?: string
-  colorBytes?: ByteString
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserLabel
   defaultInstanceForType?: Label
-  initializationErrorString?: string
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  descriptorForType?: Descriptor
-}
-
-export interface LabelOrBuilder {
-  nameBytes?: ByteString
   name?: string
+  nameBytes?: ByteString
   color?: string
   colorBytes?: ByteString
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
+}
+
+export interface LabelOrBuilder {
+  name?: string
+  nameBytes?: ByteString
+  color?: string
+  colorBytes?: ByteString
   unknownFields?: UnknownFieldSet
   defaultInstanceForType?: Message
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
   initialized?: boolean
 }
 
@@ -3591,31 +3624,31 @@ export interface ParsedPayload {
   serializedSize?: number
   parserForType?: ParserParsedPayload
   defaultInstanceForType?: ParsedPayload
-  prOrBuilder?: PullRequestHookOrBuilder
   pr?: PullRequestHook
   push?: PushHook
+  prOrBuilder?: PullRequestHookOrBuilder
   pushOrBuilder?: PushHookOrBuilder
   payloadCase?: 'PR' | 'PUSH' | 'PAYLOAD_NOT_SET'
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ParsedPayloadOrBuilder {
-  prOrBuilder?: PullRequestHookOrBuilder
   pr?: PullRequestHook
   push?: PushHook
+  prOrBuilder?: PullRequestHookOrBuilder
   pushOrBuilder?: PushHookOrBuilder
   payloadCase?: 'PR' | 'PUSH' | 'PAYLOAD_NOT_SET'
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -3685,27 +3718,27 @@ export interface Perm {
   serializedSize?: number
   parserForType?: ParserPerm
   defaultInstanceForType?: Perm
-  pull?: boolean
-  admin?: boolean
   push?: boolean
+  admin?: boolean
+  pull?: boolean
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface PermOrBuilder {
-  pull?: boolean
-  admin?: boolean
   push?: boolean
+  admin?: boolean
+  pull?: boolean
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -3749,55 +3782,60 @@ export interface PlanExecution {
 
 export interface PlanExecutionResponseDto {
   planExecution?: PlanExecution
+  gitDetails?: EntityGitDetails
 }
 
 export interface PullRequest {
   unknownFields?: UnknownFieldSet
-  title?: string
-  created?: Timestamp
-  target?: string
-  ref?: string
-  number?: number
-  link?: string
-  refBytes?: ByteString
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserPullRequest
   defaultInstanceForType?: PullRequest
-  base?: Reference
-  source?: string
-  head?: Reference
-  body?: string
+  target?: string
+  ref?: string
+  number?: number
+  title?: string
+  created?: Timestamp
   titleBytes?: ByteString
-  sha?: string
-  linkBytes?: ByteString
-  createdOrBuilder?: TimestampOrBuilder
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
   fork?: string
   bodyBytes?: ByteString
+  sha?: string
   shaBytes?: ByteString
   sourceBytes?: ByteString
   targetBytes?: ByteString
   forkBytes?: ByteString
+  linkBytes?: ByteString
   closed?: boolean
   merged?: boolean
   baseOrBuilder?: ReferenceOrBuilder
   headOrBuilder?: ReferenceOrBuilder
   author?: User
   authorOrBuilder?: UserOrBuilder
+  createdOrBuilder?: TimestampOrBuilder
+  updated?: Timestamp
+  updatedOrBuilder?: TimestampOrBuilder
   labelsList?: Label[]
   labelsCount?: number
   labelsOrBuilderList?: LabelOrBuilder[]
+  base?: Reference
+  source?: string
+  link?: string
+  refBytes?: ByteString
+  head?: Reference
+  body?: string
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface PullRequestHook {
   unknownFields?: UnknownFieldSet
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserPullRequestHook
+  defaultInstanceForType?: PullRequestHook
   action?:
     | 'UNKNOWN'
     | 'CREATE'
@@ -3811,22 +3849,18 @@ export interface PullRequestHook {
     | 'SYNC'
     | 'MERGE'
     | 'UNRECOGNIZED'
+  pr?: PullRequest
+  prOrBuilder?: PullRequestOrBuilder
   repo?: Repository
   actionValue?: number
   repoOrBuilder?: RepositoryOrBuilder
   sender?: User
   senderOrBuilder?: UserOrBuilder
-  initialized?: boolean
-  serializedSize?: number
-  parserForType?: ParserPullRequestHook
-  defaultInstanceForType?: PullRequestHook
-  prOrBuilder?: PullRequestOrBuilder
-  pr?: PullRequest
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface PullRequestHookOrBuilder {
@@ -3843,173 +3877,173 @@ export interface PullRequestHookOrBuilder {
     | 'SYNC'
     | 'MERGE'
     | 'UNRECOGNIZED'
+  pr?: PullRequest
+  prOrBuilder?: PullRequestOrBuilder
   repo?: Repository
   actionValue?: number
   repoOrBuilder?: RepositoryOrBuilder
   sender?: User
   senderOrBuilder?: UserOrBuilder
-  prOrBuilder?: PullRequestOrBuilder
-  pr?: PullRequest
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface PullRequestOrBuilder {
-  title?: string
-  created?: Timestamp
   target?: string
   ref?: string
   number?: number
-  link?: string
-  refBytes?: ByteString
-  base?: Reference
-  source?: string
-  head?: Reference
-  body?: string
+  title?: string
+  created?: Timestamp
   titleBytes?: ByteString
-  sha?: string
-  linkBytes?: ByteString
-  createdOrBuilder?: TimestampOrBuilder
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
   fork?: string
   bodyBytes?: ByteString
+  sha?: string
   shaBytes?: ByteString
   sourceBytes?: ByteString
   targetBytes?: ByteString
   forkBytes?: ByteString
+  linkBytes?: ByteString
   closed?: boolean
   merged?: boolean
   baseOrBuilder?: ReferenceOrBuilder
   headOrBuilder?: ReferenceOrBuilder
   author?: User
   authorOrBuilder?: UserOrBuilder
+  createdOrBuilder?: TimestampOrBuilder
+  updated?: Timestamp
+  updatedOrBuilder?: TimestampOrBuilder
   labelsList?: Label[]
   labelsCount?: number
   labelsOrBuilderList?: LabelOrBuilder[]
+  base?: Reference
+  source?: string
+  link?: string
+  refBytes?: ByteString
+  head?: Reference
+  body?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface PushHook {
   unknownFields?: UnknownFieldSet
-  ref?: string
-  baseRef?: string
-  baseRefBytes?: ByteString
-  repo?: Repository
-  repoOrBuilder?: RepositoryOrBuilder
-  before?: string
-  beforeBytes?: ByteString
-  after?: string
-  afterBytes?: ByteString
-  commit?: Commit
-  commitOrBuilder?: CommitOrBuilder
-  commitsList?: Commit[]
-  sender?: User
-  senderOrBuilder?: UserOrBuilder
-  refBytes?: ByteString
-  commitsCount?: number
-  commitsOrBuilderList?: CommitOrBuilder[]
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserPushHook
   defaultInstanceForType?: PushHook
-  initializationErrorString?: string
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  descriptorForType?: Descriptor
-}
-
-export interface PushHookOrBuilder {
   ref?: string
+  repo?: Repository
+  after?: string
   baseRef?: string
   baseRefBytes?: ByteString
-  repo?: Repository
-  repoOrBuilder?: RepositoryOrBuilder
   before?: string
   beforeBytes?: ByteString
-  after?: string
   afterBytes?: ByteString
   commit?: Commit
   commitOrBuilder?: CommitOrBuilder
   commitsList?: Commit[]
+  commitsCount?: number
+  commitsOrBuilderList?: CommitOrBuilder[]
+  repoOrBuilder?: RepositoryOrBuilder
   sender?: User
   senderOrBuilder?: UserOrBuilder
   refBytes?: ByteString
-  commitsCount?: number
-  commitsOrBuilderList?: CommitOrBuilder[]
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
+}
+
+export interface PushHookOrBuilder {
+  ref?: string
+  repo?: Repository
+  after?: string
+  baseRef?: string
+  baseRefBytes?: ByteString
+  before?: string
+  beforeBytes?: ByteString
+  afterBytes?: ByteString
+  commit?: Commit
+  commitOrBuilder?: CommitOrBuilder
+  commitsList?: Commit[]
+  commitsCount?: number
+  commitsOrBuilderList?: CommitOrBuilder[]
+  repoOrBuilder?: RepositoryOrBuilder
+  sender?: User
+  senderOrBuilder?: UserOrBuilder
+  refBytes?: ByteString
   unknownFields?: UnknownFieldSet
   defaultInstanceForType?: Message
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
   initialized?: boolean
 }
 
 export interface Reference {
   unknownFields?: UnknownFieldSet
-  nameBytes?: ByteString
-  name?: string
-  path?: string
-  pathBytes?: ByteString
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserReference
   defaultInstanceForType?: Reference
+  name?: string
+  path?: string
   sha?: string
   shaBytes?: ByteString
+  pathBytes?: ByteString
+  nameBytes?: ByteString
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface ReferenceOrBuilder {
-  nameBytes?: ByteString
   name?: string
   path?: string
-  pathBytes?: ByteString
   sha?: string
   shaBytes?: ByteString
+  pathBytes?: ByteString
+  nameBytes?: ByteString
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface Repository {
   unknownFields?: UnknownFieldSet
-  created?: Timestamp
-  nameBytes?: ByteString
-  name?: string
-  id?: string
-  link?: string
-  branch?: string
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserRepository
   defaultInstanceForType?: Repository
-  namespace?: string
+  name?: string
+  id?: string
+  created?: Timestamp
+  linkBytes?: ByteString
+  createdOrBuilder?: TimestampOrBuilder
+  updated?: Timestamp
+  updatedOrBuilder?: TimestampOrBuilder
   idBytes?: ByteString
   namespaceBytes?: ByteString
   perm?: Perm
@@ -4020,25 +4054,25 @@ export interface Repository {
   cloneBytes?: ByteString
   cloneSsh?: string
   cloneSshBytes?: ByteString
-  linkBytes?: ByteString
-  createdOrBuilder?: TimestampOrBuilder
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
+  namespace?: string
+  nameBytes?: ByteString
+  link?: string
+  branch?: string
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface RepositoryOrBuilder {
-  created?: Timestamp
-  nameBytes?: ByteString
   name?: string
   id?: string
-  link?: string
-  branch?: string
-  namespace?: string
+  created?: Timestamp
+  linkBytes?: ByteString
+  createdOrBuilder?: TimestampOrBuilder
+  updated?: Timestamp
+  updatedOrBuilder?: TimestampOrBuilder
   idBytes?: ByteString
   namespaceBytes?: ByteString
   perm?: Perm
@@ -4049,17 +4083,17 @@ export interface RepositoryOrBuilder {
   cloneBytes?: ByteString
   cloneSsh?: string
   cloneSshBytes?: ByteString
-  linkBytes?: ByteString
-  createdOrBuilder?: TimestampOrBuilder
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
+  namespace?: string
+  nameBytes?: ByteString
+  link?: string
+  branch?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -4072,45 +4106,45 @@ export interface ResponsePlanExecutionResponseDto {
 
 export interface Signature {
   unknownFields?: UnknownFieldSet
-  nameBytes?: ByteString
-  name?: string
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserSignature
   defaultInstanceForType?: Signature
-  email?: string
+  name?: string
   date?: Timestamp
   login?: string
   loginBytes?: ByteString
   emailBytes?: ByteString
   avatar?: string
   avatarBytes?: ByteString
+  nameBytes?: ByteString
   dateOrBuilder?: TimestampOrBuilder
+  email?: string
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface SignatureOrBuilder {
-  nameBytes?: ByteString
   name?: string
-  email?: string
   date?: Timestamp
   login?: string
   loginBytes?: ByteString
   emailBytes?: ByteString
   avatar?: string
   avatarBytes?: ByteString
+  nameBytes?: ByteString
   dateOrBuilder?: TimestampOrBuilder
+  email?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
@@ -4123,53 +4157,35 @@ export interface Timestamp {
   seconds?: number
   nanos?: number
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface TimestampOrBuilder {
   seconds?: number
   nanos?: number
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
 }
 
 export interface TriggerPayload {
   unknownFields?: UnknownFieldSet
-  type?: 'CUSTOM' | 'GIT' | 'SCHEDULED' | 'UNRECOGNIZED'
-  jsonPayloadBytes?: ByteString
-  jsonPayload?: string
-  parsedPayload?: ParsedPayload
-  parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
-  typeValue?: number
-  headersCount?: number
-  headersMap?: {
-    [key: string]: string
-  }
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserTriggerPayload
   defaultInstanceForType?: TriggerPayload
+  type?: 'CUSTOM' | 'GIT' | 'SCHEDULED' | 'UNRECOGNIZED'
   headers?: {
     [key: string]: string
   }
-  initializationErrorString?: string
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  descriptorForType?: Descriptor
-}
-
-export interface TriggerPayloadOrBuilder {
-  type?: 'CUSTOM' | 'GIT' | 'SCHEDULED' | 'UNRECOGNIZED'
   jsonPayloadBytes?: ByteString
   jsonPayload?: string
   parsedPayload?: ParsedPayload
@@ -4179,29 +4195,45 @@ export interface TriggerPayloadOrBuilder {
   headersMap?: {
     [key: string]: string
   }
-  headers?: {
-    [key: string]: string
-  }
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
+}
+
+export interface TriggerPayloadOrBuilder {
+  type?: 'CUSTOM' | 'GIT' | 'SCHEDULED' | 'UNRECOGNIZED'
+  headers?: {
+    [key: string]: string
+  }
+  jsonPayloadBytes?: ByteString
+  jsonPayload?: string
+  parsedPayload?: ParsedPayload
+  parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
+  typeValue?: number
+  headersCount?: number
+  headersMap?: {
+    [key: string]: string
+  }
   unknownFields?: UnknownFieldSet
   defaultInstanceForType?: Message
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
   initialized?: boolean
 }
 
 export interface User {
   unknownFields?: UnknownFieldSet
-  created?: Timestamp
-  nameBytes?: ByteString
-  name?: string
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserUser
   defaultInstanceForType?: User
-  email?: string
+  name?: string
+  created?: Timestamp
   createdOrBuilder?: TimestampOrBuilder
   updated?: Timestamp
   updatedOrBuilder?: TimestampOrBuilder
@@ -4210,18 +4242,18 @@ export interface User {
   emailBytes?: ByteString
   avatar?: string
   avatarBytes?: ByteString
+  nameBytes?: ByteString
+  email?: string
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
 }
 
 export interface UserOrBuilder {
-  created?: Timestamp
-  nameBytes?: ByteString
   name?: string
-  email?: string
+  created?: Timestamp
   createdOrBuilder?: TimestampOrBuilder
   updated?: Timestamp
   updatedOrBuilder?: TimestampOrBuilder
@@ -4230,27 +4262,16 @@ export interface UserOrBuilder {
   emailBytes?: ByteString
   avatar?: string
   avatarBytes?: ByteString
+  nameBytes?: ByteString
+  email?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
   initializationErrorString?: string
+  descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  descriptorForType?: Descriptor
-  unknownFields?: UnknownFieldSet
-  defaultInstanceForType?: Message
   initialized?: boolean
-}
-
-export interface ResponsePipelineExecutionInterrupt {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PipelineExecutionInterrupt
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface PipelineExecutionInterrupt {
-  id?: string
-  type?: 'Abort' | 'Pause' | 'Resume' | 'Ignore' | 'StageRollback' | 'StepGroupRollback' | 'MarkAsSuccess' | 'Retry'
-  planExecutionId?: string
 }
 
 export interface ResourceConstraintExecutionInfo {
@@ -4264,33 +4285,6 @@ export interface ResponseListResourceConstraintExecutionInfo {
   data?: ResourceConstraintExecutionInfo[]
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export interface RestResponseVersionPackage {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VersionPackage
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RuntimeInfo {
-  primary?: boolean
-  primaryVersion?: string
-  deployMode?: string
-}
-
-export interface VersionInfo {
-  version?: string
-  buildNo?: string
-  gitCommit?: string
-  gitBranch?: string
-  timestamp?: string
-}
-
-export interface VersionPackage {
-  versionInfo?: VersionInfo
-  runtimeInfo?: RuntimeInfo
 }
 
 export type FilterPropertiesRequestBody = FilterProperties
@@ -4323,7 +4317,7 @@ export type GetFilterProps = Omit<
  */
 export const GetFilter = ({ identifier, ...props }: GetFilterProps) => (
   <Get<ResponseFilterDTO, Failure | Error, GetFilterQueryParams, GetFilterPathParams>
-    path="/filters/${identifier}"
+    path={`/filters/${identifier}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -4381,7 +4375,7 @@ export type DeleteFilterProps = Omit<
 export const DeleteFilter = (props: DeleteFilterProps) => (
   <Mutate<ResponseBoolean, Failure | Error, DeleteFilterQueryParams, string, void>
     verb="DELETE"
-    path="/filters"
+    path={`/filters`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -4435,7 +4429,7 @@ export type GetFilterListProps = Omit<
  */
 export const GetFilterList = (props: GetFilterListProps) => (
   <Get<ResponsePageFilterDTO, Failure | Error, GetFilterListQueryParams, void>
-    path="/filters"
+    path={`/filters`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -4484,7 +4478,7 @@ export type PostFilterProps = Omit<
 export const PostFilter = (props: PostFilterProps) => (
   <Mutate<ResponseFilterDTO, Failure | Error, PostFilterQueryParams, FilterDTORequestBody, void>
     verb="POST"
-    path="/filters"
+    path={`/filters`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -4534,7 +4528,7 @@ export type UpdateFilterProps = Omit<
 export const UpdateFilter = (props: UpdateFilterProps) => (
   <Mutate<ResponseFilterDTO, Failure | Error, UpdateFilterQueryParams, FilterDTORequestBody, void>
     verb="PUT"
-    path="/filters"
+    path={`/filters`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -4592,7 +4586,7 @@ export type GetTriggerProps = Omit<
  */
 export const GetTrigger = ({ triggerIdentifier, ...props }: GetTriggerProps) => (
   <Get<ResponseNGTriggerResponse, Failure | Error, GetTriggerQueryParams, GetTriggerPathParams>
-    path="/triggers/${triggerIdentifier}"
+    path={`/triggers/${triggerIdentifier}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -4667,7 +4661,7 @@ export const UpdateTrigger = ({ triggerIdentifier, ...props }: UpdateTriggerProp
     UpdateTriggerPathParams
   >
     verb="PUT"
-    path="/triggers/${triggerIdentifier}"
+    path={`/triggers/${triggerIdentifier}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -4743,7 +4737,7 @@ export type DeleteTriggerProps = Omit<
 export const DeleteTrigger = (props: DeleteTriggerProps) => (
   <Mutate<ResponseBoolean, Failure | Error, DeleteTriggerQueryParams, string, void>
     verb="DELETE"
-    path="/triggers"
+    path={`/triggers`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -4800,7 +4794,7 @@ export type GetTriggerListForTargetProps = Omit<
  */
 export const GetTriggerListForTarget = (props: GetTriggerListForTargetProps) => (
   <Get<ResponsePageNGTriggerDetailsResponse, Failure | Error, GetTriggerListForTargetQueryParams, void>
-    path="/triggers"
+    path={`/triggers`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -4857,7 +4851,7 @@ export type CreateTriggerProps = Omit<
 export const CreateTrigger = (props: CreateTriggerProps) => (
   <Mutate<ResponseNGTriggerResponse, Failure | Error, CreateTriggerQueryParams, NGTriggerConfigRequestBody, void>
     verb="POST"
-    path="/triggers"
+    path={`/triggers`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -4905,6 +4899,76 @@ export const createTriggerPromise = (
     void
   >('POST', getConfig('pipeline/api'), `/triggers`, props, signal)
 
+export interface UpdateTriggerStatusQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  targetIdentifier: string
+  status: boolean
+}
+
+export interface UpdateTriggerStatusPathParams {
+  triggerIdentifier: string
+}
+
+export type UpdateTriggerStatusProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, UpdateTriggerStatusQueryParams, void, UpdateTriggerStatusPathParams>,
+  'path' | 'verb'
+> &
+  UpdateTriggerStatusPathParams
+
+/**
+ * Update a trigger's status by identifier
+ */
+export const UpdateTriggerStatus = ({ triggerIdentifier, ...props }: UpdateTriggerStatusProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, UpdateTriggerStatusQueryParams, void, UpdateTriggerStatusPathParams>
+    verb="PUT"
+    path={`/triggers/${triggerIdentifier}/status`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateTriggerStatusProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, UpdateTriggerStatusQueryParams, void, UpdateTriggerStatusPathParams>,
+  'path' | 'verb'
+> &
+  UpdateTriggerStatusPathParams
+
+/**
+ * Update a trigger's status by identifier
+ */
+export const useUpdateTriggerStatus = ({ triggerIdentifier, ...props }: UseUpdateTriggerStatusProps) =>
+  useMutate<ResponseBoolean, Failure | Error, UpdateTriggerStatusQueryParams, void, UpdateTriggerStatusPathParams>(
+    'PUT',
+    (paramsInPath: UpdateTriggerStatusPathParams) => `/triggers/${paramsInPath.triggerIdentifier}/status`,
+    { base: getConfig('pipeline/api'), pathParams: { triggerIdentifier }, ...props }
+  )
+
+/**
+ * Update a trigger's status by identifier
+ */
+export const updateTriggerStatusPromise = (
+  {
+    triggerIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    UpdateTriggerStatusQueryParams,
+    void,
+    UpdateTriggerStatusPathParams
+  > & { triggerIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseBoolean,
+    Failure | Error,
+    UpdateTriggerStatusQueryParams,
+    void,
+    UpdateTriggerStatusPathParams
+  >('PUT', getConfig('pipeline/api'), `/triggers/${triggerIdentifier}/status`, props, signal)
+
 export interface GetTriggerDetailsQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -4932,7 +4996,7 @@ export type GetTriggerDetailsProps = Omit<
  */
 export const GetTriggerDetails = ({ triggerIdentifier, ...props }: GetTriggerDetailsProps) => (
   <Get<ResponseNGTriggerDetailsResponse, Failure | Error, GetTriggerDetailsQueryParams, GetTriggerDetailsPathParams>
-    path="/triggers/${triggerIdentifier}/details"
+    path={`/triggers/${triggerIdentifier}/details`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -4987,7 +5051,7 @@ export type GenerateWebhookTokenProps = Omit<GetProps<RestResponseString, Failur
  */
 export const GenerateWebhookToken = (props: GenerateWebhookTokenProps) => (
   <Get<RestResponseString, Failure | Error, void, void>
-    path="/triggers/regenerateToken"
+    path={`/triggers/regenerateToken`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5018,76 +5082,6 @@ export const generateWebhookTokenPromise = (
     signal
   )
 
-export interface UpdateTriggerStatusQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  targetIdentifier: string
-  status: boolean
-}
-
-export interface UpdateTriggerStatusPathParams {
-  triggerIdentifier: string
-}
-
-export type UpdateTriggerStatusProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, UpdateTriggerStatusQueryParams, void, UpdateTriggerStatusPathParams>,
-  'path' | 'verb'
-> &
-  UpdateTriggerStatusPathParams
-
-/**
- * Update a trigger's status by identifier
- */
-export const UpdateTriggerStatus = ({ triggerIdentifier, ...props }: UpdateTriggerStatusProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, UpdateTriggerStatusQueryParams, void, UpdateTriggerStatusPathParams>
-    verb="PUT"
-    path="/triggers/${triggerIdentifier}/status"
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseUpdateTriggerStatusProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, UpdateTriggerStatusQueryParams, void, UpdateTriggerStatusPathParams>,
-  'path' | 'verb'
-> &
-  UpdateTriggerStatusPathParams
-
-/**
- * Update a trigger's status by identifier
- */
-export const useUpdateTriggerStatus = ({ triggerIdentifier, ...props }: UseUpdateTriggerStatusProps) =>
-  useMutate<ResponseBoolean, Failure | Error, UpdateTriggerStatusQueryParams, void, UpdateTriggerStatusPathParams>(
-    'PUT',
-    (paramsInPath: UpdateTriggerStatusPathParams) => `/triggers/${paramsInPath.triggerIdentifier}/status`,
-    { base: getConfig('pipeline/api'), pathParams: { triggerIdentifier }, ...props }
-  )
-
-/**
- * Update a trigger's status by identifier
- */
-export const updateTriggerStatusPromise = (
-  {
-    triggerIdentifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseBoolean,
-    Failure | Error,
-    UpdateTriggerStatusQueryParams,
-    void,
-    UpdateTriggerStatusPathParams
-  > & { triggerIdentifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseBoolean,
-    Failure | Error,
-    UpdateTriggerStatusQueryParams,
-    void,
-    UpdateTriggerStatusPathParams
-  >('PUT', getConfig('pipeline/api'), `/triggers/${triggerIdentifier}/status`, props, signal)
-
 export type GetSourceRepoToEventProps = Omit<
   GetProps<ResponseMapWebhookSourceRepoListWebhookEvent, Failure | Error, void, void>,
   'path'
@@ -5098,7 +5092,7 @@ export type GetSourceRepoToEventProps = Omit<
  */
 export const GetSourceRepoToEvent = (props: GetSourceRepoToEventProps) => (
   <Get<ResponseMapWebhookSourceRepoListWebhookEvent, Failure | Error, void, void>
-    path="/webhook/sourceRepos"
+    path={`/webhook/sourceRepos`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5147,7 +5141,7 @@ export type GetActionsListProps = Omit<
  */
 export const GetActionsList = (props: GetActionsListProps) => (
   <Get<ResponseListWebhookAction, Failure | Error, GetActionsListQueryParams, void>
-    path="/webhook/actions"
+    path={`/webhook/actions`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5198,7 +5192,7 @@ export type WebhookEndpointProps = Omit<
 export const WebhookEndpoint = (props: WebhookEndpointProps) => (
   <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>
     verb="POST"
-    path="/webhook/trigger"
+    path={`/webhook/trigger`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5233,62 +5227,8 @@ export const webhookEndpointPromise = (
     signal
   )
 
-export interface GetPipelinedHealthQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-  moduleInfo: string
-  startInterval: string
-  endInterval: string
-}
-
-export type GetPipelinedHealthProps = Omit<
-  GetProps<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>,
-  'path'
->
-
-/**
- * Get pipeline health
- */
-export const GetPipelinedHealth = (props: GetPipelinedHealthProps) => (
-  <Get<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>
-    path="/pipelines/pipelineHealth"
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseGetPipelinedHealthProps = Omit<
-  UseGetProps<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>,
-  'path'
->
-
-/**
- * Get pipeline health
- */
-export const useGetPipelinedHealth = (props: UseGetPipelinedHealthProps) =>
-  useGet<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>(
-    `/pipelines/pipelineHealth`,
-    { base: getConfig('pipeline/api'), ...props }
-  )
-
-/**
- * Get pipeline health
- */
-export const getPipelinedHealthPromise = (
-  props: GetUsingFetchProps<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>(
-    getConfig('pipeline/api'),
-    `/pipelines/pipelineHealth`,
-    props,
-    signal
-  )
-
 export interface GetPipelineExecutionQueryParams {
-  accountId: string
+  accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
   pipelineIdentifier: string
@@ -5307,7 +5247,7 @@ export type GetPipelineExecutionProps = Omit<
  */
 export const GetPipelineExecution = (props: GetPipelineExecutionProps) => (
   <Get<ResponseDashboardPipelineExecutionInfo, Failure | Error, GetPipelineExecutionQueryParams, void>
-    path="/pipelines/pipelineExecution"
+    path={`/pipelines/pipelineExecution`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5346,6 +5286,60 @@ export const getPipelineExecutionPromise = (
     signal
   )
 
+export interface GetPipelinedHealthQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  moduleInfo: string
+  startInterval: string
+  endInterval: string
+}
+
+export type GetPipelinedHealthProps = Omit<
+  GetProps<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get pipeline health
+ */
+export const GetPipelinedHealth = (props: GetPipelinedHealthProps) => (
+  <Get<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>
+    path={`/pipelines/pipelineHealth`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetPipelinedHealthProps = Omit<
+  UseGetProps<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get pipeline health
+ */
+export const useGetPipelinedHealth = (props: UseGetPipelinedHealthProps) =>
+  useGet<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>(
+    `/pipelines/pipelineHealth`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
+
+/**
+ * Get pipeline health
+ */
+export const getPipelinedHealthPromise = (
+  props: GetUsingFetchProps<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>(
+    getConfig('pipeline/api'),
+    `/pipelines/pipelineHealth`,
+    props,
+    signal
+  )
+
 export interface AddHarnessApprovalActivityPathParams {
   approvalInstanceId: string
 }
@@ -5374,7 +5368,7 @@ export const AddHarnessApprovalActivity = ({ approvalInstanceId, ...props }: Add
     AddHarnessApprovalActivityPathParams
   >
     verb="POST"
-    path="/approvals/${approvalInstanceId}/harness/activity"
+    path={`/approvals/${approvalInstanceId}/harness/activity`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5461,7 +5455,7 @@ export const GetHarnessApprovalInstanceAuthorization = ({
     void,
     GetHarnessApprovalInstanceAuthorizationPathParams
   >
-    path="/approvals/${approvalInstanceId}/harness/authorization"
+    path={`/approvals/${approvalInstanceId}/harness/authorization`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5533,7 +5527,7 @@ export type GetApprovalInstanceProps = Omit<
  */
 export const GetApprovalInstance = ({ approvalInstanceId, ...props }: GetApprovalInstanceProps) => (
   <Get<ResponseApprovalInstanceResponse, Failure | Error, void, GetApprovalInstancePathParams>
-    path="/approvals/${approvalInstanceId}"
+    path={`/approvals/${approvalInstanceId}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5587,7 +5581,7 @@ export type GetInitialStageYamlSnippetProps = Omit<
  */
 export const GetInitialStageYamlSnippet = (props: GetInitialStageYamlSnippetProps) => (
   <Get<ResponseString, Failure | Error, GetInitialStageYamlSnippetQueryParams, void>
-    path="/approvals/stage-yaml-snippet"
+    path={`/approvals/stage-yaml-snippet`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5632,7 +5626,7 @@ export type GetBarriersSetupInfoListProps = Omit<
 export const GetBarriersSetupInfoList = (props: GetBarriersSetupInfoListProps) => (
   <Mutate<ResponseListBarrierSetupInfo, Failure | Error, void, void, void>
     verb="PUT"
-    path="/barriers/setupInfo"
+    path={`/barriers/setupInfo`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5682,7 +5676,7 @@ export type GetBarriersExecutionInfoProps = Omit<
  */
 export const GetBarriersExecutionInfo = (props: GetBarriersExecutionInfoProps) => (
   <Get<ResponseListBarrierExecutionInfo, Failure | Error, GetBarriersExecutionInfoQueryParams, void>
-    path="/barriers/executionInfo"
+    path={`/barriers/executionInfo`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5736,7 +5730,7 @@ export type GetBarrierInfoProps = Omit<
  */
 export const GetBarrierInfo = (props: GetBarrierInfoProps) => (
   <Get<ResponseBarrierInfo, Failure | Error, GetBarrierInfoQueryParams, void>
-    path="/barriers/info"
+    path={`/barriers/info`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5776,7 +5770,7 @@ export type GetPMSHealthStatusProps = Omit<GetProps<RestResponseString, unknown,
  * get health for PMS service
  */
 export const GetPMSHealthStatus = (props: GetPMSHealthStatusProps) => (
-  <Get<RestResponseString, unknown, void, void> path="/health" base={getConfig('pipeline/api')} {...props} />
+  <Get<RestResponseString, unknown, void, void> path={`/health`} base={getConfig('pipeline/api')} {...props} />
 )
 
 export type UseGetPMSHealthStatusProps = Omit<UseGetProps<RestResponseString, unknown, void, void>, 'path'>
@@ -5795,6 +5789,138 @@ export const getPMSHealthStatusPromise = (
   signal?: RequestInit['signal']
 ) => getUsingFetch<RestResponseString, unknown, void, void>(getConfig('pipeline/api'), `/health`, props, signal)
 
+export interface GetInputSetsListForPipelineQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  inputSetType?: 'ALL' | 'INPUT_SET' | 'OVERLAY_INPUT_SET'
+  searchTerm?: string
+  sortOrders?: string[]
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export type GetInputSetsListForPipelineProps = Omit<
+  GetProps<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets InputSets list for a pipeline
+ */
+export const GetInputSetsListForPipeline = (props: GetInputSetsListForPipelineProps) => (
+  <Get<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>
+    path={`/inputSets`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetInputSetsListForPipelineProps = Omit<
+  UseGetProps<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets InputSets list for a pipeline
+ */
+export const useGetInputSetsListForPipeline = (props: UseGetInputSetsListForPipelineProps) =>
+  useGet<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>(
+    `/inputSets`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
+
+/**
+ * Gets InputSets list for a pipeline
+ */
+export const getInputSetsListForPipelinePromise = (
+  props: GetUsingFetchProps<
+    ResponsePageInputSetSummaryResponse,
+    Failure | Error,
+    GetInputSetsListForPipelineQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>(
+    getConfig('pipeline/api'),
+    `/inputSets`,
+    props,
+    signal
+  )
+
+export interface CreateInputSetForPipelineQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  rootFolder?: string
+  filePath?: string
+  commitMsg?: string
+  createPr?: boolean
+  targetBranchForPr?: string
+  baseBranch?: string
+}
+
+export type CreateInputSetForPipelineProps = Omit<
+  MutateProps<ResponseInputSetResponse, Failure | Error, CreateInputSetForPipelineQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create an InputSet For Pipeline
+ */
+export const CreateInputSetForPipeline = (props: CreateInputSetForPipelineProps) => (
+  <Mutate<ResponseInputSetResponse, Failure | Error, CreateInputSetForPipelineQueryParams, void, void>
+    verb="POST"
+    path={`/inputSets`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseCreateInputSetForPipelineProps = Omit<
+  UseMutateProps<ResponseInputSetResponse, Failure | Error, CreateInputSetForPipelineQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create an InputSet For Pipeline
+ */
+export const useCreateInputSetForPipeline = (props: UseCreateInputSetForPipelineProps) =>
+  useMutate<ResponseInputSetResponse, Failure | Error, CreateInputSetForPipelineQueryParams, void, void>(
+    'POST',
+    `/inputSets`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
+
+/**
+ * Create an InputSet For Pipeline
+ */
+export const createInputSetForPipelinePromise = (
+  props: MutateUsingFetchProps<
+    ResponseInputSetResponse,
+    Failure | Error,
+    CreateInputSetForPipelineQueryParams,
+    void,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseInputSetResponse, Failure | Error, CreateInputSetForPipelineQueryParams, void, void>(
+    'POST',
+    getConfig('pipeline/api'),
+    `/inputSets`,
+    props,
+    signal
+  )
+
 export interface GetInputSetForPipelineQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -5803,7 +5929,7 @@ export interface GetInputSetForPipelineQueryParams {
   deleted?: boolean
   branch?: string
   repoIdentifier?: string
-  getDefaultFromOtherRepo?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export interface GetInputSetForPipelinePathParams {
@@ -5826,7 +5952,7 @@ export type GetInputSetForPipelineProps = Omit<
  */
 export const GetInputSetForPipeline = ({ inputSetIdentifier, ...props }: GetInputSetForPipelineProps) => (
   <Get<ResponseInputSetResponse, Failure | Error, GetInputSetForPipelineQueryParams, GetInputSetForPipelinePathParams>
-    path="/inputSets/${inputSetIdentifier}"
+    path={`/inputSets/${inputSetIdentifier}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -5923,7 +6049,7 @@ export const UpdateInputSetForPipeline = ({ inputSetIdentifier, ...props }: Upda
     UpdateInputSetForPipelinePathParams
   >
     verb="PUT"
-    path="/inputSets/${inputSetIdentifier}"
+    path={`/inputSets/${inputSetIdentifier}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -6005,7 +6131,7 @@ export type DeleteInputSetForPipelineProps = Omit<
 export const DeleteInputSetForPipeline = (props: DeleteInputSetForPipelineProps) => (
   <Mutate<ResponseBoolean, Failure | Error, DeleteInputSetForPipelineQueryParams, string, void>
     verb="DELETE"
-    path="/inputSets"
+    path={`/inputSets`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -6041,6 +6167,65 @@ export const deleteInputSetForPipelinePromise = (
     signal
   )
 
+export interface GetTemplateFromPipelineQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export type GetTemplateFromPipelineProps = Omit<
+  GetProps<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get template from a pipeline yaml
+ */
+export const GetTemplateFromPipeline = (props: GetTemplateFromPipelineProps) => (
+  <Get<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>
+    path={`/inputSets/template`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetTemplateFromPipelineProps = Omit<
+  UseGetProps<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get template from a pipeline yaml
+ */
+export const useGetTemplateFromPipeline = (props: UseGetTemplateFromPipelineProps) =>
+  useGet<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>(
+    `/inputSets/template`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
+
+/**
+ * Get template from a pipeline yaml
+ */
+export const getTemplateFromPipelinePromise = (
+  props: GetUsingFetchProps<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetTemplateFromPipelineQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>(
+    getConfig('pipeline/api'),
+    `/inputSets/template`,
+    props,
+    signal
+  )
+
 export interface GetOverlayInputSetForPipelineQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -6049,7 +6234,7 @@ export interface GetOverlayInputSetForPipelineQueryParams {
   deleted?: boolean
   branch?: string
   repoIdentifier?: string
-  getDefaultFromOtherRepo?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export interface GetOverlayInputSetForPipelinePathParams {
@@ -6077,7 +6262,7 @@ export const GetOverlayInputSetForPipeline = ({ inputSetIdentifier, ...props }: 
     GetOverlayInputSetForPipelineQueryParams,
     GetOverlayInputSetForPipelinePathParams
   >
-    path="/inputSets/overlay/${inputSetIdentifier}"
+    path={`/inputSets/overlay/${inputSetIdentifier}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -6179,7 +6364,7 @@ export const UpdateOverlayInputSetForPipeline = ({
     UpdateOverlayInputSetForPipelinePathParams
   >
     verb="PUT"
-    path="/inputSets/overlay/${inputSetIdentifier}"
+    path={`/inputSets/overlay/${inputSetIdentifier}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -6241,137 +6426,6 @@ export const updateOverlayInputSetForPipelinePromise = (
     UpdateOverlayInputSetForPipelinePathParams
   >('PUT', getConfig('pipeline/api'), `/inputSets/overlay/${inputSetIdentifier}`, props, signal)
 
-export interface GetInputSetsListForPipelineQueryParams {
-  pageIndex?: number
-  pageSize?: number
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-  inputSetType?: 'ALL' | 'INPUT_SET' | 'OVERLAY_INPUT_SET'
-  searchTerm?: string
-  sortOrders?: string[]
-  branch?: string
-  repoIdentifier?: string
-  getDefaultFromOtherRepo?: string
-}
-
-export type GetInputSetsListForPipelineProps = Omit<
-  GetProps<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>,
-  'path'
->
-
-/**
- * Gets InputSets list for a pipeline
- */
-export const GetInputSetsListForPipeline = (props: GetInputSetsListForPipelineProps) => (
-  <Get<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>
-    path="/inputSets"
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseGetInputSetsListForPipelineProps = Omit<
-  UseGetProps<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>,
-  'path'
->
-
-/**
- * Gets InputSets list for a pipeline
- */
-export const useGetInputSetsListForPipeline = (props: UseGetInputSetsListForPipelineProps) =>
-  useGet<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>(
-    `/inputSets`,
-    { base: getConfig('pipeline/api'), ...props }
-  )
-
-/**
- * Gets InputSets list for a pipeline
- */
-export const getInputSetsListForPipelinePromise = (
-  props: GetUsingFetchProps<
-    ResponsePageInputSetSummaryResponse,
-    Failure | Error,
-    GetInputSetsListForPipelineQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>(
-    getConfig('pipeline/api'),
-    `/inputSets`,
-    props,
-    signal
-  )
-
-export interface CreateInputSetForPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-  branch?: string
-  repoIdentifier?: string
-  rootFolder?: string
-  filePath?: string
-  commitMsg?: string
-  createPr?: boolean
-  targetBranchForPr?: string
-}
-
-export type CreateInputSetForPipelineProps = Omit<
-  MutateProps<ResponseInputSetResponse, Failure | Error, CreateInputSetForPipelineQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * Create an InputSet For Pipeline
- */
-export const CreateInputSetForPipeline = (props: CreateInputSetForPipelineProps) => (
-  <Mutate<ResponseInputSetResponse, Failure | Error, CreateInputSetForPipelineQueryParams, void, void>
-    verb="POST"
-    path="/inputSets"
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseCreateInputSetForPipelineProps = Omit<
-  UseMutateProps<ResponseInputSetResponse, Failure | Error, CreateInputSetForPipelineQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * Create an InputSet For Pipeline
- */
-export const useCreateInputSetForPipeline = (props: UseCreateInputSetForPipelineProps) =>
-  useMutate<ResponseInputSetResponse, Failure | Error, CreateInputSetForPipelineQueryParams, void, void>(
-    'POST',
-    `/inputSets`,
-    { base: getConfig('pipeline/api'), ...props }
-  )
-
-/**
- * Create an InputSet For Pipeline
- */
-export const createInputSetForPipelinePromise = (
-  props: MutateUsingFetchProps<
-    ResponseInputSetResponse,
-    Failure | Error,
-    CreateInputSetForPipelineQueryParams,
-    void,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseInputSetResponse, Failure | Error, CreateInputSetForPipelineQueryParams, void, void>(
-    'POST',
-    getConfig('pipeline/api'),
-    `/inputSets`,
-    props,
-    signal
-  )
-
 export interface CreateOverlayInputSetForPipelineQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -6384,6 +6438,7 @@ export interface CreateOverlayInputSetForPipelineQueryParams {
   commitMsg?: string
   createPr?: boolean
   targetBranchForPr?: string
+  baseBranch?: string
 }
 
 export type CreateOverlayInputSetForPipelineProps = Omit<
@@ -6403,7 +6458,7 @@ export type CreateOverlayInputSetForPipelineProps = Omit<
 export const CreateOverlayInputSetForPipeline = (props: CreateOverlayInputSetForPipelineProps) => (
   <Mutate<ResponseOverlayInputSetResponse, Failure | Error, CreateOverlayInputSetForPipelineQueryParams, void, void>
     verb="POST"
-    path="/inputSets/overlay"
+    path={`/inputSets/overlay`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -6451,67 +6506,14 @@ export const createOverlayInputSetForPipelinePromise = (
     void
   >('POST', getConfig('pipeline/api'), `/inputSets/overlay`, props, signal)
 
-export interface GetTemplateFromPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-}
-
-export type GetTemplateFromPipelineProps = Omit<
-  GetProps<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>,
-  'path'
->
-
-/**
- * Get template from a pipeline yaml
- */
-export const GetTemplateFromPipeline = (props: GetTemplateFromPipelineProps) => (
-  <Get<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>
-    path="/inputSets/template"
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseGetTemplateFromPipelineProps = Omit<
-  UseGetProps<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>,
-  'path'
->
-
-/**
- * Get template from a pipeline yaml
- */
-export const useGetTemplateFromPipeline = (props: UseGetTemplateFromPipelineProps) =>
-  useGet<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>(
-    `/inputSets/template`,
-    { base: getConfig('pipeline/api'), ...props }
-  )
-
-/**
- * Get template from a pipeline yaml
- */
-export const getTemplateFromPipelinePromise = (
-  props: GetUsingFetchProps<
-    ResponseInputSetTemplateResponse,
-    Failure | Error,
-    GetTemplateFromPipelineQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>(
-    getConfig('pipeline/api'),
-    `/inputSets/template`,
-    props,
-    signal
-  )
-
 export interface GetMergeInputSetFromPipelineTemplateWithListInputQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
   pipelineIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
   useFQNIfError?: boolean
 }
 
@@ -6540,7 +6542,7 @@ export const GetMergeInputSetFromPipelineTemplateWithListInput = (
     void
   >
     verb="POST"
-    path="/inputSets/merge"
+    path={`/inputSets/merge`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -6592,61 +6594,150 @@ export const getMergeInputSetFromPipelineTemplateWithListInputPromise = (
     void
   >('POST', getConfig('pipeline/api'), `/inputSets/merge`, props, signal)
 
-export interface CreateVariablesQueryParams {
+export interface GetMergeInputSetFromPipelineTemplateQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  pipelineIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  useFQNIfError?: boolean
 }
 
-export type CreateVariablesProps = Omit<
-  MutateProps<ResponseVariableMergeServiceResponse, Failure | Error, CreateVariablesQueryParams, void, void>,
+export type GetMergeInputSetFromPipelineTemplateProps = Omit<
+  MutateProps<
+    ResponseMergeInputSetResponse,
+    Failure | Error,
+    GetMergeInputSetFromPipelineTemplateQueryParams,
+    void,
+    void
+  >,
   'path' | 'verb'
 >
 
 /**
- * Create variables for Pipeline
+ * Merges given runtime input yaml on pipeline and return input set template format of applied pipeline
  */
-export const CreateVariables = (props: CreateVariablesProps) => (
-  <Mutate<ResponseVariableMergeServiceResponse, Failure | Error, CreateVariablesQueryParams, void, void>
+export const GetMergeInputSetFromPipelineTemplate = (props: GetMergeInputSetFromPipelineTemplateProps) => (
+  <Mutate<ResponseMergeInputSetResponse, Failure | Error, GetMergeInputSetFromPipelineTemplateQueryParams, void, void>
     verb="POST"
-    path="/pipelines/variables"
+    path={`/inputSets/mergeWithTemplateYaml`}
     base={getConfig('pipeline/api')}
     {...props}
   />
 )
 
-export type UseCreateVariablesProps = Omit<
-  UseMutateProps<ResponseVariableMergeServiceResponse, Failure | Error, CreateVariablesQueryParams, void, void>,
+export type UseGetMergeInputSetFromPipelineTemplateProps = Omit<
+  UseMutateProps<
+    ResponseMergeInputSetResponse,
+    Failure | Error,
+    GetMergeInputSetFromPipelineTemplateQueryParams,
+    void,
+    void
+  >,
   'path' | 'verb'
 >
 
 /**
- * Create variables for Pipeline
+ * Merges given runtime input yaml on pipeline and return input set template format of applied pipeline
  */
-export const useCreateVariables = (props: UseCreateVariablesProps) =>
-  useMutate<ResponseVariableMergeServiceResponse, Failure | Error, CreateVariablesQueryParams, void, void>(
-    'POST',
-    `/pipelines/variables`,
-    { base: getConfig('pipeline/api'), ...props }
-  )
+export const useGetMergeInputSetFromPipelineTemplate = (props: UseGetMergeInputSetFromPipelineTemplateProps) =>
+  useMutate<
+    ResponseMergeInputSetResponse,
+    Failure | Error,
+    GetMergeInputSetFromPipelineTemplateQueryParams,
+    void,
+    void
+  >('POST', `/inputSets/mergeWithTemplateYaml`, { base: getConfig('pipeline/api'), ...props })
 
 /**
- * Create variables for Pipeline
+ * Merges given runtime input yaml on pipeline and return input set template format of applied pipeline
  */
-export const createVariablesPromise = (
+export const getMergeInputSetFromPipelineTemplatePromise = (
   props: MutateUsingFetchProps<
-    ResponseVariableMergeServiceResponse,
+    ResponseMergeInputSetResponse,
     Failure | Error,
-    CreateVariablesQueryParams,
+    GetMergeInputSetFromPipelineTemplateQueryParams,
     void,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseVariableMergeServiceResponse, Failure | Error, CreateVariablesQueryParams, void, void>(
-    'POST',
+  mutateUsingFetch<
+    ResponseMergeInputSetResponse,
+    Failure | Error,
+    GetMergeInputSetFromPipelineTemplateQueryParams,
+    void,
+    void
+  >('POST', getConfig('pipeline/api'), `/inputSets/mergeWithTemplateYaml`, props, signal)
+
+export interface GetYamlSchemaQueryParams {
+  entityType:
+    | 'Projects'
+    | 'Pipelines'
+    | 'PipelineSteps'
+    | 'Connectors'
+    | 'Secrets'
+    | 'Service'
+    | 'Environment'
+    | 'InputSets'
+    | 'CvConfig'
+    | 'Delegates'
+    | 'DelegateConfigurations'
+    | 'CvVerificationJob'
+    | 'IntegrationStage'
+    | 'IntegrationSteps'
+    | 'CvKubernetesActivitySource'
+    | 'DeploymentSteps'
+    | 'DeploymentStage'
+    | 'ApprovalStage'
+    | 'Triggers'
+  projectIdentifier?: string
+  orgIdentifier?: string
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+}
+
+export type GetYamlSchemaProps = Omit<
+  GetProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Yaml Schema
+ */
+export const GetYamlSchema = (props: GetYamlSchemaProps) => (
+  <Get<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>
+    path={`/pipelines/yaml-schema`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetYamlSchemaProps = Omit<
+  UseGetProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Yaml Schema
+ */
+export const useGetYamlSchema = (props: UseGetYamlSchemaProps) =>
+  useGet<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>(`/pipelines/yaml-schema`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get Yaml Schema
+ */
+export const getYamlSchemaPromise = (
+  props: GetUsingFetchProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>(
     getConfig('pipeline/api'),
-    `/pipelines/variables`,
+    `/pipelines/yaml-schema`,
     props,
     signal
   )
@@ -6657,7 +6748,7 @@ export interface GetPipelineQueryParams {
   projectIdentifier: string
   branch?: string
   repoIdentifier?: string
-  getDefaultFromOtherRepo?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export interface GetPipelinePathParams {
@@ -6675,7 +6766,7 @@ export type GetPipelineProps = Omit<
  */
 export const GetPipeline = ({ pipelineIdentifier, ...props }: GetPipelineProps) => (
   <Get<ResponsePMSPipelineResponseDTO, Failure | Error, GetPipelineQueryParams, GetPipelinePathParams>
-    path="/pipelines/${pipelineIdentifier}"
+    path={`/pipelines/${pipelineIdentifier}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -6748,7 +6839,7 @@ export type PutPipelineProps = Omit<
 export const PutPipeline = ({ pipelineIdentifier, ...props }: PutPipelineProps) => (
   <Mutate<ResponseString, Failure | Error, PutPipelineQueryParams, void, PutPipelinePathParams>
     verb="PUT"
-    path="/pipelines/${pipelineIdentifier}"
+    path={`/pipelines/${pipelineIdentifier}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -6813,7 +6904,7 @@ export type SoftDeletePipelineProps = Omit<
 export const SoftDeletePipeline = (props: SoftDeletePipelineProps) => (
   <Mutate<ResponseBoolean, Failure | Error, SoftDeletePipelineQueryParams, string, void>
     verb="DELETE"
-    path="/pipelines"
+    path={`/pipelines`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -6848,6 +6939,65 @@ export const softDeletePipelinePromise = (
     signal
   )
 
+export interface CreateVariablesQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type CreateVariablesProps = Omit<
+  MutateProps<ResponseVariableMergeServiceResponse, Failure | Error, CreateVariablesQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create variables for Pipeline
+ */
+export const CreateVariables = (props: CreateVariablesProps) => (
+  <Mutate<ResponseVariableMergeServiceResponse, Failure | Error, CreateVariablesQueryParams, void, void>
+    verb="POST"
+    path={`/pipelines/variables`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseCreateVariablesProps = Omit<
+  UseMutateProps<ResponseVariableMergeServiceResponse, Failure | Error, CreateVariablesQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create variables for Pipeline
+ */
+export const useCreateVariables = (props: UseCreateVariablesProps) =>
+  useMutate<ResponseVariableMergeServiceResponse, Failure | Error, CreateVariablesQueryParams, void, void>(
+    'POST',
+    `/pipelines/variables`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
+
+/**
+ * Create variables for Pipeline
+ */
+export const createVariablesPromise = (
+  props: MutateUsingFetchProps<
+    ResponseVariableMergeServiceResponse,
+    Failure | Error,
+    CreateVariablesQueryParams,
+    void,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseVariableMergeServiceResponse, Failure | Error, CreateVariablesQueryParams, void, void>(
+    'POST',
+    getConfig('pipeline/api'),
+    `/pipelines/variables`,
+    props,
+    signal
+  )
+
 export interface GetPipelineListQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -6860,7 +7010,7 @@ export interface GetPipelineListQueryParams {
   filterIdentifier?: string
   branch?: string
   repoIdentifier?: string
-  getDefaultFromOtherRepo?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetPipelineListProps = Omit<
@@ -6886,7 +7036,7 @@ export const GetPipelineList = (props: GetPipelineListProps) => (
     void
   >
     verb="POST"
-    path="/pipelines/list"
+    path={`/pipelines/list`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -6940,6 +7090,9 @@ export interface GetPipelineSummaryQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export interface GetPipelineSummaryPathParams {
@@ -6962,7 +7115,7 @@ export type GetPipelineSummaryProps = Omit<
  */
 export const GetPipelineSummary = ({ pipelineIdentifier, ...props }: GetPipelineSummaryProps) => (
   <Get<ResponsePMSPipelineSummaryResponse, Failure | Error, GetPipelineSummaryQueryParams, GetPipelineSummaryPathParams>
-    path="/pipelines/summary/${pipelineIdentifier}"
+    path={`/pipelines/summary/${pipelineIdentifier}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -7020,6 +7173,9 @@ export interface GetListOfExecutionsQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
   searchTerm?: string
   pipelineIdentifier?: string
   page?: number
@@ -7069,7 +7225,7 @@ export const GetListOfExecutions = (props: GetListOfExecutionsProps) => (
     void
   >
     verb="POST"
-    path="/pipelines/execution/summary"
+    path={`/pipelines/execution/summary`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -7125,6 +7281,9 @@ export interface GetExecutionDetailQueryParams {
   projectIdentifier: string
   filter?: string
   stageNodeId?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export interface GetExecutionDetailPathParams {
@@ -7147,7 +7306,7 @@ export type GetExecutionDetailProps = Omit<
  */
 export const GetExecutionDetail = ({ planExecutionId, ...props }: GetExecutionDetailProps) => (
   <Get<ResponsePipelineExecutionDetail, Failure | Error, GetExecutionDetailQueryParams, GetExecutionDetailPathParams>
-    path="/pipelines/execution/${planExecutionId}"
+    path={`/pipelines/execution/${planExecutionId}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -7216,7 +7375,7 @@ export type GetInputsetYamlProps = Omit<
  */
 export const GetInputsetYaml = ({ planExecutionId, ...props }: GetInputsetYamlProps) => (
   <Get<void, void, GetInputsetYamlQueryParams, GetInputsetYamlPathParams>
-    path="/pipelines/execution/${planExecutionId}/inputset"
+    path={`/pipelines/execution/${planExecutionId}/inputset`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -7256,72 +7415,109 @@ export const getInputsetYamlPromise = (
     signal
   )
 
-export interface GetYamlSchemaQueryParams {
-  entityType:
-    | 'Projects'
-    | 'Pipelines'
-    | 'PipelineSteps'
-    | 'Connectors'
-    | 'Secrets'
-    | 'Service'
-    | 'Environment'
-    | 'InputSets'
-    | 'CvConfig'
-    | 'Delegates'
-    | 'DelegateConfigurations'
-    | 'CvVerificationJob'
-    | 'IntegrationStage'
-    | 'IntegrationSteps'
-    | 'CvKubernetesActivitySource'
-    | 'DeploymentSteps'
-    | 'DeploymentStage'
-    | 'ApprovalStage'
-    | 'Triggers'
-  projectIdentifier?: string
-  orgIdentifier?: string
-  scope?: 'account' | 'org' | 'project' | 'unknown'
+export interface CreatePipelineQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  rootFolder?: string
+  filePath?: string
+  commitMsg?: string
+  createPr?: boolean
+  targetBranchForPr?: string
+  baseBranch?: string
 }
 
-export type GetYamlSchemaProps = Omit<
-  GetProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
-  'path'
+export type CreatePipelineProps = Omit<
+  MutateProps<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>,
+  'path' | 'verb'
 >
 
 /**
- * Get Yaml Schema
+ * Create a Pipeline
  */
-export const GetYamlSchema = (props: GetYamlSchemaProps) => (
-  <Get<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>
-    path="/pipelines/yaml-schema"
+export const CreatePipeline = (props: CreatePipelineProps) => (
+  <Mutate<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>
+    verb="POST"
+    path={`/pipelines`}
     base={getConfig('pipeline/api')}
     {...props}
   />
 )
 
-export type UseGetYamlSchemaProps = Omit<
-  UseGetProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
-  'path'
+export type UseCreatePipelineProps = Omit<
+  UseMutateProps<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>,
+  'path' | 'verb'
 >
 
 /**
- * Get Yaml Schema
+ * Create a Pipeline
  */
-export const useGetYamlSchema = (props: UseGetYamlSchemaProps) =>
-  useGet<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>(`/pipelines/yaml-schema`, {
+export const useCreatePipeline = (props: UseCreatePipelineProps) =>
+  useMutate<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>('POST', `/pipelines`, {
     base: getConfig('pipeline/api'),
     ...props
   })
 
 /**
- * Get Yaml Schema
+ * Create a Pipeline
  */
-export const getYamlSchemaPromise = (
-  props: GetUsingFetchProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
+export const createPipelinePromise = (
+  props: MutateUsingFetchProps<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>(
+  mutateUsingFetch<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>(
+    'POST',
     getConfig('pipeline/api'),
-    `/pipelines/yaml-schema`,
+    `/pipelines`,
+    props,
+    signal
+  )
+
+export interface GetStepsQueryParams {
+  category: string
+  module: string
+  accountId?: string
+}
+
+export type GetStepsProps = Omit<GetProps<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>, 'path'>
+
+/**
+ * Get Steps for given module
+ */
+export const GetSteps = (props: GetStepsProps) => (
+  <Get<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>
+    path={`/pipelines/steps`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetStepsProps = Omit<
+  UseGetProps<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Steps for given module
+ */
+export const useGetSteps = (props: UseGetStepsProps) =>
+  useGet<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(`/pipelines/steps`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get Steps for given module
+ */
+export const getStepsPromise = (
+  props: GetUsingFetchProps<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(
+    getConfig('pipeline/api'),
+    `/pipelines/steps`,
     props,
     signal
   )
@@ -7333,7 +7529,7 @@ export type GetNotificationSchemaProps = Omit<GetProps<ResponseNotificationRules
  */
 export const GetNotificationSchema = (props: GetNotificationSchemaProps) => (
   <Get<ResponseNotificationRules, Failure | Error, void, void>
-    path="/pipelines/notification"
+    path={`/pipelines/notification`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -7384,7 +7580,7 @@ export type GetExecutionNodeProps = Omit<
  */
 export const GetExecutionNode = (props: GetExecutionNodeProps) => (
   <Get<ResponseExecutionNode, Failure | Error, GetExecutionNodeQueryParams, void>
-    path="/pipelines/getExecutionNode"
+    path={`/pipelines/getExecutionNode`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -7418,111 +7614,88 @@ export const getExecutionNodePromise = (
     signal
   )
 
-export interface CreatePipelineQueryParams {
+export interface HandleInterruptQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
-  branch?: string
-  repoIdentifier?: string
-  rootFolder?: string
-  filePath?: string
-  commitMsg?: string
-  createPr?: boolean
-  targetBranchForPr?: string
+  interruptType:
+    | 'Abort'
+    | 'Pause'
+    | 'Resume'
+    | 'Ignore'
+    | 'StageRollback'
+    | 'StepGroupRollback'
+    | 'MarkAsSuccess'
+    | 'Retry'
 }
 
-export type CreatePipelineProps = Omit<
-  MutateProps<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>,
+export interface HandleInterruptPathParams {
+  planExecutionId: string
+}
+
+export type HandleInterruptProps = Omit<
+  MutateProps<ResponsePipelineExecutionInterrupt, unknown, HandleInterruptQueryParams, void, HandleInterruptPathParams>,
   'path' | 'verb'
->
+> &
+  HandleInterruptPathParams
 
 /**
- * Create a Pipeline
+ * pause, resume or stop the pipeline executions
  */
-export const CreatePipeline = (props: CreatePipelineProps) => (
-  <Mutate<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>
-    verb="POST"
-    path="/pipelines"
+export const HandleInterrupt = ({ planExecutionId, ...props }: HandleInterruptProps) => (
+  <Mutate<ResponsePipelineExecutionInterrupt, unknown, HandleInterruptQueryParams, void, HandleInterruptPathParams>
+    verb="PUT"
+    path={`/pipeline/execute/interrupt/${planExecutionId}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
 )
 
-export type UseCreatePipelineProps = Omit<
-  UseMutateProps<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>,
+export type UseHandleInterruptProps = Omit<
+  UseMutateProps<
+    ResponsePipelineExecutionInterrupt,
+    unknown,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >,
   'path' | 'verb'
->
+> &
+  HandleInterruptPathParams
 
 /**
- * Create a Pipeline
+ * pause, resume or stop the pipeline executions
  */
-export const useCreatePipeline = (props: UseCreatePipelineProps) =>
-  useMutate<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>('POST', `/pipelines`, {
-    base: getConfig('pipeline/api'),
-    ...props
-  })
-
-/**
- * Create a Pipeline
- */
-export const createPipelinePromise = (
-  props: MutateUsingFetchProps<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseString, Failure | Error, CreatePipelineQueryParams, void, void>(
-    'POST',
-    getConfig('pipeline/api'),
-    `/pipelines`,
-    props,
-    signal
+export const useHandleInterrupt = ({ planExecutionId, ...props }: UseHandleInterruptProps) =>
+  useMutate<ResponsePipelineExecutionInterrupt, unknown, HandleInterruptQueryParams, void, HandleInterruptPathParams>(
+    'PUT',
+    (paramsInPath: HandleInterruptPathParams) => `/pipeline/execute/interrupt/${paramsInPath.planExecutionId}`,
+    { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
   )
 
-export interface GetStepsQueryParams {
-  category: string
-  module: string
-  accountId?: string
-}
-
-export type GetStepsProps = Omit<GetProps<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>, 'path'>
-
 /**
- * Get Steps for given module
+ * pause, resume or stop the pipeline executions
  */
-export const GetSteps = (props: GetStepsProps) => (
-  <Get<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>
-    path="/pipelines/steps"
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseGetStepsProps = Omit<
-  UseGetProps<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>,
-  'path'
->
-
-/**
- * Get Steps for given module
- */
-export const useGetSteps = (props: UseGetStepsProps) =>
-  useGet<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(`/pipelines/steps`, {
-    base: getConfig('pipeline/api'),
+export const handleInterruptPromise = (
+  {
+    planExecutionId,
     ...props
-  })
-
-/**
- * Get Steps for given module
- */
-export const getStepsPromise = (
-  props: GetUsingFetchProps<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>,
+  }: MutateUsingFetchProps<
+    ResponsePipelineExecutionInterrupt,
+    unknown,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  > & { planExecutionId: string },
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(
-    getConfig('pipeline/api'),
-    `/pipelines/steps`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponsePipelineExecutionInterrupt,
+    unknown,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >('PUT', getConfig('pipeline/api'), `/pipeline/execute/interrupt/${planExecutionId}`, props, signal)
 
 export interface GetPreflightCheckResponseQueryParams {
   accountIdentifier: string
@@ -7541,7 +7714,7 @@ export type GetPreflightCheckResponseProps = Omit<
  */
 export const GetPreflightCheckResponse = (props: GetPreflightCheckResponseProps) => (
   <Get<ResponsePreFlightDTO, unknown, GetPreflightCheckResponseQueryParams, void>
-    path="/pipeline/execute/getPreflightCheckResponse"
+    path={`/pipeline/execute/getPreflightCheckResponse`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -7579,6 +7752,9 @@ export interface PostPipelineExecuteWithInputSetYamlQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
   useFQNIfError?: boolean
 }
 
@@ -7613,7 +7789,7 @@ export const PostPipelineExecuteWithInputSetYaml = ({
     PostPipelineExecuteWithInputSetYamlPathParams
   >
     verb="POST"
-    path="/pipeline/execute/${identifier}"
+    path={`/pipeline/execute/${identifier}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -7678,6 +7854,9 @@ export interface PostPipelineExecuteWithInputSetListQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
   useFQNIfError?: boolean
 }
 
@@ -7712,7 +7891,7 @@ export const PostPipelineExecuteWithInputSetList = ({
     PostPipelineExecuteWithInputSetListPathParams
   >
     verb="POST"
-    path="/pipeline/execute/${identifier}/inputSetList"
+    path={`/pipeline/execute/${identifier}/inputSetList`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -7818,7 +7997,7 @@ export const HandleStageInterrupt = ({ planExecutionId, nodeExecutionId, ...prop
     HandleStageInterruptPathParams
   >
     verb="PUT"
-    path="/pipeline/execute/interrupt/${planExecutionId}/${nodeExecutionId}"
+    path={`/pipeline/execute/interrupt/${planExecutionId}/${nodeExecutionId}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -7932,7 +8111,7 @@ export const HandleManualInterventionInterrupt = ({
     HandleManualInterventionInterruptPathParams
   >
     verb="PUT"
-    path="/pipeline/execute/manualIntervention/interrupt/${planExecutionId}/${nodeExecutionId}"
+    path={`/pipeline/execute/manualIntervention/interrupt/${planExecutionId}/${nodeExecutionId}`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -8007,6 +8186,9 @@ export interface StartPreflightCheckQueryParams {
   orgIdentifier: string
   projectIdentifier: string
   pipelineIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type StartPreflightCheckProps = Omit<
@@ -8020,7 +8202,7 @@ export type StartPreflightCheckProps = Omit<
 export const StartPreflightCheck = (props: StartPreflightCheckProps) => (
   <Mutate<ResponseString, unknown, StartPreflightCheckQueryParams, void, void>
     verb="POST"
-    path="/pipeline/execute/preflightCheck"
+    path={`/pipeline/execute/preflightCheck`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -8063,7 +8245,7 @@ export type RunSchemaOnDbProps = Omit<GetProps<ResponseString, unknown, void, vo
  */
 export const RunSchemaOnDb = (props: RunSchemaOnDbProps) => (
   <Get<ResponseString, unknown, void, void>
-    path="/pipeline/execute/internal/runSchema"
+    path={`/pipeline/execute/internal/runSchema`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -8094,89 +8276,6 @@ export const runSchemaOnDbPromise = (
     signal
   )
 
-export interface HandleInterruptQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  interruptType:
-    | 'Abort'
-    | 'Pause'
-    | 'Resume'
-    | 'Ignore'
-    | 'StageRollback'
-    | 'StepGroupRollback'
-    | 'MarkAsSuccess'
-    | 'Retry'
-}
-
-export interface HandleInterruptPathParams {
-  planExecutionId: string
-}
-
-export type HandleInterruptProps = Omit<
-  MutateProps<ResponsePipelineExecutionInterrupt, unknown, HandleInterruptQueryParams, void, HandleInterruptPathParams>,
-  'path' | 'verb'
-> &
-  HandleInterruptPathParams
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const HandleInterrupt = ({ planExecutionId, ...props }: HandleInterruptProps) => (
-  <Mutate<ResponsePipelineExecutionInterrupt, unknown, HandleInterruptQueryParams, void, HandleInterruptPathParams>
-    verb="PUT"
-    path="/pipeline/execute/interrupt/${planExecutionId}"
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseHandleInterruptProps = Omit<
-  UseMutateProps<
-    ResponsePipelineExecutionInterrupt,
-    unknown,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >,
-  'path' | 'verb'
-> &
-  HandleInterruptPathParams
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const useHandleInterrupt = ({ planExecutionId, ...props }: UseHandleInterruptProps) =>
-  useMutate<ResponsePipelineExecutionInterrupt, unknown, HandleInterruptQueryParams, void, HandleInterruptPathParams>(
-    'PUT',
-    (paramsInPath: HandleInterruptPathParams) => `/pipeline/execute/interrupt/${paramsInPath.planExecutionId}`,
-    { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
-  )
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const handleInterruptPromise = (
-  {
-    planExecutionId,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponsePipelineExecutionInterrupt,
-    unknown,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  > & { planExecutionId: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponsePipelineExecutionInterrupt,
-    unknown,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >('PUT', getConfig('pipeline/api'), `/pipeline/execute/interrupt/${planExecutionId}`, props, signal)
-
 export interface GetResourceConstraintsExecutionInfoQueryParams {
   accountId: string
   resourceUnit: string
@@ -8202,7 +8301,7 @@ export const GetResourceConstraintsExecutionInfo = (props: GetResourceConstraint
     GetResourceConstraintsExecutionInfoQueryParams,
     void
   >
-    path="/resource-constraints/executionInfo"
+    path={`/resource-constraints/executionInfo`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -8285,7 +8384,7 @@ export type GetSchemaYamlProps = Omit<
  */
 export const GetSchemaYaml = (props: GetSchemaYamlProps) => (
   <Get<ResponseJsonNode, Failure | Error, GetSchemaYamlQueryParams, void>
-    path="/yaml-schema"
+    path={`/yaml-schema`}
     base={getConfig('pipeline/api')}
     {...props}
   />
@@ -8318,29 +8417,3 @@ export const getSchemaYamlPromise = (
     props,
     signal
   )
-
-export type GetVersionInfoProps = Omit<GetProps<RestResponseVersionPackage, unknown, void, void>, 'path'>
-
-/**
- * Get Version Info
- */
-export const GetVersionInfo = (props: GetVersionInfoProps) => (
-  <Get<RestResponseVersionPackage, unknown, void, void> path="/version" base={getConfig('pipeline/api')} {...props} />
-)
-
-export type UseGetVersionInfoProps = Omit<UseGetProps<RestResponseVersionPackage, unknown, void, void>, 'path'>
-
-/**
- * Get Version Info
- */
-export const useGetVersionInfo = (props: UseGetVersionInfoProps) =>
-  useGet<RestResponseVersionPackage, unknown, void, void>(`/version`, { base: getConfig('pipeline/api'), ...props })
-
-/**
- * Get Version Info
- */
-export const getVersionInfoPromise = (
-  props: GetUsingFetchProps<RestResponseVersionPackage, unknown, void, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseVersionPackage, unknown, void, void>(getConfig('pipeline/api'), `/version`, props, signal)

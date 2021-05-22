@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, findByText, fireEvent, waitFor, findAllByText } from '@testing-library/react'
-// import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import {
   PipelineContext,
@@ -53,7 +52,7 @@ describe('ArtifactsSelection tests', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    const primaryArtifactContainer = await findByText(container, 'Dockerhub')
+    const primaryArtifactContainer = await findByText(container, 'primary')
     expect(primaryArtifactContainer).toBeDefined()
     expect(container).toMatchSnapshot()
   })
@@ -117,7 +116,7 @@ describe('ArtifactsSelection tests', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    const primaryArtifactContainer = await findByText(container, 'Dockerhub')
+    const primaryArtifactContainer = await findByText(container, 'primary')
     expect(primaryArtifactContainer).toBeDefined()
     const editButton = container.querySelector('span[data-icon="Edit"]')
     expect(editButton).toBeDefined()
@@ -132,7 +131,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
-        type: 'Dockerhub' as 'Dockerhub' | 'Gcr' | 'Ecr'
+        type: 'DockerRegistry' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
       stage: pipelineContextMock.state.pipeline.stages[0],
@@ -158,7 +157,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
-        type: 'Gcr' as 'Dockerhub' | 'Gcr' | 'Ecr'
+        type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
       stage: pipelineContextMock.state.pipeline.stages[0],
@@ -183,7 +182,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
-        type: 'Ecr' as 'Dockerhub' | 'Gcr' | 'Ecr',
+        type: 'Ecr' as 'DockerRegistry' | 'Gcr' | 'Ecr',
         spec: {
           connectorRef: 'Test',
           imagePath: '<+input>',
@@ -194,7 +193,7 @@ describe('ArtifactsSelection tests', () => {
       sideCarArtifact: [
         {
           sidecar: {
-            type: 'Dockerhub' as 'Dockerhub' | 'Gcr' | 'Ecr',
+            type: 'DockerRegistry' as 'DockerRegistry' | 'Gcr' | 'Ecr',
             spec: {
               connectorRef: 'connectorRef',
               imagePath: '<+input>',
@@ -233,7 +232,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
-        type: 'Gcr' as 'Dockerhub' | 'Gcr' | 'Ecr'
+        type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
       stage: pipelineContextMock.state.pipeline.stages[0],
@@ -266,7 +265,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
-        type: 'Gcr' as 'Dockerhub' | 'Gcr' | 'Ecr'
+        type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
       stage: pipelineContextMock.state.pipeline.stages[0],

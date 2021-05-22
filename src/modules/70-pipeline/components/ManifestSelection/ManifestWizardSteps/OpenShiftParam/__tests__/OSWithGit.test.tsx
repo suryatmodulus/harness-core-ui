@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, act, wait, queryByAttribute } from '@testing-library/react'
+import { render, fireEvent, act, queryByAttribute, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import OpenShiftParamWithGit from '../OSWithGit'
 
@@ -33,9 +33,21 @@ describe('Open shift params with git tests', () => {
   })
 
   test('submits with right payload', async () => {
+    const prevStepData = {
+      connectorRef: {
+        connector: {
+          spec: {
+            connectionType: 'Account',
+            url: 'accounturl-test'
+          }
+        }
+      },
+      store: 'Git'
+    }
+
     const { container } = render(
       <TestWrapper>
-        <OpenShiftParamWithGit {...props} />
+        <OpenShiftParamWithGit {...props} prevStepData={prevStepData} />
       </TestWrapper>
     )
 
@@ -44,9 +56,10 @@ describe('Open shift params with git tests', () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
       fireEvent.change(queryByNameAttribute('gitFetchType')!, { target: { value: 'Branch' } })
       fireEvent.change(queryByNameAttribute('branch')!, { target: { value: 'testBranch' } })
+      fireEvent.change(queryByNameAttribute('repoName')!, { target: { value: 'repo-name' } })
     })
     fireEvent.click(container.querySelector('button[type="submit"]')!)
-    await wait(() => {
+    await waitFor(() => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
@@ -58,7 +71,7 @@ describe('Open shift params with git tests', () => {
                 connectorRef: undefined,
                 gitFetchType: 'Branch',
                 paths: [],
-                repoName: undefined
+                repoName: 'repo-name'
               },
               type: 'Git'
             }

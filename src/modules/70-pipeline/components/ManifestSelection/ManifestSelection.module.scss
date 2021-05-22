@@ -42,15 +42,6 @@
   }
 }
 
-div.server {
-  display: grid;
-  grid-template-columns: 120px 15px;
-  text-align: left;
-  p {
-    display: block !important;
-  }
-}
-
 .modal {
   [class*='bp3-dialog-header'] button {
     z-index: 2;
@@ -59,7 +50,7 @@ div.server {
 
 .manifestList {
   display: grid;
-  grid-template-columns: 200px 200px 200px 1fr 150px;
+  grid-template-columns: 200px 200px 300px 1fr 100px;
   &.list-header {
     border-bottom: solid 1px #d9dae5;
     padding-bottom: var(--spacing-medium);

@@ -5,7 +5,6 @@ import { parse, stringify } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import type {
   PipelineInfoConfig,
-  ResponseNGPipelineResponse,
   StageElementConfig,
   StageElementWrapper,
   StageElementWrapperConfig
@@ -22,7 +21,8 @@ import {
   putPipelinePromise,
   PutPipelineQueryParams,
   Failure,
-  EntityGitDetails
+  EntityGitDetails,
+  ResponsePMSPipelineResponseDTO
 } from 'services/pipeline-ng'
 import { useGlobalEventListener, useLocalStorage } from '@common/hooks'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -64,7 +64,7 @@ export const getPipelineByIdentifier = (
       }
     }
   }).then(response => {
-    let obj = {} as ResponseNGPipelineResponse
+    let obj = {} as ResponsePMSPipelineResponseDTO
     if (typeof response === 'string') {
       obj = parse(response as string).data.yamlPipeline
     } else if (response.data?.yamlPipeline) {

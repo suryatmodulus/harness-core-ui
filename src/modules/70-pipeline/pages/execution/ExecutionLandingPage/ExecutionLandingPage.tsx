@@ -30,6 +30,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import ExecutionContext, { GraphCanvasState } from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
@@ -242,14 +243,17 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
               <div className={css.headerTopRow}>
                 <div className={css.titleContainer}>
                   <div className={css.title}>{pipelineExecutionSummary.name}</div>
-                  <div className={css.pipelineId}>
-                    <String
-                      stringID={
-                        module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'
-                      }
-                      vars={pipelineExecutionSummary}
-                    />
-                  </div>
+                  <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'xsmall'}>
+                    <div className={css.pipelineId}>
+                      <String
+                        stringID={
+                          module === 'cd' ? 'execution.pipelineIdentifierTextCD' : 'execution.pipelineIdentifierTextCI'
+                        }
+                        vars={pipelineExecutionSummary}
+                      />
+                    </div>
+                    {pipelineExecutionSummary.gitDetails && <GitPopover data={pipelineExecutionSummary.gitDetails} />}
+                  </Layout.Horizontal>
                 </div>
                 <div className={css.statusBar}>
                   {pipelineExecutionSummary.status && (

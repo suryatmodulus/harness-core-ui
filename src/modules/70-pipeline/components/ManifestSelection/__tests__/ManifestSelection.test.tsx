@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, findByText, fireEvent, findAllByText, waitFor } from '@testing-library/react'
-// import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import ManifestSelection from '../ManifestSelection'
 import ManifestListView from '../ManifestListView'

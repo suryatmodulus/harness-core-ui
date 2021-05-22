@@ -139,23 +139,6 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
             class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
           >
             <div
-              class="manifestList listHeader"
-            >
-              <span>
-                common.ID
-              </span>
-              <span>
-                pipelineSteps.serviceTab.manifestList.manifestType
-              </span>
-              <span>
-                pipelineSteps.serviceTab.manifestList.manifestStore
-              </span>
-              <span>
-                location
-              </span>
-              <span />
-            </div>
-            <div
               class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
             >
               <section />
@@ -192,33 +175,17 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
             class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
           >
             <div
-              class="artifactList listHeader"
-            >
-              <span />
-              <span>
-                artifactRepository
-              </span>
-              <span>
-                 
-                location
-              </span>
-              <span />
-              <span />
-            </div>
-            <div
               class="Layout--vertical StyledProps--main"
             >
               <section />
             </div>
           </div>
-          <div
-            class="Layout--vertical StyledProps--main"
-          >
+          <div>
             <div
-              class="rowItem"
+              class="addArtifact"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
               >
                 <span>
                   pipelineSteps.serviceTab.artifactList.addPrimary
@@ -226,10 +193,10 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
               </p>
             </div>
             <div
-              class="rowItem"
+              class="addArtifact"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
               >
                 <span>
                   pipelineSteps.serviceTab.artifactList.addSidecar
@@ -245,7 +212,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
     >
       <div
         class="Accordion--panel"
-        data-open="true"
+        data-open="false"
         data-testid="advanced-panel"
         id="advanced-panel"
       >
@@ -259,53 +226,17 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
           <div
             class="Accordion--label"
           >
-            Advanced
+            advancedTitle
           </div>
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
-          style="height: auto; overflow-y: visible; transition: none;"
         >
           <div
             aria-hidden="false"
             class="bp3-collapse-body"
-            style="transform: translateY(0); transition: none;"
-          >
-            <div
-              class="Accordion--details"
-              data-testid="advanced-details"
-            >
-              <div
-                class="bp3-card bp3-elevation-0 Card--card sectionCard"
-                id="variablesText"
-              >
-                <div
-                  class="tabSubHeading"
-                >
-                  variablesText
-                </div>
-                <div
-                  class="Layout--horizontal StyledProps--main"
-                >
-                  <div
-                    class="Layout--vertical StyledProps--main"
-                    style="border-radius: 5px;"
-                  >
-                    <section
-                      class="variablesList"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="line-height: 24px;"
-                      >
-                        workflowVariableInfo
-                      </p>
-                    </section>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
       </div>
     </div>

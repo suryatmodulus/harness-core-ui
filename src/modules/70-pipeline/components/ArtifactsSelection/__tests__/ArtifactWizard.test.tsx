@@ -29,8 +29,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedArtifact={'DockerRegistry'}
           changeArtifactType={jest.fn()}
@@ -56,8 +55,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedArtifact={'DockerRegistry'}
           changeArtifactType={jest.fn()}
@@ -78,15 +76,14 @@ describe('Artifact ConnectorRefSteps tests', () => {
         <ConnectorRefSteps
           handleViewChange={jest.fn()}
           connectorData={initialValues as ConnectorDataType}
-          types={['DockerRegistry', 'Gcp', 'Aws']}
+          types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
-          selectedArtifact={'Gcp'}
+          selectedArtifact={'Gcr'}
           changeArtifactType={jest.fn()}
           newConnectorView={false}
           iconsProps={{ name: 'info' }}
@@ -105,13 +102,12 @@ describe('Artifact ConnectorRefSteps tests', () => {
         <ConnectorRefSteps
           handleViewChange={jest.fn()}
           connectorData={initialValues as ConnectorDataType}
-          types={['DockerRegistry', 'Gcp', 'Aws']}
+          types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedArtifact={'DockerRegistry'}
           changeArtifactType={jest.fn()}
@@ -133,9 +129,9 @@ describe('Artifact ConnectorRefSteps tests', () => {
     expect(continueButton).toBeDefined()
     fireEvent.click(continueButton)
 
-    const artifactRepoLabel = await findByText('DockerRegistry connector')
+    const artifactRepoLabel = await findByText('dockerRegistry connector')
     expect(artifactRepoLabel).toBeDefined()
-    const newConnectorLabel = await findByText('new connector')
+    const newConnectorLabel = await findByText('newLabel DockerRegistry connector')
     expect(newConnectorLabel).toBeDefined()
 
     fireEvent.click(newConnectorLabel)
@@ -169,13 +165,12 @@ describe('Artifact ConnectorRefSteps tests', () => {
         <ConnectorRefSteps
           handleViewChange={jest.fn()}
           connectorData={initialValues as ConnectorDataType}
-          types={['DockerRegistry', 'Gcp', 'Aws']}
+          types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedArtifact={'DockerRegistry'}
           changeArtifactType={jest.fn()}

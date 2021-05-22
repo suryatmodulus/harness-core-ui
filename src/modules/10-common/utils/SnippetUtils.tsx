@@ -44,7 +44,8 @@ const entitySubTypeToTagMap: {
   HttpHelmRepo: 'httphelmrepo',
   NewRelic: 'newrelic',
   GcpCloudCost: 'gcpcloudcost',
-  Prometheus: 'prometheus'
+  Prometheus: 'prometheus',
+  Datadog: 'datadog'
 }
 
 export const getSnippetTags = (

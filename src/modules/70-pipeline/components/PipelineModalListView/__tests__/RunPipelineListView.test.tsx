@@ -2,10 +2,9 @@ import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { TestWrapper, UseGetMockData } from '@common/utils/testUtils'
-import type { ResponsePageNGPipelineSummaryResponse } from 'services/cd-ng'
-
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
+import type { ResponsePagePMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import PipelineModalList from '../PipelineModalListView'
 import mocks from './RunPipelineListViewMocks'
 
@@ -32,7 +31,7 @@ describe('PipelineModal List View', () => {
       <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
         <PipelineModalList
           onClose={jest.fn()}
-          mockData={mocks as UseGetMockData<ResponsePageNGPipelineSummaryResponse>}
+          mockData={mocks as UseGetMockData<ResponsePagePMSPipelineSummaryResponse>}
         />
       </TestWrapper>
     )

@@ -2,14 +2,15 @@ import React from 'react'
 import { Button, Card, Color, Container, Heading, Icon, Layout, StepProps, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 
-import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import { getArtifactIconByType, getArtifactTitleIdByType } from '../ArtifactHelper'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
+import { ArtifactIconByType, ArtifactTitleIdByType } from '../ArtifactHelper'
+import type { ArtifactType } from '../ArtifactInterface'
 import css from './ArtifactConnector.module.scss'
 
 interface ArtifactPropType {
-  changeArtifactType: (selected: ConnectorInfoDTO['type']) => void
-  artifactTypes: Array<ConnectorInfoDTO['type']>
-  selectedArtifact: ConnectorInfoDTO['type']
+  changeArtifactType: (selected: ArtifactType) => void
+  artifactTypes: Array<ArtifactType>
+  selectedArtifact: ArtifactType
   stepName: string
 }
 
@@ -22,7 +23,7 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
 }) => {
   const [selectedArtifactType, setSelectedArtifactType] = React.useState(selectedArtifact)
 
-  const handleOptionSelection = (selected: ConnectorInfoDTO['type']): void => {
+  const handleOptionSelection = (selected: ArtifactType): void => {
     setSelectedArtifactType(selected)
     changeArtifactType(selected)
   }
@@ -42,7 +43,7 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
                 selected={item === selectedArtifactType}
                 onClick={() => handleOptionSelection(item)}
               >
-                <Icon name={getArtifactIconByType(item)} size={26} height={26} />
+                <Icon name={ArtifactIconByType[item]} size={26} height={26} />
               </Card>
               <Text
                 style={{
@@ -51,7 +52,7 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
                 }}
                 color={Color.BLACK_100}
               >
-                {getString(getArtifactTitleIdByType(item))}
+                {getString(ArtifactTitleIdByType[item])}
               </Text>
             </div>
           ))}

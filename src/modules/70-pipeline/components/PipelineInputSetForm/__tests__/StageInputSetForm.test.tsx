@@ -12,7 +12,7 @@ const props = {
             spec: {
               connectorRef: '<+input'
             },
-            type: 'Dockerhub' as const
+            type: 'DockerRegistry' as const
           }
         }
       }

@@ -27,6 +27,7 @@ import memoize from 'lodash-es/memoize'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
 import { useGetPipeline } from 'services/pipeline-ng'
+import List from '@common/components/List/List'
 import type { PipelineType, InputSetPathProps } from '@common/interfaces/RouteInterfaces'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
 import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
@@ -44,11 +45,11 @@ import {
 } from 'services/cd-ng'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { getStageIndexByIdentifier } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
-import { ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
-
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
+
 import { String, useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -61,19 +62,13 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { CustomVariableInputSetExtraProps } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableInputSet'
 import { useListAwsRegions } from 'services/portal'
 import type { ManifestStores } from '@pipeline/components/ManifestSelection/ManifestInterface'
-import { ManifestToConnectorMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import { GitRepoName, ManifestToConnectorMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import type { UseStringsReturn } from 'framework/strings'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
-
-export const ARTIFACT_TYPE_TO_CONNECTOR_MAP: { [key: string]: ConnectorInfoDTO['type'] } = {
-  Dockerhub: 'DockerRegistry',
-  Gcr: 'Gcp',
-  Ecr: 'Aws'
-}
 
 export const getStagePathByIdentifier = memoize((stageIdentifier = '', pipeline: NgPipeline) => {
   let finalPath = ''
@@ -154,17 +149,15 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
         </Layout.Horizontal>
       </Card>
 
-      <Accordion className={css.accordionTitle} activeId="advanced">
+      <Accordion className={css.accordionTitle}>
         <Accordion.Panel
           id="advanced"
           addDomId={true}
-          summary={'Advanced'}
+          summary={getString('advancedTitle')}
           details={
             <Card className={css.sectionCard} id={getString('variablesText')}>
               <div className={css.tabSubHeading}>{getString('variablesText')}</div>
-              <Layout.Horizontal>
-                <WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />
-              </Layout.Horizontal>
+              <WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />
             </Card>
           }
         />
@@ -303,13 +296,13 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   React.useEffect(() => {
     if (lastQueryData.connectorRef) {
       switch (lastQueryData.connectorType) {
-        case 'Dockerhub':
+        case ENABLED_ARTIFACT_TYPES.DockerRegistry:
           refetchDockerBuildData()
           break
-        case 'Gcr':
+        case ENABLED_ARTIFACT_TYPES.Gcr:
           refetchGcrBuildData()
           break
-        case 'Ecr':
+        case ENABLED_ARTIFACT_TYPES.Ecr:
           refetchEcrBuildData()
           break
       }
@@ -318,7 +311,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   const getSelectItems = (tagsPath: string): SelectOption[] => {
     return get(tagListMap, `${tagsPath}.tags`, []) as SelectOption[]
   }
-
+  const [showRepoName, setShowRepoName] = React.useState(true)
   const fetchTags = ({
     path: tagsPath = '',
     imagePath = '',
@@ -327,7 +320,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     registryHostname,
     region
   }: LastQueryData): void => {
-    if (connectorType === 'Dockerhub') {
+    if (connectorType === ENABLED_ARTIFACT_TYPES.DockerRegistry) {
       if (
         imagePath?.length &&
         connectorRef?.length &&
@@ -337,7 +330,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
       ) {
         setLastQueryData({ path: tagsPath, imagePath, connectorRef, connectorType, registryHostname })
       }
-    } else if (connectorType === 'Gcr') {
+    } else if (connectorType === ENABLED_ARTIFACT_TYPES.Gcr) {
       if (
         imagePath?.length &&
         connectorRef?.length &&
@@ -414,7 +407,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     }
     if (connectorType === ENABLED_ARTIFACT_TYPES.DockerRegistry) {
       return !imagePath?.length || !connectorRef?.length
-    } else if (connectorType === ENABLED_ARTIFACT_TYPES.Aws) {
+    } else if (connectorType === ENABLED_ARTIFACT_TYPES.Ecr) {
       return !imagePath?.length || !connectorRef?.length || !region?.length
     } else {
       return !imagePath?.length || !connectorRef?.length || !registryHostname?.length
@@ -424,9 +417,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     value: region.value,
     label: region.name
   }))
-  // const manifests =
-  //   template?.manifests ||
-  //   template.
+
   return (
     <Layout.Vertical spacing="medium">
       {get(template, 'artifacts', false) && (
@@ -484,7 +475,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         orgIdentifier={orgIdentifier}
                         width={400}
                         disabled={readonly}
-                        type={ARTIFACT_TYPE_TO_CONNECTOR_MAP[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
+                        type={ArtifactToConnectorMap[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
                         onChange={(record, scope) => {
                           const connectorRef =
                             scope === Scope.ORG || scope === Scope.ACCOUNT
@@ -654,7 +645,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             projectIdentifier={projectIdentifier}
                             orgIdentifier={orgIdentifier}
                             type={
-                              ARTIFACT_TYPE_TO_CONNECTOR_MAP[
+                              ArtifactToConnectorMap[
                                 artifacts?.sidecars?.[index]?.sidecar?.type
                               ] as ConnectorInfoDTO['type']
                             }
@@ -810,7 +801,14 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       spec: {
                         skipResourceVersioning = '',
                         store: {
-                          spec: { branch = '', connectorRef = '', folderPath = '', commitId = '', repoName = '' } = {},
+                          spec: {
+                            branch = '',
+                            connectorRef = '',
+                            folderPath = '',
+                            commitId = '',
+                            repoName = '',
+                            paths = ''
+                          } = {},
                           type = ''
                         } = {}
                       } = {}
@@ -845,6 +843,12 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                                 scope === Scope.ORG || scope === Scope.ACCOUNT
                                   ? `${scope}.${record?.identifier}`
                                   : record?.identifier
+
+                              if (record?.spec?.connectionType === GitRepoName.Repo) {
+                                setShowRepoName(false)
+                              } else {
+                                setShowRepoName(true)
+                              }
                               set(
                                 initialValues,
                                 `manifests[${index}].manifest.spec.store.spec.connectorRef`,
@@ -866,7 +870,16 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           />
                         </FormGroup>
                       )}
-                      {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && (
+                      {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME && (
+                        <List
+                          label={getString('fileFolderPathText')}
+                          name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
+                          placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
+                          disabled={readonly}
+                          style={{ marginBottom: 'var(--spacing-small)' }}
+                        />
+                      )}
+                      {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (
                         <FormGroup
                           labelFor={'repoName'}
                           label={getString('pipelineSteps.build.create.repositoryNameLabel')}
@@ -963,7 +976,11 @@ const ManifestConnectorRefRegex = /^.+manifest\.spec\.store\.spec\.connectorRef$
 const ManifestConnectorRefType = 'Git'
 const ArtifactsSidecarRegex = /^.+.sidecar\.spec\.connectorRef$/
 const ArtifactsPrimaryRegex = /^.+artifacts\.primary\.spec\.connectorRef$/
-const ArtifactConnectorTypes = ['Dockerhub', 'Gcr']
+const ArtifactConnectorTypes = [
+  ENABLED_ARTIFACT_TYPES.DockerRegistry,
+  ENABLED_ARTIFACT_TYPES.Gcr,
+  ENABLED_ARTIFACT_TYPES.Ecr
+]
 const getConnectorValue = (connector?: ConnectorResponse): string =>
   `${
     connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
@@ -1073,7 +1090,10 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
             projectIdentifier,
             includeAllConnectorsAvailableAtScope: true
           },
-          body: { types: ['DockerRegistry', 'Gcp'], filterType: 'Connector' }
+          body: {
+            types: [ArtifactToConnectorMap.DockerRegistry, ArtifactToConnectorMap.Gcr, ArtifactToConnectorMap.Ecr],
+            filterType: 'Connector'
+          }
         }).then(response => {
           const data =
             response?.data?.content?.map(connector => ({
@@ -1117,7 +1137,10 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
             projectIdentifier,
             includeAllConnectorsAvailableAtScope: true
           },
-          body: { types: ['DockerRegistry', 'Gcp'], filterType: 'Connector' }
+          body: {
+            types: [ArtifactToConnectorMap.DockerRegistry, ArtifactToConnectorMap.Gcr, ArtifactToConnectorMap.Ecr],
+            filterType: 'Connector'
+          }
         }).then(response => {
           const data =
             response?.data?.content?.map(connector => ({
@@ -1227,6 +1250,16 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           errors,
           `manifests[${index}].manifest.spec.store.spec.branch`,
           getString?.('fieldRequired', { field: 'Branch' })
+        )
+      }
+      if (
+        isEmpty(manifest?.manifest?.spec?.store?.spec?.paths?.[0]) &&
+        getMultiTypeFromValue(currentManifestTemplate?.paths) === MultiTypeInputType.RUNTIME
+      ) {
+        set(
+          errors,
+          `manifests[${index}].manifest.spec.store.spec.paths`,
+          getString?.('fieldRequired', { field: 'Paths' })
         )
       }
     })

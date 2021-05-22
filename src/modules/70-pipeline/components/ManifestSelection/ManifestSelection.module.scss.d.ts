@@ -7,7 +7,6 @@ declare const styles: {
   readonly lastColumn: string
   readonly actionGrid: string
   readonly cloneIcon: string
-  readonly server: string
   readonly modal: string
   readonly manifestList: string
   readonly listHeader: string

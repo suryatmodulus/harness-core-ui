@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
-import moment from 'moment'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
@@ -25,7 +24,7 @@ export const CDDashboardPage: React.FC = () => {
 
   const { data, loading } = useGetDeployments({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier
     }
@@ -33,11 +32,11 @@ export const CDDashboardPage: React.FC = () => {
 
   const { data: workloadsData, loading: loadingWorkloads } = useGetWorkloads({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startInterval: moment(Date.now() - 30 * 24 * 60 * 60000).format('YYYY-MM-DD'),
-      endInterval: moment(Date.now()).format('YYYY-MM-DD')
+      startTime: Date.now() - 30 * 24 * 60 * 60000,
+      endTime: Date.now()
     }
   })
 

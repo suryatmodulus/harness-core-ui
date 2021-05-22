@@ -15,7 +15,7 @@ import {
 import cx from 'classnames'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { get, set } from 'lodash-es'
+import { get, isEmpty, set } from 'lodash-es'
 import { Tooltip } from '@blueprintjs/core'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -65,7 +65,9 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
 
   const getRepoName = (): string => {
     let repoName = ''
-    if (prevStepData?.connectorRef) {
+    if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
+      repoName = prevStepData?.connectorRef
+    } else if (prevStepData?.connectorRef) {
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
@@ -87,12 +89,6 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
         }
       }
       return repoName
-    }
-
-    if (prevStepData?.identifier) {
-      if (connectionType === GitRepoName.Repo) {
-        repoName = prevStepData?.url
-      }
     }
     return repoName
   }
@@ -178,6 +174,12 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
           commitId: Yup.string().when('gitFetchType', {
             is: 'Commit',
             then: Yup.string().trim().required(getString('validation.commitId'))
+          }),
+          repoName: Yup.string().test('repoName', getString('pipeline.manifestType.reponameRequired'), value => {
+            if (connectionType === GitRepoName.Repo) {
+              return true
+            }
+            return !isEmpty(value) && value?.length > 0
           })
         })}
         onSubmit={formData => {
@@ -203,15 +205,6 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                 placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                 className={helmcss.halfWidth}
               />
-              {connectionType === GitRepoName.Repo && (
-                <div className={helmcss.halfWidth}>
-                  <FormInput.Text
-                    label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                    disabled
-                    name="repoName"
-                  />
-                </div>
-              )}
 
               {!!(connectionType === GitRepoName.Account && accountUrl) && (
                 <GitRepositoryName

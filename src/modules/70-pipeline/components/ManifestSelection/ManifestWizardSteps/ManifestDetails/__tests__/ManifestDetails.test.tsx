@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, fireEvent, queryByAttribute, render, wait } from '@testing-library/react'
+import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 
@@ -63,9 +63,20 @@ describe('Manifest Details tests', () => {
   })
 
   test('submits with right payload', async () => {
+    const prevStepData = {
+      connectorRef: {
+        connector: {
+          spec: {
+            connectionType: 'Account',
+            url: 'accounturl-test'
+          }
+        }
+      },
+      store: 'Git'
+    }
     const { container } = render(
       <TestWrapper>
-        <ManifestDetails {...props} initialValues={initialValues} />
+        <ManifestDetails {...props} prevStepData={prevStepData} initialValues={initialValues} />
       </TestWrapper>
     )
 
@@ -75,10 +86,12 @@ describe('Manifest Details tests', () => {
       fireEvent.change(queryByNameAttribute('gitFetchType')!, { target: { value: 'Branch' } })
       fireEvent.change(queryByNameAttribute('branch')!, { target: { value: 'testBranch' } })
       fireEvent.change(queryByNameAttribute('paths[0].path')!, { target: { value: 'test-path' } })
+      fireEvent.change(queryByNameAttribute('repoName')!, { target: { value: 'repo-name' } })
     })
     expect(container).toMatchSnapshot()
     fireEvent.click(container.querySelector('button[type="submit"]')!)
-    await wait(() => {
+    await waitFor(() => {
+      expect(props.handleSubmit).toHaveBeenCalledTimes(1)
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
@@ -87,12 +100,12 @@ describe('Manifest Details tests', () => {
               spec: {
                 branch: 'testBranch',
                 commitId: undefined,
-                connectorRef: '',
+                connectorRef: undefined,
                 gitFetchType: 'Branch',
                 paths: ['test-path'],
-                repoName: ''
+                repoName: 'repo-name'
               },
-              type: undefined
+              type: 'Git'
             }
           }
         }
@@ -305,11 +318,11 @@ describe('Manifest Details tests', () => {
       prevStepData: {
         store: 'Git',
         connectorRef: {
-          label: 'test',
-          value: 'test',
-          scope: Scope.ACCOUNT,
           connector: {
-            identifier: 'test'
+            spec: {
+              connectionType: 'Account',
+              url: 'accounturl-test'
+            }
           }
         }
       },
@@ -329,10 +342,12 @@ describe('Manifest Details tests', () => {
       fireEvent.change(queryByNameAttribute('gitFetchType')!, { target: { value: 'Branch' } })
       fireEvent.change(queryByNameAttribute('branch')!, { target: { value: 'testBranch' } })
       fireEvent.change(queryByNameAttribute('paths[0].path')!, { target: { value: 'test-path' } })
+      fireEvent.change(queryByNameAttribute('repoName')!, { target: { value: 'repo-name' } })
     })
     expect(container).toMatchSnapshot()
     fireEvent.click(container.querySelector('button[type="submit"]')!)
-    await wait(() => {
+    await waitFor(() => {
+      expect(props.handleSubmit).toHaveBeenCalledTimes(1)
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
@@ -341,12 +356,12 @@ describe('Manifest Details tests', () => {
               spec: {
                 branch: 'testBranch',
                 commitId: undefined,
-                connectorRef: '',
+                connectorRef: undefined,
                 gitFetchType: 'Branch',
                 paths: ['test-path'],
-                repoName: ''
+                repoName: 'repo-name'
               },
-              type: undefined
+              type: 'Git'
             }
           }
         }

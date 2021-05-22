@@ -102,9 +102,21 @@ describe('helm with GIT tests', () => {
       repoName: ''
     }
 
+    const prevStepData = {
+      connectorRef: {
+        connector: {
+          spec: {
+            connectionType: 'Account',
+            url: 'accounturl-test'
+          }
+        }
+      },
+      store: 'Git'
+    }
+
     const { container } = render(
       <TestWrapper>
-        <HelmWithGIT initialValues={initialValues} {...props} />
+        <HelmWithGIT initialValues={initialValues} {...props} prevStepData={prevStepData} />
       </TestWrapper>
     )
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
@@ -113,6 +125,7 @@ describe('helm with GIT tests', () => {
       fireEvent.change(queryByNameAttribute('gitFetchType')!, { target: { value: 'Branch' } })
       fireEvent.change(queryByNameAttribute('branch')!, { target: { value: 'testBranch' } })
       fireEvent.change(queryByNameAttribute('folderPath')!, { target: { value: 'test-path' } })
+      fireEvent.change(queryByNameAttribute('repoName')!, { target: { value: 'repo-name' } })
     })
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() => {
@@ -123,12 +136,12 @@ describe('helm with GIT tests', () => {
             store: {
               spec: {
                 branch: 'testBranch',
-                connectorRef: '',
+                connectorRef: undefined,
                 folderPath: 'test-path',
                 gitFetchType: 'Branch',
-                repoName: ''
+                repoName: 'repo-name'
               },
-              type: undefined
+              type: 'Git'
             },
             helmVersion: 'V2',
             skipResourceVersioning: false

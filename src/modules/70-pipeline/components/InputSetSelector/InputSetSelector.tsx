@@ -184,6 +184,24 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   if (error) {
     showError(error.message)
   }
+
+  const showGitDeailsForInputSet = (gitDetails?: GitQueryParams) => (
+    <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
+      <Layout.Horizontal spacing="xsmall">
+        <Icon name="repository" size={12}></Icon>
+        <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+          {gitDetails?.repoIdentifier || ''}
+        </Text>
+      </Layout.Horizontal>
+      <Layout.Horizontal spacing="xsmall">
+        <Icon size={12} name="git-new-branch"></Icon>
+        <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+          {gitDetails?.branch || ''}
+        </Text>
+      </Layout.Horizontal>
+    </Layout.Vertical>
+  )
+
   const inputSets = inputSetResponse?.data?.content
 
   const selectedMultipleList = selectedInputSets.map((selected, index) => (
@@ -221,22 +239,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             )
           }}
         />
-        {selected.gitDetails?.repoIdentifier && (
-          <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
-            <Layout.Horizontal spacing="xsmall">
-              <Icon name="repository" size={12}></Icon>
-              <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-                {selected.gitDetails?.repoIdentifier || ''}
-              </Text>
-            </Layout.Horizontal>
-            <Layout.Horizontal spacing="xsmall">
-              <Icon size={12} name="git-new-branch"></Icon>
-              <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-                {selected.gitDetails?.branch || ''}
-              </Text>
-            </Layout.Horizontal>
-          </Layout.Vertical>
-        )}
+        {selected.gitDetails?.repoIdentifier && showGitDeailsForInputSet(selected.gitDetails)}
         <span className={css.order}>
           <Text className={css.orderText}>{index + 1}</Text>
           <Icon name="main-reorder" size={12} />
@@ -290,22 +293,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                 )
               }}
             />
-            {inputSet.gitDetails?.repoIdentifier && (
-              <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
-                <Layout.Horizontal spacing="xsmall">
-                  <Icon name="repository" size={12}></Icon>
-                  <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-                    {inputSet.gitDetails?.repoIdentifier || ''}
-                  </Text>
-                </Layout.Horizontal>
-                <Layout.Horizontal spacing="xsmall">
-                  <Icon size={12} name="git-new-branch"></Icon>
-                  <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-                    {inputSet.gitDetails?.branch || ''}
-                  </Text>
-                </Layout.Horizontal>
-              </Layout.Vertical>
-            )}
+            {inputSet.gitDetails?.repoIdentifier && showGitDeailsForInputSet(inputSet.gitDetails)}
           </Layout.Horizontal>
         </li>
       ))

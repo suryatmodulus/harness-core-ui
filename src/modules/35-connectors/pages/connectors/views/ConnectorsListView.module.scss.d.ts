@@ -11,5 +11,6 @@ declare const styles: {
   readonly flex: string
   readonly viewDetails: string
   readonly link: string
+  readonly tooltip: string
 }
 export default styles

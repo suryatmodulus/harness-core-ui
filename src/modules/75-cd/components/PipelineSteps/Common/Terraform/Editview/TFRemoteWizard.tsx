@@ -47,10 +47,13 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                 gitFetchType: prevStepData?.varFile?.spec?.store?.spec?.gitFetchType,
                 branch: prevStepData?.varFile?.spec?.store?.spec?.branch,
                 commitId: prevStepData?.varFile?.spec?.store?.spec?.commitId,
-                paths: (prevStepData?.varFile?.spec?.store?.spec?.paths || []).map((item: string) => ({
-                  path: item,
-                  id: uuid()
-                }))
+                paths:
+                  getMultiTypeFromValue(prevStepData?.varFile?.spec?.store?.spec?.paths) === MultiTypeInputType.RUNTIME
+                    ? prevStepData?.varFile?.spec?.store?.spec?.paths
+                    : (prevStepData?.varFile?.spec?.store?.spec?.paths || []).map((item: string) => ({
+                        path: item,
+                        id: uuid()
+                      }))
               }
             }
           }
@@ -110,10 +113,15 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
           } else if (payload.varFile.spec?.store?.spec?.gitFetchType === gitFetchTypes[1].value) {
             delete data?.varFile?.spec?.store?.spec?.branch
           }
-          if (payload.varFile.spec?.store?.spec?.paths?.length) {
+          if (
+            getMultiTypeFromValue(payload.varFile.spec?.store?.spec?.paths) === MultiTypeInputType.FIXED &&
+            payload.varFile.spec?.store?.spec?.paths?.length
+          ) {
             data.varFile.spec.store.spec['paths'] = payload.varFile.spec?.store?.spec?.paths?.map(
               (item: PathInterface) => item.path
             ) as any
+          } else if (getMultiTypeFromValue(payload.varFile.spec?.store?.spec?.paths) === MultiTypeInputType.RUNTIME) {
+            data.varFile.spec.store.spec['paths'] = payload.varFile.spec?.store?.spec?.paths
           }
           onSubmitCallBack(data)
         }}
@@ -220,7 +228,6 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                   name="varFile.spec.store.spec.paths"
                   label={getString('filePaths')}
                   style={{ width: '200' }}
-                  disableTypeSelection
                 >
                   <FieldArray
                     name="varFile.spec.store.spec.paths"
@@ -233,7 +240,10 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                                 <FormInput.MultiTextInput
                                   name={`varFile.spec.store.spec.paths[${i}].path`}
                                   label=""
-                                  multiTextInputProps={{ expressions }}
+                                  multiTextInputProps={{
+                                    expressions,
+                                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                  }}
                                 />
                                 <Button
                                   minimal

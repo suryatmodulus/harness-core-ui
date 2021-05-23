@@ -1,5 +1,11 @@
 .header {
   background-color: var(--primary-1) !important;
+
+  .gitBranch input {
+    border: none;
+    background-color: var(--primary-1) !important;
+    height: 20px;
+  }
 }
 
 .tags {

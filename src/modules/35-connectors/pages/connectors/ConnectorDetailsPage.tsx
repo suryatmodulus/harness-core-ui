@@ -1,5 +1,5 @@
-import React from 'react'
-import { Layout, Container, Icon, Text, Color } from '@wings-software/uicore'
+import React, { useEffect } from 'react'
+import { Layout, Container, Icon, Text, Color, SelectOption, Select } from '@wings-software/uicore'
 import { Tag } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Link, useParams, useLocation } from 'react-router-dom'
@@ -10,7 +10,9 @@ import {
   ConnectorResponse,
   useUpdateConnector,
   useGetOrganizationAggregateDTO,
-  EntityGitDetails
+  EntityGitDetails,
+  useGetListOfBranchesWithStatus,
+  GitBranchDTO
 } from 'services/cd-ng'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
@@ -31,6 +33,9 @@ interface Categories {
 const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const { getString } = useStrings()
   const [activeCategory, setActiveCategory] = React.useState(0)
+  const [selectedBranch, setSelectedBranch] = React.useState<string>('')
+  const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
+  const [searchTerm, setSearchTerm] = React.useState<string>('')
   const { connectorId, accountId, orgIdentifier, projectIdentifier } = useParams<
     ProjectPathProps & ConnectorPathProps
   >()
@@ -48,7 +53,65 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     queryParams: repoIdentifier && branch ? { ...defaultQueryParam, repoIdentifier, branch } : defaultQueryParam,
     mock: props.mockData
   })
+
+  useEffect(() => {
+    if (selectedBranch) {
+      refetch({
+        queryParams:
+          repoIdentifier && selectedBranch
+            ? { ...defaultQueryParam, repoIdentifier, branch: selectedBranch }
+            : defaultQueryParam
+      })
+    }
+  }, [selectedBranch])
+
+  const {
+    data: branchList,
+    loading: loadingBranchList,
+    refetch: getListOfBranchesWithStatus
+  } = useGetListOfBranchesWithStatus({
+    lazy: true,
+    debounce: 500
+  })
+
   const connectorName = data?.data?.connector?.name
+  const gitDetails = data?.data?.gitDetails
+
+  useEffect(() => {
+    if (gitDetails?.repoIdentifier) {
+      setSelectedBranch(gitDetails?.branch as string)
+      getListOfBranchesWithStatus({
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          yamlGitConfigIdentifier: gitDetails.repoIdentifier,
+          page: 0,
+          size: 10,
+          searchTerm
+        }
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm, loading])
+
+  useEffect(() => {
+    if (!loadingBranchList && branchList?.data?.branches?.content?.length) {
+      const syncedBranchOption: SelectOption[] = []
+
+      branchList.data.branches.content.forEach((item: GitBranchDTO) => {
+        syncedBranchOption.push({
+          label: item.branchName ?? '',
+          value: item.branchName ?? ''
+        })
+      })
+
+      setBranchSelectOptions(syncedBranchOption)
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadingBranchList])
+
   useDocumentTitle([connectorName || '', getString('connectorsLabel')])
 
   const categories: Categories = {
@@ -101,17 +164,26 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   }
 
   const RenderGitDetails: React.FC = () => {
-    if (data?.data?.gitDetails?.objectId) {
+    if (gitDetails?.objectId) {
       return (
         <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
           <Layout.Horizontal spacing="small">
             <Icon name="repository" margin={{ left: 'large' }}></Icon>
-            <Text>{`${data?.data?.gitDetails?.rootFolder}${data?.data?.gitDetails?.filePath}`}</Text>
+            <Text>{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
           </Layout.Horizontal>
 
           <Layout.Horizontal spacing="small">
             <Icon name="git-new-branch" margin={{ left: 'large' }}></Icon>
-            <Text>{data?.data?.gitDetails?.branch}</Text>
+            <Select
+              name="branch"
+              className={css.gitBranch}
+              value={branchSelectOptions.find(branchOption => branchOption.value === selectedBranch)}
+              items={branchSelectOptions}
+              onQueryChange={(query: string) => setSearchTerm(query)}
+              disabled={loading || loadingBranchList}
+              onChange={selected => setSelectedBranch(selected.value as string)}
+            />
+            {loading || loadingBranchList ? <Icon margin={{ top: 'xsmall' }} name="spinner" /> : null}
           </Layout.Horizontal>
         </Layout.Horizontal>
       )

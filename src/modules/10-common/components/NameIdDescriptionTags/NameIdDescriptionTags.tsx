@@ -100,7 +100,7 @@ const Tags = (props: TagsComponentProps): JSX.Element => {
           />
         )}
       </Label>
-      {isTagsOpen && <FormInput.KVTagInput name="tags" tagsProps={tagsProps} />}
+      {isTagsOpen && <FormInput.KVTagInput name="tags" tagsProps={tagsProps} className={css.tags} />}
     </Container>
   )
 }

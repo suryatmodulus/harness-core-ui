@@ -40,3 +40,12 @@
     }
   }
 }
+
+.tags {
+  :global {
+    .bp3-tag-input {
+      display: table;
+      min-width: 350px;
+    }
+  }
+}

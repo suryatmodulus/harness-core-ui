@@ -86,6 +86,7 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
   onChange?: (connector: ConnectorReferenceDTO, scope: Scope) => void
   orgIdentifier?: string
   gitScope?: GitFilterScope
+  getDefaultFromOtherRepo?: boolean
   defaultScope?: Scope
   width?: number
   type?: ConnectorInfoDTO['type'] | ConnectorInfoDTO['type'][]
@@ -194,7 +195,10 @@ const RecordRender: React.FC<RecordRenderProps> = props => {
               className={css.editBtn}
               onClick={e => {
                 e.stopPropagation()
-                openConnectorModal(true, item.record?.type || type, { connectorInfo: item.record })
+                openConnectorModal(true, item.record?.type || type, {
+                  connectorInfo: item.record,
+                  gitDetails: item.record.gitDetails ?? {}
+                })
               }}
               style={{
                 color: 'var(--primary-4)'
@@ -235,6 +239,7 @@ const RecordRender: React.FC<RecordRenderProps> = props => {
 export function getReferenceFieldProps({
   defaultScope,
   gitScope,
+  getDefaultFromOtherRepo,
   accountIdentifier,
   projectIdentifier,
   orgIdentifier,
@@ -260,7 +265,9 @@ export function getReferenceFieldProps({
     fetchRecords: (scope, search = '', done) => {
       const additionalParams = getAdditionalParams({ scope, projectIdentifier, orgIdentifier })
       const gitFilterParams =
-        gitScope?.repo && gitScope?.branch ? { repoIdentifier: gitScope.repo, branch: gitScope.branch } : {}
+        gitScope?.repo && gitScope?.branch
+          ? { repoIdentifier: gitScope.repo, branch: gitScope.branch, getDefaultFromOtherRepo }
+          : {}
       const request = Array.isArray(type)
         ? getConnectorListV2Promise({
             queryParams: {
@@ -339,6 +346,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
   const {
     defaultScope,
     gitScope,
+    getDefaultFromOtherRepo = false,
     accountIdentifier,
     projectIdentifier,
     orgIdentifier,
@@ -481,6 +489,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
         {...getReferenceFieldProps({
           defaultScope,
           gitScope,
+          getDefaultFromOtherRepo,
           accountIdentifier,
           projectIdentifier,
           orgIdentifier,

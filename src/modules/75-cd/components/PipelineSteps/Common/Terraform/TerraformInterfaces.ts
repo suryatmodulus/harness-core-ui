@@ -38,6 +38,7 @@ export interface TerraformProps {
     path?: string
   }
   readonly?: boolean
+  path?: any
   stepType?: string
 }
 
@@ -308,12 +309,18 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
 
     if (targetMap.length) {
       configObject['targets'] = targetMap
+    } else if (getMultiTypeFromValue(values?.spec?.configuration?.spec?.targets) === MultiTypeInputType.RUNTIME) {
+      configObject['targets'] = [values?.spec?.configuration?.spec?.targets]
     }
 
     if (values?.spec?.configuration?.spec?.varFiles?.length) {
       configObject['varFiles'] = values?.spec?.configuration?.spec?.varFiles
     }
-    if (connectorValue) {
+    if (
+      connectorValue ||
+      getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
+        MultiTypeInputType.RUNTIME
+    ) {
       configObject['configFiles'] = {
         ...values.spec?.configuration?.spec?.configFiles,
         store: {
@@ -405,12 +412,20 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
   if (values?.spec?.configuration?.varFiles?.length) {
     configObject['varFiles'] = values?.spec?.configuration?.varFiles
   }
-  if (connectorValue) {
+  if (
+    connectorValue ||
+    getMultiTypeFromValue(values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
+      MultiTypeInputType.RUNTIME
+  ) {
     configObject['configFiles'] = {
       ...values.spec?.configuration?.configFiles,
       store: {
         ...values.spec?.configuration?.configFiles?.store,
-        type: connectorValue?.connector?.type,
+        type:
+          getMultiTypeFromValue(values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
+          MultiTypeInputType.RUNTIME
+            ? connectorValue?.connector?.type
+            : '',
         spec: {
           ...values.spec?.configuration?.configFiles?.store?.spec,
           connectorRef: values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef

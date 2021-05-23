@@ -147,7 +147,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
               optionalField
             </label>
             <div
-              class="bp3-form-group"
+              class="bp3-form-group tags"
             >
               <div
                 class="bp3-form-content"

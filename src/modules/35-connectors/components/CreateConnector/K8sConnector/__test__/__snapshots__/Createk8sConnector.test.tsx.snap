@@ -2360,7 +2360,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                         optionalField
                       </label>
                       <div
-                        class="bp3-form-group"
+                        class="bp3-form-group tags"
                         data-id="undefined-2"
                       >
                         <div

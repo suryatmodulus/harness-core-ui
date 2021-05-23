@@ -294,7 +294,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
               optionalField
             </label>
             <div
-              class="bp3-form-group"
+              class="bp3-form-group tags"
               data-id="undefined-2"
             >
               <div

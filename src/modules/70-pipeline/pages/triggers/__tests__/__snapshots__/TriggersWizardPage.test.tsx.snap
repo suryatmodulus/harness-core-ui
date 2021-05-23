@@ -307,7 +307,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison OnEdit Sche
                           optionalField
                         </label>
                         <div
-                          class="bp3-form-group"
+                          class="bp3-form-group tags"
                           data-id="undefined-2"
                         >
                           <div
@@ -2243,7 +2243,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                           optionalField
                         </label>
                         <div
-                          class="bp3-form-group"
+                          class="bp3-form-group tags"
                           data-id="undefined-2"
                         >
                           <div

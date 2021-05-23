@@ -147,7 +147,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
               optionalField
             </label>
             <div
-              class="bp3-form-group"
+              class="bp3-form-group tags"
             >
               <div
                 class="bp3-form-content"
@@ -403,7 +403,7 @@ exports[`Test DeployService Step should render edit service view (service), then
               optionalField
             </label>
             <div
-              class="bp3-form-group"
+              class="bp3-form-group tags"
             >
               <div
                 class="bp3-form-content"

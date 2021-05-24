@@ -61,7 +61,7 @@ describe('SideNav', () => {
       <div
         data-testid="location"
       >
-        /account/dummy/ci/dashboard/orgs/org/projects/project
+        /account/dummy/ci/orgs/org/projects/project/dashboard
       </div>
     `)
   })

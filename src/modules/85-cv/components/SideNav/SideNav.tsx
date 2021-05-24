@@ -1,7 +1,6 @@
 import React from 'react'
-import { useParams, useHistory, useRouteMatch } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Layout } from '@wings-software/uicore'
-import { compile } from 'path-to-regexp'
 
 import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
@@ -13,8 +12,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
 
 export default function CVSideNav(): React.ReactElement {
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()
-  const routeMatch = useRouteMatch()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<PipelinePathProps>()
   const { getString } = useStrings()
   const history = useHistory()
   const { updateAppStore } = useAppStore()
@@ -25,25 +23,13 @@ export default function CVSideNav(): React.ReactElement {
         moduleFilter={ModuleName.CV}
         onSelect={data => {
           updateAppStore({ selectedProject: data })
-          // if a user is on a pipeline related page, redirect them to project dashboard
-          if (projectIdentifier && !pipelineIdentifier) {
-            // changing project
-            history.push(
-              compile(routeMatch.path)({
-                ...routeMatch.params,
-                projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier
-              })
-            )
-          } else {
-            history.push(
-              routes.toCVProjectOverview({
-                projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier || '',
-                accountId
-              })
-            )
-          }
+          history.push(
+            routes.toCVProjectOverview({
+              projectIdentifier: data.identifier,
+              orgIdentifier: data.orgIdentifier || '',
+              accountId
+            })
+          )
         }}
       />
       {projectIdentifier && orgIdentifier ? (

@@ -1,7 +1,6 @@
 import React from 'react'
-import { useParams, useHistory, useRouteMatch } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Layout } from '@wings-software/uicore'
-import { compile } from 'path-to-regexp'
 
 import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
@@ -15,8 +14,7 @@ import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export default function CDSideNav(): React.ReactElement {
   const params = useParams<PipelinePathProps>()
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = params
-  const routeMatch = useRouteMatch()
+  const { accountId, projectIdentifier, orgIdentifier } = params
   const history = useHistory()
   const module = 'cd'
   const { getString } = useStrings()
@@ -29,25 +27,13 @@ export default function CDSideNav(): React.ReactElement {
         moduleFilter={ModuleName.CD}
         onSelect={data => {
           updateAppStore({ selectedProject: data })
-          // if a user is on a pipeline related page, redirect them to project dashboard
-          if (projectIdentifier && !pipelineIdentifier) {
-            // changing project
-            history.push(
-              compile(routeMatch.path)({
-                ...routeMatch.params,
-                projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier
-              })
-            )
-          } else {
-            history.push(
-              routes.toCDProjectOverview({
-                projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier || '',
-                accountId
-              })
-            )
-          }
+          history.push(
+            routes.toCDProjectOverview({
+              projectIdentifier: data.identifier,
+              orgIdentifier: data.orgIdentifier || '',
+              accountId
+            })
+          )
         }}
       />
       {projectIdentifier && orgIdentifier ? (

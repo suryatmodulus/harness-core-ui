@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import { useParams, useHistory, useRouteMatch } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Layout } from '@wings-software/uicore'
-import { compile } from 'path-to-regexp'
 
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import routes from '@common/RouteDefinitions'
@@ -13,8 +12,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { useStrings } from 'framework/strings'
 
 export default function CESideNav(): React.ReactElement {
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()
-  const routeMatch = useRouteMatch()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<PipelinePathProps>()
   const history = useHistory()
   const { currentUserInfo, updateAppStore } = useAppStore()
   const { getString } = useStrings()
@@ -30,24 +28,13 @@ export default function CESideNav(): React.ReactElement {
         onSelect={data => {
           updateAppStore({ selectedProject: data })
           // if a user is on a pipeline related page, redirect them to project dashboard
-          if (projectIdentifier && !pipelineIdentifier) {
-            // changing project
-            history.push(
-              compile(routeMatch.path)({
-                ...routeMatch.params,
-                projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier
-              })
-            )
-          } else {
-            history.push(
-              routes.toCECORules({
-                projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier || '',
-                accountId
-              })
-            )
-          }
+          history.push(
+            routes.toCECORules({
+              projectIdentifier: data.identifier,
+              orgIdentifier: data.orgIdentifier || '',
+              accountId
+            })
+          )
         }}
       />
       {projectIdentifier && orgIdentifier ? (

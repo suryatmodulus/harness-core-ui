@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.25% </span>
+                <span class="strong">59.49% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/80</span>
+                <span class='fraction'>47/79</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">35.29% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/16</span>
+                <span class='fraction'>6/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.25% </span>
+                <span class="strong">59.49% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/80</span>
+                <span class='fraction'>47/79</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -360,8 +360,7 @@
 <a name='L301'></a><a href='#L301'>301</a>
 <a name='L302'></a><a href='#L302'>302</a>
 <a name='L303'></a><a href='#L303'>303</a>
-<a name='L304'></a><a href='#L304'>304</a>
-<a name='L305'></a><a href='#L305'>305</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L304'></a><a href='#L304'>304</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -437,15 +436,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -741,15 +739,14 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
     const sharedPaths =
       typeof spec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>haredPaths === 'string'
         ? <span class="branch-0 cbranch-no" title="branch not covered" >spec?.sharedPaths</span>
-        : spec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>haredPaths<span class="branch-1 cbranch-no" title="branch not covered" >?.map(<span class="fstat-no" title="function not covered" >(_</span>value: string) =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
-            id: uuid('', nameSpace()),
-            value: _value
-          })) || []
+        : spec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>haredPaths<span class="branch-1 cbranch-no" title="branch not covered" ></span>
+            ?.filter(<span class="fstat-no" title="function not covered" >(p</span>ath: string) =&gt; <span class="cstat-no" title="statement not covered" >!!path)<span class="branch-1 cbranch-no" title="branch not covered" ></span></span>
+            ?.map(<span class="fstat-no" title="function not covered" >(_</span>value: string) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+              id: uuid('', nameSpace()),
+              value: _value
+            })) || []
     const variables = pipelineData<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ariables || []
     const skipCondition = pipelineData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipCondition || ''
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (Array.isArray(sharedPaths) &amp;&amp; sharedPaths.length === 0) {
-      sharedPaths.push({ id: uuid('', nameSpace()), value: '' })
-    }
 &nbsp;
     return {
       identifier,
@@ -976,7 +973,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon May 24 2021 09:25:52 GMT+0000 (Greenwich Mean Time)
+                at Mon May 24 2021 09:26:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

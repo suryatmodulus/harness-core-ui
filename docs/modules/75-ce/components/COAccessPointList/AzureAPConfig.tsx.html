@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">60.29% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/64</span>
+                <span class='fraction'>41/68</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.29% </span>
+                <span class="strong">13.89% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/70</span>
+                <span class='fraction'>10/72</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">41.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/10</span>
+                <span class='fraction'>5/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.52% </span>
+                <span class="strong">63.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/62</span>
+                <span class='fraction'>41/65</span>
             </div>
         
             
@@ -210,7 +210,27 @@
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -335,6 +355,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -489,6 +529,26 @@ const AzureAPConfig: React.FC&lt;AzureAPConfigProps&gt; = props =&gt; {
       }
     })
   }
+&nbsp;
+  const handleBackClick = <span class="fstat-no" title="function not covered" >(v</span>alues: AzureApFormVal) =&gt; {
+<span class="cstat-no" title="statement not covered" >    setNewAp(<span class="fstat-no" title="function not covered" >prevAp </span>=&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
+      ...prevAp,
+      region: values.region,
+      ...(values.subnet &amp;&amp; {
+        subnets: [values.subnet]
+      }),
+      vpc: values.virtualNetwork,
+      metadata: {
+        ...prevAp.metadata,
+        resource_group: values.resourceGroup,
+        fe_ip_id: values.ip,
+        size: values.sku,
+        subnet_id: values.subnet,
+        certificate_id: values.certificate
+      }
+    }))
+<span class="cstat-no" title="statement not covered" >    moveBackward()</span>
+  }
   return (
     &lt;div className={css.loadBalancerDnsConfigDialog}&gt;
       &lt;Heading level={2} className={css.configHeading}&gt;
@@ -504,10 +564,10 @@ const AzureAPConfig: React.FC&lt;AzureAPConfigProps&gt; = props =&gt; {
           &lt;AzureAccessPointForm
             cloudAccountId={cloudAccountId as string}
             onSave={onSave}
-            handlePreviousClick={moveBackward}
+            handlePreviousClick={handleBackClick}
             lbCreationInProgress={lbCreationInProgress}
             handleFormSubmit={handleFormSubmit}
-            loadBalancer={loadBalancer}
+            loadBalancer={newAp}
           /&gt;
         )}
       &lt;/div&gt;
@@ -523,7 +583,7 @@ export default AzureAPConfig
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon May 24 2021 08:15:42 GMT+0000 (Greenwich Mean Time)
+                at Mon May 24 2021 09:02:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

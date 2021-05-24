@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Layout, Container, Icon, Text, Color, SelectOption, Select } from '@wings-software/uicore'
-import { Tag } from '@blueprintjs/core'
+import { Menu, Tag } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Link, useParams, useLocation } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -61,6 +61,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   useEffect(() => {
     if (!loading && connectorData?.data) {
       setData(connectorData.data)
+      setSelectedBranch(connectorData?.data?.gitDetails?.branch as string)
     }
   }, [connectorData, loading])
 
@@ -75,10 +76,9 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
 
   useEffect(() => {
     const repoId = connectorData?.data?.gitDetails?.repoIdentifier
-    // connector fetch API is called after every branch change and Test connection
-    // Avoid fetching branchList on each connector response, once branchList is fetched, fetch only on searchTerm change
-    if (searchTerm || (repoId && !branchSelectOptions.length)) {
-      setSelectedBranch(connectorData?.data?.gitDetails?.branch as string)
+    if (repoId) {
+      // connector fetch API is called after every branch change and Test connection
+      // Avoid fetching branchList on each connector response, once branchList is fetched, fetch only on searchTerm change
       getListOfBranchesWithStatus({
         queryParams: {
           accountIdentifier: accountId,
@@ -91,21 +91,20 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
         }
       })
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm, loading])
+  }, [loading, searchTerm])
 
   useEffect(() => {
-    if (!loadingBranchList && branchList?.data?.branches?.content?.length) {
-      const syncedBranchOption: SelectOption[] = []
-
-      branchList.data.branches.content.forEach((item: GitBranchDTO) => {
-        syncedBranchOption.push({
-          label: item.branchName ?? '',
-          value: item.branchName ?? ''
-        })
-      })
-
-      setBranchSelectOptions(syncedBranchOption)
+    if (!loadingBranchList) {
+      setBranchSelectOptions(
+        branchList?.data?.branches?.content?.map((item: GitBranchDTO) => {
+          return {
+            label: item.branchName ?? '',
+            value: item.branchName ?? ''
+          }
+        }) || []
+      )
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -162,49 +161,55 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     )
   }
 
-  const RenderGitDetails: React.FC = () => {
-    if (gitDetails?.objectId) {
-      return (
-        <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
-          <Layout.Horizontal spacing="small">
-            <Icon name="repository" margin={{ left: 'large' }}></Icon>
-            <Text>{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
-          </Layout.Horizontal>
-
-          <Layout.Horizontal spacing="small">
-            <Icon name="git-new-branch" margin={{ left: 'large' }}></Icon>
-            <Select
-              name="branch"
-              className={css.gitBranch}
-              value={branchSelectOptions.find(branchOption => branchOption.value === selectedBranch)}
-              items={branchSelectOptions}
-              onQueryChange={(query: string) => setSearchTerm(query)}
-              disabled={loading || loadingBranchList}
-              onChange={item => {
-                const selected = item.value as string
-                if (selected !== selectedBranch) {
-                  //Avoid any state change or API call if current branh is selected again
-                  setSelectedBranch(selected)
-                  refetch({
-                    queryParams:
-                      repoIdentifier && selected
-                        ? { ...defaultQueryParam, repoIdentifier, branch: selected }
-                        : defaultQueryParam
-                  })
-                }
-              }}
-            />
-            {loading || loadingBranchList ? <Icon margin={{ top: 'xsmall' }} name="spinner" /> : null}
-          </Layout.Horizontal>
-        </Layout.Horizontal>
-      )
-    } else {
-      return <></>
+  const handleBranchClick = (selected: string): void => {
+    if (selected !== selectedBranch) {
+      //Avoid any state change or API call if current branh is selected again
+      setSelectedBranch(selected)
+      refetch({
+        queryParams:
+          repoIdentifier && selected ? { ...defaultQueryParam, repoIdentifier, branch: selected } : defaultQueryParam
+      })
     }
   }
 
-  const renderTitle: React.FC = () => {
+  const RenderGitDetails = useMemo(() => {
     return (
+      <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
+        <Layout.Horizontal spacing="small">
+          <Icon name="repository" margin={{ left: 'large' }}></Icon>
+          <Text>{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
+        </Layout.Horizontal>
+
+        <Layout.Horizontal spacing="small">
+          <Icon name="git-new-branch" margin={{ left: 'large' }}></Icon>
+          <Select
+            name="branch"
+            className={css.gitBranch}
+            value={{ label: selectedBranch, value: selectedBranch }}
+            items={branchSelectOptions}
+            onQueryChange={(query: string) => {
+              setSearchTerm(query)
+            }}
+            itemRenderer={(item: SelectOption): React.ReactElement => {
+              return (
+                <Menu.Item
+                  key={item.value as string}
+                  active={item.value === selectedBranch}
+                  onClick={() => handleBranchClick(item.value as string)}
+                  text={item.value}
+                />
+              )
+            }}
+          />
+          {loading ? <Icon margin={{ top: 'xsmall' }} name="spinner" /> : null}
+        </Layout.Horizontal>
+      </Layout.Horizontal>
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [branchSelectOptions])
+
+  const renderTitle = useMemo(
+    () => (
       <Layout.Vertical padding={{ left: 'xsmall' }}>
         {RenderBreadCrumb(props)}
         <Layout.Horizontal spacing="small">
@@ -219,13 +224,15 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
             </Text>
             <Layout.Horizontal spacing="small">
               <Text color={Color.GREY_400}>{data?.connector?.identifier}</Text>
-              <RenderGitDetails />
+              {gitDetails?.objectId ? RenderGitDetails : null}
             </Layout.Horizontal>
           </Container>
         </Layout.Horizontal>
       </Layout.Vertical>
-    )
-  }
+    ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [connectorData, branchSelectOptions]
+  )
 
   const getPageBody = (): React.ReactElement => {
     if (loading) {
@@ -235,7 +242,17 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       return (
         <PageError
           message={(error.data as Error)?.message || error.message}
-          onClick={/* istanbul ignore next */ () => refetch()}
+          onClick={() =>
+            refetch({
+              queryParams: selectedBranch
+                ? {
+                    ...defaultQueryParam,
+                    repoIdentifier: connectorData?.data?.gitDetails?.repoIdentifier,
+                    branch: selectedBranch
+                  }
+                : defaultQueryParam
+            })
+          }
         />
       )
     }
@@ -273,7 +290,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       <Page.Header
         size="large"
         className={css.header}
-        title={renderTitle(props)}
+        title={renderTitle}
         toolbar={
           <Container>
             <Layout.Horizontal spacing="medium">

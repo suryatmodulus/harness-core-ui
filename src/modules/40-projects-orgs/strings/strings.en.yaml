@@ -75,7 +75,8 @@ noModules: 'You have no modules'
 enableModules: 'Enable More Modules'
 recentActivities: 'Recent Activities'
 blank: '{{$.common.blank}}'
-createProjectLoader: Please wait while we set up your project
+createProjectLoader: Please wait while we set up your Project
+createOrgLoader: Please wait while we set up your Organization
 createOrSelectAProject: Create or Select a Project
 getStarted: 'Let’s get you started by enabling {{moduleDescription}} to a project'
 selectAnExistingProject: Select an existing project

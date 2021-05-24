@@ -80,7 +80,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     region: ''
   })
 
-  const { data: ecrBuildData, loading, refetch } = useGetBuildDetailsForEcr({
+  const { data: ecrBuildData, loading, refetch, error: ecrTagError } = useGetBuildDetailsForEcr({
     queryParams: {
       imagePath: lastQueryData.imagePath,
       connectorRef: prevStepData?.connectorId?.value
@@ -95,14 +95,23 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   })
 
   React.useEffect(() => {
-    if (Array.isArray(ecrBuildData?.data?.buildDetailsList)) {
+    if (ecrTagError) {
+      setTagList([])
+    } else if (Array.isArray(ecrBuildData?.data?.buildDetailsList)) {
       setTagList(ecrBuildData?.data?.buildDetailsList as [])
     }
-  }, [ecrBuildData])
+  }, [ecrBuildData, ecrTagError])
 
   React.useEffect(() => {
-    lastQueryData.region && lastQueryData.imagePath && refetch()
-  }, [lastQueryData])
+    if (
+      lastQueryData.region &&
+      lastQueryData.imagePath &&
+      getMultiTypeFromValue(lastQueryData.imagePath) === MultiTypeInputType.FIXED &&
+      getMultiTypeFromValue(lastQueryData.region) === MultiTypeInputType.FIXED
+    ) {
+      refetch()
+    }
+  }, [lastQueryData, refetch])
 
   const { data } = useListAwsRegions({
     queryParams: {
@@ -155,8 +164,13 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     }
   }
 
-  const fetchTags = (imagePath = '', region = '') => {
-    if (imagePath && region && (lastQueryData.imagePath !== imagePath || lastQueryData.region !== region)) {
+  const fetchTags = (imagePath = '', region = ''): void => {
+    if (
+      imagePath &&
+      getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED &&
+      region &&
+      (lastQueryData.imagePath !== imagePath || lastQueryData.region !== region)
+    ) {
       setLastQueryData({ imagePath, region })
     }
   }
@@ -304,6 +318,14 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                       expressions,
                       selectProps: {
                         defaultSelectedItem: formik.values?.tag,
+                        noResults: (
+                          <span className={css.padSmall}>
+                            <Text lineClamp={1}>
+                              {get(ecrTagError, 'data.message', null) ||
+                                getString('pipelineSteps.deploy.errors.notags')}
+                            </Text>
+                          </span>
+                        ),
                         items: tags,
                         itemRenderer: itemRenderer,
                         allowCreatingNewItems: true

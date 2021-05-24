@@ -46,11 +46,11 @@ export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({ totalT
       <Container className={cx(css.widget, css.reportsOverview)} padding="medium">
         <Layout.Horizontal spacing="small" margin={{ bottom: 'small' }}>
           <Text className={css.stats} width="40%" background={Color.GREY_100} padding="small">
-            {getString('ci.testsReports.totalExecutedTest')}
+            {getString('pipeline.testsReports.totalExecutedTest')}
             <span className={cx(css.statsNumber)}>{totalTests}</span>
           </Text>
           <Text className={css.stats} width="30%" background={Color.RED_200} padding="small" color={Color.RED_800}>
-            {getString('ci.testsReports.failedTests')}
+            {getString('pipeline.testsReports.failedTests')}
             <span className={cx(css.statsNumber)}>{failedTests}</span>
           </Text>
           <Text className={css.stats} width="30%" background={Color.RED_200} padding="small" color={Color.RED_800}>
@@ -59,7 +59,7 @@ export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({ totalT
           </Text>
         </Layout.Horizontal>
         <Text className={css.overviewResultLabel} padding={{ top: 'medium', bottom: 'medium' }} color={Color.GREY_400}>
-          {getString('ci.testsReports.resultLabel')}
+          {getString('pipeline.testsReports.resultLabel')}
         </Text>
         <Layout.Horizontal margin={{ bottom: 'medium' }} spacing="medium">
           <Text inline icon="stop" iconProps={{ size: 16, style: { color: '#DA291D' } }}>
@@ -71,7 +71,7 @@ export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({ totalT
             {` (${passedTests})`}
           </Text>
           <Text inline icon="stop" iconProps={{ size: 16, color: Color.GREY_300 }}>
-            {getString('ci.testsReports.skipped')}
+            {getString('pipeline.testsReports.skipped')}
             {` (${skippedTests})`}
           </Text>
         </Layout.Horizontal>

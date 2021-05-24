@@ -49,12 +49,15 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
     onSelection(true)
   }, [onSelection])
 
-  const onContextMenu = React.useCallback(() => {
-    if (!link.isLocked()) {
-      event?.preventDefault()
-      link.remove()
-    }
-  }, [link])
+  const onContextMenu = React.useCallback(
+    event => {
+      if (!link.isLocked()) {
+        event?.preventDefault()
+        link.remove()
+      }
+    },
+    [link]
+  )
 
   const onClick = React.useCallback(() => {
     allowAdd && link.fireEvent({}, Event.AddLinkClicked)
@@ -66,8 +69,8 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
 
   React.useEffect(() => {
     if (pathRef.current) {
-      const totalLength = pathRef.current?.getTotalLength() * 0.5
-      const position = pathRef.current.getPointAtLength(totalLength)
+      const totalLength = (pathRef.current.getTotalLength?.() || 0) * 0.5
+      const position = pathRef.current.getPointAtLength?.(totalLength) || { x: 0, y: 0 }
       setPoint({ x: position.x, y: position.y })
     }
   }, [pathRef])

@@ -82,6 +82,7 @@ import SessionToken from 'framework/utils/SessionToken'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
+import BuildTests from '@pipeline/pages/execution/ExecutionTestView/BuildTests'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
@@ -444,6 +445,16 @@ export default (
     >
       <ExecutionLandingPage>
         <ExecutionInputsView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      layout={MinimalLayout}
+      path={routes.toExecutionTestsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+    >
+      <ExecutionLandingPage>
+        <BuildTests />
       </ExecutionLandingPage>
     </RouteWithLayout>
     <RouteWithLayout

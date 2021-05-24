@@ -61,7 +61,9 @@ export function PrometheusMetricsSideNav(props: PrometheusMetricsSideNavProps): 
   }, [renamedMetric])
 
   const metricsToRender = useMemo(() => {
-    return filter ? createdMetrics.filter(metric => metric.includes(filter)) : createdMetrics
+    return filter
+      ? createdMetrics.filter(metric => metric.toLocaleLowerCase().includes(filter?.toLocaleLowerCase()))
+      : createdMetrics
   }, [filter, createdMetrics])
 
   return (

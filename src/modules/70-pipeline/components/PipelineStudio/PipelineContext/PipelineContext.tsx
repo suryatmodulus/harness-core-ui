@@ -59,24 +59,28 @@ const logger = loggerFor(ModuleName.CD)
 
 export const getPipelineByIdentifier = (
   params: GetPipelineQueryParams,
-  identifier: string
+  identifier: string,
+  signal?: AbortSignal
 ): Promise<PipelineInfoConfigWithGitDetails> => {
-  return getPipelinePromise({
-    pipelineIdentifier: identifier,
-    queryParams: {
-      accountIdentifier: params.accountIdentifier,
-      orgIdentifier: params.orgIdentifier,
-      projectIdentifier: params.projectIdentifier,
-      ...(params.repoIdentifier ? { repoIdentifier: params.repoIdentifier, branch: params.branch } : {})
-    },
-    requestOptions: {
-      headers: {
-        'content-type': 'application/yaml'
+  return getPipelinePromise(
+    {
+      pipelineIdentifier: identifier,
+      queryParams: {
+        accountIdentifier: params.accountIdentifier,
+        orgIdentifier: params.orgIdentifier,
+        projectIdentifier: params.projectIdentifier,
+        ...(params.repoIdentifier ? { repoIdentifier: params.repoIdentifier, branch: params.branch } : {})
+      },
+      requestOptions: {
+        headers: {
+          'content-type': 'application/yaml'
+        }
       }
-    }
-  }).then(response => {
+    },
+    signal
+  ).then(response => {
     let obj = {} as ResponsePMSPipelineResponseDTO
-    if (typeof response === 'string') {
+    if ((typeof response as unknown) === 'string') {
       obj = parse(response as string).data.yamlPipeline
     } else if (response.data?.yamlPipeline) {
       obj = response
@@ -111,7 +115,7 @@ export const savePipeline = (
         body: body as any,
         requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
       }).then(response => {
-        if (typeof response === 'string') {
+        if ((typeof response as unknown) === 'string') {
           return JSON.parse(response as string) as Failure
         } else {
           return response
@@ -159,7 +163,7 @@ export interface PipelineContextInterface {
   isReadonly: boolean
   setView: (view: PipelineStudioView) => void
   renderPipelineStage: (args: Omit<PipelineStagesProps, 'children'>) => React.ReactElement<PipelineStagesProps>
-  fetchPipeline: (forceFetch?: boolean, forceUpdate?: boolean, newPipelineId?: string) => Promise<void>
+  fetchPipeline: (args: FetchPipelineUnboundProps) => Promise<void>
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
   updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
   updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
@@ -195,15 +199,23 @@ const getId = (
 ): string =>
   `${accountIdentifier}_${orgIdentifier}_${projectIdentifier}_${pipelineIdentifier}_${repoIdentifier}_${branch}`
 
-const _fetchPipeline = async (
-  dispatch: React.Dispatch<ActionReturnType>,
-  queryParams: GetPipelineQueryParams,
-  identifier: string,
-  gitDetails: EntityGitDetails,
-  forceFetch = false,
-  forceUpdate = false,
+export interface FetchPipelineBoundProps {
+  dispatch: React.Dispatch<ActionReturnType>
+  queryParams: GetPipelineQueryParams
+  pipelineIdentifier: string
+  gitDetails: EntityGitDetails
+}
+
+export interface FetchPipelineUnboundProps {
+  forceFetch?: boolean
+  forceUpdate?: boolean
   newPipelineId?: string
-): Promise<void> => {
+  signal?: AbortSignal
+}
+
+const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipelineUnboundProps): Promise<void> => {
+  const { dispatch, queryParams, pipelineIdentifier: identifier, gitDetails } = props
+  const { forceFetch = false, forceUpdate = false, newPipelineId, signal } = params
   const pipelineId = newPipelineId || identifier
   const id = getId(
     queryParams.accountIdentifier,
@@ -219,7 +231,8 @@ const _fetchPipeline = async (
     if ((!data || forceFetch) && pipelineId !== DefaultNewPipelineId) {
       const pipelineWithGitDetails: PipelineInfoConfigWithGitDetails = await getPipelineByIdentifier(
         queryParams,
-        pipelineId
+        pipelineId,
+        signal
       )
       const pipeline: PipelineInfoConfig = omit(pipelineWithGitDetails, 'gitDetails')
       const payload: PipelinePayload = {
@@ -418,7 +431,7 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
           try {
             db.deleteObjectStore(IdbPipelineStoreName)
           } catch (_) {
-            logger.error('There was no DB found')
+            // logger.error('There was no DB found')
             dispatch(PipelineContextActions.error({ error: 'There was no DB found' }))
           }
           const objectStore = db.createObjectStore(IdbPipelineStoreName, { keyPath: KeyPath, autoIncrement: false })
@@ -441,7 +454,7 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
       ++trial
 
       if (trial < 5) {
-        _initializeDb(dispatch, version, trial)
+        await _initializeDb(dispatch, version, trial)
       } else {
         logger.error(DBInitializationFailed)
         dispatch(PipelineContextActions.error({ error: DBInitializationFailed }))
@@ -512,6 +525,8 @@ export const PipelineProvider: React.FC<{
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
 }> = ({ queryParams, pipelineIdentifier, children, renderPipelineStage, stepsFactory, stagesMap, runPipeline }) => {
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+  const abortControllerRef = React.useRef<AbortController | null>(null)
+  const isMounted = React.useRef(false)
   const [state, dispatch] = React.useReducer(
     PipelineReducer,
     merge(
@@ -530,9 +545,14 @@ export const PipelineProvider: React.FC<{
   )
   const [view, setView] = useLocalStorage<PipelineStudioView>('pipeline_studio_view', PipelineStudioView.ui)
   state.pipelineIdentifier = pipelineIdentifier
-  const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier, {
-    repoIdentifier,
-    branch
+  const fetchPipeline = _fetchPipeline.bind(null, {
+    dispatch,
+    queryParams,
+    pipelineIdentifier,
+    gitDetails: {
+      repoIdentifier,
+      branch
+    }
   })
   const updateGitDetails = _updateGitDetails.bind(null, {
     dispatch,
@@ -585,10 +605,10 @@ export const PipelineProvider: React.FC<{
 
   // stage/step selection
   const queryParamStateSelection = usePipelineQuestParamState()
-  const setSelectedStageId = (selectedStageId: string | undefined) => {
+  const setSelectedStageId = (selectedStageId: string | undefined): void => {
     queryParamStateSelection.setPipelineQuestParamState({ stageId: selectedStageId })
   }
-  const setSelectedStepId = (selectedStepId: string | undefined) => {
+  const setSelectedStepId = (selectedStepId: string | undefined): void => {
     queryParamStateSelection.setPipelineQuestParamState({ stepId: selectedStepId })
   }
 
@@ -601,6 +621,7 @@ export const PipelineProvider: React.FC<{
       selectedStageId: queryParamStateSelection.stageId as string,
       selectedStepId: queryParamStateSelection.stepId as string
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryParamStateSelection.stepId, queryParamStateSelection.stageId])
 
   const getStageFromPipeline = React.useCallback(
@@ -660,13 +681,28 @@ export const PipelineProvider: React.FC<{
 
   React.useEffect(() => {
     if (state.isDBInitialized) {
-      fetchPipeline(true)
+      abortControllerRef.current = new AbortController()
+
+      fetchPipeline({ forceFetch: true, signal: abortControllerRef.current?.signal })
     }
+
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort()
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.isDBInitialized])
 
   React.useEffect(() => {
+    isMounted.current = true
     const time = SessionToken.getLastTokenSetTime()
     _initializeDb(dispatch, time || +new Date())
+
+    return () => {
+      isMounted.current = false
+      cleanUpDBRefs()
+    }
   }, [])
 
   return (

@@ -23,9 +23,10 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
       onClick={() => {
         !isPreview &&
           history.push(
-            routes.toCDProjectOverview({
+            routes.toDeployments({
               orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
               projectIdentifier: data.identifier,
+              module: 'cd',
               accountId
             })
           )

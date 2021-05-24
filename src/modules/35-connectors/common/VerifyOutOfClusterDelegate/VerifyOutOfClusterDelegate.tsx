@@ -211,36 +211,35 @@ const VerifyOutOfClusterDelegate: React.FC<
   const renderError = () => {
     const { responseMessages = null } = testConnectionResponse?.data as Error
     const genericHandler = (
-      <Layout.Horizontal className={css.errorResult}>
-        <Text
-          color={Color.GREY_900}
-          lineClamp={1}
-          font={{ size: 'small', weight: 'semi-bold' }}
-          margin={{ top: 'small', bottom: 'small' }}
-        >
-          {testConnectionResponse?.data?.errorSummary}
-        </Text>
-        {testConnectionResponse?.data?.errors && (
-          <Button
-            width={'120px'}
-            text="View Details"
-            intent="primary"
-            font={{ size: 'small' }}
-            minimal
-            onClick={() => setViewDetails(!viewDetails)}
-            rightIcon={viewDetails ? 'chevron-up' : 'chevron-down'}
-            iconProps={{ size: 12 }}
-          />
-        )}
-      </Layout.Horizontal>
+      <Layout.Vertical>
+        <Layout.Horizontal className={css.errorResult}>
+          <Text
+            color={Color.GREY_900}
+            lineClamp={1}
+            font={{ size: 'small', weight: 'semi-bold' }}
+            margin={{ top: 'small', bottom: 'small' }}
+          >
+            {testConnectionResponse?.data?.errorSummary}
+          </Text>
+          {testConnectionResponse?.data?.errors && (
+            <Button
+              text="View Details"
+              intent="primary"
+              font={{ size: 'small' }}
+              minimal
+              onClick={() => setViewDetails(!viewDetails)}
+              rightIcon={viewDetails ? 'chevron-up' : 'chevron-down'}
+              iconProps={{ size: 12 }}
+            />
+          )}
+        </Layout.Horizontal>
+        {viewDetails ? (
+          <div className={css.errorMsg}>
+            <pre>{JSON.stringify({ errors: removeErrorCode(testConnectionResponse?.data?.errors) }, null, ' ')}</pre>
+          </div>
+        ) : null}
+      </Layout.Vertical>
     )
-    {
-      viewDetails ? (
-        <div className={css.errorMsg}>
-          <pre>{JSON.stringify({ errors: removeErrorCode(testConnectionResponse?.data?.errors) }, null, ' ')}</pre>
-        </div>
-      ) : null
-    }
     return (
       <Layout.Vertical className={css.stepError}>
         {responseMessages ? (
@@ -263,12 +262,13 @@ const VerifyOutOfClusterDelegate: React.FC<
                 }
                 props.setIsEditMode?.(true) // Remove after all usages
               }}
+              withoutBoxShadow
             />
           ) : null}
           <Text
             onClick={() => window.open(getPermissionsLink(), '_blank')}
             className={cx(css.veiwPermission, { [css.marginAuto]: props.isStep })}
-            color={Color.BLUE_500}
+            intent="primary"
           >
             {getString('connectors.testConnectionStep.viewPermissions')}
           </Text>

@@ -32,7 +32,10 @@ enum StepCommandTabs {
   Advanced = 'Advanced'
 }
 
-export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): React.ReactElement {
+export function StepCommands(
+  props: StepCommandsProps & { checkDuplicateStep?: () => boolean },
+  ref: StepCommandsRef
+): React.ReactElement {
   const {
     step,
     onChange,
@@ -40,6 +43,7 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
     isReadonly,
     stepsFactory,
     hiddenPanels,
+    checkDuplicateStep,
     hasStepGroupAncestor,
     withoutTabs,
     isNewStep = true,
@@ -52,6 +56,9 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
 
   async function handleTabChange(newTab: StepCommandTabs, prevTab: StepCommandTabs): Promise<void> {
     if (prevTab === StepCommandTabs.StepConfiguration && stepRef.current) {
+      if (checkDuplicateStep?.()) {
+        return Promise.resolve()
+      }
       // please do not remove the await below.
       // This is required for errors to be populated correctly
       await stepRef.current.submitForm()

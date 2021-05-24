@@ -73,7 +73,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [tagList, setTagList] = React.useState([])
   const [lastQueryData, setLastQueryData] = React.useState({ imagePath: '', registryHostname: '' })
-  const { data, loading, refetch } = useGetBuildDetailsForGcr({
+  const { data, loading, refetch, error: gcrTagError } = useGetBuildDetailsForGcr({
     queryParams: {
       imagePath: lastQueryData.imagePath,
       connectorRef: prevStepData?.connectorId?.value
@@ -88,13 +88,23 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   })
 
   React.useEffect(() => {
-    if (Array.isArray(data?.data?.buildDetailsList)) {
+    if (gcrTagError) {
+      setTagList([])
+    } else if (Array.isArray(data?.data?.buildDetailsList)) {
       setTagList(data?.data?.buildDetailsList as [])
     }
-  }, [data])
+  }, [data, gcrTagError])
+
   React.useEffect(() => {
-    lastQueryData.registryHostname.length && lastQueryData.imagePath.length && refetch()
-  }, [lastQueryData])
+    if (
+      lastQueryData.registryHostname.length &&
+      lastQueryData.imagePath.length &&
+      getMultiTypeFromValue(lastQueryData.registryHostname) === MultiTypeInputType.FIXED &&
+      getMultiTypeFromValue(lastQueryData.imagePath) === MultiTypeInputType.FIXED
+    ) {
+      refetch()
+    }
+  }, [lastQueryData, refetch])
 
   const getSelectItems = React.useCallback(() => {
     const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
@@ -129,9 +139,10 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     }
   }
 
-  const fetchTags = (imagePath = '', registryHostname = '') => {
+  const fetchTags = (imagePath = '', registryHostname = ''): void => {
     if (
       imagePath.length &&
+      getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED &&
       registryHostname.length &&
       (lastQueryData.imagePath !== imagePath || lastQueryData.registryHostname !== registryHostname)
     ) {
@@ -273,6 +284,11 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                       expressions,
                       selectProps: {
                         defaultSelectedItem: formik.values?.tag,
+                        noResults: (
+                          <Text lineClamp={1}>
+                            {get(gcrTagError, 'data.message', null) || getString('pipelineSteps.deploy.errors.notags')}
+                          </Text>
+                        ),
                         items: tags,
                         itemRenderer: itemRenderer,
                         allowCreatingNewItems: true

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EnableGitExperience /> should render EnableGitExperience component properly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main enableGitExpContainer"
+  >
+    <div
+      class="enableGitExpContent"
+    >
+      Git Experience allows you to store the pipeline and other harness configurations in the git alongside with your code. With this, Git will act as the single source of truth for all your code and configurations.
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--border StyledProps--border-top StyledProps--padding-top-medium StyledProps--margin-top-medium"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-right-medium StyledProps--intent-primary Button--with-current-color"
+        data-test-id="enableGitExpBtn"
+        data-tooltip-id="enableGitExpBtn"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          enableGitExperience
+        </span>
+      </button>
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        data-test-id="skipNowBtn"
+        data-tooltip-id="skipNowBtn"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          pipeline.gitExperience.skipNow
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;

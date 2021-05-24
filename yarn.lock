@@ -4372,10 +4372,10 @@
     vscode-languageserver "^5.2.1"
     vscode-uri "^2.1.1"
 
-"@wings-software/ng-tooltip@1.2.0":
-  version "1.2.0"
-  resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.2.0/e669d8e4688a251ee28fc32ef3bd58b475b0eadf44041a5d1f5940b051603009#ee51f705c760f1a25b2ed3c509931989373ea30a"
-  integrity sha512-VLVq3KpwO2iGS2i6IARHcLLpWsulKMlB4B68qErQ3L6L9b0WQPuMQrc8XKsPDmGalrMlMY3WW8IDTipylkNMXQ==
+"@wings-software/ng-tooltip@1.23.0":
+  version "1.23.0"
+  resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.23.0/4ddc2132a0ee60cda07d2f3a93aedc1148131f10ba0969dd0de846017d6f7f4d#5d92d5d5863fa2fe011d7a7ed3442413767e1829"
+  integrity sha512-5+utVWqsDduFZcTIikVbg5Zsbp/dFTLsvff6Z0cETPEfsZXoZTdN5VEc8kg1DSSRnm6VR7fH1ILW67yIZ7FmYw==
 
 "@wings-software/telemetry@^1.0.36":
   version "1.0.36"

@@ -14,6 +14,7 @@ import {
   SelectOption,
   Label
 } from '@wings-software/uicore'
+import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty, get, memoize } from 'lodash-es'
 import { parse } from 'yaml'
@@ -60,6 +61,8 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import css from './GcpInfrastructureSpec.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
+const namespaceRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/
+const releaseNameRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/
 type K8sGcpInfrastructureTemplate = { [key in keyof K8sGcpInfrastructure]: string }
 interface GcpInfrastructureSpecEditableProps {
   initialValues: K8sGcpInfrastructure
@@ -107,6 +110,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
+  const onMountRef = React.useRef<boolean>(false)
 
   const {
     data: clusterNamesData,
@@ -165,6 +169,34 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
     return typeof cluster === 'string' ? (cluster as string) : cluster?.value
   }
 
+  const validationSchema = Yup.object().shape({
+    connectorRef: Yup.string().required(getString?.('fieldRequired', { field: getString('connector') })),
+    cluster: Yup.object().test({
+      test(value: SelectOption): boolean | Yup.ValidationError {
+        if (isEmpty(value) || isEmpty(value.value)) {
+          return this.createError({ message: getString('fieldRequired', { field: getString('common.cluster') }) })
+        }
+        return true
+      }
+    }),
+    namespace: Yup.string()
+      .required(getString('fieldRequired', { field: getString('common.namespace') }))
+      .test('namespace', getString('cd.namespaceValidation'), function (value) {
+        if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
+          return true
+        }
+        return namespaceRegex.test(value)
+      }),
+    releaseName: Yup.string()
+      .required(getString('fieldRequired', { field: getString('common.releaseName') }))
+      .test('releaseName', getString('cd.releaseNameValidation'), function (value) {
+        if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
+          return true
+        }
+        return releaseNameRegex.test(value)
+      })
+  })
+
   return (
     <Layout.Vertical spacing="medium">
       <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>
@@ -186,9 +218,14 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
           }
           delayedOnUpdate(data)
         }}
+        validationSchema={validationSchema}
         onSubmit={noop}
       >
         {formik => {
+          if (!onMountRef.current) {
+            onMountRef.current = true
+            formik.setTouched({ connectorRef: true, namespace: true, releaseName: true, cluster: true })
+          }
           return (
             <FormikForm>
               <Layout.Horizontal className={css.formRow} spacing="medium">
@@ -674,6 +711,9 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
     getString?: UseStringsReturn['getString']
   ): FormikErrors<K8sGcpInfrastructure> {
     const errors: K8sGcpInfrastructureTemplate = {}
+    if (isEmpty(data.cluster) && getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME) {
+      errors.connectorRef = getString?.('fieldRequired', { field: getString('connector') })
+    }
     if (isEmpty(data.cluster) && getMultiTypeFromValue(template?.cluster) === MultiTypeInputType.RUNTIME) {
       errors.cluster = getString?.('fieldRequired', { field: getString('common.cluster') })
     }

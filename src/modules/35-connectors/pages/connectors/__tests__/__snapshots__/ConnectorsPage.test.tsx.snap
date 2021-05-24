@@ -12,7 +12,7 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
           data-test="newConnectorButton"
           id="newConnectorBtn"
           type="button"
@@ -43,7 +43,7 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-left-small Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-left-small Button--with-current-color Button--without-shadow"
           data-test="createViaYamlButton"
           id="newYamlConnectorBtn"
           type="button"
@@ -235,7 +235,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
           data-test="newConnectorButton"
           id="newConnectorBtn"
           type="button"
@@ -266,7 +266,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-left-small Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-left-small Button--with-current-color Button--without-shadow"
           data-test="createViaYamlButton"
           id="newYamlConnectorBtn"
           type="button"
@@ -588,7 +588,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 />
               </div>
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
                 type="button"
               >
                 <span
@@ -817,7 +817,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 />
               </div>
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
                 type="button"
               >
                 <span
@@ -1013,7 +1013,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 />
               </div>
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
                 type="button"
               >
                 <span
@@ -1254,7 +1254,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 </p>
               </div>
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
                 type="button"
               >
                 <span
@@ -1688,7 +1688,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 />
               </div>
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
                 type="button"
               >
                 <span

@@ -43,7 +43,6 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = props => {
             name="copy"
             size={20}
             onClick={async (event: React.MouseEvent<HTMLHeadingElement, globalThis.MouseEvent>) => {
-              setIsCopied(false)
               event.preventDefault()
               event.stopPropagation()
               navigator?.clipboard?.writeText(props?.content)

@@ -14,7 +14,7 @@ import { transformPrometheusSourceToDSConfig } from './utils'
 
 type TableData = {
   metricName: string
-  prometheusMetric: string
+  groupName: string
   environment: string
   service: string
 }
@@ -32,10 +32,10 @@ export function ReviewPrometheusMapping(): JSX.Element {
   const tableData = useMemo(() => {
     const mappedServiceAndEnv: TableData[] = []
     for (const mappedApp of sourceData.mappedServicesAndEnvs || new Map()) {
-      const { metricName, prometheusMetric, serviceIdentifier, envIdentifier } = mappedApp[1]
+      const { metricName, groupName, serviceIdentifier, envIdentifier } = mappedApp[1]
       mappedServiceAndEnv.push({
         metricName,
-        prometheusMetric,
+        groupName: groupName?.label,
         service: serviceIdentifier.label,
         environment: envIdentifier.label
       })
@@ -57,10 +57,10 @@ export function ReviewPrometheusMapping(): JSX.Element {
           tableFilterProps={{
             isItemInFilter: (filterString: string, rowObject: TableData) => {
               return (
-                rowObject.metricName.toLocaleLowerCase().includes(filterString.toLocaleLowerCase()) ||
-                rowObject.prometheusMetric.toLocaleLowerCase().includes(filterString.toLocaleLowerCase()) ||
-                rowObject.service.toLocaleLowerCase().includes(filterString.toLocaleLowerCase()) ||
-                rowObject.environment.toLocaleLowerCase().includes(filterString.toLocaleLowerCase())
+                rowObject.metricName?.toLocaleLowerCase().includes(filterString.toLocaleLowerCase()) ||
+                rowObject.groupName?.toLocaleLowerCase().includes(filterString.toLocaleLowerCase()) ||
+                rowObject.service?.toLocaleLowerCase().includes(filterString.toLocaleLowerCase()) ||
+                rowObject.environment?.toLocaleLowerCase().includes(filterString.toLocaleLowerCase())
               )
             },
             placeholder: `${getString('cv.monitoringSources.appD.searchPlaceholderApplications')}, ${getString(
@@ -71,7 +71,7 @@ export function ReviewPrometheusMapping(): JSX.Element {
             data: tableData,
             columns: [
               {
-                Header: getString('cv.monitoringSources.metricNameLabel'),
+                Header: getString('cv.monitoringSources.metricNameLabel').toLocaleUpperCase(),
                 accessor: 'metricName',
                 width: '25%',
                 disableSortBy: true,
@@ -84,14 +84,14 @@ export function ReviewPrometheusMapping(): JSX.Element {
                 }
               },
               {
-                Header: getString('cv.monitoringSources.prometheus.prometheusMetric'),
-                accessor: 'prometheusMetric',
+                Header: getString('cv.monitoringSources.prometheus.groupName').toLocaleUpperCase(),
+                accessor: 'groupName',
                 width: '25%',
                 disableSortBy: true,
                 Cell: function AppName(tableProps: CellProps<TableData>) {
                   return (
                     <Text lineClamp={1} color={Color.BLACK} width="81%">
-                      {tableProps.row.original?.prometheusMetric}
+                      {tableProps.row.original?.groupName}
                     </Text>
                   )
                 }

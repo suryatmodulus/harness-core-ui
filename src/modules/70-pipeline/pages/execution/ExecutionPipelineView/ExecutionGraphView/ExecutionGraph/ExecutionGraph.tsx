@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty, get } from 'lodash-es'
+import { Color, Icon, Intent, Layout, Text } from '@wings-software/uicore'
 import { GraphLayoutNode, NodeRunInfo, useGetBarriersExecutionInfo } from 'services/pipeline-ng'
 import {
   getIconFromStageModule,
@@ -153,6 +154,14 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
 
   return (
     <div className={css.main}>
+      {!isEmpty(pipelineExecutionDetail?.pipelineExecutionSummary?.executionErrorInfo?.message) ? (
+        <Layout.Horizontal spacing="medium" background={Color.RED_100} className={css.executionError}>
+          <Icon name="warning-sign" intent={Intent.DANGER} />
+          <Text intent="danger" font={{ weight: 'semi-bold' }} lineClamp={1}>
+            {pipelineExecutionDetail?.pipelineExecutionSummary?.executionErrorInfo?.message}
+          </Text>
+        </Layout.Horizontal>
+      ) : null}
       {!isEmpty(pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier) && data.items?.length > 0 && (
         <>
           <ExecutionStageDiagram

@@ -146,7 +146,7 @@ const StepDockerAuthentication: React.FC<
       >
         {formikProps => (
           <Form>
-            <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'56%'}>
+            <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'59%'}>
               <FormInput.Text
                 name="dockerRegistryUrl"
                 placeholder={getString('UrlLabel')}

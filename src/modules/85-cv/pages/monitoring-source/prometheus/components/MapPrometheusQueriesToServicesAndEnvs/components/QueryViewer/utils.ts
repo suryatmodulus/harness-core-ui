@@ -11,11 +11,6 @@ type PrometheusHighchartsOptionAndRecords = {
   records: string[]
 }
 
-type CreateQueryReturnValue = {
-  query: string
-  canValidateQuery: boolean
-}
-
 export function transformPrometheusSampleData(
   sampleData?: PrometheusSampleData[]
 ): PrometheusHighchartsOptionAndRecords {
@@ -66,10 +61,10 @@ function convertFilterToQueryString(filters?: MultiSelectOption[]): string {
   return convertedString
 }
 
-export function createPrometheusQuery(values?: MapPrometheusQueryToService): CreateQueryReturnValue {
+export function createPrometheusQuery(values?: MapPrometheusQueryToService): string {
   let queryString = ''
   if (!values) {
-    return { query: queryString, canValidateQuery: false }
+    return ''
   }
 
   const convertedEnvFilter = convertFilterToQueryString(values.envFilter)
@@ -94,8 +89,5 @@ export function createPrometheusQuery(values?: MapPrometheusQueryToService): Cre
     queryString = `${values.aggregator}(\n\t${queryString})`
   }
 
-  return {
-    query: queryString,
-    canValidateQuery: Boolean(values.prometheusMetric?.length)
-  }
+  return queryString
 }

@@ -23,7 +23,7 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="region"
               >
-                Region
+                Region*
                  
                 <span
                   class="bp3-text-muted"
@@ -86,7 +86,7 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="resourceGroup"
               >
-                Resource Group
+                Resource Group*
                  
                 <span
                   class="bp3-text-muted"
@@ -217,7 +217,7 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="virtualNetwork"
               >
-                Virtual Network
+                Virtual Network*
                  
                 <span
                   class="bp3-text-muted"
@@ -285,7 +285,7 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="subnet"
               >
-                Subnet
+                Subnet*
                  
                 <span
                   class="bp3-text-muted"
@@ -349,7 +349,7 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="ip"
               >
-                Frontend IP
+                Frontend IP*
                  
                 <span
                   class="bp3-text-muted"
@@ -417,7 +417,7 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="sku"
               >
-                SKU
+                SKU*
                  
                 <span
                   class="bp3-text-muted"
@@ -507,7 +507,9 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              disabled=""
+              tabindex="-1"
               type="button"
             >
               <span

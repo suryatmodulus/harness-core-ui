@@ -12,7 +12,7 @@ exports[`TestsFailedPopover snapshot test should render properly 1`] = `
         class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
         level="3"
       >
-        ci.testsReports.status
+        pipeline.testsReports.status
       </h3>
       <p
         class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"
@@ -31,7 +31,7 @@ exports[`TestsFailedPopover snapshot test should render properly 1`] = `
         class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
         level="3"
       >
-        ci.testsReports.failureMessage
+        pipeline.testsReports.failureMessage
       </h3>
       <p
         class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"
@@ -50,7 +50,7 @@ exports[`TestsFailedPopover snapshot test should render properly 1`] = `
         class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
         level="3"
       >
-        ci.testsReports.stackTrace
+        pipeline.testsReports.stackTrace
       </h3>
       <p
         class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"
@@ -69,7 +69,7 @@ exports[`TestsFailedPopover snapshot test should render properly 1`] = `
         class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
         level="3"
       >
-        ci.testsReports.consoleOutput
+        pipeline.testsReports.consoleOutput
       </h3>
       <p
         class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"

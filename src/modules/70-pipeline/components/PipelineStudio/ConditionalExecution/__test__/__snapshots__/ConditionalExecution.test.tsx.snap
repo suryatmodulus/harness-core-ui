@@ -108,32 +108,11 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
             </div>
           </div>
           <div
-            class="bp3-form-group expressionInput"
+            class="main"
           >
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-popover-wrapper"
-              >
-                <div
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="bp3-input-group bp3-disabled"
-                  >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      disabled=""
-                      name="condition"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <textarea
+              name="condition"
+            />
           </div>
         </div>
       </div>
@@ -251,31 +230,11 @@ exports[`ConditionalExecution matches snapshot with data 1`] = `
             </div>
           </div>
           <div
-            class="bp3-form-group expressionInput"
+            class="main"
           >
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-popover-wrapper"
-              >
-                <div
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="bp3-input-group"
-                  >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="condition"
-                      type="text"
-                      value="some condition"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <textarea
+              name="condition"
+            />
           </div>
         </div>
       </div>

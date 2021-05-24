@@ -363,7 +363,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
             <Icon name="ng-filter" size={25} color={Color.WHITE} />
             <span className={css.title}>Filter</span>
           </Layout.Horizontal>
-          <Button minimal icon="cross" onClick={onClose} className={css.closeFilter} />
+          <Button minimal icon="cross" onClick={onClose} className={css.closeFilter} withoutBoxShadow />
         </Layout.Horizontal>
       </Layout.Vertical>
       {isRefreshingFilters || isLoading ? (
@@ -449,6 +449,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
                             ignoreClickEventDefaultBehaviour(event)
                             formik.submitForm()
                           }}
+                          withoutBoxShadow
                         />
                         <Button
                           type="reset"

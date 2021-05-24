@@ -541,6 +541,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           getMultiTypeFromValue(artifacts?.primary?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
                             ? artifacts?.primary?.spec?.connectorRef
                             : initialValues.artifacts?.primary?.spec?.connectorRef
+                        const regionCurrent =
+                          getMultiTypeFromValue(artifacts?.primary?.spec?.region) !== MultiTypeInputType.RUNTIME
+                            ? artifacts?.primary?.spec?.region
+                            : initialValues.artifacts?.primary?.spec?.region
                         const tagsPath = `primary`
                         !isTagSelectionDisabled(artifacts?.primary?.type) &&
                           fetchTags({
@@ -549,7 +553,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             connectorRef,
                             connectorType: artifacts?.primary?.type,
                             registryHostname: artifacts?.primary?.spec?.registryHostname,
-                            region: artifacts?.primary?.spec?.region
+                            region: regionCurrent
                           })
                       }}
                     >
@@ -718,6 +722,12 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                               MultiTypeInputType.RUNTIME
                                 ? artifacts?.sidecars?.[index]?.sidecar?.spec?.connectorRef
                                 : currentSidecarSpec?.connectorRef
+                            const regionCurrent =
+                              getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) !==
+                              MultiTypeInputType.RUNTIME
+                                ? artifacts?.sidecars?.[index]?.sidecar?.spec?.region
+                                : currentSidecarSpec?.region
+
                             const tagsPath = `sidecars[${index}]`
                             !isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type, index) &&
                               fetchTags({
@@ -725,7 +735,8 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                                 imagePath: imagePathCurrent,
                                 connectorRef: connectorRefCurrent,
                                 connectorType: artifacts?.sidecars?.[index]?.sidecar?.type,
-                                registryHostname: artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname
+                                registryHostname: artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname,
+                                region: regionCurrent
                               })
                           }}
                         >

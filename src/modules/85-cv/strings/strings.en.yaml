@@ -365,6 +365,7 @@ monitoringSources:
     prometheusMetrics: Prometheus Metrics
     provideQueryToSeeRecords: Provide query to see records from Prometheus
     querySpecificationsAndMappings: Query Specifications and Mapping
+    undoManualQuery: Undo manual query selection
     customizeQuery: Customize the query to get the desired output and map to Harness Service.
     mapPrometheusMetricsToServicesAndEnvs: Map Prometheus metrics to Harness Environments and Services
     chartAndRecords: Chart and Records

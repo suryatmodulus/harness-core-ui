@@ -35,7 +35,6 @@ interface ChartAndRecordsProps {
 interface QueryViewDialogProps extends ChartAndRecordsProps {
   onHide: () => void
   isManualQuery: boolean
-  canValidateQuery: boolean
 }
 
 const DrawerProps: IDrawerProps = {
@@ -161,7 +160,7 @@ export function ChartAndRecords(props: ChartAndRecordsProps): JSX.Element {
 }
 
 function QueryViewDialog(props: QueryViewDialogProps): JSX.Element {
-  const { onHide, query, isManualQuery, canValidateQuery, connectorIdentifier, onChange } = props
+  const { onHide, query, isManualQuery, connectorIdentifier, onChange } = props
   return (
     <Drawer {...DrawerProps} isOpen={true} onClose={onHide} className={css.queryViewDialog}>
       <FormInput.TextArea
@@ -172,7 +171,7 @@ function QueryViewDialog(props: QueryViewDialogProps): JSX.Element {
       />
       <ChartAndRecords
         debounceValue={isManualQuery ? 750 : undefined}
-        query={canValidateQuery ? query : undefined}
+        query={query}
         connectorIdentifier={connectorIdentifier}
         onChange={onChange}
       />
@@ -183,9 +182,9 @@ function QueryViewDialog(props: QueryViewDialogProps): JSX.Element {
 export function QueryViewer(props: QueryViewerProps): JSX.Element {
   const { values, className, connectorIdentifier, onChange } = props
   const { getString } = useStrings()
-  const { query, canValidateQuery } = useMemo(() => {
+  const query = useMemo(() => {
     if (values?.isManualQuery) {
-      return { query: values.query, canValidateQuery: values.query?.length ? true : false }
+      return values.query?.length ? values.query : ''
     }
     return createPrometheusQuery(values)
   }, [
@@ -239,7 +238,7 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
       </Container>
       <ChartAndRecords
         debounceValue={isManualQuery ? 750 : undefined}
-        query={canValidateQuery ? query : undefined}
+        query={query}
         connectorIdentifier={connectorIdentifier}
         onChange={onChange}
       />
@@ -248,9 +247,8 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
           onHide={() => setIsDialogOpen(false)}
           connectorIdentifier={connectorIdentifier}
           debounceValue={isManualQuery ? 750 : undefined}
-          query={canValidateQuery ? query : undefined}
+          query={query}
           isManualQuery={isManualQuery}
-          canValidateQuery={canValidateQuery}
           onChange={onChange}
         />
       )}

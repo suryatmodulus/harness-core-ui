@@ -428,7 +428,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
                     <div key={type.name} className={css.squareCardContainer}>
                       <Card
-                        disabled={!type.enabled}
+                        disabled={!type.enabled || isReadonly}
                         interactive={true}
                         selected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
                         cornerSelected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}

@@ -38,7 +38,10 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   }>()
   const { mutate: saveGateway } = useSaveService({
     org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    queryParams: {
+      accountIdentifier: accountId
+    }
   })
 
   const tagKey = 'lightwingRule'

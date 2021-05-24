@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button, Icon, Text, Color } from '@wings-software/uicore'
 import { get, isEmpty, isNil, set } from 'lodash-es'
@@ -24,13 +24,15 @@ import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
 import SkipCondition from '../SkipCondition/SkipCondition'
 import { StageTypes } from '../Stages/StageTypes'
+import { EnableGitExperience } from '../EnableGitExperience/EnableGitExperience'
 
 import css from './RightDrawer.module.scss'
 
 export const AlmostFullScreenDrawers: DrawerTypes[] = [
   DrawerTypes.PipelineVariables,
   DrawerTypes.PipelineNotifications,
-  DrawerTypes.FlowControl
+  DrawerTypes.FlowControl,
+  DrawerTypes.EnableGitExperience
 ]
 
 export const ConfigureStepScreenDrawers: DrawerTypes[] = [
@@ -158,6 +160,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       case DrawerTypes.PipelineNotifications:
         title = getString('notifications.name')
         break
+      case DrawerTypes.EnableGitExperience:
+        title = getString('enableGitExperience')
+        break
       default:
         title = null
     }
@@ -257,7 +262,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
         // default strategies can be present without having the need to click on Advanced Tab. For eg. in CV step.
         if (item.failureStrategies) node.failureStrategies = item.failureStrategies
-        if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {
+        if (
+          item.delegateSelectors &&
+          item.delegateSelectors.length > 0 &&
+          Array.isArray(item.delegateSelectors) &&
+          item.tab === TabTypes.Advanced
+        ) {
           node.spec = {
             ...(node.spec ? node.spec : {}),
             delegateSelectors: item.delegateSelectors
@@ -273,6 +283,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         if (
           node.spec?.delegateSelectors &&
           node.spec.delegateSelectors.length > 0 &&
+          Array.isArray(item.delegateSelectors) &&
           (!item.delegateSelectors || item.delegateSelectors?.length === 0) &&
           item.tab === TabTypes.Advanced
         ) {
@@ -367,19 +378,23 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     }
   })
 
+  const closeDrawer = (e?: SyntheticEvent<HTMLElement, Event> | undefined) => {
+    e?.persist()
+    if (checkDuplicateStep(formikRef, data, getString)) {
+      return
+    }
+    if (formikRef.current?.isDirty()) {
+      openConfirmBEUpdateError()
+      return
+    }
+    updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+    setSelectedStepId(undefined)
+  }
+
   return (
     <Drawer
       onClose={async e => {
-        e?.persist()
-        if (checkDuplicateStep(formikRef, data, getString)) {
-          return
-        }
-        if (formikRef.current?.isDirty()) {
-          openConfirmBEUpdateError()
-          return
-        }
-        updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
-        setSelectedStepId(undefined)
+        closeDrawer(e)
       }}
       usePortal={true}
       autoFocus={true}
@@ -423,6 +438,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           step={data.stepConfig.node}
           isReadonly={isReadonly}
           ref={formikRef}
+          checkDuplicateStep={checkDuplicateStep.bind(null, formikRef, data, getString)}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
@@ -623,6 +639,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           step={data.stepConfig.node}
           ref={formikRef}
           isReadonly={isReadonly}
+          checkDuplicateStep={checkDuplicateStep.bind(null, formikRef, data, getString)}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
@@ -632,6 +649,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           domain={domain}
         />
       )}
+      {type === DrawerTypes.EnableGitExperience && <EnableGitExperience closeDrawer={closeDrawer} />}
     </Drawer>
   )
 }

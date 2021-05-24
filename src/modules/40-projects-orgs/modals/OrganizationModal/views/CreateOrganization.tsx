@@ -7,6 +7,7 @@ import { usePostOrganization } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { PageSpinner } from '@common/components'
 import OrganizationForm from './OrganizationForm'
 import type { OrgModalData } from './StepAboutOrganization'
 
@@ -15,7 +16,7 @@ const CreateOrganization: React.FC<StepProps<Organization> & OrgModalData> = pro
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
-  const { mutate: createOrganization } = usePostOrganization({
+  const { mutate: createOrganization, loading: saving } = usePostOrganization({
     queryParams: {
       accountIdentifier: accountId
     }
@@ -47,14 +48,17 @@ const CreateOrganization: React.FC<StepProps<Organization> & OrgModalData> = pro
     }
   }
   return (
-    <OrganizationForm
-      title={getString('projectsOrgs.aboutTitle')}
-      enableEdit={true}
-      disableSubmit={false}
-      submitTitle={getString('saveAndContinue')}
-      setModalErrorHandler={setModalErrorHandler}
-      onComplete={onComplete}
-    />
+    <>
+      <OrganizationForm
+        title={getString('projectsOrgs.aboutTitle')}
+        enableEdit={true}
+        disableSubmit={false}
+        submitTitle={getString('saveAndContinue')}
+        setModalErrorHandler={setModalErrorHandler}
+        onComplete={onComplete}
+      />
+      {saving ? <PageSpinner message={getString('projectsOrgs.createOrgLoader')} /> : null}
+    </>
   )
 }
 

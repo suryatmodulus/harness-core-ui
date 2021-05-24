@@ -27,17 +27,17 @@ export const TestsFailedPopover: React.FC<{ testCase: TestCase }> = ({ testCase 
   if (failed) {
     return (
       <Layout.Vertical spacing="xlarge" padding="xlarge" className={css.testPopoverBody}>
-        {status && <PopoverSection label={getString('ci.testsReports.status')} content={status} />}
+        {status && <PopoverSection label={getString('pipeline.testsReports.status')} content={status} />}
 
-        {type && <PopoverSection label={getString('ci.testsReports.type')} content={type} />}
+        {type && <PopoverSection label={getString('pipeline.testsReports.type')} content={type} />}
 
-        {message && <PopoverSection label={getString('ci.testsReports.failureMessage')} content={message} />}
+        {message && <PopoverSection label={getString('pipeline.testsReports.failureMessage')} content={message} />}
 
-        {desc && <PopoverSection label={getString('ci.testsReports.description')} content={desc} />}
+        {desc && <PopoverSection label={getString('pipeline.testsReports.description')} content={desc} />}
 
-        {stacktrace && <PopoverSection label={getString('ci.testsReports.stackTrace')} content={stacktrace} />}
+        {stacktrace && <PopoverSection label={getString('pipeline.testsReports.stackTrace')} content={stacktrace} />}
 
-        {output && <PopoverSection label={getString('ci.testsReports.consoleOutput')} content={output} />}
+        {output && <PopoverSection label={getString('pipeline.testsReports.consoleOutput')} content={output} />}
       </Layout.Vertical>
     )
   }

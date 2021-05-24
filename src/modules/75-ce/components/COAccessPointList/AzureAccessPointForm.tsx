@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import * as Yup from 'yup'
+import { isEmpty as _isEmpty } from 'lodash-es'
 import { Button, Container, Formik, FormikForm, FormInput, Icon, Layout, SelectOption } from '@wings-software/uicore'
 import {
   AccessPoint,
@@ -25,7 +27,7 @@ export interface AzureApFormVal {
 interface AzureAccessPointFormProps {
   onSave: (savedAp: AccessPoint) => void
   cloudAccountId: string
-  handlePreviousClick: () => void
+  handlePreviousClick: (values: AzureApFormVal) => void
   lbCreationInProgress: boolean
   handleFormSubmit: (val: AzureApFormVal) => void
   loadBalancer: AccessPoint
@@ -82,8 +84,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: cloudAccountId,
-      region: selectedRegion?.value as string,
-      resource_group_name: selectedResourceGroup?.value as string,
+      region: (selectedRegion?.value || loadBalancer.region) as string,
+      resource_group_name: (selectedResourceGroup?.value || loadBalancer.metadata?.resource_group) as string,
       accountIdentifier: accountId
     },
     lazy: true
@@ -95,9 +97,9 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: cloudAccountId,
-      region: selectedRegion?.value as string,
-      vpc: selectedVpc?.label as string,
-      resource_group_name: selectedResourceGroup?.value as string,
+      region: (selectedRegion?.value || loadBalancer.region) as string,
+      vpc: (selectedVpc?.label || loadBalancer.vpc) as string,
+      resource_group_name: (selectedResourceGroup?.value || loadBalancer.metadata?.resource_group) as string,
       accountIdentifier: accountId
     },
     lazy: true
@@ -109,9 +111,9 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: cloudAccountId,
-      region: selectedRegion?.value as string,
-      vpc: selectedVpc?.label as string,
-      resource_group_name: selectedResourceGroup?.value as string,
+      region: (selectedRegion?.value || loadBalancer.region) as string,
+      vpc: (selectedVpc?.label || loadBalancer.vpc) as string,
+      resource_group_name: (selectedResourceGroup?.value || loadBalancer.metadata?.resource_group) as string,
       accountIdentifier: accountId
     },
     lazy: true
@@ -123,8 +125,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: cloudAccountId,
-      region: selectedRegion?.value as string,
-      resource_group_name: selectedResourceGroup?.value as string,
+      region: (selectedRegion?.value || loadBalancer.region) as string,
+      resource_group_name: (selectedResourceGroup?.value || loadBalancer.metadata?.resource_group) as string,
       accountIdentifier: accountId
     },
     lazy: true
@@ -142,7 +144,9 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
         }
       }) || []
     setRegionsOptions(loaded)
-  }, [regions])
+    const savedRegion = loadBalancer.region && loaded.find(_option => _option.value === loadBalancer.region)
+    if (savedRegion) setSelectedRegion(savedRegion)
+  }, [regions, loadBalancer.region])
 
   useEffect(() => {
     if (resourceGroups?.response?.length == 0) {
@@ -156,7 +160,11 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
         }
       }) || []
     setResourceGroupsOptions(loaded)
-  }, [resourceGroups])
+    const savedResourceGroup =
+      loadBalancer.metadata?.resource_group &&
+      loaded.find(_option => _option.value === loadBalancer.metadata?.resource_group)
+    if (savedResourceGroup) setSelectedResourceGroup(savedResourceGroup)
+  }, [resourceGroups, loadBalancer.metadata?.resource_group])
 
   useEffect(() => {
     if (selectedRegion?.value && selectedResourceGroup?.value) {
@@ -177,7 +185,9 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
         }
       }) || []
     setVpcOptions(loaded)
-  }, [vpcs])
+    const savedVpc = loadBalancer.vpc && loaded.find(_option => _option.value === loadBalancer.vpc)
+    if (savedVpc) setSelectedVpc(savedVpc)
+  }, [vpcs, loadBalancer.vpc])
 
   useEffect(() => {
     if (subnets?.response?.length == 0) {
@@ -221,6 +231,41 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     setCertificatesOptions(loaded)
   }, [certificates])
 
+  useEffect(() => {
+    if (selectedRegion?.value && selectedVpc?.label && selectedResourceGroup?.value) {
+      subnetsReload({
+        queryParams: {
+          cloud_account_id: cloudAccountId,
+          region: selectedRegion?.value as string,
+          vpc: selectedVpc?.label as string,
+          resource_group_name: selectedResourceGroup?.value as string,
+          accountIdentifier: accountId
+        }
+      })
+      publicIpsReload({
+        queryParams: {
+          cloud_account_id: cloudAccountId,
+          region: selectedRegion?.value as string,
+          vpc: selectedVpc?.label as string,
+          resource_group_name: selectedResourceGroup?.value as string,
+          accountIdentifier: accountId
+        }
+      })
+    }
+  }, [selectedRegion, selectedResourceGroup, selectedVpc])
+
+  const isFormValid = (validStatus: boolean) => {
+    return (
+      validStatus ||
+      (loadBalancer.region &&
+        loadBalancer.vpc &&
+        loadBalancer.metadata?.resource_group &&
+        loadBalancer.metadata.subnet_id &&
+        loadBalancer.metadata.fe_ip_id &&
+        loadBalancer.metadata.size)
+    )
+  }
+
   return (
     <Container>
       <Formik
@@ -234,26 +279,34 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
           certificate: loadBalancer.metadata?.certificate_id || ''
         }}
         onSubmit={props.handleFormSubmit}
+        validationSchema={Yup.object().shape({
+          ip: Yup.string().required(),
+          region: Yup.string().required(),
+          resourceGroup: Yup.string().required(),
+          sku: Yup.string().required(),
+          subnet: Yup.string().required(),
+          virtualNetwork: Yup.string().required()
+        })}
       >
-        {({ submitForm }) => (
+        {({ submitForm, isValid, values }) => (
           <FormikForm>
             <Layout.Horizontal className={css.formFieldRow}>
               <FormInput.Select
-                label={'Region'}
+                label={'Region*'}
                 placeholder={'Select region'}
                 name="region"
                 items={regionsOptions}
                 onChange={regionItem => {
                   setSelectedRegion(regionItem)
                 }}
-                disabled={regionsLoading}
+                disabled={!_isEmpty(values.region) ? false : regionsLoading}
               />
               <FormInput.Select
-                label={'Resource Group'}
+                label={'Resource Group*'}
                 placeholder={'Select resource group'}
                 name="resourceGroup"
                 items={resourceGroupsOptions}
-                disabled={resourceGroupsLoading}
+                disabled={!_isEmpty(values.resourceGroup) ? false : resourceGroupsLoading}
                 onChange={resourceItem => {
                   setSelectedResourceGroup(resourceItem)
                 }}
@@ -265,62 +318,52 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 placeholder={'Select certificate'}
                 name={'certificate'}
                 items={certificatesOptions}
-                disabled={certificatesLoading || !selectedRegion || !selectedResourceGroup}
+                disabled={
+                  !_isEmpty(values.certificate)
+                    ? false
+                    : certificatesLoading || !selectedRegion || !selectedResourceGroup
+                }
               />
               <FormInput.Select
-                label={'Virtual Network'}
+                label={'Virtual Network*'}
                 placeholder={'Select virtual network'}
                 name="virtualNetwork"
                 items={vpcOptions}
-                disabled={vpcsLoading || !selectedRegion}
+                disabled={!_isEmpty(values.virtualNetwork) ? false : vpcsLoading || !selectedRegion}
                 onChange={vpcItem => {
                   setSelectedVpc(vpcItem)
-                  subnetsReload({
-                    queryParams: {
-                      cloud_account_id: cloudAccountId,
-                      region: selectedRegion?.value as string,
-                      vpc: vpcItem.label as string,
-                      resource_group_name: selectedResourceGroup?.value as string,
-                      accountIdentifier: accountId
-                    }
-                  })
-                  publicIpsReload({
-                    queryParams: {
-                      cloud_account_id: cloudAccountId,
-                      region: selectedRegion?.value as string,
-                      vpc: vpcItem.label as string,
-                      resource_group_name: selectedResourceGroup?.value as string,
-                      accountIdentifier: accountId
-                    }
-                  })
                 }}
               />
             </Layout.Horizontal>
             <Layout.Horizontal className={css.formFieldRow}>
               <FormInput.Select
-                label={'Subnet'}
+                label={'Subnet*'}
                 placeholder={'Select subnet'}
                 name="subnet"
                 items={subnetsOptions}
-                disabled={subnetsLoading || !selectedVpc}
+                disabled={!_isEmpty(values.subnet) ? false : subnetsLoading || !selectedVpc}
               />
               <FormInput.Select
-                label={'Frontend IP'}
+                label={'Frontend IP*'}
                 placeholder={'Select IP'}
                 name="ip"
                 items={publicIpsOptions}
-                disabled={publicIpsLoading || !selectedRegion || !selectedVpc || !selectedResourceGroup}
+                disabled={
+                  !_isEmpty(values.ip)
+                    ? false
+                    : publicIpsLoading || !selectedRegion || !selectedVpc || !selectedResourceGroup
+                }
               />
             </Layout.Horizontal>
             <Layout.Horizontal className={css.formFieldRow}>
-              <FormInput.Select label={'SKU'} placeholder={'Select SKU'} name="sku" items={SKUItems} />
+              <FormInput.Select label={'SKU*'} placeholder={'Select SKU'} name="sku" items={SKUItems} />
             </Layout.Horizontal>
             <Layout.Horizontal style={{ marginTop: 100 }}>
-              <Button minimal icon={'chevron-left'} onClick={props.handlePreviousClick}>
+              <Button minimal icon={'chevron-left'} onClick={() => props.handlePreviousClick(values)}>
                 Back
               </Button>
               {!lbCreationInProgress && (
-                <Button intent={'primary'} onClick={submitForm}>
+                <Button intent={'primary'} onClick={submitForm} disabled={!isFormValid(isValid)}>
                   Save
                 </Button>
               )}

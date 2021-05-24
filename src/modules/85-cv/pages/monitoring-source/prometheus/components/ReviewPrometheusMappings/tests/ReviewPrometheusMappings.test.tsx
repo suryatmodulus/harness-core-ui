@@ -53,7 +53,7 @@ const EditMockData = {
         serviceInstance: 'some_service_instance_value',
         lowerBaselineDeviation: true,
         higherBaselineDeviation: true,
-        groupName: { label: 'group1', value: 'group1' }
+        groupName: { label: 'group2', value: 'group2' }
       }
     ],
     [
@@ -73,7 +73,7 @@ const EditMockData = {
         aggregator: 'max',
         lowerBaselineDeviation: true,
         higherBaselineDeviation: false,
-        groupName: { label: 'group1', value: 'group1' }
+        groupName: { label: 'group2', value: 'group2' }
       }
     ]
   ]),
@@ -194,7 +194,7 @@ describe('Unit tests for ReeviewPrometheusMapping', () => {
     await waitFor(() => expect(getByText('metric1')).not.toBeNull())
     getByText('cvng')
     getByText('qa')
-    getByText('count_seconds_cpu')
+    getByText('group1')
 
     fireEvent.click(getByText('submit'))
     await waitFor(() =>
@@ -260,15 +260,13 @@ describe('Unit tests for ReeviewPrometheusMapping', () => {
     await waitFor(() => expect(getByText('metric1')).not.toBeNull())
     getByText('cvng')
     getByText('qa')
-    getByText('count_seconds_cpu')
+    getByText('group1')
 
     getByText('delegate')
     getByText('qb')
-    getByText('count_seconds_cpu_qad')
 
     getByText('CD')
     getByText('qc')
-    getByText('count_seconds_cpu_dfde')
 
     fireEvent.click(getByText('submit'))
     await waitFor(() =>
@@ -311,7 +309,7 @@ describe('Unit tests for ReeviewPrometheusMapping', () => {
             aggregation: undefined,
             envFilter: [],
             envIdentifier: 'QB',
-            groupName: 'group1',
+            groupName: 'group2',
             isManualQuery: true,
             metricName: 'metric2',
             prometheusMetric: 'count_seconds_cpu_qad',
@@ -340,7 +338,7 @@ describe('Unit tests for ReeviewPrometheusMapping', () => {
               }
             ],
             envIdentifier: 'QC',
-            groupName: 'group1',
+            groupName: 'group2',
             isManualQuery: false,
             metricName: 'metric5',
             prometheusMetric: 'count_seconds_cpu_dfde',
@@ -393,7 +391,7 @@ describe('Unit tests for ReeviewPrometheusMapping', () => {
     const { container, getByText } = render(<WrapperComponent data={CreateMockTabsData} />)
     await waitFor(() => expect(container.querySelectorAll('[role="row"]').length).toBe(2))
     expect(getByText('metric1')).not.toBeNull()
-    expect(getByText('count_seconds_cpu')).not.toBeNull()
+    expect(getByText('group1')).not.toBeNull()
     expect(getByText('qa')).not.toBeNull()
 
     fireEvent.click(getByText('submit'))

@@ -778,6 +778,7 @@ export interface StringsMap {
   'projectsOrgs.confirmDeleteTitle': string
   'projectsOrgs.createANewProject': string
   'projectsOrgs.createOrSelectAProject': string
+  'projectsOrgs.createOrgLoader': string
   'projectsOrgs.createProject': string
   'projectsOrgs.createProjectLoader': string
   'projectsOrgs.editTitle': string
@@ -1050,6 +1051,7 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.retryIntervalRequired': string
   'pipeline.failureStrategies.validation.timeoutRequired': string
   'pipeline.gitDetails': string
+  'pipeline.gitExperience.skipNow': string
   'pipeline.infrastructureKey': string
   'pipeline.jiraApprovalStep.allConditions': string
   'pipeline.jiraApprovalStep.anyCondition': string
@@ -1153,6 +1155,50 @@ export interface StringsMap {
   'pipeline.startTime': string
   'pipeline.stepConfigHasChanges': string
   'pipeline.targets.title': string
+  'pipeline.testsReports.className': string
+  'pipeline.testsReports.commitId': string
+  'pipeline.testsReports.consoleOutput': string
+  'pipeline.testsReports.correlatedWithCodeChanges': string
+  'pipeline.testsReports.coverage': string
+  'pipeline.testsReports.coverageInfo': string
+  'pipeline.testsReports.description': string
+  'pipeline.testsReports.executionOverview': string
+  'pipeline.testsReports.failedTests': string
+  'pipeline.testsReports.failedWithColon': string
+  'pipeline.testsReports.failureMessage': string
+  'pipeline.testsReports.filename': string
+  'pipeline.testsReports.hangTight': string
+  'pipeline.testsReports.learnMore': string
+  'pipeline.testsReports.newTests': string
+  'pipeline.testsReports.noFailedTestsFound': string
+  'pipeline.testsReports.notfound': string
+  'pipeline.testsReports.nothing': string
+  'pipeline.testsReports.numberOfSelectedTests': string
+  'pipeline.testsReports.onlyUncoveredFiles': string
+  'pipeline.testsReports.result': string
+  'pipeline.testsReports.resultInfo': string
+  'pipeline.testsReports.resultLabel': string
+  'pipeline.testsReports.selectionBreakdown': string
+  'pipeline.testsReports.selectionBreakdownInfo': string
+  'pipeline.testsReports.showOnlyFailedTests': string
+  'pipeline.testsReports.skipped': string
+  'pipeline.testsReports.skippedWithColon': string
+  'pipeline.testsReports.sortBy': string
+  'pipeline.testsReports.stackTrace': string
+  'pipeline.testsReports.status': string
+  'pipeline.testsReports.successWithColon': string
+  'pipeline.testsReports.testCaseName': string
+  'pipeline.testsReports.testCasesExecution': string
+  'pipeline.testsReports.testCasesExecutionInfo': string
+  'pipeline.testsReports.testSuite': string
+  'pipeline.testsReports.testsIntelligentlySkipped': string
+  'pipeline.testsReports.timeSaved': string
+  'pipeline.testsReports.totalExecutedTest': string
+  'pipeline.testsReports.totalTests': string
+  'pipeline.testsReports.totalWithColon': string
+  'pipeline.testsReports.type': string
+  'pipeline.testsReports.updatedTests': string
+  'pipeline.testsReports.willBeDisplayedIfAvailable': string
   'pipeline.triggers.aboutTriggers': string
   'pipeline.triggers.activityActivation': string
   'pipeline.triggers.activityDays': string
@@ -1961,50 +2007,6 @@ export interface StringsMap {
   'ci.save': string
   'ci.secrets': string
   'ci.templates': string
-  'ci.testsReports.className': string
-  'ci.testsReports.commitId': string
-  'ci.testsReports.consoleOutput': string
-  'ci.testsReports.correlatedWithCodeChanges': string
-  'ci.testsReports.coverage': string
-  'ci.testsReports.coverageInfo': string
-  'ci.testsReports.description': string
-  'ci.testsReports.executionOverview': string
-  'ci.testsReports.failedTests': string
-  'ci.testsReports.failedWithColon': string
-  'ci.testsReports.failureMessage': string
-  'ci.testsReports.filename': string
-  'ci.testsReports.hangTight': string
-  'ci.testsReports.learnMore': string
-  'ci.testsReports.newTests': string
-  'ci.testsReports.noFailedTestsFound': string
-  'ci.testsReports.notfound': string
-  'ci.testsReports.nothing': string
-  'ci.testsReports.numberOfSelectedTests': string
-  'ci.testsReports.onlyUncoveredFiles': string
-  'ci.testsReports.result': string
-  'ci.testsReports.resultInfo': string
-  'ci.testsReports.resultLabel': string
-  'ci.testsReports.selectionBreakdown': string
-  'ci.testsReports.selectionBreakdownInfo': string
-  'ci.testsReports.showOnlyFailedTests': string
-  'ci.testsReports.skipped': string
-  'ci.testsReports.skippedWithColon': string
-  'ci.testsReports.sortBy': string
-  'ci.testsReports.stackTrace': string
-  'ci.testsReports.status': string
-  'ci.testsReports.successWithColon': string
-  'ci.testsReports.testCaseName': string
-  'ci.testsReports.testCasesExecution': string
-  'ci.testsReports.testCasesExecutionInfo': string
-  'ci.testsReports.testSuite': string
-  'ci.testsReports.testsIntelligentlySkipped': string
-  'ci.testsReports.timeSaved': string
-  'ci.testsReports.totalExecutedTest': string
-  'ci.testsReports.totalTests': string
-  'ci.testsReports.totalWithColon': string
-  'ci.testsReports.type': string
-  'ci.testsReports.updatedTests': string
-  'ci.testsReports.willBeDisplayedIfAvailable': string
   'ci.titleGovernance': string
   'ci.titleResources': string
   'ci.titleSettings': string
@@ -2295,6 +2297,7 @@ export interface StringsMap {
   'cv.monitoringSources.prometheus.stddevAggregator': string
   'cv.monitoringSources.prometheus.stdvarAggregator': string
   'cv.monitoringSources.prometheus.sumAggregator': string
+  'cv.monitoringSources.prometheus.undoManualQuery': string
   'cv.monitoringSources.prometheus.validation.aggregator': string
   'cv.monitoringSources.prometheus.validation.deviation': string
   'cv.monitoringSources.prometheus.validation.filterOnEnvironment': string
@@ -2489,10 +2492,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   activity: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'activityHistory.connectionFailed': string
   /**
    * @deprecated migrate this string to module level file
    */

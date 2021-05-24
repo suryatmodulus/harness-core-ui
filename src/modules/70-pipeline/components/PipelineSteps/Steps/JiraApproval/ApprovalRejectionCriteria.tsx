@@ -14,7 +14,13 @@ import {
   ApprovalRejectionCriteriaType,
   ConditionsInterface
 } from './types'
-import { filterOutMultiOperators, operatorValues, removeDuplicateFieldKeys, setAllowedValuesOptions } from './helper'
+import {
+  filterOutMultiOperators,
+  handleOperatorChange,
+  operatorValues,
+  removeDuplicateFieldKeys,
+  setAllowedValuesOptions
+} from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './ApprovalRejectionCriteria.module.scss'
 
@@ -125,6 +131,9 @@ export const Conditions = ({
                       name={`spec.${mode}.spec.conditions[${i}].operator`}
                       placeholder="Operator"
                       disabled={isApprovalStepFieldDisabled(readonly)}
+                      onChange={(selectedOperator: SelectOption) => {
+                        handleOperatorChange(selectedOperator, onChange, values, i)
+                      }}
                     />
                     {allowedValuesForFields[condition.key] ? (
                       renderValueSelects(condition, allowedValuesForFields, mode, i, expressions, readonly)

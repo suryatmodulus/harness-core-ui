@@ -11,13 +11,13 @@ export const BuildLoadingState: React.FC = () => {
       <Icon name="report-gear-grey" size={100} style={{ margin: '0 auto', paddingBottom: 'var(--spacing-xxlarge)' }} />
 
       <Text font={{ size: 'medium' }} padding={{ top: 'medium' }}>
-        {getString('ci.testsReports.nothing')}
+        {getString('pipeline.testsReports.nothing')}
       </Text>
       <Text padding={{ top: 'xsmall', bottom: 'large' }}>
-        {getString('ci.testsReports.willBeDisplayedIfAvailable')}
+        {getString('pipeline.testsReports.willBeDisplayedIfAvailable')}
       </Text>
       <Link target="_blank" href="https://docs.harness.io">
-        {getString('ci.testsReports.learnMore')}
+        {getString('pipeline.testsReports.learnMore')}
       </Link>
     </Layout.Vertical>
   )

@@ -450,7 +450,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -646,7 +646,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -887,7 +887,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
             </p>
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -1321,7 +1321,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -1887,7 +1887,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
             </p>
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -2116,7 +2116,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -2312,7 +2312,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -2553,7 +2553,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
             </p>
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -2987,7 +2987,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -3775,7 +3775,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -3971,7 +3971,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -4212,7 +4212,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
             </p>
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -4646,7 +4646,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -5396,7 +5396,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -5592,7 +5592,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -5833,7 +5833,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
             </p>
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -6267,7 +6267,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -7055,7 +7055,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -7251,7 +7251,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -7492,7 +7492,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
             </p>
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -7926,7 +7926,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -8492,7 +8492,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
             </p>
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -8721,7 +8721,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -8917,7 +8917,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -9158,7 +9158,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
             </p>
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -9592,7 +9592,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -10118,7 +10118,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -10347,7 +10347,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -10543,7 +10543,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -10784,7 +10784,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
             </p>
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -11218,7 +11218,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -11798,7 +11798,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -12073,7 +12073,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -12274,7 +12274,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -12520,7 +12520,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
             </p>
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -12964,7 +12964,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
             />
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span

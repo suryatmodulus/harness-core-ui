@@ -18,6 +18,8 @@ const getProps = (hasData: boolean): ConditionalExecutionProps => ({
   }
 })
 
+jest.mock('@common/components/MonacoEditor/MonacoEditor')
+
 describe('ConditionalExecution', () => {
   test('matches snapshot when no data', () => {
     const props = getProps(false)

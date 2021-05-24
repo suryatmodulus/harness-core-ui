@@ -1985,7 +1985,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 executionsText
               </p>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
+                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-primary7 StyledProps--font-small"
                 style="max-width: 100px; --text-line-clamp: 2;"
               >
                 (
@@ -2357,7 +2357,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 executionsText
               </p>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
+                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-primary7 StyledProps--font-small"
                 style="max-width: 100px; --text-line-clamp: 2;"
               >
                 (
@@ -2729,7 +2729,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 executionsText
               </p>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
+                class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-primary7 StyledProps--font-small"
                 style="max-width: 100px; --text-line-clamp: 2;"
               >
                 (

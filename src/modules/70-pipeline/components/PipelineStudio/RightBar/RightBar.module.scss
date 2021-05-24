@@ -37,6 +37,26 @@
       background-color: var(--right-bar-bg, var(--white)) !important;
     }
 
+    &.enableGitExpIcon {
+      --right-bar-icon: var(--red-500);
+
+      span {
+        line-height: 12px !important;
+        color: var(--grey-500) !important;
+        &:hover {
+          color: var(--red-500) !important;
+        }
+      }
+
+      &.selected {
+        --right-bar-bg: var(--teal-500);
+        --right-bar-icon: var(--white);
+        span {
+          color: var(--white) !important;
+        }
+      }
+    }
+
     &.notificationsIcon {
       --right-bar-icon: var(--teal-500);
 

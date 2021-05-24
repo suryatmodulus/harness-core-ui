@@ -52,29 +52,29 @@ export const TestsCoverage: React.FC = () => {
     <div className={cx(css.widgetWrapper, css.coverage)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
         <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
-          {getString('ci.testsReports.coverage')}
+          {getString('pipeline.testsReports.coverage')}
         </Heading>
         <Button
           icon="question"
           minimal
-          tooltip={getString('ci.testsReports.coverageInfo')}
+          tooltip={getString('pipeline.testsReports.coverageInfo')}
           iconProps={{ size: 14 }}
           margin={{ left: 'xsmall' }}
         />
       </Container>
       <Container className={css.widget} padding="medium">
         <Switch
-          label={getString('ci.testsReports.onlyUncoveredFiles')}
+          label={getString('pipeline.testsReports.onlyUncoveredFiles')}
           checked={showOnlyUncoveredMethods}
           onChange={e => setShowOnlyUncoveredMethods(e.currentTarget.checked)}
           margin={{ bottom: 'large' }}
         />
         <Container flex padding={{ left: 'medium', right: 'xxlarge' }} margin={{ bottom: 'medium' }}>
           <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
-            {getString('ci.testsReports.filename')}
+            {getString('pipeline.testsReports.filename')}
           </Text>
           <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
-            {getString('ci.testsReports.commitId')}
+            {getString('pipeline.testsReports.commitId')}
           </Text>
         </Container>
         <div>

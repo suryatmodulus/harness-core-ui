@@ -186,7 +186,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
               >
-                activityHistory.connectionFailed
+                common.test.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -346,7 +346,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
               >
-                activityHistory.connectionFailed
+                common.test.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -506,7 +506,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
               >
-                activityHistory.connectionFailed
+                common.test.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -586,7 +586,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
               >
-                activityHistory.connectionFailed
+                common.test.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -666,7 +666,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
               >
-                activityHistory.connectionFailed
+                common.test.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -826,7 +826,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
               >
-                activityHistory.connectionFailed
+                common.test.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -906,7 +906,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
               >
-                activityHistory.connectionFailed
+                common.test.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -986,7 +986,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
               >
-                activityHistory.connectionFailed
+                common.test.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1146,7 +1146,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
               >
-                activityHistory.connectionFailed
+                common.test.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"

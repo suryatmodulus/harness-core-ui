@@ -1312,7 +1312,6 @@ activityHistory:
   heartbeatFailure: Heart beat Failure
   connectivityCheck: Connectivity Check
   connectivityCheckFailed: Connectivity Check Failed
-  connectionFailed: Connection Failed
   createdSuccessfully: Created Successfully
   updatedSuccessfully: Updated Successfully
   noData: No Activity Found

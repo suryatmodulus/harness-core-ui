@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { HarnessDocTooltip, useModalHook } from '@wings-software/uicore'
-import { Dialog } from '@blueprintjs/core'
+import { Dialog, IDialogProps } from '@blueprintjs/core'
 
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -20,9 +20,14 @@ export default function DeploymentsList(): React.ReactElement {
   const { selectedProject } = useAppStore()
   const project = selectedProject
 
+  const runPipelineDialogProps: IDialogProps = {
+    isOpen: true,
+    style: { minWidth: 800, minHeight: 280, backgroundColor: 'var(--grey-50)' }
+  }
+
   const [openModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen={true} style={{ minWidth: 800, minHeight: 280 }}>
+      <Dialog {...runPipelineDialogProps}>
         <PipelineModalListView onClose={hideModal} />
       </Dialog>
     ),

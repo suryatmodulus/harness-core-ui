@@ -223,7 +223,7 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
           {getString('executionsText')}
         </Text>
         <Text
-          color={deployments ? Color.BLUE_500 : Color.GREY_400}
+          color={deployments ? Color.PRIMARY_7 : Color.GREY_400}
           className={`${deployments ? css.clickable : ''}`}
           onClick={event => {
             event.stopPropagation()

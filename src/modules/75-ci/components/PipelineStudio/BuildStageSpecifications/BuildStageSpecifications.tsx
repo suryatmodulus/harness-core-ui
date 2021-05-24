@@ -74,15 +74,14 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
     const sharedPaths =
       typeof spec?.sharedPaths === 'string'
         ? spec?.sharedPaths
-        : spec?.sharedPaths?.map((_value: string) => ({
-            id: uuid('', nameSpace()),
-            value: _value
-          })) || []
+        : spec?.sharedPaths
+            ?.filter((path: string) => !!path)
+            ?.map((_value: string) => ({
+              id: uuid('', nameSpace()),
+              value: _value
+            })) || []
     const variables = pipelineData?.variables || []
     const skipCondition = pipelineData?.skipCondition || ''
-    if (Array.isArray(sharedPaths) && sharedPaths.length === 0) {
-      sharedPaths.push({ id: uuid('', nameSpace()), value: '' })
-    }
 
     return {
       identifier,

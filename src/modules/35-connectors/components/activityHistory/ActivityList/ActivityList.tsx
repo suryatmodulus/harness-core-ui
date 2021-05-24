@@ -46,7 +46,7 @@ const GetStatusText: React.FC<AllActivity> = (data: AllActivity) => {
   let status = ''
 
   if (data.activityStatus === ActivityStatus.FAILED) {
-    status = getString('activityHistory.connectionFailed')
+    status = getString('common.test.connectionFailed')
   } else if (data.activityStatus === ActivityStatus.SUCCESS) {
     status = getString('common.test.connectionSuccessful')
   }

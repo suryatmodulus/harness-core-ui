@@ -31,12 +31,12 @@ export const getAllStepsCountForPalette = (originalData: StepCategory[]): number
     const { stepCategories, stepsData } = data
     if (isEmpty(stepCategories)) {
       /*
-        Ex - Kuberneters -> No nested categories -> add all the steps
+        Ex - Kubernetes -> No nested categories -> add all the steps
       */
       count += stepsData ? stepsData.length : 0
     } else {
       /**
-        Ex - Utilities -> ested categories -> add all steps of each category
+        Ex - Utilities -> nested categories -> add all steps of each category
       */
       stepCategories?.forEach((category: StepCategory) => {
         count += category.stepsData ? category.stepsData.length : 0

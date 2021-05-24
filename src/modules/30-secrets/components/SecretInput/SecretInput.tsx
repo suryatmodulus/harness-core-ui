@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { connect, FormikContext } from 'formik'
-import { Layout, Icon, Button, Container, Text, Color } from '@wings-software/uicore'
+import { Layout, Icon, Container, Text, Color } from '@wings-software/uicore'
 
 import { get, isPlainObject, pick } from 'lodash-es'
 import { FormGroup, Intent } from '@blueprintjs/core'
@@ -10,6 +10,10 @@ import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCre
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useStrings } from 'framework/strings'
 import css from './SecretInput.module.scss'
 
@@ -28,7 +32,9 @@ interface FormikSecretInput extends SecretInputProps {
 
 const SecretInput: React.FC<FormikSecretInput> = props => {
   const { getString } = useStrings()
+  const { accountId } = useParams<AccountPathProps>()
   const { formik, label, name, onSuccess, type = 'SecretText', secretsListMockData, placeholder } = props
+  const secretReference = formik.values[name]
 
   const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal(
     {
@@ -46,7 +52,7 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
     onSuccess: formData => {
       const secret: SecretReference = {
         ...pick(formData, 'identifier', 'name', 'orgIdentifier', 'projectIdentifier'),
-        referenceString: formik.values[name]['referenceString']
+        referenceString: secretReference['referenceString']
       }
       formik.setFieldValue(name, secret)
       onSuccess?.(secret)
@@ -86,22 +92,34 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
               padding="small"
               className={css.containerLinkText}
             >
-              <div>{formik.values[name] ? getString('secret.configureSecret') : getPlaceHolder()}</div>
-              {formik.values[name] ? <div>{`<${formik.values[name]['name']}>`}</div> : null}
+              <div>{secretReference ? getString('secret.configureSecret') : getPlaceHolder()}</div>
+              {secretReference ? <div>{`<${secretReference['name']}>`}</div> : null}
             </Text>
           </Link>
-          {formik.values[name] ? (
-            <Button
+          {secretReference ? (
+            <RbacButton
               minimal
               className={css.containerEditBtn}
               data-testid={`${name}-edit`}
               onClick={() =>
                 openCreateSecretModal(type, {
-                  identifier: formik.values[name]?.['identifier'],
-                  projectIdentifier: formik.values[name]?.['projectIdentifier'],
-                  orgIdentifier: formik.values[name]?.['orgIdentifier']
+                  identifier: secretReference?.['identifier'],
+                  projectIdentifier: secretReference?.['projectIdentifier'],
+                  orgIdentifier: secretReference?.['orgIdentifier']
                 } as SecretIdentifiers)
               }
+              permission={{
+                permission: PermissionIdentifier.UPDATE_SECRET,
+                resource: {
+                  resourceType: ResourceType.SECRET,
+                  resourceIdentifier: secretReference?.['identifier']
+                },
+                resourceScope: {
+                  accountIdentifier: accountId,
+                  projectIdentifier: secretReference?.['projectIdentifier'],
+                  orgIdentifier: secretReference?.['orgIdentifier']
+                }
+              }}
               text={<Icon size={16} name={'edit'} color={Color.BLUE_500} />}
             />
           ) : null}

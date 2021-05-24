@@ -31,7 +31,7 @@ export function MapPrometheusQueriesToServicesAndEnvs(): JSX.Element {
     mappedMetrics: Map<string, MapPrometheusQueryToService>
   }>({
     selectedMetric:
-      (Array.from(sourceData.mappedServicesAndEnvs?.keys())?.[0] as string) ||
+      (Array.from(sourceData.mappedServicesAndEnvs?.keys() || [])?.[0] as string) ||
       getString('cv.monitoringSources.prometheus.prometheusMetric'),
     mappedMetrics:
       sourceData.mappedServicesAndEnvs ||
@@ -147,9 +147,19 @@ export function MapPrometheusQueriesToServicesAndEnvs(): JSX.Element {
                   subHeading={getString('cv.monitoringSources.prometheus.customizeQuery')}
                 />
                 {formikProps.values?.isManualQuery && (
-                  <Text className={css.manualQueryWarning} icon="warning-sign" iconProps={{ size: 14 }}>
-                    {getString('cv.monitoringSources.prometheus.isManualQuery')}
-                  </Text>
+                  <Container className={css.manualQueryWarning}>
+                    <Text icon="warning-sign" iconProps={{ size: 14 }}>
+                      {getString('cv.monitoringSources.prometheus.isManualQuery')}
+                    </Text>
+                    <Text
+                      intent="primary"
+                      onClick={() =>
+                        formikProps.setFieldValue(MapPrometheusQueryToServiceFieldNames.IS_MANUAL_QUERY, false)
+                      }
+                    >
+                      {getString('cv.monitoringSources.prometheus.undoManualQuery')}
+                    </Text>
+                  </Container>
                 )}
                 <Layout.Horizontal className={css.content} spacing="xlarge">
                   <Accordion activeId="metricToService" className={css.accordian}>

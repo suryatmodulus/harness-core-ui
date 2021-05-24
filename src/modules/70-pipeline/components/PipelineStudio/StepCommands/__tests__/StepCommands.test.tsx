@@ -7,6 +7,8 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepCommandsWithRef } from '../StepCommands'
 
+jest.mock('@common/components/MonacoEditor/MonacoEditor')
+
 class StepFactory extends AbstractStepFactory {
   protected type = 'test-factory'
   protected stepName = 'stepOne'

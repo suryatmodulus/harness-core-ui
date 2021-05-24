@@ -77,6 +77,7 @@ export const RightBar = (): JSX.Element => {
     updatePipelineView
   } = React.useContext(PipelineContext)
   const isFlowControlEnabled = useFeatureFlag('NG_BARRIERS')
+  const { isGitSyncEnabled } = useAppStore()
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
 
@@ -263,6 +264,26 @@ export const RightBar = (): JSX.Element => {
 
   return (
     <div className={css.rightBar}>
+      {isGitSyncEnabled && (
+        <Button
+          className={cx(css.iconButton, css.enableGitExpIcon, {
+            [css.selected]: type === DrawerTypes.EnableGitExperience
+          })}
+          onClick={() => {
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: true,
+              drawerData: { type: DrawerTypes.EnableGitExperience },
+              isSplitViewOpen: false,
+              splitViewData: {}
+            })
+          }}
+          font={{ weight: 'semi-bold', size: 'xsmall' }}
+          icon="nav-git-sync"
+          iconProps={{ size: 30 }}
+          withoutCurrentColor={true}
+        />
+      )}
       {isCodebaseEnabled && (
         <Button
           className={cx(css.iconButton)}

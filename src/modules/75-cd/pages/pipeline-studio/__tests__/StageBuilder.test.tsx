@@ -5,8 +5,10 @@ import {
   getByText as getByTextBody,
   fireEvent,
   RenderResult,
-  getByTestId
+  getByTestId,
+  act
 } from '@testing-library/react'
+import { deleteDB } from 'idb'
 import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
@@ -31,34 +33,36 @@ import '@cf/components/PipelineStudio/FeatureFlagStage'
 import '@cd/components/PipelineSteps'
 // eslint-disable-next-line no-restricted-imports
 import '@ci/components/PipelineSteps'
+import { PipelineDBName } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
 jest.mock('@common/utils/YamlUtils', () => ({ useValidationError: () => ({ errorMap: new Map() }) }))
+// eslint-disable-next-line react/display-name
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
 const fetchConnectors = (): Promise<unknown> => Promise.resolve({})
 window.HTMLElement.prototype.scrollTo = jest.fn()
 
+jest.mock('services/portal', () => ({
+  useGetDelegateSelectors: jest.fn(() => ({}))
+}))
+
 jest.mock('services/cd-ng', () => ({
-  useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors })),
-  useGetConnector: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: undefined })),
-  useGetTestConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetTestGitRepoConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetSteps: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: StepsResponse })),
-  useGetExecutionStrategyList: jest.fn().mockImplementation(() => ({ loading: false, data: ExecutionResponse })),
-  useGetExecutionStrategyYaml: jest.fn().mockImplementation(() => ({ loading: false, data: YamlResponse })),
-  useGetServiceListForProject: jest
-    .fn()
-    .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),
-  useGetEnvironmentListForProject: jest
-    .fn()
-    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() }))
+  useGetConnectorListV2: jest.fn(() => ({ mutate: fetchConnectors })),
+  useGetConnector: jest.fn(() => ({ loading: false, refetch: jest.fn(), data: undefined })),
+  useGetTestConnectionResult: jest.fn(() => ({ mutate: jest.fn() })),
+  useGetTestGitRepoConnectionResult: jest.fn(() => ({ mutate: jest.fn() })),
+  useGetSteps: jest.fn(() => ({ loading: false, refetch: jest.fn(), data: StepsResponse })),
+  useGetExecutionStrategyList: jest.fn(() => ({ loading: false, data: ExecutionResponse })),
+  useGetExecutionStrategyYaml: jest.fn(() => ({ loading: false, data: YamlResponse })),
+  useGetServiceListForProject: jest.fn(() => ({ loading: false, data: services, refetch: jest.fn() })),
+  useGetEnvironmentListForProject: jest.fn(() => ({ loading: false, data: environments, refetch: jest.fn() }))
 }))
 
 jest.mock('services/pipeline-ng', () => ({
-  useGetYamlSchema: jest.fn().mockImplementation(() => ({ loading: false, data: null, refetch: jest.fn() })),
-  getPipelinePromise: jest.fn().mockImplementation(() => Promise.resolve(PipelineResponse)),
-  useGetSteps: jest.fn().mockImplementation(() => ({ loading: false, refetch: jest.fn(), data: StepsResponse })),
+  useGetYamlSchema: jest.fn(() => ({ loading: false, data: null, refetch: jest.fn() })),
+  getPipelinePromise: jest.fn(() => Promise.resolve(PipelineResponse)),
+  useGetSteps: jest.fn(() => ({ loading: false, refetch: jest.fn(), data: StepsResponse })),
   useCreateVariables: jest.fn(() => ({ mutate: jest.fn(), loading: false, cancel: jest.fn() }))
 }))
 
@@ -109,15 +113,26 @@ describe('Stage Builder Test', () => {
     getByTextContainer = getByText
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('should test stage builder and perform new stage addition', async () => {
-    // Click Create New Stage
-    const createNewBtn = stageBuilder.querySelector('.defaultCard.createNew')
-    fireEvent.click(createNewBtn as HTMLElement)
-    const deployBtn = await waitFor(() => getByTestId(document.body, 'stage-Deployment'))
+  afterEach(async () => {
+    await deleteDB(PipelineDBName)
+  })
 
-    // Select Deploy
-    fireEvent.click(deployBtn as Element)
+  // eslint-disable-next-line jest/no-disabled-tests
+  test('should test stage builder and perform new stage addition', async () => {
+    act(() => {
+      // Click Create New Stage
+      const createNewBtn = stageBuilder.querySelector('.defaultCard.createNew')
+
+      fireEvent.click(createNewBtn as HTMLElement)
+    })
+
+    await act(async () => {
+      const deployBtn = await waitFor(() => getByTestId(document.body, 'stage-Deployment'))
+
+      // Select Deploy
+      fireEvent.click(deployBtn as Element)
+    })
+
     await waitFor(() => getByTextBody(document.body, 'pipelineSteps.build.create.aboutYourStage'))
     const stageName = document.body.querySelector('[name="name"]')
     // Enter Stage Name
@@ -155,11 +170,11 @@ describe('Stage Builder Test', () => {
     // Click New Step
     const newStep = stageBuilder.querySelector('.bp3-tab-panel [icon="plus"]')
     fireEvent.click(newStep as HTMLElement)
-    await waitFor(() => getByTextBody(document.body, 'Add Step'))
+    await waitFor(() => getByTextBody(document.body, 'addStep'))
     // Select Add Step
-    const addStep = getByTextBody(document.body, 'Add Step')
+    const addStep = getByTextBody(document.body, 'addStep')
     fireEvent.click(addStep)
-    await waitFor(() => getByTextBody(document.body, 'Select a step'))
+    await waitFor(() => getByTextBody(document.body, 'stepPalette.title'))
     // Select the ShellScript Step
     const shellScriptAddStep = getByTextBody(document.body, 'Shell Script')
     fireEvent.click(shellScriptAddStep)
@@ -193,7 +208,8 @@ describe('Stage Builder Test', () => {
     await waitFor(() => expect(stageBuilder.querySelector('.iconGroup')).toBeDefined())
   }, 20000)
 
-  test('should test remove stage', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('should test remove stage', async () => {
     // Hover node
     const stage = getByTextContainer('asd')
     fireEvent.mouseOver(stage)

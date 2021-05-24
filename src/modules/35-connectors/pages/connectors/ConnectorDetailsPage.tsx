@@ -12,7 +12,9 @@ import {
   useGetOrganizationAggregateDTO,
   EntityGitDetails,
   useGetListOfBranchesWithStatus,
-  GitBranchDTO
+  GitBranchDTO,
+  ConnectorRequestBody,
+  UpdateConnectorQueryParams
 } from 'services/cd-ng'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
@@ -260,7 +262,9 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       return data?.connector?.type ? (
         <ConnectorView
           type={data.connector.type}
-          updateConnector={updateConnector}
+          updateConnector={(_data: ConnectorRequestBody, queryParams?: UpdateConnectorQueryParams) =>
+            updateConnector(_data, { queryParams })
+          }
           response={data || ({} as ConnectorResponse)}
           refetchConnector={refetch}
         />

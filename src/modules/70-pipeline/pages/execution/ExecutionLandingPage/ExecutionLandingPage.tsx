@@ -153,7 +153,11 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
       data.data?.pipelineExecutionSummary?.status
     )
 
-    const runningStep = getActiveStep(data.data.executionGraph || {})
+    const runningStep = getActiveStep(
+      data.data.executionGraph || {},
+      undefined,
+      data.data.pipelineExecutionSummary?.layoutNodeMap
+    )
 
     if (runningStage) {
       setAutoSelectedStageId(runningStage)

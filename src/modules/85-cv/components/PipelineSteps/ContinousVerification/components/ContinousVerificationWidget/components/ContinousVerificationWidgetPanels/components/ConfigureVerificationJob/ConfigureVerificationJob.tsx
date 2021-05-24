@@ -139,12 +139,7 @@ export default function ConfigureVerificationJob(props: {
     if (selectedJob) {
       const sensitivity = getFieldDataFromForm('sensitivity', verificationSensitivityOptions, specInfo, selectedJob)
       const duration = getFieldDataFromForm('duration', durationOptions, specInfo, selectedJob)
-      const trafficsplit = getFieldDataFromForm(
-        'trafficSplitPercentage',
-        trafficSplitPercentageOptions,
-        specInfo,
-        selectedJob
-      )
+      const trafficsplit = getFieldDataFromForm('trafficsplit', trafficSplitPercentageOptions, specInfo, selectedJob)
       const baseline = getFieldDataFromForm('baselineVerificationJobInstanceId', baseLineOptions, specInfo, selectedJob)
       const deploymentTag = formValues?.spec?.spec?.deploymentTag || defaultDeploymentTag
       const serviceRef =

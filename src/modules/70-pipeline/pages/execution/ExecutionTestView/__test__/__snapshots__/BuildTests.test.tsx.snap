@@ -58,7 +58,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
               class="StyledProps--font StyledProps--main stats StyledProps--background-grey100 StyledProps--padding-small"
               style="width: 40%;"
             >
-              ci.testsReports.totalExecutedTest
+              pipeline.testsReports.totalExecutedTest
               <span
                 class="statsNumber"
               >
@@ -69,7 +69,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
               class="StyledProps--font StyledProps--main stats StyledProps--background-red200 StyledProps--padding-small StyledProps--color StyledProps--color-red800"
               style="width: 30%;"
             >
-              ci.testsReports.failedTests
+              pipeline.testsReports.failedTests
               <span
                 class="statsNumber"
               >
@@ -91,7 +91,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
           <p
             class="StyledProps--font StyledProps--main overviewResultLabel StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--color StyledProps--color-grey400"
           >
-            ci.testsReports.resultLabel
+            pipeline.testsReports.resultLabel
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-bottom-medium"
@@ -173,7 +173,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   />
                 </svg>
               </span>
-              ci.testsReports.skipped
+              pipeline.testsReports.skipped
                (0)
             </span>
           </div>
@@ -34239,7 +34239,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
             class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
             level="2"
           >
-            ci.testsReports.testCasesExecution
+            pipeline.testsReports.testCasesExecution
           </h2>
           <span
             class="bp3-popover-wrapper"
@@ -34287,7 +34287,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
               <span
                 class="bp3-control-indicator"
               />
-              ci.testsReports.showOnlyFailedTests
+              pipeline.testsReports.showOnlyFailedTests
             </label>
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -34296,7 +34296,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="align-self: center;"
               >
-                ci.testsReports.sortBy
+                pipeline.testsReports.sortBy
               </p>
               <div
                 class="bp3-popover-wrapper select Select--main bp3-fill"
@@ -34390,7 +34390,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
                       </p>
@@ -34403,7 +34403,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     21
@@ -34415,7 +34415,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     1
@@ -34494,7 +34494,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     role="columnheader"
                     style="width: calc(50% - 130px);"
                   >
-                    ci.testsReports.testCaseName
+                    pipeline.testsReports.testCaseName
                   </div>
                   <div
                     class="cell"
@@ -34502,7 +34502,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     role="columnheader"
                     style="width: calc(50% - 120px);"
                   >
-                    ci.testsReports.className
+                    pipeline.testsReports.className
                   </div>
                   <div
                     class="cell"
@@ -34510,7 +34510,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     role="columnheader"
                     style="width: 100px;"
                   >
-                    ci.testsReports.result
+                    pipeline.testsReports.result
                   </div>
                   <div
                     class="cell"
@@ -36598,7 +36598,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
                       </p>
@@ -36611,7 +36611,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     15
@@ -36623,7 +36623,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     2
@@ -36726,7 +36726,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.PipelineTest
                       </p>
@@ -36739,7 +36739,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     3
@@ -36751,7 +36751,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -36854,7 +36854,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.SSOProviderTest
                       </p>
@@ -36867,7 +36867,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     3
@@ -36879,7 +36879,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -36982,7 +36982,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
                       </p>
@@ -36995,7 +36995,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     4
@@ -37007,7 +37007,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -37110,7 +37110,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.ConnectionTest
                       </p>
@@ -37123,7 +37123,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     2
@@ -37135,7 +37135,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -37238,7 +37238,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.ConnectorTest
                       </p>
@@ -37251,7 +37251,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     2
@@ -37263,7 +37263,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -37366,7 +37366,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
                       </p>
@@ -37379,7 +37379,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     6
@@ -37391,7 +37391,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -37494,7 +37494,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.VerificationComponentTest
                       </p>
@@ -37507,7 +37507,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     1
@@ -37519,7 +37519,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     1
@@ -37622,7 +37622,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
                       </p>
@@ -37635,7 +37635,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     2
@@ -37647,7 +37647,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -37750,7 +37750,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.managerclient.VerificationManagerClientHelperTest
                       </p>
@@ -37763,7 +37763,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     4
@@ -37775,7 +37775,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -37878,7 +37878,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.ChangeSetTest
                       </p>
@@ -37891,7 +37891,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     5
@@ -37903,7 +37903,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -38006,7 +38006,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
                       </p>
@@ -38019,7 +38019,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     8
@@ -38031,7 +38031,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -38134,7 +38134,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.userGroup.AddAppPermissionTest
                       </p>
@@ -38147,7 +38147,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     1
@@ -38159,7 +38159,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -38262,7 +38262,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
                       </p>
@@ -38275,7 +38275,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     20
@@ -38287,7 +38287,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     4
@@ -38496,7 +38496,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
             class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-right-medium"
             level="2"
           >
-            ci.testsReports.executionOverview
+            pipeline.testsReports.executionOverview
           </h2>
         </div>
         <div
@@ -38512,7 +38512,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
               >
-                ci.testsReports.totalTests
+                pipeline.testsReports.totalTests
               </p>
               <span
                 class="statsNumber"
@@ -38527,7 +38527,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
               >
-                ci.testsReports.numberOfSelectedTests
+                pipeline.testsReports.numberOfSelectedTests
               </p>
               <span
                 class="statsNumber"
@@ -38557,7 +38557,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-xsmall"
               >
-                ci.testsReports.testsIntelligentlySkipped
+                pipeline.testsReports.testsIntelligentlySkipped
               </p>
               <span
                 class="statsNumber"
@@ -38572,7 +38572,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main statsTitle StyledProps--color StyledProps--color-white StyledProps--margin-bottom-large"
               >
-                ci.testsReports.timeSaved
+                pipeline.testsReports.timeSaved
               </p>
               <span
                 class="statsNumber"
@@ -38593,7 +38593,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
             class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
             level="2"
           >
-            ci.testsReports.selectionBreakdown
+            pipeline.testsReports.selectionBreakdown
           </h2>
           <span
             class="bp3-popover-wrapper"
@@ -38638,7 +38638,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               >
-                ci.testsReports.correlatedWithCodeChanges
+                pipeline.testsReports.correlatedWithCodeChanges
               </p>
               <div
                 class="bp3-progress-bar bp3-no-animation bp3-no-stripes testsSelectionBreakdown"
@@ -38664,7 +38664,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               >
-                ci.testsReports.newTests
+                pipeline.testsReports.newTests
               </p>
               <div
                 class="bp3-progress-bar bp3-no-animation bp3-no-stripes testsSelectionBreakdown"
@@ -38690,7 +38690,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               >
-                ci.testsReports.updatedTests
+                pipeline.testsReports.updatedTests
               </p>
               <div
                 class="bp3-progress-bar bp3-no-animation bp3-no-stripes testsSelectionBreakdown"
@@ -38733,7 +38733,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
             class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-right-medium"
             level="2"
           >
-            ci.testsReports.executionOverview
+            pipeline.testsReports.executionOverview
           </h2>
           <span
             class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey600"
@@ -38775,7 +38775,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
               >
-                ci.testsReports.totalTests
+                pipeline.testsReports.totalTests
               </p>
               <span
                 class="statsNumber"
@@ -38790,7 +38790,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
               >
-                ci.testsReports.numberOfSelectedTests
+                pipeline.testsReports.numberOfSelectedTests
               </p>
               <span
                 class="statsNumber"
@@ -38820,7 +38820,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-xsmall"
               >
-                ci.testsReports.testsIntelligentlySkipped
+                pipeline.testsReports.testsIntelligentlySkipped
               </p>
               <span
                 class="statsNumber"
@@ -38835,7 +38835,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main statsTitle StyledProps--color StyledProps--color-white StyledProps--margin-bottom-large"
               >
-                ci.testsReports.timeSaved
+                pipeline.testsReports.timeSaved
               </p>
               <span
                 class="statsNumber"
@@ -38856,7 +38856,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
             class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
             level="2"
           >
-            ci.testsReports.resultLabel
+            pipeline.testsReports.resultLabel
           </h2>
           <span
             class="bp3-popover-wrapper"
@@ -38899,20 +38899,22 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold"
               style="font-size: 10px;"
             >
-              ci.testsReports.totalWithColon
+              pipeline.testsReports.totalWithColon
                
               3782
-               | 
-              ci.testsReports.failedWithColon
+               |
+               
+              pipeline.testsReports.failedWithColon
                
               2
-               | 
-              ci.testsReports.successWithColon
+               |
+               
+              pipeline.testsReports.successWithColon
                
               3780
                |
                
-              ci.testsReports.skippedWithColon
+              pipeline.testsReports.skippedWithColon
                
               0
             </p>
@@ -38994,7 +38996,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     />
                   </svg>
                 </span>
-                ci.testsReports.skipped
+                pipeline.testsReports.skipped
               </p>
             </div>
           </div>
@@ -73056,7 +73058,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
             class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
             level="2"
           >
-            ci.testsReports.selectionBreakdown
+            pipeline.testsReports.selectionBreakdown
           </h2>
           <span
             class="bp3-popover-wrapper"
@@ -73101,7 +73103,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               >
-                ci.testsReports.correlatedWithCodeChanges
+                pipeline.testsReports.correlatedWithCodeChanges
               </p>
               <div
                 class="bp3-progress-bar bp3-no-animation bp3-no-stripes testsSelectionBreakdown"
@@ -73127,7 +73129,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               >
-                ci.testsReports.newTests
+                pipeline.testsReports.newTests
               </p>
               <div
                 class="bp3-progress-bar bp3-no-animation bp3-no-stripes testsSelectionBreakdown"
@@ -73153,7 +73155,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               >
-                ci.testsReports.updatedTests
+                pipeline.testsReports.updatedTests
               </p>
               <div
                 class="bp3-progress-bar bp3-no-animation bp3-no-stripes testsSelectionBreakdown"
@@ -73186,7 +73188,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
             class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
             level="2"
           >
-            ci.testsReports.testCasesExecution
+            pipeline.testsReports.testCasesExecution
           </h2>
           <span
             class="bp3-popover-wrapper"
@@ -73234,7 +73236,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               <span
                 class="bp3-control-indicator"
               />
-              ci.testsReports.showOnlyFailedTests
+              pipeline.testsReports.showOnlyFailedTests
             </label>
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -73243,7 +73245,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="align-self: center;"
               >
-                ci.testsReports.sortBy
+                pipeline.testsReports.sortBy
               </p>
               <div
                 class="bp3-popover-wrapper select Select--main bp3-fill"
@@ -73337,7 +73339,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
                       </p>
@@ -73350,7 +73352,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     21
@@ -73362,7 +73364,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     1
@@ -73441,7 +73443,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     role="columnheader"
                     style="width: calc(50% - 130px);"
                   >
-                    ci.testsReports.testCaseName
+                    pipeline.testsReports.testCaseName
                   </div>
                   <div
                     class="cell"
@@ -73449,7 +73451,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     role="columnheader"
                     style="width: calc(50% - 120px);"
                   >
-                    ci.testsReports.className
+                    pipeline.testsReports.className
                   </div>
                   <div
                     class="cell"
@@ -73457,7 +73459,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     role="columnheader"
                     style="width: 100px;"
                   >
-                    ci.testsReports.result
+                    pipeline.testsReports.result
                   </div>
                   <div
                     class="cell"
@@ -75545,7 +75547,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
                       </p>
@@ -75558,7 +75560,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     15
@@ -75570,7 +75572,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     2
@@ -75673,7 +75675,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.PipelineTest
                       </p>
@@ -75686,7 +75688,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     3
@@ -75698,7 +75700,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -75801,7 +75803,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.SSOProviderTest
                       </p>
@@ -75814,7 +75816,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     3
@@ -75826,7 +75828,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -75929,7 +75931,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
                       </p>
@@ -75942,7 +75944,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     4
@@ -75954,7 +75956,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -76057,7 +76059,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.ConnectionTest
                       </p>
@@ -76070,7 +76072,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     2
@@ -76082,7 +76084,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -76185,7 +76187,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.ConnectorTest
                       </p>
@@ -76198,7 +76200,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     2
@@ -76210,7 +76212,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -76313,7 +76315,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
                       </p>
@@ -76326,7 +76328,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     6
@@ -76338,7 +76340,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -76441,7 +76443,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.VerificationComponentTest
                       </p>
@@ -76454,7 +76456,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     1
@@ -76466,7 +76468,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     1
@@ -76569,7 +76571,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
                       </p>
@@ -76582,7 +76584,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     2
@@ -76594,7 +76596,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -76697,7 +76699,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.managerclient.VerificationManagerClientHelperTest
                       </p>
@@ -76710,7 +76712,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     4
@@ -76722,7 +76724,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -76825,7 +76827,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.ChangeSetTest
                       </p>
@@ -76838,7 +76840,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     5
@@ -76850,7 +76852,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -76953,7 +76955,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
                       </p>
@@ -76966,7 +76968,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     8
@@ -76978,7 +76980,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -77081,7 +77083,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         io.harness.userGroup.AddAppPermissionTest
                       </p>
@@ -77094,7 +77096,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     1
@@ -77106,7 +77108,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     0
@@ -77209,7 +77211,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         class="StyledProps--font StyledProps--main testSuiteName"
                         tabindex="0"
                       >
-                        ci.testsReports.testSuite
+                        pipeline.testsReports.testSuite
                          
                         software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
                       </p>
@@ -77222,7 +77224,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.totalTests
+                    pipeline.testsReports.totalTests
                   </span>
                   <span>
                     20
@@ -77234,7 +77236,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failedTests
+                    pipeline.testsReports.failedTests
                   </span>
                   <span>
                     4
@@ -77476,12 +77478,12 @@ exports[`BuildTests snapshot test should render ZeroState UI 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-top-medium"
       >
-        ci.testsReports.nothing
+        pipeline.testsReports.nothing
       </p>
       <p
         class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-large"
       >
-        ci.testsReports.notfound
+        pipeline.testsReports.notfound
       </p>
       <a
         class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
@@ -77494,7 +77496,7 @@ exports[`BuildTests snapshot test should render ZeroState UI 1`] = `
         <span
           class="bp3-button-text"
         >
-          ci.testsReports.learnMore
+          pipeline.testsReports.learnMore
         </span>
       </a>
     </div>

@@ -34,6 +34,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
   const isLogView = view === 'log'
   const indicatorRef = React.useRef<HTMLDivElement | null>(null)
   const isCI = params.module === 'ci'
+  const isCIInPipeline = pipelineExecutionDetail?.pipelineExecutionSummary?.moduleInfo?.ci
 
   const ciData = pipelineExecutionDetail?.pipelineExecutionSummary?.moduleInfo?.ci
     ?.ciExecutionInfoDTO as CIBuildResponseDTO
@@ -109,11 +110,13 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
                 <span>{getString('commits')}</span>
               </NavLink>
             ) : null}
-            <NavLink to={routes.toExecutionTestsView(params)} className={css.tabLink} activeClassName={css.activeLink}>
-              <Icon name="lab-test" size={16} />
-              <span>{getString('tests')}</span>
-            </NavLink>
           </>
+        )}
+        {(isCI || isCIInPipeline) && (
+          <NavLink to={routes.toExecutionTestsView(params)} className={css.tabLink} activeClassName={css.activeLink}>
+            <Icon name="lab-test" size={16} />
+            <span>{getString('tests')}</span>
+          </NavLink>
         )}
         <div ref={indicatorRef} className={css.tabIndicator} />
       </div>

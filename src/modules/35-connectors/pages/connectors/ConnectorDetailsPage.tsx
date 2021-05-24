@@ -32,6 +32,7 @@ interface Categories {
 
 const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const { getString } = useStrings()
+  const [data, setData] = React.useState<ConnectorResponse>({})
   const [activeCategory, setActiveCategory] = React.useState(0)
   const [selectedBranch, setSelectedBranch] = React.useState<string>('')
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
@@ -48,22 +49,20 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     projectIdentifier: projectIdentifier as string
   }
 
-  const { loading, data, refetch, error } = useGetConnector({
+  const { loading, data: connectorData, refetch, error } = useGetConnector({
     identifier: connectorId as string,
     queryParams: repoIdentifier && branch ? { ...defaultQueryParam, repoIdentifier, branch } : defaultQueryParam,
     mock: props.mockData
   })
 
+  const connectorName = data?.connector?.name
+  const gitDetails = data?.gitDetails
+
   useEffect(() => {
-    if (selectedBranch) {
-      refetch({
-        queryParams:
-          repoIdentifier && selectedBranch
-            ? { ...defaultQueryParam, repoIdentifier, branch: selectedBranch }
-            : defaultQueryParam
-      })
+    if (!loading && connectorData?.data) {
+      setData(connectorData.data)
     }
-  }, [selectedBranch])
+  }, [connectorData, loading])
 
   const {
     data: branchList,
@@ -74,18 +73,18 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     debounce: 500
   })
 
-  const connectorName = data?.data?.connector?.name
-  const gitDetails = data?.data?.gitDetails
-
   useEffect(() => {
-    if (gitDetails?.repoIdentifier) {
-      setSelectedBranch(gitDetails?.branch as string)
+    const repoId = connectorData?.data?.gitDetails?.repoIdentifier
+    // connector fetch API is called after every branch change and Test connection
+    // Avoid fetching branchList on each connector response, once branchList is fetched, fetch only on searchTerm change
+    if (searchTerm || (repoId && !branchSelectOptions.length)) {
+      setSelectedBranch(connectorData?.data?.gitDetails?.branch as string)
       getListOfBranchesWithStatus({
         queryParams: {
           accountIdentifier: accountId,
           orgIdentifier,
           projectIdentifier,
-          yamlGitConfigIdentifier: gitDetails.repoIdentifier,
+          yamlGitConfigIdentifier: repoId,
           page: 0,
           size: 10,
           searchTerm
@@ -181,7 +180,19 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
               items={branchSelectOptions}
               onQueryChange={(query: string) => setSearchTerm(query)}
               disabled={loading || loadingBranchList}
-              onChange={selected => setSelectedBranch(selected.value as string)}
+              onChange={item => {
+                const selected = item.value as string
+                if (selected !== selectedBranch) {
+                  //Avoid any state change or API call if current branh is selected again
+                  setSelectedBranch(selected)
+                  refetch({
+                    queryParams:
+                      repoIdentifier && selected
+                        ? { ...defaultQueryParam, repoIdentifier, branch: selected }
+                        : defaultQueryParam
+                  })
+                }
+              }}
             />
             {loading || loadingBranchList ? <Icon margin={{ top: 'xsmall' }} name="spinner" /> : null}
           </Layout.Horizontal>
@@ -199,7 +210,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
         <Layout.Horizontal spacing="small">
           <Icon
             margin={{ left: 'xsmall', right: 'xsmall' }}
-            name={getIconByType(data?.data?.connector?.type)}
+            name={getIconByType(data?.connector?.type)}
             size={35}
           ></Icon>
           <Container>
@@ -207,7 +218,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
               {connectorName}
             </Text>
             <Layout.Horizontal spacing="small">
-              <Text color={Color.GREY_400}>{data?.data?.connector?.identifier}</Text>
+              <Text color={Color.GREY_400}>{data?.connector?.identifier}</Text>
               <RenderGitDetails />
             </Layout.Horizontal>
           </Container>
@@ -229,11 +240,11 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       )
     }
     if (activeCategory === 0) {
-      return data?.data?.connector?.type ? (
+      return data?.connector?.type ? (
         <ConnectorView
-          type={data.data.connector.type}
+          type={data.connector.type}
           updateConnector={updateConnector}
-          response={data.data || ({} as ConnectorResponse)}
+          response={data || ({} as ConnectorResponse)}
           refetchConnector={refetch}
         />
       ) : (
@@ -247,14 +258,12 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           entityType={'Connectors'}
-          entityIdentifier={data.data?.connector?.identifier}
+          entityIdentifier={data?.connector?.identifier}
         />
       )
     }
     if (activeCategory === 2 && data) {
-      return (
-        <ActivityHistory referredEntityType="Connectors" entityIdentifier={data.data?.connector?.identifier || ''} />
-      )
+      return <ActivityHistory referredEntityType="Connectors" entityIdentifier={data?.connector?.identifier || ''} />
     }
     return <></>
   }

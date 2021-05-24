@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { noop } from 'lodash-es'
 import { Button, Layout, Container, Icon, Text, Color } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import cx from 'classnames'
@@ -13,6 +14,7 @@ import {
   ResponseYamlSnippets,
   ResponsePageSecretResponseWrapper,
   ConnectorConnectivityDetails,
+  UpdateConnectorQueryParams,
   useGetYamlSchema
 } from 'services/cd-ng'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
@@ -28,6 +30,9 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { getUrlValueByType } from './utils/ConnectorUtils'
 import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
 import css from './ConnectorView.module.scss'
@@ -35,7 +40,7 @@ import css from './ConnectorView.module.scss'
 export interface ConnectorViewProps {
   type: ConnectorInfoDTO['type']
   response: ConnectorResponse
-  updateConnector: (data: ConnectorRequestBody) => Promise<unknown>
+  updateConnector: (data: ConnectorRequestBody, queryParams?: UpdateConnectorQueryParams) => Promise<unknown>
   refetchConnector: () => Promise<any>
   mockMetaData?: UseGetMockData<ResponseYamlSnippets>
   mockSnippetData?: UseGetMockData<ResponseJsonNode>
@@ -81,6 +86,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   // TODO: remove the connector condition after migrating CEAWS connector to 35-connectors module
   const isHarnessManaged = props.response?.harnessManaged || props.response.connector?.type === Connectors.CEAWS
   const [hasConnectorChanged, setHasConnectorChanged] = useState<boolean>(false)
+  const { isGitSyncEnabled } = useAppStore()
 
   const [canEditConnector] = usePermission(
     {
@@ -112,10 +118,10 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   }
   const { showSuccess, showError } = useToaster()
 
-  const onSubmit = async (connectorPayload: ConnectorRequestBody) => {
+  const onSubmit = async (connectorPayload: ConnectorRequestBody, queryParams?: UpdateConnectorQueryParams) => {
     setIsUpdating(true)
     try {
-      const data = await props.updateConnector(connectorPayload)
+      const data = await props.updateConnector(connectorPayload, queryParams)
       if (data) {
         showSuccess(getString('saveConnectorSuccess'))
         props.refetchConnector()
@@ -147,11 +153,14 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     }
   }
 
+  const { openSaveToGitDialog } = useSaveToGitDialog({
+    onSuccess: (gitDetails: SaveToGitFormInterface): void => handleSaveYaml(gitDetails),
+    onClose: noop
+  })
+
   /* excluding below method from coverage since it's called only by YAMLBuilder */
   /* istanbul ignore next */
-  const handleSaveYaml = (event: React.MouseEvent<Element, MouseEvent>): void => {
-    event.stopPropagation()
-    event.preventDefault()
+  const handleSaveYaml = (gitDetails?: SaveToGitFormInterface): void => {
     const { getLatestYaml, getYAMLValidationErrorMap } = yamlHandler || {}
     const yamlString = getLatestYaml?.() || ''
     try {
@@ -161,10 +170,13 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
         if (errorMap && errorMap.size > 0) {
           showError(getString('yamlBuilder.yamlError'))
         } else {
-          onSubmit(connectorJSONEq)
+          const queryParams = gitDetails
+            ? { accountIdentifier: accountId, ...gitDetails, lastObjectId: props.response?.gitDetails?.objectId }
+            : {}
+          onSubmit(connectorJSONEq, queryParams)
+          setConnector(connectorJSONEq?.connector)
+          setConnectorForYaml(connectorJSONEq?.connector)
         }
-        setConnector(connectorJSONEq?.connector)
-        setConnectorForYaml(connectorJSONEq?.connector)
       }
     } /* istanbul ignore next */ catch (err) {
       if (err?.toString().includes('YAMLSemanticError')) {
@@ -360,7 +372,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     entityType: 'Connectors',
     existingJSON: { connector: connectorForYaml },
     isReadOnlyMode: true,
-    height: 'calc(100vh - 300px)',
+    height: 'calc(100vh - 350px)',
     yamlSanityConfig: {
       removeEmptyString: false
     }
@@ -439,7 +451,18 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                     id="saveYAMLChanges"
                     intent="primary"
                     text={getString('saveChanges')}
-                    onClick={handleSaveYaml}
+                    onClick={() => {
+                      if (isGitSyncEnabled) {
+                        openSaveToGitDialog(true, {
+                          type: 'Connectors',
+                          name: props.response.connector?.name || '',
+                          identifier: props.response.connector?.identifier || '',
+                          gitDetails: props.response.gitDetails
+                        })
+                      } else {
+                        handleSaveYaml()
+                      }
+                    }}
                     margin={{ top: 'large' }}
                     title={isValidYAML ? '' : getString('invalidYaml')}
                     disabled={!hasConnectorChanged}

@@ -340,5 +340,5 @@ banners:
 test:
   inProgress: Testing in progress
   connectionSuccessful: Connection Successful
-  connectionFailed: Connection Failed.
-  retest: Retest.
+  connectionFailed: Connection Failed
+  retest: Retest

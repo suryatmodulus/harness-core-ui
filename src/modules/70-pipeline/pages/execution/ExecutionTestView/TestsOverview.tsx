@@ -27,7 +27,7 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({ totalTests, skippe
         style={{ height: 32, flexShrink: 0 }}
       >
         <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600} margin={{ right: 'medium' }}>
-          {getString('ci.testsReports.executionOverview')}
+          {getString('pipeline.testsReports.executionOverview')}
         </Heading>
         {durationMS && (
           <Duration
@@ -50,7 +50,7 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({ totalTests, skippe
             style={{ backgroundColor: 'var(--white)' }}
           >
             <Text className={cx(css.statsTitle)} margin={{ bottom: 'large' }}>
-              {getString('ci.testsReports.totalTests')}
+              {getString('pipeline.testsReports.totalTests')}
             </Text>
             <span className={cx(css.statsNumber)}>{totalTests}</span>
           </Text>
@@ -61,7 +61,7 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({ totalTests, skippe
             style={{ position: 'relative', backgroundColor: 'var(--white)' }}
           >
             <Text className={cx(css.statsTitle)} margin={{ bottom: 'large' }}>
-              {getString('ci.testsReports.numberOfSelectedTests')}
+              {getString('pipeline.testsReports.numberOfSelectedTests')}
             </Text>
             <span className={cx(css.statsNumber)}>{selectedTests}</span>
             <div className={css.linesWrapper}>
@@ -85,13 +85,13 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({ totalTests, skippe
             style={{ backgroundColor: 'var(--white)' }}
           >
             <Text className={cx(css.statsTitle)} margin={{ bottom: 'xsmall' }}>
-              {getString('ci.testsReports.testsIntelligentlySkipped')}
+              {getString('pipeline.testsReports.testsIntelligentlySkipped')}
             </Text>
             <span className={cx(css.statsNumber)}>{skippedTests}</span>
           </Text>
           <Text className={css.stats} padding="medium" color={Color.WHITE} style={{ backgroundColor: '#4DC952' }}>
             <Text className={cx(css.statsTitle)} color={Color.WHITE} margin={{ bottom: 'large' }}>
-              {getString('ci.testsReports.timeSaved')}
+              {getString('pipeline.testsReports.timeSaved')}
             </Text>
             <span className={cx(css.statsNumber)}>{timeToDisplayText(timeSavedMS) || '0ms'}</span>
           </Text>

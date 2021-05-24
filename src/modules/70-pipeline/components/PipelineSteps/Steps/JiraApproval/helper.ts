@@ -263,3 +263,21 @@ export const setAllowedValuesOptions = (allowedValues: JiraFieldAllowedValueNG[]
     label: allowedValue.value || allowedValue.name || allowedValue.id || '',
     value: allowedValue.value || allowedValue.name || allowedValue.id || ''
   }))
+
+export const handleOperatorChange = (
+  selectedOperator: SelectOption,
+  onChange: (values: ApprovalRejectionCriteria) => void,
+  values: ApprovalRejectionCriteria,
+  i: number
+) => {
+  if (selectedOperator?.value === 'in' || selectedOperator?.value === 'not in') {
+    // When we swiatch from sigle select to mmultiselect, populate the seelcted value in multiselect
+    const conditions = values.spec.conditions
+    if (typeof conditions?.[i].value === 'object' && conditions?.[i].value) {
+      const tobeUpdatedConditions = [...conditions]
+      tobeUpdatedConditions[i].operator = selectedOperator.value
+      tobeUpdatedConditions[i].value = [conditions?.[i].value as MultiSelectOption]
+      onChange({ ...values, spec: { ...values.spec, conditions: tobeUpdatedConditions } })
+    }
+  }
+}

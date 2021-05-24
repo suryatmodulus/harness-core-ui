@@ -368,7 +368,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
                     ''
                   )
                 }
-                tooltipProps={{ isDark: true, position: 'bottom' }}
+                tooltipProps={{ isDark: true, position: 'bottom', popoverClassName: css.tooltip }}
               >
                 {isStatusSuccess ? getString('active').toLowerCase() : getString('error').toLowerCase()}
               </Text>
@@ -457,7 +457,9 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   const getConfirmationDialogContent = (): JSX.Element => {
     return (
       <div className={'connectorDeleteDialog'}>
-        <Text margin={{ bottom: 'medium' }}>{`${getString('connectors.confirmDelete')} ${data.connector?.name}?`}</Text>
+        <Text margin={{ bottom: 'medium' }} className={css.confirmText} title={data.connector?.name}>{`${getString(
+          'connectors.confirmDelete'
+        )} ${data.connector?.name}?`}</Text>
         {gitDetails?.objectId && (
           <>
             <Text>{getString('common.git.commitMessage')}</Text>

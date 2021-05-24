@@ -58,6 +58,7 @@ export default function BaseShellScript(props: {
           defaultValueToReset=""
           disabled={readonly}
           allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
+          disableTypeSelection={readonly}
           skipRenderValueInExpressionLabel
           expressionRender={() => {
             return (

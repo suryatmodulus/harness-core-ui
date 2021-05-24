@@ -15,7 +15,7 @@ updating: Updating connector
 successfullCreate: 'Connector {{name}} created successfully'
 successfullUpdate: 'Connector {{name}} updated successfully'
 connectorNotFound: Connector not found.
-createFromYaml: 'Create Connector from YAML'
+createFromYaml: 'Create New Connector from YAML'
 successfullyCreated: 'Connector created successfully'
 secretManagerDetails: 'Secret Manager Details'
 gcrConnectorDetails: 'Google Container Registry Overview'

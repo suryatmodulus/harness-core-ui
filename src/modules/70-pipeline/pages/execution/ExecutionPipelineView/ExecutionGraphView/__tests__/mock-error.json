@@ -1,0 +1,159 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "pipelineExecutionSummary": {
+      "planExecutionId": "planexecutionId",
+      "pipelineIdentifier": "testp1",
+      "executionErrorInfo": {
+        "message": "Some error message"
+      },
+      "name": "test-p1",
+      "status": "NotStarted",
+      "executionTriggerInfo": { "triggeredBy": null, "triggerType": null },
+      "moduleInfo": {
+        "cd": {
+          "envIdentifiers": ["env"],
+          "environmentTypes": ["PreProduction"],
+          "serviceDefinitionTypes": ["Kubernetes"],
+          "serviceIdentifiers": []
+        }
+      },
+      "layoutNodeMap": {
+        "KHQLWC2MQFCWJNFw4loqOgparallel": {
+          "nodeType": "parallel",
+          "nodeIdentifier": "parallel",
+          "nodeUuid": "KHQLWC2MQFCWJNFw4loqOgparallel",
+          "status": "NotStarted",
+          "edgeLayoutList": {
+            "currentNodeChildren": ["ztUSwKDiR6KswSvkU7fctw", "ztUSwKDiR6KswSvkU7abvc"],
+            "nextIds": ["HPdKmejETHqIWCK62syYww"]
+          }
+        },
+        "ztUSwKDiR6KswSvkU7fctw": {
+          "nodeType": "stage",
+          "nodeIdentifier": "google_1",
+          "nodeUuid": "google_1",
+          "status": "Running",
+          "moduleInfo": {
+            "cd": {
+              "infrastructureIdentifiers": "infraIdentifier",
+              "nodeExecutionId": "randomId",
+              "serviceInfoList": { "artifacts": { "primary": { "type": "Docker" }, "sidecars": [] } }
+            }
+          },
+          "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] }
+        },
+        "ztUSwKDiR6KswSvkU7abvc": {
+          "nodeType": "stage",
+          "nodeIdentifier": "google_2",
+          "nodeUuid": "google_2",
+          "status": "Running",
+          "moduleInfo": {
+            "cd": {
+              "infrastructureIdentifiers": "infraIdentifier",
+              "nodeExecutionId": "randomId",
+              "serviceInfoList": {
+                "artifacts": { "primary": { "type": "Docker" }, "sidecars": [{ "type": "Docker" }] }
+              }
+            }
+          },
+          "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] }
+        },
+        "HPdKmejETHqIWCK62syYww": {
+          "nodeType": "stage",
+          "nodeIdentifier": "qa stage",
+          "nodeUuid": "qastage",
+          "status": "NotStarted",
+          "edgeLayoutList": { "currentNodeChildren": [], "nextIds": ["6iyMwdTxSWqf4rdF5eqVMw"] }
+        },
+        "6iyMwdTxSWqf4rdF5eqVMw": {
+          "nodeType": "stage",
+          "nodeIdentifier": "Random",
+          "nodeUuid": "6iyMwdTxSWqf4rdF5eqVMw",
+          "status": "NotStarted",
+          "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] }
+        }
+      },
+      "startingNodeId": "KHQLWC2MQFCWJNFw4loqOgparallel",
+      "startTs": 123,
+      "endTs": 0,
+      "createdAt": 1608059579307,
+      "successfulStagesCount": 0,
+      "runningStagesCount": 0,
+      "failedStagesCount": 0,
+      "totalStagesCount": 0
+    },
+    "executionGraph": {
+      "rootNodeId": "ztUSwKDiR6KswSvkU7fctw",
+      "nodeMap": {
+        "K8sRollingUuid": {
+          "uuid": "K8sRollingUuid",
+          "name": "Rollout Deployment",
+          "startTs": 1608292073511,
+          "endTs": 1608292073511,
+          "stepType": "K8S_ROLLING",
+          "status": "Running",
+          "failureInfo": null,
+          "executableResponsesMetadata": [
+            {
+              "baseLoggingKey": "baseKey",
+              "commandUnits": ["Fetch Files", "Initialize", "Prepare", "Apply", "Wait for Steady State", "Wrap Up"]
+            }
+          ],
+          "taskIdToProgressDataMap": { "iCGCEpaJQBGa3fAyhI956g": [{ "data": "33% done" }, { "data": "55% done" }] }
+        },
+        "ztUSwKDiR6KswSvkU7fctw": {
+          "uuid": "ztUSwKDiR6KswSvkU7fctw",
+          "name": "qa stage",
+          "startTs": 1608292073511,
+          "endTs": 1608292073511,
+          "stepType": "SECTION",
+          "status": "Running",
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": null
+        },
+        "K8sRollingUuid2": {
+          "uuid": "K8sRollingUuid2",
+          "name": "RolloutSecond",
+          "startTs": 1608292073511,
+          "endTs": 1608292073511,
+          "stepType": "K8S_ROLLING",
+          "status": "NotStarted",
+          "failureInfo": null
+        },
+        "infraUuid": {
+          "uuid": "infraUuid",
+          "name": "Infrastructure",
+          "startTs": 1608292073511,
+          "endTs": 1608292073511,
+          "stepType": "INFRASTRUCTURE",
+          "status": "Success",
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": { "bFsnHiFzRNy8EX9UDyYNdA": [{ "data": "33% done" }, { "data": "99% done" }] }
+        },
+        "serviceUuid": {
+          "uuid": "serviceUuid",
+          "name": "Service",
+          "startTs": 1608292073511,
+          "endTs": 1608292073511,
+          "stepType": "SERVICE",
+          "status": "Success",
+          "failureInfo": null,
+          "executableResponsesMetadata": null,
+          "taskIdToProgressDataMap": { "cS_N6PnYSTa8dX874klfXg": [{ "data": "50% done" }, { "data": "99% done" }] }
+        }
+      },
+      "nodeAdjacencyListMap": {
+        "K8sRollingUuid2": { "children": null, "nextIds": null },
+        "K8sRollingUuid": { "children": null, "nextIds": ["K8sRollingUuid2"] },
+        "ztUSwKDiR6KswSvkU7fctw": { "children": ["serviceUuid"], "nextIds": null },
+        "infraUuid": { "children": null, "nextIds": ["K8sRollingUuid"] },
+        "serviceUuid": { "children": null, "nextIds": ["infraUuid"] }
+      }
+    }
+  },
+  "metaData": null,
+  "correlationId": null
+}

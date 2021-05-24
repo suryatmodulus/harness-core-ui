@@ -26,12 +26,12 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({ tota
     <div className={cx(css.widgetWrapper, css.executionResult)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
         <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
-          {getString('ci.testsReports.resultLabel')}
+          {getString('pipeline.testsReports.resultLabel')}
         </Heading>
         <Button
           icon="question"
           minimal
-          tooltip={getString('ci.testsReports.resultInfo')}
+          tooltip={getString('pipeline.testsReports.resultInfo')}
           iconProps={{ size: 14 }}
           margin={{ left: 'xsmall' }}
         />
@@ -40,9 +40,10 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({ tota
       <Container className={css.widget} height="100%" padding="medium">
         <Container flex margin={{ bottom: 'small' }}>
           <Text font={{ weight: 'semi-bold' }} style={{ fontSize: 10 }}>
-            {getString('ci.testsReports.totalWithColon')} {totalTests} | {getString('ci.testsReports.failedWithColon')}{' '}
-            {failedTests} | {getString('ci.testsReports.successWithColon')} {passedTests} |{' '}
-            {getString('ci.testsReports.skippedWithColon')} {skippedTests}
+            {getString('pipeline.testsReports.totalWithColon')} {totalTests} |{' '}
+            {getString('pipeline.testsReports.failedWithColon')} {failedTests} |{' '}
+            {getString('pipeline.testsReports.successWithColon')} {passedTests} |{' '}
+            {getString('pipeline.testsReports.skippedWithColon')} {skippedTests}
           </Text>
           <Container flex>
             <Text
@@ -69,7 +70,7 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({ tota
               iconProps={{ size: 16, color: Color.GREY_300 }}
               style={{ fontSize: 10 }}
             >
-              {getString('ci.testsReports.skipped')}
+              {getString('pipeline.testsReports.skipped')}
             </Text>
           </Container>
         </Container>

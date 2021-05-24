@@ -26,6 +26,7 @@ export default function ConditionalExecution(props: ConditionalExecutionProps): 
     isReadonly
   } = props
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedUpdate = React.useCallback(
     debounce(({ status, enableJEXL, condition }: ConditionalExecutionOption): void => {
       onUpdate({

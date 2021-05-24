@@ -19,7 +19,7 @@ import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import cx from 'classnames'
 import { scalarOptions, stringify, defaultOptions } from 'yaml'
-import { Tag, Icon } from '@wings-software/uicore'
+import { Tag, Icon, Container } from '@wings-software/uicore'
 import type {
   YamlBuilderProps,
   YamlBuilderHandlerBinding,
@@ -55,6 +55,7 @@ import {
   KEY_CODE_FOR_CHAR_Z,
   MAX_ERR_MSSG_LENGTH
 } from './YAMLBuilderConstants'
+import CopyToClipboard from '../CopyToClipBoard/CopyToClipBoard'
 
 // Please do not remove this, read this https://eemeli.org/yaml/#scalar-options
 scalarOptions.str.fold.lineWidth = 100000
@@ -453,6 +454,11 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
         <div className={css.flexCenter}>
           <span className={cx(css.filePath, css.flexCenter, { [css.lightBg]: theme === 'DARK' })}>{fileName}</span>
           {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
+          {yamlRef.current ? (
+            <Container padding={{ left: 'medium' }}>
+              <CopyToClipboard content={yamlRef.current || ''} showFeedback={true} />
+            </Container>
+          ) : null}
         </div>
         <div className={cx(css.flexCenter, css.validationStatus)}>
           {yamlValidationErrors && yamlValidationErrors.size > 0 ? (

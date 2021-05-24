@@ -2,6 +2,7 @@ import React from 'react'
 import * as Yup from 'yup'
 import { Button, Color, Formik, FormikForm, FormInput, Layout, Text } from '@wings-software/uicore'
 import type { AccessPoint } from 'services/lw'
+import { VALID_DOMAIN_REGEX } from '@ce/constants'
 import helpTextIcon from '../COGatewayAccess/images/OthersHelpText.svg'
 import css from '../COGatewayAccess/COGatewayAccess.module.scss'
 
@@ -82,7 +83,9 @@ const AzureApDnsMapping: React.FC<AzureApDnsMappingProps> = props => {
       )}
       validationSchema={Yup.object().shape({
         name: Yup.string().required('Name is a required field'),
-        customDomain: Yup.string().required('Name is a required field')
+        customDomain: Yup.string()
+          .required('Domain name is a required field')
+          .matches(VALID_DOMAIN_REGEX, 'Enter a valid domain')
       })}
     ></Formik>
   )

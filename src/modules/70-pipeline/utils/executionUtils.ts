@@ -1,6 +1,6 @@
 import type * as React from 'react'
 import type { IconName } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
+import { has, isEmpty } from 'lodash-es'
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import {
@@ -256,7 +256,11 @@ export function getActiveStageForPipeline(
   return null
 }
 
-export function getActiveStep(graph: ExecutionGraph, nodeId?: string): string | null {
+export function getActiveStep(
+  graph: ExecutionGraph,
+  nodeId?: string,
+  layoutNodeMap?: Record<string, GraphLayoutNode>
+): string | null {
   const { rootNodeId, nodeMap, nodeAdjacencyListMap } = graph
 
   if (!nodeMap || !nodeAdjacencyListMap) {
@@ -279,14 +283,14 @@ export function getActiveStep(graph: ExecutionGraph, nodeId?: string): string | 
 
     for (let i = 0; i < n; i++) {
       const childNodeId = nodeAdjacencyList.children[i]
-      const step = getActiveStep(graph, childNodeId)
+      const step = getActiveStep(graph, childNodeId, layoutNodeMap)
 
       if (typeof step === 'string') return step
     }
   }
 
   if (nodeAdjacencyList.nextIds && nodeAdjacencyList.nextIds[0]) {
-    const step = getActiveStep(graph, nodeAdjacencyList.nextIds[0])
+    const step = getActiveStep(graph, nodeAdjacencyList.nextIds[0], layoutNodeMap)
 
     if (typeof step === 'string') return step
   }
@@ -294,6 +298,7 @@ export function getActiveStep(graph: ExecutionGraph, nodeId?: string): string | 
   if (
     !NonSelectableNodes.includes(node.stepType as NodeType) &&
     currentNodeId !== rootNodeId &&
+    !has(layoutNodeMap, node.setupId || '') &&
     (isExecutionRunning(node.status) ||
       isExecutionWaiting(node.status) ||
       isExecutionCompletedWithBadState(node.status))

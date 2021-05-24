@@ -6,6 +6,8 @@ import type { StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 
 import { AdvancedStepsWithRef } from '../AdvancedSteps'
 
+jest.mock('@common/components/MonacoEditor/MonacoEditor')
+
 const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
   useGetDelegateSelectors: jest.fn().mockImplementation(args => {

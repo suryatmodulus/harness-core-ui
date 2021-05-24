@@ -50,7 +50,7 @@ import { useQueryParams } from '@common/hooks'
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
-import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
+import { clearRuntimeInput, getErrorsList } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import GitPopover from '../GitPopover/GitPopover'
@@ -422,16 +422,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             const errors: FormikErrors<InputSetDTO> = {}
             if (isEmpty(values.name)) {
               errors.name = getString('inputSets.nameIsRequired')
-            }
-            if (values.pipeline && template?.data?.inputSetTemplateYaml && pipeline?.data?.yamlPipeline) {
-              errors.pipeline = validatePipeline(
-                values.pipeline,
-                parse(template.data.inputSetTemplateYaml).pipeline,
-                parse(pipeline.data.yamlPipeline).pipeline,
-                getString
-              ) as any
-
-              if (isEmpty(errors.pipeline)) delete errors.pipeline
             }
             setFormErrors(errors)
             return errors

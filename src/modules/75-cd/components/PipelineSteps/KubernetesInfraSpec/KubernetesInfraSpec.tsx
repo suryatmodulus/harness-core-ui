@@ -96,10 +96,11 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
-
+  const onMountRef = React.useRef<boolean>(false)
   const validationSchema = Yup.object().shape({
+    connectorRef: Yup.string().required(getString?.('fieldRequired', { field: getString('connector') })),
     namespace: Yup.string()
-      .required()
+      .required(getString('fieldRequired', { field: getString('common.namespace') }))
       .test('namespace', getString('cd.namespaceValidation'), function (value) {
         if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
           return true
@@ -107,7 +108,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
         return namespaceRegex.test(value)
       }),
     releaseName: Yup.string()
-      .required()
+      .required(getString('fieldRequired', { field: getString('common.releaseName') }))
       .test('releaseName', getString('cd.releaseNameValidation'), function (value) {
         if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
           return true
@@ -138,6 +139,10 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
         onSubmit={noop}
       >
         {formik => {
+          if (!onMountRef.current) {
+            onMountRef.current = true
+            formik.setTouched({ connectorRef: true, namespace: true, releaseName: true })
+          }
           return (
             <FormikForm>
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
@@ -464,6 +469,9 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     getString?: UseStringsReturn['getString']
   ): FormikErrors<K8SDirectInfrastructure> {
     const errors: K8SDirectInfrastructureTemplate = {}
+    if (isEmpty(data.cluster) && getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME) {
+      errors.connectorRef = getString?.('fieldRequired', { field: getString('connector') })
+    }
     if (isEmpty(data.namespace) && getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME) {
       errors.namespace = getString?.('fieldRequired', { field: 'Namespace' })
     }

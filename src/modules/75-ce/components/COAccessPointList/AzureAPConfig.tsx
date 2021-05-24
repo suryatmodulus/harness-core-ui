@@ -124,6 +124,26 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
       }
     })
   }
+
+  const handleBackClick = (values: AzureApFormVal) => {
+    setNewAp(prevAp => ({
+      ...prevAp,
+      region: values.region,
+      ...(values.subnet && {
+        subnets: [values.subnet]
+      }),
+      vpc: values.virtualNetwork,
+      metadata: {
+        ...prevAp.metadata,
+        resource_group: values.resourceGroup,
+        fe_ip_id: values.ip,
+        size: values.sku,
+        subnet_id: values.subnet,
+        certificate_id: values.certificate
+      }
+    }))
+    moveBackward()
+  }
   return (
     <div className={css.loadBalancerDnsConfigDialog}>
       <Heading level={2} className={css.configHeading}>
@@ -139,10 +159,10 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
           <AzureAccessPointForm
             cloudAccountId={cloudAccountId as string}
             onSave={onSave}
-            handlePreviousClick={moveBackward}
+            handlePreviousClick={handleBackClick}
             lbCreationInProgress={lbCreationInProgress}
             handleFormSubmit={handleFormSubmit}
-            loadBalancer={loadBalancer}
+            loadBalancer={newAp}
           />
         )}
       </div>

@@ -1,0 +1,30 @@
+.container {
+  position: relative;
+  padding: var(--spacing-large) !important;
+  padding-bottom: 0 !important;
+  .close-modal {
+    position: absolute;
+    top: var(--spacing-small);
+    right: var(--spacing-small);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-rows: 1fr auto auto auto;
+    gap: var(--spacing-large);
+    padding: 0 var(--spacing-xlarge) !important;
+    .formInput {
+      width: 288px;
+      padding-bottom: var(--spacing-large);
+    }
+
+    .startBtn {
+      width: 134px;
+    }
+  }
+
+  .collapseDiv > div {
+    border-top: none;
+    padding: 0;
+  }
+}

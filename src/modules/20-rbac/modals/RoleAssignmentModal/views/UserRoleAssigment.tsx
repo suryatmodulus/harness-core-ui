@@ -57,6 +57,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   const { user, roleBindings, onSubmit, isInvite } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+  const [query, setQuery] = useState<string>()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
@@ -73,13 +74,14 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   })
 
   const { data: userList, refetch: refetchUsers } = useGetCurrentGenUsers({
-    queryParams: { accountIdentifier: accountId },
+    queryParams: { accountIdentifier: accountId, searchString: query },
+    debounce: 300,
     lazy: true
   })
 
   useEffect(() => {
-    if (isInvite) refetchUsers()
-  }, [isInvite])
+    if (isInvite || query) refetchUsers()
+  }, [isInvite, query])
 
   const users: SelectOption[] =
     userList?.data?.content?.map(response => {
@@ -87,7 +89,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
         label: response.name || response.email,
         value: response.email
       }
-    }) || []
+    }) || /* istanbul ignore next */ []
 
   const assignments: Assignment[] =
     roleBindings?.map(roleAssignment => {
@@ -105,7 +107,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
           assignmentIdentifier: roleAssignment.identifier
         }
       }
-    }) || []
+    }) || /* istanbul ignore next */ []
 
   const handleRoleAssignment = async (values: UserRoleAssignmentValues, userInfo: string): Promise<void> => {
     const dataToSubmit: RBACRoleAssignment[] = values.assignments.map(value => {
@@ -144,15 +146,17 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
 
       try {
         const response = await sendInvitation(dataToSubmit)
-        if (response.data?.[0] === 'USER_INVITED_SUCCESSFULLY') {
+        /* istanbul ignore else */ if (response.data?.[0] === 'USER_INVITED_SUCCESSFULLY') {
           showSuccess(getString('rbac.usersPage.invitationSuccess'))
           onSubmit?.()
-        } else modalErrorHandler?.showDanger(response.data?.[0] || getString('rbac.usersPage.invitationError'))
+        } /* istanbul ignore next */ else
+          modalErrorHandler?.showDanger(response.data?.[0] || getString('rbac.usersPage.invitationError'))
       } catch (e) {
         /* istanbul ignore next */
         modalErrorHandler?.showDanger(e.data.message)
       }
     } else {
+      /* istanbul ignore next */
       modalErrorHandler?.showDanger(getString('rbac.roleAssignment.assignmentValidation'))
     }
   }
@@ -165,7 +169,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
         </Text>
         <Formik<UserRoleAssignmentValues>
           initialValues={{
-            user: user?.email || '',
+            user: user?.email || /* istanbul ignore next */ '',
             assignments: assignments
           }}
           validationSchema={Yup.object().shape({
@@ -200,7 +204,12 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
                         ]
                       : users
                   }
-                  selectProps={{ allowCreatingNewItems: true }}
+                  selectProps={{
+                    allowCreatingNewItems: true,
+                    onQueryChange: val => {
+                      setQuery(val)
+                    }
+                  }}
                   disabled={!isInvite}
                 />
                 <RoleAssignmentForm noRoleAssignmentsText={getString('rbac.usersPage.noDataText')} formik={formik} />

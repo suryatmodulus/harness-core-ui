@@ -10,6 +10,7 @@ import type { ExecutionContextParams } from '@pipeline/pages/execution/Execution
 import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
 import mockCD from './mock.json'
 import mockCI from './mock-ci.json'
+import mockError from './mock-error.json'
 import ExecutionGraphView from '../ExecutionGraphView'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
@@ -119,6 +120,18 @@ describe('<ExecutionGraphView /> tests', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('if pipeline errors are visible', () => {
+    const { queryByText } = render(
+      <TestWrapper>
+        <ExecutionContext.Provider value={contextValue(mockError)}>
+          <ExecutionGraphView />
+          <CurrentLocation />
+        </ExecutionContext.Provider>
+      </TestWrapper>
+    )
+    expect(queryByText('Some error message')).toBeTruthy()
   })
 
   test('stage selection works', async () => {

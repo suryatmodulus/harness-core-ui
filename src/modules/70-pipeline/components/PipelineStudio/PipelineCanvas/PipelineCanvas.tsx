@@ -109,7 +109,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     confirmButtonText: getString('update'),
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {
-        fetchPipeline(true, true)
+        fetchPipeline({ forceFetch: true, forceUpdate: true })
       } else {
         setDiscardBEUpdate(true)
       }
@@ -125,7 +125,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     latestPipeline: NgPipeline,
     updatedGitDetails?: SaveToGitFormInterface,
     lastObject?: { lastObjectId?: string }
-  ) => {
+  ): Promise<void> => {
     setSaving(true)
     const response = await savePipeline(
       {
@@ -159,9 +159,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           })
         )
         // note: without setTimeout does not redirect properly after save
-        fetchPipeline(true, true, newPipelineId)
+        await fetchPipeline({ forceFetch: true, forceUpdate: true, newPipelineId })
       } else {
-        fetchPipeline(true, true)
+        await fetchPipeline({ forceFetch: true, forceUpdate: true })
       }
     } else {
       clear()
@@ -169,14 +169,17 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     }
   }
 
-  const saveAngPublishWithGitInfo = async (updatedGitDetails: SaveToGitFormInterface, objectId: string) => {
+  const saveAngPublishWithGitInfo = async (
+    updatedGitDetails: SaveToGitFormInterface,
+    objectId: string
+  ): Promise<void> => {
     let latestPipeline: PipelineInfoConfig = pipeline
 
     if (isYaml && yamlHandler) {
       latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
     }
 
-    saveAndPublishPipeline(
+    await saveAndPublishPipeline(
       latestPipeline,
       omit(updatedGitDetails, 'name', 'identifier'),
       pipelineIdentifier !== DefaultNewPipelineId ? { lastObjectId: objectId } : {}
@@ -203,7 +206,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         gitDetails: gitDetails ?? {}
       })
     } else {
-      saveAndPublishPipeline(latestPipeline)
+      await saveAndPublishPipeline(latestPipeline)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -260,7 +263,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         openConfirmBEUpdateError()
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     pipeline?.identifier,
     showModal,
     isInitialized,
@@ -273,6 +278,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     if (pipeline?.name) {
       window.dispatchEvent(new CustomEvent('RENAME_PIPELINE', { detail: pipeline?.name }))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pipeline?.name])
 
   const onCloseCreate = React.useCallback(() => {
@@ -317,6 +323,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       }
       hideModal()
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [hideModal, pipeline, updatePipeline]
   )
 
@@ -362,7 +369,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       return (
         <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
           <Layout.Horizontal spacing="small">
-            <Icon name="repository" margin={{ left: 'medium' }}></Icon>
+            <Icon name="repository" margin={{ left: 'medium' }} />
             {pipelineIdentifier === DefaultNewPipelineId ? (
               <Text>{`${gitDetails?.repoIdentifier}`}</Text>
             ) : (
@@ -371,7 +378,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           </Layout.Horizontal>
 
           <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="small">
-            <Icon name="git-new-branch" margin={{ left: 'medium' }}></Icon>
+            <Icon name="git-new-branch" margin={{ left: 'medium' }} />
             {
               // pipelineIdentifier === DefaultNewPipelineId || isReadonly ?
               <Text>{gitDetails?.branch}</Text>

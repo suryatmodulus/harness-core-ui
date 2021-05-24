@@ -24,7 +24,21 @@ const MonacoEditor = (props: MonacoEditorProps, ref: ReactMonacoEditorRef) => {
     }
   }, [])
 
-  return <ReactMonacoEditor {...props} ref={ref} />
+  const editorDidMount = () => {
+    if (props.options?.readOnly) {
+      monaco?.editor?.defineTheme('disable-theme', {
+        base: 'vs',
+        inherit: true,
+        rules: [{ background: 'd9dae5' }],
+        colors: {
+          'editor.background': '#d9dae5'
+        }
+      })
+      monaco?.editor?.setTheme('disable-theme')
+    }
+  }
+
+  return <ReactMonacoEditor {...props} ref={ref} editorDidMount={editorDidMount} />
 }
 
 export default React.forwardRef(MonacoEditor)

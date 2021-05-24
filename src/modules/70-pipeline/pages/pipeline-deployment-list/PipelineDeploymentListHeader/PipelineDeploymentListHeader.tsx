@@ -28,6 +28,8 @@ export interface PipelineDeploymentListHeaderProps {
   onRunPipeline(): void
 }
 
+const defaultPageNumber = 1
+
 export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeaderProps): React.ReactElement {
   const { module, pipelineIdentifier } = useParams<Partial<PipelineType<PipelinePathProps>>>()
   const { queryParams } = useFiltersContext()
@@ -44,7 +46,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
 
   function handleStatusChange(status?: QuickStatusParam | null): void {
     if (status) {
-      updateQueryParams({ status })
+      updateQueryParams({ status, page: defaultPageNumber })
     } else {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       updateQueryParams({ status: [] as any }) // removes the param
@@ -54,7 +56,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
   // eslint-disable-next-line @typescript-eslint/no-shadow
   function handlePipelineChange(pipelineIdentifier?: string): void {
     if (pipelineIdentifier) {
-      updateQueryParams({ pipelineIdentifier })
+      updateQueryParams({ pipelineIdentifier, page: defaultPageNumber })
     } else {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       updateQueryParams({ pipelineIdentifier: [] as any }) // removes the param

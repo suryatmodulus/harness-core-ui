@@ -24,12 +24,12 @@ export const TestsSelectionBreakdown: React.FC<TestsSelectionBreakdownProps> = (
     <div className={cx(css.widgetWrapper, css.selectionBreakdown)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
         <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
-          {getString('ci.testsReports.selectionBreakdown')}
+          {getString('pipeline.testsReports.selectionBreakdown')}
         </Heading>
         <Button
           icon="question"
           minimal
-          tooltip={getString('ci.testsReports.selectionBreakdownInfo')}
+          tooltip={getString('pipeline.testsReports.selectionBreakdownInfo')}
           iconProps={{ size: 14 }}
           margin={{ left: 'xsmall' }}
         />
@@ -38,7 +38,7 @@ export const TestsSelectionBreakdown: React.FC<TestsSelectionBreakdownProps> = (
       <Container className={css.widget} height="100%">
         <Container className={css.section} flex>
           <Text className={css.type} color={Color.GREY_800}>
-            <Text color={Color.GREY_800}>{getString('ci.testsReports.correlatedWithCodeChanges')}</Text>
+            <Text color={Color.GREY_800}>{getString('pipeline.testsReports.correlatedWithCodeChanges')}</Text>
             <ProgressBar
               className={css.testsSelectionBreakdown}
               animate={false}
@@ -53,7 +53,7 @@ export const TestsSelectionBreakdown: React.FC<TestsSelectionBreakdownProps> = (
 
         <Container className={css.section} flex>
           <Text className={css.type} color={Color.GREY_800}>
-            <Text color={Color.GREY_800}>{getString('ci.testsReports.newTests')}</Text>
+            <Text color={Color.GREY_800}>{getString('pipeline.testsReports.newTests')}</Text>
             <ProgressBar
               className={css.testsSelectionBreakdown}
               animate={false}
@@ -68,7 +68,7 @@ export const TestsSelectionBreakdown: React.FC<TestsSelectionBreakdownProps> = (
 
         <Container className={css.section} flex>
           <Text className={css.type} color={Color.GREY_800}>
-            <Text color={Color.GREY_800}>{getString('ci.testsReports.updatedTests')}</Text>
+            <Text color={Color.GREY_800}>{getString('pipeline.testsReports.updatedTests')}</Text>
             <ProgressBar
               className={css.testsSelectionBreakdown}
               animate={false}

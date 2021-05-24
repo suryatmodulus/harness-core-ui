@@ -123,21 +123,21 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         disableSortBy: true
       },
       {
-        Header: getString('ci.testsReports.testCaseName'),
+        Header: getString('pipeline.testsReports.testCaseName'),
         accessor: 'name',
         width: 'calc(50% - 130px)',
         Cell: renderColumn('name'),
         disableSortBy: (data?.content?.length || 0) === 1
       },
       {
-        Header: getString('ci.testsReports.className'),
+        Header: getString('pipeline.testsReports.className'),
         accessor: 'class_name',
         width: 'calc(50% - 120px)',
         Cell: renderColumn('class_name'),
         disableSortBy: (data?.content?.length || 0) === 1
       },
       {
-        Header: getString('ci.testsReports.result'),
+        Header: getString('pipeline.testsReports.result'),
         accessor: 'result',
         width: '100px',
         Cell: renderColumn('result'),
@@ -177,7 +177,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         >
           <Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={onExpand} />
           <Text className={css.testSuiteName} tooltip={<Container padding="small">{executionSummary.name}</Container>}>
-            {getString('ci.testsReports.testSuite')} {executionSummary.name}
+            {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
           </Text>
         </Text>
         <Text
@@ -186,7 +186,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           font={{ size: 'small' }}
           padding={{ left: 'small', right: 'small' }}
         >
-          <span style={{ whiteSpace: 'nowrap' }}>{getString('ci.testsReports.totalTests')}</span>
+          <span style={{ whiteSpace: 'nowrap' }}>{getString('pipeline.testsReports.totalTests')}</span>
           <span>{executionSummary.total_tests}</span>
         </Text>
         <Text
@@ -195,7 +195,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           font={{ size: 'small' }}
           padding={{ left: 'small', right: 'small' }}
         >
-          <span style={{ whiteSpace: 'nowrap' }}>{getString('ci.testsReports.failedTests')}</span>
+          <span style={{ whiteSpace: 'nowrap' }}>{getString('pipeline.testsReports.failedTests')}</span>
           <span>{executionSummary.failed_tests}</span>
         </Text>
         <Text

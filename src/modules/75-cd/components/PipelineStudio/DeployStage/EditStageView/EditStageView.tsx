@@ -208,7 +208,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                             selected={selected}
                             cornerSelected={selected}
                             interactive={!item.disabled}
-                            disabled={item.disabled}
+                            disabled={item.disabled || isReadonly}
                             className={css.squareCard}
                           >
                             <Icon name={item.icon as IconName} size={26} height={26} />

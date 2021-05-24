@@ -13,15 +13,16 @@ import { TestsOverview } from './TestsOverview'
 import { TestsExecutionResult } from './TestsExecutionResult'
 import { TestsSelectionBreakdown } from './TestsSelectionBreakdown'
 import { TestsReportOverview } from './TestsReportOverview'
-// import { TestsCoverage } from './TestsCoverage'
 import { isExecutionComplete } from './TestsUtils'
+// import { TestsCoverage } from './TestsCoverage'
 import css from './BuildTests.module.scss'
 
 enum UI {
   TIAndReports,
   TI,
   Reports,
-  ZeroState
+  ZeroState,
+  LoadingState
 }
 
 const BuildTests: React.FC = () => {
@@ -68,7 +69,8 @@ const BuildTests: React.FC = () => {
       headers: {
         'X-Harness-Token': serviceToken || ''
       }
-    }
+    },
+    debounce: 500
   })
 
   const {
@@ -83,11 +85,11 @@ const BuildTests: React.FC = () => {
       headers: {
         'X-Harness-Token': serviceToken || ''
       }
-    }
+    },
+    debounce: 500
   })
 
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
-  const isBuildComplete = isExecutionComplete(status)
 
   const reportSummaryHasTests = (reportSummaryData?.total_tests || 0) > 0
   const testOverviewHasTests = (testOverviewData?.total_tests || 0) > 0
@@ -99,28 +101,34 @@ const BuildTests: React.FC = () => {
       ? UI.TI
       : reportSummaryHasTests && !testOverviewHasTests
       ? UI.Reports
-      : UI.ZeroState
-
+      : isExecutionComplete(status)
+      ? UI.ZeroState
+      : UI.LoadingState
   useEffect(() => {
-    if (status && isBuildComplete && serviceToken) {
-      if (!reportSummaryData && !reportSummaryError && !reportSummaryLoading) {
+    if (status && serviceToken) {
+      if (
+        (!isExecutionComplete(status) && !reportSummaryLoading) ||
+        (!reportSummaryData && !reportSummaryError && !reportSummaryLoading)
+      ) {
         fetchReportSummary()
       }
-      if (!testOverviewData && !testOverviewError && !testOverviewLoading) {
+      if (
+        (!isExecutionComplete(status) && !testOverviewLoading) ||
+        (!testOverviewData && !testOverviewError && !testOverviewLoading)
+      ) {
         fetchTestOverview()
       }
     }
   }, [
     status,
-    isBuildComplete,
     serviceToken,
     reportSummaryData,
     reportSummaryError,
     reportSummaryLoading,
-    fetchReportSummary,
     testOverviewData,
     testOverviewError,
     testOverviewLoading,
+    fetchReportSummary,
     fetchTestOverview
   ])
 
@@ -129,7 +137,11 @@ const BuildTests: React.FC = () => {
     return null
   }
 
-  if (reportSummaryLoading || serviceTokenLoading || testOverviewLoading) {
+  if (
+    serviceTokenLoading ||
+    (!testOverviewData && testOverviewLoading) ||
+    (!reportSummaryData && reportSummaryLoading)
+  ) {
     return <PageSpinner />
   }
 
@@ -150,6 +162,9 @@ const BuildTests: React.FC = () => {
 
   let ui = null
   switch (uiType) {
+    case UI.LoadingState:
+      ui = <BuildLoadingState />
+      break
     case UI.ZeroState:
       ui = <BuildZeroState />
       break
@@ -230,12 +245,7 @@ const BuildTests: React.FC = () => {
       break
   }
 
-  return (
-    <div className={css.mainContainer}>
-      {isBuildComplete && serviceToken && ui}
-      {!isBuildComplete && <BuildLoadingState />}
-    </div>
-  )
+  return <div className={css.mainContainer}>{(serviceToken && ui) || <BuildLoadingState />}</div>
 }
 
 export default BuildTests

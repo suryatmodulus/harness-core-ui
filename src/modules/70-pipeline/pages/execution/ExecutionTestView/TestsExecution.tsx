@@ -19,8 +19,9 @@ import { useStrings } from 'framework/strings'
 import { PageError } from '@common/components/Page/PageError'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { TestSuiteSummaryQueryParams, useTestSuiteSummary } from 'services/ti-service'
+import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import { TestsExecutionItem } from './TestsExecutionItem'
-import { SortByKey, isExecutionComplete } from './TestsUtils'
+import { SortByKey } from './TestsUtils'
 import css from './BuildTests.module.scss'
 
 const PAGE_SIZE = 20
@@ -33,7 +34,6 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
   const context = useExecutionContext()
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
-  const isBuildComplete = isExecutionComplete(status)
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState<number | undefined>(0)
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
@@ -74,14 +74,15 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
       headers: {
         'X-Harness-Token': serviceToken
       }
-    }
+    },
+    debounce: 500
   })
   const sortByItems = useMemo(
     () => [
       { label: getString('common.failureRate'), value: SortByKey.FAILURE_RATE },
-      { label: getString('ci.testsReports.failedTests'), value: SortByKey.FAILED_TESTS },
+      { label: getString('pipeline.testsReports.failedTests'), value: SortByKey.FAILED_TESTS },
       { label: getString('pipeline.duration'), value: SortByKey.DURATION_MS },
-      { label: getString('ci.testsReports.totalTests'), value: SortByKey.TOTAL_TESTS }
+      { label: getString('pipeline.testsReports.totalTests'), value: SortByKey.TOTAL_TESTS }
     ],
     [getString]
   )
@@ -102,22 +103,12 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
   )
 
   useEffect(() => {
-    if (status && isBuildComplete) {
-      if (!executionSummary && !error && !loading) {
-        refetchData(queryParams)
+    if (status) {
+      if ((!isExecutionComplete(status) && !loading) || (!executionSummary && !error && !loading)) {
+        fetchExecutionSummary({ queryParams })
       }
     }
-  }, [
-    isMounted,
-    status,
-    isBuildComplete,
-    executionSummary,
-    error,
-    loading,
-    fetchExecutionSummary,
-    queryParams,
-    refetchData
-  ])
+  }, [status, executionSummary, error, loading, fetchExecutionSummary, queryParams])
 
   // When build/execution is not resolved from context, render nothing
   if (!status) {
@@ -128,12 +119,12 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
     <div className={cx(css.widgetWrapper, css.rightContainer)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
         <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
-          {getString('ci.testsReports.testCasesExecution')}
+          {getString('pipeline.testsReports.testCasesExecution')}
         </Heading>
         <Button
           icon="question"
           minimal
-          tooltip={getString('ci.testsReports.testCasesExecutionInfo')}
+          tooltip={getString('pipeline.testsReports.testCasesExecutionInfo')}
           iconProps={{ size: 14 }}
           margin={{ left: 'xsmall' }}
         />
@@ -143,7 +134,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
       <Container className={css.widget} padding="medium">
         <Container flex>
           <Switch
-            label={getString('ci.testsReports.showOnlyFailedTests')}
+            label={getString('pipeline.testsReports.showOnlyFailedTests')}
             style={{ alignSelf: 'center' }}
             checked={showFailedTestsOnly}
             onChange={e => {
@@ -159,7 +150,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
           />
 
           <Layout.Horizontal spacing="small">
-            <Text style={{ alignSelf: 'center' }}>{getString('ci.testsReports.sortBy')}</Text>
+            <Text style={{ alignSelf: 'center' }}>{getString('pipeline.testsReports.sortBy')}</Text>
             <Select
               className={css.select}
               items={sortByItems}
@@ -212,7 +203,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
             )}
             {executionSummary.content.length === 0 && showFailedTestsOnly && (
               <Text font={{ align: 'center' }} margin={{ top: 'medium' }}>
-                {getString('ci.testsReports.noFailedTestsFound')}
+                {getString('pipeline.testsReports.noFailedTestsFound')}
               </Text>
             )}
           </>

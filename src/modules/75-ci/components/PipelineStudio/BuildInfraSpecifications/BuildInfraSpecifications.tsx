@@ -1,17 +1,7 @@
 import React, { useMemo } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import {
-  Layout,
-  Formik,
-  FormikForm,
-  FormInput,
-  Text,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  Card,
-  Accordion
-} from '@wings-software/uicore'
+import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -26,7 +16,6 @@ import {
   getStageIndexFromPipeline,
   getFlattenedStages
 } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
-import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import {
   ConnectorReferenceField,
@@ -381,21 +370,6 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             style={{ width: 300 }}
                             multiTextInputProps={{ disabled: isReadonly }}
                           />
-                          {getMultiTypeFromValue(formValues.namespace) === MultiTypeInputType.RUNTIME && (
-                            <ConfigureOptions
-                              value={formValues.namespace as string}
-                              type={
-                                <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                  <Text>{getString('pipelineSteps.build.infraSpecifications.namespace')}</Text>
-                                </Layout.Horizontal>
-                              }
-                              variableName={'namespace'}
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={value => setFieldValue('namespace', value)}
-                            />
-                          )}
                         </div>
                         <MultiTypeMap
                           style={{ marginTop: 'var(--spacing-medium)' }}
@@ -466,21 +440,6 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             disabled: isReadonly
                           }}
                         />
-                        {getMultiTypeFromValue(formValues.namespace) === MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={formValues.namespace as string}
-                            type={
-                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                <Text>{getString('pipelineSteps.build.infraSpecifications.namespace')}</Text>
-                              </Layout.Horizontal>
-                            }
-                            variableName={'namespace'}
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => setFieldValue('namespace', value)}
-                          />
-                        )}
                       </div>
                     </Card>
                     <Accordion activeId={''}>

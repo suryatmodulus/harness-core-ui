@@ -64,29 +64,33 @@ describe('Project Card Functionality Test', () => {
     const cdrow = queryByText('projectCard.cdRendererText')
     fireEvent.click(cdrow!)
     await waitFor(() => getByTestId('location'))
-    expect(getByTestId('location').innerHTML.endsWith(routes.toCDProjectOverview(routeParams))).toBeTruthy()
-  }),
-    test('Click on CV', async () => {
-      const cvrow = queryByText('projectCard.cvRendererText')
-      fireEvent.click(cvrow!)
-      await waitFor(() => getByTestId('location'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCVProjectOverview(routeParams))).toBeTruthy()
-    }),
-    test('Click on CI', async () => {
-      const cirow = queryByText('projectCard.ciRendererText')
-      fireEvent.click(cirow!)
-      await waitFor(() => getByTestId('location'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCIProjectOverview(routeParams))).toBeTruthy()
-    }),
-    test('Click on CE', async () => {
-      const cfrow = queryByText('projectCard.ceRendererText')
-      fireEvent.click(cfrow!)
-      expect(container).toMatchSnapshot()
-    }),
-    test('Click on CE', async () => {
-      const cfrow = queryByText('projectCard.cfRendererText')
-      fireEvent.click(cfrow!)
-      await waitFor(() => getByTestId('location'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCFProjectOverview(routeParams))).toBeTruthy()
-    })
+    expect(
+      getByTestId('location').innerHTML.endsWith(routes.toDeployments({ ...routeParams, module: 'cd' }))
+    ).toBeTruthy()
+  })
+  test('Click on CV', async () => {
+    const cvrow = queryByText('projectCard.cvRendererText')
+    fireEvent.click(cvrow!)
+    await waitFor(() => getByTestId('location'))
+    expect(getByTestId('location').innerHTML.endsWith(routes.toCVProjectOverview(routeParams))).toBeTruthy()
+  })
+  test('Click on CI', async () => {
+    const cirow = queryByText('projectCard.ciRendererText')
+    fireEvent.click(cirow!)
+    await waitFor(() => getByTestId('location'))
+    expect(
+      getByTestId('location').innerHTML.endsWith(routes.toDeployments({ ...routeParams, module: 'ci' }))
+    ).toBeTruthy()
+  })
+  test('Click on CE', async () => {
+    const cfrow = queryByText('projectCard.ceRendererText')
+    fireEvent.click(cfrow!)
+    expect(container).toMatchSnapshot()
+  })
+  test('Click on CE', async () => {
+    const cfrow = queryByText('projectCard.cfRendererText')
+    fireEvent.click(cfrow!)
+    await waitFor(() => getByTestId('location'))
+    expect(getByTestId('location').innerHTML.endsWith(routes.toCFProjectOverview(routeParams))).toBeTruthy()
+  })
 })

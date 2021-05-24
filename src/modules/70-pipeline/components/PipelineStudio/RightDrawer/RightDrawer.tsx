@@ -262,7 +262,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
         // default strategies can be present without having the need to click on Advanced Tab. For eg. in CV step.
         if (item.failureStrategies) node.failureStrategies = item.failureStrategies
-        if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {
+        if (
+          item.delegateSelectors &&
+          item.delegateSelectors.length > 0 &&
+          Array.isArray(item.delegateSelectors) &&
+          item.tab === TabTypes.Advanced
+        ) {
           node.spec = {
             ...(node.spec ? node.spec : {}),
             delegateSelectors: item.delegateSelectors
@@ -278,6 +283,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         if (
           node.spec?.delegateSelectors &&
           node.spec.delegateSelectors.length > 0 &&
+          Array.isArray(item.delegateSelectors) &&
           (!item.delegateSelectors || item.delegateSelectors?.length === 0) &&
           item.tab === TabTypes.Advanced
         ) {

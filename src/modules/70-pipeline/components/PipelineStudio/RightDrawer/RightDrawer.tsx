@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button, Icon, Text, Color } from '@wings-software/uicore'
 import { get, isEmpty, isNil, set } from 'lodash-es'
@@ -24,13 +24,15 @@ import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
 import SkipCondition from '../SkipCondition/SkipCondition'
 import { StageTypes } from '../Stages/StageTypes'
+import { EnableGitExperience } from '../EnableGitExperience/EnableGitExperience'
 
 import css from './RightDrawer.module.scss'
 
 export const AlmostFullScreenDrawers: DrawerTypes[] = [
   DrawerTypes.PipelineVariables,
   DrawerTypes.PipelineNotifications,
-  DrawerTypes.FlowControl
+  DrawerTypes.FlowControl,
+  DrawerTypes.EnableGitExperience
 ]
 
 export const ConfigureStepScreenDrawers: DrawerTypes[] = [
@@ -157,6 +159,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         break
       case DrawerTypes.PipelineNotifications:
         title = getString('notifications.name')
+        break
+      case DrawerTypes.EnableGitExperience:
+        title = getString('enableGitExperience')
         break
       default:
         title = null
@@ -367,19 +372,23 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     }
   })
 
+  const closeDrawer = (e?: SyntheticEvent<HTMLElement, Event> | undefined) => {
+    e?.persist()
+    if (checkDuplicateStep(formikRef, data, getString)) {
+      return
+    }
+    if (formikRef.current?.isDirty()) {
+      openConfirmBEUpdateError()
+      return
+    }
+    updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+    setSelectedStepId(undefined)
+  }
+
   return (
     <Drawer
       onClose={async e => {
-        e?.persist()
-        if (checkDuplicateStep(formikRef, data, getString)) {
-          return
-        }
-        if (formikRef.current?.isDirty()) {
-          openConfirmBEUpdateError()
-          return
-        }
-        updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
-        setSelectedStepId(undefined)
+        closeDrawer(e)
       }}
       usePortal={true}
       autoFocus={true}
@@ -632,6 +641,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           domain={domain}
         />
       )}
+      {type === DrawerTypes.EnableGitExperience && <EnableGitExperience closeDrawer={closeDrawer} />}
     </Drawer>
   )
 }

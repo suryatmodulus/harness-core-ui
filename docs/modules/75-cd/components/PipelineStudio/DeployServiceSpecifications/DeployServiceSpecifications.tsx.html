@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.08% </span>
+                <span class="strong">54.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/144</span>
+                <span class='fraction'>79/144</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.15% </span>
+                <span class="strong">42.6% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>188/446</span>
+                <span class='fraction'>190/446</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>9/20</span>
+                <span class='fraction'>10/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.11% </span>
+                <span class="strong">54.93% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>74/142</span>
+                <span class='fraction'>78/142</span>
             </div>
         
             
@@ -584,7 +584,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -944,16 +944,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1431,17 +1431,17 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   type={StepType.DeployService}
                   readonly={isReadonly}
                   initialValues={{ serviceRef: '', ...get(stage, 'stage.spec.serviceConfig', {}) }}
-                  onUpdate={<span class="fstat-no" title="function not covered" >(v</span>alue: ServiceConfig) =&gt; {
-                    const serviceObj = <span class="cstat-no" title="statement not covered" >get(stage, 'stage.spec.serviceConfig', {})</span>
-<span class="cstat-no" title="statement not covered" >                    if (value.service) {</span>
+                  onUpdate={(value: ServiceConfig) =&gt; {
+                    const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (value.service) {
 <span class="cstat-no" title="statement not covered" >                      serviceObj.service = value.service</span>
 <span class="cstat-no" title="statement not covered" >                      delete serviceObj.serviceRef</span>
-                    } else <span class="cstat-no" title="statement not covered" >if (value.serviceRef) {</span>
+                    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (value.serviceRef) {
                       const selectOptionValue = <span class="cstat-no" title="statement not covered" >((value.serviceRef as unknown) as SelectOption)?.value</span>
 <span class="cstat-no" title="statement not covered" >                      serviceObj.serviceRef = selectOptionValue !== undefined ? selectOptionValue : value.serviceRef</span>
 <span class="cstat-no" title="statement not covered" >                      delete serviceObj.service</span>
                     }
-<span class="cstat-no" title="statement not covered" >                    debounceUpdatePipeline(pipeline)</span>
+                    debounceUpdatePipeline(pipeline)
                   }}
                   factory={factory}
                   stepViewType={StepViewType.Edit}
@@ -1528,7 +1528,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon May 24 2021 09:48:24 GMT+0000 (Greenwich Mean Time)
+                at Mon May 24 2021 09:55:36 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

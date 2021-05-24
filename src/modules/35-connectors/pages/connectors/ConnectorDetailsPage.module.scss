@@ -1,10 +1,25 @@
 .header {
   background-color: var(--primary-1) !important;
+  .filePath {
+    max-width: 300px;
+  }
 
-  .gitBranch input {
-    border: none;
-    background-color: var(--primary-1) !important;
-    height: 20px;
+  .gitBranch {
+    input {
+      border: none;
+      background-color: var(--primary-1) !important;
+      height: 20px;
+    }
+    :global {
+      .bp3-active,
+      .bp3-menu-item:hover {
+        background-color: var(--primary-2) !important;
+        color: var(--grey-900) !important;
+      }
+      .bp3-input-action {
+        display: none;
+      }
+    }
   }
 }
 

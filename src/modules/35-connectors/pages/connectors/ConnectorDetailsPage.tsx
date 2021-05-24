@@ -179,7 +179,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
         <Layout.Horizontal spacing="small">
           <Icon name="repository" margin={{ left: 'large' }}></Icon>
-          <Text>{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
+          <Text lineClamp={1} className={css.filePath}>{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
         </Layout.Horizontal>
 
         <Layout.Horizontal spacing="small">

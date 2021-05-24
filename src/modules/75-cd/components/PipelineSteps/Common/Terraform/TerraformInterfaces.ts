@@ -310,7 +310,7 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
     if (targetMap.length) {
       configObject['targets'] = targetMap
     } else if (getMultiTypeFromValue(values?.spec?.configuration?.spec?.targets) === MultiTypeInputType.RUNTIME) {
-      configObject['targets'] = [values?.spec?.configuration?.spec?.targets]
+      configObject['targets'] = values?.spec?.configuration?.spec?.targets
     }
 
     if (values?.spec?.configuration?.spec?.varFiles?.length) {
@@ -422,7 +422,7 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
       store: {
         ...values.spec?.configuration?.configFiles?.store,
         type:
-          getMultiTypeFromValue(values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
+          getMultiTypeFromValue(values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) !==
           MultiTypeInputType.RUNTIME
             ? connectorValue?.connector?.type
             : '',

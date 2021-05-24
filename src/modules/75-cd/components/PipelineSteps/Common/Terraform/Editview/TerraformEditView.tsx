@@ -297,6 +297,8 @@ export default function TerraformEditView(
                                 valueMultiTextInputProps={{ expressions }}
                                 name="spec.configuration.spec.environmentVariables"
                                 multiTypeFieldSelectorProps={{
+                                  disableTypeSelection: true,
+
                                   label: (
                                     <Text style={{ display: 'flex', alignItems: 'center' }}>
                                       {getString('environmentVariables')}

@@ -100,6 +100,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                         />
                       )
                     }}
+                    skipRenderValueInExpressionLabel
                   >
                     <FormInput.TextArea name="varFile.spec.content" />
                   </MultiTypeFieldSelector>

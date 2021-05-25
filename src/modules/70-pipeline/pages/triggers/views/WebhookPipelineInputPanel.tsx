@@ -13,8 +13,6 @@ import {
 } from 'services/pipeline-ng'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { useQueryParams } from '@common/hooks'
-import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
@@ -40,7 +38,6 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     pipelineIdentifier: string
     triggerIdentifier: string
   }>()
-  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { data: template, loading } = useGetTemplateFromPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
   })
@@ -58,9 +55,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      pipelineIdentifier,
-      pipelineRepoID: repoIdentifier || '',
-      pipelineBranch: branch || ''
+      pipelineIdentifier
     }
   })
 

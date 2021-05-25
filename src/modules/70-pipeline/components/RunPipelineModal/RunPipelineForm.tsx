@@ -191,8 +191,8 @@ function RunPipelineFormBasic({
       projectIdentifier,
       orgIdentifier,
       pipelineIdentifier,
-      pipelineRepoID: repoIdentifier || '',
-      pipelineBranch: branch || '',
+      pipelineRepoID: repoIdentifier,
+      pipelineBranch: branch,
       ...(gitFilter?.repo &&
         gitFilter.branch && {
           repoIdentifier: gitFilter.repo,
@@ -208,8 +208,8 @@ function RunPipelineFormBasic({
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      pipelineRepoID: repoIdentifier || '',
-      pipelineBranch: branch || ''
+      pipelineRepoID: repoIdentifier,
+      pipelineBranch: branch
     },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })

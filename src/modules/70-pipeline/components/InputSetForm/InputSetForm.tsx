@@ -203,10 +203,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       projectIdentifier,
       orgIdentifier,
       pipelineIdentifier,
-      pipelineRepoID: repoIdentifier || '',
-      pipelineBranch: branch || '',
-      repoIdentifier: inputSetRepoIdentifier || '',
-      branch: inputSetBranch || ''
+      pipelineRepoID: repoIdentifier,
+      pipelineBranch: branch,
+      repoIdentifier: inputSetRepoIdentifier,
+      branch: inputSetBranch
     }
   })
 
@@ -216,8 +216,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      pipelineRepoID: repoIdentifier || '',
-      pipelineBranch: branch || ''
+      pipelineRepoID: repoIdentifier,
+      pipelineBranch: branch
     },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
@@ -227,8 +227,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      pipelineRepoID: repoIdentifier || '',
-      pipelineBranch: branch || ''
+      pipelineRepoID: repoIdentifier,
+      pipelineBranch: branch
     },
     inputSetIdentifier: '',
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
@@ -331,8 +331,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             orgIdentifier,
             pipelineIdentifier,
             projectIdentifier,
-            pipelineRepoID: repoIdentifier || '',
-            pipelineBranch: branch || '',
+            pipelineRepoID: repoIdentifier,
+            pipelineBranch: branch,
             ...({ ...gitDetails, lastObjectId: objectId } ?? {})
           }
         })
@@ -343,8 +343,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             orgIdentifier,
             pipelineIdentifier,
             projectIdentifier,
-            pipelineRepoID: repoIdentifier || '',
-            pipelineBranch: branch || '',
+            pipelineRepoID: repoIdentifier,
+            pipelineBranch: branch,
             ...(gitDetails ?? {})
           }
         })

@@ -25,7 +25,7 @@ function getStackedAreaChartOptions(
   }
   return {
     chart: {
-      type: 'area',
+      type: 'spline',
       height: 180,
       spacing: [5, 20, 5, 5]
     },
@@ -43,7 +43,7 @@ function getStackedAreaChartOptions(
       tickmarkPlacement: 'on'
     },
     yAxis: {
-      min: 0,
+      // min: 0,
       title: {
         text: yAxisText
       },
@@ -58,7 +58,7 @@ function getStackedAreaChartOptions(
       pointFormat: '{series.name}: {point.y}<br/>'
     },
     plotOptions: {
-      spline: {
+      area: {
         stacking: 'normal',
         pointPlacement: 'on'
       }

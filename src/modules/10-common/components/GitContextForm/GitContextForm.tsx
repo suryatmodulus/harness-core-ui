@@ -1,5 +1,5 @@
 import { Color, Container, FormInput, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
-import { isEmpty } from 'lodash'
+import { isEmpty } from 'lodash-es'
 import type { FormikContext } from 'formik'
 import React from 'react'
 import cx from 'classnames'

@@ -250,9 +250,7 @@ describe('Input Set List - Actions tests', () => {
         pageSize: 10,
         pipelineIdentifier: 'pipeline',
         projectIdentifier: 'test',
-        searchTerm: 'asd',
-        repoIdentifier: '',
-        branch: ''
+        searchTerm: 'asd'
       }
     })
   })

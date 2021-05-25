@@ -74,7 +74,6 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
           }
         }
       }
-
   const { expressions } = useVariablesExpression()
 
   const gitFetchTypes: SelectOption[] = [

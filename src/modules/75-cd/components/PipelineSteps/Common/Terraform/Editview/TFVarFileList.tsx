@@ -19,6 +19,8 @@ import InlineVarFile from './InlineVarFile'
 import css from './TerraformVarfile.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
+// import TFRemoteWizard from './TFRemoteWizard'
+
 interface TfVarFileProps {
   formik: FormikProps<TerraformData>
 }

@@ -83,7 +83,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
               <FormMultiTypeConnectorField
                 label={
                   <Text style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('connectors.title.gitConnector')}
+                    {getString('connector')}
                     <Button
                       icon="question"
                       minimal

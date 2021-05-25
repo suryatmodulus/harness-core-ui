@@ -214,7 +214,7 @@ function TerraformPlanWidget(
               <div className={cx(css.fieldBorder, css.addMarginBottom)} />
               <Layout.Vertical>
                 <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
-                  {getString('configuration')}
+                  {getString('pipelineSteps.configFiles')}
                 </Label>
                 <div className={css.configField}>
                   {!formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath && (

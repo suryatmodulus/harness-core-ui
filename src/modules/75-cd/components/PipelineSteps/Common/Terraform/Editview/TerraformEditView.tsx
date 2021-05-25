@@ -180,35 +180,12 @@ export default function TerraformEditView(
                 )}
               </div>
 
-              {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.MultiTextInput
-                    name="spec.configuration.spec.workspace"
-                    label={getString('pipelineSteps.workspace')}
-                    multiTextInputProps={{ expressions }}
-                  />
-                  {getMultiTypeFromValue(formik.values.spec?.configuration?.spec?.workspace) ===
-                    MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={formik.values?.spec?.configuration?.spec?.workspace as string}
-                      type="String"
-                      variableName="configuration.spec.workspace"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        formik.setFieldValue('values.spec.configuration.spec.workspace', value)
-                      }}
-                    />
-                  )}
-                </div>
-              )}
               <div className={cx(css.fieldBorder, css.addMarginBottom)} />
               {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
                 <>
                   <Layout.Vertical>
                     <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
-                      {getString('configuration')}
+                      {getString('pipelineSteps.configFiles')}
                     </Label>
                     <div className={css.configField}>
                       {!formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath && (
@@ -230,6 +207,30 @@ export default function TerraformEditView(
                         summary={getString('cd.optionalConfig')}
                         details={
                           <>
+                            {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
+                              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                                <FormInput.MultiTextInput
+                                  name="spec.configuration.spec.workspace"
+                                  label={getString('pipelineSteps.workspace')}
+                                  multiTextInputProps={{ expressions }}
+                                />
+                                {getMultiTypeFromValue(formik.values.spec?.configuration?.spec?.workspace) ===
+                                  MultiTypeInputType.RUNTIME && (
+                                  <ConfigureOptions
+                                    value={formik.values?.spec?.configuration?.spec?.workspace as string}
+                                    type="String"
+                                    variableName="configuration.spec.workspace"
+                                    showRequiredField={false}
+                                    showDefaultField={false}
+                                    showAdvanced={true}
+                                    onChange={value => {
+                                      formik.setFieldValue('values.spec.configuration.spec.workspace', value)
+                                    }}
+                                  />
+                                )}
+                              </div>
+                            )}
+                            <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                             <TfVarFileList formik={formik} />
                             <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                             <div className={cx(stepCss.formGroup, stepCss.alignStart)}>

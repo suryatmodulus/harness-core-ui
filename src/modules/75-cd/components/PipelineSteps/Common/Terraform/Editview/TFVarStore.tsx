@@ -22,8 +22,18 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { Connectors } from '@connectors/constants'
 
 import css from './TerraformVarfile.module.scss'
+
+export type TFVarStores = 'Git' | 'Github' | 'GitLab' | 'Bitbucket'
+export const TFConnectorMap: Record<TFVarStores | string, ConnectorInfoDTO['type']> = {
+  Git: Connectors.GIT,
+  Github: Connectors.GITHUB,
+  GitLab: Connectors.GITLAB,
+  Bitbucket: Connectors.BITBUCKET
+}
 
 const allowedTypes = ['Git', 'Github', 'GitLab', 'Bitbucket']
 
@@ -59,7 +69,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
   }
 
   React.useEffect(() => {
-    setSelectedType(initialValues?.varFile?.spec?.store?.spec?.connectorRef)
+    setSelectedType(initialValues?.varFile?.spec?.store?.type)
   }, [isEditMode])
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.tfVarStore}>
@@ -107,7 +117,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
                 <FormMultiTypeConnectorField
                   label={
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('connectors.title.gitConnector')}
+                      {selectedType} {getString('connector')}
                       <Button
                         icon="question"
                         minimal
@@ -116,7 +126,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
                       />
                     </Text>
                   }
-                  type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
+                  type={TFConnectorMap[selectedType]}
                   width={
                     getMultiTypeFromValue(formik.values?.varFile?.store?.spec?.connectorRef) ===
                     MultiTypeInputType.RUNTIME

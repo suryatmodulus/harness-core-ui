@@ -143,6 +143,18 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     []
   )
 
+  const onCloseOfRemoteWizard = () => {
+    setShowRemoteWizard(false)
+    setIsEditMode(false)
+    setSelectedVar(remoteInitialValues)
+  }
+
+  const onCloseOfInlineVarForm = () => {
+    setShowTfModal(false)
+    setIsEditMode(false)
+    setSelectedVar(inlineInitValues)
+  }
+
   return (
     <FieldArray
       name="spec.configuration.varFiles"
@@ -235,7 +247,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                         } else {
                           arrayHelpers.push(values)
                         }
-                        setShowRemoteWizard(false)
+                        onCloseOfRemoteWizard()
                       }}
                       isEditMode={isEditMode}
                       // initialValues={remoteInitialValues}
@@ -247,7 +259,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                   icon="cross"
                   iconProps={{ size: 18 }}
                   onClick={() => {
-                    setShowRemoteWizard(false)
+                    onCloseOfRemoteWizard()
                   }}
                   className={css.crossIcon}
                 />
@@ -261,11 +273,10 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 showTfModal={showTfModal}
                 selectedVar={selectedVar}
                 onClose={() => {
-                  setShowTfModal(false)
-                  setSelectedVar(inlineInitValues)
+                  onCloseOfInlineVarForm()
                 }}
                 onSubmit={() => {
-                  setShowTfModal(false)
+                  onCloseOfInlineVarForm()
                 }}
               />
             )}

@@ -25,7 +25,7 @@ import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from '
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { OpenShiftParamDataType } from '../../ManifestInterface'
-import { gitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
+import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OpenShiftParam.module.scss'
@@ -211,11 +211,11 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                   <FormInput.Select
                     name="gitFetchType"
                     label={getString('pipeline.manifestType.gitFetchTypeLabel')}
-                    items={gitFetchTypes}
+                    items={gitFetchTypeList}
                   />
                 </div>
 
-                {formik.values?.gitFetchType === gitFetchTypes[0].value && (
+                {formik.values?.gitFetchType === GitFetchTypes.Branch && (
                   <div
                     className={cx(templateCss.halfWidth, {
                       [templateCss.runtimeInput]:
@@ -243,7 +243,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                   </div>
                 )}
 
-                {formik.values?.gitFetchType === gitFetchTypes[1].value && (
+                {formik.values?.gitFetchType === GitFetchTypes.Commit && (
                   <div
                     className={cx(templateCss.halfWidth, {
                       [templateCss.runtimeInput]:

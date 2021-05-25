@@ -28,6 +28,12 @@ export const ArtifactToConnectorMap: Record<string, ConnectorInfoDTO['type']> = 
   Ecr: Connectors.AWS
 }
 
+export const ArtifactConnectorLabelMap: Record<string, string> = {
+  DockerRegistry: Connectors.DOCKER,
+  Gcr: Connectors.GCP.toUpperCase(),
+  Ecr: Connectors.AWS.toUpperCase()
+}
+
 export const tagOptions: IOptionProps[] = [
   {
     label: 'Value',

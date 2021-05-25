@@ -89,6 +89,7 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
               class="bp3-input "
               dir="auto"
               placeholder="search"
+              style="padding-right: 42px;"
               type="search"
               value=""
             />
@@ -312,6 +313,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
               class="bp3-input "
               dir="auto"
               placeholder="search"
+              style="padding-right: 42px;"
               type="search"
               value=""
             />
@@ -2100,6 +2102,7 @@ exports[`Connectors Page Test Render and check create connector panel: Connector
                       class="bp3-input "
                       dir="auto"
                       placeholder="search"
+                      style="padding-right: 42px;"
                       type="search"
                       value=""
                     />

@@ -86,7 +86,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode readonly: h
             autocomplete="off"
             class="bp3-input"
             name="spec.approvers.minimumCount"
-            type="text"
+            type="number"
             value="0"
           />
         </div>
@@ -200,7 +200,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
             autocomplete="off"
             class="bp3-input"
             name="spec.approvers.minimumCount"
-            type="text"
+            type="number"
             value="0"
           />
         </div>
@@ -637,7 +637,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
             autocomplete="off"
             class="bp3-input"
             name="spec.approvers.minimumCount"
-            type="text"
+            type="number"
             value="0"
           />
         </div>

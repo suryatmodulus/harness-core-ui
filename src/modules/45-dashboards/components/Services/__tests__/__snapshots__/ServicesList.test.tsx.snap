@@ -46,6 +46,7 @@ exports[`ServicesList render 1`] = `
               class="bp3-input "
               dir="auto"
               placeholder="search"
+              style="padding-right: 42px;"
               type="search"
               value=""
             />

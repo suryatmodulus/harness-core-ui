@@ -178,15 +178,8 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
           name={`${prefix}spec.approvers.minimumCount`}
           disabled={isApprovalStepFieldDisabled(readonly)}
           className={css.deploymentViewMedium}
-          onChange={event => {
-            const changedValue = (event.target as HTMLInputElement).value
-            onUpdate?.({
-              ...initialValues,
-              spec: {
-                ...initialValues.spec,
-                approvers: { ...initialValues.spec.approvers, minimumCount: changedValue ? Number(changedValue) : 1 }
-              }
-            })
+          inputGroup={{
+            type: 'number'
           }}
         />
       ) : null}

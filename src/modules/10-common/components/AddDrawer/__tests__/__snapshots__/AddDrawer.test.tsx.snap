@@ -93,6 +93,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                         class="bp3-input "
                         dir="auto"
                         placeholder="Search"
+                        style="padding-right: 42px;"
                         type="search"
                         value=""
                       />

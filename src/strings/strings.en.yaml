@@ -519,9 +519,9 @@ order: Order
 artifactsSelection:
   artifactDetails: Artifact Details
   existingDocker:
-    sidecarId: Give your sidecar identifier
-    sidecarIdPlaceholder: Specify artifact identifier
-    imageNamePlaceholder: Enter path here
+    sidecarId: Sidecar Identifier
+    sidecarIdPlaceholder: Enter artifact identifier
+    imageNamePlaceholder: Enter Image Path
     imageName: ' Image path'
     enterTagRegex: Enter Tag Regex
   validation:

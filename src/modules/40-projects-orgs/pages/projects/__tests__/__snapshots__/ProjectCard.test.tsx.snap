@@ -309,120 +309,15 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
           <div
             class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main activityChart StyledProps--flex StyledProps--flex-align-center-center"
+            <a
+              href="/account/testAcc/cd/orgs/testOrg/projects/dummy_name/deployments"
             >
-              <div
-                class="StyledProps--font StyledProps--main SparkChart--main"
-                role="spark-chart"
-              >
-                <div
-                  class="container vertical rounded"
-                >
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 100%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall"
               >
-                40
+                projectsOrgs.gotoDeployments
               </p>
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
-            >
-              projectCard.cdRendererText
-            </p>
+            </a>
           </div>
         </div>
       </div>
@@ -481,120 +376,20 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
           <div
             class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main activityChart StyledProps--flex StyledProps--flex-align-center-center"
-            >
-              <div
-                class="StyledProps--font StyledProps--main SparkChart--main"
-                role="spark-chart"
-              >
-                <div
-                  class="container vertical rounded"
-                >
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 100%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
-              >
-                45
-              </p>
-            </div>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
+              class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall StyledProps--margin-bottom-xsmall"
             >
-              projectCard.cvRendererText
+              projectsOrgs.goto
             </p>
+            <a
+              href="/account/testAcc/cv/orgs/testOrg/projects/dummy_name/dashboard"
+            >
+              <p
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall"
+              >
+                changeVerificationText
+              </p>
+            </a>
           </div>
         </div>
       </div>
@@ -653,120 +448,15 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
           <div
             class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main activityChart StyledProps--flex StyledProps--flex-align-center-center"
+            <a
+              href="/account/testAcc/ci/orgs/testOrg/projects/dummy_name/deployments"
             >
-              <div
-                class="StyledProps--font StyledProps--main SparkChart--main"
-                role="spark-chart"
-              >
-                <div
-                  class="container vertical rounded"
-                >
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 100%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall"
               >
-                88
+                projectsOrgs.gotoBuilds
               </p>
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
-            >
-              projectCard.ciRendererText
-            </p>
+            </a>
           </div>
         </div>
       </div>
@@ -825,120 +515,15 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
           <div
             class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main activityChart StyledProps--flex StyledProps--flex-align-center-center"
+            <a
+              href="/account/testAcc/cf/orgs/testOrg/projects/dummy_name/dashboard"
             >
-              <div
-                class="StyledProps--font StyledProps--main SparkChart--main"
-                role="spark-chart"
-              >
-                <div
-                  class="container vertical rounded"
-                >
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 100%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall"
               >
-                10
+                projectsOrgs.gotoFeatureFlags
               </p>
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
-            >
-              projectCard.cfRendererText
-            </p>
+            </a>
           </div>
         </div>
       </div>
@@ -997,120 +582,15 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
           <div
             class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main activityChart StyledProps--flex StyledProps--flex-align-center-center"
+            <a
+              href="/account/testAcc/ce/home"
             >
-              <div
-                class="StyledProps--font StyledProps--main SparkChart--main"
-                role="spark-chart"
-              >
-                <div
-                  class="container vertical rounded"
-                >
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 100%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-blue600 StyledProps--font-size-xsmall"
               >
-                23
+                projectsOrgs.gotoCloudCosts
               </p>
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
-            >
-              projectCard.ceRendererText
-            </p>
+            </a>
           </div>
         </div>
       </div>
@@ -1799,120 +1279,15 @@ exports[`Project Card test initializes ok  1`] = `
           <div
             class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main activityChart StyledProps--flex StyledProps--flex-align-center-center"
+            <a
+              href="/account/testAcc/cd/orgs/testOrg/projects/dummy_name/deployments"
             >
-              <div
-                class="StyledProps--font StyledProps--main SparkChart--main"
-                role="spark-chart"
-              >
-                <div
-                  class="container vertical rounded"
-                >
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 100%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall"
               >
-                40
+                projectsOrgs.gotoDeployments
               </p>
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
-            >
-              projectCard.cdRendererText
-            </p>
+            </a>
           </div>
         </div>
       </div>
@@ -1971,120 +1346,20 @@ exports[`Project Card test initializes ok  1`] = `
           <div
             class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main activityChart StyledProps--flex StyledProps--flex-align-center-center"
-            >
-              <div
-                class="StyledProps--font StyledProps--main SparkChart--main"
-                role="spark-chart"
-              >
-                <div
-                  class="container vertical rounded"
-                >
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 100%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
-              >
-                45
-              </p>
-            </div>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
+              class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall StyledProps--margin-bottom-xsmall"
             >
-              projectCard.cvRendererText
+              projectsOrgs.goto
             </p>
+            <a
+              href="/account/testAcc/cv/orgs/testOrg/projects/dummy_name/dashboard"
+            >
+              <p
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall"
+              >
+                changeVerificationText
+              </p>
+            </a>
           </div>
         </div>
       </div>
@@ -2143,120 +1418,15 @@ exports[`Project Card test initializes ok  1`] = `
           <div
             class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main activityChart StyledProps--flex StyledProps--flex-align-center-center"
+            <a
+              href="/account/testAcc/ci/orgs/testOrg/projects/dummy_name/deployments"
             >
-              <div
-                class="StyledProps--font StyledProps--main SparkChart--main"
-                role="spark-chart"
-              >
-                <div
-                  class="container vertical rounded"
-                >
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 100%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall"
               >
-                88
+                projectsOrgs.gotoBuilds
               </p>
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
-            >
-              projectCard.ciRendererText
-            </p>
+            </a>
           </div>
         </div>
       </div>
@@ -2315,120 +1485,15 @@ exports[`Project Card test initializes ok  1`] = `
           <div
             class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main activityChart StyledProps--flex StyledProps--flex-align-center-center"
+            <a
+              href="/account/testAcc/cf/orgs/testOrg/projects/dummy_name/dashboard"
             >
-              <div
-                class="StyledProps--font StyledProps--main SparkChart--main"
-                role="spark-chart"
-              >
-                <div
-                  class="container vertical rounded"
-                >
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 100%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall"
               >
-                10
+                projectsOrgs.gotoFeatureFlags
               </p>
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
-            >
-              projectCard.cfRendererText
-            </p>
+            </a>
           </div>
         </div>
       </div>
@@ -2487,120 +1552,15 @@ exports[`Project Card test initializes ok  1`] = `
           <div
             class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main activityChart StyledProps--flex StyledProps--flex-align-center-center"
+            <a
+              href="/account/testAcc/ce/home"
             >
-              <div
-                class="StyledProps--font StyledProps--main SparkChart--main"
-                role="spark-chart"
-              >
-                <div
-                  class="container vertical rounded"
-                >
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 100%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 80%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 60%;"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="progress-bar"
-                    role="spark"
-                  >
-                    <div
-                      class="progress-track"
-                    >
-                      <div
-                        class="progress-fill"
-                        style="height: 40%;"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-blue600 StyledProps--font-size-xsmall"
               >
-                23
+                projectsOrgs.gotoCloudCosts
               </p>
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
-            >
-              projectCard.ceRendererText
-            </p>
+            </a>
           </div>
         </div>
       </div>

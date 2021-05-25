@@ -41,7 +41,10 @@ import {
   getConnectorListV2Promise,
   ConnectorInfoDTO,
   ConnectorResponse,
-  useGetBuildDetailsForEcr
+  useGetBuildDetailsForEcr,
+  getBuildDetailsForDockerPromise,
+  getBuildDetailsForGcrPromise,
+  getBuildDetailsForEcrPromise
 } from 'services/cd-ng'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { getStageIndexByIdentifier } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -987,6 +990,9 @@ const ManifestConnectorRefRegex = /^.+manifest\.spec\.store\.spec\.connectorRef$
 const ManifestConnectorRefType = 'Git'
 const ArtifactsSidecarRegex = /^.+.sidecar\.spec\.connectorRef$/
 const ArtifactsPrimaryRegex = /^.+artifacts\.primary\.spec\.connectorRef$/
+const ArtifactsSidecarTagRegex = /^.+.sidecar\.spec\.tag$/
+const ArtifactsPrimaryTagRegex = /^.+artifacts\.primary\.spec\.tag$/
+
 const ArtifactConnectorTypes = [
   ENABLED_ARTIFACT_TYPES.DockerRegistry,
   ENABLED_ARTIFACT_TYPES.Gcr,
@@ -1028,6 +1034,8 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
     this.invocationMap.set(ArtifactsPrimaryRegex, this.getArtifactsPrimaryConnectorsListForYaml.bind(this))
     this.invocationMap.set(ArtifactsSidecarRegex, this.getArtifactsSidecarConnectorsListForYaml.bind(this))
     this.invocationMap.set(ManifestConnectorRefRegex, this.getManifestConnectorsListForYaml.bind(this))
+    this.invocationMap.set(ArtifactsPrimaryTagRegex, this.getArtifactsTagsListForYaml.bind(this))
+    this.invocationMap.set(ArtifactsSidecarTagRegex, this.getArtifactsTagsListForYaml.bind(this))
   }
 
   protected getManifestConnectorsListForYaml(
@@ -1161,6 +1169,95 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
             })) || []
           return data
         })
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
+  }
+
+  protected getArtifactsTagsListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.tag', ''))
+      if (ArtifactConnectorTypes.includes(obj.type)) {
+        switch (obj.type) {
+          case ENABLED_ARTIFACT_TYPES.DockerRegistry: {
+            return getBuildDetailsForDockerPromise({
+              queryParams: {
+                imagePath: obj.spec?.imagePath,
+                connectorRef: obj.spec?.connectorRef,
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              }
+            }).then(response => {
+              const data =
+                response?.data?.buildDetailsList?.map(buildDetails => ({
+                  label: buildDetails.tag || '',
+                  insertText: buildDetails.tag || '',
+                  kind: CompletionItemKind.Field
+                })) || []
+              return data
+            })
+          }
+          case ENABLED_ARTIFACT_TYPES.Gcr: {
+            return getBuildDetailsForGcrPromise({
+              queryParams: {
+                imagePath: obj.spec?.imagePath,
+                registryHostname: obj.spec?.registryHostname,
+                connectorRef: obj.spec?.connectorRef,
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              }
+            }).then(response => {
+              const data =
+                response?.data?.buildDetailsList?.map(buildDetails => ({
+                  label: buildDetails.tag || '',
+                  insertText: buildDetails.tag || '',
+                  kind: CompletionItemKind.Field
+                })) || []
+              return data
+            })
+          }
+          case ENABLED_ARTIFACT_TYPES.Ecr: {
+            return getBuildDetailsForEcrPromise({
+              queryParams: {
+                imagePath: obj.spec?.imagePath,
+                region: obj.spec?.region,
+                connectorRef: obj.spec?.connectorRef,
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              }
+            }).then(response => {
+              const data =
+                response?.data?.buildDetailsList?.map(buildDetails => ({
+                  label: buildDetails.tag || '',
+                  insertText: buildDetails.tag || '',
+                  kind: CompletionItemKind.Field
+                })) || []
+              return data
+            })
+          }
+        }
       }
     }
 

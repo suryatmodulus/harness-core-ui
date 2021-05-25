@@ -129,7 +129,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
     expect(continueButton).toBeDefined()
     fireEvent.click(continueButton)
 
-    const artifactRepoLabel = await findByText('dockerRegistry connector')
+    const artifactRepoLabel = await findByText('DockerRegistry connector')
     expect(artifactRepoLabel).toBeDefined()
     const newConnectorLabel = await findByText('newLabel DockerRegistry connector')
     expect(newConnectorLabel).toBeDefined()

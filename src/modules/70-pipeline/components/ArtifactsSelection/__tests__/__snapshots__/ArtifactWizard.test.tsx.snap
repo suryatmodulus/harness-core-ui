@@ -447,7 +447,7 @@ exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`]
                     class="StyledProps--font StyledProps--main"
                     style="margin-bottom: 8px;"
                   >
-                    dockerRegistry connector
+                    DockerRegistry connector
                   </p>
                   <div
                     class="bp3-form-group"

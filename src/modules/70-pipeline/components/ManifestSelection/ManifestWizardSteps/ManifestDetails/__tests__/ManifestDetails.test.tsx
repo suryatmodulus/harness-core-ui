@@ -88,7 +88,6 @@ describe('Manifest Details tests', () => {
       fireEvent.change(queryByNameAttribute('paths[0].path')!, { target: { value: 'test-path' } })
       fireEvent.change(queryByNameAttribute('repoName')!, { target: { value: 'repo-name' } })
     })
-    expect(container).toMatchSnapshot()
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() => {
       expect(props.handleSubmit).toHaveBeenCalledTimes(1)
@@ -344,7 +343,6 @@ describe('Manifest Details tests', () => {
       fireEvent.change(queryByNameAttribute('paths[0].path')!, { target: { value: 'test-path' } })
       fireEvent.change(queryByNameAttribute('repoName')!, { target: { value: 'repo-name' } })
     })
-    expect(container).toMatchSnapshot()
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() => {
       expect(props.handleSubmit).toHaveBeenCalledTimes(1)

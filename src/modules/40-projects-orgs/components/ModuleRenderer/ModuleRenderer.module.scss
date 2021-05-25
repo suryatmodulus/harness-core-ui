@@ -16,7 +16,7 @@
 
 .moduleContainer {
   &:hover {
-    cursor: pointer;
+    cursor: auto;
     border-bottom-left-radius: inherit !important;
     border-bottom-right-radius: inherit !important;
     background: var(--grey-100) !important;
@@ -29,4 +29,8 @@
   :global(.progress-bar) {
     height: var(--spacing-medium) !important;
   }
+}
+
+.moduleLink {
+  text-transform: uppercase;
 }

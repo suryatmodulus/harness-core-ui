@@ -215,7 +215,7 @@ const RoleDetails: React.FC = () => {
                       >
                         <Layout.Horizontal flex spacing="small">
                           <Icon name={resourceHandler.icon} size={20} />
-                          <Text color={Color.BLACK}>{resourceHandler.label} </Text>
+                          <Text color={Color.BLACK}>{getString(resourceHandler.label)} </Text>
                         </Layout.Horizontal>
                       </Card>
                     )

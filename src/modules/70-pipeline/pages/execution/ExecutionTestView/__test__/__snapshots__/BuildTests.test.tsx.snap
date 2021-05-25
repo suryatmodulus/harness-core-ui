@@ -36515,6 +36515,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         >
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                            style="width: 100%;"
                             type="button"
                           >
                             <span
@@ -36540,6 +36541,16 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                     </div>
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        16
+                      </span>
+                    </button>
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
                       type="button"
@@ -38433,6 +38444,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   >
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      style="width: 100%;"
                       type="button"
                     >
                       <span
@@ -38458,6 +38470,16 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   </div>
                 </div>
               </div>
+              <button
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  41
+                </span>
+              </button>
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
                 type="button"
@@ -75464,6 +75486,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         >
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                            style="width: 100%;"
                             type="button"
                           >
                             <span
@@ -75489,6 +75512,16 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                     </div>
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        16
+                      </span>
+                    </button>
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
                       type="button"
@@ -77382,6 +77415,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   >
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      style="width: 100%;"
                       type="button"
                     >
                       <span
@@ -77407,6 +77441,16 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   </div>
                 </div>
               </div>
+              <button
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  41
+                </span>
+              </button>
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
                 type="button"

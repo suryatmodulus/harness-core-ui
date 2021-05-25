@@ -29,7 +29,7 @@ import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from '
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ManifestDetailDataType } from '../../ManifestInterface'
-import { gitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../../Manifesthelper'
+import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -292,11 +292,11 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 <FormInput.Select
                   name="gitFetchType"
                   label={getString('pipeline.manifestType.gitFetchTypeLabel')}
-                  items={gitFetchTypes}
+                  items={gitFetchTypeList}
                 />
 
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  {formik.values?.gitFetchType === gitFetchTypes[0].value && (
+                {formik.values?.gitFetchType === GitFetchTypes.Branch && (
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
                     <FormInput.MultiTextInput
                       multiTextInputProps={{ expressions }}
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
@@ -304,21 +304,23 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       name="branch"
                       style={{ width: '370px' }}
                     />
-                  )}
-                  {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={formik.values?.branch as string}
-                      type="String"
-                      variableName="branch"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => formik.setFieldValue('branch', value)}
-                    />
-                  )}
-                </div>
-                <div className={cx(stepCss.formGroup)}>
-                  {formik.values?.gitFetchType === gitFetchTypes[1].value && (
+
+                    {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        value={formik.values?.branch as string}
+                        type="String"
+                        variableName="branch"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('branch', value)}
+                      />
+                    )}
+                  </div>
+                )}
+
+                {formik.values?.gitFetchType === GitFetchTypes.Commit && (
+                  <div className={cx(stepCss.formGroup)}>
                     <FormInput.MultiTextInput
                       multiTextInputProps={{ expressions }}
                       label={getString('pipeline.manifestType.commitId')}
@@ -326,19 +328,20 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       name="commitId"
                       style={{ width: '370px' }}
                     />
-                  )}
-                  {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={formik.values?.commitId as string}
-                      type="String"
-                      variableName="commitId"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => formik.setFieldValue('commitId', value)}
-                    />
-                  )}
-                </div>
+
+                    {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        value={formik.values?.commitId as string}
+                        type="String"
+                        variableName="commitId"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('commitId', value)}
+                      />
+                    )}
+                  </div>
+                )}
                 <div className={cx(stepCss.formGroup)}>
                   <MultiTypeFieldSelector
                     defaultValueToReset={defaultValueToReset}

@@ -96,6 +96,7 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
 export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
   status: ConnectorResponse['status']
   gitDetails?: EntityGitDetails
+  harnessManaged?: boolean
 }
 export function getEditRenderer(
   selected: ConnectorSelectedValue,
@@ -187,7 +188,7 @@ const RecordRender: React.FC<RecordRenderProps> = props => {
           </div>
         </Layout.Horizontal>
         <Layout.Horizontal spacing="small">
-          {canUpdate ? (
+          {canUpdate && !item.record.harnessManaged ? (
             <Button
               minimal
               icon="edit"
@@ -302,7 +303,8 @@ export function getReferenceFieldProps({
                 record: {
                   ...connector.connector,
                   status: connector.status,
-                  gitDetails: connector.gitDetails?.objectId ? connector.gitDetails : undefined
+                  gitDetails: connector.gitDetails?.objectId ? connector.gitDetails : undefined,
+                  harnessManaged: connector.harnessManaged
                 } as ConnectorReferenceDTO
               })
             })

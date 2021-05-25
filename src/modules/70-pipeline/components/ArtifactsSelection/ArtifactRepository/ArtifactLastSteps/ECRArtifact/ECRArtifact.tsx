@@ -257,6 +257,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                     }
                   }}
                   label={getString('regionLabel')}
+                  placeholder={getString('select')}
                 />
 
                 {getMultiTypeFromValue(formik.values.region) === MultiTypeInputType.RUNTIME && (

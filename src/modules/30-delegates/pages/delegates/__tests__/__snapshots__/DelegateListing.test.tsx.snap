@@ -70,6 +70,7 @@ exports[`Delegates Listing With Groups render data 1`] = `
             class="bp3-input "
             dir="auto"
             placeholder="delegates.searchDelegateName"
+            style="padding-right: 42px;"
             type="search"
             value=""
           />
@@ -486,6 +487,7 @@ exports[`Delegates Listing test actions render data and click delete 1`] = `
             class="bp3-input "
             dir="auto"
             placeholder="delegates.searchDelegateName"
+            style="padding-right: 42px;"
             type="search"
             value=""
           />
@@ -874,6 +876,7 @@ exports[`Delegates Listing without tags render data 1`] = `
             class="bp3-input "
             dir="auto"
             placeholder="delegates.searchDelegateName"
+            style="padding-right: 42px;"
             type="search"
             value=""
           />
@@ -1262,6 +1265,7 @@ exports[`Feature flag enabled render delegates list and check for activity colum
             class="bp3-input "
             dir="auto"
             placeholder="delegates.searchDelegateName"
+            style="padding-right: 42px;"
             type="search"
             value=""
           />

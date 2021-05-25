@@ -26,7 +26,7 @@ import { getScopeFromValue } from '@common/components/EntityReference/EntityRefe
 import { Scope } from '@common/interfaces/SecretsInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 import type { CommandFlags, HelmWithGITDataType } from '../../ManifestInterface'
-import { gitFetchTypes, GitRepoName, helmVersions, ManifestStoreMap } from '../../Manifesthelper'
+import { gitFetchTypeList, GitFetchTypes, GitRepoName, helmVersions, ManifestStoreMap } from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
@@ -237,11 +237,11 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                   <FormInput.Select
                     name="gitFetchType"
                     label={getString('pipeline.manifestType.gitFetchTypeLabel')}
-                    items={gitFetchTypes}
+                    items={gitFetchTypeList}
                   />
                 </div>
 
-                {formik.values?.gitFetchType === gitFetchTypes[0].value && (
+                {formik.values?.gitFetchType === GitFetchTypes.Branch && (
                   <div
                     className={cx(helmcss.halfWidth, {
                       [helmcss.runtimeInput]:
@@ -269,7 +269,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                   </div>
                 )}
 
-                {formik.values?.gitFetchType === gitFetchTypes[1].value && (
+                {formik.values?.gitFetchType === GitFetchTypes.Commit && (
                   <div
                     className={cx(helmcss.halfWidth, {
                       [helmcss.runtimeInput]:

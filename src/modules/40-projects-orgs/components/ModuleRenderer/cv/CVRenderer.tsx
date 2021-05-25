@@ -1,6 +1,13 @@
 import React from 'react'
-import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uicore'
-import { useHistory, useParams } from 'react-router-dom'
+import {
+  Text,
+  Color,
+  Container,
+  Layout,
+  Icon
+  // SparkChart
+} from '@wings-software/uicore'
+import { useParams, Link } from 'react-router-dom'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
@@ -13,7 +20,6 @@ interface CVRendererProps {
 }
 
 const CVRenderer: React.FC<CVRendererProps> = ({ data, isPreview }) => {
-  const history = useHistory()
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
 
@@ -21,16 +27,6 @@ const CVRenderer: React.FC<CVRendererProps> = ({ data, isPreview }) => {
     <Container
       border={{ top: true, color: Color.GREY_250 }}
       padding={{ top: 'medium', bottom: 'medium' }}
-      onClick={() => {
-        !isPreview &&
-          history.push(
-            routes.toCVProjectOverview({
-              orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
-              projectIdentifier: data.identifier,
-              accountId
-            })
-          )
-      }}
       className={css.moduleContainer}
     >
       <Layout.Horizontal>
@@ -39,15 +35,38 @@ const CVRenderer: React.FC<CVRendererProps> = ({ data, isPreview }) => {
         </Container>
         <Container width="70%" flex={{ align: 'center-center' }}>
           <Layout.Vertical flex={{ align: 'center-center' }}>
-            <Layout.Horizontal flex={{ align: 'center-center' }} className={css.activityChart} spacing="xxlarge">
+            {/* <Layout.Horizontal flex={{ align: 'center-center' }} className={css.activityChart} spacing="xxlarge">
               <SparkChart data={[2, 3, 4, 5, 4, 3, 2]} />
               <Text color={Color.GREY_400} font={{ size: 'medium' }}>
                 {'45'}
               </Text>
-            </Layout.Horizontal>
-            <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-              {getString('projectCard.cvRendererText')}
+            </Layout.Horizontal> */}
+            <Text
+              color={Color.PRIMARY_6}
+              font={{ size: 'xsmall' }}
+              className={css.moduleLink}
+              margin={{ bottom: 'xsmall' }}
+            >
+              {getString('projectsOrgs.goto')}
             </Text>
+            {isPreview ? (
+              <Text color={Color.GREY_500} font={{ size: 'xsmall' }} className={css.moduleLink}>
+                {getString('changeVerificationText')}
+              </Text>
+            ) : (
+              <Link
+                to={routes.toCVProjectOverview({
+                  orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
+                  projectIdentifier: data.identifier,
+                  accountId
+                })}
+              >
+                <Text color={Color.PRIMARY_6} font={{ size: 'xsmall' }} className={css.moduleLink}>
+                  {/* {getString('projectCard.cvRendererText')} */}
+                  {getString('changeVerificationText')}
+                </Text>
+              </Link>
+            )}
           </Layout.Vertical>
         </Container>
       </Layout.Horizontal>

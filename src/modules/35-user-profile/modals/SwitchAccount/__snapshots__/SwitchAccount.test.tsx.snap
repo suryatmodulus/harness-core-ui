@@ -47,6 +47,7 @@ exports[`Switch Account render 1`] = `
             class="bp3-input "
             dir="auto"
             placeholder="userProfile.switchAccountSearch"
+            style="padding-right: 42px;"
             type="search"
             value=""
           />

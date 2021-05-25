@@ -21,10 +21,10 @@ import type { ConnectorSelectedValue } from '@connectors/components/ConnectorRef
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ArtifactConnectorLabelMap, ArtifactToConnectorMap } from '../ArtifactHelper'
 import type { ArtifactType, ConnectorDataType } from '../ArtifactInterface'
-import { ArtifactTitleIdByType, ArtifactToConnectorMap } from '../ArtifactHelper'
-import css from './ArtifactConnector.module.scss'
 
+import css from './ArtifactConnector.module.scss'
 interface ArtifactConnectorProps {
   handleViewChange: () => void
   name?: string
@@ -53,8 +53,9 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
   const { getString } = useStrings()
 
   const connectorType = ArtifactToConnectorMap[selectedArtifact]
+  const selectedConnectorLabel = ArtifactConnectorLabelMap[selectedArtifact]
 
-  const newConnectorLabel = `${getString('newLabel')} ${connectorType} ${getString('connector')}`
+  const newConnectorLabel = `${getString('newLabel')} ${selectedConnectorLabel} ${getString('connector')}`
 
   const [canCreate] = usePermission({
     resource: {
@@ -96,13 +97,9 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                 <FormMultiTypeConnectorField
                   name="connectorId"
                   label={
-                    <Text style={{ marginBottom: 8 }}>{`${getString(
-                      ArtifactTitleIdByType[selectedArtifact]
-                    )} ${getString('connector')}`}</Text>
+                    <Text style={{ marginBottom: 8 }}>{`${selectedConnectorLabel} ${getString('connector')}`}</Text>
                   }
-                  placeholder={`${getString('select')} ${getString(
-                    ArtifactTitleIdByType[selectedArtifact]
-                  )} ${getString('connector')}`}
+                  placeholder={`${getString('select')} ${selectedConnectorLabel} ${getString('connector')}`}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}

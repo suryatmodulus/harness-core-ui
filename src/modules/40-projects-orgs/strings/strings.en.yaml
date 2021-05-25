@@ -81,3 +81,8 @@ createOrSelectAProject: Create or Select a Project
 getStarted: 'Let’s get you started by enabling {{moduleDescription}} to a project'
 selectAnExistingProject: Select an existing project
 createANewProject: Create A New Project
+gotoDeployments: Go to Deployments
+gotoBuilds: Go to Builds
+gotoFeatureFlags: Go to Feature Flags
+gotoCloudCosts: Go to Cloud Costs
+goto: Go to

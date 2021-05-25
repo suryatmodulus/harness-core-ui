@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Tooltip, Intent, Dialog } from '@blueprintjs/core'
+import { Tooltip, Intent, Dialog, RadioGroup, Radio } from '@blueprintjs/core'
 import {
   Button,
   Checkbox,
@@ -10,8 +10,7 @@ import {
   NestedAccordionProvider,
   Accordion,
   Icon,
-  useModalHook,
-  FormInput
+  useModalHook
 } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
@@ -379,18 +378,18 @@ function RunPipelineFormBasic({
                         >
                           <div className={css.divider}>
                             <Layout.Horizontal className={css.runModalSubHeading} id="use-input-set">
-                              <FormInput.RadioGroup
+                              <RadioGroup
                                 name="existingProvideRadio"
                                 label="Select an existing inputset or provide new set of values"
-                                items={[
-                                  { label: 'Use Existing Inputsets', value: 'existing' },
-                                  { label: 'Provide Values', value: 'provide' }
-                                ]}
-                                radioGroup={{ inline: true }}
+                                inline
+                                selectedValue={existingProvide}
                                 onChange={ev => {
                                   setExistingProvide((ev.target as HTMLInputElement).value)
                                 }}
-                              />
+                              >
+                                <Radio label="Use Existing Inputsets" value="existing" />
+                                <Radio label="Provide Values" value="provide" />
+                              </RadioGroup>
                               <span className={css.helpSection}>
                                 <Icon name="question" className={css.helpIcon} />
                                 <Text>What are Inputsets?</Text>

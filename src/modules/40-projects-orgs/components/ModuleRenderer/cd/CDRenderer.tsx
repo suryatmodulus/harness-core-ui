@@ -1,6 +1,13 @@
 import React from 'react'
-import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uicore'
-import { useHistory, useParams } from 'react-router-dom'
+import {
+  Text,
+  Color,
+  Container,
+  Layout,
+  Icon
+  // SparkChart
+} from '@wings-software/uicore'
+import { useParams, Link } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
@@ -12,7 +19,6 @@ interface CDRendererProps {
   isPreview?: boolean
 }
 const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
-  const history = useHistory()
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   return (
@@ -20,17 +26,6 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
       border={{ top: true, color: Color.GREY_250 }}
       padding={{ top: 'medium', bottom: 'medium' }}
       className={css.moduleContainer}
-      onClick={() => {
-        !isPreview &&
-          history.push(
-            routes.toDeployments({
-              orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
-              projectIdentifier: data.identifier,
-              module: 'cd',
-              accountId
-            })
-          )
-      }}
     >
       <Layout.Horizontal>
         <Container width="30%" border={{ right: true, color: Color.GREY_250 }} flex={{ align: 'center-center' }}>
@@ -38,15 +33,31 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
         </Container>
         <Container width="70%" flex={{ align: 'center-center' }}>
           <Layout.Vertical flex={{ align: 'center-center' }}>
-            <Layout.Horizontal flex={{ align: 'center-center' }} className={css.activityChart} spacing="xxlarge">
+            {/* <Layout.Horizontal flex={{ align: 'center-center' }} className={css.activityChart} spacing="xxlarge">
               <SparkChart data={[2, 3, 4, 5, 4, 3, 2]} />
               <Text color={Color.GREY_400} font={{ size: 'medium' }}>
                 {'40'}
               </Text>
-            </Layout.Horizontal>
-            <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-              {getString('projectCard.cdRendererText')}
-            </Text>
+            </Layout.Horizontal> */}
+            {isPreview ? (
+              <Text color={Color.GREY_500} font={{ size: 'xsmall' }} className={css.moduleLink}>
+                {getString('projectsOrgs.gotoDeployments')}
+              </Text>
+            ) : (
+              <Link
+                to={routes.toDeployments({
+                  orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
+                  projectIdentifier: data.identifier,
+                  module: 'cd',
+                  accountId
+                })}
+              >
+                <Text color={Color.PRIMARY_6} font={{ size: 'xsmall' }} className={css.moduleLink}>
+                  {/* {getString('projectCard.cdRendererText')} */}
+                  {getString('projectsOrgs.gotoDeployments')}
+                </Text>
+              </Link>
+            )}
           </Layout.Vertical>
         </Container>
       </Layout.Horizontal>

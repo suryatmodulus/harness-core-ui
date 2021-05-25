@@ -39,6 +39,7 @@ rules:
   no-document-body-snapshot: 2
   aliased-module-imports: 2
   strings-restrict-modules: 2
+  duplicate-data-tooltip-id: 'warn'
   jest-no-mock:
     - 2
     - module:

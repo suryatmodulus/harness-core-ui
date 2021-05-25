@@ -44,6 +44,7 @@ exports[`Entity Usage render for data 1`] = `
             class="bp3-input "
             dir="auto"
             placeholder="projectSelector.placeholder"
+            style="padding-right: 42px;"
             type="search"
             value=""
           />
@@ -198,6 +199,7 @@ exports[`Entity Usage render for no data 1`] = `
             class="bp3-input "
             dir="auto"
             placeholder="projectSelector.placeholder"
+            style="padding-right: 42px;"
             type="search"
             value=""
           />

@@ -91,7 +91,12 @@ export enum GitRepoName {
   Repo = 'Repo'
 }
 
-export const gitFetchTypes = [
+export enum GitFetchTypes {
+  Branch = 'Branch',
+  Commit = 'Commit'
+}
+
+export const gitFetchTypeList = [
   { label: 'Latest from Branch', value: 'Branch' },
   { label: 'Specific Commit ID', value: 'Commit' }
 ]

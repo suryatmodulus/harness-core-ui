@@ -12,6 +12,8 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { useUpdateQueryParams } from '@common/hooks'
+import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import type { ExecutionPipeline, ExecutionPipelineItem, StageOptions } from './ExecutionPipelineModel'
 import { ExecutionStageDiagramModel, GridStyleInterface, NodeStyleInterface } from './ExecutionStageDiagramModel'
 import ExecutionActions from '../ExecutionActions/ExecutionActions'
@@ -110,20 +112,45 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     setGraphCanvasState
   } = props
 
-  const debounceSetGraphCanvasState = React.useRef(
-    debounce((values: any) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceSetGraphCanvasState = React.useCallback(
+    debounce((values: GraphCanvasState) => {
       return setGraphCanvasState?.(values)
-    }, 250)
-  ).current
+    }, 250),
+    []
+  )
 
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<ExecutionPathProps>
   >()
 
-  const { pipelineStagesMap, refetch, pipelineExecutionDetail, allNodeMap } = useExecutionContext()
+  const {
+    pipelineStagesMap,
+    refetch,
+    pipelineExecutionDetail,
+    allNodeMap,
+    queryParams,
+    selectedStageId,
+    selectedStepId
+  } = useExecutionContext()
+  const { replaceQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
   const [autoPosition, setAutoPosition] = React.useState(true)
 
   const [groupStage, setGroupStage] = React.useState<Map<string, GroupState<T>>>()
+
+  function stopAutoSelection(): void {
+    if (queryParams.stage && queryParams.step) {
+      return
+    }
+
+    if (selectedStageId && selectedStepId) {
+      replaceQueryParams({
+        ...queryParams,
+        stage: selectedStageId,
+        step: selectedStepId
+      })
+    }
+  }
 
   React.useEffect(() => {
     const stageData = getGroupsFromData(data.items)
@@ -277,7 +304,10 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   const stageNode = find(allNodeMap, node => node.setupId === selectedStage?.value)
 
   return (
-    <div className={classNames(css.main, { [css.whiteBackground]: isWhiteBackground }, className)}>
+    <div
+      className={classNames(css.main, { [css.whiteBackground]: isWhiteBackground }, className)}
+      onClick={stopAutoSelection}
+    >
       <Diagram.CanvasWidget engine={engine} className={css.canvas} />
       {showStageSelection && selectedStage && selectedStage?.value?.length > 0 && (
         <Layout.Horizontal spacing="xxlarge" className={css.stageSelection}>

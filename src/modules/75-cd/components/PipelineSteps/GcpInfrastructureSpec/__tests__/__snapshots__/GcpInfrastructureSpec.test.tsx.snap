@@ -677,6 +677,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                 >
                   <input
                     name="allowSimultaneousDeployments"
+                    tooltipprops="[object Object]"
                     type="checkbox"
                   />
                   <span
@@ -1133,6 +1134,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
                 >
                   <input
                     name="allowSimultaneousDeployments"
+                    tooltipprops="[object Object]"
                     type="checkbox"
                   />
                   <span
@@ -1577,6 +1579,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                 >
                   <input
                     name="allowSimultaneousDeployments"
+                    tooltipprops="[object Object]"
                     type="checkbox"
                   />
                   <span

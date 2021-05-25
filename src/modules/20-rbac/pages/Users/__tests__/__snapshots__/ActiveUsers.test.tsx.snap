@@ -656,6 +656,7 @@ exports[`UsersPage Test render data 1`] = `
           class="bp3-input "
           dir="auto"
           placeholder="rbac.usersPage.search"
+          style="padding-right: 42px;"
           type="search"
           value=""
         />

@@ -125,6 +125,7 @@ exports[`Delegates Page render data 1`] = `
                     class="bp3-input "
                     dir="auto"
                     placeholder="delegates.searchDelegateName"
+                    style="padding-right: 42px;"
                     type="search"
                     value=""
                   />

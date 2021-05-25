@@ -26,7 +26,7 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import type { KustomizeWithGITDataType } from '../../ManifestInterface'
-import { gitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
+import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
@@ -220,11 +220,11 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   <FormInput.Select
                     name="gitFetchType"
                     label={getString('pipeline.manifestType.gitFetchTypeLabel')}
-                    items={gitFetchTypes}
+                    items={gitFetchTypeList}
                   />
                 </div>
 
-                {formik.values?.gitFetchType === gitFetchTypes[0].value && (
+                {formik.values?.gitFetchType === GitFetchTypes.Branch && (
                   <div
                     className={cx(helmcss.halfWidth, {
                       [helmcss.runtimeInput]:
@@ -252,7 +252,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   </div>
                 )}
 
-                {formik.values?.gitFetchType === gitFetchTypes[1].value && (
+                {formik.values?.gitFetchType === GitFetchTypes.Commit && (
                   <div
                     className={cx(helmcss.halfWidth, {
                       [helmcss.runtimeInput]:

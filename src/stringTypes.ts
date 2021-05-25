@@ -784,11 +784,16 @@ export interface StringsMap {
   'projectsOrgs.editTitle': string
   'projectsOrgs.enableModules': string
   'projectsOrgs.getStarted': string
+  'projectsOrgs.goto': string
+  'projectsOrgs.gotoBuilds': string
   'projectsOrgs.gotoCD': string
   'projectsOrgs.gotoCE': string
   'projectsOrgs.gotoCF': string
   'projectsOrgs.gotoCI': string
   'projectsOrgs.gotoCV': string
+  'projectsOrgs.gotoCloudCosts': string
+  'projectsOrgs.gotoDeployments': string
+  'projectsOrgs.gotoFeatureFlags': string
   'projectsOrgs.invite': string
   'projectsOrgs.inviteCollab': string
   'projectsOrgs.manage': string

@@ -107,7 +107,9 @@ interface InputSetSelectOption extends SelectOption {
 export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
   hideForm,
   identifier,
-  isReadOnly = false
+  isReadOnly = false,
+  overlayInputSetRepoIdentifier,
+  overlayInputSetBranch
 }): JSX.Element => {
   const { getString } = useStrings()
   const [isOpen, setIsOpen] = React.useState(true)
@@ -124,8 +126,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
 
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
-  const [selectedRepo, setSelectedRepo] = React.useState<string>(repoIdentifier || '')
-  const [selectedBranch, setSelectedBranch] = React.useState<string>(branch || '')
+  const [selectedRepo, setSelectedRepo] = React.useState<string>(overlayInputSetRepoIdentifier || repoIdentifier || '')
+  const [selectedBranch, setSelectedBranch] = React.useState<string>(overlayInputSetBranch || branch || '')
   const { showSuccess, showError, clear } = useToaster()
 
   const {
@@ -139,8 +141,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      repoIdentifier,
-      branch
+      repoIdentifier: overlayInputSetRepoIdentifier,
+      branch: overlayInputSetBranch
     },
     inputSetIdentifier: identifier || '',
     lazy: true
@@ -307,8 +309,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
             orgIdentifier,
             pipelineIdentifier,
             projectIdentifier,
-            ...(gitDetails ?? {}),
-            lastObjectId: objectId
+            ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {})
           }
         })
       } else {

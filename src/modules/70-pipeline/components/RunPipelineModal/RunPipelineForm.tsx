@@ -498,7 +498,7 @@ function RunPipelineFormBasic({
                     </FormikForm>
                   </div>
                   <div>
-                    <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', bottom: 'medium' }}>
+                    <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', bottom: 'medium', top: 'medium' }}>
                       <div className={css.footer}>
                         <Layout.Horizontal padding={{ left: 'xxlarge' }}>
                           <Checkbox

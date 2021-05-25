@@ -333,7 +333,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             projectIdentifier,
             pipelineRepoID: repoIdentifier,
             pipelineBranch: branch,
-            ...({ ...gitDetails, lastObjectId: objectId } ?? {})
+            ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {})
           }
         })
       } else {

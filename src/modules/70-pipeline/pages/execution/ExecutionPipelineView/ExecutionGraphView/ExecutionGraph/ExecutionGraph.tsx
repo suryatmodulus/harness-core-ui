@@ -27,6 +27,8 @@ import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
 import CDInfo from './components/CD/CDInfo/CDInfo'
 import css from './ExecutionGraph.module.scss'
 
+const barrierSupportedStageTypes = [StageTypes.DEPLOY, StageTypes.APPROVAL]
+
 const processExecutionData = (
   stages?: ProcessLayoutNodeMapResponse[]
 ): Array<ExecutionPipelineNode<GraphLayoutNode>> => {
@@ -145,7 +147,7 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
     return (
       <HoverCard barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData}>
         {popoverData?.when && <ConditionalExecutionTooltip data={popoverData.when} mode={Modes.STAGE} />}
-        {get(popoverData, 'data.module', '') === 'cd' && (
+        {barrierSupportedStageTypes.indexOf(get(popoverData, 'data.nodeType', '')) !== -1 && (
           <CDInfo barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData} />
         )}
       </HoverCard>

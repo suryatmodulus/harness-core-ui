@@ -458,7 +458,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                 <StepWidget<InfraProvisioningData>
                   factory={factory}
                   readonly={isReadonly}
-                  key={updateKey}
+                  key={stage?.stage?.identifier}
                   initialValues={getProvisionerData(stage || {})}
                   type={StepType.InfraProvisioning}
                   stepViewType={StepViewType.Edit}

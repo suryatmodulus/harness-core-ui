@@ -36,6 +36,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                 <span
                   class="bp3-icon bp3-icon-add StyledProps--main"
                   icon="add"
+                  style="pointer-events: none;"
                 >
                   <svg
                     data-icon="add"
@@ -176,6 +177,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                 <span
                   class="bp3-icon bp3-icon-add StyledProps--main"
                   icon="add"
+                  style="pointer-events: none;"
                 >
                   <svg
                     data-icon="add"
@@ -545,6 +547,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                   <span
                     class="bp3-icon StyledProps--main"
                     data-icon="barrier-open"
+                    style="pointer-events: none;"
                   >
                     <svg
                       height="16"

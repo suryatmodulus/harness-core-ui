@@ -17,6 +17,8 @@ export interface DefaultLinkSegmentWidgetProps {
 
 export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): JSX.Element => {
   const { onSelection, link } = props
+  //NOTE: isDragOver is used to set pointerEvents="none" to plus button on dragOver event
+  const [isDragOver, setDragOver] = React.useState(false)
   const allowAdd = link.getOptions().allowAdd ?? true
   const prevColorRef = React.useRef('')
   const color = link.getOptions().color
@@ -87,6 +89,7 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
     fill: 'none',
     onContextMenu,
     onDragOver: (event: React.DragEvent<HTMLDivElement>) => {
+      setDragOver(true)
       if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnLink) !== -1) {
         if (allowAdd) {
           onSelection(true)
@@ -95,6 +98,7 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
       }
     },
     onDragLeave: (event: React.DragEvent<HTMLDivElement>) => {
+      setDragOver(false)
       if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnLink) !== -1) {
         if (allowAdd) {
           onSelection(false)
@@ -124,7 +128,7 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
             fill={props.link.getOptions().selectedColor}
             r={10}
             cx={point.x}
-            pointerEvents="all"
+            pointerEvents={isDragOver ? 'none' : 'all'}
             onMouseLeave={onMouseLeave}
             onMouseEnter={onMouseEnter}
             cy={point.y}

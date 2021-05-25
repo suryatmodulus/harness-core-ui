@@ -190,7 +190,14 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
       >
         {/* Only add the icon style if the stage is not skipped.
         Otherwise, the deployment icon becomes transparent and we do not see it when the stage is skipped. */}
-        {options.icon && <Icon size={28} name={options.icon} {...options.iconProps} style={options.iconStyle} />}
+        {options.icon && (
+          <Icon
+            size={28}
+            name={options.icon}
+            {...options.iconProps}
+            style={{ pointerEvents: 'none', ...options.iconStyle }}
+          />
+        )}
         <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
           {props.node.getInPorts().map(port => generatePort(port, props))}
         </div>

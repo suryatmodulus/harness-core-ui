@@ -431,7 +431,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
         </span>
       </span>
       <a
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
+        class="bp3-button Button--button StyledProps--font StyledProps--main prNumber Button--with-current-color Button--link"
         href="link"
         rel="noreferrer noopener"
         role="button"
@@ -623,7 +623,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
         </span>
       </span>
       <a
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
+        class="bp3-button Button--button StyledProps--font StyledProps--main prNumber Button--with-current-color Button--link"
         href="link"
         rel="noreferrer noopener"
         role="button"

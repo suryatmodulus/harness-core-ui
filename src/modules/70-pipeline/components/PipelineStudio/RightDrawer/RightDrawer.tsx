@@ -438,6 +438,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           step={data.stepConfig.node}
           isReadonly={isReadonly}
           ref={formikRef}
+          checkDuplicateStep={checkDuplicateStep.bind(null, formikRef, data, getString)}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
@@ -592,9 +593,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 })
               }
 
+              const provisioner = get(pipelineStage?.stage, 'spec.infrastructure.infrastructureDefinition.provisioner')
+              // set empty arrays
+              if (!paletteData.isRollback && !provisioner.steps) provisioner.steps = []
+              if (paletteData.isRollback && !provisioner.rollbackSteps) provisioner.rollbackSteps = []
+
               addStepOrGroup(
                 paletteData.entity,
-                get(pipelineStage?.stage, 'spec.infrastructure.infrastructureDefinition.provisioner'),
+                provisioner,
                 newStepData,
                 paletteData.isParallelNodeClicked,
                 paletteData.isRollback
@@ -638,6 +644,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           step={data.stepConfig.node}
           ref={formikRef}
           isReadonly={isReadonly}
+          checkDuplicateStep={checkDuplicateStep.bind(null, formikRef, data, getString)}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}

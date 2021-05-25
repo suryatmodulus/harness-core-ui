@@ -71,7 +71,7 @@ const BuildInfo: React.FC<BuildInfoProps> = props => {
                 <Icon color={Color.GREY_500} name="more" size={10} />
               </span>
             </Link>
-            <Link href={buildData?.pullRequest?.link} target="_blank">
+            <Link className={css.prNumber} href={buildData?.pullRequest?.link} target="_blank">
               {getString('execution.prSymbol')}{' '}
               {typeof buildData?.pullRequest?.id === 'string' || typeof buildData?.pullRequest?.id === 'number'
                 ? buildData?.pullRequest?.id

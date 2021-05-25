@@ -8,5 +8,6 @@ declare const styles: {
   readonly ellipsis: string
   readonly moreBox: string
   readonly toggleCommit: string
+  readonly prNumber: string
 }
 export default styles

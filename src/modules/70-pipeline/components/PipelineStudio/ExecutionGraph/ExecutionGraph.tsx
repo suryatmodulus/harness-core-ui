@@ -345,6 +345,12 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
       dynamicPopoverHandler?.hide()
       const isRemoved = removeStepOrGroup(state, eventTemp.entity)
       if (isRemoved) {
+        const newStateMap = new Map<string, StepState>([...state.states])
+        newStateMap.delete(eventTemp.entity?.getIdentifier())
+        setState(prevState => ({
+          ...prevState,
+          states: newStateMap
+        }))
         updateStage(stage)
       }
     },

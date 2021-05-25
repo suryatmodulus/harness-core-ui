@@ -86,16 +86,18 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   })
 
   React.useEffect(() => {
-    if (Array.isArray(data?.data?.buildDetailsList)) {
+    if (dockerTagError) {
+      setTagList([])
+    } else if (Array.isArray(data?.data?.buildDetailsList)) {
       setTagList(data?.data?.buildDetailsList as [])
     }
-  }, [data])
+  }, [data, dockerTagError])
 
   React.useEffect(() => {
     if (lastImagePath && getMultiTypeFromValue(lastImagePath) === MultiTypeInputType.FIXED) {
       refetch()
     }
-  }, [lastImagePath])
+  }, [lastImagePath, refetch])
   const getSelectItems = React.useCallback(() => {
     const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
     return list

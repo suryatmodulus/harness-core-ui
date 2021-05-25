@@ -149,7 +149,11 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
               onMouseDown={e => onClick(e, props.node)}
             />
           )}
-          <Icon name={options.icon as IconName} size={options.iconSize} style={options.iconStyle} />
+          <Icon
+            name={options.icon as IconName}
+            size={options.iconSize}
+            style={{ pointerEvents: 'none', ...options.iconStyle }}
+          />
           <div>
             <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
               {props.node.getInPorts().map(port => generatePort(port, props))}

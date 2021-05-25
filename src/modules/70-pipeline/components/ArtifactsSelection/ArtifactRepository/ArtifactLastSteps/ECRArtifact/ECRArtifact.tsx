@@ -80,7 +80,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     region: ''
   })
 
-  const { data: ecrBuildData, loading, refetch } = useGetBuildDetailsForEcr({
+  const { data: ecrBuildData, loading, refetch, error: ecrTagError } = useGetBuildDetailsForEcr({
     queryParams: {
       imagePath: lastQueryData.imagePath,
       connectorRef: prevStepData?.connectorId?.value
@@ -95,10 +95,12 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   })
 
   React.useEffect(() => {
-    if (Array.isArray(ecrBuildData?.data?.buildDetailsList)) {
+    if (ecrTagError) {
+      setTagList([])
+    } else if (Array.isArray(ecrBuildData?.data?.buildDetailsList)) {
       setTagList(ecrBuildData?.data?.buildDetailsList as [])
     }
-  }, [ecrBuildData])
+  }, [ecrBuildData, ecrTagError])
 
   React.useEffect(() => {
     if (
@@ -109,7 +111,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     ) {
       refetch()
     }
-  }, [lastQueryData])
+  }, [lastQueryData, refetch])
 
   const { data } = useListAwsRegions({
     queryParams: {
@@ -316,6 +318,14 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                       expressions,
                       selectProps: {
                         defaultSelectedItem: formik.values?.tag,
+                        noResults: (
+                          <span className={css.padSmall}>
+                            <Text lineClamp={1}>
+                              {get(ecrTagError, 'data.message', null) ||
+                                getString('pipelineSteps.deploy.errors.notags')}
+                            </Text>
+                          </span>
+                        ),
                         items: tags,
                         itemRenderer: itemRenderer,
                         allowCreatingNewItems: true

@@ -34,7 +34,7 @@ interface Categories {
 
 const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const { getString } = useStrings()
-  const [data, setData] = React.useState<ConnectorResponse>({})
+  const [updateHeader, setUpdateHeader] = React.useState<boolean>(false)
   const [activeCategory, setActiveCategory] = React.useState(0)
   const [selectedBranch, setSelectedBranch] = React.useState<string>('')
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
@@ -57,16 +57,6 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     mock: props.mockData
   })
 
-  const connectorName = data?.connector?.name
-  const gitDetails = data?.gitDetails
-
-  useEffect(() => {
-    if (!loading && connectorData?.data) {
-      setData(connectorData.data)
-      setSelectedBranch(connectorData?.data?.gitDetails?.branch as string)
-    }
-  }, [connectorData, loading])
-
   const {
     data: branchList,
     loading: loadingBranchList,
@@ -75,6 +65,21 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     lazy: true,
     debounce: 500
   })
+
+  const connectorName = connectorData?.data?.connector?.name
+  const gitDetails = connectorData?.data?.gitDetails
+
+  useEffect(() => {
+    if (!loading && connectorData?.data && !loadingBranchList && selectedBranch) {
+      setUpdateHeader(!updateHeader)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, loadingBranchList, selectedBranch])
+
+  useEffect(() => {
+    connectorData?.data && setSelectedBranch(connectorData?.data?.gitDetails?.branch as string)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [connectorData])
 
   useEffect(() => {
     const repoId = connectorData?.data?.gitDetails?.repoIdentifier
@@ -208,7 +213,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       </Layout.Horizontal>
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [branchSelectOptions])
+  }, [updateHeader])
 
   const renderTitle = useMemo(
     () => (
@@ -217,7 +222,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
         <Layout.Horizontal spacing="small">
           <Icon
             margin={{ left: 'xsmall', right: 'xsmall' }}
-            name={getIconByType(data?.connector?.type)}
+            name={getIconByType(connectorData?.data?.connector?.type)}
             size={35}
           ></Icon>
           <Container>
@@ -225,7 +230,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
               {connectorName}
             </Text>
             <Layout.Horizontal spacing="small">
-              <Text color={Color.GREY_400}>{data?.connector?.identifier}</Text>
+              <Text color={Color.GREY_400}>{connectorData?.data?.connector?.identifier}</Text>
               {gitDetails?.objectId ? RenderGitDetails : null}
             </Layout.Horizontal>
           </Container>
@@ -233,7 +238,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       </Layout.Vertical>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [connectorData, branchSelectOptions]
+    [updateHeader]
   )
 
   const getPageBody = (): React.ReactElement => {
@@ -259,32 +264,37 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       )
     }
     if (activeCategory === 0) {
-      return data?.connector?.type ? (
+      return connectorData?.data?.connector?.type ? (
         <ConnectorView
-          type={data.connector.type}
+          type={connectorData?.data.connector.type}
           updateConnector={(_data: ConnectorRequestBody, queryParams?: UpdateConnectorQueryParams) =>
             updateConnector(_data, { queryParams })
           }
-          response={data || ({} as ConnectorResponse)}
+          response={connectorData?.data || ({} as ConnectorResponse)}
           refetchConnector={refetch}
         />
       ) : (
         <NoDataCard message={getString('connectors.connectorNotFound')} icon="question" />
       )
     }
-    if (activeCategory === 1 && data) {
+    if (activeCategory === 1 && connectorData?.data) {
       return (
         <ReferencedBy
           accountId={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           entityType={'Connectors'}
-          entityIdentifier={data?.connector?.identifier}
+          entityIdentifier={connectorData?.data?.connector?.identifier}
         />
       )
     }
-    if (activeCategory === 2 && data) {
-      return <ActivityHistory referredEntityType="Connectors" entityIdentifier={data?.connector?.identifier || ''} />
+    if (activeCategory === 2 && connectorData?.data) {
+      return (
+        <ActivityHistory
+          referredEntityType="Connectors"
+          entityIdentifier={connectorData?.data?.connector?.identifier || ''}
+        />
+      )
     }
     return <></>
   }

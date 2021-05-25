@@ -11,7 +11,7 @@ import {
   Text,
   TextInput
 } from '@wings-software/uicore'
-import { clone } from 'lodash-es'
+import { clone, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { Button, Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
@@ -20,6 +20,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useStrings } from 'framework/strings'
 import css from './InputSetSelector.module.scss'
 
@@ -33,6 +34,7 @@ export interface InputSetSelectorProps {
   pipelineIdentifier: string
   onChange?: (value?: InputSetValue[]) => void
   width?: number
+  gitFilter?: GitFilterScope
 }
 
 const getIconByType = (type: InputSetSummaryResponse['inputSetType']): IconName => {
@@ -86,7 +88,8 @@ const RenderValue = React.memo(function RenderValue({
 export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   value,
   onChange,
-  pipelineIdentifier
+  pipelineIdentifier,
+  gitFilter = {}
 }): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetValue[]>([])
@@ -105,8 +108,15 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,
-      repoIdentifier,
-      branch
+      ...(!isEmpty(gitFilter.repo)
+        ? {
+            repoIdentifier: gitFilter.repo,
+            branch: gitFilter.branch,
+            getDefaultFromOtherRepo: true
+          }
+        : !isEmpty(repoIdentifier)
+        ? { repoIdentifier, branch, getDefaultFromOtherRepo: true }
+        : {})
     },
     debounce: 300,
     lazy: true

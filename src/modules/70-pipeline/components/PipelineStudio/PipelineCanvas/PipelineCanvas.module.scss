@@ -149,9 +149,23 @@
     vertical-align: middle;
   }
   .gitDetails {
-    display: inline-flex;
+    display: flex;
     font-size: var(--font-size-xsmall) !important;
     justify-content: space-between;
+    align-items: center;
+    .repoDetails {
+      color: var(--grey-900) !important;
+    }
+    .branchDetails {
+      color: var(--grey-900) !important;
+      .branchSelector {
+        width: 150px;
+        input {
+          border: none;
+          color: var(--grey-900);
+        }
+      }
+    }
   }
   button {
     display: inline-flex;

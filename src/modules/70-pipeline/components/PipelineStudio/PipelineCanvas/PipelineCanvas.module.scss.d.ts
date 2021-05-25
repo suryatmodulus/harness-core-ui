@@ -19,5 +19,8 @@ declare const styles: {
   readonly pipelineName: string
   readonly pipelineIcon: string
   readonly gitDetails: string
+  readonly repoDetails: string
+  readonly branchDetails: string
+  readonly branchSelector: string
 }
 export default styles

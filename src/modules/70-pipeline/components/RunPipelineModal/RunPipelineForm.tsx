@@ -33,7 +33,10 @@ import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/
 import type { GitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
+import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
@@ -73,9 +76,11 @@ function RunPipelineFormBasic({
   const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>(
     inputSetYAML ? parse(inputSetYAML) : undefined
   )
+  const [gitFilter, setGitFilter] = React.useState<GitFilterScope | null>(null)
   const { showError, showSuccess, showWarning } = useToaster()
   const history = useHistory()
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
 
   useEffect(() => {
     if (inputSetYAML) {
@@ -187,8 +192,14 @@ function RunPipelineFormBasic({
       projectIdentifier,
       orgIdentifier,
       pipelineIdentifier,
-      repoIdentifier,
-      branch
+      pipelineRepoID: repoIdentifier || '',
+      pipelineBranch: branch || '',
+      ...(gitFilter?.repo &&
+        gitFilter.branch && {
+          repoIdentifier: gitFilter.repo,
+          branch: gitFilter.branch,
+          getDefaultFromOtherRepo: true
+        })
     }
   })
 
@@ -198,8 +209,8 @@ function RunPipelineFormBasic({
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      repoIdentifier,
-      branch
+      pipelineRepoID: repoIdentifier || '',
+      pipelineBranch: branch || ''
     },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
@@ -385,6 +396,17 @@ function RunPipelineFormBasic({
                                 <Text>What are Inputsets?</Text>
                               </span>
                             </Layout.Horizontal>
+                            {isGitSyncEnabled && (
+                              <div className={css.gitFilters}>
+                                <GitSyncStoreProvider>
+                                  <GitFilters
+                                    onChange={filter => {
+                                      setGitFilter(filter)
+                                    }}
+                                  />
+                                </GitSyncStoreProvider>
+                              </div>
+                            )}
                           </div>
                           {!executionView &&
                             pipeline &&
@@ -395,6 +417,7 @@ function RunPipelineFormBasic({
                                 pipelineIdentifier={pipelineIdentifier}
                                 onChange={setSelectedInputSets}
                                 value={selectedInputSets}
+                                gitFilter={gitFilter || undefined}
                               />
                             )}
                         </Layout.Vertical>

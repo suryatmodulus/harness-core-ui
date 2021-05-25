@@ -1,4 +1,5 @@
 import { Color, Container, FormInput, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
+import { isEmpty } from 'lodash'
 import type { FormikContext } from 'formik'
 import React from 'react'
 import cx from 'classnames'
@@ -12,6 +13,8 @@ export interface GitContextFormProps<T> {
   formikProps: FormikContext<T>
   gitDetails?: EntityGitDetails
   className?: string
+  onRepoChange?: (gitDetails: EntityGitDetails) => void
+  onBranchChange?: (gitDetails: EntityGitDetails) => void
 }
 
 export interface GitContextProps {
@@ -31,7 +34,7 @@ const branchSyncStatus: Record<string, GitBranchDTO['branchSyncStatus']> = {
  */
 const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitContextProps>> = gitContextFormProps => {
   const { getString } = useStrings()
-  const { gitDetails, formikProps } = gitContextFormProps
+  const { gitDetails, formikProps, onRepoChange, onBranchChange } = gitContextFormProps
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const [repoSelectOptions, setRepoSelectOptions] = React.useState<SelectOption[]>([])
@@ -87,7 +90,9 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
   React.useEffect(() => {
     if (!loadingBranchList && branchList?.data?.branches?.content?.length) {
       const defaultBranch = branchList.data.defaultBranch?.branchName as string
-      formikProps.setFieldValue('branch', defaultBranch)
+      if (isEmpty(gitDetails?.branch)) {
+        formikProps.setFieldValue('branch', defaultBranch)
+      }
 
       const syncedBranchOption: SelectOption[] = []
 
@@ -123,6 +128,7 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
         onChange={(selected: SelectOption) => {
           const selectedRepo = gitSyncRepos.find((repo: GitSyncConfig) => repo.identifier === selected.value)
           formikProps.setFieldValue('branch', selectedRepo?.branch)
+          onRepoChange?.({ repoIdentifier: selectedRepo?.repo, branch: selectedRepo?.branch })
         }}
       />
       <Text color={Color.GREY_300}>{getString('common.gitSync.selectBranchLabel')}</Text>
@@ -133,7 +139,10 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
           items={branchSelectOptions}
           onQueryChange={(query: string) => setSearchTerm(query)}
           disabled={loadingBranchList || isEditing}
-          onChange={selected => formikProps.setFieldValue('branch', selected.value)}
+          onChange={selected => {
+            onBranchChange?.({ branch: (selected.value || '') as string })
+            formikProps.setFieldValue('branch', selected.value)
+          }}
         />
         {loadingBranchList && <Icon margin={{ top: 'xsmall' }} name="spinner" />}
       </Layout.Horizontal>

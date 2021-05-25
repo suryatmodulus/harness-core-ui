@@ -18,6 +18,7 @@ declare const styles: {
   readonly cardCard: string
   readonly inputSetcard: string
   readonly nameiddescription: string
+  readonly gitContextForm: string
   readonly errorHeader: string
 }
 export default styles

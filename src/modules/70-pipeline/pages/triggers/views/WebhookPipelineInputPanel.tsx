@@ -13,6 +13,8 @@ import {
 } from 'services/pipeline-ng'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
@@ -38,6 +40,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     pipelineIdentifier: string
     triggerIdentifier: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { data: template, loading } = useGetTemplateFromPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
   })
@@ -51,12 +54,19 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
   }, [inputSetSelected])
 
   const { mutate: mergeInputSet } = useGetMergeInputSetFromPipelineTemplateWithListInput({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      pipelineIdentifier,
+      pipelineRepoID: repoIdentifier || '',
+      pipelineBranch: branch || ''
+    }
   })
 
   useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
-      if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0].type === 'OVERLAY_INPUT_SET') {
+      if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
         const fetchData = async (): Promise<void> => {
           const data = await mergeInputSet({
             inputSetReferences: selectedInputSets.map(item => item.value as string)

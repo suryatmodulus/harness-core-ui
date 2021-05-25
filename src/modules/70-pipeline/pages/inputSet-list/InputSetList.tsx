@@ -40,7 +40,8 @@ const InputSetList: React.FC = (): JSX.Element => {
       pageSize: 10,
       searchTerm: searchParam,
       repoIdentifier: gitFilter.repo,
-      branch: gitFilter.branch
+      branch: gitFilter.branch,
+      getDefaultFromOtherRepo: true
     },
     debounce: 300
   })
@@ -94,8 +95,8 @@ const InputSetList: React.FC = (): JSX.Element => {
     () => (
       <OverlayInputSetForm
         identifier={selectedInputSet?.identifier}
-        repoIdentifier={selectedInputSet?.repoIdentifier}
-        branch={selectedInputSet?.branch}
+        overlayInputSetRepoIdentifier={selectedInputSet?.repoIdentifier}
+        overlayInputSetBranch={selectedInputSet?.branch}
         hideForm={() => {
           refetch()
           hideOverlayInputSetForm()
@@ -124,6 +125,7 @@ const InputSetList: React.FC = (): JSX.Element => {
                   <MenuItem
                     text={getString('inputSets.overlayInputSet')}
                     onClick={() => {
+                      setSelectedInputSet({ identifier: '', repoIdentifier, branch })
                       showOverlayInputSetForm()
                     }}
                   />

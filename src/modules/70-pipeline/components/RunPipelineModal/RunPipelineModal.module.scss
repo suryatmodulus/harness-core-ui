@@ -59,6 +59,9 @@
   .divider {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin-bottom: var(--spacing-3);
+    .gitFilters {
+      margin-bottom: var(--spacing-3);
+    }
   }
 
   .footer {

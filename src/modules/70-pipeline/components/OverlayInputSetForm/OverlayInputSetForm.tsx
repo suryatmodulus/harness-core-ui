@@ -19,7 +19,8 @@ import {
   useCreateOverlayInputSetForPipeline,
   useUpdateOverlayInputSetForPipeline,
   ResponseOverlayInputSetResponse,
-  useGetYamlSchema
+  useGetYamlSchema,
+  EntityGitDetails
 } from 'services/pipeline-ng'
 
 import { useToaster } from '@common/exports'
@@ -37,13 +38,18 @@ import { useStrings } from 'framework/strings'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
+import { useQueryParams } from '@common/hooks'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import css from './OverlayInputSetForm.module.scss'
 
 export interface OverlayInputSetDTO extends Omit<OverlayInputSetResponse, 'identifier'> {
   pipeline?: NgPipeline
   identifier?: string
+  repo?: string
+  branch?: string
 }
 
 const getDefaultInputSet = (): OverlayInputSetDTO => ({
@@ -51,13 +57,17 @@ const getDefaultInputSet = (): OverlayInputSetDTO => ({
   identifier: '',
   description: undefined,
   inputSetReferences: [],
-  tags: {}
+  tags: {},
+  repo: '',
+  branch: ''
 })
 
 export interface OverlayInputSetFormProps {
   hideForm: () => void
   identifier?: string
   isReadOnly?: boolean
+  overlayInputSetRepoIdentifier?: string
+  overlayInputSetBranch?: string
 }
 
 enum SelectedView {
@@ -90,17 +100,19 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 const clearNullUndefined = /* istanbul ignore next */ (data: OverlayInputSetDTO): OverlayInputSetDTO =>
   omitBy(omitBy(data, isUndefined), isNull)
 
-export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryParams> = ({
+interface InputSetSelectOption extends SelectOption {
+  branch?: string
+}
+
+export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
   hideForm,
   identifier,
-  isReadOnly = false,
-  repoIdentifier,
-  branch
+  isReadOnly = false
 }): JSX.Element => {
   const { getString } = useStrings()
   const [isOpen, setIsOpen] = React.useState(true)
   const [isEdit, setIsEdit] = React.useState(false)
-  const [savedInputSetObj, setSavedInputSetObj] = React.useState<InputSetDTO>({})
+  const [savedInputSetObj, setSavedInputSetObj] = React.useState<OverlayInputSetDTO>({})
   const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
     projectIdentifier: string
@@ -108,9 +120,12 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
     accountId: string
     pipelineIdentifier: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
+  const [selectedRepo, setSelectedRepo] = React.useState<string>(repoIdentifier || '')
+  const [selectedBranch, setSelectedBranch] = React.useState<string>(branch || '')
   const { showSuccess, showError, clear } = useToaster()
 
   const {
@@ -175,8 +190,9 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
       projectIdentifier,
       pipelineIdentifier,
       inputSetType: 'INPUT_SET',
-      repoIdentifier,
-      branch
+      repoIdentifier: selectedRepo,
+      branch: selectedBranch,
+      getDefaultFromOtherRepo: true
     },
     debounce: 300,
     lazy: true
@@ -202,20 +218,22 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
         tags: inputSetObj.tags,
         identifier: inputSetObj.identifier || /* istanbul ignore next */ '',
         description: inputSetObj?.description,
-        inputSetReferences: inputSetObj?.inputSetReferences || /* istanbul ignore next */ []
+        inputSetReferences: inputSetObj?.inputSetReferences || /* istanbul ignore next */ [],
+        gitDetails: inputSetObj.gitDetails ?? {}
       }
     }
     return getDefaultInputSet()
   }, [overlayInputSetResponse?.data])
 
-  const inputSetListOptions: SelectOption[] = React.useMemo(() => {
+  const inputSetListOptions: InputSetSelectOption[] = React.useMemo(() => {
     return (
       inputSetList?.data?.content?.map(item => ({
         label: item.name || /* istanbul ignore next */ '',
-        value: item.identifier || /* istanbul ignore next */ ''
+        value: item.identifier || /* istanbul ignore next */ '',
+        branch: item.gitDetails?.branch
       })) || []
     )
-  }, [inputSetList?.data?.content?.map])
+  }, [inputSetList?.data?.content?.map, inputSetList])
 
   const inputSetListYaml: CompletionItemInterface[] = React.useMemo(() => {
     return (
@@ -225,7 +243,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
         kind: CompletionItemKind.Field
       })) || []
     )
-  }, [inputSetList?.data?.content?.map])
+  }, [inputSetList?.data?.content?.map, inputSetList])
 
   React.useEffect(() => {
     if (identifier) {
@@ -239,6 +257,19 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
       setIsEdit(false)
     }
   }, [identifier])
+
+  React.useEffect(() => {
+    refetchInputSetList()
+  }, [selectedRepo, selectedBranch])
+
+  const onRepoChange = (gitDetails: EntityGitDetails) => {
+    setSelectedRepo(gitDetails.repoIdentifier || '')
+    setSelectedBranch(gitDetails.branch || '')
+  }
+
+  const onBranchChange = (gitDetails: EntityGitDetails) => {
+    setSelectedBranch(gitDetails.branch || '')
+  }
 
   const handleModeSwitch = React.useCallback(
     (view: SelectedView) => {
@@ -317,8 +348,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
   })
 
   const handleSubmit = React.useCallback(
-    async (inputSetObj: OverlayInputSetDTO) => {
-      setSavedInputSetObj(inputSetObj)
+    async (inputSetObj: OverlayInputSetDTO, gitDetails?: EntityGitDetails) => {
+      setSavedInputSetObj(omit(inputSetObj, 'repo', 'branch'))
       if (inputSetObj) {
         delete inputSetObj.pipeline
         if (isGitSyncEnabled) {
@@ -326,10 +357,10 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
             type: 'InputSets',
             name: inputSetObj.name as string,
             identifier: inputSetObj.identifier as string,
-            gitDetails: overlayInputSetResponse?.data?.gitDetails ?? pipeline?.data?.gitDetails ?? {}
+            gitDetails: isEdit ? overlayInputSetResponse?.data?.gitDetails : gitDetails
           })
         } else {
-          createUpdateOverlayInputSet(inputSetObj)
+          createUpdateOverlayInputSet(omit(inputSetObj, 'repo', 'branch'))
         }
       }
     },
@@ -456,15 +487,15 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
             </div>
           </div>
 
-          <Formik<OverlayInputSetDTO>
-            initialValues={{ ...inputSet }}
+          <Formik<OverlayInputSetDTO & GitContextProps>
+            initialValues={{ ...omit(inputSet, 'gitDetails'), repo: repoIdentifier || '', branch: branch || '' }}
             enableReinitialize={true}
             validationSchema={Yup.object().shape({
               name: Yup.string().trim().required(getString('inputSets.nameIsRequired')),
               inputSetReferences: Yup.array().of(Yup.string().required(getString('inputSets.inputSetIsRequired')))
             })}
             onSubmit={values => {
-              handleSubmit(values)
+              handleSubmit(values, { repoIdentifier: values.repo, branch: values.branch })
             }}
           >
             {formikProps => {
@@ -488,7 +519,20 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
                           }}
                           formikProps={formikProps}
                         />
-
+                        {isGitSyncEnabled && (
+                          <GitSyncStoreProvider>
+                            <GitContextForm
+                              formikProps={formikProps}
+                              gitDetails={
+                                isEdit
+                                  ? overlayInputSetResponse?.data?.gitDetails
+                                  : { repoIdentifier: selectedRepo, branch: selectedBranch }
+                              }
+                              onRepoChange={onRepoChange}
+                              onBranchChange={onBranchChange}
+                            />
+                          </GitSyncStoreProvider>
+                        )}
                         <Layout.Vertical padding={{ top: 'large', bottom: 'xxxlarge' }} spacing="small">
                           <Text font={{ size: 'medium' }}>{getString('inputSets.selectInputSets')}</Text>
                           <Text icon="info-sign" iconProps={{ color: Color.PRIMARY_4, size: 23, padding: 'small' }}>
@@ -564,7 +608,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
                       ) : (
                         <YAMLBuilder
                           {...yamlBuilderReadOnlyModeProps}
-                          existingJSON={{ overlayInputSet: omit(formikProps?.values, 'pipeline') }}
+                          existingJSON={{ overlayInputSet: omit(formikProps?.values, 'pipeline', 'repo', 'branch') }}
                           invocationMap={invocationMap}
                           bind={setYamlHandler}
                           schema={pipelineSchema?.data}
@@ -580,7 +624,10 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
                           onClick={() => {
                             const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
 
-                            handleSubmit(parse(latestYaml)?.overlayInputSet)
+                            handleSubmit(parse(latestYaml)?.overlayInputSet, {
+                              repoIdentifier: formikProps.values.repo,
+                              branch: formikProps.values.branch
+                            })
                           }}
                           disabled={isReadOnly}
                         />

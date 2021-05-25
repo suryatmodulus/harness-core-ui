@@ -29,7 +29,8 @@ import {
   ResponseInputSetResponse,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
   ResponsePMSPipelineResponseDTO,
-  InputSetErrorResponse
+  InputSetErrorResponse,
+  EntityGitDetails
 } from 'services/pipeline-ng'
 
 import { useToaster } from '@common/exports'
@@ -43,12 +44,14 @@ import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useStrings } from 'framework/strings'
 import { AppStoreContext, useAppStore } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useQueryParams } from '@common/hooks'
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, getErrorsList } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -58,13 +61,17 @@ import css from './InputSetForm.module.scss'
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
   pipeline?: NgPipeline
   identifier?: string
+  repo?: string
+  branch?: string
 }
 
 const getDefaultInputSet = (template: NgPipeline): InputSetDTO => ({
   name: undefined,
   identifier: '',
   description: undefined,
-  pipeline: template
+  pipeline: template,
+  repo: '',
+  branch: ''
 })
 
 const collapseProps = {
@@ -132,12 +139,12 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const { executionView } = props
   const { getString } = useStrings()
   const [isEdit, setIsEdit] = React.useState(false)
-  const [savedInputSetObj, setSavedInputSetObj] = React.useState<InputSetDTO>({})
-  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, inputSetIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const { repoIdentifier, branch, inputSetRepoIdentifier, inputSetBranch } = useQueryParams<InputSetGitQueryParams>()
+  const [savedInputSetObj, setSavedInputSetObj] = React.useState<InputSetDTO>({})
+  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const history = useHistory()
   const { refetch: refetchTemplate, data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
     queryParams: {
@@ -196,8 +203,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       projectIdentifier,
       orgIdentifier,
       pipelineIdentifier,
-      repoIdentifier,
-      branch
+      pipelineRepoID: repoIdentifier || '',
+      pipelineBranch: branch || '',
+      repoIdentifier: inputSetRepoIdentifier || '',
+      branch: inputSetBranch || ''
     }
   })
 
@@ -207,8 +216,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      repoIdentifier,
-      branch
+      pipelineRepoID: repoIdentifier || '',
+      pipelineBranch: branch || ''
     },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
@@ -218,8 +227,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      repoIdentifier,
-      branch
+      pipelineRepoID: repoIdentifier || '',
+      pipelineBranch: branch || ''
     },
     inputSetIdentifier: '',
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
@@ -249,7 +258,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         identifier: inputSetObj.identifier || /* istanbul ignore next */ '',
         description: inputSetObj?.description,
         pipeline: clearRuntimeInput(inputYamlObj),
-        gitDetails: inputSetObj.gitDetails || {}
+        gitDetails: inputSetObj.gitDetails ?? {}
       }
     }
     return getDefaultInputSet(
@@ -322,8 +331,9 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             orgIdentifier,
             pipelineIdentifier,
             projectIdentifier,
-            ...(gitDetails ?? {}),
-            lastObjectId: objectId
+            pipelineRepoID: repoIdentifier || '',
+            pipelineBranch: branch || '',
+            ...({ ...gitDetails, lastObjectId: objectId } ?? {})
           }
         })
       } else {
@@ -333,6 +343,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             orgIdentifier,
             pipelineIdentifier,
             projectIdentifier,
+            pipelineRepoID: repoIdentifier || '',
+            pipelineBranch: branch || '',
             ...(gitDetails ?? {})
           }
         })
@@ -366,18 +378,18 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   })
 
   const handleSubmit = React.useCallback(
-    async (inputSetObj: InputSetDTO) => {
-      setSavedInputSetObj(inputSetObj)
+    async (inputSetObj: InputSetDTO, gitDetails?: EntityGitDetails) => {
+      setSavedInputSetObj(omit(inputSetObj, 'repo', 'branch'))
       if (inputSetObj) {
         if (isGitSyncEnabled) {
           openSaveToGitDialog(isEdit, {
             type: 'InputSets',
             name: inputSetObj.name as string,
             identifier: inputSetObj.identifier as string,
-            gitDetails: inputSetResponse?.data?.gitDetails ?? pipeline?.data?.gitDetails ?? {}
+            gitDetails: isEdit ? inputSetResponse?.data?.gitDetails : gitDetails
           })
         } else {
-          createUpdateInputSet(inputSetObj)
+          createUpdateInputSet(omit(inputSetObj, 'repo', 'branch'))
         }
       }
     },
@@ -415,8 +427,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const child = (
     <Container className={css.inputSetForm}>
       <Layout.Vertical spacing="medium">
-        <Formik<InputSetDTO>
-          initialValues={omit(inputSet, 'gitDetails')}
+        <Formik<InputSetDTO & GitContextProps>
+          initialValues={{ ...omit(inputSet, 'gitDetails'), repo: repoIdentifier || '', branch: branch || '' }}
           enableReinitialize={true}
           validate={values => {
             const errors: FormikErrors<InputSetDTO> = {}
@@ -427,7 +439,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             return errors
           }}
           onSubmit={values => {
-            handleSubmit(values)
+            handleSubmit(values, { repoIdentifier: values.repo, branch: values.branch })
           }}
         >
           {formikProps => {
@@ -456,6 +468,15 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                               }}
                               formikProps={formikProps}
                             />
+                            {isGitSyncEnabled && (
+                              <GitSyncStoreProvider>
+                                <GitContextForm
+                                  formikProps={formikProps}
+                                  gitDetails={isEdit ? inputSet.gitDetails : { repoIdentifier, branch }}
+                                  className={css.gitContextForm}
+                                />
+                              </GitSyncStoreProvider>
+                            )}
                             {pipeline?.data?.yamlPipeline &&
                               template?.data?.inputSetTemplateYaml &&
                               parse(template.data.inputSetTemplateYaml) && (
@@ -476,7 +497,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                               e.preventDefault()
                               formikProps.validateForm().then(() => {
                                 if (formikProps?.values?.name?.length && formikProps?.values?.identifier?.length) {
-                                  handleSubmit(formikProps.values)
+                                  handleSubmit(formikProps.values, {
+                                    repoIdentifier: formikProps.values.repo,
+                                    branch: formikProps.values.branch
+                                  })
                                 }
                               })
                             }}
@@ -500,7 +524,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                     <Layout.Vertical className={css.content} padding="xlarge">
                       <YamlBuilderMemo
                         {...yamlBuilderReadOnlyModeProps}
-                        existingJSON={{ inputSet: omit(formikProps?.values, 'inputSetReferences') }}
+                        existingJSON={{ inputSet: omit(formikProps?.values, 'inputSetReferences', 'repo', 'branch') }}
                         bind={setYamlHandler}
                         isReadOnlyMode={!isEditable}
                         invocationMap={factory.getInvocationMap()}
@@ -518,7 +542,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                         text={getString('save')}
                         onClick={() => {
                           const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
-                          handleSubmit(parse(latestYaml)?.inputSet)
+                          handleSubmit(parse(latestYaml)?.inputSet, {
+                            repoIdentifier: formikProps.values.repo,
+                            branch: formikProps.values.branch
+                          })
                         }}
                       />
                       &nbsp; &nbsp;

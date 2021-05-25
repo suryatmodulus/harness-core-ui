@@ -1,5 +1,5 @@
 import React from 'react'
-import { isEqual, isEqualWith, isNil } from 'lodash-es'
+import { isEqual, isEqualWith, isNil, omit } from 'lodash-es'
 import { parse } from 'yaml'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
@@ -72,7 +72,7 @@ const PipelineYamlView: React.FC = () => {
             fileName="Pipeline.yaml"
             entityType="Pipelines"
             isReadOnlyMode={isReadonly}
-            existingJSON={{ pipeline }}
+            existingJSON={{ ...omit(pipeline, 'repo', 'branch') }}
             bind={setYamlHandler}
             showSnippetSection={false}
             onExpressionTrigger={() => {

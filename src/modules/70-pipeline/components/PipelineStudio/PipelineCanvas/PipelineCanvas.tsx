@@ -27,8 +27,10 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import routes from '@common/RouteDefinitions'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
+import GitFilters from '@common/components/GitFilters/GitFilters'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -367,23 +369,47 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const RenderGitDetails: React.FC = () => {
     if (gitDetails?.objectId || (pipelineIdentifier === DefaultNewPipelineId && gitDetails.repoIdentifier)) {
       return (
-        <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
-          <Layout.Horizontal spacing="small">
-            <Icon name="repository" margin={{ left: 'medium' }} />
+        <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium" className={css.gitDetails}>
+          <Layout.Horizontal spacing="small" className={css.repoDetails}>
+            <Icon name="repository" margin={{ left: 'medium' }}></Icon>
             {pipelineIdentifier === DefaultNewPipelineId ? (
               <Text>{`${gitDetails?.repoIdentifier}`}</Text>
             ) : (
-              <Text>{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
+              <Text lineClamp={1} width="200px">{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
             )}
           </Layout.Horizontal>
 
-          <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="small">
-            <Icon name="git-new-branch" margin={{ left: 'medium' }} />
-            {
-              // pipelineIdentifier === DefaultNewPipelineId || isReadonly ?
-              <Text>{gitDetails?.branch}</Text>
-              // : <BranchSelecto />
-            }
+          <Layout.Horizontal
+            border={{ left: true, color: Color.GREY_300 }}
+            spacing="small"
+            className={css.branchDetails}
+          >
+            {pipelineIdentifier === DefaultNewPipelineId || isReadonly ? (
+              <>
+                <Icon name="git-new-branch" margin={{ left: 'medium' }}></Icon>
+                <Text>{gitDetails?.branch}</Text>
+              </>
+            ) : (
+              <GitFilters
+                onChange={filter => {
+                  history.push(
+                    routes.toPipelineStudio({
+                      projectIdentifier,
+                      orgIdentifier,
+                      pipelineIdentifier: pipeline?.identifier || '-1',
+                      accountId,
+                      module,
+                      branch: filter?.branch,
+                      repoIdentifier: filter?.repo
+                    })
+                  )
+                  location.reload()
+                }}
+                showRepoSelector={false}
+                defaultValue={{ repo: repoIdentifier || '', branch }}
+                branchSelectClassName={css.branchSelector}
+              />
+            )}
           </Layout.Horizontal>
         </Layout.Horizontal>
       )
@@ -459,7 +485,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           <div className={css.pipelineNameContainer}>
             <div>
               <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
-              <Text className={css.pipelineName}>{pipeline?.name}</Text>
+              <Text className={css.pipelineName} width="125px" lineClamp={1}>
+                {pipeline?.name}
+              </Text>
               {isYaml ? null : (
                 <RbacButton
                   minimal
@@ -478,11 +506,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               )}
             </div>
 
-            {isGitSyncEnabled && (
-              <div className={css.gitDetails}>
-                <RenderGitDetails />
-              </div>
-            )}
+            {isGitSyncEnabled && <RenderGitDetails />}
           </div>
 
           <div className={css.pipelineStudioTitleContainer}>

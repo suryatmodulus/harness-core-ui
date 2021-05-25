@@ -98,7 +98,10 @@
 .nameiddescription {
   padding-left: var(--spacing-medium) !important;
 }
-
+.gitContextForm {
+  max-width: 300px;
+  padding-left: var(--spacing-medium) !important;
+}
 .errorHeader {
   background: #fff9e7;
   color: #000;

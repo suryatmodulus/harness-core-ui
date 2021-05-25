@@ -32,6 +32,8 @@ export interface GitFiltersProps {
   onChange: (value: GitFilterScope) => void
   className?: string
   branchSelectClassName?: string
+  showRepoSelector?: boolean
+  showBranchSelector?: boolean
 }
 
 interface BranchSelectOption extends SelectOption {
@@ -45,7 +47,7 @@ const branchSyncStatus: Record<string, GitBranchDTO['branchSyncStatus']> = {
 }
 
 const GitFilters: React.FC<GitFiltersProps> = props => {
-  const { defaultValue = { repo: '', branch: '' } } = props
+  const { defaultValue = { repo: '', branch: '' }, showRepoSelector = true, showBranchSelector = true } = props
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
@@ -230,45 +232,58 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
       margin={{ right: 'small' }}
       className={cx(props.className, css.gitFilterContainer)}
     >
-      <Icon padding={{ top: 'small' }} name="repository" color={Color.GREY_600}></Icon>
-      <Select
-        name={'repo'}
-        className={css.repoSelectDefault}
-        value={repoSelectOptions.find(repoOption => repoOption.value === selectedGitRepo)}
-        disabled={loadingRepos}
-        data-id="gitRepoSelect"
-        items={repoSelectOptions}
-        onChange={(selected: SelectOption) => {
-          setSelectedGitRepo(selected.value as string)
-          !selected.value && props.onChange({ repo: '', branch: '' })
-        }}
-      ></Select>
+      {showRepoSelector && (
+        <>
+          <Icon padding={{ top: 'small' }} name="repository" color={Color.GREY_600}></Icon>
+          <Select
+            name={'repo'}
+            className={css.repoSelectDefault}
+            value={repoSelectOptions.find(repoOption => repoOption.value === selectedGitRepo)}
+            disabled={loadingRepos}
+            data-id="gitRepoSelect"
+            items={repoSelectOptions}
+            onChange={(selected: SelectOption) => {
+              setSelectedGitRepo(selected.value as string)
+              !selected.value && props.onChange({ repo: '', branch: '' })
+            }}
+          ></Select>
+        </>
+      )}
 
-      <Icon padding={{ top: 'small' }} margin={{ left: 'large' }} name="git-new-branch" color={Color.GREY_600}></Icon>
-      <Select
-        name={'branch'}
-        value={branchSelectOptions.find(branchOption => branchOption.value === selectedGitBranch)}
-        items={branchSelectOptions}
-        disabled={!selectedGitBranch}
-        data-id="gitBranchSelect"
-        className={cx(props.branchSelectClassName)}
-        onQueryChange={(query: string) => setSearchTerm(query)}
-        itemRenderer={(item: BranchSelectOption): React.ReactElement => {
-          return (
-            <Menu.Item
-              key={item.value as string}
-              active={item.value === selectedGitBranch}
-              onClick={() => handleBranchClick(item)}
-              text={
-                <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-                  <span>{item.label}</span>
-                  {item.branchSyncStatus && getSyncIcon(item.branchSyncStatus)}
-                </Layout.Horizontal>
-              }
-            />
-          )
-        }}
-      ></Select>
+      {showBranchSelector && (
+        <>
+          <Icon
+            padding={{ top: 'small' }}
+            margin={{ left: 'large' }}
+            name="git-new-branch"
+            color={Color.GREY_600}
+          ></Icon>
+          <Select
+            name={'branch'}
+            value={branchSelectOptions.find(branchOption => branchOption.value === selectedGitBranch)}
+            items={branchSelectOptions}
+            disabled={!selectedGitBranch}
+            data-id="gitBranchSelect"
+            className={cx(props.branchSelectClassName)}
+            onQueryChange={(query: string) => setSearchTerm(query)}
+            itemRenderer={(item: BranchSelectOption): React.ReactElement => {
+              return (
+                <Menu.Item
+                  key={item.value as string}
+                  active={item.value === selectedGitBranch}
+                  onClick={() => handleBranchClick(item)}
+                  text={
+                    <Layout.Horizontal flex={{ distribution: 'space-between' }}>
+                      <span>{item.label}</span>
+                      {item.branchSyncStatus && getSyncIcon(item.branchSyncStatus)}
+                    </Layout.Horizontal>
+                  }
+                />
+              )
+            }}
+          ></Select>
+        </>
+      )}
     </Layout.Horizontal>
   )
 }

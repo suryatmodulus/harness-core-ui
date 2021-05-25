@@ -30,6 +30,9 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetYamlSchema: jest.fn().mockImplementation(() => {
     return { data: {} }
+  }),
+  useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => {
+    return { data: {} }
   })
 }))
 

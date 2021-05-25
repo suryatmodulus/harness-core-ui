@@ -1244,7 +1244,11 @@ export interface StringsMap {
   'pipeline.triggers.pipelineExecutionInput': string
   'pipeline.triggers.pipelineInputLabel': string
   'pipeline.triggers.pipelineInputPanel.automaticallyExtractedFromText': string
+  'pipeline.triggers.pipelineInputPanel.existing': string
   'pipeline.triggers.pipelineInputPanel.noRuntimeInputs': string
+  'pipeline.triggers.pipelineInputPanel.provide': string
+  'pipeline.triggers.pipelineInputPanel.selectedExisitingOrProvide': string
+  'pipeline.triggers.pipelineInputPanel.whatAreInputsets': string
   'pipeline.triggers.schedulePanel.FRI': string
   'pipeline.triggers.schedulePanel.MON': string
   'pipeline.triggers.schedulePanel.SAT': string

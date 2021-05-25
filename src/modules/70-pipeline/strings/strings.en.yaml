@@ -343,6 +343,10 @@ triggers:
   pipelineInputPanel:
     noRuntimeInputs: 'No Runtime Inputs'
     automaticallyExtractedFromText: Automatically extracted from event payload
+    selectedExisitingOrProvide: 'Select an existing inputset or provide new set of values'
+    existing: Use Existing Inputsets
+    provide: Provide Values
+    whatAreInputsets: What are Inputsets?
   triggerOverviewPanel:
     title: 'Trigger Overview'
   schedulePanel:

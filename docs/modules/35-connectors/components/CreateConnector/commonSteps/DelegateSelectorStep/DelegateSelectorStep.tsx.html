@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.24% </span>
+                <span class="strong">84.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/85</span>
+                <span class='fraction'>77/91</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.52% </span>
+                <span class="strong">51.92% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>104/184</span>
+                <span class='fraction'>108/208</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.24% </span>
+                <span class="strong">84.62% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>75/85</span>
+                <span class='fraction'>77/91</span>
             </div>
         
             
@@ -365,7 +365,18 @@
 <a name='L306'></a><a href='#L306'>306</a>
 <a name='L307'></a><a href='#L307'>307</a>
 <a name='L308'></a><a href='#L308'>308</a>
-<a name='L309'></a><a href='#L309'>309</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">105x</span>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">105x</span>
 <span class="cline-any cline-yes">105x</span>
 <span class="cline-any cline-yes">105x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -386,6 +397,7 @@
 <span class="cline-any cline-yes">105x</span>
 <span class="cline-any cline-yes">105x</span>
 <span class="cline-any cline-yes">105x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -493,6 +505,10 @@
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -533,6 +549,12 @@
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -702,7 +724,8 @@ import {
   ResponseConnectorResponse,
   Connector,
   EntityGitDetails,
-  ResponseMessage
+  ResponseMessage,
+  CreateConnectorQueryParams
 } from 'services/cd-ng'
 &nbsp;
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
@@ -799,6 +822,10 @@ const DelegateSelectorStep: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp
 &nbsp;
   const afterSuccessHandler = (response: ResponseConnectorResponse): void =&gt; {
     props.onConnectorCreated?.(<span class="branch-1 cbranch-no" title="branch not covered" >response?.data)</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch) {
+      // updating connector branch to handle if new branch was created while commit
+<span class="cstat-no" title="statement not covered" >      prevStepData.branch = response?.data?.gitDetails?.branch</span>
+    }
     showSuccess(
       getString(props.isEditMode ? 'connectors.successfullUpdate' : <span class="branch-1 cbranch-no" title="branch not covered" >'connectors.successfullCreate',</span> {
         name: prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame
@@ -840,7 +867,13 @@ const DelegateSelectorStep: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp
 &nbsp;
     try {
       modalErrorHandler<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ide()
-      const queryParams = gitData ? <span class="branch-0 cbranch-no" title="branch not covered" >{ accountIdentifier: accountId, ...gitData } </span>: {}
+      let queryParams: CreateConnectorQueryParams = {}
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (gitData) {
+<span class="cstat-no" title="statement not covered" >        queryParams = { accountIdentifier: accountId, ...gitData }</span>
+<span class="cstat-no" title="statement not covered" >        if (gitData.isNewBranch) {</span>
+<span class="cstat-no" title="statement not covered" >          queryParams.baseBranch = prevStepData?.branch</span>
+        }
+      }
 &nbsp;
       const response = props.isEditMode
         ? await updateConnector(payload, {
@@ -988,7 +1021,7 @@ export default DelegateSelectorStep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue May 25 2021 14:14:52 GMT+0000 (Greenwich Mean Time)
+                at Tue May 25 2021 16:01:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

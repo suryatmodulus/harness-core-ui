@@ -106,7 +106,7 @@ function ExecutionWrapperInputSetForm(props: {
                     identifier: originalStep.step?.identifier || ''
                   }
 
-                  formik?.setValues(set(formik?.values, `${path}[${index}].step`, initialValues.step))
+                  formik?.setValues(set(formik?.values, `${path}[${index}].step`, { ...initialValues.step }))
                 }
               }}
             />

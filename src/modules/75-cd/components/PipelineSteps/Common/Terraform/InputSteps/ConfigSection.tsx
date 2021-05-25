@@ -1,20 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { get, set } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import {
-  ConnectorReferenceField,
-  ConnectorReferenceFieldProps
-} from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
+import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 
-import {
-  getIdentifierFromValue,
-  getScopeFromDTO,
-  getScopeFromValue
-} from '@common/components/EntityReference/EntityReference'
-import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
-import { Scope } from '@common/interfaces/SecretsInterface'
-import type { Connector, TerraformProps } from '../TerraformInterfaces'
+import type { TerraformProps } from '../TerraformInterfaces'
 
 export default function ConfigSection(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
@@ -25,48 +16,47 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
     accountId: string
   }>()
 
-  const connectorValue = initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as Connector
-  const connectorRef = getIdentifierFromValue(connectorValue?.value || '')
-  const initialScope = getScopeFromValue(connectorValue?.value || '')
+  // const connectorValue = initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
 
-  const { data: connector, loading, refetch } = useGetConnector({
-    identifier: connectorRef,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
-    },
-    lazy: true,
-    debounce: 300
-  })
+  // const { data: connector, loading, refetch } = useGetConnector({
+  //   identifier: connectorRef,
+  //   queryParams: {
+  //     accountIdentifier: accountId,
+  //     orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
+  //     projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
+  //   },
+  //   lazy: true,
+  //   debounce: 300
+  // })
 
-  React.useEffect(() => {
-    if (
-      getMultiTypeFromValue(
-        inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-      ) === MultiTypeInputType.RUNTIME &&
-      getMultiTypeFromValue(connectorValue.value) !== MultiTypeInputType.RUNTIME
-    ) {
-      refetch()
-    }
-  }, [initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef])
+  // React.useEffect(() => {
+  //   if (
+  //     getMultiTypeFromValue(
+  //       inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+  //     ) === MultiTypeInputType.RUNTIME &&
+  //     getMultiTypeFromValue(connectorValue.value) !== MultiTypeInputType.RUNTIME
+  //   ) {
+  //     refetch()
+  //   }
+  // }, [initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef])
 
-  let connectorSelected: ConnectorReferenceFieldProps['selected'] = undefined
-  if (
-    connector?.data?.connector &&
-    getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
-      MultiTypeInputType.RUNTIME &&
-    getMultiTypeFromValue(connectorValue.value) === MultiTypeInputType.FIXED
-  ) {
-    const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
-    connectorSelected = {
-      label: connector?.data?.connector.name || '',
-      value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-      scope: scope,
-      live: connector?.data?.status?.status === 'SUCCESS',
-      connector: connector?.data?.connector
-    }
-  }
+  // let connectorSelected: ConnectorReferenceFieldProps['selected'] = undefined
+  // if (
+  //   connector?.data?.connector &&
+  //   getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
+  //     MultiTypeInputType.RUNTIME &&
+  //   getMultiTypeFromValue(connectorValue.value) === MultiTypeInputType.FIXED
+  // ) {
+  //   const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
+  //   connectorSelected = {
+  //     label: connector?.data?.connector.name || '',
+  //     value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
+  //     scope: scope,
+  //     live: connector?.data?.status?.status === 'SUCCESS',
+  //     connector: connector?.data?.connector
+  //   }
+  // }
+
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.workspace) ===
@@ -82,15 +72,21 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       ) === MultiTypeInputType.RUNTIME && (
         <ConnectorReferenceField
           accountIdentifier={accountId}
-          selected={connectorSelected}
+          selected={get(initialValues, 'spec.configuration.spec.configFiles.store.spec.connectorRef', '')}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={400}
           type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
-          name={`${path}.configuration.spec.configFiles.store.spec.connectorRef`}
+          name={`${path}.spec.configuration.spec.configFiles.store.spec.connectorRef`}
           label={getString('connectors.title.gitConnector')}
           placeholder={getString('select')}
-          disabled={readonly || loading}
+          disabled={readonly}
+          onChange={record => {
+            set(initialValues, 'spec.configuration.spec.configFiles.store.spec.connectorRef', record?.identifier)
+            props.onUpdate?.({
+              ...initialValues
+            })
+          }}
         />
       )}
 

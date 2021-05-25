@@ -332,7 +332,7 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
               ? getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
                 MultiTypeInputType.RUNTIME
                 ? values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-                : connectorValue?.value
+                : connectorValue?.value || connectorValue
               : ''
           }
         }

@@ -108,17 +108,17 @@ export class TerraformApply extends PipelineStep<TFFormData> {
   processFormData(data: any): TFFormData {
     return onSubmitTerraformData(data)
   }
-  renderStep(props: StepProps<TFFormData, unknown>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, formikRef, inputSetData, customStepProps, isNewStep, path } = props
+  renderStep(props: StepProps<TFFormData>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, formikRef, inputSetData, customStepProps, isNewStep } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <TerraformInputStep
           initialValues={initialValues}
-          onUpdate={data => onUpdate?.(this.processFormData(data))}
+          onUpdate={onUpdate}
           stepViewType={stepViewType}
-          readonly={inputSetData?.readonly}
+          readonly={!!inputSetData?.readonly}
           inputSetData={inputSetData}
-          path={path}
+          path={inputSetData?.path || ''}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {

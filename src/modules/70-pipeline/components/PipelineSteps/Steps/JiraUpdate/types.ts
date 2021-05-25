@@ -36,6 +36,7 @@ export interface JiraUpdateStepModeProps {
   initialValues: JiraUpdateData
   onUpdate?: (data: JiraUpdateData) => void
   isNewStep?: boolean
+  readonly?: boolean
 }
 
 export interface JiraUpdateFormContentInterface {
@@ -49,6 +50,7 @@ export interface JiraUpdateFormContentInterface {
   projectsFetchError?: GetDataError<Failure | Error> | null
   statusFetchError?: GetDataError<Failure | Error> | null
   isNewStep?: boolean
+  readonly?: boolean
 }
 
 export interface JiraUpdateDeploymentModeProps {

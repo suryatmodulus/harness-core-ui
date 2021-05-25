@@ -133,6 +133,7 @@ export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props
     >
       <MultiTypeTextArea
         value={value}
+        disabled={disabled}
         {...customProps}
         onChange={(val, valueType, type) => {
           formik?.setFieldValue(name, val)

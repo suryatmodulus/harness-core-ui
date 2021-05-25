@@ -172,6 +172,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   })
 
   const placeHolderLocal = loading ? getString('loading') : placeholder
+  const isDisabled = loading || disabled
 
   const optionalReferenceSelectProps: Pick<
     ReferenceSelectProps<ConnectorConfigDTO>,
@@ -206,6 +207,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} style={{ marginBottom: 0 }}>
       <MultiTypeReferenceInput<ConnectorReferenceDTO>
         name={name}
+        disabled={isDisabled}
         referenceSelectProps={{
           ...getReferenceFieldProps({
             defaultScope,
@@ -225,7 +227,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
           isNewConnectorLabelVisible: isNewConnectorLabelVisible,
           selectedRenderer: getSelectedRenderer(selected),
           ...optionalReferenceSelectProps,
-          disabled: loading || disabled
+          disabled: isDisabled
         }}
         onChange={(val, valueType, type1) => {
           if (val && type1 === MultiTypeInputType.FIXED) {

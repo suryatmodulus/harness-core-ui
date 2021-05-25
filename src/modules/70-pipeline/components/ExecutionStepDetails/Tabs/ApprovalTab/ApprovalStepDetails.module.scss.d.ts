@@ -12,10 +12,10 @@ declare const styles: {
   readonly criteriaMsg: string
   readonly infoHeader: string
   readonly statusMsg: string
+  readonly heading: string
   readonly harnessApproval: string
   readonly completed: string
   readonly inputs: string
-  readonly heading: string
   readonly formRow: string
   readonly labels: string
   readonly actions: string

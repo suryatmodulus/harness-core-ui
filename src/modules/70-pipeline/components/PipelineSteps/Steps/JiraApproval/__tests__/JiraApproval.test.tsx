@@ -62,6 +62,21 @@ describe('Jira Approval tests', () => {
     expect(container).toMatchSnapshot('jira-approval-deploymentform')
   })
 
+  test('deploymentform mode - readonly', async () => {
+    const props = getJiraApprovalDeploymentModeProps()
+    const { container } = render(
+      <TestStepWidget
+        template={props.inputSetData?.template}
+        initialValues={props.initialValues}
+        type={StepType.JiraApproval}
+        stepViewType={StepViewType.DeploymentForm}
+        inputSetData={{ ...props.inputSetData, path: props.inputSetData?.path || '', readonly: true }}
+      />
+    )
+
+    expect(container).toMatchSnapshot('jira-approval-deploymentform readonly')
+  })
+
   test('Basic snapshot - inputset mode but no runtime values', async () => {
     const props = getJiraApprovalDeploymentModeProps()
     const { container } = render(
@@ -135,10 +150,26 @@ describe('Jira Approval tests', () => {
     await waitFor(() => expect(queryByText('pipeline.jiraApprovalStep.validations.expression')).toBeTruthy())
   })
 
+  test('Edit stage - readonly', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const props = getJiraApprovalEditModeProps()
+    const { container } = render(
+      <TestStepWidget
+        initialValues={props.initialValues}
+        type={StepType.JiraApproval}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        readonly={true}
+      />
+    )
+
+    expect(container).toMatchSnapshot('edit stage view readonly')
+  })
+
   test('Open a saved jira approval step - edit stage view', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const props = getJiraApprovalEditModePropsWithValues()
-    const { container, getByText, queryByDisplayValue, getByTestId } = render(
+    const { container, getByText, queryByDisplayValue } = render(
       <TestStepWidget
         initialValues={props.initialValues}
         type={StepType.JiraApproval}
@@ -159,10 +190,6 @@ describe('Jira Approval tests', () => {
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.approvalCriteria'))
     expect(queryByDisplayValue('somevalue for f1')).toBeTruthy()
-
-    act(() => {
-      fireEvent.click(getByTestId('add-conditions'))
-    })
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.rejectionCriteriaOptional'))
     expect(queryByDisplayValue("<+status> == 'Blocked'")).toBeTruthy()

@@ -745,13 +745,13 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
         </div>
       </div>
       <div
-        class="bp3-form-group"
+        class="bp3-form-group heading"
       >
         <label
           class="bp3-label"
           for="comments"
         >
-          comments
+          Comments
            
           <span
             class="bp3-text-muted"

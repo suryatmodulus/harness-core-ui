@@ -17,6 +17,7 @@ import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDurat
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useGetUserGroupList } from 'services/cd-ng'
+import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import type { HarnessApprovalDeploymentModeProps, UGMUltiSelectProps } from './types'
 import css from './HarnessApproval.module.scss'
 
@@ -58,7 +59,7 @@ const UGMultiSelect = ({
   }
 
   return (
-    <div>
+    <div className={css.deploymentModeUgSelectWrapper}>
       <label className={css.ugLabel}>{getString('common.userGroups')}</label>
       <MultiSelect
         className={cx(css.multiSelectDeploymentMode, css.deploymentViewMedium)}
@@ -90,7 +91,7 @@ const UGMultiSelect = ({
             />
           </div>
         )}
-        disabled={readonly}
+        disabled={isApprovalStepFieldDisabled(readonly)}
         items={
           fetchingUserGroups
             ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]
@@ -144,7 +145,7 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
           name={`${prefix}timeout`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           className={css.deploymentViewMedium}
         />
       ) : null}
@@ -154,7 +155,7 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
           className={cx(css.approvalMessage, css.deploymentViewMedium)}
           label={getString('pipeline.approvalStep.message')}
           name={`${prefix}spec.approvalMessage`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
         />
       ) : null}
 
@@ -175,7 +176,7 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
         <FormInput.Text
           label={getString('pipeline.approvalStep.minimumCount')}
           name={`${prefix}spec.approvers.minimumCount`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           className={css.deploymentViewMedium}
           onChange={event => {
             const changedValue = (event.target as HTMLInputElement).value

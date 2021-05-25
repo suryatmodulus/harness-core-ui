@@ -42,7 +42,7 @@ jiraApprovalStep:
   fetchIssueTypesError: Failed to fetch issue types
   approvalCriteria: Approval Criteria
   rejectionCriteria: Rejection Criteria
-  rejectionCriteriaOptional: Rejection Criteria (Optional)
+  rejectionCriteriaOptional: Rejection Criteria (optional)
   jexlExpressionLabelApproval: If the JEXL Expression evaluates to true, approve this step
   jexlExpressionLabelRejection: If the JEXL Expression evaluates to true, reject this step
   jexlExpressionPlaceholder: |

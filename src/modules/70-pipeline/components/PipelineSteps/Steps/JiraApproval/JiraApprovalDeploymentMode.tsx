@@ -7,6 +7,7 @@ import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import type { JiraApprovalDeploymentModeProps } from './types'
 import css from './JiraApproval.module.scss'
 
@@ -27,7 +28,8 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
           name={`${prefix}timeout`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
+          className={css.deploymentViewMedium}
         />
       ) : null}
 
@@ -41,7 +43,7 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={400}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           type={'Jira'}
           onChange={(record, scope) => {
             const connectorRef =
@@ -57,7 +59,7 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
           label={getString('pipeline.jiraApprovalStep.issueKey')}
           className={css.deploymentViewMedium}
           name={`${prefix}spec.issueKey`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
         />
       ) : null}
@@ -67,7 +69,7 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
           label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')}
           className={css.deploymentViewMedium}
           name={`${prefix}spec.approvalCriteria.spec.expression`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
         />
       ) : null}
@@ -77,7 +79,7 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
           label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelRejection')}
           className={css.deploymentViewMedium}
           name={`${prefix}spec.rejectionCriteria.spec.expression`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
         />
       ) : null}

@@ -68,6 +68,11 @@
   }
 }
 
+.heading {
+  font-weight: bold;
+  margin-bottom: var(--spacing-small);
+}
+
 .harness-approval {
   padding: var(--spacing-6);
 
@@ -78,11 +83,6 @@
 
   .inputs {
     padding: var(--spacing-medium) 0;
-
-    .heading {
-      font-weight: bold;
-      margin-bottom: var(--spacing-small);
-    }
   }
 
   .form-row {

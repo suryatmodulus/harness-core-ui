@@ -29,6 +29,7 @@ export interface HarnessApprovalDeploymentModeProps {
   initialValues: HarnessApprovalData
   onUpdate?: (data: HarnessApprovalData) => void
   inputSetData?: InputSetData<HarnessApprovalData>
+  readonly?: boolean
 }
 
 export interface HarnessApprovalStepModeProps {
@@ -36,6 +37,7 @@ export interface HarnessApprovalStepModeProps {
   isNewStep?: boolean
   initialValues: HarnessApprovalData
   onUpdate?: (data: HarnessApprovalData) => void
+  readonly?: boolean
 }
 
 export interface HarnessApprovalVariableListModeProps {
@@ -55,6 +57,7 @@ export interface HarnessApprovalFormContentProps {
   userGroupsFetchError: GetDataError<Failure | Error> | null
   fetchingUserGroups: boolean
   isNewStep?: boolean
+  readonly?: boolean
 }
 
 export interface UGMUltiSelectProps {

@@ -8,6 +8,7 @@ import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDurat
 import { JiraStatusNG, useGetJiraStatuses } from 'services/cd-ng'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import { getGenuineValue } from '../JiraApproval/helper'
 import type { JiraUpdateDeploymentModeFormContentInterface, JiraUpdateDeploymentModeProps } from './types'
 import css from '../JiraCreate/JiraCreate.module.scss'
@@ -69,7 +70,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
           name={`${prefix}timeout`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           className={css.deploymentViewMedium}
         />
       ) : null}
@@ -84,7 +85,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={400}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           type={'Jira'}
           onChange={(record, scope) => {
             const connectorRef =
@@ -100,7 +101,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
           label={getString('pipeline.jiraApprovalStep.issueKey')}
           className={css.deploymentViewMedium}
           name={`${prefix}spec.issueKey`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           placeholder={getString('pipeline.jiraApprovalStep.issueKey')}
         />
       ) : null}
@@ -111,7 +112,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
           className={css.deploymentViewMedium}
           label={getString('pipeline.jiraApprovalStep.issueType')}
           name={`${prefix}spec.transitionTo.status`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           selectProps={{
             // Need this to show the current selection when we switch from yaml to UI view
             defaultSelectedItem: {
@@ -145,7 +146,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
           placeholder={getString('pipeline.jiraUpdateStep.transitionLabel')}
           className={css.deploymentViewMedium}
           name={`${prefix}spec.transitionTo.transitionName`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
         />
       ) : null}
     </React.Fragment>

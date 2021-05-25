@@ -65,6 +65,7 @@ export interface JiraApprovalStepModeProps {
   initialValues: JiraApprovalData
   onUpdate?: (data: JiraApprovalData) => void
   isNewStep?: boolean
+  readonly?: boolean
 }
 
 export interface ApprovalRejectionCriteriaProps {
@@ -79,6 +80,7 @@ export interface ApprovalRejectionCriteriaProps {
     matchAnyCondition?: boolean | undefined
     conditions?: ApprovalRejectionCriteriaCondition[] | undefined
   }>
+  readonly?: boolean
 }
 
 export interface JiraProjectSelectOption extends SelectOption {
@@ -101,4 +103,5 @@ export interface JiraFormContentInterface {
   projectsFetchError?: GetDataError<Failure | Error> | null
   projectMetadataFetchError?: GetDataError<Failure | Error> | null
   isNewStep?: boolean
+  readonly?: boolean
 }

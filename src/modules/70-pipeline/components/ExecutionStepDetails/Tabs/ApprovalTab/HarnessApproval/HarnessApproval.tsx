@@ -131,7 +131,7 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
                       ))}
                     </React.Fragment>
                   ) : null}
-                  <FormInput.TextArea label="comments" name="comments" disabled={submitting} />
+                  <FormInput.TextArea label="Comments" name="comments" disabled={submitting} className={css.heading} />
                   <div className={css.actions}>
                     <Button icon="tick" intent="primary" onClick={handleApproveClick} disabled={submitting}>
                       <String stringID="common.approve" />

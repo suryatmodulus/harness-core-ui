@@ -57,6 +57,21 @@ describe('Harness Approval tests', () => {
     expect(container).toMatchSnapshot('harness-approval-deploymentform')
   })
 
+  test('Basic snapshot - deploymentform mode readonly', async () => {
+    const props = getHarnessApprovalDeploymentModeProps()
+    const { container } = render(
+      <TestStepWidget
+        template={props.inputSetData.template}
+        initialValues={props.initialValues}
+        type={StepType.HarnessApproval}
+        stepViewType={StepViewType.DeploymentForm}
+        inputSetData={{ ...props.inputSetData, path: props.inputSetData?.path || '', readonly: true }}
+      />
+    )
+
+    expect(container).toMatchSnapshot('harness-approval-deploymentform-readonly')
+  })
+
   test('Basic snapshot - inputset mode but no runtime values', async () => {
     const props = getHarnessApprovalDeploymentModeProps()
     const { container } = render(
@@ -119,6 +134,22 @@ describe('Harness Approval tests', () => {
     fireEvent.click(getByText('pipeline.approvalStep.approvers'))
     await act(() => ref.current?.submitForm())
     await waitFor(() => expect(queryByText('pipeline.approvalStep.validation.userGroups')).toBeTruthy())
+  })
+
+  test('Edit stage - readonly', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const props = getHarnessApprovalEditModeProps()
+    const { container } = render(
+      <TestStepWidget
+        initialValues={props.initialValues}
+        type={StepType.HarnessApproval}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        readonly={true}
+      />
+    )
+
+    expect(container).toMatchSnapshot('edit stage readonly')
   })
 
   test('On submit call', async () => {

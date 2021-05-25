@@ -60,6 +60,21 @@ describe('Jira Create tests', () => {
     expect(container).toMatchSnapshot('jira-create-deploymentform')
   })
 
+  test('Deploymentform readonly mode', async () => {
+    const props = getJiraCreateDeploymentModeProps()
+    const { container } = render(
+      <TestStepWidget
+        template={props.inputSetData?.template}
+        initialValues={props.initialValues}
+        type={StepType.JiraCreate}
+        stepViewType={StepViewType.DeploymentForm}
+        inputSetData={{ ...props.inputSetData, path: props.inputSetData?.path || '', readonly: true }}
+      />
+    )
+
+    expect(container).toMatchSnapshot('jira-create-deploymentform-readonly')
+  })
+
   test('Basic snapshot - inputset mode but no runtime values', async () => {
     const props = getJiraCreateDeploymentModeProps()
     const { container } = render(
@@ -87,6 +102,21 @@ describe('Jira Create tests', () => {
     )
 
     expect(container).toMatchSnapshot('jira-create-input variable view')
+  })
+
+  test('Edit Stage - readonly view', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const props = getJiraCreateEditModeProps()
+    const { container } = render(
+      <TestStepWidget
+        initialValues={props.initialValues}
+        type={StepType.JiraCreate}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        readonly={true}
+      />
+    )
+    expect(container).toMatchSnapshot('edit-stage-readonly')
   })
 
   test('Basic functions - edit stage view validations', async () => {

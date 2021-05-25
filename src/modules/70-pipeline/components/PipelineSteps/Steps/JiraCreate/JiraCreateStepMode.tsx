@@ -34,6 +34,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { FormMultiTypeTextAreaField } from '@common/components'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
 import { getGenuineValue, setAllowedValuesOptions, setIssueTypeOptions } from '../JiraApproval/helper'
+import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import { JiraFieldSelector } from './JiraFieldSelector'
 import { JiraDynamicFieldsSelector } from './JiraDynamicFieldsSelector'
 import {
@@ -65,7 +66,8 @@ const FormContent = ({
   projectMetaResponse,
   fetchingProjects,
   fetchingProjectMetadata,
-  isNewStep
+  isNewStep,
+  readonly
 }: JiraCreateFormContentInterface) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -237,8 +239,15 @@ const FormContent = ({
 
   const AddFieldsButton = () => (
     <Text
-      onClick={() => setFieldOptions()}
-      style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}
+      onClick={() => {
+        if (!isApprovalStepFieldDisabled(readonly)) {
+          setFieldOptions()
+        }
+      }}
+      style={{
+        cursor: isApprovalStepFieldDisabled(readonly) ? 'not-allowed' : 'pointer',
+        marginBottom: 'var(--spacing-medium)'
+      }}
       intent="primary"
     >
       {getString('pipeline.jiraCreateStep.fieldSelectorAdd')}
@@ -248,10 +257,21 @@ const FormContent = ({
   return (
     <React.Fragment>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
-        <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+        <FormInput.InputWithIdentifier
+          inputLabel={getString('name')}
+          isIdentifierEditable={isNewStep}
+          inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
+        />
       </div>
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
-        <FormMultiTypeDurationField name="timeout" label={getString('pipelineSteps.timeoutLabel')} />
+        <FormMultiTypeDurationField
+          name="timeout"
+          label={getString('pipelineSteps.timeoutLabel')}
+          disabled={isApprovalStepFieldDisabled(readonly)}
+          multiTypeDurationProps={{
+            expressions
+          }}
+        />
       </div>
       <Accordion activeId="step-1" className={stepCss.accordion}>
         <Accordion.Panel
@@ -271,10 +291,15 @@ const FormContent = ({
                 type="Jira"
                 enableConfigureOptions={false}
                 selected={formik?.values?.spec.connectorRef as string}
-                onChange={_unused => {
+                onChange={value => {
                   // Clear dependent fields
                   resetForm(formik, 'connectorRef')
+                  if (value !== MultiTypeInputType.FIXED) {
+                    setProjectOptions([])
+                    setProjectMetadata(undefined)
+                  }
                 }}
+                disabled={isApprovalStepFieldDisabled(readonly)}
               />
               <FormInput.MultiTypeInput
                 selectItems={
@@ -292,8 +317,9 @@ const FormContent = ({
                     : getString('select')
                 }
                 className={css.md}
-                disabled={fetchingProjects}
+                disabled={isApprovalStepFieldDisabled(readonly, fetchingProjects)}
                 multiTypeInputProps={{
+                  expressions,
                   onChange: _unused => {
                     // Clear dependent fields
                     resetForm(formik, 'projectKey')
@@ -316,8 +342,9 @@ const FormContent = ({
                     : getString('select')
                 }
                 className={css.md}
-                disabled={fetchingProjectMetadata}
+                disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
                 multiTypeInputProps={{
+                  expressions,
                   onChange: (_unused: any) => {
                     // Clear dependent fields
                     resetForm(formik, 'issueType')
@@ -340,6 +367,7 @@ const FormContent = ({
                 multiTextInputProps={{
                   expressions
                 }}
+                disabled={isApprovalStepFieldDisabled(readonly)}
               />
 
               <FormMultiTypeTextAreaField
@@ -349,6 +377,7 @@ const FormContent = ({
                 className={cx(css.descriptionField, css.md)}
                 multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
                 placeholder={getString('pipeline.enterDescription')}
+                disabled={isApprovalStepFieldDisabled(readonly)}
               />
 
               {fetchingProjectMetadata ? (
@@ -366,6 +395,7 @@ const FormContent = ({
                     return (
                       <FormInput.MultiTextInput
                         label={selectedField.name}
+                        disabled={isApprovalStepFieldDisabled(readonly)}
                         name={`spec.selectedFields[${index}].value`}
                         placeholder={selectedField.name}
                         className={css.md}
@@ -383,6 +413,7 @@ const FormContent = ({
                       <FormInput.MultiSelectTypeInput
                         selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
                         label={selectedField.name}
+                        disabled={isApprovalStepFieldDisabled(readonly)}
                         name={`spec.selectedFields[${index}].value`}
                         placeholder={selectedField.name}
                         className={cx(css.multiSelect, css.md)}
@@ -398,6 +429,7 @@ const FormContent = ({
                         label={selectedField.name}
                         name={`spec.selectedFields[${index}].value`}
                         placeholder={selectedField.name}
+                        disabled={isApprovalStepFieldDisabled(readonly)}
                         className={cx(css.multiSelect, css.md)}
                         multiTypeInputProps={{ expressions }}
                       />
@@ -419,11 +451,16 @@ const FormContent = ({
                         </div>
                         {formik.values.spec.fields?.map((_unused: JiraCreateFieldType, i: number) => (
                           <div className={css.headerRow} key={i}>
-                            <FormInput.Text name={`spec.fields[${i}].name`} placeholder={getString('keyLabel')} />
+                            <FormInput.Text
+                              name={`spec.fields[${i}].name`}
+                              disabled={isApprovalStepFieldDisabled(readonly)}
+                              placeholder={getString('keyLabel')}
+                            />
                             <FormInput.MultiTextInput
                               name={`spec.fields[${i}].value`}
                               label=""
                               placeholder={getString('valueLabel')}
+                              disabled={isApprovalStepFieldDisabled(readonly)}
                               multiTextInputProps={{
                                 allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
                                 expressions
@@ -432,6 +469,7 @@ const FormContent = ({
                             <Button
                               minimal
                               icon="trash"
+                              disabled={isApprovalStepFieldDisabled(readonly)}
                               data-testid={`remove-fieldList-${i}`}
                               onClick={() => remove(i)}
                             />
@@ -478,7 +516,7 @@ const FormContent = ({
 }
 
 function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormikFowardRef<JiraCreateData>) {
-  const { onUpdate, isNewStep } = props
+  const { onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
@@ -548,6 +586,7 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
             projectsFetchError={projectsFetchError}
             projectMetadataFetchError={projectMetadataFetchError}
             isNewStep={isNewStep}
+            readonly={readonly}
           />
         )
       }}

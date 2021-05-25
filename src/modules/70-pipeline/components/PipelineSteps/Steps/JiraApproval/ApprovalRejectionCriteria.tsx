@@ -7,6 +7,7 @@ import { useStrings } from 'framework/strings'
 import type { JiraFieldNG } from 'services/cd-ng'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import {
   ApprovalRejectionCriteriaCondition,
   ApprovalRejectionCriteriaProps,
@@ -21,7 +22,9 @@ const renderValueSelects = (
   condition: ApprovalRejectionCriteriaCondition,
   allowedValuesForFields: Record<string, SelectOption[]>,
   mode: string,
-  i: number
+  i: number,
+  expressions: string[],
+  readonly?: boolean
 ) => {
   if (condition.operator === 'in' || condition.operator === 'not in') {
     return (
@@ -32,8 +35,10 @@ const renderValueSelects = (
         selectItems={allowedValuesForFields[condition.key]}
         placeholder="Value(s)"
         multiSelectTypeInputProps={{
-          allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+          expressions
         }}
+        disabled={isApprovalStepFieldDisabled(readonly)}
       />
     )
   }
@@ -44,8 +49,10 @@ const renderValueSelects = (
       selectItems={allowedValuesForFields[condition.key]}
       placeholder="Value(s)"
       multiTypeInputProps={{
-        allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+        allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+        expressions
       }}
+      disabled={isApprovalStepFieldDisabled(readonly)}
     />
   )
 }
@@ -58,9 +65,11 @@ export const Conditions = ({
   allowedValuesForFields,
   allowedFieldKeys,
   formikErrors,
-  fieldList
+  fieldList,
+  readonly
 }: ConditionsInterface) => {
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   if (isFetchingFields) {
     return <div className={css.fetching}>{getString('pipeline.jiraApprovalStep.fetchingFields')}</div>
   }
@@ -70,12 +79,14 @@ export const Conditions = ({
         <span>{getString('pipeline.jiraApprovalStep.match')}</span>
         <Radio
           onClick={() => onChange({ ...values, spec: { ...values.spec, matchAnyCondition: false } })}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           checked={!values.spec.matchAnyCondition}
         >
           {getString('pipeline.jiraApprovalStep.allConditions')}
         </Radio>
         <Radio
           onClick={() => onChange({ ...values, spec: { ...values.spec, matchAnyCondition: true } })}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           checked={values.spec.matchAnyCondition}
         >
           {getString('pipeline.jiraApprovalStep.anyCondition')}
@@ -96,33 +107,47 @@ export const Conditions = ({
                 {values.spec.conditions?.map((condition: ApprovalRejectionCriteriaCondition, i: number) => (
                   <div className={css.headers} key={i}>
                     {isEmpty(fieldList) ? (
-                      <FormInput.Text name={`spec.${mode}.spec.conditions[${i}].key`} placeholder="Key" />
+                      <FormInput.Text
+                        disabled={isApprovalStepFieldDisabled(readonly)}
+                        name={`spec.${mode}.spec.conditions[${i}].key`}
+                        placeholder="Key"
+                      />
                     ) : (
                       <FormInput.Select
                         items={allowedFieldKeys}
                         name={`spec.${mode}.spec.conditions[${i}].key`}
                         placeholder="Key"
+                        disabled={isApprovalStepFieldDisabled(readonly)}
                       />
                     )}
                     <FormInput.Select
                       items={allowedValuesForFields[condition.key] ? operatorValues : filterOutMultiOperators()}
                       name={`spec.${mode}.spec.conditions[${i}].operator`}
                       placeholder="Operator"
+                      disabled={isApprovalStepFieldDisabled(readonly)}
                     />
                     {allowedValuesForFields[condition.key] ? (
-                      renderValueSelects(condition, allowedValuesForFields, mode, i)
+                      renderValueSelects(condition, allowedValuesForFields, mode, i, expressions, readonly)
                     ) : (
                       <FormInput.MultiTextInput
                         label=""
                         name={`spec.${mode}.spec.conditions[${i}].value`}
                         placeholder="Value(s)"
+                        disabled={isApprovalStepFieldDisabled(readonly)}
                         multiTextInputProps={{
+                          expressions,
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                         }}
                       />
                     )}
 
-                    <Button minimal icon="trash" data-testid={`remove-conditions-${i}`} onClick={() => remove(i)} />
+                    <Button
+                      minimal
+                      disabled={isApprovalStepFieldDisabled(readonly)}
+                      icon="trash"
+                      data-testid={`remove-conditions-${i}`}
+                      onClick={() => remove(i)}
+                    />
                   </div>
                 ))}
                 <Button
@@ -130,6 +155,7 @@ export const Conditions = ({
                   minimal
                   intent="primary"
                   data-testid="add-conditions"
+                  disabled={isApprovalStepFieldDisabled(readonly)}
                   onClick={() => push({ key: 'Status', operator: 'equals', value: [] })}
                 >
                   {getString('add')}
@@ -155,6 +181,7 @@ export const Jexl = (props: ApprovalRejectionCriteriaProps) => {
   return (
     <FormMultiTypeTextAreaField
       name={`spec.${props.mode}.spec.expression`}
+      disabled={isApprovalStepFieldDisabled(props.readonly)}
       label={
         props.mode === 'approvelCriteria'
           ? getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')

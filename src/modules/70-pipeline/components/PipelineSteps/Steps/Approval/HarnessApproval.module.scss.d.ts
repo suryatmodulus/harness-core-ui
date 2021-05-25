@@ -13,5 +13,6 @@ declare const styles: {
   readonly deploymentViewMedium: string
   readonly ugLabel: string
   readonly multiSelectDeploymentMode: string
+  readonly deploymentModeUgSelectWrapper: string
 }
 export default styles

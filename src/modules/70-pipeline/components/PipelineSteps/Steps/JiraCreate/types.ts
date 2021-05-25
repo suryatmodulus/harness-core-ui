@@ -45,6 +45,7 @@ export interface JiraCreateStepModeProps {
   initialValues: JiraCreateData
   onUpdate?: (data: JiraCreateData) => void
   isNewStep?: boolean
+  readonly?: boolean
 }
 
 export interface JiraCreateFormContentInterface {
@@ -58,6 +59,7 @@ export interface JiraCreateFormContentInterface {
   projectsFetchError?: GetDataError<Failure | Error> | null
   projectMetadataFetchError?: GetDataError<Failure | Error> | null
   isNewStep?: boolean
+  readonly?: boolean
 }
 
 export enum JiraCreateFormFieldSelector {

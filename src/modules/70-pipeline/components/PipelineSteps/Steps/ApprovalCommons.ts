@@ -10,3 +10,16 @@ const getEntries = function <T>(object: T, prefix = ''): Array<any> {
 export function flatObject(object: Record<string, any>): Record<string, unknown> {
   return getEntries(object).reduce((o, k) => ((o[k[0]] = k[1]), o), {})
 }
+
+// returns if an approval form field is disabled.
+// More params might be added in the future
+// readonly denotes RBAC
+export const isApprovalStepFieldDisabled = (readonly = false, fetching = false): boolean => {
+  if (readonly) {
+    return true
+  }
+  if (fetching) {
+    return true
+  }
+  return false
+}

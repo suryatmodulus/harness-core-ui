@@ -10,6 +10,7 @@ import { ConnectorReferenceField } from '@connectors/components/ConnectorReferen
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getGenuineValue, setIssueTypeOptions } from '../JiraApproval/helper'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
+import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import type { JiraCreateDeploymentModeProps, JiraCreateDeploymentModeFormContentInterface } from './types'
 import css from './JiraCreate.module.scss'
 
@@ -98,7 +99,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}
           name={`${prefix}timeout`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           className={css.deploymentViewMedium}
         />
       ) : null}
@@ -113,7 +114,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={400}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           type={'Jira'}
           onChange={(record, scope) => {
             const connectorRef =
@@ -143,7 +144,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
                 : getString('select')
             }
           }}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           onChange={(opt: SelectOption) => {
             onUpdate?.({
               ...initialValues,
@@ -160,7 +161,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           placeholder={getString('select')}
           label={getString('pipeline.jiraApprovalStep.issueType')}
           name={`${prefix}spec.issueType`}
-          disabled={readonly}
+          disabled={isApprovalStepFieldDisabled(readonly)}
           selectProps={{
             // Need this to show the current selection when we switch from yaml to UI view
             defaultSelectedItem: {

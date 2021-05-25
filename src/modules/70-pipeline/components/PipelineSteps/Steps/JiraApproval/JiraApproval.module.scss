@@ -4,6 +4,21 @@
 
 .connector {
   margin-bottom: var(--spacing-medium) !important;
+  margin-top: var(--spacing-xsmall) !important;
+
+  :global {
+    .MultiTypeInput--main {
+      width: 410px !important;
+    }
+
+    .bp3-button {
+      width: 382px !important;
+    }
+
+    .bp3-input {
+      width: 382px !important;
+    }
+  }
 }
 
 .deploymentViewMedium {

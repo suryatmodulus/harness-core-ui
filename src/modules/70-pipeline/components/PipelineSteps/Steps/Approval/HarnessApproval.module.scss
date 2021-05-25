@@ -28,6 +28,14 @@
       max-height: 120px;
       height: 75px !important;
     }
+
+    .bp3-input {
+      height: 75px !important;
+    }
+
+    .MultiTypeInput--btn {
+      height: 30px !important;
+    }
   }
 }
 
@@ -73,9 +81,14 @@
 }
 
 .multiSelectDeploymentMode {
+  margin-top: var(--spacing-xsmall);
   :global {
     .bp3-input {
       border: 1px solid var(--grey-300) !important;
     }
   }
+}
+
+.deploymentModeUgSelectWrapper {
+  margin: var(--spacing-medium) 0;
 }

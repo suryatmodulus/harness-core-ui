@@ -24,25 +24,30 @@ const getApprovalRejectionConditionValuesForSubmit = (values: string | SelectOpt
   return values.value.toString()
 }
 
+export const filterNonEmptyConditions = (condition: ApprovalRejectionCriteriaCondition) =>
+  condition.key && condition.value
+
 export const getApprovalRejectionCriteriaForSubmit = (
   criteria: ApprovalRejectionCriteria
 ): ApprovalRejectionCriteria => {
   // Convert the approval/rejection criteria 'value' field to string/string[], from selectoption
   const criteriaToReturn: ApprovalRejectionCriteria = {
-    ...criteria,
+    type: criteria.type,
     spec: {
-      ...criteria.spec,
-      conditions: criteria.spec.conditions?.filter((condition: ApprovalRejectionCriteriaCondition) => {
-        if (!isEmpty(condition.key) && !isEmpty(condition.value)) {
+      matchAnyCondition: criteria.spec.matchAnyCondition,
+      expression: criteria.spec.expression,
+      conditions: criteria.spec.conditions
+        ?.filter(filterNonEmptyConditions)
+        .map((condition: ApprovalRejectionCriteriaCondition) => {
           return {
-            ...condition,
+            key: condition.key,
+            operator: condition.operator,
             value:
-              getMultiTypeFromValue(condition.value) === MultiTypeInputType.FIXED
+              getMultiTypeFromValue(condition.value) !== MultiTypeInputType.EXPRESSION
                 ? getApprovalRejectionConditionValuesForSubmit(condition.value)
                 : condition.value
           }
-        }
-      })
+        })
     }
   }
   if (criteriaToReturn.type === ApprovalRejectionCriteriaType.Jexl) {

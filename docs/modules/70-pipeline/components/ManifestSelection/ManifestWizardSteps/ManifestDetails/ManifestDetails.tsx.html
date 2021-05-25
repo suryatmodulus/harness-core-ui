@@ -534,7 +534,10 @@
 <a name='L475'></a><a href='#L475'>475</a>
 <a name='L476'></a><a href='#L476'>476</a>
 <a name='L477'></a><a href='#L477'>477</a>
-<a name='L478'></a><a href='#L478'>478</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L478'></a><a href='#L478'>478</a>
+<a name='L479'></a><a href='#L479'>479</a>
+<a name='L480'></a><a href='#L480'>480</a>
+<a name='L481'></a><a href='#L481'>481</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -871,7 +874,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1042,7 +1048,7 @@ import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from '
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ManifestDetailDataType } from '../../ManifestInterface'
-import { gitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../../Manifesthelper'
+import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
@@ -1305,11 +1311,11 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
                 &lt;FormInput.Select
                   name="gitFetchType"
                   label={getString('pipeline.manifestType.gitFetchTypeLabel')}
-                  items={gitFetchTypes}
+                  items={gitFetchTypeList}
                 /&gt;
 &nbsp;
-                &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
-                  {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itFetchType === gitFetchTypes[0].value &amp;&amp; (
+                {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itFetchType === GitFetchTypes.Branch &amp;&amp; (
+                  &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                     &lt;FormInput.MultiTextInput
                       multiTextInputProps={{ expressions }}
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
@@ -1317,21 +1323,23 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
                       name="branch"
                       style={{ width: '370px' }}
                     /&gt;
-                  )}
-                  {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;ConfigureOptions</span>
-                      value={formik.values?.branch as string}
-                      type="String"
-                      variableName="branch"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; <span class="cstat-no" title="statement not covered" >formik.setFieldValue('branch', value)}</span>
-                    /&gt;
-                  )}
-                &lt;/div&gt;
-                &lt;div className={cx(stepCss.formGroup)}&gt;
-                  {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itFetchType === gitFetchTypes[1].value &amp;&amp; (
+&nbsp;
+                    {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                      &lt;ConfigureOptions</span>
+                        value={formik.values?.branch as string}
+                        type="String"
+                        variableName="branch"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; <span class="cstat-no" title="statement not covered" >formik.setFieldValue('branch', value)}</span>
+                      /&gt;
+                    )}
+                  &lt;/div&gt;
+                )}
+&nbsp;
+                {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itFetchType === GitFetchTypes.Commit &amp;&amp; (
+                  &lt;div className={cx(stepCss.formGroup)}&gt;
                     &lt;FormInput.MultiTextInput
                       multiTextInputProps={{ expressions }}
                       label={getString('pipeline.manifestType.commitId')}
@@ -1339,19 +1347,20 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
                       name="commitId"
                       style={{ width: '370px' }}
                     /&gt;
-                  )}
-                  {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommitId) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;ConfigureOptions</span>
-                      value={formik.values?.commitId as string}
-                      type="String"
-                      variableName="commitId"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; <span class="cstat-no" title="statement not covered" >formik.setFieldValue('commitId', value)}</span>
-                    /&gt;
-                  )}
-                &lt;/div&gt;
+&nbsp;
+                    {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommitId) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                      &lt;ConfigureOptions</span>
+                        value={formik.values?.commitId as string}
+                        type="String"
+                        variableName="commitId"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; <span class="cstat-no" title="statement not covered" >formik.setFieldValue('commitId', value)}</span>
+                      /&gt;
+                    )}
+                  &lt;/div&gt;
+                )}
                 &lt;div className={cx(stepCss.formGroup)}&gt;
                   &lt;MultiTypeFieldSelector
                     defaultValueToReset={defaultValueToReset}
@@ -1495,7 +1504,7 @@ export default ManifestDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue May 25 2021 07:13:24 GMT+0000 (Greenwich Mean Time)
+                at Tue May 25 2021 08:58:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

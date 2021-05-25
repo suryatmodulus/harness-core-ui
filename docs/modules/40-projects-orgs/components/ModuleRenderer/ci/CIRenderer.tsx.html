@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -115,8 +115,26 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,7 +149,6 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">56x</span>
 <span class="cline-any cline-yes">56x</span>
-<span class="cline-any cline-yes">56x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">56x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,7 +156,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,8 +196,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uicore'
-import { useHistory, useParams } from 'react-router-dom'
+import {
+  Text,
+  Color,
+  Container,
+  Layout,
+  Icon
+  // SparkChart
+} from '@wings-software/uicore'
+import { useParams, Link } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
@@ -187,7 +216,6 @@ interface CIRendererProps {
   isPreview?: boolean
 }
 const CIRenderer: React.FC&lt;CIRendererProps&gt; = ({ data, isPreview }) =&gt; {
-  const history = useHistory()
   const { getString } = useStrings()
   const { accountId } = useParams&lt;AccountPathProps&gt;()
 &nbsp;
@@ -196,17 +224,6 @@ const CIRenderer: React.FC&lt;CIRendererProps&gt; = ({ data, isPreview }) =&gt; 
       border={{ top: true, color: Color.GREY_250 }}
       padding={{ top: 'medium', bottom: 'medium' }}
       className={css.moduleContainer}
-      onClick={() =&gt; {
-        !isPreview &amp;&amp;
-          history.push(
-            routes.toDeployments({
-              orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
-              projectIdentifier: data.identifier,
-              module: 'ci',
-              accountId
-            })
-          )
-      }}
     &gt;
       &lt;Layout.Horizontal&gt;
         &lt;Container width="30%" border={{ right: true, color: Color.GREY_250 }} flex={{ align: 'center-center' }}&gt;
@@ -214,15 +231,31 @@ const CIRenderer: React.FC&lt;CIRendererProps&gt; = ({ data, isPreview }) =&gt; 
         &lt;/Container&gt;
         &lt;Container width="70%" flex={{ align: 'center-center' }}&gt;
           &lt;Layout.Vertical flex={{ align: 'center-center' }}&gt;
-            &lt;Layout.Horizontal flex={{ align: 'center-center' }} className={css.activityChart} spacing="xxlarge"&gt;
+            {/* &lt;Layout.Horizontal flex={{ align: 'center-center' }} className={css.activityChart} spacing="xxlarge"&gt;
               &lt;SparkChart data={[2, 3, 4, 5, 4, 3, 2]} /&gt;
               &lt;Text color={Color.GREY_400} font={{ size: 'medium' }}&gt;
                 {'88'}
               &lt;/Text&gt;
-            &lt;/Layout.Horizontal&gt;
-            &lt;Text color={Color.GREY_400} font={{ size: 'xsmall' }}&gt;
-              {getString('projectCard.ciRendererText')}
-            &lt;/Text&gt;
+            &lt;/Layout.Horizontal&gt; */}
+            {isPreview ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;Text color={Color.GREY_500} font={{ size: 'xsmall' }} className={css.moduleLink}&gt;</span>
+                {getString('projectsOrgs.gotoBuilds')}
+              &lt;/Text&gt;
+            ) : (
+              &lt;Link
+                to={routes.toDeployments({
+                  orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
+                  projectIdentifier: data.identifier,
+                  module: 'ci',
+                  accountId
+                })}
+              &gt;
+                &lt;Text color={Color.PRIMARY_6} font={{ size: 'xsmall' }} className={css.moduleLink}&gt;
+                  {/* {getString('projectCard.ciRendererText')} */}
+                  {getString('projectsOrgs.gotoBuilds')}
+                &lt;/Text&gt;
+              &lt;/Link&gt;
+            )}
           &lt;/Layout.Vertical&gt;
         &lt;/Container&gt;
       &lt;/Layout.Horizontal&gt;
@@ -238,7 +271,7 @@ export default CIRenderer
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue May 25 2021 07:13:24 GMT+0000 (Greenwich Mean Time)
+                at Tue May 25 2021 08:58:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

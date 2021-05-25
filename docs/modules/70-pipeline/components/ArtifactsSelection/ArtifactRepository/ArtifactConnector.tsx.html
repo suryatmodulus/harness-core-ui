@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.11% </span>
+                <span class="strong">86.49% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/36</span>
+                <span class='fraction'>32/37</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">86.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>30/35</span>
+                <span class='fraction'>31/36</span>
             </div>
         
             
@@ -219,10 +219,7 @@
 <a name='L160'></a><a href='#L160'>160</a>
 <a name='L161'></a><a href='#L161'>161</a>
 <a name='L162'></a><a href='#L162'>162</a>
-<a name='L163'></a><a href='#L163'>163</a>
-<a name='L164'></a><a href='#L164'>164</a>
-<a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L163'></a><a href='#L163'>163</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,10 +242,10 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,6 +273,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -314,10 +312,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -410,10 +404,10 @@ import type { ConnectorSelectedValue } from '@connectors/components/ConnectorRef
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ArtifactConnectorLabelMap, ArtifactToConnectorMap } from '../ArtifactHelper'
 import type { ArtifactType, ConnectorDataType } from '../ArtifactInterface'
-import { ArtifactTitleIdByType, ArtifactToConnectorMap } from '../ArtifactHelper'
-import css from './ArtifactConnector.module.scss'
 &nbsp;
+import css from './ArtifactConnector.module.scss'
 interface ArtifactConnectorProps {
   handleViewChange: () =&gt; void
   name?: string
@@ -442,8 +436,9 @@ export const ArtifactConnector: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
   const { getString } = useStrings()
 &nbsp;
   const connectorType = ArtifactToConnectorMap[selectedArtifact]
+  const selectedConnectorLabel = ArtifactConnectorLabelMap[selectedArtifact]
 &nbsp;
-  const newConnectorLabel = `${getString('newLabel')} ${connectorType} ${getString('connector')}`
+  const newConnectorLabel = `${getString('newLabel')} ${selectedConnectorLabel} ${getString('connector')}`
 &nbsp;
   const [canCreate] = usePermission({
     resource: {
@@ -485,13 +480,9 @@ export const ArtifactConnector: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                 &lt;FormMultiTypeConnectorField
                   name="connectorId"
                   label={
-                    &lt;Text style={{ marginBottom: 8 }}&gt;{`${getString(
-                      ArtifactTitleIdByType[selectedArtifact]
-                    )} ${getString('connector')}`}&lt;/Text&gt;
+                    &lt;Text style={{ marginBottom: 8 }}&gt;{`${selectedConnectorLabel} ${getString('connector')}`}&lt;/Text&gt;
                   }
-                  placeholder={`${getString('select')} ${getString(
-                    ArtifactTitleIdByType[selectedArtifact]
-                  )} ${getString('connector')}`}
+                  placeholder={`${getString('select')} ${selectedConnectorLabel} ${getString('connector')}`}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
@@ -559,7 +550,7 @@ export const ArtifactConnector: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue May 25 2021 05:20:56 GMT+0000 (Greenwich Mean Time)
+                at Tue May 25 2021 05:53:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

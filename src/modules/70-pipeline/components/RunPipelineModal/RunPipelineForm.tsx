@@ -176,8 +176,8 @@ function RunPipelineFormBasic({
               projectIdentifier,
               orgIdentifier,
               pipelineIdentifier,
-              repoIdentifier,
-              branch
+              repoIdentifier: selectedInputSets[0]?.gitDetails?.repoIdentifier,
+              branch: selectedInputSets[0]?.gitDetails?.branch
             }
           })
           if (data?.data?.inputSetYaml) {

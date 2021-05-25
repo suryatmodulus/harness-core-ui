@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.19% </span>
+                <span class="strong">71.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/59</span>
+                <span class='fraction'>43/60</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.05% </span>
+                <span class="strong">23.18% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>44/209</span>
+                <span class='fraction'>51/220</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.69% </span>
+                <span class="strong">71.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/58</span>
+                <span class='fraction'>42/59</span>
             </div>
         
             
@@ -273,7 +273,10 @@
 <a name='L214'></a><a href='#L214'>214</a>
 <a name='L215'></a><a href='#L215'>215</a>
 <a name='L216'></a><a href='#L216'>216</a>
-<a name='L217'></a><a href='#L217'>217</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -286,6 +289,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -306,6 +310,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -489,6 +494,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { isEmpty, debounce } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -498,6 +504,7 @@ import {
   useGetBarrierInfo,
   useGetResourceConstraintsExecutionInfo
 } from 'services/pipeline-ng'
+import { PageSpinner } from '@common/components'
 import { getIconFromStageModule, processExecutionData } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
@@ -530,7 +537,8 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     selectedStepId,
     allNodeMap,
     setStepsGraphCanvasState,
-    stepsGraphCanvasState
+    stepsGraphCanvasState,
+    isDataLoadedForSelectedStage
   } = useExecutionContext()
   const { setStepDetailsVisibility } = useExecutionLayoutContext()
   const [barrierSetupId, setBarrierSetupId] = React.useState&lt;string | undefined&gt;()
@@ -560,7 +568,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   })
   const data: ExecutionPipeline&lt;ExecutionNode&gt; = {
     items: processExecutionData(pipelineExecutionDetail<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutionGraph),
-    identifier: `${executionIdentifier}-${selectedStageId}`,
+    identifier: `${executionIdentifier}-${pipelineExecutionDetail<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutionGraph<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ootNodeId}`,
     status: stage?.status as any,
     allNodes: Object.keys(allNodeMap)
   }
@@ -695,6 +703,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           graphCanvasState={stepsGraphCanvasState}
         /&gt;
       )}
+      {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isDataLoadedForSelectedStage </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >&lt;PageSpinner fixed={false} /&gt;}</span>
       &lt;DynamicPopover
         className={css.popoverHeight}
         darkMode={true}
@@ -712,7 +721,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue May 25 2021 16:01:16 GMT+0000 (Greenwich Mean Time)
+                at Tue May 25 2021 16:07:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

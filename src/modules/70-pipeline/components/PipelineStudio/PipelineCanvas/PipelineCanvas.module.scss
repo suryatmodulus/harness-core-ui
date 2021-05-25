@@ -139,7 +139,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  > div {
+    display: flex;
+    align-items: center;
+  }
   .pipelineName {
     display: inline-flex;
     font-size: var(--font-size-medium) !important;

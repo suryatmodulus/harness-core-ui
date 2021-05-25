@@ -45,7 +45,7 @@ const PipelineYamlView: React.FC = () => {
       if (yamlHandler && !isDrawerOpened) {
         Interval = window.setInterval(() => {
           const pipelineFromYaml = parse(yamlHandler.getLatestYaml())?.pipeline
-          if (!isEqual(pipeline, pipelineFromYaml)) {
+          if (!isEqual(omit(pipeline, 'repo', 'branch'), pipelineFromYaml)) {
             updatePipeline(pipelineFromYaml)
           }
         }, POLL_INTERVAL)
@@ -72,7 +72,7 @@ const PipelineYamlView: React.FC = () => {
             fileName="Pipeline.yaml"
             entityType="Pipelines"
             isReadOnlyMode={isReadonly}
-            existingJSON={{ ...omit(pipeline, 'repo', 'branch') }}
+            existingJSON={{ pipeline: omit(pipeline, 'repo', 'branch') }}
             bind={setYamlHandler}
             showSnippetSection={false}
             onExpressionTrigger={() => {

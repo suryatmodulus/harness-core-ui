@@ -234,7 +234,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
         pipelineId,
         signal
       )
-      const pipeline: PipelineInfoConfig = omit(pipelineWithGitDetails, 'gitDetails')
+      const pipeline: PipelineInfoConfig = omit(pipelineWithGitDetails, 'gitDetails', 'repo', 'branch')
       const payload: PipelinePayload = {
         [KeyPath]: id,
         pipeline,
@@ -402,7 +402,7 @@ const _updatePipeline = async (args: UpdatePipelineArgs, pipeline: PipelineInfoC
     gitDetails.branch || ''
   )
   if (IdbPipeline) {
-    const isUpdated = !isEqual(originalPipeline, pipeline)
+    const isUpdated = !isEqual(omit(originalPipeline, 'repo', 'branch'), pipeline)
     const payload: PipelinePayload = {
       [KeyPath]: id,
       pipeline,

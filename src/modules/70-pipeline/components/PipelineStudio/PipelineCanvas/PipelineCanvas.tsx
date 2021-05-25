@@ -460,7 +460,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   return true
                 }
               }
-              localUpdated = !isEqual(originalPipeline, parsedYaml.pipeline)
+              localUpdated = !isEqual(omit(originalPipeline, 'repo', 'branch'), parsedYaml.pipeline)
               updatePipeline(parsedYaml.pipeline)
             } catch (e) {
               setYamlError(true)

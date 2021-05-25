@@ -165,6 +165,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       } else {
         await fetchPipeline({ forceFetch: true, forceUpdate: true })
       }
+      if (updatedGitDetails?.isNewBranch) {
+        location.reload()
+      }
     } else {
       clear()
       showError(response?.message || getString('errorWhileSaving'))

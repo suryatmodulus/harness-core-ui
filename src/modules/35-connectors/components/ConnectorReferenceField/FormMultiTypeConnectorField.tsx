@@ -70,6 +70,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     configureOptionsProps,
     enableConfigureOptions = true,
     style,
+    gitScope,
     multiTypeProps = {},
     ...restProps
   } = props
@@ -211,6 +212,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
         referenceSelectProps={{
           ...getReferenceFieldProps({
             defaultScope,
+            gitScope,
             accountIdentifier,
             projectIdentifier,
             orgIdentifier,

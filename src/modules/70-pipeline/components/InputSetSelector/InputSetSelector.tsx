@@ -18,7 +18,6 @@ import { useParams } from 'react-router-dom'
 import { EntityGitDetails, InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
-import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useStrings } from 'framework/strings'
@@ -100,7 +99,6 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
     orgIdentifier: string
     accountId: string
   }>()
-  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const { data: inputSetResponse, refetch, error } = useGetInputSetsListForPipeline({
     queryParams: {
@@ -114,8 +112,6 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             branch: gitFilter.branch,
             getDefaultFromOtherRepo: true
           }
-        : !isEmpty(repoIdentifier)
-        ? { repoIdentifier, branch, getDefaultFromOtherRepo: true }
         : {})
     },
     debounce: 300,

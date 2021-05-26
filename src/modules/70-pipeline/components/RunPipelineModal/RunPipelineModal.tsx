@@ -96,6 +96,8 @@ export function RunPipelineModal(): React.ReactElement {
           inputSetSelected={getInputSetSelected()}
           repoIdentifier={query.repoIdentifier}
           branch={query.branch}
+          inputSetRepoIdentifier={query.inputSetRepoIdentifier}
+          inputSetBranch={query.inputSetBranch}
         />
       </Layout.Vertical>
     </Dialog>

@@ -1790,7 +1790,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                         >
                           <p
                             class="StyledProps--font StyledProps--main"
-                            style="display: flex; align-items: center;"
+                            style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                           >
                             pipeline.targets.title
                           </p>

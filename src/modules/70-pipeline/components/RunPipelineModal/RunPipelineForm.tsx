@@ -30,7 +30,7 @@ import {
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
-import type { GitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, InputSetGitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
@@ -67,8 +67,10 @@ function RunPipelineFormBasic({
   module,
   executionView,
   branch,
-  repoIdentifier
-}: RunPipelineFormProps & GitQueryParams): React.ReactElement {
+  repoIdentifier,
+  inputSetRepoIdentifier,
+  inputSetBranch
+}: RunPipelineFormProps & InputSetGitQueryParams): React.ReactElement {
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
   const [notifyOnlyMe, setNotifyOnlyMe] = React.useState<boolean>(false)
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>(inputSetSelected)
@@ -76,7 +78,10 @@ function RunPipelineFormBasic({
   const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>(
     inputSetYAML ? parse(inputSetYAML) : undefined
   )
-  const [gitFilter, setGitFilter] = React.useState<GitFilterScope | null>(null)
+  const [gitFilter, setGitFilter] = React.useState<GitFilterScope | null>({
+    repo: inputSetRepoIdentifier || '',
+    branch: inputSetBranch || ''
+  })
   const { showError, showSuccess, showWarning } = useToaster()
   const history = useHistory()
   const { getString } = useStrings()
@@ -456,6 +461,7 @@ function RunPipelineFormBasic({
                                         onChange={filter => {
                                           setGitFilter(filter)
                                         }}
+                                        defaultValue={gitFilter || undefined}
                                       />
                                     </GitSyncStoreProvider>
                                   </div>
@@ -603,7 +609,7 @@ export function RunPipelineFormWrapper(props: RunPipelineFormWrapperProps): Reac
   )
 }
 
-export const RunPipelineForm: React.FC<RunPipelineFormProps & GitQueryParams> = props => {
+export const RunPipelineForm: React.FC<RunPipelineFormProps & InputSetGitQueryParams> = props => {
   return (
     <NestedAccordionProvider>
       <RunPipelineFormBasic {...props} />

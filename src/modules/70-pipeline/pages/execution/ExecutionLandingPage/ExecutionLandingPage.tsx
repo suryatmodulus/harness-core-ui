@@ -268,7 +268,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                         vars={pipelineExecutionSummary}
                       />
                     </div>
-                    {pipelineExecutionSummary.gitDetails && <GitPopover data={pipelineExecutionSummary.gitDetails} />}
+                    {pipelineExecutionSummary.gitDetails?.objectId && (
+                      <GitPopover data={pipelineExecutionSummary.gitDetails} />
+                    )}
                   </Layout.Horizontal>
                 </div>
                 <div className={css.statusBar}>

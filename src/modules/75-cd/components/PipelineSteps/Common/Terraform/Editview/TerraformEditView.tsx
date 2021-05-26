@@ -157,7 +157,6 @@ export default function TerraformEditView(
                 />
               </div>
               <div className={cx(css.fieldBorder, css.addMarginBottom)} />
-              {/* {stepType !== StepType.TerraformPlan && <BaseForm formik={formik} configurationTypes={configTypes} />} */}
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.MultiTextInput
@@ -183,23 +182,28 @@ export default function TerraformEditView(
               <div className={cx(css.fieldBorder, css.addMarginBottom)} />
               {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
                 <>
-                  <Layout.Vertical>
+                  <Layout.Vertical className={cx(css.addMarginBottom)}>
                     <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
-                      {getString('pipelineSteps.configFiles')}
+                      {getString('pipelineSteps.configurationFile')}
                     </Label>
-                    <div className={css.configField}>
-                      {!formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath && (
-                        <Text className={css.configPlaceHolder}>-{getString('cd.configFilePlaceHolder')}-</Text>
-                      )}
-                      {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath && (
-                        <Text intent="primary">
-                          /{formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath}
-                        </Text>
-                      )}
-                      <Icon name="edit" onClick={() => setShowModal(true)} />
+                    <div className={cx(css.configFile, css.addMarginBottom)}>
+                      <Label style={{ color: '#000000' }} className={css.configFileLabel}>
+                        {getString('secret.labelFile')}
+                      </Label>
+                      <div className={css.configField}>
+                        {!formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath && (
+                          <Text className={css.configPlaceHolder}>-{getString('cd.configFilePlaceHolder')}-</Text>
+                        )}
+                        {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath && (
+                          <Text intent="primary">
+                            /{formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath}
+                          </Text>
+                        )}
+                        <Icon name="edit" onClick={() => setShowModal(true)} />
+                      </div>
                     </div>
                   </Layout.Vertical>
-
+                  <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                   <div className={css.addMarginTop}>
                     <Accordion activeId="step-1" className={stepCss.accordion}>
                       <Accordion.Panel
@@ -233,10 +237,19 @@ export default function TerraformEditView(
                             <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                             <TfVarFileList formik={formik} />
                             <div className={cx(css.fieldBorder, css.addMarginBottom)} />
-                            <div className={cx(stepCss.formGroup, stepCss.alignStart)}>
+                            <div
+                              className={cx(
+                                stepCss.formGroup,
+                                stepCss.alignStart,
+                                css.addMarginTop,
+                                css.addMarginBottom
+                              )}
+                            >
                               <MultiTypeFieldSelector
                                 name="spec.configuration.spec.backendConfig.spec.content"
-                                label={getString('cd.backEndConfig')}
+                                label={
+                                  <Text style={{ color: 'rgb(11, 11, 13)' }}>{getString('cd.backEndConfig')}</Text>
+                                }
                                 defaultValueToReset=""
                                 allowedTypes={[
                                   MultiTypeInputType.EXPRESSION,
@@ -279,13 +292,13 @@ export default function TerraformEditView(
                               )}
                             </div>
                             <div className={cx(css.fieldBorder, css.addMarginBottom)} />
-                            <div className={cx(stepCss.formGroup, css.addMarginTop)}>
+                            <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                               <MultiTypeList
                                 multiTextInputProps={{ expressions }}
                                 name="spec.configuration.spec.targets"
                                 multiTypeFieldSelectorProps={{
                                   label: (
-                                    <Text style={{ display: 'flex', alignItems: 'center' }}>
+                                    <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
                                       {getString('pipeline.targets.title')}
                                     </Text>
                                   )
@@ -294,7 +307,7 @@ export default function TerraformEditView(
                               />
                             </div>
                             <div className={cx(css.fieldBorder, css.addMarginBottom)} />
-                            <div className={cx(stepCss.formGroup, css.addMarginTop)}>
+                            <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                               <MultiTypeMap
                                 valueMultiTextInputProps={{ expressions }}
                                 name="spec.configuration.spec.environmentVariables"
@@ -302,7 +315,7 @@ export default function TerraformEditView(
                                   disableTypeSelection: true,
 
                                   label: (
-                                    <Text style={{ display: 'flex', alignItems: 'center' }}>
+                                    <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
                                       {getString('environmentVariables')}
                                       <Button
                                         icon="question"

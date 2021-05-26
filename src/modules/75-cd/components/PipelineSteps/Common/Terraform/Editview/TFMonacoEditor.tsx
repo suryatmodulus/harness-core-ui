@@ -65,7 +65,7 @@ export function TFBackendConfigMonaco(props: TFMonacoProps): React.ReactElement 
         isCloseButtonShown
         canOutsideClickClose={false}
         onClose={() => setFullScreen(false)}
-        title={`${getString('script')}`}
+        title={getString('cd.backEndConfig')}
         className={css.monacoDialog}
       >
         <div className={Classes.DIALOG_BODY}>{monaco}</div>

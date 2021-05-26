@@ -59,6 +59,7 @@
   width: 462px;
   height: 0px;
   border: 1px solid #d9dae6;
+  opacity: 0.5;
 }
 
 .configField {
@@ -69,6 +70,8 @@
   border: 1px solid #e4e4eb;
   align-items: center;
   padding: 10px;
+  margin-left: 10px;
+  margin-top: 10px !important;
 }
 .inputField {
   width: 80%;
@@ -168,6 +171,7 @@
 .addTfVarFile {
   position: relative;
   left: 20px;
+  top: 5px;
 }
 .dragging {
   background-color: var(--yellow-450) !important;
@@ -187,8 +191,31 @@
   right: 5px;
 }
 
+.configFile {
+  display: flex;
+  align-items: center;
+}
+
 .configLabel {
   font-size: 14px !important;
   font-weight: 400 !important;
   color: var(--grey-900) !important;
+}
+.configFileLabel {
+  color: #000000;
+  font-weight: 500;
+  font-size: 12px;
+  margin-top: 10px !important;
+}
+
+.tfVarLabel {
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  line-height: 16px !important;
+  color: #000000 !important;
+  margin-top: 10px !important;
+}
+
+.tfVarMargin {
+  margin-bottom: 10px;
 }

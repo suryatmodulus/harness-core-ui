@@ -2,7 +2,7 @@ import React from 'react'
 
 import cx from 'classnames'
 
-import { Layout, Text, Button, Icon, StepWizard, Color } from '@wings-software/uicore'
+import { Layout, Text, Button, Icon, StepWizard, Color, Label } from '@wings-software/uicore'
 import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import type { FormikProps } from 'formik'
@@ -17,6 +17,7 @@ import { TFVarStore } from '../Common/Terraform/Editview/TFVarStore'
 import InlineVarFile from '../Common/Terraform/Editview/InlineVarFile'
 
 import css from './TerraformVarfile.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 // import TFRemoteWizard from './TFRemoteWizard'
 
@@ -156,133 +157,149 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   }
 
   return (
-    <FieldArray
-      name="spec.configuration.varFiles"
-      render={arrayHelpers => {
-        return (
-          <div>
-            {formik?.values?.spec?.configuration?.varFiles?.map((varFile: TerraformVarFileWrapper, i) => {
-              return (
-                <Layout.Horizontal
-                  className={css.addMarginTop}
-                  key={`${varFile?.varFile?.spec?.type}`}
-                  flex={{ distribution: 'space-between' }}
-                  style={{ alignItems: 'end' }}
+    <Layout.Vertical>
+      <Label style={{ color: Color.GREY_900 }} className={css.tfVarLabel}>
+        {getString('pipelineSteps.terraformVarFiles')}
+      </Label>
+      <div className={cx(stepCss.formGroup, css.tfVarMargin)}>
+        <FieldArray
+          name="spec.configuration.varFiles"
+          render={arrayHelpers => {
+            return (
+              <div>
+                {formik?.values?.spec?.configuration?.varFiles?.map((varFile: TerraformVarFileWrapper, i) => {
+                  return (
+                    <Layout.Horizontal
+                      className={css.addMarginTop}
+                      key={`${varFile?.varFile?.spec?.type}`}
+                      flex={{ distribution: 'space-between' }}
+                      style={{ alignItems: 'end' }}
+                    >
+                      <Layout.Horizontal
+                        spacing="medium"
+                        style={{ alignItems: 'baseline' }}
+                        className={css.tfContainer}
+                        key={varFile?.varFile?.spec?.type}
+                        draggable={true}
+                        onDragEnd={onDragEnd}
+                        onDragOver={onDragOver}
+                        onDragLeave={onDragLeave}
+                        onDragStart={event => {
+                          onDragStart(event, i)
+                        }}
+                        onDrop={event => onDrop(event, arrayHelpers, i)}
+                      >
+                        <Icon name="drag-handle-vertical" className={css.drag} />
+                        {(formik.values.spec?.configuration?.varFiles || [])?.length > 1 && (
+                          <Text color={Color.BLACK}>{`${i + 1}.`}</Text>
+                        )}
+                        {varFile?.varFile?.type === TerraformStoreTypes.Remote && remoteRender(varFile, i)}
+                        {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile, i)}
+                        <Button
+                          minimal
+                          icon="trash"
+                          data-testid={`remove-tfvar-file-${i}`}
+                          onClick={() => arrayHelpers.remove(i)}
+                        />
+                      </Layout.Horizontal>
+                    </Layout.Horizontal>
+                  )
+                })}
+                <Popover
+                  interactionKind={PopoverInteractionKind.CLICK}
+                  boundary="viewport"
+                  popoverClassName={Classes.DARK}
+                  content={
+                    <Menu className={css.tfMenu}>
+                      <MenuItem
+                        text={<Text intent="primary">{getString('cd.addInline')} </Text>}
+                        icon={<Icon name="Inline" />}
+                        onClick={() => {
+                          setShowTfModal(true)
+                        }}
+                      />
+
+                      <MenuItem
+                        text={<Text intent="primary">{getString('cd.addRemote')}</Text>}
+                        icon={<Icon name="remote" />}
+                        onClick={() => setShowRemoteWizard(true)}
+                      />
+                    </Menu>
+                  }
                 >
-                  <Layout.Horizontal
-                    spacing="medium"
-                    style={{ alignItems: 'baseline' }}
-                    className={css.tfContainer}
-                    key={varFile?.varFile?.spec?.type}
-                    draggable={true}
-                    onDragEnd={onDragEnd}
-                    onDragOver={onDragOver}
-                    onDragLeave={onDragLeave}
-                    onDragStart={event => {
-                      onDragStart(event, i)
-                    }}
-                    onDrop={event => onDrop(event, arrayHelpers, i)}
+                  <Button
+                    icon="plus"
+                    minimal
+                    intent="primary"
+                    data-testid="add-tfvar-file"
+                    className={css.addTfVarFile}
                   >
-                    <Icon name="drag-handle-vertical" className={css.drag} />
-                    {varFile?.varFile?.type === TerraformStoreTypes.Remote && remoteRender(varFile, i)}
-                    {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile, i)}
+                    {getString('pipelineSteps.addTerraformVarFile')}
+                  </Button>
+                </Popover>
+                {showRemoteWizard && (
+                  <Dialog
+                    {...DIALOG_PROPS}
+                    isOpen={true}
+                    isCloseButtonShown
+                    onClose={() => {
+                      setShowRemoteWizard(false)
+                    }}
+                    className={cx(css.modal, Classes.DIALOG)}
+                  >
+                    <div className={css.createTfWizard}>
+                      <StepWizard title={getTitle()} initialStep={1} className={css.manifestWizard}>
+                        <TFVarStore
+                          name={getString('cd.tfVarStore')}
+                          initialValues={isEditMode ? selectedVar : remoteInitialValues}
+                          isEditMode={isEditMode}
+                        />
+                        <TFRemoteWizard
+                          name={getString('cd.varFileDetails')}
+                          onSubmitCallBack={(values: RemoteVar) => {
+                            if (isEditMode) {
+                              arrayHelpers.replace(selectedVarIndex, values)
+                            } else {
+                              arrayHelpers.push(values)
+                            }
+                            onCloseOfRemoteWizard()
+                          }}
+                          isEditMode={isEditMode}
+                          // initialValues={remoteInitialValues}
+                        />
+                      </StepWizard>
+                    </div>
                     <Button
                       minimal
-                      icon="trash"
-                      data-testid={`remove-tfvar-file-${i}`}
-                      onClick={() => arrayHelpers.remove(i)}
-                    />
-                  </Layout.Horizontal>
-                </Layout.Horizontal>
-              )
-            })}
-            <Popover
-              interactionKind={PopoverInteractionKind.CLICK}
-              boundary="viewport"
-              popoverClassName={Classes.DARK}
-              content={
-                <Menu className={css.tfMenu}>
-                  <MenuItem
-                    text={<Text intent="primary">{getString('cd.addInline')} </Text>}
-                    icon={<Icon name="Inline" />}
-                    onClick={() => {
-                      setShowTfModal(true)
-                    }}
-                  />
-
-                  <MenuItem
-                    text={<Text intent="primary">{getString('cd.addRemote')}</Text>}
-                    icon={<Icon name="remote" />}
-                    onClick={() => setShowRemoteWizard(true)}
-                  />
-                </Menu>
-              }
-            >
-              <Button icon="plus" minimal intent="primary" data-testid="add-tfvar-file" className={css.addTfVarFile}>
-                {getString('pipelineSteps.addTerraformVarFile')}
-              </Button>
-            </Popover>
-            {showRemoteWizard && (
-              <Dialog
-                {...DIALOG_PROPS}
-                isOpen={true}
-                isCloseButtonShown
-                onClose={() => {
-                  setShowRemoteWizard(false)
-                }}
-                className={cx(css.modal, Classes.DIALOG)}
-              >
-                <div className={css.createTfWizard}>
-                  <StepWizard title={getTitle()} initialStep={1} className={css.manifestWizard}>
-                    <TFVarStore
-                      name={getString('cd.tfVarStore')}
-                      initialValues={isEditMode ? selectedVar : remoteInitialValues}
-                      isEditMode={isEditMode}
-                    />
-                    <TFRemoteWizard
-                      name={getString('cd.varFileDetails')}
-                      onSubmitCallBack={(values: RemoteVar) => {
-                        if (isEditMode) {
-                          arrayHelpers.replace(selectedVarIndex, values)
-                        } else {
-                          arrayHelpers.push(values)
-                        }
+                      icon="cross"
+                      iconProps={{ size: 18 }}
+                      onClick={() => {
                         onCloseOfRemoteWizard()
                       }}
-                      isEditMode={isEditMode}
-                      // initialValues={remoteInitialValues}
+                      className={css.crossIcon}
                     />
-                  </StepWizard>
-                </div>
-                <Button
-                  minimal
-                  icon="cross"
-                  iconProps={{ size: 18 }}
-                  onClick={() => {
-                    onCloseOfRemoteWizard()
-                  }}
-                  className={css.crossIcon}
-                />
-              </Dialog>
-            )}
-            {showTfModal && (
-              <InlineVarFile
-                arrayHelpers={arrayHelpers}
-                isEditMode={isEditMode}
-                selectedVarIndex={selectedVarIndex}
-                showTfModal={showTfModal}
-                selectedVar={selectedVar}
-                onClose={() => {
-                  onCloseOfInlineVarForm()
-                }}
-                onSubmit={() => {
-                  onCloseOfInlineVarForm()
-                }}
-              />
-            )}
-          </div>
-        )
-      }}
-    />
+                  </Dialog>
+                )}
+                {showTfModal && (
+                  <InlineVarFile
+                    arrayHelpers={arrayHelpers}
+                    isEditMode={isEditMode}
+                    selectedVarIndex={selectedVarIndex}
+                    showTfModal={showTfModal}
+                    selectedVar={selectedVar}
+                    onClose={() => {
+                      onCloseOfInlineVarForm()
+                    }}
+                    onSubmit={() => {
+                      onCloseOfInlineVarForm()
+                    }}
+                  />
+                )}
+              </div>
+            )
+          }}
+        />
+      </div>
+    </Layout.Vertical>
   )
 }

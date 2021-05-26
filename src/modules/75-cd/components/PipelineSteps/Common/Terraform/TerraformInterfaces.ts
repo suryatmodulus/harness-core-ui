@@ -327,12 +327,12 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
         ...values.spec?.configuration?.spec?.configFiles,
         store: {
           ...values.spec?.configuration?.spec?.configFiles?.store,
-          type: connectorValue?.connector?.type,
+          type: connectorValue?.connector?.type || values?.spec?.configuration?.spec?.configFiles?.store?.type,
           spec: {
             ...values.spec?.configuration?.spec?.configFiles?.store?.spec,
             connectorRef: values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
               ? getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
-                MultiTypeInputType.RUNTIME
+                  MultiTypeInputType.RUNTIME || !connectorValue?.value
                 ? values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
                 : connectorValue?.value
               : ''
@@ -423,16 +423,12 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
       ...values.spec?.configuration?.configFiles,
       store: {
         ...values.spec?.configuration?.configFiles?.store,
-        type:
-          getMultiTypeFromValue(values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) !==
-          MultiTypeInputType.RUNTIME
-            ? connectorValue?.connector?.type
-            : '',
+        type: connectorValue?.connector?.type || values?.spec?.configuration?.configFiles?.store?.type,
         spec: {
           ...values.spec?.configuration?.configFiles?.store?.spec,
           connectorRef: values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
-            ? getMultiTypeFromValue(values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
-              MultiTypeInputType.RUNTIME
+            ? getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
+                MultiTypeInputType.RUNTIME || !connectorValue?.value
               ? values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
               : connectorValue?.value
             : ''

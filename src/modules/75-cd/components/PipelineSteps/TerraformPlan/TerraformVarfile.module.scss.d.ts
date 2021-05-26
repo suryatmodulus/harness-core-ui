@@ -33,5 +33,10 @@ declare const styles: {
   readonly drag: string
   readonly iconPosition: string
   readonly configLabel: string
+  readonly radioBtns: string
+  readonly configFile: string
+  readonly configFileLabel: string
+  readonly tfVarLabel: string
+  readonly tfVarMargin: string
 }
 export default styles

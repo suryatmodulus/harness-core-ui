@@ -980,6 +980,7 @@ pipelineSteps:
   InheritFromApply: 'InheritFromApply'
   commitIdValue: 'Commit'
   configFiles: 'Config Files'
+  configurationFile: 'Configuration File'
   terraformVarFiles: 'Terraform Var Files'
   backendConfig: 'Backend Config'
   storeType: 'Store Type'

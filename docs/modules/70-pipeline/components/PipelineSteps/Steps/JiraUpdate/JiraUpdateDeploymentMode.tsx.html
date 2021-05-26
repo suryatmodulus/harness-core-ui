@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">81.25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/42</span>
+                <span class='fraction'>39/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.42% </span>
+                <span class="strong">56.96% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>82/138</span>
+                <span class='fraction'>90/158</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">82.98% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/42</span>
+                <span class='fraction'>39/47</span>
             </div>
         
             
@@ -246,7 +246,13 @@
 <a name='L187'></a><a href='#L187'>187</a>
 <a name='L188'></a><a href='#L188'>188</a>
 <a name='L189'></a><a href='#L189'>189</a>
-<a name='L190'></a><a href='#L190'>190</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
@@ -285,6 +291,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
@@ -310,6 +320,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
@@ -337,6 +351,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -372,10 +387,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -474,7 +486,11 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
     orgIdentifier
   }
   const [statusOptions, setStatusOptions] = useState&lt;SelectOption[]&gt;([])
-  const connectorRefFixedValue = getGenuineValue(initialValues.spec.connectorRef)
+  const connectorRefFixedValue = getGenuineValue(
+    initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef || (inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>llValues<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef as string)</span>
+  )
+&nbsp;
+  const [statusValue, setStatusValue] = useState&lt;SelectOption&gt;()
 &nbsp;
   useEffect(() =&gt; {
     // If connector value changes in form, fetch projects
@@ -495,10 +511,14 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
     options =
       statusResponseList.map(<span class="fstat-no" title="function not covered" >(s</span>tatus: JiraStatusNG) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
         label: status.name || '',
-        value: status.id || ''
+        value: status.name || ''
       })) || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
 &nbsp;
     setStatusOptions(options)
+    const matched = options<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind(<span class="fstat-no" title="function not covered" >opt </span>=&gt; <span class="cstat-no" title="statement not covered" >opt.value === initialValues.spec?.transitionTo?.status)</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (matched) {
+<span class="cstat-no" title="statement not covered" >      setStatusValue(matched)</span>
+    }
   }, [statusResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata])
 &nbsp;
   return (
@@ -515,8 +535,9 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
       {getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) === MultiTypeInputType.RUNTIME ? (
         &lt;ConnectorReferenceField
           name={`${prefix}spec.conectorRef`}
+          className={css.connectorDeployment}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
-          selected={(initialValues.spec.connectorRef as string) || ''}
+          selected={(initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef as string) || ''}
           placeholder={getString('pipeline.jiraApprovalStep.connectorRef')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
@@ -547,15 +568,11 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
         &lt;FormInput.Select
           items={statusOptions}
           className={css.deploymentViewMedium}
-          label={getString('pipeline.jiraApprovalStep.issueType')}
+          label={getString('status')}
           name={`${prefix}spec.transitionTo.status`}
           disabled={isApprovalStepFieldDisabled(readonly)}
+          value={statusValue}
           selectProps={{
-            // Need this to show the current selection when we switch from yaml to UI view
-            defaultSelectedItem: {
-              label: initialValues.spec.transitionTo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>oString() || '',
-              value: initialValues.spec.transitionTo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>oString() || ''
-            },
             inputProps: {
               placeholder: fetchingStatuses
                 ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('pipeline.jiraUpdateStep.fetchingStatus')</span>
@@ -565,6 +582,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
             }
           }}
           onChange={<span class="fstat-no" title="function not covered" >(o</span>pt: SelectOption) =&gt; {
+<span class="cstat-no" title="statement not covered" >            setStatusValue(opt)</span>
 <span class="cstat-no" title="statement not covered" >            onUpdate?.({</span>
               ...initialValues,
               spec: {
@@ -631,7 +649,7 @@ export default function JiraUpdateDeploymentMode(props: JiraUpdateDeploymentMode
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 12:07:22 GMT+0000 (Greenwich Mean Time)
+                at Wed May 26 2021 13:26:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

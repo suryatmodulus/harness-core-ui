@@ -261,7 +261,13 @@ export function getReferenceFieldProps({
     fetchRecords: (scope, search = '', done) => {
       const additionalParams = getAdditionalParams({ scope, projectIdentifier, orgIdentifier })
       const gitFilterParams =
-        gitScope?.repo && gitScope?.branch ? { repoIdentifier: gitScope.repo, branch: gitScope.branch } : {}
+        gitScope?.repo && gitScope?.branch
+          ? {
+              repoIdentifier: gitScope.repo,
+              branch: gitScope.branch,
+              getDefaultFromOtherRepo: gitScope.getDefaultFromOtherRepo ?? true
+            }
+          : {}
       const request = Array.isArray(type)
         ? getConnectorListV2Promise({
             queryParams: {

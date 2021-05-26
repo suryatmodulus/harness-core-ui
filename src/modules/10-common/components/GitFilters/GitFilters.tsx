@@ -25,6 +25,7 @@ import css from './GitFilters.module.scss'
 export interface GitFilterScope {
   repo: string
   branch: GitBranchDTO['branchName']
+  getDefaultFromOtherRepo?: boolean
 }
 
 export interface GitFiltersProps {

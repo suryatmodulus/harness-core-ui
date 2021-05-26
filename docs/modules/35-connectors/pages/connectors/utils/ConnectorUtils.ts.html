@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.1% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>231/316</span>
+                <span class='fraction'>230/322</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.98% </span>
+                <span class="strong">53.68% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>760/1408</span>
+                <span class='fraction'>759/1414</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.49% </span>
+                <span class="strong">67.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>189/272</span>
+                <span class='fraction'>188/278</span>
             </div>
         
             
@@ -1320,7 +1320,18 @@
 <a name='L1261'></a><a href='#L1261'>1261</a>
 <a name='L1262'></a><a href='#L1262'>1262</a>
 <a name='L1263'></a><a href='#L1263'>1263</a>
-<a name='L1264'></a><a href='#L1264'>1264</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">115x</span>
+<a name='L1264'></a><a href='#L1264'>1264</a>
+<a name='L1265'></a><a href='#L1265'>1265</a>
+<a name='L1266'></a><a href='#L1266'>1266</a>
+<a name='L1267'></a><a href='#L1267'>1267</a>
+<a name='L1268'></a><a href='#L1268'>1268</a>
+<a name='L1269'></a><a href='#L1269'>1269</a>
+<a name='L1270'></a><a href='#L1270'>1270</a>
+<a name='L1271'></a><a href='#L1271'>1271</a>
+<a name='L1272'></a><a href='#L1272'>1272</a>
+<a name='L1273'></a><a href='#L1273'>1273</a>
+<a name='L1274'></a><a href='#L1274'>1274</a>
+<a name='L1275'></a><a href='#L1275'>1275</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">115x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">115x</span>
 <span class="cline-any cline-yes">115x</span>
@@ -2434,6 +2445,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2448,8 +2465,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3696,6 +3718,12 @@ export const getIconByEntityType = (type: string) =&gt; {
 <span class="cstat-no" title="statement not covered" >      return 'pipeline'</span>
 <span class="branch-2 cbranch-no" title="branch not covered" >    case EntityTypes.SECRET:</span>
 <span class="cstat-no" title="statement not covered" >      return 'key-main'</span>
+<span class="branch-3 cbranch-no" title="branch not covered" >    case EntityTypes.CV_CONFIG:</span>
+<span class="cstat-no" title="statement not covered" >      return 'desktop'</span>
+<span class="branch-4 cbranch-no" title="branch not covered" >    case EntityTypes.CV_K8_ACTIVITY_SOURCE:</span>
+<span class="cstat-no" title="statement not covered" >      return 'square'</span>
+<span class="branch-5 cbranch-no" title="branch not covered" >    case EntityTypes.CV_VERIFICATION_JOB:</span>
+<span class="cstat-no" title="statement not covered" >      return 'confirm'</span>
 &nbsp;
     default:
       return ''
@@ -3704,15 +3732,20 @@ export const getIconByEntityType = (type: string) =&gt; {
 &nbsp;
 export const getReferredEntityLabelByType = (type: string) =&gt; {
   switch (type) {
-<span class="branch-0 cbranch-no" title="branch not covered" >    case EntityTypes.PROJECT:</span>
+    case EntityTypes.PROJECT:
 <span class="cstat-no" title="statement not covered" >      return 'Project'</span>
-<span class="branch-1 cbranch-no" title="branch not covered" >    case EntityTypes.PIPELINE:</span>
+    case EntityTypes.PIPELINE:
 <span class="cstat-no" title="statement not covered" >      return 'Pipeline'</span>
-<span class="branch-2 cbranch-no" title="branch not covered" >    case EntityTypes.SECRET:</span>
+    case EntityTypes.SECRET:
 <span class="cstat-no" title="statement not covered" >      return 'Secret'</span>
-&nbsp;
-    default:
-      return ''
+    case EntityTypes.CV_CONFIG:
+<span class="cstat-no" title="statement not covered" >      return 'Monitoring Source'</span>
+    case EntityTypes.CV_K8_ACTIVITY_SOURCE:
+<span class="cstat-no" title="statement not covered" >      return 'Change Source'</span>
+    case EntityTypes.CV_VERIFICATION_JOB:
+<span class="cstat-no" title="statement not covered" >      return 'Verification Job'</span>
+    case EntityTypes.default:
+<span class="cstat-no" title="statement not covered" >      return ''</span>
   }
 }
 &nbsp;
@@ -3853,7 +3886,7 @@ export const removeErrorCode = (errors: ErrorDetail[] = <span class="branch-0 cb
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 04:28:11 GMT+0000 (Greenwich Mean Time)
+                at Wed May 26 2021 04:43:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

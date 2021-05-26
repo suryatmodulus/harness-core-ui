@@ -20,7 +20,7 @@ export interface PipelineStudioQueryParams extends GitQueryParams {
   stageId?: string
   stepId?: string
 }
-export interface RunPipelineQueryParams extends GitQueryParams {
+export interface RunPipelineQueryParams extends GitQueryParams, InputSetGitQueryParams {
   executionId?: string
   inputSetType?: string
   inputSetLabel?: string

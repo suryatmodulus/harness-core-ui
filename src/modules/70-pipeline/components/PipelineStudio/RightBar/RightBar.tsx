@@ -148,7 +148,7 @@ export const RightBar = (): JSX.Element => {
 
   const { selectedProject } = useAppStore()
 
-  const pipelineStages = flatten(pipeline?.stages?.map(s => s.parallel || s))
+  const pipelineStages = flatten(pipeline?.stages?.map(s => s?.parallel || s))
 
   const ciStageExists = pipelineStages?.some?.(stage => {
     if (stage?.stage?.type) {

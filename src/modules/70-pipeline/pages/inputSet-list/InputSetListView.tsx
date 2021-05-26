@@ -129,7 +129,8 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
       {
         type: data.inputSetType || /* istanbul ignore next */ 'INPUT_SET',
         value: data.identifier || /* istanbul ignore next */ '',
-        label: data.name || /* istanbul ignore next */ ''
+        label: data.name || /* istanbul ignore next */ '',
+        gitDetails: data.gitDetails
       }
     ],
     pipelineIdentifier: (data.pipelineIdentifier || '') as string,

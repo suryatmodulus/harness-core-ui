@@ -1111,6 +1111,12 @@ export const getIconByEntityType = (type: string) => {
       return 'pipeline'
     case EntityTypes.SECRET:
       return 'key-main'
+    case EntityTypes.CV_CONFIG:
+      return 'desktop'
+    case EntityTypes.CV_K8_ACTIVITY_SOURCE:
+      return 'square'
+    case EntityTypes.CV_VERIFICATION_JOB:
+      return 'confirm'
 
     default:
       return ''
@@ -1125,8 +1131,13 @@ export const getReferredEntityLabelByType = (type: string) => {
       return 'Pipeline'
     case EntityTypes.SECRET:
       return 'Secret'
-
-    default:
+    case EntityTypes.CV_CONFIG:
+      return 'Monitoring Source'
+    case EntityTypes.CV_K8_ACTIVITY_SOURCE:
+      return 'Change Source'
+    case EntityTypes.CV_VERIFICATION_JOB:
+      return 'Verification Job'
+    case EntityTypes.default:
       return ''
   }
 }

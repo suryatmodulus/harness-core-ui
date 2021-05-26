@@ -39,6 +39,8 @@ export const useRunPipelineModal = (runPipelineModaParams: RunPipelineModalParam
           inputSetType: inputSetSelected?.[0].type,
           inputSetLabel: inputSetSelected?.[0].label,
           inputSetValue: inputSetSelected[0].value as string,
+          inputSetBranch: inputSetSelected?.[0].gitDetails?.branch,
+          inputSetRepoIdentifier: inputSetSelected?.[0].gitDetails?.repoIdentifier,
           repoIdentifier,
           branch
         })

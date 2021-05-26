@@ -95,7 +95,9 @@ export const EntityTypes: ReferenceEntityType = {
   SERVICE: 'Service',
   ENVIRONMENT: 'Environment',
   CV_CONFIG: 'CvConfig',
-  INPUT_SETS: 'InputSets'
+  INPUT_SETS: 'InputSets',
+  CV_VERIFICATION_JOB: 'CvVerificationJob',
+  CV_K8_ACTIVITY_SOURCE: 'CvKubernetesActivitySource'
 }
 
 export const ActivityStatus: ActivityStatusType = {

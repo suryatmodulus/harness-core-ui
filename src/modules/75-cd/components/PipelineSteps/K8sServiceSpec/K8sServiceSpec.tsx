@@ -385,7 +385,11 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
         getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
           ? artifacts?.sidecars?.[index]?.sidecar?.spec?.connectorRef
           : initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.connectorRef
-      registryHostname = artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname
+      registryHostname =
+        getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname) !==
+        MultiTypeInputType.RUNTIME
+          ? artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname
+          : initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname
       region =
         getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) !== MultiTypeInputType.RUNTIME
           ? artifacts?.sidecars?.[index]?.sidecar?.spec?.region
@@ -399,7 +403,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
         getMultiTypeFromValue(artifacts?.primary?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
           ? artifacts?.primary?.spec?.connectorRef
           : initialValues.artifacts?.primary?.spec?.connectorRef
-      registryHostname = artifacts?.primary?.spec?.registryHostname
+      registryHostname =
+        getMultiTypeFromValue(artifacts?.primary?.spec?.registryHostname) !== MultiTypeInputType.RUNTIME
+          ? artifacts?.primary?.spec?.registryHostname
+          : initialValues.artifacts?.primary?.spec?.registryHostname
       region =
         getMultiTypeFromValue(artifacts?.primary?.spec?.region) !== MultiTypeInputType.RUNTIME
           ? artifacts?.primary?.spec?.region
@@ -410,7 +417,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     } else if (connectorType === ENABLED_ARTIFACT_TYPES.Ecr) {
       return !imagePath?.length || !connectorRef?.length || !region?.length
     } else {
-      return !imagePath?.length || !connectorRef?.length || !registryHostname?.length
+      return !imagePath || !connectorRef?.length || !registryHostname?.length
     }
   }
   const regions = (regionData?.resource || []).map((region: any) => ({
@@ -545,6 +552,11 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           getMultiTypeFromValue(artifacts?.primary?.spec?.region) !== MultiTypeInputType.RUNTIME
                             ? artifacts?.primary?.spec?.region
                             : initialValues.artifacts?.primary?.spec?.region
+                        const registryHostnameCurrent =
+                          getMultiTypeFromValue(artifacts?.primary?.spec?.registryHostname) !==
+                          MultiTypeInputType.RUNTIME
+                            ? artifacts?.primary?.spec?.registryHostname
+                            : initialValues.artifacts?.primary?.spec?.registryHostname
                         const tagsPath = `primary`
                         !isTagSelectionDisabled(artifacts?.primary?.type) &&
                           fetchTags({
@@ -552,7 +564,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             imagePath,
                             connectorRef,
                             connectorType: artifacts?.primary?.type,
-                            registryHostname: artifacts?.primary?.spec?.registryHostname,
+                            registryHostname: registryHostnameCurrent,
                             region: regionCurrent
                           })
                       }}
@@ -727,7 +739,11 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                               MultiTypeInputType.RUNTIME
                                 ? artifacts?.sidecars?.[index]?.sidecar?.spec?.region
                                 : currentSidecarSpec?.region
-
+                            const registryHostnameCurrent =
+                              getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname) !==
+                              MultiTypeInputType.RUNTIME
+                                ? artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname
+                                : currentSidecarSpec?.registryHostname
                             const tagsPath = `sidecars[${index}]`
                             !isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type, index) &&
                               fetchTags({
@@ -735,7 +751,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                                 imagePath: imagePathCurrent,
                                 connectorRef: connectorRefCurrent,
                                 connectorType: artifacts?.sidecars?.[index]?.sidecar?.type,
-                                registryHostname: artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname,
+                                registryHostname: registryHostnameCurrent,
                                 region: regionCurrent
                               })
                           }}

@@ -19,4 +19,5 @@ EXPOSE 8080
 CMD sed -i "s|<\!-- apiurl -->|<script>window.apiUrl = '$API_URL'</script>|" index.html && \
 sed -i "s|HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER|$HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER|" index.html && \
 sed -i "s|<\!-- segmentToken -->|<script>window.segmentToken = '$SEGMENT_TOKEN'</script>|" index.html && \
+sed -i "s|<\!-- namespace -->|<script>window.namespace = '$NAMESPACE'</script>|" index.html && \
     nginx -c /etc/nginx/nginx.conf -g 'daemon off;'

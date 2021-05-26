@@ -145,7 +145,7 @@ function AppWithoutAuthentication(props: AppProps): React.ReactElement {
   const strings = await languageLoader(lang)
 
   ReactDOM.render(
-    <BrowserRouter>
+    <BrowserRouter basename={`/${window.namespace}`}>
       <Switch>
         <Route
           path={[

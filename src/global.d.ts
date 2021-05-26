@@ -36,6 +36,7 @@ declare module '*.gql' {
 declare interface Window {
   apiUrl: string
   segmentToken: string
+  namespace: string
   HARNESS_ENABLE_NG_AUTH_UI: boolean
   Harness: {
     openNgTooltipEditor: () => void

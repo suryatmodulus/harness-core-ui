@@ -22,11 +22,16 @@ export enum ErrorType {
   DelegateProvisioning = 'DelegateProvisioning'
 }
 
-export type Domain = 'CI' | 'Deployment'
+export enum Domain {
+  'CI' = 'CI',
+  'Deployment' = 'Deployment'
+}
 
-export const allowedStrategiesAsPerStep: (domain: Domain) => Record<Modes, Strategy[]> = (domain = 'Deployment') => {
+export const allowedStrategiesAsPerStep: (domain: Domain) => Record<Modes, Strategy[]> = (
+  domain = Domain.Deployment
+) => {
   switch (domain) {
-    case 'CI':
+    case Domain.CI:
       return {
         [Modes.STEP]: [
           Strategy.ManualIntervention,
@@ -44,7 +49,7 @@ export const allowedStrategiesAsPerStep: (domain: Domain) => Record<Modes, Strat
         ],
         [Modes.STAGE]: [Strategy.Ignore, Strategy.Retry, Strategy.MarkAsSuccess, Strategy.Abort]
       }
-    case 'Deployment':
+    case Domain.Deployment:
     default:
       return {
         [Modes.STEP]: [

@@ -7,7 +7,7 @@ import { Card, H3 } from '@blueprintjs/core'
 import { TestWrapper } from '@common/utils/testUtils'
 import FailureStrategyPanel from './FailureStrategyPanel'
 import type { Modes } from '../common'
-import type { Domain } from './StrategySelection/StrategyConfig'
+import { Domain } from './StrategySelection/StrategyConfig'
 
 export default {
   title: 'Pipelines / Pipeline Steps / Failure Strategies',
@@ -34,7 +34,7 @@ export const Basic: Story<BasicArgs> = args => {
                 <FailureStrategyPanel
                   formikProps={formik}
                   mode={args.mode}
-                  domain={args.domain || 'Deployment'}
+                  domain={args.domain || Domain.Deployment}
                   isReadonly={false}
                 />
               </Card>

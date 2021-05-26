@@ -1,6 +1,6 @@
 import React from 'react'
 import { act } from 'react-dom/test-utils'
-import { findByText, fireEvent, render, waitFor } from '@testing-library/react'
+import { findByText, fireEvent, queryByText, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { AccessPoint, AccessPointCore } from 'services/lw'
 import DNSLinkSetup from '../DNSLinkSetup'
@@ -16,6 +16,17 @@ let mockAccessPointList = {
       }
     } as AccessPoint
   ]
+}
+const mockedCreateAp = {
+  response: {
+    id: 'mockalbArn',
+    status: 'created',
+    name: 'mock.com',
+    host_name: 'mock.com',
+    metadata: {
+      albArn: 'mockalbARN'
+    }
+  }
 }
 let mockedHostedZonesData = {
   data: {
@@ -48,6 +59,22 @@ const mockAccessPointResourceData = {
   ] as AccessPointCore[]
 }
 
+const mockObj = { response: { id: 'mock' } }
+
+const mockedRegionsData = { data: { response: [{ name: 'ap-southeast-1', label: 'ap-southeast-1' }] }, loading: false }
+const mockedCertificatesData = {
+  data: { response: [{ name: '*.lightwingtest.com', id: '*.lightwingtest.com' }] },
+  loading: false,
+  refetch: jest.fn(() => mockObj)
+}
+const mockedVpnData = {
+  data: {
+    response: [{ name: 'testvpn', id: 'testvpn' }]
+  },
+  loading: false,
+  refetch: jest.fn(() => mockObj)
+}
+
 jest.mock('services/lw', () => ({
   useListAccessPoints: jest.fn().mockImplementation(() => ({
     data: mockAccessPointList,
@@ -61,8 +88,17 @@ jest.mock('services/lw', () => ({
     refetch: jest.fn(() => mockAccessPointResourceData)
   })),
   useCreateAccessPoint: jest.fn().mockImplementation(() => ({
-    mutate: jest.fn()
-  }))
+    mutate: jest.fn().mockImplementation(() => Promise.resolve({ response: { id: 'mockalbArn' } }))
+  })),
+  useGetAccessPoint: jest
+    .fn()
+    .mockImplementation(() => ({ data: mockedCreateAp, loading: false, refetch: Promise.resolve({}) })),
+  useAllRegions: jest.fn().mockImplementation(() => mockedRegionsData),
+  useAllVPCs: jest.fn().mockImplementation(() => mockedVpnData),
+  useAllCertificates: jest.fn().mockImplementation(() => mockedCertificatesData),
+  useAllSecurityGroups: jest
+    .fn()
+    .mockImplementation(() => ({ data: { response: [] }, loading: false, refetch: jest.fn() }))
 }))
 
 const initialGatewayDetails = {
@@ -118,7 +154,7 @@ const initialGatewayDetails = {
       vpc: 'vpc-4e233426'
     }
   ],
-  accessPointID: '',
+  accessPointID: 'mockalbArn',
   metadata: {
     security_groups: [], // eslint-disable-line
     access_details: accessDetails // eslint-disable-line
@@ -138,6 +174,98 @@ describe('Use DNS for Setup', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('creating a new access point', async () => {
+    const { container } = render(
+      <TestWrapper path={testpath} pathParams={testparams}>
+        <DNSLinkSetup
+          gatewayDetails={initialGatewayDetails}
+          setGatewayDetails={jest.fn()}
+          setHelpTextSections={jest.fn()}
+        />
+      </TestWrapper>
+    )
+
+    const newAp = await findByText(container, '+ce.co.accessPoint.new')
+    expect(newAp).toBeDefined()
+    act(() => {
+      fireEvent.click(newAp)
+    })
+    const apDialog = document.body.querySelector('.bp3-dialog')
+    expect(apDialog).toBeDefined()
+    const nameInput = (apDialog as HTMLElement).querySelector('input[name="lbName"]') as HTMLInputElement
+    expect(nameInput).toBeDefined()
+    waitFor(() => {
+      fireEvent.change(nameInput, { target: { value: 'AWS AP' } })
+    })
+    expect(nameInput.value).toBe('AWS AP')
+
+    const customDomainInput = (apDialog as HTMLElement).querySelector(
+      'input[name="customDomainPrefix"]'
+    ) as HTMLInputElement
+    expect(customDomainInput).toBeDefined()
+    waitFor(() => {
+      fireEvent.change(customDomainInput, { target: { value: 'test.lwtest.com' } })
+    })
+    expect(customDomainInput.value).toBe('test.lwtest.com')
+    const continueBtn = queryByText(apDialog as HTMLElement, 'Continue')
+    expect(continueBtn).toBeDefined()
+
+    await waitFor(() => {
+      fireEvent.click(continueBtn!)
+    })
+    const saveApBtn = queryByText(apDialog as HTMLElement, 'Save Load Balancer')
+    await waitFor(() => {
+      fireEvent.click(saveApBtn!)
+    })
+    expect(container.querySelector('.bp3-dialog')).toBeFalsy()
+  })
+
+  test('form fills without error', async () => {
+    const { container } = render(
+      <TestWrapper path={testpath} pathParams={testparams}>
+        <DNSLinkSetup
+          gatewayDetails={initialGatewayDetails}
+          setGatewayDetails={jest.fn()}
+          setHelpTextSections={jest.fn()}
+        />
+      </TestWrapper>
+    )
+
+    const newAp = await findByText(container, '+ce.co.accessPoint.new')
+    expect(newAp).toBeDefined()
+    act(() => {
+      fireEvent.click(newAp)
+    })
+    const apDialog = document.body.querySelector('.bp3-dialog')
+    expect(apDialog).toBeDefined()
+    const nameInput = (apDialog as HTMLElement).querySelector('input[name="lbName"]') as HTMLInputElement
+    expect(nameInput).toBeDefined()
+    waitFor(() => {
+      fireEvent.change(nameInput, { target: { value: 'AWS AP' } })
+    })
+    expect(nameInput.value).toBe('AWS AP')
+
+    const customDomainInput = (apDialog as HTMLElement).querySelector(
+      'input[name="customDomainPrefix"]'
+    ) as HTMLInputElement
+    expect(customDomainInput).toBeDefined()
+    waitFor(() => {
+      fireEvent.change(customDomainInput, { target: { value: 'test.lwtest.com' } })
+    })
+    expect(customDomainInput.value).toBe('test.lwtest.com')
+    const continueBtn = queryByText(apDialog as HTMLElement, 'Continue')
+    expect(continueBtn).toBeDefined()
+
+    await waitFor(() => {
+      fireEvent.click(continueBtn!)
+    })
+    const saveApBtn = queryByText(apDialog as HTMLElement, 'Save Load Balancer')
+    await waitFor(() => {
+      fireEvent.click(saveApBtn!)
+    })
+    expect(container.querySelector('.bp3-dialog')).toBeFalsy()
   })
 
   test('form fills without error', async () => {

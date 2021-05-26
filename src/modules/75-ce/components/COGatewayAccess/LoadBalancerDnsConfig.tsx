@@ -11,7 +11,7 @@ import css from './COGatewayAccess.module.scss'
 interface LoadBalancerDnsConfigProps {
   loadBalancer: AccessPoint
   cloudAccountId: string | undefined
-  onClose?: () => void
+  onClose?: (clearSelection?: boolean) => void
   onSave?: (savedLoadBalancer: AccessPoint) => void
   createMode?: boolean
 }
@@ -153,7 +153,7 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
         {currentStep === FormStep.FIRST && (
           <LBFormStepFirst
             cloudAccountId={currCloudAccountId}
-            handleCancel={onClose}
+            handleCancel={() => onClose?.(true)}
             createMode={createMode}
             handleSubmit={handleFirstScreenSubmit}
             loadBalancer={newLoadBalancer}

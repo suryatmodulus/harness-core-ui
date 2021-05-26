@@ -251,12 +251,18 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                 : createApDetailsFromLoadBalancer(selectedLoadBalancer as AccessPointCore)
             }
             cloudAccountId={props.gatewayDetails.cloudAccount.id}
-            onClose={hideLoadBalancerModal}
+            onClose={_clearStatus => {
+              if (_clearStatus && !isCreateMode) {
+                setSelectedApCore({ label: '', value: '' })
+              }
+              if (isCreateMode) setIsCreateMode(false)
+              hideLoadBalancerModal()
+            }}
             createMode={isCreateMode}
             onSave={savedLb => {
               setAccessPoint(savedLb)
               if (isCreateMode) {
-                // setAccessPointsList([{ label: savedLb.name as string, value: savedLb.id as string }, ...accessPointsList])
+                setIsCreateMode(false)
                 apCoresRefetch()
               }
             }}
@@ -312,24 +318,32 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   }
 
   const isValidLoadBalancer = (lb: AccessPointCore) => {
+    let isValid = false
     if (isAwsProvider) {
-      return (
+      isValid = Boolean(
         lb &&
-        accessPoints?.response
-          ?.map(_ap => _ap.metadata?.albArn)
-          ?.filter(_i => _i)
-          ?.includes((lb.details as ALBAccessPointCore)?.albARN)
+          accessPoints?.response
+            ?.map(_ap => _ap.metadata?.albArn)
+            ?.filter(_i => _i)
+            ?.includes((lb.details as ALBAccessPointCore)?.albARN)
       )
+      if (!isValid) {
+        isValid = Boolean(lb && accessPoint?.metadata?.albArn === (lb.details as ALBAccessPointCore)?.albARN)
+      }
     }
     if (isAzureProvider) {
-      return (
+      isValid = Boolean(
         lb &&
-        accessPoints?.response
-          ?.map(_ap => _ap.metadata?.app_gateway_id)
-          .filter(_i => _i)
-          .includes((lb.details as AzureAccessPointCore).id)
+          accessPoints?.response
+            ?.map(_ap => _ap.metadata?.app_gateway_id)
+            .filter(_i => _i)
+            .includes((lb.details as AzureAccessPointCore).id)
       )
+      if (!isValid) {
+        isValid = Boolean(lb && accessPoint?.metadata?.app_gateway_id === (lb.details as AzureAccessPointCore)?.id)
+      }
     }
+    return isValid
   }
 
   const handleLoadBalancerSelection = (item: SelectOption) => {
@@ -341,11 +355,14 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     )
     setSelectedLoadBalancer(matchedLb)
     if (isValidLoadBalancer(matchedLb as AccessPointCore)) {
-      const linkedAccessPoint = accessPoints?.response?.find(_ap =>
+      let linkedAccessPoint = accessPoints?.response?.find(_ap =>
         isAwsProvider
           ? _ap.metadata?.albArn === (matchedLb?.details as ALBAccessPointCore)?.albARN
           : _ap.metadata?.app_gateway_id === (matchedLb?.details as AzureAccessPointCore)?.id
       )
+      if (!linkedAccessPoint) {
+        linkedAccessPoint = accessPoint
+      }
       updateLoadBalancerDetails(linkedAccessPoint?.id as string, linkedAccessPoint?.host_name as string)
     } else {
       isAwsProvider && openLoadBalancerModal()

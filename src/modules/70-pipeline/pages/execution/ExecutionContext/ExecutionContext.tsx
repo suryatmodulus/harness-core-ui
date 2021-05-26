@@ -17,6 +17,7 @@ export interface ExecutionContextParams {
   selectedStageId: string
   selectedStepId: string
   loading: boolean
+  isDataLoadedForSelectedStage: boolean
   queryParams: ExecutionPageQueryParams
   logsToken: string
   setLogsToken: (token: string) => void
@@ -35,6 +36,7 @@ const ExecutionContext = createContext<ExecutionContextParams>({
   selectedStageId: '',
   selectedStepId: '',
   loading: false,
+  isDataLoadedForSelectedStage: false,
   queryParams: {},
   logsToken: '',
   setLogsToken: () => void 0,

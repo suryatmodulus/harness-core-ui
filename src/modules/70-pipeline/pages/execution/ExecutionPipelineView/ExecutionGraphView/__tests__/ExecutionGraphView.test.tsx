@@ -73,6 +73,7 @@ const contextValue = (mock: any = mockCD): ExecutionContextParams => ({
   selectedStageId: 'google_1',
   selectedStepId: '',
   loading: false,
+  isDataLoadedForSelectedStage: true,
   queryParams: {},
   logsToken: 'token',
   setLogsToken: jest.fn(),

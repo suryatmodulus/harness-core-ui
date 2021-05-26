@@ -66,6 +66,7 @@
   "selectedStageId": "",
   "selectedStepId": "",
   "loading": false,
+  "isDataLoadedForSelectedStage": true,
   "queryParams": {},
   "logsToken": "logsToken"
 }

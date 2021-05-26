@@ -3,7 +3,7 @@
 exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-bottom-medium StyledProps--padding-right-xlarge StyledProps--background-blue200"
+    class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-bottom-medium StyledProps--padding-right-xlarge StyledProps--background-primary1"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"

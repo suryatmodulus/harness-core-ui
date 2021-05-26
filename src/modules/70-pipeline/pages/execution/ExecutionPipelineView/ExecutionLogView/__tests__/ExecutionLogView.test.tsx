@@ -22,6 +22,7 @@ const contextValue: ExecutionContextParams = {
   selectedStepId: '',
   queryParams: {},
   loading: false,
+  isDataLoadedForSelectedStage: true,
   logsToken: 'token',
   setLogsToken: jest.fn(),
   addNewNodeToMap: jest.fn(),

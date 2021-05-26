@@ -19,6 +19,7 @@ jest.mock('@pipeline/pages/execution/ExecutionContext/ExecutionContext', () => (
     selectedStageId: '',
     selectedStepId: '',
     loading: false,
+    isDataLoadedForSelectedStage: true,
     queryParams: {},
     logsToken: '',
     setLogsToken: () => void 0,

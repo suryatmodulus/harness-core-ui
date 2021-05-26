@@ -379,11 +379,8 @@ function RunPipelineFormBasic({
         initialValues={
           pipeline && currentPipeline && template?.data?.inputSetTemplateYaml
             ? currentPipeline?.pipeline
-              ? {
-                  ...clearRuntimeInput(currentPipeline.pipeline),
-                  existingProvideRadio: existingProvide
-                }
-              : { existingProvideRadio: existingProvide }
+              ? clearRuntimeInput(currentPipeline.pipeline)
+              : {}
             : currentPipeline?.pipeline
             ? clearRuntimeInput(currentPipeline.pipeline)
             : {}

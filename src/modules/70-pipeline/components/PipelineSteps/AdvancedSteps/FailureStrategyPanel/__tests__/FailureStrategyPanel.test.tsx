@@ -1,6 +1,7 @@
 import React from 'react'
-import { render, fireEvent, waitFor, act, queryByAttribute, queryAllByAttribute } from '@testing-library/react'
+import { act, fireEvent, queryAllByAttribute, queryByAttribute, render, waitFor } from '@testing-library/react'
 
+import { Domain } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
 import { Basic } from '../FailureStrategyPanel.stories'
 import { Modes } from '../../common'
 
@@ -11,7 +12,7 @@ describe('<FailureStrategyPanel /> tests', () => {
   })
 
   test('initial render with no data with CI domain', () => {
-    const { container } = render(<Basic data={{ failureStrategies: [] }} mode={Modes.STEP} domain={'CI'} />)
+    const { container } = render(<Basic data={{ failureStrategies: [] }} mode={Modes.STEP} domain={Domain.CI} />)
     expect(container).toMatchSnapshot()
   })
 
@@ -119,7 +120,7 @@ describe('<FailureStrategyPanel /> tests', () => {
           ]
         }}
         mode={Modes.STAGE}
-        domain={'CI'}
+        domain={Domain.CI}
       />
     )
 
@@ -171,7 +172,7 @@ describe('<FailureStrategyPanel /> tests', () => {
   })
 
   test('stage mode of CI domain can edit first error type', () => {
-    const { container } = render(<Basic data={{ failureStrategies: [{}] }} mode={Modes.STAGE} domain={'CI'} />)
+    const { container } = render(<Basic data={{ failureStrategies: [{}] }} mode={Modes.STAGE} domain={Domain.CI} />)
 
     expect(queryByAttribute('name', container, 'failureStrategies[0].onFailure.errors')).not.toBeNull()
     expect(container).toMatchSnapshot()

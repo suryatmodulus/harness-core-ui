@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button } from '@wings-software/uicore'
-import { FormikProps, FieldArray } from 'formik'
+import { FieldArray, FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
-import { isEmpty, get, flatMap } from 'lodash-es'
+import { flatMap, get, isEmpty } from 'lodash-es'
 
 import { String, useStrings } from 'framework/strings'
 import type { FailureStrategyConfig } from 'services/cd-ng'
@@ -10,10 +10,10 @@ import type { FailureStrategyConfig } from 'services/cd-ng'
 import FailureTypeMultiSelect from './FailureTypeMultiSelect'
 import {
   allowedStrategiesAsPerStep,
+  Domain,
   ErrorType,
   errorTypesOrderForCD,
-  errorTypesOrderForCI,
-  Domain
+  errorTypesOrderForCI
 } from './StrategySelection/StrategyConfig'
 import StrategySelection from './StrategySelection/StrategySelection'
 import { Modes } from '../common'
@@ -39,7 +39,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
     formikProps: { values: formValues, submitForm, errors },
     mode,
     isReadonly,
-    domain = 'Deployment'
+    domain = Domain.Deployment
   } = props
   const [selectedStrategyNum, setSelectedStrategyNum] = React.useState(0)
   const hasFailureStrategies = Array.isArray(formValues.failureStrategies) && formValues.failureStrategies.length > 0
@@ -48,14 +48,14 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
 
   const uids = React.useRef<string[]>([])
 
-  const isDefaultStageStrategy = mode === Modes.STAGE && domain === 'Deployment' && selectedStrategyNum === 0
+  const isDefaultStageStrategy = mode === Modes.STAGE && domain === Domain.Deployment && selectedStrategyNum === 0
   const filterTypes = flatMap(
     formValues.failureStrategies || /* istanbul ignore next */ [],
     e => (e.onFailure?.errors as ErrorType[]) || []
   )
 
   const isAddBtnDisabled =
-    domain === 'CI'
+    domain === Domain.CI
       ? filterTypes.length === errorTypesOrderForCI.length || isReadonly
       : filterTypes.length === errorTypesOrderForCD.length || isReadonly
 
@@ -163,7 +163,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
               name={`failureStrategies[${selectedStrategyNum}].onFailure.errors`}
               label={getString('pipeline.failureStrategies.onFailureOfType')}
               filterTypes={filterTypes}
-              minimal={domain === 'CI'}
+              minimal={domain === Domain.CI}
               disabled={isReadonly}
             />
           )}

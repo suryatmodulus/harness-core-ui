@@ -27,7 +27,8 @@ import {
   ResponseConnectorResponse,
   Connector,
   EntityGitDetails,
-  ResponseMessage
+  ResponseMessage,
+  CreateConnectorQueryParams
 } from 'services/cd-ng'
 
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
@@ -124,6 +125,10 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
 
   const afterSuccessHandler = (response: ResponseConnectorResponse): void => {
     props.onConnectorCreated?.(response?.data)
+    if (prevStepData?.branch) {
+      // updating connector branch to handle if new branch was created while commit
+      prevStepData.branch = response?.data?.gitDetails?.branch
+    }
     showSuccess(
       getString(props.isEditMode ? 'connectors.successfullUpdate' : 'connectors.successfullCreate', {
         name: prevStepData?.name
@@ -165,7 +170,13 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
 
     try {
       modalErrorHandler?.hide()
-      const queryParams = gitData ? { accountIdentifier: accountId, ...gitData } : {}
+      let queryParams: CreateConnectorQueryParams = {}
+      if (gitData) {
+        queryParams = { accountIdentifier: accountId, ...gitData }
+        if (gitData.isNewBranch) {
+          queryParams.baseBranch = prevStepData?.branch
+        }
+      }
 
       const response = props.isEditMode
         ? await updateConnector(payload, {

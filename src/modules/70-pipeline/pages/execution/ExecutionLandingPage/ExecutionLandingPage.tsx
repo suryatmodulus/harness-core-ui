@@ -100,6 +100,11 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
     debounce: 500
   })
 
+  const graphNodeMap = data?.data?.executionGraph?.nodeMap || {}
+  const isDataLoadedForSelectedStage = Object.keys(graphNodeMap).some(
+    key => graphNodeMap?.[key]?.setupId === selectedStageId
+  )
+
   const { selectedProject } = useAppStore()
   const project = selectedProject
   const { getString } = useStrings()
@@ -205,6 +210,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
         selectedStageId,
         selectedStepId,
         loading,
+        isDataLoadedForSelectedStage,
         queryParams,
         logsToken,
         setLogsToken,

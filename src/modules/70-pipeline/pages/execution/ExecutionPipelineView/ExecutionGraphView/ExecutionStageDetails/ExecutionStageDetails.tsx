@@ -7,6 +7,7 @@ import {
   useGetBarrierInfo,
   useGetResourceConstraintsExecutionInfo
 } from 'services/pipeline-ng'
+import { PageSpinner } from '@common/components'
 import { getIconFromStageModule, processExecutionData } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
@@ -39,7 +40,8 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     selectedStepId,
     allNodeMap,
     setStepsGraphCanvasState,
-    stepsGraphCanvasState
+    stepsGraphCanvasState,
+    isDataLoadedForSelectedStage
   } = useExecutionContext()
   const { setStepDetailsVisibility } = useExecutionLayoutContext()
   const [barrierSetupId, setBarrierSetupId] = React.useState<string | undefined>()
@@ -69,7 +71,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   })
   const data: ExecutionPipeline<ExecutionNode> = {
     items: processExecutionData(pipelineExecutionDetail?.executionGraph),
-    identifier: `${executionIdentifier}-${selectedStageId}`,
+    identifier: `${executionIdentifier}-${pipelineExecutionDetail?.executionGraph?.rootNodeId}`,
     status: stage?.status as any,
     allNodes: Object.keys(allNodeMap)
   }
@@ -204,6 +206,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           graphCanvasState={stepsGraphCanvasState}
         />
       )}
+      {loading && !isDataLoadedForSelectedStage && <PageSpinner fixed={false} />}
       <DynamicPopover
         className={css.popoverHeight}
         darkMode={true}

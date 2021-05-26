@@ -127,7 +127,7 @@ export default function TriggersDetailPage(): JSX.Element {
 
   const { loading, data: pipelineSchema } = useGetYamlSchema({
     queryParams: {
-      entityType: 'Pipelines',
+      entityType: 'Triggers',
       projectIdentifier,
       orgIdentifier,
       scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
@@ -143,8 +143,7 @@ export default function TriggersDetailPage(): JSX.Element {
 
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${triggerResponse?.data?.identifier ?? 'Trigger'}.yaml`,
-    // TO DO: update GetYamlSchemaQueryParams to add trigger
-    entityType: 'Pipelines',
+    entityType: 'Triggers',
     existingJSON: triggerJSON,
     width: 900
   }
@@ -179,8 +178,9 @@ export default function TriggersDetailPage(): JSX.Element {
   return (
     <>
       <Container
+        style={{ borderBottom: '1px solid var(--grey-200)' }}
         padding={{ top: 'xlarge', left: 'xlarge', bottom: 'medium', right: 'xlarge' }}
-        background={Color.BLUE_200}
+        background={Color.PRIMARY_1}
       >
         <Layout.Vertical spacing="medium">
           <TriggerBreadcrumbs triggerResponse={triggerResponse} pipelineResponse={pipeline} />

@@ -417,7 +417,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     } else if (connectorType === ENABLED_ARTIFACT_TYPES.Ecr) {
       return !imagePath?.length || !connectorRef?.length || !region?.length
     } else {
-      return !imagePath || !connectorRef?.length || !registryHostname?.length
+      return !imagePath?.length || !connectorRef?.length || !registryHostname?.length
     }
   }
   const regions = (regionData?.resource || []).map((region: any) => ({

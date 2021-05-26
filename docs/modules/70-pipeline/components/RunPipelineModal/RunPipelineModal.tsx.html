@@ -160,7 +160,21 @@
 <a name='L101'></a><a href='#L101'>101</a>
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -241,12 +255,26 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,7 +292,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
-<span class="cstat-no" title="statement not covered" >import { Layout } from '@wings-software/uicore'</span>
+<span class="cstat-no" title="statement not covered" >import { Button, Layout } from '@wings-software/uicore'</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >import { useHistory, useParams } from 'react-router-dom'</span>
 import type { SelectOption } from '@wings-software/uicore'
@@ -283,14 +311,14 @@ interface InputSetValue extends SelectOption {
 &nbsp;
 const runModalProps: IDialogProps = <span class="cstat-no" title="statement not covered" >{</span>
   isOpen: true,
-  usePortal: true,
+  // usePortal: true,
   autoFocus: true,
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
   enforceFocus: true,
-  title: '',
   className: css.runModal,
-  style: { width: 872, height: 'fit-content', overflow: 'auto' }
+  style: { width: 872, height: 'fit-content', overflow: 'auto' },
+  isCloseButtonShown: false
 }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >R</span>unPipelineModal(</span>): React.ReactElement {
@@ -344,12 +372,16 @@ const runModalProps: IDialogProps = <span class="cstat-no" title="statement not 
 <span class="cstat-no" title="statement not covered" >    return []</span>
   }
 &nbsp;
+  function <span class="fstat-no" title="function not covered" >handleClose(</span>): void {
+<span class="cstat-no" title="statement not covered" >    history.goBack()</span>
+  }
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  if (loading) {</span>
 <span class="cstat-no" title="statement not covered" >    return &lt;PageSpinner /&gt;</span>
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Dialog onClose={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >history.goBack()}</span> {...runModalProps}&gt;
+    &lt;Dialog onClose={handleClose} {...runModalProps} className={css.dialog}&gt;
       &lt;Layout.Vertical className={css.modalCard}&gt;
         &lt;RunPipelineForm
           pipelineIdentifier={pipelineIdentifier}
@@ -361,6 +393,16 @@ const runModalProps: IDialogProps = <span class="cstat-no" title="statement not 
           inputSetSelected={getInputSetSelected()}
           repoIdentifier={query.repoIdentifier}
           branch={query.branch}
+          inputSetRepoIdentifier={query.inputSetRepoIdentifier}
+          inputSetBranch={query.inputSetBranch}
+        /&gt;
+        &lt;Button
+          aria-label="close modal"
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={handleClose}
+          className={css.crossIcon}
         /&gt;
       &lt;/Layout.Vertical&gt;
     &lt;/Dialog&gt;
@@ -373,7 +415,7 @@ const runModalProps: IDialogProps = <span class="cstat-no" title="statement not 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 04:47:34 GMT+0000 (Greenwich Mean Time)
+                at Wed May 26 2021 12:07:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

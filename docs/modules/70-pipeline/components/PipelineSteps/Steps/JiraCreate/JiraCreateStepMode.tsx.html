@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.69% </span>
+                <span class="strong">79.03% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>96/122</span>
+                <span class='fraction'>98/124</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.95% </span>
+                <span class="strong">58.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>102/176</span>
+                <span class='fraction'>104/178</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.69% </span>
+                <span class="strong">79.03% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>96/122</span>
+                <span class='fraction'>98/124</span>
             </div>
         
             
@@ -655,7 +655,15 @@
 <a name='L596'></a><a href='#L596'>596</a>
 <a name='L597'></a><a href='#L597'>597</a>
 <a name='L598'></a><a href='#L598'>598</a>
-<a name='L599'></a><a href='#L599'>599</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<a name='L599'></a><a href='#L599'>599</a>
+<a name='L600'></a><a href='#L600'>600</a>
+<a name='L601'></a><a href='#L601'>601</a>
+<a name='L602'></a><a href='#L602'>602</a>
+<a name='L603'></a><a href='#L603'>603</a>
+<a name='L604'></a><a href='#L604'>604</a>
+<a name='L605'></a><a href='#L605'>605</a>
+<a name='L606'></a><a href='#L606'>606</a>
+<a name='L607'></a><a href='#L607'>607</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
@@ -687,6 +695,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -736,6 +750,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-yes">28x</span>
@@ -954,6 +969,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1284,9 +1300,15 @@ import {
   useGetJiraProjects,
   useGetJiraIssueCreateMetadata
 } from 'services/cd-ng'
-import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type {
+  AccountPathProps,
+  GitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeTextAreaField } from '@common/components'
+import { useQueryParams } from '@common/hooks'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
 import { getGenuineValue, setAllowedValuesOptions, setIssueTypeOptions } from '../JiraApproval/helper'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
@@ -1334,6 +1356,7 @@ const FormContent = ({
     projectIdentifier,
     orgIdentifier
   }
+  const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
   const [issueTypeFieldList, setIssueTypeFieldList] = useState&lt;JiraFieldNG[]&gt;([])
   const [projectOptions, setProjectOptions] = useState&lt;JiraProjectSelectOption[]&gt;([])
   const [projectMetadata, setProjectMetadata] = useState&lt;JiraProjectNG&gt;()
@@ -1555,6 +1578,7 @@ const FormContent = ({
                   }
                 }}
                 disabled={isApprovalStepFieldDisabled(readonly)}
+                gitScope={{ repo: repoIdentifier || '', branch }}
               /&gt;
               &lt;FormInput.MultiTypeInput
                 selectItems={
@@ -1858,7 +1882,7 @@ export default JiraCreateStepModeWithRef
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 04:47:34 GMT+0000 (Greenwich Mean Time)
+                at Wed May 26 2021 12:07:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.63% </span>
+                <span class="strong">52.99% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>60/114</span>
+                <span class='fraction'>62/117</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.45% </span>
+                <span class="strong">25.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>100/393</span>
+                <span class='fraction'>102/397</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.1% </span>
+                <span class="strong">53.45% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>60/113</span>
+                <span class='fraction'>62/116</span>
             </div>
         
             
@@ -577,7 +577,13 @@
 <a name='L518'></a><a href='#L518'>518</a>
 <a name='L519'></a><a href='#L519'>519</a>
 <a name='L520'></a><a href='#L520'>520</a>
-<a name='L521'></a><a href='#L521'>521</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L521'></a><a href='#L521'>521</a>
+<a name='L522'></a><a href='#L522'>522</a>
+<a name='L523'></a><a href='#L523'>523</a>
+<a name='L524'></a><a href='#L524'>524</a>
+<a name='L525'></a><a href='#L525'>525</a>
+<a name='L526'></a><a href='#L526'>526</a>
+<a name='L527'></a><a href='#L527'>527</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -619,6 +625,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -677,13 +685,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -696,6 +697,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -723,6 +732,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -874,6 +884,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -928,6 +939,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1140,6 +1152,8 @@ import {
   ConnectorReferenceFieldProps
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
@@ -1192,6 +1206,7 @@ const KubernetesInfraSpecEditable: React.FC&lt;KubernetesInfraSpecEditableProps&
     orgIdentifier: string
     accountId: string
   }&gt;()
+  const { repoIdentifier, branch } = <span class="cstat-no" title="statement not covered" >useQueryParams&lt;GitQueryParams&gt;()</span>
   const delayedOnUpdate = <span class="cstat-no" title="statement not covered" >React.useRef(debounce(onUpdate || noop, 300)).current</span>
   const { expressions } = <span class="cstat-no" title="statement not covered" >useVariablesExpression()</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
@@ -1260,6 +1275,7 @@ const KubernetesInfraSpecEditable: React.FC&lt;KubernetesInfraSpecEditableProps&
                   width={450}
                   enableConfigureOptions={false}
                   style={{ marginBottom: 'var(--spacing-small)' }}
+                  gitScope={{ repo: repoIdentifier || '', branch }}
                 /&gt;
                 {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME &amp;&amp; !readonly &amp;&amp; (
                   &lt;ConfigureOptions
@@ -1394,6 +1410,7 @@ const KubernetesInfraSpecInputForm: React.FC&lt;KubernetesInfraSpecEditableProps
     orgIdentifier: string
     accountId: string
   }&gt;()
+  const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
   const connectorRef = getIdentifierFromValue(initialValues.connectorRef || '')
   const initialScope = getScopeFromValue(initialValues.connectorRef || '')
 &nbsp;
@@ -1453,6 +1470,7 @@ const KubernetesInfraSpecInputForm: React.FC&lt;KubernetesInfraSpecEditableProps
                 scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record?.identifier}` : record?.identifier
             })
           }}
+          gitScope={{ repo: repoIdentifier || '', branch }}
         /&gt;
       )}
       {getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>amespace) === MultiTypeInputType.RUNTIME &amp;&amp; (
@@ -1624,7 +1642,7 @@ export class KubernetesInfraSpec extends PipelineStep&lt;K8SDirectInfrastructure
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 04:47:34 GMT+0000 (Greenwich Mean Time)
+                at Wed May 26 2021 12:07:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

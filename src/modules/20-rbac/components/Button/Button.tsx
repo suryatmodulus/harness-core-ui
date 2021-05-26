@@ -5,6 +5,7 @@ import { PopoverInteractionKind } from '@blueprintjs/core'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import css from './Button.module.scss'
 
 interface ButtonProps extends CoreButtonProps {
   permission: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
@@ -18,21 +19,22 @@ const RbacButton: React.FC<ButtonProps> = ({ permission: permissionRequest, ...r
     } as PermissionsRequest,
     [permissionRequest]
   )
-
+  if (canDoAction) return <CoreButton {...restProps} />
   return (
     <CoreButton
       {...restProps}
-      disabled={restProps.disabled || !canDoAction}
       tooltip={
-        !canDoAction ? (
-          <RBACTooltip
-            permission={permissionRequest.permission}
-            resourceType={permissionRequest.resource.resourceType}
-            resourceScope={permissionRequest.resourceScope}
-          />
-        ) : undefined
+        <RBACTooltip
+          permission={permissionRequest.permission}
+          resourceType={permissionRequest.resource.resourceType}
+          resourceScope={permissionRequest.resourceScope}
+        />
       }
       tooltipProps={{ hoverCloseDelay: 50, interactionKind: PopoverInteractionKind.HOVER_TARGET_ONLY }}
+      className={css.disableButton}
+      onClick={e => {
+        e.preventDefault()
+      }}
     />
   )
 }

@@ -1,0 +1,19 @@
+.dialog {
+  position: relative;
+  padding-bottom: 0;
+  &.verifyEmail {
+    padding: 4% 4%;
+    min-width: 450px;
+    width: 450px;
+    height: 440px;
+  }
+}
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}
+
+.description {
+  line-height: 2 !important;
+}

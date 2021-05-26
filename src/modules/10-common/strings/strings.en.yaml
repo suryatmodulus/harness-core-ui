@@ -270,6 +270,13 @@ banners:
         below2000: 501-2,000 employees
         below5000: 2,001-5,000 employees
         above5000: '> 5,000 employees'
+    verifyEmail:
+      title: Verify Email Address
+      subtitle: Email verification pending
+      description: '{{$.common.banners.email.description}}'
+      emailAddress: Email Address
+      resend: Resend Verification Email
+      resendSuccess: Resend Verification Email Success
 test:
   inProgress: Testing in progress
   connectionSuccessful: Connection Successful

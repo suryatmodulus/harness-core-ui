@@ -46,6 +46,12 @@ export interface StringsMap {
   'common.banners.trial.contactSalesForm.roleItems.vp': string
   'common.banners.trial.contactSalesForm.roleValidation': string
   'common.banners.trial.description': string
+  'common.banners.trial.verifyEmail.description': string
+  'common.banners.trial.verifyEmail.emailAddress': string
+  'common.banners.trial.verifyEmail.resend': string
+  'common.banners.trial.verifyEmail.resendSuccess': string
+  'common.banners.trial.verifyEmail.subtitle': string
+  'common.banners.trial.verifyEmail.title': string
   'common.blank': string
   'common.capsAll': string
   'common.ce.cost': string

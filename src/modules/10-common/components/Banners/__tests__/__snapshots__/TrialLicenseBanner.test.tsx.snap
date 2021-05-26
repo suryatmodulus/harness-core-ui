@@ -1,8 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TrialLicenseBanner should NOT render banner if api call returns NOT TRIAL 1`] = `<div />`;
-
-exports[`TrialLicenseBanner should render banner if api call returns TRIAL 1`] = `
+exports[`TrialLicenseBanner Rendering should render banner if api call returns TRIAL 1`] = `
 <div>
   <div
     class="Layout--horizontal StyledProps--main container standard trialLicenseBanner StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"

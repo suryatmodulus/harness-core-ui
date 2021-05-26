@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import moment from 'moment'
 import { Text, Layout, Icon, Button } from '@wings-software/uicore'
+import { useVerifyEmailModal } from '@common/modals/VerifyEmailDialog/useVerifyEmailModal'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { StringsMap } from 'stringTypes'
@@ -28,6 +30,16 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
       // TO-DO: call the API
     }
   })
+  const { currentUserInfo } = useAppStore()
+  const { openEmailVerifyModal } = useVerifyEmailModal({})
+
+  const handleContactSales = (): void => {
+    if (!currentUserInfo.emailVerified) {
+      openEmailVerifyModal()
+    } else {
+      openContactSalesModal()
+    }
+  }
 
   if (licenseType !== 'TRIAL' || !display) {
     return <></>
@@ -49,11 +61,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
               })}
             </Text>
           </Layout.Horizontal>
-          <Button
-            padding="small"
-            text={getString('common.banners.trial.contactSales')}
-            onClick={openContactSalesModal}
-          />
+          <Button padding="small" text={getString('common.banners.trial.contactSales')} onClick={handleContactSales} />
         </Layout.Horizontal>
       }
       toolbar={

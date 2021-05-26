@@ -58,18 +58,6 @@ describe('CDTrial Modal', () => {
       fireEvent.click(getByRole('button', { name: 'close modal' }))
       await waitFor(() => expect(onCloseModal).toBeCalled())
     })
-
-    test('should close modal by closeCDTrialModal', async () => {
-      const { container, getByText } = render(
-        <TestWrapper>
-          <TestComponent />
-        </TestWrapper>
-      )
-      fireEvent.click(container.querySelector('.open')!)
-      await waitFor(() => expect(() => getByText('cd.cdTrialHomePage.startTrial.description')).toBeDefined())
-      fireEvent.click(container.querySelector('.close')!)
-      await waitFor(() => expect(onCloseModal).toBeCalled())
-    })
   })
 
   describe('validation', () => {

@@ -29,18 +29,6 @@ describe('Contact Sales Modal', () => {
       fireEvent.click(getByRole('button', { name: 'close modal' }))
       await waitFor(() => expect(onCloseModal).toBeCalled())
     })
-
-    test('should close modal by closeContactSalesModal', async () => {
-      const { container, getByText } = render(
-        <TestWrapper>
-          <TestComponent />
-        </TestWrapper>
-      )
-      fireEvent.click(container.querySelector('.open')!)
-      await waitFor(() => expect(() => getByText('common.banners.trial.contactSales')).toBeDefined())
-      fireEvent.click(container.querySelector('.close')!)
-      await waitFor(() => expect(onCloseModal).toBeCalled())
-    })
   })
 
   describe('Validation', () => {

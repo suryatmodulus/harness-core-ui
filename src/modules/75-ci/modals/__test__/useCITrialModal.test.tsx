@@ -46,18 +46,6 @@ describe('open and close CITrial Modal', () => {
       fireEvent.click(getByRole('button', { name: 'close modal' }))
       await waitFor(() => expect(onCloseModal).toBeCalled())
     })
-
-    test('should close modal by closeCITrialModal', async () => {
-      const { container, getByText } = render(
-        <TestWrapper>
-          <TestComponent isSelect={false} />
-        </TestWrapper>
-      )
-      fireEvent.click(container.querySelector('.open')!)
-      await waitFor(() => expect(() => getByText('Trial in-progress')).toBeDefined())
-      fireEvent.click(container.querySelector('.close')!)
-      await waitFor(() => expect(onCloseModal).toBeCalled())
-    })
   })
 
   test('should render Select Pipeline Form when isSelect is true', async () => {

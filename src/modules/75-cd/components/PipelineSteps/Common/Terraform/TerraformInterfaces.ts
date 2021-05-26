@@ -1,5 +1,6 @@
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import type { Scope } from '@common/interfaces/SecretsInterface'
+import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type {
   ListType,
@@ -36,6 +37,7 @@ export interface TerraformProps {
   }
   readonly?: boolean
   stepType?: string
+  gitScope?: GitFilterScope
 }
 
 export interface TerraformPlanProps {

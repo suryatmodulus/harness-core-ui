@@ -33,6 +33,8 @@ import {
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import css from './EditStageView.module.scss'
 
 export interface EditStageView {
@@ -66,6 +68,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const initialValues: Values = {
     identifier: data?.stage.identifier,
@@ -265,6 +268,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                         connector: value
                       })
                     }}
+                    gitScope={{ repo: repoIdentifier || '', branch }}
                   />
                   {connectionType === 'Repo' ? (
                     <>

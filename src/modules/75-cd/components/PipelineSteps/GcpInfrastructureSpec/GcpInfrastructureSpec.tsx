@@ -58,6 +58,8 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import css from './GcpInfrastructureSpec.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -106,6 +108,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [clusterOptions, setClusterOptions] = useState<SelectOption[]>([])
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
   const { expressions } = useVariablesExpression()
@@ -267,6 +270,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                     // NOTE: clear cluster on connector change
                     // formik.setFieldValue('cluster', '')
                   }}
+                  gitScope={{ repo: repoIdentifier || '', branch }}
                 />
                 {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
@@ -410,6 +414,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [clusterOptions, setClusterOptions] = useState<SelectOption[]>([])
   const connectorRef = getIdentifierFromValue(initialValues.connectorRef || '')
   const initialScope = getScopeFromValue(initialValues.connectorRef || '')
@@ -519,6 +524,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
               }
             })
           }}
+          gitScope={{ repo: repoIdentifier || '', branch }}
         />
       )}
       {getMultiTypeFromValue(template?.cluster) === MultiTypeInputType.RUNTIME && (

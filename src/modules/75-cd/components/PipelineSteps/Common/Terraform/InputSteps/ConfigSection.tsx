@@ -20,7 +20,7 @@ import type { Connector, TerraformProps } from '../TerraformInterfaces'
 
 export default function ConfigSection(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
-  const { inputSetData, readonly, initialValues } = props
+  const { inputSetData, readonly, initialValues, gitScope } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -92,6 +92,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
           label={getString('connectors.title.gitConnector')}
           placeholder={getString('select')}
           disabled={readonly || loading}
+          gitScope={gitScope}
         />
       )}
 

@@ -16,6 +16,8 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { Connector, TerraformData } from '../TerraformInterfaces'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -38,6 +40,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
     accountId: string
   }>()
 
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   React.useEffect(() => {
     formik.setFieldValue('configuration.spec.configFiles.store.type', 'Git')
   }, [])
@@ -93,6 +96,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
         orgIdentifier={orgIdentifier}
         style={{ marginBottom: 10 }}
         multiTypeProps={{ expressions }}
+        gitScope={{ repo: repoIdentifier || '', branch }}
       />
       <div className={cx(stepCss.formGroup, stepCss.md)}>
         <FormInput.Select

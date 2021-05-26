@@ -40,6 +40,8 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import {
   CommandTypes,
   onSubmitTFPlanData,
@@ -72,6 +74,7 @@ function TerraformPlanWidget(
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   return (
     <Formik<TFPlanFormData>
       onSubmit={values => {
@@ -154,6 +157,7 @@ function TerraformPlanWidget(
                   orgIdentifier={orgIdentifier}
                   style={{ marginBottom: 10 }}
                   multiTypeProps={{ expressions }}
+                  gitScope={{ repo: repoIdentifier || '', branch }}
                 />
               </div>
               <Accordion activeId="step-1" className={stepCss.accordion}>

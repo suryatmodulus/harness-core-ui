@@ -28,7 +28,7 @@ import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
 import { useGetPipeline } from 'services/pipeline-ng'
 import List from '@common/components/List/List'
-import type { PipelineType, InputSetPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, InputSetPathProps, GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
 import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'
@@ -58,7 +58,7 @@ import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
-import { useDeepCompareEffect } from '@common/hooks'
+import { useDeepCompareEffect, useQueryParams } from '@common/hooks'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { useToaster } from '@common/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -183,6 +183,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
+  const { repoIdentifier, branch: branchParam } = useQueryParams<GitQueryParams>()
   const [pipeline, setPipeline] = React.useState<{ pipeline: NgPipeline } | undefined>()
   const [tagListMap, setTagListMap] = React.useState<{ [key: string]: Record<string, any>[] | Record<string, any> }>({
     sidecars: [],
@@ -489,6 +490,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             ...initialValues
                           })
                         }}
+                        gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
                       />
                     </FormGroup>
                   )}
@@ -670,6 +672,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                                 ...initialValues
                               })
                             }}
+                            gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
                           />
                         </FormGroup>
                       )}
@@ -872,6 +875,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                                 ...initialValues
                               })
                             }}
+                            gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
                           />
                         </FormGroup>
                       )}

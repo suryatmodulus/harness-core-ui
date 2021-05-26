@@ -21,7 +21,8 @@ import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -58,6 +59,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   nextStep
 }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
 
   const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store || initialValues.store)
@@ -171,6 +173,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     isNewConnectorLabelVisible={false}
                     type={ManifestToConnectorMap[selectedManifest]}
                     enableConfigureOptions={false}
+                    gitScope={{ repo: repoIdentifier || '', branch }}
                   />
                   {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME ? (
                     <div className={css.configureOptions}>

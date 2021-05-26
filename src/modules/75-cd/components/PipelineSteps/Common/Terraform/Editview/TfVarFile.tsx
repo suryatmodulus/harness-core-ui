@@ -24,6 +24,8 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { PathInterface, TerraformStoreTypes, VarFileArray } from '../TerraformInterfaces'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -42,6 +44,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const { expressions } = useVariablesExpression()
 
@@ -132,6 +135,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                       orgIdentifier={orgIdentifier}
                       style={{ marginBottom: 10 }}
                       multiTypeProps={{ expressions }}
+                      gitScope={{ repo: repoIdentifier || '', branch }}
                     />
 
                     <div className={cx(stepCss.formGroup, stepCss.md)}>

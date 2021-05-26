@@ -16,11 +16,12 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { useQueryParams } from '@common/hooks'
 import { ArtifactConnectorLabelMap, ArtifactToConnectorMap } from '../ArtifactHelper'
 import type { ArtifactType, ConnectorDataType } from '../ArtifactInterface'
 
@@ -50,6 +51,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
   } = props
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
 
   const connectorType = ArtifactToConnectorMap[selectedArtifact]
@@ -109,6 +111,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                   type={connectorType}
                   enableConfigureOptions={false}
                   selected={formik?.values?.connectorId}
+                  gitScope={{ repo: repoIdentifier || '', branch }}
                 />
                 {getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.RUNTIME ? (
                   <div className={css.configureOptions}>

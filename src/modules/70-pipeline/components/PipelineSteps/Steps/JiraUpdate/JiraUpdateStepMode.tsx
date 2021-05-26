@@ -23,8 +23,14 @@ import {
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { JiraProjectBasicNG, JiraFieldNG, useGetJiraProjects, useGetJiraStatuses, JiraStatusNG } from 'services/cd-ng'
-import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type {
+  AccountPathProps,
+  GitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { useQueryParams } from '@common/hooks'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
 import { getGenuineValue, setAllowedValuesOptions } from '../JiraApproval/helper'
 import type { JiraCreateFieldType } from '../JiraCreate/types'
@@ -57,6 +63,7 @@ const FormContent = ({
     projectIdentifier,
     orgIdentifier
   }
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [statusOptions, setStatusOptions] = useState<SelectOption[]>([])
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
@@ -207,6 +214,7 @@ const FormContent = ({
                 enableConfigureOptions={false}
                 selected={formik?.values?.spec.connectorRef as string}
                 disabled={isApprovalStepFieldDisabled(readonly)}
+                gitScope={{ repo: repoIdentifier || '', branch }}
               />
               <FormInput.MultiTextInput
                 label={getString('pipeline.jiraApprovalStep.issueKey')}

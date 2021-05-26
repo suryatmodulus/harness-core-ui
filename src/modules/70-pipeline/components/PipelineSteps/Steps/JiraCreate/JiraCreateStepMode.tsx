@@ -29,9 +29,15 @@ import {
   useGetJiraProjects,
   useGetJiraIssueCreateMetadata
 } from 'services/cd-ng'
-import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type {
+  AccountPathProps,
+  GitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeTextAreaField } from '@common/components'
+import { useQueryParams } from '@common/hooks'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
 import { getGenuineValue, setAllowedValuesOptions, setIssueTypeOptions } from '../JiraApproval/helper'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
@@ -79,6 +85,7 @@ const FormContent = ({
     projectIdentifier,
     orgIdentifier
   }
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [issueTypeFieldList, setIssueTypeFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
@@ -300,6 +307,7 @@ const FormContent = ({
                   }
                 }}
                 disabled={isApprovalStepFieldDisabled(readonly)}
+                gitScope={{ repo: repoIdentifier || '', branch }}
               />
               <FormInput.MultiTypeInput
                 selectItems={

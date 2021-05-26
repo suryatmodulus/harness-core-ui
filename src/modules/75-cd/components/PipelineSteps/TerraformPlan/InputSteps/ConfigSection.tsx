@@ -16,6 +16,8 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import type { Connector, TerraformPlanProps } from '../../Common/Terraform/TerraformInterfaces'
 
 export default function ConfigSection(props: TerraformPlanProps): React.ReactElement {
@@ -26,7 +28,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
     orgIdentifier: string
     accountId: string
   }>()
-
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const connectorValue = initialValues?.spec?.configuration?.configFiles?.store?.spec?.connectorRef as Connector
   const connectorRef = getIdentifierFromValue(connectorValue?.value || '')
   const initialScope = getScopeFromValue(connectorValue?.value || '')
@@ -90,6 +92,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
           label={getString('connectors.title.gitConnector')}
           placeholder={getString('select')}
           disabled={readonly || loading}
+          gitScope={{ repo: repoIdentifier || '', branch }}
         />
       )}
 

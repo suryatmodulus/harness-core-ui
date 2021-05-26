@@ -41,6 +41,8 @@ import {
   ConnectorReferenceFieldProps
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
@@ -93,6 +95,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
@@ -161,6 +164,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   width={450}
                   enableConfigureOptions={false}
                   style={{ marginBottom: 'var(--spacing-small)' }}
+                  gitScope={{ repo: repoIdentifier || '', branch }}
                 />
                 {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
@@ -295,6 +299,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const connectorRef = getIdentifierFromValue(initialValues.connectorRef || '')
   const initialScope = getScopeFromValue(initialValues.connectorRef || '')
 
@@ -354,6 +359,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
                 scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record?.identifier}` : record?.identifier
             })
           }}
+          gitScope={{ repo: repoIdentifier || '', branch }}
         />
       )}
       {getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME && (

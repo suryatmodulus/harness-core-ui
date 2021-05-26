@@ -19,8 +19,14 @@ import {
   useGetJiraProjects,
   useGetJiraIssueCreateMetadata
 } from 'services/cd-ng'
-import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type {
+  AccountPathProps,
+  GitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { useQueryParams } from '@common/hooks'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import { ApprovalRejectionCriteria } from './ApprovalRejectionCriteria'
 import {
@@ -57,6 +63,7 @@ const FormContent = ({
     projectIdentifier,
     orgIdentifier
   }
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [statusList, setStatusList] = useState<JiraStatusNG[]>([])
   const [fieldList, setFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
@@ -189,6 +196,7 @@ const FormContent = ({
                   resetForm(formik, 'connectorRef')
                 }}
                 disabled={isApprovalStepFieldDisabled(readonly)}
+                gitScope={{ repo: repoIdentifier || '', branch }}
               />
               <FormInput.MultiTypeInput
                 tooltipProps={{

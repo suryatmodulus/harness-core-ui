@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
 import { Layout, Card, Icon, Text, Accordion, Button } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
-import { clone, get, isEmpty, isNil, omit } from 'lodash-es'
-import debounce from 'p-debounce'
+import { get, isEmpty, isNil, omit, debounce, set } from 'lodash-es'
 import cx from 'classnames'
+import produce from 'immer'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
   ExecutionWrapper,
   getProvisionerExecutionStrategyYamlPromise,
   K8SDirectInfrastructure,
   K8sGcpInfrastructure,
-  NgPipeline,
   PipelineInfrastructure,
+  StageElementConfig,
   StageElementWrapper
 } from 'services/cd-ng'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
@@ -46,7 +46,6 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     K8SDirectInfrastructure | K8sGcpInfrastructure
   >({})
   const [selectedDeploymentType, setSelectedDeploymentType] = React.useState<string | undefined>()
-  const [updateKey, setUpdateKey] = React.useState(0)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const { getString } = useStrings()
   const deploymentTypes: DeploymentTypeGroup[] = [
@@ -76,41 +75,38 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
 
   const {
     state: {
-      pipeline,
       originalPipeline,
       selectionState: { selectedStageId }
     },
     isReadonly,
-    updatePipeline,
-    getStageFromPipeline
+    getStageFromPipeline,
+    updateStage
   } = React.useContext(PipelineContext)
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debounceUpdatePipeline = React.useCallback(
-    debounce((pipelineData: NgPipeline) => updatePipeline(clone(pipelineData)), 300),
-    [updatePipeline]
+  const debounceUpdateStage = React.useCallback(
+    debounce((stage: StageElementConfig) => updateStage(stage), 300),
+    [updateStage]
   )
 
   const { stage } = getStageFromPipeline(selectedStageId || '')
 
-  const resetInfrastructureDefinition = (type?: string, shouldUpdate = false): void => {
-    const spec = get(stage, 'stage.spec', {})
-    spec.infrastructure = {
-      ...spec.infrastructure,
-      infrastructureDefinition: {}
-    }
+  const resetInfrastructureDefinition = (type?: string): void => {
+    const stageData = produce(stage, draft => {
+      const spec = get(draft, 'stage.spec', {})
+      spec.infrastructure = {
+        ...spec.infrastructure,
+        infrastructureDefinition: {}
+      }
 
-    if (type) {
-      spec.infrastructure.infrastructureDefinition.type = type
-    }
+      if (type) {
+        spec.infrastructure.infrastructureDefinition.type = type
+      }
+    })
 
-    if (shouldUpdate) {
-      const initialInfraDefValues = getInfrastructureDefaultValue(stage, type)
-      setInitialInfrastructureDefinitionValues(initialInfraDefValues)
+    const initialInfraDefValues = getInfrastructureDefaultValue(stageData, type)
+    setInitialInfrastructureDefinitionValues(initialInfraDefValues)
 
-      debounceUpdatePipeline(pipeline)
-    }
-
+    debounceUpdateStage(stageData?.stage)
     setProvisionerEnabled(false)
   }
 
@@ -130,23 +126,24 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     setSelectedDeploymentType(type)
     const initialInfraDefValues = getInfrastructureDefaultValue(stage, type)
     setInitialInfrastructureDefinitionValues(initialInfraDefValues)
-    setUpdateKey(Math.random())
   }, [stage])
 
   const onUpdateInfrastructureDefinition = (
     extendedSpec: K8SDirectInfrastructure | K8sGcpInfrastructure,
     type: string
   ): void => {
-    const infrastructure = get(stage, 'stage.spec.infrastructure', null)
-    if (infrastructure) {
-      infrastructure.infrastructureDefinition = {
-        ...infrastructure.infrastructureDefinition,
-        type,
-        spec: omit(extendedSpec, 'allowSimultaneousDeployments', 'infrastructureKey')
-      }
-      infrastructure.allowSimultaneousDeployments = extendedSpec.allowSimultaneousDeployments ?? false
-      infrastructure.infrastructureKey = extendedSpec.infrastructureKey ?? DEFAULT_INFRA_KEY
-      debounceUpdatePipeline(pipeline)
+    if (get(stage, 'stage.spec.infrastructure', null)) {
+      const stageData = produce(stage, draft => {
+        const infrastructure = get(draft, 'stage.spec.infrastructure', null)
+        infrastructure.infrastructureDefinition = {
+          ...infrastructure.infrastructureDefinition,
+          type,
+          spec: omit(extendedSpec, 'allowSimultaneousDeployments', 'infrastructureKey')
+        }
+        infrastructure.allowSimultaneousDeployments = extendedSpec.allowSimultaneousDeployments ?? false
+        infrastructure.infrastructureKey = extendedSpec.infrastructureKey ?? DEFAULT_INFRA_KEY
+      })
+      debounceUpdateStage(stageData?.stage)
     }
   }
 
@@ -184,7 +181,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                       onClick={() => {
                         if (selectedDeploymentType !== deploymentType.type) {
                           setSelectedDeploymentType(deploymentType.type)
-                          resetInfrastructureDefinition(deploymentType.type, true)
+                          resetInfrastructureDefinition(deploymentType.type)
                         }
                       }}
                       cornerSelected={deploymentType.type === selectedDeploymentType}
@@ -215,7 +212,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             intent="primary"
             onClick={() => {
               setSelectedDeploymentType(undefined)
-              resetInfrastructureDefinition(undefined, true)
+              resetInfrastructureDefinition(undefined)
             }}
             text={getString('change')}
           />
@@ -239,8 +236,10 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       getProvisionerExecutionStrategyYamlPromise({ queryParams: { provisionerType: 'TERRAFORM' } }).then(res => {
         const provisionerSnippet = YAML.parse(res?.data || '')
         if (stage && isProvisionerEmpty(stage) && provisionerSnippet) {
-          stage.stage.spec.infrastructure.infrastructureDefinition.provisioner = provisionerSnippet.provisioner
-          debounceUpdatePipeline(pipeline).then(() => {
+          const stageData = produce(stage, draft => {
+            draft.stage.spec.infrastructure.infrastructureDefinition.provisioner = provisionerSnippet.provisioner
+          })
+          debounceUpdateStage(stageData.stage).then(() => {
             setProvisionerSnippetLoading(false)
           })
         }
@@ -248,8 +247,8 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     }
   }, [provisionerEnabled])
 
-  const cleanUpEmptyProvisioner = (): boolean => {
-    const provisioner = stage?.stage?.spec?.infrastructure?.infrastructureDefinition?.provisioner
+  const cleanUpEmptyProvisioner = (stageData: StageElementWrapper | undefined): boolean => {
+    const provisioner = stageData?.stage?.spec?.infrastructure?.infrastructureDefinition?.provisioner
     let isChanged = false
 
     if (!isNil(provisioner?.steps) && provisioner?.steps.length === 0) {
@@ -264,9 +263,9 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     if (
       !provisioner?.steps &&
       !provisioner?.rollbackSteps &&
-      stage?.stage?.spec?.infrastructure?.infrastructureDefinition?.provisioner
+      stageData?.stage?.spec?.infrastructure?.infrastructureDefinition?.provisioner
     ) {
-      delete stage.stage.spec.infrastructure.infrastructureDefinition.provisioner
+      delete stageData.stage.spec.infrastructure.infrastructureDefinition.provisioner
       isChanged = true
     }
 
@@ -277,10 +276,13 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     setProvisionerEnabled(!isProvisionerEmpty(stage || {}))
 
     return () => {
-      const isChanged = cleanUpEmptyProvisioner()
+      let isChanged
+      const stageData = produce(stage, draft => {
+        isChanged = cleanUpEmptyProvisioner(draft)
+      })
 
       if (isChanged) {
-        debounceUpdatePipeline(pipeline)
+        debounceUpdateStage(stageData?.stage)
       }
     }
   }, [])
@@ -358,7 +360,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         return (
           <StepWidget<K8SDirectInfrastructure>
             factory={factory}
-            key={updateKey}
+            key={stage?.stage.identifier}
             readonly={isReadonly}
             initialValues={initialInfrastructureDefinitionValues}
             type={StepType.KubernetesDirect}
@@ -382,7 +384,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         return (
           <StepWidget<GcpInfrastructureSpec>
             factory={factory}
-            key={updateKey}
+            key={stage?.stage.identifier}
             readonly={isReadonly}
             initialValues={initialInfrastructureDefinitionValues as GcpInfrastructureSpec}
             type={StepType.KubernetesGcp}
@@ -422,15 +424,17 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
               readonly={isReadonly}
               initialValues={get(stage, 'stage.spec.infrastructure', {})}
               onUpdate={(value: PipelineInfrastructure) => {
-                const infraObj: PipelineInfrastructure = get(stage, 'stage.spec.infrastructure', {})
-                if (value.environment) {
-                  infraObj.environment = value.environment
-                  delete infraObj.environmentRef
-                } else if (value.environmentRef) {
-                  infraObj.environmentRef = value.environmentRef
-                  delete infraObj.environment
-                }
-                debounceUpdatePipeline(pipeline)
+                const stageData = produce(stage, draft => {
+                  const infraObj: PipelineInfrastructure = get(draft, 'stage.spec.infrastructure', {})
+                  if (value.environment) {
+                    infraObj.environment = value.environment
+                    delete infraObj.environmentRef
+                  } else if (value.environmentRef) {
+                    infraObj.environmentRef = value.environmentRef
+                    delete infraObj.environment
+                  }
+                })
+                debounceUpdateStage(stageData?.stage)
               }}
               factory={factory}
               stepViewType={StepViewType.Edit}
@@ -464,10 +468,12 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                   stepViewType={StepViewType.Edit}
                   onUpdate={(value: InfraProvisioningData) => {
                     if (stage) {
-                      stage.stage.spec.infrastructure.infrastructureDefinition.provisioner = value.provisioner
-                      cleanUpEmptyProvisioner()
+                      const stageData = produce(stage, draft => {
+                        set(draft, 'stage.spec.infrastructure.infrastructureDefinition.provisioner', value.provisioner)
+                        cleanUpEmptyProvisioner(draft)
+                      })
+                      debounceUpdateStage(stageData.stage)
                     }
-                    debounceUpdatePipeline(pipeline)
                     setProvisionerEnabled(value.provisionerEnabled)
                   }}
                 />

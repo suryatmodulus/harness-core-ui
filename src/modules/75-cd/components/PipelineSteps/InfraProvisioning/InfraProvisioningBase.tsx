@@ -72,16 +72,18 @@ export const InfraProvisioningBase = (
               label={getString('pipelineSteps.deploy.provisioner.enableProvisionerLabel')}
               onChange={(event: React.FormEvent<HTMLInputElement>) => {
                 if (!event.currentTarget.checked) {
-                  // setShowDialog(false)
                   formik.values.provisioner.stage.spec.execution = { steps: [], rollbackSteps: [] }
+                  formik.setFieldValue('provisioner', formik.values.provisioner)
+                  onUpdate?.({
+                    provisioner: formik.values.provisioner.stage.spec.execution,
+                    provisionerEnabled: event.currentTarget.checked
+                  })
                 } else {
                   showModal({
                     provisioner: formik.values.provisioner.stage.spec.execution,
                     provisionerEnabled: true
                   })
                 }
-
-                formik.setFieldValue('provisioner', formik.values.provisioner)
               }}
             />
             {formik.values.provisionerSnippetLoading ? (

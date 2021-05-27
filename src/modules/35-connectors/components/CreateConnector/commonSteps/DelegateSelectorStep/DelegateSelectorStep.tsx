@@ -220,17 +220,20 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
         {getString('delegate.DelegateselectionLabel')}
       </Text>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      {creating || updating ? (
-        <PageSpinner
-          message={
-            isGitSyncEnabled
-              ? isSyncingToGitViaManager
-                ? getString('common.submittingRequest')
-                : getString('common.submittingRequestToGitViaDelegate')
-              : getString('common.loading')
-          }
-        />
-      ) : (
+      <>
+        {creating || updating ? (
+          <PageSpinner
+            message={
+              isGitSyncEnabled
+                ? isSyncingToGitViaManager
+                  ? getString('common.submittingRequest')
+                  : getString('common.submittingRequestToGitViaDelegate')
+                : getString('common.loading')
+            }
+          />
+        ) : (
+          <></>
+        )}
         <Formik
           initialValues={{
             ...initialValues,
@@ -312,7 +315,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
             </Layout.Horizontal>
           </Form>
         </Formik>
-      )}
+      </>
     </Layout.Vertical>
   )
 }

@@ -227,6 +227,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   readonly,
   stageIdentifier
 }) => {
+  console.log(formik.values, 'val')
   const deploymentStageInputSet = get(formik?.values, path, {})
   const { getString } = useStrings()
   const isPropagating = deploymentStage?.serviceConfig?.useFromStage
@@ -355,7 +356,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 stepsTemplate={deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.steps}
                 path={`${path}.infrastructure.infrastructureDefinition.provisioner.steps`}
                 allValues={deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.steps}
-                values={deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.steps}
+                values={deploymentStageInputSet.infrastructure.infrastructureDefinition?.provisioner?.steps}
                 formik={formik}
                 readonly={readonly}
               />
@@ -367,7 +368,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 }
                 path={`${path}.infrastructure.infrastructureDefinition.provisioner.rollbackSteps`}
                 allValues={deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.rollbackSteps}
-                values={deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.rollbackSteps}
+                values={deploymentStageInputSet.infrastructure.infrastructureDefinition?.provisioner?.rollbackSteps}
                 formik={formik}
                 readonly={readonly}
               />

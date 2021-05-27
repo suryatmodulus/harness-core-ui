@@ -1,10 +1,9 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { get, set } from 'lodash-es'
+import { get } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-
+import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import type { TerraformProps } from '../TerraformInterfaces'
 
 export default function ConfigSection(props: TerraformProps): React.ReactElement {
@@ -70,7 +69,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       {getMultiTypeFromValue(
         inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
       ) === MultiTypeInputType.RUNTIME && (
-        <ConnectorReferenceField
+        <FormConnectorReferenceField
           accountIdentifier={accountId}
           selected={get(initialValues, 'spec.configuration.spec.configFiles.store.spec.connectorRef', '')}
           projectIdentifier={projectIdentifier}
@@ -81,12 +80,6 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
           label={getString('connectors.title.gitConnector')}
           placeholder={getString('select')}
           disabled={readonly}
-          onChange={record => {
-            set(initialValues, 'spec.configuration.spec.configFiles.store.spec.connectorRef', record?.identifier)
-            props.onUpdate?.({
-              ...initialValues
-            })
-          }}
         />
       )}
 

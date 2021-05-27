@@ -1,15 +1,12 @@
 import React from 'react'
 
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput, FormikForm, Text, Button } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
-import { get } from 'lodash-es'
 import Map from '@common/components/Map/Map'
 import List from '@common/components/List/List'
 
 import { useStrings } from 'framework/strings'
 
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 
 import { TerraformProps, TerraformStoreTypes } from './TerraformInterfaces'
 import ConfigInputs from './InputSteps/ConfigSection'
@@ -17,11 +14,6 @@ import ConfigInputs from './InputSteps/ConfigSection'
 export default function TerraformInputStep(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
   const { inputSetData, readonly, path } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
 
   return (
     <FormikForm>
@@ -40,22 +32,6 @@ export default function TerraformInputStep(props: TerraformProps): React.ReactEl
         />
       )}
 
-      {getMultiTypeFromValue(
-        inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-      ) === MultiTypeInputType.RUNTIME && (
-        <ConnectorReferenceField
-          accountIdentifier={accountId}
-          selected={get(props.initialValues, 'spec.configuration.spec.configFiles.store.spec.connectorRef', '')}
-          projectIdentifier={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          width={400}
-          type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
-          name={`${path}.spec.configuration.spec.configFiles.store.spec.connectorRef`}
-          label={getString('connectors.title.gitConnector')}
-          placeholder={getString('select')}
-          disabled={readonly}
-        />
-      )}
       <ConfigInputs {...props} />
       <label>Var Files</label>
       {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.map((varFile: any, index) => {

@@ -3,13 +3,13 @@ import { Text, Layout, Button, Popover, Avatar } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Tag } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { Invite, useDeleteInvite, useGetPendingUsersAggregated } from 'services/cd-ng'
+import { Invite, useDeleteInvite, useGetPendingUsersAggregated, useUpdateInvite } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog, useToaster, Page } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useMutateAsGet } from '@common/hooks'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
@@ -78,7 +78,9 @@ const RenderColumnEmail: Renderer<CellProps<Invite>> = ({ row }) => {
 
 const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
   const data = row.original
+  const { accountId } = useParams<AccountPathProps>()
   const [menuOpen, setMenuOpen] = useState(false)
+  const { mutate: updateInvite } = useUpdateInvite({ inviteId: data.id, queryParams: { accountIdentifier: accountId } })
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
   const { mutate: deleteUser } = useDeleteInvite({})
@@ -100,6 +102,20 @@ const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
       }
     }
   })
+
+  const handleResend = async (e: React.MouseEvent<HTMLElement, MouseEvent>): Promise<void> => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    try {
+      const updated = await updateInvite(data, { pathParams: { inviteId: data.id } })
+      if (updated) {
+        ;(column as any).refetchPendingUsers?.()
+        showSuccess(getString('rbac.usersPage.resendInviteSuccess', { name: data.email }))
+      }
+    } catch (err) {
+      showError(err.data?.message || err.message)
+    }
+  }
 
   const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
@@ -127,6 +143,18 @@ const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
           }}
         />
         <Menu>
+          <RbacMenuItem
+            icon="reset"
+            text={getString('rbac.usersPage.resendInvite')}
+            onClick={handleResend}
+            permission={{
+              resource: {
+                resourceType: ResourceType.USER,
+                resourceIdentifier: data.id
+              },
+              permission: PermissionIdentifier.INVITE_USER
+            }}
+          />
           <RbacMenuItem
             icon="trash"
             text={getString('delete')}
@@ -221,7 +249,7 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
   return (
     <Page.Body
       loading={loading}
-      error={error?.message}
+      error={(error as any)?.data?.message || error?.message}
       retryOnError={() => refetch()}
       noData={
         !searchTerm

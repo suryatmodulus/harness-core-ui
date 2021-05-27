@@ -46,8 +46,9 @@ roleAssignment:
 usersPage:
   search: Search by Name or Email
   roleBinding: Role Binding (Role - Resource Group)
-  pendingInvitation: '{{$.common.pendingInvitation}'
+  pendingInvitation: '{{ $.common.pendingInvitation }}'
   forUser: For User
+  resendInvite: Resend Invite
   assignRoles: Assign Roles
   noDataText: There are no roles assigned to this User, Click on Add to start assigning roles
   selectRole: Select a role
@@ -57,6 +58,7 @@ usersPage:
     role: Role is Required
   roleAssignSuccess: Role Assignments updated succesfully
   invitationSuccess: Invitation sent succesfully
+  resendInviteSuccess: Invitation has been resent to the user '{{name}}'
   invitationError: Could not Invite this user
   deleteConfirmation: Are you sure you want to delete the User '{{name}}'?
   deleteTitle: Delete User

@@ -237,10 +237,11 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
     ],
     [openRoleAssignmentModal, refetch]
   )
+
   return (
     <Page.Body
       loading={loading}
-      error={error?.message}
+      error={(error as any)?.data?.message || error?.message}
       retryOnError={() => refetch()}
       noData={
         !searchTerm

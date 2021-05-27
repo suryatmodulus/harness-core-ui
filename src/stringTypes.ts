@@ -407,6 +407,8 @@ export interface StringsMap {
   'rbac.usersPage.noDataText': string
   'rbac.usersPage.noUsersFound': string
   'rbac.usersPage.pendingInvitation': string
+  'rbac.usersPage.resendInvite': string
+  'rbac.usersPage.resendInviteSuccess': string
   'rbac.usersPage.roleAssignSuccess': string
   'rbac.usersPage.roleBinding': string
   'rbac.usersPage.search': string

@@ -5325,10 +5325,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.configurationFile': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.configurationType': string
   /**
    * @deprecated migrate this string to module level file

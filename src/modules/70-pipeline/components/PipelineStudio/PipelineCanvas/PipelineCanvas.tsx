@@ -135,7 +135,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         projectIdentifier,
         orgIdentifier,
         ...(updatedGitDetails ?? {}),
-        ...(lastObject ?? {})
+        ...(lastObject ?? {}),
+        ...(updatedGitDetails && updatedGitDetails.isNewBranch ? { baseBranch: branch } : {})
       },
       latestPipeline,
       pipelineIdentifier !== DefaultNewPipelineId

@@ -144,6 +144,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   >()
   const { repoIdentifier, branch, inputSetRepoIdentifier, inputSetBranch } = useQueryParams<InputSetGitQueryParams>()
   const [savedInputSetObj, setSavedInputSetObj] = React.useState<InputSetDTO>({})
+  const [initialGitDetails, setInitialGitDetails] = React.useState<EntityGitDetails>({ repoIdentifier, branch })
   const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const history = useHistory()
   const { refetch: refetchTemplate, data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
@@ -345,7 +346,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             projectIdentifier,
             pipelineRepoID: repoIdentifier,
             pipelineBranch: branch,
-            ...(gitDetails ?? {})
+            ...(gitDetails ?? {}),
+            ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
           }
         })
       }
@@ -380,6 +382,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const handleSubmit = React.useCallback(
     async (inputSetObj: InputSetDTO, gitDetails?: EntityGitDetails) => {
       setSavedInputSetObj(omit(inputSetObj, 'repo', 'branch'))
+      setInitialGitDetails(gitDetails as EntityGitDetails)
       if (inputSetObj) {
         if (isGitSyncEnabled) {
           openSaveToGitDialog(isEdit, {

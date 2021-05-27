@@ -1,9 +1,24 @@
+$header-height: 80px;
+.pageheader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: $header-height;
+  background: var(--white);
+  border-bottom: 1px solid var(--grey-200);
+  padding: var(--spacing-medium) var(--spacing-large);
+
+  h2 {
+    margin: 0;
+  }
+}
+
 .separator {
   border-left: 1px solid var(--grey-400);
   height: 25px;
 }
 .table {
-  margin: var(--spacing-xlarge);
+  margin: var(--spacing-large);
 }
 
 .gitFilter {
@@ -134,7 +149,7 @@
 .gridView {
   height: calc(100% - 76px);
   background-color: var(--grey-50);
-  padding: 0 var(--spacing-xxlarge) !important;
+  padding: 0 var(--spacing-large) !important;
   .gridLayout {
     height: calc(100% - 64px);
     overflow: auto;

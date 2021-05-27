@@ -20,12 +20,11 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 
 import type { CommandFlags, HelmWithHTTPDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
-import { helmVersions } from '../../Manifesthelper'
+import { helmVersions, ManifestIdentifierValidation } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
@@ -34,6 +33,7 @@ interface HelmWithHttpPropType {
   expressions: string[]
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
+  manifestIdsList: Array<string>
 }
 
 const commandFlagOptionsV2 = [
@@ -51,7 +51,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
   expressions,
   initialValues,
   handleSubmit,
-  previousStep
+  previousStep,
+  manifestIdsList
 }) => {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
@@ -131,7 +132,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
               })
             })
           ),
-          ...IdentifierValidation()
+          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier'))
         })}
         onSubmit={formData => {
           submitFormData({

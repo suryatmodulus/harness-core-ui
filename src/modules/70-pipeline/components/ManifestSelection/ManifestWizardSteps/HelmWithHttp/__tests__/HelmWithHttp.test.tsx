@@ -6,7 +6,8 @@ import HelmWithHttp from '../HelmWithHttp'
 const props = {
   stepName: 'Manifest details',
   expressions: [],
-  handleSubmit: jest.fn()
+  handleSubmit: jest.fn(),
+  manifestIdsList: []
 }
 
 describe('helm with http tests', () => {

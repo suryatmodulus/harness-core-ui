@@ -27,7 +27,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { CommandFlags, HelmWithS3DataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
-import { helmVersions } from '../../Manifesthelper'
+import { helmVersions, ManifestIdentifierValidation } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
@@ -36,6 +36,7 @@ interface HelmWithHttpPropType {
   expressions: string[]
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
+  manifestIdsList: Array<string>
 }
 
 const commandFlagOptionsV2 = [
@@ -53,7 +54,8 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
   expressions,
   initialValues,
   handleSubmit,
-  previousStep
+  previousStep,
+  manifestIdsList
 }) => {
   const { getString } = useStrings()
   const [regions, setRegions] = React.useState<SelectOption[]>([])
@@ -156,10 +158,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
         formName="helmWithS3"
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
-          identifier: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex')),
+          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier')),
           folderPath: Yup.string().trim().required(getString('pipeline.manifestType.chartPathRequired')),
           chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),

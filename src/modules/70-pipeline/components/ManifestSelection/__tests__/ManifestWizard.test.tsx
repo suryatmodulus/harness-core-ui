@@ -168,7 +168,8 @@ describe('ManifestSelection tests', () => {
       stepName: 'Manifest Details Step',
       initialValues: (null as unknown) as ManifestConfig,
       handleSubmit: jest.fn(),
-      selectedManifest: 'K8sManifest'
+      selectedManifest: 'K8sManifest',
+      manifestIdsList: []
     }
     const { container } = render(
       <TestWrapper>
@@ -205,6 +206,7 @@ describe('ManifestSelection tests', () => {
       name: 'Manifest Details',
       expressions: [''],
       stepName: 'Manifest Details Step',
+      manifestIdsList: [],
       initialValues: {
         identifier: 'id',
         type: 'K8sManifest',

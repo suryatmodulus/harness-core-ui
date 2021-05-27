@@ -20,11 +20,10 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { StringUtils } from '@common/exports'
 import type { CommandFlags, HelmWithGcsDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
-import { helmVersions } from '../../Manifesthelper'
+import { helmVersions, ManifestIdentifierValidation } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
@@ -33,6 +32,7 @@ interface HelmWithGcsPropType {
   expressions: string[]
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
+  manifestIdsList: Array<string>
 }
 
 const commandFlagOptionsV2 = [
@@ -50,7 +50,8 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
   expressions,
   initialValues,
   handleSubmit,
-  previousStep
+  previousStep,
+  manifestIdsList
 }) => {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
@@ -124,11 +125,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
         initialValues={getInitialValues()}
         formName="helmWithGcs"
         validationSchema={Yup.object().shape({
-          identifier: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-            .notOneOf(StringUtils.illegalIdentifiers),
+          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier')),
           chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
           commandFlags: Yup.array().of(

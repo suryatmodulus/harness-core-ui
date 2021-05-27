@@ -1,7 +1,11 @@
+import * as Yup from 'yup'
 import type { IconName } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { StringKeys } from 'framework/strings'
+import { useStrings } from 'framework/strings'
+import { StringUtils } from '@common/exports'
+
 import type { HelmVersionOptions, ManifestStores, ManifestTypes } from './ManifestInterface'
 
 export const ManifestDataType: { [key: string]: ManifestTypes } = {
@@ -100,3 +104,19 @@ export const gitFetchTypeList = [
   { label: 'Latest from Branch', value: 'Branch' },
   { label: 'Specific Commit ID', value: 'Commit' }
 ]
+
+export const ManifestIdentifierValidation = (
+  manifestIdentifiers: Array<string>,
+  validationMsg: string
+): { identifier: Yup.Schema<unknown> } => {
+  const { getString } = useStrings()
+
+  return {
+    identifier: Yup.string()
+      .trim()
+      .required(getString('validation.identifierRequired'))
+      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+      .notOneOf(StringUtils.illegalIdentifiers)
+      .notOneOf(manifestIdentifiers, validationMsg)
+  }
+}

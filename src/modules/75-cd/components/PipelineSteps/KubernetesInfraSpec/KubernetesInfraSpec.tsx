@@ -99,7 +99,6 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
-  const onMountRef = React.useRef<boolean>(false)
   const validationSchema = Yup.object().shape({
     connectorRef: Yup.string().required(getString?.('fieldRequired', { field: getString('connector') })),
     namespace: Yup.string()
@@ -143,10 +142,6 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
         onSubmit={noop}
       >
         {formik => {
-          if (!onMountRef.current) {
-            onMountRef.current = true
-            formik.setTouched({ connectorRef: true, namespace: true, releaseName: true })
-          }
           return (
             <FormikForm>
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>

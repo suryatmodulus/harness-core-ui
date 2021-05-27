@@ -63,7 +63,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const { getString } = useStrings()
 
   const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store || initialValues.store)
-  const newConnectorLabel = `${getString('newLabel')} ${ManifestToConnectorMap[selectedManifest]} ${getString(
+  const newConnectorLabel = `${getString('newLabel')} ${ManifestToConnectorLabelMap[selectedManifest]} ${getString(
     'connector'
   )}`
 

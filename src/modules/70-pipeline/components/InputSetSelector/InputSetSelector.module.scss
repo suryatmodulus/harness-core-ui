@@ -20,6 +20,8 @@
     color: var(--grey-400);
     cursor: pointer;
     visibility: hidden;
+    padding-left: 8px;
+    padding-right: 8px;
 
     &:hover {
       background-color: var(--blue-100);

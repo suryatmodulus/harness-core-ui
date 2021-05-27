@@ -23,7 +23,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useQueryParams } from '@common/hooks'
 import { ArtifactConnectorLabelMap, ArtifactToConnectorMap } from '../ArtifactHelper'
-import type { ArtifactType, ConnectorDataType } from '../ArtifactInterface'
+import type { ArtifactType, InitialArtifactDataType } from '../ArtifactInterface'
 
 import css from './ArtifactConnector.module.scss'
 interface ArtifactConnectorProps {
@@ -32,7 +32,7 @@ interface ArtifactConnectorProps {
   expressions: string[]
   stepName: string
   isReadonly: boolean
-  initialValues: ConnectorDataType
+  initialValues: InitialArtifactDataType
   selectedArtifact: ArtifactType
 }
 
@@ -75,8 +75,8 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
   const submitFirstStep = async (formData: any): Promise<void> => {
     nextStep?.({ ...formData })
   }
-  const getInitialValues = useCallback((): ConnectorDataType => {
-    if (prevStepData?.connectorId) {
+  const getInitialValues = useCallback((): InitialArtifactDataType => {
+    if (prevStepData?.connectorId !== undefined) {
       set(initialValues, 'connectorId', prevStepData?.connectorId)
     }
     return initialValues

@@ -283,7 +283,8 @@ const ManifestListView = ({
       stepName: getString('pipeline.manifestType.manifestDetails'),
       initialValues: getLastStepInitialData(),
       handleSubmit: handleSubmit,
-      selectedManifest
+      selectedManifest,
+      manifestIdsList: listOfManifests.map((item: ManifestConfigWrapper) => item.manifest?.identifier)
     }
   }
 
@@ -598,7 +599,6 @@ const ManifestListView = ({
       selectedManifest === ManifestDataType.HelmChart
         ? [...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]
         : manifestStoreTypes
-
     return (
       <Dialog onClose={onClose} {...DIALOG_PROPS} className={cx(css.modal, Classes.DIALOG)}>
         <div className={css.createConnectorWizard}>

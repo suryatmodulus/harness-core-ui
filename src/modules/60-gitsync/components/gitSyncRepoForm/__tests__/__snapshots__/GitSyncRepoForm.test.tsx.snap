@@ -239,7 +239,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
                   class="item"
                 >
                   <div
-                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-right-medium"
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main connectorInfo StyledProps--margin-right-small"
                   >
                     <span
                       class="bp3-icon StyledProps--main"
@@ -255,21 +255,25 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
                         />
                       </svg>
                     </span>
-                    <div>
+                    <div
+                      class="connectorNameId"
+                    >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
+                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
+                        style="--text-line-clamp: 1;"
                       >
                         ValidGitAccount
                       </p>
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-light StyledProps--color StyledProps--color-grey450"
+                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-light StyledProps--color StyledProps--color-grey450"
+                        style="--text-line-clamp: 1;"
                       >
                         ValidGitRepo
                       </p>
                     </div>
                   </div>
                   <div
-                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                   >
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--with-current-color Button--iconOnly Button--without-shadow"
@@ -340,7 +344,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
                   class="item"
                 >
                   <div
-                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-right-medium"
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main connectorInfo StyledProps--margin-right-small"
                   >
                     <span
                       class="bp3-icon StyledProps--main"
@@ -356,21 +360,25 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
                         />
                       </svg>
                     </span>
-                    <div>
+                    <div
+                      class="connectorNameId"
+                    >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
+                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
+                        style="--text-line-clamp: 1;"
                       >
                         ValidGithubRepo
                       </p>
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-light StyledProps--color StyledProps--color-grey450"
+                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-light StyledProps--color StyledProps--color-grey450"
+                        style="--text-line-clamp: 1;"
                       >
                         ValidGithubRepo
                       </p>
                     </div>
                   </div>
                   <div
-                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                   >
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--with-current-color Button--iconOnly Button--without-shadow"

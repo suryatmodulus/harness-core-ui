@@ -5,11 +5,28 @@
   .item {
     display: flex;
     align-items: center;
-    width: 60%;
+    width: 240px;
+    .connectorInfo {
+      max-width: 180px;
+      .connectorNameId {
+        max-width: 140px;
+        span {
+          max-width: 140px;
+        }
+      }
+    }
     .edit-btn {
       display: none !important;
     }
   }
+
+  .gitInfo {
+    width: 120px !important;
+    .gitText {
+      max-width: 100px;
+    }
+  }
+
   &:hover {
     .edit-btn {
       display: flex !important;

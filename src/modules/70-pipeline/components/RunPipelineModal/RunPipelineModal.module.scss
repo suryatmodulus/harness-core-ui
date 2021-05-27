@@ -149,7 +149,7 @@
   display: flex;
   justify-content: space-between !important;
   padding-left: var(--spacing-xlarge) !important;
-  padding-right: var(--spacing-xlarge) !important;
+  padding-right: var(--spacing-11) !important;
 }
 
 .run-modal-sub-heading {
@@ -163,7 +163,7 @@
 
 .run-modal-form-content {
   max-height: 65vh !important;
-  min-height: 145px;
+  min-height: 130px;
   overflow: scroll !important;
 }
 

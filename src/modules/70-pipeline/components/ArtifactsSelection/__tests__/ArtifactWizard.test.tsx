@@ -2,7 +2,7 @@ import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import ConnectorRefSteps from '../ConnectorRefSteps/ConnectorRefSteps'
-import type { ConnectorDataType, TagTypes } from '../ArtifactInterface'
+import type { InitialArtifactDataType, TagTypes } from '../ArtifactInterface'
 import { ImagePath } from '../ArtifactRepository/ArtifactLastSteps/ImagePath/ImagePath'
 import connectorsData from './connectors_mock.json'
 
@@ -23,7 +23,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
       <TestWrapper>
         <ConnectorRefSteps
           handleViewChange={jest.fn()}
-          connectorData={{} as ConnectorDataType}
+          artifactInitialValue={{} as InitialArtifactDataType}
           types={[]}
           expressions={[]}
           isReadonly={false}
@@ -49,7 +49,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
       <TestWrapper>
         <ConnectorRefSteps
           handleViewChange={jest.fn()}
-          connectorData={initialValues as ConnectorDataType}
+          artifactInitialValue={initialValues as InitialArtifactDataType}
           types={[]}
           expressions={[]}
           isReadonly={false}
@@ -75,7 +75,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
       <TestWrapper>
         <ConnectorRefSteps
           handleViewChange={jest.fn()}
-          connectorData={initialValues as ConnectorDataType}
+          artifactInitialValue={initialValues as InitialArtifactDataType}
           types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
           isReadonly={false}
@@ -101,7 +101,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
       <TestWrapper>
         <ConnectorRefSteps
           handleViewChange={jest.fn()}
-          connectorData={initialValues as ConnectorDataType}
+          artifactInitialValue={initialValues as InitialArtifactDataType}
           types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
           isReadonly={false}
@@ -164,7 +164,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
       <TestWrapper>
         <ConnectorRefSteps
           handleViewChange={jest.fn()}
-          connectorData={initialValues as ConnectorDataType}
+          artifactInitialValue={initialValues as InitialArtifactDataType}
           types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
           isReadonly={false}

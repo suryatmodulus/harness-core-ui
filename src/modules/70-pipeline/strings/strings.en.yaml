@@ -462,3 +462,4 @@ testsReports:
   resultLabel: Testcase Execution Result
   resultInfo: Heat Map showing a graphical over of the test results
   sortBy: 'Sort by:'
+uniqueIdentifier: Identifier must be unique

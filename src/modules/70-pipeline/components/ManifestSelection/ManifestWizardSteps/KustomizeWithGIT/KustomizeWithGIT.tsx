@@ -17,7 +17,6 @@ import { Form } from 'formik'
 import * as Yup from 'yup'
 import { get, isEmpty, set } from 'lodash-es'
 import { Tooltip } from '@blueprintjs/core'
-import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { useStrings } from 'framework/strings'
@@ -26,7 +25,13 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import type { KustomizeWithGITDataType } from '../../ManifestInterface'
-import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
+import {
+  gitFetchTypeList,
+  GitFetchTypes,
+  GitRepoName,
+  ManifestIdentifierValidation,
+  ManifestStoreMap
+} from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
@@ -36,6 +41,7 @@ interface KustomizeWithGITPropType {
   expressions: string[]
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
+  manifestIdsList: Array<string>
 }
 
 const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGITPropType> = ({
@@ -44,7 +50,8 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
   handleSubmit,
   expressions,
   prevStepData,
-  previousStep
+  previousStep,
+  manifestIdsList
 }) => {
   const { getString } = useStrings()
 
@@ -162,11 +169,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
         initialValues={getInitialValues()}
         formName="kustomizeGit"
         validationSchema={Yup.object().shape({
-          identifier: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-            .notOneOf(StringUtils.illegalIdentifiers),
+          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier')),
           folderPath: Yup.string().trim().required(getString('pipeline.manifestType.kustomizePathRequired')),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',

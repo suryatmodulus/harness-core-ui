@@ -7,6 +7,16 @@ exports[`Resources Page render 1`] = `
   >
     <a
       class="link"
+      href="/account/dummy/admin/authentication"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        authentication
+      </p>
+    </a>
+    <a
+      class="link"
       href="/account/dummy/admin"
     >
       <p

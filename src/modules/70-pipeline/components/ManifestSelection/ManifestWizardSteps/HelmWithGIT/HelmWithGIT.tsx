@@ -17,7 +17,6 @@ import { Form } from 'formik'
 import * as Yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { get, isEmpty, set } from 'lodash-es'
-import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { useStrings } from 'framework/strings'
@@ -26,7 +25,14 @@ import { getScopeFromValue } from '@common/components/EntityReference/EntityRefe
 import { Scope } from '@common/interfaces/SecretsInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 import type { CommandFlags, HelmWithGITDataType } from '../../ManifestInterface'
-import { gitFetchTypeList, GitFetchTypes, GitRepoName, helmVersions, ManifestStoreMap } from '../../Manifesthelper'
+import {
+  gitFetchTypeList,
+  GitFetchTypes,
+  GitRepoName,
+  helmVersions,
+  ManifestIdentifierValidation,
+  ManifestStoreMap
+} from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
@@ -37,6 +43,7 @@ interface HelmWithGITPropType {
   expressions: string[]
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
+  manifestIdsList: Array<string>
 }
 
 const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType> = ({
@@ -45,7 +52,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   handleSubmit,
   expressions,
   prevStepData,
-  previousStep
+  previousStep,
+  manifestIdsList
 }) => {
   const { getString } = useStrings()
 
@@ -161,7 +169,6 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
 
     handleSubmit(manifestObj)
   }
-
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
       <Text font="large" color={Color.GREY_800}>
@@ -171,11 +178,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         initialValues={getInitialValues()}
         formName="helmWithGit"
         validationSchema={Yup.object().shape({
-          identifier: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-            .notOneOf(StringUtils.illegalIdentifiers),
+          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier')),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',
             then: Yup.string().trim().required(getString('validation.branchName'))

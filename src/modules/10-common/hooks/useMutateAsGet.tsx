@@ -3,7 +3,7 @@ import type { UseMutateProps, UseMutateReturn, MutateMethod } from 'restful-reac
 import { useState, useCallback, useEffect, Dispatch, SetStateAction } from 'react'
 // eslint-disable-next-line no-restricted-imports
 import type { Cancelable, DebounceSettings } from 'lodash' // only type imports
-import { debounce } from 'lodash-es'
+import { debounce, identity } from 'lodash-es'
 
 import { shouldShowError } from '../utils/errorUtils'
 import { useDeepCompareEffect } from './useDeepCompareEffect'
@@ -97,7 +97,9 @@ export function useMutateAsGet<
   useDeepCompareEffect(() => {
     if (!props.lazy && !props.mock) {
       try {
-        fetchData(mutate, props, setInitLoading, setData)
+        fetchData(mutate, props, setInitLoading, setData).then(identity, e => {
+          if (shouldShowError(e)) setError(e)
+        })
       } catch (e) {
         if (shouldShowError(e)) {
           setError(e)

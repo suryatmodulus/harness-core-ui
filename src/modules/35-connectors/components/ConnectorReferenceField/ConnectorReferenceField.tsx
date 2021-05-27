@@ -178,16 +178,18 @@ const RecordRender: React.FC<RecordRenderProps> = props => {
   return (
     <>
       <div className={css.item}>
-        <Layout.Horizontal spacing="small" margin={{ right: 'medium' }}>
+        <Layout.Horizontal spacing="small" margin={{ right: 'small' }} className={css.connectorInfo}>
           <Icon name={getIconByType(item.record.type)} size={30}></Icon>
-          <div>
-            <Text font={{ weight: 'bold' }}>{item.record.name}</Text>
-            <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+          <div className={css.connectorNameId}>
+            <Text lineClamp={1} font={{ weight: 'bold' }}>
+              {item.record.name}
+            </Text>
+            <Text lineClamp={1} font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
               {item.identifier}
             </Text>
           </div>
         </Layout.Horizontal>
-        <Layout.Horizontal spacing="small">
+        <Layout.Horizontal spacing="xsmall">
           {canUpdate && !item.record.harnessManaged ? (
             <Button
               minimal
@@ -213,16 +215,26 @@ const RecordRender: React.FC<RecordRenderProps> = props => {
         </Layout.Horizontal>
       </div>
       {item.record.gitDetails?.repoIdentifier && (
-        <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
+        <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small" className={css.gitInfo}>
           <Layout.Horizontal spacing="xsmall">
             <Icon name="repository" size={12}></Icon>
-            <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+            <Text
+              lineClamp={1}
+              font={{ size: 'small', weight: 'light' }}
+              color={Color.GREY_450}
+              className={css.gitText}
+            >
               {item.record.gitDetails.repoIdentifier}
             </Text>
           </Layout.Horizontal>
           <Layout.Horizontal spacing="xsmall">
             <Icon size={12} name="git-new-branch"></Icon>
-            <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+            <Text
+              lineClamp={1}
+              font={{ size: 'small', weight: 'light' }}
+              color={Color.GREY_450}
+              className={css.gitText}
+            >
               {item.record.gitDetails.branch}
             </Text>
           </Layout.Horizontal>

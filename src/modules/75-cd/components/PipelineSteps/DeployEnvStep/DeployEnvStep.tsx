@@ -207,7 +207,6 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
     isEdit: false,
     data: { name: '', identifier: '', type: 'PreProduction' }
   })
-  const onMountRef = React.useRef<boolean>(false)
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -327,11 +326,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           environmentRef: Yup.string().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
         })}
       >
-        {({ values, setFieldValue, setFieldTouched }) => {
-          if (!onMountRef.current) {
-            onMountRef.current = true
-            isEmpty(values.environmentRef) && setFieldTouched('environmentRef')
-          }
+        {({ values, setFieldValue }) => {
           return (
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <FormInput.MultiTypeInput

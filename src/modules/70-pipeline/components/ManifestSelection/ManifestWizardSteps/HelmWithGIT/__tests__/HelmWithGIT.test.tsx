@@ -6,7 +6,8 @@ import HelmWithGIT from '../HelmWithGIT'
 const props = {
   stepName: 'Manifest details',
   expressions: [],
-  handleSubmit: jest.fn()
+  handleSubmit: jest.fn(),
+  manifestIdsList: []
 }
 describe('helm with GIT tests', () => {
   test(`renders without crashing`, () => {

@@ -11,12 +11,10 @@ import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 export default function AccountSettingsSideNav(): React.ReactElement {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const { NG_AUTH_SETTINGS, NG_RBAC_ENABLED } = useFeatureFlags()
+  const { NG_RBAC_ENABLED } = useFeatureFlags()
   return (
     <Layout.Vertical spacing="small">
-      {NG_AUTH_SETTINGS && (
-        <SidebarLink label={getString('authentication')} to={routes.toAuthenticationSettings({ accountId })} />
-      )}
+      <SidebarLink label={getString('authentication')} to={routes.toAuthenticationSettings({ accountId })} />
       <SidebarLink exact label="Overview" to={routes.toAdmin({ accountId })} />
       <SidebarLink label="Resources" to={routes.toResources({ accountId })} />
       {/* TODO: ENABLE WHEN READY */}

@@ -159,7 +159,6 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
 
   const { expressions } = useVariablesExpression()
 
-  const onMountRef = React.useRef<boolean>(false)
   const [services, setService] = React.useState<SelectOption[]>([])
   const [state, setState] = React.useState<DeployServiceState>({ isEdit: false, data: { name: '', identifier: '' } })
   const [showModal, hideModal] = useModalHook(
@@ -275,11 +274,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           serviceRef: Yup.string().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
         })}
       >
-        {({ values, setFieldValue, setFieldTouched }) => {
-          if (!onMountRef.current) {
-            onMountRef.current = true
-            isEmpty(values.serviceRef) && setFieldTouched('serviceRef')
-          }
+        {({ values, setFieldValue }) => {
           return (
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <FormInput.MultiTypeInput

@@ -1335,6 +1335,7 @@ export interface StringsMap {
   'pipeline.triggers.validation.payloadConditions': string
   'pipeline.triggers.validation.repoName': string
   'pipeline.triggers.validation.triggerName': string
+  'pipeline.uniqueIdentifier': string
   'pipeline.verificationResult': string
   'cd.allowSimultaneousDeployments': string
   'cd.cdTrialHomePage.startTrial.description': string

@@ -6,7 +6,8 @@ import OpenShiftTemplateWithGit from '../OSTemplateWithGit'
 const props = {
   stepName: 'Manifest details',
   expressions: [],
-  handleSubmit: jest.fn()
+  handleSubmit: jest.fn(),
+  manifestIdsList: []
 }
 describe('Open shift template with git tests', () => {
   test(`renders without crashing`, () => {

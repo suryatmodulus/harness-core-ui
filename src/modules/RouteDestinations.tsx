@@ -20,20 +20,12 @@ import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 
 export default function RouteDestinations(): React.ReactElement {
-  const {
-    CDNG_ENABLED,
-    CVNG_ENABLED,
-    CING_ENABLED,
-    CENG_ENABLED,
-    CFNG_ENABLED,
-    NG_RBAC_ENABLED,
-    NG_AUTH_SETTINGS
-  } = useFeatureFlags()
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_RBAC_ENABLED } = useFeatureFlags()
 
   return (
     <Switch>
       {...commonRoutes.props.children}
-      {...NG_AUTH_SETTINGS ? authSettingsRoutes.props.children : []}
+      {...authSettingsRoutes.props.children}
       {...secretsRoutes.props.children}
       {...NG_RBAC_ENABLED ? rbacRoutes.props.children : []}
       {...delegatesRoutes.props.children}

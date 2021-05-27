@@ -18,7 +18,6 @@ import * as Yup from 'yup'
 import { Tooltip } from '@blueprintjs/core'
 
 import { get, isEmpty, set } from 'lodash-es'
-import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { useStrings } from 'framework/strings'
@@ -26,7 +25,13 @@ import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from '
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import type { OpenShiftTemplateGITDataType } from '../../ManifestInterface'
-import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
+import {
+  gitFetchTypeList,
+  GitFetchTypes,
+  GitRepoName,
+  ManifestIdentifierValidation,
+  ManifestStoreMap
+} from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OSTemplateWithGit.module.scss'
@@ -37,6 +42,7 @@ interface OpenshiftTemplateWithGITPropType {
   expressions: string[]
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
+  manifestIdsList: Array<string>
 }
 
 const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftTemplateWithGITPropType> = ({
@@ -45,7 +51,8 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
   handleSubmit,
   expressions,
   prevStepData,
-  previousStep
+  previousStep,
+  manifestIdsList
 }) => {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
@@ -155,11 +162,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
         initialValues={getInitialValues()}
         formName="osTemplateWithGit"
         validationSchema={Yup.object().shape({
-          identifier: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-            .notOneOf(StringUtils.illegalIdentifiers),
+          ...ManifestIdentifierValidation(manifestIdsList, getString('validation.commitId')),
           path: Yup.string().trim().required(getString('pipeline.manifestType.osTemplatePathRequired')),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',

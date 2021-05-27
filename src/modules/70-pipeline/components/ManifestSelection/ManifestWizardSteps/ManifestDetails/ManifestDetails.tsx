@@ -18,7 +18,6 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Tooltip } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { get, set, isEmpty } from 'lodash-es'
-import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -29,7 +28,14 @@ import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from '
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ManifestDetailDataType } from '../../ManifestInterface'
-import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../../Manifesthelper'
+import {
+  gitFetchTypeList,
+  GitFetchTypes,
+  GitRepoName,
+  ManifestDataType,
+  ManifestIdentifierValidation,
+  ManifestStoreMap
+} from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -39,6 +45,7 @@ interface ManifestDetailsPropType {
   initialValues: ManifestConfig
   selectedManifest: string
   handleSubmit: (data: ManifestConfigWrapper) => void
+  manifestIdsList: Array<string>
 }
 
 const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsPropType> = ({
@@ -48,7 +55,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   initialValues,
   handleSubmit,
   prevStepData,
-  previousStep
+  previousStep,
+  manifestIdsList
 }) => {
   const { getString } = useStrings()
 
@@ -207,11 +215,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         initialValues={getInitialValues()}
         formName="manifestDetails"
         validationSchema={Yup.object().shape({
-          identifier: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-            .notOneOf(StringUtils.illegalIdentifiers),
+          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier')),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',
             then: Yup.string().trim().required(getString('validation.branchName'))

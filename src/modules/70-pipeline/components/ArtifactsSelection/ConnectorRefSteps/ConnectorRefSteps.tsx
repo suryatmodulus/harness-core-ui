@@ -5,7 +5,7 @@ import { String, useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ArtifactoryRepoType } from '../ArtifactRepository/ArtifactoryRepoType'
 import { ArtifactConnector } from '../ArtifactRepository/ArtifactConnector'
-import type { ConnectorDataType, ConnectorRefLabelType, ArtifactType } from '../ArtifactInterface'
+import type { InitialArtifactDataType, ConnectorRefLabelType, ArtifactType } from '../ArtifactInterface'
 import { ArtifactTitleIdByType } from '../ArtifactHelper'
 import css from './ConnectorRefSteps.module.scss'
 
@@ -16,7 +16,7 @@ interface StepChangeData<SharedObject> {
 }
 interface ConnectorRefStepsProps {
   handleViewChange: (isConnectorView: boolean) => void
-  connectorData: ConnectorDataType
+  artifactInitialValue: InitialArtifactDataType
   types: Array<ArtifactType>
   lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
   newConnectorSteps?: any
@@ -36,7 +36,7 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
   selectedArtifact,
   changeArtifactType,
   handleViewChange,
-  connectorData,
+  artifactInitialValue,
   newConnectorView,
   newConnectorSteps,
   lastSteps,
@@ -67,6 +67,7 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
         name={getString('connectors.artifactRepoType')}
         stepName={labels.firstStepName}
         selectedArtifact={selectedArtifact}
+        artifactInitialValue={artifactInitialValue}
         changeArtifactType={changeArtifactType}
       />
       <ArtifactConnector
@@ -75,7 +76,7 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
         expressions={expressions}
         isReadonly={isReadonly}
         handleViewChange={() => handleViewChange(true)}
-        initialValues={connectorData}
+        initialValues={artifactInitialValue}
         selectedArtifact={selectedArtifact}
       />
 

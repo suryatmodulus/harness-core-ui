@@ -6,7 +6,8 @@ import HelmWithS3 from '../HelmWithS3'
 const props = {
   stepName: 'Manifest details',
   expressions: [],
-  handleSubmit: jest.fn()
+  handleSubmit: jest.fn(),
+  manifestIdsList: []
 }
 
 const mockRegions = {

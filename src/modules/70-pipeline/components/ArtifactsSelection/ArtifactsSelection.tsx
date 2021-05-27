@@ -31,7 +31,7 @@ import { GCRImagePath } from './ArtifactRepository/ArtifactLastSteps/GCRImagePat
 import ArtifactListView, { ModalViewFor } from './ArtifactListView/ArtifactListView'
 import type {
   ArtifactsSelectionProps,
-  ConnectorDataType,
+  InitialArtifactDataType,
   ConnectorRefLabelType,
   ArtifactType,
   ImagePathProps
@@ -334,19 +334,23 @@ export default function ArtifactsSelection({
     }
   }
 
-  const getConnectorDataValues = (): ConnectorDataType => {
-    let spec
+  const getArtifactInitialValues = (): InitialArtifactDataType => {
+    let spec, artifactType
     if (context === ModalViewFor.PRIMARY) {
+      artifactType = primaryArtifact?.type
       spec = primaryArtifact?.spec
     } else {
+      artifactType = sideCarArtifact?.[sidecarIndex]?.sidecar.type
       spec = sideCarArtifact?.[sidecarIndex]?.sidecar.spec
     }
     if (!spec) {
       return {
+        submittedArtifact: selectedArtifact,
         connectorId: undefined
       }
     }
     return {
+      submittedArtifact: artifactType,
       connectorId: spec?.connectorRef
     }
   }
@@ -554,20 +558,21 @@ export default function ArtifactsSelection({
     return arr
   }
 
-  const changeArtifactType = (selected: ArtifactType): void => {
+  const changeArtifactType = useCallback((selected: ArtifactType): void => {
     setSelectedArtifact(selected)
-  }
-  const handleConnectorViewChange = (isConnectorView: boolean): void => {
+  }, [])
+
+  const handleConnectorViewChange = useCallback((isConnectorView: boolean): void => {
     setConnectorView(isConnectorView)
     setIsEditMode(false)
-  }
+  }, [])
 
   const { expressions } = useVariablesExpression()
   const renderExistingArtifact = (): JSX.Element => {
     return (
       <div>
         <ConnectorRefSteps
-          connectorData={getConnectorDataValues()}
+          artifactInitialValue={getArtifactInitialValues()}
           iconsProps={getIconProps()}
           types={allowedArtifactTypes}
           expressions={expressions}

@@ -1,6 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly pageheader: string
   readonly separator: string
   readonly table: string
   readonly gitFilter: string

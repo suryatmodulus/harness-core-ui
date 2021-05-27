@@ -38,7 +38,8 @@ export enum TagTypes {
   Value = 'value',
   Regex = 'regex'
 }
-export interface ConnectorDataType {
+export interface InitialArtifactDataType {
+  submittedArtifact?: ArtifactType
   connectorId: string | undefined | ConnectorSelectedValue
 }
 export interface ImagePathTypes {

@@ -16,7 +16,6 @@ import { Form } from 'formik'
 import * as Yup from 'yup'
 
 import { get, isEmpty, set } from 'lodash-es'
-import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings } from 'framework/strings'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
@@ -25,7 +24,13 @@ import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from '
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { OpenShiftParamDataType } from '../../ManifestInterface'
-import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
+import {
+  gitFetchTypeList,
+  GitFetchTypes,
+  GitRepoName,
+  ManifestIdentifierValidation,
+  ManifestStoreMap
+} from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OpenShiftParam.module.scss'
@@ -34,6 +39,7 @@ interface OpenshiftTemplateWithGITPropType {
   expressions: string[]
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
+  manifestIdsList: Array<string>
 }
 
 const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftTemplateWithGITPropType> = ({
@@ -42,7 +48,8 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
   handleSubmit,
   expressions,
   prevStepData,
-  previousStep
+  previousStep,
+  manifestIdsList
 }) => {
   const { getString } = useStrings()
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
@@ -151,11 +158,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
         initialValues={getInitialValues()}
         formName="osWithGit"
         validationSchema={Yup.object().shape({
-          identifier: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-            .notOneOf(StringUtils.illegalIdentifiers),
+          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier')),
 
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',

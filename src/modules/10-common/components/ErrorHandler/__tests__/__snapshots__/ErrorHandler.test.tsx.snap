@@ -21,6 +21,32 @@ exports[`<ErrorHandler /> tests should render ErrorHandler component 1`] = `
           </span>
         </div>
       </div>
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
+        >
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-red700 StyledProps--inline"
+          >
+            No connector found with identifier test35
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
+        >
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-red700 StyledProps--inline"
+          >
+            No connector found with identifier test35
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -25,7 +25,7 @@ const extractInfo = (
   let explanations: ResponseMessage[] = []
   let hints: ResponseMessage[] = []
   for (const message of responseMessages) {
-    if (message.level === 'ERROR') {
+    if (message.level) {
       errorObjects.push({
         error: message,
         explanations,

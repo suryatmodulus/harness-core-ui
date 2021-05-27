@@ -16,7 +16,7 @@ import { TFVarStore } from '../Common/Terraform/Editview/TFVarStore'
 
 import InlineVarFile from '../Common/Terraform/Editview/InlineVarFile'
 
-import css from './TerraformVarfile.module.scss'
+import css from '../Common/Terraform/Editview/TerraformVarfile.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 // import TFRemoteWizard from './TFRemoteWizard'

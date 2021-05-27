@@ -3,7 +3,7 @@ import { Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { TerraformPlanData, TerraformPlanVariableStepProps } from '../Common/Terraform/TerraformInterfaces'
-import { ConfigVariables } from './Variableview/ConfigSection'
+import { ConfigVariables } from './Variableview/TfPlanConfigSection'
 
 export function TerraformVariableStep(props: TerraformPlanVariableStepProps): React.ReactElement {
   const { variablesData = {} as TerraformPlanData, metadataMap, initialValues } = props

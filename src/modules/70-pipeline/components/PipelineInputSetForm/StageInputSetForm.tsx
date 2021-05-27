@@ -366,7 +366,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           id={`Stage.${stageIdentifier}.infrastructure.infrastructureDefinition?.provisioner`}
           className={cx(css.nopadLeft, css.accordionSummary)}
         >
-          <div className={css.inputheader}>infrasteps</div>
+          <div className={css.inputheader}>{getString('pipeline.provisionerSteps')}</div>
 
           <div className={css.nestedAccordions}>
             {deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.steps && (
@@ -374,7 +374,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 stepsTemplate={deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.steps}
                 path={`${path}.infrastructure.infrastructureDefinition.provisioner.steps`}
                 allValues={deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.steps}
-                values={deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.steps}
+                values={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.provisioner?.steps}
                 formik={formik}
                 readonly={readonly}
               />
@@ -386,7 +386,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 }
                 path={`${path}.infrastructure.infrastructureDefinition.provisioner.rollbackSteps`}
                 allValues={deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.rollbackSteps}
-                values={deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.rollbackSteps}
+                values={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.provisioner?.rollbackSteps}
                 formik={formik}
                 readonly={readonly}
               />

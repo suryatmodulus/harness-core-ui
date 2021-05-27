@@ -9,8 +9,9 @@ import { useStrings } from 'framework/strings'
 
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
-import { TerraformProps, TerraformStoreTypes } from './TerraformInterfaces'
+import type { TerraformProps } from './TerraformInterfaces'
 import ConfigInputs from './InputSteps/ConfigSection'
+import TfVarSection from './InputSteps/TfVarSection'
 
 export default function TerraformInputStep(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
@@ -32,60 +33,7 @@ export default function TerraformInputStep(props: TerraformProps): React.ReactEl
         />
       )}
       <ConfigInputs {...props} />
-      <label>Var Files</label>
-      {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.map((varFile: any, index) => {
-        if (varFile?.varFile?.type === TerraformStoreTypes.Inline) {
-          return (
-            <>
-              {getMultiTypeFromValue(varFile?.varFile?.identifier) === MultiTypeInputType.RUNTIME && (
-                <FormInput.Text
-                  name={`${path}.configuration?.spec?.varFiles[${index}].varFile.identifier`}
-                  label={getString('identifier')}
-                />
-              )}
-              {getMultiTypeFromValue(varFile?.varFile?.spec?.content) === MultiTypeInputType.RUNTIME && (
-                <FormInput.Text
-                  name={`${path}.configuration?.spec?.varFiles[${index}].varFile.spec.content`}
-                  label={getString('pipelineSteps.content')}
-                />
-              )}
-            </>
-          )
-        } else if (varFile.varFile?.type === TerraformStoreTypes.Remote) {
-          const remoteVarFile = varFile.varFile as any
-          return (
-            <>
-              {getMultiTypeFromValue(varFile?.varFile?.identifier) === MultiTypeInputType.RUNTIME && (
-                <FormInput.Text
-                  name={`${path}.configuration?.spec?.varFiles[${index}].varFile.identifier`}
-                  label={getString('identifier')}
-                />
-              )}
-
-              {getMultiTypeFromValue(remoteVarFile?.spec?.store?.spec?.branch) === MultiTypeInputType.RUNTIME && (
-                <FormInput.Text
-                  name={`${path}.configuration?.spec?.varFiles[${index}].varFile.store.spec.branch`}
-                  label={getString('pipelineSteps.deploy.inputSet.branch')}
-                />
-              )}
-              {getMultiTypeFromValue(remoteVarFile?.spec?.store?.spec?.commitId) === MultiTypeInputType.RUNTIME && (
-                <FormInput.Text
-                  name={`${path}.configuration?.spec?.varFiles[${index}].varFile.store.spec.commitId`}
-                  label={getString('pipeline.manifestType.commitId')}
-                />
-              )}
-              {getMultiTypeFromValue(remoteVarFile?.spec?.store?.spec?.paths) === MultiTypeInputType.RUNTIME && (
-                <List
-                  label={getString('filePaths')}
-                  name={`${path}.configuration?.spec?.varFiles[${index}].varFile.store.spec.paths`}
-                  disabled={readonly}
-                  style={{ marginBottom: 'var(--spacing-small)' }}
-                />
-              )}
-            </>
-          )
-        }
-      })}
+      {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.length && <TfVarSection {...props} />}
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.backendConfig?.spec?.content) ===
         MultiTypeInputType.RUNTIME && (

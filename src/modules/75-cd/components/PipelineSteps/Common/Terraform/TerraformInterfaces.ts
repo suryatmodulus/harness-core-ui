@@ -56,6 +56,8 @@ export interface TerraformPlanProps {
   }
   readonly?: boolean
   stepType?: string
+  path?: string
+  gitScope?: GitFilterScope
 }
 
 export interface RemoteVar {

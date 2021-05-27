@@ -11,9 +11,10 @@ import { useStrings } from 'framework/strings'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
 import type { TerraformPlanProps } from '../Common/Terraform/TerraformInterfaces'
-import ConfigInputs from './InputSteps/ConfigSection'
+import ConfigInputs from './InputSteps/TfConfigSection'
+import TfVarFiles from './InputSteps/TfPlanVarFiles'
 
-export default function TerraformInputStep(props: TerraformPlanProps): React.ReactElement {
+export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactElement {
   const { getString } = useStrings()
   const { inputSetData, readonly } = props
   return (
@@ -33,7 +34,7 @@ export default function TerraformInputStep(props: TerraformPlanProps): React.Rea
         />
       )}
       <ConfigInputs {...props} />
-
+      {inputSetData?.template?.spec?.configuration?.varFiles?.length && <TfVarFiles {...props} />}
       {getMultiTypeFromValue(inputSetData?.template?.spec?.targets as string) === MultiTypeInputType.RUNTIME && (
         <List
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.targets`}

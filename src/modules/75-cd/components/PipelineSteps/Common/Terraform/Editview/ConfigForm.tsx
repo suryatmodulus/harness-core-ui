@@ -12,16 +12,20 @@ import {
   Button,
   SelectOption
 } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
 import cx from 'classnames'
 // import * as Yup from 'yup'
 
 import { Form, FormikProps } from 'formik'
+import { useStrings } from 'framework/strings'
+import { useQueryParams } from '@common/hooks'
+
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { ConfigFileData, Connector } from '../TerraformInterfaces'
+
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface ConfigFormProps {
@@ -43,6 +47,8 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
   return (
     <Layout.Vertical padding={'huge'}>
       <Formik<ConfigFileData>
@@ -109,6 +115,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                 orgIdentifier={orgIdentifier}
                 style={{ marginBottom: 10 }}
                 multiTypeProps={{ expressions }}
+                gitScope={{ repo: repoIdentifier || '', branch }}
               />
 
               {(connectorValue?.connector?.spec?.connectionType === 'Account' ||

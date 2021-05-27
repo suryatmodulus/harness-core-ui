@@ -5,9 +5,13 @@ import { Formik, FormikForm, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import TfPlanInputStep from '../TfPlanInputStep'
 
-import TerraformInputStep from '../TerraformInputStep'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
 
 const initialValues = {
   type: 'TerraformPlan',
@@ -85,7 +89,7 @@ describe('Test terraform input set', () => {
       <TestWrapper>
         <Formik initialValues={{}} onSubmit={() => undefined}>
           <FormikForm>
-            <TerraformInputStep
+            <TfPlanInputStep
               initialValues={initialValues as any}
               stepType={StepType.TerraformPlan}
               stepViewType={StepViewType.InputSet}

@@ -18,6 +18,10 @@ import {
 
 import { Form } from 'formik'
 import { useStrings } from 'framework/strings'
+
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 
@@ -57,6 +61,8 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
   const { expressions } = useVariablesExpression()
   const iValues = {
     varFile: {
@@ -140,6 +146,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
                   orgIdentifier={orgIdentifier}
                   style={{ marginBottom: 10 }}
                   multiTypeProps={{ expressions }}
+                  gitScope={{ repo: repoIdentifier || '', branch }}
                 />
               )}
             </div>

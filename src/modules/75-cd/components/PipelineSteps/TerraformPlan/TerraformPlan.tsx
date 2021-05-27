@@ -60,15 +60,15 @@ import {
   TerraformVariableStepProps,
   TFPlanFormData
 } from '../Common/Terraform/TerraformInterfaces'
-import TfVarFileList from './TFVarFileList'
-import ConfigForm from './ConfigForm'
+import TfVarFileList from './TfPlanVarFileList'
+import ConfigForm from './TfPlanConfigForm'
 
-import TerraformInputStep from './TerraformInputStep'
-import { TerraformVariableStep } from './TerraformVariableView'
+import TerraformInputStep from './TfPlanInputStep'
+import { TerraformVariableStep } from './TfPlanVariableView'
 
 import { TFMonaco } from '../Common/Terraform/Editview/TFMonacoEditor'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
-import css from './TerraformVarfile.module.scss'
+import css from '../Common/Terraform/Editview/TerraformVarfile.module.scss'
 
 const setInitialValues = (data: TFPlanFormData): TFPlanFormData => {
   return data
@@ -473,10 +473,12 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <TerraformInputStep
-          initialValues={this.getInitialValues(initialValues)}
-          onUpdate={(data: any) => onUpdate?.(this.processFormData(data))}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
           stepViewType={stepViewType}
           readonly={inputSetData?.readonly}
+          inputSetData={inputSetData}
+          path={inputSetData?.path}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {

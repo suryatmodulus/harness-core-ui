@@ -1236,6 +1236,7 @@ export interface StringsMap {
   'pipeline.manifestType.specifyManifestStore': string
   'pipeline.progressPercentage': string
   'pipeline.repoRequired': string
+  'pipeline.provisionerSteps': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string

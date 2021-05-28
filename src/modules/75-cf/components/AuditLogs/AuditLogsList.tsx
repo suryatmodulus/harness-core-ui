@@ -13,6 +13,7 @@ import { formatDate, formatTime, AuditLogAction, CF_DEFAULT_PAGE_SIZE, getErrorM
 import { useStrings } from 'framework/strings'
 import { EventSummary } from './EventSummary'
 import { translateEvents } from './AuditLogsUtils'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 
 const RenderCellTime: Renderer<CellProps<AuditTrail>> = ({ row }) => {
   const data = row.original
@@ -140,7 +141,8 @@ export const AuditLogsList: React.FC<AuditLogsListProps> = ({
   loadingStyle,
   ...props
 }) => {
-  const { projectIdentifier, orgIdentifier, accountId, environmentIdentifier } = useParams<Record<string, string>>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
+  const { activeEnvironment } = useActiveEnvironment()
   const [pageNumber, setPageNumber] = useState(0)
   const queryParams = useMemo(() => {
     return {
@@ -148,7 +150,7 @@ export const AuditLogsList: React.FC<AuditLogsListProps> = ({
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier as string,
-      environment: environmentIdentifier,
+      environment: activeEnvironment,
       objectType,
       identifier: flagData.identifier,
       pageSize: CF_DEFAULT_PAGE_SIZE,
@@ -156,7 +158,7 @@ export const AuditLogsList: React.FC<AuditLogsListProps> = ({
       startTime: startDate.getTime(),
       endTime: endDate.getTime()
     }
-  }, [projectIdentifier, environmentIdentifier, accountId, orgIdentifier, pageNumber, startDate, endDate])
+  }, [projectIdentifier, activeEnvironment, accountId, orgIdentifier, pageNumber, startDate, endDate])
   const { data, loading, error, refetch } = useGetAuditByParams({
     queryParams
   })

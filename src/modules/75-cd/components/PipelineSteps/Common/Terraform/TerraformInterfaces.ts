@@ -54,8 +54,10 @@ export interface TerraformPlanProps {
     template?: TFPlanFormData
     path?: string
   }
+  path?: string
   readonly?: boolean
   stepType?: string
+  gitScope?: GitFilterScope
 }
 
 export interface RemoteVar {

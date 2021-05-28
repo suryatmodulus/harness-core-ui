@@ -469,7 +469,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     getString?: UseStringsReturn['getString']
   ): FormikErrors<K8SDirectInfrastructure> {
     const errors: K8SDirectInfrastructureTemplate = {}
-    if (isEmpty(data.cluster) && getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME) {
+    if (isEmpty(data.connectorRef) && getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME) {
       errors.connectorRef = getString?.('fieldRequired', { field: getString('connector') })
     }
     if (isEmpty(data.namespace) && getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME) {

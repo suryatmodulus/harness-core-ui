@@ -10,10 +10,10 @@ import { PageError } from '@common/components/Page/PageError'
 import Table from '@common/components/Table/Table'
 import { AuditTrail, Feature, useGetAuditByParams } from 'services/cf'
 import { formatDate, formatTime, AuditLogAction, CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { useStrings } from 'framework/strings'
 import { EventSummary } from './EventSummary'
 import { translateEvents } from './AuditLogsUtils'
-import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 
 const RenderCellTime: Renderer<CellProps<AuditTrail>> = ({ row }) => {
   const data = row.original

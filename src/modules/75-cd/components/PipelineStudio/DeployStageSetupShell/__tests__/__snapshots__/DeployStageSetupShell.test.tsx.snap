@@ -97,7 +97,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
         </span>
         <div
           aria-controls="bp3-tab-panel_stageSetupShell_SERVICE"
-          aria-disabled="true"
+          aria-disabled="false"
           aria-expanded="true"
           aria-selected="true"
           class="bp3-tab"
@@ -105,6 +105,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
           data-testid="service"
           id="bp3-tab-title_stageSetupShell_SERVICE"
           role="tab"
+          tabindex="0"
         >
           <span
             class="title"
@@ -153,7 +154,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
         </span>
         <div
           aria-controls="bp3-tab-panel_stageSetupShell_INFRASTRUCTURE"
-          aria-disabled="true"
+          aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
@@ -161,6 +162,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
           data-testid="infrastructure"
           id="bp3-tab-title_stageSetupShell_INFRASTRUCTURE"
           role="tab"
+          tabindex="0"
         >
           <span
             class="title"
@@ -212,7 +214,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
         </span>
         <div
           aria-controls="bp3-tab-panel_stageSetupShell_EXECUTION"
-          aria-disabled="true"
+          aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab fullHeight"
@@ -220,6 +222,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
           data-testid="execution"
           id="bp3-tab-title_stageSetupShell_EXECUTION"
           role="tab"
+          tabindex="0"
         >
           <span
             class="title"
@@ -272,7 +275,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
         </span>
         <div
           aria-controls="bp3-tab-panel_stageSetupShell_ADVANCED"
-          aria-disabled="true"
+          aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab fullHeight"
@@ -280,6 +283,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
           data-testid="advanced"
           id="bp3-tab-title_stageSetupShell_ADVANCED"
           role="tab"
+          tabindex="0"
         >
           <span
             class="title"

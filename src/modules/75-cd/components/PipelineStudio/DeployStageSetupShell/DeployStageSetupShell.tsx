@@ -1,7 +1,6 @@
 import React from 'react'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
-import { get } from 'lodash-es'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
@@ -13,7 +12,6 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { useStrings } from 'framework/strings'
-import type { StageElementWrapper } from 'services/cd-ng'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
@@ -47,7 +45,6 @@ const TabsOrder = [
 
 export default function DeployStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
-  const [isTabNavigationAllowed, setTabNavigationAllowed] = React.useState<boolean>(false)
   const layoutRef = React.useRef<HTMLDivElement>(null)
   const { errorMap } = useValidationErrors()
 
@@ -55,7 +52,6 @@ export default function DeployStageSetupShell(): JSX.Element {
     state: {
       pipeline,
       originalPipeline,
-      pipelineView: { isSplitViewOpen },
       pipelineView,
       selectionState: { selectedStageId, selectedStepId }
     },
@@ -78,45 +74,8 @@ export default function DeployStageSetupShell(): JSX.Element {
     }
   }, [selectedStepId])
 
-  React.useEffect(() => {
-    const { stage } = getStageFromPipeline(selectedStageId || '')
-    updateTabNavigation(stage as StageElementWrapper, selectedTabId)
-  }, [selectedStageId, pipeline, isSplitViewOpen, selectedTabId])
-
   const handleTabChange = (data: DeployTabs): void => {
     setSelectedTabId(data)
-  }
-
-  const updateTabNavigation = (stage: StageElementWrapper, selectedTab: DeployTabs): void => {
-    if (selectedTab === DeployTabs.SERVICE) {
-      const hasService = get(stage, 'stage.spec.serviceConfig.service.identifier', false)
-      const hasServiceRef = get(stage, 'stage.spec.serviceConfig.serviceRef', false)
-      const hasUseFromStage = get(stage, 'stage.spec.serviceConfig.useFromStage.stage', false)
-      if (!!hasService || !!hasServiceRef || !!hasUseFromStage) {
-        setTabNavigationAllowed(true)
-      } else {
-        isTabNavigationAllowed && setTabNavigationAllowed(false)
-      }
-    }
-
-    if (selectedTab === DeployTabs.INFRASTRUCTURE) {
-      const hasEnvironment = get(stage, 'stage.spec.infrastructure.environment.identifier', false)
-      let hasEnvironmentRef = get(stage, 'stage.spec.infrastructure.environmentRef', false)
-      hasEnvironmentRef = hasEnvironmentRef?.value !== undefined ? !!hasEnvironmentRef?.value : hasEnvironmentRef
-      if (!!hasEnvironment || !!hasEnvironmentRef) {
-        !isTabNavigationAllowed && setTabNavigationAllowed(true)
-      } else {
-        isTabNavigationAllowed && setTabNavigationAllowed(false)
-      }
-    }
-    if (selectedTab === DeployTabs.OVERVIEW) {
-      const stageName = get(stage, 'stage.name', null)
-      if (!stageName) {
-        isTabNavigationAllowed && setTabNavigationAllowed(false)
-      } else {
-        !isTabNavigationAllowed && setTabNavigationAllowed(true)
-      }
-    }
   }
 
   React.useEffect(() => {
@@ -238,7 +197,6 @@ export default function DeployStageSetupShell(): JSX.Element {
               {getString('service')}
             </span>
           }
-          disabled={!isTabNavigationAllowed}
           panel={<DeployServiceSpecifications>{navBtns}</DeployServiceSpecifications>}
           data-testid="service"
         />
@@ -258,7 +216,6 @@ export default function DeployStageSetupShell(): JSX.Element {
               {getString('infrastructureText')}
             </span>
           }
-          disabled={!isTabNavigationAllowed}
           panel={<DeployInfraSpecifications>{navBtns}</DeployInfraSpecifications>}
           data-testid="infrastructure"
         />
@@ -279,7 +236,6 @@ export default function DeployStageSetupShell(): JSX.Element {
             </span>
           }
           className={css.fullHeight}
-          disabled={!isTabNavigationAllowed}
           panel={
             <ExecutionGraph
               allowAddGroup={true}
@@ -360,7 +316,6 @@ export default function DeployStageSetupShell(): JSX.Element {
             </span>
           }
           className={css.fullHeight}
-          disabled={!isTabNavigationAllowed}
           panel={<DeployAdvancedSpecifications>{navBtns}</DeployAdvancedSpecifications>}
           data-testid="advanced"
         />

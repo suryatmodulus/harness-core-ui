@@ -34,5 +34,6 @@ declare const styles: {
   readonly stageSelectionGrid: string
   readonly radioColumn: string
   readonly useoverrideCheckbox: string
+  readonly propagationPadding: string
 }
 export default styles

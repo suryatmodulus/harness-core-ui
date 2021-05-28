@@ -384,6 +384,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             checked={checkedItems.overrideSetCheckbox}
             onChange={handleChange}
           />
+          {!checkedItems.overrideSetCheckbox && (
+            <div className={cx(css.navigationButtons, css.propagationPadding)}>{props.children}</div>
+          )}
         </div>
       )}
       {setupModeType === setupMode.DIFFERENT ? (

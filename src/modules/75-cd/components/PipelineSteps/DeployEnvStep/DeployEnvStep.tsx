@@ -13,7 +13,7 @@ import {
   CardSelect
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, isNil, noop, omit, pick } from 'lodash-es'
+import { get, isEmpty, noop, omit, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog, FormGroup, Intent } from '@blueprintjs/core'
 import { parse } from 'yaml'
@@ -254,7 +254,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   }, [initialValues.environment, initialValues.environment?.identifier, environments])
 
   React.useEffect(() => {
-    if (environmentsResponse?.data?.content?.length && !isNil(initialValues.environmentRef)) {
+    if (environmentsResponse?.data?.content?.length) {
       setEnvironments(
         environmentsResponse.data.content.map(env => ({
           label: env.name || env.identifier || '',

@@ -38,7 +38,8 @@ import {
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import GcpAuthentication from '@connectors/components/CreateConnector/GcpConnector/StepAuth/GcpAuthentication'
 
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
@@ -105,7 +106,8 @@ const ManifestListView = ({
   const [manifestStore, setManifestStore] = useState('')
   const [isEditMode, setIsEditMode] = useState(false)
   const [manifestIndex, setEditIndex] = useState(0)
-
+  const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
+  const gitDetails = { branch, repoIdentifier }
   const DIALOG_PROPS: IDialogProps = {
     isOpen: true,
     usePortal: true,
@@ -389,6 +391,7 @@ const ManifestListView = ({
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={gitDetails}
             />
             <StepHelmAuth
               name={getString('details')}
@@ -405,6 +408,7 @@ const ManifestListView = ({
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
               connectorInfo={undefined}
+              gitDetails={gitDetails}
               buildPayload={buildHelmPayload}
             />
 
@@ -424,6 +428,7 @@ const ManifestListView = ({
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={gitDetails}
             />
             <StepAWSAuthentication
               name={getString('credentials')}
@@ -444,6 +449,7 @@ const ManifestListView = ({
               setIsEditMode={setIsEditMode}
               buildPayload={buildAWSPayload}
               connectorInfo={undefined}
+              gitDetails={gitDetails}
             />
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
@@ -462,6 +468,7 @@ const ManifestListView = ({
               name={getString('overview')}
               isEditMode={isEditMode}
               connectorInfo={undefined}
+              gitDetails={gitDetails}
             />
             <GcpAuthentication
               name={getString('details')}
@@ -481,6 +488,7 @@ const ManifestListView = ({
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
               buildPayload={buildGcpPayload}
+              gitDetails={gitDetails}
               onConnectorCreated={() => {
                 //TO BE Removed
               }}
@@ -503,6 +511,7 @@ const ManifestListView = ({
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={gitDetails}
             />
             <GitDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
@@ -572,6 +581,7 @@ const ManifestListView = ({
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
               buildPayload={buildPayload}
+              gitDetails={gitDetails}
               connectorInfo={undefined}
             />
             <VerifyOutOfClusterDelegate

@@ -1,12 +1,15 @@
 import React from 'react'
-import { Color, FormInput } from '@wings-software/uicore'
+import { Container } from '@wings-software/uicore'
+import { Checkbox } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'
+import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { MonacoTextField } from '@common/components/MonacoTextField/MonacoTextField'
 import { useVariablesExpression } from '../../../PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { Modes } from '../common'
 import type { ConditionalExecutionOption } from './ConditionalExecutionPanelUtils'
 import { ModeEntityNameMap } from './ConditionalExecutionPanelUtils'
+import css from './ConditionalExecutionPanel.module.scss'
 
 interface ConditionalExecutionConditionProps {
   formikProps: FormikProps<ConditionalExecutionOption>
@@ -21,19 +24,27 @@ export default function ConditionalExecutionCondition(props: ConditionalExecutio
 
   return (
     <>
-      <FormInput.CheckBox
+      <Checkbox
         name="enableJEXL"
+        checked={formikProps.values.enableJEXL}
         disabled={isReadonly}
-        color={Color.GREY_900}
-        style={{ fontSize: '13px' }}
-        font={formikProps.values.enableJEXL ? { weight: 'semi-bold' } : {}}
-        label={' ' + getString('pipeline.conditionalExecution.condition', { entity: ModeEntityNameMap[mode] })}
+        className={cx(css.blackText, { [css.active]: formikProps.values.enableJEXL })}
+        label={getString('pipeline.conditionalExecution.condition', { entity: ModeEntityNameMap[mode] })}
+        onChange={e => {
+          const isChecked = e.currentTarget.checked
+          formikProps.setFieldValue('enableJEXL', isChecked)
+          if (!isChecked) {
+            formikProps.setFieldValue('condition', null)
+          }
+        }}
       />
-      <MonacoTextField
-        name="condition"
-        expressions={expressions}
-        disabled={!formikProps.values.enableJEXL || isReadonly}
-      />
+      <Container padding={{ top: 'small', left: 'large' }}>
+        <MonacoTextField
+          name="condition"
+          expressions={expressions}
+          disabled={!formikProps.values.enableJEXL || isReadonly}
+        />
+      </Container>
     </>
   )
 }

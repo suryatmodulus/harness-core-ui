@@ -82,37 +82,31 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-left-huge"
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-xxlarge"
           style="width: 52%;"
         >
+          <label
+            class="bp3-control bp3-checkbox blackText"
+          >
+            <input
+              name="enableJEXL"
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            pipeline.conditionalExecution.condition
+          </label>
           <div
-            class="bp3-form-group"
-            style="font-size: 13px;"
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-large"
           >
             <div
-              class="bp3-form-content"
+              class="main disabled"
             >
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--color StyledProps--color-grey900 StyledProps--inline"
-                style="font-size: 13px;"
-              >
-                <input
-                  name="enableJEXL"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                 pipeline.conditionalExecution.condition
-              </label>
+              <textarea
+                name="condition"
+              />
             </div>
-          </div>
-          <div
-            class="main"
-          >
-            <textarea
-              name="condition"
-            />
           </div>
         </div>
       </div>
@@ -203,38 +197,32 @@ exports[`ConditionalExecution matches snapshot with data 1`] = `
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-left-huge"
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-xxlarge"
           style="width: 52%;"
         >
+          <label
+            class="bp3-control bp3-checkbox blackText active"
+          >
+            <input
+              checked=""
+              name="enableJEXL"
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+            pipeline.conditionalExecution.condition
+          </label>
           <div
-            class="bp3-form-group"
-            style="font-size: 13px;"
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-large"
           >
             <div
-              class="bp3-form-content"
+              class="main"
             >
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--color StyledProps--color-grey900 StyledProps--font-weight-semi-bold StyledProps--inline"
-                style="font-size: 13px;"
-              >
-                <input
-                  checked=""
-                  name="enableJEXL"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                 pipeline.conditionalExecution.condition
-              </label>
+              <textarea
+                name="condition"
+              />
             </div>
-          </div>
-          <div
-            class="main"
-          >
-            <textarea
-              name="condition"
-            />
           </div>
         </div>
       </div>

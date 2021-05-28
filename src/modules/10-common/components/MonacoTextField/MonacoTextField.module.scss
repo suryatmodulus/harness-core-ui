@@ -2,4 +2,7 @@
   border: 1px solid var(--form-field-border);
   padding: var(--spacing-2);
   background: var(--white);
+  &.disabled {
+    background: var(--grey-200);
+  }
 }

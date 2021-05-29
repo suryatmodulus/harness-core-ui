@@ -62,7 +62,9 @@ const CIHomePage: React.FC = () => {
     return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   }
 
-  if (data?.status === 'SUCCESS' && !data.data) {
+  const createdFromNG = false
+
+  if (createdFromNG && data?.status === 'SUCCESS' && !data.data) {
     history.push(
       routes.toModuleTrialHome({
         accountId,
@@ -71,7 +73,7 @@ const CIHomePage: React.FC = () => {
     )
   }
 
-  if (data && data.data && trial) {
+  if (createdFromNG && data && data.data && trial) {
     return (
       <TrialInProgressTemplate
         title={getString('ci.continuous')}

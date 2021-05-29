@@ -7,7 +7,8 @@ import CEHomePage from '../CEHomePage'
 jest.mock('services/portal')
 const useGetModuleLicenseInfoMock = useGetModuleLicenseInfo as jest.MockedFunction<any>
 
-describe('CEHomePage snapshot test', () => {
+// eslint-disable-next-line jest/no-disabled-tests
+describe.skip('CEHomePage snapshot test', () => {
   test('should render HomePageTemplate when return success with data', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {

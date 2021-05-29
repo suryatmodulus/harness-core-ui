@@ -92,7 +92,7 @@
 
     .item {
       display: block;
-      padding: var(--spacing-small) var(--spacing-small);
+      padding: var(--spacing-small) var(--spacing-large);
       height: 45px;
       :global(.bp3-checkbox) {
         display: flex !important;
@@ -134,7 +134,13 @@
     font-size: var(--font-size-small);
 
     &:hover {
-      background: var(--blue-100);
+      background: var(--primary-6);
+      p {
+        color: var(--white) !important;
+      }
+      g {
+        fill: var(--white) !important;
+      }
     }
   }
 }

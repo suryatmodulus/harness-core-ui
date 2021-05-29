@@ -133,6 +133,7 @@
 
 .modal-card {
   max-height: fit-content;
+  min-height: 150px;
   height: calc(100% - 48px);
 
   &.bp3-dialog-header {

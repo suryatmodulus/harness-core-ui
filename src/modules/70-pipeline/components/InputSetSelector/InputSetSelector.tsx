@@ -331,7 +331,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         {!inputSets ? (
           <PageSpinner className={css.spinner} />
         ) : (
-          <Layout.Vertical padding="medium">
+          <Layout.Vertical padding="small">
             {inputSets && inputSets.length > 0 ? (
               <ul className={cx(Classes.MENU, css.list, { [css.multiple]: inputSets.length > 0 })}>
                 <>

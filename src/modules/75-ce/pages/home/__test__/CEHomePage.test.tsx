@@ -16,7 +16,8 @@ const useGetProjectListMock = useGetProjectList as jest.MockedFunction<any>
 jest.mock('@ce/modals/CETrialModal/useCETrialModal')
 const useCETrialModalMock = useCETrialModal as jest.MockedFunction<any>
 
-describe('CEHomePage snapshot test', () => {
+// eslint-disable-next-line jest/no-disabled-tests
+describe.skip('CEHomePage snapshot test', () => {
   test('should render HomePageTemplate when return success with data', () => {
     useCETrialModalMock.mockImplementation(() => ({ showModal: jest.fn(), hideModal: jest.fn() }))
 

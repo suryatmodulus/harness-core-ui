@@ -119,6 +119,8 @@ const CEHomePage: React.FC = () => {
     module: ModuleName.CE
   }
 
+  const createdFromNG = false
+
   if (loading || getProjectListLoading) {
     return <PageSpinner />
   }
@@ -132,11 +134,11 @@ const CEHomePage: React.FC = () => {
     return <PageError message={message} onClick={() => refetch()} />
   }
 
-  if (data?.status === 'SUCCESS' && !data.data) {
+  if (createdFromNG && data?.status === 'SUCCESS' && !data.data) {
     return <CETrialHomePage />
   }
 
-  if (data && data.data && trial) {
+  if (createdFromNG && data && data.data && trial) {
     return (
       <TrialInProgressTemplate
         title={getString('ce.continuous')}

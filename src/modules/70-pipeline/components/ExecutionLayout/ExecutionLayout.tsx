@@ -42,7 +42,7 @@ export interface ExecutionLayoutProps {
 function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): React.ReactElement {
   const [child1, child2, child3] = React.Children.toArray(props.children)
   const [layoutState, setLayoutState] = useLocalStorage(
-    'execution_layout',
+    'execution_layout_0',
     props.defaultLayout || ExecutionLayoutState.RIGHT
   )
   const [isStepDetailsVisible, setStepDetailsVisibility] = React.useState(!!props.defaultStepVisibility)

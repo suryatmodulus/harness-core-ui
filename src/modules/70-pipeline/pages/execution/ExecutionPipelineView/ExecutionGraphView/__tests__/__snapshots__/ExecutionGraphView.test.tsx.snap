@@ -411,45 +411,6 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                         </label>
                         <label
                           class="label"
-                          title="Align bottom"
-                        >
-                          <input
-                            name="layout"
-                            type="radio"
-                            value="BOTTOM"
-                          />
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="layout-bottom"
-                          >
-                            <svg
-                              height="16"
-                              viewBox="0 0 4.233 4.233"
-                              width="16"
-                            >
-                              <g
-                                fill="none"
-                                transform="matrix(.21166 0 0 .21166 0 .423)"
-                              >
-                                <rect
-                                  fill="#f2f2f2"
-                                  height="15"
-                                  rx="0.5"
-                                  stroke="#9ea9b4"
-                                  width="19"
-                                  x="0.5"
-                                  y="0.5"
-                                />
-                                <path
-                                  d="M1 10h18v5H1z"
-                                  fill="#9ea9b4"
-                                />
-                              </g>
-                            </svg>
-                          </span>
-                        </label>
-                        <label
-                          class="label"
                           title="Align floating"
                         >
                           <input

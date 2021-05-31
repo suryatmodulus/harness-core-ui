@@ -62,7 +62,8 @@ describe('<ExecutionLayout /> tests', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('"BOTTOM" Layout works', () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('"BOTTOM" Layout works', () => {
     const { container, getByTestId } = render(
       <ExecutionLayout defaultLayout={ExecutionLayoutState.BOTTOM} defaultStepVisibility>
         <div data-testid="child-1">Child 1</div>
@@ -126,13 +127,13 @@ describe('<ExecutionLayout /> tests', () => {
 
     expect(container).toMatchSnapshot()
 
-    const [right, bottom, floating] = container.querySelectorAll<HTMLInputElement>('input[name="layout"]')
+    const [right, /*bottom,*/ floating] = container.querySelectorAll<HTMLInputElement>('input[name="layout"]')
 
     expect(right.checked).toBe(true)
     expect(container.querySelector('.splitPane2')?.classList.contains('vertical')).toBe(true)
 
-    fireEvent.click(bottom)
-    expect(container.querySelector('.splitPane2')?.classList.contains('horizontal')).toBe(true)
+    // fireEvent.click(bottom)
+    // expect(container.querySelector('.splitPane2')?.classList.contains('horizontal')).toBe(true)
 
     fireEvent.click(floating)
     expect(getByTestId('child-3').parentElement?.classList.contains('floating-wrapper')).toBe(true)

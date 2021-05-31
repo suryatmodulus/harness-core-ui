@@ -26,7 +26,7 @@ export default function ExecutionLayoutToggle(props: ExecutionLayoutToggleProps)
 
   return (
     <div className={cx(css.toggle, props.className)}>
-      {[ExecutionLayoutState.RIGHT, ExecutionLayoutState.BOTTOM, ExecutionLayoutState.FLOATING].map(key => (
+      {[ExecutionLayoutState.RIGHT, ExecutionLayoutState.FLOATING].map(key => (
         <label key={key} className={css.label} title={'Align ' + key.toLowerCase()}>
           <input type="radio" name="layout" value={key} onChange={handleViewChange} checked={layout === key} />
           <Icon name={iconNameMap[key]} />

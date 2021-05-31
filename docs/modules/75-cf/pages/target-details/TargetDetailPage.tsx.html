@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">90.2% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/50</span>
+                <span class='fraction'>46/51</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">72% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>40/56</span>
+                <span class='fraction'>36/50</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.8% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/49</span>
+                <span class='fraction'>45/50</span>
             </div>
         
             
@@ -240,7 +240,10 @@
 <a name='L181'></a><a href='#L181'>181</a>
 <a name='L182'></a><a href='#L182'>182</a>
 <a name='L183'></a><a href='#L183'>183</a>
-<a name='L184'></a><a href='#L184'>184</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -271,8 +274,6 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -293,6 +294,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -332,6 +334,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -433,10 +437,11 @@ import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerS
 import { PageError } from '@common/components/Page/PageError'
 import { OptionsMenuButton, PageSpinner, useToaster } from '@common/components'
 import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage, showToaster } from '@cf/utils/CFUtils'
-import { useConfirmAction, useQueryParams } from '@common/hooks'
+import { useConfirmAction } from '@common/hooks'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useGetEnvironment } from 'services/cd-ng'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { TargetSettings } from './target-settings/TargetSettings'
 import { FlagSettings } from './flag-settings/FlagSettings'
 import css from './TargetDetailPage.module.scss'
@@ -450,12 +455,10 @@ export const fullSizeContentStyle: React.CSSProperties = {
 }
 &nbsp;
 export const TargetDetailPage: React.FC = () =&gt; {
-  const urlQuery: Record&lt;string, string&gt; = useQueryParams()
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
-  const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, targetIdentifier } = useParams&lt;
-    Record&lt;string, string&gt;
-  &gt;()
+  const { accountId, orgIdentifier, projectIdentifier, targetIdentifier } = useParams&lt;Record&lt;string, string&gt;&gt;()
+  const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
   const { data: target, loading, refetch, error } = useGetTarget({
     identifier: targetIdentifier,
     queryParams: {
@@ -463,27 +466,28 @@ export const TargetDetailPage: React.FC = () =&gt; {
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
-      environment: environmentIdentifier
+      environment: activeEnvironment
     } as GetTargetQueryParams
   })
   const { data: environment } = useGetEnvironment({
-    environmentIdentifier,
+    environmentIdentifier: activeEnvironment,
     queryParams: {
       accountId,
       projectIdentifier,
       orgIdentifier
     }
   })
-  const title = getString('pipeline.targets.title')
+  const title = `${getString('cf.shared.targetManagement')}: ${getString('pipeline.targets.title')}`
   const breadcrumbs = [
     {
       title,
-      url:
+      url: withActiveEnvironment(
         routes.toCFTargets({
           accountId,
           orgIdentifier,
           projectIdentifier
-        }) + `${urlQuery<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctiveEnvironment ? <span class="branch-0 cbranch-no" title="branch not covered" >`?activeEnvironment=${urlQuery.activeEnvironment}` </span>: ''}`
+        })
+      )
     }
   ]
   const history = useHistory()
@@ -504,7 +508,7 @@ export const TargetDetailPage: React.FC = () =&gt; {
           dangerouslySetInnerHTML={{
             __html: getString('cf.targets.deleteTargetMessage', { name: target?.name })
           }}
-        &gt;&lt;/span&gt;
+        /&gt;
       &lt;/Text&gt;
     ),
     intent: Intent.DANGER,
@@ -515,11 +519,13 @@ export const TargetDetailPage: React.FC = () =&gt; {
         deleteTarget(target<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier as string)
           .then(() =&gt; {
             history.push(
-              routes.toCFTargets({
-                projectIdentifier,
-                orgIdentifier,
-                accountId
-              })
+              withActiveEnvironment(
+                routes.toCFTargets({
+                  projectIdentifier,
+                  orgIdentifier,
+                  accountId
+                })
+              )
             )
             showToaster(getString('cf.messages.targetDeleted'))
           })
@@ -613,7 +619,7 @@ export const TargetDetailPage: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.29% </span>
+                <span class="strong">97.06% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/35</span>
+                <span class='fraction'>33/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.33% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/12</span>
+                <span class='fraction'>6/7</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.29% </span>
+                <span class="strong">97.06% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/35</span>
+                <span class='fraction'>33/34</span>
             </div>
         
             
@@ -156,16 +156,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,20 +179,20 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,12 +234,12 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './TwoFactorAuthentication.module.scss'
 &nbsp;
 interface Props {
-  isTwoFactorAuthEnabledForCurrentAccount: boolean
+  twoFactorAuthenticationDisabled: boolean
 }
 &nbsp;
-const TwoFactorAuthentication: React.FC&lt;Props&gt; = ({ isTwoFactorAuthEnabledForCurrentAccount }) =&gt; {
+const TwoFactorAuthentication: React.FC&lt;Props&gt; = ({ twoFactorAuthenticationDisabled }) =&gt; {
   const { getString } = useStrings()
-  const { openTwoFactorModal } = useQueryParams&lt;{ openTwoFactorModal: string }&gt;()
+  const { openTwoFactorModal } = useQueryParams&lt;{ openTwoFactorModal?: string }&gt;()
   const { showSuccess, showError } = useToaster()
   const { currentUserInfo, updateAppStore } = useAppStore()
 &nbsp;
@@ -253,22 +253,22 @@ const TwoFactorAuthentication: React.FC&lt;Props&gt; = ({ isTwoFactorAuthEnabled
     confirmButtonText: getString('common.disable'),
     cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) =&gt; {
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (isConfirmed) {
+      /* istanbul ignore else */ if (isConfirmed) {
         try {
           const disabled = await disableTwoFactorAuth('' as any, { headers: { 'content-type': 'application/json' } })
-          <span class="missing-if-branch" title="else path not taken" >E</span>if (disabled) {
+          /* istanbul ignore else */ if (disabled) {
             showSuccess(getString('userProfile.twoFactor.disableSuccess'))
             updateAppStore({ currentUserInfo: disabled.data })
           }
         } catch (e) {
-<span class="cstat-no" title="statement not covered" >          showError(e.data.message || e.message)</span>
+          /* istanbul ignore next */ showError(e.data.message || e.message)
         }
       }
     }
   })
 &nbsp;
   React.useEffect(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (openTwoFactorModal === 'true') {
+    /* istanbul ignore else */ <span class="missing-if-branch" title="if path not taken" >I</span>if (openTwoFactorModal === 'true') {
 <span class="cstat-no" title="statement not covered" >      openEnableTwoFactorAuthModal(false)</span>
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -281,7 +281,7 @@ const TwoFactorAuthentication: React.FC&lt;Props&gt; = ({ isTwoFactorAuthEnabled
           className={css.switch}
           data-testid={'TwoFactorAuthSwitch'}
           checked={currentUserInfo.twoFactorAuthenticationEnabled}
-          disabled={isTwoFactorAuthEnabledForCurrentAccount}
+          disabled={twoFactorAuthenticationDisabled}
           onChange={event =&gt; {
             if (event.currentTarget.checked) {
               openEnableTwoFactorAuthModal(false)
@@ -310,7 +310,7 @@ export default TwoFactorAuthentication
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

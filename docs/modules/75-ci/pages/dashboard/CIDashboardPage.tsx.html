@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.12% </span>
+                <span class="strong">95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>39/41</span>
+                <span class='fraction'>38/40</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.35% </span>
+                <span class="strong">70.51% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>86/124</span>
+                <span class='fraction'>110/156</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95% </span>
+                <span class="strong">94.87% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>38/40</span>
+                <span class='fraction'>37/39</span>
             </div>
         
             
@@ -215,21 +215,7 @@
 <a name='L156'></a><a href='#L156'>156</a>
 <a name='L157'></a><a href='#L157'>157</a>
 <a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L159'></a><a href='#L159'>159</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -237,6 +223,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -307,8 +304,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -378,7 +376,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import moment from 'moment'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -395,7 +392,6 @@ import BuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecution
 import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
 import RangeSelector from '@pipeline/components/Dashboards/RangeSelector'
 import styles from './CIDashboardPage.module.scss'
-// import '@pipeline/components/Dashboards/sharedStyles.module.scss'
 &nbsp;
 export const CIDashboardPage: React.FC = () =&gt; {
   const { projectIdentifier, orgIdentifier, accountId } = useParams&lt;ProjectPathProps&gt;()
@@ -408,7 +404,7 @@ export const CIDashboardPage: React.FC = () =&gt; {
 &nbsp;
   const { data, loading, error } = useGetBuilds({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier
     }
@@ -416,11 +412,11 @@ export const CIDashboardPage: React.FC = () =&gt; {
 &nbsp;
   const { data: repositoriesData, loading: loadingRepositories, error: repoError } = useGetRepositoryBuild({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startInterval: moment(repositoriesRange[0]).format('YYYY-MM-DD'),
-      endInterval: moment(repositoriesRange[1]).format('YYYY-MM-DD')
+      startTime: repositoriesRange[0],
+      endTime: repositoriesRange[1]
     }
   })
 &nbsp;
@@ -470,9 +466,10 @@ export const CIDashboardPage: React.FC = () =&gt; {
               &lt;RepositoryCard
                 key={index}
                 title={repo.name!}
-                message={repo.lastCommit!}
-                lastBuildStatus={(repo as any).lastStatus}
-                startTime={moment(repo.time, 'YYYY-MM-DD HH:mm:ss').valueOf()}
+                message={repo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astRepository<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommit}
+                lastBuildStatus={repo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astRepository<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus}
+                startTime={repo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astRepository<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tartTime}
+                endTime={repo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astRepository<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>ndTime}
                 count={repo.buildCount!}
                 successRate={repo.percentSuccess!}
                 successRateDiff={repo.successRate!}
@@ -500,8 +497,8 @@ export const CIDashboardPage: React.FC = () =&gt; {
                 message={build.commit!}
                 branchName={build.branch}
                 commitId={build.commitID}
-                startTime={moment(build.startTs, 'YYYY-MM-DD HH:mm:ss').valueOf()}
-                endTime={moment(build.endTs, 'YYYY-MM-DD HH:mm:ss').valueOf()}
+                startTime={build.startTs}
+                endTime={build.endTs}
               /&gt;
             ))}
           &lt;/CardRailView&gt;
@@ -541,7 +538,7 @@ export default CIDashboardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

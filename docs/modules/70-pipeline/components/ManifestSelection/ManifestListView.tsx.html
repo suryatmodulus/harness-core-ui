@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.28% </span>
+                <span class="strong">72.58% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>133/184</span>
+                <span class='fraction'>135/186</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.38% </span>
+                <span class="strong">63.56% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>199/319</span>
+                <span class='fraction'>218/343</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.05% </span>
+                <span class="strong">55.26% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>20/37</span>
+                <span class='fraction'>21/38</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.68% </span>
+                <span class="strong">72.97% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>133/183</span>
+                <span class='fraction'>135/185</span>
             </div>
         
             
@@ -791,7 +791,9 @@
 <a name='L732'></a><a href='#L732'>732</a>
 <a name='L733'></a><a href='#L733'>733</a>
 <a name='L734'></a><a href='#L734'>734</a>
-<a name='L735'></a><a href='#L735'>735</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L735'></a><a href='#L735'>735</a>
+<a name='L736'></a><a href='#L736'>736</a>
+<a name='L737'></a><a href='#L737'>737</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
@@ -834,6 +836,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1077,6 +1080,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1391,7 +1395,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1435,6 +1438,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
@@ -1570,7 +1574,8 @@ import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
   getFlattenedStages,
-  getStatus
+  getStatus,
+  getConnectorNameFromValue
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import {
   ManifestIconByType,
@@ -1810,7 +1815,8 @@ const ManifestListView = ({
       stepName: getString('pipeline.manifestType.manifestDetails'),
       initialValues: getLastStepInitialData(),
       handleSubmit: handleSubmit,
-      selectedManifest
+      selectedManifest,
+      manifestIdsList: listOfManifests.map((item: ManifestConfigWrapper) =&gt; item.manifest<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier)
     }
   }
 &nbsp;
@@ -2125,7 +2131,6 @@ const ManifestListView = ({
       selectedManifest === ManifestDataType.HelmChart
         ? <span class="branch-0 cbranch-no" title="branch not covered" >[...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]</span>
         : manifestStoreTypes
-&nbsp;
     return (
       &lt;Dialog onClose={onClose} {...DIALOG_PROPS} className={cx(css.modal, Classes.DIALOG)}&gt;
         &lt;div className={css.createConnectorWizard}&gt;
@@ -2170,6 +2175,7 @@ const ManifestListView = ({
               const manifest = data['manifest']
 &nbsp;
               const { color } = getStatus(manifest<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef, connectors, accountId)
+              const connectorName = getConnectorNameFromValue(manifest<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef, connectors)
 &nbsp;
               return (
                 &lt;section className={cx(css.manifestList, css.rowItem)} key={`${manifest<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier}-${index}`}&gt;
@@ -2191,7 +2197,7 @@ const ManifestListView = ({
                       rightIconProps={{ size: 12, color }}
                       style={{ color: Color.BLACK, fontWeight: 900 }}
                     &gt;
-                      {manifest<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore.spec.connectorRef}
+                      {connectorName ?? manifest<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore.spec.connectorRef}
                     &lt;/Text&gt;
                   &lt;/span&gt;
 &nbsp;
@@ -2266,7 +2272,7 @@ export default ManifestListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.84% </span>
+                <span class="strong">91.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/49</span>
+                <span class='fraction'>44/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.45% </span>
+                <span class="strong">67.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>31/44</span>
+                <span class='fraction'>27/40</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.84% </span>
+                <span class="strong">91.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/49</span>
+                <span class='fraction'>44/48</span>
             </div>
         
             
@@ -228,13 +228,7 @@
 <a name='L169'></a><a href='#L169'>169</a>
 <a name='L170'></a><a href='#L170'>170</a>
 <a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a>
-<a name='L175'></a><a href='#L175'>175</a>
-<a name='L176'></a><a href='#L176'>176</a>
-<a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">107x</span>
+<a name='L172'></a><a href='#L172'>172</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,7 +239,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-yes">107x</span>
@@ -264,6 +257,8 @@
 <span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -362,13 +357,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">356x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -425,7 +413,6 @@ import {
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import { pick } from 'lodash-es'
-import { StringUtils } from '@common/exports'
 import {
   ConnectorConfigDTO,
   ConnectorInfoDTO,
@@ -439,8 +426,10 @@ import { NameIdDescriptionTags } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { getHeadingIdByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectorDetailsStep.module.scss'
+&nbsp;
 export type DetailsForm = Pick&lt;ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'&gt; &amp; GitContextProps
 &nbsp;
 interface ConnectorDetailsStepProps extends StepProps&lt;ConnectorInfoDTO&gt; {
@@ -537,15 +526,8 @@ const ConnectorDetailsStep: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp
           }}
           formName="connectorDetailsStepForm"
           validationSchema={Yup.object().shape({
-            name: Yup.string().trim().required(getString('validation.connectorName')),
-            identifier: Yup.string().when('name', {
-              is: val =&gt; val?.length,
-              then: Yup.string()
-                .trim()
-                .required(getString('validation.identifierRequired'))
-                .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-                .notOneOf(StringUtils.illegalIdentifiers)
-            })
+            name: NameSchema(),
+            identifier: IdentifierSchema()
           })}
           initialValues={{
             ...(getInitialValues() as DetailsForm),
@@ -575,7 +557,7 @@ const ConnectorDetailsStep: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp
                 &lt;/Container&gt;
                 &lt;Layout.Horizontal&gt;
                   &lt;Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}&gt;
-                    &lt;String stringID="saveAndContinue" /&gt;
+                    &lt;String stringID="continue" /&gt;
                   &lt;/Button&gt;
                 &lt;/Layout.Horizontal&gt;
               &lt;/FormikForm&gt;
@@ -595,7 +577,7 @@ export default ConnectorDetailsStep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

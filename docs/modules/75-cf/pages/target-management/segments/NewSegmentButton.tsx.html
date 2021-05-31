@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/75-cf/pages/segments/NewSegmentButton.tsx</title>
+    <title>Code coverage report for modules/75-cf/pages/target-management/segments/NewSegmentButton.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">modules/75-cf/pages/segments</a> NewSegmentButton.tsx</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">modules/75-cf/pages/target-management/segments</a> NewSegmentButton.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.29% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/28</span>
+                <span class='fraction'>27/30</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.46% </span>
+                <span class="strong">89.29% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/26</span>
+                <span class='fraction'>25/28</span>
             </div>
         
             
@@ -198,6 +198,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,20 +221,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -329,6 +329,7 @@ import { useStrings } from 'framework/strings'
 import { useCreateSegment, Tag, CreateSegmentQueryParams } from 'services/cf'
 import { useToaster } from '@common/exports'
 import { getErrorMessage } from '@cf/utils/CFUtils'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import css from './NewSegmentButton.module.scss'
 &nbsp;
 const collapseProps = {
@@ -349,7 +350,6 @@ export interface NewSegmentButtonProps {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  environmentIdentifier?: string
   onCreated: (segmentIdentifier: string) =&gt; void
 }
 &nbsp;
@@ -357,7 +357,6 @@ export const NewSegmentButton: React.FC&lt;NewSegmentButtonProps&gt; = ({
   accountId,
   orgIdentifier,
   projectIdentifier,
-  environmentIdentifier,
   onCreated
 }) =&gt; {
   const { getString } = useStrings()
@@ -366,11 +365,12 @@ export const NewSegmentButton: React.FC&lt;NewSegmentButtonProps&gt; = ({
   const { mutate: createSegment } = useCreateSegment({
     queryParams: { account: accountId, accountIdentifier: accountId, org: orgIdentifier } as CreateSegmentQueryParams
   })
+  const { activeEnvironment } = useActiveEnvironment()
 &nbsp;
   const handleCreateSegment = (values: SegmentFormData): void =&gt; {
     createSegment({
       ...values,
-      environment: environmentIdentifier as string,
+      environment: activeEnvironment,
       project: projectIdentifier
     })
       .then(() =&gt; {
@@ -449,7 +449,7 @@ export const NewSegmentButton: React.FC&lt;NewSegmentButtonProps&gt; = ({
         &lt;/Formik&gt;
       &lt;/Dialog&gt;
     )
-  }, [environmentIdentifier])
+  }, [activeEnvironment])
 &nbsp;
   return &lt;Button intent="primary" text={getString('cf.segments.create')} onClick={openModal} /&gt;
 }
@@ -460,17 +460,17 @@ export const NewSegmentButton: React.FC&lt;NewSegmentButtonProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     

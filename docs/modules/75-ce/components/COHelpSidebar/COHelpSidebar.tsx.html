@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.59% </span>
+                <span class="strong">74.07% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/27</span>
+                <span class='fraction'>20/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/15</span>
+                <span class='fraction'>5/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>1/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.59% </span>
+                <span class="strong">74.07% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/27</span>
+                <span class='fraction'>20/27</span>
             </div>
         
             
@@ -383,8 +383,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -403,8 +403,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -447,15 +447,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">62x</span>
-<span class="cline-any cline-yes">60x</span>
-<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -688,9 +688,9 @@ interface COHelpSidebarProps {
   hostName?: string
 }
 &nbsp;
-const ConfigStepOneContent = () =&gt; {
-  const { getString } = useStrings()
-  return (
+const ConfigStepOneContent = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
+  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       &lt;Text style={{ fontWeight: 500, fontSize: 'var(--font-size-normal)', lineHeight: '24px' }}&gt;
         &lt;Icon name="info"&gt;&lt;/Icon&gt; {getString('ce.co.autoStoppingRule.helpText.step1.title')}
@@ -708,9 +708,9 @@ const ConfigStepOneContent = () =&gt; {
   )
 }
 &nbsp;
-const ConfigStepTwoContent = () =&gt; {
-  const { getString } = useStrings()
-  return (
+const ConfigStepTwoContent = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
+  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       &lt;Text style={{ fontWeight: 500, fontSize: 'var(--font-size-normal)', lineHeight: '24px' }}&gt;
         &lt;Icon name="info"&gt;&lt;/Icon&gt; {getString('ce.co.autoStoppingRule.helpText.step2.title')}
@@ -757,17 +757,17 @@ const COHelpSidebar: React.FC&lt;COHelpSidebarProps&gt; = props =&gt; {
   const { getString } = useStrings()
   return (
     &lt;Container&gt;
-      {props.pageName == 'configuration' &amp;&amp; props.activeSectionNames &amp;&amp; (
-        &lt;Container padding="large"&gt;
+      {props.pageName == 'configuration' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >props.activeSectionNames </span>&amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >        &lt;Container padding="large"&gt;</span>
           &lt;Layout.Vertical padding="medium" spacing="large"&gt;
-            {props.activeSectionNames.map(_id =&gt; {
-              return configStepIdToContentMap[_id]
+            {props.activeSectionNames.map(<span class="fstat-no" title="function not covered" >_id </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >              return configStepIdToContentMap[_id]</span>
             })}
           &lt;/Layout.Vertical&gt;
         &lt;/Container&gt;
       )}
       {props.pageName == 'setup-access' ? (
-        &lt;Container padding="large"&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Container padding="large"&gt;</span>
           &lt;Layout.Vertical padding="medium" spacing="xxlarge"&gt;
             &lt;Layout.Horizontal spacing="large" padding="medium"&gt;
               &lt;img src={dnsLink} alt="" aria-hidden /&gt;
@@ -808,7 +808,7 @@ const COHelpSidebar: React.FC&lt;COHelpSidebarProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {props.pageName == 'setup-access-dns' ? (
-        &lt;&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;&gt;</span>
           &lt;Container padding="large" background={Color.BLUE_200}&gt;
             &lt;Layout.Vertical padding="medium" spacing="xxlarge"&gt;
               &lt;Layout.Horizontal spacing="large" padding="medium"&gt;
@@ -839,22 +839,22 @@ const COHelpSidebar: React.FC&lt;COHelpSidebarProps&gt; = props =&gt; {
                 &lt;Icon name="info-sign" size={23} color={Color.BLUE_500}&gt;&lt;/Icon&gt;
                 &lt;Layout.Vertical spacing="small" style={{ maxWidth: '80%' }}&gt;
                   &lt;Text style={{ fontWeight: 'bold', lineHeight: '20px' }}&gt;
-                    {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step3.title')}
+                    {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step2.title')}
                   &lt;/Text&gt;
                   &lt;Text style={{ lineHeight: '20px' }}&gt;
-                    {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step3.description')}
+                    {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step2.description')}
                   &lt;/Text&gt;
                 &lt;/Layout.Vertical&gt;
               &lt;/Layout.Horizontal&gt;
               {activeSections.includes('usingCustomDomain') ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                &lt;Layout.Horizontal spacing="large"&gt;</span>
+                &lt;Layout.Horizontal spacing="large"&gt;
                   &lt;Icon name="info-sign" size={23} color={Color.BLUE_500}&gt;&lt;/Icon&gt;
                   &lt;Layout.Vertical spacing="small" style={{ maxWidth: '80%' }}&gt;
                     &lt;Text style={{ fontWeight: 'bold', lineHeight: '20px' }}&gt;
-                      {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step2.title')}
+                      {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step3.title')}
                     &lt;/Text&gt;
                     &lt;Text style={{ lineHeight: '20px' }}&gt;
-                      {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step2.description')}
+                      {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step3.description')}
                     &lt;/Text&gt;
                     {activeSections.includes('dns-others') ? (
                       &lt;&gt;
@@ -910,7 +910,7 @@ const COHelpSidebar: React.FC&lt;COHelpSidebarProps&gt; = props =&gt; {
         &lt;/&gt;
       ) : null}
       {props.pageName == 'setup-access-ssh' ? (
-        &lt;&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;&gt;</span>
           &lt;Container padding="large" background={Color.BLUE_200}&gt;
             &lt;Layout.Vertical padding="medium" spacing="xxlarge"&gt;
               &lt;Layout.Horizontal spacing="large" padding="medium"&gt;
@@ -969,7 +969,7 @@ const COHelpSidebar: React.FC&lt;COHelpSidebarProps&gt; = props =&gt; {
             &lt;/Layout.Vertical&gt;
           &lt;/Container&gt;
         &lt;/&gt;
-      ) : null}
+      ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
     &lt;/Container&gt;
   )
 }
@@ -982,7 +982,7 @@ export default COHelpSidebar
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

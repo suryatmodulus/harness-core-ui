@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.5% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/40</span>
+                <span class='fraction'>36/45</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.06% </span>
+                <span class="strong">65.16% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>146/221</span>
+                <span class='fraction'>144/221</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.5% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/40</span>
+                <span class='fraction'>36/45</span>
             </div>
         
             
@@ -259,7 +259,13 @@
 <a name='L200'></a><a href='#L200'>200</a>
 <a name='L201'></a><a href='#L201'>201</a>
 <a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -269,8 +275,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -312,6 +316,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -457,22 +473,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
 import { Card, Icon, Layout } from '@wings-software/uicore'
 import { Link, useParams } from 'react-router-dom'
 &nbsp;
 import { isEmpty } from 'lodash-es'
-import type { PipelineExecutionSummary } from 'services/pipeline-ng'
+import type { PipelineExecutionSummary, ExecutionTriggerInfo } from 'services/pipeline-ng'
 import { UserLabel, Duration, TimeAgo } from '@common/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { String } from 'framework/strings'
-import type { StringKeys } from 'framework/strings'
-&nbsp;
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { TagsPopover } from '@common/components'
@@ -514,6 +524,18 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
 <span class="cstat-no" title="statement not covered" >        return build?.pullRequest?.commits || []</span>
       default:
 <span class="cstat-no" title="statement not covered" >        return []</span>
+    }
+  }
+&nbsp;
+  const mapTriggerTypeToStringID = (triggerType: ExecutionTriggerInfo['triggerType']) =&gt; {
+    switch (triggerType) {
+<span class="branch-0 cbranch-no" title="branch not covered" >      case 'WEBHOOK':</span>
+<span class="branch-1 cbranch-no" title="branch not covered" >      case 'WEBHOOK_CUSTOM':</span>
+<span class="cstat-no" title="statement not covered" >        return 'execution.triggerType.WEBHOOK'</span>
+<span class="branch-2 cbranch-no" title="branch not covered" >      case 'SCHEDULER_CRON':</span>
+<span class="cstat-no" title="statement not covered" >        return 'pipeline.triggers.scheduledLabel'</span>
+      default:
+        return 'execution.triggerType.MANUAL'
     }
   }
 &nbsp;
@@ -641,11 +663,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               /&gt;
               &lt;String
                 className={css.triggerType}
-                stringID={
-                  `execution.triggerType.${
-                    pipelineExecution.executionTriggerInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>riggerType ?? <span class="branch-1 cbranch-no" title="branch not covered" >'MANUAL'</span>
-                  }` as StringKeys
-                } // TODO: fix this properly later
+                stringID={mapTriggerTypeToStringID(pipelineExecution.executionTriggerInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>riggerType)}
               /&gt;
             &lt;/div&gt;
             &lt;div className={css.timers}&gt;
@@ -670,7 +688,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

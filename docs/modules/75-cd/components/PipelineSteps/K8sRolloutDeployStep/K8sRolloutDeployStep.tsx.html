@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.97% </span>
+                <span class="strong">78.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/59</span>
+                <span class='fraction'>47/60</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.04% </span>
+                <span class="strong">40.96% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>34/79</span>
+                <span class='fraction'>34/83</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.97% </span>
+                <span class="strong">78.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/59</span>
+                <span class='fraction'>47/60</span>
             </div>
         
             
@@ -317,7 +317,20 @@
 <a name='L258'></a><a href='#L258'>258</a>
 <a name='L259'></a><a href='#L259'>259</a>
 <a name='L260'></a><a href='#L260'>260</a>
-<a name='L261'></a><a href='#L261'>261</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -334,7 +347,6 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -442,6 +454,20 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -594,7 +620,6 @@ import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Ste
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import {
-  DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -701,22 +726,36 @@ function K8RolloutDeployWidget(
 &nbsp;
 const K8RolloutDeployInputStep: React.FC&lt;K8RolloutDeployProps&gt; = ({ inputSetData }) =&gt; {
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   return (
     &lt;&gt;
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;DurationInputFieldForInputSet</span>
-          label={getString('pipelineSteps.timeoutLabel')}
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
-          disabled={inputSetData?.readonly}
-        /&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;</span>
+          &lt;FormMultiTypeDurationField
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
+            label={getString('pipelineSteps.timeoutLabel')}
+            multiTypeDurationProps={{
+              enableConfigureOptions: false,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              expressions,
+              disabled: inputSetData?.readonly
+            }}
+            disabled={inputSetData?.readonly}
+          /&gt;
+        &lt;/div&gt;
       )}
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipDryRun) === MultiTypeInputType.RUNTIME &amp;&amp; (
-        &lt;FormInput.CheckBox
-          name={`${isEmpty(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${inputSetData?.path}.`}</span>spec.skipDryRun`}
-          className={stepCss.checkbox}
-          label={getString('pipelineSteps.skipDryRun')}
-          disabled={inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eadonly}
-        /&gt;
+        &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
+          &lt;FormMultiTypeCheckboxField
+            multiTypeTextbox={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+            }}
+            name={`${isEmpty(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${inputSetData?.path}.`}</span>spec.skipDryRun`}
+            label={getString('pipelineSteps.skipDryRun')}
+            disabled={inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eadonly}
+          /&gt;
+        &lt;/div&gt;
       )}
     &lt;/&gt;
   )
@@ -844,7 +883,7 @@ export class K8RolloutDeployStep extends PipelineStep&lt;K8RolloutDeployData&gt;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

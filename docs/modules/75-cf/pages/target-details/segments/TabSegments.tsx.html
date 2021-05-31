@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.29% </span>
+                <span class="strong">65.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/42</span>
+                <span class='fraction'>29/44</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.41% </span>
+                <span class="strong">65.12% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/41</span>
+                <span class='fraction'>28/43</span>
             </div>
         
             
@@ -229,7 +229,15 @@
 <a name='L170'></a><a href='#L170'>170</a>
 <a name='L171'></a><a href='#L171'>171</a>
 <a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -247,9 +255,13 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -329,16 +341,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -358,6 +371,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -412,16 +426,21 @@ import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import { useStrings } from 'framework/strings'
 import { useAddTargetsToExcludeList, useAddTargetsToIncludeList } from '@cf/utils/SegmentUtils'
 import { GetTargetSegmentsQueryParams, Segment, Target, TargetDetailSegment, useGetTargetSegments } from 'services/cf'
-import { ItemBriefInfo } from '../../../components/ItemBriefInfo/ItemBriefInfo'
+import { ItemBriefInfo } from '@cf/components/ItemBriefInfo/ItemBriefInfo'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { IncludeSegmentRow } from './IncludeSegmentRow'
 import { ExcludeSegmentRow } from './ExcludeSegmentRow'
 &nbsp;
 export const TabSegments: React.FC&lt;{ target?: Target | null }&gt; = ({ target }) =&gt; {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, targetIdentifier } = useParams&lt;
-    Record&lt;string, string&gt;
-  &gt;()
-  const patchParams = { accountIdentifier: accountId, orgIdentifier, projectIdentifier, environmentIdentifier }
+  const { accountId, orgIdentifier, projectIdentifier, targetIdentifier } = useParams&lt;Record&lt;string, string&gt;&gt;()
+  const { activeEnvironment } = useActiveEnvironment()
+  const patchParams = {
+    accountIdentifier: accountId,
+    orgIdentifier,
+    projectIdentifier,
+    environmentIdentifier: activeEnvironment
+  }
   const { loading, error, data, refetch } = useGetTargetSegments({
     identifier: targetIdentifier,
     queryParams: {
@@ -429,7 +448,7 @@ export const TabSegments: React.FC&lt;{ target?: Target | null }&gt; = ({ target
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
-      environment: environmentIdentifier
+      environment: activeEnvironment
     } as GetTargetSegmentsQueryParams
   })
   const _useAddTargetsToIncludeList = useAddTargetsToIncludeList(patchParams)
@@ -492,10 +511,11 @@ export const TabSegments: React.FC&lt;{ target?: Target | null }&gt; = ({ target
             accountId={accountId}
             orgIdentifier={orgIdentifier}
             projectIdentifier={projectIdentifier}
-            environmentIdentifier={environmentIdentifier}
+            environmentIdentifier={activeEnvironment}
             targetIdentifier={targetIdentifier}
             modalTitle={getString('cf.targetDetail.addTargetToSegment')}
             onSubmit={addTargetToSegments}
+            style={{ paddingRight: 'var(--spacing-small)' }}
           /&gt;
         &lt;/Layout.Horizontal&gt;
         {(!!<span class="branch-1 cbranch-no" title="branch not covered" >data?.includedSegments<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.length </span>&amp;&amp; (
@@ -549,11 +569,12 @@ export const TabSegments: React.FC&lt;{ target?: Target | null }&gt; = ({ target
             accountId={accountId}
             orgIdentifier={orgIdentifier}
             projectIdentifier={projectIdentifier}
-            environmentIdentifier={environmentIdentifier}
+            environmentIdentifier={activeEnvironment}
             targetIdentifier={targetIdentifier}
             modalTitle={getString('cf.targetDetail.excludeTargetFromSegment')}
             submitButtonTitle={getString('cf.targetDetail.exclude')}
             onSubmit={excludeTargetFromSegments}
+            style={{ paddingRight: 'var(--spacing-small)' }}
           /&gt;
         &lt;/Layout.Horizontal&gt;
         {(!!<span class="branch-1 cbranch-no" title="branch not covered" >data?.excludedSegments<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.length </span>&amp;&amp; (
@@ -580,7 +601,7 @@ export const TabSegments: React.FC&lt;{ target?: Target | null }&gt; = ({ target
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

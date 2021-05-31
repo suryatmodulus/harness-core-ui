@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">74.63% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>51/68</span>
+                <span class='fraction'>50/67</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.71% </span>
+                <span class="strong">52.93% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>214/406</span>
+                <span class='fraction'>217/410</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">74.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>51/68</span>
+                <span class='fraction'>50/67</span>
             </div>
         
             
@@ -476,7 +476,14 @@
 <a name='L417'></a><a href='#L417'>417</a>
 <a name='L418'></a><a href='#L418'>418</a>
 <a name='L419'></a><a href='#L419'>419</a>
-<a name='L420'></a><a href='#L420'>420</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L420'></a><a href='#L420'>420</a>
+<a name='L421'></a><a href='#L421'>421</a>
+<a name='L422'></a><a href='#L422'>422</a>
+<a name='L423'></a><a href='#L423'>423</a>
+<a name='L424'></a><a href='#L424'>424</a>
+<a name='L425'></a><a href='#L425'>425</a>
+<a name='L426'></a><a href='#L426'>426</a>
+<a name='L427'></a><a href='#L427'>427</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -496,7 +503,6 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -505,6 +511,12 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -516,7 +528,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -914,7 +928,6 @@ import { Form } from 'formik'
 import * as Yup from 'yup'
 import { get, isEmpty, set } from 'lodash-es'
 import { Tooltip } from '@blueprintjs/core'
-import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 &nbsp;
 import { useStrings } from 'framework/strings'
@@ -923,7 +936,13 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import type { KustomizeWithGITDataType } from '../../ManifestInterface'
-import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
+import {
+  gitFetchTypeList,
+  GitFetchTypes,
+  GitRepoName,
+  ManifestIdentifierValidation,
+  ManifestStoreMap
+} from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
@@ -933,6 +952,7 @@ interface KustomizeWithGITPropType {
   expressions: string[]
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) =&gt; void
+  manifestIdsList: Array&lt;string&gt;
 }
 &nbsp;
 const KustomizeWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; KustomizeWithGITPropType&gt; = ({
@@ -941,7 +961,8 @@ const KustomizeWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Ku
   handleSubmit,
   expressions,
   prevStepData,
-  previousStep
+  previousStep,
+  manifestIdsList
 }) =&gt; {
   const { getString } = useStrings()
 &nbsp;
@@ -1059,11 +1080,11 @@ const KustomizeWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Ku
         initialValues={getInitialValues()}
         formName="kustomizeGit"
         validationSchema={Yup.object().shape({
-          identifier: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-            .notOneOf(StringUtils.illegalIdentifiers),
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier,
+            getString('pipeline.uniqueIdentifier')
+          ),
           folderPath: Yup.string().trim().required(getString('pipeline.manifestType.kustomizePathRequired')),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',
@@ -1321,7 +1342,7 @@ export default KustomizeWithGIT
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.62% </span>
+                <span class="strong">85% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/39</span>
+                <span class='fraction'>34/40</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.83% </span>
+                <span class="strong">46.77% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>26/58</span>
+                <span class='fraction'>29/62</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.62% </span>
+                <span class="strong">85% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/39</span>
+                <span class='fraction'>34/40</span>
             </div>
         
             
@@ -229,7 +229,21 @@
 <a name='L170'></a><a href='#L170'>170</a>
 <a name='L171'></a><a href='#L171'>171</a>
 <a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -310,10 +324,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -403,7 +431,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Container, Layout } from '@wings-software/uicore'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useParams, useRouteMatch } from 'react-router-dom'
 import cx from 'classnames'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -481,6 +509,18 @@ export default function PipelineDetails({ children }: React.PropsWithChildren&lt
     }
   })
 &nbsp;
+  const { isExact: isPipelineStudioRoute } = useRouteMatch(
+    routes.toPipelineStudio({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      accountId,
+      module,
+      repoIdentifier,
+      branch
+    })
+  ) || { isExact: false }
+&nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >error?.d</span>ata)</span> {
 <span class="cstat-no" title="statement not covered" >    return &lt;GenericErrorHandler errStatusCode={error?.status} errorMessage={(error?.data as Error)?.message} /&gt;</span>
   }
@@ -493,7 +533,9 @@ export default function PipelineDetails({ children }: React.PropsWithChildren&lt
             &lt;Layout.Vertical spacing="xsmall"&gt;
               &lt;Breadcrumbs links={getBreadCrumbs()} /&gt;
             &lt;/Layout.Vertical&gt;
-            &lt;String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" /&gt;
+            {isPipelineStudioRoute &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" /&gt;</span>
+            )}
           &lt;/&gt;
         }
         toolbar={
@@ -580,7 +622,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren&lt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

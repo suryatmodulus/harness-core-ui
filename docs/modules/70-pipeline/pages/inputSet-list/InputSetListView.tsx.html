@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.22% </span>
+                <span class="strong">65.79% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>49/74</span>
+                <span class='fraction'>50/76</span>
             </div>
         
             
@@ -403,17 +403,7 @@
 <a name='L344'></a><a href='#L344'>344</a>
 <a name='L345'></a><a href='#L345'>345</a>
 <a name='L346'></a><a href='#L346'>346</a>
-<a name='L347'></a><a href='#L347'>347</a>
-<a name='L348'></a><a href='#L348'>348</a>
-<a name='L349'></a><a href='#L349'>349</a>
-<a name='L350'></a><a href='#L350'>350</a>
-<a name='L351'></a><a href='#L351'>351</a>
-<a name='L352'></a><a href='#L352'>352</a>
-<a name='L353'></a><a href='#L353'>353</a>
-<a name='L354'></a><a href='#L354'>354</a>
-<a name='L355'></a><a href='#L355'>355</a>
-<a name='L356'></a><a href='#L356'>356</a>
-<a name='L357'></a><a href='#L357'>357</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L347'></a><a href='#L347'>347</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -589,6 +579,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -694,18 +686,6 @@
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -948,7 +928,9 @@ const RenderColumnMenu: Renderer&lt;CellProps&lt;InputSetLocal&gt;&gt; = ({ row,
     contentText: getString('inputSets.confirmDeleteText', {
       name: data.name,
       type:
-        data.inputSetType === 'OVERLAY_INPUT_SET' ? getString('inputSets.overlayInputSet') : getString('inputSetsText')
+        data.inputSetType === 'OVERLAY_INPUT_SET'
+          ? getString('inputSets.overlayInputSet')
+          : getString('inputSets.inputSetLabel')
     }),
 &nbsp;
     titleText: getString('inputSets.confirmDeleteTitle', {
@@ -1053,39 +1035,27 @@ export const InputSetListView: React.FC&lt;InputSetListViewProps&gt; = ({
       {
         Header: getString('inputSets.inputSetLabel').toUpperCase(),
         accessor: 'name',
-        width: isGitSyncEnabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'20%' </span>: '25%',
+        width: isGitSyncEnabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'25%' </span>: '30%',
         Cell: RenderColumnInputSet
       },
       {
         Header: getString('description').toUpperCase(),
         accessor: 'description',
-        width: '20%',
+        width: isGitSyncEnabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'30%' </span>: '35%',
         Cell: RenderColumnDescription,
         disableSortBy: true
       },
       {
         Header: getString('common.gitSync.repoDetails').toUpperCase(),
         accessor: 'gitDetails',
-        width: '20%',
+        width: '25%',
         Cell: RenderGitDetails,
-        disableSortBy: true
-      },
-      {
-        Header: getString('lastUpdatedBy').toUpperCase(),
-        accessor: 'lastUpdatedBy',
-        width: '10%',
-        disableSortBy: true
-      },
-      {
-        Header: getString('createdBy').toUpperCase(),
-        accessor: 'createdBy',
-        width: '10%',
         disableSortBy: true
       },
       {
         Header: getString('action').toUpperCase(),
         accessor: 'identifier',
-        width: '15%',
+        width: isGitSyncEnabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'15%' </span>: '30%',
         Cell: RenderColumnActions,
         disableSortBy: true,
         goToInputSetDetail
@@ -1093,7 +1063,7 @@ export const InputSetListView: React.FC&lt;InputSetListViewProps&gt; = ({
       {
         Header: '',
         accessor: 'action',
-        width: isGitSyncEnabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'5%' </span>: '20%',
+        width: '5%',
         Cell: RenderColumnMenu,
         disableSortBy: true,
         goToInputSetDetail,
@@ -1132,7 +1102,7 @@ export const InputSetListView: React.FC&lt;InputSetListViewProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

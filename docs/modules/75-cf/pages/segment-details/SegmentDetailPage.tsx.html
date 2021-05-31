@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.57% </span>
+                <span class="strong">90.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>48/53</span>
+                <span class='fraction'>49/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.48% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>44/54</span>
+                <span class='fraction'>40/48</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.38% </span>
+                <span class="strong">90.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>47/52</span>
+                <span class='fraction'>48/53</span>
             </div>
         
             
@@ -257,6 +257,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -271,8 +272,6 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -291,6 +290,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -434,9 +434,10 @@ import { PageError } from '@common/components/Page/PageError'
 import { OptionsMenuButton, PageSpinner, useToaster } from '@common/components'
 import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage, showToaster } from '@cf/utils/CFUtils'
 import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
-import { useConfirmAction, useQueryParams } from '@common/hooks'
+import { useConfirmAction } from '@common/hooks'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { FlagsUseSegment } from './flags-use-segment/FlagsUseSegment'
 import { SegmentSettings } from './segment-settings/SegmentSettings'
 import css from './SegmentDetailPage.module.scss'
@@ -450,12 +451,10 @@ export const fullSizeContentStyle: React.CSSProperties = {
 }
 &nbsp;
 export const SegmentDetailPage: React.FC = () =&gt; {
-  const urlQuery: Record&lt;string, string&gt; = useQueryParams()
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
-  const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, segmentIdentifier } = useParams&lt;
-    Record&lt;string, string&gt;
-  &gt;()
+  const { accountId, orgIdentifier, projectIdentifier, segmentIdentifier } = useParams&lt;Record&lt;string, string&gt;&gt;()
+  const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
   const { data: segment, loading: segmentLoading, refetch, error: segmentError } = useGetSegment({
     identifier: segmentIdentifier,
     queryParams: {
@@ -463,25 +462,26 @@ export const SegmentDetailPage: React.FC = () =&gt; {
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
-      environment: environmentIdentifier
+      environment: activeEnvironment
     } as GetSegmentQueryParams
   })
   const { loading: envLoading, data: envData, error: envError, refetch: envRefetch } = useSyncedEnvironment({
     accountId,
     orgIdentifier,
     projectIdentifier,
-    environmentIdentifier
+    environmentIdentifier: activeEnvironment
   })
-  const title = getString('cf.shared.segments')
+  const title = `${getString('cf.shared.targetManagement')}: ${getString('cf.shared.segments')}`
   const breadcrumbs = [
     {
       title,
-      url:
+      url: withActiveEnvironment(
         routes.toCFSegments({
           accountId,
           orgIdentifier,
           projectIdentifier
-        }) + `${urlQuery<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctiveEnvironment ? <span class="branch-0 cbranch-no" title="branch not covered" >`?activeEnvironment=${urlQuery.activeEnvironment}` </span>: ''}`
+        })
+      )
     }
   ]
   const history = useHistory()
@@ -502,7 +502,7 @@ export const SegmentDetailPage: React.FC = () =&gt; {
           dangerouslySetInnerHTML={{
             __html: getString('cf.segments.delete.message', { segmentName: segment?.name })
           }}
-        &gt;&lt;/span&gt;
+        /&gt;
       &lt;/Text&gt;
     ),
     intent: Intent.DANGER,
@@ -613,7 +613,7 @@ export const SegmentDetailPage: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

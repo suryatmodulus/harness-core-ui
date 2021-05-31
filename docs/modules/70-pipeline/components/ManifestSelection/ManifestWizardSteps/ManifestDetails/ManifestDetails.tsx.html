@@ -30,23 +30,23 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.18% </span>
+                <span class="strong">69.17% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>303/438</span>
+                <span class='fraction'>285/412</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.44% </span>
+                <span class="strong">46.43% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/27</span>
+                <span class='fraction'>13/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.29% </span>
+                <span class="strong">71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>72/101</span>
+                <span class='fraction'>71/100</span>
             </div>
         
             
@@ -538,7 +538,13 @@
 <a name='L479'></a><a href='#L479'>479</a>
 <a name='L480'></a><a href='#L480'>480</a>
 <a name='L481'></a><a href='#L481'>481</a>
-<a name='L482'></a><a href='#L482'>482</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L482'></a><a href='#L482'>482</a>
+<a name='L483'></a><a href='#L483'>483</a>
+<a name='L484'></a><a href='#L484'>484</a>
+<a name='L485'></a><a href='#L485'>485</a>
+<a name='L486'></a><a href='#L486'>486</a>
+<a name='L487'></a><a href='#L487'>487</a>
+<a name='L488'></a><a href='#L488'>488</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -559,7 +565,6 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -570,6 +575,13 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -581,7 +593,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -926,8 +940,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1038,8 +1050,7 @@ import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Tooltip } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import { get, set, isArray, isEmpty } from 'lodash-es'
-import { StringUtils } from '@common/exports'
+import { get, set, isEmpty, isArray } from 'lodash-es'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 &nbsp;
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -1050,7 +1061,14 @@ import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from '
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ManifestDetailDataType } from '../../ManifestInterface'
-import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../../Manifesthelper'
+import {
+  gitFetchTypeList,
+  GitFetchTypes,
+  GitRepoName,
+  ManifestDataType,
+  ManifestIdentifierValidation,
+  ManifestStoreMap
+} from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
@@ -1060,6 +1078,7 @@ interface ManifestDetailsPropType {
   initialValues: ManifestConfig
   selectedManifest: string
   handleSubmit: (data: ManifestConfigWrapper) =&gt; void
+  manifestIdsList: Array&lt;string&gt;
 }
 &nbsp;
 const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; ManifestDetailsPropType&gt; = ({
@@ -1069,7 +1088,8 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
   initialValues,
   handleSubmit,
   prevStepData,
-  previousStep
+  previousStep,
+  manifestIdsList
 }) =&gt; {
   const { getString } = useStrings()
 &nbsp;
@@ -1228,11 +1248,11 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
         initialValues={getInitialValues()}
         formName="manifestDetails"
         validationSchema={Yup.object().shape({
-          identifier: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-            .notOneOf(StringUtils.illegalIdentifiers),
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier,
+            getString('pipeline.uniqueIdentifier')
+          ),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',
             then: Yup.string().trim().required(getString('validation.branchName'))
@@ -1242,8 +1262,8 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
             then: Yup.string().trim().required(getString('validation.commitId'))
           }),
           paths: Yup.mixed().test('paths', getString('pipeline.manifestType.pathRequired'), value =&gt; {
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof value === 'string') <span class="cstat-no" title="statement not covered" >return true</span>
-            return isArray(value) &amp;&amp; value.length &gt; 0 &amp;&amp; !isEmpty(value[0].path)
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) <span class="cstat-no" title="statement not covered" >return true</span>
+            return isArray(value) &amp;&amp; value.length &gt; 0 &amp;&amp; value.every(row =&gt; !isEmpty(row.path))
           }),
           repoName: Yup.string().test('repoName', getString('pipeline.manifestType.reponameRequired'), value =&gt; {
             <span class="missing-if-branch" title="if path not taken" >I</span>if (connectionType === GitRepoName.Repo) {
@@ -1318,13 +1338,13 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
                 /&gt;
 &nbsp;
                 {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itFetchType === GitFetchTypes.Branch &amp;&amp; (
-                  &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+                  &lt;div className={cx(stepCss.formGroup)}&gt;
                     &lt;FormInput.MultiTextInput
                       multiTextInputProps={{ expressions }}
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                       name="branch"
-                      style={{ width: '370px' }}
+                      style={{ width: 370 }}
                     /&gt;
 &nbsp;
                     {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch) === MultiTypeInputType.RUNTIME &amp;&amp; (
@@ -1348,7 +1368,7 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
                       label={getString('pipeline.manifestType.commitId')}
                       placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                       name="commitId"
-                      style={{ width: '370px' }}
+                      style={{ width: 370 }}
                     /&gt;
 &nbsp;
                     {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommitId) === MultiTypeInputType.RUNTIME &amp;&amp; (
@@ -1368,8 +1388,8 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
                   &lt;MultiTypeFieldSelector
                     defaultValueToReset={defaultValueToReset}
                     name={'paths'}
-                    label={&lt;Text&gt;{getString('fileFolderPathText')}&lt;/Text&gt;}
-                    style={{ flexGrow: 1, marginBottom: 0 }}
+                    label={&lt;Text&gt;{getString('common.git.filePath')}&lt;/Text&gt;}
+                    style={{ width: 370 }}
                   &gt;
                     &lt;FieldArray
                       name="paths"
@@ -1393,15 +1413,13 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
                                 onDragLeave={onDragLeave}
                                 onDrop={<span class="fstat-no" title="function not covered" >event </span>=&gt; <span class="cstat-no" title="statement not covered" >onDrop(event, arrayHelpers, index)}</span>
                               &gt;
-                                {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>aths<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &gt; 1 &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                                  &lt;Icon name="drag-handle-vertical" className={css.drag} /&gt;</span>
-                                )}
-                                {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>aths<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &gt; 1 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Text&gt;{`${index + 1}.`}&lt;/Text&gt;}</span>
+                                &lt;Icon name="drag-handle-vertical" className={css.drag} /&gt;
+                                &lt;Text&gt;{`${index + 1}.`}&lt;/Text&gt;
                                 &lt;FormInput.MultiTextInput
                                   label={''}
-                                  placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
+                                  placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                                   name={`paths[${index}].path`}
-                                  style={{ width: formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>aths<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &gt; 1 ? <span class="branch-0 cbranch-no" title="branch not covered" >312 </span>: 370 }}
+                                  style={{ width: 312 }}
                                   multiTextInputProps={{
                                     expressions,
                                     allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
@@ -1507,7 +1525,7 @@ export default ManifestDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed May 26 2021 14:22:10 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

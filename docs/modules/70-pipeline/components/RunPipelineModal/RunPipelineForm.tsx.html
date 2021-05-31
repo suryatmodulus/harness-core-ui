@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.11% </span>
+                <span class="strong">50.69% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>74/142</span>
+                <span class='fraction'>73/144</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.72% </span>
+                <span class="strong">26.06% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>98/381</span>
+                <span class='fraction'>98/376</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.93% </span>
+                <span class="strong">34.38% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>11/29</span>
+                <span class='fraction'>11/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.14% </span>
+                <span class="strong">50.7% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>73/140</span>
+                <span class='fraction'>72/142</span>
             </div>
         
             
@@ -727,7 +727,15 @@
 <a name='L668'></a><a href='#L668'>668</a>
 <a name='L669'></a><a href='#L669'>669</a>
 <a name='L670'></a><a href='#L670'>670</a>
-<a name='L671'></a><a href='#L671'>671</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L671'></a><a href='#L671'>671</a>
+<a name='L672'></a><a href='#L672'>672</a>
+<a name='L673'></a><a href='#L673'>673</a>
+<a name='L674'></a><a href='#L674'>674</a>
+<a name='L675'></a><a href='#L675'>675</a>
+<a name='L676'></a><a href='#L676'>676</a>
+<a name='L677'></a><a href='#L677'>677</a>
+<a name='L678'></a><a href='#L678'>678</a>
+<a name='L679'></a><a href='#L679'>679</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -778,7 +786,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -958,7 +965,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1133,14 +1139,24 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1416,7 +1432,7 @@ import {
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
-import { pick, merge, isEmpty, debounce } from 'lodash-es'
+import { pick, merge, isEmpty } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { NgPipeline, ResponseJsonNode } from 'services/cd-ng'
@@ -1448,7 +1464,6 @@ import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 import css from './RunPipelineModal.module.scss'
 &nbsp;
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
-const debouncedValidatePipeline = debounce(validatePipeline, 300)
 export interface RunPipelineFormProps extends PipelineType&lt;PipelinePathProps &amp; GitQueryParams&gt; {
   inputSetSelected?: InputSetSelectorProps['value']
   inputSetYAML?: string
@@ -1625,8 +1640,7 @@ function RunPipelineFormBasic({
 &nbsp;
   const pipeline: NgPipeline | undefined = parse(<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >pipelineResponse?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.yamlPipeline </span>|| '')<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.p</span>ipeline</span>
   const renderErrors = React.useCallback(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-    const errorList = <span class="cstat-no" title="statement not covered" >getErrorsList(formErrors)</span>
-    const errorCount = <span class="cstat-no" title="statement not covered" >errorList.length</span>
+    const { errorStrings, errorCount } = <span class="cstat-no" title="statement not covered" >getErrorsList(formErrors)</span>
 <span class="cstat-no" title="statement not covered" >    if (!errorCount) {</span>
 <span class="cstat-no" title="statement not covered" >      return null</span>
     }
@@ -1638,7 +1652,7 @@ function RunPipelineFormBasic({
         &lt;Utils.WrapOptionalTooltip
           tooltip={
             &lt;div className={css.runPipelineErrorDesc}&gt;
-              {errorList.map(<span class="fstat-no" title="function not covered" >(e</span>rrorMessage, index) =&gt; (
+              {errorStrings.map(<span class="fstat-no" title="function not covered" >(e</span>rrorMessage, index) =&gt; (
 <span class="cstat-no" title="statement not covered" >                &lt;Text intent="danger" key={index} font={{ weight: 'semi-bold' }} className={css.runPipelineErrorLine}&gt;</span>
                   {errorMessage}
                 &lt;/Text&gt;
@@ -1799,19 +1813,29 @@ function RunPipelineFormBasic({
 <span class="cstat-no" title="statement not covered" >          handleRunPipeline(values as any)</span>
         }}
         enableReinitialize
-        validate={<span class="fstat-no" title="function not covered" >values </span>=&gt; {
+        validate={<span class="fstat-no" title="function not covered" >async </span>values =&gt; {
           let errors: FormikErrors&lt;InputSetDTO&gt; = <span class="cstat-no" title="statement not covered" >formErrors</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >          setCurrentPipeline({ ...currentPipeline, pipeline: values as NgPipeline })</span>
-<span class="cstat-no" title="statement not covered" >          if (values &amp;&amp; yamlTemplate &amp;&amp; pipeline) {</span>
-<span class="cstat-no" title="statement not covered" >            errors =</span>
-              (debouncedValidatePipeline(
-                values as NgPipeline,
-                parse(template?.data?.inputSetTemplateYaml || '').pipeline,
-                pipeline,
-                getString
-              ) as any) || formErrors
+&nbsp;
+          function <span class="fstat-no" title="function not covered" >validateErrors(</span>) {
+            const promise: Promise&lt;FormikErrors&lt;InputSetDTO&gt;&gt; = <span class="cstat-no" title="statement not covered" >new Promise(<span class="fstat-no" title="function not covered" >resolve </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+                const validatedErrors =
+                  (<span class="cstat-no" title="statement not covered" >validatePipeline(</span>
+                    values as NgPipeline,
+                    parse(template?.data?.inputSetTemplateYaml || '').pipeline,
+                    pipeline,
+                    getString
+                  ) as any) || formErrors
+<span class="cstat-no" title="statement not covered" >                resolve(validatedErrors)</span>
+              }, 300)
+            })
+<span class="cstat-no" title="statement not covered" >            return promise</span>
           }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          errors = await validateErrors()</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >          if (typeof errors !== undefined) <span class="cstat-no" title="statement not covered" >setFormErrors(errors)</span></span>
 <span class="cstat-no" title="statement not covered" >          return errors</span>
         }}
@@ -1965,7 +1989,7 @@ function RunPipelineFormBasic({
                     &lt;Tooltip position="top" content={getString('featureNA')}&gt;
                       &lt;Checkbox
                         background={Color.PRIMARY_2}
-                        color={Color.BLUE_500}
+                        color={Color.PRIMARY_7}
                         className={css.footerCheckbox}
                         margin={{ left: 'medium' }}
                         padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
@@ -2002,7 +2026,7 @@ function RunPipelineFormBasic({
                         },
                         permission: PermissionIdentifier.EXECUTE_PIPELINE
                       }}
-                      disabled={getErrorsList(formErrors).length &gt; 0}
+                      disabled={getErrorsList(formErrors).errorCount &gt; 0}
                     /&gt;
                     &lt;div className={css.secondaryButton}&gt;
                       &lt;Button
@@ -2074,7 +2098,7 @@ export const RunPipelineForm: React.FC&lt;RunPipelineFormProps &amp; InputSetGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon May 31 2021 10:55:53 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 11:06:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

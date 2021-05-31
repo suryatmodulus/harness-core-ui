@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.58% </span>
+                <span class="strong">84.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/48</span>
+                <span class='fraction'>43/51</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.58% </span>
+                <span class="strong">84.31% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>43/48</span>
+                <span class='fraction'>43/51</span>
             </div>
         
             
@@ -319,7 +319,8 @@
 <a name='L260'></a><a href='#L260'>260</a>
 <a name='L261'></a><a href='#L261'>261</a>
 <a name='L262'></a><a href='#L262'>262</a>
-<a name='L263'></a><a href='#L263'>263</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -341,6 +342,7 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -422,6 +424,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -431,9 +434,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -450,6 +452,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -459,9 +462,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -478,6 +480,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -487,9 +490,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -624,12 +626,13 @@ export interface ExecutionActionsProps {
   refetch?(): Promise&lt;void&gt;
   noMenu?: boolean
   stageId?: string
+  stageName?: string
   canEdit?: boolean
   canExecute?: boolean
 }
 &nbsp;
 export default function ExecutionActions(props: ExecutionActionsProps): React.ReactElement {
-  const { executionStatus, params, noMenu, stageId, canEdit = true, canExecute = true } = props
+  const { executionStatus, params, noMenu, stageId, canEdit = true, canExecute = true, stageName } = props
   const {
     orgIdentifier,
     executionIdentifier,
@@ -684,6 +687,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Abort'
           }
         })
+<span class="cstat-no" title="statement not covered" >        showSuccess(getString('pipeline.execution.stageActionMessages.abortedMessage', { stageName }))</span>
       } else {
         await interrupt({} as never, {
           queryParams: {
@@ -693,9 +697,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Abort'
           }
         })
+        showSuccess(getString('pipeline.execution.pipelineActionMessages.abortedMessage'))
       }
-      // await refetch()
-      showSuccess(getString('execution.actionMessages.abortedMessage'))
     } catch (_) {
       //
     }
@@ -712,6 +715,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Pause'
           }
         })
+<span class="cstat-no" title="statement not covered" >        showSuccess(getString('pipeline.execution.stageActionMessages.pausedMessage', { stageName }))</span>
       } else {
         await interrupt({} as never, {
           queryParams: {
@@ -721,9 +725,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Pause'
           }
         })
+        showSuccess(getString('pipeline.execution.pipelineActionMessages.pausedMessage'))
       }
-      // await refetch()
-      showSuccess(getString('execution.actionMessages.pausedMessage'))
     } catch (_) {
       //
     }
@@ -740,6 +743,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Resume'
           }
         })
+<span class="cstat-no" title="statement not covered" >        showSuccess(getString('pipeline.execution.stageActionMessages.resumedMessage', { stageName }))</span>
       } else {
         await interrupt({} as never, {
           queryParams: {
@@ -749,9 +753,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Resume'
           }
         })
+        showSuccess(getString('pipeline.execution.pipelineActionMessages.resumedMessage'))
       }
-      // await refetch()
-      showSuccess(getString('execution.actionMessages.resumedMessage'))
     } catch (_) {
       //
     }
@@ -850,7 +853,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon May 31 2021 11:38:09 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 11:43:36 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

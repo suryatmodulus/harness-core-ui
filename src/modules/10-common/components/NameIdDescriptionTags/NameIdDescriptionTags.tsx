@@ -77,7 +77,7 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
   )
 }
 
-const Tags = (props: TagsComponentProps): JSX.Element => {
+export const Tags = (props: TagsComponentProps): JSX.Element => {
   const { tagsProps, hasValue, isOptional = true } = props
   const { getString } = useStrings()
   const [isTagsOpen, setTagsOpen] = useState<boolean>(hasValue || false)

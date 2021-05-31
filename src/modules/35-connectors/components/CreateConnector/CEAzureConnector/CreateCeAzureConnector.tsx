@@ -6,7 +6,16 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import { useStrings } from 'framework/strings'
 import AzureBillingInfo from './AzureBillingInfo'
 import CreateServicePrincipal from './CreateServicePrincipal'
-import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
+
+// This is an old implementation of the overview page of the Azure Connector creation process
+// We will get rid of it once the new one is finalised.
+// Contact me for any questions - akash.bhardwaj@harness.io
+// import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
+// Below is the new one:
+import Overview from './Steps/Overview/AzureConnectorOverview'
+// import Billing from '../CEAzureConnector/Steps/Billing/AzureConnectorBilling'
+// <Billing name={'Azure Billing Export'} />
+
 import css from './CreateCeAzureConnector.module.scss'
 
 const CreateCeAzureConnector: React.FC<CreateConnectorModalProps> = props => {
@@ -18,7 +27,7 @@ const CreateCeAzureConnector: React.FC<CreateConnectorModalProps> = props => {
       title={getString(getConnectorTitleIdByType(Connectors.CE_AZURE))}
       className={css.azureConnector}
     >
-      <ConnectorDetailsStep
+      <Overview
         type={Connectors.CE_AZURE}
         name={getString('overview')}
         isEditMode={props.isEditMode}

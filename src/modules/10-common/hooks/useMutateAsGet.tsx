@@ -97,7 +97,7 @@ export function useMutateAsGet<
   useDeepCompareEffect(() => {
     if (!props.lazy && !props.mock) {
       try {
-        fetchData(mutate, props, setInitLoading, setData).then(identity, e => {
+        fetchData(mutate, props, setInitLoading, setData)?.then(identity, e => {
           if (shouldShowError(e)) setError(e)
         })
       } catch (e) {

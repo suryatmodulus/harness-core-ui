@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.24% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/21</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.24% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/21</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -117,21 +117,7 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -140,24 +126,6 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,6 +164,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -218,32 +190,14 @@ export interface DelegateTaskData {
   taskName: string
   delegateName: string
 }
-export interface DelegateSelectionLogsProps {
-  taskIds: DelegateTaskData[]
-}
 &nbsp;
 export interface UseDelegateSelectionLogsModalReturn {
-  openDelegateSelectionLogsModal: (taskIds: DelegateTaskData[], modalProps?: IDialogProps) =&gt; void
+  openDelegateSelectionLogsModal: (task: DelegateTaskData, modalProps?: IDialogProps) =&gt; void
   hideModal: () =&gt; void
 }
 &nbsp;
-export function DelegateSelectionLogs({ taskIds }: DelegateSelectionLogsProps): JSX.Element {
-  return (
-    &lt;Layout.Vertical spacing="xxlarge" padding="large" className={css.main}&gt;
-      {taskIds.map(task =&gt; (
-        &lt;DelegateSelectionLogsTask
-          key={task.taskId}
-          taskId={task.taskId}
-          taskName={task.taskName}
-          delegateName={task.delegateName}
-        /&gt;
-      ))}
-    &lt;/Layout.Vertical&gt;
-  )
-}
-&nbsp;
 export function useDelegateSelectionLogsModal(): UseDelegateSelectionLogsModalReturn {
-  const [delegateTaskIds, setDelegateTaskIds] = React.useState&lt;DelegateTaskData[]&gt;([])
+  const [delegateTask, setDelegateTask] = React.useState&lt;DelegateTaskData | null&gt;(null)
   const { getString } = useStrings()
   const [modalProps, setModalProps] = React.useState&lt;IDialogProps&gt;({
     isOpen: true,
@@ -265,14 +219,18 @@ export function useDelegateSelectionLogsModal(): UseDelegateSelectionLogsModalRe
   const [showModal, hideModal] = useModalHook(
     () =&gt; (
       &lt;Dialog {...modalProps}&gt;
-        &lt;DelegateSelectionLogs taskIds={delegateTaskIds} /&gt;
+        {!!delegateTask &amp;&amp; (
+          &lt;Layout.Vertical spacing="xxlarge" padding="large" className={css.main}&gt;
+            &lt;DelegateSelectionLogsTask task={delegateTask} /&gt;
+          &lt;/Layout.Vertical&gt;
+        )}
       &lt;/Dialog&gt;
     ),
-    [delegateTaskIds, modalProps]
+    [delegateTask, modalProps]
   )
   return {
-    openDelegateSelectionLogsModal: (taskIds, _modalProps?: IDialogProps | undefined) =&gt; {
-      setDelegateTaskIds(taskIds)
+    openDelegateSelectionLogsModal: (task, _modalProps?: IDialogProps | undefined) =&gt; {
+      setDelegateTask(task)
       setModalProps(_modalProps || modalProps)
       showModal()
     },
@@ -286,7 +244,7 @@ export function useDelegateSelectionLogsModal(): UseDelegateSelectionLogsModalRe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon May 31 2021 11:06:52 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 11:38:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

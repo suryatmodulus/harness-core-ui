@@ -114,16 +114,14 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,10 +129,6 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -173,26 +167,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Text } from '@wings-software/uicore'
+import { Text, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useGetSelectionLogsV2 } from 'services/portal'
 import { String, useStrings } from 'framework/strings'
+import type { DelegateTaskData } from '@common/components/DelegateSelectionLogs/DelegateSelectionLogs'
 import { PageSpinner } from '..'
 import DelegateSelectionLogsTable from './DelegateSelectionLogsTable'
 &nbsp;
 export interface DelegateSelectionLogsTaskProps {
-  taskId: string
-  taskName: string
-  delegateName: string
+  task: DelegateTaskData
 }
 const PAGE_SIZE = 5
 &nbsp;
-export function DelegateSelectionLogsTask({
-  taskId,
-  taskName,
-  delegateName
-}: DelegateSelectionLogsTaskProps): JSX.Element {
+export function DelegateSelectionLogsTask({ task }: DelegateSelectionLogsTaskProps): JSX.Element {
   const { accountId } = useParams&lt;{
     accountId: string
   }&gt;()
@@ -200,7 +193,7 @@ export function DelegateSelectionLogsTask({
   const [page, setPage] = React.useState(0)
   const { getString } = useStrings()
 &nbsp;
-  const { data, loading } = useGetSelectionLogsV2({ queryParams: { accountId, taskId } })
+  const { data, loading } = useGetSelectionLogsV2({ queryParams: { accountId, taskId: task.taskId } })
   <span class="missing-if-branch" title="if path not taken" >I</span>if (loading) {
 <span class="cstat-no" title="statement not covered" >    return &lt;PageSpinner /&gt;</span>
   }
@@ -209,13 +202,17 @@ export function DelegateSelectionLogsTask({
     &lt;&gt;
       {data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>elegateSelectionLogs &amp;&amp; data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>elegateSelectionLogs.length &gt; 0 ? (
         &lt;&gt;
-          &lt;Text&gt;
-            &lt;String
-              stringID="common.delegateForTask"
-              vars={{ delegate: delegateName, taskName: taskName }}
-              useRichText
-            /&gt;
-          &lt;/Text&gt;
+          &lt;Layout.Horizontal style={{ justifyContent: 'space-between' }}&gt;
+            &lt;Text&gt;
+              &lt;String
+                stringID="common.delegateForTask"
+                vars={{ delegate: task.delegateName, taskName: task.taskName }}
+                useRichText
+              /&gt;
+            &lt;/Text&gt;
+            &lt;Text&gt;{getString('taskId', { id: task.taskId })}&lt;/Text&gt;
+          &lt;/Layout.Horizontal&gt;
+&nbsp;
           &lt;DelegateSelectionLogsTable
             pageIndex={page}
             pageCount={Math.ceil(data.resource.delegateSelectionLogs.length / PAGE_SIZE)}
@@ -238,7 +235,7 @@ export function DelegateSelectionLogsTask({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon May 31 2021 11:06:52 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 11:38:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

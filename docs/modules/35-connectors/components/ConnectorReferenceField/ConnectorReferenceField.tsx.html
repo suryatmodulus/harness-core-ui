@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">82.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>80/96</span>
+                <span class='fraction'>80/97</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.29% </span>
+                <span class="strong">67.8% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>240/332</span>
+                <span class='fraction'>240/354</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.16% </span>
+                <span class="strong">82.29% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>79/95</span>
+                <span class='fraction'>79/96</span>
             </div>
         
             
@@ -611,7 +611,19 @@
 <a name='L552'></a><a href='#L552'>552</a>
 <a name='L553'></a><a href='#L553'>553</a>
 <a name='L554'></a><a href='#L554'>554</a>
-<a name='L555'></a><a href='#L555'>555</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">80x</span>
+<a name='L555'></a><a href='#L555'>555</a>
+<a name='L556'></a><a href='#L556'>556</a>
+<a name='L557'></a><a href='#L557'>557</a>
+<a name='L558'></a><a href='#L558'>558</a>
+<a name='L559'></a><a href='#L559'>559</a>
+<a name='L560'></a><a href='#L560'>560</a>
+<a name='L561'></a><a href='#L561'>561</a>
+<a name='L562'></a><a href='#L562'>562</a>
+<a name='L563'></a><a href='#L563'>563</a>
+<a name='L564'></a><a href='#L564'>564</a>
+<a name='L565'></a><a href='#L565'>565</a>
+<a name='L566'></a><a href='#L566'>566</a>
+<a name='L567'></a><a href='#L567'>567</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -653,6 +665,7 @@
 <span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-yes">80x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -742,6 +755,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-yes">545x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -815,6 +831,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1113,10 +1132,15 @@
 <span class="cline-any cline-yes">171x</span>
 <span class="cline-any cline-yes">151x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1208,6 +1232,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceScope } from '@rbac/interfaces/ResourceScope'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import css from './ConnectorReferenceField.module.scss'
 &nbsp;
 interface AdditionalParams {
@@ -1241,7 +1266,7 @@ export interface ConnectorSelectedValue {
   value: string
   scope: Scope
   live: boolean
-  connector: ConnectorInfoDTO
+  connector: ConnectorInfoDTO &amp; { gitDetails?: IGitContextFormProps }
 }
 export interface InlineSelectionInterface {
   selected: boolean
@@ -1287,7 +1312,10 @@ export function getEditRenderer(
         icon="edit"
         onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >          e.stopPropagation()</span>
-<span class="cstat-no" title="statement not covered" >          openConnectorModal(true, type, { connectorInfo: selected?.connector })</span>
+<span class="cstat-no" title="statement not covered" >          openConnectorModal(true, type, {</span>
+            connectorInfo: selected?.connector,
+            gitDetails: selected?.connector?.gitDetails
+          })
         }}
         style={{
           color: 'var(--primary-7)'
@@ -1368,7 +1396,10 @@ const RecordRender: React.FC&lt;RecordRenderProps&gt; = props =&gt; {
               className={css.editBtn}
               onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                e.stopPropagation()</span>
-<span class="cstat-no" title="statement not covered" >                openConnectorModal(true, item.record?.type || type, { connectorInfo: item.record })</span>
+<span class="cstat-no" title="statement not covered" >                openConnectorModal(true, item.record?.type || type, {</span>
+                  connectorInfo: item.record,
+                  gitDetails: { ...item.record?.gitDetails, getDefaultFromOtherRepo: false }
+                })
               }}
               style={{
                 color: 'var(--primary-4)'
@@ -1666,11 +1697,16 @@ export const ConnectorReferenceField: React.FC&lt;ConnectorReferenceFieldProps&g
 &nbsp;
   if (typeof type === 'string' &amp;&amp; !category) {
     optionalReferenceSelectProps.createNewHandler = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >      openConnectorModal(false, type, undefined)</span>
+<span class="cstat-no" title="statement not covered" >      gitScope &amp;&amp; (gitScope.getDefaultFromOtherRepo = true)</span>
+<span class="cstat-no" title="statement not covered" >      openConnectorModal(false, type, {</span>
+        gitDetails: { ...gitScope, getDefaultFromOtherRepo: !!gitScope?.getDefaultFromOtherRepo }
+      })
     }
   } else if (Array.isArray(type) &amp;&amp; !category) {
     optionalReferenceSelectProps.createNewHandler = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >      openConnectorMultiTypeModal()</span>
+<span class="cstat-no" title="statement not covered" >      openConnectorMultiTypeModal({</span>
+        gitDetails: { ...gitScope, getDefaultFromOtherRepo: !!gitScope?.getDefaultFromOtherRepo }
+      })
     }
   }
 &nbsp;
@@ -1726,7 +1762,7 @@ export const ConnectorReferenceField: React.FC&lt;ConnectorReferenceFieldProps&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon May 31 2021 15:47:26 GMT+0000 (Greenwich Mean Time)
+                at Mon May 31 2021 16:23:59 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

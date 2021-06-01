@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.44% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>79/97</span>
+                <span class='fraction'>80/100</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.76% </span>
+                <span class="strong">50.81% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>691/1335</span>
+                <span class='fraction'>691/1360</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">78.26% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>18/22</span>
+                <span class='fraction'>18/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.05% </span>
+                <span class="strong">79.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>77/95</span>
+                <span class='fraction'>78/98</span>
             </div>
         
             
@@ -714,7 +714,26 @@
 <a name='L655'></a><a href='#L655'>655</a>
 <a name='L656'></a><a href='#L656'>656</a>
 <a name='L657'></a><a href='#L657'>657</a>
-<a name='L658'></a><a href='#L658'>658</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L658'></a><a href='#L658'>658</a>
+<a name='L659'></a><a href='#L659'>659</a>
+<a name='L660'></a><a href='#L660'>660</a>
+<a name='L661'></a><a href='#L661'>661</a>
+<a name='L662'></a><a href='#L662'>662</a>
+<a name='L663'></a><a href='#L663'>663</a>
+<a name='L664'></a><a href='#L664'>664</a>
+<a name='L665'></a><a href='#L665'>665</a>
+<a name='L666'></a><a href='#L666'>666</a>
+<a name='L667'></a><a href='#L667'>667</a>
+<a name='L668'></a><a href='#L668'>668</a>
+<a name='L669'></a><a href='#L669'>669</a>
+<a name='L670'></a><a href='#L670'>670</a>
+<a name='L671'></a><a href='#L671'>671</a>
+<a name='L672'></a><a href='#L672'>672</a>
+<a name='L673'></a><a href='#L673'>673</a>
+<a name='L674'></a><a href='#L674'>674</a>
+<a name='L675'></a><a href='#L675'>675</a>
+<a name='L676'></a><a href='#L676'>676</a>
+<a name='L677'></a><a href='#L677'>677</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -1191,6 +1210,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1218,6 +1254,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1847,6 +1885,23 @@ const getArtifactorySchema = (connector: ConnectorInfoDTO): Array&lt;ActivityDet
   ]
 }
 &nbsp;
+const getDataDogSchema = <span class="fstat-no" title="function not covered" >(c</span>onnector: ConnectorInfoDTO): Array&lt;ActivityDetailsRowInterface&gt; =&gt; {
+<span class="cstat-no" title="statement not covered" >  return [</span>
+    {
+      label: 'UrlLabel',
+      value: connector?.spec?.url
+    },
+    {
+      label: 'connectors.encryptedAPIKeyLabel',
+      value: connector?.spec?.apiKeyRef
+    },
+    {
+      label: 'connectors.datadog.encryptedAPPKeyLabel',
+      value: connector?.spec?.applicationKeyRef
+    }
+  ]
+}
+&nbsp;
 const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array&lt;ActivityDetailsRowInterface&gt; =&gt; {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
@@ -1877,6 +1932,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array&lt;Ac
       return getVaultSchema(connector)
 <span class="branch-15 cbranch-no" title="branch not covered" >    case Connectors.AWS_KMS:</span>
 <span class="cstat-no" title="statement not covered" >      return getAwsKmsSchema(connector)</span>
+<span class="branch-16 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
+<span class="cstat-no" title="statement not covered" >      return getDataDogSchema(connector)</span>
     default:
       return []
   }
@@ -2035,7 +2092,7 @@ export default SavedConnectorDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 01 2021 05:11:15 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 01 2021 05:13:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

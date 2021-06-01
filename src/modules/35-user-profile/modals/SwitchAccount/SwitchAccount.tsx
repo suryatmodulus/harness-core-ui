@@ -45,7 +45,7 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
 
   const RenderColumnAccountName: Renderer<CellProps<Account>> = ({ row }) => {
     const account = row.original
-    const baseUrl = window.location.pathname
+    const baseUrl = window.location.pathname.replace('ng/', '')
     // currently logged in account should not be actionable
     return account.uuid === accountId ? (
       <Text lineClamp={1}>{account.accountName}</Text>

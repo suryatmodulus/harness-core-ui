@@ -11,7 +11,6 @@ import { Table, PageSpinner } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import { useStrings } from 'framework/strings'
-import routes from '@common/RouteDefinitions'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import type { UseGetMockData } from '@common/utils/testUtils'
 
@@ -46,11 +45,12 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
 
   const RenderColumnAccountName: Renderer<CellProps<Account>> = ({ row }) => {
     const account = row.original
+    const baseUrl = window.location.pathname
     // currently logged in account should not be actionable
     return account.uuid === accountId ? (
       <Text lineClamp={1}>{account.accountName}</Text>
     ) : (
-      <Link to={routes.toProjects({ accountId: account.uuid })}>{account.accountName}</Link>
+      <Link to={`${baseUrl}gateway/api/switch-account/${account.uuid}`}>{account.accountName}</Link>
     )
   }
 

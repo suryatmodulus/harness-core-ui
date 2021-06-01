@@ -5,7 +5,10 @@ declare const styles: {
   readonly stepContainer: string
   readonly header: string
   readonly subHeader: string
+  readonly info: string
   readonly dataFields: string
+  readonly launchTemplateSection: string
+  readonly launchTemplateBtn: string
   readonly submitBtn: string
   readonly commandsContainer: string
   readonly main: string

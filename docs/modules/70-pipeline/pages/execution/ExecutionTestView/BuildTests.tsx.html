@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.62% </span>
+                <span class="strong">85.92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>55/65</span>
+                <span class='fraction'>61/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.81% </span>
+                <span class="strong">75.85% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>199/266</span>
+                <span class='fraction'>223/294</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.62% </span>
+                <span class="strong">85.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>55/65</span>
+                <span class='fraction'>61/71</span>
             </div>
         
             
@@ -308,7 +308,18 @@
 <a name='L249'></a><a href='#L249'>249</a>
 <a name='L250'></a><a href='#L250'>250</a>
 <a name='L251'></a><a href='#L251'>251</a>
-<a name='L252'></a><a href='#L252'>252</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -442,6 +453,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -512,9 +532,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -693,6 +715,15 @@ const BuildTests: React.FC = () =&gt; {
     fetchTestOverview
   ])
 &nbsp;
+  const testsCountDiff = useMemo(() =&gt; {
+    const newTests = testOverviewData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>elected_tests?.new_tests
+    const total = testOverviewData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_tests
+    if (newTests &amp;&amp; total) {
+      return Number(Number(newTests / (total / 100)).toFixed(2))
+    }
+    return 0
+  }, [testOverviewData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_tests, testOverviewData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>elected_tests?.new_tests])
+&nbsp;
   // When build/execution is not resolved from context, render nothing
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!status) {
 <span class="cstat-no" title="statement not covered" >    return null</span>
@@ -742,6 +773,7 @@ const BuildTests: React.FC = () =&gt; {
                   skippedTests={testOverviewData.skipped_tests}
                   timeSavedMS={testOverviewData.time_saved_ms}
                   durationMS={reportSummaryData.duration_ms}
+                  testsCountDiff={testsCountDiff}
                 /&gt;
               )}
             {reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_tests &amp;&amp; reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ests &amp;&amp; (
@@ -774,6 +806,7 @@ const BuildTests: React.FC = () =&gt; {
                 totalTests={testOverviewData.total_tests}
                 skippedTests={testOverviewData.skipped_tests}
                 timeSavedMS={testOverviewData.time_saved_ms}
+                testsCountDiff={testsCountDiff}
               /&gt;
             )}
           {typeof testOverviewData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>elected_tests<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ource_code_changes !== 'undefined' &amp;&amp;
@@ -817,7 +850,7 @@ export default BuildTests
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 01 2021 15:14:02 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 01 2021 23:24:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -167,6 +167,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-azure'
     case Connectors.DATADOG:
       return 'service-datadog'
+    case Connectors.SUMOLOGIC:
+      return 'service-sumologic'
     default:
       return 'placeholder'
   }

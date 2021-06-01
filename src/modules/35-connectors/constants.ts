@@ -64,7 +64,8 @@ export const Connectors: ConnectorType = {
   AWS_KMS: 'AwsKms',
   PROMETHEUS: 'Prometheus',
   CE_AZURE: 'CEAzure',
-  DATADOG: 'Datadog'
+  DATADOG: 'Datadog',
+  SUMOLOGIC: 'SumoLogic'
 }
 
 export const ConnectorInfoText = {

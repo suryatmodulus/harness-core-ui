@@ -79,7 +79,9 @@ export interface ResponseMessage {
     | 'ACCESS_DENIED'
     | 'NG_ACCESS_DENIED'
     | 'INVALID_CREDENTIAL'
+    | 'INVALID_CREDENTIALS_THIRD_PARTY'
     | 'INVALID_KEY'
+    | 'INVALID_CONNECTOR_TYPE'
     | 'INVALID_KEYPATH'
     | 'INVALID_VARIABLE'
     | 'UNKNOWN_HOST'
@@ -169,7 +171,9 @@ export interface ResponseMessage {
     | 'AWS_CLUSTER_NOT_FOUND'
     | 'AWS_SERVICE_NOT_FOUND'
     | 'IMAGE_NOT_FOUND'
+    | 'ILLEGAL_ARGUMENT'
     | 'IMAGE_TAG_NOT_FOUND'
+    | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
@@ -184,6 +188,7 @@ export interface ResponseMessage {
     | 'ARTIFACT_SERVER_ERROR'
     | 'ENCRYPT_DECRYPT_ERROR'
     | 'SECRET_MANAGEMENT_ERROR'
+    | 'SECRET_NOT_FOUND'
     | 'KMS_OPERATION_ERROR'
     | 'GCP_KMS_OPERATION_ERROR'
     | 'VAULT_OPERATION_ERROR'
@@ -314,6 +319,13 @@ export interface ResponseMessage {
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
+    | 'URL_NOT_REACHABLE'
+    | 'URL_NOT_PROVIDED'
+    | 'ENGINE_EXPRESSION_EVALUATION_ERROR'
+    | 'ENGINE_FUNCTOR_ERROR'
+    | 'JIRA_CLIENT_ERROR'
+    | 'INVALID_YAML_ERROR'
+    | 'SCM_NOT_MODIFIED'
   level?: 'INFO' | 'ERROR'
   message?: string
   exception?: Throwable
@@ -551,18 +563,6 @@ export interface RestResponseCD10RegisterActivityDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface ActivitySourceDTO {
-  uuid?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  identifier: string
-  name: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  type?: 'KUBERNETES' | 'HARNESS_CD10' | 'CDNG'
-  editable?: boolean
-}
-
 export interface Response {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: { [key: string]: any }
@@ -570,9 +570,9 @@ export interface Response {
   correlationId?: string
 }
 
-export interface ResponseActivitySourceDTO {
+export interface ResponseBoolean {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ActivitySourceDTO
+  data?: boolean
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -607,7 +607,9 @@ export interface Failure {
     | 'ACCESS_DENIED'
     | 'NG_ACCESS_DENIED'
     | 'INVALID_CREDENTIAL'
+    | 'INVALID_CREDENTIALS_THIRD_PARTY'
     | 'INVALID_KEY'
+    | 'INVALID_CONNECTOR_TYPE'
     | 'INVALID_KEYPATH'
     | 'INVALID_VARIABLE'
     | 'UNKNOWN_HOST'
@@ -697,7 +699,9 @@ export interface Failure {
     | 'AWS_CLUSTER_NOT_FOUND'
     | 'AWS_SERVICE_NOT_FOUND'
     | 'IMAGE_NOT_FOUND'
+    | 'ILLEGAL_ARGUMENT'
     | 'IMAGE_TAG_NOT_FOUND'
+    | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
@@ -712,6 +716,7 @@ export interface Failure {
     | 'ARTIFACT_SERVER_ERROR'
     | 'ENCRYPT_DECRYPT_ERROR'
     | 'SECRET_MANAGEMENT_ERROR'
+    | 'SECRET_NOT_FOUND'
     | 'KMS_OPERATION_ERROR'
     | 'GCP_KMS_OPERATION_ERROR'
     | 'VAULT_OPERATION_ERROR'
@@ -842,6 +847,13 @@ export interface Failure {
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
+    | 'URL_NOT_REACHABLE'
+    | 'URL_NOT_PROVIDED'
+    | 'ENGINE_EXPRESSION_EVALUATION_ERROR'
+    | 'ENGINE_FUNCTOR_ERROR'
+    | 'JIRA_CLIENT_ERROR'
+    | 'INVALID_YAML_ERROR'
+    | 'SCM_NOT_MODIFIED'
   message?: string
   correlationId?: string
   errors?: ValidationError[]
@@ -882,7 +894,9 @@ export interface Error {
     | 'ACCESS_DENIED'
     | 'NG_ACCESS_DENIED'
     | 'INVALID_CREDENTIAL'
+    | 'INVALID_CREDENTIALS_THIRD_PARTY'
     | 'INVALID_KEY'
+    | 'INVALID_CONNECTOR_TYPE'
     | 'INVALID_KEYPATH'
     | 'INVALID_VARIABLE'
     | 'UNKNOWN_HOST'
@@ -972,7 +986,9 @@ export interface Error {
     | 'AWS_CLUSTER_NOT_FOUND'
     | 'AWS_SERVICE_NOT_FOUND'
     | 'IMAGE_NOT_FOUND'
+    | 'ILLEGAL_ARGUMENT'
     | 'IMAGE_TAG_NOT_FOUND'
+    | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
@@ -987,6 +1003,7 @@ export interface Error {
     | 'ARTIFACT_SERVER_ERROR'
     | 'ENCRYPT_DECRYPT_ERROR'
     | 'SECRET_MANAGEMENT_ERROR'
+    | 'SECRET_NOT_FOUND'
     | 'KMS_OPERATION_ERROR'
     | 'GCP_KMS_OPERATION_ERROR'
     | 'VAULT_OPERATION_ERROR'
@@ -1117,10 +1134,36 @@ export interface Error {
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
+    | 'URL_NOT_REACHABLE'
+    | 'URL_NOT_PROVIDED'
+    | 'ENGINE_EXPRESSION_EVALUATION_ERROR'
+    | 'ENGINE_FUNCTOR_ERROR'
+    | 'JIRA_CLIENT_ERROR'
+    | 'INVALID_YAML_ERROR'
+    | 'SCM_NOT_MODIFIED'
   message?: string
   correlationId?: string
   detailedMessage?: string
   responseMessages?: ResponseMessage[]
+}
+
+export interface ActivitySourceDTO {
+  uuid?: string
+  createdAt?: number
+  lastUpdatedAt?: number
+  identifier: string
+  name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  type?: 'KUBERNETES' | 'HARNESS_CD10' | 'CDNG'
+  editable?: boolean
+}
+
+export interface ResponseActivitySourceDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ActivitySourceDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface ResponseString {
@@ -1153,13 +1196,6 @@ export interface PageActivitySourceDTO {
 export interface ResponsePageActivitySourceDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageActivitySourceDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface ResponseBoolean {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: boolean
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -1265,6 +1301,14 @@ export interface ResponseKubernetesActivityDetailsDTO {
   correlationId?: string
 }
 
+export interface RestResponseListActivityType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface AlertCondition {
   services?: string[]
   environments?: string[]
@@ -1296,6 +1340,25 @@ export interface NotificationMethod {
   emails?: string[]
 }
 
+export interface RestResponseAlertRuleDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AlertRuleDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RiskNotify {
+  threshold?: number
+}
+
+export interface VerificationsNotify {
+  activityTypes?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
+  verificationStatuses?: ('VERIFICATION_PASSED' | 'VERIFICATION_FAILED')[]
+  allActivityTpe?: boolean
+  allVerificationStatuses?: boolean
+}
+
 export interface PageAlertRuleDTO {
   totalPages?: number
   totalItems?: number
@@ -1311,33 +1374,6 @@ export interface RestResponsePageAlertRuleDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageAlertRuleDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RiskNotify {
-  threshold?: number
-}
-
-export interface VerificationsNotify {
-  activityTypes?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
-  verificationStatuses?: ('VERIFICATION_PASSED' | 'VERIFICATION_FAILED')[]
-  allActivityTpe?: boolean
-  allVerificationStatuses?: boolean
-}
-
-export interface RestResponseAlertRuleDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AlertRuleDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListActivityType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1383,16 +1419,35 @@ export interface RestResponseLearningEngineTask {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseVoid {
+export interface Frequency {
+  count?: number
+  timestamp?: number
+  riskScore?: number
+}
+
+export interface LogAnalysisCluster {
+  uuid?: string
+  createdAt?: number
+  lastUpdatedAt?: number
+  verificationTaskId?: string
+  analysisStartTime?: number
+  analysisEndTime?: number
+  accountId?: string
+  analysisMinute?: number
+  label?: number
+  frequencyTrend?: Frequency[]
+  text?: string
+  firstSeenTime?: number
+  validUntil?: string
+  evicted?: boolean
+}
+
+export interface RestResponseListLogAnalysisCluster {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Void
+  resource?: LogAnalysisCluster[]
   responseMessages?: ResponseMessage[]
-}
-
-export interface Void {
-  [key: string]: any
 }
 
 export interface Cluster {
@@ -1433,6 +1488,14 @@ export interface HostSummary {
   resultSummary?: ResultSummary
 }
 
+export interface RestResponseDeploymentLogAnalysisDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentLogAnalysisDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface ResultSummary {
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
@@ -1457,45 +1520,6 @@ export interface RestResponseListLogClusterDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface Frequency {
-  count?: number
-  timestamp?: number
-  riskScore?: number
-}
-
-export interface LogAnalysisCluster {
-  uuid?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  verificationTaskId?: string
-  analysisStartTime?: number
-  analysisEndTime?: number
-  accountId?: string
-  analysisMinute?: number
-  label?: number
-  frequencyTrend?: Frequency[]
-  text?: string
-  firstSeenTime?: number
-  validUntil?: string
-  evicted?: boolean
-}
-
-export interface RestResponseListLogAnalysisCluster {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogAnalysisCluster[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseDeploymentLogAnalysisDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DeploymentLogAnalysisDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface AnalysisResult {
   label?: number
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
@@ -1512,6 +1536,18 @@ export interface LogAnalysisDTO {
   analysisMinute?: number
   logClusters?: LogAnalysisCluster[]
   logAnalysisResults?: AnalysisResult[]
+}
+
+export interface RestResponseVoid {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Void
+  responseMessages?: ResponseMessage[]
+}
+
+export interface Void {
+  [key: string]: any
 }
 
 export interface MetricSum {
@@ -1695,7 +1731,14 @@ export interface MetricPackDTO {
   accountId?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  dataSourceType?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
   identifier?: string
   category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   metrics?: MetricDefinitionDTO[]
@@ -1713,7 +1756,14 @@ export interface TimeSeriesThresholdDTO {
   accountId?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  dataSourceType?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
   metricPackIdentifier?: string
   metricName?: string
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
@@ -1793,7 +1843,7 @@ export interface CVConfig {
   identifier: string
   monitoringSourceName: string
   createNextTaskIteration?: number
-  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'STACKDRIVER_LOG' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
   firstTimeDataCollectionTimeRange?: TimeRange
 }
 
@@ -1819,7 +1869,14 @@ export interface RestResponseListCVConfig {
 }
 
 export interface DatasourceTypeDTO {
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  dataSourceType?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
   verificationType?: 'TIME_SERIES' | 'LOG'
 }
 
@@ -1859,27 +1916,27 @@ export interface ResponsePageCVNGLogDTO {
 }
 
 export interface JsonNode {
-  array?: boolean
-  null?: boolean
-  pojo?: boolean
+  object?: boolean
   valueNode?: boolean
   containerNode?: boolean
-  object?: boolean
   missingNode?: boolean
   nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
-  number?: boolean
+  array?: boolean
+  null?: boolean
   integralNumber?: boolean
-  floatingPointNumber?: boolean
-  short?: boolean
+  pojo?: boolean
+  number?: boolean
   int?: boolean
   long?: boolean
   float?: boolean
   double?: boolean
   bigDecimal?: boolean
   bigInteger?: boolean
+  binary?: boolean
+  floatingPointNumber?: boolean
+  short?: boolean
   textual?: boolean
   boolean?: boolean
-  binary?: boolean
 }
 
 export interface PartialSchemaDTO {
@@ -1894,6 +1951,22 @@ export interface ResponsePartialSchemaDTO {
   data?: PartialSchemaDTO
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+export interface RestResponseListDataSourceType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: (
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
+  )[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface CVSetupStatus {
@@ -1913,14 +1986,6 @@ export interface RestResponseCVSetupStatus {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListDataSourceType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS')[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface DSConfig {
   accountId?: string
   orgIdentifier?: string
@@ -1929,7 +1994,51 @@ export interface DSConfig {
   connectorIdentifier?: string
   identifier?: string
   monitoringSourceName?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'STACKDRIVER_LOG' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+}
+
+export interface RestResponseDSConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DSConfig
+  responseMessages?: ResponseMessage[]
+}
+
+export interface MonitoringSource {
+  monitoringSourceIdentifier?: string
+  monitoringSourceName?: string
+  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'STACKDRIVER_LOG' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  numberOfServices?: number
+  importedAt?: number
+}
+
+export interface PageMonitoringSource {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: MonitoringSource[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponsePageMonitoringSource {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageMonitoringSource
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface MonitoringSourceImportStatus {
+  [key: string]: any
+}
+
+export interface ResponseMonitoringSourceImportStatus {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: MonitoringSourceImportStatus
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface RestResponseListDSConfig {
@@ -1981,50 +2090,6 @@ export interface ServiceResponseDTO {
     [key: string]: string
   }
   version?: number
-}
-
-export interface RestResponseDSConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DSConfig
-  responseMessages?: ResponseMessage[]
-}
-
-export interface MonitoringSource {
-  monitoringSourceIdentifier?: string
-  monitoringSourceName?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
-  numberOfServices?: number
-  importedAt?: number
-}
-
-export interface PageMonitoringSource {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: MonitoringSource[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface ResponsePageMonitoringSource {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageMonitoringSource
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface MonitoringSourceImportStatus {
-  [key: string]: any
-}
-
-export interface ResponseMonitoringSourceImportStatus {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: MonitoringSourceImportStatus
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export interface TimeSeriesDataCollectionRecord {
@@ -2101,6 +2166,45 @@ export interface LogRecordDTO {
   log?: string
 }
 
+export interface RestResponseListTimeSeriesThreshold {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesThreshold[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface TimeSeriesThreshold {
+  uuid?: string
+  createdAt?: number
+  lastUpdatedAt?: number
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  dataSourceType:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
+  metricPackIdentifier: string
+  metricName: string
+  metricType: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
+  metricGroupName?: string
+  action: 'IGNORE' | 'FAIL'
+  criteria: TimeSeriesThresholdCriteria
+}
+
+export interface RestResponseListMetricPackDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: MetricPackDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface MetricDefinition {
   name?: string
   type: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
@@ -2117,42 +2221,17 @@ export interface MetricPack {
   accountId?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  dataSourceType:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
   identifier?: string
   category: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   metrics?: MetricDefinition[]
-}
-
-export interface TimeSeriesThreshold {
-  uuid?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
-  metricPackIdentifier: string
-  metricName: string
-  metricType: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
-  metricGroupName?: string
-  action: 'IGNORE' | 'FAIL'
-  criteria: TimeSeriesThresholdCriteria
-}
-
-export interface RestResponseListTimeSeriesThreshold {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesThreshold[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListMetricPackDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: MetricPackDTO[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface ResponseListString {
@@ -2292,6 +2371,8 @@ export interface AwsCredentialSpec {
 export interface AwsCurAttributes {
   reportName: string
   s3BucketName: string
+  region?: string
+  s3Prefix?: string
 }
 
 export interface AwsKmsConnectorCredential {
@@ -2330,6 +2411,16 @@ export type AwsManualConfigSpec = AwsCredentialSpec & {
   accessKey?: string
   accessKeyRef?: string
   secretKeyRef: string
+}
+
+export type AzureKeyVaultConnectorDTO = ConnectorConfigDTO & {
+  clientId: string
+  secretKey?: string
+  tenantId: string
+  vaultName: string
+  subscription: string
+  azureEnvironmentType?: 'AZURE' | 'AZURE_US_GOVERNMENT'
+  default?: boolean
 }
 
 export interface BillingExportSpec {
@@ -2392,11 +2483,12 @@ export type BitbucketUsernameTokenApiAccess = BitbucketApiAccessSpecDTO & {
 export type CEAwsConnector = ConnectorConfigDTO & {
   crossAccountAccess: CrossAccountAccess
   curAttributes?: AwsCurAttributes
-  featuresEnabled?: ('CUR' | 'EVENTS' | 'OPTIMIZATION')[]
+  awsAccountId?: string
+  featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
 }
 
 export type CEAzureConnector = ConnectorConfigDTO & {
-  featuresEnabled?: ('BILLING' | 'OPTIMIZATION')[]
+  featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
   tenantId: string
   subscriptionId: string
   billingExportSpec?: BillingExportSpec
@@ -2426,6 +2518,7 @@ export interface ConnectorInfoDTO {
     | 'AppDynamics'
     | 'Prometheus'
     | 'Vault'
+    | 'AzureKeyVault'
     | 'DockerRegistry'
     | 'Local'
     | 'AwsKms'
@@ -2446,6 +2539,7 @@ export interface ConnectorInfoDTO {
     | 'HttpHelmRepo'
     | 'NewRelic'
     | 'Datadog'
+    | 'SumoLogic'
   spec: ConnectorConfigDTO
 }
 
@@ -2468,6 +2562,7 @@ export interface DataCollectionRequest {
     | 'STACKDRIVER_DASHBOARD_LIST'
     | 'STACKDRIVER_DASHBOARD_GET'
     | 'STACKDRIVER_SAMPLE_DATA'
+    | 'STACKDRIVER_LOG_SAMPLE_DATA'
     | 'APPDYNAMICS_FETCH_APPS'
     | 'APPDYNAMICS_FETCH_TIERS'
     | 'APPDYNAMICS_GET_METRIC_DATA'
@@ -2836,6 +2931,13 @@ export type SplunkConnectorDTO = ConnectorConfigDTO & {
   passwordRef: string
 }
 
+export type SumoLogicConnectorDTO = ConnectorConfigDTO & {
+  url: string
+  accessIdRef: string
+  accessKeyRef: string
+  delegateSelectors?: string[]
+}
+
 export type VaultConnectorDTO = ConnectorConfigDTO & {
   authToken?: string
   basePath?: string
@@ -2926,6 +3028,15 @@ export interface SplunkValidationResponse {
   queryDurationMillis?: number
 }
 
+export interface ResponseListLinkedHashMap {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: {
+    [key: string]: { [key: string]: any }
+  }[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface PageStackdriverDashboardDTO {
   totalPages?: number
   totalItems?: number
@@ -3007,44 +3118,6 @@ export interface TimeSeriesTestDataDTO {
   }
 }
 
-export interface CategoryRisksDTO {
-  startTimeEpoch?: number
-  endTimeEpoch?: number
-  categoryRisks?: CategoryRisk[]
-  hasConfigsSetup?: boolean
-}
-
-export interface RestResponseCategoryRisksDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CategoryRisksDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface EnvServiceRiskDTO {
-  orgIdentifier?: string
-  projectIdentifier?: string
-  envName?: string
-  envIdentifier?: string
-  risk?: number
-  serviceRisks?: ServiceRisk[]
-}
-
-export interface RestResponseListEnvServiceRiskDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EnvServiceRiskDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServiceRisk {
-  serviceName?: string
-  serviceIdentifier?: string
-  risk?: number
-}
-
 export interface HeatMapDTO {
   startTime?: number
   endTime?: number
@@ -3093,22 +3166,42 @@ export interface ServiceSummary {
   analysisRisks?: AnalysisRisk[]
 }
 
-export interface CountByTag {
-  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
-  count?: number
+export interface CategoryRisksDTO {
+  startTimeEpoch?: number
+  endTimeEpoch?: number
+  categoryRisks?: CategoryRisk[]
+  hasConfigsSetup?: boolean
 }
 
-export interface LogDataByTag {
-  timestamp?: number
-  countByTags?: CountByTag[]
-}
-
-export interface RestResponseSortedSetLogDataByTag {
+export interface RestResponseCategoryRisksDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: LogDataByTag[]
+  resource?: CategoryRisksDTO
   responseMessages?: ResponseMessage[]
+}
+
+export interface EnvServiceRiskDTO {
+  orgIdentifier?: string
+  projectIdentifier?: string
+  envName?: string
+  envIdentifier?: string
+  risk?: number
+  serviceRisks?: ServiceRisk[]
+}
+
+export interface RestResponseListEnvServiceRiskDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EnvServiceRiskDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ServiceRisk {
+  serviceName?: string
+  serviceIdentifier?: string
+  risk?: number
 }
 
 export interface AnalyzedLogDataDTO {
@@ -3150,6 +3243,24 @@ export interface RestResponsePageAnalyzedLogDataDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface CountByTag {
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+  count?: number
+}
+
+export interface LogDataByTag {
+  timestamp?: number
+  countByTags?: CountByTag[]
+}
+
+export interface RestResponseSortedSetLogDataByTag {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogDataByTag[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface PageTimeSeriesMetricDataDTO {
   totalPages?: number
   totalItems?: number
@@ -3180,6 +3291,23 @@ export interface TimeSeriesMetricDataDTO {
   metricDataList?: MetricData[]
 }
 
+export interface LogAnalysisClusterChartDTO {
+  label?: number
+  text?: string
+  hostName?: string
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  x?: number
+  y?: number
+}
+
+export interface RestResponseListLogAnalysisClusterChartDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogAnalysisClusterChartDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface LogAnalysisClusterDTO {
   message?: string
   label?: number
@@ -3206,23 +3334,6 @@ export interface RestResponsePageLogAnalysisClusterDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageLogAnalysisClusterDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface LogAnalysisClusterChartDTO {
-  label?: number
-  text?: string
-  hostName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
-  x?: number
-  y?: number
-}
-
-export interface RestResponseListLogAnalysisClusterChartDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogAnalysisClusterChartDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3277,12 +3388,11 @@ export interface TestVerificationBaselineExecutionDTO {
   createdAt?: number
 }
 
-export interface RestResponseVerificationJobDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VerificationJobDTO
-  responseMessages?: ResponseMessage[]
+export interface ResponseVerificationJobDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: VerificationJobDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface VerificationJobDTO {
@@ -3295,27 +3405,21 @@ export interface VerificationJobDTO {
   projectIdentifier?: string
   orgIdentifier?: string
   activitySourceIdentifier?: string
-  dataSources?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS')[]
+  dataSources?: (
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
+  )[]
   monitoringSources?: string[]
   verificationJobUrl?: string
   duration?: string
   allMonitoringSourcesEnabled?: boolean
-  defaultJob?: boolean
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
-}
-
-export interface ResponseListVerificationJobDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: VerificationJobDTO[]
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface ResponseVerificationJobDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: VerificationJobDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+  defaultJob?: boolean
 }
 
 export interface PageVerificationJobDTO {
@@ -3331,6 +3435,21 @@ export interface PageVerificationJobDTO {
 export interface ResponsePageVerificationJobDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageVerificationJobDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface RestResponseVerificationJobDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VerificationJobDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ResponseListVerificationJobDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: VerificationJobDTO[]
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -4040,7 +4159,14 @@ export interface GetMetricPacksQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  dataSourceType:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
 }
 
 export type GetMetricPacksProps = Omit<
@@ -4091,7 +4217,14 @@ export interface SaveMetricPacksQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  dataSourceType:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
 }
 
 export type SaveMetricPacksProps = Omit<
@@ -4788,7 +4921,14 @@ export interface GetAnomalousMetricDashboardDataQueryParams {
   page?: number
   size?: number
   filter?: string
-  datasourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  datasourceType?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
 }
 
 export type GetAnomalousMetricDashboardDataProps = Omit<
@@ -4853,7 +4993,14 @@ export interface GetMetricDataQueryParams {
   page?: number
   size?: number
   filter?: string
-  datasourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  datasourceType?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
 }
 
 export type GetMetricDataProps = Omit<
@@ -7910,6 +8057,44 @@ export const getSampleDataPromise = (
   getUsingFetch<ResponseListPrometheusSampleData, Failure | Error, GetSampleDataQueryParams, void>(
     getConfig('cv/api'),
     `/prometheus/sample-data`,
+    props,
+    signal
+  )
+
+export type GetSumoLogicEndPointsProps = Omit<GetProps<ResponseListString, Failure | Error, void, void>, 'path'>
+
+/**
+ * get all sumologic endpoints
+ */
+export const GetSumoLogicEndPoints = (props: GetSumoLogicEndPointsProps) => (
+  <Get<ResponseListString, Failure | Error, void, void>
+    path={`/sumologic/endpoints`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetSumoLogicEndPointsProps = Omit<UseGetProps<ResponseListString, Failure | Error, void, void>, 'path'>
+
+/**
+ * get all sumologic endpoints
+ */
+export const useGetSumoLogicEndPoints = (props: UseGetSumoLogicEndPointsProps) =>
+  useGet<ResponseListString, Failure | Error, void, void>(`/sumologic/endpoints`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * get all sumologic endpoints
+ */
+export const getSumoLogicEndPointsPromise = (
+  props: GetUsingFetchProps<ResponseListString, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListString, Failure | Error, void, void>(
+    getConfig('cv/api'),
+    `/sumologic/endpoints`,
     props,
     signal
   )

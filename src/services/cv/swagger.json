@@ -89,7 +89,13 @@
       "name": "splunk"
     },
     {
+      "name": "stackdriver-log"
+    },
+    {
       "name": "stackdriver"
+    },
+    {
+      "name": "sumologic"
     },
     {
       "name": "timeseries"
@@ -564,6 +570,110 @@
         }
       }
     },
+    "/activity-source/{identifier}": {
+      "put": {
+        "tags": ["activity-source"],
+        "summary": "update an activity source by identifier",
+        "description": "",
+        "operationId": "putActivitySource",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ActivitySourceDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseString"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["activity-source"],
+        "summary": "deletes a kubernetes event source",
+        "description": "",
+        "operationId": "deleteKubernetesSource",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseBoolean"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/activity-source": {
       "get": {
         "tags": ["activity-source"],
@@ -690,110 +800,6 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/ResponseString"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Failure"
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/activity-source/{identifier}": {
-      "put": {
-        "tags": ["activity-source"],
-        "summary": "update an activity source by identifier",
-        "description": "",
-        "operationId": "putActivitySource",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "identifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/ActivitySourceDTO"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseString"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Failure"
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["activity-source"],
-        "summary": "deletes a kubernetes event source",
-        "description": "",
-        "operationId": "deleteKubernetesSource",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "identifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseBoolean"
             }
           },
           "400": {
@@ -1188,12 +1194,12 @@
         }
       }
     },
-    "/alert/list": {
+    "/alert/activityTypes": {
       "get": {
         "tags": ["alert"],
-        "summary": "get list of alerts",
+        "summary": "gets activity types",
         "description": "",
-        "operationId": "retrieveAlert",
+        "operationId": "getActivityTypes",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -1213,38 +1219,13 @@
             "in": "query",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/AlertRuleDTO"
-              }
-            }
           }
         ],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponsePageAlertRuleDTO"
+              "$ref": "#/definitions/RestResponseListActivityType"
             }
           }
         }
@@ -1376,6 +1357,68 @@
         }
       }
     },
+    "/alert/list": {
+      "get": {
+        "tags": ["alert"],
+        "summary": "get list of alerts",
+        "description": "",
+        "operationId": "retrieveAlert",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AlertRuleDTO"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponsePageAlertRuleDTO"
+            }
+          }
+        }
+      }
+    },
     "/alert/{identifier}": {
       "delete": {
         "tags": ["alert"],
@@ -1412,43 +1455,6 @@
         "responses": {
           "default": {
             "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/alert/activityTypes": {
-      "get": {
-        "tags": ["alert"],
-        "summary": "gets activity types",
-        "description": "",
-        "operationId": "getActivityTypes",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseListActivityType"
-            }
           }
         }
       }
@@ -1512,78 +1518,6 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/RestResponseLearningEngineTask"
-            }
-          }
-        }
-      }
-    },
-    "/log-analysis/deployment-save-analysis": {
-      "post": {
-        "tags": ["log-analysis"],
-        "summary": "saves log risk analysis for a deployment verification",
-        "description": "",
-        "operationId": "saveDeploymentAnalysis",
-        "produces": ["application/json", "application/v1+json"],
-        "parameters": [
-          {
-            "name": "taskId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/DeploymentLogAnalysisDTO"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseVoid"
-            }
-          }
-        }
-      }
-    },
-    "/log-analysis/test-data": {
-      "get": {
-        "tags": ["log-analysis"],
-        "summary": "get test log data for a verification job",
-        "description": "",
-        "operationId": "getTestLogData",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "verificationTaskId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "analysisStartTime",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "analysisEndTime",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseListLogClusterDTO"
             }
           }
         }
@@ -1663,6 +1597,45 @@
         }
       }
     },
+    "/log-analysis/test-data": {
+      "get": {
+        "tags": ["log-analysis"],
+        "summary": "get test log data for a verification job",
+        "description": "",
+        "operationId": "getTestLogData",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "verificationTaskId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "analysisStartTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "analysisEndTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListLogClusterDTO"
+            }
+          }
+        }
+      }
+    },
     "/log-analysis/serviceguard-save-analysis": {
       "post": {
         "tags": ["log-analysis"],
@@ -1696,12 +1669,12 @@
         }
       }
     },
-    "/log-cluster/save-clustered-logs": {
+    "/log-analysis/deployment-save-analysis": {
       "post": {
-        "tags": ["log-cluster"],
-        "summary": "saves clustered log data",
+        "tags": ["log-analysis"],
+        "summary": "saves log risk analysis for a deployment verification",
         "description": "",
-        "operationId": "saveClusteredData",
+        "operationId": "saveDeploymentAnalysis",
         "produces": ["application/json", "application/v1+json"],
         "parameters": [
           {
@@ -1711,33 +1684,11 @@
             "type": "string"
           },
           {
-            "name": "verificationTaskId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "timestamp",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "clusterLevel",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": ["L1", "L2"]
-          },
-          {
             "in": "body",
             "name": "body",
             "required": false,
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/LogClusterDTO"
-              }
+              "$ref": "#/definitions/DeploymentLogAnalysisDTO"
             }
           }
         ],
@@ -1745,7 +1696,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseBoolean"
+              "$ref": "#/definitions/RestResponseVoid"
             }
           }
         }
@@ -1843,6 +1794,61 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/RestResponseListLogClusterDTO"
+            }
+          }
+        }
+      }
+    },
+    "/log-cluster/save-clustered-logs": {
+      "post": {
+        "tags": ["log-cluster"],
+        "summary": "saves clustered log data",
+        "description": "",
+        "operationId": "saveClusteredData",
+        "produces": ["application/json", "application/v1+json"],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "verificationTaskId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "clusterLevel",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": ["L1", "L2"]
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LogClusterDTO"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseBoolean"
             }
           }
         }
@@ -2884,6 +2890,43 @@
         }
       }
     },
+    "/setup/supported-providers": {
+      "get": {
+        "tags": ["setup"],
+        "summary": "get the list of supported cv providers",
+        "description": "",
+        "operationId": "getSupportedProviders",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListDataSourceType"
+            }
+          }
+        }
+      }
+    },
     "/setup/status": {
       "get": {
         "tags": ["setup"],
@@ -2921,30 +2964,36 @@
         }
       }
     },
-    "/setup/supported-providers": {
+    "/ds-config/{identifier}": {
       "get": {
-        "tags": ["setup"],
-        "summary": "get the list of supported cv providers",
+        "tags": ["ds-config"],
+        "summary": "gets a monitoring sources",
         "description": "",
-        "operationId": "getSupportedProviders",
+        "operationId": "getMonitoringSource",
         "produces": ["application/json"],
         "parameters": [
           {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "accountId",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
             "name": "orgIdentifier",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
             "name": "projectIdentifier",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string"
           }
         ],
@@ -2952,7 +3001,62 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseListDataSourceType"
+              "$ref": "#/definitions/RestResponseDSConfig"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["ds-config"],
+        "summary": "creates a data source config",
+        "description": "",
+        "operationId": "createDataSourceCVConfig",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/DSConfig"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -3091,202 +3195,6 @@
         }
       }
     },
-    "/ds-config/env-to-services": {
-      "get": {
-        "tags": ["ds-config"],
-        "summary": "gets list of env to services mapping for which data sources are configured",
-        "description": "",
-        "operationId": "getEnvToServicesList",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseListEnvToServicesDTO"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Failure"
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/ds-config/available-monitoring-sources": {
-      "get": {
-        "tags": ["ds-config"],
-        "summary": "gets a list of available monitoring sources",
-        "description": "",
-        "operationId": "getAvailableMonitoringSources",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseListString"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Failure"
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/ds-config/{identifier}": {
-      "get": {
-        "tags": ["ds-config"],
-        "summary": "gets a monitoring sources",
-        "description": "",
-        "operationId": "getMonitoringSource",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "identifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseDSConfig"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Failure"
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": ["ds-config"],
-        "summary": "creates a data source config",
-        "description": "",
-        "operationId": "createDataSourceCVConfig",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "identifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/DSConfig"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Failure"
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
     "/ds-config/listMonitoringSources": {
       "get": {
         "tags": ["ds-config"],
@@ -3358,6 +3266,55 @@
         }
       }
     },
+    "/ds-config/available-monitoring-sources": {
+      "get": {
+        "tags": ["ds-config"],
+        "summary": "gets a list of available monitoring sources",
+        "description": "",
+        "operationId": "getAvailableMonitoringSources",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListString"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/ds-config/getMonitoringStatus": {
       "get": {
         "tags": ["ds-config"],
@@ -3396,6 +3353,55 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/ResponseMonitoringSourceImportStatus"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/ds-config/env-to-services": {
+      "get": {
+        "tags": ["ds-config"],
+        "summary": "gets list of env to services mapping for which data sources are configured",
+        "description": "",
+        "operationId": "getEnvToServicesList",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListEnvToServicesDTO"
             }
           },
           "400": {
@@ -3635,103 +3641,6 @@
         }
       }
     },
-    "/metric-pack": {
-      "get": {
-        "tags": ["metric-pack"],
-        "summary": "get all metric packs for a connector type",
-        "description": "",
-        "operationId": "getMetricPacks",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "dataSourceType",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseListMetricPackDTO"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["metric-pack"],
-        "summary": "saves a metric pack for a connector type",
-        "description": "",
-        "operationId": "saveMetricPacks",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "dataSourceType",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/MetricPack"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseBoolean"
-            }
-          }
-        }
-      }
-    },
     "/metric-pack/thresholds": {
       "get": {
         "tags": ["metric-pack"],
@@ -3769,7 +3678,15 @@
             "in": "query",
             "required": true,
             "type": "string",
-            "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+            "enum": [
+              "APP_DYNAMICS",
+              "SPLUNK",
+              "STACKDRIVER",
+              "STACKDRIVER_LOG",
+              "KUBERNETES",
+              "NEW_RELIC",
+              "PROMETHEUS"
+            ]
           }
         ],
         "responses": {
@@ -3811,7 +3728,15 @@
             "in": "query",
             "required": true,
             "type": "string",
-            "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+            "enum": [
+              "APP_DYNAMICS",
+              "SPLUNK",
+              "STACKDRIVER",
+              "STACKDRIVER_LOG",
+              "KUBERNETES",
+              "NEW_RELIC",
+              "PROMETHEUS"
+            ]
           },
           {
             "in": "body",
@@ -3864,6 +3789,119 @@
             "in": "query",
             "required": true,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseBoolean"
+            }
+          }
+        }
+      }
+    },
+    "/metric-pack": {
+      "get": {
+        "tags": ["metric-pack"],
+        "summary": "get all metric packs for a connector type",
+        "description": "",
+        "operationId": "getMetricPacks",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "dataSourceType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "APP_DYNAMICS",
+              "SPLUNK",
+              "STACKDRIVER",
+              "STACKDRIVER_LOG",
+              "KUBERNETES",
+              "NEW_RELIC",
+              "PROMETHEUS"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListMetricPackDTO"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["metric-pack"],
+        "summary": "saves a metric pack for a connector type",
+        "description": "",
+        "operationId": "saveMetricPacks",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "dataSourceType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "APP_DYNAMICS",
+              "SPLUNK",
+              "STACKDRIVER",
+              "STACKDRIVER_LOG",
+              "KUBERNETES",
+              "NEW_RELIC",
+              "PROMETHEUS"
+            ]
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MetricPack"
+              }
+            }
           }
         ],
         "responses": {
@@ -4077,6 +4115,39 @@
         }
       }
     },
+    "/onboarding": {
+      "post": {
+        "tags": ["onboarding"],
+        "summary": "onboarding api response",
+        "description": "",
+        "operationId": "getOnboardingResponse",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/OnboardingRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseOnboardingResponseDTO"
+            }
+          }
+        }
+      }
+    },
     "/onboarding/connector": {
       "get": {
         "tags": ["onboarding"],
@@ -4120,7 +4191,15 @@
             "in": "query",
             "required": true,
             "type": "string",
-            "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+            "enum": [
+              "APP_DYNAMICS",
+              "SPLUNK",
+              "STACKDRIVER",
+              "STACKDRIVER_LOG",
+              "KUBERNETES",
+              "NEW_RELIC",
+              "PROMETHEUS"
+            ]
           }
         ],
         "responses": {
@@ -4133,12 +4212,12 @@
         }
       }
     },
-    "/onboarding": {
-      "post": {
-        "tags": ["onboarding"],
-        "summary": "onboarding api response",
+    "/prometheus/label-names": {
+      "get": {
+        "tags": ["prometheus"],
+        "summary": "get all label names",
         "description": "",
-        "operationId": "getOnboardingResponse",
+        "operationId": "getLabelNames",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -4148,19 +4227,47 @@
             "type": "string"
           },
           {
-            "in": "body",
-            "name": "body",
+            "name": "connectorIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tracingId",
+            "in": "query",
             "required": false,
-            "schema": {
-              "$ref": "#/definitions/OnboardingRequestDTO"
-            }
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseOnboardingResponseDTO"
+              "$ref": "#/definitions/ResponseListString"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -4216,67 +4323,6 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/ResponseListPrometheusSampleData"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Failure"
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/prometheus/label-names": {
-      "get": {
-        "tags": ["prometheus"],
-        "summary": "get all label names",
-        "description": "",
-        "operationId": "getLabelNames",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "connectorIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "tracingId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseListString"
             }
           },
           "400": {
@@ -4532,6 +4578,75 @@
         }
       }
     },
+    "/stackdriver-log/sample-data": {
+      "post": {
+        "tags": ["stackdriver-log"],
+        "summary": "get sample data for a query",
+        "description": "",
+        "operationId": "getStackdriverLogSampleData",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "connectorIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tracingId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseListLinkedHashMap"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/stackdriver/dashboards": {
       "get": {
         "tags": ["stackdriver"],
@@ -4749,6 +4864,67 @@
         }
       }
     },
+    "/sumologic/endpoints": {
+      "get": {
+        "tags": ["sumologic"],
+        "summary": "get all sumologic endpoints",
+        "description": "",
+        "operationId": "getSumoLogicEndPoints",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseListString"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/timeseries/metric-template": {
+      "get": {
+        "tags": ["timeseries"],
+        "summary": "get metric definition for a given data source config",
+        "description": "",
+        "operationId": "getMetricDefinitions",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cvConfigId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListTimeSeriesMetricDefinition"
+            }
+          }
+        }
+      }
+    },
     "/timeseries/metric-group-data": {
       "get": {
         "tags": ["timeseries"],
@@ -4805,37 +4981,6 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/RestResponseTimeSeriesTestDataDTO"
-            }
-          }
-        }
-      }
-    },
-    "/timeseries/metric-template": {
-      "get": {
-        "tags": ["timeseries"],
-        "summary": "get metric definition for a given data source config",
-        "description": "",
-        "operationId": "getMetricDefinitions",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "cvConfigId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseListTimeSeriesMetricDefinition"
             }
           }
         }
@@ -4994,92 +5139,6 @@
         }
       }
     },
-    "/heatmap/category-risks": {
-      "get": {
-        "tags": ["heatmap"],
-        "summary": "get current risk for all categories",
-        "description": "",
-        "operationId": "getCategoryRiskMap",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "serviceIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "envIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseCategoryRisksDTO"
-            }
-          }
-        }
-      }
-    },
-    "/heatmap/env-service-risks": {
-      "get": {
-        "tags": ["heatmap"],
-        "summary": "get current risks for each env/service combination",
-        "description": "",
-        "operationId": "getEnvServiceRisks",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseListEnvServiceRiskDTO"
-            }
-          }
-        }
-      }
-    },
     "/heatmap": {
       "get": {
         "tags": ["heatmap"],
@@ -5200,22 +5259,16 @@
         }
       }
     },
-    "/log-dashboard/log-count-by-tags": {
+    "/heatmap/category-risks": {
       "get": {
-        "tags": ["log-dashboard"],
-        "summary": "get a sorted tag vs logs list",
+        "tags": ["heatmap"],
+        "summary": "get current risk for all categories",
         "description": "",
-        "operationId": "getTagCount",
+        "operationId": "getCategoryRiskMap",
         "produces": ["application/json"],
         "parameters": [
           {
             "name": "accountId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
             "in": "query",
             "required": true,
             "type": "string"
@@ -5227,9 +5280,9 @@
             "type": "string"
           },
           {
-            "name": "environmentIdentifier",
+            "name": "projectIdentifier",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
@@ -5239,52 +5292,32 @@
             "type": "string"
           },
           {
-            "name": "monitoringCategory",
+            "name": "envIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
-          },
-          {
-            "name": "startTime",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "endTime",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
           }
         ],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseSortedSetLogDataByTag"
+              "$ref": "#/definitions/RestResponseCategoryRisksDTO"
             }
           }
         }
       }
     },
-    "/log-dashboard/{activityId}/log-count-by-tags": {
+    "/heatmap/env-service-risks": {
       "get": {
-        "tags": ["log-dashboard"],
-        "summary": "get a sorted tag vs logs list for an activity",
+        "tags": ["heatmap"],
+        "summary": "get current risks for each env/service combination",
         "description": "",
-        "operationId": "getTagCountForActivity",
+        "operationId": "getEnvServiceRisks",
         "produces": ["application/json"],
         "parameters": [
           {
             "name": "accountId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
             "in": "query",
             "required": true,
             "type": "string"
@@ -5296,22 +5329,8 @@
             "type": "string"
           },
           {
-            "name": "startTime",
+            "name": "projectIdentifier",
             "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "endTime",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "activityId",
-            "in": "path",
             "required": true,
             "type": "string"
           }
@@ -5320,7 +5339,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseSortedSetLogDataByTag"
+              "$ref": "#/definitions/RestResponseListEnvServiceRiskDTO"
             }
           }
         }
@@ -5332,91 +5351,6 @@
         "summary": "get anomalous logs for a time range",
         "description": "",
         "operationId": "getAnomalousLogs",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "environmentIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "serviceIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "monitoringCategory",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "startTime",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "endTime",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "default": 0,
-            "format": "int32"
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "default": 10,
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponsePageAnalyzedLogDataDTO"
-            }
-          }
-        }
-      }
-    },
-    "/log-dashboard/all-logs": {
-      "get": {
-        "tags": ["log-dashboard"],
-        "summary": "get all logs for a time range",
-        "description": "",
-        "operationId": "getAllLogs",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -5582,6 +5516,217 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/RestResponsePageAnalyzedLogDataDTO"
+            }
+          }
+        }
+      }
+    },
+    "/log-dashboard/all-logs": {
+      "get": {
+        "tags": ["log-dashboard"],
+        "summary": "get all logs for a time range",
+        "description": "",
+        "operationId": "getAllLogs",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "environmentIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "serviceIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "monitoringCategory",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponsePageAnalyzedLogDataDTO"
+            }
+          }
+        }
+      }
+    },
+    "/log-dashboard/log-count-by-tags": {
+      "get": {
+        "tags": ["log-dashboard"],
+        "summary": "get a sorted tag vs logs list",
+        "description": "",
+        "operationId": "getTagCount",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "environmentIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "serviceIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "monitoringCategory",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseSortedSetLogDataByTag"
+            }
+          }
+        }
+      }
+    },
+    "/log-dashboard/{activityId}/log-count-by-tags": {
+      "get": {
+        "tags": ["log-dashboard"],
+        "summary": "get a sorted tag vs logs list for an activity",
+        "description": "",
+        "operationId": "getTagCountForActivity",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "activityId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseSortedSetLogDataByTag"
             }
           }
         }
@@ -5770,7 +5915,15 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+            "enum": [
+              "APP_DYNAMICS",
+              "SPLUNK",
+              "STACKDRIVER",
+              "STACKDRIVER_LOG",
+              "KUBERNETES",
+              "NEW_RELIC",
+              "PROMETHEUS"
+            ]
           }
         ],
         "responses": {
@@ -5875,7 +6028,15 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+            "enum": [
+              "APP_DYNAMICS",
+              "SPLUNK",
+              "STACKDRIVER",
+              "STACKDRIVER_LOG",
+              "KUBERNETES",
+              "NEW_RELIC",
+              "PROMETHEUS"
+            ]
           }
         ],
         "responses": {
@@ -5883,6 +6044,43 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/RestResponsePageTimeSeriesMetricDataDTO"
+            }
+          }
+        }
+      }
+    },
+    "/deployment-log-analysis/{verificationJobInstanceId}/clusters": {
+      "get": {
+        "tags": ["deployment-log-analysis"],
+        "summary": "get logs for given verificationJob",
+        "description": "",
+        "operationId": "getLogAnalysisClusters",
+        "produces": ["application/json", "application/v1+json"],
+        "parameters": [
+          {
+            "name": "verificationJobInstanceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "hostName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListLogAnalysisClusterChartDTO"
             }
           }
         }
@@ -5934,43 +6132,6 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/RestResponsePageLogAnalysisClusterDTO"
-            }
-          }
-        }
-      }
-    },
-    "/deployment-log-analysis/{verificationJobInstanceId}/clusters": {
-      "get": {
-        "tags": ["deployment-log-analysis"],
-        "summary": "get logs for given verificationJob",
-        "description": "",
-        "operationId": "getLogAnalysisClusters",
-        "produces": ["application/json", "application/v1+json"],
-        "parameters": [
-          {
-            "name": "verificationJobInstanceId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "hostName",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseListLogAnalysisClusterChartDTO"
             }
           }
         }
@@ -6064,110 +6225,6 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/RestResponseListTestVerificationBaselineExecutionDTO"
-            }
-          }
-        }
-      }
-    },
-    "/verification-job/job-from-url": {
-      "get": {
-        "tags": ["verification-job"],
-        "summary": "gets the verificationJob from its url",
-        "description": "",
-        "operationId": "getVerificationJobFromUrl",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "verificationJobUrl",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseVerificationJobDTO"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Failure"
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/verification-job/eligible-cdng-verification-jobs": {
-      "get": {
-        "tags": ["verification-job"],
-        "summary": "lists all verification jobs for CDNG config screen",
-        "description": "",
-        "operationId": "eligibleCDNGVerificationJobs",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "serviceIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "envIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseListVerificationJobDTO"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Failure"
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -6474,6 +6531,110 @@
           }
         }
       }
+    },
+    "/verification-job/job-from-url": {
+      "get": {
+        "tags": ["verification-job"],
+        "summary": "gets the verificationJob from its url",
+        "description": "",
+        "operationId": "getVerificationJobFromUrl",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "verificationJobUrl",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseVerificationJobDTO"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/verification-job/eligible-cdng-verification-jobs": {
+      "get": {
+        "tags": ["verification-job"],
+        "summary": "lists all verification jobs for CDNG config screen",
+        "description": "",
+        "operationId": "eligibleCDNGVerificationJobs",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "serviceIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "envIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseListVerificationJobDTO"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -6648,7 +6809,9 @@
             "ACCESS_DENIED",
             "NG_ACCESS_DENIED",
             "INVALID_CREDENTIAL",
+            "INVALID_CREDENTIALS_THIRD_PARTY",
             "INVALID_KEY",
+            "INVALID_CONNECTOR_TYPE",
             "INVALID_KEYPATH",
             "INVALID_VARIABLE",
             "UNKNOWN_HOST",
@@ -6738,7 +6901,9 @@
             "AWS_CLUSTER_NOT_FOUND",
             "AWS_SERVICE_NOT_FOUND",
             "IMAGE_NOT_FOUND",
+            "ILLEGAL_ARGUMENT",
             "IMAGE_TAG_NOT_FOUND",
+            "DELEGATE_NOT_AVAILABLE",
             "INVALID_YAML_PAYLOAD",
             "UNRECOGNIZED_YAML_FIELDS",
             "COULD_NOT_MAP_BEFORE_YAML",
@@ -6753,6 +6918,7 @@
             "ARTIFACT_SERVER_ERROR",
             "ENCRYPT_DECRYPT_ERROR",
             "SECRET_MANAGEMENT_ERROR",
+            "SECRET_NOT_FOUND",
             "KMS_OPERATION_ERROR",
             "GCP_KMS_OPERATION_ERROR",
             "VAULT_OPERATION_ERROR",
@@ -6882,7 +7048,14 @@
             "SCM_UNAUTHORIZED",
             "DATA",
             "CONTEXT",
-            "PR_CREATION_ERROR"
+            "PR_CREATION_ERROR",
+            "URL_NOT_REACHABLE",
+            "URL_NOT_PROVIDED",
+            "ENGINE_EXPRESSION_EVALUATION_ERROR",
+            "ENGINE_FUNCTOR_ERROR",
+            "JIRA_CLIENT_ERROR",
+            "INVALID_YAML_ERROR",
+            "SCM_NOT_MODIFIED"
           ]
         },
         "level": {
@@ -7527,42 +7700,6 @@
         }
       }
     },
-    "ActivitySourceDTO": {
-      "type": "object",
-      "required": ["identifier", "name"],
-      "properties": {
-        "uuid": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "lastUpdatedAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "identifier": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "orgIdentifier": {
-          "type": "string"
-        },
-        "projectIdentifier": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string",
-          "enum": ["KUBERNETES", "HARNESS_CD10", "CDNG"]
-        },
-        "editable": {
-          "type": "boolean"
-        }
-      }
-    },
     "Response": {
       "type": "object",
       "properties": {
@@ -7581,7 +7718,7 @@
         }
       }
     },
-    "ResponseActivitySourceDTO": {
+    "ResponseBoolean": {
       "type": "object",
       "properties": {
         "status": {
@@ -7589,7 +7726,7 @@
           "enum": ["SUCCESS", "FAILURE", "ERROR"]
         },
         "data": {
-          "$ref": "#/definitions/ActivitySourceDTO"
+          "type": "boolean"
         },
         "metaData": {
           "type": "object"
@@ -7636,7 +7773,9 @@
             "ACCESS_DENIED",
             "NG_ACCESS_DENIED",
             "INVALID_CREDENTIAL",
+            "INVALID_CREDENTIALS_THIRD_PARTY",
             "INVALID_KEY",
+            "INVALID_CONNECTOR_TYPE",
             "INVALID_KEYPATH",
             "INVALID_VARIABLE",
             "UNKNOWN_HOST",
@@ -7726,7 +7865,9 @@
             "AWS_CLUSTER_NOT_FOUND",
             "AWS_SERVICE_NOT_FOUND",
             "IMAGE_NOT_FOUND",
+            "ILLEGAL_ARGUMENT",
             "IMAGE_TAG_NOT_FOUND",
+            "DELEGATE_NOT_AVAILABLE",
             "INVALID_YAML_PAYLOAD",
             "UNRECOGNIZED_YAML_FIELDS",
             "COULD_NOT_MAP_BEFORE_YAML",
@@ -7741,6 +7882,7 @@
             "ARTIFACT_SERVER_ERROR",
             "ENCRYPT_DECRYPT_ERROR",
             "SECRET_MANAGEMENT_ERROR",
+            "SECRET_NOT_FOUND",
             "KMS_OPERATION_ERROR",
             "GCP_KMS_OPERATION_ERROR",
             "VAULT_OPERATION_ERROR",
@@ -7870,7 +8012,14 @@
             "SCM_UNAUTHORIZED",
             "DATA",
             "CONTEXT",
-            "PR_CREATION_ERROR"
+            "PR_CREATION_ERROR",
+            "URL_NOT_REACHABLE",
+            "URL_NOT_PROVIDED",
+            "ENGINE_EXPRESSION_EVALUATION_ERROR",
+            "ENGINE_FUNCTOR_ERROR",
+            "JIRA_CLIENT_ERROR",
+            "INVALID_YAML_ERROR",
+            "SCM_NOT_MODIFIED"
           ]
         },
         "message": {
@@ -7935,7 +8084,9 @@
             "ACCESS_DENIED",
             "NG_ACCESS_DENIED",
             "INVALID_CREDENTIAL",
+            "INVALID_CREDENTIALS_THIRD_PARTY",
             "INVALID_KEY",
+            "INVALID_CONNECTOR_TYPE",
             "INVALID_KEYPATH",
             "INVALID_VARIABLE",
             "UNKNOWN_HOST",
@@ -8025,7 +8176,9 @@
             "AWS_CLUSTER_NOT_FOUND",
             "AWS_SERVICE_NOT_FOUND",
             "IMAGE_NOT_FOUND",
+            "ILLEGAL_ARGUMENT",
             "IMAGE_TAG_NOT_FOUND",
+            "DELEGATE_NOT_AVAILABLE",
             "INVALID_YAML_PAYLOAD",
             "UNRECOGNIZED_YAML_FIELDS",
             "COULD_NOT_MAP_BEFORE_YAML",
@@ -8040,6 +8193,7 @@
             "ARTIFACT_SERVER_ERROR",
             "ENCRYPT_DECRYPT_ERROR",
             "SECRET_MANAGEMENT_ERROR",
+            "SECRET_NOT_FOUND",
             "KMS_OPERATION_ERROR",
             "GCP_KMS_OPERATION_ERROR",
             "VAULT_OPERATION_ERROR",
@@ -8169,7 +8323,14 @@
             "SCM_UNAUTHORIZED",
             "DATA",
             "CONTEXT",
-            "PR_CREATION_ERROR"
+            "PR_CREATION_ERROR",
+            "URL_NOT_REACHABLE",
+            "URL_NOT_PROVIDED",
+            "ENGINE_EXPRESSION_EVALUATION_ERROR",
+            "ENGINE_FUNCTOR_ERROR",
+            "JIRA_CLIENT_ERROR",
+            "INVALID_YAML_ERROR",
+            "SCM_NOT_MODIFIED"
           ]
         },
         "message": {
@@ -8186,6 +8347,60 @@
           "items": {
             "$ref": "#/definitions/ResponseMessage"
           }
+        }
+      }
+    },
+    "ActivitySourceDTO": {
+      "type": "object",
+      "required": ["identifier", "name"],
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastUpdatedAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "orgIdentifier": {
+          "type": "string"
+        },
+        "projectIdentifier": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["KUBERNETES", "HARNESS_CD10", "CDNG"]
+        },
+        "editable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ResponseActivitySourceDTO": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/ActivitySourceDTO"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
         }
       }
     },
@@ -8284,24 +8499,6 @@
         },
         "data": {
           "$ref": "#/definitions/PageActivitySourceDTO"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "ResponseBoolean": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "type": "boolean"
         },
         "metaData": {
           "type": "object"
@@ -8609,6 +8806,30 @@
         }
       }
     },
+    "RestResponseListActivityType": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["DEPLOYMENT", "INFRASTRUCTURE", "CUSTOM", "CONFIG", "OTHER", "KUBERNETES"]
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "AlertCondition": {
       "type": "object",
       "properties": {
@@ -8700,6 +8921,60 @@
         }
       }
     },
+    "RestResponseAlertRuleDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/AlertRuleDTO"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RiskNotify": {
+      "type": "object",
+      "properties": {
+        "threshold": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "VerificationsNotify": {
+      "type": "object",
+      "properties": {
+        "activityTypes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["DEPLOYMENT", "INFRASTRUCTURE", "CUSTOM", "CONFIG", "OTHER", "KUBERNETES"]
+          }
+        },
+        "verificationStatuses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["VERIFICATION_PASSED", "VERIFICATION_FAILED"]
+          }
+        },
+        "allActivityTpe": {
+          "type": "boolean"
+        },
+        "allVerificationStatuses": {
+          "type": "boolean"
+        }
+      }
+    },
     "PageAlertRuleDTO": {
       "type": "object",
       "properties": {
@@ -8745,84 +9020,6 @@
         },
         "resource": {
           "$ref": "#/definitions/PageAlertRuleDTO"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "RiskNotify": {
-      "type": "object",
-      "properties": {
-        "threshold": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
-    "VerificationsNotify": {
-      "type": "object",
-      "properties": {
-        "activityTypes": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["DEPLOYMENT", "INFRASTRUCTURE", "CUSTOM", "CONFIG", "OTHER", "KUBERNETES"]
-          }
-        },
-        "verificationStatuses": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["VERIFICATION_PASSED", "VERIFICATION_FAILED"]
-          }
-        },
-        "allActivityTpe": {
-          "type": "boolean"
-        },
-        "allVerificationStatuses": {
-          "type": "boolean"
-        }
-      }
-    },
-    "RestResponseAlertRuleDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "$ref": "#/definitions/AlertRuleDTO"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "RestResponseListActivityType": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["DEPLOYMENT", "INFRASTRUCTURE", "CUSTOM", "CONFIG", "OTHER", "KUBERNETES"]
-          }
         },
         "responseMessages": {
           "type": "array",
@@ -8930,7 +9127,82 @@
         }
       }
     },
-    "RestResponseVoid": {
+    "Frequency": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "riskScore": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "LogAnalysisCluster": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastUpdatedAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "verificationTaskId": {
+          "type": "string"
+        },
+        "analysisStartTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "analysisEndTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "accountId": {
+          "type": "string"
+        },
+        "analysisMinute": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "label": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "frequencyTrend": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Frequency"
+          }
+        },
+        "text": {
+          "type": "string"
+        },
+        "firstSeenTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "validUntil": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "evicted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RestResponseListLogAnalysisCluster": {
       "type": "object",
       "properties": {
         "metaData": {
@@ -8940,7 +9212,10 @@
           }
         },
         "resource": {
-          "$ref": "#/definitions/Void"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LogAnalysisCluster"
+          }
         },
         "responseMessages": {
           "type": "array",
@@ -8949,9 +9224,6 @@
           }
         }
       }
-    },
-    "Void": {
-      "type": "object"
     },
     "Cluster": {
       "type": "object",
@@ -9070,6 +9342,26 @@
         }
       }
     },
+    "RestResponseDeploymentLogAnalysisDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/DeploymentLogAnalysisDTO"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "ResultSummary": {
       "type": "object",
       "properties": {
@@ -9143,124 +9435,6 @@
         }
       }
     },
-    "Frequency": {
-      "type": "object",
-      "properties": {
-        "count": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "timestamp": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "riskScore": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
-    "LogAnalysisCluster": {
-      "type": "object",
-      "properties": {
-        "uuid": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "lastUpdatedAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "verificationTaskId": {
-          "type": "string"
-        },
-        "analysisStartTime": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "analysisEndTime": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "accountId": {
-          "type": "string"
-        },
-        "analysisMinute": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "label": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "frequencyTrend": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Frequency"
-          }
-        },
-        "text": {
-          "type": "string"
-        },
-        "firstSeenTime": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "validUntil": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "evicted": {
-          "type": "boolean"
-        }
-      }
-    },
-    "RestResponseListLogAnalysisCluster": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/LogAnalysisCluster"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "RestResponseDeploymentLogAnalysisDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "$ref": "#/definitions/DeploymentLogAnalysisDTO"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
     "AnalysisResult": {
       "type": "object",
       "properties": {
@@ -9319,6 +9493,29 @@
           }
         }
       }
+    },
+    "RestResponseVoid": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/Void"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "Void": {
+      "type": "object"
     },
     "MetricSum": {
       "type": "object",
@@ -9851,7 +10048,7 @@
         },
         "dataSourceType": {
           "type": "string",
-          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "STACKDRIVER_LOG", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
         },
         "identifier": {
           "type": "string"
@@ -9909,7 +10106,7 @@
         },
         "dataSourceType": {
           "type": "string",
-          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "STACKDRIVER_LOG", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
         },
         "metricPackIdentifier": {
           "type": "string"
@@ -10161,7 +10358,7 @@
         },
         "type": {
           "type": "string",
-          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "STACKDRIVER_LOG", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
         },
         "firstTimeDataCollectionTimeRange": {
           "$ref": "#/definitions/TimeRange"
@@ -10229,7 +10426,7 @@
       "properties": {
         "dataSourceType": {
           "type": "string",
-          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "STACKDRIVER_LOG", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
         },
         "verificationType": {
           "type": "string",
@@ -10347,22 +10544,13 @@
     "JsonNode": {
       "type": "object",
       "properties": {
-        "array": {
-          "type": "boolean"
-        },
-        "null": {
-          "type": "boolean"
-        },
-        "pojo": {
+        "object": {
           "type": "boolean"
         },
         "valueNode": {
           "type": "boolean"
         },
         "containerNode": {
-          "type": "boolean"
-        },
-        "object": {
           "type": "boolean"
         },
         "missingNode": {
@@ -10372,16 +10560,19 @@
           "type": "string",
           "enum": ["ARRAY", "BINARY", "BOOLEAN", "MISSING", "NULL", "NUMBER", "OBJECT", "POJO", "STRING"]
         },
-        "number": {
+        "array": {
+          "type": "boolean"
+        },
+        "null": {
           "type": "boolean"
         },
         "integralNumber": {
           "type": "boolean"
         },
-        "floatingPointNumber": {
+        "pojo": {
           "type": "boolean"
         },
-        "short": {
+        "number": {
           "type": "boolean"
         },
         "int": {
@@ -10402,13 +10593,19 @@
         "bigInteger": {
           "type": "boolean"
         },
+        "binary": {
+          "type": "boolean"
+        },
+        "floatingPointNumber": {
+          "type": "boolean"
+        },
+        "short": {
+          "type": "boolean"
+        },
         "textual": {
           "type": "boolean"
         },
         "boolean": {
-          "type": "boolean"
-        },
-        "binary": {
           "type": "boolean"
         }
       }
@@ -10445,6 +10642,38 @@
         },
         "correlationId": {
           "type": "string"
+        }
+      }
+    },
+    "RestResponseListDataSourceType": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "APP_DYNAMICS",
+              "SPLUNK",
+              "STACKDRIVER",
+              "STACKDRIVER_LOG",
+              "KUBERNETES",
+              "NEW_RELIC",
+              "PROMETHEUS"
+            ]
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
         }
       }
     },
@@ -10500,30 +10729,6 @@
         }
       }
     },
-    "RestResponseListDataSourceType": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
     "DSConfig": {
       "type": "object",
       "properties": {
@@ -10550,7 +10755,123 @@
         },
         "type": {
           "type": "string",
-          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "STACKDRIVER_LOG", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+        }
+      }
+    },
+    "RestResponseDSConfig": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/DSConfig"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "MonitoringSource": {
+      "type": "object",
+      "properties": {
+        "monitoringSourceIdentifier": {
+          "type": "string"
+        },
+        "monitoringSourceName": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "STACKDRIVER_LOG", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+        },
+        "numberOfServices": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "importedAt": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "PageMonitoringSource": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageItemCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MonitoringSource"
+          }
+        },
+        "pageIndex": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ResponsePageMonitoringSource": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/PageMonitoringSource"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "MonitoringSourceImportStatus": {
+      "type": "object"
+    },
+    "ResponseMonitoringSourceImportStatus": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/MonitoringSourceImportStatus"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
         }
       }
     },
@@ -10691,122 +11012,6 @@
         "version": {
           "type": "integer",
           "format": "int64"
-        }
-      }
-    },
-    "RestResponseDSConfig": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "$ref": "#/definitions/DSConfig"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "MonitoringSource": {
-      "type": "object",
-      "properties": {
-        "monitoringSourceIdentifier": {
-          "type": "string"
-        },
-        "monitoringSourceName": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string",
-          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
-        },
-        "numberOfServices": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "importedAt": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "PageMonitoringSource": {
-      "type": "object",
-      "properties": {
-        "totalPages": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "totalItems": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "pageItemCount": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "content": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MonitoringSource"
-          }
-        },
-        "pageIndex": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "empty": {
-          "type": "boolean"
-        }
-      }
-    },
-    "ResponsePageMonitoringSource": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "$ref": "#/definitions/PageMonitoringSource"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "MonitoringSourceImportStatus": {
-      "type": "object"
-    },
-    "ResponseMonitoringSourceImportStatus": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "$ref": "#/definitions/MonitoringSourceImportStatus"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
         }
       }
     },
@@ -11017,6 +11222,112 @@
         }
       }
     },
+    "RestResponseListTimeSeriesThreshold": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesThreshold"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "TimeSeriesThreshold": {
+      "type": "object",
+      "required": [
+        "accountId",
+        "action",
+        "criteria",
+        "dataSourceType",
+        "metricName",
+        "metricPackIdentifier",
+        "metricType",
+        "orgIdentifier",
+        "projectIdentifier"
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastUpdatedAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "accountId": {
+          "type": "string"
+        },
+        "orgIdentifier": {
+          "type": "string"
+        },
+        "projectIdentifier": {
+          "type": "string"
+        },
+        "dataSourceType": {
+          "type": "string",
+          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "STACKDRIVER_LOG", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+        },
+        "metricPackIdentifier": {
+          "type": "string"
+        },
+        "metricName": {
+          "type": "string"
+        },
+        "metricType": {
+          "type": "string",
+          "enum": ["INFRA", "RESP_TIME", "THROUGHPUT", "ERROR", "APDEX", "OTHER"]
+        },
+        "metricGroupName": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string",
+          "enum": ["IGNORE", "FAIL"]
+        },
+        "criteria": {
+          "$ref": "#/definitions/TimeSeriesThresholdCriteria"
+        }
+      }
+    },
+    "RestResponseListMetricPackDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MetricPackDTO"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "MetricDefinition": {
       "type": "object",
       "required": ["type"],
@@ -11071,7 +11382,7 @@
         },
         "dataSourceType": {
           "type": "string",
-          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "STACKDRIVER_LOG", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
         },
         "identifier": {
           "type": "string"
@@ -11085,112 +11396,6 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/MetricDefinition"
-          }
-        }
-      }
-    },
-    "TimeSeriesThreshold": {
-      "type": "object",
-      "required": [
-        "accountId",
-        "action",
-        "criteria",
-        "dataSourceType",
-        "metricName",
-        "metricPackIdentifier",
-        "metricType",
-        "orgIdentifier",
-        "projectIdentifier"
-      ],
-      "properties": {
-        "uuid": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "lastUpdatedAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "accountId": {
-          "type": "string"
-        },
-        "orgIdentifier": {
-          "type": "string"
-        },
-        "projectIdentifier": {
-          "type": "string"
-        },
-        "dataSourceType": {
-          "type": "string",
-          "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
-        },
-        "metricPackIdentifier": {
-          "type": "string"
-        },
-        "metricName": {
-          "type": "string"
-        },
-        "metricType": {
-          "type": "string",
-          "enum": ["INFRA", "RESP_TIME", "THROUGHPUT", "ERROR", "APDEX", "OTHER"]
-        },
-        "metricGroupName": {
-          "type": "string"
-        },
-        "action": {
-          "type": "string",
-          "enum": ["IGNORE", "FAIL"]
-        },
-        "criteria": {
-          "$ref": "#/definitions/TimeSeriesThresholdCriteria"
-        }
-      }
-    },
-    "RestResponseListTimeSeriesThreshold": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TimeSeriesThreshold"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "RestResponseListMetricPackDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MetricPackDTO"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
           }
         }
       }
@@ -11595,6 +11800,12 @@
         },
         "s3BucketName": {
           "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "s3Prefix": {
+          "type": "string"
         }
       }
     },
@@ -11728,6 +11939,41 @@
             },
             "secretKeyRef": {
               "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "AzureKeyVaultConnectorDTO": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ConnectorConfigDTO"
+        },
+        {
+          "type": "object",
+          "required": ["clientId", "subscription", "tenantId", "vaultName"],
+          "properties": {
+            "clientId": {
+              "type": "string"
+            },
+            "secretKey": {
+              "type": "string"
+            },
+            "tenantId": {
+              "type": "string"
+            },
+            "vaultName": {
+              "type": "string"
+            },
+            "subscription": {
+              "type": "string"
+            },
+            "azureEnvironmentType": {
+              "type": "string",
+              "enum": ["AZURE", "AZURE_US_GOVERNMENT"]
+            },
+            "default": {
+              "type": "boolean"
             }
           }
         }
@@ -11911,11 +12157,14 @@
             "curAttributes": {
               "$ref": "#/definitions/AwsCurAttributes"
             },
+            "awsAccountId": {
+              "type": "string"
+            },
             "featuresEnabled": {
               "type": "array",
               "items": {
                 "type": "string",
-                "enum": ["CUR", "EVENTS", "OPTIMIZATION"]
+                "enum": ["BILLING", "OPTIMIZATION", "VISIBILITY"]
               }
             }
           }
@@ -11935,7 +12184,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "enum": ["BILLING", "OPTIMIZATION"]
+                "enum": ["BILLING", "OPTIMIZATION", "VISIBILITY"]
               }
             },
             "tenantId": {
@@ -12004,6 +12253,7 @@
             "AppDynamics",
             "Prometheus",
             "Vault",
+            "AzureKeyVault",
             "DockerRegistry",
             "Local",
             "AwsKms",
@@ -12023,7 +12273,8 @@
             "CEK8sCluster",
             "HttpHelmRepo",
             "NewRelic",
-            "Datadog"
+            "Datadog",
+            "SumoLogic"
           ]
         },
         "spec": {
@@ -12073,6 +12324,7 @@
             "STACKDRIVER_DASHBOARD_LIST",
             "STACKDRIVER_DASHBOARD_GET",
             "STACKDRIVER_SAMPLE_DATA",
+            "STACKDRIVER_LOG_SAMPLE_DATA",
             "APPDYNAMICS_FETCH_APPS",
             "APPDYNAMICS_FETCH_TIERS",
             "APPDYNAMICS_GET_METRIC_DATA",
@@ -13228,6 +13480,35 @@
         }
       ]
     },
+    "SumoLogicConnectorDTO": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ConnectorConfigDTO"
+        },
+        {
+          "type": "object",
+          "required": ["accessIdRef", "accessKeyRef", "url"],
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "accessIdRef": {
+              "type": "string"
+            },
+            "accessKeyRef": {
+              "type": "string"
+            },
+            "delegateSelectors": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
     "VaultConnectorDTO": {
       "allOf": [
         {
@@ -13478,6 +13759,30 @@
         }
       }
     },
+    "ResponseListLinkedHashMap": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          }
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
     "PageStackdriverDashboardDTO": {
       "type": "object",
       "properties": {
@@ -13698,113 +14003,6 @@
         }
       }
     },
-    "CategoryRisksDTO": {
-      "type": "object",
-      "properties": {
-        "startTimeEpoch": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "endTimeEpoch": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "categoryRisks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CategoryRisk"
-          }
-        },
-        "hasConfigsSetup": {
-          "type": "boolean"
-        }
-      }
-    },
-    "RestResponseCategoryRisksDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "$ref": "#/definitions/CategoryRisksDTO"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "EnvServiceRiskDTO": {
-      "type": "object",
-      "properties": {
-        "orgIdentifier": {
-          "type": "string"
-        },
-        "projectIdentifier": {
-          "type": "string"
-        },
-        "envName": {
-          "type": "string"
-        },
-        "envIdentifier": {
-          "type": "string"
-        },
-        "risk": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "serviceRisks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ServiceRisk"
-          }
-        }
-      }
-    },
-    "RestResponseListEnvServiceRiskDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/EnvServiceRiskDTO"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "ServiceRisk": {
-      "type": "object",
-      "properties": {
-        "serviceName": {
-          "type": "string"
-        },
-        "serviceIdentifier": {
-          "type": "string"
-        },
-        "risk": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
     "HeatMapDTO": {
       "type": "object",
       "properties": {
@@ -13938,35 +14136,76 @@
         }
       }
     },
-    "CountByTag": {
+    "CategoryRisksDTO": {
       "type": "object",
       "properties": {
-        "tag": {
-          "type": "string",
-          "enum": ["KNOWN", "UNEXPECTED", "UNKNOWN"]
-        },
-        "count": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
-    "LogDataByTag": {
-      "type": "object",
-      "properties": {
-        "timestamp": {
+        "startTimeEpoch": {
           "type": "integer",
           "format": "int64"
         },
-        "countByTags": {
+        "endTimeEpoch": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "categoryRisks": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/CountByTag"
+            "$ref": "#/definitions/CategoryRisk"
+          }
+        },
+        "hasConfigsSetup": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RestResponseCategoryRisksDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/CategoryRisksDTO"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
           }
         }
       }
     },
-    "RestResponseSortedSetLogDataByTag": {
+    "EnvServiceRiskDTO": {
+      "type": "object",
+      "properties": {
+        "orgIdentifier": {
+          "type": "string"
+        },
+        "projectIdentifier": {
+          "type": "string"
+        },
+        "envName": {
+          "type": "string"
+        },
+        "envIdentifier": {
+          "type": "string"
+        },
+        "risk": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "serviceRisks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ServiceRisk"
+          }
+        }
+      }
+    },
+    "RestResponseListEnvServiceRiskDTO": {
       "type": "object",
       "properties": {
         "metaData": {
@@ -13977,9 +14216,8 @@
         },
         "resource": {
           "type": "array",
-          "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/LogDataByTag"
+            "$ref": "#/definitions/EnvServiceRiskDTO"
           }
         },
         "responseMessages": {
@@ -13987,6 +14225,21 @@
           "items": {
             "$ref": "#/definitions/ResponseMessage"
           }
+        }
+      }
+    },
+    "ServiceRisk": {
+      "type": "object",
+      "properties": {
+        "serviceName": {
+          "type": "string"
+        },
+        "serviceIdentifier": {
+          "type": "string"
+        },
+        "risk": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -14103,6 +14356,58 @@
         }
       }
     },
+    "CountByTag": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "enum": ["KNOWN", "UNEXPECTED", "UNKNOWN"]
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "LogDataByTag": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "countByTags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CountByTag"
+          }
+        }
+      }
+    },
+    "RestResponseSortedSetLogDataByTag": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/LogDataByTag"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "PageTimeSeriesMetricDataDTO": {
       "type": "object",
       "properties": {
@@ -14195,6 +14500,56 @@
         }
       }
     },
+    "LogAnalysisClusterChartDTO": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "text": {
+          "type": "string"
+        },
+        "hostName": {
+          "type": "string"
+        },
+        "risk": {
+          "type": "string",
+          "enum": ["NO_DATA", "NO_ANALYSIS", "LOW", "MEDIUM", "HIGH"]
+        },
+        "x": {
+          "type": "number",
+          "format": "double"
+        },
+        "y": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "RestResponseListLogAnalysisClusterChartDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LogAnalysisClusterChartDTO"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "LogAnalysisClusterDTO": {
       "type": "object",
       "properties": {
@@ -14282,56 +14637,6 @@
         },
         "resource": {
           "$ref": "#/definitions/PageLogAnalysisClusterDTO"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "LogAnalysisClusterChartDTO": {
-      "type": "object",
-      "properties": {
-        "label": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "text": {
-          "type": "string"
-        },
-        "hostName": {
-          "type": "string"
-        },
-        "risk": {
-          "type": "string",
-          "enum": ["NO_DATA", "NO_ANALYSIS", "LOW", "MEDIUM", "HIGH"]
-        },
-        "x": {
-          "type": "number",
-          "format": "double"
-        },
-        "y": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
-    "RestResponseListLogAnalysisClusterChartDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/LogAnalysisClusterChartDTO"
-          }
         },
         "responseMessages": {
           "type": "array",
@@ -14486,23 +14791,21 @@
         }
       }
     },
-    "RestResponseVerificationJobDTO": {
+    "ResponseVerificationJobDTO": {
       "type": "object",
       "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
         },
-        "resource": {
+        "data": {
           "$ref": "#/definitions/VerificationJobDTO"
         },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
         }
       }
     },
@@ -14540,7 +14843,15 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["APP_DYNAMICS", "SPLUNK", "STACKDRIVER", "KUBERNETES", "NEW_RELIC", "PROMETHEUS"]
+            "enum": [
+              "APP_DYNAMICS",
+              "SPLUNK",
+              "STACKDRIVER",
+              "STACKDRIVER_LOG",
+              "KUBERNETES",
+              "NEW_RELIC",
+              "PROMETHEUS"
+            ]
           }
         },
         "monitoringSources": {
@@ -14558,51 +14869,12 @@
         "allMonitoringSourcesEnabled": {
           "type": "boolean"
         },
-        "defaultJob": {
-          "type": "boolean"
-        },
         "type": {
           "type": "string",
           "enum": ["TEST", "CANARY", "BLUE_GREEN", "HEALTH"]
-        }
-      }
-    },
-    "ResponseListVerificationJobDTO": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
         },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/VerificationJobDTO"
-          }
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "ResponseVerificationJobDTO": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "$ref": "#/definitions/VerificationJobDTO"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
+        "defaultJob": {
+          "type": "boolean"
         }
       }
     },
@@ -14649,6 +14921,47 @@
         },
         "data": {
           "$ref": "#/definitions/PageVerificationJobDTO"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "RestResponseVerificationJobDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/VerificationJobDTO"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "ResponseListVerificationJobDTO": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VerificationJobDTO"
+          }
         },
         "metaData": {
           "type": "object"

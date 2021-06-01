@@ -995,6 +995,46 @@ export interface DatadogInitialValue {
   orgIdentifier?: string
   loading?: boolean
 }
+export interface SumoLogicInitialValue {
+  accessIdRef?: SecretReferenceInterface | void
+  accesskeyRef?: SecretReferenceInterface | void
+  accountId?: string | undefined
+  projectIdentifier?: string
+  orgIdentifier?: string
+  loading?: boolean
+}
+
+export const buildSumoLogicPayload = (formData: FormData) => {
+  const {
+    name,
+    identifier,
+    projectIdentifier,
+    orgIdentifier,
+    delegateSelectors,
+    url,
+    description,
+    tags,
+    accessIdRef: { referenceString: accessIdRef },
+    accesskeyRef: { referenceString: accesskeyRef }
+  } = formData
+  return {
+    connector: {
+      name,
+      identifier,
+      type: Connectors.SUMOLOGIC,
+      projectIdentifier,
+      orgIdentifier,
+      description,
+      tags,
+      spec: {
+        url,
+        accessIdRef: accessIdRef,
+        accesskeyRef: accesskeyRef,
+        delegateSelectors: delegateSelectors || {}
+      }
+    }
+  }
+}
 
 export const buildDatadogPayload = (formData: FormData) => {
   const {
@@ -1108,6 +1148,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-azure'
     case Connectors.DATADOG:
       return 'service-datadog'
+    case Connectors.SUMOLOGIC:
+      return 'service-sumologic'
     default:
       return 'cog'
   }

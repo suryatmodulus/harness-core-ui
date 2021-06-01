@@ -24,6 +24,7 @@ import CreateNewRelicConnector from '../CreateConnector/NewRelicConnector/Create
 import CreatePrometheusConnector from '../CreateConnector/PrometheusConnector/CreatePrometheusConnector'
 import CreateDataDogConnector from '../CreateConnector/DataDogConnector/CreateDataDogConnector'
 import CreateCeAzureConnector from '../CreateConnector/CEAzureConnector/CreateCeAzureConnector'
+import CreateSumoLogicConnector from '../CreateConnector/SumoLogicConnector/CreateSumoLogicConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -113,6 +114,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateCeAzureConnector {...commonProps} />
     case Connectors.DATADOG:
       return <CreateDataDogConnector {...commonProps} />
+    case Connectors.SUMOLOGIC:
+      return <CreateSumoLogicConnector {...commonProps} />
     default:
       return null
   }

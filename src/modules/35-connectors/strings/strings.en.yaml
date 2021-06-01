@@ -23,6 +23,7 @@ hashicorpVaultDetails: 'HashiCorp Vault Overview'
 appDynamicsDetails: 'AppDynamics Connector Details'
 splunkConnectorDetails: 'Splunk Connector Details'
 datadogConnectorDetails: 'Datadog Connector Details'
+sumoLogicConnectorDetails: 'SumoLogic Connector Details'
 newRelicConnectorDetails: New Relic Connector Details
 prometheusConnectorDetails: Prometheus Connector Details
 prometheusLabel: Prometheus
@@ -54,7 +55,8 @@ title:
   awsKms: 'AWS Key Management Service'
   delegateSelection: 'Delegate Selection'
   ceAzureConnector: 'Azure Connector'
-  datadog: 'Datadog Connector'
+  datadog: 'Datadog'
+  sumoLogic: 'SumoLogic'
 name_labels:
   Kubernetes: 'Kubernetes Connector Name'
   HttpHelmRepo: 'Helm Http Connector Name'
@@ -215,6 +217,13 @@ datadog:
   encryptedAPPKeyLabel: Encrypted APP Key
   urlValidation: Datadog URL is required.
   encryptedAPPKeyValidation: Encrypted APP Key is required.
+sumoLogic:
+  urlLabel: Sumo Logic API Server URL
+  encryptedAccessIdLabel: Encrypted Access ID
+  encryptedAccessKeyLabel: Encrypted Access Key
+  urlValidation: SumoLogic URL is required.
+  encryptedAccessIdValidation: SumoLogic Access ID is required.
+  encryptedAccessKeyValidation: SumoLogic Access Key is required.
 dynatrace:
   apiToken: API Token
   apiTokenValidation: API Token is required.

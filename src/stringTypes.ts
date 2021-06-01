@@ -716,6 +716,13 @@ export interface StringsMap {
   'connectors.successfullCreate': string
   'connectors.successfullUpdate': string
   'connectors.successfullyCreated': string
+  'connectors.sumoLogic.encryptedAccessIdLabel': string
+  'connectors.sumoLogic.encryptedAccessIdValidation': string
+  'connectors.sumoLogic.encryptedAccessKeyLabel': string
+  'connectors.sumoLogic.encryptedAccessKeyValidation': string
+  'connectors.sumoLogic.urlLabel': string
+  'connectors.sumoLogic.urlValidation': string
+  'connectors.sumoLogicConnectorDetails': string
   'connectors.testConnectionStep.errorDetails': string
   'connectors.testConnectionStep.executingOn': string
   'connectors.testConnectionStep.installNewDelegate': string
@@ -769,6 +776,7 @@ export interface StringsMap {
   'connectors.title.nexus': string
   'connectors.title.secretManager': string
   'connectors.title.splunk': string
+  'connectors.title.sumoLogic': string
   'connectors.unableToCreateConnector': string
   'connectors.unableToUpdateConnector': string
   'connectors.updatedSuccessfully': string

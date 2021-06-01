@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.83% </span>
+                <span class="strong">94.92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>55/58</span>
+                <span class='fraction'>56/59</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.83% </span>
+                <span class="strong">94.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>55/58</span>
+                <span class='fraction'>56/59</span>
             </div>
         
             
@@ -447,7 +447,12 @@
 <a name='L388'></a><a href='#L388'>388</a>
 <a name='L389'></a><a href='#L389'>389</a>
 <a name='L390'></a><a href='#L390'>390</a>
-<a name='L391'></a><a href='#L391'>391</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">86x</span>
+<a name='L391'></a><a href='#L391'>391</a>
+<a name='L392'></a><a href='#L392'>392</a>
+<a name='L393'></a><a href='#L393'>393</a>
+<a name='L394'></a><a href='#L394'>394</a>
+<a name='L395'></a><a href='#L395'>395</a>
+<a name='L396'></a><a href='#L396'>396</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">86x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -473,6 +478,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">86x</span>
 <span class="cline-any cline-yes">86x</span>
 <span class="cline-any cline-yes">86x</span>
 <span class="cline-any cline-yes">86x</span>
@@ -595,7 +601,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -866,6 +876,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
+import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import css from './Stepk8ClusterDetails.module.scss'
 &nbsp;
 interface Stepk8ClusterDetailsProps extends ConnectorInfoDTO {
@@ -960,7 +971,7 @@ const RenderK8AuthForm: React.FC&lt;FormikProps&lt;KubeFormInterface&gt; &amp; {
             label={getString('connectors.k8.OIDCIssuerUrl')}
             className={css.formFieldWidth}
           /&gt;
-          &lt;Container className={css.applyFlex}&gt;
+          &lt;Container flex={{ justifyContent: 'flex-start' }}&gt;
             &lt;Container width={'42%'}&gt;
               &lt;TextReference
                 name="oidcUsername"
@@ -984,18 +995,22 @@ const RenderK8AuthForm: React.FC&lt;FormikProps&lt;KubeFormInterface&gt; &amp; {
           /&gt;
         &lt;/&gt;
       )
+&nbsp;
     case AuthTypes.CLIENT_KEY_CERT:
       return (
         &lt;&gt;
-          &lt;Container className={css.formRow}&gt;
-            &lt;SecretInput name={'clientKey'} label={getString('connectors.k8.clientKey')} /&gt;
-            &lt;SecretInput name={'clientKeyPassphrase'} label={getString('connectors.k8.clientKeyPassphrase')} /&gt;
+          &lt;Container flex={{ justifyContent: 'flex-start' }}&gt;
+            &lt;Container className={css.formFieldWidth}&gt;
+              &lt;SecretInput name={'clientKey'} label={getString('connectors.k8.clientKey')} /&gt;
+              &lt;SecretInput name={'clientKeyCertificate'} label={getString('connectors.k8.clientCertificate')} /&gt;
+            &lt;/Container&gt;
+&nbsp;
+            &lt;Container className={css.formFieldWidth} margin={{ left: 'xxlarge' }}&gt;
+              &lt;SecretInput name={'clientKeyPassphrase'} label={getString('connectors.k8.clientKeyPassphrase')} /&gt;
+              &lt;FormInput.Text name="clientKeyAlgo" label={getString('connectors.k8.clientKeyAlgorithm')} /&gt;
+            &lt;/Container&gt;
           &lt;/Container&gt;
-          &lt;Container className={css.formRow}&gt;
-            &lt;SecretInput name={'clientKeyCertificate'} label={getString('connectors.k8.clientCertificate')} /&gt;
-            &lt;FormInput.Text name="clientKeyAlgo" label={getString('connectors.k8.clientKeyAlgorithm')} /&gt;
-          &lt;/Container&gt;
-          &lt;Container width={'42%'}&gt;
+          &lt;Container className={css.formFieldWidth}&gt;
             &lt;SecretInput name={'clientKeyCACertificate'} label={getString('connectors.k8.clientKeyCACertificate')} /&gt;
           &lt;/Container&gt;
         &lt;/&gt;
@@ -1194,7 +1209,7 @@ const Stepk8ClusterDetails: React.FC&lt;StepProps&lt;Stepk8ClusterDetailsProps&g
                       name="authType"
                       items={authOptions}
                       disabled={false}
-                      className={css.authTypeSelect}
+                      className={commonStyles.authTypeSelect}
                     /&gt;
                   &lt;/Container&gt;
 &nbsp;
@@ -1234,7 +1249,7 @@ export default Stepk8ClusterDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 01 2021 06:48:18 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 01 2021 07:23:43 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

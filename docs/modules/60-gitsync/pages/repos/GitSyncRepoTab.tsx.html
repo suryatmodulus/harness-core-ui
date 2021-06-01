@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.32% </span>
+                <span class="strong">83.64% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>93/109</span>
+                <span class='fraction'>92/110</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.69% </span>
+                <span class="strong">51.49% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>70/128</span>
+                <span class='fraction'>69/134</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.32% </span>
+                <span class="strong">83.64% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>93/109</span>
+                <span class='fraction'>92/110</span>
             </div>
         
             
@@ -579,7 +579,9 @@
 <a name='L520'></a><a href='#L520'>520</a>
 <a name='L521'></a><a href='#L521'>521</a>
 <a name='L522'></a><a href='#L522'>522</a>
-<a name='L523'></a><a href='#L523'>523</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L523'></a><a href='#L523'>523</a>
+<a name='L524'></a><a href='#L524'>524</a>
+<a name='L525'></a><a href='#L525'>525</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -814,14 +816,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -953,6 +953,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1140,7 +1144,7 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
-import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import css from './GitSyncRepoTab.module.scss'
 &nbsp;
@@ -1336,9 +1340,6 @@ const GitSyncRepoTab: React.FC = () =&gt; {
         })
     }
 &nbsp;
-    /** Disabling this section till underlying api call is fixed */
-    const disableTestConnection = false
-&nbsp;
     const [showModal, hideModal] = useModalHook(() =&gt; {
       return (
         &lt;Dialog
@@ -1346,6 +1347,7 @@ const GitSyncRepoTab: React.FC = () =&gt; {
           onClose={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >            hideModal()</span>
 <span class="cstat-no" title="statement not covered" >            setRepoState(RepoState.VIEW)</span>
+<span class="cstat-no" title="statement not covered" >            setTestStatus(TestStatus.NOT_INITIATED)</span>
           }}
           title={
             &lt;Text padding={{ bottom: 'small' }} margin={{ left: 'medium' }} font={{ weight: 'bold' }}&gt;
@@ -1388,7 +1390,7 @@ const GitSyncRepoTab: React.FC = () =&gt; {
               {({ values: formValues }) =&gt; (
                 &lt;FormikForm&gt;
                   &lt;Layout.Vertical border={{ bottom: true, color: Color.GREY_250 }} margin={{ bottom: 'medium' }}&gt;
-                    &lt;Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing="xlarge"&gt;
+                    &lt;Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing="large"&gt;
                       &lt;Layout.Vertical&gt;
                         &lt;FormInput.Text
                           className={cx(css.inputFields, { [css.noSpacing]: formValues.repo })}
@@ -1418,16 +1420,19 @@ const GitSyncRepoTab: React.FC = () =&gt; {
                           &lt;/Text&gt;
                         ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
                       &lt;/Layout.Vertical&gt;
-                      {disableTestConnection &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >formValues.repo </span>? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                        &lt;Container padding={{ bottom: 'medium' }}&gt;</span>
+                      {formValues.repo ? (
+                        &lt;Container padding={{ bottom: 'medium' }}&gt;
                           &lt;TestConnectionWidget
                             testStatus={testStatus}
                             onTest={<span class="fstat-no" title="function not covered" >() =</span>&gt;
-<span class="cstat-no" title="statement not covered" >                              testConnection(getScopeFromValue(repoData.gitConnectorRef || ''), formValues.repo || '')</span>
+<span class="cstat-no" title="statement not covered" >                              testConnection(</span>
+                                getIdentifierFromValue(repoData?.gitConnectorRef || ''),
+                                repoData?.repo || ''
+                              )
                             }
                           /&gt;
                         &lt;/Container&gt;
-                      ) : null}
+                      ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
                     &lt;/Layout.Horizontal&gt;
                     &lt;Layout.Vertical&gt;
                       &lt;FormInput.Text
@@ -1476,6 +1481,7 @@ const GitSyncRepoTab: React.FC = () =&gt; {
                       text={getString('cancel')}
                       onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                        setRepoState(RepoState.VIEW)</span>
+<span class="cstat-no" title="statement not covered" >                        setTestStatus(TestStatus.NOT_INITIATED)</span>
 <span class="cstat-no" title="statement not covered" >                        hideModal()</span>
                       }}
                     /&gt;
@@ -1630,7 +1636,7 @@ export default GitSyncRepoTab
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 01 2021 05:13:06 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 01 2021 05:39:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

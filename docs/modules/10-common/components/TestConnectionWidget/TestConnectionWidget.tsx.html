@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">65% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/20</span>
+                <span class='fraction'>13/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">42.86% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/7</span>
+                <span class='fraction'>3/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.37% </span>
+                <span class="strong">63.16% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/19</span>
+                <span class='fraction'>12/19</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -133,11 +133,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -191,29 +191,29 @@ export enum TestStatus {
   SUCCESS
 }
 &nbsp;
-export const TestConnectionWidget: React.FC&lt;TestConnectionWidgetProps&gt; = <span class="fstat-no" title="function not covered" >({</span> testStatus, onTest }) =&gt; {
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+export const TestConnectionWidget: React.FC&lt;TestConnectionWidgetProps&gt; = ({ testStatus, onTest }) =&gt; {
+  const { getString } = useStrings()
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  switch (testStatus) {</span>
+  switch (testStatus) {
     case TestStatus.NOT_INITIATED:
-<span class="cstat-no" title="statement not covered" >      return (</span>
-        &lt;Layout.Horizontal spacing="small"&gt;
+      return (
+        &lt;Layout.Horizontal spacing="small" flex&gt;
           &lt;Icon name="test-connection" /&gt;
           &lt;Text style={{ cursor: 'pointer' }} color={Color.BLUE_500} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onTest()}</span>&gt;
             {getString('common.labelTestConnection')}
           &lt;/Text&gt;
         &lt;/Layout.Horizontal&gt;
       )
-    case TestStatus.IN_PROGRESS:
+<span class="branch-1 cbranch-no" title="branch not covered" >    case TestStatus.IN_PROGRESS:</span>
 <span class="cstat-no" title="statement not covered" >      return (</span>
-        &lt;Layout.Horizontal spacing="small"&gt;
+        &lt;Layout.Horizontal spacing="small" flex&gt;
           &lt;Icon name="steps-spinner" color={Color.PRIMARY_7} /&gt;
           &lt;Text&gt;{getString('common.test.inProgress')}&lt;/Text&gt;
         &lt;/Layout.Horizontal&gt;
       )
-    case TestStatus.FAILED:
+<span class="branch-2 cbranch-no" title="branch not covered" >    case TestStatus.FAILED:</span>
 <span class="cstat-no" title="statement not covered" >      return (</span>
-        &lt;Layout.Horizontal spacing="small"&gt;
+        &lt;Layout.Horizontal spacing="small" flex&gt;
           &lt;Icon name="circle-cross" color={Color.RED_450} /&gt;
           &lt;Text&gt;{getString('common.test.connectionFailed')}&lt;/Text&gt;
           &lt;Icon name="test-connection" /&gt;
@@ -222,14 +222,14 @@ export const TestConnectionWidget: React.FC&lt;TestConnectionWidgetProps&gt; = <
           &lt;/Text&gt;
         &lt;/Layout.Horizontal&gt;
       )
-    case TestStatus.SUCCESS:
+<span class="branch-3 cbranch-no" title="branch not covered" >    case TestStatus.SUCCESS:</span>
 <span class="cstat-no" title="statement not covered" >      return (</span>
-        &lt;Layout.Horizontal spacing="small"&gt;
+        &lt;Layout.Horizontal spacing="small" flex&gt;
           &lt;Icon name="command-artifact-check" color={Color.GREEN_450} /&gt;
           &lt;Text&gt;{getString('common.test.connectionSuccessful')}&lt;/Text&gt;
         &lt;/Layout.Horizontal&gt;
       )
-    default:
+<span class="branch-4 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      null</span>
   }
 <span class="cstat-no" title="statement not covered" >  return null</span>
@@ -241,7 +241,7 @@ export const TestConnectionWidget: React.FC&lt;TestConnectionWidgetProps&gt; = <
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 01 2021 05:13:06 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 01 2021 05:39:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

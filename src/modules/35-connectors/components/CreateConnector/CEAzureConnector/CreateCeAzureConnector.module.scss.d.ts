@@ -8,5 +8,7 @@ declare const styles: {
   readonly dataFields: string
   readonly submitBtn: string
   readonly commandsContainer: string
+  readonly main: string
+  readonly editOpen: string
 }
 export default styles

@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/30</span>
+                <span class='fraction'>23/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/10</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/29</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
@@ -158,23 +158,12 @@
 <a name='L99'></a><a href='#L99'>99</a>
 <a name='L100'></a><a href='#L100'>100</a>
 <a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L102'></a><a href='#L102'>102</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
@@ -182,6 +171,18 @@
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
@@ -252,19 +253,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">168x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { mapValues } from 'lodash-es'
+import type { OnFailureConfig } from 'services/cd-ng'
 import { Modes } from '../../common'
+&nbsp;
+export type FailureErrorType = OnFailureConfig['errors'][number]
 &nbsp;
 export enum Strategy {
   Ignore = 'Ignore',
@@ -276,15 +275,15 @@ export enum Strategy {
   MarkAsSuccess = 'MarkAsSuccess'
 }
 &nbsp;
-export enum ErrorType {
-  // Application = 'Application',
-  AnyOther = 'AnyOther',
-  Authentication = 'Authentication',
-  Connectivity = 'Connectivity',
-  Timeout = 'Timeout',
-  Authorization = 'Authorization',
-  Verification = 'Verification',
-  DelegateProvisioning = 'DelegateProvisioning'
+export const ErrorType: Record&lt;FailureErrorType, FailureErrorType&gt; = {
+  AllErrors: 'AllErrors',
+  Authentication: 'Authentication',
+  Connectivity: 'Connectivity',
+  Timeout: 'Timeout',
+  Authorization: 'Authorization',
+  Verification: 'Verification',
+  DelegateProvisioning: 'DelegateProvisioning',
+  Unknown: 'Unknown'
 }
 &nbsp;
 export enum Domain {
@@ -346,21 +345,16 @@ export const allowedStrategiesAsPerStep: (domain: Domain) =&gt; Record&lt;Modes,
   }
 }
 &nbsp;
-export const errorTypesOrderForCD: ErrorType[] = [
+export const errorTypesOrderForCD: FailureErrorType[] = [
   ErrorType.Authentication,
-  // ErrorType.Application,
   ErrorType.Authorization,
   ErrorType.Connectivity,
-  ErrorType.Timeout,
-  ErrorType.Verification,
   ErrorType.DelegateProvisioning,
-  ErrorType.AnyOther
-]
-export const errorTypesOrderForCI: ErrorType[] = [
-  // ErrorType.Application,
   ErrorType.Timeout,
-  ErrorType.AnyOther
+  ErrorType.Unknown,
+  ErrorType.Verification
 ]
+export const errorTypesOrderForCI: FailureErrorType[] = [ErrorType.Timeout, ErrorType.Unknown]
 &nbsp;
 export const testIds: Record&lt;Strategy, string&gt; = mapValues(
   Strategy,
@@ -373,7 +367,7 @@ export const testIds: Record&lt;Strategy, string&gt; = mapValues(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 01 2021 14:10:34 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 01 2021 14:24:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

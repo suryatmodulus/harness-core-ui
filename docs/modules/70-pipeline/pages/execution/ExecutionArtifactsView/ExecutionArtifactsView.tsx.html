@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.88% </span>
+                <span class="strong">97.14% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/32</span>
+                <span class='fraction'>34/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.61% </span>
+                <span class="strong">56.38% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>52/67</span>
+                <span class='fraction'>53/94</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.55% </span>
+                <span class="strong">96.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/29</span>
+                <span class='fraction'>30/31</span>
             </div>
         
             
@@ -142,18 +142,17 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">75x</span>
 <span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">75x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,6 +163,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -207,30 +207,30 @@ export const getStageNodesWithArtifacts: (data: ExecutionGraph, stageIds: string
 ) =&gt; {
   return Object.values(data<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>odeMap ?? <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>.filter(entry =&gt; {
     const { setupId = '', outcomes = [] } = entry
-    return (
-      stageIds.includes(setupId) &amp;&amp;
-      outcomes<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp;
-      outcomes<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ome(outcome =&gt; outcome.fileArtifacts<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength || outcome.imageArtifacts<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength)
-    )
+    const outcomeWithArtifacts = Array.isArray(outcomes)
+      ? outcomes<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ome((outcome: any) =&gt; outcome.fileArtifacts?.length || outcome.imageArtifacts?.length)
+      : <span class="branch-1 cbranch-no" title="branch not covered" >outcomes?.outcome.fileArtifacts?.length || outcomes?.outcome.imageArtifacts?.length</span>
+    return stageIds.includes(setupId) &amp;&amp; outcomeWithArtifacts
   })
 }
 &nbsp;
 export const getArtifactGroups: (stages: ExecutionNode[]) =&gt; ArtifactGroup[] = stages =&gt; {
   return stages.map(node =&gt; {
+    const outcomeWithImageArtifacts = Array.isArray(node.outcomes)
+      ? node.outcomes<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind(outcome =&gt; outcome.imageArtifacts)
+      : <span class="branch-1 cbranch-no" title="branch not covered" >node.outcomes?.outcome</span>
     const imageArtifacts =
-      node.outcomes<span class="branch-0 cbranch-no" title="branch not covered" ></span>
-        ?.find(outcome =&gt; outcome.imageArtifacts)<span class="branch-0 cbranch-no" title="branch not covered" ></span>
-        // TODO: fix typing once BE type is available
-        ?.imageArtifacts<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((artifact: any) =&gt; ({
-          image: artifact.imageName,
-          tag: artifact.tag,
-          type: 'Image',
-          url: artifact.url
-        })) ?? <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
-    const fileArtifacts = node.outcomes<span class="branch-0 cbranch-no" title="branch not covered" ></span>
-      ?.find(outcome =&gt; outcome.fileArtifacts)<span class="branch-0 cbranch-no" title="branch not covered" ></span>
-      // TODO: fix typing once BE type is available
-      ?.fileArtifacts<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(<span class="fstat-no" title="function not covered" >(a</span>rtifact: any) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+      outcomeWithImageArtifacts<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>mageArtifacts<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((artifact: any) =&gt; ({
+        image: artifact.imageName,
+        tag: artifact.tag,
+        type: 'Image',
+        url: artifact.url
+      })) ?? <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
+    const outcomeWithFileArtifacts = Array.isArray(node.outcomes)
+      ? node.outcomes<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind(outcome =&gt; outcome.fileArtifacts)
+      : <span class="branch-1 cbranch-no" title="branch not covered" >node.outcomes?.outcome</span>
+    const fileArtifacts = outcomeWithFileArtifacts<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ileArtifacts // TODO: fix typing once BE type is available
+      ?.<span class="branch-0 cbranch-no" title="branch not covered" >map(<span class="fstat-no" title="function not covered" ></span>(a</span>rtifact: any) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
         type: 'File',
         url: artifact.url
       }))
@@ -262,7 +262,7 @@ export default function ExecutionArtifactsView(): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 01 2021 14:10:34 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 01 2021 14:24:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

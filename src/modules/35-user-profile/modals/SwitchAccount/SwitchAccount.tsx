@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { Container, Text, Button } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
 
 import { useGetUser, useSetDefaultAccountForCurrentUser, RestResponseUser } from 'services/portal'
@@ -50,7 +50,7 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
     return account.uuid === accountId ? (
       <Text lineClamp={1}>{account.accountName}</Text>
     ) : (
-      <Link to={`${baseUrl}gateway/api/switch-account/${account.uuid}`}>{account.accountName}</Link>
+      <a href={`${baseUrl}gateway/api/switch-account/${account.uuid}`}>{account.accountName}</a>
     )
   }
 

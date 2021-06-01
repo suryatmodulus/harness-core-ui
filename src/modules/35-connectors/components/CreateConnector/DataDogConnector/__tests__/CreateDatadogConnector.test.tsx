@@ -5,6 +5,7 @@ import { Container, FormInput } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import * as dataDogutils from '../utils'
 import { onNextMock } from '../../CommonCVConnector/__mocks__/CommonCVConnectorMocks'
 
 const callBuildDatadogPayload = jest.fn()
@@ -14,6 +15,22 @@ jest.mock('../../CommonCVConnector/CVConnectorHOC')
 import CreateDataDogConnector from '../CreateDataDogConnector'
 
 const DatadogURL = 'https://app.datadoghq.com/api/v1/'
+
+const INIT_DATADOG_VALUE = {
+  url: '',
+  applicationKeyRef: null,
+  apiKeyRef: null,
+  delegateSelectors: [],
+  name: '',
+  identifier: '',
+  description: '',
+  accountId: 'dummyAccountId',
+  orgIdentifier: 'dummyOrgId',
+  projectIdentifier: 'dummyProjectId',
+  tags: {},
+  type: 'Datadog',
+  loading: false
+}
 
 jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
   buildDatadogPayload: callBuildDatadogPayload
@@ -40,6 +57,11 @@ describe('Create datadog connector Wizard', () => {
   })
 
   test('Ensure validation works', async () => {
+    jest.spyOn(dataDogutils, 'initializeDatadogConnectorWithStepData').mockReturnValue(
+      new Promise<any>(resolve => {
+        resolve(INIT_DATADOG_VALUE)
+      })
+    )
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateDataDogConnector
@@ -63,6 +85,11 @@ describe('Create datadog connector Wizard', () => {
   })
 
   test('Ensure create flow works', async () => {
+    jest.spyOn(dataDogutils, 'initializeDatadogConnectorWithStepData').mockReturnValue(
+      new Promise<any>(resolve => {
+        resolve(INIT_DATADOG_VALUE)
+      })
+    )
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateDataDogConnector
@@ -101,12 +128,10 @@ describe('Create datadog connector Wizard', () => {
 
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
-        accountId: 'dummyAccountId',
+        ...INIT_DATADOG_VALUE,
         apiKeyRef: 'dsf-auto',
         applicationKeyRef: 'dsf-new',
-        orgIdentifier: 'dummyOrgId',
-        projectIdentifier: 'dummyProjectId',
-        url: 'https://app.datadoghq.com/api/v1/'
+        url: DatadogURL
       })
     )
 
@@ -114,6 +139,16 @@ describe('Create datadog connector Wizard', () => {
   })
 
   test('Ensure if there is existing data, fields are populated', async () => {
+    jest.spyOn(dataDogutils, 'initializeDatadogConnectorWithStepData').mockReturnValue(
+      new Promise<any>(resolve => {
+        resolve({
+          ...INIT_DATADOG_VALUE,
+          url: DatadogURL,
+          identifier: 'DataDogConnector101',
+          name: 'DataDogConnector101'
+        })
+      })
+    )
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateDataDogConnector
@@ -126,13 +161,15 @@ describe('Create datadog connector Wizard', () => {
           setIsEditMode={noop}
           connectorInfo={
             ({
-              name: 'dasdadasdasda',
-              identifier: 'dasdadasdasda',
+              name: 'DataDogConnector101',
+              identifier: 'DataDogConnector101',
               description: '',
+              accountId: 'dummyAccountId',
               orgIdentifier: 'default',
               projectIdentifier: 'Test_101',
               tags: {},
               type: 'Datadog',
+              loading: false,
               spec: {
                 url: DatadogURL,
                 applicationKeyRef: 'datadog_app_secret',
@@ -148,10 +185,10 @@ describe('Create datadog connector Wizard', () => {
     await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
 
     // expect recieved value to be there
-    expect(container.querySelector(`input[value="${DatadogURL}"]`)).not.toBeNull()
+    waitFor(() => expect(container.querySelector(`input[value="${DatadogURL}"]`)).not.toBeNull())
 
     // update it with new value
-    await setFieldValue({ container, fieldId: 'url', value: 'http://sfsfsf.com', type: InputTypes.TEXTFIELD })
+    await setFieldValue({ container, fieldId: 'url', value: 'http://datadogapi.com', type: InputTypes.TEXTFIELD })
     await setFieldValue({
       container,
       type: InputTypes.TEXTFIELD,
@@ -174,10 +211,12 @@ describe('Create datadog connector Wizard', () => {
         applicationKeyRef: 'datadog_app_secret',
         delegateSelectors: [],
         description: '',
-        identifier: 'dasdadasdasda',
-        name: 'dasdadasdasda',
-        orgIdentifier: 'default',
-        projectIdentifier: 'Test_101',
+        accountId: 'dummyAccountId',
+        identifier: 'DataDogConnector101',
+        name: 'DataDogConnector101',
+        orgIdentifier: 'dummyOrgId',
+        projectIdentifier: 'dummyProjectId',
+        loading: false,
         spec: {
           apiKeyRef: 'datadog_api_secret',
           applicationKeyRef: 'datadog_app_secret',
@@ -186,7 +225,7 @@ describe('Create datadog connector Wizard', () => {
         },
         tags: {},
         type: 'Datadog',
-        url: 'http://sfsfsf.com'
+        url: 'http://datadogapi.com'
       })
     )
   })
@@ -204,13 +243,14 @@ describe('Create datadog connector Wizard', () => {
           setIsEditMode={noop}
           connectorInfo={
             ({
-              name: 'dasdadasdasda',
-              identifier: 'dasdadasdasda',
+              name: 'DataDogConnector101',
+              identifier: 'DataDogConnector101',
               description: '',
-              orgIdentifier: 'default',
-              projectIdentifier: 'Test_101',
+              orgIdentifier: 'dummyOrgId',
+              projectIdentifier: 'dummyProjectId',
               tags: {},
               type: 'Datadog',
+              loading: false,
               spec: {
                 url: DatadogURL,
                 applicationKeyRef: 'datadog_app_secret',
@@ -226,7 +266,7 @@ describe('Create datadog connector Wizard', () => {
     await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
 
     // expect recieved value to be there
-    expect(container.querySelector(`input[value="${DatadogURL}"]`)).not.toBeNull()
+    waitFor(() => expect(container.querySelector(`input[value="https://app.datadoghq.com/api/v1/"]`)).not.toBeNull())
     // update it with new value
     await setFieldValue({ container, fieldId: 'url', value: 'http://dgdgtrty.com', type: InputTypes.TEXTFIELD })
     await setFieldValue({
@@ -251,10 +291,12 @@ describe('Create datadog connector Wizard', () => {
         applicationKeyRef: 'datadog_app_secret',
         delegateSelectors: [],
         description: '',
-        identifier: 'dasdadasdasda',
-        name: 'dasdadasdasda',
-        orgIdentifier: 'default',
-        projectIdentifier: 'Test_101',
+        accountId: 'dummyAccountId',
+        identifier: 'DataDogConnector101',
+        name: 'DataDogConnector101',
+        orgIdentifier: 'dummyOrgId',
+        projectIdentifier: 'dummyProjectId',
+        loading: false,
         spec: {
           apiKeyRef: 'datadog_api_secret',
           applicationKeyRef: 'datadog_app_secret',

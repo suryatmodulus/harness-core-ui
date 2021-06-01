@@ -10,7 +10,7 @@ import { useStrings } from 'framework/strings'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
 import { TerraformProps, TerraformStoreTypes } from './TerraformInterfaces'
-import ConfigInputs from './InputSteps/ConfigSection'
+import ConfigSection from './InputSteps/ConfigSection'
 
 export default function TerraformInputStep(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
@@ -31,7 +31,7 @@ export default function TerraformInputStep(props: TerraformProps): React.ReactEl
           disabled={readonly}
         />
       )}
-      <ConfigInputs {...props} />
+      <ConfigSection {...props} />
       <label>Var Files</label>
       {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.map((varFile: any, index) => {
         if (varFile?.varFile?.type === TerraformStoreTypes.Inline) {

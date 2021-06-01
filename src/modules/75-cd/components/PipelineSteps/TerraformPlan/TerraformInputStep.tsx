@@ -11,7 +11,7 @@ import { useStrings } from 'framework/strings'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
 import type { TerraformPlanProps } from '../Common/Terraform/TerraformInterfaces'
-import ConfigInputs from './InputSteps/ConfigSection'
+import ConfigInputs from './InputSteps/TfConfigSection'
 
 export default function TerraformInputStep(props: TerraformPlanProps): React.ReactElement {
   const { getString } = useStrings()

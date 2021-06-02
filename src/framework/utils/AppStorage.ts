@@ -14,7 +14,7 @@ const keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
 
 const buildLoginUrlFrom401Response = () => {
   const { href } = window.location
-  const prefix = window.HARNESS_ENABLE_NG_AUTH_UI ? '/auth/#/signin?returnUrl=' : '#/login?returnUrl='
+  const prefix = window.HARNESS_ENABLE_NG_AUTH_UI ? '/auth/#/signin?returnUrl=' : 'auth/#/signin?returnUrl='
   return href.includes(prefix) ? href : prefix + encodeURIComponent(href)
 }
 

@@ -4447,7 +4447,7 @@
     vscode-languageserver "^5.2.1"
     vscode-uri "^2.1.1"
 
-"@wings-software/ng-tooltip@1.24.0":
+"@wings-software/ng-tooltip@~1.24.0":
   version "1.24.0"
   resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.24.0/46c2bd55c1a5f57bb7310a54982d399148ced4f87b1fb1e91f1782c005a1904f#aa2824f92443a4c6d014d4ed109dcad799dc5713"
   integrity sha512-MYy+x79FDz5vXLdihpnbJ7RsMu6yho41fJ6PjdnfLBk+JUiri4gyVlx6DedWy2q9SO9e0Ova1xD+eZLLbSlaow==

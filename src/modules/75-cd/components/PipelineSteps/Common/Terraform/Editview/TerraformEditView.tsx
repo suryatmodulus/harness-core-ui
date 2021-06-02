@@ -343,7 +343,7 @@ export default function TerraformEditView(
                       isCloseButtonShown
                     >
                       <ConfigForm
-                        onClick={(data:any) => {
+                        onClick={(data: any) => {
                           const valObj = {
                             ...formik.values,
                             spec: {

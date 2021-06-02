@@ -64,7 +64,6 @@ export function SumoLogicConfigStep(props: ConnectionConfigProps): JSX.Element {
   if (initialValues?.loading) {
     return <PageSpinner />
   }
-
   return (
     <Container className={css.credentials}>
       <StepDetailsHeader connectorTypeLabel={getString('connectors.title.sumoLogic')} />
@@ -74,7 +73,7 @@ export function SumoLogicConfigStep(props: ConnectionConfigProps): JSX.Element {
         validationSchema={Yup.object().shape({
           url: Yup.string().trim().required(getString('connectors.sumoLogic.urlValidation')),
           accessIdRef: Yup.string().trim().required(getString('connectors.sumoLogic.encryptedAccessIdValidation')),
-          accesskeyRef: Yup.string().trim().required(getString('connectors.sumoLogic.encryptedAccessKeyValidation'))
+          accessKeyRef: Yup.string().trim().required(getString('connectors.sumoLogic.encryptedAccessKeyValidation'))
         })}
         onSubmit={(formData: ConnectorConfigDTO) => nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })}
       >
@@ -82,7 +81,7 @@ export function SumoLogicConfigStep(props: ConnectionConfigProps): JSX.Element {
           <Layout.Vertical spacing="large" height={450}>
             <FormInput.Select items={endPointOptions} label={getString('connectors.sumoLogic.urlLabel')} name="url" />
             <SecretInput label={getString('connectors.sumoLogic.encryptedAccessIdLabel')} name="accessIdRef" />
-            <SecretInput label={getString('connectors.sumoLogic.encryptedAccessKeyLabel')} name="accesskeyRef" />
+            <SecretInput label={getString('connectors.sumoLogic.encryptedAccessKeyLabel')} name="accessKeyRef" />
           </Layout.Vertical>
           <Layout.Horizontal spacing="xlarge">
             <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />

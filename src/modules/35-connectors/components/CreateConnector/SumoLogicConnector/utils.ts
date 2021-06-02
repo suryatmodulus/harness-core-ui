@@ -36,7 +36,7 @@ export async function initializeSumoLogicConnectorWithStepData(
 
   updateInitialValue(prevData as PrevData, spec as SpecData, updatedInitialValues, 'url' as AllowedKeyList)
   updateInitialValue(prevData as PrevData, spec as SpecData, updatedInitialValues, 'accessIdRef' as AllowedKeyList)
-  updateInitialValue(prevData as PrevData, spec as SpecData, updatedInitialValues, 'accesskeyRef' as AllowedKeyList)
+  updateInitialValue(prevData as PrevData, spec as SpecData, updatedInitialValues, 'accessKeyRef' as AllowedKeyList)
 
   const initValueWithSecrets = await setDatadogSecrets(updatedInitialValues, accountId)
   initValueWithSecrets.loading = false
@@ -60,20 +60,20 @@ export async function setDatadogSecrets(
   initialValues: SumoLogicInitialValue,
   accountId: string
 ): Promise<SumoLogicInitialValue> {
-  const { projectIdentifier, orgIdentifier, accessIdRef, accesskeyRef } = initialValues || {}
-  if (accessIdRef && typeof accessIdRef !== 'object' && accesskeyRef && typeof accesskeyRef !== 'object') {
+  const { projectIdentifier, orgIdentifier, accessIdRef, accessKeyRef } = initialValues || {}
+  if (accessIdRef && typeof accessIdRef !== 'object' && accessKeyRef && typeof accessKeyRef !== 'object') {
     const resultAPIkey = await setSecretField(accessIdRef, {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier
     })
-    const resultAPPkey = await setSecretField(accesskeyRef, {
+    const resultAPPkey = await setSecretField(accessKeyRef, {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier
     })
     initialValues.accessIdRef = resultAPIkey
-    initialValues.accesskeyRef = resultAPPkey
+    initialValues.accessKeyRef = resultAPPkey
   }
   return initialValues
 }

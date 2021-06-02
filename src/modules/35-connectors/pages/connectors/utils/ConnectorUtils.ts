@@ -997,7 +997,7 @@ export interface DatadogInitialValue {
 }
 export interface SumoLogicInitialValue {
   accessIdRef?: SecretReferenceInterface | void
-  accesskeyRef?: SecretReferenceInterface | void
+  accessKeyRef?: SecretReferenceInterface | void
   accountId?: string | undefined
   projectIdentifier?: string
   orgIdentifier?: string
@@ -1015,7 +1015,7 @@ export const buildSumoLogicPayload = (formData: FormData) => {
     description,
     tags,
     accessIdRef: { referenceString: accessIdRef },
-    accesskeyRef: { referenceString: accesskeyRef }
+    accessKeyRef: { referenceString: accesskeyRef }
   } = formData
   return {
     connector: {
@@ -1029,7 +1029,7 @@ export const buildSumoLogicPayload = (formData: FormData) => {
       spec: {
         url,
         accessIdRef: accessIdRef,
-        accesskeyRef: accesskeyRef,
+        accessKeyRef: accesskeyRef,
         delegateSelectors: delegateSelectors || {}
       }
     }

@@ -193,12 +193,9 @@
 <a name='L134'></a><a href='#L134'>134</a>
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -266,6 +263,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -333,9 +331,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { useParams } from 'react-router-dom'
-&nbsp;
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
-&nbsp;
 import { useStrings } from 'framework/strings'
 import {
   ConnectorReferenceField,
@@ -353,7 +349,7 @@ import type { Connector, TerraformProps } from '../TerraformInterfaces'
 &nbsp;
 export default function ConfigSection(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
-  const { inputSetData, readonly, initialValues, gitScope } = props
+  const { inputSetData, readonly, initialValues, gitScope, path } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;{
     projectIdentifier: string
     orgIdentifier: string
@@ -407,7 +403,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.workspace) ===
         MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;FormInput.Text
-          name="spec.configuration.spec.workspace"
+          name={`${path}.spec.configuration.spec.workspace`}
           label={getString('pipelineSteps.workspace')}
           disabled={readonly}
         /&gt;
@@ -421,7 +417,8 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={400}
-          name="spec.configuration.spec.configFiles.store.spec.connectorRef"
+          type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
+          name={`${path}.configuration.spec.configFiles.store.spec.connectorRef`}
           label={getString('connectors.title.gitConnector')}
           placeholder={getString('select')}
           disabled={readonly || loading}
@@ -432,7 +429,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.branch) ===
         MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;FormInput.Text
-          name="spec.configuration.spec.configFiles.store.spec.branch"
+          name={`${path}.configuration.spec.configFiles.store.spec.branch`}
           placeholder={getString('pipeline.manifestType.branchPlaceholder')}
           disabled={readonly}
         /&gt;
@@ -441,7 +438,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.commitId) ===
         MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >        &lt;FormInput.Text</span>
-          name="spec.configuration.spec.configFiles.store.spec.commitId"
+          name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
           placeholder={getString('pipeline.manifestType.commitPlaceholder')}
           disabled={readonly}
         /&gt;
@@ -450,7 +447,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.commitId) ===
         MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >        &lt;FormInput.Text</span>
-          name="spec.configuration.spec.configFiles.store.spec.commitId"
+          name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
           placeholder={getString('pipeline.manifestType.commitPlaceholder')}
           disabled={readonly}
         /&gt;
@@ -460,7 +457,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
         inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.folderPath
       ) === MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;FormInput.Text
-          name="spec.configuration.spec.configFiles.store.spec.folderPath"
+          name={`${path}.configuration.spec.configFiles.store.spec.folderPath`}
           placeholder={getString('pipeline.manifestType.pathPlaceholder')}
           disabled={readonly}
         /&gt;
@@ -475,7 +472,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 02 2021 03:40:51 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 02 2021 04:16:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

@@ -442,7 +442,7 @@ testsReports:
   type: Failure Type
   status: '{{ $.status }}'
   executionOverview: Test Execution Overview
-  numberOfSelectedTests: '# of Selected Tests / Total tests'
+  numberOfSelectedTests: 'Selected Tests'
   totalDuration: Total Duration
   timeSaved: Time Saved
   totalExecutedTest: Total Executed Tests

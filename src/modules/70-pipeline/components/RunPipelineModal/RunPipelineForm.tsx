@@ -15,7 +15,7 @@ import {
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
-import { pick, merge, isEmpty, debounce } from 'lodash-es'
+import { pick, merge, isEmpty } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { NgPipeline, ResponseJsonNode } from 'services/cd-ng'
@@ -44,7 +44,6 @@ import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 import css from './RunPipelineModal.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
-const debouncedValidatePipeline = debounce(validatePipeline, 300)
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & GitQueryParams> {
   inputSetSelected?: InputSetSelectorProps['value']
   inputSetYAML?: string
@@ -382,20 +381,27 @@ function RunPipelineFormBasic({
           handleRunPipeline(values as any)
         }}
         enableReinitialize
-        validate={values => {
+        validate={async values => {
           let errors: FormikErrors<InputSetDTO> = formErrors
 
           setCurrentPipeline({ ...currentPipeline, pipeline: values as NgPipeline })
-          if (values && yamlTemplate && pipeline) {
-            errors =
-              (debouncedValidatePipeline(
-                values as NgPipeline,
-                parse(template?.data?.inputSetTemplateYaml || '').pipeline,
-                pipeline,
-                getString
-              ) as any) || formErrors
+          function validateErrors() {
+            const promise: Promise<FormikErrors<InputSetDTO>> = new Promise(resolve => {
+              setTimeout(() => {
+                const validatedErrors =
+                  (validatePipeline(
+                    values as NgPipeline,
+                    parse(template?.data?.inputSetTemplateYaml || '').pipeline,
+                    pipeline,
+                    getString
+                  ) as any) || formErrors
+                resolve(validatedErrors)
+              }, 300)
+            })
+            return promise
           }
-          if (typeof errors !== undefined) setFormErrors(errors)
+
+          errors = await validateErrors()
           return errors
         }}
       >

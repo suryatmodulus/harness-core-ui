@@ -1,5 +1,5 @@
 import React from 'react'
-import { isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
+import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import cx from 'classnames'
 import { IconName, Intent } from '@blueprintjs/core'
 import {
@@ -49,6 +49,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useQueryParams } from '@common/hooks'
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, getErrorsList } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -121,8 +122,10 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   }
 }
 
-const clearNullUndefined = /* istanbul ignore next */ (data: InputSetDTO): InputSetDTO =>
-  omitBy(omitBy(data, isUndefined), isNull)
+const clearNullUndefined = /* istanbul ignore next */ (data: InputSetDTO): InputSetDTO => {
+  const omittedInputset = omitBy(omitBy(data, isUndefined), isNull)
+  return changeEmptyValuesToRunTimeInput(cloneDeep(omittedInputset))
+}
 
 export interface InputSetFormProps {
   executionView?: boolean

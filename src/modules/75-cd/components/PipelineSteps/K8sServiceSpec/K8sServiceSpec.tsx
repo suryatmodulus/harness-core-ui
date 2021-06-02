@@ -361,8 +361,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   }
 
   const stagePath = pipeline ? getStagePathByIdentifier(stageIdentifier, pipeline?.pipeline) : ''
-
-  const artifacts = get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.serviceDefinition.spec.artifacts`, {})
+  const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
+  const artifacts = isPropagatedStage
+    ? get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.stageOverrides.artifacts`, {})
+    : get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.serviceDefinition.spec.artifacts`, {})
 
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
     <div key={item.label.toString()}>

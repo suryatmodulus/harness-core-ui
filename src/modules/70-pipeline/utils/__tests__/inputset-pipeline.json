@@ -1,0 +1,48 @@
+{
+  "name": "aaaa",
+  "tags": {},
+  "identifier": "aaaa",
+  "pipeline": {
+    "identifier": "pipnewe",
+    "stages": [
+      {
+        "stage": {
+          "identifier": "stage1",
+          "type": "Deployment",
+          "spec": {
+            "serviceConfig": {
+              "serviceDefinition": {
+                "type": "Kubernetes",
+                "spec": { "artifacts": { "primary": { "type": "DockerRegistry", "spec": { "tag": "" } } } }
+              }
+            }
+          }
+        }
+      },
+      {
+        "stage": {
+          "identifier": "newstage2",
+          "type": "Deployment",
+          "spec": {
+            "serviceConfig": {
+              "serviceDefinition": {
+                "type": "Kubernetes",
+                "spec": {
+                  "manifests": [
+                    {
+                      "manifest": {
+                        "identifier": "man1",
+                        "type": "K8sManifest",
+                        "spec": { "store": { "type": "Git", "spec": { "branch": "" } } }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

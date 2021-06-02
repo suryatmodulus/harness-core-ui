@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.46% </span>
+                <span class="strong">46.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>46/99</span>
+                <span class='fraction'>49/105</span>
             </div>
         
             
@@ -361,28 +361,7 @@
 <a name='L302'></a><a href='#L302'>302</a>
 <a name='L303'></a><a href='#L303'>303</a>
 <a name='L304'></a><a href='#L304'>304</a>
-<a name='L305'></a><a href='#L305'>305</a>
-<a name='L306'></a><a href='#L306'>306</a>
-<a name='L307'></a><a href='#L307'>307</a>
-<a name='L308'></a><a href='#L308'>308</a>
-<a name='L309'></a><a href='#L309'>309</a>
-<a name='L310'></a><a href='#L310'>310</a>
-<a name='L311'></a><a href='#L311'>311</a>
-<a name='L312'></a><a href='#L312'>312</a>
-<a name='L313'></a><a href='#L313'>313</a>
-<a name='L314'></a><a href='#L314'>314</a>
-<a name='L315'></a><a href='#L315'>315</a>
-<a name='L316'></a><a href='#L316'>316</a>
-<a name='L317'></a><a href='#L317'>317</a>
-<a name='L318'></a><a href='#L318'>318</a>
-<a name='L319'></a><a href='#L319'>319</a>
-<a name='L320'></a><a href='#L320'>320</a>
-<a name='L321'></a><a href='#L321'>321</a>
-<a name='L322'></a><a href='#L322'>322</a>
-<a name='L323'></a><a href='#L323'>323</a>
-<a name='L324'></a><a href='#L324'>324</a>
-<a name='L325'></a><a href='#L325'>325</a>
-<a name='L326'></a><a href='#L326'>326</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L305'></a><a href='#L305'>305</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -620,19 +599,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -677,14 +643,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -883,64 +841,51 @@ export default function DeployStageSetupShell(): JSX.Element {
           panel={&lt;DeployStageSpecifications&gt;{navBtns}&lt;/DeployStageSpecifications&gt;}
           title={
             &lt;span className={css.title}&gt;
-              &lt;Icon name="cd-main" height={20} size={20} /&gt;
+              &lt;Icon name="cd-main" height={20} size={20} className="hover" /&gt;
               {getString('overview')}
             &lt;/span&gt;
           }
           data-testid="overview"
         /&gt;
-&nbsp;
-        &lt;Icon
-          name="chevron-right"
-          height={20}
-          size={20}
-          margin={{ right: 'small', left: 'small' }}
-          color={'grey400'}
-          style={{ alignSelf: 'center' }}
-        /&gt;
         &lt;Tab
           id={DeployTabs.SERVICE}
           title={
             &lt;span className={css.title} data-warning={servicesHasWarning}&gt;
-              &lt;Icon name={servicesHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >'warning-sign' </span>: 'services'} size={servicesHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >16 </span>: 20} /&gt;
+              &lt;Icon
+                name={servicesHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >'warning-sign' </span>: 'services'}
+                size={servicesHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >16 </span>: 20}
+                className={servicesHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: 'hover'}
+              /&gt;
               {getString('service')}
             &lt;/span&gt;
           }
           panel={&lt;DeployServiceSpecifications&gt;{navBtns}&lt;/DeployServiceSpecifications&gt;}
           data-testid="service"
         /&gt;
-        &lt;Icon
-          name="chevron-right"
-          height={20}
-          size={20}
-          margin={{ right: 'small', left: 'small' }}
-          color={'grey400'}
-          style={{ alignSelf: 'center' }}
-        /&gt;
         &lt;Tab
           id={DeployTabs.INFRASTRUCTURE}
           title={
             &lt;span className={css.title} data-warning={infraHasWarning}&gt;
-              &lt;Icon name={infraHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >'warning-sign' </span>: 'infrastructure'} size={infraHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >16 </span>: 20} /&gt;
+              &lt;Icon
+                name={infraHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >'warning-sign' </span>: 'infrastructure'}
+                size={infraHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >16 </span>: 20}
+                className={infraHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: 'hover'}
+              /&gt;
               {getString('infrastructureText')}
             &lt;/span&gt;
           }
           panel={&lt;DeployInfraSpecifications&gt;{navBtns}&lt;/DeployInfraSpecifications&gt;}
           data-testid="infrastructure"
         /&gt;
-        &lt;Icon
-          name="chevron-right"
-          height={20}
-          size={20}
-          margin={{ right: 'small', left: 'small' }}
-          color={'grey400'}
-          style={{ alignSelf: 'center' }}
-        /&gt;
         &lt;Tab
           id={DeployTabs.EXECUTION}
           title={
             &lt;span className={css.title} data-warning={executionHasWarning}&gt;
-              &lt;Icon name={executionHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >'warning-sign' </span>: 'execution'} size={executionHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >16 </span>: 20} /&gt;
+              &lt;Icon
+                name={executionHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >'warning-sign' </span>: 'execution'}
+                size={executionHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >16 </span>: 20}
+                className={executionHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: 'hover'}
+              /&gt;
               {getString('executionText')}
             &lt;/span&gt;
           }
@@ -1008,19 +953,11 @@ export default function DeployStageSetupShell(): JSX.Element {
           }
           data-testid="execution"
         /&gt;
-        &lt;Icon
-          name="chevron-right"
-          height={20}
-          size={20}
-          margin={{ right: 'small', left: 'small' }}
-          color={'grey400'}
-          style={{ alignSelf: 'center' }}
-        /&gt;
         &lt;Tab
           id={DeployTabs.ADVANCED}
           title={
             &lt;span className={css.title}&gt;
-              &lt;Icon name="advanced" height={20} size={20} /&gt;
+              &lt;Icon name="advanced" height={20} size={20} className="hover" /&gt;
               Advanced
             &lt;/span&gt;
           }
@@ -1039,7 +976,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 02 2021 13:34:02 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 02 2021 13:42:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

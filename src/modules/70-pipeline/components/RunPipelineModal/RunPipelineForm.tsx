@@ -402,6 +402,7 @@ function RunPipelineFormBasic({
           }
 
           errors = await validateErrors()
+          if (typeof errors !== undefined) setFormErrors(errors)
           return errors
         }}
       >

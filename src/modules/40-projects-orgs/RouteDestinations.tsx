@@ -53,6 +53,7 @@ import { String } from 'framework/strings'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
+import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -215,6 +216,19 @@ export default (
         <SecretReferences />
       </SecretDetailsHomePage>
     </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toCreateSecretFromYaml({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...orgPathProps
+      })}
+      exact
+    >
+      <CreateSecretFromYamlPage />
+    </RouteWithLayout>
+
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}
       path={routes.toOrganizations({ ...accountPathProps })}

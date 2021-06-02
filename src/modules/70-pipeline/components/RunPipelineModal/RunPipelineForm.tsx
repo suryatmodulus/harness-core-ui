@@ -340,7 +340,7 @@ function RunPipelineFormBasic({
         selectedInputSets && selectedInputSets.length > 0
           ? currentPipeline.pipeline
           : { ...clearRuntimeInput(currentPipeline.pipeline) },
-        parse(template?.data?.inputSetTemplateYaml || '').pipeline,
+        parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
         currentPipeline.pipeline,
         getString
       ) as any
@@ -391,7 +391,7 @@ function RunPipelineFormBasic({
                 const validatedErrors =
                   (validatePipeline(
                     values as NgPipeline,
-                    parse(template?.data?.inputSetTemplateYaml || '').pipeline,
+                    parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
                     pipeline,
                     getString
                   ) as any) || formErrors

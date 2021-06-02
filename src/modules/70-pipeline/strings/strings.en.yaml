@@ -9,6 +9,7 @@ infrastructureKey: 'Infrastructure Key'
 stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
 clickHere: Click here
 stepDetails: Step details
+collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required

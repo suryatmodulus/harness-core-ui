@@ -70,6 +70,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     startX: number,
     startY: number,
     selectedStageId?: string,
+    disableCollapseButton?: boolean,
     diagramContainerHeight?: number,
     prevNodes?: Diagram.DefaultNodeModel[],
     showEndNode?: boolean,
@@ -222,6 +223,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             newX,
             newY,
             selectedStageId,
+            disableCollapseButton,
             diagramContainerHeight,
             prevNodes,
             showEndNode,
@@ -278,6 +280,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           startX,
           startY,
           selectedStageId,
+          disableCollapseButton,
           diagramContainerHeight,
           prevNodes,
           showEndNode,
@@ -313,7 +316,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           textCss: node.group.textCss,
           skipCondition: node.group.skipCondition,
           conditionalExecutionEnabled: getConditionalExecutionFlag(node.group.when!),
-          showRollback: false
+          showRollback: false,
+          disableCollapseButton: disableCollapseButton
         })
 
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
@@ -342,6 +346,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               startX,
               startY,
               selectedStageId,
+              disableCollapseButton,
               diagramContainerHeight,
               prevNodes,
               showEndNode,
@@ -457,7 +462,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     diagramContainerHeight?: number,
     showStartEndNode?: boolean,
     showEndNode?: boolean,
-    groupStage?: Map<string, GroupState<T>>
+    groupStage?: Map<string, GroupState<T>>,
+    hideCollapseButton?: boolean
   ): void {
     const { gapX } = this
     let { startX, startY } = this
@@ -488,6 +494,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         startX,
         startY,
         selectedId,
+        hideCollapseButton,
         diagramContainerHeight,
         prevNodes,
         showEndNode,

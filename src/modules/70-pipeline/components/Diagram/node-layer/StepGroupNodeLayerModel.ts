@@ -17,6 +17,7 @@ export interface StepGroupNodeLayerOptions extends LayerModelOptions {
   skipCondition?: string
   conditionalExecutionEnabled?: boolean
   rollBackProps?: Omit<RollbackToggleSwitchProps, 'onChange'>
+  disableCollapseButton?: boolean
 }
 
 export interface StepGroupNodeLayerModelGenerics extends LayerModelGenerics {

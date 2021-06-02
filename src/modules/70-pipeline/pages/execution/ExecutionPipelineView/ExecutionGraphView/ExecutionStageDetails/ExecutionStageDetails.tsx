@@ -170,6 +170,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           itemClickHandler={e => props.onStepSelect(e.stage.identifier)}
           data={data}
           showEndNode={!(isExecutionRunning(stage?.status) || isExecutionPaused(stage?.status))}
+          disableCollapseButton={isExecutionRunning(stage?.status)}
           isWhiteBackground
           nodeStyle={{
             width: 64,

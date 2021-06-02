@@ -1006,6 +1006,7 @@ export interface StringsMap {
   'pipeline.branchRequired': string
   'pipeline.clickHere': string
   'pipeline.closeStepConfig': string
+  'pipeline.collapseIsDisabledWhileStageIsRunning': string
   'pipeline.conditionalExecution.belowExpression': string
   'pipeline.conditionalExecution.condition': string
   'pipeline.conditionalExecution.statusOption.all': string

@@ -188,8 +188,11 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
         <Button
           minimal
           icon="minus"
-          disabled={options.inComplete}
+          disabled={options.inComplete || options.disableCollapseButton}
           withoutCurrentColor
+          tooltip={
+            options.disableCollapseButton ? getString('pipeline.collapseIsDisabledWhileStageIsRunning') : undefined
+          }
           iconProps={{
             size: 8
           }}
@@ -198,6 +201,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
             props.layer.fireEvent({}, Event.StepGroupCollapsed)
           }}
         />
+
         {options.skipCondition && (
           <div className={css.сonditional}>
             <Link

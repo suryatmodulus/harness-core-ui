@@ -12,7 +12,7 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { useUpdateQueryParams } from '@common/hooks'
+import { useDeepCompareEffect, useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import type {
   ExecutionPipeline,
@@ -109,6 +109,7 @@ export interface ExecutionStageDiagramProps<T> {
   canvasBtnsClass?: string
   graphCanvasState?: GraphCanvasState
   setGraphCanvasState?: (state: GraphCanvasState) => void
+  disableCollapseButton?: boolean
 }
 
 export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramProps<T>): React.ReactElement {
@@ -135,7 +136,8 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     isWhiteBackground = false,
     canvasBtnsClass = '',
     graphCanvasState,
-    setGraphCanvasState
+    setGraphCanvasState,
+    disableCollapseButton
   } = props
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -178,7 +180,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     }
   }
 
-  React.useEffect(() => {
+  useDeepCompareEffect(() => {
     const stageData = getGroupsFromData(data.items)
     setGroupState(stageData)
   }, [data])
@@ -305,7 +307,8 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
         diagramContainerHeight,
         showStartEndNode,
         showEndNode,
-        groupState
+        groupState,
+        disableCollapseButton
       )
   }, [
     data,

@@ -380,6 +380,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}serviceRef`}
           placeholder={getString('pipelineSteps.serviceTab.selectService')}
           selectItems={services}
+          useValue
           multiTypeInputProps={{
             expressions,
             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],

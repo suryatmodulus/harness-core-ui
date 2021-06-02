@@ -122,6 +122,122 @@ exports[`CFHomePage should render HomePageTemplate when return success with data
 </div>
 `;
 
+exports[`CFHomePage should render HomePageTemplate when return success with data 2`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color"
+      >
+        cf.continuous
+      </h1>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--font-size-normal"
+        style="line-height: 24px; width: 400px;"
+      >
+        cf.homepage.slogan
+      </p>
+      <a
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--link"
+        href="https://ngdocs.harness.io/article/0a2u2ppp8s-getting-started-with-continuous-features"
+        rel="noreferrer noopener"
+        role="button"
+        style="align-self: flex-start;"
+        tabindex="0"
+        target="_blank"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          cf.homepage.learnMore
+        </span>
+      </a>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
+      >
+        <a
+          class="createBtn"
+          href="/account/undefined/projects"
+        >
+          createProject
+        </a>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
+        >
+          orSelectExisting
+        </p>
+        <span
+          style="flex-grow: 1;"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CFHomePage should render the home page template when the current user is not created from NG 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color"
+      >
+        cf.continuous
+      </h1>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--font-size-normal"
+        style="line-height: 24px; width: 400px;"
+      >
+        cf.homepage.slogan
+      </p>
+      <a
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--link"
+        href="https://ngdocs.harness.io/article/0a2u2ppp8s-getting-started-with-continuous-features"
+        rel="noreferrer noopener"
+        role="button"
+        style="align-self: flex-start;"
+        tabindex="0"
+        target="_blank"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          cf.homepage.learnMore
+        </span>
+      </a>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
+      >
+        <a
+          class="createBtn"
+          href="/account/undefined/projects"
+        >
+          createProject
+        </a>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
+        >
+          orSelectExisting
+        </p>
+        <span
+          style="flex-grow: 1;"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`CFHomePage should return error page if call fails 1`] = `
 <div>
   <div

@@ -248,9 +248,7 @@ describe('Test DeployService Step', () => {
       fireEvent.click(getByText(container, 'Submit'))
     })
     expect(container.querySelector('.bp3-card > pre')?.innerHTML).toMatchInlineSnapshot(`
-      "serviceRef:
-        label: Selected Service
-        value: selected_service
+      "serviceRef: selected_service
       "
     `)
   })

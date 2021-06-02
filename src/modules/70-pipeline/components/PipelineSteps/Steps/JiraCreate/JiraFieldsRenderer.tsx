@@ -11,7 +11,7 @@ import css from './JiraCreate.module.scss'
 export interface JiraFieldsRendererProps {
   selectedFields?: JiraFieldNGWithValue[]
   readonly?: boolean
-  onDelete: (index: number) => void
+  onDelete: (index: number, selectedField: JiraFieldNG) => void
 }
 
 const getMappedComponent = (
@@ -81,7 +81,7 @@ export const JiraFieldsRenderer = (props: JiraFieldsRendererProps) => {
             icon="trash"
             disabled={isApprovalStepFieldDisabled(readonly)}
             data-testid={`remove-selectedField-${index}`}
-            onClick={() => onDelete(index)}
+            onClick={() => onDelete(index, selectedField)}
           />
         </Layout.Horizontal>
       ))}

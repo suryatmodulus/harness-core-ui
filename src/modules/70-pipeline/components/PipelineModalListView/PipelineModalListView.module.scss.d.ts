@@ -11,5 +11,6 @@ declare const styles: {
   readonly pipelineDesc: string
   readonly pipelineGitDetails: string
   readonly gitFilter: string
+  readonly rbacButton: string
 }
 export default styles

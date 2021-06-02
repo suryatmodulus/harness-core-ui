@@ -1,19 +1,24 @@
 import React from 'react'
-import { Button, Layout } from '@wings-software/uicore'
-
 import { useHistory, useParams } from 'react-router-dom'
+import { Button, Layout } from '@wings-software/uicore'
 import type { SelectOption } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-
+import type {
+  AccountPathProps,
+  GitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
-import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
+import { EntityGitDetails, InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
 import { useQueryParams } from '@common/hooks'
 import { PageSpinner } from '@common/components'
 import css from './RunPipelineModal.module.scss'
 
 interface InputSetValue extends SelectOption {
   type: InputSetSummaryResponse['inputSetType']
+  gitDetails?: EntityGitDetails
 }
 
 const runModalProps: IDialogProps = {
@@ -30,7 +35,7 @@ const runModalProps: IDialogProps = {
 
 export function RunPipelineModal(): React.ReactElement {
   const { projectIdentifier, orgIdentifier, pipelineIdentifier, accountId, module } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
   const query = useQueryParams<Record<string, string>>()
   const history = useHistory()
@@ -71,7 +76,11 @@ export function RunPipelineModal(): React.ReactElement {
         {
           type: query.inputSetType as InputSetSummaryResponse['inputSetType'],
           value: query.inputSetValue,
-          label: query.inputSetLabel
+          label: query.inputSetLabel,
+          gitDetails: {
+            repoIdentifier: query.inputSetRepoIdentifier,
+            branch: query.inputSetBranch
+          }
         }
       ]
       return inputSetSelected
@@ -80,7 +89,17 @@ export function RunPipelineModal(): React.ReactElement {
   }
 
   function handleClose(): void {
-    history.goBack()
+    history.replace(
+      routes.toPipelineStudio({
+        accountId,
+        projectIdentifier,
+        orgIdentifier,
+        module,
+        pipelineIdentifier,
+        repoIdentifier: query.repoIdentifier,
+        branch: query.branch
+      })
+    )
   }
 
   if (loading) {

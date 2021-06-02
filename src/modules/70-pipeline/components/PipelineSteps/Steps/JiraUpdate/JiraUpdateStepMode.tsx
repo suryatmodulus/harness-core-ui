@@ -268,11 +268,13 @@ const FormContent = ({
               <JiraFieldsRenderer
                 selectedFields={formik.values.spec.selectedFields}
                 readonly={readonly}
-                onDelete={index => {
+                onDelete={(index, selectedField) => {
                   const selectedFieldsAfterRemoval = formik.values.spec.selectedFields?.filter(
                     (_unused, i) => i !== index
                   )
                   formik.setFieldValue('spec.selectedFields', selectedFieldsAfterRemoval)
+                  const customFields = formik.values.spec.fields?.filter(field => field.name !== selectedField.name)
+                  formik.setFieldValue('spec.fields', customFields)
                 }}
               />
 

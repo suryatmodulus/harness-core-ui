@@ -957,7 +957,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -2229,7 +2229,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -2903,7 +2903,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                     common.git.APIAuthentication
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group authTypeSelect"
                     data-id="apiAuthType-2"
                   >
                     <div

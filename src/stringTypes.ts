@@ -11,6 +11,7 @@ export interface StringsMap {
   'common.accountName': string
   'common.addVariable': string
   'common.approve': string
+  'common.artifactTag': string
   'common.banners.email.description': string
   'common.banners.email.resend': string
   'common.banners.email.success': string
@@ -113,16 +114,21 @@ export interface StringsMap {
   'common.git.selectRepoLabel': string
   'common.git.startPRLabel': string
   'common.git.urlType': string
+  'common.git.validation.commitMessage': string
   'common.git.validation.filePath': string
   'common.gitSync.allRepositories': string
   'common.gitSync.commitDetailsLabel': string
+  'common.gitSync.creatingPR': string
   'common.gitSync.defaultBranches': string
   'common.gitSync.gitRepositoryDetails': string
   'common.gitSync.harnessFolderLabel': string
+  'common.gitSync.pushingChangestoBranch': string
   'common.gitSync.repoDetails': string
   'common.gitSync.resourceLabel': string
   'common.gitSync.rootFolderLabel': string
+  'common.gitSync.savingInProgress': string
   'common.gitSync.selectBranchLabel': string
+  'common.gitSync.settingUpNewBranch': string
   'common.gitSync.sync': string
   'common.gitSync.syncStartSuccess': string
   'common.gitSync.syncing.header': string
@@ -130,6 +136,7 @@ export interface StringsMap {
   'common.gitSync.unSynced.header': string
   'common.gitSync.unSynced.message1': string
   'common.gitSync.unSynced.message2': string
+  'common.gitSync.unableToCreatePR': string
   'common.gitSync.updateResource': string
   'common.input': string
   'common.jexlExpression': string
@@ -614,6 +621,7 @@ export interface StringsMap {
   'connectors.createFromYaml': string
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string
+  'connectors.creating': string
   'connectors.datadog.encryptedAPPKeyLabel': string
   'connectors.datadog.encryptedAPPKeyValidation': string
   'connectors.datadog.urlValidation': string
@@ -1103,13 +1111,13 @@ export interface StringsMap {
   'pipeline.executionStatus.Unknown': string
   'pipeline.executionStatus.Waiting': string
   'pipeline.failureStrategies.defaultStageText': string
-  'pipeline.failureStrategies.errorTypeLabels.AnyOther': string
-  'pipeline.failureStrategies.errorTypeLabels.Application': string
+  'pipeline.failureStrategies.errorTypeLabels.AllErrors': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
   'pipeline.failureStrategies.errorTypeLabels.Authorization': string
   'pipeline.failureStrategies.errorTypeLabels.Connectivity': string
   'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning': string
   'pipeline.failureStrategies.errorTypeLabels.Timeout': string
+  'pipeline.failureStrategies.errorTypeLabels.Unknown': string
   'pipeline.failureStrategies.errorTypeLabels.Verification': string
   'pipeline.failureStrategies.fieldLabels.onRetryFailureLabel': string
   'pipeline.failureStrategies.fieldLabels.onTimeoutLabel': string
@@ -1143,6 +1151,8 @@ export interface StringsMap {
   'pipeline.gitDetails': string
   'pipeline.gitExperience.skipNow': string
   'pipeline.infrastructureKey': string
+  'pipeline.inputSets.noRuntimeInputsCurrently': string
+  'pipeline.inputSets.noRuntimeInputsWhileExecution': string
   'pipeline.jiraApprovalStep.allConditions': string
   'pipeline.jiraApprovalStep.anyCondition': string
   'pipeline.jiraApprovalStep.approvalCriteria': string
@@ -1283,8 +1293,8 @@ export interface StringsMap {
   'pipeline.testsReports.testCasesExecution': string
   'pipeline.testsReports.testCasesExecutionInfo': string
   'pipeline.testsReports.testSuite': string
-  'pipeline.testsReports.testsIntelligentlySkipped': string
   'pipeline.testsReports.timeSaved': string
+  'pipeline.testsReports.totalDuration': string
   'pipeline.testsReports.totalExecutedTest': string
   'pipeline.testsReports.totalTests': string
   'pipeline.testsReports.totalWithColon': string

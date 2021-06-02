@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
@@ -24,6 +25,9 @@ const CIHomePage: React.FC = () => {
       moduleType: ModuleName.CI
     }
   }
+  const { currentUserInfo } = useAppStore()
+  const { accounts, defaultAccountId } = currentUserInfo
+  const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
   const { data, error, refetch, loading } = useGetModuleLicenseInfo(moduleLicenseQueryParams)
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
@@ -68,7 +72,7 @@ const CIHomePage: React.FC = () => {
     return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   }
 
-  if (data?.status === 'SUCCESS' && !data.data) {
+  if (createdFromNG && data?.status === 'SUCCESS' && !data.data) {
     history.push(
       routes.toModuleTrialHome({
         accountId,
@@ -77,7 +81,7 @@ const CIHomePage: React.FC = () => {
     )
   }
 
-  if (data && data.data && trial) {
+  if (createdFromNG && data && data.data && trial) {
     return (
       <TrialInProgressTemplate
         title={getString('ci.continuous')}

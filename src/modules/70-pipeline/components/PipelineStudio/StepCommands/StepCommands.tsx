@@ -141,7 +141,7 @@ export function StepCommands(
   return (
     <div className={css.stepCommand}>
       <div className={cx(css.stepTabs, { stepTabsAdvanced: activeTab === StepCommandTabs.Advanced })}>
-        <Tabs id="step-commands" selectedTabId={activeTab} onChange={handleTabChange} renderAllTabPanels>
+        <Tabs id="step-commands" selectedTabId={activeTab} onChange={handleTabChange}>
           <Tab
             id={StepCommandTabs.StepConfiguration}
             title={isStepGroup ? getString('stepGroupConfiguration') : getString('stepConfiguration')}

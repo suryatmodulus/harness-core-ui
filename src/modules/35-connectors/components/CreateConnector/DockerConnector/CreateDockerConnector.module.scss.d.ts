@@ -4,7 +4,6 @@ declare const styles: {
   readonly secondStep: string
   readonly dockerProviderType: string
   readonly authHeaderRow: string
-  readonly authTypeSelect: string
   readonly authTitle: string
 }
 export default styles

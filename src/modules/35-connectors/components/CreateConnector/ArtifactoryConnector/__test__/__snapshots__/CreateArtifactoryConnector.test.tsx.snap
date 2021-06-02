@@ -192,7 +192,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                     authentication
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-1"
                   >
                     <div
@@ -1029,7 +1029,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                     authentication
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-1"
                   >
                     <div

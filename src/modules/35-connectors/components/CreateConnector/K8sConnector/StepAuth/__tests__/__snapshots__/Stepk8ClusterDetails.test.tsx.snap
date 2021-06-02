@@ -2443,7 +2443,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               </div>
             </div>
             <div
-              class="StyledProps--font StyledProps--main applyFlex"
+              class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
             >
               <div
                 class="StyledProps--font StyledProps--main"

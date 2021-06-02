@@ -719,7 +719,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                                 class="bp3-popover-target"
                               >
                                 <p
-                                  class="StyledProps--font StyledProps--main label"
+                                  class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                   tabindex="0"
                                 >
                                   ValidGithubRepo
@@ -836,6 +836,36 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                       >
                         wings-software/sunnykesh-gitSync
                       </p>
+                    </div>
+                    <div
+                      class="StyledProps--font StyledProps--main StyledProps--padding-bottom-medium"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="test-connection"
+                        >
+                          <svg
+                            fill="none"
+                            height="16"
+                            width="16"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M.025 6.097h13.95V4.165H4.663l2.631-2.632L5.925.164.028 6.061l.019.02-.022.016zm13.95 1.805H.025v1.932h9.312l-2.631 2.632 1.369 1.37 5.897-5.898-.019-.019.022-.017z"
+                              fill="#6B6D85"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main test StyledProps--color StyledProps--color-blue500"
+                        >
+                          common.labelTestConnection
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div

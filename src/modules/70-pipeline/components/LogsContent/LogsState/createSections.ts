@@ -6,15 +6,32 @@ import {
   isExecutionRunningLike,
   isExecutionSuccess
 } from '@pipeline/utils/statusHelpers'
-import type { LogViewerAccordionStatus } from '@common/components/MultiLogsViewer/LogViewerAccordion'
-import type { Action, ActionType, LogSectionData, State, ProgressMapValue } from './types'
 
-const NON_MUTATE_STATES: LogViewerAccordionStatus[] = ['LOADING', 'QUEUED']
+import { getDefaultReducerState } from './utils'
+import type { Action, ActionType, LogSectionData, State, ProgressMapValue, UnitLoadingStatus } from './types'
+
+function parseToTime(p: unknown): number | undefined {
+  if (typeof p === 'number') {
+    return p
+  }
+
+  if (typeof p === 'string') {
+    const t = parseInt(p, 10)
+
+    if (!Number.isNaN(t)) {
+      return t
+    }
+  }
+}
+
+const NON_MUTATE_STATES: UnitLoadingStatus[] = ['LOADING', 'QUEUED']
 
 export function createSections(state: State, action: Action<ActionType.CreateSections>): State {
   const { node, selectedStep, selectedStage } = action.payload
 
-  if (!node) return { units: [], selectedStage, selectedStep, dataMap: {} }
+  if (!node) {
+    return getDefaultReducerState({ selectedStage, selectedStep })
+  }
 
   const isSameStage = selectedStage === state.selectedStage
   const isSameStep = isSameStage && selectedStep === state.selectedStep
@@ -48,7 +65,7 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
     node.unitProgresses.forEach(row => {
       if (row.unitName) {
         progressMap.set(row.unitName, {
-          status: row.status as LogViewerAccordionStatus,
+          status: row.status as UnitLoadingStatus,
           startTime: row.startTime,
           endTime: row.endTime
         })
@@ -56,38 +73,39 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
     })
   }
 
-  const dataMap = units.reduce((acc: Record<string, LogSectionData>, unit: string, i: number) => {
-    /**
-     * progressMap must have a status for this unit.
-     * In case it doesn't, fallback to the 'UNKNOWN' status.
-     */
-    const unitProgress = hasNoUnits
-      ? { status: snakeCase(node.status || 'NotStarted').toUpperCase() as LogViewerAccordionStatus }
-      : progressMap.get(unit)
-    const unitStatus: LogViewerAccordionStatus = unitProgress?.status || 'NOT_STARTED'
-    const currentStatus = state.dataMap[unit]?.status
-    const manuallyToggled = !!state.dataMap[unit]?.manuallyToggled
-    const isRunning = isExecutionRunningLike(unitStatus)
+  const dataMap: Record<string, LogSectionData> = units.reduce(
+    (acc: Record<string, LogSectionData>, unit: string, i: number) => {
+      const key = logKeys[i]
+      /**
+       * progressMap must have a status for this unit.
+       * In case it doesn't, fallback to the 'UNKNOWN' status.
+       */
+      const unitProgress = hasNoUnits
+        ? { status: snakeCase(node.status || 'NotStarted').toUpperCase() as UnitLoadingStatus }
+        : progressMap.get(unit)
+      const unitStatus: UnitLoadingStatus = unitProgress?.status || 'NOT_STARTED'
+      const currentStatus = state.dataMap[key]?.status
+      const manuallyToggled = !!state.dataMap[key]?.manuallyToggled
+      const isRunning = isExecutionRunningLike(unitStatus)
 
-    acc[unit] = {
-      title: unit,
-      id: unit,
-      data: isSameStep ? state.dataMap[unit]?.data || '' : '',
-      logKey: logKeys[i],
-      isOpen: isSameStep && manuallyToggled ? state.dataMap[unit]?.isOpen : isRunning,
-      manuallyToggled: isSameStep ? manuallyToggled : false,
-      status: isSameStep && NON_MUTATE_STATES.includes(currentStatus) && isRunning ? currentStatus : unitStatus,
-      unitStatus,
-      startTime: unitProgress?.startTime,
-      endTime: unitProgress?.endTime,
-      dataSource: isRunning ? 'stream' : 'blob',
-      formattedData: isSameStep ? state.dataMap[unit]?.formattedData || [] : []
-    }
+      acc[key] = {
+        title: unit,
+        data: isSameStep ? state.dataMap[key]?.data || [] : [],
+        isOpen: isSameStep && manuallyToggled ? state.dataMap[key]?.isOpen : isRunning,
+        manuallyToggled: isSameStep ? manuallyToggled : false,
+        status: isSameStep && NON_MUTATE_STATES.includes(currentStatus) && isRunning ? currentStatus : unitStatus,
+        unitStatus,
+        startTime: parseToTime(unitProgress?.startTime),
+        endTime: parseToTime(unitProgress?.endTime),
+        dataSource: isRunning ? 'stream' : 'blob'
+      }
 
-    return acc
-  }, {})
+      return acc
+    },
+    {}
+  )
 
-  let key: string | null = null
+  let unitToOpen: string | null = null
 
   if (isStepComplete) {
     const isStepSuccess = isExecutionSuccess(node.status)
@@ -95,27 +113,34 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
     // if step is successful
     if (isStepSuccess) {
       // open the first section
-      key = units[0]
+      unitToOpen = logKeys[0]
     } else {
       // find and open the first failed section
-      const failedUnit = units.find((unit: string) => isExecutionFailed(dataMap[unit]?.unitStatus))
-      key = failedUnit || null
+      const failedUnit = logKeys.find((key: string) => isExecutionFailed(dataMap[key]?.unitStatus))
+      unitToOpen = failedUnit || null
     }
   } else {
     // open the running section
 
-    const runningUnit = findLast(units, unit => isExecutionRunningLike(dataMap[unit]?.unitStatus))
-    key = runningUnit || null
+    const runningUnit = findLast(logKeys, key => isExecutionRunningLike(dataMap[key]?.unitStatus))
+    unitToOpen = runningUnit || null
   }
 
-  if (key) {
+  if (unitToOpen) {
     // if we are opening a section the set it to loading
-    if (dataMap[key].status !== 'QUEUED' && !dataMap[key].data) {
-      set(dataMap[key], 'status', 'LOADING')
+    if (dataMap[unitToOpen].status !== 'QUEUED' && !dataMap[unitToOpen].data.length) {
+      set(dataMap[unitToOpen], 'status', 'LOADING')
     }
 
-    set(dataMap[key], 'isOpen', true)
+    set(dataMap[unitToOpen], 'isOpen', true)
   }
 
-  return { units, dataMap, selectedStep, selectedStage }
+  return {
+    units,
+    logKeys,
+    dataMap,
+    selectedStep,
+    selectedStage,
+    searchData: isSameStep ? { ...state.searchData } : getDefaultReducerState().searchData
+  }
 }

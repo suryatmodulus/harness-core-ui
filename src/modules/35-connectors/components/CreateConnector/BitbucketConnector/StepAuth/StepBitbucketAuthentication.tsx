@@ -25,6 +25,7 @@ import TextReference, { TextReferenceInterface, ValueType } from '@secrets/compo
 import { useStrings } from 'framework/strings'
 import { GitAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import css from './StepBitbucketAuthentication.module.scss'
 
 interface StepBitbucketAuthenticationProps extends ConnectorInfoDTO {
@@ -101,7 +102,7 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<BitbucketFormInterface>> 
           <Text className={css.authTitle} inline>
             {getString('common.git.APIAuthentication')}
           </Text>
-          <FormInput.Select name="apiAuthType" items={apiAuthOptions} />
+          <FormInput.Select name="apiAuthType" items={apiAuthOptions} className={commonStyles.authTypeSelect} />
         </Container>
         <TextReference
           name="apiAccessUsername"
@@ -217,7 +218,12 @@ const StepBitbucketAuthentication: React.FC<
                     <Text className={css.authTitle} inline>
                       {getString('authentication')}
                     </Text>
-                    <FormInput.Select name="authType" items={authOptions} disabled={false} />
+                    <FormInput.Select
+                      name="authType"
+                      items={authOptions}
+                      disabled={false}
+                      className={commonStyles.authTypeSelect}
+                    />
                   </Container>
 
                   <RenderBitbucketAuthForm {...formikProps} />

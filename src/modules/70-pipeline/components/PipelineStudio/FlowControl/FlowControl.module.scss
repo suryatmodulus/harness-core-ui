@@ -74,6 +74,9 @@
       vertical-align: bottom;
       color: #000 !important;
       cursor: pointer;
+      &.disabledIcon {
+        opacity: 0.5;
+      }
     }
     .new-barrier {
       grid-column: span 2;

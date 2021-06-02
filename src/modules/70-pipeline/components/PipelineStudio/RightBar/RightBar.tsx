@@ -281,9 +281,9 @@ export const RightBar = (): JSX.Element => {
               [css.selected]: isGitExpOpen
             })}
             font={{ weight: 'semi-bold', size: 'xsmall' }}
-            icon="nav-git-sync"
+            icon="service-github"
             text={getString('gitsync.label')}
-            iconProps={{ size: 30, color: Color.RED_500 }}
+            iconProps={{ size: 22, color: Color.RED_500 }}
             onClick={() => {
               updatePipelineView({
                 ...pipelineView,

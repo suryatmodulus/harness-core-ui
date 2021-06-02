@@ -11,7 +11,6 @@ import FailureTypeMultiSelect from './FailureTypeMultiSelect'
 import {
   allowedStrategiesAsPerStep,
   Domain,
-  ErrorType,
   errorTypesOrderForCD,
   errorTypesOrderForCI
 } from './StrategySelection/StrategyConfig'
@@ -51,7 +50,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
   const isDefaultStageStrategy = mode === Modes.STAGE && domain === Domain.Deployment && selectedStrategyNum === 0
   const filterTypes = flatMap(
     formValues.failureStrategies || /* istanbul ignore next */ [],
-    e => (e.onFailure?.errors as ErrorType[]) || []
+    e => e.onFailure?.errors || []
   )
 
   const isAddBtnDisabled =

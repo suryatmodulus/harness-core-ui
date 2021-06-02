@@ -1,8 +1,8 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-
 import { isEmpty } from 'lodash-es'
 import { Layout, Text } from '@wings-software/uicore'
+
 import routes from '@common/RouteDefinitions'
 import { useGetExecutionDetail } from 'services/pipeline-ng'
 import type { ExecutionNode } from 'services/pipeline-ng'
@@ -11,7 +11,6 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
@@ -23,7 +22,6 @@ import {
 } from '@pipeline/utils/executionUtils'
 import { useQueryParams, useDeepCompareEffect } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
-
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { PageError } from '@common/components/Page/PageError'
@@ -31,6 +29,8 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
+import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
+
 import ExecutionContext, { GraphCanvasState } from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
@@ -174,6 +174,12 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
       setSelectedStepId(runningStep)
     }
   }, [queryParams, data])
+
+  React.useEffect(() => {
+    return () => {
+      logsCache.clear()
+    }
+  }, [])
 
   // update stage/step selection
   React.useEffect(() => {

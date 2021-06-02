@@ -16,30 +16,30 @@ export const getStageNodesWithArtifacts: (data: ExecutionGraph, stageIds: string
 ) => {
   return Object.values(data?.nodeMap ?? {}).filter(entry => {
     const { setupId = '', outcomes = [] } = entry
-    return (
-      stageIds.includes(setupId) &&
-      outcomes?.length &&
-      outcomes?.some(outcome => outcome.fileArtifacts?.length || outcome.imageArtifacts?.length)
-    )
+    const outcomeWithArtifacts = Array.isArray(outcomes)
+      ? outcomes?.some((outcome: any) => outcome.fileArtifacts?.length || outcome.imageArtifacts?.length)
+      : outcomes?.outcome.fileArtifacts?.length || outcomes?.outcome.imageArtifacts?.length
+    return stageIds.includes(setupId) && outcomeWithArtifacts
   })
 }
 
 export const getArtifactGroups: (stages: ExecutionNode[]) => ArtifactGroup[] = stages => {
   return stages.map(node => {
+    const outcomeWithImageArtifacts = Array.isArray(node.outcomes)
+      ? node.outcomes?.find(outcome => outcome.imageArtifacts)
+      : node.outcomes?.outcome
     const imageArtifacts =
-      node.outcomes
-        ?.find(outcome => outcome.imageArtifacts)
-        // TODO: fix typing once BE type is available
-        ?.imageArtifacts?.map((artifact: any) => ({
-          image: artifact.imageName,
-          tag: artifact.tag,
-          type: 'Image',
-          url: artifact.url
-        })) ?? []
-    const fileArtifacts = node.outcomes
-      ?.find(outcome => outcome.fileArtifacts)
-      // TODO: fix typing once BE type is available
-      ?.fileArtifacts?.map((artifact: any) => ({
+      outcomeWithImageArtifacts?.imageArtifacts?.map((artifact: any) => ({
+        image: artifact.imageName,
+        tag: artifact.tag,
+        type: 'Image',
+        url: artifact.url
+      })) ?? []
+    const outcomeWithFileArtifacts = Array.isArray(node.outcomes)
+      ? node.outcomes?.find(outcome => outcome.fileArtifacts)
+      : node.outcomes?.outcome
+    const fileArtifacts = outcomeWithFileArtifacts?.fileArtifacts // TODO: fix typing once BE type is available
+      ?.map((artifact: any) => ({
         type: 'File',
         url: artifact.url
       }))

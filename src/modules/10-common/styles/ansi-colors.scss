@@ -27,6 +27,11 @@ $colors: (
   }
 }
 
+a.ansi-decoration-link {
+  color: inherit;
+  text-decoration: underline;
+}
+
 .ansi-decoration-bold {
   font-weight: bold !important;
 }

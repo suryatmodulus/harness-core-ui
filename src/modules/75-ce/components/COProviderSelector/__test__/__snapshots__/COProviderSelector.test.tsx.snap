@@ -243,7 +243,7 @@ exports[`COProviderSelector Rendering should render COProviderSelector 1`] = `
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main label"
+                      class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                     />
                     <div
                       class="rightStatus"

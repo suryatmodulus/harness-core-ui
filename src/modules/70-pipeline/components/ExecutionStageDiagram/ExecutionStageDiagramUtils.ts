@@ -18,6 +18,7 @@ import type {
 import * as Diagram from '../Diagram'
 import type { DefaultNodeModel } from '../Diagram'
 import { ExecutionPipelineNodeType } from './ExecutionPipelineModel'
+import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import css from './ExecutionStageDiagram.module.scss'
 
 export const containGroup = <T>(nodes: Array<ExecutionPipelineNode<T>>): boolean => {
@@ -217,7 +218,11 @@ export const getStatusProps = (
   return { secondaryIconStyle, secondaryIcon: secondaryIcon, secondaryIconProps }
 }
 
-export const getIconStyleBasedOnStatus = (status: ExecutionStatus, isSelected: boolean): React.CSSProperties => {
+export const getIconStyleBasedOnStatus = (
+  status: ExecutionStatus,
+  isSelected: boolean,
+  data: any
+): React.CSSProperties => {
   let toReturn: CSSProperties = {}
   if (isSelected && status !== ExecutionStatusEnum.NotStarted) {
     toReturn = { color: 'var(--white)' }
@@ -225,6 +230,11 @@ export const getIconStyleBasedOnStatus = (status: ExecutionStatus, isSelected: b
   if (status === ExecutionStatusEnum.Skipped || status === ExecutionStatusEnum.Expired) {
     toReturn = { color: 'var(--grey-500)' }
   }
+
+  if (data.stepType === StepType.HarnessApproval && !isSelected) {
+    toReturn = { color: 'var(--primary-brand)' }
+  }
+
   return toReturn
 }
 
@@ -313,7 +323,7 @@ export const moveStageToFocus = (
   /* istanbul ignore else */ if (layer && canvas) {
     const rect = canvas.getBoundingClientRect()
     const zoom = engine.getModel().getZoomLevel()
-    const s = (num: number) => num * (1 / (100 / zoom))
+    const s = (num: number): number => num * (1 / (100 / zoom))
     const offsetX = engine.getModel().getOffsetX()
     const offsetY = engine.getModel().getOffsetY()
     let newOffsetX = engine.getModel().getOffsetX()

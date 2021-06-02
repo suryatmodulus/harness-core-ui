@@ -22,6 +22,7 @@ import TextReference, { TextReferenceInterface, ValueType } from '@secrets/compo
 import { useStrings } from 'framework/strings'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import css from './HelmRepoConnector.module.scss'
 
 interface StepHelmRepoAuthenticationProps extends ConnectorInfoDTO {
@@ -149,7 +150,12 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
                 <Text className={css.authTitle} inline>
                   {getString('authentication')}
                 </Text>
-                <FormInput.Select name="authType" items={authOptions} disabled={false} className={css.authTypeSelect} />
+                <FormInput.Select
+                  name="authType"
+                  items={authOptions}
+                  disabled={false}
+                  className={commonStyles.authTypeSelectLarge}
+                />
               </Container>
               {formikProps.values.authType === AuthTypes.USER_PASSWORD ? (
                 <>

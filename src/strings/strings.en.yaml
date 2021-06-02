@@ -568,7 +568,7 @@ duration: 'Duration:'
 runPipelineForm:
   pipelineRunSuccessFully: Pipeline started successfully
   runPipelineFailed: Failed to run pipeline
-  noRuntimeInput: No Runtime inputs in pipeline
+  noRuntimeInput: No runtime inputs are required for the execution of this pipeline
   notifyOnlyMe: Notify only me about the status of the execution
 skipped: 'Step has been skipped.'
 skipCondition: 'Skip condition:'

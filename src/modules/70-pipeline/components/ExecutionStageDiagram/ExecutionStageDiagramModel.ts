@@ -98,7 +98,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           { [css.runningNode]: stage.status === ExecutionStatusEnum.Running },
           { [css.selected]: stage.status === ExecutionStatusEnum.Running && isSelected }
         ),
-        iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected),
+        iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected, stage.data),
         icon: stage.icon,
         skipCondition: stage?.skipCondition,
         conditionalExecutionEnabled: getConditionalExecutionFlag(stage.when!),

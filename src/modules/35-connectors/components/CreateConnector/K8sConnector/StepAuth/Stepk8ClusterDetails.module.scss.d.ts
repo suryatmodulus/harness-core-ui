@@ -9,10 +9,8 @@ declare const styles: {
   readonly textInfo: string
   readonly selectedCard: string
   readonly authHeaderRow: string
-  readonly authTypeSelect: string
   readonly authTitle: string
   readonly formRow: string
   readonly formFieldWidth: string
-  readonly applyFlex: string
 }
 export default styles

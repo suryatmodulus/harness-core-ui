@@ -3,19 +3,18 @@ import { Icon, IconName } from '@wings-software/uicore'
 
 import { Duration } from '@common/components'
 
-import css from './MultiLogsViewer.module.scss'
+import css from './GroupedHeader.module.scss'
 
 export type LogViewerAccordionStatus = 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'NOT_STARTED' | 'LOADING' | 'QUEUED'
 
-export interface LogViewerAccordionProps {
+export interface GroupHeaderProps {
   title: React.ReactNode
-  data?: string
   startTime?: number
   endTime?: number
   id: string
   status: LogViewerAccordionStatus
   isOpen?: boolean
-  onSectionClick?(id: string, props: LogViewerAccordionProps): boolean | void
+  onSectionClick?(id: string, props: GroupHeaderProps): boolean | void
 }
 
 const statusIconMap: Record<LogViewerAccordionStatus, IconName> = {
@@ -30,7 +29,7 @@ const statusIconMap: Record<LogViewerAccordionStatus, IconName> = {
 /**
  * Component which renders a section of a log
  */
-export function LogViewerAccordion(props: LogViewerAccordionProps): React.ReactElement {
+export function GroupHeader(props: GroupHeaderProps): React.ReactElement {
   const { title, isOpen, status, id, onSectionClick, startTime, endTime } = props
   const [open, setOpen] = React.useState(!!isOpen)
 
@@ -55,7 +54,7 @@ export function LogViewerAccordion(props: LogViewerAccordionProps): React.ReactE
   const isLoading = status === 'LOADING'
 
   return (
-    <div className={css.logViewerSection} data-open={open} data-status={status?.toLowerCase()}>
+    <div className={css.groupedHeader} data-open={open} data-status={status?.toLowerCase()}>
       <div className={css.sectionSummary} onClick={toggleStatus}>
         <Icon className={css.chevron} name={isLoading ? 'spinner' : 'chevron-right'} />
         <Icon

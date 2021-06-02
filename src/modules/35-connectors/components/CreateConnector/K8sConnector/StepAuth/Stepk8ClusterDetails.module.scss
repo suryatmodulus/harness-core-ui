@@ -55,26 +55,6 @@
       width: 42%;
       display: flex;
       justify-content: space-between;
-      .authTypeSelect {
-        :global {
-          .bp3-input-group {
-            > input {
-              width: 100% !important;
-              border: none !important;
-              padding: var(--spacing-small) 0;
-              min-width: 190px;
-              text-align: end !important;
-            }
-          }
-          .bp3-input-action {
-            > span {
-              padding-left: var(--spacing-xsmall) !important;
-              padding-right: 0px !important;
-            }
-          }
-        }
-      }
-
       .authTitle {
         font-size: var(font-size-normal);
         color: var(--black-600);
@@ -98,7 +78,4 @@
 }
 .formFieldWidth {
   width: 42%;
-}
-.applyFlex {
-  display: flex !important;
 }

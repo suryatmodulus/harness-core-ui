@@ -18,7 +18,7 @@ const getInitialValues = (data?: StageElementWrapper): ApprovalStageMinimalValue
   identifier: data?.stage.identifier,
   name: data?.stage.name,
   description: data?.stage.description,
-  tags: data?.stage.tags,
+  tags: data?.stage.tags || {},
   approvalType: data?.stage.spec?.approvalType || approvalTypeCardsData[0].value
 })
 

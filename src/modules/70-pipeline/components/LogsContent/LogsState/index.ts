@@ -4,6 +4,10 @@ import { createSections } from './createSections'
 import { fetchSectionData } from './fetchSectionData'
 import { fetchingSectionData } from './fetchingSectionData'
 import { resetSectionData } from './resetSectionData'
+import { search } from './search'
+import { resetSearch } from './resetSearch'
+import { goToNextSearchResult } from './goToNextSearchResult'
+import { goToPrevSearchResult } from './goToPrevSearchResult'
 import { ActionType, Action, State } from './types'
 
 export function reducer<T extends ActionType>(state: State, action: Action<T>): State {
@@ -26,6 +30,14 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
     // Action for toggling a section
     case ActionType.ToggleSection:
       return toggleSection(state, action as Action<ActionType.ToggleSection>)
+    case ActionType.Search:
+      return search(state, action as Action<ActionType.Search>)
+    case ActionType.ResetSearch:
+      return resetSearch(state, action as Action<ActionType.ResetSearch>)
+    case ActionType.GoToNextSearchResult:
+      return goToNextSearchResult(state, action as Action<ActionType.GoToNextSearchResult>)
+    case ActionType.GoToPrevSearchResult:
+      return goToPrevSearchResult(state, action as Action<ActionType.GoToPrevSearchResult>)
     default:
       return state
   }

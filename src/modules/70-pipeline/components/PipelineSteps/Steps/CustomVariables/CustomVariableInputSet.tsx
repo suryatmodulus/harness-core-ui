@@ -90,6 +90,7 @@ export function CustomVariableInputSet(props: CustomVariableInputSetProps): Reac
                       className="variableInput"
                       name={`${basePath}variables[${index}].value`}
                       label=""
+                      useValue
                       selectItems={items}
                       multiTypeInputProps={{
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],

@@ -47,6 +47,7 @@ export default function HttpInputSetStep(props: HttpInputSetStepProps): React.Re
           <FormInput.MultiTypeInput
             label={getString('methodLabel')}
             name={`${prefix}spec.method`}
+            useValue
             selectItems={httpStepType}
             multiTypeInputProps={{
               expressions,

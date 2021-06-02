@@ -882,7 +882,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -2393,7 +2393,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -2913,7 +2913,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -3191,7 +3191,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                     common.git.APIAuthentication
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group authTypeSelect"
                     data-id="apiAuthType-6"
                   >
                     <div
@@ -3598,7 +3598,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -3876,7 +3876,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                     common.git.APIAuthentication
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group authTypeSelect"
                     data-id="apiAuthType-6"
                   >
                     <div
@@ -4283,7 +4283,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -4561,7 +4561,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                     common.git.APIAuthentication
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group authTypeSelect"
                     data-id="apiAuthType-6"
                   >
                     <div

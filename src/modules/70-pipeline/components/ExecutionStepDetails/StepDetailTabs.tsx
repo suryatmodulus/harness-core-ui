@@ -92,18 +92,12 @@ export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
       <Tabs.Tab
         id={StepDetailTab.INPUT}
         title={getString('common.input')}
-        panel={
-          <ExecutionStepInputOutputTab
-            baseFqn={step.baseFqn}
-            mode="input"
-            data={step.stepParameters ? [step.stepParameters] : []}
-          />
-        }
+        panel={<ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="input" data={step.stepParameters} />}
       />
       <Tabs.Tab
         id={StepDetailTab.OUTPUT}
         title={getString('outputLabel')}
-        panel={<ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="output" data={step.outcomes || []} />}
+        panel={<ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="output" data={step.outcomes} />}
       />
       {isManualInterruption ? (
         <Tabs.Tab

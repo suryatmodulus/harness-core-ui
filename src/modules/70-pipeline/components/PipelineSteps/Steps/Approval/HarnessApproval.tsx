@@ -24,7 +24,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
   protected isHarnessSpecific = true
   protected type = StepType.HarnessApproval
   protected stepName = 'Manual Approval'
-  protected stepIcon: IconName = 'nav-harness'
+  protected stepIcon: IconName = 'harness-with-color'
   // initialValues on mount
   protected defaultValues: HarnessApprovalData = {
     identifier: '',

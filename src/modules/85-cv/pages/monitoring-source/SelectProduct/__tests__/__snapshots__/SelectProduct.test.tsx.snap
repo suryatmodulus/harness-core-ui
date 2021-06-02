@@ -216,7 +216,12 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
                 <div>
-                  
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="margin-bottom: 5px;"
+                  >
+                    
+                  </div>
                   <div
                     class="bp3-form-group connectorReference"
                     data-id="undefined-1"

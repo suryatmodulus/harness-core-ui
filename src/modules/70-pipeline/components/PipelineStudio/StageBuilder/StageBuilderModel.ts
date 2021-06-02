@@ -110,7 +110,7 @@ export class StageBuilderModel extends DiagramModel {
             allowAdd: allowAdd === true && !isReadonly,
             height: 50,
             iconStyle: { color: isSelected ? 'var(--white)' : type?.iconColor },
-            icon: type.icon,
+            icon: type?.icon,
             ...(node.stage.when && {})
           })
 

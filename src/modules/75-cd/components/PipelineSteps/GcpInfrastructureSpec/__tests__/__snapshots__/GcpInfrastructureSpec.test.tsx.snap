@@ -12,12 +12,17 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
         class="formGroup md"
       >
         <div>
-          <span
-            class="Tooltip--acenter"
-            data-tooltip-id="gcpInfraConnector"
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="margin-bottom: 5px;"
           >
-            connector
-          </span>
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="gcpInfraConnector"
+            >
+              connector
+            </span>
+          </div>
           <div
             class="bp3-form-group"
             style="margin-bottom: 0px;"
@@ -362,12 +367,17 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
             <div>
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="gcpInfraConnector"
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="margin-bottom: 5px;"
               >
-                connector
-              </span>
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcpInfraConnector"
+                >
+                  connector
+                </span>
+              </div>
               <div
                 class="bp3-form-group"
                 data-id="undefined-0"
@@ -399,7 +409,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -796,12 +806,17 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
             <div>
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="gcpInfraConnector"
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="margin-bottom: 5px;"
               >
-                connector
-              </span>
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcpInfraConnector"
+                >
+                  connector
+                </span>
+              </div>
               <div
                 class="bp3-form-group"
                 data-id="connectorRef-0"
@@ -1242,12 +1257,17 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
             <div>
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="gcpInfraConnector"
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="margin-bottom: 5px;"
               >
-                connector
-              </span>
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcpInfraConnector"
+                >
+                  connector
+                </span>
+              </div>
               <div
                 class="bp3-form-group"
                 data-id="undefined-0"
@@ -1279,7 +1299,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef

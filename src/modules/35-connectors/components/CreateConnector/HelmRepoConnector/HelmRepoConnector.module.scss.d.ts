@@ -3,7 +3,6 @@
 declare const styles: {
   readonly secondStep: string
   readonly authHeaderRow: string
-  readonly authTypeSelect: string
   readonly authTitle: string
 }
 export default styles

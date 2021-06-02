@@ -28,7 +28,7 @@ describe('<FailureStrategyPanel /> tests', () => {
 
     await waitFor(() => findByTestId('failure-strategy-step-0'))
 
-    expect(queryByAttribute('name', container, 'failureStrategies[0].onFailure.errors')).not.toBeNull()
+    expect(queryAllByAttribute('name', container, 'failureStrategies[0].onFailure.errors').length).toBe(2)
 
     const panel = await findByTestId('failure-strategy-panel')
     expect(panel).toMatchSnapshot()
@@ -45,14 +45,14 @@ describe('<FailureStrategyPanel /> tests', () => {
     `)
   })
 
-  test('adding all error types disable Add button and prevents new strategy addition', async () => {
+  test('CD: adding all error types disable Add button and prevents new strategy addition', async () => {
     const { findByTestId } = render(
       <Basic
         data={{
           failureStrategies: [
             {
               onFailure: {
-                errors: ['AnyOther'],
+                errors: ['Unknown'],
                 action: {
                   type: 'StageRollback'
                 }
@@ -62,7 +62,6 @@ describe('<FailureStrategyPanel /> tests', () => {
               onFailure: {
                 errors: [
                   'Authentication',
-                  // 'Application',
                   'Authorization',
                   'Connectivity',
                   'Timeout',
@@ -94,7 +93,7 @@ describe('<FailureStrategyPanel /> tests', () => {
     expect(add.getAttribute('class')).toContain('bp3-disabled')
   })
 
-  test('in stage mode of CI domain adding AnyOther and Timeout error types disable Add button and prevents new strategy addition', async () => {
+  test('CI: adding Unknown and Timeout error types disable Add button and prevents new strategy addition', async () => {
     const { findByTestId } = render(
       <Basic
         data={{
@@ -102,7 +101,7 @@ describe('<FailureStrategyPanel /> tests', () => {
             {},
             {
               onFailure: {
-                errors: ['AnyOther', 'Timeout'],
+                errors: ['Unknown', 'Timeout'],
                 action: {
                   type: 'Retry',
                   spec: {
@@ -174,7 +173,7 @@ describe('<FailureStrategyPanel /> tests', () => {
   test('stage mode of CI domain can edit first error type', () => {
     const { container } = render(<Basic data={{ failureStrategies: [{}] }} mode={Modes.STAGE} domain={Domain.CI} />)
 
-    expect(queryByAttribute('name', container, 'failureStrategies[0].onFailure.errors')).not.toBeNull()
+    expect(queryAllByAttribute('name', container, 'failureStrategies[0].onFailure.errors').length).toBe(2)
     expect(container).toMatchSnapshot()
   })
 
@@ -190,8 +189,8 @@ describe('<FailureStrategyPanel /> tests', () => {
   test('error type selection does not show already selected error types', async () => {
     const { container, findByText, findByTestId } = render(<Basic data={{ failureStrategies: [] }} mode={Modes.STEP} />)
 
-    const getErrorTypeField = (): HTMLElement =>
-      queryByAttribute('name', container, 'failureStrategies[0].onFailure.errors')!
+    const getErrorTypeField = (): HTMLElement[] =>
+      queryAllByAttribute('name', container, 'failureStrategies[0].onFailure.errors')!
     const menuItemSelector = '.bp3-menu-item > div'
     const authErrorTxt = 'pipeline.failureStrategies.errorTypeLabels.Authentication'
 
@@ -204,13 +203,13 @@ describe('<FailureStrategyPanel /> tests', () => {
 
     await waitFor(() => findByTestId('failure-strategy-step-0'))
 
-    fireEvent.change(getErrorTypeField(), { target: { value: 'auth' } })
+    fireEvent.change(getErrorTypeField()[0], { target: { value: 'auth' } })
 
     const opt1 = await findByText(authErrorTxt, { selector: menuItemSelector })
 
     fireEvent.click(opt1)
 
-    fireEvent.focus(getErrorTypeField())
+    fireEvent.focus(getErrorTypeField()[0])
 
     await expect(() => findByText(authErrorTxt, { selector: menuItemSelector })).rejects.toThrow()
 
@@ -229,13 +228,13 @@ describe('<FailureStrategyPanel /> tests', () => {
     `)
   })
 
-  test('when AnyOther is selected, all other options are removed', async () => {
-    const { container, findByText, findByTestId } = render(
+  test('when AllErrors is selected, select is disabled', async () => {
+    const { container, findByTestId } = render(
       <Basic
         data={{
           failureStrategies: [
             {
-              onFailure: { errors: ['Authentication', 'Authorization'] }
+              onFailure: { errors: [] }
             }
           ]
         }}
@@ -243,11 +242,8 @@ describe('<FailureStrategyPanel /> tests', () => {
       />
     )
 
-    const getErrorTypeField = (): HTMLElement =>
-      queryByAttribute('name', container, 'failureStrategies[0].onFailure.errors')!
-    const menuItemSelector = '.bp3-menu-item > div'
-
     await waitFor(() => findByTestId('failure-strategy-step-0'))
+    const errorTypeFields = queryAllByAttribute('name', container, 'failureStrategies[0].onFailure.errors')!
 
     const code1 = await findByTestId('code-output')
 
@@ -257,18 +253,12 @@ describe('<FailureStrategyPanel /> tests', () => {
       >
         failureStrategies:
         - onFailure:
-            errors:
-              - Authentication
-              - Authorization
+            errors: []
 
       </pre>
     `)
 
-    fireEvent.change(getErrorTypeField(), { target: { value: 'any' } })
-
-    const opt1 = await findByText('pipeline.failureStrategies.errorTypeLabels.AnyOther', { selector: menuItemSelector })
-
-    fireEvent.click(opt1)
+    fireEvent.click(errorTypeFields[1], { target: { value: 'any' } })
 
     const code2 = await findByTestId('code-output')
 
@@ -279,10 +269,13 @@ describe('<FailureStrategyPanel /> tests', () => {
         failureStrategies:
         - onFailure:
             errors:
-              - AnyOther
+              - AllErrors
 
       </pre>
     `)
+
+    const panel = await findByTestId('failure-strategy-panel')
+    expect(panel.querySelector('.failureSelect')).toMatchSnapshot()
   })
 
   test('removing error type works', async () => {

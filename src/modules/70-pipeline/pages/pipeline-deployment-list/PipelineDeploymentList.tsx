@@ -125,7 +125,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     <Page.Body
       className={css.main}
       key={pipelineIdentifier}
-      error={error?.message}
+      error={(error?.data as Error)?.message || error?.message}
       retryOnError={() => fetchExecutions()}
     >
       {props.showHealthAndExecution && (

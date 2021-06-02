@@ -517,7 +517,7 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
                     authentication
                   </span>
                   <div
-                    class="bp3-form-group authTypeSelect"
+                    class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-1"
                   >
                     <div
@@ -1285,7 +1285,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
                     authentication
                   </span>
                   <div
-                    class="bp3-form-group authTypeSelect"
+                    class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-1"
                   >
                     <div

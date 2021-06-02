@@ -8,5 +8,6 @@ declare const styles: {
   readonly cardTitle: string
   readonly createNewMessage: string
   readonly stageTitle: string
+  readonly stageDescription: string
 }
 export default styles

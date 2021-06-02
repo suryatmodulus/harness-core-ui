@@ -4,6 +4,7 @@ import { useStrings } from 'framework/strings'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
 import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { ModuleName } from 'framework/types/ModuleName'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
 import { PageError } from '@common/components/Page/PageError'
@@ -24,6 +25,11 @@ const CFHomePage: React.FC = () => {
       moduleType: ModuleName.CF
     }
   }
+  const { currentUserInfo } = useAppStore()
+
+  const { accounts, defaultAccountId } = currentUserInfo
+  const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
+
   const { data, error, refetch, loading } = useGetModuleLicenseInfo(moduleLicenseQueryParams)
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
@@ -66,7 +72,7 @@ const CFHomePage: React.FC = () => {
     return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   }
 
-  if (data?.status === 'SUCCESS' && !data.data) {
+  if (createdFromNG && data?.status === 'SUCCESS' && !data.data) {
     history.push(
       routes.toModuleTrialHome({
         accountId,
@@ -75,7 +81,7 @@ const CFHomePage: React.FC = () => {
     )
   }
 
-  if (data && data.data && trial) {
+  if (createdFromNG && data && data.data && trial) {
     return (
       <TrialInProgressTemplate
         title={getString('cf.continuous')}

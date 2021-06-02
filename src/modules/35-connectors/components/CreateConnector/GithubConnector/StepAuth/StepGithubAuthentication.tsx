@@ -25,6 +25,7 @@ import TextReference, { TextReferenceInterface, ValueType } from '@secrets/compo
 import { useStrings } from 'framework/strings'
 import { GitAuthTypes, GitAPIAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import css from './StepGithubAuthentication.module.scss'
 
 interface StepGithubAuthenticationProps extends ConnectorInfoDTO {
@@ -152,7 +153,7 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<GithubFormInterface>> = f
         <Text className={css.authTitle} inline>
           {getString('common.git.APIAuthentication')}
         </Text>
-        <FormInput.Select name="apiAuthType" items={apiAuthOptions} />
+        <FormInput.Select name="apiAuthType" items={apiAuthOptions} className={commonStyles.authTypeSelect} />
       </Container>
       <RenderAPIAccessForm {...formikProps} />{' '}
     </>
@@ -281,7 +282,12 @@ const StepGithubAuthentication: React.FC<
                     <Text className={css.authTitle} inline>
                       {getString('authentication')}
                     </Text>
-                    <FormInput.Select name="authType" items={authOptions} disabled={false} />
+                    <FormInput.Select
+                      name="authType"
+                      items={authOptions}
+                      disabled={false}
+                      className={commonStyles.authTypeSelect}
+                    />
                   </Container>
 
                   <RenderGithubAuthForm {...formikProps} />

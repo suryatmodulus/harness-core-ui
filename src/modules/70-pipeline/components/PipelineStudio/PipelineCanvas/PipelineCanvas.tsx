@@ -233,6 +233,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     let latestPipeline: PipelineInfoConfig = pipeline
 
     if (isYaml && yamlHandler) {
+      if (!parse(yamlHandler.getLatestYaml())) {
+        clear()
+        showError(getString('pipelines-studio.errorWhileSaving'))
+        return
+      }
       try {
         latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
       } /* istanbul ignore next */ catch (err) {
@@ -595,12 +600,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                     permission: PermissionIdentifier.EDIT_PIPELINE
                   }}
                 />
-                <Button
-                  disabled={!isUpdated}
-                  onClick={() => fetchPipeline({ forceFetch: true, forceUpdate: true })}
-                  className={css.discardBtn}
-                  text={getString('pipeline.discard')}
-                />
+                {pipelineIdentifier !== DefaultNewPipelineId && (
+                  <Button
+                    disabled={!isUpdated}
+                    onClick={() => fetchPipeline({ forceFetch: true, forceUpdate: true })}
+                    className={css.discardBtn}
+                    text={getString('pipeline.discard')}
+                  />
+                )}
                 <RbacButton
                   data-testid="card-run-pipeline"
                   intent="primary"

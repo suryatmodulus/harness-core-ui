@@ -54,6 +54,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const [metaDataLoading, setMetaDataLoading] = useState<boolean>()
   const { mutate: CreateHashiCorpVault, loading: createLoading } = useCreateConnector({
     queryParams: { accountIdentifier: accountId }
   })
@@ -188,6 +189,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
                 identifier={prevStepData?.identifier || /* istanbul ignore next */ ''}
                 isEditing={isEditMode}
                 accessType={(prevStepData?.spec as VaultConnectorDTO)?.accessType}
+                onMetadataLoadingStateChange={(val: boolean) => setMetaDataLoading(val)}
               />
               <Layout.Horizontal spacing="medium">
                 <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />
@@ -196,7 +198,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
                   intent="primary"
                   rightIcon="chevron-right"
                   text={getString('saveAndContinue')}
-                  disabled={updateLoading || createLoading}
+                  disabled={updateLoading || createLoading || metaDataLoading}
                 />
               </Layout.Horizontal>
             </FormikForm>

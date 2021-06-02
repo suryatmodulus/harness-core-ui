@@ -255,6 +255,7 @@ export class ExecutionStepModel extends DiagramModel {
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
                 : false,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
+              iconStyle: { color: 'var(--primary-brand)' },
               selected: this.selectedNodeId === node.step.identifier
             })
           : nodeType === ExecutionPipelineNodeType.ICON

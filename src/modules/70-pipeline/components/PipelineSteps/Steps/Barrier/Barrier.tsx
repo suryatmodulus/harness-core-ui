@@ -12,12 +12,14 @@ import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
+import { useParams } from 'react-router-dom'
+import { parse } from 'yaml'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepElementConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig, StepElementConfig } from 'services/cd-ng'
 
-import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
+import { useGetPipeline, VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings } from 'framework/strings'
@@ -32,6 +34,8 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
+import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import css from './Barrier.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -141,7 +145,10 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                   name="spec.barrierRef"
                   placeholder={getString('pipeline.barrierStep.barrierReferencePlaceholder')}
                   selectItems={barriers}
-                  multiTypeInputProps={{ expressions }}
+                  multiTypeInputProps={{
+                    expressions,
+                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+                  }}
                 />
                 {getMultiTypeFromValue(formik?.values?.spec?.barrierRef) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -160,7 +167,10 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
                   className={css.width25}
-                  multiTypeDurationProps={{ enableConfigureOptions: false }}
+                  multiTypeDurationProps={{
+                    enableConfigureOptions: false,
+                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+                  }}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -185,9 +195,46 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
 }
 
 const BarrierInputStep: React.FC<BarrierProps> = ({ inputSetData }) => {
+  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
+    PipelineType<InputSetPathProps> & { accountId: string }
+  >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
+  const [pipeline, setPipeline] = React.useState<{ pipeline: PipelineInfoConfig } | undefined>()
+  const { data: pipelineResponse, loading } = useGetPipeline({
+    pipelineIdentifier,
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, repoIdentifier, branch }
+  })
+  React.useEffect(() => {
+    if (pipelineResponse?.data?.yamlPipeline) {
+      setPipeline(parse(pipelineResponse?.data?.yamlPipeline))
+    }
+  }, [pipelineResponse?.data?.yamlPipeline])
   const { getString } = useStrings()
+  let barriers: SelectOption[] = []
+  if (pipeline?.pipeline?.flowControl?.barriers?.length) {
+    barriers = pipeline.pipeline?.flowControl?.barriers?.map(barrier => ({
+      label: barrier.name,
+      value: barrier.identifier
+    }))
+  }
+
   return (
     <>
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.barrierRef) === MultiTypeInputType.RUNTIME && (
+        <FormInput.Select
+          selectProps={{
+            addClearBtn: true,
+            allowCreatingNewItems: true
+          }}
+          disabled={loading}
+          className={css.width50}
+          items={barriers}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}.spec.barrierRef`}
+          key="barrierRef"
+          label={getString('pipeline.barrierStep.barrierReference')}
+        />
+      )}
       {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
         <DurationInputFieldForInputSet
           label={getString('pipelineSteps.timeoutLabel')}

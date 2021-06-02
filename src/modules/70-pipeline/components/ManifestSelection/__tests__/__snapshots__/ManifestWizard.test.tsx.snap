@@ -932,12 +932,17 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                 class="connectorContainer"
               >
                 <div>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
                     style="margin-bottom: 5px;"
                   >
-                    Git connector
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="margin-bottom: 5px;"
+                    >
+                      Git connector
+                    </p>
+                  </div>
                   <div
                     class="bp3-form-group"
                     style="margin-bottom: 0px;"

@@ -30,6 +30,8 @@ const RbacButton: React.FC<ButtonProps> = ({ permission: permissionRequest, ...r
             resourceType={permissionRequest.resource.resourceType}
             resourceScope={permissionRequest.resourceScope}
           />
+        ) : restProps.tooltip ? (
+          restProps.tooltip
         ) : undefined
       }
       tooltipProps={{ hoverCloseDelay: 50, interactionKind: PopoverInteractionKind.HOVER_TARGET_ONLY }}

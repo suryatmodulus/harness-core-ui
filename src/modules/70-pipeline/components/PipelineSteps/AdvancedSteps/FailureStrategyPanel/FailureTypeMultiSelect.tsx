@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormGroup, Menu, Intent } from '@blueprintjs/core'
+import { FormGroup, Menu, Intent, Checkbox } from '@blueprintjs/core'
 import { MultiSelect as BPMultiSelect, ItemRenderer } from '@blueprintjs/select'
 import { connect, FormikContext } from 'formik'
 import { get } from 'lodash-es'
@@ -8,23 +8,28 @@ import { errorCheck } from '@common/utils/formikHelpers'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 
-import { ErrorType, errorTypesOrderForCI, errorTypesOrderForCD } from './StrategySelection/StrategyConfig'
+import {
+  errorTypesOrderForCI,
+  errorTypesOrderForCD,
+  FailureErrorType,
+  ErrorType
+} from './StrategySelection/StrategyConfig'
 import css from './FailureStrategyPanel.module.scss'
 
 interface Option {
   label: string
-  value: ErrorType
+  value: FailureErrorType
 }
 
-const stringsMap: Record<ErrorType, StringKeys> = {
-  [ErrorType.AnyOther]: 'pipeline.failureStrategies.errorTypeLabels.AnyOther',
-  // [ErrorType.Application]: 'pipeline.failureStrategies.errorTypeLabels.Application',
-  [ErrorType.Authentication]: 'pipeline.failureStrategies.errorTypeLabels.Authentication',
-  [ErrorType.Authorization]: 'pipeline.failureStrategies.errorTypeLabels.Authorization',
-  [ErrorType.Connectivity]: 'pipeline.failureStrategies.errorTypeLabels.Connectivity',
-  [ErrorType.DelegateProvisioning]: 'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning',
-  [ErrorType.Timeout]: 'pipeline.failureStrategies.errorTypeLabels.Timeout',
-  [ErrorType.Verification]: 'pipeline.failureStrategies.errorTypeLabels.Verification'
+const stringsMap: Record<FailureErrorType, StringKeys> = {
+  AllErrors: 'pipeline.failureStrategies.errorTypeLabels.AllErrors',
+  Unknown: 'pipeline.failureStrategies.errorTypeLabels.Unknown',
+  Authentication: 'pipeline.failureStrategies.errorTypeLabels.Authentication',
+  Authorization: 'pipeline.failureStrategies.errorTypeLabels.Authorization',
+  Connectivity: 'pipeline.failureStrategies.errorTypeLabels.Connectivity',
+  DelegateProvisioning: 'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning',
+  Timeout: 'pipeline.failureStrategies.errorTypeLabels.Timeout',
+  Verification: 'pipeline.failureStrategies.errorTypeLabels.Verification'
 }
 
 const MultiSelect = BPMultiSelect.ofType<Option>()
@@ -41,7 +46,7 @@ const tagRenderer = (item: Option): string => {
 export interface FailureTypeMultiSelectProps {
   label: string
   name: string
-  filterTypes?: ErrorType[]
+  filterTypes?: FailureErrorType[]
   minimal?: boolean
   disabled?: boolean
 }
@@ -57,8 +62,13 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
   const hasError = errorCheck(name, formik)
   const intent = hasError ? Intent.DANGER : Intent.NONE
   const helperText = hasError ? get(formik?.errors, name) : null
-  const selectedValues = get(formik.values, name) || []
-  const selectedValuesSet = new Set<ErrorType>(selectedValues)
+  const selectedValues: FailureErrorType[] = get(formik.values, name) || []
+
+  // remove 'AllErrors' from selected values as we don't want to show it inside the multislect component
+  const filteredValues = selectedValues.filter(val => val !== ErrorType.AllErrors)
+  const selectedValuesSet = new Set<FailureErrorType>(filteredValues)
+  const hasAllErrors = selectedValues.includes(ErrorType.AllErrors)
+
   const options: Option[] = (() => {
     const filterTypesSet = new Set(filterTypes || /* istanbul ignore next */ [])
 
@@ -69,22 +79,14 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
   })()
 
   function handleItemSelect(item: Option): void {
-    if (item.value === ErrorType.AnyOther) {
-      formik.setFieldValue(name, [item.value])
-      formik.setFieldTouched(name, true)
-      return
-    }
     formik.setFieldValue(name, [...selectedValues, item.value])
     formik.setFieldTouched(name, true)
   }
 
+  // list of options to show
   function itemListPredicate(query: string, listItems: Option[]): Option[] {
-    if (selectedValuesSet.has(ErrorType.AnyOther)) {
-      return []
-    }
-
     return listItems.filter(item => {
-      if (selectedValuesSet.has(item.value as ErrorType)) {
+      if (selectedValuesSet.has(item.value)) {
         return false
       }
 
@@ -96,19 +98,28 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
     })
   }
 
-  const selectedOptions: Option[] = selectedValues.map((key: ErrorType) => ({
+  // selected options to show
+  const selectedOptions: Option[] = filteredValues.map((key: FailureErrorType) => ({
     value: key,
     label: getString(stringsMap[key])
   }))
 
+  // when x is clicked on an option
   function onRemove(value: string): void {
     const newItems = selectedOptions.filter(item => item.label !== value).map(item => item.value)
     formik.setFieldValue(name, newItems)
     formik.setFieldTouched(name, true)
   }
 
+  // handler for AllErrors checkbox
+  function handleAllErrorsChanges(e: React.ChangeEvent<HTMLInputElement>): void {
+    const { checked } = e.target
+
+    formik.setFieldValue(name, checked ? [ErrorType.AllErrors] : [])
+  }
+
   return (
-    <FormGroup label={label} labelFor={name} helperText={helperText} intent={intent}>
+    <FormGroup label={label} labelFor={name} helperText={helperText} intent={intent} className={css.failureSelect}>
       <MultiSelect
         className={css.errorSelect}
         selectedItems={selectedOptions}
@@ -119,9 +130,21 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
         popoverProps={{ minimal: true }}
         itemRenderer={itemRenderer}
         tagRenderer={tagRenderer}
-        tagInputProps={{ onRemove, tagProps: { className: css.tag }, inputProps: { name }, disabled }}
+        tagInputProps={{
+          onRemove,
+          tagProps: { className: css.tag },
+          inputProps: { name },
+          disabled: disabled || hasAllErrors
+        }}
         itemsEqual="value"
         resetOnSelect
+      />
+      <Checkbox
+        name={name}
+        disabled={disabled}
+        value={ErrorType.AllErrors}
+        label={getString(stringsMap.AllErrors)}
+        onChange={handleAllErrorsChanges}
       />
     </FormGroup>
   )

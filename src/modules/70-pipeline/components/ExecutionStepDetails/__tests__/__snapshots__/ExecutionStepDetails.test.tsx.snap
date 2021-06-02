@@ -973,10 +973,10 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                 execution.stepLogs
               </div>
               <div
-                class="searchContainer"
+                class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
                   data-name=""
                 >
                   <span
@@ -1007,8 +1007,6 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                     value=""
                   />
                 </div>
-              </div>
-              <div>
                 <a
                   class="toConsoleView"
                   href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -1019,13 +1017,15 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                 </a>
               </div>
             </div>
-            <div>
+            <pre
+              class="container"
+            >
               <div
                 class="noLogs"
               >
                 common.logs.noLogsText
               </div>
-            </div>
+            </pre>
           </div>
         </div>
       </div>
@@ -1278,10 +1278,10 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 execution.stepLogs
               </div>
               <div
-                class="searchContainer"
+                class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
                   data-name=""
                 >
                   <span
@@ -1312,8 +1312,6 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                     value=""
                   />
                 </div>
-              </div>
-              <div>
                 <a
                   class="toConsoleView"
                   href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -1324,13 +1322,15 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 </a>
               </div>
             </div>
-            <div>
+            <pre
+              class="container"
+            >
               <div
                 class="noLogs"
               >
                 common.logs.noLogsText
               </div>
-            </div>
+            </pre>
           </div>
         </div>
       </div>
@@ -1617,10 +1617,10 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                 execution.stepLogs
               </div>
               <div
-                class="searchContainer"
+                class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
                   data-name=""
                 >
                   <span
@@ -1651,8 +1651,6 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                     value=""
                   />
                 </div>
-              </div>
-              <div>
                 <a
                   class="toConsoleView"
                   href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -1663,13 +1661,15 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                 </a>
               </div>
             </div>
-            <div>
+            <pre
+              class="container"
+            >
               <div
                 class="noLogs"
               >
                 common.logs.noLogsText
               </div>
-            </div>
+            </pre>
           </div>
         </div>
       </div>
@@ -1956,10 +1956,10 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                 execution.stepLogs
               </div>
               <div
-                class="searchContainer"
+                class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
                   data-name=""
                 >
                   <span
@@ -1990,8 +1990,6 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                     value=""
                   />
                 </div>
-              </div>
-              <div>
                 <a
                   class="toConsoleView"
                   href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -2002,13 +2000,15 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                 </a>
               </div>
             </div>
-            <div>
+            <pre
+              class="container"
+            >
               <div
                 class="noLogs"
               >
                 common.logs.noLogsText
               </div>
-            </div>
+            </pre>
           </div>
         </div>
       </div>
@@ -2493,10 +2493,10 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                 execution.stepLogs
               </div>
               <div
-                class="searchContainer"
+                class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
                   data-name=""
                 >
                   <span
@@ -2527,8 +2527,6 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                     value=""
                   />
                 </div>
-              </div>
-              <div>
                 <a
                   class="toConsoleView"
                   href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -2539,13 +2537,15 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                 </a>
               </div>
             </div>
-            <div>
+            <pre
+              class="container"
+            >
               <div
                 class="noLogs"
               >
                 common.logs.noLogsText
               </div>
-            </div>
+            </pre>
           </div>
         </div>
       </div>

@@ -11,7 +11,8 @@ selectConnectorLabel: Select Artifact Repository Connector
 stepThreeName: '{{$.common.labelTestConnection}}'
 stepFourName: 'Artifact Location'
 name: Connector Name
-updating: Updating connector
+updating: 'Updating connector {{name}}'
+creating: 'Creating connector {{name}}'
 successfullCreate: 'Connector {{name}} created successfully'
 successfullUpdate: 'Connector {{name}} updated successfully'
 connectorNotFound: Connector not found.
@@ -125,7 +126,7 @@ k8:
   OIDCSecret: 'OIDC Secret'
   OIDCScopes: 'OIDC Scopes (Optional)'
   clientKey: 'Client Key'
-  clientKeyPassphrase: 'Client Key passphrase'
+  clientKeyPassphrase: 'Client Key passphrase (optional)'
   clientCertificate: 'Client Certificate'
   clientKeyAlgorithm: 'Client Key Algorithm (optional)'
   clientKeyCACertificate: 'CA Certificate (optional)'

@@ -7,6 +7,16 @@ import CFHomePage from '../CFHomePage'
 jest.mock('services/portal')
 const useGetModuleLicenseInfoMock = useGetModuleLicenseInfo as jest.MockedFunction<any>
 
+const currentUser = {
+  defaultAccountId: '123',
+  accounts: [
+    {
+      uuid: '123',
+      createdFromNG: true
+    }
+  ]
+}
+
 describe('CFHomePage', () => {
   test('should render HomePageTemplate when return success with data', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
@@ -19,7 +29,37 @@ describe('CFHomePage', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+        <CFHomePage />
+      </TestWrapper>
+    )
+    expect(getByText('cf.homepage.slogan')).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render the home page template when the current user is not created from NG', () => {
+    useGetModuleLicenseInfoMock.mockImplementation(() => {
+      return {
+        data: {
+          data: {},
+          status: 'SUCCESS'
+        },
+        refetch: jest.fn()
+      }
+    })
+
+    const userCreatedFromCG = {
+      defaultAccountId: '123',
+      accounts: [
+        {
+          uuid: '123',
+          createdFromNG: false
+        }
+      ]
+    }
+
+    const { container, getByText } = render(
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: userCreatedFromCG }}>
         <CFHomePage />
       </TestWrapper>
     )
@@ -38,7 +78,7 @@ describe('CFHomePage', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
         <CFHomePage />
       </TestWrapper>
     )
@@ -58,11 +98,30 @@ describe('CFHomePage', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper queryParams={{ trial: true }}>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }} queryParams={{ trial: true }}>
         <CFHomePage />
       </TestWrapper>
     )
     expect(getByText('common.trialInProgress')).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render HomePageTemplate when return success with data', () => {
+    useGetModuleLicenseInfoMock.mockImplementation(() => {
+      return {
+        data: {
+          data: {},
+          status: 'SUCCESS'
+        },
+        refetch: jest.fn()
+      }
+    })
+    const { container, getByText } = render(
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+        <CFHomePage />
+      </TestWrapper>
+    )
+    expect(getByText('cf.homepage.slogan')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

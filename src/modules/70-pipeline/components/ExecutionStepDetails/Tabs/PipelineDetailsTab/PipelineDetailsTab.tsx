@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import { partition } from 'lodash-es'
-
+import { Color, Text } from '@wings-software/uicore'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { isExecutionComplete, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
 import { String, useStrings } from 'framework/strings'
@@ -53,24 +53,38 @@ export function PipelineDetailsTab(): React.ReactElement {
                 <div className={css.stageInfo}>
                   <div>
                     <String className={css.heading} tagName="div" stringID="serviceOrServices" />
-                    <div>{stage.moduleInfo.cd.serviceInfo?.displayName}</div>
+                    <Text lineClamp={1} font={{ size: 'small' }} color={Color.BLACK}>
+                      {stage.moduleInfo.cd.serviceInfo?.displayName}
+                    </Text>
                   </div>
                   <div>
                     <String className={css.heading} tagName="div" stringID="artifactOrArtifacts" />
                     <div>
                       {[
-                        stage.moduleInfo.cd.serviceInfo.artifacts?.primary
-                          ? getString('artifactDisplay', {
-                              image: stage.moduleInfo.cd.serviceInfo.artifacts.primary.imagePath,
-                              tag: stage.moduleInfo.cd.serviceInfo.artifacts.primary.tag
-                            })
-                          : '',
-                        ...(stage.moduleInfo.cd.serviceInfo.artifacts?.sidecars || /* istanbul ignore next */ []).map(
-                          (artifact: any) =>
-                            getString('artifactDisplay', {
-                              image: artifact.imagePath,
-                              tag: artifact.tag
-                            })
+                        stage.moduleInfo.cd.serviceInfo?.artifacts?.primary ? (
+                          <div>
+                            <Text lineClamp={1} font={{ size: 'small' }} color={Color.BLACK}>
+                              {stage.moduleInfo.cd.serviceInfo.artifacts.primary.imagePath}
+                            </Text>
+                            <Text lineClamp={1} font={{ size: 'small' }} color={Color.BLACK}>
+                              ({getString('common.artifactTag')}: #
+                              {stage.moduleInfo.cd.serviceInfo.artifacts.primary.tag})
+                            </Text>
+                          </div>
+                        ) : (
+                          ''
+                        ),
+                        ...(stage.moduleInfo.cd.serviceInfo?.artifacts?.sidecars || /* istanbul ignore next */ []).map(
+                          (artifact: any) => (
+                            <div key={artifact.imagePath}>
+                              <Text lineClamp={1} color={Color.BLACK}>
+                                {artifact.imagePath}
+                              </Text>
+                              <Text lineClamp={1} color={Color.BLACK}>
+                                ({getString('common.artifactTag')}: #{artifact.tag})
+                              </Text>
+                            </div>
+                          )
                         )
                       ]
                         .filter(str => str)
@@ -81,7 +95,9 @@ export function PipelineDetailsTab(): React.ReactElement {
                   </div>
                   <div>
                     <String className={css.heading} tagName="div" stringID="environmentOrEnvironments" />
-                    <div>{stage.moduleInfo.cd.infraExecutionSummary?.name}</div>
+                    <Text lineClamp={1} font={{ size: 'small' }} color={Color.BLACK}>
+                      {stage.moduleInfo.cd.infraExecutionSummary?.name}
+                    </Text>
                   </div>
                 </div>
               ) : /* istanbul ignore next */ null}

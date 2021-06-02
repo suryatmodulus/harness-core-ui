@@ -90,6 +90,8 @@
   :global {
     .bp3-popover-wrapper {
       max-width: calc(100% - 90px);
+      align-items: center;
+      display: flex;
     }
     .bp3-popover-target {
       max-width: 100%;

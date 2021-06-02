@@ -540,12 +540,17 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                     class="formGroup md"
                                   >
                                     <div>
-                                      <span
-                                        class="Tooltip--acenter"
-                                        data-tooltip-id="k8sDirectInfraConnector"
+                                      <div
+                                        class="StyledProps--font StyledProps--main"
+                                        style="margin-bottom: 5px;"
                                       >
-                                        connector
-                                      </span>
+                                        <span
+                                          class="Tooltip--acenter"
+                                          data-tooltip-id="k8sDirectInfraConnector"
+                                        >
+                                          connector
+                                        </span>
+                                      </div>
                                       <div
                                         style="display: flex; align-items: center;"
                                       >
@@ -1870,12 +1875,17 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                     class="formGroup md"
                                   >
                                     <div>
-                                      <span
-                                        class="Tooltip--acenter"
-                                        data-tooltip-id="k8sDirectInfraConnector"
+                                      <div
+                                        class="StyledProps--font StyledProps--main"
+                                        style="margin-bottom: 5px;"
                                       >
-                                        connector
-                                      </span>
+                                        <span
+                                          class="Tooltip--acenter"
+                                          data-tooltip-id="k8sDirectInfraConnector"
+                                        >
+                                          connector
+                                        </span>
+                                      </div>
                                       <div
                                         style="display: flex; align-items: center;"
                                       >

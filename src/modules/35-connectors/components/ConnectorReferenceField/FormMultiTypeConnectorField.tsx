@@ -5,7 +5,8 @@ import {
   MultiTypeInputValue,
   MultiTypeInputType,
   DataTooltipInterface,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  Container
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
@@ -291,7 +292,9 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
 
   return (
     <div style={style}>
-      <HarnessDocTooltip tooltipId={props.tooltipProps?.dataTooltipId} labelText={label} />
+      <Container style={{ marginBottom: 5 }}>
+        <HarnessDocTooltip tooltipId={props.tooltipProps?.dataTooltipId} labelText={label} />
+      </Container>
       {enableConfigureOptions ? (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {component}

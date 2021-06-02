@@ -26,6 +26,7 @@ export interface HarnessApprovalProps {
   isWaiting: boolean
   updateState(data: ResponseApprovalInstanceResponse): void
   authData: ResponseHarnessApprovalInstanceAuthorization | null
+  stepParameters?: { [key: string]: { [key: string]: any } }
 }
 
 export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement {
@@ -73,7 +74,13 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
           </div>
         </React.Fragment>
       ) : (
-        <StepDetails step={{ startTs: approvalData.createdAt, endTs: approvalData.lastModifiedAt }} />
+        <StepDetails
+          step={{
+            startTs: approvalData.createdAt,
+            endTs: approvalData.lastModifiedAt,
+            stepParameters: props.stepParameters
+          }}
+        />
       )}
       <div className={cx(css.harnessApproval, { [css.completed]: !isWaitingAll })}>
         {Array.isArray(approvalData.details.approvalActivities) &&

@@ -437,6 +437,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}environmentRef`}
           placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
           selectItems={environments}
+          useValue
           multiTypeInputProps={{
             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
             selectProps: {

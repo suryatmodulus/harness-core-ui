@@ -1,5 +1,5 @@
-import React from 'react'
-import { Text, Container, Layout, Heading, Color, timeToDisplayText } from '@wings-software/uicore'
+import React, { useMemo } from 'react'
+import { Icon, Text, Container, Layout, Heading, Color, timeToDisplayText } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { Duration } from '@common/exports'
@@ -10,14 +10,28 @@ interface TestsOverviewProps {
   skippedTests: number
   timeSavedMS: number
   durationMS?: number
+  testsCountDiff?: number
 }
 
 const now = Date.now()
 
-export const TestsOverview: React.FC<TestsOverviewProps> = ({ totalTests, skippedTests, timeSavedMS, durationMS }) => {
+export const TestsOverview: React.FC<TestsOverviewProps> = ({
+  totalTests,
+  skippedTests,
+  timeSavedMS,
+  durationMS,
+  testsCountDiff
+}) => {
   const { getString } = useStrings()
 
   const selectedTests = totalTests - skippedTests
+
+  const timeSavedToDisplay: string = useMemo(() => {
+    if (!timeSavedMS) {
+      return '0'
+    }
+    return timeToDisplayText(timeSavedMS).replace(/(\d+ms)$/, '')
+  }, [timeSavedMS])
 
   return (
     <div className={cx(css.widgetWrapper, css.overview)}>
@@ -29,16 +43,6 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({ totalTests, skippe
         <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600} margin={{ right: 'medium' }}>
           {getString('pipeline.testsReports.executionOverview')}
         </Heading>
-        {durationMS && (
-          <Duration
-            color={Color.GREY_600}
-            iconProps={{ color: Color.GREY_450 }}
-            durationText=" "
-            icon="time"
-            startTime={now - durationMS}
-            endTime={now}
-          ></Duration>
-        )}
       </Container>
 
       <Container height="100%">
@@ -49,10 +53,19 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({ totalTests, skippe
             color={Color.GREY_700}
             style={{ backgroundColor: 'var(--white)' }}
           >
-            <Text className={cx(css.statsTitle)} margin={{ bottom: 'large' }}>
+            <Text className={cx(css.statsTitle)} margin={{ bottom: 'xlarge' }}>
               {getString('pipeline.testsReports.totalTests')}
             </Text>
-            <span className={cx(css.statsNumber)}>{totalTests}</span>
+            <span className={cx(css.statsNumber, css.row)}>
+              {totalTests}
+              {testsCountDiff && (
+                <span className={cx(css.diff, { [css.diffNegative]: testsCountDiff < 0 })}>
+                  <Icon name={testsCountDiff < 0 ? 'arrow-down' : 'arrow-up'} size={11} />
+                  &nbsp;
+                  {Math.abs(testsCountDiff)}%
+                </span>
+              )}
+            </span>
           </Text>
           <Text
             className={css.stats}
@@ -60,10 +73,10 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({ totalTests, skippe
             color={Color.GREY_700}
             style={{ position: 'relative', backgroundColor: 'var(--white)' }}
           >
-            <Text className={cx(css.statsTitle)} margin={{ bottom: 'large' }}>
+            <Text className={cx(css.statsTitle)} margin={{ bottom: 'small', right: 'small' }}>
               {getString('pipeline.testsReports.numberOfSelectedTests')}
             </Text>
-            <span className={cx(css.statsNumber)}>{selectedTests}</span>
+            <span className={cx(css.statsNumber)}>{`${selectedTests}/${totalTests}`}</span>
             <div className={css.linesWrapper}>
               {totalTests > 0 && (
                 <div
@@ -84,16 +97,25 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({ totalTests, skippe
             color={Color.GREY_700}
             style={{ backgroundColor: 'var(--white)' }}
           >
-            <Text className={cx(css.statsTitle)} margin={{ bottom: 'xsmall' }}>
-              {getString('pipeline.testsReports.testsIntelligentlySkipped')}
+            <Text className={cx(css.statsTitle)} margin={{ bottom: 'large' }}>
+              {getString('pipeline.testsReports.totalDuration')}
             </Text>
-            <span className={cx(css.statsNumber)}>{skippedTests}</span>
+            <Duration
+              color={Color.GREY_700}
+              durationText=" "
+              startTime={now - (durationMS || 0)}
+              endTime={now}
+              style={{
+                fontSize: '32px',
+                fontWeight: 600
+              }}
+            ></Duration>
           </Text>
-          <Text className={css.stats} padding="medium" color={Color.WHITE} style={{ backgroundColor: '#4DC952' }}>
-            <Text className={cx(css.statsTitle)} color={Color.WHITE} margin={{ bottom: 'large' }}>
+          <Text className={cx(css.stats, css.timeSaved)} padding="medium" color={Color.WHITE}>
+            <Text className={cx(css.statsTitle)} color={Color.PURPLE_700} margin={{ bottom: 'large' }}>
               {getString('pipeline.testsReports.timeSaved')}
             </Text>
-            <span className={cx(css.statsNumber)}>{timeToDisplayText(timeSavedMS) || '0ms'}</span>
+            <span className={cx(css.statsNumber)}>{timeSavedToDisplay}</span>
           </Text>
         </Layout.Horizontal>
       </Container>

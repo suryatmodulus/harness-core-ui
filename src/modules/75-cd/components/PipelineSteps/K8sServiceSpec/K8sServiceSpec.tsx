@@ -68,7 +68,7 @@ import type { AllNGVariables } from '@pipeline/utils/types'
 import type { UseStringsReturn } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { FormMultiTypeCheckbox } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
+import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
 
@@ -520,6 +520,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       expressions,
                       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                     }}
+                    useValue
                     disabled={readonly}
                     selectItems={regions}
                     label={getString('regionLabel')}
@@ -564,6 +565,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
                           : getSelectItems('primary')
                       }
+                      useValue
                       multiTypeInputProps={{
                         selectProps: {
                           items:
@@ -687,6 +689,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) ===
                       MultiTypeInputType.RUNTIME && (
                       <FormInput.MultiTypeInput
+                        useValue
                         multiTypeInputProps={{
                           expressions,
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
@@ -739,6 +742,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         }}
                       >
                         <FormInput.MultiTypeInput
+                          useValue
                           disabled={
                             readonly || isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type, index)
                           }
@@ -909,7 +913,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     />
                   )}
                   {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
-                    <FormMultiTypeCheckbox
+                    <FormMultiTypeCheckboxField
                       multiTypeTextbox={{
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]

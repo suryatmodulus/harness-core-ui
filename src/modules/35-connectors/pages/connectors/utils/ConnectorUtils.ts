@@ -110,7 +110,7 @@ const buildAuthTypePayload = (formData: FormData) => {
       return {
         clientKeyRef: formData.clientKey.referenceString,
         clientCertRef: formData.clientKeyCertificate.referenceString,
-        clientKeyPassphraseRef: formData.clientKeyPassphrase.referenceString,
+        clientKeyPassphraseRef: formData.clientKeyPassphrase?.referenceString,
         caCertRef: formData.clientKeyCACertificate?.referenceString, // optional
         clientKeyAlgo: formData.clientKeyAlgo
       }

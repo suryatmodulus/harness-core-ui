@@ -46,6 +46,9 @@ export interface PageBodyProps {
 
     /** boolean value to decide button state in <NoDataCard/> */
     buttonDisabled?: boolean
+
+    /** string to add tooltip on the button if disabled */
+    buttonDisabledTooltip?: string
   }
 
   /** True if Page does not have header */
@@ -82,6 +85,7 @@ export const PageBody: React.FC<PageBodyProps> = ({
           onClick={noData?.onClick}
           className={noData?.className}
           buttonDisabled={noData?.buttonDisabled || false}
+          buttonDisabledTooltip={noData.buttonDisabledTooltip}
         />
       )}
       {!error && !noData?.when?.() && children}

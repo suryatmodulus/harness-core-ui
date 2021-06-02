@@ -624,7 +624,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                     authentication
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-2"
                   >
                     <div
@@ -1503,7 +1503,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                     authentication
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-2"
                   >
                     <div

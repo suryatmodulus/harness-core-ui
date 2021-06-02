@@ -136,7 +136,7 @@ export function getEditRenderer(
 export function getSelectedRenderer(selected: ConnectorSelectedValue): JSX.Element {
   return (
     <Layout.Horizontal spacing="small" flex={{ distribution: 'space-between' }} className={css.selectWrapper}>
-      <Text tooltip={selected?.label} className={css.label}>
+      <Text tooltip={selected?.label} className={css.label} color={Color.GREY_800}>
         {selected?.label}
       </Text>
 

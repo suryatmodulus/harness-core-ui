@@ -5,13 +5,14 @@ import { useParams } from 'react-router-dom'
 import type { NgPipeline, PipelineInfoConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse, Failure } from 'services/pipeline-ng'
 import { useMutateAsGet } from '@common/hooks'
+import type { UseMutateAsGetReturn } from '@common/hooks/useMutateAsGet'
 import { useCreateVariables } from 'services/pipeline-ng'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 
 export interface PipelineVariablesData {
   variablesPipeline: NgPipeline
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
-  error?: Failure | Error | null
+  error?: UseMutateAsGetReturn<Failure | Error>['error'] | null
   initLoading: boolean
   loading: boolean
 }

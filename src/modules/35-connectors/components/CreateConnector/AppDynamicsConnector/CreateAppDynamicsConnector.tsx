@@ -31,6 +31,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { buildAppDynamicsPayload as _buildAppDynamicsPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
+import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import styles from './CreateAppDynamicsConnector.module.scss'
 
 interface CreateAppDynamicsConnectorProps extends CreateConnectorModalProps {
@@ -165,7 +166,7 @@ function UsernamePasswordAndApiClientOption(props: UsernamePasswordAndApiClientO
         <FormInput.Select
           name="authType"
           items={authOptions}
-          className={styles.authTypeSelect}
+          className={commonStyles.authTypeSelect}
           onChange={updatedAuth => onAuthTypeChange(updatedAuth.value as string)}
         />
       </Container>

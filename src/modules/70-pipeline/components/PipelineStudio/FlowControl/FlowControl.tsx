@@ -7,6 +7,7 @@ import { stringify } from 'yaml'
 import { Icon, Accordion, Tag, Text, Formik } from '@wings-software/uicore'
 import { set, debounce, cloneDeep } from 'lodash-es'
 import { FieldArray } from 'formik'
+import { Tooltip } from '@blueprintjs/core'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { String, useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
@@ -57,6 +58,7 @@ interface BarrierListProps {
   commitItem: (data: Barrier, index: number) => void
   updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
   getString: UseStringsReturn['getString']
+  loadingSetupInfo: boolean
 }
 export const FlowControl: React.FC = (): JSX.Element => {
   const {
@@ -64,7 +66,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
     updatePipeline
   } = React.useContext(PipelineContext)
   const [barriers, updateBarriers] = React.useState<Barrier[]>(pipeline?.flowControl?.barriers || [])
-  const { data } = useMutateAsGet(useGetBarriersSetupInfoList, {
+  const { data, loading: loadingSetupInfo } = useMutateAsGet(useGetBarriersSetupInfoList, {
     body: (stringify({ pipeline: originalPipeline }) as unknown) as void,
     requestOptions: {
       headers: {
@@ -127,6 +129,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
   }
 
   const deleteBarrier = (index: number, remove: (index: number) => void): void => {
+    if (barriers[index]?.stages?.length) return
     const updatedBarriers: Barrier[] = produce(barriers, draft => {
       draft.splice(index, 1)
     })
@@ -170,6 +173,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
                 commitItem={commitBarrier}
                 updatePipeline={debouncedUpdatePipeline}
                 getString={getString}
+                loadingSetupInfo={loadingSetupInfo}
               />
             }
           />
@@ -186,6 +190,7 @@ const BarrierList: React.FC<BarrierListProps> = ({
   commitItem,
   updatePipeline,
   getString,
+  loadingSetupInfo,
   pipeline
 }): JSX.Element => {
   return (
@@ -249,12 +254,22 @@ const BarrierList: React.FC<BarrierListProps> = ({
                           ))}
                         </div>
                         <div>
-                          <Icon
-                            name="bin-main"
-                            size={20}
-                            className={css.deleteIcon}
-                            onClick={() => deleteItem(index, remove)}
-                          />
+                          <Tooltip
+                            content={
+                              barrier.stages?.length
+                                ? 'Deleting this barrier is not allowed as it is being used in one or more stages'
+                                : ''
+                            }
+                          >
+                            <Icon
+                              name="bin-main"
+                              size={20}
+                              className={cx(css.deleteIcon, {
+                                [css.disabledIcon]: loadingSetupInfo || barrier.stages?.length
+                              })}
+                              onClick={() => deleteItem(index, remove)}
+                            />
+                          </Tooltip>
                         </div>
                       </div>
                     ) : (

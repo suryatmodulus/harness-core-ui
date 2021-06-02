@@ -51,9 +51,9 @@
 
       &.selected {
         --right-bar-bg: var(--teal-500);
-        --right-bar-icon: var(--white);
+        --right-bar-icon: var(--red-500);
         span {
-          color: var(--white) !important;
+          color: var(--red-500) !important;
         }
       }
     }

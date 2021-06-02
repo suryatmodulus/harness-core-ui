@@ -14,6 +14,7 @@ import {
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { shouldShowError } from '@common/utils/errorUtils'
 import type { VaultConfigFormData } from './VaultConfigForm'
 
 const accessTypeOptions: IOptionProps[] = [
@@ -43,19 +44,21 @@ interface VaultConnectorFormFieldsProps {
   isEditing?: boolean
   identifier: string
   accessType?: VaultConnectorDTO['accessType']
+  onMetadataLoadingStateChange: (val: boolean) => void
 }
 
 const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
   formik,
   identifier,
   isEditing,
-  accessType
+  accessType,
+  onMetadataLoadingStateChange
 }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { showError } = useToaster()
   const { getString } = useStrings()
   const [secretEngineOptions, setSecretEngineOptions] = useState<SelectOption[]>([])
-  const { mutate: getMetadata } = useGetMetadata({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: getMetadata, loading } = useGetMetadata({ queryParams: { accountIdentifier: accountId } })
 
   const handleFetchEngines = async (formData: VaultConfigFormData): Promise<void> => {
     try {
@@ -87,7 +90,11 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
         }) || []
       )
     } catch (err) {
-      showError(err?.data?.message)
+      /* istanbul ignore else */
+      //added condition to don't show the toaster if it's an abort error
+      if (shouldShowError(err)) {
+        showError(err.data?.message || err.message)
+      }
     }
   }
   const isFetchDisabled = (formData: VaultConfigFormData): boolean => {
@@ -106,6 +113,10 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
   React.useEffect(() => {
     if (isEditing && formik.values.engineType === 'fetch') handleFetchEngines(formik.values)
   }, [isEditing])
+
+  React.useEffect(() => {
+    onMetadataLoadingStateChange(loading)
+  }, [loading])
 
   return (
     <>

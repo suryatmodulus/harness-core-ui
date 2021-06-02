@@ -170,9 +170,6 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
       })
   }
 
-  /** Disabling this section till underlying api call is fixed */
-  const disableTestConnection = false
-
   return (
     <Container height={'inherit'} className={css.modalContainer} margin="large">
       <Text font={{ size: 'large', weight: 'semi-bold' }} color={Color.BLACK}>
@@ -357,7 +354,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                           </Text>
                         ) : null}
                       </Layout.Vertical>
-                      {disableTestConnection && formValues.gitConnector?.connector?.identifier ? (
+                      {formValues.gitConnector?.connector?.identifier ? (
                         <Container padding={{ bottom: 'medium' }}>
                           <TestConnectionWidget
                             testStatus={testStatus}

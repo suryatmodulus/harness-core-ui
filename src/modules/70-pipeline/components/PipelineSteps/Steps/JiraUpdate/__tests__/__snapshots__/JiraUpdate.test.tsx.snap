@@ -39,7 +39,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
                   class="bp3-popover-target"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label"
+                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                     tabindex="0"
                   >
                     c1
@@ -457,7 +457,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
                   class="bp3-popover-target"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label"
+                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                     tabindex="0"
                   >
                     c1
@@ -863,7 +863,12 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
             >
               <div>
                 <div>
-                  pipeline.jiraApprovalStep.connectorRef
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="margin-bottom: 5px;"
+                  >
+                    pipeline.jiraApprovalStep.connectorRef
+                  </div>
                   <div
                     class="bp3-form-group connector"
                     style="margin-bottom: 0px;"
@@ -896,7 +901,7 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
                                   class="bp3-popover-target"
                                 >
                                   <p
-                                    class="StyledProps--font StyledProps--main label"
+                                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                     tabindex="0"
                                   >
                                     c1
@@ -1151,7 +1156,7 @@ exports[`Jira Update tests deploymentform readonly mode: jira-update-deploymentf
                   class="bp3-popover-target"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label"
+                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                     tabindex="0"
                   >
                     c1

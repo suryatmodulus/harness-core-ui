@@ -37,7 +37,7 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
-import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import css from './GitSyncRepoTab.module.scss'
 
@@ -233,9 +233,6 @@ const GitSyncRepoTab: React.FC = () => {
         })
     }
 
-    /** Disabling this section till underlying api call is fixed */
-    const disableTestConnection = false
-
     const [showModal, hideModal] = useModalHook(() => {
       return (
         <Dialog
@@ -243,6 +240,7 @@ const GitSyncRepoTab: React.FC = () => {
           onClose={() => {
             hideModal()
             setRepoState(RepoState.VIEW)
+            setTestStatus(TestStatus.NOT_INITIATED)
           }}
           title={
             <Text padding={{ bottom: 'small' }} margin={{ left: 'medium' }} font={{ weight: 'bold' }}>
@@ -285,7 +283,7 @@ const GitSyncRepoTab: React.FC = () => {
               {({ values: formValues }) => (
                 <FormikForm>
                   <Layout.Vertical border={{ bottom: true, color: Color.GREY_250 }} margin={{ bottom: 'medium' }}>
-                    <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing="xlarge">
+                    <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing="large">
                       <Layout.Vertical>
                         <FormInput.Text
                           className={cx(css.inputFields, { [css.noSpacing]: formValues.repo })}
@@ -315,12 +313,15 @@ const GitSyncRepoTab: React.FC = () => {
                           </Text>
                         ) : null}
                       </Layout.Vertical>
-                      {disableTestConnection && formValues.repo ? (
+                      {formValues.repo ? (
                         <Container padding={{ bottom: 'medium' }}>
                           <TestConnectionWidget
                             testStatus={testStatus}
                             onTest={() =>
-                              testConnection(getScopeFromValue(repoData.gitConnectorRef || ''), formValues.repo || '')
+                              testConnection(
+                                getIdentifierFromValue(repoData?.gitConnectorRef || ''),
+                                repoData?.repo || ''
+                              )
                             }
                           />
                         </Container>
@@ -373,6 +374,7 @@ const GitSyncRepoTab: React.FC = () => {
                       text={getString('cancel')}
                       onClick={() => {
                         setRepoState(RepoState.VIEW)
+                        setTestStatus(TestStatus.NOT_INITIATED)
                         hideModal()
                       }}
                     />

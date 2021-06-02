@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { UseMutateProps, UseMutateReturn, MutateMethod } from 'restful-react'
+import type { UseMutateProps, UseMutateReturn, MutateMethod, GetDataError } from 'restful-react'
 import { useState, useCallback, useEffect, Dispatch, SetStateAction } from 'react'
 // eslint-disable-next-line no-restricted-imports
 import type { Cancelable, DebounceSettings } from 'lodash' // only type imports
@@ -43,7 +43,7 @@ export interface UseMutateAsGetReturn<
   data: TData | null
   initLoading: boolean
   loading: boolean
-  error: TError | null
+  error: GetDataError<TError> | null
   cancel(): void
   refetch(props?: WrappedUseMutateProps<TData, TError, TRequestBody, TQueryParams, TPathParams>): Promise<void>
 }
@@ -76,7 +76,7 @@ export function useMutateAsGet<
 ): UseMutateAsGetReturn<TData, TError, TQueryParams, TRequestBody, TPathParams> {
   const [data, setData] = useState<TData | null>(null)
   const [initLoading, setInitLoading] = useState(!props.lazy)
-  const [error, setError] = useState<TError | null>(null)
+  const [error, setError] = useState<GetDataError<TError> | null>(null)
   const { mutate, loading, cancel } = useMutateWrapper(props)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

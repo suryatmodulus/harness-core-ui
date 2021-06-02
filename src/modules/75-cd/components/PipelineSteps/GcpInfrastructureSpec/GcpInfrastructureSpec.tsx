@@ -479,6 +479,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
                 ? /* istanbul ignore next */ getString('loading')
                 : getString('cd.steps.common.selectOrEnterClusterPlaceholder')
             }
+            useValue
             selectItems={clusterOptions}
             label={getString('common.cluster')}
             multiTypeInputProps={{

@@ -232,11 +232,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) return true
             return isArray(value) && value.length > 0 && value.every(row => !isEmpty(row.path))
           }),
-          repoName: Yup.string().test('repoName', getString('pipeline.manifestType.reponameRequired'), value => {
-            if (connectionType === GitRepoName.Repo) {
-              return true
-            }
-            return !isEmpty(value) && value?.length > 0
+
+          repoName: Yup.string().when('connectionType', {
+            is: !GitRepoName.Repo,
+            then: Yup.string().required(getString('pipeline.manifestType.reponameRequired'))
           })
         })}
         onSubmit={formData => {

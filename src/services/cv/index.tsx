@@ -563,6 +563,18 @@ export interface RestResponseCD10RegisterActivityDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface ActivitySourceDTO {
+  uuid?: string
+  createdAt?: number
+  lastUpdatedAt?: number
+  identifier: string
+  name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  type?: 'KUBERNETES' | 'HARNESS_CD10' | 'CDNG'
+  editable?: boolean
+}
+
 export interface Response {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: { [key: string]: any }
@@ -570,9 +582,9 @@ export interface Response {
   correlationId?: string
 }
 
-export interface ResponseBoolean {
+export interface ResponseActivitySourceDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: boolean
+  data?: ActivitySourceDTO
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -1147,25 +1159,6 @@ export interface Error {
   responseMessages?: ResponseMessage[]
 }
 
-export interface ActivitySourceDTO {
-  uuid?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  identifier: string
-  name: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  type?: 'KUBERNETES' | 'HARNESS_CD10' | 'CDNG'
-  editable?: boolean
-}
-
-export interface ResponseActivitySourceDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ActivitySourceDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface ResponseString {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: string
@@ -1196,6 +1189,13 @@ export interface PageActivitySourceDTO {
 export interface ResponsePageActivitySourceDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageActivitySourceDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseBoolean {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: boolean
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -1301,14 +1301,6 @@ export interface ResponseKubernetesActivityDetailsDTO {
   correlationId?: string
 }
 
-export interface RestResponseListActivityType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface AlertCondition {
   services?: string[]
   environments?: string[]
@@ -1357,6 +1349,14 @@ export interface VerificationsNotify {
   verificationStatuses?: ('VERIFICATION_PASSED' | 'VERIFICATION_FAILED')[]
   allActivityTpe?: boolean
   allVerificationStatuses?: boolean
+}
+
+export interface RestResponseListActivityType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface PageAlertRuleDTO {
@@ -1419,34 +1419,20 @@ export interface RestResponseLearningEngineTask {
   responseMessages?: ResponseMessage[]
 }
 
-export interface Frequency {
-  count?: number
-  timestamp?: number
-  riskScore?: number
-}
-
-export interface LogAnalysisCluster {
-  uuid?: string
-  createdAt?: number
-  lastUpdatedAt?: number
+export interface LogClusterDTO {
   verificationTaskId?: string
-  analysisStartTime?: number
-  analysisEndTime?: number
-  accountId?: string
-  analysisMinute?: number
-  label?: number
-  frequencyTrend?: Frequency[]
-  text?: string
-  firstSeenTime?: number
-  validUntil?: string
-  evicted?: boolean
+  epochMinute?: number
+  host?: string
+  log?: string
+  clusterLabel?: string
+  clusterCount?: number
 }
 
-export interface RestResponseListLogAnalysisCluster {
+export interface RestResponseListLogClusterDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: LogAnalysisCluster[]
+  resource?: LogClusterDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1503,20 +1489,34 @@ export interface ResultSummary {
   testClusterSummaries?: ClusterSummary[]
 }
 
-export interface LogClusterDTO {
-  verificationTaskId?: string
-  epochMinute?: number
-  host?: string
-  log?: string
-  clusterLabel?: string
-  clusterCount?: number
+export interface Frequency {
+  count?: number
+  timestamp?: number
+  riskScore?: number
 }
 
-export interface RestResponseListLogClusterDTO {
+export interface LogAnalysisCluster {
+  uuid?: string
+  createdAt?: number
+  lastUpdatedAt?: number
+  verificationTaskId?: string
+  analysisStartTime?: number
+  analysisEndTime?: number
+  accountId?: string
+  analysisMinute?: number
+  label?: number
+  frequencyTrend?: Frequency[]
+  text?: string
+  firstSeenTime?: number
+  validUntil?: string
+  evicted?: boolean
+}
+
+export interface RestResponseListLogAnalysisCluster {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: LogClusterDTO[]
+  resource?: LogAnalysisCluster[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1916,27 +1916,27 @@ export interface ResponsePageCVNGLogDTO {
 }
 
 export interface JsonNode {
-  object?: boolean
   valueNode?: boolean
   containerNode?: boolean
+  object?: boolean
   missingNode?: boolean
   nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
-  array?: boolean
-  null?: boolean
-  integralNumber?: boolean
   pojo?: boolean
   number?: boolean
+  integralNumber?: boolean
+  floatingPointNumber?: boolean
+  short?: boolean
   int?: boolean
   long?: boolean
   float?: boolean
   double?: boolean
   bigDecimal?: boolean
   bigInteger?: boolean
-  binary?: boolean
-  floatingPointNumber?: boolean
-  short?: boolean
   textual?: boolean
   boolean?: boolean
+  binary?: boolean
+  array?: boolean
+  null?: boolean
 }
 
 export interface PartialSchemaDTO {
@@ -2496,6 +2496,7 @@ export type CEAzureConnector = ConnectorConfigDTO & {
 
 export type CEKubernetesClusterConfig = ConnectorConfigDTO & {
   connectorRef: string
+  featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
 }
 
 export interface ConnectorConfigDTO {
@@ -3418,8 +3419,8 @@ export interface VerificationJobDTO {
   verificationJobUrl?: string
   duration?: string
   allMonitoringSourcesEnabled?: boolean
-  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
   defaultJob?: boolean
+  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
 }
 
 export interface PageVerificationJobDTO {

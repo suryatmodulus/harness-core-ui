@@ -19,15 +19,23 @@ export interface NodeClasses {
   empty?: string
 }
 
-export const IdentifierValidation = () => {
+export const IdentifierValidation = (optional?: boolean) => {
   const { getString } = useStrings()
-  return {
-    identifier: Yup.string()
-      .trim()
-      .required(getString('validation.identifierRequired'))
-      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-      .notOneOf(StringUtils.illegalIdentifiers)
-  }
+
+  return optional
+    ? {
+        identifier: Yup.string()
+          .trim()
+          .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+          .notOneOf(StringUtils.illegalIdentifiers)
+      }
+    : {
+        identifier: Yup.string()
+          .trim()
+          .required(getString('validation.identifierRequired'))
+          .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+          .notOneOf(StringUtils.illegalIdentifiers)
+      }
 }
 
 const getStageTree = (

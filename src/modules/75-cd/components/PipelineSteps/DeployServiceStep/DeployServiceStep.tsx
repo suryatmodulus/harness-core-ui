@@ -63,6 +63,7 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
   React.useEffect(() => {
     inputRef.current?.focus()
   }, [])
+
   return (
     <Layout.Vertical>
       <Formik<ServiceYaml>
@@ -75,7 +76,7 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
           name: Yup.string()
             .trim()
             .required(getString?.('fieldRequired', { field: 'Service' })),
-          ...IdentifierValidation()
+          ...IdentifierValidation(true)
         })}
       >
         {formikProps => (

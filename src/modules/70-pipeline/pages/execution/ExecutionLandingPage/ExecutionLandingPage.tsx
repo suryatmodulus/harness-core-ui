@@ -42,24 +42,29 @@ export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
 
 // TODO: remove 'any' once DTO is ready
 /** Add dependency services to nodeMap */
-const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any }): void => {
+const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: ExecutionNode }): void => {
   const liteEngineTask = Object.values(nodeMap).find(item => item.stepType === LITE_ENGINE_TASK)
   if (liteEngineTask) {
     // NOTE: liteEngineTask contains information about dependency services
     const serviceDependencyList: ExecutionNode[] =
-      ((liteEngineTask as any)?.outcomes as any)?.find((_item: any) => !!_item.serviceDependencyList)
-        ?.serviceDependencyList || []
+      (Array.isArray(liteEngineTask.outcomes)
+        ? liteEngineTask.outcomes.find((_item: any) => !!_item.serviceDependencyList)?.serviceDependencyList
+        : liteEngineTask.outcomes?.serviceDependencyList) || []
 
     // 1. add service dependencies to nodeMap
     serviceDependencyList.forEach(service => {
-      service.stepType = 'dependency-service'
-      nodeMap[(service as any).identifier] = service
+      if (service?.identifier) {
+        service.stepType = 'dependency-service'
+        nodeMap[service.identifier] = service
+      }
     })
 
     // 2. add Initialize (Initialize step is liteEngineTask step)
     // override step name
-    liteEngineTask.name = 'Initialize'
-    nodeMap[liteEngineTask.uuid] = liteEngineTask
+    if (liteEngineTask.uuid) {
+      liteEngineTask.name = 'Initialize'
+      nodeMap[liteEngineTask.uuid] = liteEngineTask
+    }
   }
 }
 

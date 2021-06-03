@@ -384,9 +384,10 @@ const processLiteEngineTask = (
   rootNodes: ExecutionPipelineNode<ExecutionNode>[]
 ): void => {
   // NOTE: liteEngineTask contains information about dependencies
-  const serviceDependencyList: ServiceDependency[] = (nodeData?.outcomes as any)?.find(
-    (_item: any) => !!_item.serviceDependencyList
-  )?.serviceDependencyList
+  const serviceDependencyList: ServiceDependency[] =
+    (Array.isArray(nodeData?.outcomes)
+      ? nodeData?.outcomes?.find((_item: any) => !!_item.serviceDependencyList)?.serviceDependencyList
+      : nodeData?.outcomes?.serviceDependencyList) || []
 
   // 1. Add dependency services
   addDependencies(serviceDependencyList, rootNodes)

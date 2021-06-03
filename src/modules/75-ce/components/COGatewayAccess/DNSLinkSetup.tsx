@@ -279,10 +279,25 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             cloudAccountId={props.gatewayDetails.cloudAccount.id}
             onSave={savedLb => {
               setAccessPoint(savedLb)
+              if (isCreateMode) {
+                setIsCreateMode(false)
+                apCoresRefetch()
+              }
             }}
-            createMode={true}
-            onClose={hideLoadBalancerModal}
-            loadBalancer={initialAccessPointDetails}
+            createMode={isCreateMode}
+            onClose={_clearStatus => {
+              if (_clearStatus && !isCreateMode) {
+                setSelectedApCore({ label: '', value: '' })
+                updateLoadBalancerDetails('', '')
+              }
+              if (isCreateMode) setIsCreateMode(false)
+              hideLoadBalancerModal()
+            }}
+            loadBalancer={
+              isCreateMode
+                ? initialAccessPointDetails
+                : createApDetailsFromLoadBalancer(selectedLoadBalancer as AccessPointCore)
+            }
           />
         )}
         <Button
@@ -381,7 +396,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       }
       updateLoadBalancerDetails(linkedAccessPoint?.id as string, linkedAccessPoint?.host_name as string)
     } else {
-      isAwsProvider && openLoadBalancerModal()
+      openLoadBalancerModal()
     }
   }
 

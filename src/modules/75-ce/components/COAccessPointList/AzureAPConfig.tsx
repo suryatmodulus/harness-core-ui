@@ -11,7 +11,7 @@ import css from '../COGatewayAccess/COGatewayAccess.module.scss'
 interface AzureAPConfigProps {
   loadBalancer: AccessPoint
   cloudAccountId: string | undefined
-  onClose?: () => void
+  onClose?: (clearSelection?: boolean) => void
   onSave: (savedLoadBalancer: AccessPoint) => void
   createMode?: boolean
 }
@@ -85,6 +85,7 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
           // props.setAccessPoint(accessPointData?.response as AccessPoint)
           showSuccess(getString('ce.co.accessPoint.success'))
           props.onSave?.(accessPointData.response)
+          props.onClose?.()
         } else {
           const timerId = window.setTimeout(() => {
             refetch()
@@ -157,7 +158,12 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
       </Heading>
       <div>
         {currentStep === FormStep.FIRST && (
-          <AzureApDnsMapping createMode={createMode} handleSubmit={handleDnsMappingSubmission} loadBalancer={newAp} />
+          <AzureApDnsMapping
+            createMode={createMode}
+            handleSubmit={handleDnsMappingSubmission}
+            loadBalancer={newAp}
+            handleCancel={() => props.onClose?.(true)}
+          />
         )}
         {currentStep === FormStep.SECOND && (
           <AzureAccessPointForm

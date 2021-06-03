@@ -152,8 +152,18 @@ export interface AttachTagByFilterResponse {
 }
 
 export interface AzureAccessPointCore {
+  fe_ip_id?: string
+  fe_ip_name?: string
   id?: string
   name?: string
+  region?: string
+  resource_group?: string
+  size?: string
+  size_name?: string
+  subnet_id?: string
+  subnet_name?: string
+  vpc?: string
+  vpc_name?: string
 }
 
 export interface CFTResponse {

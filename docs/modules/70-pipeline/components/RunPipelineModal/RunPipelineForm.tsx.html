@@ -1021,7 +1021,14 @@
 <a name='L962'></a><a href='#L962'>962</a>
 <a name='L963'></a><a href='#L963'>963</a>
 <a name='L964'></a><a href='#L964'>964</a>
-<a name='L965'></a><a href='#L965'>965</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L965'></a><a href='#L965'>965</a>
+<a name='L966'></a><a href='#L966'>966</a>
+<a name='L967'></a><a href='#L967'>967</a>
+<a name='L968'></a><a href='#L968'>968</a>
+<a name='L969'></a><a href='#L969'>969</a>
+<a name='L970'></a><a href='#L970'>970</a>
+<a name='L971'></a><a href='#L971'>971</a>
+<a name='L972'></a><a href='#L972'>972</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1156,6 +1163,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1165,7 +1174,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1915,6 +1927,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2115,6 +2129,8 @@ interface SaveAsInputSetProps {
   currentPipeline?: { pipeline?: NgPipeline }
   template: ResponseInputSetTemplateResponse | null
   values: Values
+  projectIdentifier: string
+  orgIdentifier: string
   canEdit: boolean
   createInputSetLoading: boolean
   createInputSet: MutateMethod&lt;ResponseInputSetResponse, void, CreateInputSetForPipelineQueryParams, void&gt;
@@ -2124,12 +2140,15 @@ const SaveAsInputSet = <span class="fstat-no" title="function not covered" >({</
   pipeline,
   currentPipeline,
   template,
+  orgIdentifier,
+  projectIdentifier,
   values,
   canEdit,
   createInputSet,
   createInputSetLoading
-}: SaveAsInputSetProps) =&gt; {
+}: SaveAsInputSetProps): JSX.Element | null =&gt; {
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+&nbsp;
   const { showError, showSuccess } = <span class="cstat-no" title="statement not covered" >useToaster()</span>
   const { GIT_SYNC_NG } = <span class="cstat-no" title="statement not covered" >useFeatureFlags()</span>
 <span class="cstat-no" title="statement not covered" >  if (pipeline &amp;&amp; currentPipeline &amp;&amp; template?.data?.inputSetTemplateYaml) {</span>
@@ -2139,7 +2158,7 @@ const SaveAsInputSet = <span class="fstat-no" title="function not covered" >({</
           &lt;div className={Classes.POPOVER_DISMISS_OVERRIDE}&gt;
             &lt;Formik
               onSubmit={<span class="fstat-no" title="function not covered" >input </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                createInputSet(stringify({ inputSet: input }) as any)</span>
+<span class="cstat-no" title="statement not covered" >                createInputSet(stringify({ inputSet: { ...input, orgIdentifier, projectIdentifier } }) as any)</span>
                   .then(<span class="fstat-no" title="function not covered" >response </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                    if (response.data?.errorResponse) {</span>
 <span class="cstat-no" title="statement not covered" >                      showError(getString('inputSets.inputSetSavedError'))</span>
@@ -2899,6 +2918,8 @@ function RunPipelineFormBasic({
                     values={values}
                     template={template}
                     canEdit={canEdit}
+                    projectIdentifier={projectIdentifier}
+                    orgIdentifier={orgIdentifier}
                     createInputSet={createInputSet}
                     createInputSetLoading={createInputSetLoading}
                   /&gt;
@@ -2956,7 +2977,7 @@ export const RunPipelineForm: React.FC&lt;RunPipelineFormProps &amp; InputSetGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 15:03:03 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 16:08:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

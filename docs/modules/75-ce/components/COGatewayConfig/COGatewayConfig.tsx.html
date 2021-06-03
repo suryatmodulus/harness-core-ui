@@ -30,16 +30,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.54% </span>
+                <span class="strong">61.23% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>200/325</span>
+                <span class='fraction'>199/325</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.12% </span>
+                <span class="strong">66.22% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>49/73</span>
+                <span class='fraction'>49/74</span>
             </div>
         
             
@@ -1537,11 +1537,6 @@
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -1818,6 +1813,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">34x</span>
@@ -2454,7 +2454,7 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
   const [filteredInstances, setFilteredInstances] = useState&lt;InstanceDetails[]&gt;([])
   const [allInstances, setAllInstances] = useState&lt;InstanceDetails[]&gt;([])
   const [healthCheck, setHealthCheck] = useState&lt;boolean&gt;(props.gatewayDetails.healthCheck ? true : <span class="branch-1 cbranch-no" title="branch not covered" >false)</span>
-  const [healthCheckPattern, setHealthCheckPattern] = useState&lt;HealthCheck&gt;(props.gatewayDetails.healthCheck)
+  const [healthCheckPattern, setHealthCheckPattern] = useState&lt;HealthCheck | null&gt;(props.gatewayDetails.healthCheck)
   const [gatewayName, setGatewayName] = useState&lt;string&gt;(props.gatewayDetails.name)
   const [idleTime, setIdleTime] = useState&lt;number&gt;(props.gatewayDetails.idleTimeMins)
   const [fullfilment, setFullfilment] = useState&lt;string&gt;(props.gatewayDetails.fullfilment)
@@ -2672,13 +2672,8 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
     props.setGatewayDetails(props.gatewayDetails)
   }, [serviceDependencies])
   useEffect(() =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (healthCheck) {
-      props.gatewayDetails.healthCheck = healthCheckPattern
-      props.setGatewayDetails(props.gatewayDetails)
-    } else {
-<span class="cstat-no" title="statement not covered" >      props.gatewayDetails.healthCheck = {}</span>
-<span class="cstat-no" title="statement not covered" >      props.setGatewayDetails(props.gatewayDetails)</span>
-    }
+    const updatedGatewayDetails = { ...props.gatewayDetails, healthCheck: healthCheckPattern }
+    props.setGatewayDetails(updatedGatewayDetails)
   }, [healthCheckPattern])
   const refreshInstances = async (): Promise&lt;void&gt; =&gt; {
     try {
@@ -2955,6 +2950,11 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
         }
         break
     }
+  }
+&nbsp;
+  const handleHealthCheckToggle = <span class="fstat-no" title="function not covered" >(t</span>oggleStatus: boolean) =&gt; {
+<span class="cstat-no" title="statement not covered" >    setHealthCheckPattern(toggleStatus ? Utils.getDefaultRuleHealthCheck() : null)</span>
+<span class="cstat-no" title="statement not covered" >    setHealthCheck(toggleStatus)</span>
   }
 &nbsp;
   const step4Title = isAwsProvider
@@ -3393,7 +3393,7 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
                               label={getString('ce.co.gatewayConfig.healthCheck')}
                               className={css.switchFont}
                               onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                                setHealthCheck(e.currentTarget.checked)</span>
+<span class="cstat-no" title="statement not covered" >                                handleHealthCheckToggle(e.currentTarget.checked)</span>
                               }}
                               checked={healthCheck}
                             /&gt;
@@ -3475,7 +3475,7 @@ export default COGatewayConfig
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 14:38:59 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 15:03:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

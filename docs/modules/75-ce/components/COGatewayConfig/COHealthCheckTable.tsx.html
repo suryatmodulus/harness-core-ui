@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.67% </span>
+                <span class="strong">25.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/30</span>
+                <span class='fraction'>8/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.59% </span>
+                <span class="strong">26.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/29</span>
+                <span class='fraction'>8/30</span>
             </div>
         
             
@@ -177,7 +177,9 @@
 <a name='L118'></a><a href='#L118'>118</a>
 <a name='L119'></a><a href='#L119'>119</a>
 <a name='L120'></a><a href='#L120'>120</a>
-<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -212,6 +214,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -322,35 +326,37 @@ const protocols: SelectItem[] = [
 ]
 &nbsp;
 interface COHealthCheckTableProps {
-  pattern: HealthCheck
+  pattern: HealthCheck | null
   updatePattern: (pattern: HealthCheck) =&gt; void
 }
 const COHealthCheckTable: React.FC&lt;COHealthCheckTableProps&gt; = <span class="fstat-no" title="function not covered" >props </span>=&gt; {
-  const [helathCheckPattern, setHealthCheckPattern] = <span class="cstat-no" title="statement not covered" >useState&lt;HealthCheck[]&gt;([props.pattern])</span>
+  const [healthCheckPattern, setHealthCheckPattern] = <span class="cstat-no" title="statement not covered" >useState&lt;HealthCheck[]&gt;(props.pattern ? [props.pattern] : [])</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    props.updatePattern(helathCheckPattern[0])</span>
-  }, [helathCheckPattern])
+<span class="cstat-no" title="statement not covered" >    props.updatePattern(healthCheckPattern[0])</span>
+  }, [healthCheckPattern])
+&nbsp;
   function <span class="fstat-no" title="function not covered" >updateHealthCheckPattern(</span>column: string, val: string) {
+    const pattern = <span class="cstat-no" title="statement not covered" >{ ...healthCheckPattern[0] }</span>
 <span class="cstat-no" title="statement not covered" >    switch (column) {</span>
       case 'protocol': {
-<span class="cstat-no" title="statement not covered" >        props.pattern['protocol'] = val</span>
+<span class="cstat-no" title="statement not covered" >        pattern['protocol'] = val</span>
 <span class="cstat-no" title="statement not covered" >        break</span>
       }
       case 'port': {
-<span class="cstat-no" title="statement not covered" >        props.pattern['port'] = val</span>
+<span class="cstat-no" title="statement not covered" >        pattern['port'] = +val</span>
 <span class="cstat-no" title="statement not covered" >        break</span>
       }
       case 'path': {
-<span class="cstat-no" title="statement not covered" >        props.pattern['path'] = val</span>
+<span class="cstat-no" title="statement not covered" >        pattern['path'] = val</span>
 <span class="cstat-no" title="statement not covered" >        break</span>
       }
       case 'timeout': {
-<span class="cstat-no" title="statement not covered" >        props.pattern['timeout'] = val</span>
+<span class="cstat-no" title="statement not covered" >        pattern['timeout'] = +val</span>
 <span class="cstat-no" title="statement not covered" >        break</span>
       }
     }
-<span class="cstat-no" title="statement not covered" >    setHealthCheckPattern([props.pattern])</span>
+<span class="cstat-no" title="statement not covered" >    setHealthCheckPattern([pattern])</span>
   }
   const updateInput = <span class="cstat-no" title="statement not covered" >useCallback(debounce(updateHealthCheckPattern, 1000), [])</span>
   function <span class="fstat-no" title="function not covered" >getItembyValue(</span>items: SelectItem[], value: string): SelectItem {
@@ -382,7 +388,7 @@ const COHealthCheckTable: React.FC&lt;COHealthCheckTableProps&gt; = <span class=
   }
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Table&lt;HealthCheck&gt;
-      data={helathCheckPattern}
+      data={healthCheckPattern}
       bpTableProps={{}}
       className={css.healthCheckTable}
       columns={[
@@ -424,7 +430,7 @@ export default COHealthCheckTable
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 14:38:59 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 15:03:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -155,21 +155,11 @@
 <a name='L96'></a><a href='#L96'>96</a>
 <a name='L97'></a><a href='#L97'>97</a>
 <a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -263,19 +253,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { CSSProperties } from 'react'
 import { Button, Color, Container, Heading, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
@@ -283,6 +261,7 @@ import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, PageNames } from '@common/constants/TrackingConstants'
 import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanner'
 import { Page } from '../Page/Page'
+import css from './TrialInProgressTemplate.module.scss'
 &nbsp;
 interface TrialBannerProps {
   expiryTime?: number
@@ -347,16 +326,7 @@ export const TrialInProgressTemplate: React.FC&lt;TrialInProgressTemplateProps&g
     &lt;&gt;
       &lt;TrialLicenseBanner {...trialBannerProps} /&gt;
       &lt;Page.Body&gt;
-        &lt;Container
-          height="calc(100% - 160px)"
-          style={{
-            margin: '80px',
-            background: `transparent url(${bgImageUrl}) no-repeat`,
-            position: 'relative',
-            backgroundSize: 'contain',
-            backgroundPositionY: 'center'
-          }}
-        &gt;
+        &lt;Container style={{ '--image-url': `url(${bgImageUrl})` } as CSSProperties} className={css.body}&gt;
           &lt;Layout.Vertical spacing="medium"&gt;
             &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
               &lt;Heading font={{ weight: 'bold', size: 'large' }} color={Color.BLACK_100}&gt;
@@ -368,11 +338,8 @@ export const TrialInProgressTemplate: React.FC&lt;TrialInProgressTemplateProps&g
                 height={18}
                 border={{ radius: 3 }}
                 color={Color.WHITE}
-                style={{
-                  backgroundColor: 'var(--orange-500)',
-                  textAlign: 'center',
-                  display: 'inline-block'
-                }}
+                background={Color.ORANGE_500}
+                font={{ align: 'center' }}
               &gt;
                 {getString('common.trialInProgress')}
               &lt;/Text&gt;
@@ -391,7 +358,7 @@ export const TrialInProgressTemplate: React.FC&lt;TrialInProgressTemplateProps&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 16:08:56 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 18:52:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

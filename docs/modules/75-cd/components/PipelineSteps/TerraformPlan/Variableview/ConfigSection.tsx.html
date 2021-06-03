@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.87% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>82/111</span>
+                <span class='fraction'>0/111</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -97,19 +97,17 @@
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,7 +124,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,40 +137,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
+<span class="cstat-no" title="statement not covered" >import { Text } from '@wings-software/uicore'</span>
+<span class="cstat-no" title="statement not covered" >import { useStrings } from 'framework/strings'</span>
 &nbsp;
-import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+<span class="cstat-no" title="statement not covered" >import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'</span>
 import type { TerraformPlanData, TerraformPlanVariableStepProps } from '../../Common/Terraform/TerraformInterfaces'
 &nbsp;
-export function ConfigVariables(props: TerraformPlanVariableStepProps): React.ReactElement {
-  const { variablesData = <span class="branch-0 cbranch-no" title="branch not covered" >{} as TerraformPlanData,</span> metadataMap, initialValues } = props
-  const { getString } = useStrings()
-  return (
+<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >C</span>onfigVariables(</span>props: TerraformPlanVariableStepProps): React.ReactElement {
+  const { variablesData = <span class="branch-0 cbranch-no" title="branch not covered" >{} as TerraformPlanData,</span> metadataMap, initialValues } = <span class="cstat-no" title="statement not covered" >props</span>
+  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       &lt;VariablesListTable
-        data={variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration}
-        originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration}
+        data={variablesData?.spec?.configuration}
+        originalData={initialValues.spec?.configuration}
         metadataMap={metadataMap}
       /&gt;
       &lt;VariablesListTable
-        data={variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles}
-        originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles}
+        data={variablesData?.spec?.configuration?.configFiles}
+        originalData={initialValues.spec?.configuration?.configFiles}
         metadataMap={metadataMap}
       /&gt;
 &nbsp;
       &lt;VariablesListTable
-        data={variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec}
-        originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec}
+        data={variablesData?.spec?.configuration?.configFiles?.store?.spec}
+        originalData={initialValues.spec?.configuration?.configFiles?.store?.spec}
         metadataMap={metadataMap}
       /&gt;
       &lt;Text&gt;{getString('cd.terraformVarFiles')}&lt;/Text&gt;
-      {variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>arFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((varFile, index) =&gt; (
+      {variablesData?.spec?.configuration?.varFiles?.map(<span class="fstat-no" title="function not covered" >(v</span>arFile, index) =&gt; <span class="cstat-no" title="statement not covered" >(</span>
         &lt;VariablesListTable
           key={index}
-          data={varFile<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>arFile<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec}
-          originalData={initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>arFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.[i</span>ndex] || (<span class="branch-1 cbranch-no" title="branch not covered" >{} as any)}</span>
+          data={varFile?.varFile?.spec}
+          originalData={initialValues?.spec?.configuration?.varFiles?.[index] || ({} as any)}
           metadataMap={metadataMap}
         /&gt;
       ))}
@@ -184,7 +184,7 @@ export function ConfigVariables(props: TerraformPlanVariableStepProps): React.Re
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 16:08:56 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 18:52:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

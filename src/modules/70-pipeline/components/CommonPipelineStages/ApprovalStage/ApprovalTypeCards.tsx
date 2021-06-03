@@ -4,6 +4,7 @@ import { Card, CardSelect, CardSelectType, Color, Icon, Layout, Text } from '@wi
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { ApprovalCardsViewData } from './types'
 import css from './ApprovalStageMinimalMode.module.scss'
+import { useStrings } from 'framework/strings'
 
 export const approvalTypeCardsData: ApprovalCardsViewData[] = [
   {
@@ -35,6 +36,7 @@ The component to select approval type card in stage
 Used in both minimal view as well as detailed view
 */
 export const ApprovalTypeCards = ({ formikProps, isReadonly }: { formikProps: FormikValues; isReadonly?: boolean }) => {
+  const { getString } = useStrings()
   return (
     <Layout.Vertical>
       <CardSelect
@@ -78,14 +80,13 @@ export const ApprovalTypeCards = ({ formikProps, isReadonly }: { formikProps: Fo
       />
       {formikProps.values.approvalType === StepType.HarnessApproval ? (
         <Text intent="warning" lineClamp={1}>
-          {' '}
-          Please ensure that the given project has user groups.{' '}
+          {getString('pipeline.approvalStep.ensureUserGroups')}
           <a
             href="https://ngdocs.harness.io/article/fkvso46bok-adding-harness-approval-stages"
             rel="noreferrer"
             target="_blank"
           >
-            Learn more
+            {getString('learnMore')}
           </a>
         </Text>
       ) : null}

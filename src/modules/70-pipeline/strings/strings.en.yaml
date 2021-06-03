@@ -17,6 +17,7 @@ barrierStep:
 approvalStep:
   message: 'Approval Message'
   approvers: 'Approver(s)'
+  ensureUserGroups: Please ensure that the given project has user groups.
   approversWithColon: '{{$.pipeline.approvalStep.approvers}}:'
   approverInputs: 'Inputs to be provided by approver'
   includePipelineExecutionHistory: 'Include pipeline execution history in approval details'

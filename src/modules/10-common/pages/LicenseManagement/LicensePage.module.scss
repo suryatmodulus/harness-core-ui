@@ -1,0 +1,15 @@
+.tabTitle {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.selected {
+  background-color: var(--grey-900) !important;
+  color: var(--white) !important;
+  padding: 7px 10px !important;
+  border-radius: 4px;
+  &:hover {
+    cursor: unset !important;
+  }
+}

@@ -283,3 +283,13 @@ confirmText: Are you sure?
 paste: Paste
 artifactTag: tag
 clientId: Client ID
+license:
+  subscriptions:
+    title: Subscriptions
+    description: '{{$.common.license.subscriptions.title}}'
+  plans:
+    title: Plans
+    description: License Management
+  billing:
+    title: Billing
+    description: '{{$.common.license.billing.title}}'

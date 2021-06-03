@@ -145,6 +145,12 @@ export interface StringsMap {
   'common.latest': string
   'common.launchFirstGen': string
   'common.letsGetYouStarted': string
+  'common.license.billing.description': string
+  'common.license.billing.title': string
+  'common.license.plans.description': string
+  'common.license.plans.title': string
+  'common.license.subscriptions.description': string
+  'common.license.subscriptions.title': string
   'common.link': string
   'common.loading': string
   'common.local': string

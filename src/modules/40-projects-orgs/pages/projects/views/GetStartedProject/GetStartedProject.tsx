@@ -13,23 +13,16 @@ import css from './GetStartedProject.module.scss'
 
 const GetStartedProject: React.FC = () => {
   const { accountId } = useParams<AccountPathProps>()
-  let projectCreated = false
   const history = useHistory()
   const { getString } = useStrings()
   useDocumentTitle(getString('getStarted'))
 
-  const projectCreateSuccessHandler = (): void => {
-    /* istanbul ignore next */
-    projectCreated = true
-  }
   const { openProjectModal } = useProjectModal({
-    onSuccess: projectCreateSuccessHandler,
-    onCloseModal: () => {
-      /*  istanbul ignore next  */ if (projectCreated) {
-        history.push(routes.toProjects({ accountId }))
-      }
+    onSuccess: () => {
+      history.push(routes.toProjects({ accountId }))
     }
   })
+
   return (
     <>
       <Page.Header

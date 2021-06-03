@@ -18,7 +18,6 @@ import { noop, omit } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { useToaster } from '@common/exports'
 import {
   useCreateConnector,
   useUpdateConnector,
@@ -103,7 +102,6 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   let gitDetails = props.gitDetails
   const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
   const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
-  const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
@@ -132,6 +130,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     Pick<SaveToGitFormInterface, 'branch' | 'targetBranch' | 'isNewBranch'>
   >()
   const [connectorCreateUpdateError, setConnectorCreateUpdateError] = useState<Record<string, any>>()
+  const [connectorCreateUpdateResponse, setConnectorCreateUpdateResponse] = useState<ResponseConnectorResponse>({})
   //TODO Enable it when this experience gets finalized
   // const syncToGitViaManager = true
 
@@ -189,13 +188,20 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
           onClose={() => {
             hideCreateUpdateConnectorWithPRCreationModal()
             if (connectorCreateUpdateStatus === 'SUCCESS') {
-              goToNextStep()
+              afterSuccessHandler(connectorCreateUpdateResponse)
             }
           }}
         />
       </Dialog>
     )
-  }, [creatingPR, connectorCreateUpdateStatus, connectorCreateUpdateError, prCreateStatus, prMetaData])
+  }, [
+    creatingPR,
+    connectorCreateUpdateStatus,
+    connectorCreateUpdateError,
+    prCreateStatus,
+    prMetaData,
+    connectorCreateUpdateResponse
+  ])
 
   //modal to show while only creating/updating a connector
   const [showCreateUpdateConnectorModal, hideCreateUpdateConnectorModal] = useModalHook(() => {
@@ -213,12 +219,14 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
           firstStage={connectorCreateUpdateStage}
           onClose={() => {
             hideCreateUpdateConnectorModal()
-            goToNextStep()
+            if (connectorCreateUpdateStatus === 'SUCCESS') {
+              afterSuccessHandler(connectorCreateUpdateResponse)
+            }
           }}
         />
       </Dialog>
     )
-  }, [connectorCreateUpdateStatus, connectorCreateUpdateError])
+  }, [connectorCreateUpdateStatus, connectorCreateUpdateError, connectorCreateUpdateResponse])
 
   const afterSuccessHandler = (response: ResponseConnectorResponse): void => {
     props.onConnectorCreated?.(response?.data)
@@ -226,18 +234,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       // updating connector branch to handle if new branch was created while commit
       prevStepData.branch = response?.data?.gitDetails?.branch
     }
-    if (!isGitSyncEnabled) {
-      showSuccess(
-        getString(props.isEditMode ? 'connectors.successfullUpdate' : 'connectors.successfullCreate', {
-          name: prevStepData?.name
-        })
-      )
-    }
 
-    goToNextStep()
-  }
-
-  const goToNextStep = (): void => {
     if (stepDataRef?.skipDefaultValidation) {
       props.hideModal?.()
     } else {
@@ -303,9 +300,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
           })
         : await createConnector(payload, { queryParams: queryParams })
       setConnectorCreateUpdateStatus(response.status)
-      if (!isGitSyncEnabled && !gitData?.createPr) {
-        afterSuccessHandler(response)
-      }
+      setConnectorCreateUpdateResponse(response)
 
       // if connector creation/update succeeds, raise a PR, if specified
       if (response.status === 'SUCCESS') {
@@ -405,11 +400,10 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
           setConnectorPayloadRef(data)
           stepDataRef = updatedStepData
           if (isGitSyncEnabled) {
-            // Using git conext set at 1st step while creating new connector
+            // Using git context set at 1st step while creating new connector
             if (!props.isEditMode) {
               gitDetails = { branch: prevStepData?.branch, repoIdentifier: prevStepData?.repo }
             }
-
             openSaveToGitDialog(props.isEditMode, {
               type: Entities.CONNECTORS,
               name: data.connector?.name || '',

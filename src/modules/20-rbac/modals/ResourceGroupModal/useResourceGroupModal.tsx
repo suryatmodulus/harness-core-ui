@@ -6,7 +6,7 @@ import type { ResourceGroupDTO } from 'services/resourcegroups'
 import ResourceGroupModalFrom from './views/ResourceGroupModalForm'
 
 export interface UseResourceGroupModalProps {
-  onSuccess: () => void
+  onSuccess: (resourceGroup: ResourceGroupDTO) => void
   onCloseModal?: () => void
 }
 
@@ -33,8 +33,8 @@ export const useResourceGroupModal = ({ onSuccess }: UseResourceGroupModalProps)
       >
         <ResourceGroupModalFrom
           data={resourceGroupData}
-          onSubmit={() => {
-            onSuccess()
+          onSubmit={resourceGroup => {
+            onSuccess(resourceGroup)
             hideModal()
           }}
           editMode={!!resourceGroupData}

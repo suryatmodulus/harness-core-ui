@@ -29,6 +29,13 @@
       align-items: center;
       column-gap: var(--spacing-xsmall);
       --intent-color: var(--red-500);
+
+      :global {
+        .bp3-popover-target,
+        .bp3-popover-wrapper {
+          display: block;
+        }
+      }
     }
   }
 

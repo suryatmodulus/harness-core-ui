@@ -50,7 +50,7 @@ const CERenderer: React.FC<CERendererProps> = ({ isPreview }) => {
                   accountId
                 })}
               >
-                <Text color={Color.BLUE_600} font={{ size: 'xsmall' }} className={css.moduleLink}>
+                <Text color={Color.PRIMARY_6} font={{ size: 'xsmall' }} className={css.moduleLink}>
                   {/* {getString('projectCard.ceRendererText')} */}
                   {getString('projectsOrgs.gotoCloudCosts')}
                 </Text>

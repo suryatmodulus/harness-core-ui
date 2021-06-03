@@ -26,6 +26,7 @@ import { String, useStrings } from 'framework/strings'
 import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Connectors } from '@connectors/constants'
+import { URLValidationSchema } from '@common/utils/Validation'
 import css from './ConnectorDetailsStep.module.scss'
 
 interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
@@ -192,7 +193,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
           }}
           formName="gitDetailsStepForm"
           validationSchema={Yup.object().shape({
-            url: Yup.string().trim().required(getString('validation.UrlRequired'))
+            url: URLValidationSchema()
           })}
           initialValues={{
             ...getInitialValues(),

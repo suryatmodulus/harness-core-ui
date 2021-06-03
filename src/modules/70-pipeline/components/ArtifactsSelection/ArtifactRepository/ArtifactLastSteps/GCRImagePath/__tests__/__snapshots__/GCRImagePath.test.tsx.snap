@@ -85,16 +85,48 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                 >
                   <div
-                    class="bp3-input-group MultiTypeInput--input"
+                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                   >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="registryHostname"
-                      placeholder="UrlLabel"
-                      type="text"
-                      value=""
-                    />
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="registryHostname"
+                          placeholder="UrlLabel"
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -488,16 +520,48 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                 >
                   <div
-                    class="bp3-input-group MultiTypeInput--input"
+                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                   >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="registryHostname"
-                      placeholder="UrlLabel"
-                      type="text"
-                      value=""
-                    />
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="registryHostname"
+                          placeholder="UrlLabel"
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -891,16 +955,48 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                 >
                   <div
-                    class="bp3-input-group MultiTypeInput--input"
+                    class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
                   >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="registryHostname"
-                      placeholder="UrlLabel"
-                      type="text"
-                      value=""
-                    />
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="registryHostname"
+                          placeholder="UrlLabel"
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"

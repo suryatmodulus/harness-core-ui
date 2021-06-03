@@ -11,7 +11,7 @@ import {
   useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, isNil, noop, omit, pick } from 'lodash-es'
+import { get, isEmpty, isNil, isNull, noop, omit, omitBy, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
@@ -181,7 +181,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           onCreateOrUpdate={values => {
             onUpdate?.({
               ...omit(initialValues, 'serviceRef'),
-              service: pick(values, ['name', 'identifier', 'description', 'tags'])
+              service: pick(omitBy(values, isNull), ['name', 'identifier', 'description', 'tags'])
             })
             const item = services.filter(service => service.value === values.identifier)[0]
             if (item) {

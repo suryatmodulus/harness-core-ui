@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import cx from 'classnames'
 import { GroupedVirtuoso, GroupedVirtuosoHandle } from 'react-virtuoso'
-import { ExpandingSearchInput, Icon } from '@wings-software/uicore'
+import { ExpandingSearchInput, Icon, Text } from '@wings-software/uicore'
 import { sum } from 'lodash-es'
 
 import { String } from 'framework/strings'
@@ -152,7 +152,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
           <String className={css.summary} tagName="div" stringID="summary" />
           <div className={css.error}>
             <Icon name="circle-cross" />
-            <span>{errorMessage}</span>
+            <Text lineClamp={1}>{errorMessage}</Text>
           </div>
         </div>
       ) : null}

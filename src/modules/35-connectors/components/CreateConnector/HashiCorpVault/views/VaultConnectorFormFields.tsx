@@ -162,7 +162,6 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
           <Button
             intent="primary"
             text="Fetch Engines"
-            margin={{ top: 'xsmall' }}
             onClick={() => handleFetchEngines(formik.values)}
             disabled={isEditing ? false : isFetchDisabled(formik.values)}
           />

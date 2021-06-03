@@ -13,7 +13,7 @@ import {
   CardSelect
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, noop, omit, pick } from 'lodash-es'
+import { get, isEmpty, isNull, noop, omit, omitBy, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog, FormGroup, Intent } from '@blueprintjs/core'
 import { parse } from 'yaml'
@@ -227,7 +227,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           onCreateOrUpdate={values => {
             onUpdate?.({
               ...omit(initialValues, 'environmentRef'),
-              environment: pick(values, ['name', 'identifier', 'description', 'tags', 'type'])
+              environment: pick(omitBy(values, isNull), ['name', 'identifier', 'description', 'tags', 'type'])
             })
             const item = environments.filter(env => env.value === values.identifier)[0]
             if (item) {

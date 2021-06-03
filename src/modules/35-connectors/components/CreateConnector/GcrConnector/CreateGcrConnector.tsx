@@ -3,7 +3,11 @@ import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
+import {
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  CreateConnectorModalProps,
+  TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -49,6 +53,7 @@ const CreateGcrConnector: React.FC<CreateConnectorModalProps> = props => {
         isLastStep={true}
         type={'Gcr'}
         onClose={props.onClose}
+        stepIndex={TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

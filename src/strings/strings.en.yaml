@@ -550,7 +550,7 @@ inputSets:
   inputSetSavedError: Error while saving InputSet
   searchInputSet: Search Input Set
   addInputSet: Add Input Set
-  saveAsInputSet: Save as input set
+  saveAsInputSet: Save as Input Set
   aboutInputSets: Input sets are collections of variables/values that should be provided to a pipeline before execution.
   confirmDeleteTitle: 'Delete {{type}}'
   overlayInputSet: Overlay Input Set

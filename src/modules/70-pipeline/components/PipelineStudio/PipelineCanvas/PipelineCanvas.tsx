@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { useModalHook, Text, Icon, Layout, Color, Button } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
-import { isEqual, merge, omit } from 'lodash-es'
+import { isEmpty, isEqual, merge, omit } from 'lodash-es'
 import type { NgPipeline, PipelineInfoConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
@@ -31,6 +31,7 @@ import routes from '@common/RouteDefinitions'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import GitFilters from '@common/components/GitFilters/GitFilters'
+import { TagsPopover } from '@common/components'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -547,6 +548,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 <Text className={css.pipelineName} max-width="100%" lineClamp={1}>
                   {pipeline?.name}
                 </Text>
+                {!isEmpty(pipeline.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
                 {isYaml ? null : (
                   <RbacButton
                     minimal

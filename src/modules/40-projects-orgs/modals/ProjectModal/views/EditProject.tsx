@@ -14,12 +14,11 @@ interface EditModalData {
   identifier?: string
   orgIdentifier?: string
   closeModal?: () => void
-  onSuccess?: () => void
   isStep?: boolean
 }
 
 const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
-  const { prevStepData, nextStep, identifier, orgIdentifier, closeModal, onSuccess, isStep } = props
+  const { prevStepData, nextStep, identifier, orgIdentifier, closeModal, isStep } = props
   const [version, setVersion] = useState<string>()
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess } = useToaster()
@@ -79,7 +78,6 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
         }
       )
       showSuccess(getString('projectsOrgs.projectEditSuccess'))
-      onSuccess?.()
       isStep ? nextStep?.({ ...values }) : closeModal?.()
     } catch (e) {
       /* istanbul ignore next */

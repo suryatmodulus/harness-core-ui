@@ -13,7 +13,6 @@ import EditProject from './EditProject'
 
 interface ProjectModalData {
   closeModal?: () => void
-  onSuccess?: () => void
   onProjectSubmit?: (project: Project) => Promise<void>
   modules?: Project['modules']
   orgMockData?: UseGetMockData<ResponsePageOrganizationResponse>

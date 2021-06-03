@@ -11,7 +11,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
-import { useGetModuleLicenseInfo } from 'services/portal'
+import { useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
 import bgImageURL from './cf-homepage-bg.svg'
 
 const CFHomePage: React.FC = () => {
@@ -19,18 +19,18 @@ const CFHomePage: React.FC = () => {
   const { accountId } = useParams<{
     accountId: string
   }>()
-  const moduleLicenseQueryParams = {
-    queryParams: {
-      accountIdentifier: accountId,
-      moduleType: ModuleName.CF
-    }
+  const getModuleLicenseQueryParams = {
+    accountIdentifier: accountId,
+    moduleType: ModuleName.CF as any
   }
   const { currentUserInfo } = useAppStore()
 
   const { accounts, defaultAccountId } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
 
-  const { data, error, refetch, loading } = useGetModuleLicenseInfo(moduleLicenseQueryParams)
+  const { data, error, refetch, loading } = useGetModuleLicenseByAccountAndModuleType({
+    queryParams: getModuleLicenseQueryParams
+  })
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {

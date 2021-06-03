@@ -20,7 +20,8 @@ jest.mock('services/pipeline-ng', () => ({
   usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: null })),
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => ({ data: null })),
   useGetInputSetsListForPipeline: jest.fn(() => ({ data: null })),
-  useGetYamlSchema: jest.fn(() => ({ data: null }))
+  useGetYamlSchema: jest.fn(() => ({ data: null })),
+  useCreateInputSetForPipeline: jest.fn(() => ({ data: null }))
 }))
 
 const TEST_PATH = routes.toExecutionInputsView({

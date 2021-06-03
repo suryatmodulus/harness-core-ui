@@ -1,11 +1,11 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetModuleLicenseInfo } from 'services/portal'
+import { useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
 import CIHomePage from '../CIHomePage'
 
-jest.mock('services/portal')
-const useGetModuleLicenseInfoMock = useGetModuleLicenseInfo as jest.MockedFunction<any>
+jest.mock('services/cd-ng')
+const useGetModuleLicenseInfoMock = useGetModuleLicenseByAccountAndModuleType as jest.MockedFunction<any>
 
 const currentUser = {
   defaultAccountId: '123',

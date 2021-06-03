@@ -94,7 +94,7 @@ testConnectionStep:
     bitbucket: 'URL : '
     gcr: 'GCR URL : '
   validationText:
-    k8s: Validating the reachability of provided url
+    k8s: Validating the reachability of provided URL
     docker: Validating the Docker Registry authentication and permissions
     artifactory: Validating the Artifactory Repository authentication and permissions
     nexus: Validating the Nexus Repository authentication and permissions
@@ -116,7 +116,7 @@ httpHelm:
 jira:
   jiraUrl: 'Jira URL'
 k8:
-  delegateOutClusterInfo: 'Specify master url and credentials'
+  delegateOutClusterInfo: 'Specify master URL and credentials'
   delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
   masterUrlLabel: 'Master URL'
   serviceAccountToken: 'Service Account Token'
@@ -134,7 +134,7 @@ k8:
   clientKeyAlgorithm: 'Client Key Algorithm (optional)'
   clientKeyCACertificate: 'CA Certificate (optional)'
   placeholder:
-    masterUrl: '/url'
+    masterUrl: '/URL'
   authLabels:
     OIDC: 'OpenID Connect'
     clientKeyCertificate: 'Client Key Certificate'

@@ -207,7 +207,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    common.git.filePath
+                    fileFolderPathText
                   </p>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"

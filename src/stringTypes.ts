@@ -1037,6 +1037,7 @@ export interface StringsMap {
   'pipeline.branchRequired': string
   'pipeline.clickHere': string
   'pipeline.closeStepConfig': string
+  'pipeline.collapseIsDisabledWhileStageIsRunning': string
   'pipeline.conditionalExecution.belowExpression': string
   'pipeline.conditionalExecution.condition': string
   'pipeline.conditionalExecution.statusOption.all': string
@@ -1548,7 +1549,8 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.step3.policyNotEnabled': string
   'ce.co.autoStoppingRule.configuration.step3.subTitle': string
   'ce.co.autoStoppingRule.configuration.step3.title': string
-  'ce.co.autoStoppingRule.configuration.step4.title': string
+  'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration': string
+  'ce.co.autoStoppingRule.configuration.step4.setup': string
   'ce.co.autoStoppingRule.confirm.deleteDialogText': string
   'ce.co.autoStoppingRule.confirm.deleteServiceTitle': string
   'ce.co.autoStoppingRule.confirm.disable': string

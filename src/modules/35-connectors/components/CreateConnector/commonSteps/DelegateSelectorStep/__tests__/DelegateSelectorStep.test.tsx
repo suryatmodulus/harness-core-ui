@@ -2,15 +2,20 @@ import React from 'react'
 import { act } from 'react-dom/test-utils'
 import { render, fireEvent } from '@testing-library/react'
 import * as portalServices from 'services/portal'
-import { TestWrapper } from '@common/utils/testUtils'
+import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import * as featureFlags from '@common/hooks/useFeatureFlag'
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import {
   defaultProps,
   connectorInfo,
   connectorInfoCredentials,
-  mockedDelegates
+  mockedDelegates,
+  requestBody,
+  gitConfigs,
+  sourceCodeManagers
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/__tests__/DelegateSelector.mock'
+import type { ConnectorRequestBody } from 'services/cd-ng'
+import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
 
 jest.spyOn(portalServices, 'useGetDelegateSelectors').mockImplementation(
   () =>
@@ -32,6 +37,29 @@ jest.spyOn(portalServices, 'useGetDelegatesStatusV2').mockImplementation(
       })
     } as any)
 )
+
+const fetchBranches = jest.fn(() => Promise.resolve([]))
+jest.mock('services/cd-ng', () => ({
+  useCreateConnector: jest.fn().mockImplementation(() => ({
+    mutate: () =>
+      Promise.resolve({
+        data: { name: 'NewConnectorCreated' }
+      })
+  })),
+  useUpdateConnector: jest.fn().mockImplementation(() => ({
+    mutate: () =>
+      Promise.resolve({
+        data: { name: 'ConnectorBeingUpdated' }
+      })
+  })),
+  useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() })),
+  useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => fetchBranches()),
+  useListGitSync: jest.fn().mockImplementation(() => gitConfigs),
+  useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { data: sourceCodeManagers, refetch: jest.fn() }
+  })
+}))
 
 jest.spyOn(featureFlags, 'useFeatureFlags').mockImplementation(() => ({
   CDNG_ENABLED: false,
@@ -300,5 +328,31 @@ describe('DelegateSelectorStep', () => {
       fireEvent.click(container.querySelector('[data-name="delegateSaveAndContinue"]')!)
     })
     expect(buildPayload).toBeCalledWith({ ...connectorInfoCredentials, delegateSelectors: [] })
+  })
+
+  test('should open Git Sync modal on clicking Save and Continue', async () => {
+    jest.spyOn(featureFlags, 'useFeatureFlags').mockImplementation(() => ({
+      CDNG_ENABLED: true,
+      NG_SHOW_DELEGATE: true,
+      GIT_SYNC_NG: true
+    }))
+    const { container } = render(
+      <GitSyncTestWrapper>
+        <DelegateSelectorStep
+          {...defaultProps}
+          connectorInfo={connectorInfoCredentials}
+          prevStepData={connectorInfoCredentials}
+          buildPayload={() => requestBody as ConnectorRequestBody}
+        />
+      </GitSyncTestWrapper>
+    )
+    await act(async () => {
+      fireEvent.click(container.querySelector('[data-name="delegateSaveAndContinue"]')!)
+    })
+    const form = findDialogContainer()
+    expect(form).toBeTruthy()
+    await act(async () => {
+      expect(findDialogContainer()).toMatchSnapshot('Save Connectors to Git')
+    })
   })
 })

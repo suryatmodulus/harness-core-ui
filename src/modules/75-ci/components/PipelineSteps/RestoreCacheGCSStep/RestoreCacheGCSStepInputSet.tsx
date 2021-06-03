@@ -102,6 +102,7 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
       )}
       {getMultiTypeFromValue(template?.spec?.failIfKeyNotFound) === MultiTypeInputType.RUNTIME && (
         <FormInput.CheckBox
+          className={css.checkbox}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.failIfKeyNotFound`}
           label={getString('failIfKeyNotFound')}
           disabled={readonly}

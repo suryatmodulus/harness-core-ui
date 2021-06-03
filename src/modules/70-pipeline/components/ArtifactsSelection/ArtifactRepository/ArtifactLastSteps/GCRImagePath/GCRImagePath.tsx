@@ -9,7 +9,8 @@ import {
   Button,
   StepProps,
   Text,
-  RUNTIME_INPUT_VALUE
+  RUNTIME_INPUT_VALUE,
+  SelectOption
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
@@ -24,6 +25,18 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../GCRArtifact.module.scss'
+
+export enum RegistryHostNames {
+  GCR_URL = 'gcr.io',
+  US_GCR_URL = 'us.gcr.io',
+  ASIA_GCR_URL = 'asia.gcr.io',
+  EU_GCR_URL = 'eu.gcr.io',
+  MIRROR_GCR_URL = 'mirror.gcr.io',
+  K8S_GCR_URL = 'k8s.gcr.io',
+  LAUNCHER_GCR_URL = 'launcher.gcr.io'
+}
+
+export const gcrUrlList: SelectOption[] = Object.values(RegistryHostNames).map(item => ({ label: item, value: item }))
 
 export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   name,
@@ -222,11 +235,16 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                 </div>
               )}
               <div className={css.imagePathContainer}>
-                <FormInput.MultiTextInput
+                <FormInput.MultiTypeInput
                   label={getString('connectors.GCR.registryHostname')}
                   placeholder={getString('UrlLabel')}
                   name="registryHostname"
-                  multiTextInputProps={{ expressions }}
+                  selectItems={gcrUrlList}
+                  useValue
+                  multiTypeInputProps={{
+                    expressions,
+                    selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList, usePortal: true }
+                  }}
                 />
                 {getMultiTypeFromValue(formik.values.registryHostname) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>

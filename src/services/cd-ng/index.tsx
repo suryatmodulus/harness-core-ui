@@ -2213,12 +2213,12 @@ export interface GatewayAccountRequestDTO {
 
 export interface GcpBillingExportSpec {
   datasetId: string
+  projectId: string
 }
 
 export type GcpCloudCostConnector = ConnectorConfigDTO & {
   billingExportSpec?: GcpBillingExportSpec
-  featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
-  projectId: string
+  featuresEnabled?: 'BILLING'[]
 }
 
 export type GcpConnector = ConnectorConfigDTO & {
@@ -3519,9 +3519,10 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export type OAuthSettings = NGAuthSettings & {
+export interface OAuthSettings {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
+  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {

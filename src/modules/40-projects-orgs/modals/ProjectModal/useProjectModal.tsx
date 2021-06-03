@@ -34,6 +34,7 @@ export const useProjectModal = ({
 }: UseProjectModalProps): UseProjectModalReturn => {
   const [view, setView] = useState(Views.CREATE)
   const [projectData, setProjectData] = useState<Project>()
+  const [refreshProjects, setRefreshProjects] = useState(false)
   const { getString } = useStrings()
 
   const wizardCompleteHandler = async (wizardData: Project | undefined): Promise<void> => {
@@ -41,7 +42,6 @@ export const useProjectModal = ({
       setView(Views.PURPOSE)
       setProjectData(wizardData)
     }
-    onSuccess?.()
     onWizardComplete?.(wizardData)
   }
   const [showModal, hideModal] = useModalHook(
@@ -49,9 +49,13 @@ export const useProjectModal = ({
       <Dialog
         isOpen={true}
         onClose={() => {
+          if (refreshProjects) {
+            onSuccess?.()
+            setRefreshProjects(false)
+          }
+          onCloseModal?.()
           setView(Views.CREATE)
           hideModal()
-          onCloseModal ? onCloseModal() : null
         }}
         className={cx(css.dialog, Classes.DIALOG, {
           [css.create]: view === Views.CREATE,
@@ -59,25 +63,34 @@ export const useProjectModal = ({
         })}
       >
         {view === Views.CREATE ? (
-          <StepWizard<Project> onCompleteWizard={wizardCompleteHandler} stepClassName={css.stepClass}>
+          <StepWizard<Project>
+            onCompleteWizard={wizardCompleteHandler}
+            onStepChange={() => {
+              if (!refreshProjects) {
+                setRefreshProjects(true)
+              }
+            }}
+            stepClassName={css.stepClass}
+          >
             <StepAboutProject
               name={getString('projectsOrgs.aboutProject')}
               modules={projectData?.modules}
-              onSuccess={onSuccess}
               module={module}
             />
             <ProjectCollaboratorsStep name={getString('projectsOrgs.invite')} />
           </StepWizard>
         ) : null}
 
-        {view === Views.PURPOSE ? <PurposeList data={projectData as Project} onSuccess={onSuccess} /> : null}
+        {view === Views.PURPOSE ? <PurposeList data={projectData as Project} /> : null}
 
         {view === Views.EDIT ? (
           <EditProject
             identifier={projectData?.identifier}
             orgIdentifier={projectData?.orgIdentifier}
-            closeModal={hideModal}
-            onSuccess={onSuccess}
+            closeModal={() => {
+              hideModal()
+              onSuccess?.()
+            }}
           />
         ) : null}
 
@@ -86,15 +99,19 @@ export const useProjectModal = ({
           icon="cross"
           iconProps={{ size: 18 }}
           onClick={() => {
+            if (refreshProjects) {
+              onSuccess?.()
+              setRefreshProjects(false)
+            }
+            onCloseModal?.()
             setView(Views.CREATE)
             hideModal()
-            onCloseModal ? onCloseModal() : null
           }}
           className={css.crossIcon}
         />
       </Dialog>
     ),
-    [view, projectData]
+    [view, projectData, refreshProjects]
   )
 
   const open = useCallback(

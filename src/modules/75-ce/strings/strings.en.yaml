@@ -68,7 +68,8 @@ co:
         asgSubTitle: 'The selected Auto Scaling group has been created using mixed instances as shown below. You can choose to go with the same or convert all of them to spot or on demand.'
         policyNotEnabled: 'Mixed instance policy is not enabled'
       step4:
-        title: 'Set up Routing, Health check and Advanced Configuration'
+        setup: 'Set up'
+        advancedConfiguration: 'Advanced Configuration'
       instanceModal:
         description: 'AutoStopping Rules can manage multiple VMs as long as they are all within the same cloud provider region.'
     review:

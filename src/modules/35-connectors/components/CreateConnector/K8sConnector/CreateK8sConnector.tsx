@@ -6,6 +6,7 @@ import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModal
 import { getConnectorTitleIdByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildKubPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/strings'
+import { TESTCONNECTION_STEP_INDEX } from '@connectors/constants'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import Stepk8ClusterDetails from './StepAuth/Stepk8ClusterDetails'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
@@ -61,6 +62,7 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
         type={Connectors.KUBERNETES_CLUSTER}
         onClose={props.onClose}
         setIsEditMode={props.setIsEditMode}
+        stepIndex={TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

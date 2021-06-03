@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import type { MutateMethod } from 'restful-react'
+import * as Yup from 'yup'
 import { Tooltip, Intent, Dialog, Classes, RadioGroup, Radio, PopoverPosition } from '@blueprintjs/core'
 import {
   Button,
@@ -12,7 +14,8 @@ import {
   useModalHook,
   Utils,
   Heading,
-  Color
+  Color,
+  Popover
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
@@ -20,6 +23,7 @@ import { parse, stringify } from 'yaml'
 import { pick, merge, isEmpty, isEqual } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { NameIdDescriptionTags } from '@common/components'
 import type { NgPipeline, ResponseJsonNode } from 'services/cd-ng'
 import {
   useGetPipeline,
@@ -28,7 +32,10 @@ import {
   useGetMergeInputSetFromPipelineTemplateWithListInput,
   getInputSetForPipelinePromise,
   useGetInputSetsListForPipeline,
-  ResponseInputSetTemplateResponse
+  ResponseInputSetTemplateResponse,
+  useCreateInputSetForPipeline,
+  ResponseInputSetResponse,
+  CreateInputSetForPipelineQueryParams
 } from 'services/pipeline-ng'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -38,6 +45,7 @@ import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/
 import type { GitQueryParams, InputSetGitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -50,6 +58,7 @@ import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/Inp
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
 import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
+import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import css from './RunPipelineModal.module.scss'
 
@@ -114,6 +123,102 @@ const ModeSelector = ({ selectedView, handleModeSwitch, template }: ModeSelector
   )
 }
 
+interface SaveAsInputSetProps {
+  pipeline?: NgPipeline
+  currentPipeline?: { pipeline?: NgPipeline }
+  template: ResponseInputSetTemplateResponse | null
+  values: Values
+  canEdit: boolean
+  createInputSetLoading: boolean
+  createInputSet: MutateMethod<ResponseInputSetResponse, void, CreateInputSetForPipelineQueryParams, void>
+}
+
+const SaveAsInputSet = ({
+  pipeline,
+  currentPipeline,
+  template,
+  values,
+  canEdit,
+  createInputSet,
+  createInputSetLoading
+}: SaveAsInputSetProps) => {
+  const { getString } = useStrings()
+  const { showError, showSuccess } = useToaster()
+  const { GIT_SYNC_NG } = useFeatureFlags()
+  if (pipeline && currentPipeline && template?.data?.inputSetTemplateYaml) {
+    return (
+      <Popover
+        content={
+          <div className={Classes.POPOVER_DISMISS_OVERRIDE}>
+            <Formik
+              onSubmit={input => {
+                createInputSet(stringify({ inputSet: input }) as any)
+                  .then(response => {
+                    if (response.data?.errorResponse) {
+                      showError(getString('inputSets.inputSetSavedError'))
+                    } else {
+                      showSuccess(getString('inputSets.inputSetSaved'))
+                    }
+                  })
+                  .catch(e => {
+                    showError(e?.data?.message || e?.message)
+                  })
+              }}
+              validationSchema={Yup.object().shape({
+                name: Yup.string().trim().required(getString('inputSets.nameIsRequired'))
+              })}
+              initialValues={{ pipeline: values, name: '', identifier: '' } as InputSetDTO}
+            >
+              {createInputSetFormikProps => {
+                const { submitForm: submitFormIs } = createInputSetFormikProps
+                return (
+                  <Layout.Vertical padding="large" width={400}>
+                    <NameIdDescriptionTags
+                      identifierProps={{
+                        inputLabel: getString('inputSets.inputSetName'),
+                        isIdentifierEditable: true,
+                        inputGroupProps: {
+                          disabled: !canEdit
+                        }
+                      }}
+                      descriptionProps={{ disabled: !canEdit }}
+                      tagsProps={{
+                        disabled: !canEdit
+                      }}
+                      formikProps={createInputSetFormikProps}
+                    />
+                    <Layout.Horizontal spacing="medium">
+                      <Button
+                        intent="primary"
+                        text={createInputSetLoading ? getString('loading') : getString('save')}
+                        type="submit"
+                        disabled={createInputSetLoading}
+                        onClick={event => {
+                          event.stopPropagation()
+                          submitFormIs()
+                        }}
+                      />
+                      <Button className={Classes.POPOVER_DISMISS} text={getString('cancel')} />
+                    </Layout.Horizontal>
+                  </Layout.Vertical>
+                )
+              }}
+            </Formik>
+          </div>
+        }
+      >
+        <Button
+          minimal
+          intent="primary"
+          text={getString('inputSets.saveAsInputSet')}
+          disabled={!canEdit || GIT_SYNC_NG}
+        />
+      </Popover>
+    )
+  }
+  return null
+}
+
 function RunPipelineFormBasic({
   pipelineIdentifier,
   accountId,
@@ -146,6 +251,20 @@ function RunPipelineFormBasic({
   const history = useHistory()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
+
+  const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    },
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
+  })
 
   const [canEdit] = usePermission(
     {
@@ -735,55 +854,67 @@ function RunPipelineFormBasic({
               )}
               {executionView ? null : (
                 <Layout.Horizontal
-                  className={cx(css.footer, css.actionButtons)}
                   padding={{ left: 'xlarge', right: 'xlarge', top: 'large', bottom: 'large' }}
+                  flex={{ justifyContent: 'space-between', alignItems: 'center' }}
+                  className={css.footer}
                 >
-                  <RbacButton
-                    style={{ backgroundColor: 'var(--green-600' }}
-                    intent="primary"
-                    type="submit"
-                    text={getString('runPipeline')}
-                    onClick={event => {
-                      event.stopPropagation()
-                      if ((!selectedInputSets || selectedInputSets.length === 0) && existingProvide === 'existing') {
-                        setExistingProvide('provide')
-                      } else {
-                        submitForm()
-                      }
-                    }}
-                    permission={{
-                      resource: {
-                        resourceIdentifier: pipeline?.identifier as string,
-                        resourceType: ResourceType.PIPELINE
-                      },
-                      permission: PermissionIdentifier.EXECUTE_PIPELINE
-                    }}
-                    disabled={getErrorsList(formErrors).errorCount > 0}
-                  />
-                  <div className={css.secondaryButton}>
-                    <Button
-                      id="cancel-runpipeline"
-                      text={getString('cancel')}
-                      margin={{ left: 'medium' }}
-                      background={Color.GREY_50}
-                      onClick={() => {
-                        if (onClose) {
-                          onClose()
+                  <Layout.Horizontal className={cx(css.actionButtons)}>
+                    <RbacButton
+                      style={{ backgroundColor: 'var(--green-600' }}
+                      intent="primary"
+                      type="submit"
+                      text={getString('runPipeline')}
+                      onClick={event => {
+                        event.stopPropagation()
+                        if ((!selectedInputSets || selectedInputSets.length === 0) && existingProvide === 'existing') {
+                          setExistingProvide('provide')
+                        } else {
+                          submitForm()
                         }
-                        history.replace(
-                          routes.toPipelineStudio({
-                            accountId,
-                            projectIdentifier,
-                            orgIdentifier,
-                            module,
-                            pipelineIdentifier,
-                            repoIdentifier,
-                            branch
-                          })
-                        )
                       }}
+                      permission={{
+                        resource: {
+                          resourceIdentifier: pipeline?.identifier as string,
+                          resourceType: ResourceType.PIPELINE
+                        },
+                        permission: PermissionIdentifier.EXECUTE_PIPELINE
+                      }}
+                      disabled={getErrorsList(formErrors).errorCount > 0}
                     />
-                  </div>
+                    <div className={css.secondaryButton}>
+                      <Button
+                        id="cancel-runpipeline"
+                        text={getString('cancel')}
+                        margin={{ left: 'medium' }}
+                        background={Color.GREY_50}
+                        onClick={() => {
+                          if (onClose) {
+                            onClose()
+                          }
+                          history.replace(
+                            routes.toPipelineStudio({
+                              accountId,
+                              projectIdentifier,
+                              orgIdentifier,
+                              module,
+                              pipelineIdentifier,
+                              repoIdentifier,
+                              branch
+                            })
+                          )
+                        }}
+                      />
+                    </div>
+                  </Layout.Horizontal>
+                  <SaveAsInputSet
+                    pipeline={pipeline}
+                    currentPipeline={currentPipeline}
+                    values={values}
+                    template={template}
+                    canEdit={canEdit}
+                    createInputSet={createInputSet}
+                    createInputSetLoading={createInputSetLoading}
+                  />
                 </Layout.Horizontal>
               )}
             </Layout.Vertical>

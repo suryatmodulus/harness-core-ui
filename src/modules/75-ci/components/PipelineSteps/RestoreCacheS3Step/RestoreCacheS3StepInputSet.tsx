@@ -122,6 +122,7 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
       )}
       {getMultiTypeFromValue(template?.spec?.pathStyle) === MultiTypeInputType.RUNTIME && (
         <FormInput.CheckBox
+          className={css.checkbox}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.pathStyle`}
           label={getString('pathStyle')}
           disabled={readonly}

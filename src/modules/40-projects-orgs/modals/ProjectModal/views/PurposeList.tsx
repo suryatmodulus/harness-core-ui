@@ -11,11 +11,11 @@ import { useToaster } from '@common/exports'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { PageSpinner } from '@common/components'
 import css from './Purpose.module.scss'
 
 interface ProjectModalData {
   data: Project
-  onSuccess?: () => void
 }
 
 interface PurposeType {
@@ -142,14 +142,14 @@ const CFNG_OPTIONS: PurposeType = {
 }
 
 const PurposeList: React.FC<ProjectModalData> = props => {
-  const { data: projectData, onSuccess } = props
+  const { data: projectData } = props
   const [selected, setSelected] = useState<Required<Project>['modules']>([])
   const { getString } = useStrings()
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { showSuccess, showError } = useToaster()
 
   const { accountId } = useParams<AccountPathProps>()
-  const { mutate: updateProject } = usePutProject({
+  const { mutate: updateProject, loading: updatingProject } = usePutProject({
     identifier: projectData.identifier,
     queryParams: {
       accountIdentifier: accountId,
@@ -163,7 +163,6 @@ const PurposeList: React.FC<ProjectModalData> = props => {
     try {
       await updateProject({ project: dataToSubmit })
       showSuccess(getString('projectsOrgs.purposeList.moduleSuccess'))
-      onSuccess?.()
       const newSelected = [...selected, module]
       setSelected(newSelected)
     } catch (err) {
@@ -250,6 +249,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
           )}
         </Container>
       </Layout.Horizontal>
+      {updatingProject && <PageSpinner />}
     </Layout.Vertical>
   )
 }

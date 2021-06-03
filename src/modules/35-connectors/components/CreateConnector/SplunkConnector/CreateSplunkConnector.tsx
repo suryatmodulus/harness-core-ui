@@ -13,7 +13,12 @@ import {
   useUpdateConnector,
   ResponseBoolean
 } from 'services/cd-ng'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
+import {
+  Connectors,
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  CreateConnectorModalProps,
+  TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import {
@@ -130,6 +135,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           isLastStep
           type={Connectors.SPLUNK}
           setIsEditMode={() => props.setIsEditMode(true)}
+          stepIndex={TESTCONNECTION_STEP_INDEX}
         />
       </StepWizard>
     </>

@@ -14,13 +14,12 @@ import ProjectForm from './ProjectForm'
 
 interface CreateModalData {
   modules?: Project['modules']
-  onSuccess?: () => void
   module?: ModuleName
 }
 
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
   const { accountId, orgIdentifier } = useParams<OrgPathProps>()
-  const { nextStep, onSuccess, modules, module } = props
+  const { nextStep, modules, module } = props
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
   const { mutate: createProject, loading: saving } = usePostProject({
@@ -71,7 +70,6 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
       )
       nextStep?.(dataToSubmit)
       showSuccess(getString('projectsOrgs.projectCreateSuccess'))
-      onSuccess?.()
     } catch (e) {
       /* istanbul ignore next */
       modalErrorHandler?.showDanger(e.data.message)

@@ -2,13 +2,13 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper, queryByNameAttribute } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
-import { useSignupUser } from 'services/portal'
+import { useSignup } from 'services/cd-ng'
 
 import routes from '@common/RouteDefinitions'
 import SignupPage from './SignupPage'
 
-jest.mock('services/portal')
-const useSignupUserMock = useSignupUser as jest.MockedFunction<any>
+jest.mock('services/cd-ng')
+const useSignupUserMock = useSignup as jest.MockedFunction<any>
 
 describe('Signup Page', () => {
   test('The signup page renders ', () => {

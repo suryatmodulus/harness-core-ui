@@ -3,7 +3,12 @@ import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
+import {
+  Connectors,
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  CreateConnectorModalProps,
+  TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildNexusPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/strings'
@@ -60,6 +65,7 @@ const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
           type={Connectors.NEXUS}
           onClose={props.onClose}
           setIsEditMode={props.setIsEditMode}
+          stepIndex={TESTCONNECTION_STEP_INDEX}
         />
       </StepWizard>
     </>

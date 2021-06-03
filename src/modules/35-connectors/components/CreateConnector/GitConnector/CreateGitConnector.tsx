@@ -1,7 +1,12 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
+import {
+  Connectors,
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  CreateConnectorModalProps,
+  GIT_TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/strings'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
@@ -67,6 +72,7 @@ const CreateGitConnector = (props: CreateConnectorModalProps): JSX.Element => {
         isLastStep={true}
         type={Connectors.GIT}
         onClose={props.onClose}
+        stepIndex={GIT_TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

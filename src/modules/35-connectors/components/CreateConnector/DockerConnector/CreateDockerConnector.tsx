@@ -3,7 +3,7 @@ import { StepWizard, Color } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, TESTCONNECTION_STEP_INDEX } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildDockerPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/strings'
@@ -66,6 +66,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
           isLastStep={true}
           type={Connectors.DOCKER}
           onClose={props.onClose}
+          stepIndex={TESTCONNECTION_STEP_INDEX}
         />
       </StepWizard>
     </>

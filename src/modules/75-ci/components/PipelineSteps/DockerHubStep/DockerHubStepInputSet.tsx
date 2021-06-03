@@ -152,6 +152,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
       )}
       {getMultiTypeFromValue(template?.spec?.optimize) === MultiTypeInputType.RUNTIME && (
         <FormInput.CheckBox
+          className={css.checkbox}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.optimize`}
           label={getString('ci.optimize')}
           disabled={readonly}

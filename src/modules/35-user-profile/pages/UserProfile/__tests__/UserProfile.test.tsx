@@ -93,6 +93,17 @@ jest.mock('services/cd-ng', () => ({
           data: ChangePasswordResponse.PASSWORD_CHANGED
         })
     }
+  }),
+  useResendVerifyEmail: jest.fn().mockImplementation(() => {
+    return {
+      cancel: jest.fn(),
+      loading: false,
+      mutate: jest.fn().mockImplementation(() => {
+        return {
+          status: 'SUCCESS'
+        }
+      })
+    }
   })
 }))
 

@@ -185,6 +185,7 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
       )}
       {getMultiTypeFromValue(template?.spec?.optimize) === MultiTypeInputType.RUNTIME && (
         <FormInput.CheckBox
+          className={css.checkbox}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.optimize`}
           label={getString('ci.optimize')}
           disabled={readonly}

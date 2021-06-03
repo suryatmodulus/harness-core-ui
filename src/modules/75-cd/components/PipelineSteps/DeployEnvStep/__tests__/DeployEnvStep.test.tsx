@@ -69,7 +69,6 @@ describe('Test DeployEnvironment Step', () => {
       "environment:
         name: New Environment
         identifier: selected_env
-        description: null
         tags:
           cloud: GCP
           team: cdp

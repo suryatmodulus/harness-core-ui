@@ -355,7 +355,13 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                   <MultiTypeFieldSelector
                     defaultValueToReset={defaultValueToReset}
                     name={'paths'}
-                    label={<Text>{getString('common.git.filePath')}</Text>}
+                    label={
+                      <Text>
+                        {selectedManifest === ManifestDataType.K8sManifest
+                          ? getString('fileFolderPathText')
+                          : getString('common.git.filePath')}
+                      </Text>
+                    }
                     style={{ width: 370 }}
                   >
                     <FieldArray

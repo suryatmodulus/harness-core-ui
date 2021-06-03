@@ -69,7 +69,8 @@ export const calculateDepth = <T>(
     groupMaxDepth += spaceAfterGroup
   }
 
-  return Math.max(groupMaxDepth, depth)
+  // NOTE: condition "groupMaxDepth < depth" makes empty group height equal to group with one step
+  return groupMaxDepth < depth ? groupMaxDepth + depth : groupMaxDepth
 }
 
 export const calculateGroupHeaderDepth = <T>(items: Array<ExecutionPipelineNode<T>>, HEADER_DEPTH: number): number => {
@@ -91,7 +92,11 @@ export const calculateGroupHeaderDepth = <T>(items: Array<ExecutionPipelineNode<
   return maxNum
 }
 
-export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): React.CSSProperties => {
+export const getNodeStyles = (
+  isSelected: boolean,
+  status: ExecutionStatus,
+  type: ExecutionPipelineNodeType
+): React.CSSProperties => {
   const style = {} as React.CSSProperties
 
   style.borderColor = 'var(--execution-pipeline-color-grey)'
@@ -124,8 +129,14 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): Rea
         style.backgroundColor = 'var(--white)'
         break
       case ExecutionStatusEnum.Aborted:
-        style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
-        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-dark-grey2)' : 'var(--white)'
+        if (type === ExecutionPipelineNodeType.DIAMOND) {
+          style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
+          style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : 'var(--red-50)'
+        } else {
+          style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
+          style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-dark-grey2)' : 'var(--white)'
+        }
+
         break
       case ExecutionStatusEnum.ApprovalRejected:
       case ExecutionStatusEnum.Failed:
@@ -194,6 +205,12 @@ export const getStatusProps = (
         secondaryIconProps.color = Color.WHITE
         break
       case ExecutionStatusEnum.Aborted:
+        secondaryIcon = 'circle-cross'
+        secondaryIconStyle.animation = `${css.fadeIn} 1s`
+        secondaryIconStyle.color = 'var(--red-600)'
+        secondaryIconStyle.backgroundColor = 'var(--white)'
+        secondaryIconStyle.borderRadius = '50%'
+        break
       case ExecutionStatusEnum.Expired:
         secondaryIcon = 'execution-abort'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`

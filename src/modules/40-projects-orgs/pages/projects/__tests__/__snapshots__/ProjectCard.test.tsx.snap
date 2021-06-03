@@ -586,7 +586,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
               href="/account/testAcc/ce/home"
             >
               <p
-                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-blue600 StyledProps--font-size-xsmall"
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall"
               >
                 projectsOrgs.gotoCloudCosts
               </p>
@@ -1556,7 +1556,7 @@ exports[`Project Card test initializes ok  1`] = `
               href="/account/testAcc/ce/home"
             >
               <p
-                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-blue600 StyledProps--font-size-xsmall"
+                class="StyledProps--font StyledProps--main moduleLink StyledProps--color StyledProps--color-primary6 StyledProps--font-size-xsmall"
               >
                 projectsOrgs.gotoCloudCosts
               </p>

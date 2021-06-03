@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { render, waitFor, getByText as getByTextBody, queryByAttribute, fireEvent, act } from '@testing-library/react'
+import { render, waitFor, getByText as getByTextBody } from '@testing-library/react'
 
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import InlineVarFile from '../Editview/InlineVarFile'
@@ -17,6 +17,11 @@ const props = {
   onClose: jest.fn(),
   onSubmit: jest.fn()
 }
+
+jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => {
+  return <textarea value={value} onChange={e => onChange(e.target.value)} name={name || 'spec.source.spec.script'} />
+})
+
 describe('Inline var file testing', () => {
   test('initial render', async () => {
     render(
@@ -27,25 +32,6 @@ describe('Inline var file testing', () => {
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'Add Inline Terraform Var File'))
     expect(dialog).toMatchSnapshot()
-  })
-
-  test('fill form and click submit', async () => {
-    render(
-      <TestWrapper>
-        <InlineVarFile {...props} />
-      </TestWrapper>
-    )
-    const dialog = findDialogContainer() as HTMLElement
-    await waitFor(() => getByTextBody(dialog, 'Add Inline Terraform Var File'))
-    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', dialog, name)
-    await act(async () => {
-      fireEvent.change(queryByNameAttribute('varFile.identifier')!, { target: { value: 'testidentifier' } })
-      fireEvent.change(queryByNameAttribute('varFile.spec.content')!, { target: { value: 'test content' } })
-    })
-    fireEvent.click(dialog.querySelector('button[type="submit"]')!)
-    await waitFor(() => {
-      expect(props.onSubmit).toBeCalled()
-    })
   })
 
   test('edit view for inline vars', async () => {

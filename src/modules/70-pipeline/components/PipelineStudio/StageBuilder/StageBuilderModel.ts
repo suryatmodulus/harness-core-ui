@@ -91,8 +91,8 @@ export class StageBuilderModel extends DiagramModel {
             conditionalExecutionEnabled: node.stage.when
               ? node.stage.when?.pipelineStatus !== 'Success' || !!node.stage.when?.condition?.trim()
               : false,
-            iconStyle: { color: isSelected ? 'var(--white)' : type.iconColor },
-            icon: type.icon
+            iconStyle: { color: isSelected ? 'var(--white)' : type?.iconColor },
+            icon: type?.icon
           })
         : new DefaultNodeModel({
             identifier: node.stage.identifier,
@@ -110,7 +110,7 @@ export class StageBuilderModel extends DiagramModel {
             allowAdd: allowAdd === true && !isReadonly,
             height: 50,
             iconStyle: { color: isSelected ? 'var(--white)' : type?.iconColor },
-            icon: type.icon,
+            icon: type?.icon,
             ...(node.stage.when && {})
           })
 
@@ -132,11 +132,11 @@ export class StageBuilderModel extends DiagramModel {
             const type = stagesMap[nodeP.stage.type]
             if (nodeP.stage.identifier === selectedStageId) {
               parallelStageNames.unshift(nodeP.stage.name)
-              icons.unshift(type.icon)
+              icons.unshift(type?.icon)
               isSelected = true
             } else {
               parallelStageNames.push(nodeP.stage.name)
-              icons.push(type.icon)
+              icons.push(type?.icon)
             }
           })
           const groupedNode = new GroupNodeModel({

@@ -1261,7 +1261,6 @@ export interface ConnectorInfoDTO {
     | 'HttpHelmRepo'
     | 'NewRelic'
     | 'Datadog'
-    | 'SumoLogic'
   spec: ConnectorConfigDTO
 }
 

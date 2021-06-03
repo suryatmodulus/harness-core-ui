@@ -170,7 +170,7 @@ exports[`Inline var file testing edit view for inline vars 1`] = `
               class="bp3-form-content"
             >
               <div
-                class="bp3-form-group"
+                class="bp3-form-group contentTextArea"
               >
                 <div
                   class="bp3-form-content"
@@ -377,7 +377,7 @@ exports[`Inline var file testing initial render 1`] = `
               class="bp3-form-content"
             >
               <div
-                class="bp3-form-group"
+                class="bp3-form-group contentTextArea"
               >
                 <div
                   class="bp3-form-content"

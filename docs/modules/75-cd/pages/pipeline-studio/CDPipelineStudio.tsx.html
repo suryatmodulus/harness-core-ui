@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/25</span>
+                <span class='fraction'>28/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">77.27% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/20</span>
+                <span class='fraction'>17/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/25</span>
+                <span class='fraction'>28/30</span>
             </div>
         
             
@@ -131,7 +131,24 @@
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -148,11 +165,27 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,6 +237,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
@@ -222,6 +256,8 @@ import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
+import { getCDTrialDialog, TrialType } from '@cd/modals/CDTrial/useCDTrialModal'
+import type { NgPipeline } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import css from './CDPipelineStudio.module.scss'
 &nbsp;
@@ -233,6 +269,20 @@ const CDPipelineStudio: React.FC = (): JSX.Element =&gt; {
   const { branch, repoIdentifier } = useQueryParams&lt;GitQueryParams&gt;()
 &nbsp;
   const history = useHistory()
+&nbsp;
+  const getTrialPipelineCreateForm = <span class="fstat-no" title="function not covered" >(</span>
+    onSubmit: (values: NgPipeline) =&gt; void,
+    onClose: () =&gt; void
+  ): React.ReactElement =&gt; {
+<span class="cstat-no" title="statement not covered" >    return getCDTrialDialog({</span>
+      actionProps: { onSuccess: onSubmit, onCloseModal: onClose },
+      trialType: TrialType.SET_UP_PIPELINE
+    })
+  }
+&nbsp;
+  const { modal } = useQueryParams&lt;{ modal?: string }&gt;()
+&nbsp;
+  const getOtherModal = modal === 'trial' ? <span class="branch-0 cbranch-no" title="branch not covered" >getTrialPipelineCreateForm </span>: undefined
   const handleRunPipeline = <span class="fstat-no" title="function not covered" >(): void =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >    history.push(</span>
       routes.toRunPipeline({
@@ -273,6 +323,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element =&gt; {
         routePipelineProject={routes.toDeployments}
         routePipelineDetail={routes.toPipelineDetail}
         routePipelineList={routes.toPipelines}
+        getOtherModal={getOtherModal}
       /&gt;
     &lt;/PipelineProvider&gt;
   )
@@ -286,7 +337,7 @@ export default CDPipelineStudio
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 18:52:16 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 20:55:05 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

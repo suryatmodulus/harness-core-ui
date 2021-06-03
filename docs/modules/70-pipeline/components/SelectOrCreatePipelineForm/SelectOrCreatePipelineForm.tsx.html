@@ -129,27 +129,24 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">8x</span>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,9 +177,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -243,14 +237,14 @@ export const SelectOrCreatePipelineForm: React.FC&lt;SelectOrCreatePipelineFormP
       formName="selectCreatePipeline"
     &gt;
       &lt;Form&gt;
-        &lt;Text style={{ color: Color.BLACK, paddingBottom: 8, fontWeight: 600, fontSize: 'large' }}&gt;
+        &lt;Text color={Color.BLACK} padding={{ bottom: 8 }} font={{ weight: 'bold', size: 'large' }}&gt;
           {getString('pipeline.selectOrCreatePipeline.setupHeader')}
         &lt;/Text&gt;
-        &lt;Text style={{ fontSize: 'normal', color: Color.BLACK, paddingBottom: 40 }}&gt;
+        &lt;Text font={{ size: 'normal' }} color={Color.BLACK} padding={{ bottom: 40 }}&gt;
           {getString('common.letsGetYouStarted')}
         &lt;/Text&gt;
         &lt;Layout.Vertical padding={{ top: 'large', bottom: 'small' }} spacing="small"&gt;
-          &lt;Text style={{ fontSize: 'normal', color: Color.BLACK }}&gt;
+          &lt;Text font={{ size: 'normal' }} color={Color.BLACK}&gt;
             {getString('pipeline.selectOrCreatePipeline.selectAPipeline')}
           &lt;/Text&gt;
           &lt;PipelineSelect
@@ -263,18 +257,15 @@ export const SelectOrCreatePipelineForm: React.FC&lt;SelectOrCreatePipelineFormP
           &lt;FormInput.Text name="pipelineRequired" className={css.pipelineRequired} /&gt;
         &lt;/Layout.Vertical&gt;
         &lt;Layout.Horizontal padding={{ top: 'large' }} spacing="medium"&gt;
-          &lt;Button intent="primary" text={getString('continue')} type="submit" style={{ fontSize: 11 }} /&gt;
+          &lt;Button intent="primary" text={getString('continue')} type="submit" /&gt;
           &lt;Button
             text={getString('pipeline.createANewPipeline')}
-            style={{
-              textAlign: 'center',
-              padding: 7,
-              width: 150,
-              height: 33,
-              display: 'inline-block',
-              borderWidth: 1,
-              fontSize: 11
-            }}
+            alignText={'center'}
+            padding={'small'}
+            width={200}
+            height={33}
+            inline
+            border={{ width: 1 }}
             onClick={openCreatPipeLineModal}
           /&gt;
         &lt;/Layout.Horizontal&gt;
@@ -289,7 +280,7 @@ export const SelectOrCreatePipelineForm: React.FC&lt;SelectOrCreatePipelineFormP
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 18:52:16 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 20:55:05 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

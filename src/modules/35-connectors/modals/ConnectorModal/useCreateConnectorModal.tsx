@@ -36,7 +36,8 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     style: {
-      width: 1175,
+      width: 'auto',
+      minWidth: 1175,
       minHeight: 640,
       borderLeft: 0,
       paddingBottom: 0,

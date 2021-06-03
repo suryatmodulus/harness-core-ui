@@ -13,5 +13,7 @@ declare const styles: {
   readonly commandsContainer: string
   readonly main: string
   readonly editOpen: string
+  readonly extension: string
+  readonly closeBtn: string
 }
 export default styles

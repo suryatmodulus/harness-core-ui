@@ -14,41 +14,40 @@ import CreateServicePrincipal from './CreateServicePrincipal'
 // Below is the new one:
 import Overview from './Steps/Overview/AzureConnectorOverview'
 import Billing from './Steps/Billing/AzureConnectorBilling'
-
+import ModalExtension from './ModalExtension'
+import AzureConnectorBillingExtension from './Steps/Billing/AzureConnectorBillingExtension'
 import css from './CreateCeAzureConnector.module.scss'
 
 const CreateCeAzureConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
   return (
-    <StepWizard
-      icon={getConnectorIconByType(Connectors.CE_AZURE)}
-      iconProps={{ size: 40 }}
-      title={getString(getConnectorTitleIdByType(Connectors.CE_AZURE))}
-      className={css.azureConnector}
-    >
-      <Billing name={'Azure Billing Export'} />
-      <Overview
-        type={Connectors.CE_AZURE}
-        name={getString('overview')}
-        isEditMode={props.isEditMode}
-        connectorInfo={props.connectorInfo}
-        gitDetails={props.gitDetails}
-      />
-      <CreateServicePrincipal name={'Create Service Principal'} />
-      <VerifyOutOfClusterDelegate
-        name={getString('connectors.verifyConnection')}
-        onClose={props.onClose}
-        isStep
-        isLastStep
-        type={Connectors.CE_AZURE}
-        connectorInfo={props.connectorInfo}
-      />
-    </StepWizard>
+    <ModalExtension renderExtension={AzureConnectorBillingExtension}>
+      <StepWizard
+        icon={getConnectorIconByType(Connectors.CE_AZURE)}
+        iconProps={{ size: 40 }}
+        title={getString(getConnectorTitleIdByType(Connectors.CE_AZURE))}
+        className={css.azureConnector}
+      >
+        <Billing name={'Azure Billing Export'} />
+        <Overview
+          type={Connectors.CE_AZURE}
+          name={getString('overview')}
+          isEditMode={props.isEditMode}
+          connectorInfo={props.connectorInfo}
+          gitDetails={props.gitDetails}
+        />
+        <CreateServicePrincipal name={'Create Service Principal'} />
+        <VerifyOutOfClusterDelegate
+          name={getString('connectors.verifyConnection')}
+          onClose={props.onClose}
+          isStep
+          isLastStep
+          type={Connectors.CE_AZURE}
+          connectorInfo={props.connectorInfo}
+        />
+      </StepWizard>
+    </ModalExtension>
   )
 }
 
 export default CreateCeAzureConnector
-
-{
-  /* <AzureBillingInfo {...props} name={'Azure Connection Details'} onSuccess={props.onSuccess} /> */
-}

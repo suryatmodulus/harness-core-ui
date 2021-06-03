@@ -88,7 +88,7 @@ const BillingExport: React.FC<StepProps<ConnectorInfoDTO>> = props => {
         >
           {() => {
             return (
-              <FormikForm>
+              <FormikForm style={{ padding: '10px 0 25px' }}>
                 <Container style={{ minHeight: 300 }}>
                   <Container className={cx(css.main, css.dataFields)}>
                     <FormInput.Text name={'storageAccount'} label={'Storage Account Name'} />

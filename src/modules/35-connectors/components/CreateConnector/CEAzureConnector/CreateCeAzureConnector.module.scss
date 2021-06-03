@@ -1,4 +1,6 @@
 .azureConnector {
+  height: 100%;
+  width: 100%;
   :global {
     span[data-icon='service-azure'] {
       svg > g {
@@ -7,10 +9,18 @@
     }
   }
 
+  // if the content of the StepWizard is more than
+  // the height of the 'stepDetails' section, which is 640px here,
+  // in that case make it scrollable instead of making the
+  // whole the StepWizard bigger.
+  [class*='StepWizard--stepDetails'] {
+    overflow-y: auto;
+  }
+
   .stepContainer {
     height: 100%;
     position: relative;
-    padding: var(--spacing-medium) 0 0 var(--spacing-medium) !important;
+    padding: var(--spacing-medium) !important;
     :global {
       .OverlaySpinner--overlaySpinner {
         height: 100%;
@@ -34,7 +44,7 @@
 
   .dataFields,
   .launchTemplateSection {
-    width: 50%;
+    width: 65%;
   }
 
   .launchTemplateBtn {
@@ -101,5 +111,41 @@
     &:hover {
       color: var(--primary-7) !important;
     }
+  }
+}
+
+.extension {
+  width: 500px;
+  position: relative;
+  background: #fefefe;
+  box-shadow: 0px 2px 4px rgba(40, 41, 61, 0.04), 0px 8px 16px rgba(96, 97, 112, 0.16);
+  border-radius: 4px;
+  padding: 70px 25px 15px;
+  overflow-y: auto;
+  position: relative;
+
+  .header {
+    margin-bottom: var(--spacing-large) !important;
+  }
+
+  ul,
+  ol {
+    padding-left: 15px !important;
+    font-size: small;
+    color: var(--grey-1000);
+    margin-top: var(--spacing-xsmall);
+
+    li {
+      padding: var(--spacing-xsmall) 0 !important;
+    }
+  }
+
+  .closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
   }
 }

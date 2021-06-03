@@ -31,7 +31,7 @@ export const IdentifierValidation = (optional?: boolean) => {
     identifier.required(getString('validation.identifierRequired'))
   }
 
-  return identifier
+  return { identifier }
 }
 
 const getStageTree = (

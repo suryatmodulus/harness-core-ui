@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -239,24 +239,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -268,8 +268,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -305,21 +305,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -352,7 +352,7 @@ import { Heading, Layout, Text, Container, Button, Color, Icon } from '@wings-so
 import { useParams, useHistory } from 'react-router-dom'
 import type { MutateMethod } from 'restful-react'
 import { useToaster } from '@common/components'
-import { useStartTrial, RestResponseModuleLicenseInfo, StartTrialRequestBody } from 'services/portal'
+import { useStartTrialLicense, ResponseModuleLicenseDTO, StartTrialRequestDTO } from 'services/cd-ng'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, TrialActions } from '@common/constants/TrackingConstants'
@@ -378,7 +378,7 @@ interface StartTrialProps {
     onClick?: () =&gt; void
   }
   shouldShowStartTrialModal?: boolean
-  startTrial: MutateMethod&lt;RestResponseModuleLicenseInfo, void, StartTrialRequestBody, void&gt;
+  startTrial: MutateMethod&lt;ResponseModuleLicenseDTO, void, StartTrialRequestDTO, void&gt;
   module: Module
   loading: boolean
 }
@@ -401,7 +401,7 @@ const StartTrialComponent: React.FC&lt;StartTrialProps&gt; = startTrialProps =&g
         search: '?trial=true'
       })
     } catch (error) {
-      showError(error.data<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>essage)
+      showError(error.data?.message)
     }
   }
 &nbsp;
@@ -438,7 +438,7 @@ const StartTrialComponent: React.FC&lt;StartTrialProps&gt; = startTrialProps =&g
           text={startBtn.description}
           onClick={startBtn.onClick ? startBtn.onClick : handleStartButtonClick}
         /&gt;
-        {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Icon name="steps-spinner" size={20} color={Color.BLUE_600} style={{ marginBottom: 7 }} /&gt;}</span>
+        {loading &amp;&amp; &lt;Icon name="steps-spinner" size={20} color={Color.BLUE_600} style={{ marginBottom: 7 }} /&gt;}
       &lt;/Layout.Horizontal&gt;
     &lt;/Layout.Vertical&gt;
   )
@@ -454,11 +454,11 @@ export const StartTrialTemplate: React.FC&lt;StartTrialTemplateProps&gt; = ({
     accountId: string
   }&gt;()
 &nbsp;
-  const startTrialRequestBody: StartTrialRequestBody = {
-    moduleType: module.toUpperCase()
+  const startTrialRequestBody: StartTrialRequestDTO = {
+    moduleType: module.toUpperCase() as any
   }
 &nbsp;
-  const { mutate: startTrial, loading } = useStartTrial({
+  const { mutate: startTrial, loading } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }
@@ -499,7 +499,7 @@ export const StartTrialTemplate: React.FC&lt;StartTrialTemplateProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 02 2021 16:39:27 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 05:46:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -45,7 +45,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       getMultiTypeFromValue(
         inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
       ) === MultiTypeInputType.RUNTIME &&
-      getMultiTypeFromValue(connectorValue.value) !== MultiTypeInputType.RUNTIME
+      getMultiTypeFromValue(connectorValue?.value) !== MultiTypeInputType.RUNTIME
     ) {
       refetch()
     }

@@ -1849,7 +1849,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                   <p
                     class="StyledProps--font StyledProps--main title"
                   >
-                    ce.co.autoStoppingRule.configuration.step4.title
+                    ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
                   </p>
                   <div
                     class="childrenContainer"
@@ -4238,7 +4238,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                   <p
                     class="StyledProps--font StyledProps--main title"
                   >
-                    ce.co.autoStoppingRule.configuration.step4.title
+                    ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
                   </p>
                   <div
                     class="childrenContainer"
@@ -5857,7 +5857,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main title"
                   >
-                    ce.co.autoStoppingRule.configuration.step4.title
+                    ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
                   </p>
                   <div
                     class="childrenContainer"

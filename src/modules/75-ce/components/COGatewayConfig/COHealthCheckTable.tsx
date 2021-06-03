@@ -23,35 +23,37 @@ const protocols: SelectItem[] = [
 ]
 
 interface COHealthCheckTableProps {
-  pattern: HealthCheck
+  pattern: HealthCheck | null
   updatePattern: (pattern: HealthCheck) => void
 }
 const COHealthCheckTable: React.FC<COHealthCheckTableProps> = props => {
-  const [helathCheckPattern, setHealthCheckPattern] = useState<HealthCheck[]>([props.pattern])
+  const [healthCheckPattern, setHealthCheckPattern] = useState<HealthCheck[]>(props.pattern ? [props.pattern] : [])
 
   useEffect(() => {
-    props.updatePattern(helathCheckPattern[0])
-  }, [helathCheckPattern])
+    props.updatePattern(healthCheckPattern[0])
+  }, [healthCheckPattern])
+
   function updateHealthCheckPattern(column: string, val: string) {
+    const pattern = { ...healthCheckPattern[0] }
     switch (column) {
       case 'protocol': {
-        props.pattern['protocol'] = val
+        pattern['protocol'] = val
         break
       }
       case 'port': {
-        props.pattern['port'] = val
+        pattern['port'] = +val
         break
       }
       case 'path': {
-        props.pattern['path'] = val
+        pattern['path'] = val
         break
       }
       case 'timeout': {
-        props.pattern['timeout'] = val
+        pattern['timeout'] = +val
         break
       }
     }
-    setHealthCheckPattern([props.pattern])
+    setHealthCheckPattern([pattern])
   }
   const updateInput = useCallback(debounce(updateHealthCheckPattern, 1000), [])
   function getItembyValue(items: SelectItem[], value: string): SelectItem {
@@ -83,7 +85,7 @@ const COHealthCheckTable: React.FC<COHealthCheckTableProps> = props => {
   }
   return (
     <Table<HealthCheck>
-      data={helathCheckPattern}
+      data={healthCheckPattern}
       bpTableProps={{}}
       className={css.healthCheckTable}
       columns={[

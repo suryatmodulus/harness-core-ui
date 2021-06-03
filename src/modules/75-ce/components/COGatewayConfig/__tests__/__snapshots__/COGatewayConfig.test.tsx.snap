@@ -407,7 +407,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ce.co.autoStoppingRule.configuration.step4.title
+            ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
         </div>
       </div>
@@ -1040,7 +1040,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ce.co.autoStoppingRule.configuration.step4.title
+            ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
           <div
             class="childrenContainer"
@@ -2327,7 +2327,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ce.co.autoStoppingRule.configuration.step4.title
+            ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
           <div
             class="childrenContainer"
@@ -3361,7 +3361,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ce.co.autoStoppingRule.configuration.step4.title
+            ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
           <div
             class="childrenContainer"

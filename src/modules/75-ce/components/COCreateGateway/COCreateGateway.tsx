@@ -6,6 +6,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import COProviderSelector from '@ce/components/COProviderSelector/COProviderSelector'
 import { useQueryParams } from '@common/hooks'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
+import { Utils } from '@ce/common/Utils'
 // import type { Provider } from '@ce/components/COCreateGateway/models'
 import type { GatewayDetails } from './models'
 
@@ -62,12 +63,7 @@ export const CECODashboardPage: React.FC = () => {
       lb: '',
       ports: []
     },
-    healthCheck: {
-      protocol: 'http',
-      path: '/',
-      port: 80,
-      timeout: 30
-    },
+    healthCheck: Utils.getDefaultRuleHealthCheck(),
     opts: {
       preservePrivateIP: false,
       deleteCloudResources: false,

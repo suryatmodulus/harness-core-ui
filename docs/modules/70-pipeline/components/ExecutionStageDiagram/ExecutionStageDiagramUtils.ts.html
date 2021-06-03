@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.8% </span>
+                <span class="strong">73.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>187/250</span>
+                <span class='fraction'>190/259</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.88% </span>
+                <span class="strong">53.05% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>139/258</span>
+                <span class='fraction'>139/262</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.68% </span>
+                <span class="strong">72.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>168/228</span>
+                <span class='fraction'>171/237</span>
             </div>
         
             
@@ -484,7 +484,23 @@
 <a name='L425'></a><a href='#L425'>425</a>
 <a name='L426'></a><a href='#L426'>426</a>
 <a name='L427'></a><a href='#L427'>427</a>
-<a name='L428'></a><a href='#L428'>428</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L428'></a><a href='#L428'>428</a>
+<a name='L429'></a><a href='#L429'>429</a>
+<a name='L430'></a><a href='#L430'>430</a>
+<a name='L431'></a><a href='#L431'>431</a>
+<a name='L432'></a><a href='#L432'>432</a>
+<a name='L433'></a><a href='#L433'>433</a>
+<a name='L434'></a><a href='#L434'>434</a>
+<a name='L435'></a><a href='#L435'>435</a>
+<a name='L436'></a><a href='#L436'>436</a>
+<a name='L437'></a><a href='#L437'>437</a>
+<a name='L438'></a><a href='#L438'>438</a>
+<a name='L439'></a><a href='#L439'>439</a>
+<a name='L440'></a><a href='#L440'>440</a>
+<a name='L441'></a><a href='#L441'>441</a>
+<a name='L442'></a><a href='#L442'>442</a>
+<a name='L443'></a><a href='#L443'>443</a>
+<a name='L444'></a><a href='#L444'>444</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -579,6 +595,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
@@ -612,7 +632,13 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -681,11 +707,17 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1005,7 +1037,11 @@ export const calculateGroupHeaderDepth = &lt;T&gt;(items: Array&lt;ExecutionPipe
   return maxNum
 }
 &nbsp;
-export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): React.CSSProperties =&gt; {
+export const getNodeStyles = (
+  isSelected: boolean,
+  status: ExecutionStatus,
+  type: ExecutionPipelineNodeType
+): React.CSSProperties =&gt; {
   const style = {} as React.CSSProperties
 &nbsp;
   style.borderColor = 'var(--execution-pipeline-color-grey)'
@@ -1038,8 +1074,14 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): Rea
         style.backgroundColor = 'var(--white)'
         break
       case ExecutionStatusEnum.Aborted:
-        style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
-        style.backgroundColor = isSelected ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--execution-pipeline-color-dark-grey2)' </span>: 'var(--white)'
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (type === ExecutionPipelineNodeType.DIAMOND) {
+<span class="cstat-no" title="statement not covered" >          style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'</span>
+<span class="cstat-no" title="statement not covered" >          style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : 'var(--red-50)'</span>
+        } else {
+          style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
+          style.backgroundColor = isSelected ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--execution-pipeline-color-dark-grey2)' </span>: 'var(--white)'
+        }
+&nbsp;
         break
 <span class="branch-8 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.ApprovalRejected:</span>
       case ExecutionStatusEnum.Failed:
@@ -1108,11 +1150,17 @@ export const getStatusProps = (
         secondaryIconProps.color = Color.WHITE
         break
       case ExecutionStatusEnum.Aborted:
-      case ExecutionStatusEnum.Expired:
-        secondaryIcon = 'execution-abort'
+        secondaryIcon = 'circle-cross'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
-        secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-grey2)'
+        secondaryIconStyle.color = 'var(--red-600)'
+        secondaryIconStyle.backgroundColor = 'var(--white)'
+        secondaryIconStyle.borderRadius = '50%'
         break
+<span class="branch-5 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.Expired:</span>
+<span class="cstat-no" title="statement not covered" >        secondaryIcon = 'execution-abort'</span>
+<span class="cstat-no" title="statement not covered" >        secondaryIconStyle.animation = `${css.fadeIn} 1s`</span>
+<span class="cstat-no" title="statement not covered" >        secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-grey2)'</span>
+<span class="cstat-no" title="statement not covered" >        break</span>
       case ExecutionStatusEnum.Paused:
       case ExecutionStatusEnum.Pausing:
         secondaryIcon = 'execution-input'
@@ -1345,7 +1393,7 @@ export const getConditionalExecutionFlag = (when: NodeRunInfo): boolean =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 10:53:45 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 11:07:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

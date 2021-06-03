@@ -7,9 +7,8 @@ import ExecutionGraph, {
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
-import type { ApprovalStageExecutionProps } from './types'
 
-export const ApprovalStageExecution: React.FC<ApprovalStageExecutionProps> = () => {
+export const ApprovalStageExecution: React.FC = () => {
   const {
     state: {
       pipeline,

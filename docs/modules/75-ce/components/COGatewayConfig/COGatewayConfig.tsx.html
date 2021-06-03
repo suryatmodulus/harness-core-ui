@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.23% </span>
+                <span class="strong">71.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>203/285</span>
+                <span class='fraction'>204/286</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.37% </span>
+                <span class="strong">61.54% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>197/321</span>
+                <span class='fraction'>200/325</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.53% </span>
+                <span class="strong">71.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>201/281</span>
+                <span class='fraction'>202/282</span>
             </div>
         
             
@@ -1186,7 +1186,15 @@
 <a name='L1127'></a><a href='#L1127'>1127</a>
 <a name='L1128'></a><a href='#L1128'>1128</a>
 <a name='L1129'></a><a href='#L1129'>1129</a>
-<a name='L1130'></a><a href='#L1130'>1130</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L1130'></a><a href='#L1130'>1130</a>
+<a name='L1131'></a><a href='#L1131'>1131</a>
+<a name='L1132'></a><a href='#L1132'>1132</a>
+<a name='L1133'></a><a href='#L1133'>1133</a>
+<a name='L1134'></a><a href='#L1134'>1134</a>
+<a name='L1135'></a><a href='#L1135'>1135</a>
+<a name='L1136'></a><a href='#L1136'>1136</a>
+<a name='L1137'></a><a href='#L1137'>1137</a>
+<a name='L1138'></a><a href='#L1138'>1138</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1818,6 +1826,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2292,7 +2306,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2941,6 +2957,12 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
     }
   }
 &nbsp;
+  const step4Title = isAwsProvider
+    ? `${getString('ce.co.gatewayReview.routing')}, ${getString('ce.co.gatewayConfig.healthCheck')} and ${getString(
+        'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration'
+      )}`
+    : <span class="branch-1 cbranch-no" title="branch not covered" >`${getString('ce.co.gatewayReview.routing')} and ${getString('ce.co.gatewayConfig.healthCheck')}`</span>
+&nbsp;
   return (
     &lt;Layout.Vertical ref={configContEl} className={css.page}&gt;
       {/* {drawerOpen &amp;&amp; (
@@ -3320,7 +3342,7 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
           &lt;/COGatewayConfigStep&gt;
           &lt;COGatewayConfigStep
             count={4}
-            title={getString('ce.co.autoStoppingRule.configuration.step4.title')}
+            title={`${getString('ce.co.autoStoppingRule.configuration.step4.setup')} ${step4Title}`}
             totalStepsCount={4}
             id={CONFIG_STEP_IDS[3]}
           &gt;
@@ -3382,13 +3404,14 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
                         &lt;/Container&gt;
                       }
                     /&gt;
-                    &lt;Tab
-                      id="advanced"
-                      title="Advanced Configuration"
-                      panel={
-                        &lt;Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}&gt;
-                          &lt;Layout.Vertical spacing="medium" style={{ padding: '32px' }}&gt;
-                            {/* &lt;Switch
+                    {isAwsProvider &amp;&amp; (
+                      &lt;Tab
+                        id="advanced"
+                        title="Advanced Configuration"
+                        panel={
+                          &lt;Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}&gt;
+                            &lt;Layout.Vertical spacing="medium" style={{ padding: '32px' }}&gt;
+                              {/* &lt;Switch
                               label={getString('ce.co.gatewayConfig.allowTraffic')}
                               width="50%"
                               className={css.switchFont}
@@ -3410,28 +3433,29 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
                                 props.setGatewayDetails(props.gatewayDetails)
                               }}
                             /&gt; */}
-                            {serviceDependencies &amp;&amp; serviceDependencies.length ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                              &lt;CORuleDendencySelector</span>
-                                deps={serviceDependencies}
-                                setDeps={setServiceDependencies}
-                                service_id={props.gatewayDetails.id}
-                                allServices={data?.response as Service[]}
-                              &gt;&lt;/CORuleDendencySelector&gt;
-                            ) : null}
-                            &lt;Container&gt;
-                              &lt;Text
-                                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                                  addDependency()</span>
-                                }}
-                                style={{ color: 'var(--primary-7)', cursor: 'pointer' }}
-                              &gt;
-                                {'+ add dependency'}
-                              &lt;/Text&gt;
-                            &lt;/Container&gt;
-                          &lt;/Layout.Vertical&gt;
-                        &lt;/Container&gt;
-                      }
-                    /&gt;
+                              {serviceDependencies &amp;&amp; serviceDependencies.length ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >                                &lt;CORuleDendencySelector</span>
+                                  deps={serviceDependencies}
+                                  setDeps={setServiceDependencies}
+                                  service_id={props.gatewayDetails.id}
+                                  allServices={data?.response as Service[]}
+                                &gt;&lt;/CORuleDendencySelector&gt;
+                              ) : null}
+                              &lt;Container&gt;
+                                &lt;Text
+                                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                                    addDependency()</span>
+                                  }}
+                                  style={{ color: 'var(--primary-7)', cursor: 'pointer' }}
+                                &gt;
+                                  {'+ add dependency'}
+                                &lt;/Text&gt;
+                              &lt;/Container&gt;
+                            &lt;/Layout.Vertical&gt;
+                          &lt;/Container&gt;
+                        }
+                      /&gt;
+                    )}
                   &lt;/Tabs&gt;
                 &lt;/Container&gt;
               &lt;/Container&gt;
@@ -3451,7 +3475,7 @@ export default COGatewayConfig
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 10:09:31 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 10:52:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -260,6 +260,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               if (_clearStatus && !isCreateMode) {
                 setSelectedApCore({ label: '', value: '' })
                 updateLoadBalancerDetails('', '')
+                setSelectedLoadBalancer(undefined)
               }
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
@@ -289,6 +290,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               if (_clearStatus && !isCreateMode) {
                 setSelectedApCore({ label: '', value: '' })
                 updateLoadBalancerDetails('', '')
+                setSelectedLoadBalancer(undefined)
               }
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()

@@ -129,7 +129,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
       region: (selectedRegion?.value || loadBalancer.region) as string,
       resource_group_name: (selectedResourceGroup?.value || loadBalancer.metadata?.resource_group) as string,
       accountIdentifier: accountId,
-      app_gateway_id: loadBalancer.metadata?.app_gateway_id
+      ...(loadBalancer.metadata?.app_gateway_id && { app_gateway_id: loadBalancer.metadata?.app_gateway_id })
     },
     lazy: true
   })

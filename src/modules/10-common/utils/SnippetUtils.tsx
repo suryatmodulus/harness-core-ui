@@ -17,6 +17,9 @@ export const getIconNameForTag = (tag: string): IconName => {
   }
 }
 
+// eslint-disable-next-line
+// @ts-ignore
+// Facing type issue after updating to latest cdng BE, so disabling type check till it is fixed
 const entitySubTypeToTagMap: {
   [key in ConnectorInfoDTO['type']]: GetYamlSnippetMetadataQueryParams['tags'][number]
 } = {

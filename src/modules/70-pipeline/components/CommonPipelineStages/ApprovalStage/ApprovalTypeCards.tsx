@@ -1,10 +1,10 @@
 import React from 'react'
 import type { FormikValues } from 'formik'
 import { Card, CardSelect, CardSelectType, Color, Icon, Layout, Text } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { ApprovalCardsViewData } from './types'
 import css from './ApprovalStageMinimalMode.module.scss'
-import { useStrings } from 'framework/strings'
 
 export const approvalTypeCardsData: ApprovalCardsViewData[] = [
   {

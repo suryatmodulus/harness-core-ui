@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import YAML from 'yaml'
+import produce from 'immer'
 import { Button, Color, Icon, Layout, Tab, Tabs } from '@wings-software/uicore'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
@@ -15,7 +16,6 @@ import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
 import ApprovalAdvancedSpecifications from './ApprovalStageAdvanced'
 import css from './ApprovalStageSetupShellMode.module.scss'
-import produce from 'immer'
 
 interface ApprovalStageElementConfig extends StageElementConfig {
   approvalType?: string

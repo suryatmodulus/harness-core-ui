@@ -71,8 +71,8 @@ const AzureApDnsMapping: React.FC<AzureApDnsMappingProps> = props => {
             {/* {!isSaving && ( */}
             <Button
               intent="primary"
-              text={createMode ? 'Continue' : 'Save'}
-              rightIcon={createMode ? 'chevron-right' : undefined}
+              text={'Continue'}
+              rightIcon={'chevron-right'}
               onClick={submitForm}
               disabled={!(values.customDomain && values.name)}
               className={css.saveBtn}

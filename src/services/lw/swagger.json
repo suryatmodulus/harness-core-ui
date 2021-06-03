@@ -1355,6 +1355,12 @@
           "in": "query",
           "required": true,
           "type": "string"
+        },
+        {
+          "name": "app_gateway_id",
+          "in": "query",
+          "required": false,
+          "type": "string"
         }
       ],
       "get": {
@@ -3417,7 +3423,17 @@
         },
         "id": {
           "type": "string"
-        }
+        },
+        "fe_ip_id": { "type": "string" },
+        "fe_ip_name": { "type": "string" },
+        "region": { "type": "string" },
+        "resource_group": { "type": "string" },
+        "size": { "type": "string" },
+        "size_name": { "type": "string" },
+        "subnet_id": { "type": "string" },
+        "subnet_name": { "type": "string" },
+        "vpc": { "type": "string" },
+        "vpc_name": { "type": "string" }
       }
     },
     "AccessPointCore": {

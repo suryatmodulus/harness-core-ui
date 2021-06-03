@@ -173,6 +173,7 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
             lbCreationInProgress={lbCreationInProgress}
             handleFormSubmit={handleFormSubmit}
             loadBalancer={newAp}
+            isCreateMode={createMode}
           />
         )}
       </div>

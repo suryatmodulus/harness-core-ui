@@ -293,11 +293,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
             }}
-            loadBalancer={
-              isCreateMode
-                ? initialAccessPointDetails
-                : createApDetailsFromLoadBalancer(selectedLoadBalancer as AccessPointCore)
-            }
+            loadBalancer={createAzureAppGatewayFromLoadBalancer()}
           />
         )}
         <Button
@@ -336,6 +332,26 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         ...((currLoadBalancer.details as ALBAccessPointCore)?.albARN && {
           albArn: (currLoadBalancer.details as ALBAccessPointCore).albARN
         })
+      }
+    }
+  }
+
+  const createAzureAppGatewayFromLoadBalancer = (): AccessPoint => {
+    const details = selectedLoadBalancer?.details as AzureAccessPointCore
+    return {
+      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
+      account_id: accountId, // eslint-disable-line
+      project_id: projectIdentifier, // eslint-disable-line
+      org_id: orgIdentifier, // eslint-disable-line
+      region: details?.region,
+      vpc: details?.vpc,
+      name: details?.name,
+      metadata: {
+        app_gateway_id: details?.id, // eslint-disable-line
+        fe_ip_id: details?.fe_ip_id, // eslint-disable-line
+        resource_group: details?.resource_group, // eslint-disable-line
+        size: details?.size,
+        subnet_id: details?.subnet_id // eslint-disable-line
       }
     }
   }

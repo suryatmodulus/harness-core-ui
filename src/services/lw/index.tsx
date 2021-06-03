@@ -851,6 +851,7 @@ export interface AllCertificatesQueryParams {
   region: string
   resource_group_name?: string
   accountIdentifier: string
+  app_gateway_id?: string
 }
 
 export interface AllCertificatesPathParams {

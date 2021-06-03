@@ -87,6 +87,7 @@ exports[`Creation of Access Point Selection of provider and connector 1`] = `
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main"
+                  style="text-align: center;"
                 >
                   AWS
                 </p>
@@ -124,6 +125,7 @@ exports[`Creation of Access Point Selection of provider and connector 1`] = `
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main"
+                  style="text-align: center;"
                 >
                   Azure
                 </p>
@@ -280,6 +282,7 @@ exports[`Creation of Access Point render access point creation dialog 1`] = `
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main"
+                  style="text-align: center;"
                 >
                   AWS
                 </p>
@@ -317,6 +320,7 @@ exports[`Creation of Access Point render access point creation dialog 1`] = `
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main"
+                  style="text-align: center;"
                 >
                   Azure
                 </p>

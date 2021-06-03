@@ -282,3 +282,4 @@ selectVersion: Select version
 confirmText: Are you sure?
 paste: Paste
 artifactTag: tag
+clientId: Client ID

@@ -141,13 +141,6 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
               })}
             </section>
           )}
-          {sideCarArtifact && sideCarArtifact?.length > 0 && overrideSetIdentifier?.length === 0 && !isReadonly && (
-            <div className={css.paddingVertical}>
-              <Text intent="primary" style={{ cursor: 'pointer' }} onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
-                <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
-              </Text>
-            </div>
-          )}
         </Layout.Vertical>
       </Layout.Vertical>
 
@@ -159,7 +152,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
             </Text>
           </div>
         )}
-        {(!sideCarArtifact || sideCarArtifact?.length === 0) && overrideSetIdentifier?.length === 0 && !isReadonly && (
+        {!overrideSetIdentifier?.length && !isReadonly && (
           <div className={css.addArtifact}>
             <Text intent="primary" onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />

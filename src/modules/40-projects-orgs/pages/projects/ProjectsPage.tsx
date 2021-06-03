@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { Button, Text, Layout, SelectOption, ExpandingSearchInput, Color, Container } from '@wings-software/uicore'
 
 import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-
+import { useQueryParams } from '@common/hooks'
 import { useGetOrganizationList, useGetProjectAggregateDTOList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'
@@ -14,7 +14,7 @@ import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useColl
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
 import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
@@ -24,7 +24,8 @@ import css from './ProjectsPage.module.scss'
 const CustomSelect = Select.ofType<SelectOption>()
 
 const ProjectsListPage: React.FC = () => {
-  const { accountId, orgIdentifier } = useParams<OrgPathProps>()
+  const { accountId } = useParams<AccountPathProps>()
+  const { orgIdentifier } = useQueryParams<OrgPathProps>()
   const { getString } = useStrings()
   useDocumentTitle(getString('projectsText'))
   const [view, setView] = useState(Views.GRID)
@@ -32,11 +33,16 @@ const ProjectsListPage: React.FC = () => {
   const [page, setPage] = useState(0)
   const history = useHistory()
 
-  const allOrgsSelectOption: SelectOption = {
-    label: getString('all'),
-    value: getString('projectsOrgs.capsAllValue')
-  }
-  let orgFilter = allOrgsSelectOption
+  const allOrgsSelectOption: SelectOption = useMemo(
+    () => ({
+      label: getString('all'),
+      value: getString('projectsOrgs.capsAllValue')
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
+
+  const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
 
   const { data: orgsData } = useGetOrganizationList({
     queryParams: {
@@ -44,21 +50,29 @@ const ProjectsListPage: React.FC = () => {
     }
   })
 
-  const organizations: SelectOption[] = [
-    allOrgsSelectOption,
-    ...(orgsData?.data?.content?.map(org => {
-      org.organization.identifier === orgIdentifier
-        ? (orgFilter = {
+  useEffect(() => {
+    if (orgIdentifier === 'ALL' && orgFilter.value !== 'ALL') {
+      setOrgFilter(allOrgsSelectOption)
+    }
+  }, [orgIdentifier, allOrgsSelectOption, orgFilter.value])
+
+  const organizations: SelectOption[] = useMemo(() => {
+    return [
+      allOrgsSelectOption,
+      ...(orgsData?.data?.content?.map(org => {
+        if (org.organization.identifier === orgIdentifier) {
+          setOrgFilter({
             label: org.organization.name,
             value: org.organization.identifier
           })
-        : null
-      return {
-        label: org.organization.name,
-        value: org.organization.identifier
-      }
-    }) || [])
-  ]
+        }
+        return {
+          label: org.organization.name,
+          value: org.organization.identifier
+        }
+      }) || [])
+    ]
+  }, [orgsData?.data?.content, orgIdentifier, allOrgsSelectOption])
 
   React.useEffect(() => {
     setPage(0)
@@ -111,10 +125,9 @@ const ProjectsListPage: React.FC = () => {
             </div>
           )}
           onItemSelect={item => {
-            orgFilter = item
             history.push({
               pathname: routes.toProjects({ accountId }),
-              search: `?orgId=${orgFilter.value.toString()}`
+              search: `?orgIdentifier=${item.value.toString()}`
             })
           }}
           popoverProps={{ minimal: true, popoverClassName: css.customselect }}

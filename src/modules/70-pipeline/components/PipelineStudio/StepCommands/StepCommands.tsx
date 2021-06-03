@@ -54,6 +54,7 @@ export function StepCommands(
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
   const advancedConfRef = React.useRef<FormikProps<unknown> | null>(null)
+  const [stepFromAdvancedTab, setStepFromAdvancedTab] = React.useState<ExecutionWrapper>(step)
 
   async function handleTabChange(newTab: StepCommandTabs, prevTab: StepCommandTabs): Promise<void> {
     if (prevTab === StepCommandTabs.StepConfiguration && stepRef.current) {
@@ -65,6 +66,7 @@ export function StepCommands(
       await stepRef.current.submitForm()
 
       if (isEmpty(stepRef.current.errors)) {
+        setStepFromAdvancedTab(stepRef.current?.values as ExecutionWrapper)
         setActiveTab(newTab)
       }
     } else if (prevTab === StepCommandTabs.Advanced && advancedConfRef.current) {
@@ -152,7 +154,7 @@ export function StepCommands(
             title={getString('advancedTitle')}
             panel={
               <AdvancedStepsWithRef
-                step={step}
+                step={stepFromAdvancedTab}
                 isReadonly={isReadonly}
                 stepsFactory={stepsFactory}
                 onChange={onChange}

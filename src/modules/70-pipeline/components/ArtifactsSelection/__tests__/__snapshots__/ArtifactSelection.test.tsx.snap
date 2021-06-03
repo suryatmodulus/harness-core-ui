@@ -365,21 +365,21 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
             </span>
           </section>
         </section>
-        <div
-          class="paddingVertical"
-        >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-            style="cursor: pointer;"
-          >
-            <span>
-              pipelineSteps.serviceTab.artifactList.addSidecar
-            </span>
-          </p>
-        </div>
       </div>
     </div>
-    <div />
+    <div>
+      <div
+        class="addArtifact"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+        >
+          <span>
+            pipelineSteps.serviceTab.artifactList.addSidecar
+          </span>
+        </p>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -1064,7 +1064,19 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
         </section>
       </div>
     </div>
-    <div />
+    <div>
+      <div
+        class="addArtifact"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+        >
+          <span>
+            pipelineSteps.serviceTab.artifactList.addSidecar
+          </span>
+        </p>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -1162,7 +1174,19 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
         </section>
       </div>
     </div>
-    <div />
+    <div>
+      <div
+        class="addArtifact"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+        >
+          <span>
+            pipelineSteps.serviceTab.artifactList.addSidecar
+          </span>
+        </p>
+      </div>
+    </div>
   </div>
 </div>
 `;

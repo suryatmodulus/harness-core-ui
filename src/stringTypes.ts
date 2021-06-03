@@ -56,6 +56,7 @@ export interface StringsMap {
   'common.ce.visibilityWarning': string
   'common.changesUnsaved': string
   'common.clearSelection': string
+  'common.clientId': string
   'common.cluster': string
   'common.comments': string
   'common.confictOccured': string
@@ -312,6 +313,17 @@ export interface StringsMap {
   'rbac.roleAssignment.userPlaceHolder': string
   'rbac.roleAssignment.userValidation': string
   'rbac.roleBinding': string
+  'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string
+  'rbac.userDetails.linkToSSOProviderModal.delinkLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.delinkText': string
+  'rbac.userDetails.linkToSSOProviderModal.group': string
+  'rbac.userDetails.linkToSSOProviderModal.groupNameLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.linkLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.retainMembersLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.saml': string
+  'rbac.userDetails.linkToSSOProviderModal.selectSSOSetting': string
+  'rbac.userDetails.linkToSSOProviderModal.validation.groupNameRequired': string
+  'rbac.userDetails.linkToSSOProviderModal.validation.ssoIdRequired': string
   'rbac.userDetails.noMembersMessage': string
   'rbac.userDetails.userGroup.addToGroup': string
   'rbac.userDetails.userGroup.confirmDeleteText': string
@@ -588,6 +600,15 @@ export interface StringsMap {
   'connectors.awsKms.validation.selectAWSArn': string
   'connectors.awsKms.validation.selectDelegate': string
   'connectors.awsKms.validation.selectRegion': string
+  'connectors.azureKeyVault.labels.fetchVault': string
+  'connectors.azureKeyVault.labels.subscription': string
+  'connectors.azureKeyVault.labels.tenantId': string
+  'connectors.azureKeyVault.labels.vaultName': string
+  'connectors.azureKeyVault.validation.clientId': string
+  'connectors.azureKeyVault.validation.secretKey': string
+  'connectors.azureKeyVault.validation.subscription': string
+  'connectors.azureKeyVault.validation.tenantId': string
+  'connectors.azureKeyVault.validation.vaultName': string
   'connectors.cdng.baseline': string
   'connectors.cdng.baselineDefaultLabel.lastSuccess': string
   'connectors.cdng.continousVerificationStep': string
@@ -678,6 +699,7 @@ export interface StringsMap {
   'connectors.k8.clientKeyAlgorithm': string
   'connectors.k8.clientKeyCACertificate': string
   'connectors.k8.clientKeyPassphrase': string
+  'connectors.k8.clientSecretOptional': string
   'connectors.k8.delegateInClusterInfo': string
   'connectors.k8.delegateOutClusterInfo': string
   'connectors.k8.masterUrlLabel': string
@@ -749,6 +771,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.artifactory': string
   'connectors.testConnectionStep.validationText.aws': string
   'connectors.testConnectionStep.validationText.azure': string
+  'connectors.testConnectionStep.validationText.azureKeyVault': string
   'connectors.testConnectionStep.validationText.bitbucket': string
   'connectors.testConnectionStep.validationText.datadog': string
   'connectors.testConnectionStep.validationText.docker': string
@@ -769,6 +792,7 @@ export interface StringsMap {
   'connectors.title.aws': string
   'connectors.title.awsCodeCommit': string
   'connectors.title.awsKms': string
+  'connectors.title.azureKeyVault': string
   'connectors.title.bitbucketConnector': string
   'connectors.title.ceAzureConnector': string
   'connectors.title.datadog': string
@@ -1420,10 +1444,18 @@ export interface StringsMap {
   'pipeline.triggers.validation.triggerName': string
   'pipeline.uniqueIdentifier': string
   'pipeline.verificationResult': string
+  'cd.addInline': string
+  'cd.addRemote': string
+  'cd.addTFVarFileLabel': string
   'cd.allowSimultaneousDeployments': string
+  'cd.backEndConfig': string
   'cd.cdTrialHomePage.startTrial.description': string
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
   'cd.chooseProvisionerText': string
+  'cd.configFilePlaceHolder': string
+  'cd.configIdentifer': string
+  'cd.configurationFile': string
+  'cd.contentRequired': string
   'cd.continuous': string
   'cd.createOrSelectProject': string
   'cd.dashboard.createProject': string
@@ -1433,12 +1465,16 @@ export interface StringsMap {
   'cd.filePathPlaceholder': string
   'cd.filePathRequired': string
   'cd.folderPath': string
+  'cd.gitFetchTypeRequired': string
   'cd.learnMore': string
   'cd.namespaceValidation': string
+  'cd.optionalConfig': string
   'cd.pathCannotBeEmpty': string
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string
   'cd.setUpProvisionerBtnText': string
+  'cd.specifyTfVarStore': string
+  'cd.stepName': string
   'cd.steps.common.clusterDetails': string
   'cd.steps.common.infrastructureKeyPlaceholder': string
   'cd.steps.common.namespacePlaceholder': string
@@ -1446,6 +1482,9 @@ export interface StringsMap {
   'cd.steps.common.selectConnectorPlaceholder': string
   'cd.steps.common.selectOrEnterClusterPlaceholder': string
   'cd.steps.kubernetesGcpStep.stepName': string
+  'cd.terraformVarFiles': string
+  'cd.tfVarStore': string
+  'cd.varFileDetails': string
   'ce.ceTrialHomePage.startTrial.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
@@ -1799,7 +1838,6 @@ export interface StringsMap {
   'cf.environments.adminEnvironments': string
   'cf.environments.apiKeys.addKey': string
   'cf.environments.apiKeys.addKeyTitle': string
-  'cf.environments.apiKeys.clientId': string
   'cf.environments.apiKeys.clientType': string
   'cf.environments.apiKeys.deleteMessage': string
   'cf.environments.apiKeys.deleteTitle': string
@@ -5099,10 +5137,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.addTFVarFileLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.addTerraformVarFile': string
   /**
    * @deprecated migrate this string to module level file
@@ -5868,10 +5902,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.targetLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.terraformVarFiles': string
   /**
    * @deprecated migrate this string to module level file
    */

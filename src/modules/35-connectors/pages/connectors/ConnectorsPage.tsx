@@ -174,6 +174,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         const { status, data } = await fetchConnectors(sanitizedFilterRequest, { queryParams: params })
         /* istanbul ignore else */ if (status === 'SUCCESS') {
           setFetchedConnectorResponse(data)
+          setErrorWhileFetchingConnectors(undefined)
         }
       } /* istanbul ignore next */ catch (e) {
         if (shouldShowError(e)) {
@@ -218,7 +219,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const computeDrawerMap = (catalogueData: ResponseConnectorCatalogueResponse | null): AddDrawerMapInterface => {
     const originalData = catalogueData?.data?.catalogue || []
     originalData.map(value => {
-      value.category == 'SECRET_MANAGER' ? (value.connectors = ['Vault', 'AwsKms']) : null
+      value.category == 'SECRET_MANAGER' ? (value.connectors = ['Vault', 'AwsKms', 'AzureKeyVault']) : null
     })
     const orderedCatalogue: ConnectorCatalogueItem[] | { category: string; connectors: string[] } = []
     connectorCatalogueOrder.forEach(catalogueItem => {
@@ -234,7 +235,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         drawerLabel: 'Connectors',
         categories:
           orderedCatalogue.map((item: ConnectorCatalogueItem) => {
-            const obj: CategoryInterface = {
+            return {
               categoryLabel: ConnectorCatalogueNames.get(item['category']) || '',
               items:
                 item.connectors
@@ -247,8 +248,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
                       value: name
                     }
                   }) || []
-            }
-            return obj
+            } as CategoryInterface
           }) || []
       }
     )

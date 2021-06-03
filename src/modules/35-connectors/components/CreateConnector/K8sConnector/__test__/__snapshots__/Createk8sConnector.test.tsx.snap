@@ -1497,7 +1497,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                           <label
                             class="bp3-label"
                           >
-                            connectors.k8.OIDCSecret
+                            connectors.k8.clientSecretOptional
                           </label>
                           <div
                             class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"

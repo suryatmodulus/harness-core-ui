@@ -335,7 +335,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
               {LocalFormFieldsSMList.findIndex(val => val === typeOfSelectedSecretManager) !== -1 ? (
                 <LocalFormFields formik={formikProps} type={type} editing={editing} />
               ) : null}
-              {typeOfSelectedSecretManager === 'Vault' ? (
+              {typeOfSelectedSecretManager === 'Vault' || typeOfSelectedSecretManager === 'AzureKeyVault' ? (
                 <VaultFormFields formik={formikProps} type={type} editing={editing} readonly={readOnlySecretManager} />
               ) : null}
               <Button

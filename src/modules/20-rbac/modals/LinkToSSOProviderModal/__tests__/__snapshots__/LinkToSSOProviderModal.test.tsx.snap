@@ -1,0 +1,223 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create LinkToSSOProviderModal should render UnlinkToSSOProviderModalForm 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-xlarge"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
+      >
+        rbac.userDetails.linkToSSOProviderModal.delinkLabel
+      </p>
+      <div
+        class="OverlaySpinner--overlaySpinner"
+      >
+        <form
+          class="FormikForm--main"
+        >
+          <div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--padding-bottom-medium"
+              />
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold"
+                >
+                  rbac.userDetails.linkToSSOProviderModal.delinkText
+                </p>
+                <div
+                  class="bp3-form-group"
+                  data-id="retainMembers-0"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <label
+                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkbox StyledProps--main StyledProps--inline"
+                    >
+                      <input
+                        name="retainMembers"
+                        type="checkbox"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      rbac.userDetails.linkToSSOProviderModal.retainMembersLabel
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                data-testid="submitLinkSSOProvider"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  save
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create LinkToSSOProviderModal should render the form with ssoLinked false 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-xlarge"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
+      >
+        rbac.userDetails.linkToSSOProviderModal.linkLabel
+      </p>
+      <div
+        class="OverlaySpinner--overlaySpinner"
+      >
+        <form
+          class="FormikForm--main"
+        >
+          <div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--padding-bottom-medium"
+              />
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-end"
+                >
+                  <div
+                    class="bp3-form-group select"
+                    data-id="sso-0"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select--main bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="sso"
+                              placeholder="noData"
+                              style="padding-right: 0px;"
+                              type="text"
+                              value=""
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group bp3-disabled"
+                  data-id="groupName-1"
+                >
+                  <label
+                    class="bp3-label"
+                    for="groupName"
+                  >
+                    rbac.userDetails.linkToSSOProviderModal.groupNameLabel
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group bp3-disabled"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        disabled=""
+                        name="groupName"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                data-testid="submitLinkSSOProvider"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  save
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;

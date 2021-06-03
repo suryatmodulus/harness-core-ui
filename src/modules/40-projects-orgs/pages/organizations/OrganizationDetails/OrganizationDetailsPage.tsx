@@ -77,7 +77,7 @@ const OrganizationDetailsPage: React.FC = () => {
             <Link
               to={`${routes.toProjects({
                 accountId
-              })}?orgId=${orgIdentifier}`}
+              })}?orgIdentifier=${orgIdentifier}`}
             >
               <Text>{getString('projectsOrgs.viewProjects')}</Text>
             </Link>

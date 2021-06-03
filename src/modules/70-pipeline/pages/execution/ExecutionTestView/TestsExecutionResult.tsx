@@ -42,8 +42,8 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({ tota
           <Text font={{ weight: 'semi-bold' }} style={{ fontSize: 10 }}>
             {getString('pipeline.testsReports.totalWithColon')} {totalTests} |{' '}
             {getString('pipeline.testsReports.failedWithColon')} {failedTests} |{' '}
-            {getString('pipeline.testsReports.successWithColon')} {passedTests} |{' '}
-            {getString('pipeline.testsReports.skippedWithColon')} {skippedTests}
+            {getString('pipeline.testsReports.successWithColon')} {passedTests}{' '}
+            {skippedTests ? `| ${getString('pipeline.testsReports.skippedWithColon')} ${skippedTests}` : null}
           </Text>
           <Container flex>
             <Text
@@ -64,14 +64,16 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({ tota
             >
               {getString('passed')}
             </Text>
-            <Text
-              font={{ weight: 'semi-bold' }}
-              icon="stop"
-              iconProps={{ size: 16, color: Color.GREY_300 }}
-              style={{ fontSize: 10 }}
-            >
-              {getString('pipeline.testsReports.skipped')}
-            </Text>
+            {skippedTests ? (
+              <Text
+                font={{ weight: 'semi-bold' }}
+                icon="stop"
+                iconProps={{ size: 16, color: Color.GREY_300 }}
+                style={{ fontSize: 10 }}
+              >
+                {getString('pipeline.testsReports.skipped')}
+              </Text>
+            ) : null}
           </Container>
         </Container>
         <Container className={css.graphContainer}>

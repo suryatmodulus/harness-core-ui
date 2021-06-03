@@ -29,3 +29,21 @@
   overflow: scroll;
   padding-top: var(--spacing-medium) !important;
 }
+
+.truncatedText {
+  :global {
+    .bp3-popover-wrapper {
+      height: 18px !important;
+    }
+  }
+}
+
+.buttonPadding {
+  :global {
+    .bp3-button {
+      padding-top: 8px !important;
+      padding-left: var(--spacing-small) !important;
+      padding-right: var(--spacing-small) !important;
+    }
+  }
+}

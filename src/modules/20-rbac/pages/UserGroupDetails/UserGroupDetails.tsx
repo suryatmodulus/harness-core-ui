@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, Layout, Color, Card, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
+import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { useGetUserGroupAggregate, UserGroupAggregateDTO } from 'services/cd-ng'
 import { Page } from '@common/exports'
@@ -15,6 +16,7 @@ import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInt
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useUserGroupModal } from '@rbac/modals/UserGroupModal/useUserGroupModal'
+import { useLinkToSSOProviderModal } from '@rbac/modals/LinkToSSOProviderModal/useLinkToSSOProviderModal'
 import MemberList from '@rbac/pages/UserGroupDetails/views/MemberList'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
@@ -40,6 +42,10 @@ const UserGroupDetails: React.FC = () => {
   })
 
   const { openUserGroupModal } = useUserGroupModal({
+    onSuccess: refetch
+  })
+
+  const { openLinkToSSOProviderModal } = useLinkToSSOProviderModal({
     onSuccess: refetch
   })
 
@@ -105,20 +111,58 @@ const UserGroupDetails: React.FC = () => {
       <Page.Body className={css.body}>
         <Container width="50%" padding={{ bottom: 'large' }} className={css.membersContainer}>
           <Layout.Horizontal flex>
-            <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
-              {getString('members')}
-            </Text>
-            <ManagePrincipalButton
-              text={getString('common.plusNumber', { number: getString('members') })}
-              minimal
-              onClick={() => {
-                openUserGroupModal(userGroup, true)
-              }}
-              resourceType={ResourceType.USERGROUP}
-              resourceIdentifier={userGroupIdentifier}
-            />
+            <Layout.Horizontal flex={{ alignItems: 'baseline' }} spacing="medium">
+              <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
+                {getString('members')}
+              </Text>
+              {userGroup.ssoLinked ? (
+                <Layout.Horizontal className={css.truncatedText} flex={{ alignItems: 'center' }} spacing="xsmall">
+                  <Text icon={'link'} iconProps={{ color: Color.BLUE_500, size: 10 }} color={Color.BLACK}>
+                    {getString('rbac.userDetails.linkToSSOProviderModal.saml')}
+                  </Text>
+                  <Text lineClamp={1} width={70}>
+                    {userGroup.linkedSsoDisplayName}
+                  </Text>
+                  <Text color={Color.BLACK}>{getString('rbac.userDetails.linkToSSOProviderModal.group')}</Text>
+                  <Text lineClamp={1} width={70}>
+                    {userGroup.ssoGroupName}
+                  </Text>
+                </Layout.Horizontal>
+              ) : null}
+            </Layout.Horizontal>
+            <Layout.Horizontal className={cx({ [css.buttonPadding]: userGroup.ssoLinked })}>
+              <ManagePrincipalButton
+                text={
+                  userGroup.ssoLinked
+                    ? getString('rbac.userDetails.linkToSSOProviderModal.delinkLabel')
+                    : getString('rbac.userDetails.linkToSSOProviderModal.linkLabel')
+                }
+                icon={userGroup.ssoLinked ? 'cross' : 'link'}
+                minimal
+                onClick={() => {
+                  openLinkToSSOProviderModal(userGroup)
+                }}
+                resourceType={ResourceType.USERGROUP}
+                resourceIdentifier={userGroupIdentifier}
+              />
+              <ManagePrincipalButton
+                disabled={userGroup.ssoLinked}
+                tooltip={
+                  userGroup.ssoLinked
+                    ? getString('rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText')
+                    : undefined
+                }
+                text={getString('common.plusNumber', { number: getString('members') })}
+                minimal
+                onClick={() => {
+                  openUserGroupModal(userGroup, true)
+                }}
+                resourceType={ResourceType.USERGROUP}
+                resourceIdentifier={userGroupIdentifier}
+              />
+            </Layout.Horizontal>
           </Layout.Horizontal>
-          <MemberList />
+          <MemberList ssoLinked={userGroup.ssoLinked} />
         </Container>
         <Container width="50%" className={css.detailsContainer}>
           <Layout.Vertical spacing="medium" padding={{ bottom: 'large' }}>

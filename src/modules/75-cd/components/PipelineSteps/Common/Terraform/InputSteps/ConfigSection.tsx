@@ -1,8 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
-
 import { useStrings } from 'framework/strings'
 import {
   ConnectorReferenceField,
@@ -20,7 +18,7 @@ import type { Connector, TerraformProps } from '../TerraformInterfaces'
 
 export default function ConfigSection(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
-  const { inputSetData, readonly, initialValues, gitScope } = props
+  const { inputSetData, readonly, initialValues, gitScope, path } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -74,7 +72,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.workspace) ===
         MultiTypeInputType.RUNTIME && (
         <FormInput.Text
-          name="spec.configuration.spec.workspace"
+          name={`${path}.spec.configuration.spec.workspace`}
           label={getString('pipelineSteps.workspace')}
           disabled={readonly}
         />
@@ -88,7 +86,8 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={400}
-          name="spec.configuration.spec.configFiles.store.spec.connectorRef"
+          type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
+          name={`${path}.configuration.spec.configFiles.store.spec.connectorRef`}
           label={getString('connectors.title.gitConnector')}
           placeholder={getString('select')}
           disabled={readonly || loading}
@@ -99,7 +98,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch) ===
         MultiTypeInputType.RUNTIME && (
         <FormInput.Text
-          name="spec.configuration.spec.configFiles.store.spec.branch"
+          name={`${path}.configuration.spec.configFiles.store.spec.branch`}
           placeholder={getString('pipeline.manifestType.branchPlaceholder')}
           disabled={readonly}
         />
@@ -108,7 +107,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId) ===
         MultiTypeInputType.RUNTIME && (
         <FormInput.Text
-          name="spec.configuration.spec.configFiles.store.spec.commitId"
+          name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
           placeholder={getString('pipeline.manifestType.commitPlaceholder')}
           disabled={readonly}
         />
@@ -117,7 +116,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId) ===
         MultiTypeInputType.RUNTIME && (
         <FormInput.Text
-          name="spec.configuration.spec.configFiles.store.spec.commitId"
+          name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
           placeholder={getString('pipeline.manifestType.commitPlaceholder')}
           disabled={readonly}
         />
@@ -127,7 +126,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
         inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath
       ) === MultiTypeInputType.RUNTIME && (
         <FormInput.Text
-          name="spec.configuration.spec.configFiles.store.spec.folderPath"
+          name={`${path}.configuration.spec.configFiles.store.spec.folderPath`}
           placeholder={getString('pipeline.manifestType.pathPlaceholder')}
           disabled={readonly}
         />

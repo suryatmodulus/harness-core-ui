@@ -558,7 +558,7 @@ exports[`UsersPage Test render data 1`] = `
           style="width: 30%;"
         >
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            class="Layout--vertical StyledProps--main"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -760,7 +760,7 @@ exports[`UsersPage Test render data 1`] = `
           style="width: 30%;"
         >
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            class="Layout--vertical StyledProps--main"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -827,6 +827,414 @@ exports[`UsersPage Test render data 1`] = `
                 <button
                   class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   data-testid="menu-dummyid"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="Options"
+                  >
+                    <svg
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="row card clickable"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 30%;"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              Testing User Group With SSO
+            </p>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main truncatedText StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                style="display: flex; align-items: center;"
+              >
+                <span
+                  class="bp3-icon bp3-icon-link StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue500"
+                  icon="link"
+                >
+                  <svg
+                    data-icon="link"
+                    height="10"
+                    viewBox="0 0 16 16"
+                    width="10"
+                  >
+                    <desc>
+                      link
+                    </desc>
+                    <path
+                      d="M4.99 11.99c.28 0 .53-.11.71-.29l6-6a1.003 1.003 0 00-1.42-1.42l-6 6a1.003 1.003 0 00.71 1.71zm3.85-2.02L6.4 12.41l-1 1-.01-.01c-.36.36-.85.6-1.4.6-1.1 0-2-.9-2-2 0-.55.24-1.04.6-1.4l-.01-.01 1-1 2.44-2.44c-.33-.1-.67-.16-1.03-.16-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.73.72-1.19 1.71-1.19 2.81 0 2.21 1.79 4 4 4 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02c.73-.72 1.19-1.71 1.19-2.81 0-.35-.06-.69-.15-1.02zm7.15-5.98c0-2.21-1.79-4-4-4-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.72.72-1.19 1.71-1.19 2.81 0 .36.06.69.15 1.02l2.44-2.44 1-1 .01.01c.36-.36.85-.6 1.4-.6 1.1 0 2 .9 2 2 0 .55-.24 1.04-.6 1.4l.01.01-1 1-2.43 2.45c.33.09.67.15 1.02.15 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02a3.92 3.92 0 001.19-2.81z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                rbac.userDetails.linkToSSOProviderModal.saml
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main"
+                style="--text-line-clamp: 1; width: 110px;"
+              >
+                TEST_LINKED_SSO
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                rbac.userDetails.linkToSSOProviderModal.group
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main"
+                style="--text-line-clamp: 1; width: 110px;"
+              >
+                TEST SSO GROUP NAME
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 30%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack"
+              disabled=""
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      T
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      T
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      T
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      A
+                    </div>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 35%;"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <span
+              class="bp3-tag customtag"
+            >
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                Custom Role - All Resources
+              </span>
+            </span>
+            <button
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main roleButton Button--with-current-color Button--without-shadow"
+              data-testid="addRole-Testing_User_Group_with_sso"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                common.plusNumber
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 5%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+          >
+            <span
+              class="bp3-popover-wrapper bp3-dark"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  data-testid="menu-Testing_User_Group_with_sso"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="Options"
+                  >
+                    <svg
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="row card clickable"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 30%;"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              Testing User Group With SSO no Users
+            </p>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main truncatedText StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                style="display: flex; align-items: center;"
+              >
+                <span
+                  class="bp3-icon bp3-icon-link StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue500"
+                  icon="link"
+                >
+                  <svg
+                    data-icon="link"
+                    height="10"
+                    viewBox="0 0 16 16"
+                    width="10"
+                  >
+                    <desc>
+                      link
+                    </desc>
+                    <path
+                      d="M4.99 11.99c.28 0 .53-.11.71-.29l6-6a1.003 1.003 0 00-1.42-1.42l-6 6a1.003 1.003 0 00.71 1.71zm3.85-2.02L6.4 12.41l-1 1-.01-.01c-.36.36-.85.6-1.4.6-1.1 0-2-.9-2-2 0-.55.24-1.04.6-1.4l-.01-.01 1-1 2.44-2.44c-.33-.1-.67-.16-1.03-.16-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.73.72-1.19 1.71-1.19 2.81 0 2.21 1.79 4 4 4 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02c.73-.72 1.19-1.71 1.19-2.81 0-.35-.06-.69-.15-1.02zm7.15-5.98c0-2.21-1.79-4-4-4-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.72.72-1.19 1.71-1.19 2.81 0 .36.06.69.15 1.02l2.44-2.44 1-1 .01.01c.36-.36.85-.6 1.4-.6 1.1 0 2 .9 2 2 0 .55-.24 1.04-.6 1.4l.01.01-1 1-2.43 2.45c.33.09.67.15 1.02.15 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02a3.92 3.92 0 001.19-2.81z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                rbac.userDetails.linkToSSOProviderModal.saml
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main"
+                style="--text-line-clamp: 1; width: 110px;"
+              >
+                TEST_LINKED_SSO
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                rbac.userDetails.linkToSSOProviderModal.group
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main"
+                style="--text-line-clamp: 1; width: 110px;"
+              >
+                TEST SSO GROUP NAME
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 30%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main"
+          >
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main roleButton Button--with-current-color Button--without-shadow"
+                  disabled=""
+                  tabindex="-1"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    plusNumber
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 35%;"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <button
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main roleButton Button--with-current-color Button--without-shadow"
+              data-testid="addRole-Testing_User_Group_with_sso_no_users"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                common.plusNumber
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 5%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+          >
+            <span
+              class="bp3-popover-wrapper bp3-dark"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  data-testid="menu-Testing_User_Group_with_sso_no_users"
                   type="button"
                 >
                   <span

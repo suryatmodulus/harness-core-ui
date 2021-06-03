@@ -101,4 +101,37 @@ describe('COProviderSelector', () => {
 
     expect(container).toMatchSnapshot()
   })
+
+  test('selecting Azure provider shows option to select connector', () => {
+    const azureProps = {
+      ...props,
+      gatewayDetails: {
+        ...props.gatewayDetails,
+        provider: {
+          name: 'Azure',
+          icon: 'service-azure',
+          value: 'azure'
+        }
+      }
+    }
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: 'testAcc', projectIdentifier: 'projectIdentifier', orgIdentifier: 'orgIdentifier' }}
+        defaultAppStoreValues={defaultAppStoreValues}
+      >
+        <COProviderSelector {...azureProps} />
+      </TestWrapper>
+    )
+
+    const awsCard = container.querySelector('.bp3-card')
+    expect(awsCard).toBeDefined()
+    act(() => {
+      fireEvent.click(awsCard!)
+    })
+    const connectorLabel = container.querySelector('label.bp3-label')
+    expect(connectorLabel).toBeDefined()
+    if (connectorLabel) expect(connectorLabel.textContent).toBe('ce.co.gatewayBasics.connect Azure rbac.account ')
+    expect(container).toMatchSnapshot()
+  })
 })

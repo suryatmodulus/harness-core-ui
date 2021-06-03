@@ -72,6 +72,19 @@ userDetails:
     deleteSuccessMessage: User is removed from the User Group '{{name}}'
     confirmDeleteText: Are you sure you want to remove this user from the User Group '{{name}}'
     addToGroup: + Add to Group
+  linkToSSOProviderModal:
+    linkLabel: Link to SSO Provider Group
+    delinkLabel: Delink Group
+    delinkText: Do you want to delink the Harness User Group '{{name}}' from '{{ssoName}}'
+    selectSSOSetting: Search SSO Settings
+    groupNameLabel: Group name
+    retainMembersLabel: Retain all members in the user group
+    btnDisabledTooltipText: New members cannot be added to SSOLinked UserGroups manually, They will be synced automatically by SSO Provider GroupDetails
+    saml: 'SAML: '
+    group: 'Group: '
+    validation:
+      groupNameRequired: Group name is required
+      ssoIdRequired: Please select a SSO Provider
 youAreNotAuthorizedTo: You are not authorized to
 youAreMissingTheFollowingPermission: 'You are missing the following permission:'
 in: in

@@ -44,7 +44,7 @@ const COAPProviderSelector: React.FC<COAPProviderSelectorProps> = props => {
             renderItem={(item: Provider) => (
               <Layout.Vertical spacing="small">
                 <CardBody.Icon icon={item.icon as IconName} iconSize={28}></CardBody.Icon>
-                <Text>{item.name}</Text>
+                <Text style={{ textAlign: 'center' }}>{item.name}</Text>
               </Layout.Vertical>
             )}
             cornerSelected={true}

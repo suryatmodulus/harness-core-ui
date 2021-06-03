@@ -776,7 +776,9 @@ function RunPipelineFormBasic({
                             projectIdentifier,
                             orgIdentifier,
                             module,
-                            pipelineIdentifier
+                            pipelineIdentifier,
+                            repoIdentifier,
+                            branch
                           })
                         )
                       }}

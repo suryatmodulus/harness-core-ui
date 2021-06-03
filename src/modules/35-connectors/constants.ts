@@ -65,6 +65,7 @@ export const Connectors: ConnectorType = {
   PROMETHEUS: 'Prometheus',
   CE_AZURE: 'CEAzure',
   DATADOG: 'Datadog',
+  AZURE_KEY_VAULT: 'AzureKeyVault',
   SUMOLOGIC: 'SumoLogic'
 }
 

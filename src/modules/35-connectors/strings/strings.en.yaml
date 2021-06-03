@@ -58,6 +58,7 @@ title:
   ceAzureConnector: 'Azure Connector'
   datadog: 'Datadog'
   sumoLogic: 'SumoLogic'
+  azureKeyVault: 'Azure Key Vault'
 name_labels:
   Kubernetes: 'Kubernetes Connector Name'
   HttpHelmRepo: 'Helm Http Connector Name'
@@ -109,6 +110,7 @@ testConnectionStep:
     git: Validating the Git authentication and permissions
     azure: Validating the azure authentication and permission
     datadog: Validating the Datadog authentication and permission
+    azureKeyVault: Validating the azure key vault authentication and permission
 httpHelm:
   httpHelmRepoUrl: 'Helm Repo URL'
 jira:
@@ -124,7 +126,8 @@ k8:
   OIDCPassword: 'OIDC Password'
   OIDCClientId: 'OIDC Client ID'
   OIDCSecret: 'OIDC Secret'
-  OIDCScopes: 'OIDC Scopes (Optional)'
+  clientSecretOptional: 'Client Secret (optional)'
+  OIDCScopes: 'OIDC Scopes (optional)'
   clientKey: 'Client Key'
   clientKeyPassphrase: 'Client Key passphrase (optional)'
   clientCertificate: 'Client Certificate'
@@ -291,3 +294,15 @@ delegate:
   matchingDelegates: matching delegates
   noDelegates: You have no delegates
   noMatchingDelegate: No eligible delegates found. Install a new delegate or continue to save.
+azureKeyVault:
+  labels:
+    tenantId: Tenant ID
+    subscription: Subscription
+    vaultName: Vault Name
+    fetchVault: Fetch Vault
+  validation:
+    clientId: Client ID is required
+    tenantId: Tenant ID is required
+    subscription: Subscription is required
+    secretKey: Key is required
+    vaultName: Vault Name is required

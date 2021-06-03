@@ -109,7 +109,9 @@ describe('Project Page List', () => {
       await waitFor(() => queryAllByText(document.body, 'projectsOrgs.aboutProject')[0])
       let form = findDialogContainer()
       expect(form).toBeTruthy()
-      fireEvent.click(form?.querySelector('[icon="cross"]')!)
+      await act(async () => {
+        fireEvent.click(form?.querySelector('[icon="cross"]')!)
+      })
       form = findDialogContainer()
       expect(form).not.toBeTruthy()
     })

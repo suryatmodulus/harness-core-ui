@@ -53,6 +53,59 @@ export const userGroupsAggregate: ResponsePageUserGroupAggregateDTO = {
         },
         users: [],
         roleAssignmentsMetadataDTO: []
+      },
+      {
+        userGroupDTO: {
+          accountIdentifier: 'testAcc',
+          identifier: 'Testing_User_Group_with_sso',
+          name: 'Testing User Group With SSO',
+          users: ['admin', 'testing1', 'testing2', 'testing3'],
+          notificationConfigs: [],
+          description: '',
+          tags: {},
+          ssoGroupName: 'TEST SSO GROUP NAME',
+          ssoLinked: true,
+          linkedSsoDisplayName: 'TEST_LINKED_SSO'
+        },
+        users: [
+          { name: 'Admin', email: 'admin@harness.io', uuid: 'admin' },
+          {
+            name: 'testing1',
+            email: 'testing1@harness.io',
+            uuid: 'testing1'
+          },
+          { name: 'testing2', email: 'testing2@dropjar.com', uuid: 'testing2' },
+          { name: 'testing3', email: 'testing3@getairmail.com', uuid: 'testing3' }
+        ],
+        roleAssignmentsMetadataDTO: [
+          {
+            identifier: 'RG1',
+            roleIdentifier: 'Custom_Role',
+            roleName: 'Custom Role',
+            resourceGroupIdentifier: '_all_resources',
+            resourceGroupName: 'All Resources',
+            managedRole: false,
+            managedRoleAssignment: false
+          }
+        ],
+        lastModifiedAt: 1617941811398
+      },
+      {
+        userGroupDTO: {
+          accountIdentifier: 'testAcc',
+          identifier: 'Testing_User_Group_with_sso_no_users',
+          name: 'Testing User Group With SSO no Users',
+          users: [],
+          notificationConfigs: [],
+          description: '',
+          tags: {},
+          ssoGroupName: 'TEST SSO GROUP NAME',
+          ssoLinked: true,
+          linkedSsoDisplayName: 'TEST_LINKED_SSO'
+        },
+        users: [],
+        roleAssignmentsMetadataDTO: [],
+        lastModifiedAt: 1617941811398
       }
     ],
     pageIndex: 0,

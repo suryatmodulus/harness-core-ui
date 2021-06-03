@@ -10,11 +10,14 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 
 import type {
-  NGVariable,
+  InlineTerraformVarFileSpec,
   StepElementConfig,
+  StringNGVariable,
   TerraformApplyStepInfo,
   TerraformBackendConfig,
   TerraformDestroyStepInfo,
+  TerraformExecutionData,
+  TerraformPlanExecutionData,
   TerraformPlanStepInfo,
   TerraformRollbackStepInfo,
   TerraformVarFileWrapper
@@ -36,6 +39,7 @@ export interface TerraformProps {
     path?: string
   }
   readonly?: boolean
+  path?: any
   stepType?: string
   gitScope?: GitFilterScope
 }
@@ -52,6 +56,30 @@ export interface TerraformPlanProps {
   }
   readonly?: boolean
   stepType?: string
+}
+
+export interface RemoteVar {
+  varFile: {
+    identifier?: string
+    spec?: {
+      store?: {
+        spec?: {
+          gitFetchType?: string
+          branch?: string
+          commitId?: string
+          connectorRef?: {
+            label: string
+            value: string
+            scope: Scope
+            live: boolean
+            connector: { type: string; spec: { val: string } }
+          }
+          paths?: PathInterface[]
+          content?: string
+        }
+      }
+    }
+  }
 }
 
 export interface TerraformPlanVariableStepProps {
@@ -119,6 +147,21 @@ export interface VarFileArray {
     }
   }
 }
+
+export interface ConfigFileData {
+  spec?: {
+    configuration?: {
+      spec?: TerraformApplyStepInfo
+    }
+  }
+}
+
+export interface TFPlanConfig {
+  spec?: {
+    configuration?: TerraformPlanExecutionData
+  }
+}
+
 export interface Connector {
   label: string
   value: string
@@ -229,10 +272,12 @@ export interface TfVar {
 export const onSubmitTerraformData = (values: any): TFFormData => {
   if (values?.spec?.configuration?.type === 'Inline') {
     const envVars = values.spec?.configuration?.spec?.environmentVariables
-    const envMap: NGVariable[] = []
+    const envMap: StringNGVariable[] = []
     if (Array.isArray(envVars)) {
       envVars.forEach(mapValue => {
-        envMap.push({ name: mapValue.key, description: mapValue.value })
+        if (mapValue.value) {
+          envMap.push({ name: mapValue.key, value: mapValue.value, type: 'String' })
+        }
       })
     }
 
@@ -248,6 +293,53 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
 
     const connectorValue = values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as any
 
+    const configObject: TerraformExecutionData = {
+      workspace: values?.spec?.configuration?.spec?.workspace
+    }
+    if (values?.spec?.configuration?.spec?.backendConfig?.spec?.content) {
+      configObject['backendConfig'] = {
+        type: 'Inline',
+        spec: {
+          content: values?.spec?.configuration?.spec?.backendConfig?.spec?.content
+        }
+      }
+    }
+
+    if (envMap.length) {
+      configObject['environmentVariables'] = envMap
+    }
+
+    if (targetMap.length) {
+      configObject['targets'] = targetMap
+    } else if (getMultiTypeFromValue(values?.spec?.configuration?.spec?.targets) === MultiTypeInputType.RUNTIME) {
+      configObject['targets'] = values?.spec?.configuration?.spec?.targets
+    }
+
+    if (values?.spec?.configuration?.spec?.varFiles?.length) {
+      configObject['varFiles'] = values?.spec?.configuration?.spec?.varFiles
+    }
+    if (
+      connectorValue ||
+      getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
+        MultiTypeInputType.RUNTIME
+    ) {
+      configObject['configFiles'] = {
+        ...values.spec?.configuration?.spec?.configFiles,
+        store: {
+          ...values.spec?.configuration?.spec?.configFiles?.store,
+          type: connectorValue?.connector?.type || values?.spec?.configuration?.spec?.configFiles?.store?.type,
+          spec: {
+            ...values.spec?.configuration?.spec?.configFiles?.store?.spec,
+            connectorRef: values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+              ? getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
+                  MultiTypeInputType.RUNTIME || !connectorValue?.value
+                ? values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+                : connectorValue?.value
+              : ''
+          }
+        }
+      }
+    }
     return {
       ...values,
       spec: {
@@ -256,27 +348,7 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
         configuration: {
           type: values?.spec?.configuration?.type,
           spec: {
-            ...values.spec?.configuration.spec,
-            environmentVariables: envMap,
-            targets: targetMap,
-
-            configFiles: {
-              ...values.spec?.configuration?.spec?.configFiles,
-              store: {
-                ...values.spec?.configuration?.spec?.configFiles?.store,
-                type: connectorValue?.connector?.type,
-                spec: {
-                  ...values.spec?.configuration?.spec?.configFiles?.store?.spec,
-                  connectorRef: values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-                    ? getMultiTypeFromValue(
-                        values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-                      ) === MultiTypeInputType.RUNTIME
-                      ? values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-                      : connectorValue?.value
-                    : ''
-                }
-              }
-            }
+            ...configObject
           }
         }
       }
@@ -296,10 +368,12 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
 
 export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
   const envVars = values.spec?.configuration?.environmentVariables
-  const envMap: NGVariable[] = []
+  const envMap: StringNGVariable[] = []
   if (Array.isArray(envVars)) {
     envVars.forEach(mapValue => {
-      envMap.push({ name: mapValue.key, description: mapValue.value })
+      if (mapValue.value) {
+        envMap.push({ name: mapValue.key, value: mapValue.value, type: 'String' })
+      }
     })
   }
 
@@ -315,39 +389,78 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
 
   const connectorValue = values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef as any
   const secretManager = values?.spec?.configuration?.secretManagerRef as any
-  return {
+
+  const configObject: TerraformPlanExecutionData = {
+    command: values?.spec?.configuration?.command,
+    workspace: values?.spec?.configuration?.workspace
+  }
+  if (values?.spec?.configuration?.backendConfig?.spec?.content) {
+    configObject['backendConfig'] = {
+      type: 'Inline',
+      spec: {
+        content: values?.spec?.configuration?.backendConfig?.spec?.content
+      }
+    }
+  }
+
+  if (envMap.length) {
+    configObject['environmentVariables'] = envMap
+  }
+
+  if (targetMap.length) {
+    configObject['targets'] = targetMap
+  }
+
+  if (values?.spec?.configuration?.varFiles?.length) {
+    configObject['varFiles'] = values?.spec?.configuration?.varFiles
+  }
+  if (
+    connectorValue ||
+    getMultiTypeFromValue(values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
+      MultiTypeInputType.RUNTIME
+  ) {
+    configObject['configFiles'] = {
+      ...values.spec?.configuration?.configFiles,
+      store: {
+        ...values.spec?.configuration?.configFiles?.store,
+        type: connectorValue?.connector?.type || values?.spec?.configuration?.configFiles?.store?.type,
+        spec: {
+          ...values.spec?.configuration?.configFiles?.store?.spec,
+          connectorRef: values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
+            ? getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
+                MultiTypeInputType.RUNTIME || !connectorValue?.value
+              ? values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
+              : connectorValue?.value
+            : ''
+        }
+      }
+    }
+  }
+
+  if (values?.spec?.configuration?.secretManagerRef) {
+    configObject['secretManagerRef'] = values?.spec?.configuration?.secretManagerRef
+      ? getMultiTypeFromValue(values?.spec?.configuration?.secretManagerRef) === MultiTypeInputType.RUNTIME
+        ? values?.spec?.configuration?.secretManagerRef
+        : secretManager?.value
+      : ''
+  }
+
+  const payload = {
     ...values,
     spec: {
       ...values.spec,
 
       configuration: {
-        ...values?.spec?.configuration,
-        command: values?.spec?.configuration?.command,
-
-        environmentVariables: envMap,
-        targets: targetMap,
-        secretManagerRef: values?.spec?.configuration?.secretManagerRef
-          ? getMultiTypeFromValue(values?.spec?.configuration?.secretManagerRef) === MultiTypeInputType.RUNTIME
-            ? values?.spec?.configuration?.secretManagerRef
-            : secretManager.value
-          : '',
-        configFiles: {
-          ...values.spec?.configuration?.configFiles,
-          store: {
-            ...values.spec?.configuration?.configFiles?.store,
-            type: connectorValue?.connector?.type,
-            spec: {
-              ...values.spec?.configuration?.configFiles?.store?.spec,
-              connectorRef: values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
-                ? getMultiTypeFromValue(values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
-                  MultiTypeInputType.RUNTIME
-                  ? values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
-                  : connectorValue?.value
-                : ''
-            }
-          }
-        }
+        ...configObject
       }
     }
+  }
+
+  return payload
+}
+export interface InlineVar {
+  varFile: {
+    identifier: string
+    spec: InlineTerraformVarFileSpec
   }
 }

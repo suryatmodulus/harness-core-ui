@@ -53,7 +53,7 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
             color={Color.GREY_700}
             style={{ backgroundColor: 'var(--white)' }}
           >
-            <Text className={cx(css.statsTitle)} margin={{ bottom: 'xlarge' }}>
+            <Text className={cx(css.statsTitle)} margin={{ bottom: 'large' }}>
               {getString('pipeline.testsReports.totalTests')}
             </Text>
             <span className={cx(css.statsNumber, css.row)}>
@@ -73,10 +73,10 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
             color={Color.GREY_700}
             style={{ position: 'relative', backgroundColor: 'var(--white)' }}
           >
-            <Text className={cx(css.statsTitle)} margin={{ bottom: 'small', right: 'small' }}>
+            <Text className={cx(css.statsTitle)} margin={{ bottom: 'large', right: 'small' }}>
               {getString('pipeline.testsReports.numberOfSelectedTests')}
             </Text>
-            <span className={cx(css.statsNumber)}>{`${selectedTests}/${totalTests}`}</span>
+            <span className={cx(css.statsNumber)}>{selectedTests}</span>
             <div className={css.linesWrapper}>
               {totalTests > 0 && (
                 <div

@@ -294,6 +294,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           const processingNodeIdentifier = data?.stepConfig?.node?.identifier
           updateStepWithinStage(selectedStage.stage.spec.execution, processingNodeIdentifier, processNode)
           await updateStage(selectedStage.stage)
+          !!data?.stepConfig?.node && (data.stepConfig.node.identifier = processNode.identifier)
           data?.stepConfig?.onUpdate?.(processNode)
         } else if (
           drawerType === DrawerTypes.ProvisionerStepConfig &&

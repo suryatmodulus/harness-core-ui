@@ -18,7 +18,7 @@ export const getStageNodesWithArtifacts: (data: ExecutionGraph, stageIds: string
     const { setupId = '', outcomes = [] } = entry
     const outcomeWithArtifacts = Array.isArray(outcomes)
       ? outcomes?.some((outcome: any) => outcome.fileArtifacts?.length || outcome.imageArtifacts?.length)
-      : outcomes?.outcome.fileArtifacts?.length || outcomes?.outcome.imageArtifacts?.length
+      : outcomes?.outcome?.fileArtifacts?.length || outcomes?.outcome?.imageArtifacts?.length
     return stageIds.includes(setupId) && outcomeWithArtifacts
   })
 }

@@ -143,6 +143,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
         name={name}
         disabled={disabled}
         value={ErrorType.AllErrors}
+        checked={hasAllErrors}
         label={getString(stringsMap.AllErrors)}
         onChange={handleAllErrorsChanges}
       />

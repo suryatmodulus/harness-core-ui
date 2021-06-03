@@ -19,6 +19,7 @@ folderPath: Folder Path
 filePath: File Path
 filePathPlaceholder: 'Enter path within manifest folder'
 scriptRequired: Script is a required field
+stepName: Step Name
 namespaceValidation: Namespace must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
 releaseNameValidation: Releasename must consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character (e.g. 'example.com')
 cdTrialHomePage:
@@ -32,3 +33,18 @@ setUpProvisionerBtnText: Set Up Provisioner
 
 filePathRequired: Atleast one file path is required
 pathCannotBeEmpty: File Path cannot be empty
+configFilePlaceHolder: 'Specify Config File'
+
+optionalConfig: Optional Configuration
+configIdentifer: Configuration Identifier
+addInline: Add Inline
+addRemote: Add Remote
+tfVarStore: Terraform Var Store
+varFileDetails: Var File Details
+backEndConfig: Backend Configuration
+gitFetchTypeRequired: Git Fetch Type Required
+contentRequired: Content is required
+specifyTfVarStore: Specify Terraform Var File Store
+addTFVarFileLabel: 'Add File Path'
+configurationFile: 'Configuration File'
+terraformVarFiles: 'Terraform Var Files'

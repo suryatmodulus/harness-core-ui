@@ -38532,7 +38532,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
               class="StyledProps--font StyledProps--main stats StyledProps--padding-medium StyledProps--color StyledProps--color-grey700"
             >
               <p
-                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-xlarge"
+                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
               >
                 pipeline.testsReports.totalTests
               </p>
@@ -38573,14 +38573,14 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
               style="position: relative;"
             >
               <p
-                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-small StyledProps--margin-right-small"
+                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large StyledProps--margin-right-small"
               >
                 pipeline.testsReports.numberOfSelectedTests
               </p>
               <span
                 class="statsNumber"
               >
-                8/2155
+                8
               </span>
               <div
                 class="linesWrapper"
@@ -38796,7 +38796,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               class="StyledProps--font StyledProps--main stats StyledProps--padding-medium StyledProps--color StyledProps--color-grey700"
             >
               <p
-                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-xlarge"
+                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
               >
                 pipeline.testsReports.totalTests
               </p>
@@ -38837,14 +38837,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               style="position: relative;"
             >
               <p
-                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-small StyledProps--margin-right-small"
+                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large StyledProps--margin-right-small"
               >
                 pipeline.testsReports.numberOfSelectedTests
               </p>
               <span
                 class="statsNumber"
               >
-                8/2155
+                8
               </span>
               <div
                 class="linesWrapper"
@@ -38962,11 +38962,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               pipeline.testsReports.successWithColon
                
               3780
-               |
                
-              pipeline.testsReports.skippedWithColon
-               
-              0
             </p>
             <div
               class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -39022,31 +39018,6 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   </svg>
                 </span>
                 passed
-              </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold"
-                style="font-size: 10px; display: flex; align-items: center;"
-              >
-                <span
-                  class="bp3-icon bp3-icon-stop StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey300"
-                  icon="stop"
-                >
-                  <svg
-                    data-icon="stop"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      stop
-                    </desc>
-                    <path
-                      d="M12 3H4c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h8c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                pipeline.testsReports.skipped
               </p>
             </div>
           </div>

@@ -169,7 +169,7 @@ function TerraformPlanWidget(
 
                 <Accordion.Panel
                   id="step-2"
-                  summary={getString('pipelineSteps.terraformVarFiles')}
+                  summary={getString('cd.terraformVarFiles')}
                   details={<TfVarFileList formik={formik} />}
                 />
 

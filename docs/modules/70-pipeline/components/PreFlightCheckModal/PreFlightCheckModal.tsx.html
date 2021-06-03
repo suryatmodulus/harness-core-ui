@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.94% </span>
+                <span class="strong">84.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>141/166</span>
+                <span class='fraction'>136/161</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.94% </span>
+                <span class="strong">68.65% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>222/322</span>
+                <span class='fraction'>219/319</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.47% </span>
+                <span class="strong">83.97% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>136/161</span>
+                <span class='fraction'>131/156</span>
             </div>
         
             
@@ -688,19 +688,7 @@
 <a name='L629'></a><a href='#L629'>629</a>
 <a name='L630'></a><a href='#L630'>630</a>
 <a name='L631'></a><a href='#L631'>631</a>
-<a name='L632'></a><a href='#L632'>632</a>
-<a name='L633'></a><a href='#L633'>633</a>
-<a name='L634'></a><a href='#L634'>634</a>
-<a name='L635'></a><a href='#L635'>635</a>
-<a name='L636'></a><a href='#L636'>636</a>
-<a name='L637'></a><a href='#L637'>637</a>
-<a name='L638'></a><a href='#L638'>638</a>
-<a name='L639'></a><a href='#L639'>639</a>
-<a name='L640'></a><a href='#L640'>640</a>
-<a name='L641'></a><a href='#L641'>641</a>
-<a name='L642'></a><a href='#L642'>642</a>
-<a name='L643'></a><a href='#L643'>643</a>
-<a name='L644'></a><a href='#L644'>644</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L632'></a><a href='#L632'>632</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -719,7 +707,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -879,17 +866,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1362,8 +1338,7 @@ import {
   startPreflightCheckPromise,
   useGetPreflightCheckResponse
 } from 'services/pipeline-ng'
-import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
-import { Scope } from '@common/interfaces/SecretsInterface'
+import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import { useToaster } from '@common/exports'
 import type { GitQueryParams, Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
@@ -1519,26 +1494,15 @@ const ConnectorsSection: React.FC&lt;ConnectorsSectionProps &amp; GitQueryParams
 <span class="cstat-no" title="statement not covered" >    return &lt;Text intent="danger"&gt;{getString('pre-flight-check.couldNotVerifyConnectors')}&lt;/Text&gt;</span>
   }
 &nbsp;
-  function getConnectorUrl(connectorRef: string) {
-    const scope = getScopeFromValue(connectorRef)
+  function getConnectorUrl(connectorRef: string): string {
     const connectorId = getIdentifierFromValue(connectorRef)
-    switch (scope) {
-      case Scope.ACCOUNT: {
-        return routes.toResourcesConnectorDetails({ connectorId, accountId })
-      }
-      case Scope.ORG: {
-        return routes.toOrgResourcesConnectorDetails({ orgIdentifier, connectorId, accountId })
-      }
-      case Scope.PROJECT: {
-        return routes.toProjectAdminResourcesConnectorDetails({
-          projectIdentifier,
-          orgIdentifier,
-          connectorId,
-          accountId,
-          module
-        })
-      }
-    }
+    return routes.toConnectorDetails({
+      projectIdentifier,
+      orgIdentifier,
+      connectorId,
+      accountId,
+      module
+    })
   }
 &nbsp;
   const getStageLink = (stageId: string): string =&gt; {
@@ -1993,7 +1957,7 @@ export const PreFlightCheckModal: React.FC&lt;PreFlightCheckModalProps &amp; Git
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 11:52:44 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 11:57:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

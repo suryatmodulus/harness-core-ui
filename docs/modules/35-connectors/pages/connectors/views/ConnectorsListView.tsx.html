@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.29% </span>
+                <span class="strong">86.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>151/175</span>
+                <span class='fraction'>152/176</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.52% </span>
+                <span class="strong">55.9% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>327/589</span>
+                <span class='fraction'>327/585</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.8% </span>
+                <span class="strong">87.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>144/164</span>
+                <span class='fraction'>145/165</span>
             </div>
         
             
@@ -693,7 +693,8 @@
 <a name='L634'></a><a href='#L634'>634</a>
 <a name='L635'></a><a href='#L635'>635</a>
 <a name='L636'></a><a href='#L636'>636</a>
-<a name='L637'></a><a href='#L637'>637</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L637'></a><a href='#L637'>637</a>
+<a name='L638'></a><a href='#L638'>638</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -727,6 +728,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -1333,7 +1335,7 @@
 import { Text, Link, Layout, Color, Icon, Button, Popover, StepsProgress, Container } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, Intent, PopoverInteractionKind, TextArea } from '@blueprintjs/core'
-import { useParams, useHistory, useLocation } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import classNames from 'classnames'
 import { pick } from 'lodash-es'
@@ -1362,8 +1364,9 @@ import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErr
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import routes from '@common/RouteDefinitions'
 import { getIconByType, GetTestConnectionValidationTextByType, DelegateTypes } from '../utils/ConnectorUtils'
 import css from './ConnectorsListView.module.scss'
 &nbsp;
@@ -1875,11 +1878,11 @@ const RenderColumnMenu: Renderer&lt;CellProps&lt;ConnectorResponse&gt;&gt; = ({ 
 &nbsp;
 const ConnectorsListView: React.FC&lt;ConnectorListViewProps&gt; = props =&gt; {
   const { data, reload, gotoPage } = props
+  const params = useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()
   const history = useHistory()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
   const listData: ConnectorResponse[] = useMemo(() =&gt; data<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent || <span class="branch-1 cbranch-no" title="branch not covered" >[],</span> [data<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent])
-  const { pathname } = useLocation()
   const columns: CustomColumn&lt;ConnectorResponse&gt;[] = useMemo(
     () =&gt; [
       {
@@ -1948,9 +1951,9 @@ const ConnectorsListView: React.FC&lt;ConnectorListViewProps&gt; = props =&gt; {
       columns={columns}
       data={listData}
       onRowClick={<span class="fstat-no" title="function not covered" >connector </span>=&gt; {
-        const url = <span class="cstat-no" title="statement not covered" >`${pathname}/${connector.connector?.identifier}`</span>
+        const url = <span class="cstat-no" title="statement not covered" >routes.toConnectorDetails({ ...params, connectorId: connector.connector?.identifier })</span>
         const gitInfo: EntityGitDetails = <span class="cstat-no" title="statement not covered" >connector.gitDetails ?? {}</span>
-        const urlForGit = <span class="cstat-no" title="statement not covered" >`${pathname}/${connector.connector?.identifier}?repoIdentifier=${gitInfo.repoIdentifier}&amp;branch=${gitInfo.branch}`</span>
+        const urlForGit = <span class="cstat-no" title="statement not covered" >`${url}?repoIdentifier=${gitInfo.repoIdentifier}&amp;branch=${gitInfo.branch}`</span>
 <span class="cstat-no" title="statement not covered" >        history.push(gitInfo?.objectId ? urlForGit : url)</span>
       }}
       pagination={{
@@ -1972,7 +1975,7 @@ export default ConnectorsListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 11:52:44 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 11:57:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

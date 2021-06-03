@@ -145,6 +145,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
         formik?.setFieldValue(name, value)
       }
       setSelectedValue(value)
+    } else if (getMultiTypeFromValue(selected) !== MultiTypeInputType.FIXED) {
+      setSelectedValue(selected)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -279,7 +281,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
             }
             setSelectedValue(value)
           } else {
-            formik?.setFieldValue(name, val)
+            formik?.setFieldValue(name, val || '')
+            setSelectedValue(val || '')
           }
           setMultiType(type1)
           onChange?.(val, valueType, type1)

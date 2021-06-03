@@ -62,17 +62,21 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
-  const commonParams = {
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  }
+
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [statusOptions, setStatusOptions] = useState<SelectOption[]>([])
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const [selectedProjectKey, setSelectedProjectKey] = useState<string>('')
   const [selectedIssueTypeKey, setSelectedIssueTypeKey] = useState<string>('')
+
+  const commonParams = {
+    accountIdentifier: accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier,
+    branch
+  }
 
   useEffect(() => {
     // If connector value changes in form, fetch projects
@@ -402,13 +406,15 @@ const FormContent = ({
 function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormikFowardRef<JiraUpdateData>) {
   const { onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier, branch } = useParams<
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
 
   const {

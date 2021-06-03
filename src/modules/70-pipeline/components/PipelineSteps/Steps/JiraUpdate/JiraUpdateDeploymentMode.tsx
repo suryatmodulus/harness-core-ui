@@ -3,7 +3,12 @@ import { useParams } from 'react-router-dom'
 import { isEmpty, set } from 'lodash-es'
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type {
+  AccountPathProps,
+  GitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { JiraStatusNG, useGetJiraStatuses } from 'services/cd-ng'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
@@ -28,13 +33,15 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
   const prefix = isEmpty(path) ? '' : `${path}.`
   const readonly = inputSetData?.readonly
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier, branch } = useParams<
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
   const [statusOptions, setStatusOptions] = useState<SelectOption[]>([])
   const connectorRefFixedValue = getGenuineValue(
@@ -102,6 +109,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
             set(initialValues, 'spec.connectorRef', connectorRef)
             onUpdate?.(initialValues)
           }}
+          gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
       ) : null}
 
@@ -160,14 +168,16 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
 }
 
 export default function JiraUpdateDeploymentMode(props: JiraUpdateDeploymentModeProps): JSX.Element {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier, branch } = useParams<
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
 
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
 
   const {

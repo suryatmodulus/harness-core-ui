@@ -59,16 +59,19 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
-  const commonParams = {
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  }
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [statusList, setStatusList] = useState<JiraStatusNG[]>([])
   const [fieldList, setFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
+
+  const commonParams = {
+    accountIdentifier: accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier,
+    branch
+  }
 
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const projectKeyFixedValue =
@@ -368,13 +371,15 @@ everything is governed from the parent
 function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepFormikFowardRef<JiraApprovalData>) {
   const { onUpdate, readonly, isNewStep } = props
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+  const { accountId, projectIdentifier, orgIdentifier, branch, repoIdentifier } = useParams<
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    branch,
+    repoIdentifier
   }
 
   const {

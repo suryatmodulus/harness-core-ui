@@ -48,7 +48,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
       approvers: {
         userGroups: [],
         minimumCount: 1,
-        disallowPipelineExecutor: true
+        disallowPipelineExecutor: false
       },
       approverInputs: [
         {

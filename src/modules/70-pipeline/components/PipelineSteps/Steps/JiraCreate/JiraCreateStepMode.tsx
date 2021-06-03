@@ -83,11 +83,6 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
-  const commonParams = {
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  }
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [issueTypeFieldList, setIssueTypeFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
@@ -96,6 +91,14 @@ const FormContent = ({
     JiraCreateFormFieldSelector.EXPRESSION
   )
   const [fieldsPopoverOpen, setFieldsPopoverOpen] = useState(false)
+
+  const commonParams = {
+    accountIdentifier: accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier,
+    branch
+  }
 
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const projectKeyFixedValue =
@@ -577,13 +580,15 @@ const FormContent = ({
 function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormikFowardRef<JiraCreateData>) {
   const { onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier, branch } = useParams<
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
 
   const {

@@ -30,7 +30,9 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => {
     return { data: {} }
-  })
+  }),
+  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() })),
+  useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 describe('Connector DetailsPage Page Test', () => {

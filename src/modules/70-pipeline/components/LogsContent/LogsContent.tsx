@@ -1,29 +1,20 @@
-import React, { Reducer } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import cx from 'classnames'
-
+import { GroupedVirtuoso, GroupedVirtuosoHandle } from 'react-virtuoso'
 import { ExpandingSearchInput, Icon } from '@wings-software/uicore'
-import { useGetToken, logBlobPromise } from 'services/logs'
-import { String, useStrings } from 'framework/strings'
-import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
-import SessionToken from 'framework/utils/SessionToken'
-import {
-  MultiLogsViewer,
-  LogViewerAccordionProps,
-  LogViewerAccordionStatus
-} from '@common/components/MultiLogsViewer/MultiLogsViewer'
-import { PQueue } from '@common/utils/PQueue'
-import { useDeepCompareEffect } from '@common/hooks'
-import type { FormattedLogLine } from '@common/components/MultiLogsViewer/types'
-import { useToaster } from '@common/components'
+import { sum } from 'lodash-es'
 
-import { useLogsStream } from './useLogsStream'
-import { reducer } from './LogsState'
-import { ActionType, State, Action } from './LogsState/types'
+import { String } from 'framework/strings'
+import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+
+import { GroupHeader, GroupHeaderProps, LogViewerAccordionStatus } from './components/GroupHeader'
+import { MultiLogLine } from './components/MultiLogLine'
+import { useLogsContent } from './useLogsContent'
 import css from './LogsContent.module.scss'
 
-const logsCache = new Map()
+// const worker = new Worker(new URL('./logparser.worker', import.meta.url))
+
 const STATUSES_FOR_ACCORDION_SKIP: LogViewerAccordionStatus[] = ['LOADING', 'NOT_STARTED']
 
 export interface LogsContentProps {
@@ -32,292 +23,30 @@ export interface LogsContentProps {
   errorMessage?: string
 }
 
-type LogsReducer = Reducer<State, Action<ActionType>>
-
-type LogArray = {
-  title: React.ReactNode
-  data: string
-  startTime?: number | undefined
-  endTime?: number | undefined
-  id: string
-  status: LogViewerAccordionStatus
-  isOpen?: boolean | undefined
-  logKey: string
-  dataSource: 'blob' | 'stream'
-  unitStatus: LogViewerAccordionStatus
-  manuallyToggled?: boolean | undefined
-  previousLineLength?: number
-  formattedData: FormattedLogLine[]
-}
-
-type Matches = {
-  matchId: number
-  arrayId: string
-  arrayIndex: number
-  matchLineNo: number | undefined
-}
-
-type Chunks = {
-  start: number
-  end: number
-}
-
-export function highlightSearchText(
-  arrayToSearch: LogArray[],
-  searchText: string,
-  searchSelection: number
-): { logArray: LogArray[]; matches: Matches[] } {
-  const regex = new RegExp(searchText, 'gi')
-
-  const matches: Matches[] = []
-
-  let searchedLines = 0
-
-  // Loop through log sections
-  const formattedArrayToSearch = arrayToSearch.map((logSection, arrayIndex) => {
-    if (logSection.formattedData) {
-      const arrayId = logSection.id
-
-      // Loop through each line in the section
-      const highlightedFormattedData = Object.values(logSection.formattedData).map(logLine => {
-        // Turn the log object (level, time, out) into an array so we can look through it
-        const logLineContent = Object.values(logLine)
-
-        // Loop through each line section for matches
-        const highlightedLogLineContent = logLineContent.map(textToHighlight => {
-          let match
-          const chunks: Chunks[] = []
-          while ((match = regex.exec(textToHighlight)) !== null) {
-            if (regex.lastIndex > match.index) {
-              chunks.push({
-                start: match.index,
-                end: regex.lastIndex
-              })
-            }
-
-            if (match.index === regex.lastIndex) {
-              regex.lastIndex++
-            }
-          }
-
-          let highlightedString = textToHighlight
-          chunks.forEach((chunk, index) => {
-            const startShift = highlightedString.length - textToHighlight.length
-            const openMarkTags = [
-              highlightedString.slice(0, chunk.start + startShift),
-              `<mark class=${searchSelection === index + 1 + matches.length ? css.selectedSearchResult : ''}>`,
-              highlightedString.slice(chunk.start + startShift)
-            ].join('')
-            const endShift = openMarkTags.length - textToHighlight.length
-            const closeMarkTags = [
-              openMarkTags.slice(0, chunk.end + endShift),
-              '</mark>',
-              openMarkTags.slice(chunk.end + endShift)
-            ].join('')
-            highlightedString = closeMarkTags
-
-            matches.push({
-              matchId: matches.length + 1,
-              arrayId: arrayId,
-              arrayIndex: arrayIndex,
-              matchLineNo: 1 + searchedLines
-            })
-          })
-
-          return highlightedString
-        })
-
-        searchedLines += 1
-
-        return {
-          level: highlightedLogLineContent[0],
-          time: highlightedLogLineContent[1],
-          out: highlightedLogLineContent[2]
-        }
-      })
-
-      return {
-        ...logSection,
-        formattedData: highlightedFormattedData
-      }
-    } else {
-      return {
-        ...logSection,
-        formattedData: [
-          {
-            level: '',
-            time: '',
-            out: ''
-          }
-        ]
-      }
-    }
-  })
-  return {
-    logArray: formattedArrayToSearch,
-    matches: matches
-  }
-}
-
 export function LogsContent(props: LogsContentProps): React.ReactElement {
   const { mode, toConsoleView = '', errorMessage } = props
-  const requestQueue = React.useRef(new PQueue())
-  const { accountId } = useParams<ExecutionPathProps>()
-  const [state, dispatch] = React.useReducer<LogsReducer>(reducer, {
-    units: [],
-    dataMap: {},
-    selectedStep: '',
-    selectedStage: ''
-  })
   const {
     pipelineStagesMap,
     selectedStageId,
     allNodeMap,
     selectedStepId,
-    logsToken,
-    setLogsToken,
     pipelineExecutionDetail,
     queryParams
   } = useExecutionContext()
-  const { data: tokenData } = useGetToken({ queryParams: { accountID: accountId }, lazy: !!logsToken })
-  const { log: streamData, startStream, closeStream, unitId: streamKey } = useLogsStream()
-  const { showError } = useToaster()
-  const { getString } = useStrings()
+  const { state, actions } = useLogsContent()
 
-  // need to save token in a ref due to scoping issues
-  const logsTokenRef = React.useRef('')
-  const timerRef = React.useRef<null | number>(null)
-
-  function getBlobData(id: string, key: string): void {
-    requestQueue.current.add(async (signal: AbortSignal) => {
-      if (logsCache.has(key)) {
-        dispatch({ type: ActionType.UpdateSectionData, payload: { data: logsCache.get(key), id } })
-        return
-      }
-
-      // if token is not found, schedule the call for later
-      if (!logsTokenRef.current) {
-        timerRef.current = window.setTimeout(() => getBlobData(id, key), 300)
-        return
-      }
-
-      dispatch({ type: ActionType.FetchingSectionData, payload: id })
-
-      try {
-        const data = (await logBlobPromise(
-          {
-            queryParams: {
-              accountID: accountId,
-              'X-Harness-Token': '',
-              key
-            },
-            requestOptions: {
-              headers: {
-                'X-Harness-Token': logsTokenRef.current
-              }
-            }
-          },
-          signal
-        )) as unknown
-
-        if (typeof data === 'string') {
-          logsCache.set(key, data)
-          dispatch({ type: ActionType.UpdateSectionData, payload: { id, data } })
-        } else {
-          dispatch({ type: ActionType.ResetSection, payload: id })
-          showError(getString('pipeline.logs.fetchError'))
-        }
-      } catch (e) {
-        dispatch({ type: ActionType.ResetSection, payload: id })
-        showError(getString('pipeline.logs.fetchError'))
-      }
-    })
-  }
-
-  function getStream(unit: string, logKey: string): void {
-    // if token is not found, schedule the call for later
-    if (!logsTokenRef.current) {
-      timerRef.current = window.setTimeout(() => getStream(unit, logKey), 300)
-      return
-    }
-    dispatch({ type: ActionType.FetchingSectionData, payload: unit })
-    startStream({
-      queryParams: {
-        accountId,
-        key: encodeURIComponent(logKey)
-      },
-      headers: {
-        'X-Harness-Token': logsTokenRef.current,
-        Authorization: SessionToken.getToken()
-      },
-      unitId: unit
-    })
-  }
-
-  React.useEffect(() => {
-    // use the existing token if present
-    if (logsToken) {
-      logsTokenRef.current = logsToken
-    }
-
-    // if `logsToken` is not present, `tokenData` is fetched
-    // as we set the lazy flag based on it's presence
-    if (tokenData) {
-      setLogsToken(tokenData)
-      logsTokenRef.current = tokenData
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tokenData, logsToken])
-
-  // This fetches data for sections
-  useDeepCompareEffect(() => {
-    state.units.forEach(unit => {
-      const section = state.dataMap[unit]
-      if (section && section.status === 'LOADING') {
-        if (section.dataSource === 'blob') {
-          getBlobData(unit, section.logKey)
-        } else if (section.dataSource === 'stream') {
-          getStream(unit, section.logKey)
-        }
-      }
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.selectedStep, state.dataMap])
-
-  // fetch data for stream
-  React.useEffect(() => {
-    if (streamData) {
-      dispatch({ type: ActionType.UpdateSectionData, payload: { data: streamData, id: streamKey } })
-    }
-  }, [streamData, streamKey, state.selectedStep])
-
-  // on unmount
-  React.useEffect(() => {
-    const queue = requestQueue.current
-
-    return () => {
-      if (timerRef.current) {
-        window.clearTimeout(timerRef.current)
-      }
-      queue.cancel()
-      closeStream()
-      logsCache.clear()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const virtuosoRef = React.useRef<null | GroupedVirtuosoHandle>(null)
 
   React.useEffect(() => {
     const currentStepId = mode !== 'console-view' && queryParams.retryStep ? queryParams.retryStep : selectedStepId
     const selectedStep = allNodeMap[currentStepId]
 
-    dispatch({
-      type: ActionType.CreateSections,
-      payload: {
-        node: selectedStep,
-        selectedStep: selectedStepId,
-        selectedStage: selectedStageId
-      }
+    actions.createSections({
+      node: selectedStep,
+      selectedStep: selectedStepId,
+      selectedStage: selectedStageId
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     queryParams.retryStep,
     mode,
@@ -325,105 +54,57 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     allNodeMap,
     pipelineStagesMap,
     selectedStageId,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence
   ])
 
-  function handleSectionClick(id: string, _props: LogViewerAccordionProps): boolean | void {
+  function handleSectionClick(id: string, _props: GroupHeaderProps): boolean | void {
     const currentSection = state.dataMap[id]
 
     if (currentSection?.status && STATUSES_FOR_ACCORDION_SKIP.includes(currentSection?.status)) {
       return false
     }
 
-    if (!currentSection?.data) {
-      dispatch({ type: ActionType.FetchSectionData, payload: id })
+    if (!currentSection?.data.length) {
+      actions.fetchSectionData(id)
     } else {
-      dispatch({ type: ActionType.ToggleSection, payload: id })
+      actions.toggleSection(id)
     }
 
     return false
   }
 
-  const [searchText, setSearchText] = React.useState<string>('')
-  const [searchSelection, setSearchSelection] = React.useState<number>(0)
+  // scroll to current search result
+  React.useEffect(() => {
+    const { currentIndex, linesWithResults } = state.searchData
+    const index = linesWithResults[currentIndex]
 
-  const searchResults = highlightSearchText(
-    state.units.map(unit => {
-      return {
-        ...state.dataMap[unit]
-      }
-    }),
-    searchText,
-    searchSelection
-  )
-
-  const logViewerData = searchResults.logArray
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const virtuosoRef = React.useRef<null | any>(null)
-
-  async function goToResult(
-    direction: 'next' | 'previous',
-    _searchResults: { logArray: LogArray[]; matches: Matches[] },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ref: React.MutableRefObject<null | any>
-  ): Promise<void> {
-    const { logArray, matches } = _searchResults
-    //Do nothing if no matches are found
-    if (matches.length === 0) return
-
-    let nextValue = searchSelection
-
-    if (direction === 'next') {
-      nextValue = matches[searchSelection] ? matches[searchSelection].matchId : matches[0].matchId
-    } else if (direction === 'previous') {
-      nextValue = matches[searchSelection - 2]
-        ? matches[searchSelection - 1].matchId - 1
-        : matches[matches.length - 1].matchId
+    if (virtuosoRef.current && typeof index === 'number' && index >= 0) {
+      virtuosoRef.current.scrollToIndex(index)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.searchData.currentIndex])
 
-    setSearchSelection(nextValue)
-
-    if (logArray[matches[nextValue - 1].arrayIndex].isOpen === false) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      dispatch({ type: ActionType.ToggleSection, payload: matches[nextValue - 1].arrayId! })
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    ref.current.scrollToIndex({ index: matches[nextValue - 1].matchLineNo! - 1, align: 'center', behaviour: 'smooth' })
-  }
-
-  function handleSearchChange(text: string): void {
-    setSearchSelection(0)
-    setSearchText(text)
-  }
-
-  const cssSearchInput = `${css.searchInput} ${searchText ? css.searchHasInput : ''}`
-
-  const previousRowCounts = searchResults.logArray.map(arrayRow => {
-    return arrayRow.previousLineLength || 0
+  const groupedCounts = state.logKeys.map(key => {
+    const section = state.dataMap[key]
+    return section.isOpen ? section.data.length : 0
   })
-
-  function escapeRegExp(string: string): string {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
-  }
 
   return (
     <div className={cx(css.main, { [css.hasErrorMessage]: !!errorMessage })} data-mode={mode}>
       <div className={css.header}>
         <String tagName="div" stringID={mode === 'console-view' ? 'execution.consoleLogs' : 'execution.stepLogs'} />
-        <div className={css.searchContainer}>
+        <div className={css.rhs}>
           <ExpandingSearchInput
-            className={cssSearchInput}
-            onChange={text => handleSearchChange(escapeRegExp(text))}
-            showPrevNextButtons={true}
-            onNext={() => goToResult('next', searchResults, virtuosoRef)}
-            onPrev={() => goToResult('previous', searchResults, virtuosoRef)}
+            onChange={actions.search}
+            showPrevNextButtons
             flip
-            fixedText={`${searchSelection} / ${searchResults.matches.length}`}
+            className={css.search}
+            fixedText={`${state.searchData.currentIndex + 1} / ${state.searchData.linesWithResults.length}`}
+            onNext={() => actions.goToNextSearchResult()}
+            onPrev={() => actions.goToPrevSearchResult()}
+            onEnter={() => actions.goToNextSearchResult()}
           />
-        </div>
-        <div>
           {mode === 'step-details' ? (
             <Link className={css.toConsoleView} to={toConsoleView}>
               <String stringID="consoleView" />
@@ -431,19 +112,41 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
           ) : null}
         </div>
       </div>
-      <div>
+      <pre className={css.container}>
         {state.units.length > 0 ? (
-          <MultiLogsViewer
-            key={selectedStepId}
-            data={logViewerData}
-            onSectionClick={handleSectionClick}
-            virtuosoRef={virtuosoRef}
-            previousRowCounts={previousRowCounts}
+          <GroupedVirtuoso
+            overscan={5}
+            ref={virtuosoRef}
+            groupCounts={groupedCounts}
+            followOutput={() => 'auto'}
+            groupContent={index => {
+              const logKey = state.logKeys[index]
+              const unit = state.dataMap[logKey]
+
+              return <GroupHeader {...unit} id={logKey} onSectionClick={handleSectionClick} />
+            }}
+            itemContent={(index, groupIndex) => {
+              const logKey = state.logKeys[groupIndex]
+              const unit = state.dataMap[logKey]
+              const previousCount = sum(groupedCounts.slice(0, groupIndex))
+              const lineNumber = index - previousCount
+              const logData = unit.data[lineNumber]
+
+              return (
+                <MultiLogLine
+                  {...logData}
+                  lineNumber={lineNumber}
+                  limit={unit.data.length}
+                  searchText={state.searchData.text}
+                  currentSearchIndex={state.searchData.currentIndex}
+                />
+              )
+            }}
           />
         ) : (
           <String tagName="div" className={css.noLogs} stringID="common.logs.noLogsText" />
         )}
-      </div>
+      </pre>
       {mode === 'console-view' && errorMessage ? (
         <div className={css.errorMessage}>
           <String className={css.summary} tagName="div" stringID="summary" />

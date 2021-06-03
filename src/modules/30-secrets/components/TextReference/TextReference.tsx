@@ -64,15 +64,14 @@ const TextReference: React.FC<FormikTextReference> = props => {
   }, [formik.values[`${name}secretField`]])
 
   const getSecretInfo = async (secretString: string) => {
-    const scope = secretString.indexOf('.') < 0 ? secretString : secretString.split('.')[1]
     let val
     try {
       const response = await getSecretV2Promise({
         identifier: secretString.indexOf('.') < 0 ? secretString : secretString.split('.')[1],
         queryParams: {
           accountIdentifier: accountId,
-          orgIdentifier: scope === 'org' || scope === '' ? orgIdentifier : undefined,
-          projectIdentifier: scope === '' ? projectIdentifier : undefined
+          orgIdentifier: orgIdentifier,
+          projectIdentifier: projectIdentifier
         }
       })
 

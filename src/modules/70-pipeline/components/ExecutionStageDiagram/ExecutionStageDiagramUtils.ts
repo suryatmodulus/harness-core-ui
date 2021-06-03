@@ -69,7 +69,8 @@ export const calculateDepth = <T>(
     groupMaxDepth += spaceAfterGroup
   }
 
-  return Math.max(groupMaxDepth, depth)
+  // NOTE: condition "groupMaxDepth < depth" makes empty group height equal to group with one step
+  return groupMaxDepth < depth ? groupMaxDepth + depth : groupMaxDepth
 }
 
 export const calculateGroupHeaderDepth = <T>(items: Array<ExecutionPipelineNode<T>>, HEADER_DEPTH: number): number => {

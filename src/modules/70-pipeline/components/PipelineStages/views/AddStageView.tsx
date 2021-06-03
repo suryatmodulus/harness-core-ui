@@ -48,7 +48,7 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
       </div>
       <div className={css.createNewMessage}>
         <div className={css.stageTitle}>{selectedType?.title}</div>
-        {selectedType?.description}
+        <div className={css.stageDescription}>{selectedType?.description}</div>
       </div>
     </div>
   )

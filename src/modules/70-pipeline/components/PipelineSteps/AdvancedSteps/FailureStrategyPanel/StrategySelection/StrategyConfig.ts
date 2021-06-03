@@ -1,5 +1,8 @@
 import { mapValues } from 'lodash-es'
+import type { OnFailureConfig } from 'services/cd-ng'
 import { Modes } from '../../common'
+
+export type FailureErrorType = OnFailureConfig['errors'][number]
 
 export enum Strategy {
   Ignore = 'Ignore',
@@ -11,15 +14,15 @@ export enum Strategy {
   MarkAsSuccess = 'MarkAsSuccess'
 }
 
-export enum ErrorType {
-  // Application = 'Application',
-  AnyOther = 'AnyOther',
-  Authentication = 'Authentication',
-  Connectivity = 'Connectivity',
-  Timeout = 'Timeout',
-  Authorization = 'Authorization',
-  Verification = 'Verification',
-  DelegateProvisioning = 'DelegateProvisioning'
+export const ErrorType: Record<FailureErrorType, FailureErrorType> = {
+  AllErrors: 'AllErrors',
+  Authentication: 'Authentication',
+  Connectivity: 'Connectivity',
+  Timeout: 'Timeout',
+  Authorization: 'Authorization',
+  Verification: 'Verification',
+  DelegateProvisioning: 'DelegateProvisioning',
+  Unknown: 'Unknown'
 }
 
 export enum Domain {
@@ -81,21 +84,16 @@ export const allowedStrategiesAsPerStep: (domain: Domain) => Record<Modes, Strat
   }
 }
 
-export const errorTypesOrderForCD: ErrorType[] = [
+export const errorTypesOrderForCD: FailureErrorType[] = [
   ErrorType.Authentication,
-  // ErrorType.Application,
   ErrorType.Authorization,
   ErrorType.Connectivity,
-  ErrorType.Timeout,
-  ErrorType.Verification,
   ErrorType.DelegateProvisioning,
-  ErrorType.AnyOther
-]
-export const errorTypesOrderForCI: ErrorType[] = [
-  // ErrorType.Application,
   ErrorType.Timeout,
-  ErrorType.AnyOther
+  ErrorType.Unknown,
+  ErrorType.Verification
 ]
+export const errorTypesOrderForCI: FailureErrorType[] = [ErrorType.Timeout, ErrorType.Unknown]
 
 export const testIds: Record<Strategy, string> = mapValues(
   Strategy,

@@ -16,10 +16,10 @@ import {
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/components'
 import { useQueryParams } from '@common/hooks'
-import { useSignupUser, SignupUserRequestBody } from 'services/portal'
+import { useSignup, SignupDTO } from 'services/cd-ng'
 import AuthLayout from '@common/components/AuthLayout/AuthLayout'
 import AppStorage from 'framework/utils/AppStorage'
-import type { RestResponseUserInfo } from 'services/portal'
+import type { RestResponseUserInfo } from 'services/cd-ng'
 
 import AuthFooter, { AuthPage } from '@common/components/AuthLayout/AuthFooter/AuthFooter'
 import { useStrings } from 'framework/strings'
@@ -31,10 +31,9 @@ interface SignupForm {
 }
 
 const setToken = async (response: RestResponseUserInfo): Promise<void> => {
-  const { token, defaultAccountId, uuid } = response.resource
-  AppStorage.set('token', token)
-  AppStorage.set('acctId', defaultAccountId)
-  AppStorage.set('uuid', uuid)
+  AppStorage.set('token', response.resource?.token)
+  AppStorage.set('acctId', response.resource?.defaultAccountId)
+  AppStorage.set('uuid', response.resource?.uuid)
   AppStorage.set('lastTokenSetTime', +new Date())
 }
 
@@ -42,7 +41,7 @@ const SignupPage: React.FC = () => {
   const { showError } = useToaster()
   const { getString } = useStrings()
   const { module } = useQueryParams<{ module?: Module }>()
-  const { mutate: getUserInfo, loading } = useSignupUser({})
+  const { mutate: getUserInfo, loading } = useSignup({})
   const history = useHistory()
 
   const HarnessLogo = HarnessIcons['harness-logo-black']
@@ -50,14 +49,14 @@ const SignupPage: React.FC = () => {
   const handleSignup = async (data: SignupForm): Promise<void> => {
     const { email, password } = data
 
-    const dataToSubmit: SignupUserRequestBody = {
+    const dataToSubmit: SignupDTO = {
       email,
       password
     }
 
     try {
       const userInfoResponse = await getUserInfo(dataToSubmit)
-      const accountId = userInfoResponse.resource.defaultAccountId
+      const accountId = userInfoResponse.resource?.defaultAccountId || ''
       await setToken(userInfoResponse)
       if (module) {
         history.push({ pathname: routes.toModuleHome({ module, accountId }), search: '?source=signup' })

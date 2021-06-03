@@ -2,7 +2,11 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
+import {
+  Connectors,
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  SECRET_MANAGER_TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 
@@ -58,6 +62,7 @@ const CreateAwsKmsConnector: React.FC<CreateAwsKmsConnectorProps> = props => {
         onClose={onClose}
         isLastStep={true}
         type={Connectors.AWS_KMS}
+        stepIndex={SECRET_MANAGER_TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

@@ -1268,7 +1268,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-top-xsmall Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                   type="button"
                 >
                   <span

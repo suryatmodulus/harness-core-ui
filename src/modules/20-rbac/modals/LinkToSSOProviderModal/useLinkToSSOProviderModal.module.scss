@@ -1,0 +1,20 @@
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}
+
+.dialog {
+  border-radius: 11px;
+  position: relative;
+  padding-bottom: 0;
+  width: 600px !important;
+}
+
+.checkbox {
+  margin-left: 26px !important;
+}
+
+.select {
+  width: 100%;
+}

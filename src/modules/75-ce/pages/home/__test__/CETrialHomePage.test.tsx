@@ -1,13 +1,12 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useStartTrial } from 'services/portal'
+import { useStartTrialLicense } from 'services/cd-ng'
 import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
 import CETrialHomePage from '../CETrialHomePage'
 
-jest.mock('services/portal')
-
-const useStartTrialMock = useStartTrial as jest.MockedFunction<any>
+jest.mock('services/cd-ng')
+const useStartTrialMock = useStartTrialLicense as jest.MockedFunction<any>
 
 jest.mock('@common/modals/StartTrial/StartTrialModal')
 const useStartTrialModalMock = useStartTrialModal as jest.MockedFunction<any>

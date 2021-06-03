@@ -8,10 +8,12 @@ declare const styles: {
   readonly strategyType: string
   readonly active: string
   readonly selectBtn: string
+  readonly cancelBtn: string
   readonly preview: string
   readonly previewContainer: string
   readonly info: string
   readonly image: string
   readonly toggleVerify: string
+  readonly closeBtn: string
 }
 export default styles

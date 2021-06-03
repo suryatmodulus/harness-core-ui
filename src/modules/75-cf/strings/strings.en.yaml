@@ -297,7 +297,6 @@ environments:
     title: 'SDK Keys'
     addKey: '+ Add Key'
     clientType: '{{ $.cf.testTheFlag.sdkClient }}'
-    clientId: 'Client ID'
     serverType: '{{ $.cf.testTheFlag.sdkServer }}'
     deleteTitle: 'Confirm Key Delete'
     deleteMessage: 'Are you sure you want to delete Key: {{keyName}}? You cannot recover it afterwards'

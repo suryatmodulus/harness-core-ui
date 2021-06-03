@@ -1,20 +1,28 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetModuleLicenseInfo, useStartTrial } from 'services/portal'
+import { useGetModuleLicenseByAccountAndModuleType, useStartTrialLicense } from 'services/cd-ng'
 import { useGetProjectList } from 'services/cd-ng'
 import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
 import CEHomePage from '../CEHomePage'
 
-jest.mock('services/portal')
-const useGetModuleLicenseInfoMock = useGetModuleLicenseInfo as jest.MockedFunction<any>
-const useStartTrialMock = useStartTrial as jest.MockedFunction<any>
-
 jest.mock('services/cd-ng')
+const useGetModuleLicenseInfoMock = useGetModuleLicenseByAccountAndModuleType as jest.MockedFunction<any>
+const useStartTrialMock = useStartTrialLicense as jest.MockedFunction<any>
 const useGetProjectListMock = useGetProjectList as jest.MockedFunction<any>
 
 jest.mock('@ce/modals/CETrialModal/useCETrialModal')
 const useCETrialModalMock = useCETrialModal as jest.MockedFunction<any>
+
+const currentUser = {
+  defaultAccountId: '123',
+  accounts: [
+    {
+      uuid: '123',
+      createdFromNG: true
+    }
+  ]
+}
 
 describe('CEHomePage snapshot test', () => {
   test('should render HomePageTemplate when return success with data', () => {
@@ -37,7 +45,7 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
         <CEHomePage />
       </TestWrapper>
     )
@@ -45,7 +53,7 @@ describe('CEHomePage snapshot test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should return error page if the modulce licence call fails', () => {
+  test('should return error page if the modulce license call fails', () => {
     useCETrialModalMock.mockImplementation(() => ({ showModal: jest.fn(), hideModal: jest.fn() }))
     useGetProjectListMock.mockImplementation(() => {
       return {
@@ -64,7 +72,7 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
         <CEHomePage />
       </TestWrapper>
     )
@@ -94,7 +102,7 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
         <CEHomePage />
       </TestWrapper>
     )
@@ -122,7 +130,7 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
         <CEHomePage />
       </TestWrapper>
     )
@@ -150,7 +158,7 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
         <CEHomePage />
       </TestWrapper>
     )
@@ -193,7 +201,7 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper queryParams={{ trial: true }}>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }} queryParams={{ trial: true }}>
         <CEHomePage />
       </TestWrapper>
     )
@@ -227,11 +235,68 @@ describe('CEHomePage snapshot test', () => {
     })
 
     render(
-      <TestWrapper queryParams={{ trial: true }}>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }} queryParams={{ trial: true }}>
         <CEHomePage />
       </TestWrapper>
     )
 
     expect(showModalMock).toHaveBeenCalled()
+  })
+
+  test("shouldn't show the trial home pagers if the user is not created from NG", async () => {
+    useCETrialModalMock.mockImplementation(() => ({ showModal: jest.fn(), hideModal: jest.fn() }))
+    useStartTrialMock.mockImplementation(() => {
+      return {
+        cancel: jest.fn(),
+        loading: false,
+        mutate: jest.fn().mockImplementationOnce(() => {
+          return {
+            status: 'SUCCESS',
+            data: {
+              licenseType: 'TRIAL'
+            }
+          }
+        })
+      }
+    })
+
+    useGetProjectListMock.mockImplementation(() => {
+      return {
+        data: {
+          content: []
+        }
+      }
+    })
+
+    useGetModuleLicenseInfoMock.mockImplementation(() => {
+      return {
+        data: {
+          data: {},
+          status: 'SUCCESS'
+        },
+        error: null,
+        refetch: jest.fn()
+      }
+    })
+
+    const userCreatedFromCG = {
+      defaultAccountId: '123',
+      accounts: [
+        {
+          uuid: '123',
+          createdFromNG: false
+        }
+      ]
+    }
+
+    const { container, getByText } = render(
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: userCreatedFromCG }} queryParams={{ trial: true }}>
+        <CEHomePage />
+      </TestWrapper>
+    )
+
+    expect(getByText('ce.homepage.slogan')).toBeDefined()
+
+    expect(container).toMatchSnapshot()
   })
 })

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Service, ServiceLog, useLogsOfService } from 'services/lw'
-import { SimpleLogViewer } from '@common/components/MultiLogsViewer/SimpleLogViewer'
+import { SimpleLogViewer } from '@common/components/LogViewer/SimpleLogViewer'
 
 interface COGatewayLogsProps {
   service: Service | undefined

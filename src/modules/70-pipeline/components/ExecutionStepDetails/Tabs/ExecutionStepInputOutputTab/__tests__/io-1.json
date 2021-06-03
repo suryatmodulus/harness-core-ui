@@ -1,6 +1,6 @@
 {
-  "outcomes": [
-    {
+  "outcomes": {
+    "output": {
       "type": "environmentOutcome",
       "name": "env1",
       "identifier": "env",
@@ -8,7 +8,7 @@
       "tags": [],
       "_pms_class": "io.harness.cdng.environment.EnvironmentOutcome"
     },
-    {
+    "someotherkey": {
       "type": "KubernetesDirect",
       "connectorRef": "account.KubernetesConnectorForAutomationTestasd",
       "namespace": "ng-testing",
@@ -17,7 +17,7 @@
       "_pms_class": "io.harness.cdng.infra.beans.K8sDirectInfrastructureOutcome",
       "path": ["path1", "path2"]
     }
-  ],
+  },
   "stepParameters": {
     "pipelineInfrastructure": {
       "infrastructureDefinition": {

@@ -36,7 +36,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
             class="title"
           >
             <span
-              class="bp3-icon StyledProps--main"
+              class="bp3-icon StyledProps--main hover"
               data-icon="cd-main"
               style="height: 20px;"
             >
@@ -75,26 +75,6 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
             overview
           </span>
         </div>
-        <span
-          class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
-          icon="chevron-right"
-          style="align-self: center; height: 20px;"
-        >
-          <svg
-            data-icon="chevron-right"
-            height="20"
-            viewBox="0 0 20 20"
-            width="20"
-          >
-            <desc>
-              chevron-right
-            </desc>
-            <path
-              d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
         <div
           aria-controls="bp3-tab-panel_stageSetupShell_SERVICE"
           aria-disabled="false"
@@ -112,7 +92,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
             data-warning="false"
           >
             <span
-              class="bp3-icon StyledProps--main"
+              class="bp3-icon StyledProps--main hover"
               data-icon="services"
             >
               <svg
@@ -132,26 +112,6 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
             service
           </span>
         </div>
-        <span
-          class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
-          icon="chevron-right"
-          style="align-self: center; height: 20px;"
-        >
-          <svg
-            data-icon="chevron-right"
-            height="20"
-            viewBox="0 0 20 20"
-            width="20"
-          >
-            <desc>
-              chevron-right
-            </desc>
-            <path
-              d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
         <div
           aria-controls="bp3-tab-panel_stageSetupShell_INFRASTRUCTURE"
           aria-disabled="false"
@@ -169,7 +129,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
             data-warning="false"
           >
             <span
-              class="bp3-icon StyledProps--main"
+              class="bp3-icon StyledProps--main hover"
               data-icon="infrastructure"
             >
               <svg
@@ -192,26 +152,6 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
             infrastructureText
           </span>
         </div>
-        <span
-          class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
-          icon="chevron-right"
-          style="align-self: center; height: 20px;"
-        >
-          <svg
-            data-icon="chevron-right"
-            height="20"
-            viewBox="0 0 20 20"
-            width="20"
-          >
-            <desc>
-              chevron-right
-            </desc>
-            <path
-              d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
         <div
           aria-controls="bp3-tab-panel_stageSetupShell_EXECUTION"
           aria-disabled="false"
@@ -229,7 +169,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
             data-warning="false"
           >
             <span
-              class="bp3-icon StyledProps--main"
+              class="bp3-icon StyledProps--main hover"
               data-icon="execution"
             >
               <svg
@@ -253,26 +193,6 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
             executionText
           </span>
         </div>
-        <span
-          class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
-          icon="chevron-right"
-          style="align-self: center; height: 20px;"
-        >
-          <svg
-            data-icon="chevron-right"
-            height="20"
-            viewBox="0 0 20 20"
-            width="20"
-          >
-            <desc>
-              chevron-right
-            </desc>
-            <path
-              d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
         <div
           aria-controls="bp3-tab-panel_stageSetupShell_ADVANCED"
           aria-disabled="false"
@@ -289,7 +209,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
             class="title"
           >
             <span
-              class="bp3-icon StyledProps--main"
+              class="bp3-icon StyledProps--main hover"
               data-icon="advanced"
               style="height: 20px;"
             >

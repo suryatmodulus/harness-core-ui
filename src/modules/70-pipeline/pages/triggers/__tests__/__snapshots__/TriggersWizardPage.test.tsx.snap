@@ -868,7 +868,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                   >
                                     <p
-                                      class="StyledProps--font StyledProps--main label"
+                                      class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                     />
                                     <div
                                       class="rightStatus"
@@ -1679,7 +1679,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                   >
                                     <p
-                                      class="StyledProps--font StyledProps--main label"
+                                      class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                     />
                                     <div
                                       class="rightStatus"

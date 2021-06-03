@@ -1,10 +1,16 @@
 import React from 'react'
 import * as Yup from 'yup'
-import { isEmpty } from 'lodash-es'
+import { parse } from 'yaml'
+import { isEmpty, get } from 'lodash-es'
+import { CompletionItemKind } from 'vscode-languageserver-types'
 import { FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
 import { StepProps, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { getUserGroupListPromise } from 'services/cd-ng'
+import { loggerFor } from 'framework/logging/logging'
+import { ModuleName } from 'framework/types/ModuleName'
 import type { UseStringsReturn } from 'framework/strings'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { PipelineStep } from '../../PipelineStep'
@@ -15,10 +21,17 @@ import HarnessApprovalDeploymentMode from './HarnessApprovalDeploymentMode'
 import HarnessApprovalStepModeWithRef from './HarnessApprovalStepMode'
 import type { HarnessApprovalData, HarnessApprovalVariableListModeProps } from './types'
 
+const UserGroupRegex = /^.+step\.spec\.approvers\.userGroups$/
+const logger = loggerFor(ModuleName.CD)
 export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
+  protected invocationMap: Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  > = new Map()
   constructor() {
     super()
     this._hasStepVariables = true
+    this.invocationMap.set(UserGroupRegex, this.getUgListForYaml.bind(this))
   }
 
   protected isHarnessSpecific = true
@@ -44,6 +57,48 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
         }
       ]
     }
+  }
+
+  protected getUgListForYaml(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    const { accountId, projectIdentifier, orgIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.approvers.userGroups', ''))
+      if (obj.type === StepType.HarnessApproval) {
+        return getUserGroupListPromise({
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier
+          }
+        }).then(response => {
+          const data =
+            response?.data?.content?.map(service => ({
+              label: service.name || '',
+              insertText: service.identifier || '',
+              kind: CompletionItemKind.Field
+            })) || []
+          return data
+        })
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
   }
 
   validateInputSet(

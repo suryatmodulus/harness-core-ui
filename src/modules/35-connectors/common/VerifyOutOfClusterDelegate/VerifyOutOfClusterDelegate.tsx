@@ -39,6 +39,7 @@ interface VerifyOutOfClusterDelegateProps {
   name?: string
   connectorInfo: ConnectorInfoDTO | void
   gitDetails?: EntityGitDetails
+  stepIndex?: number // will make this mandatory once all usages sends the value
 }
 export interface VerifyOutOfClusterStepProps extends ConnectorConfigDTO {
   isEditMode?: boolean
@@ -323,6 +324,7 @@ const VerifyOutOfClusterDelegate: React.FC<
               intent: Intent.SUCCESS,
               status: 'DONE'
             })
+            props.completedStep?.(props.stepIndex as number)
           } else {
             setStepDetails({
               step: 1,

@@ -719,7 +719,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                                 class="bp3-popover-target"
                               >
                                 <p
-                                  class="StyledProps--font StyledProps--main label"
+                                  class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                   tabindex="0"
                                 >
                                   ValidGithubRepo
@@ -861,8 +861,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue500"
-                          style="cursor: pointer;"
+                          class="StyledProps--font StyledProps--main test StyledProps--color StyledProps--color-blue500"
                         >
                           common.labelTestConnection
                         </p>

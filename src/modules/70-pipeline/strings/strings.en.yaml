@@ -9,6 +9,7 @@ infrastructureKey: 'Infrastructure Key'
 stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
 clickHere: Click here
 stepDetails: Step details
+collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required
@@ -155,13 +156,13 @@ failureStrategies:
     MarkAsSuccess: Mark As Success
   errorTypeLabels:
     Authentication: Authentication Errors
-    Application: Application Errors
     Authorization: Authorization Errors
     Connectivity: Connectivity Errors
     Timeout: Timeout Errors
     Verification: Verification Errors
     DelegateProvisioning: Delegate Provisioning Errors
-    AnyOther: Any Other
+    AllErrors: All Errors
+    Unknown: Unknown Errors
   validation:
     errorsRequired: At least one failure type is required
     errorsMinimum: '{{ $.pipeline.failureStrategies.validation.errorsRequired }}'
@@ -442,11 +443,11 @@ testsReports:
   type: Failure Type
   status: '{{ $.status }}'
   executionOverview: Test Execution Overview
-  numberOfSelectedTests: '# of Selected Tests'
-  testsIntelligentlySkipped: Tests Intelligently Skipped
+  numberOfSelectedTests: 'Selected Tests'
+  totalDuration: Total Duration
   timeSaved: Time Saved
   totalExecutedTest: Total Executed Tests
-  selectionBreakdown: Testcase Selection Breakdown
+  selectionBreakdown: Test Selection Breakdown
   selectionBreakdownInfo: Shows aggregated data on how tests were selected
   totalWithColon: 'TOTAL:'
   failedWithColon: 'FAILED:'
@@ -467,10 +468,10 @@ testsReports:
   consoleOutput: Console Output
   testSuite: 'Test Suite:'
   totalTests: Total Tests
-  testCaseName: TEST CASE NAME
+  testCaseName: TEST NAME
   className: CLASS NAME
   result: RESULT
-  testCasesExecution: Testcases Execution
+  testCasesExecution: Tests Execution
   testCasesExecutionInfo: Shows a list of executed tests and result. In case of error, hover the test to see additional information
   noFailedTestsFound: No failed tests found
   showOnlyFailedTests: Show only failed tests
@@ -479,7 +480,7 @@ testsReports:
   notfound: No tests were found to analyze.
   willBeDisplayedIfAvailable: Test reports will be displayed here if they are configured and available.
   learnMore: Learn how to enable Unit test reporting
-  resultLabel: Testcase Execution Result
+  resultLabel: Test Execution Result
   resultInfo: Heat Map showing a graphical over of the test results
   sortBy: 'Sort by:'
 uniqueIdentifier: Identifier must be unique

@@ -1,9 +1,11 @@
 import React from 'react'
-import { act, fireEvent, render } from '@testing-library/react'
+import { act, fireEvent, render, waitFor, getByText as getByTextBody } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
+import { findDialogContainer } from '@common/utils/testUtils'
+
 import { TerraformApply } from '../TerraformApply'
 
 const mockGetCallFunction = jest.fn()
@@ -14,6 +16,10 @@ jest.mock('services/portal', () => ({
     return []
   })
 }))
+
+jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => {
+  return <textarea value={value} onChange={e => onChange(e.target.value)} name={name || 'spec.source.spec.script'} />
+})
 
 describe('Test TerraformApply', () => {
   beforeEach(() => {
@@ -75,6 +81,73 @@ describe('Test TerraformApply', () => {
     await act(() => ref.current?.submitForm())
     expect(onUpdate).toHaveBeenCalled()
     expect(container).toMatchSnapshot()
+  })
+
+  test('should be able to edit inline config', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const onUpdate = jest.fn()
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformApply',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              type: 'Inline',
+              spec: {
+                configFiles: {
+                  store: {
+                    spec: {
+                      connectorRef: {
+                        label: 'test',
+                        value: 'test',
+                        scope: 'account',
+                        connector: { type: 'Git' }
+                      }
+                    }
+                  }
+                },
+                varFiles: [
+                  {
+                    varFile: {
+                      type: 'Inline',
+                      spec: {
+                        content: 'test'
+                      }
+                    }
+                  },
+                  {
+                    varFile: {
+                      type: 'Remote',
+                      store: {
+                        spec: {
+                          connectorRef: 'test',
+                          branch: 'test-brancg',
+                          folderPath: 'testfolder'
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }}
+        type={StepType.TerraformApply}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        onUpdate={onUpdate}
+      />
+    )
+    const editIcon = container.querySelector('[data-name="config-edit"]')
+    fireEvent.click(editIcon!)
+    const dialog = findDialogContainer() as HTMLElement
+
+    await waitFor(() => getByTextBody(dialog, 'pipelineSteps.configFiles'))
+    expect(dialog).toMatchSnapshot()
   })
 
   test('should submit form for inline config', async () => {
@@ -186,7 +259,7 @@ describe('Test TerraformApply', () => {
     )
     expect(container).toMatchSnapshot()
 
-    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
+    fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
     const trashIcon = container.querySelector('[data-testid="remove-tfvar-file-0"]')
     fireEvent.click(trashIcon!)
     expect(container).toMatchSnapshot()
@@ -226,7 +299,7 @@ describe('Test TerraformApply', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText('pipelineSteps.backendConfig'))
+    fireEvent.click(getByText('cd.backEndConfig'))
     expect(container).toMatchSnapshot()
   })
 
@@ -272,6 +345,7 @@ describe('Test TerraformApply', () => {
   test('should render edit view', () => {
     const { container } = render(
       <TestStepWidget
+        path="test"
         initialValues={{
           type: 'TerraformApply',
           name: 'Test A',

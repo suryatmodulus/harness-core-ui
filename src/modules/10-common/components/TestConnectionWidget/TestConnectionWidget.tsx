@@ -2,6 +2,8 @@ import React from 'react'
 import { Color, Icon, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 
+import css from './TestConnectionWidget.module.scss'
+
 interface TestConnectionWidgetProps {
   testStatus: TestStatus
   onTest: () => Promise<void>
@@ -22,7 +24,7 @@ export const TestConnectionWidget: React.FC<TestConnectionWidgetProps> = ({ test
       return (
         <Layout.Horizontal spacing="small" flex>
           <Icon name="test-connection" />
-          <Text style={{ cursor: 'pointer' }} color={Color.BLUE_500} onClick={() => onTest()}>
+          <Text className={css.test} color={Color.BLUE_500} onClick={() => onTest()}>
             {getString('common.labelTestConnection')}
           </Text>
         </Layout.Horizontal>
@@ -40,7 +42,7 @@ export const TestConnectionWidget: React.FC<TestConnectionWidgetProps> = ({ test
           <Icon name="circle-cross" color={Color.RED_450} />
           <Text>{getString('common.test.connectionFailed')}</Text>
           <Icon name="test-connection" />
-          <Text style={{ cursor: 'pointer' }} color={Color.BLUE_500} onClick={() => onTest()}>
+          <Text className={css.test} color={Color.BLUE_500} onClick={() => onTest()}>
             {getString('common.test.retest')}
           </Text>
         </Layout.Horizontal>

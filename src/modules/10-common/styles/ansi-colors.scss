@@ -1,0 +1,66 @@
+$colors: (
+  'black': rgb(0, 0, 0),
+  'red': rgb(187, 0, 0),
+  'green': rgb(0, 187, 0),
+  'yellow': rgb(187, 187, 0),
+  'blue': rgb(0, 0, 187),
+  'magenta': rgb(187, 0, 187),
+  'cyan': rgb(0, 187, 187),
+  'white': rgb(255, 255, 255),
+  'bright-black': rgb(85, 85, 85),
+  'bright-red': rgb(255, 85, 85),
+  'bright-green': rgb(0, 255, 0),
+  'bright-yellow': rgb(255, 255, 85),
+  'bright-blue': rgb(85, 85, 255),
+  'bright-magenta': rgb(255, 85, 255),
+  'bright-cyan': rgb(85, 255, 255),
+  'bright-white': rgb(255, 255, 255)
+);
+
+@each $key, $val in $colors {
+  .ansi-#{$key}-fg {
+    color: $val !important;
+  }
+
+  .ansi-#{$key}-bg {
+    background-color: $val !important;
+  }
+}
+
+a.ansi-decoration-link {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.ansi-decoration-bold {
+  font-weight: bold !important;
+}
+
+.ansi-decoration-dim {
+  opacity: 0.5 !important;
+}
+.ansi-decoration-italic {
+  font-style: italic !important;
+}
+
+.ansi-decoration-underline {
+  text-decoration: underline !important;
+}
+
+.ansi-decoration-blink {
+  animation: blinker 1s linear infinite;
+}
+
+.ansi-decoration-hidden {
+  opacity: 0 !important;
+}
+
+.ansi-decoration-strikethrough {
+  text-decoration: line-through !important;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}

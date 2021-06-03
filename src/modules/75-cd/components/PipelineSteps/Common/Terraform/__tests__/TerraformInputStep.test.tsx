@@ -74,6 +74,7 @@ describe('Test terraform input set', () => {
               inputSetData={{
                 template
               }}
+              path="test"
             />
           </FormikForm>
         </Formik>

@@ -51,6 +51,9 @@
 .selectBtn {
   position: absolute !important;
   bottom: var(--spacing-huge) !important;
+  &.cancelBtn {
+    margin-left: 94px !important;
+  }
 }
 
 .preview {
@@ -77,4 +80,9 @@
       margin-left: 22px;
     }
   }
+}
+.closeBtn {
+  position: relative;
+  left: 82%;
+  cursor: pointer;
 }

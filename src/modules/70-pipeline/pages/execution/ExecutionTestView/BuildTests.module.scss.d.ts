@@ -9,6 +9,10 @@ declare const styles: {
   readonly stats: string
   readonly statsTitle: string
   readonly statsNumber: string
+  readonly row: string
+  readonly diff: string
+  readonly diffNegative: string
+  readonly timeSaved: string
   readonly overview: string
   readonly linesWrapper: string
   readonly line: string

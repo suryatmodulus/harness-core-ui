@@ -9,12 +9,13 @@ import type {
 } from '@common/interfaces/RouteInterfaces'
 
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
-import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
+import { EntityGitDetails, InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
 import { useQueryParams } from '@common/hooks'
 import { PageSpinner } from '@common/components'
 
 interface InputSetValue extends SelectOption {
   type: InputSetSummaryResponse['inputSetType']
+  gitDetails?: EntityGitDetails
 }
 
 export default function RunPipelinePage(): React.ReactElement {
@@ -59,7 +60,11 @@ export default function RunPipelinePage(): React.ReactElement {
         {
           type: query.inputSetType as InputSetSummaryResponse['inputSetType'],
           value: query.inputSetValue,
-          label: query.inputSetLabel
+          label: query.inputSetLabel,
+          gitDetails: {
+            repoIdentifier: query.inputSetRepoIdentifier,
+            branch: query.inputSetBranch
+          }
         }
       ]
       return inputSetSelected

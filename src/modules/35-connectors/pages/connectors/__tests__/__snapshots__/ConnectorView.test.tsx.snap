@@ -38,6 +38,16 @@ exports[`Connector Details Page Edit and save connector YAML 1`] = `
                 saveChanges
               </span>
             </button>
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-top-large Button--with-current-color"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                cancel
+              </span>
+            </button>
           </div>
         </div>
       </div>

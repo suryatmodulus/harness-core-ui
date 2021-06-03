@@ -7,6 +7,7 @@ import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier
 
 interface RbacAvatarGroupProps extends AvatarGroupProps {
   permission: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
+  disabled?: boolean
 }
 
 const RbacAvatarGroup: React.FC<RbacAvatarGroupProps> = ({ permission: permissionRequest, ...restProps }) => {
@@ -18,11 +19,15 @@ const RbacAvatarGroup: React.FC<RbacAvatarGroupProps> = ({ permission: permissio
     [permissionRequest]
   )
 
+  const disabledTooltip = restProps.onAddTooltip && restProps.disabled ? restProps.onAddTooltip : undefined
+
   return (
     <AvatarGroup
       {...restProps}
       onAddTooltip={
-        canDoAction ? undefined : (
+        canDoAction ? (
+          disabledTooltip
+        ) : (
           <RBACTooltip
             permission={permissionRequest.permission}
             resourceType={permissionRequest.resource.resourceType}
@@ -31,7 +36,7 @@ const RbacAvatarGroup: React.FC<RbacAvatarGroupProps> = ({ permission: permissio
         )
       }
       onAdd={event => {
-        if (canDoAction) restProps.onAdd?.(event)
+        if (canDoAction && !restProps.disabled) restProps.onAdd?.(event)
         else event.stopPropagation()
       }}
     />

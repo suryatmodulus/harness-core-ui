@@ -60,7 +60,6 @@ const PipelineResourceModal: React.FC<RbacResourceModalProps> = ({
       accountIdentifier,
       projectIdentifier,
       orgIdentifier,
-      module: 'cd',
       searchTerm,
       page,
       size: 10

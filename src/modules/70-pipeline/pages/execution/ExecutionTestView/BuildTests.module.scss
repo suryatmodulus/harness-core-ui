@@ -83,6 +83,29 @@
   .statsNumber {
     font-size: 32px;
     font-weight: 600;
+    &.row {
+      display: flex;
+      align-items: baseline;
+      .diff {
+        display: inline-flex;
+        align-items: center;
+        margin-left: var(--spacing-xsmall);
+        font-size: var(--font-size-small);
+        color: var(--grey-500);
+      }
+      .diffNegative {
+        color: var(--red-500);
+        svg {
+          fill: var(--red-500);
+        }
+      }
+    }
+  }
+  &.timeSaved {
+    background-color: var(--blue-100) !important;
+    .statsNumber {
+      color: var(--purple-700);
+    }
   }
 }
 

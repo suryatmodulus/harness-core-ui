@@ -110,7 +110,7 @@ const buildAuthTypePayload = (formData: FormData) => {
       return {
         clientKeyRef: formData.clientKey.referenceString,
         clientCertRef: formData.clientKeyCertificate.referenceString,
-        clientKeyPassphraseRef: formData.clientKeyPassphrase.referenceString,
+        clientKeyPassphraseRef: formData.clientKeyPassphrase?.referenceString,
         caCertRef: formData.clientKeyCACertificate?.referenceString, // optional
         clientKeyAlgo: formData.clientKeyAlgo
       }
@@ -1061,6 +1061,17 @@ export const buildDynatracePayload = (formData: FormData) => {
   }
 }
 
+export const setupAzureKeyVaultFormData = (connectorInfo: ConnectorInfoDTO) => {
+  return {
+    clientId: connectorInfo?.spec?.clientId,
+    secretKey: connectorInfo?.spec?.secretKey,
+    tenantId: connectorInfo?.spec?.tenantId,
+    vaultName: connectorInfo?.spec?.vaultName,
+    subscription: connectorInfo?.spec?.subscription,
+    default: connectorInfo?.spec?.default
+  }
+}
+
 export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconName => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
@@ -1108,6 +1119,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-azure'
     case Connectors.DATADOG:
       return 'service-datadog'
+    case Connectors.AZURE_KEY_VAULT:
+      return 'azure-key-vault'
     default:
       return 'cog'
   }
@@ -1159,6 +1172,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'AWS Secret Manager'
     case Connectors.AWS_KMS:
       return 'AWS KMS'
+    case Connectors.AZURE_KEY_VAULT:
+      return 'Azure Key Vault'
     default:
       return ''
   }
@@ -1238,6 +1253,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.azure')
     case Connectors.DATADOG:
       return getString('connectors.testConnectionStep.validationText.datadog')
+    case Connectors.CE_AZURE_KEY_VAULT:
+      return getString('connectors.testConnectionStep.validationText.azureKeyVault')
     default:
       return ''
   }

@@ -76,7 +76,8 @@ describe('Approval Stage minimal view', () => {
       name: 'stagename',
       identifier: 'stagename',
       description: undefined,
-      approvalType: 'HarnessApproval'
+      approvalType: 'HarnessApproval',
+      tags: {}
     })
     act(() => {
       fireEvent.click(getByText('Harness Approval'))
@@ -92,7 +93,8 @@ describe('Approval Stage minimal view', () => {
             name: 'stagename',
             identifier: 'stagename',
             description: undefined,
-            approvalType: 'HarnessApproval'
+            approvalType: 'HarnessApproval',
+            tags: {}
           }
         },
         'stagename'
@@ -137,7 +139,8 @@ describe('Jira Approval Stage minimal view', () => {
       name: 'stagename',
       identifier: 'stagename',
       description: undefined,
-      approvalType: 'JiraApproval'
+      approvalType: 'JiraApproval',
+      tags: {}
     })
 
     act(() => {
@@ -150,7 +153,8 @@ describe('Jira Approval Stage minimal view', () => {
             name: 'stagename',
             identifier: 'stagename',
             description: undefined,
-            approvalType: 'JiraApproval'
+            approvalType: 'JiraApproval',
+            tags: {}
           }
         },
         'stagename'

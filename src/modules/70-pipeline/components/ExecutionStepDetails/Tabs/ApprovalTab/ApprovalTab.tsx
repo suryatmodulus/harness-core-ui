@@ -90,6 +90,7 @@ export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null 
               isWaiting={isWaiting}
               updateState={setApprovalData}
               authData={authData}
+              stepParameters={step.stepParameters}
             />
           ) : null}
           {approvalData?.data && step.stepType === StepType.JiraApproval ? (

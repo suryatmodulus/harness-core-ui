@@ -10,10 +10,10 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import { useCreateConnector, useGetYamlSchema } from 'services/cd-ng'
+import { ConnectorInfoDTO, EntityGitDetails, useCreateConnector, useCreatePR, useGetYamlSchema } from 'services/cd-ng'
 import { useToaster, useConfirmationDialog, StringUtils } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { NameIdDescriptionTags, PageSpinner } from '@common/components'
+import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -21,18 +21,11 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import GitContextForm from '@common/components/GitContextForm/GitContextForm'
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import { sanitize } from '@common/utils/JSONUtils'
-import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import type { SaveToGitFormInterface, GitResourceInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import { ProgressOverlay, StepStatus } from '@common/modals/ProgressOverlay/ProgressOverlay'
+import { Entities } from '@common/interfaces/GitSyncInterface'
 
 import css from './CreateConnectorFromYamlPage.module.scss'
-
-type CreateConnectorFromYamlModalType = {
-  identifier: string
-  name: string
-  description: string
-  tags: Record<string, string>
-  repo: string
-  branch: string
-}
 
 const CreateConnectorFromYamlPage: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -42,7 +35,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   }>()
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const history = useHistory()
-  const { showSuccess, showError } = useToaster()
+  const { showError } = useToaster()
   const { mutate: createConnector, loading: creating } = useCreateConnector({
     queryParams: { accountIdentifier: accountId }
   })
@@ -50,8 +43,22 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const { getString } = useStrings()
   const [hasConnectorChanged, setHasConnectorChanged] = useState<boolean>(false)
   const { isGitSyncEnabled } = useAppStore()
-  const [gitDetails, setGitDetails] = useState<CreateConnectorFromYamlModalType>()
+  const [gitResourceDetails, setGitResourceDetails] = useState<GitResourceInterface>({
+    gitDetails: {} as EntityGitDetails,
+    type: Entities.CONNECTORS,
+    name: getString('newConnector'),
+    identifier: ''
+  })
   const [registeredWithGit, setRegisteredWithGit] = useState<boolean>()
+  const [connector, setConnector] = useState<ConnectorInfoDTO | undefined>()
+  // git sync related state vars
+  const { mutate: createPullRequest, loading: creatingPR } = useCreatePR({})
+  const [connectorCreateStatus, setConnectorCreateStatus] = useState<StepStatus>()
+  const [prCreateStatus, setPRCreateStatus] = useState<StepStatus>()
+  const [prMetaData, setPRMetaData] = useState<
+    Pick<SaveToGitFormInterface, 'branch' | 'targetBranch' | 'isNewBranch'>
+  >()
+  const [connectorCreateError, setConnectorCreateError] = useState<Record<string, any>>()
 
   const onConnectorChange = (isEditorDirty: boolean): void => {
     if (isGitSyncEnabled && !registeredWithGit) {
@@ -70,38 +77,163 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     }
   }
 
+  // modal to show while creating a PR
+  const [showCreatePRModal, hideCreatePRModal] = useModalHook(() => {
+    const fromBranch = prMetaData?.branch || ''
+    const toBranch = prMetaData?.targetBranch || ''
+    return (
+      <Dialog
+        isOpen={true}
+        className={Classes.DIALOG}
+        style={{
+          minWidth: 600,
+          paddingBottom: 0,
+          maxHeight: 500
+        }}
+      >
+        <ProgressOverlay
+          preFirstStage={
+            prMetaData?.isNewBranch
+              ? {
+                  status: connectorCreateStatus,
+                  intermediateLabel: getString('common.gitSync.settingUpNewBranch', {
+                    branch: fromBranch
+                  })
+                }
+              : undefined
+          }
+          firstStage={{
+            status: connectorCreateStatus,
+            intermediateLabel: getString('connectors.creating'),
+            finalLabel: connectorCreateError?.data?.message || connectorCreateError?.message
+          }}
+          postFirstStage={{
+            status: connectorCreateStatus,
+            intermediateLabel: getString('common.gitSync.pushingChangestoBranch', {
+              branch: fromBranch
+            })
+          }}
+          secondStage={{
+            status: prCreateStatus,
+            intermediateLabel: getString('common.gitSync.creatingPR', {
+              fromBranch,
+              toBranch
+            }),
+            finalLabel: getString('common.gitSync.unableToCreatePR')
+          }}
+          onClose={() => {
+            hideCreatePRModal()
+            if (connectorCreateStatus === 'SUCCESS' && connector?.identifier) {
+              rerouteBasedOnContext(connector?.identifier)
+            }
+          }}
+        />
+      </Dialog>
+    )
+  }, [creatingPR, connectorCreateStatus, connectorCreateError, prCreateStatus, prMetaData])
+
+  // modal to show while creating/updating a connector
+  const [showCreateConnectorModal, hideCreateConnectorModal] = useModalHook(() => {
+    const connectorName = (connector as ConnectorInfoDTO)?.name
+    return (
+      <Dialog
+        isOpen={true}
+        className={Classes.DIALOG}
+        style={{
+          minWidth: 500,
+          paddingBottom: 0,
+          maxHeight: 500
+        }}
+      >
+        <ProgressOverlay
+          firstStage={{
+            status: connectorCreateStatus,
+            intermediateLabel: getString('connectors.creating', { name: connectorName }),
+            finalLabel: connectorCreateError?.data?.message || connectorCreateError?.message
+          }}
+          onClose={() => {
+            hideCreateConnectorModal()
+            if (connector?.identifier) {
+              rerouteBasedOnContext(connector?.identifier)
+            }
+          }}
+        />
+      </Dialog>
+    )
+  }, [connectorCreateStatus, connectorCreateError, connector])
+
   const { openSaveToGitDialog } = useSaveToGitDialog({
     onSuccess: (_gitDetails: SaveToGitFormInterface): Promise<void> => handleCreate(_gitDetails),
     onClose: noop
   })
 
-  const handleCreate = async (__gitDetails?: SaveToGitFormInterface): Promise<void> => {
-    const yamlData = yamlHandler?.getLatestYaml()
-    let jsonData
-    try {
-      jsonData = parse(yamlData || '')
-    } catch (err) {
-      showError(err.message)
+  const handleCreate = async (gitData?: SaveToGitFormInterface): Promise<void> => {
+    setConnectorCreateStatus('IN_PROGRESS')
+    if (isGitSyncEnabled && gitData?.createPr) {
+      setPRMetaData({
+        branch: gitData?.branch,
+        targetBranch: gitData?.targetBranch,
+        isNewBranch: gitData?.isNewBranch
+      })
+      setPRCreateStatus('IN_PROGRESS')
+      showCreatePRModal()
+    } else {
+      showCreateConnectorModal()
     }
-    if (yamlData && jsonData) {
+    const yamlData = yamlHandler?.getLatestYaml()
+    let connectorJSON
+    try {
+      connectorJSON = parse(yamlData || '')
+    } catch (err) {
+      setConnectorCreateError(err)
+      showError(err.message)
+      hideCreatePRModal()
+      hideCreateConnectorModal()
+      return
+    }
+    if (yamlData && connectorJSON) {
       try {
-        const queryParams = __gitDetails ? { accountIdentifier: accountId, ...__gitDetails } : {}
-        const { status } = await createConnector(jsonData, { queryParams })
-        if (status !== 'ERROR') {
-          showSuccess(getString('connectors.successfullyCreated'))
-          rerouteBasedOnContext(jsonData.connector?.['identifier'])
-        } else {
-          showError(getString('somethingWentWrong'))
+        const queryParams = gitData ? { accountIdentifier: accountId, ...gitData } : {}
+        const { status, data } = await createConnector(connectorJSON, { queryParams })
+        setConnectorCreateStatus(status)
+        if (!isGitSyncEnabled && !gitData?.createPr && connector?.identifier) {
+          rerouteBasedOnContext(connector?.identifier)
         }
-      } catch (err) {
-        if (err?.data?.message) {
-          showError(err?.data?.message)
-          return
+
+        // if connector creation/update succeeds, raise a PR, if specified
+        if (status === 'SUCCESS') {
+          setConnector(data?.connector)
+          if (isGitSyncEnabled && gitData?.createPr) {
+            try {
+              const _response = await createPullRequest(
+                {
+                  sourceBranch: gitData?.branch || '',
+                  targetBranch: gitData?.targetBranch || '',
+                  title: gitData?.commitMsg || ''
+                },
+                {
+                  queryParams: {
+                    accountIdentifier: accountId,
+                    orgIdentifier,
+                    projectIdentifier,
+                    yamlGitConfigIdentifier: gitData?.repoIdentifier || ''
+                  }
+                }
+              )
+              setPRCreateStatus(_response?.status)
+            } catch (e) {
+              setPRCreateStatus('ERROR')
+            }
+          }
         }
-        if (err?.message) {
-          showError(err?.message)
-          return
+        // if connector creation/update fails, abort PR creation
+        else {
+          setPRCreateStatus('ABORTED')
         }
+      } catch (e) {
+        setConnectorCreateError(e)
+        setConnectorCreateStatus('ERROR')
+        setPRCreateStatus('ABORTED')
       }
     }
   }
@@ -124,6 +256,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
       if (isConfirmed) {
         setEditorContent({})
         setHasConnectorChanged(false)
+        setRegisteredWithGit(false)
       }
     }
   })
@@ -144,7 +277,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     return (
       <Dialog style={{ width: 600, paddingBottom: 0 }} isOpen={true} className={Classes.DIALOG}>
         <Container className={css.container}>
-          <Button icon="cross" minimal className={css.closeModal} onClick={hideModal} />
+          {/* <Button icon="cross" minimal className={css.closeModal} onClick={hideModal} /> */}
           <Text padding="large" font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
             {getString('connectors.createFromYaml')}
           </Text>
@@ -165,7 +298,11 @@ const CreateConnectorFromYamlPage: React.FC = () => {
                 })}
                 onSubmit={values => {
                   setRegisteredWithGit(true)
-                  setGitDetails(values)
+                  setGitResourceDetails(prevState => ({
+                    ...prevState,
+                    name: values.name,
+                    gitDetails: { branch: values.branch, repoIdentifier: values.repo } as EntityGitDetails
+                  }))
                   try {
                     setEditorContent({
                       connector: sanitize({ ...omit(values, 'repo', 'branch'), projectIdentifier, orgIdentifier })
@@ -201,7 +338,6 @@ const CreateConnectorFromYamlPage: React.FC = () => {
                     ) : null}
                     <Layout.Horizontal spacing="small" padding={{ top: 'small' }}>
                       <Button intent="primary" className={css.startBtn} type="submit" text={getString('start')} />
-                      <Button className={css.startBtn} text={getString('cancel')} onClick={hideModal} />
                     </Layout.Horizontal>
                   </FormikForm>
                 )}
@@ -222,16 +358,16 @@ const CreateConnectorFromYamlPage: React.FC = () => {
               {getString('connectors.createFromYaml')}
             </Text>
             <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
-              {gitDetails?.repo ? (
+              {gitResourceDetails.gitDetails?.repoIdentifier ? (
                 <Layout.Horizontal spacing="small">
                   <Icon name="repository" margin={{ left: 'large' }}></Icon>
-                  <Text>{gitDetails.repo}</Text>
+                  <Text>{gitResourceDetails.gitDetails?.repoIdentifier}</Text>
                 </Layout.Horizontal>
               ) : null}
-              {gitDetails?.branch ? (
+              {gitResourceDetails.gitDetails?.branch ? (
                 <Layout.Horizontal spacing="small">
                   <Icon name="git-new-branch" margin={{ left: 'large' }}></Icon>
-                  <Text>{gitDetails.branch}</Text>
+                  <Text>{gitResourceDetails.gitDetails?.branch}</Text>
                 </Layout.Horizontal>
               ) : null}
             </Layout.Horizontal>
@@ -240,9 +376,8 @@ const CreateConnectorFromYamlPage: React.FC = () => {
       />
       <PageBody>
         <Container padding="xlarge">
-          {creating ? <PageSpinner /> : null}
           <YAMLBuilder
-            fileName={gitDetails?.name ?? getString('newConnector')}
+            fileName={`${gitResourceDetails.name}`.concat('.yaml')}
             entityType="Connectors"
             bind={setYamlHandler}
             showIconMenu={true}
@@ -259,14 +394,13 @@ const CreateConnectorFromYamlPage: React.FC = () => {
               intent="primary"
               margin={{ top: 'xlarge' }}
               onClick={() => {
-                isGitSyncEnabled
-                  ? openSaveToGitDialog(false, {
-                      gitDetails,
-                      type: 'Connectors',
-                      name: `${gitDetails?.name ?? getString('newConnector')}.yaml`,
-                      identifier: gitDetails?.identifier || ''
-                    })
-                  : handleCreate()
+                // only sanitized yaml allowed, invalid yaml with/out schema issues should be rejected
+                const errorMap = yamlHandler?.getYAMLValidationErrorMap?.()
+                if (errorMap && errorMap.size > 0) {
+                  showError(getString('yamlBuilder.yamlError'))
+                } else {
+                  isGitSyncEnabled ? openSaveToGitDialog(false, gitResourceDetails) : handleCreate()
+                }
               }}
               disabled={!hasConnectorChanged}
             />

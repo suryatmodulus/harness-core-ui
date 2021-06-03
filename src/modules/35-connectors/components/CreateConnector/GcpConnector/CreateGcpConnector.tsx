@@ -2,7 +2,12 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
+import {
+  Connectors,
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  CreateConnectorModalProps,
+  TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -61,6 +66,7 @@ const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
           isLastStep={true}
           type={Connectors.GCP}
           onClose={props.onClose}
+          stepIndex={TESTCONNECTION_STEP_INDEX}
         />
       </StepWizard>
     </>

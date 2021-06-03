@@ -52,7 +52,7 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
     <Layout.Horizontal flex={{ distribution: 'space-between' }}>
       <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
         <Text font={{ weight: 'bold' }}>
-          {apiKey.type === EnvironmentSDKKeyType.CLIENT ? getEnvString(`apiKeys.clientId`) : getString('secretType')}
+          {apiKey.type === EnvironmentSDKKeyType.CLIENT ? getString(`common.clientId`) : getString('secretType')}
         </Text>
         {showCopy ? (
           <div ref={textRef}>

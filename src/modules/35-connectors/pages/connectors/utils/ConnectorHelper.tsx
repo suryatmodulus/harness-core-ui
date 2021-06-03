@@ -113,6 +113,8 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
       return 'connectors.title.ceAzureConnector'
     case Connectors.DATADOG:
       return 'connectors.title.datadog'
+    case Connectors.AZURE_KEY_VAULT:
+      return 'connectors.title.azureKeyVault'
     default:
       return 'connector'
   }
@@ -167,6 +169,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-azure'
     case Connectors.DATADOG:
       return 'service-datadog'
+    case Connectors.AZURE_KEY_VAULT:
+      return 'azure-key-vault'
     default:
       return 'placeholder'
   }

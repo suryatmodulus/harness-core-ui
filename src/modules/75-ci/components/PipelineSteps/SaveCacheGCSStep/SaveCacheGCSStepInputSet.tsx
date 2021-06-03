@@ -116,6 +116,7 @@ export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({ temp
       )}
       {getMultiTypeFromValue(template?.spec?.override) === MultiTypeInputType.RUNTIME && (
         <FormInput.CheckBox
+          className={css.checkbox}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.override`}
           label={getString('override')}
           disabled={readonly}

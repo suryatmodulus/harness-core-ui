@@ -1,9 +1,12 @@
 .fieldsSection {
   display: flex;
-  flex-direction: column;
-  height: 400px;
   flex-wrap: wrap;
-  padding-top: var(--spacing-medium) !important;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 550px;
+  place-content: flex-start;
+  flex-wrap: wrap;
+  padding: var(--spacing-medium) 0 !important;
 }
 
 .buttons {
@@ -13,6 +16,7 @@
 
 .checkbox {
   padding: var(--spacing-xsmall) 0 !important;
+  width: 250px;
   :global {
     label {
       padding-left: 0 !important;

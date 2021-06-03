@@ -158,8 +158,7 @@ describe('Connectors Page Test', () => {
     expect(createViaYamlButton?.getAttribute('disabled')).toBe('')
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('should confirm that searching calls the api', async () => {
+  test('should confirm that searching calls the api', async () => {
     const getConnectorsListV2 = jest.fn()
     jest.spyOn(cdngServices, 'useGetConnectorListV2').mockImplementation(() => ({ mutate: getConnectorsListV2 } as any))
     const { container } = setup()
@@ -171,7 +170,9 @@ describe('Connectors Page Test', () => {
     expect(searchInput?.nodeValue).toBe(null)
     expect(getConnectorsListV2).toBeCalledTimes(1)
     fireEvent.click(searchIcon!)
-    fireEvent.change(searchInput!, { target: { value: 'abcd' } })
+    await act(async () => {
+      fireEvent.change(searchInput!, { target: { value: 'abcd' } })
+    })
     await waitFor(() => expect(getConnectorsListV2).toBeCalledTimes(2))
   })
 })

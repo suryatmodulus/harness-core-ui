@@ -1,7 +1,10 @@
 import { camelCase } from 'lodash-es'
 import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
 
-export type ExecutionStatus = Required<PipelineExecutionSummaryDTO>['executionStatus']
+export type ExecutionStatus = Exclude<
+  Required<PipelineExecutionSummaryDTO>['executionStatus'],
+  'NOT_STARTED' | 'INTERVENTION_WAITING' | 'APPROVAL_WAITING' | 'APPROVAL_REJECTED'
+>
 
 export const ExecutionStatusEnum: Readonly<Record<ExecutionStatus, ExecutionStatus>> = {
   Aborted: 'Aborted',

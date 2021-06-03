@@ -1,6 +1,6 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
-import type { CreateConnectorModalProps } from '@connectors/constants'
+import { CreateConnectorModalProps, TESTCONNECTION_STEP_INDEX } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
@@ -63,6 +63,7 @@ export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateCon
           isStep
           isLastStep
           type={connectorType}
+          stepIndex={TESTCONNECTION_STEP_INDEX}
         />
       </StepWizard>
     )

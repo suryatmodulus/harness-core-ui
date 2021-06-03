@@ -155,6 +155,11 @@ gitSync:
     header: Sync the branch
     message1: 'Branch {{branch}} is currently not Synced.'
     message2: 'Syncing the branch may take a while. Do you want to continue?'
+  savingInProgress: Saving in progress
+  pushingChangestoBranch: 'Pushing changes to {{branch}}'
+  creatingPR: 'Creating a Pull Request from  {{fromBranch}} to branch {{toBranch}}'
+  unableToCreatePR: Unable to create PR
+  settingUpNewBranch: 'Setting up new branch {{branch}}'
 git:
   branchName: 'Branch name'
   urlType: 'URL Type'
@@ -190,9 +195,10 @@ git:
   branchSelectHeader: Select Branch to Commit
   existingBranchCommitLabel: Commit to an existing branch
   newBranchCommitLabel: Commit to a new branch for this commit
-  startPRLabel: Start a pull request
+  startPRLabel: Start a pull request to merge to
   validation:
     filePath: '{{$.common.git.filePath}} is required'
+    commitMessage: '{{$.common.git.commitMessage}} is required'
 other: Other
 options: Options
 note: Note
@@ -220,8 +226,8 @@ resolveConflict: Resolve the conflicts before Saving.
 seeWhatChanged: See What Changed
 changesUnsaved: You may have unsaved changes.
 savedSuccessfully: Saved Successfully
-submittingRequest: Submitting request and pushing change to Git
-submittingRequestToGitViaDelegate: Submitting request and pushing change to Git from Delegate
+submittingRequest: Submitting request and pushing changes to Git
+submittingRequestToGitViaDelegate: Submitting request and pushing changes to Git from Delegate
 local: Local
 banners:
   email:
@@ -275,3 +281,5 @@ latest: Latest
 selectVersion: Select version
 confirmText: Are you sure?
 paste: Paste
+artifactTag: tag
+clientId: Client ID

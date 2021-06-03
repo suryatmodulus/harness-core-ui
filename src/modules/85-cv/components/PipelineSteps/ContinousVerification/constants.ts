@@ -78,7 +78,7 @@ export const cvDefaultValues = {
     },
     {
       onFailure: {
-        errors: [ErrorType.AnyOther],
+        errors: [ErrorType.Unknown],
         action: {
           type: Strategy.ManualIntervention,
           spec: {

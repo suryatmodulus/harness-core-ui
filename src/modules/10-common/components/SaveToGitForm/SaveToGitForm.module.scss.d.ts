@@ -11,5 +11,6 @@ declare const styles: {
   readonly branchSection: string
   readonly branchInput: string
   readonly formButton: string
+  readonly branchSelector: string
 }
 export default styles

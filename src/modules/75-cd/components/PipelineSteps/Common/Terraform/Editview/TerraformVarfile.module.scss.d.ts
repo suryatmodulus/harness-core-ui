@@ -8,5 +8,34 @@ declare const styles: {
   readonly pathRow: string
   readonly label: string
   readonly addMarginTop: string
+  readonly addMarginBottom: string
+  readonly fieldBorder: string
+  readonly configField: string
+  readonly inputField: string
+  readonly configBtn: string
+  readonly tfMenu: string
+  readonly manifestWizard: string
+  readonly createTfWizard: string
+  readonly optionsViewContainer: string
+  readonly headerContainer: string
+  readonly squareCardContainer: string
+  readonly manifestIcon: string
+  readonly saveBtn: string
+  readonly tfVarStore: string
+  readonly formContainerStepOne: string
+  readonly tfRemoteForm: string
+  readonly modal: string
+  readonly crossIcon: string
+  readonly configPlaceHolder: string
+  readonly addTfVarFile: string
+  readonly dragging: string
+  readonly dragOver: string
+  readonly drag: string
+  readonly iconPosition: string
+  readonly configFile: string
+  readonly configLabel: string
+  readonly configFileLabel: string
+  readonly tfVarLabel: string
+  readonly tfVarMargin: string
 }
 export default styles

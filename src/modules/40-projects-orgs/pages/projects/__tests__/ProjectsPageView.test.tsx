@@ -59,7 +59,18 @@ jest.mock('services/cd-ng', () => ({
   useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
   useSendInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
   useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
-  useUpdateInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) }))
+  useUpdateInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useResendVerifyEmail: jest.fn().mockImplementation(() => {
+    return {
+      cancel: jest.fn(),
+      loading: false,
+      mutate: jest.fn().mockImplementation(() => {
+        return {
+          status: 'SUCCESS'
+        }
+      })
+    }
+  })
 }))
 
 jest.mock('services/rbac', () => ({
@@ -109,7 +120,9 @@ describe('Project Page List', () => {
       await waitFor(() => queryAllByText(document.body, 'projectsOrgs.aboutProject')[0])
       let form = findDialogContainer()
       expect(form).toBeTruthy()
-      fireEvent.click(form?.querySelector('[icon="cross"]')!)
+      await act(async () => {
+        fireEvent.click(form?.querySelector('[icon="cross"]')!)
+      })
       form = findDialogContainer()
       expect(form).not.toBeTruthy()
     })

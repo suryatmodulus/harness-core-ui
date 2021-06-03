@@ -3,7 +3,7 @@ import { Color, HarnessIcons, Container, Text, Icon, IconName, Card, Layout, Hea
 import { Link, useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
-import { useGetAccountLicenseInfo } from 'services/portal'
+import { useGetAccountLicenses } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -158,7 +158,7 @@ const PurposeList: React.FC = () => {
     )
   }
 
-  const { error, data, refetch, loading } = useGetAccountLicenseInfo({
+  const { error, data, refetch, loading } = useGetAccountLicenses({
     queryParams: {
       accountIdentifier: accountId
     }
@@ -169,7 +169,7 @@ const PurposeList: React.FC = () => {
     ;[CDNG_OPTIONS, CING_OPTIONS, CVNG_OPTIONS, CFNG_OPTIONS, CENG_OPTIONS].forEach(option => {
       let startTrial = true
       const { module } = option
-      const moduleLicense = data?.data.moduleLicenses[module]
+      const moduleLicense = data?.data?.moduleLicenses?.[module]
       if (moduleLicense) {
         const { licenseType } = moduleLicense
         startTrial = !licenseType || licenseType === 'TRIAL'

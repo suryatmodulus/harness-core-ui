@@ -233,6 +233,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     let latestPipeline: PipelineInfoConfig = pipeline
 
     if (isYaml && yamlHandler) {
+      if (!parse(yamlHandler.getLatestYaml())) {
+        clear()
+        showError(getString('invalidYamlText'))
+        return
+      }
       try {
         latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
       } /* istanbul ignore next */ catch (err) {
@@ -359,6 +364,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       pipeline.tags = data.tags ?? {}
       updatePipeline(omit(pipeline, 'repo', 'branch'))
       if (updatedGitDetails) {
+        if (gitDetails?.objectId) {
+          updatedGitDetails = { ...gitDetails, ...updatedGitDetails }
+        }
         updateGitDetails(updatedGitDetails).then(() => {
           if (updatedGitDetails) {
             updateQueryParams(
@@ -536,7 +544,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             <div className={css.pipelineNameContainer}>
               <div>
                 <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
-                <Text className={css.pipelineName} width="125px" lineClamp={1}>
+                <Text className={css.pipelineName} max-width="100%" lineClamp={1}>
                   {pipeline?.name}
                 </Text>
                 {isYaml ? null : (
@@ -595,12 +603,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                     permission: PermissionIdentifier.EDIT_PIPELINE
                   }}
                 />
-                <Button
-                  disabled={!isUpdated}
-                  onClick={() => fetchPipeline({ forceFetch: true, forceUpdate: true })}
-                  className={css.discardBtn}
-                  text={getString('pipeline.discard')}
-                />
+                {pipelineIdentifier !== DefaultNewPipelineId && (
+                  <Button
+                    disabled={!isUpdated}
+                    onClick={() => fetchPipeline({ forceFetch: true, forceUpdate: true })}
+                    className={css.discardBtn}
+                    text={getString('pipeline.discard')}
+                  />
+                )}
                 <RbacButton
                   data-testid="card-run-pipeline"
                   intent="primary"

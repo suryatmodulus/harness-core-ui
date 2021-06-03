@@ -242,7 +242,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -5361,7 +5361,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -7443,7 +7443,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                       class="bp3-popover-target"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main label"
+                        class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                         tabindex="0"
                       >
                         connectorRef

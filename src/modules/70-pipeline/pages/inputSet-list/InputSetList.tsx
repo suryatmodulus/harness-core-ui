@@ -75,6 +75,8 @@ const InputSetList: React.FC = (): JSX.Element => {
   useEffect(() => {
     if (!template?.data?.inputSetTemplateYaml) {
       setPipelineHasRuntimeInputs(false)
+    } else {
+      setPipelineHasRuntimeInputs(true)
     }
   }, [template])
 
@@ -164,7 +166,7 @@ const InputSetList: React.FC = (): JSX.Element => {
                 </Menu>
               }
               position={Position.BOTTOM}
-              disabled={!canUpdateInputSet}
+              disabled={!canUpdateInputSet || !pipelineHasRuntimeInputs}
             >
               <RbacButton
                 text={getString('inputSets.newInputSet')}

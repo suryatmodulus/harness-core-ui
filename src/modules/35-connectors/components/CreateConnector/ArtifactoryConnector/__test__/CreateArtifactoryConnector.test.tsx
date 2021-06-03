@@ -29,7 +29,8 @@ jest.mock('services/cd-ng', () => ({
   useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
   useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
   getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret)),
-  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() }))
+  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() })),
+  useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 describe('Create Artifactory connector Wizard', () => {

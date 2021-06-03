@@ -14,6 +14,7 @@ declare const styles: {
   readonly tag: string
   readonly spaceRight: string
   readonly deleteIcon: string
+  readonly disabledIcon: string
   readonly newBarrier: string
 }
 export default styles

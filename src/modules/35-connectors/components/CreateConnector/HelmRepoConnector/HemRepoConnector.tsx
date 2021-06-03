@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Color, StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, TESTCONNECTION_STEP_INDEX } from '@connectors/constants'
 import type { ConnectorConfigDTO, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 
@@ -71,6 +71,7 @@ const HelmRepoConnector: React.FC<CreateHelmConnectorProps> = props => {
         isLastStep={true}
         type={Connectors.HttpHelmRepo}
         onClose={props.onClose}
+        stepIndex={TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

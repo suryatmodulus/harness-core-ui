@@ -64,7 +64,8 @@ export const Connectors: ConnectorType = {
   AWS_KMS: 'AwsKms',
   PROMETHEUS: 'Prometheus',
   CE_AZURE: 'CEAzure',
-  DATADOG: 'Datadog'
+  DATADOG: 'Datadog',
+  AZURE_KEY_VAULT: 'AzureKeyVault'
 }
 
 export const ConnectorInfoText = {
@@ -120,3 +121,7 @@ export const connectorUrlType = {
 }
 
 export const CONNECTOR_CREDENTIALS_STEP_IDENTIFIER = 'CONNECTOR_CREDENTIALS_STEP_IDENTIFIER'
+
+export const TESTCONNECTION_STEP_INDEX = 3
+export const GIT_TESTCONNECTION_STEP_INDEX = 4
+export const SECRET_MANAGER_TESTCONNECTION_STEP_INDEX = 2

@@ -1,0 +1,6 @@
+{
+  "status": "SUCCESS",
+  "data": [{ "name": "barrier1", "identifier": "barrier1", "stages": [{ "name": "stage2" }, { "name": "stage1" }] }],
+  "metaData": null,
+  "correlationId": "99af8c32-c457-4b3d-976c-ed535d0a660e"
+}

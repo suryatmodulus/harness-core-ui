@@ -9,7 +9,8 @@ const fetchBranches = jest.fn(() => Promise.resolve([]))
 
 jest.mock('services/cd-ng', () => ({
   usePostGitSync: jest.fn().mockImplementation(() => ({ mutate: createGitSynRepo })),
-  getListOfBranchesByGitConfigPromise: jest.fn().mockImplementation(() => fetchBranches())
+  getListOfBranchesByGitConfigPromise: jest.fn().mockImplementation(() => fetchBranches()),
+  useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => fetchBranches())
 }))
 
 const pathParams = { accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }

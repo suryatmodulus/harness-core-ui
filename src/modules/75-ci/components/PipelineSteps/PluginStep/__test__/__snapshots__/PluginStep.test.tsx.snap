@@ -242,7 +242,7 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -2527,7 +2527,7 @@ exports[`Plugin Step Edit View should render properly 1`] = `
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -3435,7 +3435,7 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
                       class="bp3-popover-target"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main label"
+                        class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                         tabindex="0"
                       >
                         connectorRef
@@ -3576,7 +3576,7 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkbox StyledProps--main StyledProps--inline"
             >
               <input
                 name="spec.privileged"

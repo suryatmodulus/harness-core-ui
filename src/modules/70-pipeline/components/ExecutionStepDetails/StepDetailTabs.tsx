@@ -1,5 +1,5 @@
 import React from 'react'
-import { get } from 'lodash-es'
+import { get, merge } from 'lodash-es'
 import { Tabs } from '@blueprintjs/core'
 
 import type { ExecutionNode } from 'services/pipeline-ng'
@@ -92,18 +92,18 @@ export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
       <Tabs.Tab
         id={StepDetailTab.INPUT}
         title={getString('common.input')}
-        panel={
-          <ExecutionStepInputOutputTab
-            baseFqn={step.baseFqn}
-            mode="input"
-            data={step.stepParameters ? [step.stepParameters] : []}
-          />
-        }
+        panel={<ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="input" data={step.stepParameters} />}
       />
       <Tabs.Tab
         id={StepDetailTab.OUTPUT}
         title={getString('outputLabel')}
-        panel={<ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="output" data={step.outcomes || []} />}
+        panel={
+          <ExecutionStepInputOutputTab
+            baseFqn={step.baseFqn}
+            mode="output"
+            data={Array.isArray(step.outcomes) ? { output: merge({}, ...step.outcomes) } : step.outcomes}
+          />
+        }
       />
       {isManualInterruption ? (
         <Tabs.Tab

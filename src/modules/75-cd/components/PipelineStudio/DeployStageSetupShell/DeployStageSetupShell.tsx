@@ -174,64 +174,51 @@ export default function DeployStageSetupShell(): JSX.Element {
           panel={<DeployStageSpecifications>{navBtns}</DeployStageSpecifications>}
           title={
             <span className={css.title}>
-              <Icon name="cd-main" height={20} size={20} />
+              <Icon name="cd-main" height={20} size={20} className="hover" />
               {getString('overview')}
             </span>
           }
           data-testid="overview"
         />
-
-        <Icon
-          name="chevron-right"
-          height={20}
-          size={20}
-          margin={{ right: 'small', left: 'small' }}
-          color={'grey400'}
-          style={{ alignSelf: 'center' }}
-        />
         <Tab
           id={DeployTabs.SERVICE}
           title={
             <span className={css.title} data-warning={servicesHasWarning}>
-              <Icon name={servicesHasWarning ? 'warning-sign' : 'services'} size={servicesHasWarning ? 16 : 20} />
+              <Icon
+                name={servicesHasWarning ? 'warning-sign' : 'services'}
+                size={servicesHasWarning ? 16 : 20}
+                className={servicesHasWarning ? '' : 'hover'}
+              />
               {getString('service')}
             </span>
           }
           panel={<DeployServiceSpecifications>{navBtns}</DeployServiceSpecifications>}
           data-testid="service"
         />
-        <Icon
-          name="chevron-right"
-          height={20}
-          size={20}
-          margin={{ right: 'small', left: 'small' }}
-          color={'grey400'}
-          style={{ alignSelf: 'center' }}
-        />
         <Tab
           id={DeployTabs.INFRASTRUCTURE}
           title={
             <span className={css.title} data-warning={infraHasWarning}>
-              <Icon name={infraHasWarning ? 'warning-sign' : 'infrastructure'} size={infraHasWarning ? 16 : 20} />
+              <Icon
+                name={infraHasWarning ? 'warning-sign' : 'infrastructure'}
+                size={infraHasWarning ? 16 : 20}
+                className={infraHasWarning ? '' : 'hover'}
+              />
               {getString('infrastructureText')}
             </span>
           }
           panel={<DeployInfraSpecifications>{navBtns}</DeployInfraSpecifications>}
           data-testid="infrastructure"
         />
-        <Icon
-          name="chevron-right"
-          height={20}
-          size={20}
-          margin={{ right: 'small', left: 'small' }}
-          color={'grey400'}
-          style={{ alignSelf: 'center' }}
-        />
         <Tab
           id={DeployTabs.EXECUTION}
           title={
             <span className={css.title} data-warning={executionHasWarning}>
-              <Icon name={executionHasWarning ? 'warning-sign' : 'execution'} size={executionHasWarning ? 16 : 20} />
+              <Icon
+                name={executionHasWarning ? 'warning-sign' : 'execution'}
+                size={executionHasWarning ? 16 : 20}
+                className={executionHasWarning ? '' : 'hover'}
+              />
               {getString('executionText')}
             </span>
           }
@@ -299,19 +286,11 @@ export default function DeployStageSetupShell(): JSX.Element {
           }
           data-testid="execution"
         />
-        <Icon
-          name="chevron-right"
-          height={20}
-          size={20}
-          margin={{ right: 'small', left: 'small' }}
-          color={'grey400'}
-          style={{ alignSelf: 'center' }}
-        />
         <Tab
           id={DeployTabs.ADVANCED}
           title={
             <span className={css.title}>
-              <Icon name="advanced" height={20} size={20} />
+              <Icon name="advanced" height={20} size={20} className="hover" />
               Advanced
             </span>
           }

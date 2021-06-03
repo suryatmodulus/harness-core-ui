@@ -11,7 +11,8 @@ selectConnectorLabel: Select Artifact Repository Connector
 stepThreeName: '{{$.common.labelTestConnection}}'
 stepFourName: 'Artifact Location'
 name: Connector Name
-updating: Updating connector
+updating: 'Updating connector {{name}}'
+creating: 'Creating connector {{name}}'
 successfullCreate: 'Connector {{name}} created successfully'
 successfullUpdate: 'Connector {{name}} updated successfully'
 connectorNotFound: Connector not found.
@@ -55,6 +56,7 @@ title:
   delegateSelection: 'Delegate Selection'
   ceAzureConnector: 'Azure Connector'
   datadog: 'Datadog Connector'
+  azureKeyVault: 'Azure Key Vault'
 name_labels:
   Kubernetes: 'Kubernetes Connector Name'
   HttpHelmRepo: 'Helm Http Connector Name'
@@ -90,7 +92,7 @@ testConnectionStep:
     bitbucket: 'URL : '
     gcr: 'GCR URL : '
   validationText:
-    k8s: Validating the reachability of provided url
+    k8s: Validating the reachability of provided URL
     docker: Validating the Docker Registry authentication and permissions
     artifactory: Validating the Artifactory Repository authentication and permissions
     nexus: Validating the Nexus Repository authentication and permissions
@@ -106,12 +108,13 @@ testConnectionStep:
     git: Validating the Git authentication and permissions
     azure: Validating the azure authentication and permission
     datadog: Validating the Datadog authentication and permission
+    azureKeyVault: Validating the azure key vault authentication and permission
 httpHelm:
   httpHelmRepoUrl: 'Helm Repo URL'
 jira:
   jiraUrl: 'Jira URL'
 k8:
-  delegateOutClusterInfo: 'Specify master url and credentials'
+  delegateOutClusterInfo: 'Specify master URL and credentials'
   delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
   masterUrlLabel: 'Master URL'
   serviceAccountToken: 'Service Account Token'
@@ -121,14 +124,15 @@ k8:
   OIDCPassword: 'OIDC Password'
   OIDCClientId: 'OIDC Client ID'
   OIDCSecret: 'OIDC Secret'
-  OIDCScopes: 'OIDC Scopes (Optional)'
+  clientSecretOptional: 'Client Secret (optional)'
+  OIDCScopes: 'OIDC Scopes (optional)'
   clientKey: 'Client Key'
-  clientKeyPassphrase: 'Client Key passphrase'
+  clientKeyPassphrase: 'Client Key passphrase (optional)'
   clientCertificate: 'Client Certificate'
   clientKeyAlgorithm: 'Client Key Algorithm (optional)'
   clientKeyCACertificate: 'CA Certificate (optional)'
   placeholder:
-    masterUrl: '/url'
+    masterUrl: '/URL'
   authLabels:
     OIDC: 'OpenID Connect'
     clientKeyCertificate: 'Client Key Certificate'
@@ -281,3 +285,15 @@ delegate:
   matchingDelegates: matching delegates
   noDelegates: You have no delegates
   noMatchingDelegate: No eligible delegates found. Install a new delegate or continue to save.
+azureKeyVault:
+  labels:
+    tenantId: Tenant ID
+    subscription: Subscription
+    vaultName: Vault Name
+    fetchVault: Fetch Vault
+  validation:
+    clientId: Client ID is required
+    tenantId: Tenant ID is required
+    subscription: Subscription is required
+    secretKey: Key is required
+    vaultName: Vault Name is required

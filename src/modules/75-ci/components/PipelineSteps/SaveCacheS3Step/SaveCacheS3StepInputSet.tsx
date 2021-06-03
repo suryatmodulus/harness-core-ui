@@ -156,6 +156,7 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
       )}
       {getMultiTypeFromValue(template?.spec?.override) === MultiTypeInputType.RUNTIME && (
         <FormInput.CheckBox
+          className={css.checkbox}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.override`}
           label={getString('override')}
           disabled={readonly}

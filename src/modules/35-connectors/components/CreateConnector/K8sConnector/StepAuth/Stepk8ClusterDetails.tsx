@@ -135,7 +135,7 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
 
             <Container width={'42%'} margin={{ top: 'medium', left: 'xxlarge' }}>
               <SecretInput name={'oidcCleintId'} label={getString('connectors.k8.OIDCClientId')} />
-              <SecretInput name={'oidcCleintSecret'} label={getString('connectors.k8.OIDCSecret')} />
+              <SecretInput name={'oidcCleintSecret'} label={getString('connectors.k8.clientSecretOptional')} />
             </Container>
           </Container>
 
@@ -255,11 +255,6 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
     oidcCleintId: Yup.object().when('authType', {
       is: authType => authType === AuthTypes.OIDC,
       then: Yup.object().required(getString('validation.OIDCClientId')),
-      otherwise: Yup.object().nullable()
-    }),
-    oidcCleintSecret: Yup.object().when('authType', {
-      is: authType => authType === AuthTypes.OIDC,
-      then: Yup.object().required(getString('validation.OIDCSecret')),
       otherwise: Yup.object().nullable()
     }),
     clientKey: Yup.object().when('authType', {

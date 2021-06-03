@@ -55,7 +55,7 @@ describe('Organization Details', () => {
     await waitFor(() => getByTestId('location'))
     expect(
       getByTestId('location').innerHTML.endsWith(
-        `${routes.toProjects({ accountId: 'testAcc' })}?orgId=${
+        `${routes.toProjects({ accountId: 'testAcc' })}?orgIdentifier=${
           getOrgMockData.data.data.organizationResponse.organization.identifier
         }`
       )

@@ -12,7 +12,6 @@ declare const styles: {
   readonly radioGroup: string
   readonly radio: string
   readonly divider: string
-  readonly gitFilters: string
   readonly footer: string
   readonly errorsContent: string
   readonly inputsetGrid: string

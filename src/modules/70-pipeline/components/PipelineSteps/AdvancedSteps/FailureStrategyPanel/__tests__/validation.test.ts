@@ -116,7 +116,7 @@ describe('getFailureStrategiesValidationSchema tests', () => {
       schema.validateSync([
         {
           onFailure: {
-            errors: [ErrorType.AnyOther],
+            errors: [ErrorType.Unknown],
             action: {
               type: Strategy.Retry,
               spec: {
@@ -145,7 +145,7 @@ describe('getFailureStrategiesValidationSchema tests', () => {
       schema.validateSync([
         {
           onFailure: {
-            errors: [ErrorType.AnyOther],
+            errors: [ErrorType.Unknown],
             action: {
               type: Strategy.Retry,
               spec: {

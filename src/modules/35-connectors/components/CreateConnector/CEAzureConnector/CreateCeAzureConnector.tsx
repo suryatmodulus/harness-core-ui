@@ -1,6 +1,6 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
-import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
+import { Connectors, CreateConnectorModalProps, TESTCONNECTION_STEP_INDEX } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/strings'
@@ -34,6 +34,7 @@ const CreateCeAzureConnector: React.FC<CreateConnectorModalProps> = props => {
         isLastStep
         type={Connectors.CE_AZURE}
         connectorInfo={props.connectorInfo}
+        stepIndex={TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

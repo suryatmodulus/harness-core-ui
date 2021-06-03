@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Text, Layout, Icon, Button, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { useResendEmail } from 'services/portal'
+import { useResendVerifyEmail } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { StringsMap } from 'framework/strings/StringsContext'
@@ -12,8 +12,8 @@ import css from './EmailVerificationBanner.module.scss'
 export const EmailVerificationBanner = (): React.ReactElement => {
   const { getString } = useStrings()
   const { currentUserInfo } = useAppStore()
-  const { mutate: resendEmail, loading } = useResendEmail({
-    uuid: currentUserInfo.uuid || '',
+  const { mutate: resendEmail, loading } = useResendVerifyEmail({
+    userId: currentUserInfo.uuid || '',
     requestOptions: { headers: { 'content-type': 'application/json' } }
   })
   const { showError } = useToaster()

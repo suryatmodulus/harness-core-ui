@@ -242,7 +242,7 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -2021,7 +2021,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -3800,7 +3800,7 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -6664,7 +6664,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -7801,7 +7801,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                       class="bp3-popover-target"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main label"
+                        class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                         tabindex="0"
                       >
                         connectorRef

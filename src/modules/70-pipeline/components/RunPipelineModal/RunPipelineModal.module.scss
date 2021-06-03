@@ -66,9 +66,6 @@
   .divider {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin-bottom: var(--spacing-3);
-    .gitFilters {
-      margin-bottom: var(--spacing-3);
-    }
   }
 
   .footer {
@@ -131,7 +128,6 @@
   min-height: 150px;
   height: calc(100% - 48px);
   min-height: 150px;
-  padding-top: var(--spacing-xlarge) !important;
 
   &.bp3-dialog-header {
     color: var(--grey-700);
@@ -146,8 +142,7 @@
 .run-modal-header {
   min-height: var(--spacing-8);
   display: flex;
-  padding-left: var(--spacing-xlarge) !important;
-  padding-right: var(--spacing-11) !important;
+  padding: var(--spacing-medium) var(--spacing-large);
 }
 
 .run-modal-sub-heading {
@@ -196,7 +191,7 @@
 
 .dialog {
   position: relative;
-  padding-bottom: var(--spacing-xlarge) !important;
+  padding-bottom: 0 !important;
   background-color: var(--form-bg) !important;
 }
 

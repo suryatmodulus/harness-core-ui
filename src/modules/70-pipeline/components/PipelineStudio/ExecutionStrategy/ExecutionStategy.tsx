@@ -4,6 +4,7 @@ import { Text, Icon, Layout, Button, Card, IconName, Switch } from '@wings-softw
 import { get, startCase } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
+import classNames from 'classnames'
 import {
   DeploymentStageConfig,
   GetExecutionStrategyYamlQueryParams,
@@ -105,12 +106,30 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
     }
   }, [yamlSnippet?.data, selectedStrategy])
 
+  const cancelSelection = (): void => {
+    updateStage(
+      produce<StageElementWrapperConfig>(selectedStage, (draft: StageElementWrapperConfig) => {
+        const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
+        if (draft.stage && draft.stage.spec) {
+          draft.stage.failureStrategies = jsonFromYaml.failureStrategies
+          ;(draft.stage.spec as DeploymentStageConfig).execution = { steps: [], rollbackSteps: [] }
+        }
+      }).stage as StageElementConfig
+    ).then(() => {
+      updatePipelineView({
+        ...pipelineView,
+        isDrawerOpened: false,
+        drawerData: { type: DrawerTypes.ExecutionStrategy }
+      })
+    })
+  }
   return (
     <Layout.Vertical padding="xxlarge" spacing="large">
       <Layout.Horizontal>
         <Text font={{ size: 'medium' }} style={{ color: 'var(--grey-600)' }}>
           {getString('pipeline.failureStrategies.selectStrategy')}
         </Text>
+        <Icon className={css.closeBtn} name={'main-close'} size={10} onClick={cancelSelection} />
       </Layout.Horizontal>
 
       <Layout.Horizontal>
@@ -158,6 +177,12 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
               })
             }}
             disabled={isSubmitDisabled}
+          />
+          <Button
+            intent="none"
+            text={getString('cancel')}
+            className={classNames(css.selectBtn, css.cancelBtn)}
+            onClick={cancelSelection}
           />
         </Layout.Vertical>
         <Layout.Vertical width={500}>

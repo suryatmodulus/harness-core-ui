@@ -1,6 +1,7 @@
 import React from 'react'
 import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import { v4 as uuid } from 'uuid'
 
 import { isEmpty } from 'lodash-es'
 import { yupToFormErrors, FormikErrors } from 'formik'
@@ -8,13 +9,19 @@ import { yupToFormErrors, FormikErrors } from 'formik'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { StringNGVariable } from 'services/cd-ng'
 
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { StringKeys } from 'framework/strings'
 import TerraformInputStep from '../Common/Terraform/TerraformInputStep'
 import { TerraformVariableStep } from '../Common/Terraform/TerraformVariableView'
-import type { TerraformVariableStepProps, TFDestroyData } from '../Common/Terraform/TerraformInterfaces'
+import {
+  onSubmitTerraformData,
+  TerraformData,
+  TerraformVariableStepProps,
+  TFDestroyData
+} from '../Common/Terraform/TerraformInterfaces'
 
 import TerraformEditView from '../Common/Terraform/Editview/TerraformEditView'
 
@@ -67,6 +74,40 @@ export class TerraformDestroy extends PipelineStep<TFDestroyData> {
     /* istanbul ignore next */
     return errors
   }
+  private getInitialValues(data: TFDestroyData): TerraformData {
+    const envVars = data.spec?.configuration?.spec?.environmentVariables as StringNGVariable[]
+    const formData = {
+      ...data,
+      spec: {
+        ...data.spec,
+        configuration: {
+          ...data.spec?.configuration,
+          spec: {
+            ...data.spec?.configuration?.spec,
+            targets: Array.isArray(data.spec?.configuration?.spec?.targets)
+              ? data.spec?.configuration?.spec?.targets.map(target => ({
+                  value: target,
+                  id: uuid()
+                }))
+              : [{ value: '', id: uuid() }],
+            environmentVariables: Array.isArray(envVars)
+              ? envVars.map(variable => ({
+                  key: variable.name,
+                  value: variable.value,
+                  id: uuid()
+                }))
+              : [{ key: '', value: '', id: uuid() }]
+          }
+        }
+      }
+    }
+    return formData
+  }
+  /* istanbul ignore next */
+  processFormData(data: any): TFDestroyData {
+    return onSubmitTerraformData(data)
+  }
+
   renderStep(props: StepProps<TFDestroyData, unknown>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
@@ -91,8 +132,8 @@ export class TerraformDestroy extends PipelineStep<TFDestroyData> {
     }
     return (
       <TerraformDestroyWidgetWithRef
-        initialValues={initialValues}
-        onUpdate={onUpdate}
+        initialValues={this.getInitialValues(initialValues)}
+        onUpdate={data => onUpdate?.(this.processFormData(data))}
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}

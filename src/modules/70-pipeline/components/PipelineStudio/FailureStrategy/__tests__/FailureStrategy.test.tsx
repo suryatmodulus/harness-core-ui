@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { ErrorType } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
 import { TestWrapper } from '@common/utils/testUtils'
 import { FailureStrategyWithRef } from '../FailureStrategy'
 
@@ -25,7 +26,7 @@ describe('<Failure Strategy/> tests', () => {
               failureStrategies: [
                 {
                   onFailure: {
-                    errors: ['AnyOther'],
+                    errors: [ErrorType.Unknown],
                     action: {
                       type: 'Ignore'
                     }

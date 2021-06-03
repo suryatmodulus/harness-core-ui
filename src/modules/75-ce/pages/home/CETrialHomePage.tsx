@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/StartTrialTemplate'
-import { useStartTrial } from 'services/portal'
+import { useStartTrialLicense } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -20,7 +20,7 @@ const CETrialHomePage: React.FC = () => {
   const { source } = useQueryParams<{ source?: string }>()
   const { showError } = useToaster()
 
-  const { error, mutate: startTrial, loading } = useStartTrial({
+  const { error, mutate: startTrial, loading } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }

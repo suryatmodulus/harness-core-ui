@@ -95,7 +95,7 @@ exports[`Organization Details Render 1`] = `
         />
       </div>
       <a
-        href="/account/testAcc/projects?orgId=testOrg"
+        href="/account/testAcc/projects?orgIdentifier=testOrg"
       >
         <p
           class="StyledProps--font StyledProps--main"

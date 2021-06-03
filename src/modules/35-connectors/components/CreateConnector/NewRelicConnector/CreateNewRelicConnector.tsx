@@ -28,7 +28,11 @@ import {
 import { useGetNewRelicEndPoints } from 'services/cv'
 import { buildNewRelicPayload, setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/strings'
-import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
+import {
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  CreateConnectorModalProps,
+  TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
@@ -280,6 +284,7 @@ export default function CreateNewRelicConnector(props: CreateNewRelicConnectorPr
           isLastStep
           type="New Relic"
           setIsEditMode={props.setIsEditMode}
+          stepIndex={TESTCONNECTION_STEP_INDEX}
         />
       </StepWizard>
     </>

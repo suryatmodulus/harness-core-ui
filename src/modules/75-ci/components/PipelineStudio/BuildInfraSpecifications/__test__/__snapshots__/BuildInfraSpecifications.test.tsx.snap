@@ -62,7 +62,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 tesa 1
@@ -309,7 +309,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 tesa 1

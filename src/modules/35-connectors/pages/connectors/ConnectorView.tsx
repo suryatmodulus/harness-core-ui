@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { noop } from 'lodash-es'
-import { Button, Layout, Container, Icon, Text, Color } from '@wings-software/uicore'
+import { isEmpty, noop } from 'lodash-es'
+import { Classes, Dialog } from '@blueprintjs/core'
+import { Button, Layout, Container, Icon, Text, Color, useModalHook } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import cx from 'classnames'
 import moment from 'moment'
@@ -15,7 +16,12 @@ import {
   ResponsePageSecretResponseWrapper,
   ConnectorConnectivityDetails,
   UpdateConnectorQueryParams,
-  useGetYamlSchema
+  useGetYamlSchema,
+  Connector,
+  EntityGitDetails,
+  ResponseMessage,
+  useCreatePR,
+  ResponseConnectorResponse
 } from 'services/cd-ng'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
@@ -33,6 +39,8 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import { useGitDiffEditorDialog } from '@common/modals/GitDiffEditor/useGitDiffEditorDialog'
+import { ProgressOverlay, StepStatus } from '@common/modals/ProgressOverlay/ProgressOverlay'
 import { getUrlValueByType } from './utils/ConnectorUtils'
 import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
 import css from './ConnectorView.module.scss'
@@ -40,7 +48,10 @@ import css from './ConnectorView.module.scss'
 export interface ConnectorViewProps {
   type: ConnectorInfoDTO['type']
   response: ConnectorResponse
-  updateConnector: (data: ConnectorRequestBody, queryParams?: UpdateConnectorQueryParams) => Promise<unknown>
+  updateConnector: (
+    data: ConnectorRequestBody,
+    queryParams?: UpdateConnectorQueryParams
+  ) => Promise<ResponseConnectorResponse>
   refetchConnector: () => Promise<any>
   mockMetaData?: UseGetMockData<ResponseYamlSnippets>
   mockSnippetData?: UseGetMockData<ResponseJsonNode>
@@ -116,22 +127,168 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     selectedView,
     setSelectedView
   }
-  const { showSuccess, showError } = useToaster()
+  const { showError } = useToaster()
+  // git sync related state vars
+  const { mutate: createPullRequest, loading: creatingPR } = useCreatePR({})
+  const [connectorCreateUpdateStatus, setConnectorCreateUpdateStatus] = useState<StepStatus>()
+  const [prCreateStatus, setPRCreateStatus] = useState<StepStatus>()
+  const [prMetaData, setPRMetaData] = useState<
+    Pick<SaveToGitFormInterface, 'branch' | 'targetBranch' | 'isNewBranch'>
+  >()
+  const [connectorCreateUpdateError, setConnectorCreateUpdateError] = useState<Record<string, any>>()
+  //
 
-  const onSubmit = async (connectorPayload: ConnectorRequestBody, queryParams?: UpdateConnectorQueryParams) => {
-    setIsUpdating(true)
-    try {
-      const data = await props.updateConnector(connectorPayload, queryParams)
-      if (data) {
-        showSuccess(getString('saveConnectorSuccess'))
-        props.refetchConnector()
-        state.setEnableEdit(false)
+  const connectorName = (connector as ConnectorInfoDTO)?.name
+  const fromBranch = prMetaData?.branch || ''
+  const toBranch = prMetaData?.targetBranch || ''
+  const connectorCreateUpdateStage = {
+    status: connectorCreateUpdateStatus,
+    intermediateLabel: getString('connectors.updating', { name: connectorName }),
+    finalLabel: connectorCreateUpdateError?.data?.message || connectorCreateUpdateError?.message
+  }
+  const setupBranchStage = {
+    status: connectorCreateUpdateStatus,
+    intermediateLabel: getString('common.gitSync.settingUpNewBranch', {
+      branch: fromBranch
+    })
+  }
+  const pushingChangesToBranch = {
+    status: connectorCreateUpdateStatus,
+    intermediateLabel: getString('common.gitSync.pushingChangestoBranch', {
+      branch: fromBranch
+    })
+  }
+  const createPRStage = {
+    status: prCreateStatus,
+    intermediateLabel: getString('common.gitSync.creatingPR', {
+      fromBranch,
+      toBranch
+    }),
+    finalLabel: getString('common.gitSync.unableToCreatePR')
+  }
+
+  // modal to show while creating/updating a connector and creating a PR
+  const [
+    showCreateUpdateConnectorWithPRCreationModal,
+    hideCreateUpdateConnectorWithPRCreationModal
+  ] = useModalHook(() => {
+    return (
+      <Dialog
+        isOpen={true}
+        className={Classes.DIALOG}
+        style={{
+          minWidth: 600,
+          paddingBottom: 0,
+          maxHeight: 500
+        }}
+      >
+        <ProgressOverlay
+          preFirstStage={prMetaData?.isNewBranch ? setupBranchStage : undefined}
+          firstStage={connectorCreateUpdateStage}
+          postFirstStage={pushingChangesToBranch}
+          secondStage={createPRStage}
+          onClose={() => {
+            hideCreateUpdateConnectorWithPRCreationModal()
+            props.refetchConnector()
+            state.setEnableEdit(false)
+          }}
+        />
+      </Dialog>
+    )
+  }, [creatingPR, connectorCreateUpdateStatus, connectorCreateUpdateError, prCreateStatus, prMetaData])
+
+  //modal to show while only creating/updating a connector
+  const [showCreateUpdateConnectorModal, hideCreateUpdateConnectorModal] = useModalHook(() => {
+    return (
+      <Dialog
+        isOpen={true}
+        className={Classes.DIALOG}
+        style={{
+          minWidth: 600,
+          paddingBottom: 0,
+          maxHeight: 500
+        }}
+      >
+        <ProgressOverlay
+          firstStage={connectorCreateUpdateStage}
+          onClose={() => {
+            hideCreateUpdateConnectorModal()
+            props.refetchConnector()
+            state.setEnableEdit(false)
+          }}
+        />
+      </Dialog>
+    )
+  }, [connectorCreateUpdateStatus, connectorCreateUpdateError])
+
+  // modal to show when a git conflict occurs
+  const { openGitDiffDialog } = useGitDiffEditorDialog<Connector>({
+    onSuccess: (payload: Connector, objectId: EntityGitDetails['objectId'], gitData?: SaveToGitFormInterface): void => {
+      try {
+        handleSaveYaml({ payload, gitData }, objectId)
+      } catch (e) {
+        //ignore error
       }
-    } /* istanbul ignore next */ catch (error) {
-      if (error.data?.message) {
-        showError(error.data?.message)
+    },
+    onClose: noop
+  })
+
+  const onSubmit = async (
+    connectorPayload: ConnectorRequestBody,
+    gitData?: SaveToGitFormInterface,
+    queryParams?: UpdateConnectorQueryParams
+  ) => {
+    setConnectorCreateUpdateStatus('IN_PROGRESS')
+    if (isGitSyncEnabled && gitData?.createPr) {
+      setPRMetaData({ branch: gitData?.branch, targetBranch: gitData?.targetBranch, isNewBranch: gitData?.isNewBranch })
+      setPRCreateStatus('IN_PROGRESS')
+      showCreateUpdateConnectorWithPRCreationModal()
+    } else {
+      showCreateUpdateConnectorModal()
+    }
+    try {
+      const response = await props.updateConnector(connectorPayload, queryParams)
+      setConnectorCreateUpdateStatus(response.status)
+      // if connector creation/update succeeds, raise a PR, if specified
+      if (response.status === 'SUCCESS') {
+        if (isGitSyncEnabled && gitData?.createPr) {
+          try {
+            const _response = await createPullRequest(
+              {
+                sourceBranch: gitData?.branch || '',
+                targetBranch: gitData?.targetBranch || '',
+                title: gitData?.commitMsg || ''
+              },
+              {
+                queryParams: {
+                  accountIdentifier: accountId,
+                  orgIdentifier,
+                  projectIdentifier,
+                  yamlGitConfigIdentifier: gitData?.repoIdentifier || ''
+                }
+              }
+            )
+            setPRCreateStatus(_response?.status)
+          } catch (e) {
+            setPRCreateStatus('ERROR')
+          }
+        }
+      } // if connector creation/update fails, abort PR creation
+      else {
+        setPRCreateStatus('ABORTED')
+      }
+    } /* istanbul ignore next */ catch (e) {
+      if (
+        isGitSyncEnabled &&
+        ((e.data?.responseMessages as ResponseMessage[]) || [])?.findIndex(
+          (mssg: ResponseMessage) => mssg.code === 'SCM_CONFLICT_ERROR'
+        ) !== -1
+      ) {
+        openGitDiffDialog(connectorPayload, gitData)
       } else {
-        showError(getString('somethingWentWrong'))
+        setConnectorCreateUpdateStatus('ERROR')
+        setPRCreateStatus('ABORTED')
+        setConnectorCreateUpdateError(e)
       }
     }
     setIsUpdating(false)
@@ -154,40 +311,44 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   }
 
   const { openSaveToGitDialog } = useSaveToGitDialog({
-    onSuccess: (gitDetails: SaveToGitFormInterface): void => handleSaveYaml(gitDetails),
+    onSuccess: (gitDetails: SaveToGitFormInterface): void => handleSaveYaml({ gitData: gitDetails }),
     onClose: noop
   })
 
   /* excluding below method from coverage since it's called only by YAMLBuilder */
   /* istanbul ignore next */
-  const handleSaveYaml = (gitDetails?: SaveToGitFormInterface): void => {
-    const { getLatestYaml, getYAMLValidationErrorMap } = yamlHandler || {}
-    const yamlString = getLatestYaml?.() || ''
+  const handleSaveYaml = (
+    connectorData?: {
+      gitData?: SaveToGitFormInterface
+      payload?: Connector
+    },
+    objectId?: EntityGitDetails['objectId']
+  ): void => {
+    const { gitData, payload } = connectorData || {}
+    let connectorJSONEq
     try {
-      const connectorJSONEq = parse(yamlString)
+      connectorJSONEq = !isEmpty(payload) ? payload : parse(yamlHandler?.getLatestYaml?.() || '')
       if (connectorJSONEq) {
-        const errorMap = getYAMLValidationErrorMap?.()
+        const errorMap = yamlHandler?.getYAMLValidationErrorMap?.()
         if (errorMap && errorMap.size > 0) {
           showError(getString('yamlBuilder.yamlError'))
         } else {
-          const queryParams = gitDetails
-            ? { accountIdentifier: accountId, ...gitDetails, lastObjectId: props.response?.gitDetails?.objectId }
+          const queryParams = gitData
+            ? {
+                accountIdentifier: accountId,
+                ...gitData,
+                lastObjectId: objectId ?? props.response?.gitDetails?.objectId
+              }
             : {}
-          onSubmit(connectorJSONEq, queryParams)
+          onSubmit(connectorJSONEq, gitData, queryParams)
           setConnector(connectorJSONEq?.connector)
           setConnectorForYaml(connectorJSONEq?.connector)
         }
       }
-    } /* istanbul ignore next */ catch (err) {
-      if (err?.toString().includes('YAMLSemanticError')) {
-        showError(getString('yamlBuilder.yamlError'))
-        return
-      }
-      const { name, message } = err
-      if (name && message) {
-        showError(`${name}: ${message}`)
-      } else {
-        showError(getString('somethingWentWrong'))
+    } /* istanbul ignore next */ catch (e) {
+      // yaml parse errors
+      if (e?.toString().includes('YAMLSemanticError')) {
+        showError(e?.message || e)
       }
     }
   }
@@ -210,55 +371,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       setConnectorForYaml(props.response.connector)
     }
   }, [props.response])
-
-  // TODO @vardan uncomment this section one snippets are re-enabled
-  // const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
-  //   {
-  //     identifier: '',
-  //     requestOptions: { headers: { accept: 'application/json' } },
-  //     lazy: true,
-  //     // mock: props.mockSnippetData,
-  //     queryParams: {
-  //       projectIdentifier,
-  //       orgIdentifier,
-  //       scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-  //     }
-  //   }
-  // )
-
-  // useEffect(() => {
-  //   let snippetStr = ''
-  //   try {
-  //     snippetStr = snippet?.data ? stringify(snippet.data, { indent: 4 }) : ''
-  //   } catch {
-  //     /**/
-  //   }
-  //   setSnippetFetchResponse({
-  //     snippet: snippetStr,
-  //     loading: isFetchingSnippet,
-  //     error: errorFetchingSnippet
-  //   })
-  // }, [isFetchingSnippet])
-
-  // const onSnippetCopy = async (identifier: string): Promise<void> => {
-  //   cancel()
-  //   await refetch({
-  //     pathParams: {
-  //       identifier
-  //     }
-  //   })
-  // }
-
-  // const { data: snippetMetaData, loading: isFetchingSnippets } = useGetYamlSnippetMetadata({
-  //   queryParams: {
-  //     tags: getSnippetTags('Connectors', props.type)
-  //   },
-  //   queryParamStringifyOptions: {
-  //     arrayFormat: 'repeat'
-  //   },
-  //   requestOptions: { headers: { accept: 'application/json' } },
-  //   mock: props.mockMetaData
-  // })
 
   const { data: connectorSchema, loading: isFetchingSchema, refetch: fetchingConnectorSchema } = useGetYamlSchema({
     queryParams: {
@@ -429,7 +541,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
           )}
         </Container>
         <Layout.Horizontal height="100%">
-          {isUpdating ? <PageSpinner message={getString('connectors.updating')} /> : null}
+          {isUpdating ? <PageSpinner message={getString('connectors.updating', { name: connector?.name })} /> : null}
           {enableEdit ? (
             selectedView === SelectedView.VISUAL ? null : isFetchingSchema ? (
               <PageSpinner />
@@ -467,9 +579,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                     title={isValidYAML ? '' : getString('invalidYaml')}
                     disabled={!hasConnectorChanged}
                   />
-                  {hasConnectorChanged ? (
-                    <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
-                  ) : null}
+                  <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
                 </Layout.Horizontal>
               </div>
             )

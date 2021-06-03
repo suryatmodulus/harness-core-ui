@@ -18,6 +18,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { InlineVar } from '../TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import css from './TerraformVarfile.module.scss'
 
 interface InlineVarFileProps {
   arrayHelpers: any
@@ -102,7 +103,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                     }}
                     skipRenderValueInExpressionLabel
                   >
-                    <FormInput.TextArea name="varFile.spec.content" />
+                    <FormInput.TextArea name="varFile.spec.content" className={css.contentTextArea} />
                   </MultiTypeFieldSelector>
                   {getMultiTypeFromValue(formikProps.values.varFile?.spec?.content) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions

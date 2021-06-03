@@ -226,3 +226,10 @@
     font-size: 13px;
   }
 }
+
+.contentTextArea {
+  :global(textarea) {
+    resize: none;
+    height: 160px;
+  }
+}

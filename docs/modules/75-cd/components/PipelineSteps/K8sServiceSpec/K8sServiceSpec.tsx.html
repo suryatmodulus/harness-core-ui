@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.32% </span>
+                <span class="strong">26.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/285</span>
+                <span class='fraction'>76/286</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.11% </span>
+                <span class="strong">27.37% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>74/273</span>
+                <span class='fraction'>75/274</span>
             </div>
         
             
@@ -1469,7 +1469,12 @@
 <a name='L1410'></a><a href='#L1410'>1410</a>
 <a name='L1411'></a><a href='#L1411'>1411</a>
 <a name='L1412'></a><a href='#L1412'>1412</a>
-<a name='L1413'></a><a href='#L1413'>1413</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L1413'></a><a href='#L1413'>1413</a>
+<a name='L1414'></a><a href='#L1414'>1414</a>
+<a name='L1415'></a><a href='#L1415'>1415</a>
+<a name='L1416'></a><a href='#L1416'>1416</a>
+<a name='L1417'></a><a href='#L1417'>1417</a>
+<a name='L1418'></a><a href='#L1418'>1418</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -1537,6 +1542,7 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -2002,12 +2008,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -2017,6 +2017,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2089,6 +2097,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2952,6 +2962,7 @@ import type { UseStringsReturn } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
+import { gcrUrlList } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
 &nbsp;
@@ -3381,14 +3392,16 @@ const KubernetesServiceSpecInputForm: React.FC&lt;KubernetesServiceInputFormProp
 &nbsp;
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
                   MultiTypeInputType.RUNTIME &amp;&amp; (
-                  &lt;FormInput.MultiTextInput
+                  &lt;FormInput.MultiTypeInput
                     disabled={readonly}
-                    multiTextInputProps={{
+                    selectItems={gcrUrlList}
+                    useValue
+                    multiTypeInputProps={{
                       expressions,
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                      selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
                     }}
                     label={getString('connectors.GCR.registryHostname')}
-                    className={css.width50}
                     name={`${path}.artifacts.primary.spec.registryHostname`}
                   /&gt;
                 )}
@@ -3558,12 +3571,14 @@ const KubernetesServiceSpecInputForm: React.FC&lt;KubernetesServiceInputFormProp
                       /&gt;
                     )}
                     {getMultiTypeFromValue(registryHostname) === MultiTypeInputType.RUNTIME &amp;&amp; (
-                      &lt;FormInput.MultiTextInput
+                      &lt;FormInput.MultiTypeInput
                         disabled={readonly}
-                        className={css.width50}
-                        multiTextInputProps={{
+                        selectItems={gcrUrlList}
+                        useValue
+                        multiTypeInputProps={{
                           expressions,
-                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
                         }}
                         label={getString('connectors.GCR.registryHostname')}
                         name={`${path}.artifacts.sidecars[${index}].sidecar.spec.registryHostname`}
@@ -4300,7 +4315,7 @@ export class KubernetesServiceSpec extends Step&lt;ServiceSpec&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 05:55:22 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 03 2021 05:58:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -52,16 +52,11 @@ jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
 }))
 
 describe('Create Sumo Logic connector Wizard', () => {
-  beforeEach(() => {
+  afterEach(() => {
     jest.clearAllMocks()
   })
 
-  test('Ensure validation works', async () => {
-    jest.spyOn(sumoLogicUtils, 'initializeSumoLogicConnectorWithStepData').mockReturnValue(
-      new Promise<any>(resolve => {
-        resolve(INIT_SUMOLOGIC_VALUE)
-      })
-    )
+  beforeEach(() => {
     jest
       .spyOn(cvService, 'useGetSumoLogicEndPoints')
       .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
@@ -70,6 +65,15 @@ describe('Create Sumo Logic connector Wizard', () => {
         any,
         any
       >)
+  })
+
+  test('Ensure validation works', async () => {
+    jest.spyOn(sumoLogicUtils, 'initializeSumoLogicConnectorWithStepData').mockReturnValue(
+      new Promise<any>(resolve => {
+        resolve(INIT_SUMOLOGIC_VALUE)
+      })
+    )
+
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateSumoLogicConnector
@@ -85,12 +89,12 @@ describe('Create Sumo Logic connector Wizard', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('connectors.sumoLogic.urlLabel')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.sumologic.urlLabel')).not.toBeNull())
     // click submit and verify validation string is visible
     fireEvent.click(container.querySelector('button[type="submit"]')!)
-    // await waitFor(() => expect(getByText('connectors.sumoLogic.urlValidation')).not.toBeNull())
-    await waitFor(() => expect(getByText('connectors.sumoLogic.encryptedAccessIdValidation')).not.toBeNull())
-    await waitFor(() => expect(getByText('connectors.sumoLogic.encryptedAccessKeyValidation')).not.toBeNull())
+    // check error is visible for secrets
+    await waitFor(() => expect(getByText('connectors.sumologic.encryptedAccessIdValidation')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.sumologic.encryptedAccessKeyValidation')).not.toBeNull())
     expect(onNextMock).not.toHaveBeenCalled()
   })
 
@@ -100,14 +104,6 @@ describe('Create Sumo Logic connector Wizard', () => {
         resolve(INIT_SUMOLOGIC_VALUE)
       })
     )
-    jest
-      .spyOn(cvService, 'useGetSumoLogicEndPoints')
-      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
-        any,
-        any,
-        any,
-        any
-      >)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateSumoLogicConnector
@@ -124,23 +120,23 @@ describe('Create Sumo Logic connector Wizard', () => {
     )
 
     // fill out url field
-    await waitFor(() => expect(getByText('connectors.sumoLogic.urlLabel')).not.toBeNull())
-    await setFieldValue({ container, fieldId: 'url', value: 'endpoint1', type: InputTypes.SELECT })
-    // fill out API Secret
+    await waitFor(() => expect(getByText('connectors.sumologic.urlLabel')).not.toBeNull())
+    await setFieldValue({ container, fieldId: 'url', value: 'endpoint2', type: InputTypes.SELECT })
+    // fill out ACCESS KEY Secret
     await setFieldValue({
       container,
       type: InputTypes.TEXTFIELD,
       fieldId: 'accessKeyRef',
       value: 'dsf-auto'
     })
-    // fill out APP Secret
+    // fill out ACCESS ID Secret
     await setFieldValue({
       container,
       type: InputTypes.TEXTFIELD,
       fieldId: 'accessIdRef',
       value: 'dsf-new'
     })
-    // getByText('connectors.urlLabel')
+
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
 
@@ -149,7 +145,7 @@ describe('Create Sumo Logic connector Wizard', () => {
         ...INIT_SUMOLOGIC_VALUE,
         accessKeyRef: 'dsf-auto',
         accessIdRef: 'dsf-new',
-        url: 'endpoint1'
+        url: 'endpoint2'
       })
     )
 
@@ -167,14 +163,6 @@ describe('Create Sumo Logic connector Wizard', () => {
         })
       })
     )
-    jest
-      .spyOn(cvService, 'useGetSumoLogicEndPoints')
-      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
-        any,
-        any,
-        any,
-        any
-      >)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateSumoLogicConnector
@@ -208,11 +196,11 @@ describe('Create Sumo Logic connector Wizard', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('connectors.sumoLogic.urlLabel')).not.toBeNull())
-
+    await waitFor(() => expect(getByText('connectors.sumologic.urlLabel')).not.toBeNull())
     // expect recieved value to be there
-    waitFor(() => expect(container.querySelector(`input[value=endpoint2]`)).not.toBeNull())
+    waitFor(() => expect(container.querySelector(`input[value=sumologicapi]`)).not.toBeNull())
 
+    // change old url
     await fillAtForm([
       {
         container,
@@ -263,14 +251,6 @@ describe('Create Sumo Logic connector Wizard', () => {
   })
 
   test('Ensure edit flow works', async () => {
-    jest
-      .spyOn(cvService, 'useGetSumoLogicEndPoints')
-      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
-        any,
-        any,
-        any,
-        any
-      >)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateSumoLogicConnector
@@ -303,7 +283,7 @@ describe('Create Sumo Logic connector Wizard', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('connectors.sumoLogic.urlLabel')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.sumologic.urlLabel')).not.toBeNull())
 
     // expect recieved value to be there
     waitFor(() => expect(container.querySelector(`input[value="endpoint2"]`)).not.toBeNull())

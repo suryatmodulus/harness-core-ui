@@ -38,7 +38,7 @@ export async function initializeSumoLogicConnectorWithStepData(
   updateInitialValue(prevData as PrevData, spec as SpecData, updatedInitialValues, 'accessIdRef' as AllowedKeyList)
   updateInitialValue(prevData as PrevData, spec as SpecData, updatedInitialValues, 'accessKeyRef' as AllowedKeyList)
 
-  const initValueWithSecrets = await setDatadogSecrets(updatedInitialValues, accountId)
+  const initValueWithSecrets = await setSecrets(updatedInitialValues, accountId)
   initValueWithSecrets.loading = false
   return initValueWithSecrets
 }
@@ -56,7 +56,7 @@ function updateInitialValue(
   }
 }
 
-export async function setDatadogSecrets(
+export async function setSecrets(
   initialValues: SumoLogicInitialValue,
   accountId: string
 ): Promise<SumoLogicInitialValue> {

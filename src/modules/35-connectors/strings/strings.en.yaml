@@ -57,7 +57,7 @@ title:
   delegateSelection: 'Delegate Selection'
   ceAzureConnector: 'Azure Connector'
   datadog: 'Datadog'
-  sumoLogic: 'SumoLogic'
+  sumologic: 'SumoLogic'
   azureKeyVault: 'Azure Key Vault'
 name_labels:
   Kubernetes: 'Kubernetes Connector Name'
@@ -221,7 +221,7 @@ datadog:
   encryptedAPPKeyLabel: Encrypted APP Key
   urlValidation: Datadog URL is required.
   encryptedAPPKeyValidation: Encrypted APP Key is required.
-sumoLogic:
+sumologic:
   urlLabel: Sumo Logic API Server URL
   encryptedAccessIdLabel: Encrypted Access ID
   encryptedAccessKeyLabel: Encrypted Access Key

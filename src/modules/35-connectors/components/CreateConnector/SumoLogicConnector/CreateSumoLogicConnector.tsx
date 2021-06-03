@@ -16,10 +16,10 @@ import { StepDetailsHeader } from '../CommonCVConnector/CredentialsStepHeader'
 import css from './CreateSumoLogicConnector.module.scss'
 
 export function SumoLogicConfigStep(props: ConnectionConfigProps): JSX.Element {
-  const { nextStep, prevStepData, connectorInfo, projectIdentifier, orgIdentifier, accountId, isEditMode } = props
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
   const { data: endPoints, error: endPointError, loading: loadingEndpoints } = useGetSumoLogicEndPoints({})
+  const { nextStep, prevStepData, connectorInfo, projectIdentifier, orgIdentifier, accountId, isEditMode } = props
 
   const [initialValues, setInitialValues] = useState<ConnectorConfigDTO>({
     url: '',
@@ -66,22 +66,29 @@ export function SumoLogicConfigStep(props: ConnectionConfigProps): JSX.Element {
   }
   return (
     <Container className={css.credentials}>
-      <StepDetailsHeader connectorTypeLabel={getString('connectors.title.sumoLogic')} />
+      <StepDetailsHeader connectorTypeLabel={getString('connectors.title.sumologic')} />
       <Formik
         enableReinitialize
         initialValues={{ ...initialValues }}
         validationSchema={Yup.object().shape({
-          url: Yup.string().trim().required(getString('connectors.sumoLogic.urlValidation')),
-          accessIdRef: Yup.string().trim().required(getString('connectors.sumoLogic.encryptedAccessIdValidation')),
-          accessKeyRef: Yup.string().trim().required(getString('connectors.sumoLogic.encryptedAccessKeyValidation'))
+          url: Yup.string().trim().required(getString('connectors.sumologic.urlValidation')),
+          accessIdRef: Yup.string().trim().required(getString('connectors.sumologic.encryptedAccessIdValidation')),
+          accessKeyRef: Yup.string().trim().required(getString('connectors.sumologic.encryptedAccessKeyValidation'))
         })}
-        onSubmit={(formData: ConnectorConfigDTO) => nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })}
+        onSubmit={(formData: ConnectorConfigDTO) => {
+          nextStep?.(isEditMode ? { ...connectorInfo, ...prevStepData, ...formData } : { ...prevStepData, ...formData })
+        }}
       >
         <FormikForm className={css.form}>
           <Layout.Vertical spacing="large" height={450}>
-            <FormInput.Select items={endPointOptions} label={getString('connectors.sumoLogic.urlLabel')} name="url" />
-            <SecretInput label={getString('connectors.sumoLogic.encryptedAccessIdLabel')} name="accessIdRef" />
-            <SecretInput label={getString('connectors.sumoLogic.encryptedAccessKeyLabel')} name="accessKeyRef" />
+            <FormInput.Select
+              name="url"
+              items={endPointOptions}
+              label={getString('connectors.sumologic.urlLabel')}
+              placeholder={loadingEndpoints ? getString('loading') : undefined}
+            />
+            <SecretInput label={getString('connectors.sumologic.encryptedAccessIdLabel')} name="accessIdRef" />
+            <SecretInput label={getString('connectors.sumologic.encryptedAccessKeyLabel')} name="accessKeyRef" />
           </Layout.Vertical>
           <Layout.Horizontal spacing="xlarge">
             <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />

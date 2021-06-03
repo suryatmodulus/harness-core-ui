@@ -38,7 +38,7 @@ exports[`Create Sumo Logic connector Wizard Ensure create flow works 1`] = `
                 class="bp3-label"
                 for="url"
               >
-                connectors.sumoLogic.urlLabel
+                connectors.sumologic.urlLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -51,7 +51,7 @@ exports[`Create Sumo Logic connector Wizard Ensure create flow works 1`] = `
                   class="bp3-popover-wrapper Select--main bp3-fill"
                 >
                   <div
-                    class="bp3-popover-target bp3-popover-open"
+                    class="bp3-popover-target"
                   >
                     <div
                       class="bp3-input-group"
@@ -60,10 +60,10 @@ exports[`Create Sumo Logic connector Wizard Ensure create flow works 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="url"
-                        placeholder="endpoint1"
+                        placeholder="Search..."
                         style="padding-right: 0px;"
                         type="text"
-                        value=""
+                        value="endpoint2"
                       />
                       <span
                         class="bp3-input-action"
@@ -91,10 +91,10 @@ exports[`Create Sumo Logic connector Wizard Ensure create flow works 1`] = `
                     </div>
                   </div>
                   <div
-                    class="bp3-overlay bp3-overlay-open bp3-overlay-inline"
+                    class="bp3-overlay bp3-overlay-inline"
                   >
                     <div
-                      class="bp3-transition-container bp3-popover-appear bp3-popover-appear-active"
+                      class="bp3-transition-container bp3-popover-exit bp3-popover-exit-active"
                       style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(NaNpx, NaNpx, 0);"
                     >
                       <div
@@ -109,12 +109,12 @@ exports[`Create Sumo Logic connector Wizard Ensure create flow works 1`] = `
                               class="bp3-menu"
                             >
                               <li
-                                class="Select--menuItem Select--active"
+                                class="Select--menuItem"
                               >
                                 endpoint1
                               </li>
                               <li
-                                class="Select--menuItem"
+                                class="Select--menuItem Select--active"
                               >
                                 endpoint2
                               </li>

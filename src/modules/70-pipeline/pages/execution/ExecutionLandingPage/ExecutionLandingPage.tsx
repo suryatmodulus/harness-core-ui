@@ -40,16 +40,16 @@ import css from './ExecutionLandingPage.module.scss'
 
 export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
 
-// TODO: remove 'any' once DTO is ready
 /** Add dependency services to nodeMap */
 const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: ExecutionNode }): void => {
   const liteEngineTask = Object.values(nodeMap).find(item => item.stepType === LITE_ENGINE_TASK)
   if (liteEngineTask) {
     // NOTE: liteEngineTask contains information about dependency services
     const serviceDependencyList: ExecutionNode[] =
+      // Array check is required for legacy support
       (Array.isArray(liteEngineTask.outcomes)
         ? liteEngineTask.outcomes.find((_item: any) => !!_item.serviceDependencyList)?.serviceDependencyList
-        : liteEngineTask.outcomes?.serviceDependencyList) || []
+        : liteEngineTask.outcomes?.dependencies?.serviceDependencyList) || []
 
     // 1. add service dependencies to nodeMap
     serviceDependencyList.forEach(service => {

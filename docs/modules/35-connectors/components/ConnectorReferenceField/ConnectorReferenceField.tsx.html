@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.47% </span>
+                <span class="strong">82.65% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>80/97</span>
+                <span class='fraction'>81/98</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.8% </span>
+                <span class="strong">68.39% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>240/354</span>
+                <span class='fraction'>251/367</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.29% </span>
+                <span class="strong">82.47% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>79/96</span>
+                <span class='fraction'>80/97</span>
             </div>
         
             
@@ -623,7 +623,25 @@
 <a name='L564'></a><a href='#L564'>564</a>
 <a name='L565'></a><a href='#L565'>565</a>
 <a name='L566'></a><a href='#L566'>566</a>
-<a name='L567'></a><a href='#L567'>567</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">81x</span>
+<a name='L567'></a><a href='#L567'>567</a>
+<a name='L568'></a><a href='#L568'>568</a>
+<a name='L569'></a><a href='#L569'>569</a>
+<a name='L570'></a><a href='#L570'>570</a>
+<a name='L571'></a><a href='#L571'>571</a>
+<a name='L572'></a><a href='#L572'>572</a>
+<a name='L573'></a><a href='#L573'>573</a>
+<a name='L574'></a><a href='#L574'>574</a>
+<a name='L575'></a><a href='#L575'>575</a>
+<a name='L576'></a><a href='#L576'>576</a>
+<a name='L577'></a><a href='#L577'>577</a>
+<a name='L578'></a><a href='#L578'>578</a>
+<a name='L579'></a><a href='#L579'>579</a>
+<a name='L580'></a><a href='#L580'>580</a>
+<a name='L581'></a><a href='#L581'>581</a>
+<a name='L582'></a><a href='#L582'>582</a>
+<a name='L583'></a><a href='#L583'>583</a>
+<a name='L584'></a><a href='#L584'>584</a>
+<a name='L585'></a><a href='#L585'>585</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">81x</span>
 <span class="cline-any cline-yes">81x</span>
 <span class="cline-any cline-yes">81x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -729,6 +747,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -745,8 +764,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1145,13 +1168,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">184x</span>
 <span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">82x</span>
 <span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1297,7 +1333,8 @@ export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
 export function getEditRenderer(
   selected: ConnectorSelectedValue,
   openConnectorModal: UseCreateConnectorModalReturn['openConnectorModal'],
-  type: ConnectorInfoDTO['type']
+  type: ConnectorInfoDTO['type'],
+  canUpdate = <span class="branch-0 cbranch-no" title="branch not covered" >true</span>
 ): JSX.Element {
   return (
     &lt;Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between', width: '100%' }}&gt;
@@ -1307,20 +1344,24 @@ export function getEditRenderer(
         &lt;/Text&gt;
         &lt;Text font={{ weight: 'bold' }}&gt;{selected<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue}&lt;/Text&gt;
       &lt;/div&gt;
-      &lt;Button
-        minimal
-        icon="edit"
-        onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >          e.stopPropagation()</span>
-<span class="cstat-no" title="statement not covered" >          openConnectorModal(true, type, {</span>
-            connectorInfo: selected?.connector,
-            gitDetails: selected?.connector?.gitDetails
-          })
-        }}
-        style={{
-          color: 'var(--primary-7)'
-        }}
-      /&gt;
+      {canUpdate ? (
+        &lt;Button
+          minimal
+          icon="edit"
+          onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >            e.stopPropagation()</span>
+<span class="cstat-no" title="statement not covered" >            openConnectorModal(true, type, {</span>
+              connectorInfo: selected?.connector,
+              gitDetails: selected?.connector?.gitDetails
+            })
+          }}
+          style={{
+            color: 'var(--primary-7)'
+          }}
+        /&gt;
+      ) : (
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;&gt;&lt;/&gt;</span>
+      )}
     &lt;/Layout.Horizontal&gt;
   )
 }
@@ -1710,17 +1751,30 @@ export const ConnectorReferenceField: React.FC&lt;ConnectorReferenceFieldProps&g
     }
   }
 &nbsp;
+  const [canUpdateSelectedConnector] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.CONNECTOR,
+        resourceIdentifier: (selectedValue as ConnectorSelectedValue)?.connector?.identifier || ''
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR]
+    },
+    []
+  )
+&nbsp;
   if (typeof type === 'string' &amp;&amp; typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
       selectedValue as ConnectorSelectedValue,
       openConnectorModal,
-      (selectedValue as ConnectorSelectedValue)<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector?.type || type
+      (selectedValue as ConnectorSelectedValue)<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector?.type || type,
+      canUpdateSelectedConnector
     )
   } else if (Array.isArray(type) &amp;&amp; typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
       selectedValue as ConnectorSelectedValue,
       openConnectorModal,
-      (selectedValue as ConnectorSelectedValue)<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype || type[0]
+      (selectedValue as ConnectorSelectedValue)<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype || type[0],
+      canUpdateSelectedConnector
     )
   }
 &nbsp;
@@ -1762,7 +1816,7 @@ export const ConnectorReferenceField: React.FC&lt;ConnectorReferenceFieldProps&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 04 2021 08:39:26 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 11:21:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

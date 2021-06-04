@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.66% </span>
+                <span class="strong">73.08% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>93/128</span>
+                <span class='fraction'>95/130</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.15% </span>
+                <span class="strong">43.92% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>126/292</span>
+                <span class='fraction'>148/337</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.66% </span>
+                <span class="strong">73.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>93/128</span>
+                <span class='fraction'>95/130</span>
             </div>
         
             
@@ -514,7 +514,12 @@
 <a name='L455'></a><a href='#L455'>455</a>
 <a name='L456'></a><a href='#L456'>456</a>
 <a name='L457'></a><a href='#L457'>457</a>
-<a name='L458'></a><a href='#L458'>458</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">106x</span>
+<a name='L458'></a><a href='#L458'>458</a>
+<a name='L459'></a><a href='#L459'>459</a>
+<a name='L460'></a><a href='#L460'>460</a>
+<a name='L461'></a><a href='#L461'>461</a>
+<a name='L462'></a><a href='#L462'>462</a>
+<a name='L463'></a><a href='#L463'>463</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">106x</span>
 <span class="cline-any cline-yes">106x</span>
 <span class="cline-any cline-yes">106x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -654,6 +659,9 @@
 <span class="cline-any cline-yes">246x</span>
 <span class="cline-any cline-yes">246x</span>
 <span class="cline-any cline-yes">246x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -859,6 +867,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1115,7 +1125,10 @@ const DelegateSelectorStep: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp
     intermediateLabel: props.isEditMode
       ? getString('connectors.updating', { name: connectorName })
       : getString('connectors.creating', { name: connectorName }),
-    finalLabel: connectorCreateUpdateError?.data<span class="branch-1 cbranch-no" title="branch not covered" >?.message </span>|| connectorCreateUpdateError?.message
+    finalLabel:
+      `${connectorCreateUpdateError?.data<span class="branch-1 cbranch-no" title="branch not covered" >?.errors<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.[0].fieldId}</span> ${connectorCreateUpdateError?.data<span class="branch-1 cbranch-no" title="branch not covered" >?.errors<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.[0].error}</span>` ||
+<span class="branch-1 cbranch-no" title="branch not covered" >      connectorCreateUpdateError?.data?.message </span>||
+<span class="branch-2 cbranch-no" title="branch not covered" >      connectorCreateUpdateError?.message</span>
   }
   const setupBranchStage = {
     status: connectorCreateUpdateStatus,
@@ -1316,7 +1329,9 @@ const DelegateSelectorStep: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp
       ) {
 <span class="cstat-no" title="statement not covered" >        openGitDiffDialog(payload, connectorData?.gitData)</span>
       } else {
-        modalErrorHandler<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>howDanger(e.data<span class="branch-1 cbranch-no" title="branch not covered" >?.message </span>|| e.message)
+        const errorMessage = `${e.data<span class="branch-1 cbranch-no" title="branch not covered" >?.errors<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.[0].fieldId}</span> ${e.data<span class="branch-1 cbranch-no" title="branch not covered" >?.errors<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.[0].error}</span>`
+        const message = e.data<span class="branch-1 cbranch-no" title="branch not covered" >?.errors<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.[0].fieldId </span>? <span class="branch-0 cbranch-no" title="branch not covered" >errorMessage </span>: e.message
+        modalErrorHandler<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>howDanger(message)
       }
     }
   }
@@ -1435,7 +1450,7 @@ export default DelegateSelectorStep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 03 2021 20:55:05 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 03:00:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

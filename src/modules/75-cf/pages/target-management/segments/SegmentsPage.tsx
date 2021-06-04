@@ -67,7 +67,8 @@ export const SegmentsPage: React.FC = () => {
     error: errSegments,
     refetch: refetchSegments
   } = useGetAllSegments({
-    queryParams
+    queryParams,
+    lazy: !activeEnvironment
   })
   const history = useHistory()
   const loading = loadingEnvironments || loadingSegments

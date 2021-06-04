@@ -63,7 +63,8 @@ export const TargetsPage: React.FC = () => {
     [accountId, orgIdentifier, projectIdentifier, activeEnvironment, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const { data: targetsData, loading: loadingTargets, error: errTargets, refetch: refetchTargets } = useGetAllTargets({
-    queryParams
+    queryParams,
+    lazy: !activeEnvironment
   })
   const history = useHistory()
   const loading = loadingEnvironments || loadingTargets

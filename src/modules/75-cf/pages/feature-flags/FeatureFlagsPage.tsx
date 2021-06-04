@@ -384,7 +384,8 @@ const FeatureFlagsPage: React.FC = () => {
       accountIdentifier: accountId,
       org: orgIdentifier,
       pageSize: CF_DEFAULT_PAGE_SIZE,
-      pageNumber
+      pageNumber,
+      metrics: true
     }),
     [projectIdentifier, activeEnvironment, accountId, orgIdentifier, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
   )

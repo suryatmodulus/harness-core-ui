@@ -14,7 +14,6 @@ import {
   useGetSteps,
   UseGetStepsProps
 } from 'services/pipeline-ng'
-import { useGetProvisionerSteps } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
 
@@ -76,12 +75,12 @@ const useGetBuildSteps = (props: UseGetStepsProps) => {
 }
 
 // TODO: move to StepPaletteUtils.ts
-const dataSourceFactory = (stageType: StageTypes, isProvisioner?: boolean): any => {
+const dataSourceFactory = (stageType: StageTypes): any => {
   switch (stageType) {
     case StageTypes.BUILD:
       return useGetBuildSteps
     case StageTypes.DEPLOY:
-      return isProvisioner ? useGetProvisionerSteps : useGetSteps
+      return useGetSteps
     case StageTypes.APPROVAL:
       return useGetSteps
     case StageTypes.FEATURE:
@@ -118,10 +117,14 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
   const { module, accountId } = useParams<{ module: string; accountId: string }>()
-  const categoryForStepPalette =
-    (selectedStage as any).stage?.type === StageTypes.APPROVAL
-      ? StageTypes.APPROVAL
-      : get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+  let categoryForStepPalette
+  if ((selectedStage as any).stage?.type === StageTypes.APPROVAL) {
+    categoryForStepPalette = StageTypes.APPROVAL
+  } else if (isProvisioner) {
+    categoryForStepPalette = 'Provisioner'
+  } else {
+    categoryForStepPalette = get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+  }
 
   const Message = ({ stepsDataLoading }: { stepsDataLoading: boolean }) => {
     const message = stepsDataLoading
@@ -135,10 +138,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
     ) : null
   }
 
-  const { data: stepsData, loading: stepsDataLoading } = dataSourceFactory(
-    stageType,
-    isProvisioner
-  )({
+  const { data: stepsData, loading: stepsDataLoading } = dataSourceFactory(stageType)({
     queryParams: { category: categoryForStepPalette, module, accountId }
   })
   const { getString } = useStrings()

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.74% </span>
+                <span class="strong">71.52% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>231/322</span>
+                <span class='fraction'>231/323</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.84% </span>
+                <span class="strong">51.81% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>759/1464</span>
+                <span class='fraction'>759/1465</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.75% </span>
+                <span class="strong">67.51% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>187/276</span>
+                <span class='fraction'>187/277</span>
             </div>
         
             
@@ -1413,7 +1413,9 @@
 <a name='L1354'></a><a href='#L1354'>1354</a>
 <a name='L1355'></a><a href='#L1355'>1355</a>
 <a name='L1356'></a><a href='#L1356'>1356</a>
-<a name='L1357'></a><a href='#L1357'>1357</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">117x</span>
+<a name='L1357'></a><a href='#L1357'>1357</a>
+<a name='L1358'></a><a href='#L1358'>1358</a>
+<a name='L1359'></a><a href='#L1359'>1359</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">117x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">117x</span>
 <span class="cline-any cline-yes">117x</span>
@@ -2642,6 +2644,8 @@
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3998,33 +4002,35 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.docker')
     case Connectors.AWS:
       return getString('connectors.testConnectionStep.validationText.aws')
+<span class="branch-3 cbranch-no" title="branch not covered" >    case Connectors.Jira:</span>
+<span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.jira')</span>
     case Connectors.NEXUS:
       return getString('connectors.testConnectionStep.validationText.nexus')
     case Connectors.ARTIFACTORY:
       return getString('connectors.testConnectionStep.validationText.artifactory')
     case Connectors.GCP:
       return getString('connectors.testConnectionStep.validationText.gcp')
-<span class="branch-6 cbranch-no" title="branch not covered" >    case 'Gcr':</span>
+<span class="branch-7 cbranch-no" title="branch not covered" >    case 'Gcr':</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.gcr')</span>
     case Connectors.APP_DYNAMICS:
       return getString('connectors.testConnectionStep.validationText.appD')
-<span class="branch-8 cbranch-no" title="branch not covered" >    case Connectors.SPLUNK:</span>
+<span class="branch-9 cbranch-no" title="branch not covered" >    case Connectors.SPLUNK:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.splunk')</span>
     case Connectors.VAULT:
       return getString('connectors.testConnectionStep.validationText.vault')
-<span class="branch-10 cbranch-no" title="branch not covered" >    case Connectors.BITBUCKET:</span>
+<span class="branch-11 cbranch-no" title="branch not covered" >    case Connectors.BITBUCKET:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.bitbucket')</span>
-<span class="branch-11 cbranch-no" title="branch not covered" >    case Connectors.GITLAB:</span>
+<span class="branch-12 cbranch-no" title="branch not covered" >    case Connectors.GITLAB:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.gitlab')</span>
-<span class="branch-12 cbranch-no" title="branch not covered" >    case Connectors.GITHUB:</span>
+<span class="branch-13 cbranch-no" title="branch not covered" >    case Connectors.GITHUB:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.github')</span>
     case Connectors.GIT:
       return getString('connectors.testConnectionStep.validationText.git')
-<span class="branch-14 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
+<span class="branch-15 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.azure')</span>
-<span class="branch-15 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
+<span class="branch-16 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.datadog')</span>
-<span class="branch-16 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE_KEY_VAULT:</span>
+<span class="branch-17 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE_KEY_VAULT:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.azureKeyVault')</span>
     default:
       return ''
@@ -4132,7 +4138,7 @@ export const removeErrorCode = (errors: ErrorDetail[] = <span class="branch-0 cb
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 04 2021 17:00:16 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 21:42:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

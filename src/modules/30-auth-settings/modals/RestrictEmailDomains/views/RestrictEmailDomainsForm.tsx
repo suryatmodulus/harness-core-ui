@@ -16,6 +16,7 @@ import { useToaster } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useUpdateWhitelistedDomains } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
+import css from '../useRestrictEmailDomains.module.scss'
 
 interface Props {
   onSubmit?: () => void
@@ -55,7 +56,7 @@ const RestrictEmailDomainsForm: React.FC<Props> = ({ onSubmit, onCancel, whiteli
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'huge' }}>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      <Heading level={1} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'xxlarge' }}>
+      <Heading color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'xxlarge' }} className={css.heading}>
         {getString('authSettings.allowLoginFromTheseDomains')}
       </Heading>
       <Formik

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">97.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/36</span>
+                <span class='fraction'>35/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.19% </span>
+                <span class="strong">98.31% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>42/59</span>
+                <span class='fraction'>58/59</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.57% </span>
+                <span class="strong">97.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/35</span>
+                <span class='fraction'>34/35</span>
             </div>
         
             
@@ -246,35 +246,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">305x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">305x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">35x</span>
-<span class="cline-any cline-yes">35x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">305x</span>
+<span class="cline-any cline-yes">305x</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-yes">244x</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-yes">41x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">183x</span>
+<span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">122x</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">305x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -291,10 +291,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -393,25 +393,25 @@ const getColumnValue = (formikValues: any, column: EXP_BREAKDOWN_INPUTS): string
 &nbsp;
   const isCustomTab = selectedScheduleTab === scheduleTabsId.CUSTOM
 &nbsp;
-  const expressionArr = expression<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>rim() &amp;&amp; isCustomTab ? expression.trim().split(' ') : <span class="branch-1 cbranch-no" title="branch not covered" >undefined</span>
+  const expressionArr = expression?.trim() &amp;&amp; isCustomTab ? expression.trim().split(' ') : undefined
   if (column === EXP_BREAKDOWN_INPUTS.MINUTES) {
-    return isCustomTab ? expressionArr<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>] : <span class="branch-1 cbranch-no" title="branch not covered" >getSlashValue({ selectedScheduleTab, id: 'minutes', value: minutes })</span>
+    return isCustomTab ? expressionArr?.[0] : getSlashValue({ selectedScheduleTab, id: 'minutes', value: minutes })
   } else if (column === EXP_BREAKDOWN_INPUTS.HOURS) {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (isCustomTab) return expressionArr<span class="branch-0 cbranch-no" title="branch not covered" >?.[1</span>]
-    else <span class="cstat-no" title="statement not covered" >if (selectedScheduleTab === scheduleTabsId.HOURLY) {</span>
-<span class="cstat-no" title="statement not covered" >      return getSlashValue({ selectedScheduleTab, id: 'hours', value: hours })</span>
+    if (isCustomTab) return expressionArr?.[1]
+    else if (selectedScheduleTab === scheduleTabsId.HOURLY) {
+      return getSlashValue({ selectedScheduleTab, id: 'hours', value: hours })
     }
-<span class="cstat-no" title="statement not covered" >    return getMilitaryHours({ hours, amPm })</span>
+    return getMilitaryHours({ hours, amPm })
   } else if (column === EXP_BREAKDOWN_INPUTS.DAY_OF_MONTH) {
     return isCustomTab
-      ? expressionArr<span class="branch-0 cbranch-no" title="branch not covered" >?.[2</span>]
-      : <span class="branch-1 cbranch-no" title="branch not covered" >getSlashValue({ selectedScheduleTab, id: 'dayOfMonth', value: dayOfMonth })</span>
+      ? expressionArr?.[2]
+      : getSlashValue({ selectedScheduleTab, id: 'dayOfMonth', value: dayOfMonth })
   } else if (column === EXP_BREAKDOWN_INPUTS.MONTH) {
     return isCustomTab
-      ? expressionArr<span class="branch-0 cbranch-no" title="branch not covered" >?.[3</span>]
-      : <span class="branch-1 cbranch-no" title="branch not covered" >getSlashValue({ selectedScheduleTab, id: 'month', startMonth, value: month })</span>
+      ? expressionArr?.[3]
+      : getSlashValue({ selectedScheduleTab, id: 'month', startMonth, value: month })
   } else <span class="missing-if-branch" title="else path not taken" >E</span>if (column === EXP_BREAKDOWN_INPUTS.DAY_OF_WEEK) {
-    return isCustomTab ? expressionArr<span class="branch-0 cbranch-no" title="branch not covered" >?.[4</span>] : <span class="branch-1 cbranch-no" title="branch not covered" >getDayOfWeekStr(dayOfWeek)</span>
+    return isCustomTab ? expressionArr?.[4] : getDayOfWeekStr(dayOfWeek)
   }
 <span class="cstat-no" title="statement not covered" >  return undefined</span>
 }
@@ -422,8 +422,8 @@ const Column = ({ width, inactive, label, value, getString, hideValuesRow }: Col
       &lt;Text&gt;{label}&lt;/Text&gt;
     &lt;/Container&gt;
     {!hideValuesRow &amp;&amp; (
-      &lt;Container className={cx(css.value, inactive &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >css.inactive)</span>}&gt;
-        &lt;Text&gt;{(!isUndefined(value) &amp;&amp; value) || <span class="branch-2 cbranch-no" title="branch not covered" >getString('invalidText')}</span>&lt;/Text&gt;
+      &lt;Container className={cx(css.value, inactive &amp;&amp; css.inactive)}&gt;
+        &lt;Text&gt;{(!isUndefined(value) &amp;&amp; value) || getString('invalidText')}&lt;/Text&gt;
       &lt;/Container&gt;
     )}
   &lt;/Layout.Vertical&gt;
@@ -493,7 +493,7 @@ export default ExpressionBreakdown
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 04 2021 21:57:36 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 21:59:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

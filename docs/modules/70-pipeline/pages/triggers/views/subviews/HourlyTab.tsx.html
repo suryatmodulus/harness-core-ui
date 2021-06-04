@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -138,20 +138,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -161,7 +159,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,25 +191,25 @@ interface HourlyTabInterface {
   formikProps: any
 }
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >HourlyTab(</span>props: HourlyTabInterface): JSX.Element {
+export default function HourlyTab(props: HourlyTabInterface): JSX.Element {
   const {
     formikProps: {
       values: { hours, minutes, expression, selectedScheduleTab },
       values
     },
     formikProps
-  } = <span class="cstat-no" title="statement not covered" >props</span>
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+  } = props
+  const { getString } = useStrings()
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className={css.hourlyTab}&gt;
       &lt;Toothpick
         label={getString('pipeline.triggers.schedulePanel.runEvery')}
         startValue={hours}
         endValue={minutes}
         startOptions={cronSensicalHoursOptions}
-        handleStartValueChange={<span class="fstat-no" title="function not covered" >val </span>=&gt;
-<span class="cstat-no" title="statement not covered" >          formikProps.setValues({</span>
+        handleStartValueChange={val =&gt;
+          formikProps.setValues({
             ...values,
             hours: val.value,
             expression: getUpdatedExpression({
@@ -220,8 +220,8 @@ export default function <span class="fstat-no" title="function not covered" >Hou
           })
         }
         endOptions={zeroFiftyNineDDOptions}
-        handleEndValueChange={<span class="fstat-no" title="function not covered" >val </span>=&gt;
-<span class="cstat-no" title="statement not covered" >          formikProps.setValues({</span>
+        handleEndValueChange={val =&gt;
+          formikProps.setValues({
             ...values,
             minutes: val.value,
             expression: getUpdatedExpression({ expression, value: val.value as string, id: 'minutes' })
@@ -244,7 +244,7 @@ export default function <span class="fstat-no" title="function not covered" >Hou
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 04 2021 21:57:36 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 21:59:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.67% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/30</span>
+                <span class='fraction'>21/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">46.48% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/71</span>
+                <span class='fraction'>33/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.29% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/28</span>
+                <span class='fraction'>21/28</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -224,10 +224,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,23 +237,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -338,35 +338,35 @@ export interface CustomVariableInputSetProps extends CustomVariableInputSetExtra
   inputSetData?: InputSetData&lt;CustomVariablesData&gt;
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >CustomVariableInputSet(</span>props: CustomVariableInputSetProps): React.ReactElement {
+export function CustomVariableInputSet(props: CustomVariableInputSetProps): React.ReactElement {
   const {
     initialValues,
     template,
     stepViewType = <span class="branch-0 cbranch-no" title="branch not covered" >StepViewType.Edit,</span>
     path,
-    variableNamePrefix = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span>
+    variableNamePrefix = '',
     domId,
     inputSetData
-  } = <span class="cstat-no" title="statement not covered" >props</span>
-  const basePath = <span class="cstat-no" title="statement not covered" >path?.length ? `${path}.` : ''</span>
-  const { expressions } = <span class="cstat-no" title="statement not covered" >useVariablesExpression()</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  } = props
+  const basePath = path<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? `${path}.` : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+  const { expressions } = useVariablesExpression()
+  return (
     &lt;div className={cx(css.customVariablesInputSets, 'customVariables')} id={domId}&gt;
-      {stepViewType === StepViewType.StageVariable &amp;&amp; initialValues.variables.length &gt; 0 &amp;&amp; (
-        &lt;section className={css.subHeader}&gt;
+      {stepViewType === StepViewType.StageVariable &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >initialValues.variables.length &gt; 0 </span>&amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >        &lt;section className={css.subHeader}&gt;</span>
           &lt;String stringID="name" /&gt;
           &lt;String stringID="typeLabel" /&gt;
           &lt;String stringID="valueLabel" /&gt;
         &lt;/section&gt;
       )}
-      {template?.variables?.map?.(<span class="fstat-no" title="function not covered" >(v</span>ariable, index) =&gt; {
-        const value = <span class="cstat-no" title="statement not covered" >template?.variables?.[index]?.value || ''</span>
-<span class="cstat-no" title="statement not covered" >        if (getMultiTypeFromValue(value as string) !== MultiTypeInputType.RUNTIME) {</span>
+      {template<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ariables<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap<span class="branch-0 cbranch-no" title="branch not covered" >?.((</span>variable, index) =&gt; {
+        const value = template<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ariables<span class="branch-0 cbranch-no" title="branch not covered" >?.[i</span>ndex]<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (getMultiTypeFromValue(value as string) !== MultiTypeInputType.RUNTIME) {
 <span class="cstat-no" title="statement not covered" >          return</span>
         }
-        const isAllowedValues = <span class="cstat-no" title="statement not covered" >RegExAllowedInputExpression.test(value as string)</span>
-        const items: SelectOption[] = <span class="cstat-no" title="statement not covered" >[]</span>
-<span class="cstat-no" title="statement not covered" >        if (isAllowedValues) {</span>
+        const isAllowedValues = RegExAllowedInputExpression.test(value as string)
+        const items: SelectOption[] = []
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (isAllowedValues) {
           const match = (<span class="cstat-no" title="statement not covered" >value as string).match(RegExAllowedInputExpression)</span>
 <span class="cstat-no" title="statement not covered" >          if (match &amp;&amp; match?.length &gt; 1) {</span>
 <span class="cstat-no" title="statement not covered" >            if (variable.type === 'Number') {</span>
@@ -376,13 +376,13 @@ export function <span class="fstat-no" title="function not covered" >CustomVaria
             }
           }
         }
-<span class="cstat-no" title="statement not covered" >        return (</span>
+        return (
           &lt;div key={`${variable.name}${index}`} className={css.variableListTable}&gt;
             &lt;Text&gt;{`${variableNamePrefix}${variable.name}`}&lt;/Text&gt;
             &lt;Text&gt;{variable.type}&lt;/Text&gt;
             &lt;div className={css.valueRow}&gt;
               {variable.type === VariableType.Secret ? (
-                &lt;MultiTypeSecretInput
+<span class="branch-0 cbranch-no" title="branch not covered" >                &lt;MultiTypeSecretInput</span>
                   expressions={expressions}
                   allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                   name={`${basePath}variables[${index}].value`}
@@ -391,7 +391,7 @@ export function <span class="fstat-no" title="function not covered" >CustomVaria
               ) : (
                 &lt;&gt;
                   {isAllowedValues ? (
-                    &lt;FormInput.MultiTypeInput
+<span class="branch-0 cbranch-no" title="branch not covered" >                    &lt;FormInput.MultiTypeInput</span>
                       className="variableInput"
                       name={`${basePath}variables[${index}].value`}
                       label=""
@@ -409,12 +409,12 @@ export function <span class="fstat-no" title="function not covered" >CustomVaria
                       className="variableInput"
                       name={`${basePath}variables[${index}].value`}
                       multiTextInputProps={{
-                        textProps: { type: variable.type === 'Number' ? 'number' : 'text' },
+                        textProps: { type: variable.type === 'Number' ? <span class="branch-0 cbranch-no" title="branch not covered" >'number' </span>: 'text' },
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
                         expressions
                       }}
                       label=""
-                      disabled={inputSetData?.readonly}
+                      disabled={inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eadonly}
                     /&gt;
                   )}
                 &lt;/&gt;
@@ -433,7 +433,7 @@ export function <span class="fstat-no" title="function not covered" >CustomVaria
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 04 2021 21:57:36 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 21:59:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

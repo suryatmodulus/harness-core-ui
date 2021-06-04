@@ -385,9 +385,10 @@ const processLiteEngineTask = (
 ): void => {
   // NOTE: liteEngineTask contains information about dependencies
   const serviceDependencyList: ServiceDependency[] =
+    // Array check is required for legacy support
     (Array.isArray(nodeData?.outcomes)
       ? nodeData?.outcomes?.find((_item: any) => !!_item.serviceDependencyList)?.serviceDependencyList
-      : nodeData?.outcomes?.serviceDependencyList) || []
+      : nodeData?.outcomes?.dependencies?.serviceDependencyList) || []
 
   // 1. Add dependency services
   addDependencies(serviceDependencyList, rootNodes)

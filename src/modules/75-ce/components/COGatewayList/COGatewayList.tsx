@@ -204,7 +204,7 @@ const COGatewayList: React.FC = () => {
   }, [servicesData?.response])
 
   if (error) {
-    showError(error.data || error.message)
+    showError(error.data || error.message, undefined, 'ce.get.svc.error')
   }
 
   if (_isEmpty(tableData) && loading) {
@@ -295,7 +295,11 @@ const COGatewayList: React.FC = () => {
       debounce: 300
     })
     if (resourcesError) {
-      showError(`could not load resources for rule ${tableProps.row.original.name}`)
+      showError(
+        `could not load resources for rule ${tableProps.row.original.name}`,
+        undefined,
+        'ce.get.svc.resource.error'
+      )
     }
 
     const hasCustomDomains = (tableProps.row.original.custom_domains?.length as number) > 0
@@ -460,7 +464,7 @@ const COGatewayList: React.FC = () => {
       }
       showSuccess(`Rule ${data.name} ${!data.disabled ? 'enabled' : 'disabled'}`)
     } else {
-      showError(data)
+      showError(data, undefined, 'ce.svc.stage.toggle.error')
     }
   }
 
@@ -473,7 +477,7 @@ const COGatewayList: React.FC = () => {
       }
       refetchServices()
     } else {
-      showError(data)
+      showError(data, undefined, 'ce.svc.delete.error')
     }
   }
 

@@ -13,7 +13,7 @@ import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
-import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
+import { ExecutionStatus, isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import {
   getPipelineStagesMap,
   getActiveStageForPipeline,
@@ -40,16 +40,16 @@ import css from './ExecutionLandingPage.module.scss'
 
 export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
 
-// TODO: remove 'any' once DTO is ready
 /** Add dependency services to nodeMap */
 const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: ExecutionNode }): void => {
   const liteEngineTask = Object.values(nodeMap).find(item => item.stepType === LITE_ENGINE_TASK)
   if (liteEngineTask) {
     // NOTE: liteEngineTask contains information about dependency services
     const serviceDependencyList: ExecutionNode[] =
+      // Array check is required for legacy support
       (Array.isArray(liteEngineTask.outcomes)
         ? liteEngineTask.outcomes.find((_item: any) => !!_item.serviceDependencyList)?.serviceDependencyList
-        : liteEngineTask.outcomes?.serviceDependencyList) || []
+        : liteEngineTask.outcomes?.dependencies?.serviceDependencyList) || []
 
     // 1. add service dependencies to nodeMap
     serviceDependencyList.forEach(service => {
@@ -160,7 +160,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
 
     const runningStage = getActiveStageForPipeline(
       data.data.pipelineExecutionSummary,
-      data.data?.pipelineExecutionSummary?.status
+      data.data?.pipelineExecutionSummary?.status as ExecutionStatus
     )
 
     const runningStep = getActiveStep(
@@ -286,7 +286,10 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                 </div>
                 <div className={css.statusBar}>
                   {pipelineExecutionSummary.status && (
-                    <ExecutionStatusLabel className={css.statusLabel} status={pipelineExecutionSummary.status} />
+                    <ExecutionStatusLabel
+                      className={css.statusLabel}
+                      status={pipelineExecutionSummary.status as ExecutionStatus}
+                    />
                   )}
                   {pipelineExecutionSummary.startTs && (
                     <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }}>
@@ -303,7 +306,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                     durationText={' '}
                   />
                   <ExecutionActions
-                    executionStatus={pipelineExecutionSummary.status}
+                    executionStatus={pipelineExecutionSummary.status as ExecutionStatus}
                     refetch={refetch}
                     params={{
                       orgIdentifier,

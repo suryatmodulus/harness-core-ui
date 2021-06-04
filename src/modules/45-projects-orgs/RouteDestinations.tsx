@@ -62,12 +62,14 @@ import SessionToken from 'framework/utils/SessionToken'
 
 const ProjectDetailsSideNavProps: SidebarContext = {
   navComponent: ProjectDetailsSideNav,
-  icon: 'harness'
+  icon: 'harness',
+  title: 'Project Management'
 }
 
 const OrgsSideNavProps: SidebarContext = {
   navComponent: OrgsSideNav,
-  icon: 'harness'
+  icon: 'harness',
+  title: 'Organization Management'
 }
 
 RbacFactory.registerResourceTypeHandler(ResourceType.PROJECT, {
@@ -175,13 +177,17 @@ export default (
 
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={routes.toConnectorDetails({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toConnectorDetails({ ...accountPathProps, ...projectPathProps, ...connectorPathProps })}
       exact
     >
       <ConnectorDetailsPage />
     </RouteWithLayout>
 
-    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={routes.toConnectorDetails({ ...orgPathProps })} exact>
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={routes.toConnectorDetails({ ...orgPathProps, ...connectorPathProps })}
+      exact
+    >
       <ConnectorDetailsPage />
     </RouteWithLayout>
 

@@ -62,8 +62,6 @@ describe('ManifestSelection tests', () => {
     fireEvent.click(manifestTypes[0])
     const continueButton = await findByText(portal as HTMLElement, 'continue')
     expect(continueButton).toBeDefined()
-
-    expect(container).toMatchSnapshot()
   })
 
   test(`renders Manifest Listview without crashing`, () => {

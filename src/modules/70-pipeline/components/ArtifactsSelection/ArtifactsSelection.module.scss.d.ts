@@ -5,6 +5,8 @@ declare const styles: {
   readonly type: string
   readonly actionGrid: string
   readonly cloneIcon: string
+  readonly connectorNameField: string
+  readonly connectorName: string
   readonly addArtifact: string
   readonly artifactId: string
   readonly paddingVertical: string

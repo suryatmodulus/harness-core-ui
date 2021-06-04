@@ -9,23 +9,38 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall"
     >
       <div
-        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+        class="breadcrumbs"
       >
-        <a
-          class="breadCrumb"
-          href="/account/dummy/resources/connectors"
-        >
-          resources
-        </a>
-        <span>
-          /
-        </span>
-        <a
-          class="breadCrumb"
-          href="/account/dummy/resources/connectors"
-        >
-          connectorsLabel
-        </a>
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/dummy/home/setup/connectors"
+          >
+            resources
+          </a>
+          <span
+            class="bp3-icon StyledProps--main separator"
+            data-icon="main-chevron-right"
+          >
+            <svg
+              height="11"
+              viewBox="0 0 8 14"
+              width="11"
+            >
+              <path
+                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
+          >
+            connectorsLabel
+          </span>
+        </div>
       </div>
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -442,33 +457,58 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall"
     >
       <div
-        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+        class="breadcrumbs"
       >
-        <a
-          class="breadCrumb"
-          href="/account/dummy/org/dummyOrg"
-        />
-        <span>
-          /
-        </span>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-        >
+        <div>
           <a
-            class="breadCrumb"
-            href="/account/dummy/org/dummyOrg/resources/connectors"
+            class="breadcrumb"
+            href="/account/dummy/home/organizations/dummyOrg"
+          />
+          <span
+            class="bp3-icon StyledProps--main separator"
+            data-icon="main-chevron-right"
+          >
+            <svg
+              height="11"
+              viewBox="0 0 8 14"
+              width="11"
+            >
+              <path
+                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+        </div>
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/dummy/home/organizations/dummyOrg/setup/connectors"
           >
             resources
           </a>
-          <span>
-            /
+          <span
+            class="bp3-icon StyledProps--main separator"
+            data-icon="main-chevron-right"
+          >
+            <svg
+              height="11"
+              viewBox="0 0 8 14"
+              width="11"
+            >
+              <path
+                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                fill="#4d5969"
+              />
+            </svg>
           </span>
-          <a
-            class="breadCrumb"
-            href="/account/dummy/org/dummyOrg/resources/connectors"
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
           >
             connectorsLabel
-          </a>
+          </span>
         </div>
       </div>
       <div

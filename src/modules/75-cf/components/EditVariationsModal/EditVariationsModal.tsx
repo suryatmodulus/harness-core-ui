@@ -140,7 +140,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
           })
           .catch(error => {
             setLoading(false)
-            showError(getErrorMessage(error), 0)
+            showError(getErrorMessage(error), 0, 'cf.submit.patch.error')
             patch.feature.reset()
           })
       })

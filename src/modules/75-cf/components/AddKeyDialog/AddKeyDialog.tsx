@@ -71,7 +71,7 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
       type: values.type
     })
       .then((created: ApiKey) => onCreate(created, hideModal))
-      .catch(error => showError(getErrorMessage(error)))
+      .catch(error => showError(getErrorMessage(error), undefined, 'cf.create.key.error'))
   }
 
   const labelStyle = {

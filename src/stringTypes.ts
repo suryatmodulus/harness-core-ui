@@ -47,6 +47,8 @@ export interface StringsMap {
   'common.banners.trial.contactSalesForm.roleItems.vp': string
   'common.banners.trial.contactSalesForm.roleValidation': string
   'common.banners.trial.description': string
+  'common.banners.trial.expired.description': string
+  'common.banners.trial.expired.extendTrial': string
   'common.blank': string
   'common.capsAll': string
   'common.ce.cost': string
@@ -142,6 +144,7 @@ export interface StringsMap {
   'common.gitSync.unableToCreatePR': string
   'common.gitSync.updateResource': string
   'common.home': string
+  'common.in': string
   'common.input': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
@@ -388,7 +391,7 @@ export interface StringsMap {
   'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
   'authSettings.addSAMLProvider': string
   'authSettings.allowLoginFromTheseDomains': string
-  'authSettings.allowUsersWIthEmails': string
+  'authSettings.allowUsersWithEmails': string
   'authSettings.atLeastNChars': string
   'authSettings.authenticationSettings': string
   'authSettings.authorizationEnabledFor': string
@@ -469,6 +472,7 @@ export interface StringsMap {
   'authSettings.plusSAMLProvider': string
   'authSettings.publicOAuthLoginDisabled': string
   'authSettings.publicOAuthLoginEnabled': string
+  'authSettings.restrictUsersToEmailDomains': string
   'authSettings.samlLoginEnabled': string
   'authSettings.samlProviderAddedSuccessfully': string
   'authSettings.samlProviderDeleted': string
@@ -482,6 +486,7 @@ export interface StringsMap {
   'authSettings.testingSSODescription': string
   'authSettings.twoFAEnforcementDisabled': string
   'authSettings.twoFAEnforcementEnabled': string
+  'authSettings.typeAndPressEnterToAddADomain': string
   'authSettings.uploadIdentityProvider': string
   'authSettings.useHarnessUsernameAndPassword': string
   'authSettings.usePublicOAuth': string
@@ -1286,6 +1291,7 @@ export interface StringsMap {
   'pipeline.startTime': string
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDetails': string
+  'pipeline.stepLabel': string
   'pipeline.targets.title': string
   'pipeline.testsReports.className': string
   'pipeline.testsReports.commitId': string
@@ -1805,6 +1811,7 @@ export interface StringsMap {
   'cf.clause.operators.endsWith': string
   'cf.clause.operators.equal': string
   'cf.clause.operators.equalSensitive': string
+  'cf.clause.operators.in': string
   'cf.clause.operators.match': string
   'cf.clause.operators.matchSegment': string
   'cf.clause.operators.startsWith': string

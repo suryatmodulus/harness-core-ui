@@ -78,7 +78,10 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
           <div
             class="emptyNode"
           >
-            <div>
+            <div
+              class="port"
+              style="visibility: hidden;"
+            >
               <div
                 class="port portIn"
               >
@@ -114,7 +117,10 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 </div>
               </div>
             </div>
-            <div>
+            <div
+              class="port"
+              style="visibility: visible;"
+            >
               <div
                 class="port portOut"
               >
@@ -248,7 +254,10 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
           <div
             class="emptyNode"
           >
-            <div>
+            <div
+              class="port"
+              style="visibility: visible;"
+            >
               <div
                 class="port portIn"
               >
@@ -284,7 +293,10 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 </div>
               </div>
             </div>
-            <div>
+            <div
+              class="port"
+              style="visibility: hidden;"
+            >
               <div
                 class="port portOut"
               >
@@ -330,7 +342,10 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
           <div
             class="emptyNode"
           >
-            <div>
+            <div
+              class="port"
+              style="visibility: visible;"
+            >
               <div
                 class="port portIn"
               >
@@ -366,7 +381,10 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 </div>
               </div>
             </div>
-            <div>
+            <div
+              class="port"
+              style="visibility: hidden;"
+            >
               <div
                 class="port portOut"
               >
@@ -544,7 +562,10 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
           <div
             class="emptyNode"
           >
-            <div>
+            <div
+              class="port"
+              style="visibility: hidden;"
+            >
               <div
                 class="port portIn"
               >
@@ -580,7 +601,10 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 </div>
               </div>
             </div>
-            <div>
+            <div
+              class="port"
+              style="visibility: visible;"
+            >
               <div
                 class="port portOut"
               >

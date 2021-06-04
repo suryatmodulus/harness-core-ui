@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import {
   FormInput,
@@ -24,6 +24,11 @@ interface LoginForm {
   password: string
 }
 
+interface LoginQueryParams {
+  returnUrl?: string
+  errorCode?: string
+}
+
 // TODO: add coverage once the correct API is integrated
 /* istanbul ignore next */
 const createAuthToken = (login: string, password: string): string => {
@@ -36,7 +41,17 @@ const LoginPage: React.FC = () => {
   const [isLoading, setLoading] = useState(false)
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { returnUrl } = useQueryParams<{ returnUrl?: string }>()
+  const { returnUrl, errorCode } = useQueryParams<LoginQueryParams>()
+
+  useEffect(() => {
+    if (localStorage.getItem('samlTestResponse') === 'testing') {
+      if (errorCode === 'samltestsuccess') {
+        localStorage.setItem('samlTestResponse', 'true')
+      } else {
+        localStorage.setItem('samlTestResponse', 'false')
+      }
+    }
+  }, [errorCode])
 
   // TODO: add coverage once the correct API is integrated
   /* istanbul ignore next */

@@ -49,8 +49,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           common.banners.email.description
         </p>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-xsmall Button--with-current-color"
-          style="height: 80%;"
+          class="bp3-button Button--button StyledProps--font StyledProps--main resend StyledProps--padding-xsmall Button--with-current-color"
           type="button"
         >
           <span
@@ -2778,8 +2777,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           common.banners.email.description
         </p>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-xsmall Button--with-current-color"
-          style="height: 80%;"
+          class="bp3-button Button--button StyledProps--font StyledProps--main resend StyledProps--padding-xsmall Button--with-current-color"
           type="button"
         >
           <span
@@ -5507,8 +5505,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           common.banners.email.description
         </p>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-xsmall Button--with-current-color"
-          style="height: 80%;"
+          class="bp3-button Button--button StyledProps--font StyledProps--main resend StyledProps--padding-xsmall Button--with-current-color"
           type="button"
         >
           <span
@@ -8236,8 +8233,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           common.banners.email.description
         </p>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-xsmall Button--with-current-color"
-          style="height: 80%;"
+          class="bp3-button Button--button StyledProps--font StyledProps--main resend StyledProps--padding-xsmall Button--with-current-color"
           type="button"
         >
           <span

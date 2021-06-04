@@ -24,6 +24,7 @@ import copy from 'copy-to-clipboard'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
 import type { SamlSettings } from 'services/cd-ng'
+import { getConfig } from 'services/config'
 import { useUploadSamlMetaData, useUpdateSamlMetaData } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
@@ -83,7 +84,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
   const { accountId } = useParams<AccountPathProps>()
   const [selected, setSelected] = React.useState<SAMLProviderType>()
   const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
-  const samlEndpoint = `https://${window.location.hostname}/gateway/api/users/saml-login?acc=${accountId}`
+  const samlEndpoint = getConfig(`api/users/saml-login?accountId=${accountId}`)
   const selectedSAMLProvider = getString(
     selected
       ? selected?.type === Providers.OTHER

@@ -128,7 +128,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
                   update(!status)
                 })
                 .catch(error => {
-                  showError(getErrorMessage(error), 0)
+                  showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')
                 })
             }}
           />
@@ -327,10 +327,10 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
             refetch?.()
           })
           .catch(error => {
-            showError(getErrorMessage(error))
+            showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')
           })
       } catch (error) {
-        showError(getErrorMessage(error))
+        showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')
       }
     }
   })

@@ -63,7 +63,7 @@ export const OnboardingDetailPage: React.FC = () => {
               setFlagCreated(true)
               switchTab(TabId.SET_UP_APP)
             })
-            .catch(error => showError(getErrorMessage(error)))
+            .catch(error => showError(getErrorMessage(error), undefined, 'cf.create.ff.error'))
         } else {
           switchTab(TabId.SET_UP_APP)
         }

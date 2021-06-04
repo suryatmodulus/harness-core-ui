@@ -7,6 +7,8 @@ declare const styles: {
   readonly lastColumn: string
   readonly actionGrid: string
   readonly cloneIcon: string
+  readonly connectorNameField: string
+  readonly connectorName: string
   readonly modal: string
   readonly manifestList: string
   readonly listHeader: string

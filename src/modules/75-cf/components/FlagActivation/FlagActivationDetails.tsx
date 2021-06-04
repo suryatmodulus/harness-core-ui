@@ -280,7 +280,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           showToaster(getString('cf.messages.flagArchived'))
           refetchFlag()
         })
-        .catch(error => showError(getErrorMessage(error)))
+        .catch(error => showError(getErrorMessage(error), undefined, 'cf.archive.ff.error'))
     }
   })
   const deleteFlag = useConfirmAction({
@@ -303,10 +303,10 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
             showToaster(getString('cf.messages.flagDeleted'))
           })
           .catch(error => {
-            showError(getErrorMessage(error), 0)
+            showError(getErrorMessage(error), 0, 'cf.delete.ff.error')
           })
       } catch (error) {
-        showError(getErrorMessage(error), 0)
+        showError(getErrorMessage(error), 0, 'cf.delete.ff.error')
       }
     }
   })

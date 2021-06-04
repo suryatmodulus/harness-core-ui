@@ -177,7 +177,7 @@ const EnvironmentsPage: React.FC = () => {
       showSuccess(`Successfully deleted environment ${id}`)
       refetch()
     } catch (e) {
-      showError(get(e, 'data.message', e?.message), 0)
+      showError(get(e, 'data.message', e?.message), 0, 'cf.delete.env.error')
     }
   }
 

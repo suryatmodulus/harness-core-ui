@@ -105,7 +105,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
         <>
           <div className={css.filterGroup}>
             <String className={css.label} stringID="status" />
-            <StatusSelect value={queryParams.status} onSelect={handleStatusChange} />
+            <StatusSelect value={queryParams.status as ExecutionStatus} onSelect={handleStatusChange} />
           </div>
           {pipelineIdentifier ? null : (
             <div className={css.filterGroup}>

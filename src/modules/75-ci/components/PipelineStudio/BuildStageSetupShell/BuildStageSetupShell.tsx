@@ -279,11 +279,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                           onUpdate: executionRef.current?.stepGroupUpdated,
                           addOrEdit: 'add',
                           isStepGroup: false,
-                          hiddenAdvancedPanels: [
-                            AdvancedPanels.FailureStrategy,
-                            AdvancedPanels.PreRequisites,
-                            AdvancedPanels.DelegateSelectors
-                          ]
+                          hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
                         }
                       }
                     }
@@ -302,11 +298,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                           // isAddStepOverride: true,
                           isRollback: event.isRollback,
                           isParallelNodeClicked: event.isParallel,
-                          hiddenAdvancedPanels: [
-                            AdvancedPanels.FailureStrategy,
-                            AdvancedPanels.PreRequisites,
-                            AdvancedPanels.DelegateSelectors
-                          ]
+                          hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
                         }
                       }
                     }

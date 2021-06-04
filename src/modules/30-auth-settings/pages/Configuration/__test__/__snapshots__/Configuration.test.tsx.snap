@@ -47,6 +47,16 @@ exports[`Configuration Configuration page 1`] = `
         >
           somethingWentWrong
         </p>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Retry
+          </span>
+        </button>
       </div>
     </div>
   </div>

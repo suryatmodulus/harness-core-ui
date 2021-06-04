@@ -432,7 +432,8 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   const gitParams = gitDetails?.objectId
     ? {
         ...pick(gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
-        commitMsg
+        commitMsg,
+        lastObjectId: gitDetails.objectId
       }
     : {}
   const { mutate: deleteConnector } = useDeleteConnector({

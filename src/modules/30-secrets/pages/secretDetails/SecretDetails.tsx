@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
-import cx from 'classnames'
 import { omit, without } from 'lodash-es'
 import { Layout, Container, Button } from '@wings-software/uicore'
 
@@ -28,14 +27,10 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
+import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import ViewSecretDetails from './views/ViewSecretDetails'
-
-import css from './SecretDetails.module.scss'
-
-enum Mode {
-  VISUAL,
-  YAML
-}
+import './SecretDetails.module.scss'
 
 interface SecretDetailsProps {
   secretData?: ResponseSecretResponseWrapper
@@ -49,7 +44,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const [edit, setEdit] = useState<boolean>()
-  const [mode, setMode] = useState<Mode>(Mode.VISUAL)
+  const [mode, setMode] = useState<SelectedView>(SelectedView.VISUAL)
   const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['draft', 'createdAt', 'updatedAt'])
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [snippetFetchResponse, setSnippetFetchResponse] = React.useState<SnippetFetchResponse>()
@@ -181,26 +176,18 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
         <Container padding={{ bottom: 'large' }}>
           {edit ? null : (
             <Layout.Horizontal flex>
-              <div className={css.switch}>
-                <div
-                  className={cx(css.item, { [css.selected]: mode === Mode.VISUAL })}
-                  onClick={() => setMode(Mode.VISUAL)}
-                >
-                  {getString('visual')}
-                </div>
-                <div
-                  className={cx(css.item, { [css.selected]: mode === Mode.YAML })}
-                  onClick={() => setMode(Mode.YAML)}
-                >
-                  {getString('yaml')}
-                </div>
-              </div>
-
+              <VisualYamlToggle
+                initialSelectedView={mode}
+                beforeOnChange={(nextMode, callback) => {
+                  setMode(nextMode)
+                  callback(nextMode)
+                }}
+              />
               <RbacButton
                 text={getString('editDetails')}
                 icon="edit"
                 onClick={() => {
-                  mode === Mode.VISUAL
+                  mode === SelectedView.VISUAL
                     ? secretData.secret.type === 'SSHKey'
                       ? openCreateSSHCredModal(data?.data?.secret)
                       : openCreateSecretModal(secretData.secret.type, {
@@ -221,7 +208,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
             </Layout.Horizontal>
           )}
         </Container>
-        {mode === Mode.YAML ? (
+        {mode === SelectedView.YAML ? (
           <Container>
             {edit && (
               <YamlBuilder

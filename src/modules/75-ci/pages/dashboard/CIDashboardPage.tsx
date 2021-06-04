@@ -46,11 +46,11 @@ export const CIDashboardPage: React.FC = () => {
   })
 
   useEffect(() => {
-    error?.message && showError(error?.message)
+    error?.message && showError(error?.message, undefined, 'ci.get.build.error')
   }, [error?.message])
 
   useEffect(() => {
-    repoError?.message && showError(repoError?.message)
+    repoError?.message && showError(repoError?.message, undefined, 'ci.get.repo.error')
   }, [repoError?.message])
 
   return (

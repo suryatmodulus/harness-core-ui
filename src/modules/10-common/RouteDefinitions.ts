@@ -61,7 +61,7 @@ const routes = {
   // account resources
   toCreateConnectorFromYaml: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      const path = `connectors/create-connector-from-yaml`
+      const path = `connectors/yaml/create-connector`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -356,7 +356,7 @@ const routes = {
   ),
   toCreateSecretFromYaml: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      const path = `secrets/create-secret-from-yaml`
+      const path = `secrets/yaml/create-secret`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,

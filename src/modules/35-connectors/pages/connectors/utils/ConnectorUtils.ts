@@ -1293,6 +1293,8 @@ export const getUrlValueByType = (type: ConnectorInfoDTO['type'], connector: Con
   }
 }
 
+// No usages: enable when used
+/* istanbul ignore next */
 export const getInvocationPathsForSecrets = (type: ConnectorInfoDTO['type'] | 'Unknown'): Set<RegExp> => {
   switch (type) {
     case 'K8sCluster':

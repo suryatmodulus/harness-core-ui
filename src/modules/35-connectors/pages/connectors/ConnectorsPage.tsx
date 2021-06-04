@@ -5,7 +5,6 @@ import {
   SelectOption,
   FormInput,
   MultiSelectOption,
-  OverlaySpinner,
   ExpandingSearchInput,
   Container
 } from '@wings-software/uicore'
@@ -622,10 +621,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         <Page.Body className={css.listBody}>
           {isFetchingConnectors ? (
             <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
-              {' '}
-              <OverlaySpinner show={true} className={css.loading}>
-                <></>
-              </OverlaySpinner>
+              <PageSpinner />
             </div>
           ) : /* istanbul ignore next */ errorWhileFetchingConnectors ? (
             <div style={{ paddingTop: '200px' }}>

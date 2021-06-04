@@ -22,7 +22,7 @@ exports[`RestrictEmailDomains Disable email restrictions 1`] = `
         <span
           class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-normal"
         >
-          authSettings.allowUsersWIthEmails
+          authSettings.allowUsersWithEmails
         </span>
       </label>
       <div
@@ -100,7 +100,7 @@ exports[`RestrictEmailDomains Update email restrictions 1`] = `
         <span
           class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-normal"
         >
-          authSettings.allowUsersWIthEmails
+          authSettings.allowUsersWithEmails
         </span>
       </label>
       <div

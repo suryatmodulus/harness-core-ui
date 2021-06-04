@@ -232,6 +232,7 @@ const InputSetList: React.FC = (): JSX.Element => {
         <InputSetListView
           data={inputSet?.data}
           gotoPage={setPage}
+          pipelineHasRuntimeInputs={pipelineHasRuntimeInputs}
           goToInputSetDetail={inputSetTemp => {
             setSelectedInputSet({
               identifier: inputSetTemp?.identifier,

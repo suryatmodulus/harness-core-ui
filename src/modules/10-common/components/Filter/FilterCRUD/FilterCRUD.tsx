@@ -18,6 +18,7 @@ import {
 import type { FormikProps, FormikErrors } from 'formik'
 import { Menu, Classes, Position, PopoverInteractionKind, Dialog, IDialogProps } from '@blueprintjs/core'
 import { useToaster } from '@common/components/Toaster/useToaster'
+import { NameSchema } from '@common/utils/Validation'
 import { useStrings } from 'framework/strings'
 import { StringUtils } from '@common/exports'
 import { UNIQUE_ID_MAX_LENGTH } from '@common/utils/StringUtils'
@@ -126,7 +127,11 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
         }
       }
     } /* istanbul ignore next */ catch (e) {
-      showError(e.data?.message || e.message)
+      showError(
+        e.data?.message || e.data?.errors?.[0]?.error
+          ? `${e.data.errors[0].fieldId} ${e.data.errors[0]?.error}`
+          : e.message
+      )
     }
   }
 
@@ -397,7 +402,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
             }}
             formName="filterCrudForm"
             validationSchema={Yup.object().shape({
-              name: Yup.string().trim().required(getString('filters.nameRequired')),
+              name: NameSchema(),
               filterVisibility: Yup.mixed()
                 .oneOf(['OnlyCreator', 'EveryOne'])
                 .required(getString('filters.visibilityRequired'))

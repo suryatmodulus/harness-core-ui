@@ -123,19 +123,19 @@ const PasswordStrength: React.FC<Props> = ({ loginSettings, refetchAuthSettings,
         margin={{ bottom: 'large' }}
         className={cssHarnessAccount.passwordChecksDiv}
       >
-        <RbacButton
-          minimal
-          intent="primary"
-          icon="edit"
-          onClick={() => openPasswordStrengthModal(true)}
-          data-testid="updatePasswordSettings"
-          className={cssHarnessAccount.editIcon}
-          permission={{
-            ...permissionRequest,
-            permission: PermissionIdentifier.EDIT_AUTHSETTING
-          }}
-        />
-
+        <div className={cssHarnessAccount.editIcon}>
+          <RbacButton
+            minimal
+            intent="primary"
+            icon="edit"
+            onClick={() => openPasswordStrengthModal(true)}
+            data-testid="updatePasswordSettings"
+            permission={{
+              ...permissionRequest,
+              permission: PermissionIdentifier.EDIT_AUTHSETTING
+            }}
+          />
+        </div>
         <Text margin={{ bottom: 'xsmall' }} color={Color.BLACK}>
           {getString('authSettings.passwordMustFulfillReq')}
         </Text>

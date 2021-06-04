@@ -37,7 +37,7 @@ export const SelectEnvironmentView: React.FC<SelectEnvironmentViewProps> = props
   }, [props.apiKey])
 
   if (error) {
-    showError(getErrorMessage(error), 0)
+    showError(getErrorMessage(error), 0, 'cf.get.env.list.error')
   }
 
   const serverSide = props.language.type === PlatformEntryType.SERVER

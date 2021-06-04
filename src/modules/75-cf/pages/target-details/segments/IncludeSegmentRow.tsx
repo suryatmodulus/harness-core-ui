@@ -38,10 +38,10 @@ export const IncludeSegmentRow: React.FC<{
         _useRemoveTargetsFromIncludeList(segment.identifier as string, [target?.identifier as string])
           .then(refetch)
           .catch(error => {
-            showError(getErrorMessage(error), 0)
+            showError(getErrorMessage(error), undefined, 'cf.remove.target.list.error')
           })
       } catch (error) {
-        showError(getErrorMessage(error), 0)
+        showError(getErrorMessage(error), undefined, 'cf.remove.target.list.error')
       }
     }
   })

@@ -75,7 +75,11 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
       if (!accessPointStatusLoading) {
         if (accessPointData?.response?.status == 'errored') {
           setLbCreationInProgress(false)
-          showError(getString('ce.co.accessPoint.error') + '\n' + accessPointData.response.metadata?.error)
+          showError(
+            getString('ce.co.accessPoint.error') + '\n' + accessPointData.response.metadata?.error,
+            undefined,
+            'ce.ap.data.error'
+          )
         } else if (accessPointData?.response?.status == 'created') {
           setLbCreationInProgress(false)
           // props.setAccessPoint(accessPointData?.response as AccessPoint)
@@ -102,7 +106,7 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
       }
     } catch (e) {
       setLbCreationInProgress(false)
-      showError(e.data?.errors?.join('\n') || e.data?.message || e.message)
+      showError(e.data?.errors?.join('\n') || e.data?.message || e.message, undefined, 'ce.savelb.error')
     }
   }
 

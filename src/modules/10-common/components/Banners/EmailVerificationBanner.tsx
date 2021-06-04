@@ -57,8 +57,7 @@ export const EmailVerificationBanner = (): React.ReactElement => {
           </Text>
 
           <Button
-            margin={{ top: 2 }}
-            height="80%"
+            className={css.resend}
             padding="xsmall"
             disabled={loading}
             text={getString('common.banners.email.resend')}

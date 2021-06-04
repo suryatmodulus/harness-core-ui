@@ -77,7 +77,7 @@
   overflow: scroll;
   :global {
     .icon-container {
-      vertical-align: middle;
+      display: none;
     }
     button.bp3-button {
       width: 90%;

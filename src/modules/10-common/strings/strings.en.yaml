@@ -252,6 +252,9 @@ banners:
     success: Verification email re-sent
   trial:
     description: Your Enterprise {{ module }} trial expires in {{ days }} days. Contact Sales to continue using {{ moduleDescription }}
+    expired:
+      description: Your trial expired {{ expiredDays }} days ago. Contact Sales or extend trial to continue using {{ moduleDescription }}
+      extendTrial: Extend Trial
     contactSales: Contact Sales
     contactSalesForm:
       description: Let’s connect you with our Sales team
@@ -301,3 +304,4 @@ artifactTag: tag
 clientId: Client ID
 filters:
   saveNewFilter: Save New Filter
+in: in

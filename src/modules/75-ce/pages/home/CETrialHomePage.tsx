@@ -62,7 +62,7 @@ const CETrialHomePage: React.FC = () => {
   }
 
   if (error) {
-    showError((error.data as Error)?.message || error.message)
+    showError((error.data as Error)?.message || error.message, undefined, 'ce.start.trial.error')
   }
 
   return (

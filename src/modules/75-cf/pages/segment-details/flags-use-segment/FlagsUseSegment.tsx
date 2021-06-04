@@ -59,7 +59,7 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
       .then(() => {
         refetchFlags()
       })
-      .catch(exception => showError(getErrorMessage(exception)))
+      .catch(exception => showError(getErrorMessage(exception), undefined, 'cf.path.feature.error'))
   }
   const removeSegmentToVariationTargetMap = async (
     featureFlagIdentifier: string,
@@ -79,7 +79,7 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
       .then(() => {
         refetchFlags()
       })
-      .catch(exception => showError(getErrorMessage(exception)))
+      .catch(exception => showError(getErrorMessage(exception), undefined, 'cf.patch.feature.error'))
   }
 
   return (

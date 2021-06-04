@@ -46,8 +46,7 @@ exports[`EmailVerificationBanner email verify fails 1`] = `
         common.banners.email.description
       </p>
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-xsmall Button--with-current-color"
-        style="height: 80%;"
+        class="bp3-button Button--button StyledProps--font StyledProps--main resend StyledProps--padding-xsmall Button--with-current-color"
         type="button"
       >
         <span
@@ -153,8 +152,7 @@ exports[`EmailVerificationBanner render 1`] = `
         common.banners.email.description
       </p>
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-xsmall Button--with-current-color"
-        style="height: 80%;"
+        class="bp3-button Button--button StyledProps--font StyledProps--main resend StyledProps--padding-xsmall Button--with-current-color"
         type="button"
       >
         <span

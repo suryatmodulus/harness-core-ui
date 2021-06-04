@@ -89,7 +89,7 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
         patchPrerequisites(data)
           .then(refetchFlag)
           .catch(err => {
-            showError(get(err, 'data.message', err?.message))
+            showError(get(err, 'data.message', err?.message), undefined, 'cf.patch.prereq.error')
           })
           .finally(patch.feature.reset)
       })
@@ -154,7 +154,7 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
               refetchFlag()
             })
             .catch(err => {
-              showError(get(err, 'data.message', err?.message))
+              showError(get(err, 'data.message', err?.message), undefined, 'cf.patch.req.error')
             })
             .finally(() => {
               patch.feature.reset()

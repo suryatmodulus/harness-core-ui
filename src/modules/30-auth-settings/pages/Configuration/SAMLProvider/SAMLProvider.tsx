@@ -28,6 +28,7 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
+  const [childWindow, setChildWindow] = React.useState<Window | null>(null)
   const samlEnabled = authSettings.authenticationMechanism === AuthenticationMechanisms.SAML
   const samlSettings = authSettings.ngAuthSettings?.find(
     settings => settings.settingsType === AuthenticationMechanisms.SAML
@@ -39,14 +40,17 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
 
   const { openSAMlProvider } = useSAMLProviderModal({ onSuccess })
 
-  const { data: samlLoginTestData, error: samlLoginTestDataError, refetch: getSamlLoginTestData } = useGetSamlLoginTest(
-    {
-      queryParams: {
-        accountId: accountId
-      },
-      lazy: true
-    }
-  )
+  const {
+    data: samlLoginTestData,
+    loading: fetchingSamlLoginTestData,
+    error: samlLoginTestDataError,
+    refetch: getSamlLoginTestData
+  } = useGetSamlLoginTest({
+    queryParams: {
+      accountId: accountId
+    },
+    lazy: true
+  })
 
   const { mutate: deleteSamlSettings, loading: deletingSamlSettings } = useDeleteSamlMetaData({
     queryParams: {
@@ -92,8 +96,8 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
   const testSamlProvider = async (): Promise<void> => {
     if (samlLoginTestData?.resource?.ssorequest?.idpRedirectUrl) {
       localStorage.setItem('samlTestResponse', 'testing')
-      const childWindow = window.open(samlLoginTestData.resource.ssorequest.idpRedirectUrl)
-      window.addEventListener('storage', () => {
+      const win = window.open(samlLoginTestData.resource.ssorequest.idpRedirectUrl)
+      const localStorageUpdate = (): void => {
         const samlTestResponse = localStorage.getItem('samlTestResponse')
         /* istanbul ignore else */ if (samlTestResponse === 'true' || samlTestResponse === 'false') {
           if (samlTestResponse === 'true') {
@@ -101,11 +105,15 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
           } else {
             showError(getString('authSettings.samlTestFailed'), 5000)
           }
-          childWindow?.close()
+          win?.close()
+          setChildWindow(null)
           localStorage.removeItem('samlTestResponse')
+          window.removeEventListener('storage', localStorageUpdate)
         }
-      })
-      childWindow?.focus()
+      }
+      window.addEventListener('storage', localStorageUpdate)
+      win?.focus()
+      setChildWindow(win)
     } else {
       /* istanbul ignore next */ showError(samlLoginTestDataError?.message, 5000)
     }
@@ -128,6 +136,7 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
           className={css.leftMarginAuto}
           intent="primary"
           text={getString('test')}
+          disabled={!!childWindow || fetchingSamlLoginTestData}
           onClick={() => {
             getSamlLoginTestData()
           }}
@@ -198,6 +207,7 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
                 text={getString('test')}
                 intent="primary"
                 className={css.testButton}
+                disabled={!!childWindow || fetchingSamlLoginTestData}
                 onClick={() => {
                   getSamlLoginTestData()
                 }}

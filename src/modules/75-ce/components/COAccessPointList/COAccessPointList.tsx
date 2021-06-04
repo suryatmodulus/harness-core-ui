@@ -106,7 +106,7 @@ const COLoadBalancerList: React.FC = () => {
       }
     })
     if (detailsError) {
-      showError(detailsError.data || detailsError.message)
+      showError(detailsError.data || detailsError.message, undefined, 'ce.ap.activity.error')
     }
     return (
       <>
@@ -136,7 +136,7 @@ const COLoadBalancerList: React.FC = () => {
       }
     })
     if (detailsError) {
-      showError(detailsError.message)
+      showError(detailsError.message, undefined, 'ce.ap.rules.error')
     }
     return (
       <>
@@ -214,7 +214,7 @@ const COLoadBalancerList: React.FC = () => {
     debounce: 300
   })
   if (error) {
-    showError(error.data || error.message)
+    showError(error.data || error.message, undefined, 'ce.all.ap.rules.error')
   }
   useEffect(() => {
     if (loading) {

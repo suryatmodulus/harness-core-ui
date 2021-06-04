@@ -74,7 +74,7 @@ describe('Create Gitlab connector Wizard', () => {
         container,
         type: InputTypes.TEXTFIELD,
         fieldId: 'url',
-        value: 'githubTestUrl'
+        value: 'http://www.github.com/'
       }
     ])
 

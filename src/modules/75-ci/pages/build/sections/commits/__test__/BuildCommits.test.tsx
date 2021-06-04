@@ -61,6 +61,6 @@ describe('BuildCommits interaction test', () => {
     const btn3 = document.querySelectorAll('button.hash')[2]
     fireEvent.click(btn3)
 
-    expect(showError).toBeCalledWith('ci.clipboardCopyFail')
+    expect(showError).toBeCalledWith('ci.clipboardCopyFail', undefined, 'ci.copy.commit.error')
   })
 })

@@ -74,7 +74,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
           showToaster(getString('cf.messages.flagCreated'))
         })
         .catch(error => {
-          showError(getErrorMessage(error), 0)
+          showError(getErrorMessage(error), 0, 'cf.savegw.error')
         })
     } else {
       hideModal()

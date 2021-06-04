@@ -45,7 +45,9 @@ export interface UseMutateAsGetReturn<
   loading: boolean
   error: GetDataError<TError> | null
   cancel(): void
-  refetch(props?: WrappedUseMutateProps<TData, TError, TRequestBody, TQueryParams, TPathParams>): Promise<void>
+  refetch(
+    props?: WrappedUseMutateProps<TData, TError, TRequestBody, TQueryParams, TPathParams>
+  ): Promise<void> | undefined
 }
 
 async function _fetchData<TData, TError, TQueryParams, TRequestBody, TPathParams>(
@@ -119,6 +121,16 @@ export function useMutateAsGet<
     loading,
     error,
     cancel,
-    refetch: newProps => fetchData(mutate, newProps || props, setInitLoading, setData)
+    refetch: newProps => {
+      try {
+        return fetchData(mutate, newProps || props, setInitLoading, setData)?.then(identity, e => {
+          if (shouldShowError(e)) setError(e)
+        })
+      } catch (e) {
+        if (shouldShowError(e)) {
+          setError(e)
+        }
+      }
+    }
   }
 }

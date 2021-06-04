@@ -595,7 +595,7 @@ export const SegmentRules: React.FC<{ segment: Segment; onUpdate: () => void }> 
             setEditing(false)
           })
           .catch(err => {
-            showError(getErrorMessage(err))
+            showError(getErrorMessage(err), undefined, 'cf.send.patch.error')
           })
           .finally(() => patch.segment.reset())
       })

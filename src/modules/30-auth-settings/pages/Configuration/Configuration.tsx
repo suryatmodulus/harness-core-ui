@@ -58,7 +58,12 @@ const Configuration: React.FC = () => {
       <Page.Header title={`${getString('authentication')}: ${getString('configuration')}`} />
       <Page.Body
         loading={fetchingAuthSettings}
-        error={errorWhileFetchingAuthSettings?.message || data?.resource ? undefined : getString('somethingWentWrong')}
+        error={
+          (errorWhileFetchingAuthSettings?.data as Error)?.message ||
+          errorWhileFetchingAuthSettings?.message ||
+          (data?.resource ? undefined : getString('somethingWentWrong'))
+        }
+        retryOnError={() => refetchAuthSettings()}
       >
         {data?.resource && (
           <React.Fragment>

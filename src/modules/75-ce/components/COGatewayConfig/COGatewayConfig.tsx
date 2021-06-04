@@ -218,7 +218,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     debounce: 300
   })
   if (error) {
-    showError('Faield to fetch services')
+    showError('Faield to fetch services', undefined, 'ce.svc.fetch.error')
   }
 
   const [openInstancesModal, closeInstancesModal] = useModalHook(() => {
@@ -375,7 +375,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         setFilteredInstances(instances)
       }
     } catch (e) {
-      showError(e.data?.message || e.message)
+      showError(e.data?.message || e.message, undefined, 'ce.refetch.instance.error')
     }
   }
 
@@ -387,7 +387,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         setAllAsg(filteredAsgs)
       }
     } catch (err) {
-      showError(err.data?.message || err.message)
+      showError(err.data?.message || err.message, undefined, 'ce.fetchAndSetAsgItems.error')
     }
   }
 
@@ -438,7 +438,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         })
       }
     } catch (e) {
-      showError(e.data?.message || e.message)
+      showError(e.data?.message || e.message, undefined, 'ce.creaetap.result.error')
     }
   }
 

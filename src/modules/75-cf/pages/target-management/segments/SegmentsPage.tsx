@@ -185,10 +185,10 @@ export const SegmentsPage: React.FC = () => {
                     showToaster(getString('cf.messages.segmentDeleted'))
                   })
                   .catch(_error => {
-                    showError(getErrorMessage(_error), 0)
+                    showError(getErrorMessage(_error), 0, 'cf.delete.segment.error')
                   })
               } catch (err) {
-                showError(getErrorMessage(err), 0)
+                showError(getErrorMessage(err), 0, 'cf.delete.segment.error')
               }
             }
           })

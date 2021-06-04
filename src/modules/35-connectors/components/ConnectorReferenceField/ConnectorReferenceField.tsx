@@ -106,7 +106,8 @@ export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
 export function getEditRenderer(
   selected: ConnectorSelectedValue,
   openConnectorModal: UseCreateConnectorModalReturn['openConnectorModal'],
-  type: ConnectorInfoDTO['type']
+  type: ConnectorInfoDTO['type'],
+  canUpdate = true
 ): JSX.Element {
   return (
     <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between', width: '100%' }}>
@@ -116,20 +117,24 @@ export function getEditRenderer(
         </Text>
         <Text font={{ weight: 'bold' }}>{selected?.value}</Text>
       </div>
-      <Button
-        minimal
-        icon="edit"
-        onClick={e => {
-          e.stopPropagation()
-          openConnectorModal(true, type, {
-            connectorInfo: selected?.connector,
-            gitDetails: selected?.connector?.gitDetails
-          })
-        }}
-        style={{
-          color: 'var(--primary-7)'
-        }}
-      />
+      {canUpdate ? (
+        <Button
+          minimal
+          icon="edit"
+          onClick={e => {
+            e.stopPropagation()
+            openConnectorModal(true, type, {
+              connectorInfo: selected?.connector,
+              gitDetails: selected?.connector?.gitDetails
+            })
+          }}
+          style={{
+            color: 'var(--primary-7)'
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </Layout.Horizontal>
   )
 }
@@ -519,17 +524,30 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     }
   }
 
+  const [canUpdateSelectedConnector] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.CONNECTOR,
+        resourceIdentifier: (selectedValue as ConnectorSelectedValue)?.connector?.identifier || ''
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR]
+    },
+    []
+  )
+
   if (typeof type === 'string' && typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
       selectedValue as ConnectorSelectedValue,
       openConnectorModal,
-      (selectedValue as ConnectorSelectedValue)?.connector?.type || type
+      (selectedValue as ConnectorSelectedValue)?.connector?.type || type,
+      canUpdateSelectedConnector
     )
   } else if (Array.isArray(type) && typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
       selectedValue as ConnectorSelectedValue,
       openConnectorModal,
-      (selectedValue as ConnectorSelectedValue)?.connector?.type || type[0]
+      (selectedValue as ConnectorSelectedValue)?.connector?.type || type[0],
+      canUpdateSelectedConnector
     )
   }
 

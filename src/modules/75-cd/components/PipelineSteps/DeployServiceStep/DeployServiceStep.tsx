@@ -216,7 +216,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   }, [serviceResponse, serviceResponse?.data?.content?.length, initialValues.serviceRef])
 
   if (error?.message) {
-    showError(error.message)
+    showError(error.message, undefined, 'cd.svc.list.error')
   }
 
   const [canEdit] = usePermission({
@@ -347,7 +347,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
     }>
   >()
 
-  const { showError } = useToaster()
+  const { showError, clear } = useToaster()
   const { expressions } = useVariablesExpression()
   const { data: serviceResponse, error, refetch } = useGetServiceListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier },
@@ -369,7 +369,8 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
   }, [serviceResponse, serviceResponse?.data?.content?.length])
 
   if (error?.message) {
-    showError(error.message)
+    clear()
+    showError(error.message, undefined, 'cd.svc.list.error')
   }
   return (
     <>

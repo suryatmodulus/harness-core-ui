@@ -202,10 +202,10 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             style={{ pointerEvents: 'none', ...options.iconStyle }}
           />
         )}
-        <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
+        <div style={{ visibility: options.showPorts && !options.hideInPort ? 'visible' : 'hidden' }}>
           {props.node.getInPorts().map(port => generatePort(port, props))}
         </div>
-        <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
+        <div style={{ visibility: options.showPorts && !options.hideOutPort ? 'visible' : 'hidden' }}>
           {props.node.getOutPorts().map(port => generatePort(port, props))}
         </div>
         {options?.tertiaryIcon && (

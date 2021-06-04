@@ -1,8 +1,9 @@
 enterDescription: Enter Description
 verificationResult: 'Verification result:'
-estimatedTimeRemaining: 'Estimated time remaning:'
+estimatedTimeRemaining: 'Estimated time remaining:'
 progressPercentage: 'Progress percentage:'
 discard: Discard
+stepLabel: '{{name}} (ID: {{identifier}})'
 enableVerificationOptions: Enable verification options
 closeStepConfig: Step Config
 infrastructureKey: 'Infrastructure Key'

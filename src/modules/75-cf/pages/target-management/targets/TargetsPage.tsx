@@ -218,10 +218,10 @@ export const TargetsPage: React.FC = () => {
                     showToaster(getString('cf.messages.targetDeleted'))
                   })
                   .catch(_error => {
-                    showError(getErrorMessage(_error), 0)
+                    showError(getErrorMessage(_error), 0, 'cf.delete.target.error')
                   })
               } catch (err) {
-                showError(getErrorMessage(err), 0)
+                showError(getErrorMessage(err), 0, 'cf.delete.target.error')
               }
             }
           })

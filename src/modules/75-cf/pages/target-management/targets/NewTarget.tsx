@@ -62,7 +62,7 @@ export const NewTargets: React.FC<NewTargetsProps> = ({ accountId, orgIdentifier
           .filter(res => res.status === 'rejected')
           .forEach((res: SettledTarget) => {
             clear()
-            showError(get(res, 'error.data.message', get(res, 'error.message')), 0)
+            showError(get(res, 'error.data.message', get(res, 'error.message')), 0, 'cf.create.bulk.target..error')
           })
       })
       .then(() => {
@@ -72,7 +72,7 @@ export const NewTargets: React.FC<NewTargetsProps> = ({ accountId, orgIdentifier
       .catch(results => {
         results.forEach((res: SettledTarget) => {
           clear()
-          showError(get(res, 'error.data.message', get(res, 'error.message')), 0)
+          showError(get(res, 'error.data.message', get(res, 'error.message')), 0, 'cf.create.bulk.target.error')
         })
       })
       .finally(() => setLoadingBulk(false))

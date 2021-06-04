@@ -155,7 +155,7 @@ const Wizard: React.FC<WizardProps> = ({
           {title}
           {showVisualYaml ? (
             <VisualYamlToggle
-              onChange={(mode, callback) => {
+              beforeOnChange={(mode, callback) => {
                 try {
                   const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
                   parse(latestYaml)

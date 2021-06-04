@@ -28,6 +28,9 @@ import {
   MultiTypeReferenceInputProps,
   ReferenceSelectProps
 } from '@common/components/ReferenceSelect/ReferenceSelect'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import {
   ConnectorReferenceFieldProps,
   getReferenceFieldProps,
@@ -107,6 +110,15 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     },
     lazy: true
   })
+  const [canUpdate] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.CONNECTOR
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR]
+    },
+    []
+  )
 
   React.useEffect(() => {
     if (
@@ -222,17 +234,30 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     }
   }
 
+  const [canUpdateSelectedConnector] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.CONNECTOR,
+        resourceIdentifier: selectedValue?.connector?.identifier || ''
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR]
+    },
+    []
+  )
+
   if (typeof type === 'string' && typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
       selectedValue,
       openConnectorModal,
-      selectedValue?.connector?.type || type
+      selectedValue?.connector?.type || type,
+      canUpdateSelectedConnector
     )
   } else if (Array.isArray(type) && typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
       selectedValue,
       openConnectorModal,
-      selectedValue?.connector?.type
+      selectedValue?.connector?.type,
+      canUpdateSelectedConnector
     )
   }
 
@@ -258,7 +283,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
             getString,
             openConnectorModal
           }),
-          isNewConnectorLabelVisible: isNewConnectorLabelVisible,
+          isNewConnectorLabelVisible: canUpdate && isNewConnectorLabelVisible,
           selectedRenderer: getSelectedRenderer(selectedValue),
           ...optionalReferenceSelectProps,
           disabled: isDisabled

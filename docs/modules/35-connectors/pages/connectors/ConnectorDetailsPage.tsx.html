@@ -37,9 +37,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.89% </span>
+                <span class="strong">52.94% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>11/19</span>
+                <span class='fraction'>9/17</span>
             </div>
         
             
@@ -371,14 +371,7 @@
 <a name='L312'></a><a href='#L312'>312</a>
 <a name='L313'></a><a href='#L313'>313</a>
 <a name='L314'></a><a href='#L314'>314</a>
-<a name='L315'></a><a href='#L315'>315</a>
-<a name='L316'></a><a href='#L316'>316</a>
-<a name='L317'></a><a href='#L317'>317</a>
-<a name='L318'></a><a href='#L318'>318</a>
-<a name='L319'></a><a href='#L319'>319</a>
-<a name='L320'></a><a href='#L320'>320</a>
-<a name='L321'></a><a href='#L321'>321</a>
-<a name='L322'></a><a href='#L322'>322</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L315'></a><a href='#L315'>315</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -400,7 +393,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -422,7 +417,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -511,11 +505,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -526,21 +526,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -703,7 +689,7 @@
 import { Layout, Container, Icon, Text, Color, SelectOption, Select } from '@wings-software/uicore'
 import { Menu, Tag } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Link, useParams, useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
@@ -720,10 +706,12 @@ import {
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ProjectPathProps, ConnectorPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import { useQueryParams } from '@common/hooks'
+import routes from '@common/RouteDefinitions'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
 import ConnectorView from './ConnectorView'
 import { getIconByType } from './utils/ConnectorUtils'
@@ -740,11 +728,10 @@ const ConnectorDetailsPage: React.FC&lt;{ mockData?: any }&gt; = props =&gt; {
   const [selectedBranch, setSelectedBranch] = React.useState&lt;string&gt;('')
   const [branchSelectOptions, setBranchSelectOptions] = React.useState&lt;SelectOption[]&gt;([])
   const [searchTerm, setSearchTerm] = React.useState&lt;string&gt;('')
-  const { connectorId, accountId, orgIdentifier, projectIdentifier } = useParams&lt;
+  const { connectorId, accountId, orgIdentifier, projectIdentifier, module } = useParams&lt;
     PipelineType&lt;ProjectPathProps &amp; ConnectorPathProps&gt;
   &gt;()
   const { repoIdentifier, branch } = useQueryParams&lt;EntityGitDetails&gt;()
-  const { pathname } = useLocation()
 &nbsp;
   const { data: orgData } = useGetOrganizationAggregateDTO({
     identifier: orgIdentifier,
@@ -831,37 +818,29 @@ const ConnectorDetailsPage: React.FC&lt;{ mockData?: any }&gt; = props =&gt; {
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
 &nbsp;
   const RenderBreadCrumb: React.FC = () =&gt; {
+    let links = [
+      {
+        url: routes.toConnectors({ accountId, orgIdentifier, projectIdentifier, module }),
+        label: getString('resources')
+      },
+      {
+        label: getString('connectorsLabel'),
+        url: ''
+      }
+    ]
     <span class="missing-if-branch" title="if path not taken" >I</span>if (projectIdentifier) {
-<span class="cstat-no" title="statement not covered" >      return renderCommonBreadCrumb(props)</span>
-    } else {
-      return orgIdentifier ? RenderBreadCrumbForOrg(props) : renderCommonBreadCrumb(props)
+<span class="cstat-no" title="statement not covered" >      return &lt;Breadcrumbs links={links} /&gt;</span>
     }
-  }
-&nbsp;
-  const RenderBreadCrumbForOrg: React.FC = () =&gt; {
-    return (
-      &lt;Layout.Horizontal spacing="xsmall"&gt;
-        &lt;Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/resources'))}`}&gt;
-          {orgData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >orgData?.data?.organizationResponse.organization.name}</span>
-        &lt;/Link&gt;
-        &lt;span&gt;/&lt;/span&gt;
-        {renderCommonBreadCrumb(props)}
-      &lt;/Layout.Horizontal&gt;
-    )
-  }
-&nbsp;
-  const renderCommonBreadCrumb: React.FC = () =&gt; {
-    return (
-      &lt;Layout.Horizontal spacing="xsmall"&gt;
-        &lt;Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}&gt;
-          {getString('resources')}
-        &lt;/Link&gt;
-        &lt;span&gt;/&lt;/span&gt;
-        &lt;Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}&gt;
-          {getString('connectorsLabel')}
-        &lt;/Link&gt;
-      &lt;/Layout.Horizontal&gt;
-    )
+    if (orgIdentifier) {
+      links = [
+        {
+          url: routes.toOrganizationDetails({ accountId, orgIdentifier }),
+          label: orgData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata ? <span class="branch-0 cbranch-no" title="branch not covered" >orgData?.data?.organizationResponse.organization.name </span>: ''
+        },
+        ...links
+      ]
+    }
+    return &lt;Breadcrumbs links={links} /&gt;
   }
 &nbsp;
   const handleBranchClick = <span class="fstat-no" title="function not covered" >(s</span>elected: string): void =&gt; {
@@ -1027,7 +1006,7 @@ export default ConnectorDetailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 04 2021 03:22:28 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 05:02:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

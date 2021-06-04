@@ -109,7 +109,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.selectedProject, state.featureFlags['GIT_SYNC_NG']])
+  }, [state.selectedProject, state.featureFlags['GIT_SYNC_NG'], projectIdentifier, orgIdentifier])
 
   React.useEffect(() => {
     if (projectIdentifier && orgIdentifier) {

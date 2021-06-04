@@ -90,7 +90,7 @@ export const SegmentsPage: React.FC = () => {
         )
       )
     },
-    [history, accountId, orgIdentifier, projectIdentifier] // eslint-disable-line react-hooks/exhaustive-deps
+    [history, accountId, orgIdentifier, projectIdentifier, withActiveEnvironment]
   )
   const toolbar = (
     <Layout.Horizontal spacing="medium">
@@ -238,7 +238,13 @@ export const SegmentsPage: React.FC = () => {
 
   const content = noEnvironmentExists ? (
     <Container flex={{ align: 'center-center' }} height="100%">
-      <NoEnvironment onCreated={() => refetchEnvs()} />
+      <NoEnvironment
+        onCreated={response => {
+          const { location } = window
+          location.replace(`${location.href}?activeEnvironment=${response?.data?.identifier}`)
+          refetchEnvs()
+        }}
+      />
     </Container>
   ) : noSegmentExists ? (
     <NoSegmentsView

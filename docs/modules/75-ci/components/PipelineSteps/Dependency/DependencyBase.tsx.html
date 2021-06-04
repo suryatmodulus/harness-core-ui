@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/30</span>
+                <span class='fraction'>32/32</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/29</span>
+                <span class='fraction'>31/31</span>
             </div>
         
             
@@ -258,7 +258,24 @@
 <a name='L199'></a><a href='#L199'>199</a>
 <a name='L200'></a><a href='#L200'>200</a>
 <a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -268,6 +285,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -300,6 +318,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -347,6 +366,21 @@
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -470,6 +504,7 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -502,6 +537,7 @@ export const DependencyBase = (
   } = React.useContext(PipelineContext)
 &nbsp;
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 &nbsp;
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;{
     projectIdentifier: string
@@ -563,7 +599,8 @@ export const DependencyBase = (
                 label={&lt;Text margin={{ bottom: 'xsmall' }}&gt;{getString('description')}&lt;/Text&gt;}
                 style={{ marginBottom: 'var(--spacing-xsmall)' }}
                 multiTypeTextArea={{
-                  disabled: readonly
+                  disabled: readonly,
+                  expressions
                 }}
               /&gt;
               &lt;FormMultiTypeConnectorField
@@ -588,7 +625,7 @@ export const DependencyBase = (
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
                 style={{ marginBottom: 0 }}
-                multiTypeProps={{ disabled: readonly }}
+                multiTypeProps={{ expressions, disabled: readonly }}
               /&gt;
               &lt;MultiTypeTextField
                 name="spec.image"
@@ -600,7 +637,18 @@ export const DependencyBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('dependencyImagePlaceholder'),
-                  disabled: readonly
+                  disabled: readonly,
+                  multiTextInputProps: {
+                    expressions,
+                    allowableTypes: [
+                      MultiTypeInputType.EXPRESSION,
+                      MultiTypeInputType.FIXED,
+                      MultiTypeInputType.RUNTIME
+                    ],
+                    textProps: {
+                      autoComplete: 'off'
+                    }
+                  }
                 }}
               /&gt;
             &lt;/div&gt;
@@ -610,6 +658,7 @@ export const DependencyBase = (
               &lt;/Text&gt;
               &lt;MultiTypeMap
                 name="spec.envVariables"
+                valueMultiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
@@ -627,6 +676,7 @@ export const DependencyBase = (
               /&gt;
               &lt;MultiTypeList
                 name="spec.entrypoint"
+                multiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
@@ -640,6 +690,7 @@ export const DependencyBase = (
               /&gt;
               &lt;MultiTypeList
                 name="spec.args"
+                multiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
@@ -667,7 +718,7 @@ export const DependencyBaseWithRef = React.forwardRef(DependencyBase)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 04 2021 14:39:07 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 14:39:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

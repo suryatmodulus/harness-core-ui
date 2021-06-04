@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.59% </span>
+                <span class="strong">70.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>72/102</span>
+                <span class='fraction'>71/101</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.32% </span>
+                <span class="strong">69.1% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>287/414</span>
+                <span class='fraction'>284/411</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.43% </span>
+                <span class="strong">44.44% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/28</span>
+                <span class='fraction'>12/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71% </span>
+                <span class="strong">70.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>71/100</span>
+                <span class='fraction'>71/101</span>
             </div>
         
             
@@ -553,7 +553,15 @@
 <a name='L494'></a><a href='#L494'>494</a>
 <a name='L495'></a><a href='#L495'>495</a>
 <a name='L496'></a><a href='#L496'>496</a>
-<a name='L497'></a><a href='#L497'>497</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L497'></a><a href='#L497'>497</a>
+<a name='L498'></a><a href='#L498'>498</a>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -784,8 +792,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
@@ -1068,7 +1084,7 @@ import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Tooltip } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import { get, set, isEmpty, isArray } from 'lodash-es'
+import { get, set, isEmpty } from 'lodash-es'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 &nbsp;
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -1279,10 +1295,18 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
             is: 'Commit',
             then: Yup.string().trim().required(getString('validation.commitId'))
           }),
-          paths: Yup.mixed().test('paths', getString('pipeline.manifestType.pathRequired'), value =&gt; {
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) <span class="cstat-no" title="statement not covered" >return true</span>
-            return isArray(value) &amp;&amp; value.length &gt; 0 &amp;&amp; value.every(row =&gt; !isEmpty(row.path))
-          }),
+          paths: Yup.lazy(
+            (value): Yup.Schema&lt;unknown&gt; =&gt; {
+              <span class="missing-if-branch" title="else path not taken" >E</span>if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
+                return Yup.array().of(
+                  Yup.object().shape({
+                    path: Yup.string().min(1).required(getString('pipeline.manifestType.pathRequired'))
+                  })
+                )
+              }
+<span class="cstat-no" title="statement not covered" >              return Yup.string().required(getString('pipeline.manifestType.pathRequired'))</span>
+            }
+          ),
           repoName: Yup.string().test('repoName', getString('pipeline.manifestType.reponameRequired'), value =&gt; {
             <span class="missing-if-branch" title="if path not taken" >I</span>if (connectionType === GitRepoName.Repo) {
 <span class="cstat-no" title="statement not covered" >              return true</span>
@@ -1552,7 +1576,7 @@ export default ManifestDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 04 2021 03:00:39 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 03:22:28 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

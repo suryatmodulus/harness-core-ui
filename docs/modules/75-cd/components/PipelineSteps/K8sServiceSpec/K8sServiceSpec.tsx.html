@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0.41% </span>
+                <span class="strong">0.4% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/2216</span>
+                <span class='fraction'>9/2227</span>
             </div>
         
             
@@ -1544,7 +1544,13 @@
 <a name='L1485'></a><a href='#L1485'>1485</a>
 <a name='L1486'></a><a href='#L1486'>1486</a>
 <a name='L1487'></a><a href='#L1487'>1487</a>
-<a name='L1488'></a><a href='#L1488'>1488</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L1488'></a><a href='#L1488'>1488</a>
+<a name='L1489'></a><a href='#L1489'>1489</a>
+<a name='L1490'></a><a href='#L1490'>1490</a>
+<a name='L1491'></a><a href='#L1491'>1491</a>
+<a name='L1492'></a><a href='#L1492'>1492</a>
+<a name='L1493'></a><a href='#L1493'>1493</a>
+<a name='L1494'></a><a href='#L1494'>1494</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -2230,6 +2236,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2347,6 +2356,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3355,9 +3367,9 @@ const KubernetesServiceSpecInputForm: React.FC&lt;KubernetesServiceInputFormProp
   }, [pipelineResponse?.data?.yamlPipeline])
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useDeepCompareEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (gcrError || dockerError) {</span>
-<span class="cstat-no" title="statement not covered" >      clear()</span>
-<span class="cstat-no" title="statement not covered" >      showError(getString('errorTag'), undefined, 'cd.tag.fetch.error')</span>
+<span class="cstat-no" title="statement not covered" >    if (gcrError || dockerError || ecrError) {</span>
+      const stageName = <span class="cstat-no" title="statement not covered" >get(pipeline, `pipeline.${stagePath}.stage.name`, '')</span>
+<span class="cstat-no" title="statement not covered" >      showError(`Stage ${stageName}: ${getString('errorTag')}`, undefined, 'cd.tag.fetch.error')</span>
 <span class="cstat-no" title="statement not covered" >      return</span>
     }
 <span class="cstat-no" title="statement not covered" >    if (Array.isArray(dockerdata?.data?.buildDetailsList)) {</span>
@@ -3676,7 +3688,10 @@ const KubernetesServiceSpecInputForm: React.FC&lt;KubernetesServiceInputFormProp
                           usePortal: true,
                           addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type)),
                           noResults: (
-                            &lt;span className={css.padSmall}&gt;{getString('pipelineSteps.deploy.errors.notags')}&lt;/span&gt;
+                            &lt;Text lineClamp={1}&gt;
+                              {get(ecrError || gcrError || dockerError, 'data.message', null) ||
+                                getString('pipelineSteps.deploy.errors.notags')}
+                            &lt;/Text&gt;
                           ),
                           itemRenderer: itemRenderer,
                           allowCreatingNewItems: true,
@@ -3865,7 +3880,10 @@ const KubernetesServiceSpecInputForm: React.FC&lt;KubernetesServiceInputFormProp
                               usePortal: true,
                               addClearBtn: true &amp;&amp; !readonly,
                               noResults: (
-                                &lt;span className={css.padSmall}&gt;{getString('pipelineSteps.deploy.errors.notags')}&lt;/span&gt;
+                                &lt;Text lineClamp={1}&gt;
+                                  {get(ecrError || gcrError || dockerError, 'data.message', null) ||
+                                    getString('pipelineSteps.deploy.errors.notags')}
+                                &lt;/Text&gt;
                               ),
                               itemRenderer: itemRenderer,
                               allowCreatingNewItems: true,
@@ -4525,7 +4543,7 @@ export class KubernetesServiceSpec extends Step&lt;ServiceSpec&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 04 2021 13:18:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 13:47:08 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

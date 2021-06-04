@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.79% </span>
+                <span class="strong">67.07% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>50/76</span>
+                <span class='fraction'>55/82</span>
             </div>
         
             
@@ -403,7 +403,11 @@
 <a name='L344'></a><a href='#L344'>344</a>
 <a name='L345'></a><a href='#L345'>345</a>
 <a name='L346'></a><a href='#L346'>346</a>
-<a name='L347'></a><a href='#L347'>347</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L347'></a><a href='#L347'>347</a>
+<a name='L348'></a><a href='#L348'>348</a>
+<a name='L349'></a><a href='#L349'>349</a>
+<a name='L350'></a><a href='#L350'>350</a>
+<a name='L351'></a><a href='#L351'>351</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -425,6 +429,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -544,6 +549,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -682,10 +688,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -779,6 +787,7 @@ interface InputSetListViewProps {
   refetchInputSet?: () =&gt; void
   gotoPage: (pageNumber: number) =&gt; void
   canUpdate?: boolean
+  pipelineHasRuntimeInputs?: boolean
 }
 &nbsp;
 interface InputSetLocal extends InputSetSummaryResponse {
@@ -865,7 +874,7 @@ export const RenderGitDetails: Renderer&lt;CellProps&lt;InputSetLocal&gt;&gt; = 
   )
 }
 &nbsp;
-const RenderColumnActions: Renderer&lt;CellProps&lt;InputSetLocal&gt;&gt; = ({ row }) =&gt; {
+const RenderColumnActions: Renderer&lt;CellProps&lt;InputSetLocal&gt;&gt; = ({ row, column }) =&gt; {
   const data = row.original
   const { getString } = useStrings()
 &nbsp;
@@ -891,6 +900,7 @@ const RenderColumnActions: Renderer&lt;CellProps&lt;InputSetLocal&gt;&gt; = ({ r
 &nbsp;
   return (
     &lt;RbacButton
+      disabled={!(column as any)<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineHasRuntimeInputs}
       icon="run-pipeline"
       className={css.runPipelineBtn}
       intent="primary"
@@ -1026,7 +1036,8 @@ export const InputSetListView: React.FC&lt;InputSetListViewProps&gt; = ({
   goToInputSetDetail,
   refetchInputSet,
   cloneInputSet,
-  canUpdate = <span class="branch-0 cbranch-no" title="branch not covered" >true</span>
+  canUpdate = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span>
+  pipelineHasRuntimeInputs
 }): JSX.Element =&gt; {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
@@ -1058,7 +1069,8 @@ export const InputSetListView: React.FC&lt;InputSetListViewProps&gt; = ({
         width: isGitSyncEnabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'15%' </span>: '30%',
         Cell: RenderColumnActions,
         disableSortBy: true,
-        goToInputSetDetail
+        goToInputSetDetail,
+        pipelineHasRuntimeInputs
       },
       {
         Header: '',
@@ -1072,7 +1084,7 @@ export const InputSetListView: React.FC&lt;InputSetListViewProps&gt; = ({
         canUpdate
       }
     ],
-    [goToInputSetDetail, refetchInputSet, cloneInputSet]
+    [goToInputSetDetail, refetchInputSet, cloneInputSet, pipelineHasRuntimeInputs]
   )
 &nbsp;
   <span class="missing-if-branch" title="else path not taken" >E</span>if (!isGitSyncEnabled) {
@@ -1084,7 +1096,7 @@ export const InputSetListView: React.FC&lt;InputSetListViewProps&gt; = ({
       className={css.table}
       columns={columns}
       data={data<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent || /* istanbul ignore next */ []}
-      onRowClick={item =&gt; goToInputSetDetail<span class="branch-0 cbranch-no" title="branch not covered" >?.(i</span>tem)}
+      onRowClick={item =&gt; pipelineHasRuntimeInputs &amp;&amp; goToInputSetDetail<span class="branch-0 cbranch-no" title="branch not covered" >?.(i</span>tem)}
       pagination={{
         itemCount: data<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalItems || /* istanbul ignore next */ 0,
         pageSize: data<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ageSize || /* istanbul ignore next */ 10,
@@ -1102,7 +1114,7 @@ export const InputSetListView: React.FC&lt;InputSetListViewProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 04 2021 13:18:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 13:47:08 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

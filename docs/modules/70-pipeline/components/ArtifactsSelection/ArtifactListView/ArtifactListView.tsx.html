@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.3% </span>
+                <span class="strong">92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/23</span>
+                <span class='fraction'>23/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.48% </span>
+                <span class="strong">84.29% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>98/116</span>
+                <span class='fraction'>118/140</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.3% </span>
+                <span class="strong">92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/23</span>
+                <span class='fraction'>23/25</span>
             </div>
         
             
@@ -224,7 +224,9 @@
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
 <a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -253,14 +255,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -321,6 +321,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -395,7 +399,7 @@
 import { Layout, Text, Icon, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
-import { getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
+import { getConnectorNameFromValue, getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { SidecarArtifactWrapper } from 'services/cd-ng'
 import { ArtifactIconByType } from '../ArtifactHelper'
 import type { ArtifactListViewProps, ArtifactType } from '../ArtifactInterface'
@@ -419,7 +423,12 @@ const ArtifactListView: React.FC&lt;ArtifactListViewProps&gt; = ({
   addNewArtifact
 }) =&gt; {
   const { getString } = useStrings()
-  const { color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
+  const { color: primaryConnectorColor } = getStatus(
+    primaryArtifact?.spec?.connectorRef,
+    fetchedConnectorResponse,
+    accountId
+  )
+  const primaryConnectorName = getConnectorNameFromValue(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse)
   return (
     &lt;Layout.Vertical style={{ flexShrink: 'initial' }}&gt;
       &lt;Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}&gt;
@@ -442,21 +451,14 @@ const ArtifactListView: React.FC&lt;ArtifactListViewProps&gt; = ({
                     {getString('primary')}
                   &lt;/Text&gt;
                 &lt;/div&gt;
-&nbsp;
-                &lt;span&gt;
-                  &lt;Text
-                    inline
-                    icon={ArtifactIconByType[primaryArtifact.type]}
-                    iconProps={{ size: 18 }}
-                    width={300}
-                    lineClamp={1}
-                    rightIcon="full-circle"
-                    rightIconProps={{ size: 12, color }}
-                    style={{ color: Color.BLACK, fontWeight: 900 }}
-                  &gt;
-                    {primaryArtifact.spec?.connectorRef}
+                &lt;div className={css.connectorNameField}&gt;
+                  &lt;Icon padding={{ right: 'small' }} name={ArtifactIconByType[primaryArtifact.type]} size={18} /&gt;
+                  &lt;Text className={css.connectorName} lineClamp={1}&gt;
+                    {primaryConnectorName ?? primaryArtifact.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef}
                   &lt;/Text&gt;
-                &lt;/span&gt;
+                  &lt;Icon name="full-circle" size={12} color={primaryConnectorColor} /&gt;
+                &lt;/div&gt;
+&nbsp;
                 &lt;div&gt;
                   &lt;Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}&gt;
                     {primaryArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.imagePath}
@@ -486,6 +488,11 @@ const ArtifactListView: React.FC&lt;ArtifactListViewProps&gt; = ({
                   fetchedConnectorResponse,
                   accountId
                 )
+                const sidecarConnectorName = getConnectorNameFromValue(
+                  sidecar<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef,
+                  fetchedConnectorResponse
+                )
+&nbsp;
                 return (
                   &lt;section className={cx(css.artifactList, css.rowItem)} key={`${sidecar<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier}-${index}`}&gt;
                     &lt;div&gt;
@@ -496,20 +503,19 @@ const ArtifactListView: React.FC&lt;ArtifactListViewProps&gt; = ({
                         &lt;/Text&gt;
                       &lt;/Text&gt;
                     &lt;/div&gt;
-                    &lt;span&gt;
-                      &lt;Text
-                        inline
-                        icon={ArtifactIconByType[sidecar<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype as ArtifactType]}
-                        iconProps={{ size: 18 }}
-                        width={300}
-                        rightIcon="full-circle"
-                        rightIconProps={{ size: 12, color: sideCarConnectionColor }}
-                        lineClamp={1}
-                        style={{ color: Color.BLACK, fontWeight: 900 }}
-                      &gt;
-                        {sidecar<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef}
+&nbsp;
+                    &lt;div className={css.connectorNameField}&gt;
+                      &lt;Icon
+                        padding={{ right: 'small' }}
+                        name={ArtifactIconByType[sidecar<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype as ArtifactType]}
+                        size={18}
+                      /&gt;
+                      &lt;Text className={css.connectorName} lineClamp={1}&gt;
+                        {<span class="branch-0 cbranch-no" title="branch not covered" >sidecarConnectorName </span>?? sidecar<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef}
                       &lt;/Text&gt;
-                    &lt;/span&gt;
+                      &lt;Icon name="full-circle" size={12} color={sideCarConnectionColor} /&gt;
+                    &lt;/div&gt;
+&nbsp;
                     &lt;div&gt;
                       &lt;Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}&gt;
                         {sidecar<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>magePath}
@@ -565,7 +571,7 @@ export default ArtifactListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 04 2021 06:28:39 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 04 2021 08:39:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

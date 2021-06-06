@@ -169,7 +169,7 @@ const Overview: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepPro
                   </GitSyncStoreProvider>
                 )}
               </Container>
-              <Layout.Horizontal>
+              <Layout.Horizontal className={css.continueAndPreviousBtns}>
                 <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}>
                   <String stringID="continue" />
                 </Button>

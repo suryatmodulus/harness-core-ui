@@ -27,12 +27,7 @@ interface BillingForm {
 }
 
 const BillingExport: React.FC<StepProps<ConnectorInfoDTO>> = props => {
-  const { prevStepData, previousStep } = props
-
-  const handleSubmit = (formData: BillingForm) => {
-    // FIX this!
-    return { ...formData }
-  }
+  const billingExportExists = false
 
   return (
     <Layout.Vertical className={css.stepContainer}>
@@ -43,6 +38,21 @@ const BillingExport: React.FC<StepProps<ConnectorInfoDTO>> = props => {
         Billing export is used to get insights into your cloud infrastructure and Azure services such as Storage
         account, Virtual machines, Containers etc.
       </Text>
+      {billingExportExists ? <Show /> : <Create {...props} />}
+    </Layout.Vertical>
+  )
+}
+
+const Create: React.FC<StepProps<ConnectorInfoDTO>> = props => {
+  const { prevStepData, previousStep } = props
+
+  const handleSubmit = (formData: BillingForm) => {
+    // FIX this!
+    return { ...formData }
+  }
+
+  return (
+    <Container>
       <Text
         font="small"
         className={css.info}
@@ -97,7 +107,7 @@ const BillingExport: React.FC<StepProps<ConnectorInfoDTO>> = props => {
                     <FormInput.Text name={'storageDir'} label={'Storage Directory'} />
                   </Container>
                 </Container>
-                <Layout.Horizontal spacing="medium">
+                <Layout.Horizontal spacing="medium" className={css.continueAndPreviousBtns}>
                   <Button text="Previous" icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
                   <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={false}>
                     Continue
@@ -108,7 +118,62 @@ const BillingExport: React.FC<StepProps<ConnectorInfoDTO>> = props => {
           }}
         </Formik>
       </Container>
-    </Layout.Vertical>
+    </Container>
+  )
+}
+
+const MockData = [
+  {
+    label: 'Tenant ID',
+    value: 'jfgoknklsl072977647515'
+  },
+  {
+    label: 'Storage account name',
+    value: 'storage-account-name'
+  },
+  {
+    label: 'Storage account Subrscription ID',
+    value: 'azure-subscription-name'
+  },
+  {
+    label: 'Storage Container',
+    value: 'prod-setup-205416'
+  },
+  {
+    label: 'Storage Directory',
+    value: 'billing-prod-all-projects'
+  }
+]
+
+const Show: React.FC<StepProps<ConnectorInfoDTO>> = props => {
+  const { prevStepData, previousStep, nextStep } = props
+  return (
+    <Container>
+      <Text
+        font="small"
+        className={css.info}
+        color="green700"
+        inline
+        icon="tick-circle"
+        iconProps={{ size: 15, color: 'green700' }}
+      >
+        A Billing Export exists for this account. You may proceed to the next step.
+      </Text>
+      <Container className={css.billingExportCtn}>
+        {MockData.map((data, idx) => {
+          return (
+            <div key={idx} className={css.billingCredentials}>
+              <span>{data.label}</span>
+              <span>{data.value}</span>
+            </div>
+          )
+        })}
+      </Container>
+      <Layout.Horizontal spacing="medium" className={css.continueAndPreviousBtns}>
+        <Button text="Previous" icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
+        <Button text="Continue" rightIcon="chevron-right" onClick={() => nextStep?.(prevStepData)} intent="primary" />
+      </Layout.Horizontal>
+    </Container>
   )
 }
 

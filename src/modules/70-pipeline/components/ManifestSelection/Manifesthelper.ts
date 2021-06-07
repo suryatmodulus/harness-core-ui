@@ -15,7 +15,7 @@ export const ManifestDataType: { [key: string]: ManifestTypes } = {
   Kustomize: 'Kustomize',
   OpenshiftTemplate: 'OpenshiftTemplate',
   OpenshiftParam: 'OpenshiftParam',
-  SAMManifest: 'SAMManifest'
+  AwsSamManifest: 'AwsSamManifest'
 }
 
 export const ManifestStoreMap: { [key: string]: ManifestStores } = {
@@ -35,7 +35,7 @@ export const manifestTypeIcons: Record<ManifestTypes, IconName> = {
   Kustomize: 'kustamize',
   OpenshiftTemplate: 'openshift',
   OpenshiftParam: 'openshift-params',
-  SAMManifest: 'app-aws-lambda' // todo icon
+  AwsSamManifest: 'app-aws-lambda' // todo icon
 }
 
 export const manifestTypeLabels: Record<ManifestTypes, string> = {
@@ -45,7 +45,7 @@ export const manifestTypeLabels: Record<ManifestTypes, string> = {
   Kustomize: 'Kustomize',
   OpenshiftTemplate: 'Openshift Template',
   OpenshiftParam: 'Openshift Param',
-  SAMManifest: 'Sam Manifest'
+  AwsSamManifest: 'Aws Sam Manifest'
 }
 
 export const helmVersions: Array<{ label: string; value: HelmVersionOptions }> = [

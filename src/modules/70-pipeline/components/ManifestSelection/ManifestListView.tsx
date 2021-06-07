@@ -81,7 +81,7 @@ const allowedManifestTypes: Array<ManifestTypes> = [
   ManifestDataType.Kustomize,
   ManifestDataType.OpenshiftTemplate,
   ManifestDataType.OpenshiftParam,
-  ManifestDataType.SAMManifest
+  ManifestDataType.AwsSamManifest
 ]
 const manifestStoreTypes: Array<ManifestStores> = [
   ManifestStoreMap.Git,

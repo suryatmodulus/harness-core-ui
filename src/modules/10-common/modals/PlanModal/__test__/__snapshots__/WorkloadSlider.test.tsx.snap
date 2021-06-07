@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkloadSlider Rendering should render component properly 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main"
+    style="width: 500px;"
+  >
+    <div
+      class="StyledProps--font StyledProps--main handleWrapper react-draggable"
+      style="transform: translate(0px,7px);"
+    >
+      <p
+        class="StyledProps--font StyledProps--main score StyledProps--font-size-small"
+        style="width: 30px;"
+      >
+        1
+      </p>
+      <div
+        class="StyledProps--font StyledProps--main handle"
+      />
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main"
+    >
+      <div
+        class="bar bar1"
+        style="width: 2.5px;"
+      />
+      <div
+        class="bar bar2"
+        style="width: 497.5px;"
+      />
+      <div
+        class="bar bar3"
+        style="width: 50px;"
+      />
+    </div>
+  </div>
+</div>
+`;

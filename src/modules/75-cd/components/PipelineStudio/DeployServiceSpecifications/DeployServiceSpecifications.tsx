@@ -237,7 +237,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
       !stage?.stage?.spec.serviceConfig?.useFromStage
     ) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.type', 'AwsSam')
       debounceUpdatePipeline(pipeline)
     }
     if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {

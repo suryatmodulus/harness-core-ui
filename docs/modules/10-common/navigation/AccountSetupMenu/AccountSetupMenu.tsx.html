@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -88,26 +88,24 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -118,22 +116,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
-<span class="cstat-no" title="statement not covered" >import { Layout } from '@wings-software/uicore'</span>
-<span class="cstat-no" title="statement not covered" >import { useParams } from 'react-router-dom'</span>
-<span class="cstat-no" title="statement not covered" >import routes from '@common/RouteDefinitions'</span>
-<span class="cstat-no" title="statement not covered" >import { useFeatureFlags } from '@common/hooks/useFeatureFlag'</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import { Layout } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-<span class="cstat-no" title="statement not covered" >import { useStrings } from 'framework/strings'</span>
-<span class="cstat-no" title="statement not covered" >import { SidebarLink } from '../SideNav/SideNav'</span>
-<span class="cstat-no" title="statement not covered" >import NavExpandable from '../NavExpandable/NavExpandable'</span>
+import { useStrings } from 'framework/strings'
+import { SidebarLink } from '../SideNav/SideNav'
+import NavExpandable from '../NavExpandable/NavExpandable'
 &nbsp;
-const AccountSetupMenu: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
-  const { accountId } = <span class="cstat-no" title="statement not covered" >useParams&lt;AccountPathProps&gt;()</span>
-  const { NG_RBAC_ENABLED } = <span class="cstat-no" title="statement not covered" >useFeatureFlags()</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+const AccountSetupMenu: React.FC = () =&gt; {
+  const { getString } = useStrings()
+  const { accountId } = useParams&lt;AccountPathProps&gt;()
+  const { NG_RBAC_ENABLED, NG_SIGNUP } = useFeatureFlags()
+  return (
     &lt;NavExpandable title={getString('common.accountSetup')} route={routes.toSetup({ accountId })}&gt;
       &lt;Layout.Vertical spacing="small"&gt;
         &lt;SidebarLink exact label={getString('overview')} to={routes.toSetup({ accountId })} /&gt;
@@ -142,14 +148,17 @@ const AccountSetupMenu: React.FC = <span class="cstat-no" title="statement not c
         &lt;SidebarLink label={getString('common.secrets')} to={routes.toSecrets({ accountId })} /&gt;
         {NG_RBAC_ENABLED ? (
           &lt;SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} /&gt;
-        ) : null}
+        ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
+        {NG_SIGNUP &amp;&amp; (
+          &lt;SidebarLink exact label={getString('common.subscriptions')} to={routes.toSubscriptions({ accountId })} /&gt;
+        )}
         &lt;SidebarLink label={getString('orgsText')} to={routes.toOrganizations({ accountId })} /&gt;
       &lt;/Layout.Vertical&gt;
     &lt;/NavExpandable&gt;
   )
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default AccountSetupMenu</span>
+export default AccountSetupMenu
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -157,7 +166,7 @@ const AccountSetupMenu: React.FC = <span class="cstat-no" title="statement not c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 07 2021 16:45:13 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 07 2021 21:04:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

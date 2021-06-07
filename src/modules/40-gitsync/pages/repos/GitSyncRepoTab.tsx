@@ -13,7 +13,8 @@ import {
   useModalHook,
   ModalErrorHandlerBinding,
   ModalErrorHandler,
-  Tag
+  Tag,
+  Link
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Renderer, Column } from 'react-table'
@@ -39,6 +40,7 @@ import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
+import { getExternalUrl } from './../../common/gitSyncUtils'
 import css from './GitSyncRepoTab.module.scss'
 
 enum RepoState {
@@ -400,6 +402,7 @@ const GitSyncRepoTab: React.FC = () => {
             ? repoData.gitSyncFolderConfigDTOs.map((rootFolderData: GitSyncFolderConfigDTO, index: number) => {
                 const folder = '/'.concat(rootFolderData.rootFolder?.split('/.harness')[0] || '')
                 const folderPath = `${repoData.repo}/${rootFolderData.rootFolder}`
+                const linkToProvider = getExternalUrl(repoData.repo, repoData.branch, rootFolderData.rootFolder)
                 return (
                   <Layout.Horizontal
                     key={index}
@@ -427,9 +430,11 @@ const GitSyncRepoTab: React.FC = () => {
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap'
                           }}
-                          title={folderPath}
+                          title={linkToProvider}
                         >
-                          {folderPath}
+                          <Link href={linkToProvider} target="_blank" rel="noopener noreferrer">
+                            {linkToProvider}{' '}
+                          </Link>
                         </Text>
                       </Container>
                       <Container width="5%">

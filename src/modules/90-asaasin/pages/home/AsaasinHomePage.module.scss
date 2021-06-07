@@ -1,0 +1,22 @@
+.providersViewGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: var(--spacing-xlarge);
+  grid-row-gap: 0px;
+  .bp3-card {
+    box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04), 0px 4px 8px rgba(96, 97, 112, 0.16) !important;
+    border-radius: 5px;
+  }
+  div.Card--card {
+    box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04), 0px 4px 8px rgba(96, 97, 112, 0.16) !important;
+  }
+}
+.instanceTypeNameGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 40px;
+  grid-row-gap: 0px;
+  margin-left: var(--spacing-large) !important;
+}

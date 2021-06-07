@@ -39,7 +39,7 @@ const COHealthCheckTable: React.FC<COHealthCheckTableProps> = props => {
         break
       }
       case 'port': {
-        props.pattern['port'] = val
+        props.pattern['port'] = +val
         break
       }
       case 'path': {

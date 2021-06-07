@@ -19,7 +19,7 @@ const commonLinkProps: Partial<NavLinkProps> = {
 
 export default function L1Nav(): React.ReactElement {
   const params = useParams<ProjectPathProps>()
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_DASHBOARDS } = useFeatureFlags()
+  const { CENG_ENABLED, NG_DASHBOARDS } = useFeatureFlags()
   const { currentUserInfo: user } = useAppStore()
 
   return (
@@ -35,42 +35,6 @@ export default function L1Nav(): React.ReactElement {
             </Layout.Vertical>
           </Link>
         </li>
-        {CDNG_ENABLED && (
-          <li className={css.navItem}>
-            <Link {...commonLinkProps} to={paths.toCD(params)}>
-              <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
-                <Icon name="cd-main" size={30} />
-                <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
-                  <String stringID="deploymentsText" />
-                </Text>
-              </Layout.Vertical>
-            </Link>
-          </li>
-        )}
-        {CING_ENABLED && (
-          <li className={css.navItem}>
-            <Link {...commonLinkProps} to={paths.toCI(params)}>
-              <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
-                <Icon name="ci-main" size={30} />
-                <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
-                  <String stringID="buildsText" />
-                </Text>
-              </Layout.Vertical>
-            </Link>
-          </li>
-        )}
-        {CFNG_ENABLED && (
-          <li className={css.navItem}>
-            <Link {...commonLinkProps} to={paths.toCF(params)}>
-              <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
-                <Icon name="cf-main" size={30} />
-                <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
-                  <String stringID="featureFlagsText" />
-                </Text>
-              </Layout.Vertical>
-            </Link>
-          </li>
-        )}
         {CENG_ENABLED && (
           <li className={css.navItem}>
             <Link {...commonLinkProps} to={paths.toCE(params)}>
@@ -83,7 +47,7 @@ export default function L1Nav(): React.ReactElement {
             </Link>
           </li>
         )}
-        {CVNG_ENABLED && (
+        {/* {CVNG_ENABLED && (
           <li className={css.navItem}>
             <Link {...commonLinkProps} to={paths.toCV(params)}>
               <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={90}>
@@ -94,7 +58,17 @@ export default function L1Nav(): React.ReactElement {
               </Layout.Vertical>
             </Link>
           </li>
-        )}
+        )} */}
+        <li className={css.navItem}>
+          <Link {...commonLinkProps} to={paths.toAsaasin(params)}>
+            <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={90}>
+              <Icon name="command-icon" size={30} />
+              <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
+                aSaaSin
+              </Text>
+            </Layout.Vertical>
+          </Link>
+        </li>
       </ul>
 
       <ul className={css.navList}>

@@ -15,6 +15,7 @@ import CIRoutes from '@ci/RouteDestinations'
 import CVRoutes from '@cv/RouteDestinations'
 import CFRoutes from '@cf/RouteDestinations'
 import CERoutes from '@ce/RouteDestinations'
+import AsaasinRoutes from '@asaasin/RouteDestinations'
 import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 
@@ -36,6 +37,7 @@ export default function RouteDestinations(): React.ReactElement {
       {...CFNG_ENABLED ? CFRoutes.props.children : []}
       {...CENG_ENABLED ? CERoutes.props.children : []}
       {DASHBOARDRoutes.props.children}
+      {AsaasinRoutes.props.children}
       <Route path="*">
         <NotFoundPage />
       </Route>

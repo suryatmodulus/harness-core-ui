@@ -124,5 +124,14 @@ module.exports = {
     customProps: {
       base: `{getConfig("lw/api")}`
     }
+  },
+  asaasin: {
+    output: 'src/services/asaasin/index.tsx',
+    file: 'src/services/asaasin/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config";`,
+    customProps: {
+      base: `{getConfig("asaasin/api")}`
+    }
   }
 }

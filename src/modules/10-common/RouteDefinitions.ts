@@ -826,6 +826,9 @@ const routes = {
       ? routes.toCVProject(params as ProjectPathProps)
       : routes.toCVDashboard(params as AccountPathProps),
   toCVDashboard: withAccountId(() => `/cv`),
+  toAsaasin: withAccountId(() => `/asaasin`),
+  toAsaasinDashboard: withAccountId(() => `/asaasin/dashboard`),
+  toAsaasinGithubDashboard: withAccountId(() => `/asaasin/github/dashboard`),
   toCVHome: withAccountId(() => `/cv/home`),
   toCVProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>

@@ -229,7 +229,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            validation.nameRequired
+                            common.validation.nameIsRequired
                           </div>
                         </div>
                       </div>

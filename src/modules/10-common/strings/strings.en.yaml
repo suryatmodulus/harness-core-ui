@@ -52,6 +52,7 @@ datePickerShortcuts:
   LastMonth: Last Month
   Last2Months: Last 2 Months
 validation:
+  nameRegExNotValid: 'Name can only contain alphanumerics, _ and -'
   nameIsRequired: Name is required
   valueIsRequired: Value is required
   fileIsRequired: File is required

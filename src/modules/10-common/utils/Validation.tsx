@@ -10,8 +10,8 @@ export function NameSchema(config?: { requiredErrorMsg?: string }): Yup.Schema<s
   const { getString } = useStrings()
   return Yup.string()
     .trim()
-    .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('validation.nameRequired'))
-    .matches(regexName, getString('formValidation.name'))
+    .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('common.validation.nameIsRequired'))
+    .matches(regexName, getString('common.validation.nameRegExNotValid'))
 }
 
 export function IdentifierSchema(config?: { requiredErrorMsg?: string }): Yup.Schema<string | undefined> {

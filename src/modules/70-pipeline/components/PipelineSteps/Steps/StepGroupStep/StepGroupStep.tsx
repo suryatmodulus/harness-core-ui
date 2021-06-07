@@ -3,6 +3,7 @@ import { IconName, Formik, FormInput } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
+import { NameSchema } from '@common/utils/Validation'
 import type { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -34,7 +35,7 @@ function StepGroupWidget(
         formName="stepGroup"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('secret.validationName'))
+          name: NameSchema()
         })}
       >
         {(formik: FormikProps<StepGroupElement>) => {

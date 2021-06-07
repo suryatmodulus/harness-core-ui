@@ -72,6 +72,17 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           enabled: true
         }
       ]
+    },
+    {
+      name: 'Via Cloud Provider - Vaibhav to Check',
+      items: [
+        {
+          name: 'AWS SAM',
+          icon: 'app-aws-lambda',
+          type: 'AwsSamInfra', // todo
+          enabled: true
+        }
+      ]
     }
   ]
 
@@ -401,6 +412,32 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                 'KubernetesGcp'
               )
             }
+          />
+        )
+      }
+      case 'AwsSamInfra':{
+        return (
+          <StepWidget<GcpInfrastructureSpec>
+            factory={factory}
+            key={updateKey}
+            readonly={isReadonly}
+            initialValues={initialInfrastructureDefinitionValues as GcpInfrastructureSpec}
+            type={StepType.AwsSamInfra}
+            stepViewType={StepViewType.Edit}
+            onUpdate={value => console.log(value)}
+            // onUpdate={value =>
+            //   onUpdateInfrastructureDefinition(
+            //     {
+            //       connectorRef: value.connectorRef,
+            //       cluster: value.cluster,
+            //       namespace: value.namespace,
+            //       releaseName: value.releaseName,
+            //       allowSimultaneousDeployments: value.allowSimultaneousDeployments,
+            //       infrastructureKey: value.infrastructureKey
+            //     },
+            //     'AwsSamInfra'
+            //   )
+            // }
           />
         )
       }

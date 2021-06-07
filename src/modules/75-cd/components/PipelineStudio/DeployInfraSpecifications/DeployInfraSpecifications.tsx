@@ -11,7 +11,7 @@ import {
   getProvisionerExecutionStrategyYamlPromise,
   Infrastructure,
   K8SDirectInfrastructure,
-  K8sGcpInfrastructure,
+  // K8sGcpInfrastructure,
   NgPipeline,
   PipelineInfrastructure,
   StageElementWrapper
@@ -146,10 +146,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     setUpdateKey(Math.random())
   }, [stage])
 
-  const onUpdateInfrastructureDefinition = (
-    extendedSpec: K8SDirectInfrastructure | K8sGcpInfrastructure,
-    type: string
-  ): void => {
+  const onUpdateInfrastructureDefinition = (extendedSpec: any, type: string): void => {
     const infrastructure = get(stage, 'stage.spec.infrastructure', null)
     if (infrastructure) {
       infrastructure.infrastructureDefinition = {
@@ -416,7 +413,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           />
         )
       }
-      case 'AwsSamInfra':{
+      case 'AwsSamInfra': {
         return (
           <StepWidget<AwsSAMInfraSpec>
             factory={factory}
@@ -425,20 +422,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             initialValues={initialInfrastructureDefinitionValues as AwsSAMInfraSpec}
             type={StepType.AwsSamInfra}
             stepViewType={StepViewType.Edit}
-            onUpdate={value => console.log(value)}
-            // onUpdate={value =>
-            //   onUpdateInfrastructureDefinition(
-            //     {
-            //       connectorRef: value.connectorRef,
-            //       cluster: value.cluster,
-            //       namespace: value.namespace,
-            //       releaseName: value.releaseName,
-            //       allowSimultaneousDeployments: value.allowSimultaneousDeployments,
-            //       infrastructureKey: value.infrastructureKey
-            //     },
-            //     'AwsSamInfra'
-            //   )
-            // }
+            onUpdate={value => onUpdateInfrastructureDefinition({ connectorRef: value.connectorRef }, 'AwsSamInfra')}
           />
         )
       }

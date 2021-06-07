@@ -269,7 +269,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                         connector: value
                       })
                     }}
-                    gitScope={{ repo: repoIdentifier || '', branch }}
+                    gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                   />
                   {connectionType === 'Repo' ? (
                     <>

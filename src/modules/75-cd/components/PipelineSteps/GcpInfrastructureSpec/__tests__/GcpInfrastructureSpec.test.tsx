@@ -10,9 +10,7 @@ import { ConnectorsResponse } from './mock/ConnectorsResponse.mock'
 import { ConnectorResponse } from './mock/ConnectorResponse.mock'
 import { ClusterNamesResponse } from './mock/ClusterNamesResponse.mock'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
   useGetConnector: jest.fn(() => ConnectorResponse),
@@ -32,7 +30,7 @@ const getInitialValues = () => ({
   connectorRef: 'connectorRef',
   cluster: 'cluster',
   namespace: 'namespace',
-  releaseName: 'releaseName'
+  releaseName: 'releasename'
 })
 
 const getEmptyInitialValues = () => ({
@@ -154,7 +152,6 @@ describe('Test GcpInfrastructureSpec behavior', () => {
     await act(async () => {
       fireEvent.click(getByText(container, 'Submit'))
     })
-
     expect(onUpdateHandler).toHaveBeenCalledWith(getInitialValues())
   })
 
@@ -208,7 +205,7 @@ describe('Test GcpInfrastructureSpec behavior', () => {
   })
 })
 
-describe('Test GcpInfrastructureSpec autocomplete', async () => {
+describe('Test GcpInfrastructureSpec autocomplete', () => {
   test('Test connector autocomplete', async () => {
     const step = new GcpInfrastructureSpec() as any
     let list: CompletionItemInterface[]

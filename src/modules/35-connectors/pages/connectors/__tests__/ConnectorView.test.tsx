@@ -9,16 +9,15 @@ import * as mockMetaData from './snippets.metadata.json'
 import * as mockSnippetData from './snippet.json'
 import * as mockSecretData from './mocks/secret.json'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
-  const ComponentToMock = () => <div />
-  return ComponentToMock
-})
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
   useListSecretsV2: jest.fn().mockImplementation(() => {
     return { data: {} }
   }),
-  useGetYamlSchema: jest.fn().mockImplementation(() => ({ refetch: jest.fn(), loading: false }))
+  useGetYamlSchema: jest.fn().mockImplementation(() => ({ refetch: jest.fn(), loading: false })),
+  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() })),
+  useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 describe('Connector Details Page', () => {
@@ -28,7 +27,7 @@ describe('Connector Details Page', () => {
         <ConnectorView
           type={type as ConnectorInfoDTO['type']}
           response={GitHttp.data.content as ConnectorResponse}
-          updateConnector={(data: Connector) => new Promise(resolve => resolve(data))}
+          updateConnector={(_data: Connector) => new Promise(resolve => resolve({}))}
           refetchConnector={() => new Promise(resolve => resolve(GitHttp.data.content as ConnectorResponse))}
           mockMetaData={mockMetaData as any}
           mockSnippetData={mockSnippetData as any}

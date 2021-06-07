@@ -149,7 +149,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="gcpBackButton"
               />
-              <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
+              <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
             </Layout.Horizontal>
           </Form>
         )}

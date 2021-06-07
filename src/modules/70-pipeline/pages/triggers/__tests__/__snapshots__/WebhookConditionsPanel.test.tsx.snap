@@ -29,130 +29,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
           >
             pipeline.triggers.conditionsPanel.subtitle
           </p>
-          <section
-            data-name="headerConditions"
-          >
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
-              level="2"
-            >
-              pipeline.triggers.conditionsPanel.headerConditions
-            </h2>
-            <div
-              style="margin-top: 20px;"
-            />
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-              data-name="plusAdd"
-              style="cursor: pointer; width: 70px;"
-            >
-              plusAdd
-            </p>
-          </section>
-          <section
-            data-name="payloadConditions"
-          >
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
-              level="2"
-            >
-              pipeline.triggers.conditionsPanel.payloadConditions
-            </h2>
-            <div
-              style="margin-top: 20px;"
-            />
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-              data-name="plusAdd"
-              style="cursor: pointer; width: 70px;"
-            >
-              plusAdd
-            </p>
-          </section>
-          <div
-            class="bp3-form-group"
-            data-id="jexlCondition-0"
-            style="width: 100%;"
-          >
-            <label
-              class="bp3-label"
-              for="jexlCondition"
-            >
-              pipeline.triggers.conditionsPanel.jexlCondition
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name="jexlCondition"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main submitButton Button--with-current-color"
-          type="submit"
-        >
-          <span
-            class="bp3-button-text"
-          >
-            Submit
-          </span>
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-`;
-
-exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render - Github Trigger Conditions Panel 1`] = `
-<div>
-  <div
-    class="OverlaySpinner--overlaySpinner"
-  >
-    <form
-      class="FormikForm--main"
-    >
-      <div>
-        <div
-          class="Layout--vertical Layout--layout-spacing-large StyledProps--main webhookConditionsContainer StyledProps--padding-xxlarge"
-        >
-          <h2
-            class="heading"
-          >
-            conditions
-             
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-              style="display: inline-block;"
-            >
-              titleOptional
-            </p>
-          </h2>
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            pipeline.triggers.conditionsPanel.subtitle
-          </p>
           <section>
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
-              level="2"
-            >
-              pipeline.triggers.conditionsPanel.branchConditions
-            </h2>
             <div
               class="conditionsRow"
             >
@@ -253,6 +130,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                       autocomplete="off"
                       class="bp3-input"
                       name="sourceBranchValue"
+                      placeholder=""
                       type="text"
                       value=""
                     />
@@ -360,6 +238,342 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                       autocomplete="off"
                       class="bp3-input"
                       name="targetBranchValue"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section
+            data-name="headerConditions"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
+              level="2"
+            >
+              pipeline.triggers.conditionsPanel.headerConditions
+            </h2>
+            <div
+              style="margin-top: 20px;"
+            />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              data-name="plusAdd"
+              style="cursor: pointer; width: 70px;"
+            >
+              plusAdd
+            </p>
+          </section>
+          <section
+            data-name="payloadConditions"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
+              level="2"
+            >
+              pipeline.triggers.conditionsPanel.payloadConditions
+            </h2>
+            <div
+              style="margin-top: 20px;"
+            />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              data-name="plusAdd"
+              style="cursor: pointer; width: 70px;"
+            >
+              plusAdd
+            </p>
+          </section>
+          <div
+            class="bp3-form-group"
+            data-id="jexlCondition-4"
+            style="width: 100%;"
+          >
+            <label
+              class="bp3-label"
+              for="jexlCondition"
+            >
+              pipeline.triggers.conditionsPanel.jexlCondition
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="jexlCondition"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main submitButton Button--with-current-color"
+          type="submit"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Submit
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render - Github Trigger Conditions Panel 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main webhookConditionsContainer StyledProps--padding-xxlarge"
+        >
+          <h2
+            class="heading"
+          >
+            conditions
+             
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+              style="display: inline-block;"
+            >
+              titleOptional
+            </p>
+          </h2>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipeline.triggers.conditionsPanel.subtitle
+          </p>
+          <section>
+            <div
+              class="conditionsRow"
+            >
+              <div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="font-size: 16px;"
+                >
+                  pipeline.triggers.conditionsPanel.sourceBranch
+                </p>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="sourceBranchOperator-0"
+                style="align-self: center;"
+              >
+                <label
+                  class="bp3-label"
+                  for="sourceBranchOperator"
+                >
+                  pipeline.triggers.conditionsPanel.operator
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="sourceBranchOperator"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="sourceBranchValue-1"
+                style="align-self: center;"
+              >
+                <label
+                  class="bp3-label"
+                  for="sourceBranchValue"
+                >
+                  pipeline.triggers.conditionsPanel.matchesValue
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="sourceBranchValue"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="conditionsRow"
+            >
+              <div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="font-size: 16px;"
+                >
+                  pipeline.triggers.conditionsPanel.targetBranch
+                </p>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="targetBranchOperator-2"
+                style="align-self: center;"
+              >
+                <label
+                  class="bp3-label"
+                  for="targetBranchOperator"
+                >
+                  pipeline.triggers.conditionsPanel.operator
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="targetBranchOperator"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="targetBranchValue-3"
+                style="align-self: center;"
+              >
+                <label
+                  class="bp3-label"
+                  for="targetBranchValue"
+                >
+                  pipeline.triggers.conditionsPanel.matchesValue
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="targetBranchValue"
+                      placeholder=""
                       type="text"
                       value=""
                     />

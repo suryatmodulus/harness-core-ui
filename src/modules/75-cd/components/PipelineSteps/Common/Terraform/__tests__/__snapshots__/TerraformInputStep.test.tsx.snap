@@ -15,11 +15,11 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
           <div>
             <div
               class="bp3-form-group"
-              data-id="spec.provisionerIdentifier-0"
+              data-id="test.spec.provisionerIdentifier-0"
             >
               <label
                 class="bp3-label"
-                for="spec.provisionerIdentifier"
+                for="test.spec.provisionerIdentifier"
               >
                 pipelineSteps.provisionerIdentifier
                  
@@ -36,7 +36,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="spec.provisionerIdentifier"
+                    name="test.spec.provisionerIdentifier"
                     type="text"
                     value=""
                   />
@@ -45,11 +45,11 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
             </div>
             <div
               class="bp3-form-group"
-              data-id="timeout-1"
+              data-id="test.timeout-1"
             >
               <label
                 class="bp3-label"
-                for="timeout"
+                for="test.timeout"
               >
                 pipelineSteps.timeoutLabel
                  
@@ -65,7 +65,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                 >
                   <input
                     class="bp3-input"
-                    name="timeout"
+                    name="test.timeout"
                     placeholder="Enter w/d/h/m/s/ms"
                     type="text"
                     value=""
@@ -75,11 +75,11 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
             </div>
             <div
               class="bp3-form-group"
-              data-id="spec.configuration.spec.workspace-2"
+              data-id="test.spec.configuration.spec.workspace-2"
             >
               <label
                 class="bp3-label"
-                for="spec.configuration.spec.workspace"
+                for="test.spec.configuration.spec.workspace"
               >
                 pipelineSteps.workspace
                  
@@ -96,7 +96,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="spec.configuration.spec.workspace"
+                    name="test.spec.configuration.spec.workspace"
                     type="text"
                     value=""
                   />
@@ -105,7 +105,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
             </div>
             <div
               class="bp3-form-group"
-              data-id="spec.configuration.spec.configFiles.store.spec.branch-3"
+              data-id="test.configuration.spec.configFiles.store.spec.branch-3"
             >
               <div
                 class="bp3-form-content"
@@ -116,7 +116,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="spec.configuration.spec.configFiles.store.spec.branch"
+                    name="test.configuration.spec.configFiles.store.spec.branch"
                     placeholder="pipeline.manifestType.branchPlaceholder"
                     type="text"
                     value=""
@@ -126,7 +126,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
             </div>
             <div
               class="bp3-form-group"
-              data-id="spec.configuration.spec.configFiles.store.spec.folderPath-4"
+              data-id="test.configuration.spec.configFiles.store.spec.folderPath-4"
             >
               <div
                 class="bp3-form-content"
@@ -137,7 +137,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="spec.configuration.spec.configFiles.store.spec.folderPath"
+                    name="test.configuration.spec.configFiles.store.spec.folderPath"
                     placeholder="pipeline.manifestType.pathPlaceholder"
                     type="text"
                     value=""
@@ -145,6 +145,9 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                 </div>
               </div>
             </div>
+            <label>
+              Var Files
+            </label>
           </div>
         </form>
       </div>

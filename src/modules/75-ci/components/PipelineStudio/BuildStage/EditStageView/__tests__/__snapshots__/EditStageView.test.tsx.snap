@@ -577,7 +577,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                             class="bp3-popover-target"
                           >
                             <p
-                              class="StyledProps--font StyledProps--main label"
+                              class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                               tabindex="0"
                             >
                               test1

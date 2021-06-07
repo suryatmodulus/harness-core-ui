@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text } from '@wings-software/uicore'
+import { Icon, Layout, Text } from '@wings-software/uicore'
 import css from './COGatewayConfig.module.scss'
 
 interface COGatewayConfigStepProps {
@@ -8,6 +8,7 @@ interface COGatewayConfigStepProps {
   subTitle?: string
   totalStepsCount?: number
   id?: string
+  onInfoIconClick?: () => void
 }
 
 const stepInfoColorMap: { [key: string]: { main: string; secondary: string } } = {
@@ -26,7 +27,10 @@ const COGatewayConfigStep: React.FC<COGatewayConfigStepProps> = props => {
           props.totalStepsCount || props.count
         }`}</span>
       </Layout.Horizontal>
-      <Text className={css.title}>{props.title}</Text>
+      <Text className={css.title}>
+        {props.title}
+        {props.onInfoIconClick && <Icon name="info" onClick={props.onInfoIconClick}></Icon>}
+      </Text>
       {props.subTitle && <Text className={css.subTitle}>{props.subTitle}</Text>}
       {props.children && <div className={css.childrenContainer}>{props.children}</div>}
     </Layout.Vertical>

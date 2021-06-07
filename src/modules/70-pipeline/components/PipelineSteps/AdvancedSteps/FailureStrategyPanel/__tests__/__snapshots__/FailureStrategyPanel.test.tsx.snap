@@ -96,7 +96,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
     </button>
   </div>
   <div
-    class="bp3-form-group"
+    class="bp3-form-group failureSelect"
   >
     <label
       class="bp3-label"
@@ -137,6 +137,19 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
           </div>
         </div>
       </div>
+      <label
+        class="bp3-control bp3-checkbox"
+      >
+        <input
+          name="failureStrategies[0].onFailure.errors"
+          type="checkbox"
+          value="AllErrors"
+        />
+        <span
+          class="bp3-control-indicator"
+        />
+        pipeline.failureStrategies.errorTypeLabels.AllErrors
+      </label>
     </div>
   </div>
   <div
@@ -1022,7 +1035,7 @@ exports[`<FailureStrategyPanel /> tests removing a strategy works 1`] = `
     </button>
   </div>
   <div
-    class="bp3-form-group"
+    class="bp3-form-group failureSelect"
   >
     <label
       class="bp3-label"
@@ -1063,6 +1076,19 @@ exports[`<FailureStrategyPanel /> tests removing a strategy works 1`] = `
           </div>
         </div>
       </div>
+      <label
+        class="bp3-control bp3-checkbox"
+      >
+        <input
+          name="failureStrategies[0].onFailure.errors"
+          type="checkbox"
+          value="AllErrors"
+        />
+        <span
+          class="bp3-control-indicator"
+        />
+        pipeline.failureStrategies.errorTypeLabels.AllErrors
+      </label>
     </div>
   </div>
   <div
@@ -1539,7 +1565,7 @@ exports[`<FailureStrategyPanel /> tests stage mode of CI domain can edit first e
           </button>
         </div>
         <div
-          class="bp3-form-group"
+          class="bp3-form-group failureSelect"
         >
           <label
             class="bp3-label"
@@ -1580,6 +1606,19 @@ exports[`<FailureStrategyPanel /> tests stage mode of CI domain can edit first e
                 </div>
               </div>
             </div>
+            <label
+              class="bp3-control bp3-checkbox"
+            >
+              <input
+                name="failureStrategies[0].onFailure.errors"
+                type="checkbox"
+                value="AllErrors"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              pipeline.failureStrategies.errorTypeLabels.AllErrors
+            </label>
           </div>
         </div>
         <div
@@ -1777,6 +1816,67 @@ exports[`<FailureStrategyPanel /> tests stage mode of CI domain can edit first e
 
       </pre>
     </div>
+  </div>
+</div>
+`;
+
+exports[`<FailureStrategyPanel /> tests when AllErrors is selected, select is disabled 3`] = `
+<div
+  class="bp3-form-group failureSelect"
+>
+  <label
+    class="bp3-label"
+    for="failureStrategies[0].onFailure.errors"
+  >
+    pipeline.failureStrategies.onFailureOfType
+     
+    <span
+      class="bp3-text-muted"
+    />
+  </label>
+  <div
+    class="bp3-form-content"
+  >
+    <div
+      class="bp3-popover-wrapper errorSelect bp3-fill"
+    >
+      <div
+        class="bp3-popover-target"
+      >
+        <div
+          class=""
+        >
+          <div
+            class="bp3-input bp3-tag-input bp3-disabled bp3-fill bp3-multi-select"
+          >
+            <div
+              class="bp3-tag-input-values"
+            >
+              <input
+                class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                disabled=""
+                name="failureStrategies[0].onFailure.errors"
+                placeholder="Search..."
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label
+      class="bp3-control bp3-checkbox"
+    >
+      <input
+        name="failureStrategies[0].onFailure.errors"
+        type="checkbox"
+        value="AllErrors"
+      />
+      <span
+        class="bp3-control-indicator"
+      />
+      pipeline.failureStrategies.errorTypeLabels.AllErrors
+    </label>
   </div>
 </div>
 `;

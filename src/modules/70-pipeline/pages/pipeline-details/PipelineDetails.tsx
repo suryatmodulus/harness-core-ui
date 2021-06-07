@@ -1,7 +1,6 @@
 import React from 'react'
-import { Container, Layout } from '@wings-software/uicore'
-import { NavLink, useParams } from 'react-router-dom'
-import cx from 'classnames'
+import { Layout, TabNavigation } from '@wings-software/uicore'
+import { useParams, useRouteMatch } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGlobalEventListener, useQueryParams } from '@common/hooks'
@@ -53,7 +52,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
   const getBreadCrumbs = React.useCallback(
     () => [
       {
-        url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
+        url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
         label: project?.name as string
       },
       {
@@ -78,6 +77,18 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     }
   })
 
+  const { isExact: isPipelineStudioRoute } = useRouteMatch(
+    routes.toPipelineStudio({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      accountId,
+      module,
+      repoIdentifier,
+      branch
+    })
+  ) || { isExact: false }
+
   if (error?.data) {
     return <GenericErrorHandler errStatusCode={error?.status} errorMessage={(error?.data as Error)?.message} />
   }
@@ -90,16 +101,18 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
             <Layout.Vertical spacing="xsmall">
               <Breadcrumbs links={getBreadCrumbs()} />
             </Layout.Vertical>
-            <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
+            {isPipelineStudioRoute && (
+              <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
+            )}
           </>
         }
         toolbar={
-          <Container>
-            <Layout.Horizontal spacing="medium">
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toPipelineStudio({
+          <TabNavigation
+            size={'small'}
+            links={[
+              {
+                label: getString('pipelineStudio'),
+                to: routes.toPipelineStudio({
                   orgIdentifier,
                   projectIdentifier,
                   pipelineIdentifier,
@@ -107,18 +120,11 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   module,
                   repoIdentifier,
                   branch
-                })}
-              >
-                {getString('pipelineStudio')}
-              </NavLink>
-
-              <NavLink
-                className={cx(css.tags, {
-                  [css.disabled]: pipelineIdentifier === DefaultNewPipelineId
-                })}
-                activeClassName={css.activeTag}
-                onClick={e => pipelineIdentifier === DefaultNewPipelineId && e.preventDefault()}
-                to={routes.toInputSetList({
+                })
+              },
+              {
+                label: getString('inputSetsText'),
+                to: routes.toInputSetList({
                   orgIdentifier,
                   projectIdentifier,
                   pipelineIdentifier,
@@ -126,15 +132,12 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   module,
                   repoIdentifier,
                   branch
-                })}
-              >
-                {getString('inputSetsText')}
-              </NavLink>
-              <NavLink
-                className={cx(css.tags, { [css.disabled]: pipelineIdentifier === DefaultNewPipelineId })}
-                activeClassName={css.activeTag}
-                onClick={e => pipelineIdentifier === DefaultNewPipelineId && e.preventDefault()}
-                to={routes.toTriggersPage({
+                }),
+                disabled: pipelineIdentifier === DefaultNewPipelineId
+              },
+              {
+                label: getString('pipeline.triggers.triggersLabel'),
+                to: routes.toTriggersPage({
                   orgIdentifier,
                   projectIdentifier,
                   pipelineIdentifier,
@@ -142,15 +145,12 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   module,
                   repoIdentifier,
                   branch
-                })}
-              >
-                {getString('pipeline.triggers.triggersLabel')}
-              </NavLink>
-              <NavLink
-                className={cx(css.tags, { [css.disabled]: pipelineIdentifier === DefaultNewPipelineId })}
-                activeClassName={css.activeTag}
-                onClick={e => pipelineIdentifier === DefaultNewPipelineId && e.preventDefault()}
-                to={routes.toPipelineDeploymentList({
+                }),
+                disabled: pipelineIdentifier === DefaultNewPipelineId
+              },
+              {
+                label: getString('executionHeaderText'),
+                to: routes.toPipelineDeploymentList({
                   orgIdentifier,
                   projectIdentifier,
                   pipelineIdentifier,
@@ -158,12 +158,11 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   module,
                   repoIdentifier,
                   branch
-                })}
-              >
-                {getString('executionHeaderText')}
-              </NavLink>
-            </Layout.Horizontal>
-          </Container>
+                }),
+                disabled: pipelineIdentifier === DefaultNewPipelineId
+              }
+            ]}
+          />
         }
       />
       <Page.Body>{children}</Page.Body>

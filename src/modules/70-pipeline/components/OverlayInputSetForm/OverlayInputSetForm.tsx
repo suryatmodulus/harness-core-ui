@@ -52,10 +52,17 @@ export interface OverlayInputSetDTO extends Omit<OverlayInputSetResponse, 'ident
   branch?: string
 }
 
-const getDefaultInputSet = (): OverlayInputSetDTO => ({
+const getDefaultInputSet = (
+  orgIdentifier: string,
+  projectIdentifier: string,
+  pipelineIdentifier: string
+): OverlayInputSetDTO => ({
   name: undefined,
   identifier: '',
   description: undefined,
+  orgIdentifier,
+  projectIdentifier,
+  pipelineIdentifier,
   inputSetReferences: [],
   tags: {},
   repo: '',
@@ -220,11 +227,14 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
         tags: inputSetObj.tags,
         identifier: inputSetObj.identifier || /* istanbul ignore next */ '',
         description: inputSetObj?.description,
+        orgIdentifier,
+        projectIdentifier,
+        pipelineIdentifier,
         inputSetReferences: inputSetObj?.inputSetReferences || /* istanbul ignore next */ [],
         gitDetails: inputSetObj.gitDetails ?? {}
       }
     }
-    return getDefaultInputSet()
+    return getDefaultInputSet(orgIdentifier, projectIdentifier, pipelineIdentifier)
   }, [overlayInputSetResponse?.data])
 
   const inputSetListOptions: InputSetSelectOption[] = React.useMemo(() => {
@@ -527,8 +537,12 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                               formikProps={formikProps}
                               gitDetails={
                                 isEdit
-                                  ? overlayInputSetResponse?.data?.gitDetails
-                                  : { repoIdentifier: selectedRepo, branch: selectedBranch }
+                                  ? { ...overlayInputSetResponse?.data?.gitDetails, getDefaultFromOtherRepo: false }
+                                  : {
+                                      repoIdentifier: selectedRepo,
+                                      branch: selectedBranch,
+                                      getDefaultFromOtherRepo: false
+                                    }
                               }
                               onRepoChange={onRepoChange}
                               onBranchChange={onBranchChange}

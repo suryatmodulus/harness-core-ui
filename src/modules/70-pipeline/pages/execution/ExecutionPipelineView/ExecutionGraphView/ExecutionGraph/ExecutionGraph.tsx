@@ -8,7 +8,7 @@ import {
   processLayoutNodeMap,
   ProcessLayoutNodeMapResponse
 } from '@pipeline/utils/executionUtils'
-import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import { ExecutionStatus, isExecutionNotStarted, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
 import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
@@ -49,6 +49,7 @@ const processExecutionData = (
                 ? ExecutionPipelineNodeType.DIAMOND
                 : ExecutionPipelineNodeType.NORMAL,
             skipCondition: node?.skipInfo?.evaluatedCondition ? node.skipInfo.skipCondition : undefined,
+            disableClick: isExecutionNotStarted(node?.status) || isExecutionSkipped(node?.status),
             when: node?.nodeRunInfo,
             data: node
           }
@@ -69,6 +70,7 @@ const processExecutionData = (
               ? ExecutionPipelineNodeType.DIAMOND
               : ExecutionPipelineNodeType.NORMAL,
           skipCondition: stage?.skipInfo?.evaluatedCondition ? stage.skipInfo.skipCondition : undefined,
+          disableClick: isExecutionNotStarted(stage?.status) || isExecutionSkipped(stage?.status),
           when: stage?.nodeRunInfo,
           data: stage
         }
@@ -145,7 +147,7 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
     }
   }): JSX.Element => {
     return (
-      <HoverCard barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData}>
+      <HoverCard data={popoverData}>
         {popoverData?.when && <ConditionalExecutionTooltip data={popoverData.when} mode={Modes.STAGE} />}
         {barrierSupportedStageTypes.indexOf(get(popoverData, 'data.nodeType', '')) !== -1 && (
           <CDInfo barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData} />

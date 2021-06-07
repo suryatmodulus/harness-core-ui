@@ -125,13 +125,10 @@
     border-color: var(--green-500) !important;
     margin-left: var(--spacing-medium) !important;
   }
-
-  .savePublishBtn {
-    width: 100px;
-    height: 26px;
+  .discardBtn {
     border: 1px solid var(--primary-6) !important;
-    color: var(--pipeline-blue-color) !important;
-    border-radius: 4px;
+    color: var(--primary-7) !important;
+    margin-left: var(--spacing-medium) !important;
   }
 }
 
@@ -147,6 +144,7 @@
     display: inline-flex;
     font-size: var(--font-size-medium) !important;
     color: var(--grey-900) !important;
+    margin-right: var(--spacing-small) !important;
   }
   .pipelineIcon {
     vertical-align: middle;
@@ -166,6 +164,9 @@
         input {
           border: none;
           color: var(--grey-900);
+        }
+        li {
+          font-size: var(--font-size-normal);
         }
       }
     }

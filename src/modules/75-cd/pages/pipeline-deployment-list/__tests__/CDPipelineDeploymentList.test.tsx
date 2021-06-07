@@ -10,9 +10,7 @@ import environments from '@pipeline/pages/pipelines/__tests__/mocks/environments
 import CDPipelineDeploymentList from '../CDPipelineDeploymentList'
 import data from './response.json'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards', () => () => <div />)
 jest.mock('@pipeline/components/Dashboards/BuildExecutionsChart/PipelineBuildExecutionsChart', () => () => <div />)

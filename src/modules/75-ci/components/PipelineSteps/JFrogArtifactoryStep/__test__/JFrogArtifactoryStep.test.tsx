@@ -8,9 +8,7 @@ import type { ResponseConnectorResponse } from 'services/cd-ng'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { JFrogArtifactoryStep } from '../JFrogArtifactoryStep'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 export const ConnectorResponse: UseGetReturnData<ResponseConnectorResponse> = {
   loading: false,

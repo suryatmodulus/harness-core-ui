@@ -246,7 +246,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           <div
                             class="bp3-form-helper-text"
                           >
-                            validation.connectorName
+                            validation.nameRequired
                           </div>
                         </div>
                       </div>
@@ -326,7 +326,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -652,7 +652,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           name="url"
                           placeholder="common.git.bitbucketUrlPlaceholder"
                           type="text"
-                          value="githubTestUrl"
+                          value="http://www.github.com/"
                         />
                       </div>
                     </div>
@@ -699,7 +699,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -936,7 +936,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -1217,7 +1217,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1588,7 +1588,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1952,7 +1952,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2187,7 +2187,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -2490,7 +2490,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2725,7 +2725,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -3006,7 +3006,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                       common.git.APIAuthentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="apiAuthType-6"
                     >
                       <div
@@ -3283,7 +3283,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

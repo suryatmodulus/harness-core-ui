@@ -9,10 +9,16 @@ import {
   statusToStatusMapping
 } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import type { NodeRunInfo } from 'services/pipeline-ng'
-import type { ExecutionPipeline, ExecutionPipelineItem, ExecutionPipelineNode } from './ExecutionPipelineModel'
+import type {
+  ExecutionPipeline,
+  ExecutionPipelineGroupInfo,
+  ExecutionPipelineItem,
+  ExecutionPipelineNode
+} from './ExecutionPipelineModel'
 import * as Diagram from '../Diagram'
 import type { DefaultNodeModel } from '../Diagram'
 import { ExecutionPipelineNodeType } from './ExecutionPipelineModel'
+import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import css from './ExecutionStageDiagram.module.scss'
 
 export const containGroup = <T>(nodes: Array<ExecutionPipelineNode<T>>): boolean => {
@@ -63,7 +69,8 @@ export const calculateDepth = <T>(
     groupMaxDepth += spaceAfterGroup
   }
 
-  return Math.max(groupMaxDepth, depth)
+  // NOTE: condition "groupMaxDepth < depth" makes empty group height equal to group with one step
+  return groupMaxDepth < depth ? groupMaxDepth + depth : groupMaxDepth
 }
 
 export const calculateGroupHeaderDepth = <T>(items: Array<ExecutionPipelineNode<T>>, HEADER_DEPTH: number): number => {
@@ -85,7 +92,11 @@ export const calculateGroupHeaderDepth = <T>(items: Array<ExecutionPipelineNode<
   return maxNum
 }
 
-export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): React.CSSProperties => {
+export const getNodeStyles = (
+  isSelected: boolean,
+  status: ExecutionStatus,
+  type: ExecutionPipelineNodeType
+): React.CSSProperties => {
   const style = {} as React.CSSProperties
 
   style.borderColor = 'var(--execution-pipeline-color-grey)'
@@ -118,8 +129,14 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): Rea
         style.backgroundColor = 'var(--white)'
         break
       case ExecutionStatusEnum.Aborted:
-        style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
-        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-dark-grey2)' : 'var(--white)'
+        if (type === ExecutionPipelineNodeType.DIAMOND) {
+          style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
+          style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : 'var(--red-50)'
+        } else {
+          style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
+          style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-dark-grey2)' : 'var(--white)'
+        }
+
         break
       case ExecutionStatusEnum.ApprovalRejected:
       case ExecutionStatusEnum.Failed:
@@ -134,12 +151,19 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): Rea
   return style
 }
 
-export const getArrowsColor = (status: ExecutionStatus, isParallel = false, hideLines = false): string => {
+export const getArrowsColor = (
+  status: ExecutionStatus,
+  isParallel = false,
+  hideLines = false,
+  isLast = false
+): string => {
   if (hideLines) {
     return 'var(--pipeline-transparent-border)'
   } else if (status === ExecutionStatusEnum.NotStarted) {
     return 'var(--execution-pipeline-color-arrow-not-started)'
   } else if (isParallel && status === ExecutionStatusEnum.Running) {
+    return 'var(--execution-pipeline-color-arrow-not-started)'
+  } else if (isLast && status === ExecutionStatusEnum.Running) {
     return 'var(--execution-pipeline-color-arrow-not-started)'
   } else {
     return 'var(--execution-pipeline-color-arrow-complete)'
@@ -181,6 +205,13 @@ export const getStatusProps = (
         secondaryIconProps.color = Color.WHITE
         break
       case ExecutionStatusEnum.Aborted:
+        secondaryIcon = 'circle-cross'
+        secondaryIconStyle.animation = `${css.fadeIn} 1s`
+        secondaryIconStyle.color = 'var(--red-600)'
+        secondaryIconStyle.backgroundColor = 'var(--white)'
+        secondaryIconStyle.borderRadius = '50%'
+        secondaryIconStyle.height = 'fit-content'
+        break
       case ExecutionStatusEnum.Expired:
         secondaryIcon = 'execution-abort'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
@@ -205,7 +236,11 @@ export const getStatusProps = (
   return { secondaryIconStyle, secondaryIcon: secondaryIcon, secondaryIconProps }
 }
 
-export const getIconStyleBasedOnStatus = (status: ExecutionStatus, isSelected: boolean): React.CSSProperties => {
+export const getIconStyleBasedOnStatus = (
+  status: ExecutionStatus,
+  isSelected: boolean,
+  data: any
+): React.CSSProperties => {
   let toReturn: CSSProperties = {}
   if (isSelected && status !== ExecutionStatusEnum.NotStarted) {
     toReturn = { color: 'var(--white)' }
@@ -213,6 +248,11 @@ export const getIconStyleBasedOnStatus = (status: ExecutionStatus, isSelected: b
   if (status === ExecutionStatusEnum.Skipped || status === ExecutionStatusEnum.Expired) {
     toReturn = { color: 'var(--grey-500)' }
   }
+
+  if (data.stepType === StepType.HarnessApproval && !isSelected) {
+    toReturn = { color: 'var(--primary-brand)' }
+  }
+
   return toReturn
 }
 
@@ -238,6 +278,7 @@ export const getStageFromExecutionPipeline = <T>(
 
 export interface GroupState<T> {
   data?: T
+  group?: ExecutionPipelineGroupInfo<T>
   collapsed: boolean
   name: string
   showInLabel: boolean
@@ -258,7 +299,8 @@ export const getGroupsFromData = <T>(items: Array<ExecutionPipelineNode<T>>): Ma
         status: node.group.status,
         identifier: node.group.identifier,
         showInLabel: node.group.showInLabel ?? true,
-        data: node.group.data
+        data: node.group.data,
+        group: node.group
       })
       if (node.group.items.length > 0) {
         const itemsGroupState = getGroupsFromData(node.group.items)
@@ -299,7 +341,7 @@ export const moveStageToFocus = (
   /* istanbul ignore else */ if (layer && canvas) {
     const rect = canvas.getBoundingClientRect()
     const zoom = engine.getModel().getZoomLevel()
-    const s = (num: number) => num * (1 / (100 / zoom))
+    const s = (num: number): number => num * (1 / (100 / zoom))
     const offsetX = engine.getModel().getOffsetX()
     const offsetY = engine.getModel().getOffsetY()
     let newOffsetX = engine.getModel().getOffsetX()

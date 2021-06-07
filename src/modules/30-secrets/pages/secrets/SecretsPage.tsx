@@ -16,6 +16,7 @@ import type { Module, ProjectPathProps } from '@common/interfaces/RouteInterface
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { Page } from '@common/exports'
 import SecretsList from './views/SecretsListView/SecretsList'
 
 import css from './SecretsPage.module.scss'
@@ -59,101 +60,104 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
   })
 
   return (
-    <div className={css.page}>
-      <Layout.Horizontal flex className={css.header}>
-        <Layout.Horizontal spacing="small">
-          <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
+    <>
+      <Page.Header title={getString('common.secrets')} />
+      <div className={css.page}>
+        <Layout.Horizontal flex className={css.header}>
+          <Layout.Horizontal spacing="small">
+            <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
+              <RbacButton
+                intent="primary"
+                text={getString('createSecretYAML.newSecret')}
+                icon="plus"
+                rightIcon="chevron-down"
+                permission={{
+                  permission: PermissionIdentifier.UPDATE_SECRET,
+                  resource: {
+                    resourceType: ResourceType.SECRET
+                  }
+                }}
+                onClick={() => {
+                  setOpenPopOver(true)
+                }}
+              />
+              {openPopOver && (
+                <Menu large>
+                  <Menu.Item
+                    text={getString('secret.labelText')}
+                    labelElement={<Icon name="text" />}
+                    onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
+                  />
+                  <Menu.Item
+                    text={getString('secret.labelFile')}
+                    labelElement={<Icon name="document" color="blue600" />}
+                    onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
+                  />
+                  <Menu.Item
+                    text={getString('ssh.sshCredential')}
+                    labelElement={<Icon name="secret-ssh" />}
+                    onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
+                  />
+                </Menu>
+              )}
+            </Popover>
             <RbacButton
-              intent="primary"
-              text={getString('createSecretYAML.newSecret')}
-              icon="plus"
-              rightIcon="chevron-down"
+              text={getString('createViaYaml')}
+              onClick={
+                /* istanbul ignore next */ () => {
+                  history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))
+                }
+              }
               permission={{
                 permission: PermissionIdentifier.UPDATE_SECRET,
                 resource: {
                   resourceType: ResourceType.SECRET
+                },
+                resourceScope: {
+                  accountIdentifier: accountId,
+                  orgIdentifier,
+                  projectIdentifier
                 }
               }}
-              onClick={() => {
-                setOpenPopOver(true)
+            />
+          </Layout.Horizontal>
+          <Layout.Horizontal spacing="small">
+            <TextInput
+              leftIcon="search"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setSearchTerm(e.target.value.trim())
+                setPage(0)
               }}
             />
-            {openPopOver && (
-              <Menu large>
-                <Menu.Item
-                  text={getString('secret.labelText')}
-                  labelElement={<Icon name="text" />}
-                  onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
-                />
-                <Menu.Item
-                  text={getString('secret.labelFile')}
-                  labelElement={<Icon name="document" color="blue600" />}
-                  onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
-                />
-                <Menu.Item
-                  text={getString('ssh.sshCredential')}
-                  labelElement={<Icon name="secret-ssh" />}
-                  onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
-                />
-              </Menu>
-            )}
-          </Popover>
-          <RbacButton
-            text={getString('createViaYaml')}
-            onClick={
-              /* istanbul ignore next */ () => {
-                history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))
-              }
-            }
-            permission={{
-              permission: PermissionIdentifier.UPDATE_SECRET,
-              resource: {
-                resourceType: ResourceType.SECRET
-              },
-              resourceScope: {
-                accountIdentifier: accountId,
-                orgIdentifier,
-                projectIdentifier
-              }
-            }}
-          />
+          </Layout.Horizontal>
         </Layout.Horizontal>
-        <Layout.Horizontal spacing="small">
-          <TextInput
-            leftIcon="search"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearchTerm(e.target.value.trim())
-              setPage(0)
-            }}
-          />
-        </Layout.Horizontal>
-      </Layout.Horizontal>
 
-      {loading ? (
-        <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
-          <PageSpinner />
-        </div>
-      ) : error ? (
-        <div style={{ paddingTop: '200px' }}>
-          <PageError
-            message={(error.data as Error)?.message || error.message}
-            onClick={/* istanbul ignore next */ () => refetch()}
+        {loading ? (
+          <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+            <PageSpinner />
+          </div>
+        ) : error ? (
+          <div style={{ paddingTop: '200px' }}>
+            <PageError
+              message={(error.data as Error)?.message || error.message}
+              onClick={/* istanbul ignore next */ () => refetch()}
+            />
+          </div>
+        ) : !secretsResponse?.data?.empty ? (
+          <SecretsList
+            secrets={secretsResponse?.data}
+            refetch={refetch}
+            gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
           />
-        </div>
-      ) : !secretsResponse?.data?.empty ? (
-        <SecretsList
-          secrets={secretsResponse?.data}
-          refetch={refetch}
-          gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
-        />
-      ) : (
-        <Container flex={{ align: 'center-center' }} padding="xxlarge">
-          No Data
-        </Container>
-      )}
-    </div>
+        ) : (
+          <Container flex={{ align: 'center-center' }} padding="xxlarge">
+            No Data
+          </Container>
+        )}
+      </div>
+    </>
   )
 }
 

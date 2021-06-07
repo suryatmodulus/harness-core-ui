@@ -1,7 +1,8 @@
 import React from 'react'
-import type { MonacoEditorProps } from 'react-monaco-editor'
+import type { MonacoEditorBaseProps, MonacoEditorProps } from 'react-monaco-editor'
 import { FormikProps, connect } from 'formik'
 import { get } from 'lodash-es'
+import cx from 'classnames'
 import type { languages, IDisposable } from 'monaco-editor/esm/vs/editor/editor.api'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import { useDeepCompareEffect } from '@common/hooks'
@@ -12,6 +13,7 @@ type Languages = typeof languages
 
 export interface MonacoTextFieldProps {
   name: string
+  height?: MonacoEditorBaseProps['height']
   disabled?: boolean
   expressions?: string[]
   'data-testid'?: string
@@ -25,7 +27,7 @@ const VAR_REGEX = /.*<\+.*?/
 const LANG_ID = 'plaintext'
 
 export function MonacoText(props: ConnectedMonacoTextFieldProps): React.ReactElement {
-  const { formik, name, disabled, expressions } = props
+  const { formik, name, disabled, expressions, height = 70 } = props
   const value = get(formik.values, name) || ''
 
   useDeepCompareEffect(() => {
@@ -66,9 +68,9 @@ export function MonacoText(props: ConnectedMonacoTextFieldProps): React.ReactEle
   }, [expressions])
 
   return (
-    <div className={css.main}>
+    <div className={cx(css.main, { [css.disabled]: disabled })}>
       <MonacoEditor
-        height={300}
+        height={height}
         value={value}
         language={LANG_ID}
         options={
@@ -84,6 +86,13 @@ export function MonacoText(props: ConnectedMonacoTextFieldProps): React.ReactEle
             glyphMargin: false,
             folding: false,
             lineDecorationsWidth: 0,
+            wordWrap: 'on',
+            scrollbar: {
+              verticalScrollbarSize: 0
+            },
+            renderLineHighlight: 'none',
+            wordWrapBreakBeforeCharacters: '',
+            mouseStyle: disabled ? 'default' : 'text',
             lineNumbersMinChars: 0
           } as MonacoEditorProps['options']
         }

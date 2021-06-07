@@ -5,6 +5,8 @@ declare const styles: {
   readonly scroll: string
   readonly errorListTextContainer: string
   readonly link: string
+  readonly text: string
   readonly linkSmall: string
+  readonly shrink: string
 }
 export default styles

@@ -3,9 +3,8 @@ import { act, fireEvent, render } from '@testing-library/react'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
 import { TestWrapper, UseGetReturnData } from '@common/utils/testUtils'
 import { EditStageView } from '../EditStageView'
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 const ConnectorResponse: UseGetReturnData<ResponseConnectorResponse | any> = {
   loading: false,

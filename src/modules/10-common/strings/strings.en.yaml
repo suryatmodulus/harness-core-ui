@@ -1,4 +1,10 @@
 secrets: Secrets
+home: Home
+welcome: Welcome
+dashboards: Dashboards
+accountSetup: Account Setup
+projectSetup: Project Setup
+orgSetup: Org Setup
 delegateForTask: '{{delegate}} for {{taskName}}'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
@@ -55,6 +61,9 @@ validation:
   formatMustBeAlphanumeric: Identifier can only contain alphanumerics, _ and $
   identifierIsRequired: Identifier is required
   urlIsRequired: Url is a required field
+  email:
+    required: Email is required
+    format: Please input valid email address
 specify: Specify
 role: Role
 projectViewer: Project Viewer
@@ -68,14 +77,15 @@ ce:
   cost: COST
   optimization: Optimization
   visibility: Visibility
-  startTrial: Start 14 day CE Enterprise trial
   visibilityWarning: Cost Visibility is currently only available in CE First Generation
   visibilityLaunchButton: Launch CE First Generation
 launchFirstGen: 'Launch {{module}} First Generation'
 startTrial: 'Start 14 day {{module}} Enterprise trial'
+new: new
 purpose:
   welcome: 'Welcome, let’s get you started!'
   infoCardIntent: 'How would you like to get started?'
+  howToProceed: 'How would you like to proceed?'
   continuous: CONTINUOUS
   moduleSuccess: Module Added Successfully
   startATrial: Start A Trial
@@ -84,9 +94,18 @@ purpose:
   cd:
     delivery: Delivery
     subtitle: Deploy your services with blazingly fast pipelines.
-    description: CD description placeholder
     continuous: Continuous Delivery
-
+    description:
+      'Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
+      <br><br>You can access this module via your free trial.
+      Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
+    supportedStack: Supported Stack
+    1stGen:
+      title: CD First Generation
+      description: Self-Service Continuous Delivery that enables engineers to deploy on-demand without scripts. Setup and easily manage automated canary deployments, GitOps and Self service deployments.
+    newGen:
+      title: CD Next Generation
+      description: CD Next Generation simplifies the experience with simpler UI Information Architecture and shared resources across projects. Pipelines can be easily parameterized with Friendly YAML.
   cv:
     verification: Verification
     subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.
@@ -152,6 +171,11 @@ gitSync:
     header: Sync the branch
     message1: 'Branch {{branch}} is currently not Synced.'
     message2: 'Syncing the branch may take a while. Do you want to continue?'
+  savingInProgress: Saving in progress
+  pushingChangestoBranch: 'Pushing changes to {{branch}}'
+  creatingPR: 'Creating a Pull Request from  {{fromBranch}} to branch {{toBranch}}'
+  unableToCreatePR: Unable to create PR
+  settingUpNewBranch: 'Setting up new branch {{branch}}'
 git:
   branchName: 'Branch name'
   urlType: 'URL Type'
@@ -187,9 +211,10 @@ git:
   branchSelectHeader: Select Branch to Commit
   existingBranchCommitLabel: Commit to an existing branch
   newBranchCommitLabel: Commit to a new branch for this commit
-  startPRLabel: Start a pull request
+  startPRLabel: Start a pull request to merge to
   validation:
     filePath: '{{$.common.git.filePath}} is required'
+    commitMessage: '{{$.common.git.commitMessage}} is required'
 other: Other
 options: Options
 note: Note
@@ -217,17 +242,53 @@ resolveConflict: Resolve the conflicts before Saving.
 seeWhatChanged: See What Changed
 changesUnsaved: You may have unsaved changes.
 savedSuccessfully: Saved Successfully
-submittingRequest: Submitting request and pushing change to Git
-submittingRequestToGitViaDelegate: Submitting request and pushing change to Git from Delegate
+submittingRequest: Submitting request and pushing changes to Git
+submittingRequestToGitViaDelegate: Submitting request and pushing changes to Git from Delegate
 local: Local
 banners:
   email:
     description: Please check your email and follow the link to verify your email. Didn’t receive it?
     resend: Resend Email
-    success: Thank you for verifying your email address.
+    success: Verification email re-sent
   trial:
     description: Your Enterprise {{ module }} trial expires in {{ days }} days. Contact Sales to continue using {{ moduleDescription }}
+    expired:
+      description: Your trial expired {{ expiredDays }} days ago. Contact Sales or extend trial to continue using {{ moduleDescription }}
+      extendTrial: Extend Trial
     contactSales: Contact Sales
+    contactSalesForm:
+      description: Let’s connect you with our Sales team
+      fullName: Full Name
+      email: Business Email Address
+      country: Country
+      phone: Phone
+      phonePlaceHolder: Add your contact number
+      role: Your role in the organization
+      orgName: Name of the Organization
+      companySize: Company Size
+      countryValidation: Country is required
+      phoneValidation:
+        required: Phone is required
+        number: Please input only numbers
+      roleValidation: Role is required
+      orgNameValidation: Organization Name is required
+      companySizeValidation: Company Size is required
+      roleItems:
+        it: IT
+        devOps: DevOps
+        devSecOps: DevSecOps
+        softwareDeveloper: Software Developer
+        softwareArchitect: Software Architect
+        engineeringManager: Engineering Manager
+        engineeringDirector: Engineering Director
+        vp: VP / Executive
+        others: '{{$.stepPalette.others}}'
+      companySizeItems:
+        below100: 1-100 employees
+        below500: 101-500 employees
+        below2000: 501-2,000 employees
+        below5000: 2,001-5,000 employees
+        above5000: '> 5,000 employees'
 test:
   inProgress: Testing in progress
   connectionSuccessful: Connection Successful
@@ -238,3 +299,9 @@ selectBranch: Select branch
 latest: Latest
 selectVersion: Select version
 confirmText: Are you sure?
+paste: Paste
+artifactTag: tag
+clientId: Client ID
+filters:
+  saveNewFilter: Save New Filter
+in: in

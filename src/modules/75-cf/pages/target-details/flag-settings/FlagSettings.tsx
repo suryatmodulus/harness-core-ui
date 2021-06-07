@@ -37,8 +37,13 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
   const [sortByField] = useState(FlagsSortByField.NAME)
   const [sortOrder, setSortOrder] = useState(SortOrder.ASCENDING)
   const { accountId, orgIdentifier, projectIdentifier, targetIdentifier } = useParams<Record<string, string>>()
-  const { activeEnvironment: environmentIdentifier } = useActiveEnvironment()
-  const patchParams = { accountIdentifier: accountId, orgIdentifier, projectIdentifier, environmentIdentifier }
+  const { activeEnvironment } = useActiveEnvironment()
+  const patchParams = {
+    accountIdentifier: accountId,
+    orgIdentifier,
+    projectIdentifier,
+    environmentIdentifier: activeEnvironment
+  }
 
   const [pageNumber, setPageNumber] = useState(0)
   const [queryString, setQueryString] = useState('')
@@ -48,7 +53,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier as string,
-      environment: environmentIdentifier,
+      environment: activeEnvironment,
       targetIdentifier,
       pageSize: CF_DEFAULT_PAGE_SIZE,
       pageNumber,
@@ -60,7 +65,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
       accountId,
       orgIdentifier,
       projectIdentifier,
-      environmentIdentifier,
+      activeEnvironment,
       targetIdentifier,
       pageNumber,
       sortByField,
@@ -269,7 +274,7 @@ const FlagSettingsRow: React.FC<{
                 })
                 return true
               } catch (error) {
-                showError(getErrorMessage(error), 0)
+                showError(getErrorMessage(error), 0, 'cf.serve.flag.variant.error')
               }
               return false
             }}

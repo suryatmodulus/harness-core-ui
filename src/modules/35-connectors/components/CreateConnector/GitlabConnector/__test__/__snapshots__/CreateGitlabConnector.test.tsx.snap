@@ -253,7 +253,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            validation.connectorName
+                            validation.nameRequired
                           </div>
                         </div>
                       </div>
@@ -333,7 +333,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -666,7 +666,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           name="url"
                           placeholder="common.git.gitLabUrlPlaceholder"
                           type="text"
-                          value="githubTestUrl"
+                          value="http://www.github.com/"
                         />
                       </div>
                     </div>
@@ -713,7 +713,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -957,7 +957,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -1238,7 +1238,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1616,7 +1616,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1987,7 +1987,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2229,7 +2229,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                       authentication
                     </span>
                     <div
-                      class="bp3-form-group"
+                      class="bp3-form-group authTypeSelect"
                       data-id="authType-0"
                     >
                       <div
@@ -2532,7 +2532,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2903,7 +2903,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                     common.git.APIAuthentication
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group authTypeSelect"
                     data-id="apiAuthType-2"
                   >
                     <div
@@ -3093,7 +3093,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

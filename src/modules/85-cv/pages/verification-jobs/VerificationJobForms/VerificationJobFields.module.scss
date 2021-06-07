@@ -5,3 +5,11 @@
     }
   }
 }
+
+.multiSelect {
+  :global {
+    .bp3-multi-select {
+      height: auto !important;
+    }
+  }
+}

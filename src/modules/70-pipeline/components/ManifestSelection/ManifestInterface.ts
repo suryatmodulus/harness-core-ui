@@ -62,6 +62,7 @@ export interface ManifestLastStepProps {
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
   selectedManifest: string
+  manifestIdsList: Array<string>
 }
 export interface CommandFlags {
   commandType: string | SelectOption | undefined

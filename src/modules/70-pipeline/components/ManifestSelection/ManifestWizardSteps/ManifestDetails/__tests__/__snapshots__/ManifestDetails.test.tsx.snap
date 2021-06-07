@@ -120,7 +120,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
             </div>
           </div>
           <div
-            class="formGroup md"
+            class="formGroup"
           >
             <div
               class="bp3-form-group"
@@ -195,7 +195,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
           >
             <div
               class="bp3-form-group"
-              style="flex-grow: 1; margin-bottom: 0px;"
+              style="width: 370px;"
             >
               <label
                 class="bp3-label"
@@ -267,9 +267,33 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                       draggable="true"
                       style="align-items: baseline;"
                     >
+                      <span
+                        class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
+                        icon="drag-handle-vertical"
+                      >
+                        <svg
+                          data-icon="drag-handle-vertical"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            drag-handle-vertical
+                          </desc>
+                          <path
+                            d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        1.
+                      </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 370px;"
+                        style="width: 312px;"
                       >
                         
                         <div
@@ -285,7 +309,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="paths[0].path"
-                                placeholder="pipeline.manifestType.filePathPlaceholder"
+                                placeholder="pipeline.manifestType.pathPlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -374,7 +398,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                     data-testid="advancedTitle-details"
                   >
                     <div
-                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                       style="height: 90px;"
                     >
                       <div
@@ -651,7 +675,7 @@ exports[`Manifest Details tests initial rendering 1`] = `
             </div>
           </div>
           <div
-            class="formGroup md"
+            class="formGroup"
           >
             <div
               class="bp3-form-group"
@@ -726,7 +750,7 @@ exports[`Manifest Details tests initial rendering 1`] = `
           >
             <div
               class="bp3-form-group"
-              style="flex-grow: 1; margin-bottom: 0px;"
+              style="width: 370px;"
             >
               <label
                 class="bp3-label"
@@ -738,7 +762,7 @@ exports[`Manifest Details tests initial rendering 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    fileFolderPathText
+                    common.git.filePath
                   </p>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -798,9 +822,33 @@ exports[`Manifest Details tests initial rendering 1`] = `
                       draggable="true"
                       style="align-items: baseline;"
                     >
+                      <span
+                        class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
+                        icon="drag-handle-vertical"
+                      >
+                        <svg
+                          data-icon="drag-handle-vertical"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            drag-handle-vertical
+                          </desc>
+                          <path
+                            d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        1.
+                      </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 370px;"
+                        style="width: 312px;"
                       >
                         
                         <div
@@ -816,7 +864,7 @@ exports[`Manifest Details tests initial rendering 1`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="paths[0].path"
-                                placeholder="pipeline.manifestType.filePathPlaceholder"
+                                placeholder="pipeline.manifestType.pathPlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -1133,7 +1181,7 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
           >
             <div
               class="bp3-form-group"
-              style="flex-grow: 1; margin-bottom: 0px;"
+              style="width: 370px;"
             >
               <label
                 class="bp3-label"
@@ -1145,7 +1193,7 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    fileFolderPathText
+                    common.git.filePath
                   </p>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -1205,9 +1253,33 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
                       draggable="true"
                       style="align-items: baseline;"
                     >
+                      <span
+                        class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
+                        icon="drag-handle-vertical"
+                      >
+                        <svg
+                          data-icon="drag-handle-vertical"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            drag-handle-vertical
+                          </desc>
+                          <path
+                            d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        1.
+                      </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 370px;"
+                        style="width: 312px;"
                       >
                         
                         <div
@@ -1223,7 +1295,7 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="paths[0].path"
-                                placeholder="pipeline.manifestType.filePathPlaceholder"
+                                placeholder="pipeline.manifestType.pathPlaceholder"
                                 type="text"
                                 value="test-path"
                               />
@@ -1465,7 +1537,7 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
             </div>
           </div>
           <div
-            class="formGroup md"
+            class="formGroup"
           >
             <div
               class="bp3-form-group"
@@ -1540,7 +1612,7 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
           >
             <div
               class="bp3-form-group"
-              style="flex-grow: 1; margin-bottom: 0px;"
+              style="width: 370px;"
             >
               <label
                 class="bp3-label"
@@ -1552,7 +1624,7 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    fileFolderPathText
+                    common.git.filePath
                   </p>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -1612,9 +1684,33 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
                       draggable="true"
                       style="align-items: baseline;"
                     >
+                      <span
+                        class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
+                        icon="drag-handle-vertical"
+                      >
+                        <svg
+                          data-icon="drag-handle-vertical"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            drag-handle-vertical
+                          </desc>
+                          <path
+                            d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        1.
+                      </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 370px;"
+                        style="width: 312px;"
                       >
                         
                         <div
@@ -1630,7 +1726,7 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="paths[0].path"
-                                placeholder="pipeline.manifestType.filePathPlaceholder"
+                                placeholder="pipeline.manifestType.pathPlaceholder"
                                 type="text"
                                 value="test-path"
                               />
@@ -1947,7 +2043,7 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
           >
             <div
               class="bp3-form-group"
-              style="flex-grow: 1; margin-bottom: 0px;"
+              style="width: 370px;"
             >
               <label
                 class="bp3-label"
@@ -1959,7 +2055,7 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    fileFolderPathText
+                    common.git.filePath
                   </p>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2019,9 +2115,33 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
                       draggable="true"
                       style="align-items: baseline;"
                     >
+                      <span
+                        class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
+                        icon="drag-handle-vertical"
+                      >
+                        <svg
+                          data-icon="drag-handle-vertical"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            drag-handle-vertical
+                          </desc>
+                          <path
+                            d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        1.
+                      </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 370px;"
+                        style="width: 312px;"
                       >
                         
                         <div
@@ -2037,7 +2157,7 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="paths[0].path"
-                                placeholder="pipeline.manifestType.filePathPlaceholder"
+                                placeholder="pipeline.manifestType.pathPlaceholder"
                                 type="text"
                                 value="test-path"
                               />
@@ -2279,7 +2399,7 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
             </div>
           </div>
           <div
-            class="formGroup md"
+            class="formGroup"
           >
             <div
               class="bp3-form-group"
@@ -2354,7 +2474,7 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
           >
             <div
               class="bp3-form-group"
-              style="flex-grow: 1; margin-bottom: 0px;"
+              style="width: 370px;"
             >
               <label
                 class="bp3-label"
@@ -2366,7 +2486,7 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    fileFolderPathText
+                    common.git.filePath
                   </p>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2426,9 +2546,33 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
                       draggable="true"
                       style="align-items: baseline;"
                     >
+                      <span
+                        class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
+                        icon="drag-handle-vertical"
+                      >
+                        <svg
+                          data-icon="drag-handle-vertical"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            drag-handle-vertical
+                          </desc>
+                          <path
+                            d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        1.
+                      </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 370px;"
+                        style="width: 312px;"
                       >
                         
                         <div
@@ -2444,7 +2588,7 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="paths[0].path"
-                                placeholder="pipeline.manifestType.filePathPlaceholder"
+                                placeholder="pipeline.manifestType.pathPlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -2761,7 +2905,7 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
           >
             <div
               class="bp3-form-group"
-              style="flex-grow: 1; margin-bottom: 0px;"
+              style="width: 370px;"
             >
               <label
                 class="bp3-label"
@@ -2773,7 +2917,7 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    fileFolderPathText
+                    common.git.filePath
                   </p>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2833,9 +2977,33 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
                       draggable="true"
                       style="align-items: baseline;"
                     >
+                      <span
+                        class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
+                        icon="drag-handle-vertical"
+                      >
+                        <svg
+                          data-icon="drag-handle-vertical"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            drag-handle-vertical
+                          </desc>
+                          <path
+                            d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        1.
+                      </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 370px;"
+                        style="width: 312px;"
                       >
                         
                         <div
@@ -2851,7 +3019,7 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="paths[0].path"
-                                placeholder="pipeline.manifestType.filePathPlaceholder"
+                                placeholder="pipeline.manifestType.pathPlaceholder"
                                 type="text"
                                 value="test-path"
                               />
@@ -3168,7 +3336,7 @@ exports[`Manifest Details tests when scope is of account 1`] = `
           >
             <div
               class="bp3-form-group"
-              style="flex-grow: 1; margin-bottom: 0px;"
+              style="width: 370px;"
             >
               <label
                 class="bp3-label"
@@ -3180,7 +3348,7 @@ exports[`Manifest Details tests when scope is of account 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    fileFolderPathText
+                    common.git.filePath
                   </p>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -3240,9 +3408,33 @@ exports[`Manifest Details tests when scope is of account 1`] = `
                       draggable="true"
                       style="align-items: baseline;"
                     >
+                      <span
+                        class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
+                        icon="drag-handle-vertical"
+                      >
+                        <svg
+                          data-icon="drag-handle-vertical"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            drag-handle-vertical
+                          </desc>
+                          <path
+                            d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        1.
+                      </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 370px;"
+                        style="width: 312px;"
                       >
                         
                         <div
@@ -3258,7 +3450,7 @@ exports[`Manifest Details tests when scope is of account 1`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="paths[0].path"
-                                placeholder="pipeline.manifestType.filePathPlaceholder"
+                                placeholder="pipeline.manifestType.pathPlaceholder"
                                 type="text"
                                 value="test-path"
                               />

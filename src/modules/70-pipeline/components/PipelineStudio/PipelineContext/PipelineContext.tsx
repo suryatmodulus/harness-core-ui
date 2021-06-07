@@ -20,10 +20,11 @@ import {
   getPipelinePromise,
   GetPipelineQueryParams,
   putPipelinePromise,
-  PutPipelineQueryParams,
   Failure,
   EntityGitDetails,
-  ResponsePMSPipelineResponseDTO
+  ResponsePMSPipelineResponseDTO,
+  CreatePipelineQueryParams,
+  PutPipelineQueryParams
 } from 'services/pipeline-ng'
 import { useGlobalEventListener, useLocalStorage, useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
@@ -93,7 +94,7 @@ export const getPipelineByIdentifier = (
 }
 
 export const savePipeline = (
-  params: PutPipelineQueryParams,
+  params: CreatePipelineQueryParams & PutPipelineQueryParams,
   pipeline: PipelineInfoConfig,
   isEdit = false
 ): Promise<Failure | undefined> => {

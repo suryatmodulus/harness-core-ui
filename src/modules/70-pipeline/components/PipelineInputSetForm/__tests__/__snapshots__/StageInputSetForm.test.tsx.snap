@@ -3,7 +3,7 @@
 exports[`stageinputset tests initial render 1`] = `
 <div>
   <div
-    class="nopadLeft accordionSummary"
+    class="accordionSummary"
     id="Stage.undefined.Service"
   >
     <div
@@ -16,7 +16,7 @@ exports[`stageinputset tests initial render 1`] = `
     />
   </div>
   <div
-    class="nopadLeft accordionSummary"
+    class="accordionSummary"
     id="Stage.undefined.Infrastructure"
   >
     <div
@@ -29,7 +29,7 @@ exports[`stageinputset tests initial render 1`] = `
     />
   </div>
   <div
-    class="nopadLeft accordionSummary"
+    class="accordionSummary"
     id="Stage.undefined.Execution"
   >
     <div

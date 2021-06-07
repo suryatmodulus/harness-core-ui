@@ -15,7 +15,6 @@ import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Ste
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import {
-  DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -122,22 +121,36 @@ function K8RolloutDeployWidget(
 
 const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData }) => {
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
-        <DurationInputFieldForInputSet
-          label={getString('pipelineSteps.timeoutLabel')}
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
-          disabled={inputSetData?.readonly}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.sm)}>
+          <FormMultiTypeDurationField
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
+            label={getString('pipelineSteps.timeoutLabel')}
+            multiTypeDurationProps={{
+              enableConfigureOptions: false,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              expressions,
+              disabled: inputSetData?.readonly
+            }}
+            disabled={inputSetData?.readonly}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(inputSetData?.template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
-          className={stepCss.checkbox}
-          label={getString('pipelineSteps.skipDryRun')}
-          disabled={inputSetData?.readonly}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.sm)}>
+          <FormMultiTypeCheckboxField
+            multiTypeTextbox={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+            }}
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
+            label={getString('pipelineSteps.skipDryRun')}
+            disabled={inputSetData?.readonly}
+          />
+        </div>
       )}
     </>
   )

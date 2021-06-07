@@ -1,13 +1,18 @@
 // import { ProgressBar } from '@blueprintjs/core'
-import { Color, Container, Heading, Icon, Intent, Layout, Tag, Text } from '@wings-software/uicore'
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { Color, Container, Heading, Icon, Layout, Text } from '@wings-software/uicore'
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
 import { useStrings } from 'framework/strings'
 import { useCumulativeServiceSavings } from 'services/lw'
+import {
+  StoppedStatusIndicator,
+  RunningStatusIndicator
+} from '@ce/common/InstanceStatusIndicator/InstanceStatusIndicator'
 import { geGaugeChartOptionsWithoutLabel, getDay } from './Utils'
-// import css from './COGatewayCumulativeAnalytics.module.scss'
+import css from './COGatewayCumulativeAnalytics.module.scss'
+
 interface COGatewayCumulativeAnalyticsProps {
   activeServicesCount: number
 }
@@ -25,7 +30,7 @@ function getStackedAreaChartOptions(
   }
   return {
     chart: {
-      type: 'area',
+      type: 'spline',
       height: 180,
       spacing: [5, 20, 5, 5]
     },
@@ -43,7 +48,7 @@ function getStackedAreaChartOptions(
       tickmarkPlacement: 'on'
     },
     yAxis: {
-      min: 0,
+      // min: 0,
       title: {
         text: yAxisText
       },
@@ -58,7 +63,7 @@ function getStackedAreaChartOptions(
       pointFormat: '{series.name}: {point.y}<br/>'
     },
     plotOptions: {
-      spline: {
+      area: {
         stacking: 'normal',
         pointPlacement: 'on'
       }
@@ -127,28 +132,73 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
   })
   return (
     <Container padding="small">
-      <Layout.Vertical spacing="large">
-        <Heading
-          level={2}
-          style={{
-            marginLeft: '30px'
-          }}
-        >
-          SUMMARY OF RULES
-        </Heading>
+      <div>
+        <Text className={css.summaryHeading}>SUMMARY OF RULES</Text>
         <Layout.Horizontal
           spacing="xxlarge"
           background={Color.WHITE}
-          style={{
-            boxShadow: '0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16)',
-            borderRadius: '6px',
-            margin: 'var(--spacing-medium)',
-            padding: 'var(--spacing-medium)'
-          }}
+          className={css.analyticsContainer}
+          // style={{ margin: '0px var(--spacing-medium) !important' }}
         >
+          <Layout.Vertical spacing="small" style={{ flex: 1.2 }}>
+            <Layout.Vertical spacing="medium" padding="small">
+              <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}>
+                <Layout.Vertical spacing="small">
+                  <Text className={css.analyticsColHeader} style={{ color: '#05AAB6' }}>
+                    TOTAL SAVINGS TILL DATE
+                  </Text>
+                  {graphLoading ? (
+                    <Icon name="spinner" size={24} color="blue500" />
+                  ) : (
+                    <Heading level={1} style={{ color: '#05AAB6' }}>
+                      ${(Math.round(graphData?.response?.total_savings as number) * 100) / 100}
+                    </Heading>
+                  )}
+                </Layout.Vertical>
+              </Container>
+              <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(124, 77, 211,0.05)' }}>
+                <Layout.Vertical spacing="small">
+                  <Text className={css.analyticsColHeader} style={{ color: '#592BAA' }}>
+                    TOTAL SPEND TILL DATE
+                  </Text>
+                  {graphLoading ? (
+                    <Icon name="spinner" size={24} color="blue500" />
+                  ) : (
+                    <Heading level={1} style={{ color: '#592BAA' }}>
+                      ${(Math.round(graphData?.response?.total_cost as number) * 100) / 100}
+                    </Heading>
+                  )}
+                </Layout.Vertical>
+              </Container>
+            </Layout.Vertical>
+          </Layout.Vertical>
+          <Layout.Vertical
+            spacing="large"
+            style={{ textAlign: 'center', flex: 3, marginRight: 'var(--spacing-xxlarge)' }}
+          >
+            <Text className={css.analyticsColHeader}>TOTAL SPEND VS SAVINGS</Text>
+            {graphData && graphData.response?.days && graphData.response?.days.length ? (
+              <HighchartsReact
+                highchart={Highcharts}
+                options={getStackedAreaChartOptions(
+                  '',
+                  graphData?.response?.days as string[],
+                  '',
+                  graphData?.response?.savings as number[],
+                  graphData?.response?.actual_cost as number[]
+                )}
+              />
+            ) : graphLoading ? (
+              <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center' }} />
+            ) : (
+              <Text style={{ marginTop: 'var(--spacing-xxlarge)', fontSize: 'var(--font-size-medium)' }}>
+                {getString('ce.co.noData')}
+              </Text>
+            )}
+          </Layout.Vertical>
           <Layout.Vertical style={{ flex: 1 }}>
             <Layout.Vertical spacing="xsmall">
-              <Text>SAVINGS PERCENTAGE</Text>
+              <Text className={css.analyticsColHeader}>SAVINGS PERCENTAGE</Text>
               <Heading level={1}>
                 {graphData?.response != null
                   ? getSavingsPercentage(
@@ -174,79 +224,26 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
                 />
               </Layout.Horizontal>
             </Layout.Vertical>
-            <Heading level={2}>ACTIVE RULES</Heading>
+            <Text className={css.analyticsColHeader}>ACTIVE RULES</Text>
             <Layout.Horizontal spacing="small">
               <Heading level={1}>{props.activeServicesCount}</Heading>
               <Text style={{ alignSelf: 'center' }}>Rules</Text>
             </Layout.Horizontal>
           </Layout.Vertical>
-          <Layout.Vertical spacing="large" style={{ textAlign: 'center', flex: 3 }}>
-            <Heading level={2}>TOTAL SPEND VS SAVINGS</Heading>
-            {graphData && graphData.response?.days && graphData.response?.days.length ? (
-              <HighchartsReact
-                highchart={Highcharts}
-                options={getStackedAreaChartOptions(
-                  '',
-                  graphData?.response?.days as string[],
-                  '',
-                  graphData?.response?.savings as number[],
-                  graphData?.response?.actual_cost as number[]
-                )}
-              />
-            ) : graphLoading ? (
-              <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center' }} />
-            ) : (
-              <Text style={{ marginTop: 'var(--spacing-xxlarge)', fontSize: 'var(--font-size-medium)' }}>
-                {getString('ce.co.noData')}
-              </Text>
-            )}
-          </Layout.Vertical>
-          <Layout.Vertical spacing="small" style={{ flex: 1.5 }}>
-            <Layout.Vertical spacing="medium" padding="small">
-              <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}>
-                <Layout.Vertical spacing="small">
-                  <Text style={{ color: '#05AAB6' }}>TOTAL SAVINGS TILL DATE</Text>
-                  {graphLoading ? (
-                    <Icon name="spinner" size={24} color="blue500" />
-                  ) : (
-                    <Heading level={1} style={{ color: '#05AAB6' }}>
-                      ${(Math.round(graphData?.response?.total_savings as number) * 100) / 100}
-                    </Heading>
-                  )}
-                </Layout.Vertical>
-              </Container>
-              <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(124, 77, 211,0.05)' }}>
-                <Layout.Vertical spacing="small">
-                  <Text style={{ color: '#592BAA' }}>TOTAL SPEND TILL DATE</Text>
-                  {graphLoading ? (
-                    <Icon name="spinner" size={24} color="blue500" />
-                  ) : (
-                    <Heading level={1} style={{ color: '#592BAA' }}>
-                      ${(Math.round(graphData?.response?.total_cost as number) * 100) / 100}
-                    </Heading>
-                  )}
-                </Layout.Vertical>
-              </Container>
-            </Layout.Vertical>
-          </Layout.Vertical>
           <Layout.Vertical spacing="large" style={{ flex: 1 }}>
-            <Heading level={2}>INSTANCES MANAGED</Heading>
-            <Layout.Horizontal spacing="large">
+            <Text className={css.analyticsColHeader}>INSTANCES MANAGED</Text>
+            <Layout.Horizontal spacing="medium">
               <Heading level={1}>{props.activeServicesCount}</Heading>
               <Text style={{ alignSelf: 'center' }}>Instances</Text>
             </Layout.Horizontal>
-            <Layout.Horizontal spacing="large">
-              <Text style={{ alignSelf: 'center' }}>{props.activeServicesCount % 2}</Text>
-              <Tag intent={Intent.SUCCESS} minimal={true} style={{ borderRadius: '25px' }}>
-                RUNNING
-              </Tag>
-            </Layout.Horizontal>
-            <Layout.Horizontal spacing="large">
-              <Text style={{ alignSelf: 'center' }}>{props.activeServicesCount - (props.activeServicesCount % 2)}</Text>
-              <Tag intent={Intent.DANGER} minimal={true} style={{ borderRadius: '25px' }}>
-                STOPPED
-              </Tag>
-            </Layout.Horizontal>
+            <div className={css.instanceManager}>
+              <Text className={css.instanceCount}>{props.activeServicesCount % 2}</Text>
+              <RunningStatusIndicator />
+            </div>
+            <div className={css.instanceManager}>
+              <Text className={css.instanceCount}>{props.activeServicesCount - (props.activeServicesCount % 2)}</Text>
+              <StoppedStatusIndicator />
+            </div>
           </Layout.Vertical>
           {/* <Layout.Vertical spacing="large" style={{ flex: 1 }}>
             <Heading level={2}>USAGE TIMING</Heading>
@@ -282,7 +279,7 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
             </div>
           </Layout.Vertical> */}
         </Layout.Horizontal>
-      </Layout.Vertical>
+      </div>
     </Container>
   )
 }

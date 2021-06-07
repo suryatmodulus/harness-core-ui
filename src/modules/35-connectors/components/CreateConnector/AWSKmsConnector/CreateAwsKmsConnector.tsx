@@ -2,11 +2,16 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
+import {
+  Connectors,
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  SECRET_MANAGER_TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import AwsKmsConfig from './views/AwsKmsConfig'
 import css from './CreateAwsKmsConnector.module.scss'
@@ -17,6 +22,7 @@ export interface CreateAwsKmsConnectorProps {
   isEditMode: boolean
   mock?: any
   connectorInfo?: ConnectorInfoDTO | void
+  gitDetails?: IGitContextFormProps
 }
 
 export interface StepSecretManagerProps extends ConnectorInfoDTO {
@@ -40,6 +46,7 @@ const CreateAwsKmsConnector: React.FC<CreateAwsKmsConnectorProps> = props => {
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mock}
+        gitDetails={props.gitDetails}
       />
       <AwsKmsConfig
         name={getString('details')}
@@ -55,6 +62,7 @@ const CreateAwsKmsConnector: React.FC<CreateAwsKmsConnectorProps> = props => {
         onClose={onClose}
         isLastStep={true}
         type={Connectors.AWS_KMS}
+        stepIndex={SECRET_MANAGER_TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

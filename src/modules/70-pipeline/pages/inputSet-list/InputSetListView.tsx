@@ -28,6 +28,7 @@ interface InputSetListViewProps {
   refetchInputSet?: () => void
   gotoPage: (pageNumber: number) => void
   canUpdate?: boolean
+  pipelineHasRuntimeInputs?: boolean
 }
 
 interface InputSetLocal extends InputSetSummaryResponse {
@@ -114,7 +115,7 @@ export const RenderGitDetails: Renderer<CellProps<InputSetLocal>> = ({ row }) =>
   )
 }
 
-const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
+const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
   const data = row.original
   const { getString } = useStrings()
 
@@ -140,6 +141,7 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
 
   return (
     <RbacButton
+      disabled={!(column as any)?.pipelineHasRuntimeInputs}
       icon="run-pipeline"
       className={css.runPipelineBtn}
       intent="primary"
@@ -177,7 +179,9 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
     contentText: getString('inputSets.confirmDeleteText', {
       name: data.name,
       type:
-        data.inputSetType === 'OVERLAY_INPUT_SET' ? getString('inputSets.overlayInputSet') : getString('inputSetsText')
+        data.inputSetType === 'OVERLAY_INPUT_SET'
+          ? getString('inputSets.overlayInputSet')
+          : getString('inputSets.inputSetLabel')
     }),
 
     titleText: getString('inputSets.confirmDeleteTitle', {
@@ -273,7 +277,8 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
   goToInputSetDetail,
   refetchInputSet,
   cloneInputSet,
-  canUpdate = true
+  canUpdate = true,
+  pipelineHasRuntimeInputs
 }): JSX.Element => {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
@@ -282,47 +287,36 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       {
         Header: getString('inputSets.inputSetLabel').toUpperCase(),
         accessor: 'name',
-        width: isGitSyncEnabled ? '20%' : '25%',
+        width: isGitSyncEnabled ? '25%' : '30%',
         Cell: RenderColumnInputSet
       },
       {
         Header: getString('description').toUpperCase(),
         accessor: 'description',
-        width: '20%',
+        width: isGitSyncEnabled ? '30%' : '35%',
         Cell: RenderColumnDescription,
         disableSortBy: true
       },
       {
         Header: getString('common.gitSync.repoDetails').toUpperCase(),
         accessor: 'gitDetails',
-        width: '20%',
+        width: '25%',
         Cell: RenderGitDetails,
-        disableSortBy: true
-      },
-      {
-        Header: getString('lastUpdatedBy').toUpperCase(),
-        accessor: 'lastUpdatedBy',
-        width: '10%',
-        disableSortBy: true
-      },
-      {
-        Header: getString('createdBy').toUpperCase(),
-        accessor: 'createdBy',
-        width: '10%',
         disableSortBy: true
       },
       {
         Header: getString('action').toUpperCase(),
         accessor: 'identifier',
-        width: '15%',
+        width: isGitSyncEnabled ? '15%' : '30%',
         Cell: RenderColumnActions,
         disableSortBy: true,
-        goToInputSetDetail
+        goToInputSetDetail,
+        pipelineHasRuntimeInputs
       },
       {
         Header: '',
         accessor: 'action',
-        width: isGitSyncEnabled ? '5%' : '20%',
+        width: '5%',
         Cell: RenderColumnMenu,
         disableSortBy: true,
         goToInputSetDetail,
@@ -331,7 +325,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         canUpdate
       }
     ],
-    [goToInputSetDetail, refetchInputSet, cloneInputSet]
+    [goToInputSetDetail, refetchInputSet, cloneInputSet, pipelineHasRuntimeInputs]
   )
 
   if (!isGitSyncEnabled) {
@@ -343,7 +337,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       className={css.table}
       columns={columns}
       data={data?.content || /* istanbul ignore next */ []}
-      onRowClick={item => goToInputSetDetail?.(item)}
+      onRowClick={item => pipelineHasRuntimeInputs && goToInputSetDetail?.(item)}
       pagination={{
         itemCount: data?.totalItems || /* istanbul ignore next */ 0,
         pageSize: data?.pageSize || /* istanbul ignore next */ 10,

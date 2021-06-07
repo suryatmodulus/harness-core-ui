@@ -3,7 +3,6 @@ import type { FormikProps } from 'formik'
 import { Formik, FormikForm, Accordion } from '@wings-software/uicore'
 import * as Yup from 'yup'
 
-import { cloneDeep } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import {
   AdvancedPanels,
@@ -20,7 +19,6 @@ import FailureStrategyPanel from './FailureStrategyPanel/FailureStrategyPanel'
 import { getFailureStrategiesValidationSchema } from './FailureStrategyPanel/validation'
 import { Modes } from './common'
 import { StepType } from '../PipelineStepInterface'
-import { cvDefaultFailureStrategies } from './constants'
 import ConditionalExecutionPanel from './ConditionalExecutionPanel/ConditionalExecutionPanel'
 import css from './AdvancedSteps.module.scss'
 
@@ -30,12 +28,8 @@ export interface AdvancedStepsProps extends StepCommandsProps {
 
 export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: StepFormikFowardRef): React.ReactElement {
   function getInitialValues(step: ExecutionWrapper): Values {
-    let failureStrategies = step.failureStrategies
-    if (!step['failureStrategies'] && step.type === StepType.Verify) {
-      failureStrategies = cloneDeep(cvDefaultFailureStrategies)
-    }
     return {
-      failureStrategies,
+      failureStrategies: step.failureStrategies,
       delegateSelectors: step.spec?.delegateSelectors || [],
       when: step.when
     }

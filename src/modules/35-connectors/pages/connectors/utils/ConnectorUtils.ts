@@ -110,7 +110,7 @@ const buildAuthTypePayload = (formData: FormData) => {
       return {
         clientKeyRef: formData.clientKey.referenceString,
         clientCertRef: formData.clientKeyCertificate.referenceString,
-        clientKeyPassphraseRef: formData.clientKeyPassphrase.referenceString,
+        clientKeyPassphraseRef: formData.clientKeyPassphrase?.referenceString,
         caCertRef: formData.clientKeyCACertificate?.referenceString, // optional
         clientKeyAlgo: formData.clientKeyAlgo
       }
@@ -654,7 +654,7 @@ export const buildAWSPayload = (formData: FormData) => {
         crossAccountAccess: formData.crossAccountAccess
           ? {
               crossAccountRoleArn: formData.crossAccountRoleArn,
-              externalId: formData.externalId
+              externalId: formData.externalId.length ? formData.externalId : null
             }
           : null
       }
@@ -987,6 +987,47 @@ export const buildPrometheusPayload = (formData: FormData) => {
   }
 }
 
+export interface DatadogInitialValue {
+  apiKeyRef?: SecretReferenceInterface | void
+  applicationKeyRef?: SecretReferenceInterface | void
+  accountId?: string | undefined
+  projectIdentifier?: string
+  orgIdentifier?: string
+  loading?: boolean
+}
+
+export const buildDatadogPayload = (formData: FormData) => {
+  const {
+    name,
+    identifier,
+    projectIdentifier,
+    orgIdentifier,
+    delegateSelectors,
+    url,
+    description,
+    tags,
+    apiKeyRef: { referenceString: apiReferenceKey },
+    applicationKeyRef: { referenceString: appReferenceKey }
+  } = formData
+  return {
+    connector: {
+      name,
+      identifier,
+      type: Connectors.DATADOG,
+      projectIdentifier,
+      orgIdentifier,
+      description,
+      tags,
+      spec: {
+        url,
+        apiKeyRef: apiReferenceKey,
+        applicationKeyRef: appReferenceKey,
+        delegateSelectors: delegateSelectors || {}
+      }
+    }
+  }
+}
+
 export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
   connector: {
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
@@ -1001,6 +1042,35 @@ export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
     }
   }
 })
+
+export const buildDynatracePayload = (formData: FormData) => {
+  return {
+    connector: {
+      name: formData.name,
+      identifier: formData.identifier,
+      type: Connectors.PROMETHEUS,
+      projectIdentifier: formData.projectIdentifier,
+      orgIdentifier: formData.orgIdentifier,
+      spec: {
+        delegateSelectors: formData.delegateSelectors || {},
+        url: formData.url,
+        apiToken: formData.apiToken,
+        accountId: formData.accountId
+      }
+    }
+  }
+}
+
+export const setupAzureKeyVaultFormData = (connectorInfo: ConnectorInfoDTO) => {
+  return {
+    clientId: connectorInfo?.spec?.clientId,
+    secretKey: connectorInfo?.spec?.secretKey,
+    tenantId: connectorInfo?.spec?.tenantId,
+    vaultName: connectorInfo?.spec?.vaultName,
+    subscription: connectorInfo?.spec?.subscription,
+    default: connectorInfo?.spec?.default
+  }
+}
 
 export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconName => {
   switch (type) {
@@ -1047,6 +1117,10 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'aws-kms'
     case Connectors.CE_AZURE:
       return 'service-azure'
+    case Connectors.DATADOG:
+      return 'service-datadog'
+    case Connectors.AZURE_KEY_VAULT:
+      return 'azure-key-vault'
     default:
       return 'cog'
   }
@@ -1098,6 +1172,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'AWS Secret Manager'
     case Connectors.AWS_KMS:
       return 'AWS KMS'
+    case Connectors.AZURE_KEY_VAULT:
+      return 'Azure Key Vault'
     default:
       return ''
   }
@@ -1151,6 +1227,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.docker')
     case Connectors.AWS:
       return getString('connectors.testConnectionStep.validationText.aws')
+    case Connectors.Jira:
+      return getString('connectors.testConnectionStep.validationText.jira')
     case Connectors.NEXUS:
       return getString('connectors.testConnectionStep.validationText.nexus')
     case Connectors.ARTIFACTORY:
@@ -1175,6 +1253,10 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.git')
     case Connectors.CE_AZURE:
       return getString('connectors.testConnectionStep.validationText.azure')
+    case Connectors.DATADOG:
+      return getString('connectors.testConnectionStep.validationText.datadog')
+    case Connectors.CE_AZURE_KEY_VAULT:
+      return getString('connectors.testConnectionStep.validationText.azureKeyVault')
     default:
       return ''
   }
@@ -1213,6 +1295,8 @@ export const getUrlValueByType = (type: ConnectorInfoDTO['type'], connector: Con
   }
 }
 
+// No usages: enable when used
+/* istanbul ignore next */
 export const getInvocationPathsForSecrets = (type: ConnectorInfoDTO['type'] | 'Unknown'): Set<RegExp> => {
   switch (type) {
     case 'K8sCluster':

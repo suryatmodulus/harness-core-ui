@@ -1,10 +1,3 @@
-.listWrapper {
-  border-top: 0.5px solid var(--grey-200) !important;
-  border-bottom: 0.5px solid var(--grey-200) !important;
-  background-color: var(--white) !important;
-  height: 72px;
-  padding: 18px 30px !important;
-}
 .header {
   padding: var(--spacing-large) !important;
   border-bottom: 1px solid var(--grey-300);
@@ -16,7 +9,6 @@
   padding-left: var(--spacing-xlarge) !important;
 }
 .listBody {
-  background-color: var(--grey-100) !important;
   min-height: calc(100vh - 136px);
   min-width: 900px;
 }

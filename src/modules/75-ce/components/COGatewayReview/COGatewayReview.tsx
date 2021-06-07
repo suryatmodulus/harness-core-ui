@@ -225,7 +225,7 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
           />
         </ReviewDetailsSection>
       )}
-      {props.gatewayDetails.healthCheck && (
+      {!_isEmpty(props.gatewayDetails.healthCheck) && (
         <ReviewDetailsSection
           isEditable
           onEdit={() =>
@@ -234,7 +234,7 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
         >
           <Heading level={2}>Health Check</Heading>
           <Table<HealthCheck>
-            data={[props.gatewayDetails.healthCheck]}
+            data={[props.gatewayDetails.healthCheck as HealthCheck]}
             className={css.instanceTable}
             bpTableProps={{}}
             columns={[

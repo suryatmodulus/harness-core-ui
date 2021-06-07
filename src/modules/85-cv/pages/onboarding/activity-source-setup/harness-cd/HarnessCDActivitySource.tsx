@@ -6,10 +6,12 @@ import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/strings'
 import { ResponseActivitySourceDTO, useGetActivitySource } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { PageSpinner } from '@common/components'
 import HarnessCDActivitySourceDetails from './HarnessCDActivitySourceDetails/HarnessCDActivitySourceDetails'
 import SelectApplication from './SelectApplication/SelectApplication'
 import SelectEnvironment from './SelectEnvironment/SelectEnvironment'
 import SelectServices from './SelectServices/SelectServices'
+import css from './_CVHarnessCDTables.module.scss'
 
 function transformPayload(response: ResponseActivitySourceDTO) {
   const resource = response.data as any
@@ -52,7 +54,7 @@ const HarnessCDActivitySource: React.FC = () => {
   const { onNext, currentData, setCurrentData, onPrevious, ...tabInfo } = useCVTabsHook<any>({ totalTabs: 4 })
   const params = useParams<ProjectPathProps & { activitySourceId: string }>()
 
-  const { refetch: loadActivitySource } = useGetActivitySource({
+  const { refetch: loadActivitySource, loading } = useGetActivitySource({
     queryParams: {
       accountId: params.accountId,
       orgIdentifier: params.orgIdentifier,
@@ -71,6 +73,14 @@ const HarnessCDActivitySource: React.FC = () => {
       loadActivitySource()
     }
   }, [params])
+
+  if (loading) {
+    return (
+      <Container className={css.loadingErrorNoData}>
+        <PageSpinner />
+      </Container>
+    )
+  }
 
   return (
     <Container>

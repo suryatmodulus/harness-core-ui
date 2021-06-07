@@ -134,7 +134,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
       if (secretTextSpec.valueType == 'Reference')
         items.push({ label: getString('secrets.labelPath'), value: secretTextSpec.value })
       items.push({
-        label: getString('secrets.labelSecretManager'),
+        label: getString('secrets.labelSecretsManager'),
         value: (secret.spec as SecretTextSpecDTO).secretManagerIdentifier
       })
     }
@@ -145,7 +145,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
         valueColor: Color.GREY_350
       })
       items.push({
-        label: getString('secrets.labelSecretManager'),
+        label: getString('secrets.labelSecretsManager'),
         value: (secret.spec as SecretTextSpecDTO).secretManagerIdentifier
       })
     }

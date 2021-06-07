@@ -109,7 +109,7 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
               disabled={harnessManaged}
               permission={{
                 ...permissionRequest,
-                permission: PermissionIdentifier.UPDATE_ROLE
+                permission: PermissionIdentifier.DELETE_ROLE
               }}
             />
           </Menu>

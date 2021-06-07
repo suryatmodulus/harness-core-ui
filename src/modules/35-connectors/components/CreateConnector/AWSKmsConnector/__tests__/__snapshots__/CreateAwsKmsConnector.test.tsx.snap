@@ -302,7 +302,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -640,7 +640,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span

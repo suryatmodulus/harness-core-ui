@@ -4,9 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import type { CIBuildResponseDTO } from '../../Types/types'
 import BuildInfo from '../BuildInfo'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 const getCiBuildResponse = (type: 'branch' | 'pullRequest'): CIBuildResponseDTO => {
   return {

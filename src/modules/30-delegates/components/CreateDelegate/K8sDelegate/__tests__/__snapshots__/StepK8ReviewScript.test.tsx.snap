@@ -11,9 +11,7 @@ exports[`Create Step Review Script Delegate render data 1`] = `
       <div
         class="collapseDiv"
       >
-        <div>
-          yamlDiv
-        </div>
+        <div />
       </div>
       <div
         class="Layout--horizontal StyledProps--main StyledProps--padding-small"

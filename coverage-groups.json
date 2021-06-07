@@ -3,7 +3,7 @@
     "Framework": ["src/framework/**"],
     "Notification": ["src/modules/15-notifications/**"],
     "Secrets": ["src/modules/30-secrets/**"],
-    "Projects & Orgs": ["src/modules/40-projects-orgs/**"],
+    "Projects & Orgs": ["src/modules/45-projects-orgs/**"],
     "CD": ["src/modules/75-cd/**"],
     "Pipeline": ["src/modules/70-pipeline/**"],
     "CV": [
@@ -13,7 +13,7 @@
     ],
     "Connectors": ["src/modules/35-connectors/**", "src/modules/10-common/components/YAMLBuilder/**"],
     "Delegates": ["src/modules/30-delegates/**"],
-    "GitSync": ["src/modules/60-gitsync/**"],
+    "GitSync": ["src/modules/40-gitsync/**"],
     "CI": ["src/modules/75-ci/**"],
     "CF": ["src/modules/75-cf/**"],
     "CE": ["src/modules/75-ce/**"],

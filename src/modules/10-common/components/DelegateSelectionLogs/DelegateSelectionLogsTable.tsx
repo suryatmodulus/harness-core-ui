@@ -1,24 +1,27 @@
 import React from 'react'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Layout, Color, Text, Card } from '@wings-software/uicore'
+import { Layout, Color, Text, Card, Icon } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { String, useStrings } from 'framework/strings'
 import type { DelegateSelectionLogParams } from 'services/portal'
+import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import css from './DelegateSelectionLogs.module.scss'
 
 const RenderColumnDelegateName: Renderer<CellProps<DelegateSelectionLogParams>> = ({ row }) => {
   const rowdata = row.original
-  const { getString } = useStrings()
   return (
-    <Layout.Vertical spacing="xsmall" padding="medium" style={{ paddingLeft: 0 }} data-testid={rowdata.delegateId}>
-      <Text lineClamp={1} color={Color.GREY_800}>
-        {rowdata.delegateName}
-      </Text>
-      <Text lineClamp={1} color={Color.GREY_400}>
-        {getString('taskId', { id: rowdata.delegateId })}
-      </Text>
-    </Layout.Vertical>
+    <Layout.Horizontal padding="medium" style={{ paddingLeft: 0 }} data-testid={rowdata.delegateId}>
+      <Icon name={delegateTypeToIcon(rowdata.delegateType || '')} size={24} />
+      <Layout.Vertical spacing="xsmall" padding={{ left: 'xsmall' }}>
+        <Text lineClamp={1} color={Color.BLACK}>
+          {rowdata.delegateName}
+        </Text>
+        <Text lineClamp={1} color={Color.GREY_400}>
+          {rowdata.delegateId}
+        </Text>
+      </Layout.Vertical>
+    </Layout.Horizontal>
   )
 }
 
@@ -75,7 +78,7 @@ export default function DelegateSelectionLogsTable({
     () => [
       {
         accessor: 'delegateName',
-        width: '30%',
+        width: '35%',
         Header: getString('delegate.DelegateName').toUpperCase(),
         Cell: RenderColumnDelegateName,
         disableSortBy: true
@@ -89,7 +92,7 @@ export default function DelegateSelectionLogsTable({
       },
       {
         accessor: 'message',
-        width: '50%',
+        width: '45%',
         Cell: RenderMessage,
         Header: getString('details').toUpperCase(),
         disableSortBy: true

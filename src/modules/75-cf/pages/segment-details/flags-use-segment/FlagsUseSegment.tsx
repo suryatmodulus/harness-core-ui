@@ -15,20 +15,20 @@ import {
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import { useToaster } from '@common/components'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { DetailHeading } from '../DetailHeading'
 
 export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }> = () => {
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, segmentIdentifier } = useParams<
-    Record<string, string>
-  >()
+  const { accountId, orgIdentifier, projectIdentifier, segmentIdentifier } = useParams<Record<string, string>>()
+  const { activeEnvironment } = useActiveEnvironment()
   const queryParams = {
     account: accountId,
     accountIdentifier: accountId,
     org: orgIdentifier,
     project: projectIdentifier,
-    environment: environmentIdentifier
+    environment: activeEnvironment
   }
   const { loading, error, data: flags, refetch: refetchFlags } = useGetSegmentFlags({
     identifier: segmentIdentifier,
@@ -59,7 +59,7 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
       .then(() => {
         refetchFlags()
       })
-      .catch(exception => showError(getErrorMessage(exception)))
+      .catch(exception => showError(getErrorMessage(exception), undefined, 'cf.path.feature.error'))
   }
   const removeSegmentToVariationTargetMap = async (
     featureFlagIdentifier: string,
@@ -79,7 +79,7 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
       .then(() => {
         refetchFlags()
       })
-      .catch(exception => showError(getErrorMessage(exception)))
+      .catch(exception => showError(getErrorMessage(exception), undefined, 'cf.patch.feature.error'))
   }
 
   return (
@@ -98,7 +98,7 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
           accountId={accountId}
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
-          environmentIdentifier={environmentIdentifier}
+          environmentIdentifier={activeEnvironment}
           modalTitle={getString('cf.segmentDetail.addSegmentToFlag')}
           submitButtonTitle={getString('add')}
           onSubmit={addSegmentToFlags}

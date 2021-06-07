@@ -7,7 +7,12 @@ export type ReactMonacoEditorRef =
   | MutableRefObject<ReactMonacoEditor | null>
   | null
 
-const MonacoEditor = (props: MonacoEditorProps, ref: ReactMonacoEditorRef) => {
+export interface ExtendedMonacoEditorProps extends MonacoEditorProps {
+  name?: string
+  'data-testid'?: string
+}
+
+const MonacoEditor = (props: ExtendedMonacoEditorProps, ref: ReactMonacoEditorRef) => {
   React.useEffect(() => {
     const remeasureFonts = () => {
       //@ts-ignore
@@ -24,21 +29,20 @@ const MonacoEditor = (props: MonacoEditorProps, ref: ReactMonacoEditorRef) => {
     }
   }, [])
 
-  const editorDidMount = () => {
-    if (props.options?.readOnly) {
-      monaco?.editor?.defineTheme('disable-theme', {
-        base: 'vs',
-        inherit: true,
-        rules: [{ background: 'd9dae5' }],
-        colors: {
-          'editor.background': '#d9dae5'
-        }
-      })
-      monaco?.editor?.setTheme('disable-theme')
-    }
+  const editorWillMount = () => {
+    monaco?.editor?.defineTheme('disable-theme', {
+      base: 'vs',
+      inherit: true,
+      rules: [{ background: 'd9dae5' }],
+      colors: {
+        'editor.background': '#d9dae5'
+      }
+    })
   }
 
-  return <ReactMonacoEditor {...props} ref={ref} editorDidMount={editorDidMount} />
+  const theme = props.options?.readOnly ? 'disable-theme' : 'vs'
+
+  return <ReactMonacoEditor {...props} ref={ref} theme={theme} editorWillMount={editorWillMount} />
 }
 
 export default React.forwardRef(MonacoEditor)

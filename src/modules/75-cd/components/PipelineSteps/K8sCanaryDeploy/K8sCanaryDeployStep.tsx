@@ -14,7 +14,6 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import { FormMultiTypeCheckboxField, FormInstanceDropdown } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import {
-  DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -26,6 +25,7 @@ import { getInstanceDropdownSchema } from '@common/components/InstanceDropdownFi
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sCanaryDeployData extends StepElementConfig {
@@ -59,7 +59,7 @@ function K8CanaryDeployWidget(
 ): React.ReactElement {
   const { initialValues, onUpdate, isNewStep = true, readonly } = props
   const { getString } = useStrings()
-
+  const { expressions } = useVariablesExpression()
   return (
     <>
       <Formik<K8sCanaryDeployData>
@@ -97,6 +97,7 @@ function K8CanaryDeployWidget(
                   name={'spec.instanceSelection'}
                   label={getString('pipelineSteps.instanceLabel')}
                   readonly={readonly}
+                  expressions={expressions}
                 />
                 {(getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.count) === MultiTypeInputType.RUNTIME ||
                   getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.percentage) ===
@@ -123,7 +124,7 @@ function K8CanaryDeployWidget(
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
                   className={stepCss.duration}
-                  multiTypeDurationProps={{ enableConfigureOptions: false, disabled: readonly }}
+                  multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -143,6 +144,7 @@ function K8CanaryDeployWidget(
                 <FormMultiTypeCheckboxField
                   name="spec.skipDryRun"
                   label={getString('pipelineSteps.skipDryRun')}
+                  multiTypeTextbox={{ expressions, disabled: readonly }}
                   disabled={readonly}
                 />
               </div>
@@ -156,32 +158,50 @@ function K8CanaryDeployWidget(
 
 const K8CanaryDeployInputStep: React.FC<K8sCanaryDeployProps> = ({ template, readonly, path }) => {
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   const prefix = isEmpty(path) ? '' : `${path}.`
   return (
     <>
       {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
-        <DurationInputFieldForInputSet
-          label={getString('pipelineSteps.timeoutLabel')}
-          name={`${prefix}timeout`}
-          disabled={readonly}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.sm)}>
+          <FormMultiTypeDurationField
+            multiTypeDurationProps={{
+              enableConfigureOptions: false,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              expressions,
+              disabled: readonly
+            }}
+            label={getString('pipelineSteps.timeoutLabel')}
+            name={`${prefix}timeout`}
+            disabled={readonly}
+          />
+        </div>
       ) : null}
       {getMultiTypeFromValue(template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          name={`${prefix}spec.skipDryRun`}
-          className={stepCss.checkbox}
-          label={getString('pipelineSteps.skipDryRun')}
-          disabled={readonly}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.sm)}>
+          <FormMultiTypeCheckboxField
+            multiTypeTextbox={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+            }}
+            name={`${prefix}spec.skipDryRun`}
+            label={getString('pipelineSteps.skipDryRun')}
+            disabled={readonly}
+          />
+        </div>
       )}
       {(getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.count) === MultiTypeInputType.RUNTIME ||
         getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.percentage) === MultiTypeInputType.RUNTIME) && (
-        <FormInstanceDropdown
-          label={getString('pipelineSteps.instanceLabel')}
-          name={`${prefix}spec.instanceSelection`}
-          disabledType
-          disabled={readonly}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInstanceDropdown
+            expressions={expressions}
+            label={getString('pipelineSteps.instanceLabel')}
+            name={`${prefix}spec.instanceSelection`}
+            allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+            disabledType
+            disabled={readonly}
+          />
+        </div>
       )}
     </>
   )

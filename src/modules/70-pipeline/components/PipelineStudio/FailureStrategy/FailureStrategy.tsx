@@ -69,7 +69,7 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
       : [
           {
             onFailure: {
-              errors: [ErrorType.AnyOther],
+              errors: [ErrorType.Unknown],
               action: {
                 type: Strategy.StageRollback
               }

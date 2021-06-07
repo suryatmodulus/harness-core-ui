@@ -22,20 +22,20 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({
   const { getString } = useStrings()
 
   return (
-    <Layout.Vertical padding={{ top: 'large', left: 'xxxlarge', right: 'large' }}>
-      <Layout.Horizontal padding={{ top: 'large' }} spacing="small">
+    <Layout.Vertical padding={{ top: 'large', right: 'large' }}>
+      <Layout.Horizontal padding={{ top: 'large', left: 'xxxlarge' }} spacing="small">
         <Icon name={iconName as IconName} size={20} />
-        <Text style={{ color: Color.BLACK, fontSize: 'medium' }}>{title}</Text>
+        <Text color={Color.BLACK} font={'medium'}>
+          {title}
+        </Text>
         <Text
-          style={{
-            backgroundColor: 'var(--orange-500)',
-            color: Color.WHITE,
-            textAlign: 'center',
-            width: 120,
-            borderRadius: 3,
-            marginLeft: 30,
-            display: 'inline-block'
-          }}
+          background={Color.ORANGE_500}
+          color={Color.WHITE}
+          width={120}
+          border={{ radius: 3 }}
+          margin={{ left: 30 }}
+          inline
+          font={{ align: 'center' }}
         >
           {getString('common.trialInProgress')}
         </Text>
@@ -46,12 +46,19 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({
           padding={{ right: 'xxxlarge' }}
           style={{
             background: `transparent url(${imgSrc}) no-repeat`,
-            backgroundSize: 'cover',
+            backgroundSize: 'stretch',
             backgroundPositionX: '15%',
             backgroundPositionY: 'center'
           }}
         >
-          <Text style={{ fontSize: 'normal', width: 380, display: 'inline-block', marginLeft: 30, lineHeight: 2 }}>
+          <Text
+            padding={{ left: 'xxxlarge' }}
+            font={{ size: 'normal' }}
+            width={380}
+            inline
+            margin={{ left: 30 }}
+            style={{ lineHeight: 2 }}
+          >
             {description}
           </Text>
         </Container>

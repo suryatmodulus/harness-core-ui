@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import type { CellProps } from 'react-table'
 import { debounce as _debounce, isEmpty as _isEmpty, get as _get } from 'lodash-es'
-import { Dialog, IDialogProps } from '@blueprintjs/core'
+import { Dialog, Drawer, IDialogProps } from '@blueprintjs/core'
 import {
   Formik,
   FormikForm,
@@ -52,7 +52,7 @@ import spotIcon from './images/spotIcon.svg'
 import CORuleDendencySelector from './CORuleDependencySelector'
 import COGatewayConfigStep from './COGatewayConfigStep'
 import COAsgSelector from '../COAsgSelector'
-import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
+// import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
 import css from './COGatewayConfig.module.scss'
 
 interface COGatewayConfigProps {
@@ -121,7 +121,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const [filteredInstances, setFilteredInstances] = useState<InstanceDetails[]>([])
   const [allInstances, setAllInstances] = useState<InstanceDetails[]>([])
   const [healthCheck, setHealthCheck] = useState<boolean>(props.gatewayDetails.healthCheck ? true : false)
-  const [healthCheckPattern, setHealthCheckPattern] = useState<HealthCheck>(props.gatewayDetails.healthCheck)
+  const [healthCheckPattern, setHealthCheckPattern] = useState<HealthCheck | null>(props.gatewayDetails.healthCheck)
   const [gatewayName, setGatewayName] = useState<string>(props.gatewayDetails.name)
   const [idleTime, setIdleTime] = useState<number>(props.gatewayDetails.idleTimeMins)
   const [fullfilment, setFullfilment] = useState<string>(props.gatewayDetails.fullfilment)
@@ -133,7 +133,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   // )
   const [routingRecords, setRoutingRecords] = useState<PortConfig[]>(props.gatewayDetails.routing.ports)
   const [serviceDependencies, setServiceDependencies] = useState<ServiceDep[]>(props.gatewayDetails.deps || [])
-  const [, setDrawerOpen] = useState<boolean>(!props.gatewayDetails.fullfilment)
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
   const [selectedResource, setSelectedResource] = useState<RESOURCES | null>(
     !_isEmpty(props.gatewayDetails.selectedInstances)
       ? RESOURCES.INSTANCES
@@ -218,7 +218,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     debounce: 300
   })
   if (error) {
-    showError('Faield to fetch services')
+    showError('Faield to fetch services', undefined, 'ce.svc.fetch.error')
   }
 
   const [openInstancesModal, closeInstancesModal] = useModalHook(() => {
@@ -339,13 +339,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     props.setGatewayDetails(props.gatewayDetails)
   }, [serviceDependencies])
   useEffect(() => {
-    if (healthCheck) {
-      props.gatewayDetails.healthCheck = healthCheckPattern
-      props.setGatewayDetails(props.gatewayDetails)
-    } else {
-      props.gatewayDetails.healthCheck = {}
-      props.setGatewayDetails(props.gatewayDetails)
-    }
+    const updatedGatewayDetails = { ...props.gatewayDetails, healthCheck: healthCheckPattern }
+    props.setGatewayDetails(updatedGatewayDetails)
   }, [healthCheckPattern])
   const refreshInstances = async (): Promise<void> => {
     try {
@@ -380,7 +375,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         setFilteredInstances(instances)
       }
     } catch (e) {
-      showError(e.data?.message || e.message)
+      showError(e.data?.message || e.message, undefined, 'ce.refetch.instance.error')
     }
   }
 
@@ -392,7 +387,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         setAllAsg(filteredAsgs)
       }
     } catch (err) {
-      showError(err.data?.message || err.message)
+      showError(err.data?.message || err.message, undefined, 'ce.fetchAndSetAsgItems.error')
     }
   }
 
@@ -443,7 +438,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         })
       }
     } catch (e) {
-      showError(e.data?.message || e.message)
+      showError(e.data?.message || e.message, undefined, 'ce.creaetap.result.error')
     }
   }
 
@@ -624,12 +619,50 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     }
   }
 
+  const handleHealthCheckToggle = (toggleStatus: boolean) => {
+    setHealthCheckPattern(toggleStatus ? Utils.getDefaultRuleHealthCheck() : null)
+    setHealthCheck(toggleStatus)
+  }
+
+  const step4Title = isAwsProvider
+    ? `${getString('ce.co.gatewayReview.routing')}, ${getString('ce.co.gatewayConfig.healthCheck')} and ${getString(
+        'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration'
+      )}`
+    : `${getString('ce.co.gatewayReview.routing')} and ${getString('ce.co.gatewayConfig.healthCheck')}`
+
   return (
     <Layout.Vertical ref={configContEl} className={css.page}>
-      <COFixedDrawer
-        topMargin={85}
-        content={<COHelpSidebar pageName="configuration" activeSectionNames={activeDrawerIds} />}
-      />
+      {/* {drawerOpen && (
+        <COFixedDrawer
+          topMargin={85}
+          content={<COHelpSidebar pageName="configuration" activeSectionNames={activeDrawerIds} />}
+          onClose={() => setDrawerOpen(false)}
+        />
+      )} */}
+      <Drawer
+        autoFocus={true}
+        enforceFocus={true}
+        hasBackdrop={true}
+        usePortal={true}
+        canOutsideClickClose={true}
+        canEscapeKeyClose={true}
+        isOpen={drawerOpen}
+        onClose={() => {
+          setDrawerOpen(false)
+        }}
+        size="392px"
+        style={{
+          // top: '85px',
+          boxShadow: 'rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px',
+          height: '100vh',
+          overflowY: 'scroll'
+        }}
+      >
+        <Container style={{ textAlign: 'right' }}>
+          <Button icon="cross" minimal onClick={_ => setDrawerOpen(false)} />
+        </Container>
+        <COHelpSidebar pageName="configuration" activeSectionNames={activeDrawerIds} />
+      </Drawer>
       <Container style={{ paddingTop: 10 }}>
         <Layout.Vertical spacing="large" padding="large">
           <COGatewayConfigStep
@@ -642,7 +675,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             <Layout.Horizontal>
               <Card interactive={false} className={css.displayCard}>
                 <Icon name={props.gatewayDetails.provider.icon as IconName} size={30} />
-                <Text style={{ marginTop: '5px' }} font="medium">
+                <Text style={{ marginTop: '5px' }} font="small">
                   {props.gatewayDetails.provider.name}
                 </Text>
               </Card>
@@ -665,6 +698,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                         <FormInput.Text
                           name="gatewayName"
                           label={getString('ce.co.gatewayConfig.name')}
+                          placeholder={getString('ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder')}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             formik.setFieldValue('gatewayName', e.target.value)
                             props.gatewayDetails.name = e.target.value
@@ -685,6 +719,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                         </Text>
                         <FormInput.Text
                           name="idleTime"
+                          placeholder={getString('ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder')}
                           label={
                             <Layout.Horizontal spacing="small">
                               <Text style={{ fontSize: 13 }}>
@@ -692,7 +727,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                               </Text>
                             </Layout.Horizontal>
                           }
-                          placeholder="Enter time"
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             formik.setFieldValue('idleTime', e.target.value)
                             props.gatewayDetails.idleTimeMins = +e.target.value
@@ -715,7 +749,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
           <COGatewayConfigStep
             count={2}
             title={getString('ce.co.autoStoppingRule.configuration.step2.title')}
-            // subTitle={'You can manage multiple instances or a Auto Scaling group using and AutoStopping rule.'}
+            onInfoIconClick={() => setDrawerOpen(true)}
             subTitle={getString('ce.co.autoStoppingRule.configuration.step2.subTitle')}
             totalStepsCount={4}
             id={CONFIG_STEP_IDS[1]}
@@ -848,6 +882,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                 ? getString('ce.co.autoStoppingRule.configuration.step3.asgTitle')
                 : getString('ce.co.autoStoppingRule.configuration.step3.title')
             }
+            onInfoIconClick={() => setDrawerOpen(true)}
             subTitle={
               selectedAsg
                 ? getString('ce.co.autoStoppingRule.configuration.step3.asgSubTitle')
@@ -878,7 +913,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                   selected={selectedInstanceType}
                   cornerSelected={true}
                 ></CardSelect>
-                <Layout.Horizontal spacing="medium" className={css.instanceTypeNameGrid}>
+                <Layout.Horizontal spacing="small" className={css.instanceTypeNameGrid}>
                   {instanceTypeCardData
                     .filter(_instanceType => _instanceType.providers?.includes(props.gatewayDetails.provider.value))
                     .map(_item => {
@@ -974,7 +1009,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
           </COGatewayConfigStep>
           <COGatewayConfigStep
             count={4}
-            title={getString('ce.co.autoStoppingRule.configuration.step4.title')}
+            title={`${getString('ce.co.autoStoppingRule.configuration.step4.setup')} ${step4Title}`}
             totalStepsCount={4}
             id={CONFIG_STEP_IDS[3]}
           >
@@ -1025,7 +1060,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                               label={getString('ce.co.gatewayConfig.healthCheck')}
                               className={css.switchFont}
                               onChange={e => {
-                                setHealthCheck(e.currentTarget.checked)
+                                handleHealthCheckToggle(e.currentTarget.checked)
                               }}
                               checked={healthCheck}
                             />
@@ -1036,13 +1071,14 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                         </Container>
                       }
                     />
-                    <Tab
-                      id="advanced"
-                      title="Advanced Configuration"
-                      panel={
-                        <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
-                          <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
-                            {/* <Switch
+                    {isAwsProvider && (
+                      <Tab
+                        id="advanced"
+                        title="Advanced Configuration"
+                        panel={
+                          <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
+                            <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
+                              {/* <Switch
                               label={getString('ce.co.gatewayConfig.allowTraffic')}
                               width="50%"
                               className={css.switchFont}
@@ -1064,28 +1100,29 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                                 props.setGatewayDetails(props.gatewayDetails)
                               }}
                             /> */}
-                            {serviceDependencies && serviceDependencies.length ? (
-                              <CORuleDendencySelector
-                                deps={serviceDependencies}
-                                setDeps={setServiceDependencies}
-                                service_id={props.gatewayDetails.id}
-                                allServices={data?.response as Service[]}
-                              ></CORuleDendencySelector>
-                            ) : null}
-                            <Container>
-                              <Text
-                                onClick={() => {
-                                  addDependency()
-                                }}
-                                style={{ color: 'var(--primary-7)', cursor: 'pointer' }}
-                              >
-                                {'+ add dependency'}
-                              </Text>
-                            </Container>
-                          </Layout.Vertical>
-                        </Container>
-                      }
-                    />
+                              {serviceDependencies && serviceDependencies.length ? (
+                                <CORuleDendencySelector
+                                  deps={serviceDependencies}
+                                  setDeps={setServiceDependencies}
+                                  service_id={props.gatewayDetails.id}
+                                  allServices={data?.response as Service[]}
+                                ></CORuleDendencySelector>
+                              ) : null}
+                              <Container>
+                                <Text
+                                  onClick={() => {
+                                    addDependency()
+                                  }}
+                                  style={{ color: 'var(--primary-7)', cursor: 'pointer' }}
+                                >
+                                  {'+ add dependency'}
+                                </Text>
+                              </Container>
+                            </Layout.Vertical>
+                          </Container>
+                        }
+                      />
+                    )}
                   </Tabs>
                 </Container>
               </Container>

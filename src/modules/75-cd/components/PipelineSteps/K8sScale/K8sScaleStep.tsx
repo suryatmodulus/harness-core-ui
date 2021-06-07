@@ -25,7 +25,6 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import { FormInstanceDropdown, FormMultiTypeCheckboxField } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import {
-  DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -38,6 +37,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sScaleData extends StepElementConfig {
@@ -69,7 +69,7 @@ interface K8sScaleProps {
 function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRef<K8sScaleData>): React.ReactElement {
   const { initialValues, onUpdate, isNewStep = true, readonly } = props
   const { getString } = useStrings()
-
+  const { expressions } = useVariablesExpression()
   return (
     <>
       <Formik<K8sScaleData>
@@ -108,6 +108,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     name={'spec.instanceSelection'}
                     label={getString('pipelineSteps.instanceLabel')}
                     readonly={readonly}
+                    expressions={expressions}
                   />
                   {(getMultiTypeFromValue(
                     (values?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count as any
@@ -140,6 +141,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     name={'spec.workload'}
                     isOptional={true}
                     disabled={readonly}
+                    multiTextInputProps={{ expressions, disabled: readonly }}
                   />
                   {getMultiTypeFromValue(values.spec.workload) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -161,7 +163,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
-                    multiTypeDurationProps={{ enableConfigureOptions: false, disabled: readonly }}
+                    multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -181,6 +183,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   <FormMultiTypeCheckboxField
                     name="spec.skipSteadyStateCheck"
                     label={getString('pipelineSteps.skipSteadyStateCheck')}
+                    multiTypeTextbox={{ expressions, disabled: readonly }}
                     disabled={readonly}
                   />
                 </div>
@@ -196,17 +199,37 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
 const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path }) => {
   const { getString } = useStrings()
   const prefix = isEmpty(path) ? '' : `${path}.`
+  const { expressions } = useVariablesExpression()
   return (
     <>
       {getMultiTypeFromValue(template?.spec?.workload) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text name="spec.workload" label={getString('pipelineSteps.workload')} disabled={readonly} />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.MultiTextInput
+            name="spec.workload"
+            label={getString('pipelineSteps.workload')}
+            disabled={readonly}
+            multiTextInputProps={{
+              expressions,
+              disabled: readonly,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+            }}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
-        <DurationInputFieldForInputSet
-          label={getString('pipelineSteps.timeoutLabel')}
-          name={`${prefix}timeout`}
-          disabled={readonly}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.sm)}>
+          <FormMultiTypeDurationField
+            multiTypeDurationProps={{
+              enableConfigureOptions: false,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              expressions,
+              disabled: readonly
+            }}
+            label={getString('pipelineSteps.timeoutLabel')}
+            name={`${prefix}timeout`}
+            disabled={readonly}
+          />
+        </div>
       ) : null}
       {(getMultiTypeFromValue(
         (template?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count as any
@@ -214,12 +237,16 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
         getMultiTypeFromValue(
           (template?.spec?.instanceSelection?.spec as PercentageInstanceSelectionK8 | undefined)?.percentage
         ) === MultiTypeInputType.RUNTIME) && (
-        <FormInstanceDropdown
-          label={getString('pipelineSteps.instanceLabel')}
-          name={`${prefix}spec.instanceSelection`}
-          disabledType
-          disabled={readonly}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInstanceDropdown
+            label={getString('pipelineSteps.instanceLabel')}
+            name={`${prefix}spec.instanceSelection`}
+            expressions={expressions}
+            allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+            disabledType
+            disabled={readonly}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(template?.spec?.skipSteadyStateCheck) === MultiTypeInputType.RUNTIME && (
         <FormInput.CheckBox

@@ -13,9 +13,7 @@ import {
   mockYamlSnippetResponse
 } from './ApprovalStageTestsHelper'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('lodash-es', () => ({
   ...(jest.requireActual('lodash-es') as Record<string, any>),
@@ -78,7 +76,8 @@ describe('Approval Stage minimal view', () => {
       name: 'stagename',
       identifier: 'stagename',
       description: undefined,
-      approvalType: 'HarnessApproval'
+      approvalType: 'HarnessApproval',
+      tags: {}
     })
     act(() => {
       fireEvent.click(getByText('Harness Approval'))
@@ -94,7 +93,8 @@ describe('Approval Stage minimal view', () => {
             name: 'stagename',
             identifier: 'stagename',
             description: undefined,
-            approvalType: 'HarnessApproval'
+            approvalType: 'HarnessApproval',
+            tags: {}
           }
         },
         'stagename'
@@ -139,7 +139,8 @@ describe('Jira Approval Stage minimal view', () => {
       name: 'stagename',
       identifier: 'stagename',
       description: undefined,
-      approvalType: 'JiraApproval'
+      approvalType: 'JiraApproval',
+      tags: {}
     })
 
     act(() => {
@@ -152,7 +153,8 @@ describe('Jira Approval Stage minimal view', () => {
             name: 'stagename',
             identifier: 'stagename',
             description: undefined,
-            approvalType: 'JiraApproval'
+            approvalType: 'JiraApproval',
+            tags: {}
           }
         },
         'stagename'

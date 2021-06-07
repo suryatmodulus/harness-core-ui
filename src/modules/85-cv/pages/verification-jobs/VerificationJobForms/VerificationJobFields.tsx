@@ -359,10 +359,14 @@ export function BaselineSelect(props: BaseFieldProps): JSX.Element {
   }
 }
 
-export function DataSources(props: BaseFieldProps & { formik: FormikProps<any> }): JSX.Element {
+export function DataSources(
+  props: BaseFieldProps & { formik: FormikProps<any> } & { allMonitoringSourcesEnabled?: boolean }
+): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
-  const [monitoringOptions, setMonitoringOptions] = useState([{ label: getString('all'), value: getString('all') }])
+  const [monitoringOptions, setMonitoringOptions] = useState([
+    { label: getString('all'), value: getString('all'), disabled: false }
+  ])
   const { data, loading } = useGetMonitoringSources({
     queryParams: {
       accountId,
@@ -384,8 +388,33 @@ export function DataSources(props: BaseFieldProps & { formik: FormikProps<any> }
       }
     }
     setMonitoringOptions(monitoringOptions.concat(options as any))
-    props.formik.setFieldValue('dataSourceOptions', options)
+    props.formik.setFieldValue('dataSourceOptions', monitoringOptions.concat(options as any))
+    if (props.formik?.values?.allMonitoringSourcesEnabled) {
+      const allSelected = monitoringOptions.concat(options as any).map(item => {
+        item.disabled = item.value !== getString('all')
+        return item
+      })
+      props.formik.setFieldValue('dataSource', allSelected)
+    }
   }, [data])
+
+  const onChangeMultiSelect = (value: MultiSelectOption[], formik: FormikProps<any>): void => {
+    const hasAll = value.find(item => item.value === getString('all'))
+    if (hasAll) {
+      const disableAll = formik?.values?.dataSourceOptions?.map((item: { disabled: boolean; value: string }) => {
+        item.disabled = item.value !== getString('all')
+        return item
+      })
+      formik.setFieldValue('dataSourceOptions', disableAll)
+      formik.setFieldValue('dataSource', disableAll)
+    } else {
+      const enableAll = formik?.values?.dataSourceOptions?.map((item: { disabled: boolean }) => {
+        item.disabled = false
+        return item
+      })
+      formik.setFieldValue('dataSourceOptions', enableAll)
+    }
+  }
 
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 4 }), [zIndex]) as CSSProperties
@@ -393,8 +422,10 @@ export function DataSources(props: BaseFieldProps & { formik: FormikProps<any> }
     <FormInput.MultiSelect
       name="dataSource"
       style={style}
+      className={css.multiSelect}
       key={monitoringOptions?.[0]?.label}
       label={getString('monitoringSource')}
+      onChange={value => onChangeMultiSelect(value, props.formik)}
       items={loading ? [{ label: getString('loading'), value: getString('loading') }] : monitoringOptions}
     />
   )

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Container, Layout } from '@wings-software/uicore'
-import { NavLink, useParams } from 'react-router-dom'
+import { Container, Layout, TabNavigation } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import {
@@ -15,7 +15,6 @@ import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-import css from './TriggerDetails.module.scss'
 
 export const TriggerBreadcrumbs = ({
   triggerResponse,
@@ -48,7 +47,8 @@ export const TriggerBreadcrumbs = ({
           url: routes.toCDProjectOverview({
             orgIdentifier,
             projectIdentifier,
-            accountId
+            accountId,
+            module
           }),
           label: project?.name as string
         },
@@ -92,69 +92,59 @@ const GetTriggerRightNav = (pipelineResponse: ResponsePMSPipelineSummaryResponse
   const { getString } = useStrings()
   return (
     <Container>
-      <Layout.Horizontal spacing="medium">
-        <NavLink
-          className={css.tags}
-          activeClassName={css.activeTag}
-          to={routes.toPipelineStudio({
-            orgIdentifier,
-            projectIdentifier,
-            pipelineIdentifier,
-            accountId,
-            module,
-            branch: pipelineResponse?.data?.gitDetails?.branch,
-            repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
-          })}
-        >
-          {getString('pipelineStudio')}
-        </NavLink>
-
-        <NavLink
-          className={css.tags}
-          activeClassName={css.activeTag}
-          to={routes.toInputSetList({
-            orgIdentifier,
-            projectIdentifier,
-            pipelineIdentifier,
-            accountId,
-            module,
-            branch: pipelineResponse?.data?.gitDetails?.branch,
-            repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
-          })}
-        >
-          {getString('inputSetsText')}
-        </NavLink>
-        <NavLink
-          className={css.tags}
-          activeClassName={css.activeTag}
-          to={routes.toTriggersPage({
-            orgIdentifier,
-            projectIdentifier,
-            pipelineIdentifier,
-            accountId,
-            module,
-            branch: pipelineResponse?.data?.gitDetails?.branch,
-            repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
-          })}
-        >
-          {getString('pipeline.triggers.triggersLabel')}
-        </NavLink>
-        <NavLink
-          className={css.tags}
-          activeClassName={css.activeTag}
-          to={routes.toPipelineDeploymentList({
-            orgIdentifier,
-            projectIdentifier,
-            pipelineIdentifier,
-            accountId,
-            module,
-            branch: pipelineResponse?.data?.gitDetails?.branch,
-            repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
-          })}
-        >
-          {getString('executionHeaderText')}
-        </NavLink>
-      </Layout.Horizontal>
+      <TabNavigation
+        size={'small'}
+        links={[
+          {
+            label: getString('pipelineStudio'),
+            to: routes.toPipelineStudio({
+              orgIdentifier,
+              projectIdentifier,
+              pipelineIdentifier,
+              accountId,
+              module,
+              branch: pipelineResponse?.data?.gitDetails?.branch,
+              repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
+            })
+          },
+          {
+            label: getString('inputSetsText'),
+            to: routes.toInputSetList({
+              orgIdentifier,
+              projectIdentifier,
+              pipelineIdentifier,
+              accountId,
+              module,
+              branch: pipelineResponse?.data?.gitDetails?.branch,
+              repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
+            })
+          },
+          {
+            label: getString('pipeline.triggers.triggersLabel'),
+            to: routes.toTriggersPage({
+              orgIdentifier,
+              projectIdentifier,
+              pipelineIdentifier,
+              accountId,
+              module,
+              branch: pipelineResponse?.data?.gitDetails?.branch,
+              repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
+            })
+          },
+          {
+            label: getString('executionHeaderText'),
+            to: routes.toPipelineDeploymentList({
+              orgIdentifier,
+              projectIdentifier,
+              pipelineIdentifier,
+              accountId,
+              module,
+              branch: pipelineResponse?.data?.gitDetails?.branch,
+              repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
+            })
+          }
+        ]}
+      />
     </Container>
   )
 }

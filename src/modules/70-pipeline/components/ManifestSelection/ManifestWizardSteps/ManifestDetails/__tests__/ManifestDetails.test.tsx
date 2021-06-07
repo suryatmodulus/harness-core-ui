@@ -10,7 +10,8 @@ const props = {
   stepName: 'Manifest details',
   expressions: [],
   handleSubmit: jest.fn(),
-  selectedManifest: 'Values'
+  selectedManifest: 'Values',
+  manifestIdsList: []
 }
 const initialValues = {
   identifier: '',
@@ -115,6 +116,7 @@ describe('Manifest Details tests', () => {
   test('renders form in edit mode', () => {
     const defaultProps = {
       stepName: 'Manifest details',
+      manifestIdsList: [],
       expressions: [],
       initialValues: {
         identifier: 'testidentifier',
@@ -150,6 +152,7 @@ describe('Manifest Details tests', () => {
   test('renders form in edit mode - when gitfetchtype is commitid', () => {
     const defaultProps = {
       stepName: 'Manifest details',
+      manifestIdsList: [],
       expressions: [],
       initialValues: {
         identifier: 'testidentifier',
@@ -185,6 +188,7 @@ describe('Manifest Details tests', () => {
     const defaultProps = {
       stepName: 'Manifest details',
       expressions: [],
+      manifestIdsList: [],
       initialValues: {
         identifier: 'testidentifier',
         spec: {
@@ -218,6 +222,7 @@ describe('Manifest Details tests', () => {
 
   test('when connectionType is of repo', () => {
     const defaultProps = {
+      manifestIdsList: [],
       stepName: 'Manifest details',
       expressions: [],
       initialValues: {
@@ -273,6 +278,7 @@ describe('Manifest Details tests', () => {
     const defaultProps = {
       stepName: 'Manifest details',
       expressions: [],
+      manifestIdsList: [],
       initialValues: {
         identifier: 'testidentifier',
         spec: {

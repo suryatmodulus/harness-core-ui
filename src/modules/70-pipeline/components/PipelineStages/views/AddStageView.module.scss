@@ -39,9 +39,15 @@
     border-left: dashed 1px #ccc;
     padding: var(--spacing-xlarge);
     .stageTitle {
-      font-size: 14px;
+      font-size: var(--font-size-medium);
       font-weight: 600;
-      color: var(--black-color-1);
+      color: var(--grey-600);
+      margin-bottom: 12px;
+    }
+    .stageDescription {
+      font-size: var(--font-size-small);
+      font-weight: 600;
+      color: var(--grey-500);
       margin-bottom: 12px;
     }
   }

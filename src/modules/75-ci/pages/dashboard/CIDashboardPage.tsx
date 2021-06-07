@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import moment from 'moment'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -18,7 +17,6 @@ import BuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecution
 import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
 import RangeSelector from '@pipeline/components/Dashboards/RangeSelector'
 import styles from './CIDashboardPage.module.scss'
-// import '@pipeline/components/Dashboards/sharedStyles.module.scss'
 
 export const CIDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
@@ -31,7 +29,7 @@ export const CIDashboardPage: React.FC = () => {
 
   const { data, loading, error } = useGetBuilds({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier
     }
@@ -39,20 +37,20 @@ export const CIDashboardPage: React.FC = () => {
 
   const { data: repositoriesData, loading: loadingRepositories, error: repoError } = useGetRepositoryBuild({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startInterval: moment(repositoriesRange[0]).format('YYYY-MM-DD'),
-      endInterval: moment(repositoriesRange[1]).format('YYYY-MM-DD')
+      startTime: repositoriesRange[0],
+      endTime: repositoriesRange[1]
     }
   })
 
   useEffect(() => {
-    error?.message && showError(error?.message)
+    error?.message && showError(error?.message, undefined, 'ci.get.build.error')
   }, [error?.message])
 
   useEffect(() => {
-    repoError?.message && showError(repoError?.message)
+    repoError?.message && showError(repoError?.message, undefined, 'ci.get.repo.error')
   }, [repoError?.message])
 
   return (
@@ -93,9 +91,10 @@ export const CIDashboardPage: React.FC = () => {
               <RepositoryCard
                 key={index}
                 title={repo.name!}
-                message={repo.lastCommit!}
-                lastBuildStatus={(repo as any).lastStatus}
-                startTime={moment(repo.time, 'YYYY-MM-DD HH:mm:ss').valueOf()}
+                message={repo?.lastRepository?.commit}
+                lastBuildStatus={repo?.lastRepository?.status}
+                startTime={repo?.lastRepository?.startTime}
+                endTime={repo?.lastRepository?.endTime}
                 count={repo.buildCount!}
                 successRate={repo.percentSuccess!}
                 successRateDiff={repo.successRate!}
@@ -123,8 +122,8 @@ export const CIDashboardPage: React.FC = () => {
                 message={build.commit!}
                 branchName={build.branch}
                 commitId={build.commitID}
-                startTime={moment(build.startTs, 'YYYY-MM-DD HH:mm:ss').valueOf()}
-                endTime={moment(build.endTs, 'YYYY-MM-DD HH:mm:ss').valueOf()}
+                startTime={build.startTs}
+                endTime={build.endTs}
               />
             ))}
           </CardRailView>

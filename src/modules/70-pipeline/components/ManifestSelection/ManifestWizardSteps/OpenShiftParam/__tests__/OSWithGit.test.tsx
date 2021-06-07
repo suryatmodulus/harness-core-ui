@@ -6,6 +6,7 @@ import OpenShiftParamWithGit from '../OSWithGit'
 const props = {
   stepName: 'Manifest details',
   expressions: [],
+  manifestIdsList: [],
   initialValues: {
     identifier: 'test',
 
@@ -84,6 +85,7 @@ describe('Open shift params with git tests', () => {
   test('renders form in edit mode', () => {
     const defaultProps = {
       stepName: 'Manifest details',
+      manifestIdsList: [],
       expressions: [],
       initialValues: {
         identifier: 'testidentifier',

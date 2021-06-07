@@ -6,10 +6,10 @@ import routes from '@common/RouteDefinitions'
 import ExecutionContext, { ExecutionContextParams } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import { ExecutionNode, useGetApprovalInstance, useGetExecutionNode } from 'services/pipeline-ng'
-import ExecutionStepDetails, { ExecutionStepDetailsProps } from '../ExecutionStepDetails'
+import ExecutionStepDetails from '../ExecutionStepDetails'
 import data from './data.json'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => null)
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('services/pipeline-ng', () => ({
   useGetApprovalInstance: jest.fn(() => ({ data: {}, loading: false })),
   useGetHarnessApprovalInstanceAuthorization: jest.fn(() => ({ data: {}, loading: false })),
@@ -46,14 +46,12 @@ const executionContext: ExecutionContextParams = {
   addNewNodeToMap: jest.fn()
 }
 
-function TestComponent(
-  props: ExecutionStepDetailsProps & {
-    children?: React.ReactNode
-    queryParams?: ExecutionContextParams['queryParams']
-    nodesMap?: ExecutionContextParams['allNodeMap']
-    selectedStep?: string
-  }
-): React.ReactElement {
+function TestComponent(props: {
+  children?: React.ReactNode
+  queryParams?: ExecutionContextParams['queryParams']
+  nodesMap?: ExecutionContextParams['allNodeMap']
+  selectedStep?: string
+}): React.ReactElement {
   const { children, queryParams = {}, nodesMap, selectedStep = '', ...rest } = props
   const [allNodeMap, setAllNodeMap] = React.useState(nodesMap || executionContext.allNodeMap)
 
@@ -78,22 +76,22 @@ function TestComponent(
 
 describe('<ExecutionStepDetails /> tests', () => {
   test('renders normal step', () => {
-    const { container } = render(<TestComponent selectedStep="normalStep" closeDetails={jest.fn()} />)
+    const { container } = render(<TestComponent selectedStep="normalStep" />)
     expect(container).toMatchSnapshot()
   })
 
   describe('approval steps', () => {
     test('renders approval waiting step', () => {
-      const { container } = render(<TestComponent selectedStep="approvalStepWaiting" closeDetails={jest.fn()} />)
+      const { container } = render(<TestComponent selectedStep="approvalStepWaiting" />)
       expect(container).toMatchSnapshot()
     })
 
     test('renders approval complete step', () => {
-      const { container } = render(<TestComponent selectedStep="approvalStepComplete" closeDetails={jest.fn()} />)
+      const { container } = render(<TestComponent selectedStep="approvalStepComplete" />)
       expect(container).toMatchSnapshot()
     })
     test('renders normal error step', () => {
-      const { container } = render(<TestComponent selectedStep="errorStep" closeDetails={jest.fn()} />)
+      const { container } = render(<TestComponent selectedStep="errorStep" />)
       expect(container).toMatchSnapshot()
     })
 
@@ -101,9 +99,7 @@ describe('<ExecutionStepDetails /> tests', () => {
       const refetch = jest.fn()
       ;(useGetApprovalInstance as jest.Mock).mockImplementation(() => ({ data: {}, loading: false, refetch }))
 
-      const { container, findByText } = render(
-        <TestComponent selectedStep="approvalStepWaiting" closeDetails={jest.fn()} />
-      )
+      const { container, findByText } = render(<TestComponent selectedStep="approvalStepWaiting" />)
       expect(container).toMatchSnapshot()
 
       const refresh = await findByText('common.refresh')
@@ -117,7 +113,7 @@ describe('<ExecutionStepDetails /> tests', () => {
   describe('retried steps', () => {
     test('shows step selection', async () => {
       const { container, findByTestId } = render(
-        <TestComponent selectedStep="retriedStep" closeDetails={jest.fn()}>
+        <TestComponent selectedStep="retriedStep">
           <CurrentLocation />
         </TestComponent>
       )
@@ -188,7 +184,7 @@ describe('<ExecutionStepDetails /> tests', () => {
         loading: false
       }))
       const { container, findByText } = render(
-        <TestComponent selectedStep="retriedStep" closeDetails={jest.fn()} queryParams={{ retryStep: 'retryId_1' }} />
+        <TestComponent selectedStep="retriedStep" queryParams={{ retryStep: 'retryId_1' }} />
       )
       await findByText(/Retried Step 1/, { selector: '.title' })
       expect(container).toMatchSnapshot()
@@ -202,7 +198,6 @@ describe('<ExecutionStepDetails /> tests', () => {
       const { container, findByText } = render(
         <TestComponent
           selectedStep="retriedStep"
-          closeDetails={jest.fn()}
           queryParams={{ retryStep: 'retryId_1' }}
           nodesMap={{
             ...executionContext.allNodeMap,
@@ -222,7 +217,7 @@ describe('<ExecutionStepDetails /> tests', () => {
         data: null,
         loading: true
       }))
-      const { container } = render(<TestComponent selectedStep="retriedStep" closeDetails={jest.fn()} />)
+      const { container } = render(<TestComponent selectedStep="retriedStep" />)
       expect(container).toMatchSnapshot()
     })
   })

@@ -118,7 +118,7 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
               <Button
                 type="submit"
                 intent="primary"
-                text={getString('saveAndContinue')}
+                text={getString('continue')}
                 rightIcon="chevron-right"
                 disabled={loadConnector}
               />

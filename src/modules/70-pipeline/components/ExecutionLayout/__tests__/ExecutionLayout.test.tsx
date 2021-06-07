@@ -1,5 +1,6 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, act } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 
 import ExecutionLayout from '../ExecutionLayout'
 import { useExecutionLayoutContext, ExecutionLayoutState } from '../ExecutionLayoutContext'
@@ -7,11 +8,13 @@ import { useExecutionLayoutContext, ExecutionLayoutState } from '../ExecutionLay
 describe('<ExecutionLayout /> tests', () => {
   test('Does not render third child by default', () => {
     const { container, getByTestId } = render(
-      <ExecutionLayout>
-        <div data-testid="child-1">Child 1</div>
-        <div data-testid="child-2">Child 2</div>
-        <div data-testid="child-3">Child 3</div>
-      </ExecutionLayout>
+      <TestWrapper>
+        <ExecutionLayout>
+          <div data-testid="child-1">Child 1</div>
+          <div data-testid="child-2">Child 2</div>
+          <div data-testid="child-3">Child 3</div>
+        </ExecutionLayout>
+      </TestWrapper>
     )
 
     expect(getByTestId('child-1').innerHTML).toBe('Child 1')
@@ -31,16 +34,21 @@ describe('<ExecutionLayout /> tests', () => {
       )
     }
     const { container, getByTestId } = render(
-      <ExecutionLayout>
-        <div data-testid="child-1">Child 1</div>
-        <div data-testid="child-2">
-          <Child2 />
-        </div>
-        <div data-testid="child-3">Child 3</div>
-      </ExecutionLayout>
+      <TestWrapper>
+        <ExecutionLayout>
+          <div data-testid="child-1">Child 1</div>
+          <div data-testid="child-2">
+            <Child2 />
+          </div>
+          <div data-testid="child-3">Child 3</div>
+        </ExecutionLayout>
+      </TestWrapper>
     )
 
-    fireEvent.click(getByTestId('layout'))
+    act(() => {
+      fireEvent.click(getByTestId('layout'))
+    })
+
     expect(getByTestId('child-1').innerHTML).toBe('Child 1')
     expect(getByTestId('child-3').innerHTML).toBe('Child 3')
     expect(container).toMatchSnapshot()
@@ -48,11 +56,13 @@ describe('<ExecutionLayout /> tests', () => {
 
   test('"RIGHT" Layout works', () => {
     const { container, getByTestId } = render(
-      <ExecutionLayout defaultLayout={ExecutionLayoutState.RIGHT} defaultStepVisibility>
-        <div data-testid="child-1">Child 1</div>
-        <div data-testid="child-2">Child 2</div>
-        <div data-testid="child-3">Child 3</div>
-      </ExecutionLayout>
+      <TestWrapper>
+        <ExecutionLayout defaultLayout={ExecutionLayoutState.RIGHT} defaultStepVisibility>
+          <div data-testid="child-1">Child 1</div>
+          <div data-testid="child-2">Child 2</div>
+          <div data-testid="child-3">Child 3</div>
+        </ExecutionLayout>
+      </TestWrapper>
     )
 
     expect(getByTestId('child-1').innerHTML).toBe('Child 1')
@@ -62,13 +72,16 @@ describe('<ExecutionLayout /> tests', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('"BOTTOM" Layout works', () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('"BOTTOM" Layout works', () => {
     const { container, getByTestId } = render(
-      <ExecutionLayout defaultLayout={ExecutionLayoutState.BOTTOM} defaultStepVisibility>
-        <div data-testid="child-1">Child 1</div>
-        <div data-testid="child-2">Child 2</div>
-        <div data-testid="child-3">Child 3</div>
-      </ExecutionLayout>
+      <TestWrapper>
+        <ExecutionLayout defaultLayout={ExecutionLayoutState.BOTTOM} defaultStepVisibility>
+          <div data-testid="child-1">Child 1</div>
+          <div data-testid="child-2">Child 2</div>
+          <div data-testid="child-3">Child 3</div>
+        </ExecutionLayout>
+      </TestWrapper>
     )
 
     expect(getByTestId('child-1').innerHTML).toBe('Child 1')
@@ -80,11 +93,13 @@ describe('<ExecutionLayout /> tests', () => {
 
   test('"FLOATING" Layout works', () => {
     const { container, getByTestId } = render(
-      <ExecutionLayout defaultLayout={ExecutionLayoutState.FLOATING} defaultStepVisibility>
-        <div data-testid="child-1">Child 1</div>
-        <div data-testid="child-2">Child 2</div>
-        <div data-testid="child-3">Child 3</div>
-      </ExecutionLayout>
+      <TestWrapper>
+        <ExecutionLayout defaultLayout={ExecutionLayoutState.FLOATING} defaultStepVisibility>
+          <div data-testid="child-1">Child 1</div>
+          <div data-testid="child-2">Child 2</div>
+          <div data-testid="child-3">Child 3</div>
+        </ExecutionLayout>
+      </TestWrapper>
     )
 
     expect(getByTestId('child-1').innerHTML).toBe('Child 1')
@@ -96,18 +111,23 @@ describe('<ExecutionLayout /> tests', () => {
 
   test('"FLOATING" Layout - toggle window works', () => {
     const { container, getByTestId } = render(
-      <ExecutionLayout defaultLayout={ExecutionLayoutState.FLOATING} defaultStepVisibility>
-        <div data-testid="child-1">Child 1</div>
-        <div data-testid="child-2">Child 2</div>
-        <div data-testid="child-3">Child 3</div>
-      </ExecutionLayout>
+      <TestWrapper>
+        <ExecutionLayout defaultLayout={ExecutionLayoutState.FLOATING} defaultStepVisibility>
+          <div data-testid="child-1">Child 1</div>
+          <div data-testid="child-2">Child 2</div>
+          <div data-testid="child-3">Child 3</div>
+        </ExecutionLayout>
+      </TestWrapper>
     )
 
     expect(getByTestId('child-3').innerHTML).toBe('Child 3')
     expect(container).toMatchSnapshot('Child 3 is shown')
 
     const btn = container.querySelector('.stepDetails button')!
-    fireEvent.click(btn)
+
+    act(() => {
+      fireEvent.click(btn)
+    })
 
     expect(() => getByTestId('child-3')).toThrow()
     expect(container).toMatchSnapshot('Child 3 is not shown')
@@ -115,26 +135,63 @@ describe('<ExecutionLayout /> tests', () => {
 
   test('ExecutionLayout.Toggle works', () => {
     const { container, getByTestId } = render(
-      <ExecutionLayout defaultLayout={ExecutionLayoutState.RIGHT} defaultStepVisibility>
-        <div data-testid="child-1">Child 1</div>
-        <div data-testid="child-2">
-          <ExecutionLayout.Toggle />
-        </div>
-        <div data-testid="child-3">Child 3</div>
-      </ExecutionLayout>
+      <TestWrapper>
+        <ExecutionLayout defaultLayout={ExecutionLayoutState.RIGHT} defaultStepVisibility>
+          <div data-testid="child-1">Child 1</div>
+          <div data-testid="child-2">
+            <ExecutionLayout.Toggle />
+          </div>
+          <div data-testid="child-3">Child 3</div>
+        </ExecutionLayout>
+      </TestWrapper>
     )
 
     expect(container).toMatchSnapshot()
 
-    const [right, bottom, floating] = container.querySelectorAll<HTMLInputElement>('input[name="layout"]')
+    const [right, /*bottom,*/ floating] = container.querySelectorAll<HTMLInputElement>('input[name="layout"]')
 
     expect(right.checked).toBe(true)
     expect(container.querySelector('.splitPane2')?.classList.contains('vertical')).toBe(true)
 
-    fireEvent.click(bottom)
-    expect(container.querySelector('.splitPane2')?.classList.contains('horizontal')).toBe(true)
+    // act(() => {
+    //   fireEvent.click(bottom)
+    // })
+    // expect(container.querySelector('.splitPane2')?.classList.contains('horizontal')).toBe(true)
 
-    fireEvent.click(floating)
+    act(() => {
+      fireEvent.click(floating)
+    })
     expect(getByTestId('child-3').parentElement?.classList.contains('floating-wrapper')).toBe(true)
+  })
+
+  test('Minimize works', () => {
+    const { container, getByTestId } = render(
+      <TestWrapper>
+        <ExecutionLayout defaultLayout={ExecutionLayoutState.RIGHT} defaultStepVisibility>
+          <div data-testid="child-1">Child 1</div>
+          <div data-testid="child-2">
+            <ExecutionLayout.Toggle />
+          </div>
+          <div data-testid="child-3">Child 3</div>
+        </ExecutionLayout>
+      </TestWrapper>
+    )
+
+    const min = container.querySelector('input[value="MINIMIZE"]')!
+
+    act(() => {
+      fireEvent.click(min)
+    })
+
+    expect(() => getByTestId('child-3')).toThrow()
+
+    const restore1 = getByTestId('restore')
+
+    act(() => {
+      fireEvent.click(restore1)
+    })
+
+    expect(getByTestId('child-3')).toBeTruthy()
+    // expect(container.querySelector('.splitPane2')?.classList.contains('vertical')).toBe(true)
   })
 })

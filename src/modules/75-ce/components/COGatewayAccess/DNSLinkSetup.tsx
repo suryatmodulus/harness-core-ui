@@ -11,7 +11,9 @@ import {
   SelectOption,
   Container,
   Select,
-  Checkbox
+  Checkbox,
+  Button,
+  Icon
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { debounce as _debounce, isEmpty as _isEmpty } from 'lodash-es'
@@ -52,6 +54,7 @@ interface DNSLinkSetupProps {
   gatewayDetails: GatewayDetails
   setHelpTextSections: (s: string[]) => void
   setGatewayDetails: (gw: GatewayDetails) => void
+  onInfoIconClick?: () => void
 }
 
 const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
@@ -160,15 +163,17 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         ? props.gatewayDetails.selectedInstances[0].region
         : props.gatewayDetails.routing.instance.scale_group?.region || '',
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      resource_group_name: props.gatewayDetails.selectedInstances[0].metadata?.resourceGroup,
+      resource_group_name: props.gatewayDetails.selectedInstances[0]?.metadata?.resourceGroup,
       accountIdentifier: accountId
     }
   })
 
   function generateHostName(val: string): string {
-    return `${cleanupForHostName(orgIdentifier)}-${cleanupForHostName(
-      props.gatewayDetails.name
-    )}.${val}`.toLocaleLowerCase()
+    return val
+      ? `${cleanupForHostName(orgIdentifier)}-${cleanupForHostName(
+          props.gatewayDetails.name
+        )}.${val}`.toLocaleLowerCase()
+      : ''
   }
 
   useEffect(() => {
@@ -254,6 +259,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             onClose={_clearStatus => {
               if (_clearStatus && !isCreateMode) {
                 setSelectedApCore({ label: '', value: '' })
+                updateLoadBalancerDetails('', '')
               }
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
@@ -279,6 +285,16 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             loadBalancer={initialAccessPointDetails}
           />
         )}
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={() => {
+            hideLoadBalancerModal()
+          }}
+          style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}
+          data-testid={'close-instance-modal'}
+        />
       </Dialog>
     )
   }, [selectedLoadBalancer, isCreateMode])
@@ -314,7 +330,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     updatedGatewayDetails.accessPointID = accessPointId
     updatedGatewayDetails.hostName = generateHostName(hostname)
     props.setGatewayDetails(updatedGatewayDetails)
-    setGeneratedHostName(updatedGatewayDetails.hostName)
+    setGeneratedHostName(updatedGatewayDetails.hostName || getString('ce.co.dnsSetup.autoURL'))
   }
 
   const isValidLoadBalancer = (lb: AccessPointCore) => {
@@ -417,6 +433,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                       ? 'ce.co.autoStoppingRule.setupAccess.selectLb'
                       : 'ce.co.autoStoppingRule.setupAccess.selectAppGateway'
                   )}
+                  <Icon name="info" onClick={props.onInfoIconClick}></Icon>
                 </Heading>
                 <Layout.Horizontal className={css.selectLoadBalancerContainer}>
                   <img src={loadBalancerSvg} className={css.helperImage} />
@@ -439,7 +456,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                         className={css.loadBalancerSelector}
                       />
                       {!isEditFlow && (
-                        <Text color={Color.BLUE_500} onClick={handleCreateNewLb} style={{ cursor: 'pointer' }}>
+                        <Text color={Color.PRIMARY_6} onClick={handleCreateNewLb} style={{ cursor: 'pointer' }}>
                           {'+' +
                             (isAwsProvider
                               ? getString('ce.co.accessPoint.new')
@@ -451,7 +468,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                 </Layout.Horizontal>
               </Container>
               <Container className={css.dnsLinkContainer}>
-                <Layout.Horizontal spacing="small" style={{ paddingBottom: 'var(--spacing-small)' }}>
+                <Layout.Horizontal spacing="small" style={{ marginBottom: 'var(--spacing-xlarge)' }}>
                   <Heading level={3} font={{ weight: 'light' }}>
                     {getString('ce.co.autoStoppingRule.setupAccess.customDomain.helpText')}
                   </Heading>
@@ -469,7 +486,14 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                     checked={formik.values.usingCustomDomain == 'no'}
                   />
                   <Layout.Vertical spacing="xsmall">
-                    <Text style={{ fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '20px' }}>
+                    <Text
+                      style={{
+                        fontSize: 'var(--font-size-normal)',
+                        fontWeight: 500,
+                        lineHeight: '20px',
+                        color: 'var(--grey-800)'
+                      }}
+                    >
                       {generatedHostName}
                     </Text>
                     <Text
@@ -478,6 +502,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                         fontSize: '12px',
                         fontWeight: 400,
                         lineHeight: '18px',
+                        color: 'var(--grey-800)',
                         paddingBottom: 'var(--spacing-small)'
                       }}
                     >

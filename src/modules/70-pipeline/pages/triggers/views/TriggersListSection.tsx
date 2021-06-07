@@ -2,6 +2,7 @@ import React from 'react'
 import ReactTimeago from 'react-timeago'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
+import { stringify } from 'yaml'
 import { Button, Color, Layout, Popover, Text, Icon, Switch, Container, SparkChart } from '@wings-software/uicore'
 import copy from 'clipboard-copy'
 import { Classes, Menu, Position } from '@blueprintjs/core'
@@ -9,15 +10,15 @@ import { isUndefined, isEmpty, sum } from 'lodash-es'
 import cx from 'classnames'
 import type { tagsType } from '@common/utils/types'
 import Table from '@common/components/Table/Table'
-import { NGTriggerDetailsResponse, useDeleteTrigger, useUpdateTriggerStatus } from 'services/pipeline-ng'
+import { NGTriggerDetailsResponse, useDeleteTrigger, useUpdateTrigger } from 'services/pipeline-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
-import { getTriggerIcon, GitSourceProviders } from '../utils/TriggersListUtils'
-import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
+import { getTriggerIcon, GitSourceProviders, getEnabledStatusTriggerValues } from '../utils/TriggersListUtils'
+import { TriggerTypes, clearNullUndefined, ResponseStatus } from '../utils/TriggersWizardPageUtils'
 
 import css from './TriggersListSection.module.scss'
 export interface GoToEditWizardInterface {
@@ -379,7 +380,8 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   column: {
     showSuccess: (str: string) => void
     showError: (str: string) => void
-    getString: (str: string, obj: { enabled: string; name: string }) => string
+    // getString: (key: StringKeys) => string
+    getString: (str: string, obj?: { enabled: string; name: string }) => string
     refetchTriggerList: () => void
     projectIdentifier: string
     orgIdentifier: string
@@ -390,39 +392,52 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
 }) => {
   const data = row.original
 
-  const { mutate: updateTriggerStatus } = useUpdateTriggerStatus({
+  const { mutate: updateTrigger, loading: updateTriggerLoading } = useUpdateTrigger({
     triggerIdentifier: data.identifier as string,
     queryParams: {
       accountIdentifier: column.accountId,
       orgIdentifier: column.orgIdentifier,
       projectIdentifier: column.projectIdentifier,
-      targetIdentifier: column.pipelineIdentifier,
-      status: !data.enabled
+      targetIdentifier: column.pipelineIdentifier
     },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
+
   return (
     <div className={css.textCentered} onClick={e => e.stopPropagation()}>
       <Switch
         label=""
         className={column.isTriggerRbacDisabled ? css.disabledOption : ''}
         checked={data.enabled}
+        disabled={updateTriggerLoading}
         onChange={async () => {
           if (column.isTriggerRbacDisabled) {
             return
           }
-          const updated = await updateTriggerStatus()
-
-          if (updated.status === 'SUCCESS') {
-            column.showSuccess(
-              column.getString('pipeline.triggers.toast.toggleEnable', {
-                enabled: !data.enabled ? 'enabled' : 'disabled',
-                name: data.name!
-              })
+          const { values, error } = getEnabledStatusTriggerValues({
+            data,
+            enabled: !data.enabled,
+            getString: column.getString
+          })
+          if (error) {
+            column.showError(error)
+            return
+          }
+          try {
+            const { status, data: dataResponse } = await updateTrigger(
+              stringify({ trigger: clearNullUndefined(values) }) as any
             )
-            column.refetchTriggerList?.()
-          } else if (updated.status === 'ERROR') {
-            column.showError('Error')
+            if (status === ResponseStatus.SUCCESS && dataResponse) {
+              column.showSuccess(
+                column.getString('pipeline.triggers.toast.toggleEnable', {
+                  enabled: dataResponse.enabled ? 'enabled' : 'disabled',
+                  name: dataResponse.name || ''
+                })
+              )
+              column.refetchTriggerList?.()
+            }
+          } catch (err) {
+            column.showError(err?.data?.message)
           }
         }}
       />

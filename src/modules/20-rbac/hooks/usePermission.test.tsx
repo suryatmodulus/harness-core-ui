@@ -217,7 +217,7 @@ describe('usePermission', () => {
   test('basic function with default scope', async () => {
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
       <TestWrapper
-        path={routes.toResourcesConnectors({
+        path={routes.toConnectors({
           accountId: ':accountId',
           orgIdentifier: ':orgIdentifier',
           projectIdentifier: ':projectIdentifier'

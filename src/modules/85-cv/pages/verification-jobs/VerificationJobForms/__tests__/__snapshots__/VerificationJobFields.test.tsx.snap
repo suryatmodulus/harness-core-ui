@@ -1,0 +1,224 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Monitoring Sources component Verify monitoring sources select all feature in create mode 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="bp3-form-group multiSelect"
+      style="z-index: 4;"
+    >
+      <label
+        class="bp3-label"
+        for="dataSource"
+      >
+        monitoringSource
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-popover-wrapper MultiSelect--main bp3-fill"
+        >
+          <div
+            class="bp3-popover-target bp3-popover-open"
+          >
+            <div
+              class=""
+            >
+              <div
+                class="bp3-input bp3-tag-input bp3-active bp3-multi-select"
+              >
+                <div
+                  class="bp3-tag-input-values"
+                >
+                  <span
+                    class="bp3-tag MultiSelect--tag"
+                    data-tag-index="0"
+                  >
+                    <span
+                      class="bp3-text-overflow-ellipsis bp3-fill"
+                    >
+                      appD - app_dynamics
+                    </span>
+                    <button
+                      class="bp3-tag-remove"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-small-cross"
+                        icon="small-cross"
+                      >
+                        <svg
+                          data-icon="small-cross"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            small-cross
+                          </desc>
+                          <path
+                            d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                  <span
+                    class="bp3-tag MultiSelect--tag"
+                    data-tag-index="1"
+                  >
+                    <span
+                      class="bp3-text-overflow-ellipsis bp3-fill"
+                    >
+                      gco - stackdriver
+                    </span>
+                    <button
+                      class="bp3-tag-remove"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-small-cross"
+                        icon="small-cross"
+                      >
+                        <svg
+                          data-icon="small-cross"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            small-cross
+                          </desc>
+                          <path
+                            d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                  <span
+                    class="bp3-tag MultiSelect--tag"
+                    data-tag-index="2"
+                  >
+                    <span
+                      class="bp3-text-overflow-ellipsis bp3-fill"
+                    >
+                      splunk - splunk
+                    </span>
+                    <button
+                      class="bp3-tag-remove"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-small-cross"
+                        icon="small-cross"
+                      >
+                        <svg
+                          data-icon="small-cross"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            small-cross
+                          </desc>
+                          <path
+                            d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                  <input
+                    autocomplete="off"
+                    class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                    name="dataSource"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-overlay bp3-overlay-open bp3-overlay-inline"
+          >
+            <div
+              class="bp3-transition-container bp3-popover-appear bp3-popover-appear-active"
+              style="position: absolute; top: 0px; left: 0px; opacity: 0; pointer-events: none;"
+            >
+              <div
+                class="bp3-popover bp3-minimal bp3-multi-select-popover"
+              >
+                <div
+                  class="bp3-popover-content"
+                >
+                  <div>
+                    <ul
+                      class="bp3-menu"
+                    >
+                      <li
+                        class="MultiSelect--menuItem MultiSelect--active"
+                      >
+                        <input
+                          class="MultiSelect--checkbox"
+                          readonly=""
+                          type="checkbox"
+                          value="all"
+                        />
+                        all
+                      </li>
+                      <li
+                        class="MultiSelect--menuItem"
+                      >
+                        <input
+                          class="MultiSelect--checkbox"
+                          readonly=""
+                          type="checkbox"
+                          value="appD"
+                        />
+                        appD - app_dynamics
+                      </li>
+                      <li
+                        class="MultiSelect--menuItem"
+                      >
+                        <input
+                          class="MultiSelect--checkbox"
+                          readonly=""
+                          type="checkbox"
+                          value="gco"
+                        />
+                        gco - stackdriver
+                      </li>
+                      <li
+                        class="MultiSelect--menuItem"
+                      >
+                        <input
+                          class="MultiSelect--checkbox"
+                          readonly=""
+                          type="checkbox"
+                          value="splunk"
+                        />
+                        splunk - splunk
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

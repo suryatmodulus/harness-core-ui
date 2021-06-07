@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Text, Avatar, Icon, Color } from '@wings-software/uicore'
 import moment from 'moment'
 import classnames from 'classnames'
+import { diffStartAndEndTime } from '../shared'
 import styles from './BuildCards.module.scss'
 
 export interface FailedBuildCardProps {
@@ -10,8 +11,8 @@ export interface FailedBuildCardProps {
   username?: string
   branchName?: string
   commitId?: string
-  startTime: number
-  endTime: number
+  startTime?: number
+  endTime?: number
   silentStatus?: boolean
 }
 
@@ -25,6 +26,7 @@ export default function FailedBuildCard({
   endTime,
   silentStatus
 }: FailedBuildCardProps) {
+  const duration = diffStartAndEndTime(startTime, endTime)
   return (
     <Container className={styles.failedBuildCard}>
       {username && <Avatar name={username} />}
@@ -42,8 +44,12 @@ export default function FailedBuildCard({
           margin={{ bottom: 'medium' }}
         >
           {moment(startTime).fromNow()}
-          <Icon size={10} name="time" className={styles.timeIcon} />
-          {formatDuration(startTime, endTime)}
+          {duration && (
+            <>
+              <Icon size={10} name="time" className={styles.timeIcon} />
+              {duration}
+            </>
+          )}
         </Container>
         <Container>
           {branchName && (
@@ -63,11 +69,6 @@ export default function FailedBuildCard({
       {!silentStatus && <div className={styles.leftBorder} />}
     </Container>
   )
-}
-
-export function formatDuration(startTime: number, endTime: number) {
-  const diffMins = moment(endTime).diff(startTime, 'minutes')
-  return diffMins <= 180 ? `${diffMins}m` : `${moment(endTime).diff(startTime, 'hours')}h`
 }
 
 export function shortenCommitId(commitId: string) {

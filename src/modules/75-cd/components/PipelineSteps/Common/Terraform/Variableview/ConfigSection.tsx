@@ -21,7 +21,7 @@ export function ConfigVariables(props: TerraformVariableStepProps): React.ReactE
         originalData={initialValues.spec?.configuration?.spec?.configFiles?.store?.spec}
         metadataMap={metadataMap}
       />
-      <Text>{getString('pipelineSteps.terraformVarFiles')}</Text>
+      <Text>{getString('cd.terraformVarFiles')}</Text>
       {variablesData?.spec?.configuration?.spec?.varFiles?.map((varFile, index) => (
         <VariablesListTable
           key={index}

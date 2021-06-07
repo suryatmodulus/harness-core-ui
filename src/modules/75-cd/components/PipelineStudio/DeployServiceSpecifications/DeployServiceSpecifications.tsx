@@ -357,8 +357,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             >
               <Select
                 disabled={setupModeType === setupMode.DIFFERENT || isReadonly}
-                className={css.propagatedropdown}
                 items={previousStageList}
+                className={css.propagateDropdown}
                 value={selectedPropagatedState}
                 onChange={(item: SelectOption) => selectPropagatedStep(item)}
               />
@@ -384,6 +384,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             checked={checkedItems.overrideSetCheckbox}
             onChange={handleChange}
           />
+          {!checkedItems.overrideSetCheckbox && (
+            <div className={cx(css.navigationButtons, css.propagationPadding)}>{props.children}</div>
+          )}
         </div>
       )}
       {setupModeType === setupMode.DIFFERENT ? (

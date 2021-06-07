@@ -183,6 +183,22 @@ export const useVerificationJobFormSubmit = (props?: UseVerificationFormSubmitPr
     }
     return false
   }
+
+  const getMonitoringSources = (values: {
+    dataSource: MultiSelectOption[]
+  }): {
+    allMonitoringSourcesEnabled?: boolean
+    monitoringSources: [] | (string | number | symbol)[]
+  } => {
+    const { dataSource } = values
+    if (isAllOptionSelected(dataSource)) {
+      return {
+        allMonitoringSourcesEnabled: true,
+        monitoringSources: []
+      }
+    }
+    return { monitoringSources: getDataSources(dataSource) }
+  }
   const onSubmit = (values: any) => {
     const payload = {
       activitySourceIdentifier: values?.activitySource,
@@ -195,9 +211,7 @@ export const useVerificationJobFormSubmit = (props?: UseVerificationFormSubmitPr
       serviceName: values.service?.label,
       envName: values.environment?.label,
       defaultJob: false,
-      monitoringSources: isAllOptionSelected(values.dataSource)
-        ? getDataSources(values.dataSourceOptions)
-        : getDataSources(values.dataSource),
+      ...getMonitoringSources(values),
       sensitivity: values.sensitivity?.value || values.sensitivity,
       duration: values.duration?.value || values.duration,
       type: values.type,

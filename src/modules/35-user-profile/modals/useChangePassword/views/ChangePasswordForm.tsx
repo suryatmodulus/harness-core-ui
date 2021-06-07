@@ -1,14 +1,30 @@
 import React from 'react'
 import * as yup from 'yup'
-import { Button, Layout, Color, Formik, FormikForm, FormInput, Container, Heading } from '@wings-software/uicore'
+import {
+  Button,
+  Layout,
+  Color,
+  Formik,
+  FormikForm,
+  FormInput,
+  Container,
+  Heading,
+  ModalErrorHandler,
+  ModalErrorHandlerBinding
+} from '@wings-software/uicore'
 import { Divider } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import PasswordChecklist from '@common/components/PasswordChecklist/PasswordChecklist'
-import { PASSWORD_CHECKS_RGX, PASSWORD_STRENGTH_POLICY } from '@common/constants/Utils'
+import { PASSWORD_CHECKS_RGX } from '@common/constants/Utils'
+import { useChangeUserPassword } from 'services/cd-ng'
+import type { PasswordStrengthPolicy } from 'services/cd-ng'
+import { useToaster } from '@common/components'
+import { shouldShowError } from '@common/utils/errorUtils'
 import css from './ChangePasswordForm.module.scss'
 
 interface ChangePasswordFormProps {
   hideModal: () => void
+  passwordStrengthPolicy: PasswordStrengthPolicy
 }
 
 interface InputIcon {
@@ -16,10 +32,22 @@ interface InputIcon {
   onClick: () => void
 }
 
-enum PasswordTypes {
+interface FormValues {
+  currentPassword: string
+  newPassword: string
+  confirmPassword: string
+}
+
+const enum PasswordTypes {
   CURRENT_PASSWORD,
   NEW_PASSWORD,
   CONFIRM_PASSWORD
+}
+
+export enum ChangePasswordResponse {
+  PASSWORD_CHANGED = 'PASSWORD_CHANGED',
+  INCORRECT_CURRENT_PASSWORD = 'INCORRECT_CURRENT_PASSWORD',
+  PASSWORD_STRENGTH_VIOLATED = 'PASSWORD_STRENGTH_VIOLATED'
 }
 
 const InputIcon = ({ isVisible, onClick }: InputIcon): React.ReactElement => (
@@ -33,9 +61,13 @@ const InputIcon = ({ isVisible, onClick }: InputIcon): React.ReactElement => (
   />
 )
 
-const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal }) => {
+const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal, passwordStrengthPolicy }) => {
   const { getString } = useStrings()
+  const { showSuccess } = useToaster()
   const [visiblePasswords, setVisiblePasswords] = React.useState<Array<PasswordTypes>>([])
+  const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
+
+  const { mutate: changeUserPassword, loading: changingUserPassword } = useChangeUserPassword({})
 
   const handlePasswordVisibility = (passwordType: PasswordTypes): void => {
     setVisiblePasswords(prevState => {
@@ -47,12 +79,33 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal }) =>
     })
   }
 
-  const handleSubmit = (): void => {
-    // Logic
+  const handleSubmit = async (values: FormValues): Promise<void> => {
+    try {
+      const response = await changeUserPassword({
+        currentPassword: values.currentPassword,
+        newPassword: values.newPassword
+      })
+
+      /* istanbul ignore else */ if (response) {
+        /* istanbul ignore else */ if (response.data === ChangePasswordResponse.PASSWORD_CHANGED) {
+          showSuccess(getString('userProfile.passwordChangedSuccessfully'), 5000)
+          hideModal()
+        } /* istanbul ignore next */ else if (response.data === ChangePasswordResponse.INCORRECT_CURRENT_PASSWORD) {
+          modalErrorHandler?.showDanger(getString('userProfile.yourCurrentPasswordIncorrect'))
+        } /* istanbul ignore next */ else if (response.data === ChangePasswordResponse.PASSWORD_STRENGTH_VIOLATED) {
+          modalErrorHandler?.showDanger(getString('userProfile.newPasswordShouldMeetTheRequirements'))
+        }
+      }
+    } catch (e) {
+      /* istanbul ignore next */ if (shouldShowError(e)) {
+        modalErrorHandler?.showDanger(e.data?.message || e.message)
+      }
+    }
   }
 
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'huge' }}>
+      <ModalErrorHandler bind={setModalErrorHandler} />
       <Heading level={1} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'xxlarge' }}>
         {getString('userProfile.changePassword')}
       </Heading>
@@ -69,7 +122,14 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal }) =>
             .required(`${getString('userProfile.currentPassword')} ${getString('userProfile.requiredField')}`),
           newPassword: yup
             .string()
-            .matches(PASSWORD_CHECKS_RGX(PASSWORD_STRENGTH_POLICY), getString('userProfile.passwordReqs'))
+            .matches(PASSWORD_CHECKS_RGX(passwordStrengthPolicy), getString('userProfile.passwordReqs'))
+            .test(
+              'passwords-should-not-be-same',
+              getString('userProfile.newPasswordShouldNotBeCurrentPassword'),
+              function (value) {
+                return value ? this.parent.currentPassword !== value : true
+              }
+            )
             .required(`${getString('userProfile.newPassword')} ${getString('userProfile.requiredField')}`),
           confirmPassword: yup
             .string()
@@ -78,7 +138,9 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal }) =>
             })
             .required(`${getString('userProfile.confirmPassword')} ${getString('userProfile.requiredField')}`)
         })}
-        onSubmit={handleSubmit}
+        onSubmit={values => {
+          handleSubmit(values)
+        }}
       >
         {({ values }) => (
           <FormikForm>
@@ -87,7 +149,9 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal }) =>
                 name="currentPassword"
                 label={getString('userProfile.currentPassword')}
                 inputGroup={{
-                  type: visiblePasswords.includes(PasswordTypes.CURRENT_PASSWORD) ? 'text' : 'password',
+                  type: visiblePasswords.includes(PasswordTypes.CURRENT_PASSWORD)
+                    ? /* istanbul ignore next */ 'text'
+                    : 'password',
                   rightElement: (
                     <InputIcon
                       isVisible={visiblePasswords.includes(PasswordTypes.CURRENT_PASSWORD)}
@@ -118,9 +182,11 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal }) =>
                   }}
                 />
               </Container>
-              <Container padding={{ left: 'xxlarge', top: 'large' }}>
-                <PasswordChecklist value={values.newPassword} passwordStrengthPolicy={PASSWORD_STRENGTH_POLICY} />
-              </Container>
+              {passwordStrengthPolicy.enabled && (
+                <Container padding={{ left: 'xxlarge', top: 'large' }}>
+                  <PasswordChecklist value={values.newPassword} passwordStrengthPolicy={passwordStrengthPolicy} />
+                </Container>
+              )}
             </Layout.Horizontal>
             <Container width={300}>
               <FormInput.Text
@@ -140,10 +206,14 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal }) =>
               />
             </Container>
             <Layout.Horizontal margin={{ top: 'xxxlarge', bottom: 'xlarge' }}>
-              <Button type="submit" intent="primary" margin={{ right: 'xsmall' }}>
-                {getString('userProfile.changePassword')}
-              </Button>
-              <Button onClick={hideModal}>{getString('cancel')}</Button>
+              <Button
+                text={getString('userProfile.changePassword')}
+                type="submit"
+                intent="primary"
+                margin={{ right: 'small' }}
+                disabled={changingUserPassword}
+              />
+              <Button text={getString('cancel')} onClick={hideModal} />
             </Layout.Horizontal>
           </FormikForm>
         )}

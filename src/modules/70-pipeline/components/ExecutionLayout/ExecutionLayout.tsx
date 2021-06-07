@@ -41,10 +41,11 @@ export interface ExecutionLayoutProps {
 
 function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): React.ReactElement {
   const [child1, child2, child3] = React.Children.toArray(props.children)
-  const [layoutState, setLayoutState] = useLocalStorage(
-    'execution_layout',
-    props.defaultLayout || ExecutionLayoutState.RIGHT
+  const [layouts, setLayoutState] = useLocalStorage<ExecutionLayoutState[]>(
+    'execution_layout_2', // increase the number in case data structure is changed
+    [props.defaultLayout || ExecutionLayoutState.RIGHT]
   )
+  const [layoutState] = layouts
   const [isStepDetailsVisible, setStepDetailsVisibility] = React.useState(!!props.defaultStepVisibility)
   const [primaryPaneSize, setPrimaryPaneSize] = React.useState(250)
   const [tertiaryPaneSize, setTertiaryPaneSize] = React.useState(
@@ -61,6 +62,18 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
     setStageSplitPaneSizeDebounce(size)
   }
 
+  function setLayout(e: ExecutionLayoutState): void {
+    setLayoutState(prevState => [e, ...prevState.slice(0, 1)])
+  }
+
+  function restoreDialog(): void {
+    setLayoutState(prevState => {
+      const prevNonMinState = prevState.find(s => s !== ExecutionLayoutState.MINIMIZE)
+
+      return [prevNonMinState || ExecutionLayoutState.RIGHT, ExecutionLayoutState.MINIMIZE]
+    })
+  }
+
   // handle layout change
   React.useEffect(() => {
     if (layoutState === ExecutionLayoutState.RIGHT) {
@@ -74,13 +87,14 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
     <ExecutionLayoutContext.Provider
       value={{
         layout: layoutState,
-        setLayout: (e: ExecutionLayoutState) => setLayoutState(e),
+        setLayout,
         primaryPaneSize,
         tertiaryPaneSize,
         setPrimaryPaneSize,
         setTertiaryPaneSize,
         isStepDetailsVisible,
-        setStepDetailsVisibility
+        setStepDetailsVisibility,
+        restoreDialog
       }}
     >
       <div className={cx(css.main, props.className)} id={EXECUTION_LAYOUT_DOM_ID}>

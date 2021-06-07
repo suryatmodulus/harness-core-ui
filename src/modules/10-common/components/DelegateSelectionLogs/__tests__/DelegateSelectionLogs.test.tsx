@@ -30,7 +30,7 @@ const pathParams = {
 function TestComponent({ taskData }: { taskData: DelegateTaskData[] }): React.ReactElement {
   const { openDelegateSelectionLogsModal } = useDelegateSelectionLogsModal()
   const openDialog = (task: DelegateTaskData): void => {
-    openDelegateSelectionLogsModal([task])
+    openDelegateSelectionLogsModal(task)
   }
   return (
     <div>

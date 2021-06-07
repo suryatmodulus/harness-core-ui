@@ -22,6 +22,9 @@ declare const styles: {
   readonly cardSection: string
   readonly serviceDefinition: string
   readonly accordionSummary: string
+  readonly header: string
+  readonly subheading: string
+  readonly inputheader: string
   readonly manifestVariablesTable: string
   readonly skipVersioning: string
   readonly width50: string

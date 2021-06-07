@@ -134,19 +134,19 @@ const LockoutPolicy: React.FC<Props> = ({ loginSettings, refetchAuthSettings, pe
         margin={{ bottom: 'large' }}
         className={cssHarnessAccount.passwordChecksDiv}
       >
-        <RbacButton
-          minimal
-          intent="primary"
-          icon="edit"
-          onClick={() => openLockoutPolicyModal(true)}
-          data-testid="update-lockout-policy"
-          className={cssHarnessAccount.editIcon}
-          permission={{
-            ...permissionRequest,
-            permission: PermissionIdentifier.EDIT_AUTHSETTING
-          }}
-        />
-
+        <div className={cssHarnessAccount.editIcon}>
+          <RbacButton
+            minimal
+            intent="primary"
+            icon="edit"
+            onClick={() => openLockoutPolicyModal(true)}
+            data-testid="update-lockout-policy"
+            permission={{
+              ...permissionRequest,
+              permission: PermissionIdentifier.EDIT_AUTHSETTING
+            }}
+          />
+        </div>
         {list.map(({ label, value }) => (
           <Container flex={{ justifyContent: 'flex-start' }} key={label}>
             <Text color={Color.GREY_800} icon="dot">

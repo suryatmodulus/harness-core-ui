@@ -13,10 +13,6 @@ import {
   SelectOption,
   Text
 } from '@wings-software/uicore'
-import {
-  ConnectorReferenceField,
-  ConnectorReferenceFieldProps
-} from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { AccessPoint, useAllHostedZones } from 'services/lw'
@@ -41,15 +37,7 @@ export interface FormVal {
 }
 
 const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
-  const {
-    loadBalancer,
-    handleSubmit,
-    cloudAccountId,
-    createMode,
-    handleCancel,
-    handleCloudConnectorChange,
-    isSaving
-  } = props
+  const { loadBalancer, handleSubmit, cloudAccountId, createMode, handleCancel, isSaving } = props
   const { getString } = useStrings()
   const { showError, showWarning } = useToaster()
   const [showOthersInfo, setShowOthersInfo] = useState<boolean>(!loadBalancer?.metadata?.dns?.route53)
@@ -86,7 +74,11 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
   useEffect(() => {
     if (hostedZonesLoading) return
     if (fetchHostedZonesError) {
-      showError((fetchHostedZonesError.data as any).errors?.join('\n') || fetchHostedZonesError.message)
+      showError(
+        (fetchHostedZonesError.data as any).errors?.join('\n') || fetchHostedZonesError.message,
+        undefined,
+        'ce.hostedzone.fetch.error'
+      )
       return
     }
     if (hostedZones?.response?.length == 0) {
@@ -138,23 +130,6 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
       render={({ submitForm, values, setFieldValue }) => (
         <FormikForm>
           <Layout.Vertical>
-            {
-              <ConnectorReferenceField
-                name="cloudConnector"
-                placeholder={getString('ce.co.accessPoint.select.account')}
-                selected={
-                  // eslint-disable-next-line
-                  cloudAccountId || (loadBalancer?.cloud_account_id as ConnectorReferenceFieldProps['selected'])
-                }
-                onChange={record => {
-                  handleCloudConnectorChange?.(record.identifier)
-                }}
-                accountIdentifier={accountId}
-                label={getString('ce.co.accessPoint.select.connector')}
-                category={'CLOUD_COST'}
-                disabled={!!loadBalancer?.cloud_account_id}
-              />
-            }
             <FormInput.Text name="lbName" label="Provide a name for the Load balancer" className={css.lbNameInput} />
             <Text color={Color.GREY_400} className={css.configInfo}>
               The Application Load Balancer does not have a domain name associated with it. The rule directs traffic to
@@ -205,7 +180,9 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
                 <div className={css.othersHelpTextContainer}>
                   <Layout.Horizontal>
                     <img src={helpTextIcon} />
-                    <Text>Help: When using Other DNS providers like goDaddy, Hostigator, etc.</Text>
+                    <Text className={css.helpTextHeader}>
+                      Help: When using Other DNS providers like goDaddy, Hostigator, etc.
+                    </Text>
                   </Layout.Horizontal>
                   <hr></hr>
                   <Text>To map your custom domain to hostname, you need to:</Text>

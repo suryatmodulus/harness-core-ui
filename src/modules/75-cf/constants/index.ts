@@ -1,5 +1,7 @@
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
+import SideNav from '@cf/components/SideNav/SideNav'
+import type { SidebarContext } from '@common/navigation/SidebarProvider'
 
 export type OperatorOption = {
   label: string
@@ -38,9 +40,21 @@ export const useOperators = (
   return [opList, isSingleValued]
 }
 
+const operatorStringMap: Record<string, StringKeys> = {
+  and: 'cf.clause.operators.and',
+  in: 'cf.clause.operators.in',
+  startsWith: 'cf.clause.operators.startsWith',
+  endsWith: 'cf.clause.operators.endsWith',
+  match: 'cf.clause.operators.match',
+  contains: 'cf.clause.operators.contains',
+  equal: 'cf.clause.operators.equal',
+  equalSensitive: 'cf.clause.operators.equalSensitive',
+  matchSegment: 'cf.clause.operators.matchSegment'
+}
+
 export const useOperatorsFromYaml = (extraOperators: OperatorOption[] = []): [OperatorOption[], IsSingleValued] => {
   const { getString } = useStrings()
-  return useOperators(getString, key => `cf.clause.operators.${key}` as StringKeys, extraOperators)
+  return useOperators(getString, key => operatorStringMap[key], extraOperators)
 }
 
 export const extraOperatorReference: Record<string, Record<string, OperatorOption>> = {
@@ -75,3 +89,10 @@ export const CFVariationColors = [
   '#ff8f3f',
   '#ed61b5'
 ]
+
+export const CFSideNavProps: SidebarContext = {
+  navComponent: SideNav,
+  subtitle: 'CONTINUOUS',
+  title: 'Features',
+  icon: 'cf-main'
+}

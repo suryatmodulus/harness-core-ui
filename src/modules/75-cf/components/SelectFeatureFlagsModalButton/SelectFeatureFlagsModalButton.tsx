@@ -105,14 +105,14 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
             hideModal()
           })
           .catch(_error => {
-            showError(getErrorMessage(_error), 0)
+            showError(getErrorMessage(_error), 0, 'cf.save.ff.error')
           })
           .finally(() => {
             setSubmitLoading(false)
           })
       } catch (exception) {
         setSubmitLoading(false)
-        showError(getErrorMessage(error), 0)
+        showError(getErrorMessage(error), 0, 'cf.save.ff.error')
       }
     }
 

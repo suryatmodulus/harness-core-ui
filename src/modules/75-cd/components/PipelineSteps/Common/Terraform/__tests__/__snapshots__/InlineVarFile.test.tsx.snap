@@ -1,0 +1,413 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Inline var file testing edit view for inline vars 1`] = `
+<div
+  class="bp3-dialog bp3-dialog"
+>
+  <div
+    class="bp3-dialog-header"
+  >
+    <h4
+      class="bp3-heading"
+    >
+      Add Inline Terraform Var File
+    </h4>
+    <button
+      aria-label="Close"
+      class="bp3-button bp3-minimal bp3-dialog-close-button"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-small-cross"
+        icon="small-cross"
+      >
+        <svg
+          data-icon="small-cross"
+          height="20"
+          viewBox="0 0 20 20"
+          width="20"
+        >
+          <desc>
+            small-cross
+          </desc>
+          <path
+            d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-medium"
+  >
+    <div
+      class="OverlaySpinner--overlaySpinner"
+    >
+      <form>
+        <div
+          class="formGroup"
+        >
+          <div
+            class="bp3-form-group"
+          >
+            <label
+              class="bp3-label"
+              for="varFile.identifier"
+            >
+              identifier
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+              >
+                <div
+                  class="bp3-input-group MultiTypeInput--input"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="varFile.identifier"
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <span
+                  class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="fixed-input"
+                      >
+                        <svg
+                          height="12"
+                          viewBox="0 0 9 9"
+                          width="12"
+                        >
+                          <path
+                            d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="formGroup"
+        >
+          <div
+            class="bp3-form-group"
+          >
+            <label
+              class="bp3-label"
+              for="varFile.spec.content"
+            >
+              <div
+                class="formLabel"
+              >
+                pipelineSteps.content
+                <div
+                  class="bp3-popover-wrapper typeSelectorWrapper"
+                >
+                  <div
+                    class="bp3-popover-target typeSelector"
+                  >
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main icon fixed"
+                          data-icon="fixed-input"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </span>
+                        <span
+                          class="btnText"
+                        >
+                          inputTypes.FIXED
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-form-group"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <textarea
+                    autocomplete="off"
+                    class="bp3-input bp3-fill"
+                    name="varFile.spec.content"
+                  >
+                    test-content
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
+        >
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            type="submit"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              submit
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Inline var file testing initial render 1`] = `
+<div
+  class="bp3-dialog bp3-dialog"
+>
+  <div
+    class="bp3-dialog-header"
+  >
+    <h4
+      class="bp3-heading"
+    >
+      Add Inline Terraform Var File
+    </h4>
+    <button
+      aria-label="Close"
+      class="bp3-button bp3-minimal bp3-dialog-close-button"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-small-cross"
+        icon="small-cross"
+      >
+        <svg
+          data-icon="small-cross"
+          height="20"
+          viewBox="0 0 20 20"
+          width="20"
+        >
+          <desc>
+            small-cross
+          </desc>
+          <path
+            d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-medium"
+  >
+    <div
+      class="OverlaySpinner--overlaySpinner"
+    >
+      <form>
+        <div
+          class="formGroup"
+        >
+          <div
+            class="bp3-form-group"
+          >
+            <label
+              class="bp3-label"
+              for="varFile.identifier"
+            >
+              identifier
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+              >
+                <div
+                  class="bp3-input-group MultiTypeInput--input"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="varFile.identifier"
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <span
+                  class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="fixed-input"
+                      >
+                        <svg
+                          height="12"
+                          viewBox="0 0 9 9"
+                          width="12"
+                        >
+                          <path
+                            d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="formGroup"
+        >
+          <div
+            class="bp3-form-group"
+          >
+            <label
+              class="bp3-label"
+              for="varFile.spec.content"
+            >
+              <div
+                class="formLabel"
+              >
+                pipelineSteps.content
+                <div
+                  class="bp3-popover-wrapper typeSelectorWrapper"
+                >
+                  <div
+                    class="bp3-popover-target typeSelector"
+                  >
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main icon fixed"
+                          data-icon="fixed-input"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </span>
+                        <span
+                          class="btnText"
+                        >
+                          inputTypes.FIXED
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-form-group"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <textarea
+                    autocomplete="off"
+                    class="bp3-input bp3-fill"
+                    name="varFile.spec.content"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
+        >
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            type="submit"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              submit
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;

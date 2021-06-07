@@ -255,21 +255,30 @@ describe('VerificationJobsDetails', () => {
         dataSource: [
           {
             label: 'appD - app_dynamics',
-            value: 'appD'
+            value: 'appD',
+            disabled: false
           }
         ],
         dataSourceOptions: [
           {
+            label: 'all',
+            value: 'all',
+            disabled: false
+          },
+          {
             label: 'appD - app_dynamics',
-            value: 'appD'
+            value: 'appD',
+            disabled: false
           },
           {
             label: 'gco - stackdriver',
-            value: 'gco'
+            value: 'gco',
+            disabled: false
           },
           {
             label: 'splunk - splunk',
-            value: 'splunk'
+            value: 'splunk',
+            disabled: false
           }
         ],
         identifier: 'asdadas',
@@ -325,7 +334,7 @@ describe('VerificationJobsDetails', () => {
     fireEvent.click(buttons[2])
 
     await waitFor(() =>
-      expect(submitFuncMock).toHaveBeenCalledWith({
+      expect(submitFuncMock).toHaveBeenLastCalledWith({
         activitySource: [
           {
             label: 'cdSource',
@@ -339,6 +348,11 @@ describe('VerificationJobsDetails', () => {
           }
         ],
         dataSourceOptions: [
+          {
+            label: 'all',
+            value: 'all',
+            disabled: false
+          },
           {
             label: 'appD - app_dynamics',
             value: 'appD'
@@ -422,6 +436,11 @@ describe('VerificationJobsDetails', () => {
           }
         ],
         dataSourceOptions: [
+          {
+            label: 'all',
+            value: 'all',
+            disabled: false
+          },
           {
             label: 'appD - app_dynamics',
             value: 'appD'
@@ -510,6 +529,11 @@ describe('VerificationJobsDetails', () => {
         ],
         dataSourceOptions: [
           {
+            label: 'all',
+            value: 'all',
+            disabled: false
+          },
+          {
             label: 'appD - app_dynamics',
             value: 'appD'
           },
@@ -594,6 +618,11 @@ describe('VerificationJobsDetails', () => {
           }
         ],
         dataSourceOptions: [
+          {
+            label: 'all',
+            value: 'all',
+            disabled: false
+          },
           {
             label: 'appD - app_dynamics',
             value: 'appD'

@@ -9087,6 +9087,7 @@ export interface DelegateSelectionLogParams {
   message?: string
   eventTimestamp?: number
   profileScopingRulesDetails?: ProfileScopingRulesDetails
+  delegateType?: string
 }
 
 export interface ProfileScopingRulesDetails {

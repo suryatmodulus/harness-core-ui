@@ -11,10 +11,7 @@ import filters from '@pipeline/pages/pipeline-deployment-list/__tests__/filters.
 import pipelines from '@pipeline/components/PipelineModalListView/__tests__/RunPipelineListViewMocks'
 import CIPipelineDeploymentList from '../CIPipelineDeploymentList'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
-
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards', () => () => <div />)
 jest.mock('@pipeline/components/Dashboards/BuildExecutionsChart/PipelineBuildExecutionsChart', () => () => <div />)
 

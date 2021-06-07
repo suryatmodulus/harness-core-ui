@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminRouteDestinations it should return the admin routes 1`] = `
+<React.Fragment>
+  <RouteWithLayout
+    exact={true}
+    layout={[Function]}
+    path={
+      Array [
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control",
+      ]
+    }
+    sidebarProps={
+      Object {
+        "icon": "cf-main",
+        "navComponent": [Function],
+        "subtitle": "CONTINUOUS",
+        "title": "Features",
+      }
+    }
+  >
+    <RedirectToAccessControlHome />
+  </RouteWithLayout>
+  <RouteWithLayout
+    exact={true}
+    layout={[Function]}
+    path={
+      Array [
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/users",
+      ]
+    }
+    sidebarProps={
+      Object {
+        "icon": "cf-main",
+        "navComponent": [Function],
+        "subtitle": "CONTINUOUS",
+        "title": "Features",
+      }
+    }
+  >
+    <AccessControlPage>
+      <UsersPage />
+    </AccessControlPage>
+  </RouteWithLayout>
+  <RouteWithLayout
+    exact={true}
+    layout={[Function]}
+    path={
+      Array [
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/user-groups",
+      ]
+    }
+    sidebarProps={
+      Object {
+        "icon": "cf-main",
+        "navComponent": [Function],
+        "subtitle": "CONTINUOUS",
+        "title": "Features",
+      }
+    }
+  >
+    <AccessControlPage>
+      <UserGroupsPage />
+    </AccessControlPage>
+  </RouteWithLayout>
+  <RouteWithLayout
+    exact={true}
+    layout={[Function]}
+    path={
+      Array [
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/resource-groups",
+      ]
+    }
+    sidebarProps={
+      Object {
+        "icon": "cf-main",
+        "navComponent": [Function],
+        "subtitle": "CONTINUOUS",
+        "title": "Features",
+      }
+    }
+  >
+    <AccessControlPage>
+      <ResourceGroups />
+    </AccessControlPage>
+  </RouteWithLayout>
+  <RouteWithLayout
+    exact={true}
+    layout={[Function]}
+    path={
+      Array [
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/roles",
+      ]
+    }
+    sidebarProps={
+      Object {
+        "icon": "cf-main",
+        "navComponent": [Function],
+        "subtitle": "CONTINUOUS",
+        "title": "Features",
+      }
+    }
+  >
+    <AccessControlPage>
+      <Roles />
+    </AccessControlPage>
+  </RouteWithLayout>
+  <RouteWithLayout
+    exact={true}
+    layout={[Function]}
+    path={
+      Array [
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/roles/:roleIdentifier",
+      ]
+    }
+    sidebarProps={
+      Object {
+        "icon": "cf-main",
+        "navComponent": [Function],
+        "subtitle": "CONTINUOUS",
+        "title": "Features",
+      }
+    }
+  >
+    <RoleDetails />
+  </RouteWithLayout>
+  <RouteWithLayout
+    exact={true}
+    layout={[Function]}
+    path={
+      Array [
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/resource-groups/:resourceGroupIdentifier",
+      ]
+    }
+    sidebarProps={
+      Object {
+        "icon": "cf-main",
+        "navComponent": [Function],
+        "subtitle": "CONTINUOUS",
+        "title": "Features",
+      }
+    }
+  >
+    <ResourceGroupDetails />
+  </RouteWithLayout>
+</React.Fragment>
+`;

@@ -22,7 +22,7 @@ const Error: React.FC<ErrorProps> = ({ code, message }) => {
       return (
         <>
           <Text>{getString('generic_errors.INVITE_EXPIRED')}</Text>
-          <Link to={routes.toProjects({ accountId })}>{getString('goToHome')}</Link>
+          <Link to={routes.toHome({ accountId })}>{getString('goToHome')}</Link>
           <Icon name="harness-logo-black" size={200} />
         </>
       )

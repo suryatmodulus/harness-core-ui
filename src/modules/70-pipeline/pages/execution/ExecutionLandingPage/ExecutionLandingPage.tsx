@@ -1,8 +1,8 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-
 import { isEmpty } from 'lodash-es'
 import { Layout, Text } from '@wings-software/uicore'
+
 import routes from '@common/RouteDefinitions'
 import { useGetExecutionDetail } from 'services/pipeline-ng'
 import type { ExecutionNode } from 'services/pipeline-ng'
@@ -11,10 +11,9 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
-import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
+import { ExecutionStatus, isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import {
   getPipelineStagesMap,
   getActiveStageForPipeline,
@@ -23,7 +22,6 @@ import {
 } from '@pipeline/utils/executionUtils'
 import { useQueryParams, useDeepCompareEffect } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
-
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { PageError } from '@common/components/Page/PageError'
@@ -31,6 +29,8 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
+import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
+
 import ExecutionContext, { GraphCanvasState } from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
@@ -40,26 +40,31 @@ import css from './ExecutionLandingPage.module.scss'
 
 export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
 
-// TODO: remove 'any' once DTO is ready
 /** Add dependency services to nodeMap */
-const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any }): void => {
+const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: ExecutionNode }): void => {
   const liteEngineTask = Object.values(nodeMap).find(item => item.stepType === LITE_ENGINE_TASK)
   if (liteEngineTask) {
     // NOTE: liteEngineTask contains information about dependency services
     const serviceDependencyList: ExecutionNode[] =
-      ((liteEngineTask as any)?.outcomes as any)?.find((_item: any) => !!_item.serviceDependencyList)
-        ?.serviceDependencyList || []
+      // Array check is required for legacy support
+      (Array.isArray(liteEngineTask.outcomes)
+        ? liteEngineTask.outcomes.find((_item: any) => !!_item.serviceDependencyList)?.serviceDependencyList
+        : liteEngineTask.outcomes?.dependencies?.serviceDependencyList) || []
 
     // 1. add service dependencies to nodeMap
     serviceDependencyList.forEach(service => {
-      service.stepType = 'dependency-service'
-      nodeMap[(service as any).identifier] = service
+      if (service?.identifier) {
+        service.stepType = 'dependency-service'
+        nodeMap[service.identifier] = service
+      }
     })
 
     // 2. add Initialize (Initialize step is liteEngineTask step)
     // override step name
-    liteEngineTask.name = 'Initialize'
-    nodeMap[liteEngineTask.uuid] = liteEngineTask
+    if (liteEngineTask.uuid) {
+      liteEngineTask.name = 'Initialize'
+      nodeMap[liteEngineTask.uuid] = liteEngineTask
+    }
   }
 }
 
@@ -155,7 +160,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
 
     const runningStage = getActiveStageForPipeline(
       data.data.pipelineExecutionSummary,
-      data.data?.pipelineExecutionSummary?.status
+      data.data?.pipelineExecutionSummary?.status as ExecutionStatus
     )
 
     const runningStep = getActiveStep(
@@ -174,6 +179,12 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
       setSelectedStepId(runningStep)
     }
   }, [queryParams, data])
+
+  React.useEffect(() => {
+    return () => {
+      logsCache.clear()
+    }
+  }, [])
 
   // update stage/step selection
   React.useEffect(() => {
@@ -234,7 +245,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
               <Breadcrumbs
                 links={[
                   {
-                    url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
+                    url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
                     label: project?.name as string
                   },
                   {
@@ -275,7 +286,10 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                 </div>
                 <div className={css.statusBar}>
                   {pipelineExecutionSummary.status && (
-                    <ExecutionStatusLabel className={css.statusLabel} status={pipelineExecutionSummary.status} />
+                    <ExecutionStatusLabel
+                      className={css.statusLabel}
+                      status={pipelineExecutionSummary.status as ExecutionStatus}
+                    />
                   )}
                   {pipelineExecutionSummary.startTs && (
                     <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }}>
@@ -292,7 +306,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                     durationText={' '}
                   />
                   <ExecutionActions
-                    executionStatus={pipelineExecutionSummary.status}
+                    executionStatus={pipelineExecutionSummary.status as ExecutionStatus}
                     refetch={refetch}
                     params={{
                       orgIdentifier,

@@ -5,7 +5,8 @@ import {
   MultiTypeInputValue,
   MultiTypeInputType,
   DataTooltipInterface,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  Container
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
@@ -27,11 +28,15 @@ import {
   MultiTypeReferenceInputProps,
   ReferenceSelectProps
 } from '@common/components/ReferenceSelect/ReferenceSelect'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import {
   ConnectorReferenceFieldProps,
   getReferenceFieldProps,
   getEditRenderer,
-  getSelectedRenderer
+  getSelectedRenderer,
+  InlineSelectionInterface
 } from './ConnectorReferenceField'
 
 export interface MultiTypeConnectorFieldConfigureOptionsProps
@@ -45,6 +50,7 @@ export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFie
   isNewConnectorLabelVisible?: boolean
   configureOptionsProps?: MultiTypeConnectorFieldConfigureOptionsProps
   enableConfigureOptions?: boolean
+  setRefValue?: boolean
   style?: React.CSSProperties
   tooltipProps?: DataTooltipInterface
 }
@@ -62,6 +68,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     category,
     name,
     label,
+    setRefValue = false,
     onChange,
     width = 400,
     formik,
@@ -82,34 +89,50 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     ...rest
   } = restProps
   const selected = get(formik?.values, name, '')
-
+  const mountRef = React.useRef<boolean>(false)
   const [selectedValue, setSelectedValue] = React.useState(selected)
-
-  const scopeFromSelected = typeof selected === 'string' && getScopeFromValue(selected || '')
-  const selectedRef = typeof selected === 'string' && getIdentifierFromValue(selected || '')
+  const [inlineSelection, setInlineSelection] = React.useState<InlineSelectionInterface>({
+    selected: false,
+    inlineModalClosed: false
+  })
+  const scopeFromSelected = typeof selectedValue === 'string' ? getScopeFromValue(selectedValue || '') : selected.scope
+  const selectedRef =
+    typeof selectedValue === 'string' ? getIdentifierFromValue(selected || '') : selectedValue?.connector?.identifier
   const [multiType, setMultiType] = React.useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
   const { data: connectorData, loading, refetch } = useGetConnector({
     identifier: selectedRef as string,
     queryParams: {
       accountIdentifier,
       orgIdentifier: scopeFromSelected === Scope.ORG || scopeFromSelected === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: scopeFromSelected === Scope.PROJECT ? projectIdentifier : undefined
+      projectIdentifier: scopeFromSelected === Scope.PROJECT ? projectIdentifier : undefined,
+      branch: gitScope?.branch,
+      repoIdentifier: gitScope?.repo
     },
     lazy: true
   })
+  const [canUpdate] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.CONNECTOR
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR]
+    },
+    []
+  )
 
   React.useEffect(() => {
     if (
-      typeof selected == 'string' &&
+      typeof selected === 'string' &&
+      !mountRef.current &&
       multiType === MultiTypeInputType.FIXED &&
       getMultiTypeFromValue(selected) === MultiTypeInputType.FIXED &&
       selected.length > 0
     ) {
       refetch()
-    } else {
-      setSelectedValue(selected)
+      mountRef.current = true
     }
-  }, [selected])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   React.useEffect(() => {
     if (
@@ -130,9 +153,14 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
         live: connectorData?.data?.status?.status === 'SUCCESS',
         connector: connectorData?.data?.connector
       }
-      formik?.setFieldValue(name, value)
+      if (!setRefValue) {
+        formik?.setFieldValue(name, value)
+      }
       setSelectedValue(value)
+    } else if (getMultiTypeFromValue(selected) !== MultiTypeInputType.FIXED) {
+      setSelectedValue(selected)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     connectorData?.data?.connector?.name,
     loading,
@@ -160,11 +188,21 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
       }
       props.onChange?.(val, MultiTypeInputValue.SELECT_OPTION, MultiTypeInputType.FIXED)
       formik?.setFieldValue(name, val)
+      setInlineSelection({
+        selected: true,
+        inlineModalClosed: false
+      })
     }
   }
 
   const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: onConnectorCreateSuccess
+    onSuccess: onConnectorCreateSuccess,
+    onClose: () => {
+      setInlineSelection({
+        selected: inlineSelection.selected,
+        inlineModalClosed: true
+      })
+    }
   })
 
   const { openConnectorMultiTypeModal } = useCreateConnectorMultiTypeModal({
@@ -182,7 +220,13 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
 
   if (typeof type === 'string' && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {
-      openConnectorModal(false, type, undefined)
+      openConnectorModal(false, type, {
+        gitDetails: {
+          repoIdentifier: gitScope?.repo,
+          branch: gitScope?.branch,
+          getDefaultFromOtherRepo: gitScope?.getDefaultFromOtherRepo || true
+        }
+      })
     }
   } else if (Array.isArray(type) && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {
@@ -190,17 +234,30 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     }
   }
 
+  const [canUpdateSelectedConnector] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.CONNECTOR,
+        resourceIdentifier: selectedValue?.connector?.identifier || ''
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR]
+    },
+    []
+  )
+
   if (typeof type === 'string' && typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
       selectedValue,
       openConnectorModal,
-      selectedValue?.connector?.type || type
+      selectedValue?.connector?.type || type,
+      canUpdateSelectedConnector
     )
   } else if (Array.isArray(type) && typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
       selectedValue,
       openConnectorModal,
-      selectedValue?.connector?.type
+      selectedValue?.connector?.type,
+      canUpdateSelectedConnector
     )
   }
 
@@ -226,8 +283,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
             getString,
             openConnectorModal
           }),
-          isNewConnectorLabelVisible: isNewConnectorLabelVisible,
-          selectedRenderer: getSelectedRenderer(selected),
+          isNewConnectorLabelVisible: canUpdate && isNewConnectorLabelVisible,
+          selectedRenderer: getSelectedRenderer(selectedValue),
           ...optionalReferenceSelectProps,
           disabled: isDisabled
         }}
@@ -242,15 +299,20 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
               live: record?.status?.status === 'SUCCESS',
               connector: record
             }
-
-            formik?.setFieldValue(name, value)
+            if (setRefValue) {
+              formik?.setFieldValue(name, value.value)
+            } else {
+              formik?.setFieldValue(name, value)
+            }
+            setSelectedValue(value)
           } else {
-            formik?.setFieldValue(name, val)
+            formik?.setFieldValue(name, val || '')
+            setSelectedValue(val || '')
           }
           setMultiType(type1)
           onChange?.(val, valueType, type1)
         }}
-        value={selected}
+        value={selectedValue}
         {...multiTypeProps}
       />
     </FormGroup>
@@ -258,7 +320,9 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
 
   return (
     <div style={style}>
-      <HarnessDocTooltip tooltipId={props.tooltipProps?.dataTooltipId} labelText={label} />
+      <Container style={{ marginBottom: 5 }}>
+        <HarnessDocTooltip tooltipId={props.tooltipProps?.dataTooltipId} labelText={label} />
+      </Container>
       {enableConfigureOptions ? (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {component}

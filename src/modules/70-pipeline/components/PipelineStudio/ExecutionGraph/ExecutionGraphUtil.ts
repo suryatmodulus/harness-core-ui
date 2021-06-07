@@ -378,7 +378,11 @@ export const updateStepsState = (node: ExecutionWrapper, mapState: StepStateMap)
   }
 }
 
-export const removeStepOrGroup = (state: ExecutionGraphState, entity: DefaultNodeModel): boolean => {
+export const removeStepOrGroup = (
+  state: ExecutionGraphState,
+  entity: DefaultNodeModel,
+  skipFlatten = false
+): boolean => {
   // 1. services
   const servicesData = state.dependenciesData
   if (servicesData) {
@@ -410,7 +414,7 @@ export const removeStepOrGroup = (state: ExecutionGraphState, entity: DefaultNod
     if (index > -1) {
       response.parent.splice(index, 1)
       // NOTE: if there is one item in parallel array, we are removing parallel array
-      if (response.parallelParent && response.parallelParent.parallel.length === 1) {
+      if (!skipFlatten && response.parallelParent && response.parallelParent.parallel.length === 1) {
         const stepToReAttach = response.parallelParent.parallel[0]
         // reattach step
         if (response.parallelParentParent && response.parallelParentIdx !== undefined) {

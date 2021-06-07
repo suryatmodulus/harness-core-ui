@@ -458,13 +458,13 @@ exports[`User Profile Page User Profile 1`] = `
     <div
       class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
     >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-right-xxxlarge"
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold"
+        style="display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon StyledProps--main"
+          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
           data-icon="deployment-incomplete-legacy"
-          style="padding-top: 6px;"
         >
           <svg
             height="18"
@@ -489,31 +489,22 @@ exports[`User Profile Page User Profile 1`] = `
             />
           </svg>
         </span>
-        <p
-          class="StyledProps--font StyledProps--main"
-          style="line-height: 2.5; font-weight: 500;"
-        >
-          common.banners.email.description
-        </p>
-      </div>
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        common.banners.email.description
+      </p>
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main resend StyledProps--padding-xsmall Button--with-current-color"
+        type="button"
       >
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-xsmall Button--with-current-color"
-          type="button"
+        <span
+          class="bp3-button-text"
         >
-          <span
-            class="bp3-button-text"
-          >
-            common.banners.email.resend
-          </span>
-        </button>
-      </div>
+          common.banners.email.resend
+        </span>
+      </button>
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody filled"
+    class="StyledProps--font StyledProps--main pageBody hasBanner"
   >
     <div
       class="Layout--horizontal StyledProps--main"
@@ -612,6 +603,40 @@ exports[`User Profile Page User Profile 1`] = `
                 </svg>
               </span>
               dummy@harness.io
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
+            >
+              <span
+                class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--padding-right-medium"
+                icon="lock"
+              >
+                <svg
+                  data-icon="lock"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    lock
+                  </desc>
+                  <path
+                    d="M13.96 7H12V3.95C12 1.77 10.21 0 8 0S4 1.77 4 3.95V7H1.96c-.55 0-.96.35-.96.9v6.91c0 .54.41 1.19.96 1.19h12c.55 0 1.04-.65 1.04-1.19V7.9c0-.55-.49-.9-1.04-.9zM6 7V3.95c0-1.09.9-1.97 2-1.97s2 .88 2 1.97V7H6z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <button
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main button StyledProps--font StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly Button--without-shadow"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  userProfile.changePassword
+                </span>
+              </button>
             </p>
             <p
               class="StyledProps--font StyledProps--main"

@@ -4,9 +4,9 @@ rules:
     - patterns:
         - lodash.*
         - modules/35-connectors/*
-        - modules/40-projects-orgs/*
+        - modules/40-gitsync/*
         - modules/45-dashboards/*
-        - modules/60-gitsync/*
+        - modules/45-projects-orgs/*
         - modules/70-pipeline/*
         - modules/75-cd/*
         - modules/75-ce/*
@@ -14,9 +14,9 @@ rules:
         - modules/75-ci/*
         - modules/85-cv/*
         - '@connectors/*'
-        - '@projects-orgs/*'
-        - '@dashboards/*'
         - '@gitsync/*'
+        - '@dashboards/*'
+        - '@projects-orgs/*'
         - '@pipeline/*'
         - '@cd/*'
         - '@ce/*'

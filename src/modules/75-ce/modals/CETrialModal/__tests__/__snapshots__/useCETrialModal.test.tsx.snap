@@ -7,10 +7,10 @@ exports[`open and close the CE Trial Modal Rendering should open  the start tria
   class="bp3-dialog dialog bp3-dialog ceTrial"
 >
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-xxxlarge StyledProps--padding-right-large"
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-xxxlarge"
     >
       <span
         class="bp3-icon StyledProps--main"
@@ -49,31 +49,30 @@ exports[`open and close the CE Trial Modal Rendering should open  the start tria
         </svg>
       </span>
       <p
-        class="StyledProps--font StyledProps--main"
-        style="color: black; font-size: medium;"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
       >
         ce.continuous
       </p>
-      <p
-        class="StyledProps--font StyledProps--main"
-        style="color: white; text-align: center; width: 120px; border-radius: 3px; margin-left: 30px; display: inline-block;"
+      <span
+        class="StyledProps--font StyledProps--main StyledProps--background-orange500 StyledProps--color StyledProps--color-white StyledProps--border StyledProps--inline StyledProps--font-align-center"
+        style="width: 120px;"
       >
         common.trialInProgress
-      </p>
+      </span>
     </div>
     <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
     >
       <div
         class="StyledProps--font StyledProps--main StyledProps--padding-right-xxxlarge"
-        style="background: transparent url(test-file-stub) no-repeat; background-size: cover; background-position-x: 15%; background-position-y: center; width: 57%;"
+        style="background: transparent url(test-file-stub) no-repeat; background-size: stretch; background-position-x: 15%; background-position-y: center; width: 57%;"
       >
-        <p
-          class="StyledProps--font StyledProps--main"
-          style="width: 380px; display: inline-block; margin-left: 30px; line-height: 2;"
+        <span
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--font-size-normal StyledProps--inline"
+          style="line-height: 2; width: 380px;"
         >
           common.purpose.ce.descriptionOnly
-        </p>
+        </span>
       </div>
       <div
         style="border-left-width: 1px; border-left-style: solid; height: 425px;"

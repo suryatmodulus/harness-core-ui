@@ -1,8 +1,10 @@
 .main {
-  background: #0a3364;
+  background: var(--primary-9);
+  box-shadow: var(--panel-shadow);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 16;
 
   .navList {
     list-style: none;
@@ -12,10 +14,13 @@
 
   .navItem {
     display: block;
-    margin-bottom: var(--spacing-small);
 
     &:hover {
-      background: #082952;
+      background: rgba(0, 146, 228, 0.7);
+    }
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 
@@ -23,33 +28,50 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 90px;
-    padding: 18px 0;
+    width: 96px;
+    padding: 16px 0 20px 0;
     position: relative;
     overflow: hidden;
+    flex-flow: column;
+    opacity: 0.6;
 
     &:hover {
+      opacity: 0.8;
       text-decoration: none;
+
+      &::after {
+        position: absolute;
+        content: '';
+        width: 20px;
+        height: 1px;
+        background: rgba(204, 204, 204, 0.4);
+        left: calc(50% - 10px);
+        bottom: 16px;
+      }
     }
 
     &.active {
-      background: #07182b;
-
+      opacity: 1;
+      background: var(--theme-light-nav-panel-bg);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       &::after {
-        display: none;
+        position: absolute;
+        content: '';
+        width: 20px;
+        height: 1px;
+        background: var(--white);
+        left: calc(50% - 10px);
+        bottom: 16px;
       }
     }
   }
 
-  .separation {
+  .userLink {
+    height: 60px;
+    border-bottom: none !important;
     &::after {
-      position: absolute;
-      content: '';
-      width: 20px;
-      height: 1px;
-      background: rgba(204, 204, 204, 0.4);
-      left: calc(50% - 10px);
-      bottom: 0;
+      content: none !important;
     }
   }
 

@@ -34,14 +34,14 @@ export const SelectOrCreatePipelineForm: React.FC<SelectOrCreatePipelineFormProp
       formName="selectCreatePipeline"
     >
       <Form>
-        <Text style={{ color: Color.BLACK, paddingBottom: 8, fontWeight: 600, fontSize: 'large' }}>
+        <Text color={Color.BLACK} padding={{ bottom: 8 }} font={{ weight: 'bold', size: 'large' }}>
           {getString('pipeline.selectOrCreatePipeline.setupHeader')}
         </Text>
-        <Text style={{ fontSize: 'normal', color: Color.BLACK, paddingBottom: 40 }}>
+        <Text font={{ size: 'normal' }} color={Color.BLACK} padding={{ bottom: 40 }}>
           {getString('common.letsGetYouStarted')}
         </Text>
         <Layout.Vertical padding={{ top: 'large', bottom: 'small' }} spacing="small">
-          <Text style={{ fontSize: 'normal', color: Color.BLACK }}>
+          <Text font={{ size: 'normal' }} color={Color.BLACK}>
             {getString('pipeline.selectOrCreatePipeline.selectAPipeline')}
           </Text>
           <PipelineSelect
@@ -54,18 +54,15 @@ export const SelectOrCreatePipelineForm: React.FC<SelectOrCreatePipelineFormProp
           <FormInput.Text name="pipelineRequired" className={css.pipelineRequired} />
         </Layout.Vertical>
         <Layout.Horizontal padding={{ top: 'large' }} spacing="medium">
-          <Button intent="primary" text={getString('continue')} type="submit" style={{ fontSize: 11 }} />
+          <Button intent="primary" text={getString('continue')} type="submit" />
           <Button
             text={getString('pipeline.createANewPipeline')}
-            style={{
-              textAlign: 'center',
-              padding: 7,
-              width: 150,
-              height: 33,
-              display: 'inline-block',
-              borderWidth: 1,
-              fontSize: 11
-            }}
+            alignText={'center'}
+            padding={'small'}
+            width={200}
+            height={33}
+            inline
+            border={{ width: 1 }}
             onClick={openCreatPipeLineModal}
           />
         </Layout.Horizontal>

@@ -1,5 +1,7 @@
 import type { AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import type { ResponseBoolean, ResponseListSourceCodeManagerDTO } from 'services/cd-ng'
+import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
+import { loginSettings } from '@auth-settings/pages/Configuration/__test__/mock'
 
 export const userMockData = {
   status: 'SUCCESS',
@@ -226,5 +228,18 @@ export const enabledTwoFactorAuth: Pick<AppStoreContextProps, 'featureFlags' | '
     email: 'dummy@harness.io',
     admin: false,
     twoFactorAuthenticationEnabled: true
+  }
+}
+
+export const passwordStrengthPolicy = {
+  resource: {
+    ngAuthSettings: [
+      {
+        loginSettings: {
+          passwordStrengthPolicy: loginSettings.passwordStrengthPolicy
+        },
+        settingsType: AuthenticationMechanisms.USER_PASSWORD
+      }
+    ]
   }
 }

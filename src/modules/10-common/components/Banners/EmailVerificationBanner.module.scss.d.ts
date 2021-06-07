@@ -4,5 +4,6 @@ declare const styles: {
   readonly page: string
   readonly notSend: string
   readonly sendSuccess: string
+  readonly resend: string
 }
 export default styles

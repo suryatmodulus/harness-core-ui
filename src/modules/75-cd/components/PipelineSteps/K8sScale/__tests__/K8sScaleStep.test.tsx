@@ -8,9 +8,7 @@ import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Step
 import { K8sScaleStep } from '../K8sScaleStep'
 
 // eslint-disable-next-line react/display-name
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 describe('Test K8sBlueGreenDeployStep', () => {
   beforeEach(() => {

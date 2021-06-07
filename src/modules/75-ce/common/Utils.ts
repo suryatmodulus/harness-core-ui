@@ -1,5 +1,5 @@
 import type { Provider } from '@ce/components/COCreateGateway/models'
-import type { PortConfig } from 'services/lw'
+import type { HealthCheck, PortConfig } from 'services/lw'
 
 export class Utils {
   static booleanToString(val: boolean): string {
@@ -30,4 +30,11 @@ export class Utils {
   static randomString(): string {
     return Math.random().toString(36).substring(2, 8) + Math.random().toString(36).substring(2, 8)
   }
+
+  static getDefaultRuleHealthCheck = (): HealthCheck => ({
+    protocol: 'http',
+    path: '/',
+    port: 80,
+    timeout: 30
+  })
 }

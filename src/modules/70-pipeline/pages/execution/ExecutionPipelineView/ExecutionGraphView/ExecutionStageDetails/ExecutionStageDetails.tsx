@@ -109,7 +109,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   }, [selectedStepId, setStepDetailsVisibility])
 
   const onMouseEnter = (event: any): void => {
-    const currentStage = event.stage
+    const currentStage = event.stage || event.group
     const isFinished = currentStage?.data?.endTs
     const hasStarted = currentStage?.data?.startTs
     const status = currentStage?.data?.status
@@ -140,13 +140,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     }
   }): JSX.Element => {
     return (
-      <HoverCard
-        barrier={{
-          barrierInfoLoading,
-          barrierData: barrierInfo?.data
-        }}
-        data={stepInfo}
-      >
+      <HoverCard data={stepInfo}>
         {stepInfo?.when && <ConditionalExecutionTooltip data={stepInfo.when} mode={Modes.STEP} />}
         {stepInfo?.data?.stepType === StepType.Barrier && stepInfo?.data?.status === 'Running' && (
           <BarrierStepTooltip
@@ -176,6 +170,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           itemClickHandler={e => props.onStepSelect(e.stage.identifier)}
           data={data}
           showEndNode={!(isExecutionRunning(stage?.status) || isExecutionPaused(stage?.status))}
+          disableCollapseButton={isExecutionRunning(stage?.status)}
           isWhiteBackground
           nodeStyle={{
             width: 64,
@@ -196,6 +191,10 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           itemMouseLeave={() => {
             dynamicPopoverHandler?.hide()
             setBarrierSetupId(undefined)
+          }}
+          mouseEnterStepGroupTitle={onMouseEnter}
+          mouseLeaveStepGroupTitle={() => {
+            dynamicPopoverHandler?.hide()
           }}
           stageSelectionOptions={stagesOptions}
           onChangeStageSelection={(item: StageOptions) => {

@@ -1,0 +1,21 @@
+.branchName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 30vw;
+}
+
+.prModal {
+  position: relative;
+  .closeModal {
+    position: absolute;
+    top: var(--spacing-small);
+    right: var(--spacing-small);
+  }
+}
+
+.finalLabel {
+  overflow: scroll;
+  text-overflow: ellipsis;
+  max-width: 40vw;
+  max-height: 20vh;
+}

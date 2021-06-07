@@ -7,9 +7,9 @@ declare const styles: {
   readonly step: string
   readonly nameWrapper: string
   readonly name: string
-  readonly parallelIcon: string
-  readonly groupIcon: string
   readonly icon: string
   readonly duration: string
+  readonly parallelIcon: string
+  readonly groupIcon: string
 }
 export default styles

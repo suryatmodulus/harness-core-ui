@@ -1,7 +1,8 @@
 import React from 'react'
 import { pick } from 'lodash-es'
 import { Connectors } from '@connectors/constants'
-import type { ConnectorRequestBody, ConnectorInfoDTO, EntityGitDetails } from 'services/cd-ng'
+import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import CreateGitConnector from '../CreateConnector/GitConnector/CreateGitConnector'
 import CreateGithubConnector from '../CreateConnector/GithubConnector/CreateGithubConnector'
 import CreateGitlabConnector from '../CreateConnector/GitlabConnector/CreateGitlabConnector'
@@ -21,7 +22,9 @@ import JiraConnector from '../CreateConnector/JiraConnector/JiraConnector'
 import CreateAwsKmsConnector from '../CreateConnector/AWSKmsConnector/CreateAwsKmsConnector'
 import CreateNewRelicConnector from '../CreateConnector/NewRelicConnector/CreateNewRelicConnector'
 import CreatePrometheusConnector from '../CreateConnector/PrometheusConnector/CreatePrometheusConnector'
+import CreateDataDogConnector from '../CreateConnector/DataDogConnector/CreateDataDogConnector'
 import CreateCeAzureConnector from '../CreateConnector/CEAzureConnector/CreateCeAzureConnector'
+import CreateAzureKeyVaultConnector from '../CreateConnector/CreateAzureKeyConnector/CreateAzureKeyVaultConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -32,7 +35,7 @@ interface CreateConnectorWizardProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
-  gitDetails?: EntityGitDetails
+  gitDetails?: IGitContextFormProps
   onClose: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
 }
@@ -109,6 +112,10 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateAwsKmsConnector {...commonProps} />
     case Connectors.CE_AZURE:
       return <CreateCeAzureConnector {...commonProps} />
+    case Connectors.DATADOG:
+      return <CreateDataDogConnector {...commonProps} />
+    case Connectors.AZURE_KEY_VAULT:
+      return <CreateAzureKeyVaultConnector {...commonProps} />
     default:
       return null
   }

@@ -7,11 +7,6 @@
     width: 324px;
   }
 
-  .regenerateButton {
-    position: relative;
-    top: -5px;
-  }
-
   .nameIdDescriptionTags {
     width: 324px;
   }
@@ -27,17 +22,13 @@
     margin-bottom: var(--spacing-medium);
   }
 
-  .anyAction {
-    margin: var(--spacing-xxlarge) !important;
-  }
-
   .actionsContainer {
     display: flex;
     margin-top: var(--margin-xsmall) !important;
     align-items: center;
     justify-content: space-between;
     > div {
-      .anyAction {
+      [class*='checkboxAlignment'] {
         padding-left: var(--spacing-medium);
         position: relative;
         top: 10px;
@@ -82,5 +73,15 @@
   .secureTokenLoader {
     position: relative;
     top: -5px;
+  }
+}
+
+.checkboxAlignment {
+  margin: var(--spacing-xxlarge) !important;
+}
+
+.multiSelect {
+  [class*='bp3-multi-select'] {
+    height: fit-content !important;
   }
 }

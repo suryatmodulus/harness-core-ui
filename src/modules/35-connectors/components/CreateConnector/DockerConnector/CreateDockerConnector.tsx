@@ -3,11 +3,12 @@ import { StepWizard, Color } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, TESTCONNECTION_STEP_INDEX } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildDockerPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/strings'
-import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean, EntityGitDetails } from 'services/cd-ng'
+import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import StepDockerAuthentication from './StepAuth/StepDockerAuthentication'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
@@ -18,7 +19,7 @@ interface CreateDockerConnectorProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo?: ConnectorInfoDTO | void
-  gitDetails?: EntityGitDetails
+  gitDetails?: IGitContextFormProps
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
@@ -65,6 +66,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
           isLastStep={true}
           type={Connectors.DOCKER}
           onClose={props.onClose}
+          stepIndex={TESTCONNECTION_STEP_INDEX}
         />
       </StepWizard>
     </>

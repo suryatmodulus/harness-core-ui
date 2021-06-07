@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 
 export function roundNumber(value?: number, precision = 2) {
   if (typeof value !== 'number') {
@@ -59,4 +60,14 @@ export function formatDuration(value?: number | string) {
       </>
     </>
   )
+}
+
+export function diffStartAndEndTime(startTime?: number, endTime?: number): string | undefined {
+  const diff =
+    startTime && startTime > -1 && endTime && endTime > -1 ? moment(endTime).diff(startTime, 'minutes') : undefined
+  if (diff && diff < 180) {
+    return `${diff}m`
+  } else {
+    return `${moment(endTime).diff(startTime, 'hours')}h`
+  }
 }

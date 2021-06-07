@@ -3,6 +3,7 @@ import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { Text, IconName, Icon, Button } from '@wings-software/uicore'
+import { Position } from '@blueprintjs/core'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
 import type { IconNodeModel } from './IconNodeModel'
@@ -166,10 +167,18 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
       </div>
       {!isEmpty(options.name) && (
         <Text
-          font={{ align: 'center' }}
+          font={{ size: 'normal', align: 'center' }}
+          style={{
+            cursor: 'pointer',
+            lineHeight: '1.6',
+            overflowWrap: 'break-word',
+            marginLeft: '-30px',
+            marginRight: '-30px'
+          }}
           padding="xsmall"
+          width={125}
           lineClamp={2}
-          style={{ marginLeft: '-30px', marginRight: '-30px' }}
+          tooltipProps={{ position: Position.RIGHT, portalClassName: css.hoverName }}
         >
           {options.name}
         </Text>

@@ -14,7 +14,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/dummy/admin/access-control"
+            href="/account/dummy/home/setup/access-control"
           >
             accessControl
           </a>
@@ -37,7 +37,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/dummy/admin/access-control/roles"
+            href="/account/dummy/home/setup/access-control/roles"
           >
             roles
           </a>
@@ -428,7 +428,7 @@ exports[`Role Details Page render data 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/dummy/admin/access-control"
+            href="/account/dummy/home/setup/access-control"
           >
             accessControl
           </a>
@@ -451,7 +451,7 @@ exports[`Role Details Page render data 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/dummy/admin/access-control/roles"
+            href="/account/dummy/home/setup/access-control/roles"
           >
             roles
           </a>

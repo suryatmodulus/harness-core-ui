@@ -9,9 +9,7 @@ import { PipelineResponse } from './PipelineDetailsMocks'
 jest.mock('services/pipeline-ng', () => ({
   useGetPipelineSummary: jest.fn(() => PipelineResponse)
 }))
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 const TEST_PATH = routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
 describe('Pipeline Details tests', () => {

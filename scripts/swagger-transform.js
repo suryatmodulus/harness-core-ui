@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
 const yaml = require('js-yaml')
+const stringify = require('fast-json-stable-stringify')
 
 module.exports = inputSchema => {
   const argv = process.argv.slice(2)
@@ -11,11 +12,15 @@ module.exports = inputSchema => {
     const overridesFile = path.join('src/services', config, 'overrides.yaml')
     const transformFile = path.join('src/services', config, 'transform.js')
 
+    let paths = inputSchema.paths
+
     if (fs.existsSync(overridesFile)) {
       const data = fs.readFileSync(overridesFile, 'utf8')
       const { allowpaths, operationIdOverrides } = yaml.safeLoad(data)
 
-      const paths = allowpaths.includes('*') ? inputSchema.paths : _.pick(inputSchema.paths, ...allowpaths)
+      if (!allowpaths.includes('*')) {
+        paths = _.pick(paths, ...allowpaths)
+      }
 
       _.forIn(operationIdOverrides, (value, key) => {
         const [path, method] = key.split('.')
@@ -24,22 +29,17 @@ module.exports = inputSchema => {
           _.set(paths, [path, method, 'operationId'], value)
         }
       })
+    }
 
-      if (fs.existsSync(transformFile)) {
-        const transform = require(path.resolve(process.cwd(), transformFile))
+    inputSchema.paths = paths
 
-        return transform({
-          ...inputSchema,
-          paths
-        })
-      }
+    if (fs.existsSync(transformFile)) {
+      const transform = require(path.resolve(process.cwd(), transformFile))
 
-      return {
-        ...inputSchema,
-        paths
-      }
+      inputSchema = transform(inputSchema)
     }
   }
 
-  return inputSchema
+  // stringify and parse json to get a stable object
+  return JSON.parse(stringify(inputSchema))
 }

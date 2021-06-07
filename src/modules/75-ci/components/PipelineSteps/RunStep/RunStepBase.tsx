@@ -144,7 +144,10 @@ export const RunStepBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('imagePlaceholder'),
-                  disabled: readonly
+                  disabled: readonly,
+                  multiTextInputProps: {
+                    expressions
+                  }
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />

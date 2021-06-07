@@ -36,8 +36,6 @@ import FeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/FeatureFlagsD
 import EnvironmentsPage from '@cf/pages/environments/EnvironmentsPage'
 import EnvironmentDetails from '@cf/pages/environment-details/EnvironmentDetails'
 import CFWorkflowsPage from '@cf/pages/workflows/CFWorkflowsPage'
-import type { SidebarContext } from '@common/navigation/SidebarProvider'
-import SideNav from '@cf/components/SideNav/SideNav'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
@@ -59,10 +57,17 @@ import ExecutionLandingPage from '@pipeline/pages/execution/ExecutionLandingPage
 import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView'
 import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'
 import ExecutionArtifactsView from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
-import { TargetsPage } from './pages/targets/TargetsPage'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import AdminRouteDestinations from '@cf/components/routing/AdminRouteDestinations'
+import { CFSideNavProps } from '@cf/constants'
+import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
+import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
+import SecretsPage from '@secrets/pages/secrets/SecretsPage'
+import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
+import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
-import { SegmentsPage } from './pages/segments/SegmentsPage'
+import { SegmentsPage } from './pages/target-management/segments/SegmentsPage'
 import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
 import { OnboardingPage } from './pages/onboarding/OnboardingPage'
 import { OnboardingDetailPage } from './pages/onboarding/OnboardingDetailPage'
@@ -87,12 +92,6 @@ const RedirectToCFProject = (): React.ReactElement => {
   }
 }
 
-const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps & ModulePathParams>()
-
-  return <Redirect to={routes.toResourcesConnectors(params)} />
-}
-
 const RedirectToExecutionPipeline = (): React.ReactElement => {
   const params = useParams<PipelineType<ExecutionPathProps>>()
 
@@ -105,11 +104,15 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
   return <Redirect to={routes.toPipelineStudio(params)} />
 }
 
-const CFSideNavProps: SidebarContext = {
-  navComponent: SideNav,
-  subtitle: 'CONTINUOUS',
-  title: 'Features',
-  icon: 'cf-main'
+const RedirectToTargets = (): React.ReactElement => {
+  const { withActiveEnvironment } = useActiveEnvironment()
+  const params = useParams<ProjectPathProps & AccountPathProps>()
+
+  return <Redirect to={withActiveEnvironment(routes.toCFTargets(params))} />
+}
+
+const cfModuleParams: ModulePathParams = {
+  module: ':module(cf)'
 }
 
 export default (
@@ -159,8 +162,7 @@ export default (
       path={routes.toCFSegmentDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...segmentPathProps,
-        ...environmentPathProps
+        ...segmentPathProps
       })}
       exact
     >
@@ -172,13 +174,16 @@ export default (
       path={routes.toCFTargetDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...targetPathProps,
-        ...environmentPathProps
+        ...targetPathProps
       })}
       exact
     >
       <TargetDetailPage />
     </RouteWithLayout>
+
+    <Route path={routes.toCFTargetManagement({ ...accountPathProps, ...projectPathProps })} exact>
+      <RedirectToTargets />
+    </Route>
 
     <RouteWithLayout
       sidebarProps={CFSideNavProps}
@@ -389,21 +394,29 @@ export default (
       <RedirectToPipelineDetailHome />
     </RouteWithLayout>
 
-    <Route
+    <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toResources({ ...accountPathProps, ...projectPathProps, ...modulePathProps })}
+      path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <RedirectToResourcesHome />
-    </Route>
+      <ConnectorsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CreateConnectorFromYamlPage />
+    </RouteWithLayout>
 
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toCFAdminResourcesConnectorDetails({
+      path={routes.toConnectorDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...connectorPathProps
+        ...connectorPathProps,
+        ...cfModuleParams
       })}
     >
       <ConnectorDetailsPage />
@@ -412,7 +425,27 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toResourcesSecretDetails({
+      path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <SecretsPage module="cf" />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCreateSecretFromYaml({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...pipelineModuleParams
+      })}
+      exact
+    >
+      <CreateSecretFromYamlPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -424,7 +457,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toResourcesSecretDetailsOverview({
+      path={routes.toSecretDetailsOverview({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -438,7 +471,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toResourcesSecretDetailsReferences({
+      path={routes.toSecretDetailsReferences({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -449,5 +482,7 @@ export default (
         <SecretReferences />
       </SecretDetailsHomePage>
     </RouteWithLayout>
+
+    <AdminRouteDestinations />
   </>
 )

@@ -41,6 +41,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceScope } from '@rbac/interfaces/ResourceScope'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import css from './ConnectorReferenceField.module.scss'
 
 interface AdditionalParams {
@@ -74,7 +75,11 @@ export interface ConnectorSelectedValue {
   value: string
   scope: Scope
   live: boolean
-  connector: ConnectorInfoDTO
+  connector: ConnectorInfoDTO & { gitDetails?: IGitContextFormProps }
+}
+export interface InlineSelectionInterface {
+  selected: boolean
+  inlineModalClosed: boolean
 }
 export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'label'> {
   accountIdentifier: string
@@ -101,7 +106,8 @@ export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
 export function getEditRenderer(
   selected: ConnectorSelectedValue,
   openConnectorModal: UseCreateConnectorModalReturn['openConnectorModal'],
-  type: ConnectorInfoDTO['type']
+  type: ConnectorInfoDTO['type'],
+  canUpdate = true
 ): JSX.Element {
   return (
     <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between', width: '100%' }}>
@@ -111,24 +117,31 @@ export function getEditRenderer(
         </Text>
         <Text font={{ weight: 'bold' }}>{selected?.value}</Text>
       </div>
-      <Button
-        minimal
-        icon="edit"
-        onClick={e => {
-          e.stopPropagation()
-          openConnectorModal(true, type, { connectorInfo: selected?.connector })
-        }}
-        style={{
-          color: 'var(--primary-7)'
-        }}
-      />
+      {canUpdate ? (
+        <Button
+          minimal
+          icon="edit"
+          onClick={e => {
+            e.stopPropagation()
+            openConnectorModal(true, type, {
+              connectorInfo: selected?.connector,
+              gitDetails: selected?.connector?.gitDetails
+            })
+          }}
+          style={{
+            color: 'var(--primary-7)'
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </Layout.Horizontal>
   )
 }
 export function getSelectedRenderer(selected: ConnectorSelectedValue): JSX.Element {
   return (
     <Layout.Horizontal spacing="small" flex={{ distribution: 'space-between' }} className={css.selectWrapper}>
-      <Text tooltip={selected?.label} className={css.label}>
+      <Text tooltip={selected?.label} className={css.label} color={Color.GREY_800}>
         {selected?.label}
       </Text>
 
@@ -178,16 +191,18 @@ const RecordRender: React.FC<RecordRenderProps> = props => {
   return (
     <>
       <div className={css.item}>
-        <Layout.Horizontal spacing="small" margin={{ right: 'medium' }}>
+        <Layout.Horizontal spacing="small" margin={{ right: 'small' }} className={css.connectorInfo}>
           <Icon name={getIconByType(item.record.type)} size={30}></Icon>
-          <div>
-            <Text font={{ weight: 'bold' }}>{item.record.name}</Text>
-            <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+          <div className={css.connectorNameId}>
+            <Text lineClamp={1} font={{ weight: 'bold' }}>
+              {item.record.name}
+            </Text>
+            <Text lineClamp={1} font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
               {item.identifier}
             </Text>
           </div>
         </Layout.Horizontal>
-        <Layout.Horizontal spacing="small">
+        <Layout.Horizontal spacing="xsmall">
           {canUpdate && !item.record.harnessManaged ? (
             <Button
               minimal
@@ -195,7 +210,10 @@ const RecordRender: React.FC<RecordRenderProps> = props => {
               className={css.editBtn}
               onClick={e => {
                 e.stopPropagation()
-                openConnectorModal(true, item.record?.type || type, { connectorInfo: item.record })
+                openConnectorModal(true, item.record?.type || type, {
+                  connectorInfo: item.record,
+                  gitDetails: { ...item.record?.gitDetails, getDefaultFromOtherRepo: false }
+                })
               }}
               style={{
                 color: 'var(--primary-4)'
@@ -213,16 +231,26 @@ const RecordRender: React.FC<RecordRenderProps> = props => {
         </Layout.Horizontal>
       </div>
       {item.record.gitDetails?.repoIdentifier && (
-        <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
+        <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small" className={css.gitInfo}>
           <Layout.Horizontal spacing="xsmall">
             <Icon name="repository" size={12}></Icon>
-            <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+            <Text
+              lineClamp={1}
+              font={{ size: 'small', weight: 'light' }}
+              color={Color.GREY_450}
+              className={css.gitText}
+            >
               {item.record.gitDetails.repoIdentifier}
             </Text>
           </Layout.Horizontal>
           <Layout.Horizontal spacing="xsmall">
             <Icon size={12} name="git-new-branch"></Icon>
-            <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+            <Text
+              lineClamp={1}
+              font={{ size: 'small', weight: 'light' }}
+              color={Color.GREY_450}
+              className={css.gitText}
+            >
               {item.record.gitDetails.branch}
             </Text>
           </Layout.Horizontal>
@@ -361,11 +389,26 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     disabled,
     ...rest
   } = props
+
+  const [inlineSelection, setInlineSelection] = React.useState<InlineSelectionInterface>({
+    selected: false,
+    inlineModalClosed: false
+  })
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: (data?: ConnectorConfigDTO) => {
       if (data) {
         props.onChange?.({ ...data.connector, status: data.status }, Scope.PROJECT)
+        setInlineSelection({
+          selected: true,
+          inlineModalClosed: false
+        })
       }
+    },
+    onClose: () => {
+      setInlineSelection({
+        selected: inlineSelection.selected,
+        inlineModalClosed: true
+      })
     }
   })
 
@@ -374,7 +417,17 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     onSuccess: (data?: ConnectorConfigDTO) => {
       if (data) {
         props.onChange?.({ ...data.connector, status: data.status }, Scope.PROJECT)
+        setInlineSelection({
+          selected: true,
+          inlineModalClosed: false
+        })
       }
+    },
+    onClose: () => {
+      setInlineSelection({
+        selected: inlineSelection.selected,
+        inlineModalClosed: true
+      })
     }
   })
 
@@ -458,25 +511,43 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
 
   if (typeof type === 'string' && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {
-      openConnectorModal(false, type, undefined)
+      gitScope && (gitScope.getDefaultFromOtherRepo = true)
+      openConnectorModal(false, type, {
+        gitDetails: { ...gitScope, getDefaultFromOtherRepo: !!gitScope?.getDefaultFromOtherRepo }
+      })
     }
   } else if (Array.isArray(type) && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {
-      openConnectorMultiTypeModal()
+      openConnectorMultiTypeModal({
+        gitDetails: { ...gitScope, getDefaultFromOtherRepo: !!gitScope?.getDefaultFromOtherRepo }
+      })
     }
   }
+
+  const [canUpdateSelectedConnector] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.CONNECTOR,
+        resourceIdentifier: (selectedValue as ConnectorSelectedValue)?.connector?.identifier || ''
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR]
+    },
+    []
+  )
 
   if (typeof type === 'string' && typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
       selectedValue as ConnectorSelectedValue,
       openConnectorModal,
-      (selectedValue as ConnectorSelectedValue)?.connector?.type || type
+      (selectedValue as ConnectorSelectedValue)?.connector?.type || type,
+      canUpdateSelectedConnector
     )
   } else if (Array.isArray(type) && typeof selectedValue === 'object') {
     optionalReferenceSelectProps.editRenderer = getEditRenderer(
       selectedValue as ConnectorSelectedValue,
       openConnectorModal,
-      (selectedValue as ConnectorSelectedValue)?.connector?.type || type[0]
+      (selectedValue as ConnectorSelectedValue)?.connector?.type || type[0],
+      canUpdateSelectedConnector
     )
   }
 
@@ -502,6 +573,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
           category,
           openConnectorModal
         })}
+        hideModal={inlineSelection.selected && inlineSelection.inlineModalClosed}
         isNewConnectorLabelVisible={canUpdate}
         selectedRenderer={getSelectedRenderer(selectedValue as ConnectorSelectedValue)}
         {...optionalReferenceSelectProps}

@@ -96,14 +96,14 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
             hideModal()
           })
           .catch(_error => {
-            showError(getErrorMessage(_error), 0)
+            showError(getErrorMessage(_error), 0, 'cf.save.segment.error')
           })
           .finally(() => {
             setSubmitLoading(false)
           })
       } catch (exception) {
         setSubmitLoading(false)
-        showError(getErrorMessage(error), 0)
+        showError(getErrorMessage(error), 0, 'cf.save.segment.error')
       }
     }
 

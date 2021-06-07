@@ -6,8 +6,8 @@ exports[`TrialInProgressTemplate snapshot test should render trial in progress 1
     class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="StyledProps--font StyledProps--main"
-      style="margin: 80px; background: transparent url() no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+      class="StyledProps--font StyledProps--main body"
+      style="--image-url: url();"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -22,8 +22,8 @@ exports[`TrialInProgressTemplate snapshot test should render trial in progress 1
             Continuous Integration
           </h1>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--border StyledProps--color StyledProps--color-white"
-            style="text-align: center; display: inline-block; width: 120px; height: 18px;"
+            class="StyledProps--font StyledProps--main StyledProps--border StyledProps--color StyledProps--color-white StyledProps--background-orange500 StyledProps--font-align-center"
+            style="width: 120px; height: 18px;"
           >
             common.trialInProgress
           </p>

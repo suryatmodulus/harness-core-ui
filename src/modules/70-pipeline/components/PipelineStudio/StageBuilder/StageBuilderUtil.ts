@@ -230,6 +230,30 @@ export const resetDiagram = (engine: DiagramEngine): void => {
   engine.repaintCanvas()
 }
 
-export const isDuplicateStageId = (id: string, stages: StageElementWrapper[]): boolean => {
-  return getFlattenedStages({ stages }).stages?.some(({ stage }) => stage.identifier === id)
+export const isDuplicateStageId = (id: string, stages: StageElementWrapper[], updateMode?: boolean): boolean => {
+  const flattenedStages = getFlattenedStages({
+    stages
+  })
+  if (!updateMode) return flattenedStages.stages?.some(({ stage }) => stage.identifier === id)
+  let duplicatesCount = 0
+  for (const stage of flattenedStages.stages) {
+    if (stage.identifier === id) {
+      duplicatesCount++
+    }
+  }
+  return duplicatesCount > 1
+}
+
+export const getConnectorNameFromValue = (
+  connectorRef: string,
+  fetchedConnectorResponse: PageConnectorResponse | undefined
+): string | undefined => {
+  if (!connectorRef || !fetchedConnectorResponse) {
+    return ''
+  }
+
+  const connector = getIdentifierFromValue(connectorRef)
+  const filteredConnector = fetchedConnectorResponse?.content?.find(item => item.connector?.identifier === connector)
+  const connectorName = filteredConnector?.connector?.name
+  return connectorName
 }

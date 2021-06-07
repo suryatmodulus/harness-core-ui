@@ -17,8 +17,7 @@ import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Tooltip } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import { get, set, isArray, isEmpty } from 'lodash-es'
-import { StringUtils } from '@common/exports'
+import { get, set, isEmpty } from 'lodash-es'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -29,7 +28,14 @@ import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from '
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ManifestDetailDataType } from '../../ManifestInterface'
-import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../../Manifesthelper'
+import {
+  gitFetchTypeList,
+  GitFetchTypes,
+  GitRepoName,
+  ManifestDataType,
+  ManifestIdentifierValidation,
+  ManifestStoreMap
+} from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -39,6 +45,7 @@ interface ManifestDetailsPropType {
   initialValues: ManifestConfig
   selectedManifest: string
   handleSubmit: (data: ManifestConfigWrapper) => void
+  manifestIdsList: Array<string>
 }
 
 const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsPropType> = ({
@@ -48,7 +55,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   initialValues,
   handleSubmit,
   prevStepData,
-  previousStep
+  previousStep,
+  manifestIdsList
 }) => {
   const { getString } = useStrings()
 
@@ -207,11 +215,11 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         initialValues={getInitialValues()}
         formName="manifestDetails"
         validationSchema={Yup.object().shape({
-          identifier: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-            .notOneOf(StringUtils.illegalIdentifiers),
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues?.identifier,
+            getString('pipeline.uniqueIdentifier')
+          ),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',
             then: Yup.string().trim().required(getString('validation.branchName'))
@@ -220,10 +228,18 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             is: 'Commit',
             then: Yup.string().trim().required(getString('validation.commitId'))
           }),
-          paths: Yup.mixed().test('paths', getString('pipeline.manifestType.pathRequired'), value => {
-            if (typeof value === 'string') return true
-            return isArray(value) && value.length > 0 && !isEmpty(value[0].path)
-          }),
+          paths: Yup.lazy(
+            (value): Yup.Schema<unknown> => {
+              if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
+                return Yup.array().of(
+                  Yup.object().shape({
+                    path: Yup.string().min(1).required(getString('pipeline.manifestType.pathRequired'))
+                  })
+                )
+              }
+              return Yup.string().required(getString('pipeline.manifestType.pathRequired'))
+            }
+          ),
           repoName: Yup.string().test('repoName', getString('pipeline.manifestType.reponameRequired'), value => {
             if (connectionType === GitRepoName.Repo) {
               return true
@@ -297,13 +313,13 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 />
 
                 {formik.values?.gitFetchType === GitFetchTypes.Branch && (
-                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <div className={cx(stepCss.formGroup)}>
                     <FormInput.MultiTextInput
                       multiTextInputProps={{ expressions }}
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                       name="branch"
-                      style={{ width: '370px' }}
+                      style={{ width: 370 }}
                     />
 
                     {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
@@ -327,7 +343,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       label={getString('pipeline.manifestType.commitId')}
                       placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                       name="commitId"
-                      style={{ width: '370px' }}
+                      style={{ width: 370 }}
                     />
 
                     {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
@@ -347,8 +363,14 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                   <MultiTypeFieldSelector
                     defaultValueToReset={defaultValueToReset}
                     name={'paths'}
-                    label={<Text>{getString('fileFolderPathText')}</Text>}
-                    style={{ flexGrow: 1, marginBottom: 0 }}
+                    label={
+                      <Text>
+                        {selectedManifest === ManifestDataType.K8sManifest
+                          ? getString('fileFolderPathText')
+                          : getString('common.git.filePath')}
+                      </Text>
+                    }
+                    style={{ width: 370 }}
                   >
                     <FieldArray
                       name="paths"
@@ -372,15 +394,13 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                                 onDragLeave={onDragLeave}
                                 onDrop={event => onDrop(event, arrayHelpers, index)}
                               >
-                                {formik.values?.paths?.length > 1 && (
-                                  <Icon name="drag-handle-vertical" className={css.drag} />
-                                )}
-                                {formik.values?.paths?.length > 1 && <Text>{`${index + 1}.`}</Text>}
+                                <Icon name="drag-handle-vertical" className={css.drag} />
+                                <Text>{`${index + 1}.`}</Text>
                                 <FormInput.MultiTextInput
                                   label={''}
-                                  placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
+                                  placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                                   name={`paths[${index}].path`}
-                                  style={{ width: formik.values?.paths?.length > 1 ? 312 : 370 }}
+                                  style={{ width: 312 }}
                                   multiTextInputProps={{
                                     expressions,
                                     allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
@@ -427,7 +447,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       addDomId={true}
                       summary={getString('advancedTitle')}
                       details={
-                        <Layout.Horizontal height={90} flex={{ justifyContent: 'flex-start' }}>
+                        <Layout.Horizontal
+                          height={90}
+                          flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
+                        >
                           <FormMultiTypeCheckboxField
                             name="skipResourceVersioning"
                             label={getString('skipResourceVersion')}

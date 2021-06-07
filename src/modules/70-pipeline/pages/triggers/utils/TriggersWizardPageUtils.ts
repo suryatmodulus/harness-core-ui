@@ -1,7 +1,9 @@
 import { isNull, isUndefined, omitBy } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
-import type { NgPipeline, ConnectorInfoDTO } from 'services/cd-ng'
-import type { GetActionsListQueryParams, NGTriggerConfig, NGTriggerSource } from 'services/pipeline-ng'
+import type { SelectOption } from '@wings-software/uicore'
+import type { NgPipeline, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import type { GetActionsListQueryParams, NGTriggerConfigV2, NGTriggerSourceV2 } from 'services/pipeline-ng'
 import { connectorUrlType } from '@connectors/constants'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
@@ -9,10 +11,20 @@ import type { StringKeys } from 'framework/strings'
 import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
 
-const CUSTOM = 'CUSTOM'
+const CUSTOM = 'Custom'
+export const AWS_CODECOMMIT = 'AWS_CODECOMMIT'
+export const AwsCodeCommit = 'AwsCodeCommit'
+
+export interface ConnectorRefInterface {
+  identifier?: string
+  repoName?: string
+  value?: string
+  connector?: ConnectorInfoDTO
+  label?: string
+}
 
 export interface FlatInitialValuesInterface {
-  triggerType: NGTriggerSource['type']
+  triggerType: NGTriggerSourceV2['type']
   identifier?: string
   tags?: {
     [key: string]: string
@@ -21,38 +33,30 @@ export interface FlatInitialValuesInterface {
   originalPipeline?: NgPipeline
   name?: string
   // WEBHOOK-SPECIFIC
-  sourceRepo?: GetActionsListQueryParams['sourceRepo'] | string
+  sourceRepo?: string
+  connectorRef?: ConnectorRefInterface
   // SCHEDULE-SPECIFIC
   selectedScheduleTab?: string
-}
-
-export interface ConnectorRefInterface {
-  identifier: string
-  repoName?: string
-  value?: string
-  connector?: ConnectorInfoDTO
-  label?: string
 }
 
 export interface FlatOnEditValuesInterface {
   name: string
   identifier: string
-  targetIdentifier: string
+  // targetIdentifier: string
   description?: string
   tags?: {
     [key: string]: string
   }
-  pipeline: string
-  triggerType: NGTriggerSource['type']
+  pipeline: NgPipeline
+  triggerType: NGTriggerSourceV2['type']
   originalPipeline?: NgPipeline
   // WEBHOOK-SPECIFIC
   sourceRepo?: GetActionsListQueryParams['sourceRepo']
-  connectorRef?: {
-    identifier: string
-    repoName?: string
-  }
+  connectorRef?: ConnectorRefInterface
+  connectorIdentifier?: string
   repoName?: string
   repoUrl?: string
+  autoAbortPreviousExecutions?: boolean
   event?: string
   actions?: string[]
   anyAction?: boolean // required for onEdit to show checked
@@ -61,6 +65,8 @@ export interface FlatOnEditValuesInterface {
   sourceBranchValue?: string
   targetBranchOperator?: string
   targetBranchValue?: string
+  changedFilesOperator?: string
+  changedFilesValue?: string
   tagConditionOperator?: string
   tagConditionValue?: string
   headerConditions?: AddConditionInterface[]
@@ -82,10 +88,11 @@ export interface FlatValidWebhookFormikValuesInterface {
   target?: string
   targetIdentifier?: string
   pipeline: NgPipeline
-  sourceRepo: GetActionsListQueryParams['sourceRepo']
-  triggerType: NGTriggerSource['type']
+  sourceRepo: string
+  triggerType: NGTriggerSourceV2['type']
   repoName?: string
   connectorRef?: { connector: { spec: { type: string } }; value: string } // get from dto interface when available
+  autoAbortPreviousExecutions: boolean
   event?: string
   actions?: string[]
   secureToken?: string
@@ -93,6 +100,8 @@ export interface FlatValidWebhookFormikValuesInterface {
   sourceBranchValue?: string
   targetBranchOperator?: string
   targetBranchValue?: string
+  changedFilesOperator?: string
+  changedFilesValue?: string
   tagConditionOperator?: string
   tagConditionValue?: string
   headerConditions?: AddConditionInterface[]
@@ -110,8 +119,8 @@ export interface FlatValidScheduleFormikValuesInterface {
   target?: string
   targetIdentifier?: string
   pipeline: NgPipeline
-  sourceRepo: GetActionsListQueryParams['sourceRepo']
-  triggerType: NGTriggerSource['type']
+  sourceRepo: string
+  triggerType: NGTriggerSourceV2['type']
   expression: string
 }
 
@@ -122,13 +131,14 @@ export const TriggerTypes = {
 }
 
 interface TriggerTypeSourceInterface {
-  triggerType: NGTriggerSource['type']
-  sourceRepo?: GetActionsListQueryParams['sourceRepo']
+  triggerType: NGTriggerSourceV2['type']
+  sourceRepo?: string
 }
 
 export const PayloadConditionTypes = {
   TARGET_BRANCH: 'targetBranch',
   SOURCE_BRANCH: 'sourceBranch',
+  CHANGED_FILES: 'changedFiles',
   TAG: 'tag'
 }
 export const ResponseStatus = {
@@ -142,7 +152,7 @@ const getTriggerTitle = ({
   triggerName,
   getString
 }: {
-  triggerType: NGTriggerSource['type']
+  triggerType: NGTriggerSourceV2['type']
   triggerName?: string
   getString: (key: StringKeys) => string
 }): string => {
@@ -158,7 +168,7 @@ const getTriggerTitle = ({
   return ''
 }
 
-interface TriggerConfigDTO extends Omit<NGTriggerConfig, 'identifier'> {
+export interface TriggerConfigDTO extends Omit<NGTriggerConfigV2, 'identifier'> {
   identifier?: string
 }
 
@@ -171,19 +181,21 @@ export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterfa
   const sourceRepoParam = '&sourceRepo='
   const triggerType = searchStr.replace(`?${triggerTypeParam}`, '')
   if (triggerType.includes(TriggerTypes.WEBHOOK)) {
+    const sourceRepo = (searchStr.substring(
+      searchStr.lastIndexOf(sourceRepoParam) + sourceRepoParam.length
+    ) as unknown) as string
     return {
       triggerType: (searchStr.substring(
         searchStr.lastIndexOf(triggerTypeParam) + triggerTypeParam.length,
         searchStr.lastIndexOf(sourceRepoParam)
-      ) as unknown) as NGTriggerSource['type'],
-      sourceRepo: (searchStr.substring(
-        searchStr.lastIndexOf(sourceRepoParam) + sourceRepoParam.length
-      ) as unknown) as GetActionsListQueryParams['sourceRepo']
+      ) as unknown) as NGTriggerSourceV2['type'],
+      sourceRepo
     }
+    // }
   } else {
     // SCHEDULED | unfound page
     return {
-      triggerType: (triggerType as unknown) as NGTriggerSource['type']
+      triggerType: (triggerType as unknown) as NGTriggerSourceV2['type']
     }
   }
 }
@@ -230,6 +242,8 @@ const checkValidPayloadConditions = (formikValues: FlatValidWebhookFormikValuesI
     (!formikValues['sourceBranchOperator'] && formikValues['sourceBranchValue']?.trim()) ||
     (formikValues['targetBranchOperator'] && !formikValues['targetBranchValue']) ||
     (!formikValues['targetBranchOperator'] && formikValues['targetBranchValue']?.trim()) ||
+    (formikValues['changedFilesOperator'] && !formikValues['changedFilesValue']) ||
+    (!formikValues['changedFilesOperator'] && formikValues['changedFilesValue']?.trim()) ||
     (formikValues['tagConditionOperator'] && !formikValues['tagConditionValue']) ||
     (!formikValues['tagConditionOperator'] && formikValues['tagConditionValue']?.trim()) ||
     (payloadConditions?.length &&
@@ -254,7 +268,7 @@ const getPanels = ({
   triggerType,
   getString
 }: {
-  triggerType: NGTriggerSource['type']
+  triggerType: NGTriggerSourceV2['type']
   getString: (key: StringKeys) => string
 }): PanelInterface[] | [] => {
   if (triggerType === TriggerTypes.WEBHOOK) {
@@ -304,7 +318,7 @@ export const getWizardMap = ({
   getString,
   triggerName
 }: {
-  triggerType: NGTriggerSource['type']
+  triggerType: NGTriggerSourceV2['type']
   triggerName?: string
   getString: (key: StringKeys) => string
 }): { wizardLabel: string; panels: PanelInterface[] } => ({
@@ -318,7 +332,7 @@ export const getWizardMap = ({
 
 // requiredFields and checkValidPanel in getPanels() above to render warning icons related to this schema
 export const getValidationSchema = (
-  triggerType: NGTriggerSource['type'],
+  triggerType: NGTriggerSourceV2['type'],
   getString: (key: StringKeys) => string
 ): ObjectSchema<Record<string, any> | undefined> => {
   if (triggerType === TriggerTypes.WEBHOOK) {
@@ -345,24 +359,26 @@ export const getValidationSchema = (
           return this.parent.sourceRepo === CUSTOM || connectorRef?.value
         }
       ),
-      repoName: string().test(
-        getString('pipeline.triggers.validation.repoName'),
-        getString('pipeline.triggers.validation.repoName'),
-        function (repoName) {
-          const connectorURLType = this.parent.connectorRef?.connector?.spec?.type
-          return (
-            !connectorURLType ||
-            (connectorURLType === connectorUrlType.ACCOUNT && repoName?.trim()) ||
-            (connectorURLType === connectorUrlType.REGION && repoName?.trim()) ||
-            connectorURLType === connectorUrlType.REPO
-          )
-        }
-      ),
+      repoName: string()
+        .nullable()
+        .test(
+          getString('pipeline.triggers.validation.repoName'),
+          getString('pipeline.triggers.validation.repoName'),
+          function (repoName) {
+            const connectorURLType = this.parent.connectorRef?.connector?.spec?.type
+            return (
+              !connectorURLType ||
+              (connectorURLType === connectorUrlType.ACCOUNT && repoName?.trim()) ||
+              (connectorURLType === connectorUrlType.REGION && repoName?.trim()) ||
+              connectorURLType === connectorUrlType.REPO
+            )
+          }
+        ),
       actions: array().test(
         getString('pipeline.triggers.validation.actions'),
         getString('pipeline.triggers.validation.actions'),
         function (actions) {
-          return this.parent.sourceRepo === CUSTOM || !isUndefined(actions)
+          return this.parent.sourceRepo === CUSTOM || !isUndefined(actions) || this.parent.event === eventTypes.PUSH
         }
       ),
       sourceBranchOperator: string().test(
@@ -407,6 +423,28 @@ export const getValidationSchema = (
             (matchesValue && !this.parent.targetBranchOperator) ||
             (matchesValue && this.parent.targetBranchOperator) ||
             (!matchesValue?.trim() && !this.parent.targetBranchOperator)
+          )
+        }
+      ),
+      changedFilesOperator: string().test(
+        getString('pipeline.triggers.validation.operator'),
+        getString('pipeline.triggers.validation.operator'),
+        function (operator) {
+          return (
+            (operator && !this.parent.changedFilesValue) ||
+            (operator && this.parent.changedFilesValue) ||
+            (!this.parent.changedFilesValue?.trim() && !operator)
+          )
+        }
+      ),
+      changedFilesValue: string().test(
+        getString('pipeline.triggers.validation.matchesValue'),
+        getString('pipeline.triggers.validation.matchesValue'),
+        function (matchesValue) {
+          return (
+            (matchesValue && !this.parent.changedFilesOperator) ||
+            (matchesValue && this.parent.changedFilesOperator) ||
+            (!matchesValue?.trim() && !this.parent.changedFilesOperator)
           )
         }
       ),
@@ -478,7 +516,46 @@ export const getValidationSchema = (
 export const eventTypes = {
   PUSH: 'Push',
   BRANCH: 'Branch',
-  TAG: 'Tag'
+  TAG: 'Tag',
+  PULL_REQUEST: 'PullRequest',
+  MERGE_REQUEST: 'MergeRequest',
+  ISSUE_COMMENT: 'IssueComment'
+}
+
+export const getEventLabelMap = (event: string) => {
+  // add space between camelcase-separated words
+  if (event === eventTypes.PULL_REQUEST) {
+    return 'Pull Request'
+  } else if (event === eventTypes.MERGE_REQUEST) {
+    return 'Merge Request'
+  } else if (event === eventTypes.ISSUE_COMMENT) {
+    return 'Issue Comment'
+  }
+  return event
+}
+
+export const autoAbortPreviousExecutionsTypes = [
+  eventTypes.PUSH,
+  eventTypes.PULL_REQUEST,
+  eventTypes.ISSUE_COMMENT,
+  eventTypes.MERGE_REQUEST
+]
+
+export const getAutoAbortDescription = ({
+  event,
+  getString
+}: {
+  event: string
+  getString: (key: StringKeys) => string
+}): string => {
+  if (event === eventTypes.PUSH) {
+    return getString('pipeline.triggers.triggerConfigurationPanel.autoAbortPush')
+  } else if (event === eventTypes.PULL_REQUEST || event === eventTypes.MERGE_REQUEST) {
+    return getString('pipeline.triggers.triggerConfigurationPanel.autoAbortPR')
+  } else if (event === eventTypes.ISSUE_COMMENT) {
+    return getString('pipeline.triggers.triggerConfigurationPanel.autoAbortIssueComment')
+  }
+  return ''
 }
 
 export const scheduledTypes = {
@@ -494,3 +571,54 @@ export const ciCodebaseBuild = {
     branch: '<+trigger.branch>'
   }
 }
+
+export const getConnectorName = (connector?: ConnectorResponse): string =>
+  `${
+    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
+      ? `${connector?.connector?.type}: ${connector?.connector?.name}`
+      : connector?.connector?.orgIdentifier
+      ? `${connector?.connector?.type}[Org]: ${connector?.connector?.name}`
+      : `${connector?.connector?.type}[Account]: ${connector?.connector?.name}`
+  }` || ''
+
+export const getConnectorValue = (connector?: ConnectorResponse): string =>
+  `${
+    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
+      ? connector?.connector?.identifier
+      : connector?.connector?.orgIdentifier
+      ? `${Scope.ORG}.${connector?.connector?.identifier}`
+      : `${Scope.ACCOUNT}.${connector?.connector?.identifier}`
+  }` || ''
+
+export const getEventAndActions = ({
+  data,
+  sourceRepo
+}: {
+  data: {
+    [key: string]: {
+      [key: string]: string[]
+    }
+  }
+  sourceRepo: string
+}): { eventOptions: SelectOption[]; actionsOptionsMap: { [key: string]: string[] } } => {
+  const filteredData = data?.[sourceRepo] || {}
+  const eventOptions = Object.keys(filteredData).map(event => ({
+    label: getEventLabelMap(event),
+    value: event
+  }))
+  return { eventOptions, actionsOptionsMap: filteredData }
+}
+
+export const mockOperators = [
+  { label: '', value: '' },
+  { label: 'equals', value: 'Equals' },
+  { label: 'not equals', value: 'NotEquals' },
+  { label: 'in', value: 'In' },
+  { label: 'not in', value: 'NotIn' },
+  { label: 'starts with', value: 'StartsWith' },
+  { label: 'ends with', value: 'EndsWith' },
+  { label: 'regex', value: 'Regex' }
+]
+
+export const inNotInArr = ['In', 'NotIn']
+export const inNotInPlaceholder = 'value1, regex1'

@@ -1,0 +1,11 @@
+.credentials {
+  position: relative;
+  .form {
+    width: 60%;
+    min-height: 460px !important;
+    .buttonContainer {
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}

@@ -32,6 +32,7 @@ export interface ReferenceSelectProps<T extends MinimalObject> extends Omit<Enti
   selected?: Item
   createNewLabel?: string
   createNewHandler?: () => void
+  hideModal?: boolean
   selectedRenderer?: JSX.Element
   editRenderer?: JSX.Element
   width?: number
@@ -50,11 +51,15 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
     createNewHandler,
     isNewConnectorLabelVisible = true,
     editRenderer,
+    hideModal = false,
     selectedRenderer,
     disabled,
     ...referenceProps
   } = props
   const [isOpen, setOpen] = React.useState(false)
+  React.useEffect(() => {
+    isOpen && setOpen(!hideModal) //this will hide modal if hideModal changes to true in open state
+  }, [hideModal])
   return (
     <>
       <Button

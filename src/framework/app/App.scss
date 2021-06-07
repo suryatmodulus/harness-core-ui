@@ -15,7 +15,7 @@ body,
 
 .ngTooltipEditorWrapper {
   position: absolute;
-  width: 800px;
+  width: 1024px;
   top: 100px;
   right: 20px;
   border: 1px solid #e0e0e0;
@@ -36,3 +36,5 @@ body {
   min-width: 1280px;
   min-height: 100vh;
 }
+
+@import '@common/styles/index.scss';

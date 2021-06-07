@@ -1,5 +1,5 @@
 import React from 'react'
-import { Formik, Accordion } from '@wings-software/uicore'
+import { Formik, Accordion, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 
@@ -47,7 +47,16 @@ export function HttpStepWidget(
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
-          url: Yup.string().required(getString('validation.UrlRequired')).url(getString('validation.urlIsNotValid')),
+          url: Yup.lazy(
+            (value): Yup.Schema<unknown> => {
+              if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
+                return Yup.string()
+                  .required(getString('validation.UrlRequired'))
+                  .url(getString('validation.urlIsNotValid'))
+              }
+              return Yup.string().required(getString('validation.UrlRequired'))
+            }
+          ),
           method: Yup.mixed().required(getString('pipelineSteps.methodIsRequired')),
           headers: Yup.array().of(
             Yup.object().shape({

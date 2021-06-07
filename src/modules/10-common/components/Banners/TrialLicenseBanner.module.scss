@@ -1,4 +1,23 @@
 .trialLicenseBanner {
   height: 5vh !important;
+}
+
+.expired {
+  background-color: var(--red-100) !important;
+}
+
+.notExpired {
   background-color: var(--yellow-100) !important;
+}
+
+.contactSales {
+  margin-top: 2px !important;
+  border: solid 1px !important;
+}
+
+.extendTrial {
+  margin-top: 2px !important;
+  &:hover {
+    cursor: pointer;
+  }
 }

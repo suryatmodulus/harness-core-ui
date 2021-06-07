@@ -35,7 +35,7 @@ const BuildCommits: React.FC = () => {
   const copy2Clipboard = (text: string): void => {
     copy(String(text))
       ? showSuccess(getString('ci.clipboardCopySuccess'))
-      : showError(getString('ci.clipboardCopyFail'))
+      : showError(getString('ci.clipboardCopyFail'), undefined, 'ci.copy.commit.error')
   }
   const commitsGroupedByTimestamp: CommitsGroupedByTimestamp[] = []
   const buildCommits = get(

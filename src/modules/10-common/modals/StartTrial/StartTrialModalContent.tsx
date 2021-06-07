@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Button, Heading, Color, Container, Layout, IconName, Icon, Text } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import { String, useStrings } from 'framework/strings'
 import { useQueryParams } from '@common/hooks'
 import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
-import ModuleInfoCards, { ModuleInfoCard, INFO_CARD_PROPS } from '@common/components/ModuleInfoCards/ModuleInfoCards'
+import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '@common/components/ModuleInfoCards/ModuleInfoCards'
 
 export interface StartTrialModalContentProps {
   handleStartTrial?: () => void
@@ -15,8 +16,12 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
   const { handleStartTrial, module } = props
 
   const { getString } = useStrings()
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
   const { source } = useQueryParams<{ source?: string }>()
-  const initialSelectedInfoCard = INFO_CARD_PROPS[module] ? INFO_CARD_PROPS[module][0] : undefined
+  const moduleInfoCards = getInfoCardsProps(accountId)[module]
+  const initialSelectedInfoCard = moduleInfoCards ? moduleInfoCards[0] : undefined
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard | undefined>(initialSelectedInfoCard)
 
   function getModuleButton(): React.ReactElement {
@@ -24,7 +29,7 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
       if (!selectedInfoCard || selectedInfoCard?.isNgRoute) {
         handleStartTrial?.()
       } else if (selectedInfoCard?.route) {
-        window.location.href = selectedInfoCard.route
+        window.location.href = selectedInfoCard.route?.()
         return
       }
     }
@@ -41,13 +46,11 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
 
     return (
       <Button
-        style={{
-          width: 270,
-          borderRadius: 4,
-          lineHeight: 2.5,
-          textAlign: 'center',
-          padding: 19
-        }}
+        width={270}
+        border={{ radius: 4 }}
+        height={2.5}
+        font={{ align: 'center' }}
+        padding={'medium'}
         intent="primary"
         text={getButtonText()}
         onClick={handleOnClick}
@@ -65,13 +68,15 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
           color={Color.BLACK}
           font={{ size: 'large', weight: 'bold' }}
           padding={{ top: 'xxlarge' }}
-          style={{ marginBottom: 30 }}
+          margin={{ bottom: 30 }}
         >
           {getString('common.purpose.welcome')}
         </Heading>
         <Layout.Horizontal spacing="small">
           <Icon name={`${moduleName}-main` as IconName} size={25} />
-          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{title}</Text>
+          <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
+            {title}
+          </Text>
         </Layout.Horizontal>
       </>
     )
@@ -104,12 +109,7 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
   }
 
   const infoCards = module && (
-    <ModuleInfoCards
-      style={{ marginRight: 300 }}
-      module={module}
-      selectedInfoCard={selectedInfoCard}
-      setSelectedInfoCard={setSelectedInfoCard}
-    />
+    <ModuleInfoCards module={module} selectedInfoCard={selectedInfoCard} setSelectedInfoCard={setSelectedInfoCard} />
   )
 
   const button = getModuleButton()

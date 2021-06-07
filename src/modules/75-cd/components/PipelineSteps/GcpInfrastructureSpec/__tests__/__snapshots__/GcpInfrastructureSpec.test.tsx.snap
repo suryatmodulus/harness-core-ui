@@ -9,153 +9,55 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
     >
       <div
-        class="bp3-form-group"
+        class="formGroup md"
       >
-        <label
-          class="bp3-label"
-        >
-          connector
-           
-          <span
-            class="bp3-text-muted"
-          />
-        </label>
-        <div
-          class="bp3-form-content"
-        >
-          <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
-            data-testid="cr-field-connectorRef"
-            style="width: 400px;"
-            type="button"
+        <div>
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="margin-bottom: 5px;"
           >
             <span
-              class="bp3-button-text"
+              class="Tooltip--acenter"
+              data-tooltip-id="gcpInfraConnector"
             >
-              <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
-              >
-                <span
-                  class="bp3-popover-wrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main label"
-                      tabindex="0"
-                    >
-                      connectorRef
-                    </p>
-                  </span>
-                </span>
-                <div
-                  class="rightStatus"
-                >
-                  <span
-                    class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
-                    data-testid="crf-status"
-                    icon="full-circle"
-                  >
-                    <svg
-                      data-icon="full-circle"
-                      height="6"
-                      viewBox="0 0 16 16"
-                      width="6"
-                    >
-                      <desc>
-                        full-circle
-                      </desc>
-                      <path
-                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="Tag--main"
-                  >
-                    <span
-                      class="bp3-tag bp3-minimal tag"
-                    >
-                      <span
-                        class="bp3-text-overflow-ellipsis bp3-fill"
-                      >
-                        account
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </div>
+              connector
             </span>
-            <span
-              class="bp3-icon bp3-icon-caret-down StyledProps--main"
-              icon="caret-down"
-            >
-              <svg
-                data-icon="caret-down"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  caret-down
-                </desc>
-                <path
-                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-      </div>
-      <div
-        class="bp3-form-group"
-      >
-        <label
-          class="bp3-label"
-          for=".cluster"
-        >
-          common.cluster
-           
-          <span
-            class="bp3-text-muted"
-          />
-        </label>
-        <div
-          class="bp3-form-content"
-        >
+          </div>
           <div
-            class="bp3-popover-wrapper Select--main bp3-fill"
+            class="bp3-form-group"
+            style="margin-bottom: 0px;"
           >
             <div
-              class="bp3-popover-target"
+              class="bp3-form-content"
             >
               <div
-                class="bp3-input-group"
+                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                style="width: 400px;"
               >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name=".cluster"
-                  placeholder="cd.steps.common.selectOrEnterClusterPlaceholder"
-                  style="padding-right: 0px;"
-                  type="text"
-                  value="cluster"
-                />
-                <span
-                  class="bp3-input-action"
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  data-testid="cr-field-.connectorRef"
+                  style="width: 372px;"
+                  type="button"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                    class="bp3-button-text"
+                  >
+                    <span
+                      class="placeholder"
+                    >
+                      cd.steps.common.selectConnectorPlaceholder
+                    </span>
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-caret-down StyledProps--main"
                     icon="caret-down"
                   >
                     <svg
                       data-icon="caret-down"
-                      height="14"
+                      height="16"
                       viewBox="0 0 16 16"
-                      width="14"
+                      width="16"
                     >
                       <desc>
                         caret-down
@@ -166,6 +68,33 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
                       />
                     </svg>
                   </span>
+                </button>
+                <span
+                  class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="fixed-input"
+                      >
+                        <svg
+                          height="12"
+                          viewBox="0 0 9 9"
+                          width="12"
+                        >
+                          <path
+                            d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
                 </span>
               </div>
             </div>
@@ -173,62 +102,229 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
         </div>
       </div>
       <div
-        class="bp3-form-group"
+        class="formGroup md"
       >
-        <label
-          class="bp3-label"
-          for=".namespace"
-        >
-          common.namespace
-           
-          <span
-            class="bp3-text-muted"
-          />
-        </label>
         <div
-          class="bp3-form-content"
+          class="bp3-form-group"
         >
-          <div
-            class="bp3-input-group"
+          <label
+            class="bp3-label"
+            for=".cluster"
           >
-            <input
-              autocomplete="off"
-              class="bp3-input"
-              name=".namespace"
-              placeholder="cd.steps.common.namespacePlaceholder"
-              type="text"
-              value=""
+            common.cluster
+             
+            <span
+              class="bp3-text-muted"
             />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+            >
+              <div
+                class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name=".cluster"
+                      placeholder="cd.steps.common.selectOrEnterClusterPlaceholder"
+                      style="padding-right: 0px;"
+                      type="text"
+                      value=""
+                    />
+                    <span
+                      class="bp3-input-action"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <span
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="fixed-input"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 9 9"
+                        width="12"
+                      >
+                        <path
+                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
       <div
-        class="bp3-form-group"
+        class="formGroup md"
       >
-        <label
-          class="bp3-label"
-          for=".releaseName"
-        >
-          common.releaseName
-           
-          <span
-            class="bp3-text-muted"
-          />
-        </label>
         <div
-          class="bp3-form-content"
+          class="bp3-form-group"
         >
-          <div
-            class="bp3-input-group"
+          <label
+            class="bp3-label"
+            for=".namespace"
           >
-            <input
-              autocomplete="off"
-              class="bp3-input"
-              name=".releaseName"
-              placeholder="cd.steps.common.releaseNamePlaceholder"
-              type="text"
-              value=""
+            common.namespace
+             
+            <span
+              class="bp3-text-muted"
             />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+            >
+              <div
+                class="bp3-input-group MultiTypeInput--input"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name=".namespace"
+                  placeholder="cd.steps.common.namespacePlaceholder"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <span
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="fixed-input"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 9 9"
+                        width="12"
+                      >
+                        <path
+                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="formGroup md"
+      >
+        <div
+          class="bp3-form-group"
+        >
+          <label
+            class="bp3-label"
+            for=".releaseName"
+          >
+            common.releaseName
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+            >
+              <div
+                class="bp3-input-group MultiTypeInput--input"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name=".releaseName"
+                  placeholder="cd.steps.common.releaseNamePlaceholder"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <span
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="fixed-input"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 9 9"
+                        width="12"
+                      >
+                        <path
+                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -260,12 +356,6 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
   <div
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
   >
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="font-size: 16px; color: black; margin-top: 15px;"
-    >
-      cd.steps.kubernetesGcpStep.stepName
-    </p>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -277,16 +367,17 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
             <div>
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="gcpInfraConnector"
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="margin-bottom: 5px;"
               >
-                <label
-                  class="Label--main connectorLabel"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcpInfraConnector"
                 >
                   connector
-                </label>
-              </span>
+                </span>
+              </div>
               <div
                 class="bp3-form-group"
                 data-id="undefined-0"
@@ -318,7 +409,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -704,12 +795,6 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
   <div
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
   >
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="font-size: 16px; color: black; margin-top: 15px;"
-    >
-      cd.steps.kubernetesGcpStep.stepName
-    </p>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -721,16 +806,17 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
             <div>
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="gcpInfraConnector"
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="margin-bottom: 5px;"
               >
-                <label
-                  class="Label--main connectorLabel"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcpInfraConnector"
                 >
                   connector
-                </label>
-              </span>
+                </span>
+              </div>
               <div
                 class="bp3-form-group"
                 data-id="connectorRef-0"
@@ -1160,12 +1246,6 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
   <div
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
   >
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="font-size: 16px; color: black; margin-top: 15px;"
-    >
-      cd.steps.kubernetesGcpStep.stepName
-    </p>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -1177,16 +1257,17 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
           >
             <div>
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="gcpInfraConnector"
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="margin-bottom: 5px;"
               >
-                <label
-                  class="Label--main connectorLabel"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcpInfraConnector"
                 >
                   connector
-                </label>
-              </span>
+                </span>
+              </div>
               <div
                 class="bp3-form-group"
                 data-id="undefined-0"
@@ -1218,7 +1299,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -1527,7 +1608,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                       name="releaseName"
                       placeholder="cd.steps.common.releaseNamePlaceholder"
                       type="text"
-                      value="releaseName"
+                      value="releasename"
                     />
                   </div>
                   <span

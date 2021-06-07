@@ -1,6 +1,6 @@
 import React from 'react'
 import { noop } from 'lodash-es'
-import { Button, Container, Layout } from '@wings-software/uicore'
+import { Button, Container, Icon, Layout } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
@@ -25,6 +25,10 @@ export const EnableGitExperience: React.FC = (): JSX.Element => {
 
   return (
     <Container className={css.enableGitExpContainer}>
+      <div className={css.enableGitExpHeader}>
+        <Icon size={32} name={'service-github'} />
+        <span className={css.enableGitExpHeaderText}>{getString('enableGitExperience')}</span>
+      </div>
       <div className={css.enableGitExpContent}>{getString('common.enableGitSyncPipeline')}</div>
       <Layout.Horizontal border={{ top: true }} padding={{ top: 'medium' }} margin={{ top: 'medium' }}>
         <Button

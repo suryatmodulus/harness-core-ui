@@ -302,7 +302,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
             <FormikForm>
               <FormInput.Select
                 name="secretManagerIdentifier"
-                label={getString('secret.labelSecretsManager')}
+                label={getString('secrets.labelSecretsManager')}
                 items={secretManagersOptions}
                 disabled={editing || loadingSecretsManagers || loadingConnectorDetails}
                 onChange={item => {
@@ -326,7 +326,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
               ) : null}
               <FormInput.InputWithIdentifier
                 inputName="name"
-                inputLabel={getString('secret.labelSecretName')}
+                inputLabel={getString('secrets.labelSecretName')}
                 idName="identifier"
                 isIdentifierEditable={!editing}
                 inputGroupProps={{ disabled: loadingSecret }}
@@ -335,7 +335,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
               {LocalFormFieldsSMList.findIndex(val => val === typeOfSelectedSecretManager) !== -1 ? (
                 <LocalFormFields formik={formikProps} type={type} editing={editing} />
               ) : null}
-              {typeOfSelectedSecretManager === 'Vault' ? (
+              {typeOfSelectedSecretManager === 'Vault' || typeOfSelectedSecretManager === 'AzureKeyVault' ? (
                 <VaultFormFields formik={formikProps} type={type} editing={editing} readonly={readOnlySecretManager} />
               ) : null}
               <Button

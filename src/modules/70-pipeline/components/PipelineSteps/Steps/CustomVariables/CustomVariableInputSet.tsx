@@ -8,6 +8,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
 
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { VariableType } from './CustomVariableUtils'
 import css from './CustomVariables.module.scss'
 
@@ -43,6 +44,7 @@ export function CustomVariableInputSet(props: CustomVariableInputSetProps): Reac
     inputSetData
   } = props
   const basePath = path?.length ? `${path}.` : ''
+  const { expressions } = useVariablesExpression()
   return (
     <div className={cx(css.customVariablesInputSets, 'customVariables')} id={domId}>
       {stepViewType === StepViewType.StageVariable && initialValues.variables.length > 0 && (
@@ -75,23 +77,37 @@ export function CustomVariableInputSet(props: CustomVariableInputSetProps): Reac
             <Text>{variable.type}</Text>
             <div className={css.valueRow}>
               {variable.type === VariableType.Secret ? (
-                <MultiTypeSecretInput isMultiType={false} name={`${basePath}variables[${index}].value`} label="" />
+                <MultiTypeSecretInput
+                  expressions={expressions}
+                  allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                  name={`${basePath}variables[${index}].value`}
+                  label=""
+                />
               ) : (
                 <>
                   {isAllowedValues ? (
-                    <FormInput.Select
+                    <FormInput.MultiTypeInput
                       className="variableInput"
                       name={`${basePath}variables[${index}].value`}
                       label=""
-                      items={items}
+                      useValue
+                      selectItems={items}
+                      multiTypeInputProps={{
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                        expressions,
+                        selectProps: { disabled: inputSetData?.readonly, items: items }
+                      }}
                       disabled={inputSetData?.readonly}
-                      selectProps={{ disabled: inputSetData?.readonly }}
                     />
                   ) : (
-                    <FormInput.Text
+                    <FormInput.MultiTextInput
                       className="variableInput"
                       name={`${basePath}variables[${index}].value`}
-                      inputGroup={{ type: variable.type === 'Number' ? 'number' : 'text' }}
+                      multiTextInputProps={{
+                        textProps: { type: variable.type === 'Number' ? 'number' : 'text' },
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                        expressions
+                      }}
                       label=""
                       disabled={inputSetData?.readonly}
                     />

@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid'
 
 import { isEmpty } from 'lodash-es'
 import { yupToFormErrors, FormikErrors } from 'formik'
+import type { StringNGVariable } from 'services/cd-ng'
 
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 
@@ -77,6 +78,7 @@ export class TerraformApply extends PipelineStep<TFFormData> {
   }
 
   private getInitialValues(data: TFFormData): TerraformData {
+    const envVars = data.spec?.configuration?.spec?.environmentVariables as StringNGVariable[]
     const formData = {
       ...data,
       spec: {
@@ -91,10 +93,10 @@ export class TerraformApply extends PipelineStep<TFFormData> {
                   id: uuid()
                 }))
               : [{ value: '', id: uuid() }],
-            environmentVariables: Array.isArray(data.spec?.configuration?.spec?.environmentVariables)
-              ? data.spec?.configuration?.spec?.environmentVariables.map(variable => ({
+            environmentVariables: Array.isArray(envVars)
+              ? envVars.map(variable => ({
                   key: variable.name,
-                  value: variable.description,
+                  value: variable.value,
                   id: uuid()
                 }))
               : [{ key: '', value: '', id: uuid() }]
@@ -109,7 +111,7 @@ export class TerraformApply extends PipelineStep<TFFormData> {
     return onSubmitTerraformData(data)
   }
   renderStep(props: StepProps<TFFormData, unknown>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, formikRef, inputSetData, customStepProps, isNewStep } = props
+    const { initialValues, onUpdate, stepViewType, formikRef, inputSetData, customStepProps, isNewStep, path } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <TerraformInputStep
@@ -118,6 +120,7 @@ export class TerraformApply extends PipelineStep<TFFormData> {
           stepViewType={stepViewType}
           readonly={inputSetData?.readonly}
           inputSetData={inputSetData}
+          path={path}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {

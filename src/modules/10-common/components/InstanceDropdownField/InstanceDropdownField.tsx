@@ -100,6 +100,8 @@ interface InstanceDropdownFieldProps extends Omit<IFormGroupProps, 'label' | 'pl
   onChange?: (value: InstanceFieldValue) => void
   value: InstanceFieldValue
   label: string
+  expressions: string[]
+  allowableTypes?: MultiTypeInputType[]
   disabledType?: boolean
   readonly?: boolean
   name: string
@@ -111,6 +113,8 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
   label,
   name,
   onChange,
+  allowableTypes,
+  expressions,
   disabledType = false,
   textProps,
   readonly,
@@ -155,6 +159,8 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
             }
           }
         }}
+        expressions={expressions}
+        allowableTypes={allowableTypes}
         disabled={readonly}
         key={isPercentageType ? 'percent' : 'count'}
         value={((isPercentageType ? value.spec.percentage : value.spec.count) as unknown) as string}

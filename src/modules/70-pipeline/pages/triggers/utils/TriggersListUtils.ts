@@ -1,19 +1,16 @@
 import type { IconName } from '@wings-software/uicore'
 // temporary mock data
+import { parse } from 'yaml'
 import type { AddDrawerMapInterface } from '@common/components/AddDrawer/AddDrawer'
-import type { GetActionsListQueryParams } from 'services/pipeline-ng'
 import type { StringKeys } from 'framework/strings'
-import { TriggerTypes } from './TriggersWizardPageUtils'
+import { TriggerTypes, AWS_CODECOMMIT, AwsCodeCommit } from './TriggersWizardPageUtils'
 
-export const GitSourceProviders: Record<
-  GetActionsListQueryParams['sourceRepo'],
-  { value: GetActionsListQueryParams['sourceRepo']; iconName: IconName }
-> = {
-  GITHUB: { value: 'GITHUB', iconName: 'github' },
-  GITLAB: { value: 'GITLAB', iconName: 'service-gotlab' },
-  BITBUCKET: { value: 'BITBUCKET', iconName: 'bitbucket' },
-  AWS_CODECOMMIT: { value: 'AWS_CODECOMMIT', iconName: 'service-aws-code-deploy' },
-  CUSTOM: { value: 'CUSTOM', iconName: 'build' }
+export const GitSourceProviders: Record<string, { value: string; iconName: IconName }> = {
+  GITHUB: { value: 'Github', iconName: 'github' },
+  GITLAB: { value: 'Gitlab', iconName: 'service-gotlab' },
+  BITBUCKET: { value: 'Bitbucket', iconName: 'bitbucket' },
+  AWS_CODECOMMIT: { value: 'AwsCodeCommit', iconName: 'service-aws-code-deploy' },
+  CUSTOM: { value: 'Custom', iconName: 'build' }
 }
 
 const TriggerTypeIcons = {
@@ -24,17 +21,18 @@ export const getTriggerIcon = ({
   webhookSourceRepo
 }: {
   type: string
-  webhookSourceRepo: GetActionsListQueryParams['sourceRepo'] | undefined | string // string temporary until backend
+  webhookSourceRepo?: string // string temporary until backend
 }): IconName => {
+  const updatedWebhookSourceRepo =
+    webhookSourceRepo === AwsCodeCommit ? AWS_CODECOMMIT : webhookSourceRepo?.toUpperCase()
   const webhookSourceRepoIconName =
-    webhookSourceRepo && GitSourceProviders[webhookSourceRepo as GetActionsListQueryParams['sourceRepo']]?.iconName
+    webhookSourceRepo && updatedWebhookSourceRepo && GitSourceProviders[updatedWebhookSourceRepo]?.iconName
   if (type === TriggerTypes.WEBHOOK && webhookSourceRepoIconName) {
     return webhookSourceRepoIconName as IconName
   } else if (type === TriggerTypes.SCHEDULE) {
     return TriggerTypeIcons.SCHEDULE as IconName
   }
-  // placeholder for now
-  return GitSourceProviders.GITHUB?.iconName as IconName
+  return 'yaml-builder-trigger'
 }
 
 const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapInterface => ({
@@ -90,7 +88,7 @@ const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapI
           iconName: GitSourceProviders.BITBUCKET.iconName
         },
         {
-          itemLabel: getString('common.repo_provider.codecommit'),
+          itemLabel: getString('common.repo_provider.awscodecommit'),
           value: GitSourceProviders.AWS_CODECOMMIT.value,
           iconName: GitSourceProviders.AWS_CODECOMMIT.iconName
         },
@@ -128,4 +126,22 @@ export interface TriggerDataInterface {
   triggerType: string
   sourceRepo?: string
   // all else optional
+}
+
+export const getEnabledStatusTriggerValues = ({
+  data,
+  enabled,
+  getString
+}: {
+  data: any
+  enabled: boolean
+  getString: (key: StringKeys) => string
+}): { values?: any; error?: string } => {
+  try {
+    const triggerResponseJson = parse(data?.yaml || '')
+    triggerResponseJson.trigger.enabled = enabled
+    return { values: triggerResponseJson.trigger }
+  } catch (e) {
+    return { error: getString('pipeline.triggers.cannotParseTriggersData') }
+  }
 }

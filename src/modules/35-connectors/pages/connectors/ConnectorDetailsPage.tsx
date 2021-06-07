@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react'
 import { Layout, Container, Icon, Text, Color, SelectOption, Select } from '@wings-software/uicore'
 import { Menu, Tag } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Link, useParams, useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
@@ -19,10 +19,12 @@ import {
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import type { ProjectPathProps, ConnectorPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps, ConnectorPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import { useQueryParams } from '@common/hooks'
+import routes from '@common/RouteDefinitions'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
 import ConnectorView from './ConnectorView'
 import { getIconByType } from './utils/ConnectorUtils'
@@ -39,11 +41,17 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const [selectedBranch, setSelectedBranch] = React.useState<string>('')
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
   const [searchTerm, setSearchTerm] = React.useState<string>('')
-  const { connectorId, accountId, orgIdentifier, projectIdentifier } = useParams<
-    ProjectPathProps & ConnectorPathProps
+  const { connectorId, accountId, orgIdentifier, projectIdentifier, module } = useParams<
+    PipelineType<ProjectPathProps & ConnectorPathProps>
   >()
   const { repoIdentifier, branch } = useQueryParams<EntityGitDetails>()
-  const { pathname } = useLocation()
+
+  const { data: orgData } = useGetOrganizationAggregateDTO({
+    identifier: orgIdentifier,
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
 
   const defaultQueryParam = {
     accountIdentifier: accountId,
@@ -112,7 +120,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingBranchList])
 
-  useDocumentTitle([connectorName || '', getString('connectorsLabel')])
+  useDocumentTitle([connectorName || connectorData?.data?.connector?.name || '', getString('connectorsLabel')])
 
   const categories: Categories = {
     connection: getString('connection'),
@@ -123,44 +131,29 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
 
   const RenderBreadCrumb: React.FC = () => {
-    if (projectIdentifier) {
-      return renderCommonBreadCrumb(props)
-    } else {
-      return orgIdentifier ? RenderBreadCrumbForOrg(props) : renderCommonBreadCrumb(props)
-    }
-  }
-
-  const RenderBreadCrumbForOrg: React.FC = () => {
-    const { data: orgData } = useGetOrganizationAggregateDTO({
-      identifier: orgIdentifier,
-      queryParams: {
-        accountIdentifier: accountId
+    let links = [
+      {
+        url: routes.toConnectors({ accountId, orgIdentifier, projectIdentifier, module }),
+        label: getString('resources')
+      },
+      {
+        label: getString('connectorsLabel'),
+        url: ''
       }
-    })
-
-    return (
-      <Layout.Horizontal spacing="xsmall">
-        <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/resources'))}`}>
-          {orgData?.data && orgData?.data?.organizationResponse.organization.name}
-        </Link>
-        <span>/</span>
-        {renderCommonBreadCrumb(props)}
-      </Layout.Horizontal>
-    )
-  }
-
-  const renderCommonBreadCrumb: React.FC = () => {
-    return (
-      <Layout.Horizontal spacing="xsmall">
-        <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}>
-          {getString('resources')}
-        </Link>
-        <span>/</span>
-        <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}>
-          {getString('connectorsLabel')}
-        </Link>
-      </Layout.Horizontal>
-    )
+    ]
+    if (projectIdentifier) {
+      return <Breadcrumbs links={links} />
+    }
+    if (orgIdentifier) {
+      links = [
+        {
+          url: routes.toOrganizationDetails({ accountId, orgIdentifier }),
+          label: orgData?.data ? orgData?.data?.organizationResponse.organization.name : ''
+        },
+        ...links
+      ]
+    }
+    return <Breadcrumbs links={links} />
   }
 
   const handleBranchClick = (selected: string): void => {
@@ -217,15 +210,15 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
         <Layout.Horizontal spacing="small">
           <Icon
             margin={{ left: 'xsmall', right: 'xsmall' }}
-            name={getIconByType(data?.connector?.type)}
+            name={getIconByType(connectorData?.data?.connector?.type)}
             size={35}
           ></Icon>
           <Container>
             <Text color={Color.GREY_800} font={{ size: 'medium', weight: 'bold' }}>
-              {connectorName}
+              {connectorData?.data?.gitDetails?.objectId ? connectorName : connectorData?.data?.connector?.name}
             </Text>
             <Layout.Horizontal spacing="small">
-              <Text color={Color.GREY_400}>{data?.connector?.identifier}</Text>
+              <Text color={Color.GREY_400}>{connectorData?.data?.connector?.identifier}</Text>
               {gitDetails?.objectId ? RenderGitDetails : null}
             </Layout.Horizontal>
           </Container>
@@ -233,7 +226,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       </Layout.Vertical>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [connectorData, branchSelectOptions]
+    [orgData, connectorData, branchSelectOptions]
   )
 
   const getPageBody = (): React.ReactElement => {
@@ -301,7 +294,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
               {Object.keys(categories).map((item, index) => {
                 return (
                   <Tag
-                    className={cx(css.tags, { [css.activeTag]: activeCategory === index })}
+                    className={cx(css.tags, { [css.active]: activeCategory === index })}
                     onClick={() => setActiveCategory(index)}
                     key={item + index}
                   >

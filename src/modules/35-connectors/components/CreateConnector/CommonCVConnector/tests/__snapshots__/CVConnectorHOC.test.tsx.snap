@@ -284,7 +284,7 @@ exports[`Unit tests for cv connector hoc should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span

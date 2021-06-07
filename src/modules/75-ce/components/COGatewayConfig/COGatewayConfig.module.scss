@@ -213,6 +213,11 @@
     font-weight: 500 !important;
     font-size: 18px !important;
     color: #22222a !important;
+    span[data-icon='info'] {
+      cursor: pointer;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
   }
   .subTitle {
     font-size: 14px !important;

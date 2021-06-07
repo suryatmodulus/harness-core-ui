@@ -15,7 +15,7 @@ import styles from './BuildExecutionsChart.module.scss'
 export interface ExecutionsChartProps {
   titleText: React.ReactNode
   data?: Array<{
-    time?: string
+    time?: number
     success?: number
     failed?: number
   }>
@@ -33,11 +33,11 @@ export default function BuildExecutionsChart() {
 
   const { data, loading } = useGetBuildExecution({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startInterval: moment(range[0]).format('YYYY-MM-DD'),
-      endInterval: moment(range[1]).format('YYYY-MM-DD')
+      startTime: range[0],
+      endTime: range[1]
     }
   })
 
@@ -93,7 +93,7 @@ export function ExecutionsChart({
         successful.push(val.success!)
         failed.push(val.failed!)
         empty.push(totalMax - val.success! - val.failed!)
-        xCategories.push(val.time!)
+        xCategories.push(moment(val.time).format('YYYY-MM-DD'))
       })
       setChartOptions(
         merge({}, defaultChartOptions, {

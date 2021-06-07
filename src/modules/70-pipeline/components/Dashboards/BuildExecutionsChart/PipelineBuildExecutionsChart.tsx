@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import moment from 'moment'
 import type { PipelineType, ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { ExecutionsChart } from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
@@ -18,11 +17,11 @@ export default function PipelineBuildExecutionsChart() {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startInterval: moment(range[0]).format('YYYY-MM-DD'),
-      endInterval: moment(range[1]).format('YYYY-MM-DD'),
+      startTime: range[0],
+      endTime: range[1],
       pipelineIdentifier,
       moduleInfo: module
-    } as any
+    }
   })
 
   const chartData = useMemo(() => {
@@ -37,12 +36,12 @@ export default function PipelineBuildExecutionsChart() {
 
   return (
     <ExecutionsChart
-      titleText={getString('pipeline.dashboards.buildExecutions')}
+      titleText={getString('executionsText')}
       data={chartData}
       loading={loading}
       range={range}
       onRangeChange={setRange}
-      yAxisTitle="# of builds"
+      yAxisTitle="# of executions"
     />
   )
 }

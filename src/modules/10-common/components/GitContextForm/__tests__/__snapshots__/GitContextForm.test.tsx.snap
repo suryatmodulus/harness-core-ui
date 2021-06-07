@@ -1,0 +1,424 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GitContextForm test GitContextForm for create with deafault restriction should have branch dropdown disabled 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main wrapperForm"
+    >
+      <div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-top StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+          >
+            COMMON.GITSYNC.GITREPOSITORYDETAILS
+          </p>
+          <div
+            class="bp3-form-group"
+            data-id="repo-0"
+          >
+            <label
+              class="bp3-label"
+              for="repo"
+            >
+              common.git.selectRepoLabel
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-popover-wrapper Select--main bp3-fill"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="repo"
+                      placeholder="Search..."
+                      style="padding-right: 0px;"
+                      type="text"
+                      value="gitSyncRepo"
+                    />
+                    <span
+                      class="bp3-input-action"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300"
+          >
+            common.gitSync.selectBranchLabel
+          </p>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
+            <div
+              class="bp3-popover-wrapper Select--main bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class="bp3-input-group bp3-disabled"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    disabled=""
+                    name="branch"
+                    placeholder="Search..."
+                    style="padding-right: 0px;"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    class="bp3-input-action"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                      icon="caret-down"
+                    >
+                      <svg
+                        data-icon="caret-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                      >
+                        <desc>
+                          caret-down
+                        </desc>
+                        <path
+                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`GitContextForm test GitContextForm for create without deafult restriction should have repo and branch dropdown enabled 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main wrapperForm"
+    >
+      <div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-top StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+          >
+            COMMON.GITSYNC.GITREPOSITORYDETAILS
+          </p>
+          <div
+            class="bp3-form-group"
+            data-id="repo-0"
+          >
+            <label
+              class="bp3-label"
+              for="repo"
+            >
+              common.git.selectRepoLabel
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-popover-wrapper Select--main bp3-fill"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="repo"
+                      placeholder="Search..."
+                      style="padding-right: 0px;"
+                      type="text"
+                      value="gitSyncRepo"
+                    />
+                    <span
+                      class="bp3-input-action"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300"
+          >
+            common.gitSync.selectBranchLabel
+          </p>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
+            <div
+              class="bp3-popover-wrapper Select--main bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="branch"
+                    placeholder="Search..."
+                    style="padding-right: 0px;"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    class="bp3-input-action"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                      icon="caret-down"
+                    >
+                      <svg
+                        data-icon="caret-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                      >
+                        <desc>
+                          caret-down
+                        </desc>
+                        <path
+                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`GitContextForm test GitContextForm for edit should have repo and branch dropdown disabled 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main wrapperForm"
+    >
+      <div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-top StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+          >
+            COMMON.GITSYNC.GITREPOSITORYDETAILS
+          </p>
+          <div
+            class="bp3-form-group bp3-disabled"
+            data-id="repo-0"
+          >
+            <label
+              class="bp3-label"
+              for="repo"
+            >
+              common.git.selectRepoLabel
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-popover-wrapper Select--main bp3-fill"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-input-group bp3-disabled"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      disabled=""
+                      name="repo"
+                      placeholder="Search..."
+                      style="padding-right: 0px;"
+                      type="text"
+                      value="gitSyncRepo"
+                    />
+                    <span
+                      class="bp3-input-action"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300"
+          >
+            common.gitSync.selectBranchLabel
+          </p>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
+            <div
+              class="bp3-popover-wrapper Select--main bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class="bp3-input-group bp3-disabled"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    disabled=""
+                    name="branch"
+                    placeholder="Search..."
+                    style="padding-right: 0px;"
+                    type="text"
+                    value="feature"
+                  />
+                  <span
+                    class="bp3-input-action"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                      icon="caret-down"
+                    >
+                      <svg
+                        data-icon="caret-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                      >
+                        <desc>
+                          caret-down
+                        </desc>
+                        <path
+                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;

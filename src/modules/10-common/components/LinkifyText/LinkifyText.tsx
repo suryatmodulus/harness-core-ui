@@ -6,8 +6,11 @@ interface BrokenText {
   content: string
 }
 
+/**
+ * adopted from https://github.com/nteract/ansi-to-react/blob/master/src/index.ts#L104
+ */
 export const breakOnLinks = (content = ''): BrokenText[] => {
-  const LINK_REGEX = /(.)(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))/g
+  const LINK_REGEX = /(\s*|^)(https?:\/\/(?:www\.|(?!www))[^\s.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/g
   const nodes: BrokenText[] = []
   let index = 0
   let match: RegExpExecArray | null

@@ -69,3 +69,17 @@ jobs:
             -H "Authorization: token ${{ secrets.GIT_BOT_TOKEN }}" \
             -d '{"body": "@${{ github.event.comment.user.login }} please use <code>harness/nextgenui:${{ env.DOCKER_TAG }}</code> docker tag"}' \
             -X POST "${{ github.event.comment.issue_url }}/comments"
+  rebase:
+    name: Rebase
+    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, 'trigger rebase')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the latest code
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GIT_BOT_TOKEN }}
+          fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
+      - name: Automatic Rebase
+        uses: cirrus-actions/rebase@1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_BOT_TOKEN }}

@@ -7,7 +7,7 @@ import { InstanceDropdownField, InstanceTypes, FormInstanceDropdown } from '../I
 const props = {
   label: 'Instance',
   name: 'instances',
-
+  expressions: [],
   value: { type: InstanceTypes.Instances, spec: { count: 10 } },
   onChange: jest.fn()
 }

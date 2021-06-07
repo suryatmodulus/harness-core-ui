@@ -121,7 +121,11 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
     <div
       className={css.defaultNode}
       ref={nodeRef}
-      onClick={e => onClickNode(e, props.node)}
+      onClick={e => {
+        if (!options.disableClick) {
+          onClickNode(e, props.node)
+        }
+      }}
       onMouseDown={e => {
         e.stopPropagation()
         props.node.setSelected(true)
@@ -169,7 +173,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           width: options.width,
           height: options.height,
           marginTop: 32 - (options.height || 64) / 2,
-          cursor: options.draggable ? 'move' : 'pointer',
+          cursor: options.disableClick ? 'not-allowed' : options.draggable ? 'move' : 'pointer',
           opacity: dragging ? 0.4 : 1,
           ...options.customNodeStyle
         }}
@@ -198,10 +202,10 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             style={{ pointerEvents: 'none', ...options.iconStyle }}
           />
         )}
-        <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
+        <div style={{ visibility: options.showPorts && !options.hideInPort ? 'visible' : 'hidden' }}>
           {props.node.getInPorts().map(port => generatePort(port, props))}
         </div>
-        <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
+        <div style={{ visibility: options.showPorts && !options.hideOutPort ? 'visible' : 'hidden' }}>
           {props.node.getOutPorts().map(port => generatePort(port, props))}
         </div>
         {options?.tertiaryIcon && (

@@ -256,10 +256,10 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
             execution.consoleLogs
           </div>
           <div
-            class="searchContainer"
+            class="rhs"
           >
             <div
-              class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+              class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
               data-name=""
             >
               <span
@@ -291,15 +291,16 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
               />
             </div>
           </div>
-          <div />
         </div>
-        <div>
+        <pre
+          class="container"
+        >
           <div
             class="noLogs"
           >
             common.logs.noLogsText
           </div>
-        </div>
+        </pre>
       </div>
     </div>
   </div>

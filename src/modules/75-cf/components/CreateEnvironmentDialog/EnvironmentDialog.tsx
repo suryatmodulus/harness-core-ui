@@ -91,7 +91,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
         onCreate(response)
       })
       .catch(error => {
-        showError(getErrorMessage(error), 0)
+        showError(getErrorMessage(error), 0, 'cf.create.env.error')
       })
   }
 

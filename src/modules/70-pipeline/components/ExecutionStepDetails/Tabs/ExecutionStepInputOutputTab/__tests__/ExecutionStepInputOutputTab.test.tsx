@@ -17,7 +17,7 @@ describe('<ExecutionStepInputOutputTab /> tests', () => {
   test('input snapshot test', () => {
     const { container } = render(
       <TestWrapper>
-        <ExecutionStepInputOutputTab data={[data.stepParameters]} mode="input" baseFqn="basefqn" />
+        <ExecutionStepInputOutputTab data={data.stepParameters} mode="input" baseFqn="basefqn" />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

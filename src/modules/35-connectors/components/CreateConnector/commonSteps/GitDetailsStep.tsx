@@ -233,7 +233,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
                     data-name="commonGitBackButton"
                   />
                   <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}>
-                    <String stringID="saveAndContinue" />
+                    <String stringID="continue" />
                   </Button>
                 </Layout.Horizontal>
               </FormikForm>

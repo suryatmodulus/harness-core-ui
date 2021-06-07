@@ -5,7 +5,6 @@ import {
   SelectOption,
   FormInput,
   MultiSelectOption,
-  OverlaySpinner,
   ExpandingSearchInput,
   Container
 } from '@wings-software/uicore'
@@ -174,6 +173,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         const { status, data } = await fetchConnectors(sanitizedFilterRequest, { queryParams: params })
         /* istanbul ignore else */ if (status === 'SUCCESS') {
           setFetchedConnectorResponse(data)
+          setErrorWhileFetchingConnectors(undefined)
         }
       } /* istanbul ignore next */ catch (e) {
         if (shouldShowError(e)) {
@@ -218,7 +218,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const computeDrawerMap = (catalogueData: ResponseConnectorCatalogueResponse | null): AddDrawerMapInterface => {
     const originalData = catalogueData?.data?.catalogue || []
     originalData.map(value => {
-      value.category == 'SECRET_MANAGER' ? (value.connectors = ['Vault', 'AwsKms']) : null
+      value.category == 'SECRET_MANAGER' ? (value.connectors = ['Vault', 'AwsKms', 'AzureKeyVault']) : null
     })
     const orderedCatalogue: ConnectorCatalogueItem[] | { category: string; connectors: string[] } = []
     connectorCatalogueOrder.forEach(catalogueItem => {
@@ -234,7 +234,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         drawerLabel: 'Connectors',
         categories:
           orderedCatalogue.map((item: ConnectorCatalogueItem) => {
-            const obj: CategoryInterface = {
+            return {
               categoryLabel: ConnectorCatalogueNames.get(item['category']) || '',
               items:
                 item.connectors
@@ -247,8 +247,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
                       value: name
                     }
                   }) || []
-            }
-            return obj
+            } as CategoryInterface
           }) || []
       }
     )
@@ -284,13 +283,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   })
 
   const rerouteBasedOnContext = (): void => {
-    if (projectIdentifier && orgIdentifier) {
-      history.push(routes.toCreateConnectorFromYamlAtProjectLevel({ projectIdentifier, orgIdentifier, accountId }))
-    } else if (orgIdentifier) {
-      history.push(routes.toCreateConnectorFromYamlAtOrgLevel({ orgIdentifier, accountId }))
-    } else {
-      history.push(routes.toCreateConnectorFromYaml({ accountId }))
-    }
+    history.push(routes.toCreateConnectorFromYaml({ accountId, projectIdentifier, orgIdentifier }))
   }
 
   const [openDrawer, hideDrawer] = useModalHook(() => {
@@ -551,111 +544,113 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   /* #endregion */
 
   return (
-    <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
-      <Layout.Horizontal flex className={css.header}>
-        <Layout.Horizontal spacing="small">
-          <RbacButton
-            intent="primary"
-            text={getString('newConnector')}
-            icon="plus"
-            permission={{
-              permission: PermissionIdentifier.UPDATE_CONNECTOR,
-              resource: {
-                resourceType: ResourceType.CONNECTOR
-              }
-            }}
-            onClick={openDrawer}
-            id="newConnectorBtn"
-            data-test="newConnectorButton"
-            withoutBoxShadow
-          />
-          <RbacButton
-            margin={{ left: 'small' }}
-            text={getString('createViaYaml')}
-            permission={{
-              permission: PermissionIdentifier.UPDATE_CONNECTOR,
-              resource: {
-                resourceType: ResourceType.CONNECTOR
-              },
-              resourceScope: {
-                accountIdentifier: accountId,
-                orgIdentifier,
-                projectIdentifier
-              }
-            }}
-            onClick={rerouteBasedOnContext}
-            id="newYamlConnectorBtn"
-            data-test="createViaYamlButton"
-            withoutBoxShadow
-          />
-          {isGitSyncEnabled && (
-            <GitSyncStoreProvider>
-              <GitFilters
-                onChange={filter => {
-                  setGitFilter(filter)
-                  setPage(0)
-                }}
-                className={css.gitFilter}
-              />
-            </GitSyncStoreProvider>
-          )}
-        </Layout.Horizontal>
-
-        <Layout.Horizontal margin={{ left: 'small' }}>
-          <Container className={css.expandSearch} margin={{ right: 'small' }} data-name="connectorSeachContainer">
-            <ExpandingSearchInput
-              placeholder={getString('search')}
-              throttle={200}
-              onChange={(text: string) => {
-                onSearch(text)
+    <>
+      <Page.Header title={getString('connectorsLabel')} />
+      <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
+        <Layout.Horizontal flex className={css.header}>
+          <Layout.Horizontal spacing="small">
+            <RbacButton
+              intent="primary"
+              text={getString('newConnector')}
+              icon="plus"
+              permission={{
+                permission: PermissionIdentifier.UPDATE_CONNECTOR,
+                resource: {
+                  resourceType: ResourceType.CONNECTOR
+                }
               }}
+              onClick={openDrawer}
+              id="newConnectorBtn"
+              data-test="newConnectorButton"
+              withoutBoxShadow
             />
-          </Container>
-          <FilterSelector<FilterDTO>
-            appliedFilter={appliedFilter}
-            filters={filters}
-            onFilterBtnClick={openFilterDrawer}
-            onFilterSelect={handleFilterSelection}
-            fieldToLabelMapping={fieldToLabelMapping}
-            filterWithValidFields={removeNullAndEmpty(
-              pick(flattenObject(appliedFilter?.filterProperties || {}), ...fieldToLabelMapping.keys())
+            <RbacButton
+              margin={{ left: 'small' }}
+              text={getString('createViaYaml')}
+              permission={{
+                permission: PermissionIdentifier.UPDATE_CONNECTOR,
+                resource: {
+                  resourceType: ResourceType.CONNECTOR
+                },
+                resourceScope: {
+                  accountIdentifier: accountId,
+                  orgIdentifier,
+                  projectIdentifier
+                }
+              }}
+              onClick={rerouteBasedOnContext}
+              id="newYamlConnectorBtn"
+              data-test="createViaYamlButton"
+              withoutBoxShadow
+            />
+            {isGitSyncEnabled && (
+              <GitSyncStoreProvider>
+                <GitFilters
+                  onChange={filter => {
+                    setGitFilter(filter)
+                    setPage(0)
+                  }}
+                  className={css.gitFilter}
+                />
+              </GitSyncStoreProvider>
             )}
-          />
-        </Layout.Horizontal>
-      </Layout.Horizontal>
-      <Page.Body className={css.listBody}>
-        {isFetchingConnectors ? (
-          <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
-            {' '}
-            <OverlaySpinner show={true} className={css.loading}>
-              <></>
-            </OverlaySpinner>
-          </div>
-        ) : /* istanbul ignore next */ errorWhileFetchingConnectors ? (
-          <div style={{ paddingTop: '200px' }}>
-            <PageError
-              message={(errorWhileFetchingConnectors?.data as Error)?.message || errorWhileFetchingConnectors?.message}
-              onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
-                e.preventDefault()
-                e.stopPropagation()
-                reset()
-              }}
+          </Layout.Horizontal>
+
+          <Layout.Horizontal margin={{ left: 'small' }}>
+            <Container className={css.expandSearch} margin={{ right: 'small' }} data-name="connectorSeachContainer">
+              <ExpandingSearchInput
+                placeholder={getString('search')}
+                throttle={200}
+                onChange={(text: string) => {
+                  onSearch(text)
+                }}
+              />
+            </Container>
+            <FilterSelector<FilterDTO>
+              appliedFilter={appliedFilter}
+              filters={filters}
+              onFilterBtnClick={openFilterDrawer}
+              onFilterSelect={handleFilterSelection}
+              fieldToLabelMapping={fieldToLabelMapping}
+              filterWithValidFields={removeNullAndEmpty(
+                pick(flattenObject(appliedFilter?.filterProperties || {}), ...fieldToLabelMapping.keys())
+              )}
             />
-          </div>
-        ) : fetchedConnectorResponse?.content?.length ? (
-          <ConnectorsListView
-            data={fetchedConnectorResponse}
-            reload={async () => {
-              Promise.all([fetchConnectorsWithFiltersApplied(), fetchConnectorStats()])
-            }}
-            openConnectorModal={openConnectorModal}
-            gotoPage={pageNumber => setPage(pageNumber)}
-          />
-        ) : (
-          <Page.NoDataCard icon="nav-dashboard" message={getString('noConnectorFound')} />
-        )}
-      </Page.Body>
-    </Layout.Vertical>
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+        <Page.Body className={css.listBody}>
+          {isFetchingConnectors ? (
+            <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+              <PageSpinner />
+            </div>
+          ) : /* istanbul ignore next */ errorWhileFetchingConnectors ? (
+            <div style={{ paddingTop: '200px' }}>
+              <PageError
+                message={
+                  (errorWhileFetchingConnectors?.data as Error)?.message || errorWhileFetchingConnectors?.message
+                }
+                onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  reset()
+                }}
+              />
+            </div>
+          ) : fetchedConnectorResponse?.content?.length ? (
+            <ConnectorsListView
+              data={fetchedConnectorResponse}
+              reload={async () => {
+                Promise.all([fetchConnectorsWithFiltersApplied(), fetchConnectorStats()])
+              }}
+              openConnectorModal={openConnectorModal}
+              gotoPage={pageNumber => setPage(pageNumber)}
+            />
+          ) : (
+            <Page.NoDataCard icon="nav-dashboard" message={getString('noConnectorFound')} />
+          )}
+        </Page.Body>
+      </Layout.Vertical>
+    </>
   )
 }
 

@@ -2,16 +2,46 @@ import React from 'react'
 import { Select as BPSelect, ItemRenderer, ItemListRenderer } from '@blueprintjs/select'
 import { Button, Menu } from '@blueprintjs/core'
 
-import { EXECUTION_STATUS } from '@pipeline/utils/statusHelpers'
-import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { String } from 'framework/strings'
+import { ExecutionStatus, ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
+import { String, StringKeys } from 'framework/strings'
 
 import css from './StatusSelect.module.scss'
 
-const Select = BPSelect.ofType<ExecutionStatus>()
+type AllowedStatus = Exclude<ExecutionStatus, 'NotStarted' | 'Queued' | 'Skipped' | 'Pausing' | 'Suspended'>
+const Select = BPSelect.ofType<AllowedStatus>()
+const allowedOptions = [
+  ExecutionStatusEnum.Aborted,
+  ExecutionStatusEnum.Expired,
+  ExecutionStatusEnum.Failed,
+  ExecutionStatusEnum.Running,
+  ExecutionStatusEnum.Success,
+  ExecutionStatusEnum.ApprovalRejected,
+  ExecutionStatusEnum.Paused,
+  ExecutionStatusEnum.ApprovalWaiting,
+  ExecutionStatusEnum.InterventionWaiting,
+  ExecutionStatusEnum.Waiting
+] as AllowedStatus[]
 
-const itemRenderer: ItemRenderer<ExecutionStatus> = (item, props) => (
-  <Menu.Item key={item} text={item} active={props.modifiers.active} onClick={props.handleClick} />
+const labelMap: Record<AllowedStatus, StringKeys> = {
+  Aborted: 'pipeline.executionFilters.labels.Aborted',
+  Expired: 'pipeline.executionFilters.labels.Expired',
+  Failed: 'pipeline.executionFilters.labels.Failed',
+  Running: 'pipeline.executionFilters.labels.Running',
+  Success: 'pipeline.executionFilters.labels.Success',
+  ApprovalRejected: 'pipeline.executionFilters.labels.ApprovalRejected',
+  Paused: 'pipeline.executionFilters.labels.Paused',
+  ApprovalWaiting: 'pipeline.executionFilters.labels.ApprovalWaiting',
+  InterventionWaiting: 'pipeline.executionFilters.labels.InterventionWaiting',
+  Waiting: 'pipeline.executionFilters.labels.Waiting'
+}
+
+const itemRenderer: ItemRenderer<AllowedStatus> = (item, props) => (
+  <Menu.Item
+    key={item}
+    text={<String stringID={labelMap[item]} />}
+    active={props.modifiers.active}
+    onClick={props.handleClick}
+  />
 )
 
 export interface StatusSelectProps {
@@ -24,7 +54,7 @@ export default function StatusSelect(props: StatusSelectProps): React.ReactEleme
     props.onSelect(null)
   }
 
-  const itemListRender: ItemListRenderer<ExecutionStatus> = itemListProps => (
+  const itemListRender: ItemListRenderer<AllowedStatus> = itemListProps => (
     <Menu>
       <React.Fragment>
         {props.value ? <Menu.Item text="Clear Selection" icon="cross" onClick={clearSelection} /> : null}
@@ -37,9 +67,9 @@ export default function StatusSelect(props: StatusSelectProps): React.ReactEleme
     <Select
       itemRenderer={itemRenderer}
       itemListRenderer={itemListRender}
-      items={EXECUTION_STATUS.slice(0)}
+      items={allowedOptions}
       onItemSelect={props.onSelect}
-      activeItem={props.value}
+      activeItem={(props.value as AllowedStatus) || null}
       resetOnQuery={false}
       filterable={false}
       popoverProps={{ minimal: true, wrapperTagName: 'div', targetTagName: 'div' }}

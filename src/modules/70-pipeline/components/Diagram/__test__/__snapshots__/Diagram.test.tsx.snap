@@ -655,8 +655,8 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                 </div>
               </div>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-align-center StyledProps--padding-xsmall"
-                style="margin-left: -30px; margin-right: -30px; --text-line-clamp: 2;"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
+                style="cursor: pointer; line-height: 1.6; overflow-wrap: break-word; margin-left: -30px; margin-right: -30px; --text-line-clamp: 2; width: 125px;"
               >
                 Icon 2
               </p>
@@ -670,7 +670,10 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
             <div
               class="emptyNode"
             >
-              <div>
+              <div
+                class="port"
+                style="visibility: visible;"
+              >
                 <div
                   class="port portIn"
                 >
@@ -706,7 +709,10 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                   </div>
                 </div>
               </div>
-              <div>
+              <div
+                class="port"
+                style="visibility: visible;"
+              >
                 <div
                   class="port portOut"
                 >
@@ -752,7 +758,10 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
             <div
               class="emptyNode"
             >
-              <div>
+              <div
+                class="port"
+                style="visibility: visible;"
+              >
                 <div
                   class="port portIn"
                 >
@@ -788,7 +797,10 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                   </div>
                 </div>
               </div>
-              <div>
+              <div
+                class="port"
+                style="visibility: visible;"
+              >
                 <div
                   class="port portOut"
                 >

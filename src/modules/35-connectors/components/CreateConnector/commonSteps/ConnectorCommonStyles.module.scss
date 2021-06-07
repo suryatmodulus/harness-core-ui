@@ -1,0 +1,24 @@
+.authTypeSelect {
+  :global {
+    .bp3-input-action {
+      > span {
+        padding-top: 12px !important;
+        padding-right: 0px !important;
+      }
+    }
+    .bp3-popover-target > .bp3-input-group {
+      > input {
+        width: 100% !important;
+        border: 0px !important;
+        padding: var(--spacing-small) 0;
+        min-width: 190px;
+        text-align: end !important;
+      }
+    }
+  }
+}
+
+.authTypeSelectLarge {
+  @extend .authTypeSelect;
+  width: 280px;
+}

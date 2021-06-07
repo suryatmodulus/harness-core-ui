@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import { useModalHook } from '@wings-software/uicore'
+import { Button, useModalHook } from '@wings-software/uicore'
 import type { AccessPoint } from 'services/lw'
 import CreateAccessPointDialogScreens from './CreateAccessPointDialogSteps'
 
@@ -24,8 +24,18 @@ const useCreateAccessPointDialog = (props: UseCreateAccessPointDialogProps) => {
   }
   const [createAccessPointModal, hidecreateAccessPointModal] = useModalHook(
     () => (
-      <Dialog onClose={hidecreateAccessPointModal} {...modalPropsLight}>
+      <Dialog onClose={hidecreateAccessPointModal} {...modalPropsLight} canOutsideClickClose={false}>
         <CreateAccessPointDialogScreens onCancel={hidecreateAccessPointModal} onSave={onAccessPointSave} />
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={() => {
+            hidecreateAccessPointModal()
+          }}
+          style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}
+          data-testid={'close-instance-modal'}
+        />
       </Dialog>
     ),
     []

@@ -8,10 +8,7 @@ import {
   singleDelegateWithoutTagsResponseMock
 } from './DelegateGroupsMock'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
-  const ComponentToMock: React.ElementType = () => <div>yamlDiv</div>
-  return ComponentToMock
-})
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/portal', () => ({
   useGetDelegateGroupsV2: ({ queryParams: { accountId } }: any) => {

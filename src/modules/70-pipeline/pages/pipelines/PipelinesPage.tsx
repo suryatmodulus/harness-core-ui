@@ -3,6 +3,7 @@ import {
   Button,
   Color,
   ExpandingSearchInput,
+  HarnessDocTooltip,
   Icon,
   Layout,
   OverlaySpinner,
@@ -490,34 +491,26 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
 
   return (
     <>
-      <Page.Header
-        title={
-          <Layout.Vertical spacing="xsmall">
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toProjectOverview({
-                    orgIdentifier,
-                    projectIdentifier,
-                    accountId,
-                    module
-                  }),
-                  label: project?.name as string
-                },
-                { url: '#', label: getString('pipelines') }
-              ]}
-            />
-            <Text
-              tooltipProps={{ dataTooltipId: 'pipelinesPageHeading' }}
-              className="ng-tooltip-native"
-              font={{ size: 'medium' }}
-              color={Color.GREY_700}
-            >
-              {getString('pipelines')}
-            </Text>
-          </Layout.Vertical>
-        }
-      />
+      <div className={css.pageheader}>
+        <Breadcrumbs
+          links={[
+            {
+              url: routes.toProjectOverview({
+                orgIdentifier,
+                projectIdentifier,
+                accountId,
+                module
+              }),
+              label: project?.name as string
+            },
+            { url: '#', label: getString('pipelines') }
+          ]}
+        />
+        <div className="ng-tooltip-native">
+          <h2 data-tooltip-id="pipelinesPageHeading"> {getString('pipelines')}</h2>
+          <HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} />
+        </div>
+      </div>
       <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
         <Layout.Horizontal>
           <RbacButton
@@ -596,7 +589,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       >
         <Layout.Horizontal
           spacing="large"
-          margin={{ left: 'xxlarge', top: 'large', bottom: 'large', right: 'xxlarge' }}
+          margin={{ left: 'large', top: 'large', bottom: 'large', right: 'large' }}
           className={css.topHeaderFields}
         >
           <Text color={Color.GREY_800} iconProps={{ size: 14 }}>

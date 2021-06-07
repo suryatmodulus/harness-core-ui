@@ -33,6 +33,7 @@ import {
   usePatchSegment
 } from 'services/cf'
 import { getErrorMessage } from '@cf/utils/CFUtils'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import patch, { getDiff } from '../../utils/instructions'
 import css from './SegmentDetailsPage.module.scss'
 
@@ -502,13 +503,12 @@ export const SegmentRules: React.FC<{ segment: Segment; onUpdate: () => void }> 
   const [editing, setEditing] = useState(false)
   const [errors, setErrors] = useState<RuleErrors>({})
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
-  const { environmentIdentifier: environment, projectIdentifier: project, segmentIdentifier: identifier } = useParams<
-    any
-  >()
+  const { projectIdentifier: project, segmentIdentifier: identifier } = useParams<any>()
+  const { activeEnvironment } = useActiveEnvironment()
 
   const { data: rawTargets, loading: loadingTargets } = useGetAllTargets({
     queryParams: {
-      environment,
+      environment: activeEnvironment,
       project,
       account: accountId,
       accountIdentifier: accountId,
@@ -519,7 +519,7 @@ export const SegmentRules: React.FC<{ segment: Segment; onUpdate: () => void }> 
   const { mutate: sendPatch, loading: loadingPatch } = usePatchSegment({
     identifier,
     queryParams: {
-      environment,
+      environment: activeEnvironment,
       project,
       account: accountId,
       accountIdentifier: accountId,
@@ -595,7 +595,7 @@ export const SegmentRules: React.FC<{ segment: Segment; onUpdate: () => void }> 
             setEditing(false)
           })
           .catch(err => {
-            showError(getErrorMessage(err))
+            showError(getErrorMessage(err), undefined, 'cf.send.patch.error')
           })
           .finally(() => patch.segment.reset())
       })

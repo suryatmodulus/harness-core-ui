@@ -7,15 +7,18 @@ import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Step
 import { TerraformPlan } from '../TerraformPlan'
 
 const mockGetCallFunction = jest.fn()
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+
 jest.mock('services/portal', () => ({
   useGetDelegateSelectors: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return []
   })
 }))
+
+jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => {
+  return <textarea value={value} onChange={e => onChange(e.target.value)} name={name || 'spec.source.spec.script'} />
+})
 
 describe('Test TerraformPlan', () => {
   beforeEach(() => {
@@ -446,7 +449,7 @@ describe('Test TerraformPlan', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
+    fireEvent.click(getByText('cd.terraformVarFiles'))
 
     expect(container).toMatchSnapshot()
   })
@@ -487,7 +490,7 @@ describe('Test TerraformPlan', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
+    fireEvent.click(getByText('cd.terraformVarFiles'))
     fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
     expect(container).toMatchSnapshot()
   })
@@ -495,6 +498,7 @@ describe('Test TerraformPlan', () => {
   test('should render input set view', () => {
     const { container } = render(
       <TestStepWidget
+        path={'test'}
         initialValues={{
           type: 'TerraformPlan',
           name: 'Test A',

@@ -5,10 +5,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import * as portalService from 'services/portal'
 import Stepk8ReviewScript from '../StepReviewScript/Stepk8sReviewScript'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
-  const ComponentToMock = () => <div>yamlDiv</div>
-  return ComponentToMock
-})
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 const nextStep = jest.fn()
 const previousStep = jest.fn()
 const mockMutateFn = jest.fn().mockReturnValue(Promise.resolve()) as unknown

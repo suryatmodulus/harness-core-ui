@@ -265,7 +265,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -610,7 +610,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
               <span
                 class="bp3-button-text"
               >
-                connectors.connectAndSave
+                continue
               </span>
             </button>
           </div>
@@ -947,7 +947,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
               <span
                 class="bp3-button-text"
               >
-                connectors.connectAndSave
+                continue
               </span>
             </button>
           </div>

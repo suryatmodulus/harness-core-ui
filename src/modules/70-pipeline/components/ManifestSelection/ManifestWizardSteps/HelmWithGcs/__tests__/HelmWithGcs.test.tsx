@@ -6,7 +6,8 @@ import HelmWithGcs from '../HelmWithGcs'
 const props = {
   stepName: 'Manifest details',
   expressions: [],
-  handleSubmit: jest.fn()
+  handleSubmit: jest.fn(),
+  manifestIdsList: []
 }
 describe('helm with http tests', () => {
   test(`renders without crashing`, () => {

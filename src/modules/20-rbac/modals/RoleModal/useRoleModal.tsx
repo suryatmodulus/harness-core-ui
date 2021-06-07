@@ -8,7 +8,7 @@ import RoleForm from './views/RoleForm'
 import css from './useRoleModal.module.scss'
 
 export interface UseRoleModalProps {
-  onSuccess: () => void
+  onSuccess: (role: Role) => void
   onCloseModal?: () => void
 }
 
@@ -31,8 +31,8 @@ export const useRoleModal = ({ onSuccess }: UseRoleModalProps): UseRoleModalRetu
         <RoleForm
           data={roleData}
           isEdit={!!roleData}
-          onSubmit={() => {
-            onSuccess()
+          onSubmit={role => {
+            onSuccess(role)
             hideModal()
           }}
         />

@@ -83,7 +83,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
   return (
     <div className={css.pipelineVariables}>
       {error ? (
-        <PageError message={error.message || (error as string)} />
+        <PageError message={(error?.data as Error)?.message || error?.message} />
       ) : (
         <div className={cx(css.content, { [css.closed]: isSidebarCollapsed })}>
           <div className={css.lhs}>

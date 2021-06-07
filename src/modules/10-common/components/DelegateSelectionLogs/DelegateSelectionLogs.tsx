@@ -11,32 +11,14 @@ export interface DelegateTaskData {
   taskName: string
   delegateName: string
 }
-export interface DelegateSelectionLogsProps {
-  taskIds: DelegateTaskData[]
-}
 
 export interface UseDelegateSelectionLogsModalReturn {
-  openDelegateSelectionLogsModal: (taskIds: DelegateTaskData[], modalProps?: IDialogProps) => void
+  openDelegateSelectionLogsModal: (task: DelegateTaskData, modalProps?: IDialogProps) => void
   hideModal: () => void
 }
 
-export function DelegateSelectionLogs({ taskIds }: DelegateSelectionLogsProps): JSX.Element {
-  return (
-    <Layout.Vertical spacing="xxlarge" padding="large" className={css.main}>
-      {taskIds.map(task => (
-        <DelegateSelectionLogsTask
-          key={task.taskId}
-          taskId={task.taskId}
-          taskName={task.taskName}
-          delegateName={task.delegateName}
-        />
-      ))}
-    </Layout.Vertical>
-  )
-}
-
 export function useDelegateSelectionLogsModal(): UseDelegateSelectionLogsModalReturn {
-  const [delegateTaskIds, setDelegateTaskIds] = React.useState<DelegateTaskData[]>([])
+  const [delegateTask, setDelegateTask] = React.useState<DelegateTaskData | null>(null)
   const { getString } = useStrings()
   const [modalProps, setModalProps] = React.useState<IDialogProps>({
     isOpen: true,
@@ -58,14 +40,18 @@ export function useDelegateSelectionLogsModal(): UseDelegateSelectionLogsModalRe
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog {...modalProps}>
-        <DelegateSelectionLogs taskIds={delegateTaskIds} />
+        {!!delegateTask && (
+          <Layout.Vertical spacing="xxlarge" padding="large" className={css.main}>
+            <DelegateSelectionLogsTask task={delegateTask} />
+          </Layout.Vertical>
+        )}
       </Dialog>
     ),
-    [delegateTaskIds, modalProps]
+    [delegateTask, modalProps]
   )
   return {
-    openDelegateSelectionLogsModal: (taskIds, _modalProps?: IDialogProps | undefined) => {
-      setDelegateTaskIds(taskIds)
+    openDelegateSelectionLogsModal: (task, _modalProps?: IDialogProps | undefined) => {
+      setDelegateTask(task)
       setModalProps(_modalProps || modalProps)
       showModal()
     },

@@ -55,7 +55,7 @@ export default function ConditionalExecutionPanel(props: ConditionalExecutionPan
             >
               <ConditionalExecutionPanelStatus formikProps={panelFormikProps} isReadonly={isReadonly} mode={mode} />
             </Container>
-            <Container padding={{ top: 'medium', left: 'xxlarge', right: 'medium' }}>
+            <Container padding={{ top: 'medium' }}>
               <ConditionalExecutionPanelCondition formikProps={panelFormikProps} isReadonly={isReadonly} mode={mode} />
             </Container>
           </>

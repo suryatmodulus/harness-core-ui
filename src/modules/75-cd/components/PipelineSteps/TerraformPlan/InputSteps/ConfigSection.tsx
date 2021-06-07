@@ -92,7 +92,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
           label={getString('connectors.title.gitConnector')}
           placeholder={getString('select')}
           disabled={readonly || loading}
-          gitScope={{ repo: repoIdentifier || '', branch }}
+          gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
       )}
 

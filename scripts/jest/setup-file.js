@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import { setAutoFreeze, enableMapSet } from 'immer'
 import { noop } from 'lodash-es'
 

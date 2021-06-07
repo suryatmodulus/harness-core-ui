@@ -13,7 +13,8 @@ import {
   MultiSelectOption,
   Layout,
   Avatar,
-  Text
+  Text,
+  getMultiTypeFromValue
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
@@ -22,6 +23,7 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useGetUserGroupList } from 'services/cd-ng'
@@ -93,16 +95,29 @@ const FormContent = ({
           inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
         />
       </div>
-      <div className={cx(stepCss.formGroup, stepCss.sm)}>
+      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
         <FormMultiTypeDurationField
           name="timeout"
+          className={css.sm}
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTypeDurationProps={{
-            expressions
+            expressions,
+            enableConfigureOptions: false
           }}
         />
-      </div>
+        {getMultiTypeFromValue(formik.values.timeout) === MultiTypeInputType.RUNTIME && (
+          <ConfigureOptions
+            value={formik.values.timeout || ''}
+            type="String"
+            variableName="timeout"
+            showRequiredField={false}
+            showDefaultField={false}
+            showAdvanced={true}
+            onChange={value => formik.setFieldValue('timeout', value)}
+          />
+        )}
+      </Layout.Horizontal>
 
       <Accordion activeId="step-1" className={stepCss.accordion}>
         <Accordion.Panel
@@ -110,14 +125,27 @@ const FormContent = ({
           summary={getString('pipeline.approvalStep.message')}
           details={
             <div>
-              <FormMultiTypeTextAreaField
-                name="spec.approvalMessage"
-                label={getString('message')}
-                className={cx(css.approvalMessage, css.md)}
-                multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
-                placeholder="Please add relevant information for this step"
-                disabled={isApprovalStepFieldDisabled(readonly)}
-              />
+              <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+                <FormMultiTypeTextAreaField
+                  name="spec.approvalMessage"
+                  label={getString('message')}
+                  className={cx(css.approvalMessage, css.md)}
+                  multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
+                  placeholder="Please add relevant information for this step"
+                  disabled={isApprovalStepFieldDisabled(readonly)}
+                />
+                {getMultiTypeFromValue(formik.values.spec.approvalMessage) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formik.values.spec.approvalMessage as string}
+                    type="String"
+                    variableName="spec.approvalMessage"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => formik.setFieldValue('spec.approvalMessage', value)}
+                  />
+                )}
+              </Layout.Horizontal>
               <FormInput.CheckBox
                 className={cx(css.execHistoryCheckbox, css.md)}
                 name="spec.includePipelineExecutionHistory"
@@ -132,67 +160,94 @@ const FormContent = ({
           summary={getString('pipeline.approvalStep.approvers')}
           details={
             <div>
-              <FormInput.MultiSelectTypeInput
-                className={cx(css.multiSelect, css.md)}
-                name="spec.approvers.userGroups"
-                label={getString('common.userGroups')}
-                disabled={isApprovalStepFieldDisabled(readonly)}
-                selectItems={
-                  fetchingUserGroups
-                    ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]
-                    : userGroupOptions
-                }
-                multiSelectTypeInputProps={{
-                  expressions,
-                  multiSelectProps: {
-                    allowCreatingNewItems: true,
-                    tagInputProps: {
-                      placeholder: fetchingUserGroups
-                        ? getString('pipeline.approvalStep.fetchingUserGroups')
-                        : userGroupsFetchError?.message
-                        ? getString('pipeline.approvalStep.fetchUserGroupsFailed')
-                        : getString('pipeline.approvalStep.addUserGroups')
-                    },
-                    items: fetchingUserGroups
+              <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+                <FormInput.MultiSelectTypeInput
+                  className={cx(css.multiSelect, css.md)}
+                  name="spec.approvers.userGroups"
+                  label={getString('common.userGroups')}
+                  disabled={isApprovalStepFieldDisabled(readonly)}
+                  selectItems={
+                    fetchingUserGroups
                       ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]
-                      : userGroupOptions,
-                    // eslint-disable-next-line react/display-name
-                    tagRenderer: item => (
-                      <Layout.Horizontal key={item.label?.toString()} spacing="small">
-                        <Avatar email={item.label?.toString()} size="xsmall" hoverCard={false} />
-                        <Text>{item.label}</Text>
-                      </Layout.Horizontal>
-                    ),
-                    // eslint-disable-next-line react/display-name
-                    itemRender: (item, { handleClick }) => (
-                      <div key={item.label.toString()}>
-                        <Menu.Item
-                          text={
-                            <Layout.Horizontal spacing="small" className={css.align}>
-                              <Avatar email={item.label?.toString()} size="small" hoverCard={false} />
-                              <Text>{item.label}</Text>
-                            </Layout.Horizontal>
-                          }
-                          onClick={handleClick}
-                        />
-                      </div>
-                    )
+                      : userGroupOptions
                   }
-                }}
-              />
-
-              <FormInput.MultiTextInput
-                className={css.md}
-                name="spec.approvers.minimumCount"
-                label={getString('pipeline.approvalStep.minimumCount')}
-                multiTextInputProps={{
-                  expressions,
-                  textProps: {
-                    type: 'number'
-                  }
-                }}
-                disabled={isApprovalStepFieldDisabled(readonly)}
-              />
+                  multiSelectTypeInputProps={{
+                    expressions,
+                    multiSelectProps: {
+                      allowCreatingNewItems: true,
+                      tagInputProps: {
+                        placeholder: fetchingUserGroups
+                          ? getString('pipeline.approvalStep.fetchingUserGroups')
+                          : userGroupsFetchError?.message
+                          ? getString('pipeline.approvalStep.fetchUserGroupsFailed')
+                          : getString('pipeline.approvalStep.addUserGroups')
+                      },
+                      items: fetchingUserGroups
+                        ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]
+                        : userGroupOptions,
+                      // eslint-disable-next-line react/display-name
+                      tagRenderer: item => (
+                        <Layout.Horizontal key={item.label?.toString()} spacing="small">
+                          <Avatar email={item.label?.toString()} size="xsmall" hoverCard={false} />
+                          <Text>{item.label}</Text>
+                        </Layout.Horizontal>
+                      ),
+                      // eslint-disable-next-line react/display-name
+                      itemRender: (item, { handleClick }) => (
+                        <div key={item.label.toString()}>
+                          <Menu.Item
+                            text={
+                              <Layout.Horizontal spacing="small" className={css.align}>
+                                <Avatar email={item.label?.toString()} size="small" hoverCard={false} />
+                                <Text>{item.label}</Text>
+                              </Layout.Horizontal>
+                            }
+                            onClick={handleClick}
+                          />
+                        </div>
+                      )
+                    }
+                  }}
+                />
+                {getMultiTypeFromValue(formik.values.spec.approvers?.userGroups as string) ===
+                  MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formik.values.spec.approvers?.userGroups as string}
+                    type="Array"
+                    variableName="spec.approvers.userGroups"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => formik.setFieldValue('spec.approvers.userGroups', value)}
+                  />
+                )}
+              </Layout.Horizontal>
+              <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+                <FormInput.MultiTextInput
+                  className={css.md}
+                  name="spec.approvers.minimumCount"
+                  label={getString('pipeline.approvalStep.minimumCount')}
+                  multiTextInputProps={{
+                    expressions,
+                    textProps: {
+                      type: 'number'
+                    }
+                  }}
+                  disabled={isApprovalStepFieldDisabled(readonly)}
+                />
+                {getMultiTypeFromValue(formik.values.spec.approvers?.minimumCount as string) ===
+                  MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formik.values.spec.approvers?.minimumCount as string}
+                    type="Number"
+                    variableName="spec.approvers.minimumCount"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => formik.setFieldValue('spec.approvers.minimumCount', value)}
+                  />
+                )}
+              </Layout.Horizontal>
               <FormInput.CheckBox
                 className={cx(css.execHistoryCheckbox, css.md)}
                 name="spec.approvers.disallowPipelineExecutor"

@@ -71,7 +71,7 @@ describe('Unit tests for cv connector hoc', () => {
 
     // fill step 1
     await setFieldValue({ container, fieldId: 'name', value: 'dummy name', type: InputTypes.TEXTFIELD })
-    fireEvent.click(getByText('saveAndContinue'))
+    fireEvent.click(getByText('continue'))
 
     // step 2
     await waitFor(() => expect(getByText('Dummy component')).not.toBeNull())

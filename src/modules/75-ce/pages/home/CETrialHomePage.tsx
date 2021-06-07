@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/StartTrialTemplate'
-import { useStartTrial } from 'services/portal'
+import { useStartTrialLicense } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -20,7 +20,7 @@ const CETrialHomePage: React.FC = () => {
   const { source } = useQueryParams<{ source?: string }>()
   const { showError } = useToaster()
 
-  const { error, mutate: startTrial, loading } = useStartTrial({
+  const { error, mutate: startTrial, loading } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }
@@ -46,7 +46,7 @@ const CETrialHomePage: React.FC = () => {
       url: 'https://ngdocs.harness.io/article/34bzscs2y9-ce-placeholder'
     },
     startBtn: {
-      description: source ? getString('common.ce.startTrial') : getString('getStarted'),
+      description: source ? getString('common.startTrial') : getString('getStarted'),
       onClick: source ? undefined : openStartTrialModal
     }
   }
@@ -62,7 +62,7 @@ const CETrialHomePage: React.FC = () => {
   }
 
   if (error) {
-    showError((error.data as Error)?.message || error.message)
+    showError((error.data as Error)?.message || error.message, undefined, 'ce.start.trial.error')
   }
 
   return (

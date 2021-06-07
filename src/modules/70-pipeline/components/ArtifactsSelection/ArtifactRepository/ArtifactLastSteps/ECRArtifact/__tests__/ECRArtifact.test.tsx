@@ -8,7 +8,8 @@ const props = {
   name: 'Artifact details',
   expressions: [],
   context: 2,
-  handleSubmit: jest.fn()
+  handleSubmit: jest.fn(),
+  artifactIdentifiers: []
 }
 
 const mockRegions = {

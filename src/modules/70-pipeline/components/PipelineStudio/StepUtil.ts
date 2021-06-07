@@ -356,7 +356,7 @@ const getErrorsFlatten = memoize((errors: any): string[] => {
   )
 })
 
-export const getErrorsList = memoize((errors: any): string[] => {
+export const getErrorsList = memoize((errors: any): { errorStrings: string[]; errorCount: number } => {
   const errorList = getErrorsFlatten(errors)
   const errorCountMap: { [key: string]: number } = {}
   errorList.forEach(error => {
@@ -366,6 +366,11 @@ export const getErrorsList = memoize((errors: any): string[] => {
       errorCountMap[error] = 1
     }
   })
-  const finalErrors = Object.entries(errorCountMap).map(([key, count]) => `${key}  (${count})`)
-  return finalErrors
+  const mapEntries = Object.entries(errorCountMap)
+  const errorStrings = mapEntries.map(([key, count]) => `${key}  (${count})`)
+  let errorCount = 0
+  mapEntries.forEach(([_unused, count]) => {
+    errorCount += count
+  })
+  return { errorStrings, errorCount }
 })

@@ -93,29 +93,29 @@ exports[`Trigger Details tests render snapshot view 1`] = `
       class="StyledProps--font StyledProps--main"
     >
       <div
-        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main TabNavigation--container"
       >
         <a
-          class="tags"
+          class="TabNavigation--tags TabNavigation--small"
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/pipeline-studio/"
         >
           pipelineStudio
         </a>
         <a
-          class="tags"
+          class="TabNavigation--tags TabNavigation--small"
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
         >
           inputSetsText
         </a>
         <a
           aria-current="page"
-          class="tags activeTag"
+          class="TabNavigation--tags TabNavigation--small TabNavigation--active"
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
         >
           pipeline.triggers.triggersLabel
         </a>
         <a
-          class="tags"
+          class="TabNavigation--tags TabNavigation--small"
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/executions"
         >
           executionHeaderText

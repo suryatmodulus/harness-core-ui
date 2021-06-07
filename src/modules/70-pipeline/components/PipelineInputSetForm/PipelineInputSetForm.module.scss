@@ -14,7 +14,8 @@
 
 .inputheader {
   font-weight: 600;
-  font-size: var(--font-size-small);
+  color: var(--black-100);
+  font-size: var(--font-size-normal);
   padding-bottom: var(--spacing-medium);
 }
 
@@ -65,12 +66,9 @@
 .nested-accordions {
   box-shadow: none !important;
 }
-.nopad-left {
-  padding-left: 0 !important;
-}
 
 .accordionSummary {
   background: var(--white);
   width: 100%;
-  padding-bottom: var(--spacing-medium);
+  padding: var(--spacing-small) var(--spacing-medium);
 }

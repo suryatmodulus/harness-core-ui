@@ -4,6 +4,7 @@ declare const styles: {
   readonly optionBtns: string
   readonly item: string
   readonly selected: string
+  readonly disabledMode: string
   readonly runForm: string
   readonly editor: string
   readonly content: string
@@ -11,14 +12,12 @@ declare const styles: {
   readonly radioGroup: string
   readonly radio: string
   readonly divider: string
-  readonly gitFilters: string
   readonly footer: string
   readonly errorsContent: string
   readonly inputsetGrid: string
   readonly treeSidebar: string
   readonly cardCard: string
   readonly inputSetcard: string
-  readonly errorHeader: string
   readonly preFlightCheckModal: string
   readonly runFormExecutionView: string
   readonly modalCard: string
@@ -34,5 +33,14 @@ declare const styles: {
   readonly runModal: string
   readonly crossIcon: string
   readonly dialog: string
+  readonly runPipelineErrorPopover: string
+  readonly valueProviderRadio: string
+  readonly selectedValueProvider: string
+  readonly runPipelineErrorDesc: string
+  readonly runPipelineErrorLine: string
+  readonly errorHeader: string
+  readonly actionButtons: string
+  readonly secondaryButton: string
+  readonly footerCheckbox: string
 }
 export default styles

@@ -2,6 +2,9 @@
   height: fit-content;
   width: inherit !important;
 
+  .tag {
+    margin: var(--spacing-small) var(--spacing-small) 0 0;
+  }
   .detailsSection {
     height: fit-content;
     width: 45%;

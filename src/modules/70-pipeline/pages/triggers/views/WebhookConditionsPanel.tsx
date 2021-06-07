@@ -1,26 +1,17 @@
 import React from 'react'
-import { Layout, FormInput, Heading, Text } from '@wings-software/uicore'
+import { Layout, FormInput, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
-import { eventTypes } from '../utils/TriggersWizardPageUtils'
+import { eventTypes, mockOperators, inNotInArr, inNotInPlaceholder } from '../utils/TriggersWizardPageUtils'
 import { GitSourceProviders } from '../utils/TriggersListUtils'
 import AddConditionsSection from './AddConditionsSection'
 import css from './WebhookConditionsPanel.module.scss'
 
-export const mockOperators = [
-  { label: '', value: '' },
-  { label: 'equals', value: 'equals' },
-  { label: 'not equals', value: 'not equals' },
-  { label: 'in', value: 'in' },
-  { label: 'not in', value: 'not in' },
-  { label: 'starts with', value: 'starts with' },
-  { label: 'ends with', value: 'ends with' },
-  { label: 'regex', value: 'regex' }
-]
-
 interface WebhookConditionsPanelPropsInterface {
   formikProps?: any
 }
+
+const enablePathBasedFilters = false
 
 export const ConditionRow = ({
   formikProps,
@@ -36,6 +27,7 @@ export const ConditionRow = ({
   const valueKey = `${name}Value`
   const operatorError = formikProps?.errors?.[operatorKey]
   const valueError = formikProps?.errors?.[valueKey]
+  const operatorValue = formikProps?.values?.[operatorKey]
   return (
     <div className={css.conditionsRow}>
       <div>
@@ -57,6 +49,7 @@ export const ConditionRow = ({
         onChange={() => {
           formikProps.setFieldTouched(operatorKey, true)
         }}
+        placeholder={inNotInArr.includes(operatorValue) ? inNotInPlaceholder : ''}
       />
     </div>
   )
@@ -81,9 +74,9 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
       <Text>{getString('pipeline.triggers.conditionsPanel.subtitle')}</Text>
       {sourceRepo !== GitSourceProviders.CUSTOM.value && (
         <section>
-          <Heading level={2} font={{ weight: 'bold' }}>
+          {/* <Heading level={2} font={{ weight: 'bold' }}>
             {getString('pipeline.triggers.conditionsPanel.branchConditions')}
-          </Heading>
+          </Heading> */}
           {event !== eventTypes.PUSH && event !== eventTypes.TAG && (
             <ConditionRow
               formikProps={formikProps}
@@ -102,6 +95,15 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
               }
             />
           )}
+          {enablePathBasedFilters &&
+            event !== eventTypes.TAG &&
+            sourceRepo !== GitSourceProviders.AWS_CODECOMMIT.value && (
+              <ConditionRow
+                formikProps={formikProps}
+                name="changedFiles"
+                label={getString('pipeline.triggers.conditionsPanel.changedFiles')}
+              />
+            )}
           {event === eventTypes.TAG && (
             <ConditionRow
               formikProps={formikProps}
@@ -115,6 +117,7 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         title={getString('pipeline.triggers.conditionsPanel.headerConditions')}
         key="headerConditions"
         fieldId="headerConditions"
+        attributePlaceholder="<+trigger.header['key-name']>"
         formikValues={formikValues}
         setFieldValue={setFieldValue}
         errors={errors}
@@ -123,6 +126,7 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         title={getString('pipeline.triggers.conditionsPanel.payloadConditions')}
         key="payloadConditions"
         fieldId="payloadConditions"
+        attributePlaceholder="<+trigger.payload.pathInJson>"
         formikValues={formikValues}
         setFieldValue={setFieldValue}
         errors={errors}

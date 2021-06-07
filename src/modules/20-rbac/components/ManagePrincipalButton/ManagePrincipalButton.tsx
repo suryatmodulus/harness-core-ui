@@ -6,12 +6,16 @@ import type { PermissionRequest } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
-interface ManagePrincipalButton extends ButtonProps {
+interface ManagePrincipalButtonProps extends ButtonProps {
   resourceIdentifier?: string
   resourceType: ResourceType.USERGROUP | ResourceType.USER
 }
 
-const ManagePrincipalButton: React.FC<ManagePrincipalButton> = ({ resourceIdentifier, resourceType, ...restProps }) => {
+const ManagePrincipalButton: React.FC<ManagePrincipalButtonProps> = ({
+  resourceIdentifier,
+  resourceType,
+  ...restProps
+}) => {
   const permission: PermissionRequest = {
     resource: {
       resourceType,

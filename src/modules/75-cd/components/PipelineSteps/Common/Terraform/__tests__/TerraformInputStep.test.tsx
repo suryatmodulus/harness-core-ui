@@ -7,9 +7,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 import TerraformInputStep from '../TerraformInputStep'
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 const initialValues = {
   timeout: '10m',
@@ -76,6 +74,7 @@ describe('Test terraform input set', () => {
               inputSetData={{
                 template
               }}
+              path="test"
             />
           </FormikForm>
         </Formik>

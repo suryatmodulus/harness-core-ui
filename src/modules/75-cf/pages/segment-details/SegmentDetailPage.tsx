@@ -9,9 +9,10 @@ import { PageError } from '@common/components/Page/PageError'
 import { OptionsMenuButton, PageSpinner, useToaster } from '@common/components'
 import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage, showToaster } from '@cf/utils/CFUtils'
 import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
-import { useConfirmAction, useQueryParams } from '@common/hooks'
+import { useConfirmAction } from '@common/hooks'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { FlagsUseSegment } from './flags-use-segment/FlagsUseSegment'
 import { SegmentSettings } from './segment-settings/SegmentSettings'
 import css from './SegmentDetailPage.module.scss'
@@ -25,12 +26,10 @@ export const fullSizeContentStyle: React.CSSProperties = {
 }
 
 export const SegmentDetailPage: React.FC = () => {
-  const urlQuery: Record<string, string> = useQueryParams()
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
-  const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, segmentIdentifier } = useParams<
-    Record<string, string>
-  >()
+  const { accountId, orgIdentifier, projectIdentifier, segmentIdentifier } = useParams<Record<string, string>>()
+  const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
   const { data: segment, loading: segmentLoading, refetch, error: segmentError } = useGetSegment({
     identifier: segmentIdentifier,
     queryParams: {
@@ -38,25 +37,26 @@ export const SegmentDetailPage: React.FC = () => {
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
-      environment: environmentIdentifier
+      environment: activeEnvironment
     } as GetSegmentQueryParams
   })
   const { loading: envLoading, data: envData, error: envError, refetch: envRefetch } = useSyncedEnvironment({
     accountId,
     orgIdentifier,
     projectIdentifier,
-    environmentIdentifier
+    environmentIdentifier: activeEnvironment
   })
-  const title = getString('cf.shared.segments')
+  const title = `${getString('cf.shared.targetManagement')}: ${getString('cf.shared.segments')}`
   const breadcrumbs = [
     {
       title,
-      url:
+      url: withActiveEnvironment(
         routes.toCFSegments({
           accountId,
           orgIdentifier,
           projectIdentifier
-        }) + `${urlQuery?.activeEnvironment ? `?activeEnvironment=${urlQuery.activeEnvironment}` : ''}`
+        })
+      )
     }
   ]
   const history = useHistory()
@@ -77,7 +77,7 @@ export const SegmentDetailPage: React.FC = () => {
           dangerouslySetInnerHTML={{
             __html: getString('cf.segments.delete.message', { segmentName: segment?.name })
           }}
-        ></span>
+        />
       </Text>
     ),
     intent: Intent.DANGER,
@@ -97,10 +97,10 @@ export const SegmentDetailPage: React.FC = () => {
             showToaster(getString('cf.messages.segmentDeleted'))
           })
           .catch(error => {
-            showError(getErrorMessage(error), 0)
+            showError(getErrorMessage(error), 0, 'cf.delete.segment.error')
           })
       } catch (error) {
-        showError(getErrorMessage(error), 0)
+        showError(getErrorMessage(error), 0, 'cf.delete.segment.error')
       }
     }
   })

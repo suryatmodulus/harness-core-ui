@@ -7,10 +7,10 @@
 
 .main {
   display: grid;
-  grid-template-columns: 90px 180px 1fr;
+  grid-template-columns: 96px 192px 1fr;
 
   &[data-layout='minimal'] {
-    grid-template-columns: 90px 1fr;
+    grid-template-columns: 96px 1fr;
   }
 
   &[data-layout='empty'] {

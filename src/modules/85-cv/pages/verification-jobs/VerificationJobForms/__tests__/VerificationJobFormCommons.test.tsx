@@ -108,6 +108,27 @@ describe('VerificationJobFormCommons', () => {
     expect(callSaveVerification).toBeCalled()
   })
 
+  test('check api is called when selected ALL monitering sources', async () => {
+    const { result } = renderHook(() => useVerificationJobFormSubmit(), {
+      wrapper: TestWrapper
+    })
+    result.current.onSubmit({
+      identifier: 'id',
+      jobName: 'jobName',
+      verificationId: 'test',
+      projectIdentifier: 'projectIdentifier',
+      orgIdentifier: 'orgIdentifier',
+      environment: 'envIdentifier',
+      service: { value: 'value' },
+      dataSource: [
+        { value: 'datasource', label: 'label' },
+        { value: 'datasource1', label: 'label1' },
+        { value: 'all', label: 'all' }
+      ]
+    })
+    expect(callSaveVerification).toHaveBeenCalledWith(expect.objectContaining({ allMonitoringSourcesEnabled: true }))
+  })
+
   test('Ensure sensitivity labels are correct', () => {
     expect(sensitivityEnunToLabel('HIGH' as VerificationSensitivity)).toEqual('High')
     expect(sensitivityEnunToLabel('MEDIUM' as VerificationSensitivity)).toEqual('Medium')

@@ -4,9 +4,7 @@ import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 import { TerraformVariableStep } from '../TerraformVariableView'
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 describe('Terraform Variable view ', () => {
   test('initial render', () => {

@@ -2,8 +2,10 @@ continuous: '{{$.common.purpose.cf.continuous}}'
 shared:
   individual: Individual
   target: '{{ $.pipelineSteps.targetLabel }}'
-  segment: Segment
-  segments: Segments
+  targets: '{{ $.pipeline.targets.title }}'
+  targetManagement: Target Management
+  segment: Target group
+  segments: Target Groups
   environment: environment
   lastEvaluated: Last Evaluated
   variation: Variation
@@ -26,9 +28,9 @@ messages:
   targetCreated: Target(s) created.
   targetUpdated: Target updated.
   targetDeleted: Target deleted.
-  segmentCreated: Segment created.
-  segmentUpdated: Segment updated.
-  segmentDeleted: Segment deleted.
+  segmentCreated: Target group created.
+  segmentUpdated: Target group updated.
+  segmentDeleted: Target group deleted.
 creationModal:
   jsonType: JSON
   variationSettingsHeading: Variation settings
@@ -99,13 +101,14 @@ homepage:
 clause:
   operators:
     and: and
+    in: '{{ $.common.in }}'
     startsWith: 'starts with'
     endsWith: 'ends with'
     match: 'match'
     contains: 'contains'
     equal: 'equals'
     equalSensitive: 'equals (sensitive)'
-    matchSegment: 'Match Segment'
+    matchSegment: 'Match Target Group'
 featureFlags:
   newFlag: + Flag
   typeOfFlag: Select the Type of Flag You Want to Create
@@ -180,7 +183,7 @@ featureFlags:
     tagsPlaceholder: '{{ $.valueLabel }}'
     flagsBy: Only list flags pinned by
     target: '{{ $.pipelineSteps.targetLabel }}'
-    individualTargets: Individual Target or Target Segment
+    individualTargets: Individual Target or Target Group
     apply: '{{ $.filters.apply }}'
     saveFilters: Save Filters
     overwriteRadio: Overwrite Existing
@@ -206,7 +209,7 @@ featureFlagDetail:
 targets:
   ID: '{{ $.common.ID }}'
   name: name
-  targetSegment: Target Segment
+  targetSegment: Target Group
   lastActivity: '{{ $.lastActivity }}'
   createdDate: Created Date
   create: + Target(s)
@@ -217,7 +220,7 @@ targets:
   addTargetsLabel: Add Target(s)
   addTargets: + Add Target(s)
   noTargetFound: 'No target found in this environment. Click the button above to create target(s).'
-  noSegmentFound: 'No segment found in this environment. Click the button above to create a segment.'
+  noSegmentFound: 'No target group found in this environment. Click the button above to create a target group.'
   uploadHeadline: Please upload a CSV file according to our <a href="https://docs.harness.io" target="_blank" rel="noreferrer">template</a>.
   uploadHelp: 'Target CSV entry format: Name,Identifier'
   uploadYourFile: Click to upload your file
@@ -226,6 +229,7 @@ targets:
   deleteTarget: Delete Target
   deleteTargetMessage: Are you sure you want to delete target <strong>{{name}}</strong>? This action cannot be undone.
   deleteTargetSuccess: Target <strong>{{name}}</strong> deleted.
+  pageDescription: This list displays targets manually added or impacted by flags.
 targetDetail:
   title: 'Targets: Individual'
   environmentLine: '<strong>Environment</strong>: {{name}}'
@@ -236,44 +240,45 @@ targetDetail:
   attributes: Attributes ({{ counter }})
   learnMore: To learn how to mark specific target attributes or information as private, read <a href="https://docs.harness.io" target="_blank" rel="noreferrer">documentation</a>.
   manuallyAdded: MANUALLY ADDED
-  addToSegment: Add to Segment
+  addToSegment: Add to Target Group
   autoAdded: AUTOMATICALLY ADDED THROUGH CONDITIONS
   exclusionList: EXCLUSION LIST
-  excludefromSegment: Exclude from Segment
+  excludefromSegment: Exclude from Target Group
   removeSegment: Remove from list
-  noSegmentAdded: No Segment added
-  noSegmentMatched: No Segment matched
-  noSegmentExcluded: No Segment excluded
-  addTargetToSegment: Add Target to Segment
-  excludeTargetFromSegment: Exclude Target from Segment
+  noSegmentAdded: No Target Group added
+  noSegmentMatched: No Target Group matched
+  noSegmentExcluded: No Target Group excluded
+  addTargetToSegment: Add Target to Target Group
+  excludeTargetFromSegment: Exclude Target from Target Group
   exclude: Exclude
   removeFromIncludeListTitle: Remove from include list
-  removeFromIncludeList: Are you sure you want to remove target <strong>{{targetName}}</strong> from include segment <strong>{{ segmentName}}</strong>? This action cannot be undone.
+  removeFromIncludeList: Are you sure you want to remove target <strong>{{targetName}}</strong> from include target group <strong>{{ segmentName}}</strong>? This action cannot be undone.
   removeFromExcludeListTitle: Remove from exclusion list
-  removeFromExcludeList: Are you sure you want to remove target <strong>{{targetName}}</strong> from exclusion segment <strong>{{ segmentName}}</strong>? This action cannot be undone.
+  removeFromExcludeList: Are you sure you want to remove target <strong>{{targetName}}</strong> from exclusion target group <strong>{{ segmentName}}</strong>? This action cannot be undone.
   noFlagConfigured: No feature flags configured for this target
   searchPlaceholder: Search Feature Flags...
   deleteTargetSuccess: Target <strong>{{name}}</strong> deleted.
 selectSegmentModal:
-  searchSegmentPlaceholder: Search for Segment by Name or Description
+  searchSegmentPlaceholder: Search for Target Group by Name or Description
   flagsUsingSegment: '{{ counter }} flag'
-  flagsUsingThisSegment: FLAGS USING THIS SEGMENT
-  empty: No Segment found
+  flagsUsingThisSegment: FLAGS USING THIS TARGET GROUP
+  empty: No Target Group found
 segments:
-  create: + Segment
+  create: + Target Group
   targetDefinition: Target Definition
-  usingSegment: Flags using this segment
-  usingSegmentWithCount: Flags using this segment ({{ count }})
-  modalTitle: Create a Segment
+  usingSegment: Flags using this target group
+  usingSegmentWithCount: Flags using this target group ({{ count }})
+  modalTitle: Create a Target Group
   displayIcon: Display Icon
   uploadImage: Upload an image
   delete:
-    message: 'Are you sure you want to delete segment <strong>{{segmentName}}</strong>? This action cannot be undone.'
-    title: Delete Segment
-  nameRequired: Segment name is required
-  idRequired: Segment identifier is required
-  noSegment: There are currently no segments
-  noSegmentForEnv: There are currently no segments for this environment
+    message: 'Are you sure you want to delete target group <strong>{{segmentName}}</strong>? This action cannot be undone.'
+    title: Delete Target Group
+  nameRequired: Target Group name is required
+  idRequired: Target Group identifier is required
+  noSegment: There are currently no target groups
+  noSegmentForEnv: There are currently no target groups for this environment
+  pageDescription: Target Groups allow you to serve flag variations to a list of targets in bulk.
 environments:
   title: '{{ $.environments }}'
   empty: 'There are currently no environments'
@@ -293,7 +298,6 @@ environments:
     title: 'SDK Keys'
     addKey: '+ Add Key'
     clientType: '{{ $.cf.testTheFlag.sdkClient }}'
-    clientId: 'Client ID'
     serverType: '{{ $.cf.testTheFlag.sdkServer }}'
     deleteTitle: 'Confirm Key Delete'
     deleteMessage: 'Are you sure you want to delete Key: {{keyName}}? You cannot recover it afterwards'
@@ -310,14 +314,14 @@ auditLogs:
   action: ACTION
   moduleFF: 'Module: Feature Flags'
   flagCreated: Feature activation created
-  segmentCreated: Segment created
+  segmentCreated: Target Group created
   flagUpdated: Feature activation updated
   unknown: Unknown activity
   empty: No activity found during this time.
   eventSummary: Event Summary
   createdMessageFF: 'created feature flag'
   createdMessageFFUpdate: 'updated feature flag'
-  createdMessageSegment: 'created segment'
+  createdMessageSegment: 'created target group'
   yamlDifference: YAML Difference
   changeDetails: Change details
   events:
@@ -338,7 +342,7 @@ auditLogs:
     deleteVariation: Variation '{{variation}}' deleted
     setDefaultOnVariation: Default on variation set to '{{variation}}'
     setDefaultOffVariation: Default off variation set to '{{variation}}'
-    addSegmentToVariationTargetMap: Segment '{{segment}}' added for Variation '{{variation}}'
+    addSegmentToVariationTargetMap: Target Group '{{segment}}' added for Variation '{{variation}}'
     setFeatureFlagStateOn: Flag turned on
     setFeatureFlagStateOff: Flag turned off
     tagUpdated: Tags updated
@@ -363,9 +367,9 @@ segmentDetail:
   directlyAdded: Directly Added
   autoAdded: Automatically Added Through Conditions
   removeFomFlag: Remove from Flag
-  noFlagsUseThisSegment: No Flags use this segment.
+  noFlagsUseThisSegment: No Flags use this target group.
   addToFlag: + Add to Flag
-  addSegmentToFlag: Add Segment to Flag
+  addSegmentToFlag: Add Target Group to Flag
 selectFlagsModal:
   empty: No feature flags found.
   searchPlaceholder: Search for Flag by name or description

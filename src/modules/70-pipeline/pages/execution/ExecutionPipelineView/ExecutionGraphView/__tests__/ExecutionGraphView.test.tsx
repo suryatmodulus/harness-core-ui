@@ -12,9 +12,7 @@ import mockCD from './mock.json'
 import mockCI from './mock-ci.json'
 import mockError from './mock-error.json'
 import ExecutionGraphView from '../ExecutionGraphView'
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 function renderNode(
   data: ExecutionPipelineNode<ExecutionNode>,

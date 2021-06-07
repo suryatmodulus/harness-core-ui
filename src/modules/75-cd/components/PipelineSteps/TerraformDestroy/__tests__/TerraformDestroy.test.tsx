@@ -7,15 +7,17 @@ import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Step
 import { TerraformDestroy } from '../TerraformDestroy'
 
 const mockGetCallFunction = jest.fn()
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('services/portal', () => ({
   useGetDelegateSelectors: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return []
   })
 }))
+
+jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => {
+  return <textarea value={value} onChange={e => onChange(e.target.value)} name={name || 'spec.source.spec.script'} />
+})
 
 describe('Test TerraformDestroy', () => {
   beforeEach(() => {
@@ -110,45 +112,7 @@ describe('Test TerraformDestroy', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
-    expect(container).toMatchSnapshot()
-  })
-
-  test('with inline config and expand config files section', () => {
-    const { container, getByText } = render(
-      <TestStepWidget
-        initialValues={{
-          type: 'TerraformDestroy',
-          name: 'Test A',
-          identifier: 'Test_A',
-          timeout: '10m',
-          delegateSelectors: ['test-1', 'test-2'],
-          spec: {
-            provisionerIdentifier: 'test',
-            configuration: {
-              type: 'Inline',
-              spec: {
-                workspace: 'testworkspace',
-                varFiles: [
-                  {
-                    type: 'Inline',
-                    store: {
-                      type: 'Git',
-                      spec: {
-                        content: 'Test Content'
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        }}
-        type={StepType.TerraformDestroy}
-        stepViewType={StepViewType.Edit}
-      />
-    )
-    fireEvent.click(getByText('pipelineSteps.configFiles'))
+    fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
     expect(container).toMatchSnapshot()
   })
 
@@ -186,7 +150,6 @@ describe('Test TerraformDestroy', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
 
     fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
     expect(container).toMatchSnapshot()
@@ -237,6 +200,7 @@ describe('Test TerraformDestroy', () => {
         }}
         type={StepType.TerraformDestroy}
         stepViewType={StepViewType.InputSet}
+        path="test"
       />
     )
     expect(container).toMatchSnapshot()

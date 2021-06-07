@@ -3,7 +3,7 @@ import { Color, HarnessIcons, Container, Text, Icon, IconName, Card, Layout, Hea
 import { Link, useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
-import { useGetAccountLicenseInfo } from 'services/portal'
+import { useGetAccountLicenses } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -11,10 +11,12 @@ import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, PageNames, PurposeActions } from '@common/constants/TrackingConstants'
 import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
-import ModuleInfoCards, { ModuleInfoCard, INFO_CARD_PROPS } from '../../components/ModuleInfoCards/ModuleInfoCards'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '../../components/ModuleInfoCards/ModuleInfoCards'
 import css from './PurposePage.module.scss'
 
 interface PurposeType {
+  enabled: boolean
   title: string
   icon: IconName
   description: string
@@ -29,27 +31,31 @@ const PurposeList: React.FC = () => {
   const [selected, setSelected] = useState<Module>()
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard>()
 
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
+
   useEffect(() => {
     if (selected) {
-      const infoCardProps = INFO_CARD_PROPS[selected]
+      const infoCardProps = getInfoCardsProps(accountId)[selected]
 
       // Automatically select the first info card if none are selected
       if (!selectedInfoCard && infoCardProps) {
         setSelectedInfoCard(infoCardProps[0])
       }
     }
-  }, [selected, selectedInfoCard])
+  }, [selected, selectedInfoCard, accountId])
 
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
 
   const CDNG_OPTIONS: PurposeType = {
+    enabled: CDNG_ENABLED,
     title: getString('common.purpose.cd.delivery'),
     icon: 'cd-main',
     description: getString('common.purpose.cd.subtitle'),
     module: 'cd'
   }
   const CVNG_OPTIONS: PurposeType = {
+    enabled: CVNG_ENABLED,
     title: getString('common.purpose.cv.verification'),
     icon: 'cv-main',
     description: getString('common.purpose.cv.subtitle'),
@@ -57,6 +63,7 @@ const PurposeList: React.FC = () => {
   }
 
   const CING_OPTIONS: PurposeType = {
+    enabled: CING_ENABLED,
     title: getString('common.purpose.ci.integration'),
     icon: 'ci-main',
     description: getString('common.purpose.ci.subtitle'),
@@ -64,6 +71,7 @@ const PurposeList: React.FC = () => {
   }
 
   const CENG_OPTIONS: PurposeType = {
+    enabled: CENG_ENABLED,
     title: getString('common.purpose.ce.efficiency'),
     icon: 'ce-main',
     description: getString('common.purpose.ce.subtitle'),
@@ -71,6 +79,7 @@ const PurposeList: React.FC = () => {
   }
 
   const CFNG_OPTIONS: PurposeType = {
+    enabled: CFNG_ENABLED,
     title: getString('common.purpose.cf.features'),
     icon: 'cf-main',
     description: getString('common.purpose.cf.subtitle'),
@@ -105,10 +114,10 @@ const PurposeList: React.FC = () => {
             textAlign: 'center',
             color: Color.WHITE
           }}
-          to={routes.toModuleHome({ accountId, module, source: 'purpose' })}
           onClick={() => {
             trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: module })
           }}
+          to={routes.toModuleHome({ accountId, module, source: 'purpose' })}
         >
           {getString('continue')}
         </Link>
@@ -125,7 +134,7 @@ const PurposeList: React.FC = () => {
           textAlign: 'center',
           color: Color.WHITE
         }}
-        href={selectedInfoCard.route}
+        href={selectedInfoCard.route?.()}
       >
         {getString('continue')}
       </a>
@@ -158,7 +167,7 @@ const PurposeList: React.FC = () => {
     )
   }
 
-  const { error, data, refetch, loading } = useGetAccountLicenseInfo({
+  const { error, data, refetch, loading } = useGetAccountLicenses({
     queryParams: {
       accountIdentifier: accountId
     }
@@ -167,16 +176,18 @@ const PurposeList: React.FC = () => {
   const getOptions = (): PurposeType[] => {
     const options: PurposeType[] = []
     ;[CDNG_OPTIONS, CING_OPTIONS, CVNG_OPTIONS, CFNG_OPTIONS, CENG_OPTIONS].forEach(option => {
-      let startTrial = true
-      const { module } = option
-      const moduleLicense = data?.data.moduleLicenses[module]
-      if (moduleLicense) {
-        const { licenseType } = moduleLicense
-        startTrial = !licenseType || licenseType === 'TRIAL'
-      }
-      const moduleProps = getModuleProps(module, startTrial)
-      if (moduleProps) {
-        options.push(moduleProps)
+      if (option.enabled) {
+        let startTrial = true
+        const { module } = option
+        const moduleLicense = data?.data?.moduleLicenses?.[module]
+        if (moduleLicense) {
+          const { licenseType } = moduleLicense
+          startTrial = !licenseType || licenseType === 'TRIAL'
+        }
+        const moduleProps = getModuleProps(module, startTrial)
+        if (moduleProps) {
+          options.push(moduleProps)
+        }
       }
     })
 
@@ -199,7 +210,7 @@ const PurposeList: React.FC = () => {
   return (
     <Layout.Vertical spacing="large">
       <Layout.Horizontal padding={{ top: 'large' }}>
-        <Container width="50%">
+        <Container width="40%">
           <div style={{ borderRight: 'inset', marginLeft: -15 }}>
             {getOptions().map(option => (
               <Card
@@ -224,14 +235,11 @@ const PurposeList: React.FC = () => {
                   <Text
                     width={100}
                     color={Color.WHITE}
-                    font={{ size: 'xsmall', weight: 'semi-bold' }}
-                    style={{
-                      textAlign: 'center',
-                      borderRadius: 4,
-                      height: 'var(--spacing-large)',
-                      backgroundColor: 'var(--purple-900)',
-                      padding: 'var(--spacing-xsmall)'
-                    }}
+                    font={{ size: 'xsmall', weight: 'semi-bold', align: 'center' }}
+                    border={{ radius: 4 }}
+                    height={25}
+                    background={Color.PURPLE_500}
+                    padding={'xsmall'}
                     icon={selected === option.module ? ('tick' as IconName) : ('' as IconName)}
                     iconProps={{ size: 10, padding: 'xsmall', color: Color.WHITE }}
                   >
@@ -246,7 +254,7 @@ const PurposeList: React.FC = () => {
             ))}
           </div>
         </Container>
-        <Container width={600} padding={{ left: 'huge', top: 'medium' }}>
+        <Container width={700} padding={{ left: 'huge', top: 'medium' }}>
           {selected ? (
             getModuleInfo(selected)
           ) : (

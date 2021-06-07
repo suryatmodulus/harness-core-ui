@@ -108,7 +108,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     const timeoutId = window.setTimeout(() => {
       if (page === 1 && !loading) {
         setPollingRequest(true)
-        fetchExecutions().then(
+        fetchExecutions()?.then(
           () => setPollingRequest(false),
           () => setPollingRequest(false)
         )
@@ -125,7 +125,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     <Page.Body
       className={css.main}
       key={pipelineIdentifier}
-      error={error?.message}
+      error={(error?.data as Error)?.message || error?.message}
       retryOnError={() => fetchExecutions()}
     >
       {props.showHealthAndExecution && (

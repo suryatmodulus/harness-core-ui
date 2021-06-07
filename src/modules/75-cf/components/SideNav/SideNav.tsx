@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Layout } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
@@ -8,7 +8,8 @@ import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { useQueryParams } from '@common/hooks'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMenu'
 import css from './SideNav.module.scss'
 
 export default function CFSideNav(): React.ReactElement {
@@ -19,21 +20,7 @@ export default function CFSideNav(): React.ReactElement {
   const module = 'cf'
   const { updateAppStore } = useAppStore()
   const isDev = localStorage.ENABLED_FF_EXPERIMENTS
-  const [activeEnvironment, setActiveEnvironment] = useState<string>()
-  const urlParams: Record<string, string> = useQueryParams()
-  const withActiveEnvironment = useCallback(
-    (url: string) => `${url}${activeEnvironment ? `?activeEnvironment=${activeEnvironment}` : ''}`,
-    [activeEnvironment]
-  )
-
-  useEffect(() => {
-    const popstateListener = (): void => {
-      setActiveEnvironment(urlParams.activeEnvironment)
-    }
-    const popstate = 'popstate'
-    addEventListener(popstate, popstateListener)
-    return () => removeEventListener(popstate, popstateListener)
-  }, [urlParams.activeEnvironment])
+  const { withActiveEnvironment } = useActiveEnvironment()
 
   return (
     <Layout.Vertical spacing="small">
@@ -57,12 +44,8 @@ export default function CFSideNav(): React.ReactElement {
             to={withActiveEnvironment(routes.toCFFeatureFlags(params))}
           />
           <SidebarLink
-            label={getString('pipeline.targets.title')}
-            to={withActiveEnvironment(routes.toCFTargets(params))}
-          />
-          <SidebarLink
-            label={getString('cf.shared.segments')}
-            to={withActiveEnvironment(routes.toCFSegments(params))}
+            label={getString('cf.shared.targetManagement')}
+            to={withActiveEnvironment(routes.toCFTargetManagement(params))}
           />
           <SidebarLink label={getString('environments')} to={withActiveEnvironment(routes.toCFEnvironments(params))} />
           {isDev && (
@@ -84,6 +67,7 @@ export default function CFSideNav(): React.ReactElement {
               to={withActiveEnvironment(routes.toCFOnboarding(params))}
             />
           )}
+          <ProjectSetupMenu module="cf" />
         </React.Fragment>
       ) : null}
     </Layout.Vertical>

@@ -11,7 +11,8 @@ selectConnectorLabel: Select Artifact Repository Connector
 stepThreeName: '{{$.common.labelTestConnection}}'
 stepFourName: 'Artifact Location'
 name: Connector Name
-updating: Updating connector
+updating: 'Updating connector {{name}}'
+creating: 'Creating connector {{name}}'
 successfullCreate: 'Connector {{name}} created successfully'
 successfullUpdate: 'Connector {{name}} updated successfully'
 connectorNotFound: Connector not found.
@@ -22,13 +23,18 @@ gcrConnectorDetails: 'Google Container Registry Overview'
 hashicorpVaultDetails: 'HashiCorp Vault Overview'
 appDynamicsDetails: 'AppDynamics Connector Details'
 splunkConnectorDetails: 'Splunk Connector Details'
+datadogConnectorDetails: 'Datadog Connector Details'
 newRelicConnectorDetails: New Relic Connector Details
 prometheusConnectorDetails: Prometheus Connector Details
 prometheusLabel: Prometheus
+dynatraceLabel: Dynatrace
+dynatraceConnectorDetails: Dynatrace Connector Details
 connectorDetailsHeader: '{{type}} Connector Details'
 addConnectorDetails: Add {{type}} Verification Provider
 unableToCreateConnector: Unable to create connector
 unableToUpdateConnector: Unable to update connector
+encryptedAPIKeyLabel: Encrypted API Key
+encryptedAPIKeyValidation: Encrypted API Key is required.
 title:
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'
@@ -49,6 +55,8 @@ title:
   awsKms: 'AWS Key Management Service'
   delegateSelection: 'Delegate Selection'
   ceAzureConnector: 'Azure Connector'
+  datadog: 'Datadog Connector'
+  azureKeyVault: 'Azure Key Vault'
 name_labels:
   Kubernetes: 'Kubernetes Connector Name'
   HttpHelmRepo: 'Helm Http Connector Name'
@@ -84,27 +92,30 @@ testConnectionStep:
     bitbucket: 'URL : '
     gcr: 'GCR URL : '
   validationText:
-    k8s: Validating the reachability of provided url
-    docker: Validating the Docker Registry authentication and permissions
-    artifactory: Validating the Artifactory Repository authentication and permissions
-    nexus: Validating the Nexus Repository authentication and permissions
-    gcp: Validating the Google Cloud Provider authentication and permissions
-    gcr: Validating the Google Container Registry authentication and permissions
+    k8s: Validating the reachability of provided URL
+    docker: Validating Docker Registry authentication and permissions
+    artifactory: Validating Artifactory Repository authentication and permissions
+    nexus: Validating Nexus Repository authentication and permissions
+    gcp: Validating Google Cloud Provider authentication and permissions
+    gcr: Validating Google Container Registry authentication and permissions
     aws: Validating the AWS Cloud Provider authentication and permissions
-    appD: Validating the AppDynamics authentication and permissions
-    splunk: Validating the Splunk authentication and permissions
-    vault: Validating the HashiCorp Vault authentication and permissions
-    bitbucket: Validating the Bitbucket authentication and permissions
-    gitlab: Validating the GitLab authentication and permissions
-    github: Validating the GitHub authentication and permissions
-    git: Validating the Git authentication and permissions
-    azure: Validating the azure authentication and permission
+    appD: Validating AppDynamics authentication and permissions
+    splunk: Validating Splunk authentication and permissions
+    vault: Validating HashiCorp Vault authentication and permissions
+    bitbucket: Validating Bitbucket authentication and permissions
+    gitlab: Validating GitLab authentication and permissions
+    github: Validating GitHub authentication and permissions
+    git: Validating Git authentication and permissions
+    azure: Validating Azure authentication and permissions
+    datadog: Validating Datadog authentication and permissions
+    azureKeyVault: Validating Azure key vault authentication and permissions
+    jira: Validating Jira authentication and permissions
 httpHelm:
   httpHelmRepoUrl: 'Helm Repo URL'
 jira:
   jiraUrl: 'Jira URL'
 k8:
-  delegateOutClusterInfo: 'Specify master url and credentials'
+  delegateOutClusterInfo: 'Specify master URL and credentials'
   delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
   masterUrlLabel: 'Master URL'
   serviceAccountToken: 'Service Account Token'
@@ -114,14 +125,15 @@ k8:
   OIDCPassword: 'OIDC Password'
   OIDCClientId: 'OIDC Client ID'
   OIDCSecret: 'OIDC Secret'
-  OIDCScopes: 'OIDC Scopes (Optional)'
+  clientSecretOptional: 'Client Secret (optional)'
+  OIDCScopes: 'OIDC Scopes (optional)'
   clientKey: 'Client Key'
-  clientKeyPassphrase: 'Client Key passphrase'
+  clientKeyPassphrase: 'Client Key passphrase (optional)'
   clientCertificate: 'Client Certificate'
   clientKeyAlgorithm: 'Client Key Algorithm (optional)'
   clientKeyCACertificate: 'CA Certificate (optional)'
   placeholder:
-    masterUrl: '/url'
+    masterUrl: '/URL'
   authLabels:
     OIDC: 'OpenID Connect'
     clientKeyCertificate: 'Client Key Certificate'
@@ -197,15 +209,21 @@ newRelic:
   subTitle: To add New Relic connector, you will need access to New Relic Insights API. Verification analysis is limited to APM only.
   urlFieldLabel: New Relic URL
   accountIdFieldLabel: New Relic Account ID
-  encryptedAPIKeyLabel: Encrypted API Key
   urlValidation: New Relic URL is required.
   accountIdValidation: New Relic Account ID is required.
-  encryptedKeyValidation: Encrypted API Key is required.
   accountIdTooltip: For steps to get New Relic Account ID
   products:
     fullStackObservability: 'Full Stack Observability: APM'
 prometheus:
   urlValidation: Prometheus URL is required.
+datadog:
+  encryptedAPPKeyLabel: Encrypted APP Key
+  urlValidation: Datadog URL is required.
+  encryptedAPPKeyValidation: Encrypted APP Key is required.
+dynatrace:
+  apiToken: API Token
+  apiTokenValidation: API Token is required.
+  urlValidation: Dynatrace URL is required.
 cdng:
   jobName: Job Name
   deploymentTag: Deployment Tag
@@ -224,7 +242,6 @@ cdng:
     jobNameRequired: Job name is required
     durationRequired: Duration is required
     sensitivityRequired: Sensitivity is required
-    baselineRequired: Baseline is required
   verificationSensitivityLabel:
     high: High
     medium: Medium
@@ -269,3 +286,15 @@ delegate:
   matchingDelegates: matching delegates
   noDelegates: You have no delegates
   noMatchingDelegate: No eligible delegates found. Install a new delegate or continue to save.
+azureKeyVault:
+  labels:
+    tenantId: Tenant ID
+    subscription: Subscription
+    vaultName: Vault Name
+    fetchVault: Fetch Vault
+  validation:
+    clientId: Client ID is required
+    tenantId: Tenant ID is required
+    subscription: Subscription is required
+    secretKey: Key is required
+    vaultName: Vault Name is required

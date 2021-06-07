@@ -291,7 +291,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
             formikActions.resetForm()
           })
           .catch(err => {
-            showError(get(err, 'data.message', err?.message))
+            showError(get(err, 'data.message', err?.message), undefined, 'cf.patch.feature.error')
           })
           .finally(() => {
             patch.feature.reset()

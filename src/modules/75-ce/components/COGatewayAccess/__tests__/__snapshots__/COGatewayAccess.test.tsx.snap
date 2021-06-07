@@ -6,131 +6,6 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
     class="StyledProps--font StyledProps--main page"
   >
     <div
-      style="top: 86px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-    >
-      <div
-        class="StyledProps--font StyledProps--main"
-      >
-        <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-large StyledProps--background-blue200"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--padding-medium"
-          >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="test-file-stub"
-              />
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="line-height: 20px;"
-              >
-                ce.co.autoStoppingRule.setupAccess.helpText.dns.info
-              </p>
-            </div>
-          </div>
-        </div>
-        <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-xsmall"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--padding-medium"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="line-height: 20px;"
-            >
-              ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.title
-            </p>
-            <div
-              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-            >
-              <span
-                class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue500"
-                icon="info-sign"
-              >
-                <svg
-                  data-icon="info-sign"
-                  height="23"
-                  viewBox="0 0 20 20"
-                  width="23"
-                >
-                  <desc>
-                    info-sign
-                  </desc>
-                  <path
-                    d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <div
-                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                style="max-width: 80%;"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="font-weight: bold; line-height: 20px;"
-                >
-                  ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step1.title
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="line-height: 20px;"
-                >
-                  ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step1.description
-                </p>
-              </div>
-            </div>
-            <div
-              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-            >
-              <span
-                class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue500"
-                icon="info-sign"
-              >
-                <svg
-                  data-icon="info-sign"
-                  height="23"
-                  viewBox="0 0 20 20"
-                  width="23"
-                >
-                  <desc>
-                    info-sign
-                  </desc>
-                  <path
-                    d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <div
-                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                style="max-width: 80%;"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="font-weight: bold; line-height: 20px;"
-                >
-                  ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step3.title
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="line-height: 20px;"
-                >
-                  ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step3.description
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
       style="margin-left: 10px;"
     >
@@ -141,14 +16,14 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold"
+            class="StyledProps--font StyledProps--font-h2 StyledProps--main setupAccessHeading StyledProps--font-weight-semi-bold"
             level="2"
           >
             ce.co.autoStoppingRule.setupAccess.pageName
           </h2>
         </div>
         <h3
-          class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
+          class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
           level="3"
         >
           ce.co.gatewayAccess.subtitle
@@ -161,7 +36,7 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <h3
-            class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
+            class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
             level="3"
           >
             ce.co.gatewayAccess.accessDescription
@@ -169,6 +44,7 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
           <span
             class="bp3-icon StyledProps--main"
             data-icon="info"
+            style="cursor: pointer;"
           >
             <svg
               height="16"
@@ -283,6 +159,22 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
                           level="3"
                         >
                           ce.co.autoStoppingRule.setupAccess.selectLb
+                          <span
+                            class="bp3-icon StyledProps--main"
+                            data-icon="info"
+                          >
+                            <svg
+                              height="16"
+                              viewBox="0 0 12 12"
+                              width="16"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
                         </h3>
                         <div
                           class="Layout--horizontal StyledProps--main selectLoadBalancerContainer"
@@ -345,7 +237,7 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
                                 </div>
                               </div>
                               <p
-                                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6"
                                 style="cursor: pointer;"
                               >
                                 +ce.co.accessPoint.new
@@ -473,91 +365,6 @@ exports[`Testing COGatewayAccess SSH checkbox checks succesfully and download os
     class="StyledProps--font StyledProps--main page"
   >
     <div
-      style="top: 86px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-    >
-      <div
-        class="StyledProps--font StyledProps--main"
-      >
-        <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-large StyledProps--background-blue200"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--padding-medium"
-          >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="test-file-stub"
-              />
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="line-height: 20px;"
-              >
-                ce.co.autoStoppingRule.setupAccess.helpText.ssh.info
-              </p>
-            </div>
-          </div>
-        </div>
-        <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-large"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--padding-medium"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="line-height: 20px;"
-            >
-              ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.title
-            </p>
-            <div
-              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-            >
-              <span
-                class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue500"
-                icon="info-sign"
-              >
-                <svg
-                  data-icon="info-sign"
-                  height="23"
-                  viewBox="0 0 20 20"
-                  width="23"
-                >
-                  <desc>
-                    info-sign
-                  </desc>
-                  <path
-                    d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <div
-                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                style="max-width: 80%;"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="font-weight: bold; line-height: 20px;"
-                >
-                  ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.download
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="line-height: 20px;"
-                >
-                  ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.description
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
       style="margin-left: 10px;"
     >
@@ -568,14 +375,14 @@ exports[`Testing COGatewayAccess SSH checkbox checks succesfully and download os
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold"
+            class="StyledProps--font StyledProps--font-h2 StyledProps--main setupAccessHeading StyledProps--font-weight-semi-bold"
             level="2"
           >
             ce.co.autoStoppingRule.setupAccess.pageName
           </h2>
         </div>
         <h3
-          class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
+          class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
           level="3"
         >
           ce.co.gatewayAccess.subtitle
@@ -588,7 +395,7 @@ exports[`Testing COGatewayAccess SSH checkbox checks succesfully and download os
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <h3
-            class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
+            class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
             level="3"
           >
             ce.co.gatewayAccess.accessDescription
@@ -596,6 +403,7 @@ exports[`Testing COGatewayAccess SSH checkbox checks succesfully and download os
           <span
             class="bp3-icon StyledProps--main"
             data-icon="info"
+            style="cursor: pointer;"
           >
             <svg
               height="16"
@@ -785,97 +593,6 @@ exports[`Testing COGatewayAccess renders without crashing 1`] = `
     class="StyledProps--font StyledProps--main page"
   >
     <div
-      style="top: 86px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-    >
-      <div
-        class="StyledProps--font StyledProps--main"
-      >
-        <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-large"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--padding-medium"
-          >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="test-file-stub"
-              />
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="line-height: 20px;"
-              >
-                ce.co.autoStoppingRule.setupAccess.helpText.dns.info
-              </p>
-            </div>
-            <div
-              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="test-file-stub"
-              />
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="line-height: 20px;"
-              >
-                ce.co.autoStoppingRule.setupAccess.helpText.ssh.info
-              </p>
-            </div>
-            <div
-              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="test-file-stub"
-              />
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="line-height: 20px;"
-              >
-                ce.co.autoStoppingRule.setupAccess.helpText.rdp.info
-              </p>
-            </div>
-            <div
-              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="test-file-stub"
-              />
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="line-height: 20px;"
-              >
-                ce.co.autoStoppingRule.setupAccess.helpText.bgTasks.info
-              </p>
-            </div>
-            <div
-              class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="test-file-stub"
-              />
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="line-height: 20px;"
-              >
-                ce.co.autoStoppingRule.setupAccess.helpText.ip.info
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
       class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
       style="margin-left: 10px;"
     >
@@ -886,14 +603,14 @@ exports[`Testing COGatewayAccess renders without crashing 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold"
+            class="StyledProps--font StyledProps--font-h2 StyledProps--main setupAccessHeading StyledProps--font-weight-semi-bold"
             level="2"
           >
             ce.co.autoStoppingRule.setupAccess.pageName
           </h2>
         </div>
         <h3
-          class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
+          class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
           level="3"
         >
           ce.co.gatewayAccess.subtitle
@@ -906,7 +623,7 @@ exports[`Testing COGatewayAccess renders without crashing 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <h3
-            class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
+            class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
             level="3"
           >
             ce.co.gatewayAccess.accessDescription
@@ -914,6 +631,7 @@ exports[`Testing COGatewayAccess renders without crashing 1`] = `
           <span
             class="bp3-icon StyledProps--main"
             data-icon="info"
+            style="cursor: pointer;"
           >
             <svg
               height="16"

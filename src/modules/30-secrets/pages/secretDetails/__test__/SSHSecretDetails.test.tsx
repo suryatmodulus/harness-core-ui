@@ -22,7 +22,7 @@ const responseSecretValidation: ResponseSecretValidationResultDTO = {
   metaData: {}
 }
 jest.useFakeTimers()
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', jest.fn())
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('services/portal', () => ({
   useGetDelegatesStatus: jest.fn().mockImplementation(() => {
     return { data: delegateResponse, refetch: jest.fn(), error: null, loading: false }
@@ -63,7 +63,7 @@ describe('Secret Details', () => {
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <SecretDetails secretData={mockData.sshKey.data as any} />

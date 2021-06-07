@@ -11,7 +11,7 @@ jest.mock('@common/components/Duration/Duration', () => ({
   }
 }))
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => null)
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 describe('<JiraApproval/> tests', () => {
   test('isWaiting test', () => {

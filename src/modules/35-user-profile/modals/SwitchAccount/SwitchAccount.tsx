@@ -50,7 +50,7 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
     return account.uuid === accountId ? (
       <Text lineClamp={1}>{account.accountName}</Text>
     ) : (
-      <Link to={routes.toProjects({ accountId: account.uuid })}>{account.accountName}</Link>
+      <Link to={routes.toHome({ accountId: account.uuid })}>{account.accountName}</Link>
     )
   }
 

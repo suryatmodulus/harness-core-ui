@@ -16,9 +16,8 @@ import {
   GetOverlayInputSetEdit
 } from './InputSetListMocks'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+
 const deleteInputSetMock = jest.fn()
 const deleteInputSet = (): Promise<{ status: string }> => {
   deleteInputSetMock()

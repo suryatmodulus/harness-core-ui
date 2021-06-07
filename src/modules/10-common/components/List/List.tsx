@@ -74,10 +74,12 @@ export const List = (props: ListProps): React.ReactElement => {
     const valueWithoutEmptyItems = value.filter(item => !!item.value)
 
     if (isEmpty(valueWithoutEmptyItems) && initialValue) {
-      const initialValueInCorrectFormat = (initialValue || []).map(item => ({
-        id: uuid('', nameSpace()),
-        value: item
-      }))
+      const initialValueInCorrectFormat = [
+        {
+          id: uuid('', nameSpace()),
+          value: ''
+        }
+      ]
 
       // Adding a default value
       if (Array.isArray(initialValueInCorrectFormat) && !initialValueInCorrectFormat.length) {
@@ -128,7 +130,6 @@ export const List = (props: ListProps): React.ReactElement => {
                   minimal
                   onClick={removeValue(id)}
                   data-testid={`remove-${name}-[${index}]`}
-                  style={{ marginTop: 4 }}
                 />
               )}
             </div>

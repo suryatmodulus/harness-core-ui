@@ -14,6 +14,7 @@ import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { InputTypes, setFieldValue, clickSubmit } from '@common/utils/JestFormHelper'
 import type { ResponseBoolean } from 'services/cd-ng'
+import { ChangePasswordResponse } from '@user-profile/modals/useChangePassword/views/ChangePasswordForm'
 import {
   connectorMockData,
   enabledTwoFactorAuth,
@@ -22,7 +23,8 @@ import {
   sourceCodeManagers,
   twoFactorAuthSettings,
   userMockData,
-  mockMyProfiles
+  mockMyProfiles,
+  passwordStrengthPolicy
 } from './mock'
 
 const createSCM = jest.fn()
@@ -79,10 +81,29 @@ jest.mock('services/cd-ng', () => ({
   usePostSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   useGetAuthenticationSettings: jest.fn().mockImplementation(() => {
-    return { mutate: () => Promise.resolve(mockResponse) }
+    return { data: passwordStrengthPolicy }
   }),
   useGetUserProjectInfo: jest.fn().mockImplementation(() => {
     return { data: mockMyProfiles }
+  }),
+  useChangeUserPassword: jest.fn().mockImplementation(() => {
+    return {
+      mutate: () =>
+        Promise.resolve({
+          data: ChangePasswordResponse.PASSWORD_CHANGED
+        })
+    }
+  }),
+  useResendVerifyEmail: jest.fn().mockImplementation(() => {
+    return {
+      cancel: jest.fn(),
+      loading: false,
+      mutate: jest.fn().mockImplementation(() => {
+        return {
+          status: 'SUCCESS'
+        }
+      })
+    }
   })
 }))
 
@@ -127,30 +148,13 @@ describe('User Profile Page', () => {
 
       expect(queryByText(document.body, 'userProfile.userEditSuccess')).toBeTruthy()
     }),
-    // eslint-disable-next-line jest/no-disabled-tests
-    test.skip('Change Password', async () => {
-      const password = getByText('userProfile.changePassword')
-      act(() => {
-        fireEvent.click(password!)
-      })
-      await waitFor(() => queryByText(document.body, 'Current Password'))
-      const form = findDialogContainer()
-      expect(form).toBeTruthy()
-      setFieldValue({ container: form!, type: InputTypes.TEXTFIELD, fieldId: 'currentPassword', value: 'password' })
-      setFieldValue({ container: form!, type: InputTypes.TEXTFIELD, fieldId: 'newPassword', value: 'password@1D' })
-      setFieldValue({ container: form!, type: InputTypes.TEXTFIELD, fieldId: 'confirmPassword', value: 'password@1D' })
-
-      await act(async () => {
-        clickSubmit(form!)
-      })
-    }),
     test('Add SCM', async () => {
       const addSCM = getByText('userProfile.plusSCM')
       expect(addSCM).toBeTruthy()
       act(() => {
         fireEvent.click(addSCM!)
       })
-      await waitFor(() => queryByText(document.body, 'Add a Source Code Manager'))
+      await waitFor(() => queryByText(document.body, 'userProfile.addSCM'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
     }),
@@ -279,5 +283,36 @@ describe('User Profile Page', () => {
       })
       expect(disableAuthfn).toBeCalled()
       enabledAuth = false
+    }),
+    test('Change Password', async () => {
+      const password = queryByText(container, 'userProfile.changePassword')
+      act(() => {
+        fireEvent.click(password!)
+      })
+
+      await waitFor(() => getAllByText(document.body, 'userProfile.changePassword')[1])
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
+
+      setFieldValue({ container: form!, type: InputTypes.TEXTFIELD, fieldId: 'currentPassword', value: 'password' })
+      setFieldValue({ container: form!, type: InputTypes.TEXTFIELD, fieldId: 'newPassword', value: 'password@1DD' })
+      setFieldValue({ container: form!, type: InputTypes.TEXTFIELD, fieldId: 'confirmPassword', value: 'password@1DD' })
+
+      const currentPasswordView = form!.querySelectorAll("[data-icon='eye-off']")[0]
+      const newPasswordView = form!.querySelectorAll("[data-icon='eye-off']")[1]
+      const confirmPasswordView = form!.querySelectorAll("[data-icon='eye-off']")[2]
+      expect(currentPasswordView).toBeTruthy()
+      act(() => {
+        fireEvent.click(currentPasswordView!)
+        fireEvent.click(currentPasswordView!)
+        fireEvent.click(newPasswordView!)
+        fireEvent.click(confirmPasswordView!)
+      })
+
+      await act(async () => {
+        clickSubmit(form!)
+      })
+
+      expect(queryByText(document.body, 'userProfile.passwordChangedSuccessfully')).toBeTruthy()
     })
 })

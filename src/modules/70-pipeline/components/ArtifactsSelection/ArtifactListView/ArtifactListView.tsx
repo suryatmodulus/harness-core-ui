@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Text, Icon, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
-import { getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
+import { getConnectorNameFromValue, getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { SidecarArtifactWrapper } from 'services/cd-ng'
 import { ArtifactIconByType } from '../ArtifactHelper'
 import type { ArtifactListViewProps, ArtifactType } from '../ArtifactInterface'
@@ -26,7 +26,12 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
   addNewArtifact
 }) => {
   const { getString } = useStrings()
-  const { color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
+  const { color: primaryConnectorColor } = getStatus(
+    primaryArtifact?.spec?.connectorRef,
+    fetchedConnectorResponse,
+    accountId
+  )
+  const primaryConnectorName = getConnectorNameFromValue(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse)
   return (
     <Layout.Vertical style={{ flexShrink: 'initial' }}>
       <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
@@ -49,21 +54,14 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                     {getString('primary')}
                   </Text>
                 </div>
-
-                <span>
-                  <Text
-                    inline
-                    icon={ArtifactIconByType[primaryArtifact.type]}
-                    iconProps={{ size: 18 }}
-                    width={300}
-                    lineClamp={1}
-                    rightIcon="full-circle"
-                    rightIconProps={{ size: 12, color }}
-                    style={{ color: Color.BLACK, fontWeight: 900 }}
-                  >
-                    {primaryArtifact.spec?.connectorRef}
+                <div className={css.connectorNameField}>
+                  <Icon padding={{ right: 'small' }} name={ArtifactIconByType[primaryArtifact.type]} size={18} />
+                  <Text className={css.connectorName} lineClamp={1}>
+                    {primaryConnectorName ?? primaryArtifact.spec?.connectorRef}
                   </Text>
-                </span>
+                  <Icon name="full-circle" size={12} color={primaryConnectorColor} />
+                </div>
+
                 <div>
                   <Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}>
                     {primaryArtifact?.spec?.imagePath}
@@ -84,7 +82,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
               </section>
             )}
           </section>
-          {sideCarArtifact?.length > 0 && (
+          {sideCarArtifact && sideCarArtifact?.length > 0 && (
             <section>
               {sideCarArtifact?.map((data: SidecarArtifactWrapper, index: number) => {
                 const { sidecar } = data
@@ -93,6 +91,11 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                   fetchedConnectorResponse,
                   accountId
                 )
+                const sidecarConnectorName = getConnectorNameFromValue(
+                  sidecar?.spec?.connectorRef,
+                  fetchedConnectorResponse
+                )
+
                 return (
                   <section className={cx(css.artifactList, css.rowItem)} key={`${sidecar?.identifier}-${index}`}>
                     <div>
@@ -103,20 +106,19 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                         </Text>
                       </Text>
                     </div>
-                    <span>
-                      <Text
-                        inline
-                        icon={ArtifactIconByType[sidecar?.type as ArtifactType]}
-                        iconProps={{ size: 18 }}
-                        width={300}
-                        rightIcon="full-circle"
-                        rightIconProps={{ size: 12, color: sideCarConnectionColor }}
-                        lineClamp={1}
-                        style={{ color: Color.BLACK, fontWeight: 900 }}
-                      >
-                        {sidecar?.spec?.connectorRef}
+
+                    <div className={css.connectorNameField}>
+                      <Icon
+                        padding={{ right: 'small' }}
+                        name={ArtifactIconByType[sidecar?.type as ArtifactType]}
+                        size={18}
+                      />
+                      <Text className={css.connectorName} lineClamp={1}>
+                        {sidecarConnectorName ?? sidecar?.spec?.connectorRef}
                       </Text>
-                    </span>
+                      <Icon name="full-circle" size={12} color={sideCarConnectionColor} />
+                    </div>
+
                     <div>
                       <Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}>
                         {sidecar?.spec?.imagePath}
@@ -141,13 +143,6 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
               })}
             </section>
           )}
-          {sideCarArtifact?.length > 0 && overrideSetIdentifier?.length === 0 && !isReadonly && (
-            <div className={css.paddingVertical}>
-              <Text intent="primary" style={{ cursor: 'pointer' }} onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
-                <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
-              </Text>
-            </div>
-          )}
         </Layout.Vertical>
       </Layout.Vertical>
 
@@ -159,7 +154,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
             </Text>
           </div>
         )}
-        {(!sideCarArtifact || sideCarArtifact?.length === 0) && overrideSetIdentifier?.length === 0 && !isReadonly && (
+        {!overrideSetIdentifier?.length && !isReadonly && (
           <div className={css.addArtifact}>
             <Text intent="primary" onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Button, Popover } from '@wings-software/uicore'
+import { Text, Layout, Button, Popover, Color } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Intent } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
@@ -16,7 +16,7 @@ import { useStrings } from 'framework/strings'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -38,11 +38,30 @@ interface UserGroupsListViewProps {
 }
 
 const RenderColumnUserGroup: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row }) => {
+  const { getString } = useStrings()
   const data = row.original.userGroupDTO
   return (
-    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+    <Layout.Vertical>
       <Text>{data.name}</Text>
-    </Layout.Horizontal>
+      {data.ssoLinked ? (
+        <Layout.Horizontal
+          flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+          spacing="xsmall"
+          className={css.truncatedText}
+        >
+          <Text icon={'link'} iconProps={{ color: Color.BLUE_500, size: 10 }} color={Color.BLACK}>
+            {getString('rbac.userDetails.linkToSSOProviderModal.saml')}
+          </Text>
+          <Text lineClamp={1} width={110}>
+            {data.linkedSsoDisplayName}
+          </Text>
+          <Text color={Color.BLACK}>{getString('rbac.userDetails.linkToSSOProviderModal.group')}</Text>
+          <Text lineClamp={1} width={110}>
+            {data.ssoGroupName}
+          </Text>
+        </Layout.Horizontal>
+      ) : null}
+    </Layout.Vertical>
   )
 }
 
@@ -59,6 +78,11 @@ const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, 
     e.stopPropagation()
     ;(column as any).openUserGroupModal(data.userGroupDTO, true)
   }
+
+  const disableTooltipText = data.userGroupDTO.ssoLinked
+    ? getString('rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText')
+    : undefined
+  const avatarTooltip = disableTooltipText ? <Text padding="medium">{disableTooltipText}</Text> : undefined
 
   return avatars.length ? (
     <RbacAvatarGroup
@@ -77,6 +101,8 @@ const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, 
         },
         permission: PermissionIdentifier.MANAGE_USERGROUP
       }}
+      disabled={data.userGroupDTO.ssoLinked}
+      onAddTooltip={avatarTooltip}
     />
   ) : (
     <Layout.Horizontal>
@@ -87,6 +113,8 @@ const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, 
         className={css.roleButton}
         resourceType={ResourceType.USERGROUP}
         resourceIdentifier={identifier}
+        disabled={data.userGroupDTO.ssoLinked}
+        tooltip={disableTooltipText}
       />
     </Layout.Horizontal>
   )
@@ -212,7 +240,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
 
 const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
   const { data, gotoPage, reload, openRoleAssignmentModal, openUserGroupModal } = props
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
   const history = useHistory()
 
@@ -266,6 +294,7 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
             accountId,
             orgIdentifier,
             projectIdentifier,
+            module,
             userGroupIdentifier: userGroup.userGroupDTO.identifier
           })
         )

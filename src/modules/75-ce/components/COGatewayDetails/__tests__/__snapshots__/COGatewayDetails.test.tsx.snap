@@ -1231,101 +1231,6 @@ exports[`Test GatewayDetails renders review screen 2`] = `
             class="Layout--vertical StyledProps--main page"
           >
             <div
-              style="top: 85px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-            >
-              <div
-                class="StyledProps--font StyledProps--main"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main StyledProps--padding-large"
-                >
-                  <div
-                    class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="font-weight: 500; line-height: 24px;"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="info"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 12 12"
-                          width="16"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                       
-                      ce.co.autoStoppingRule.helpText.step1.title
-                    </p>
-                    <div
-                      class="StyledProps--font StyledProps--main StyledProps--flex"
-                      style="justify-content: center; flex-grow: 1;"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                    </div>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="line-height: 20px;"
-                    >
-                      ce.co.autoStoppingRule.helpText.step1.description
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="font-weight: 500; line-height: 24px;"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="info"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 12 12"
-                          width="16"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                       
-                      ce.co.autoStoppingRule.helpText.step2.title
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="line-height: 20px;"
-                    >
-                      ce.co.autoStoppingRule.helpText.step2.description.heading
-                      <br />
-                      <ol
-                        type="1"
-                      >
-                        <li>
-                          ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms
-                        </li>
-                        <li>
-                          ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg
-                        </li>
-                      </ol>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
               class="StyledProps--font StyledProps--main"
               style="padding-top: 10px;"
             >
@@ -1390,7 +1295,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-medium"
+                          class="StyledProps--font StyledProps--main StyledProps--font-small"
                           style="margin-top: 5px;"
                         >
                           AWS
@@ -1444,6 +1349,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                                         autocomplete="off"
                                         class="bp3-input"
                                         name="gatewayName"
+                                        placeholder="ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder"
                                         type="text"
                                         value="mockname"
                                       />
@@ -1514,7 +1420,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                                         autocomplete="off"
                                         class="bp3-input"
                                         name="idleTime"
-                                        placeholder="Enter time"
+                                        placeholder="ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder"
                                         type="text"
                                         value="15"
                                       />
@@ -1546,6 +1452,22 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                     class="StyledProps--font StyledProps--main title"
                   >
                     ce.co.autoStoppingRule.configuration.step2.title
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="info"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 12 12"
+                        width="16"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main subTitle"
@@ -1804,6 +1726,22 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                     class="StyledProps--font StyledProps--main title"
                   >
                     ce.co.autoStoppingRule.configuration.step3.title
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="info"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 12 12"
+                        width="16"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main subTitle"
@@ -1877,7 +1815,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                         </div>
                       </div>
                       <div
-                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main instanceTypeNameGrid"
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main instanceTypeNameGrid"
                       >
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-align-center"
@@ -1911,7 +1849,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                   <p
                     class="StyledProps--font StyledProps--main title"
                   >
-                    ce.co.autoStoppingRule.configuration.step4.title
+                    ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
                   </p>
                   <div
                     class="childrenContainer"
@@ -2884,97 +2822,6 @@ exports[`Test GatewayDetails renders setup access screen 1`] = `
             class="StyledProps--font StyledProps--main page"
           >
             <div
-              style="top: 86px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-            >
-              <div
-                class="StyledProps--font StyledProps--main"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main StyledProps--padding-large"
-                >
-                  <div
-                    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--padding-medium"
-                  >
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="line-height: 20px;"
-                      >
-                        ce.co.autoStoppingRule.setupAccess.helpText.dns.info
-                      </p>
-                    </div>
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="line-height: 20px;"
-                      >
-                        ce.co.autoStoppingRule.setupAccess.helpText.ssh.info
-                      </p>
-                    </div>
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="line-height: 20px;"
-                      >
-                        ce.co.autoStoppingRule.setupAccess.helpText.rdp.info
-                      </p>
-                    </div>
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="line-height: 20px;"
-                      >
-                        ce.co.autoStoppingRule.setupAccess.helpText.bgTasks.info
-                      </p>
-                    </div>
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="line-height: 20px;"
-                      >
-                        ce.co.autoStoppingRule.setupAccess.helpText.ip.info
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
               style="margin-left: 10px;"
             >
@@ -2985,14 +2832,14 @@ exports[`Test GatewayDetails renders setup access screen 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <h2
-                    class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold"
+                    class="StyledProps--font StyledProps--font-h2 StyledProps--main setupAccessHeading StyledProps--font-weight-semi-bold"
                     level="2"
                   >
                     ce.co.autoStoppingRule.setupAccess.pageName
                   </h2>
                 </div>
                 <h3
-                  class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
+                  class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
                   level="3"
                 >
                   ce.co.gatewayAccess.subtitle
@@ -3005,7 +2852,7 @@ exports[`Test GatewayDetails renders setup access screen 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <h3
-                    class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
+                    class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
                     level="3"
                   >
                     ce.co.gatewayAccess.accessDescription
@@ -3013,6 +2860,7 @@ exports[`Test GatewayDetails renders setup access screen 1`] = `
                   <span
                     class="bp3-icon StyledProps--main"
                     data-icon="info"
+                    style="cursor: pointer;"
                   >
                     <svg
                       height="16"
@@ -3373,97 +3221,6 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
             class="StyledProps--font StyledProps--main page"
           >
             <div
-              style="top: 86px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-            >
-              <div
-                class="StyledProps--font StyledProps--main"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main StyledProps--padding-large"
-                >
-                  <div
-                    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--padding-medium"
-                  >
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="line-height: 20px;"
-                      >
-                        ce.co.autoStoppingRule.setupAccess.helpText.dns.info
-                      </p>
-                    </div>
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="line-height: 20px;"
-                      >
-                        ce.co.autoStoppingRule.setupAccess.helpText.ssh.info
-                      </p>
-                    </div>
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="line-height: 20px;"
-                      >
-                        ce.co.autoStoppingRule.setupAccess.helpText.rdp.info
-                      </p>
-                    </div>
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="line-height: 20px;"
-                      >
-                        ce.co.autoStoppingRule.setupAccess.helpText.bgTasks.info
-                      </p>
-                    </div>
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="line-height: 20px;"
-                      >
-                        ce.co.autoStoppingRule.setupAccess.helpText.ip.info
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
               style="margin-left: 10px;"
             >
@@ -3474,14 +3231,14 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <h2
-                    class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold"
+                    class="StyledProps--font StyledProps--font-h2 StyledProps--main setupAccessHeading StyledProps--font-weight-semi-bold"
                     level="2"
                   >
                     ce.co.autoStoppingRule.setupAccess.pageName
                   </h2>
                 </div>
                 <h3
-                  class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
+                  class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
                   level="3"
                 >
                   ce.co.gatewayAccess.subtitle
@@ -3494,7 +3251,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
                   <h3
-                    class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
+                    class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
                     level="3"
                   >
                     ce.co.gatewayAccess.accessDescription
@@ -3502,6 +3259,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                   <span
                     class="bp3-icon StyledProps--main"
                     data-icon="info"
+                    style="cursor: pointer;"
                   >
                     <svg
                       height="16"
@@ -3862,101 +3620,6 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
             class="Layout--vertical StyledProps--main page"
           >
             <div
-              style="top: 85px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-            >
-              <div
-                class="StyledProps--font StyledProps--main"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main StyledProps--padding-large"
-                >
-                  <div
-                    class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="font-weight: 500; line-height: 24px;"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="info"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 12 12"
-                          width="16"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                       
-                      ce.co.autoStoppingRule.helpText.step1.title
-                    </p>
-                    <div
-                      class="StyledProps--font StyledProps--main StyledProps--flex"
-                      style="justify-content: center; flex-grow: 1;"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                    </div>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="line-height: 20px;"
-                    >
-                      ce.co.autoStoppingRule.helpText.step1.description
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="font-weight: 500; line-height: 24px;"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="info"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 12 12"
-                          width="16"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                       
-                      ce.co.autoStoppingRule.helpText.step2.title
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="line-height: 20px;"
-                    >
-                      ce.co.autoStoppingRule.helpText.step2.description.heading
-                      <br />
-                      <ol
-                        type="1"
-                      >
-                        <li>
-                          ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms
-                        </li>
-                        <li>
-                          ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg
-                        </li>
-                      </ol>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
               class="StyledProps--font StyledProps--main"
               style="padding-top: 10px;"
             >
@@ -4021,7 +3684,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-medium"
+                          class="StyledProps--font StyledProps--main StyledProps--font-small"
                           style="margin-top: 5px;"
                         >
                           AWS
@@ -4075,6 +3738,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                                         autocomplete="off"
                                         class="bp3-input"
                                         name="gatewayName"
+                                        placeholder="ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder"
                                         type="text"
                                         value="mockname"
                                       />
@@ -4145,7 +3809,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                                         autocomplete="off"
                                         class="bp3-input"
                                         name="idleTime"
-                                        placeholder="Enter time"
+                                        placeholder="ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder"
                                         type="text"
                                         value="15"
                                       />
@@ -4177,6 +3841,22 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                     class="StyledProps--font StyledProps--main title"
                   >
                     ce.co.autoStoppingRule.configuration.step2.title
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="info"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 12 12"
+                        width="16"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main subTitle"
@@ -4435,6 +4115,22 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                     class="StyledProps--font StyledProps--main title"
                   >
                     ce.co.autoStoppingRule.configuration.step3.title
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="info"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 12 12"
+                        width="16"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main subTitle"
@@ -4508,7 +4204,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                         </div>
                       </div>
                       <div
-                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main instanceTypeNameGrid"
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main instanceTypeNameGrid"
                       >
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-align-center"
@@ -4542,7 +4238,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                   <p
                     class="StyledProps--font StyledProps--main title"
                   >
-                    ce.co.autoStoppingRule.configuration.step4.title
+                    ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
                   </p>
                   <div
                     class="childrenContainer"
@@ -5543,101 +5239,6 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
             class="Layout--vertical StyledProps--main page"
           >
             <div
-              style="top: 85px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-            >
-              <div
-                class="StyledProps--font StyledProps--main"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main StyledProps--padding-large"
-                >
-                  <div
-                    class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="font-weight: 500; line-height: 24px;"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="info"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 12 12"
-                          width="16"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                       
-                      ce.co.autoStoppingRule.helpText.step1.title
-                    </p>
-                    <div
-                      class="StyledProps--font StyledProps--main StyledProps--flex"
-                      style="justify-content: center; flex-grow: 1;"
-                    >
-                      <img
-                        alt=""
-                        aria-hidden="true"
-                        src="test-file-stub"
-                      />
-                    </div>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="line-height: 20px;"
-                    >
-                      ce.co.autoStoppingRule.helpText.step1.description
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="font-weight: 500; line-height: 24px;"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="info"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 12 12"
-                          width="16"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                       
-                      ce.co.autoStoppingRule.helpText.step2.title
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="line-height: 20px;"
-                    >
-                      ce.co.autoStoppingRule.helpText.step2.description.heading
-                      <br />
-                      <ol
-                        type="1"
-                      >
-                        <li>
-                          ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms
-                        </li>
-                        <li>
-                          ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg
-                        </li>
-                      </ol>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
               class="StyledProps--font StyledProps--main"
               style="padding-top: 10px;"
             >
@@ -5702,7 +5303,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main StyledProps--font-medium"
+                          class="StyledProps--font StyledProps--main StyledProps--font-small"
                           style="margin-top: 5px;"
                         >
                           AWS
@@ -5756,6 +5357,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                                         autocomplete="off"
                                         class="bp3-input"
                                         name="gatewayName"
+                                        placeholder="ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder"
                                         type="text"
                                         value="mockname"
                                       />
@@ -5826,7 +5428,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                                         autocomplete="off"
                                         class="bp3-input"
                                         name="idleTime"
-                                        placeholder="Enter time"
+                                        placeholder="ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder"
                                         type="text"
                                         value="15"
                                       />
@@ -5858,6 +5460,22 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                     class="StyledProps--font StyledProps--main title"
                   >
                     ce.co.autoStoppingRule.configuration.step2.title
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="info"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 12 12"
+                        width="16"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main subTitle"
@@ -6116,6 +5734,22 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                     class="StyledProps--font StyledProps--main title"
                   >
                     ce.co.autoStoppingRule.configuration.step3.title
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="info"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 12 12"
+                        width="16"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main subTitle"
@@ -6189,7 +5823,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                         </div>
                       </div>
                       <div
-                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main instanceTypeNameGrid"
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main instanceTypeNameGrid"
                       >
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-align-center"
@@ -6223,7 +5857,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main title"
                   >
-                    ce.co.autoStoppingRule.configuration.step4.title
+                    ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
                   </p>
                   <div
                     class="childrenContainer"

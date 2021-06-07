@@ -4,23 +4,27 @@
   cursor: not-allowed !important;
 }
 .section-header {
-  font-size: 14 !important;
-  color: #000 !important;
+  font-size: var(--font-size-normal) !important;
+  color: var(--black-100) !important;
   margin: var(--spacing-medium) 0 !important;
-  font-weight: bold !important;
+  font-weight: 600 !important;
   :global {
     .bp3-icon {
-      padding: 0 var(--spacing-medium) !important;
-      margin-left: var(--spacing-xsmall);
+      padding: 0 var(--spacing-small) !important;
     }
   }
 }
 
 .sub-secton-header {
-  font-size: 13 !important;
+  font-size: 13px !important;
   margin-bottom: var(--spacing-small) !important;
-  color: #000 !important;
-  font-weight: bold !important;
+  color: var(--black-100) !important;
+  font-weight: 600 !important;
+  :global {
+    .bp3-icon {
+      padding: 0 var(--spacing-small) !important;
+    }
+  }
 }
 
 .stages-tree-bullet-circle {
@@ -73,7 +77,7 @@
   overflow: scroll;
   :global {
     .icon-container {
-      vertical-align: middle;
+      display: none;
     }
     button.bp3-button {
       width: 90%;
@@ -122,8 +126,24 @@
 }
 
 .accordionSummary {
-  border-bottom: 1px solid var(--grey-250);
+  width: 100%;
   background: var(--white);
+  padding-bottom: var(--spacing-medium);
+}
+
+.header {
+  padding: var(--spacing-large) 0 0;
+  font-weight: 600;
+}
+.subheading {
+  padding: var(--spacing-large) 0;
+  font-weight: 600;
+}
+
+.inputheader {
+  font-weight: 600 !important;
+  font-size: var(--font-size-small) !important;
+  padding-bottom: var(--spacing-medium) !important;
 }
 
 .manifestVariablesTable {

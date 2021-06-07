@@ -219,14 +219,38 @@ export const RestoreCacheS3StepBase = (
               <FormMultiTypeCheckboxField
                 name="spec.pathStyle"
                 label={getString('pathStyle')}
-                multiTypeTextbox={{ expressions, disabled: readonly }}
+                className={css.checkboxField}
+                multiTypeTextbox={{
+                  children: (
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('ci.pipelineSteps.pathStyleInfo')}
+                      iconProps={{ size: 14 }}
+                    />
+                  ),
+                  expressions,
+                  disabled: readonly
+                }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
                 disabled={readonly}
               />
               <FormMultiTypeCheckboxField
                 name="spec.failIfKeyNotFound"
                 label={getString('failIfKeyNotFound')}
-                multiTypeTextbox={{ expressions, disabled: readonly }}
+                className={css.checkboxField}
+                multiTypeTextbox={{
+                  children: (
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('ci.pipelineSteps.failIfKeyNotFoundInfo')}
+                      iconProps={{ size: 14 }}
+                    />
+                  ),
+                  expressions,
+                  disabled: readonly
+                }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
                 disabled={readonly}
               />

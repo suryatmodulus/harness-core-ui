@@ -2,14 +2,15 @@ import React from 'react'
 
 import { Color, StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
-import type { ConnectorConfigDTO, ConnectorInfoDTO, EntityGitDetails, ResponseBoolean } from 'services/cd-ng'
+import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, TESTCONNECTION_STEP_INDEX } from '@connectors/constants'
+import type { ConnectorConfigDTO, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 
 import { getConnectorTitleIdByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/strings'
 import StepHelmAuth from '@connectors/components/CreateConnector/HelmRepoConnector/StepHelmRepoAuth'
 import { buildHelmPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
@@ -19,7 +20,7 @@ interface CreateHelmConnectorProps {
   onClose: () => void
   isEditMode?: boolean
   connectorInfo?: ConnectorInfoDTO | void
-  gitDetails?: EntityGitDetails
+  gitDetails?: IGitContextFormProps
   context?: number
   accountId: string
   orgIdentifier: string
@@ -70,6 +71,7 @@ const HelmRepoConnector: React.FC<CreateHelmConnectorProps> = props => {
         isLastStep={true}
         type={Connectors.HttpHelmRepo}
         onClose={props.onClose}
+        stepIndex={TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

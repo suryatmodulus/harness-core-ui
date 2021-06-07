@@ -1,7 +1,10 @@
-import { Intent, Tag } from '@wings-software/uicore'
-import moment from 'moment'
 import React from 'react'
+import moment from 'moment'
 import { getColorValue } from '@common/components/HeatMap/ColorUtils'
+import {
+  RunningStatusIndicator,
+  StoppedStatusIndicator
+} from '@ce/common/InstanceStatusIndicator/InstanceStatusIndicator'
 import type { AllResourcesOfAccountResponse } from 'services/lw'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
@@ -18,16 +21,8 @@ export function getInstancesLink(resources: AllResourcesOfAccountResponse): stri
   )};sort=instanceId`
 }
 const gatewayStateMap: { [key: string]: JSX.Element } = {
-  down: (
-    <Tag intent={Intent.DANGER} minimal={true} style={{ borderRadius: '25px' }}>
-      STOPPED
-    </Tag>
-  ),
-  active: (
-    <Tag intent={Intent.SUCCESS} minimal={true} style={{ borderRadius: '25px' }}>
-      RUNNING
-    </Tag>
-  )
+  down: <StoppedStatusIndicator />,
+  active: <RunningStatusIndicator />
 }
 
 export function getStateTag(state: string): JSX.Element {

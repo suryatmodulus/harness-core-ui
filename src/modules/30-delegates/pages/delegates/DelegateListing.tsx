@@ -353,7 +353,7 @@ export const DelegateListing: React.FC = () => {
     if (projectIdentifier) {
       set(params, 'projectIdentifier', projectIdentifier)
     }
-    history.push(routes.toResourcesDelegatesDetails(params))
+    history.push(routes.toDelegatesDetails(params))
   }
 
   return (

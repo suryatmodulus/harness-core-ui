@@ -4,7 +4,7 @@ import { Formik, FormikForm, Button } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
 import { useStrings } from 'framework/strings'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { NGTriggerSource } from 'services/pipeline-ng'
+import type { NGTriggerSourceV2 } from 'services/pipeline-ng'
 import { getTriggerConfigDefaultProps, getTriggerConfigInitialValues } from './scheduleMockConstants'
 import { getValidationSchema, TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import TriggerOverviewPanel from '../views/TriggerOverviewPanel'
@@ -23,7 +23,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
         enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={getValidationSchema(
-          (TriggerTypes.SCHEDULE as unknown) as NGTriggerSource['type'],
+          (TriggerTypes.SCHEDULE as unknown) as NGTriggerSourceV2['type'],
           result.current.getString
         )}
         onSubmit={jest.fn()}

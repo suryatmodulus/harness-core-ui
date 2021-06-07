@@ -1,11 +1,11 @@
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import type {
   ConnectorInfoDTO,
   ConnectorConnectivityDetails,
   Activity,
   EntityDetail,
   ConnectorRequestBody,
-  ResponseBoolean,
-  EntityGitDetails
+  ResponseBoolean
 } from 'services/cd-ng'
 
 interface ConnectorType {
@@ -33,7 +33,7 @@ export interface CreateConnectorModalProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
-  gitDetails?: EntityGitDetails
+  gitDetails?: IGitContextFormProps
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
@@ -63,7 +63,9 @@ export const Connectors: ConnectorType = {
   NEW_RELIC: 'NewRelic',
   AWS_KMS: 'AwsKms',
   PROMETHEUS: 'Prometheus',
-  CE_AZURE: 'CEAzure'
+  CE_AZURE: 'CEAzure',
+  DATADOG: 'Datadog',
+  AZURE_KEY_VAULT: 'AzureKeyVault'
 }
 
 export const ConnectorInfoText = {
@@ -119,3 +121,7 @@ export const connectorUrlType = {
 }
 
 export const CONNECTOR_CREDENTIALS_STEP_IDENTIFIER = 'CONNECTOR_CREDENTIALS_STEP_IDENTIFIER'
+
+export const TESTCONNECTION_STEP_INDEX = 3
+export const GIT_TESTCONNECTION_STEP_INDEX = 4
+export const SECRET_MANAGER_TESTCONNECTION_STEP_INDEX = 2

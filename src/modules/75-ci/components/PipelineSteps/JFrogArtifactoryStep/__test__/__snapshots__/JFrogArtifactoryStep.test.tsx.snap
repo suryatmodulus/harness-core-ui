@@ -166,11 +166,16 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
             </div>
           </div>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+            <div
+              class="StyledProps--font StyledProps--main"
+              style="margin-bottom: 5px;"
             >
-              pipelineSteps.connectorLabel
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              >
+                pipelineSteps.connectorLabel
+              </p>
+            </div>
             <div
               style="display: flex; align-items: center;"
             >
@@ -205,7 +210,7 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -981,11 +986,16 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
             </div>
           </div>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+            <div
+              class="StyledProps--font StyledProps--main"
+              style="margin-bottom: 5px;"
             >
-              pipelineSteps.connectorLabel
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              >
+                pipelineSteps.connectorLabel
+              </p>
+            </div>
             <div
               style="display: flex; align-items: center;"
             >
@@ -1862,11 +1872,16 @@ exports[`JFrogArtifactory Step Edit View should render properly 1`] = `
             </div>
           </div>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+            <div
+              class="StyledProps--font StyledProps--main"
+              style="margin-bottom: 5px;"
             >
-              pipelineSteps.connectorLabel
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              >
+                pipelineSteps.connectorLabel
+              </p>
+            </div>
             <div
               style="display: flex; align-items: center;"
             >
@@ -1901,7 +1916,7 @@ exports[`JFrogArtifactory Step Edit View should render properly 1`] = `
                               class="bp3-popover-target"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main label"
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                 tabindex="0"
                               >
                                 connectorRef
@@ -2580,7 +2595,7 @@ exports[`JFrogArtifactory Step InputSet View should render all fields 1`] = `
                       class="bp3-popover-target"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main label"
+                        class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                         tabindex="0"
                       >
                         connectorRef

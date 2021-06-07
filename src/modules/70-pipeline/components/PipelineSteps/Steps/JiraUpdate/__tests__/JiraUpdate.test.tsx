@@ -15,9 +15,7 @@ import {
   mockStatusResponse
 } from './JiraUpdateTestHelper'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
   useGetConnector: () => mockConnectorResponse,

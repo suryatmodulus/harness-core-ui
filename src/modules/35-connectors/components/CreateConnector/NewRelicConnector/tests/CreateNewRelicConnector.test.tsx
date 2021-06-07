@@ -83,7 +83,7 @@ describe('Create newrelic connector Wizard', () => {
 
     // step 2
     expect(queryByText(container, 'newRelicAccountId')).toBeDefined()
-    fireEvent.click(getByText('next')) // trying to create coonector with step 2 data
+    fireEvent.click(getByText('continue')) // trying to create coonector with step 2 data
 
     await act(async () => {
       fireEvent.change(container.querySelector('input[name="url"]')!, {

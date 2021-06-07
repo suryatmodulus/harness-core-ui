@@ -18,7 +18,7 @@ jest.mock('moment', () => {
   return original
 })
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => null)
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('services/pipeline-ng', () => ({
   useAddHarnessApprovalActivity: jest.fn(() => ({ mutate: jest.fn() }))
 }))

@@ -28,7 +28,11 @@ import {
 import { useGetNewRelicEndPoints } from 'services/cv'
 import { buildNewRelicPayload, setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/strings'
-import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
+import {
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  CreateConnectorModalProps,
+  TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
@@ -166,7 +170,7 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
         validationSchema={Yup.object().shape({
           url: Yup.string().trim().required(getString('connectors.newRelic.urlValidation')),
           newRelicAccountId: Yup.string().trim().required(getString('connectors.newRelic.accountIdValidation')),
-          apiKeyRef: Yup.string().trim().required(getString('connectors.newRelic.encryptedKeyValidation'))
+          apiKeyRef: Yup.string().trim().required(getString('connectors.encryptedAPIKeyValidation'))
         })}
         onSubmit={(formData: ConnectorConfigDTO) => {
           nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })
@@ -192,11 +196,11 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
                 }
                 name="newRelicAccountId"
               />
-              <SecretInput label={getString('connectors.newRelic.encryptedAPIKeyLabel')} name="apiKeyRef" />
+              <SecretInput label={getString('connectors.encryptedAPIKeyLabel')} name="apiKeyRef" />
             </Layout.Vertical>
             <Layout.Horizontal spacing="large">
               <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />
-              <Button type="submit" text={getString('next')} intent="primary" />
+              <Button type="submit" text={getString('continue')} intent="primary" />
             </Layout.Horizontal>
           </FormikForm>
         )}
@@ -280,6 +284,7 @@ export default function CreateNewRelicConnector(props: CreateNewRelicConnectorPr
           isLastStep
           type="New Relic"
           setIsEditMode={props.setIsEditMode}
+          stepIndex={TESTCONNECTION_STEP_INDEX}
         />
       </StepWizard>
     </>

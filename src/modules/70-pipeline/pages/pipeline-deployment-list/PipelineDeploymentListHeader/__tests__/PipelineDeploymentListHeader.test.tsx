@@ -113,7 +113,7 @@ describe('<PipelineDeploymentListHeader /> test', () => {
     })
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
     let portalDiv: HTMLElement = document.getElementsByClassName('bp3-portal')[0] as HTMLElement
-    const firstStatusOption = getByText(portalDiv, 'Aborted')
+    const firstStatusOption = getByText(portalDiv, 'pipeline.executionFilters.labels.Aborted')
     await act(async () => {
       fireEvent.click(firstStatusOption!)
     })

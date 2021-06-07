@@ -35,6 +35,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
   const indicatorRef = React.useRef<HTMLDivElement | null>(null)
   const isCI = params.module === 'ci'
   const isCIInPipeline = pipelineExecutionDetail?.pipelineExecutionSummary?.moduleInfo?.ci
+  const urlSuffix = isLogView ? '?view=log' : ''
 
   const ciData = pipelineExecutionDetail?.pipelineExecutionSummary?.moduleInfo?.ci
     ?.ciExecutionInfoDTO as CIBuildResponseDTO
@@ -80,11 +81,19 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
   return (
     <div className={css.main}>
       <div className={css.tabs}>
-        <NavLink to={routes.toExecutionPipelineView(params)} className={css.tabLink} activeClassName={css.activeLink}>
+        <NavLink
+          to={routes.toExecutionPipelineView(params) + urlSuffix}
+          className={css.tabLink}
+          activeClassName={css.activeLink}
+        >
           <Icon name="alignment-vertical-center" size={16} />
           <span>{getString('pipelines')}</span>
         </NavLink>
-        <NavLink to={routes.toExecutionInputsView(params)} className={css.tabLink} activeClassName={css.activeLink}>
+        <NavLink
+          to={routes.toExecutionInputsView(params) + urlSuffix}
+          className={css.tabLink}
+          activeClassName={css.activeLink}
+        >
           <Icon name="manually-entered-data" size={16} />
           <span>{getString('inputs')}</span>
         </NavLink>
@@ -92,7 +101,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
           <>
             {ciShowArtifactsTab ? (
               <NavLink
-                to={routes.toExecutionArtifactsView(params)}
+                to={routes.toExecutionArtifactsView(params) + urlSuffix}
                 className={css.tabLink}
                 activeClassName={css.activeLink}
               >
@@ -102,7 +111,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
             ) : null}
             {ciShowCommitsTab ? (
               <NavLink
-                to={routes.toExecutionCommitsView(params)}
+                to={routes.toExecutionCommitsView(params) + urlSuffix}
                 className={css.tabLink}
                 activeClassName={css.activeLink}
               >
@@ -113,7 +122,11 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
           </>
         )}
         {(isCI || isCIInPipeline) && (
-          <NavLink to={routes.toExecutionTestsView(params)} className={css.tabLink} activeClassName={css.activeLink}>
+          <NavLink
+            to={routes.toExecutionTestsView(params) + urlSuffix}
+            className={css.tabLink}
+            activeClassName={css.activeLink}
+          >
             <Icon name="lab-test" size={16} />
             <span>{getString('tests')}</span>
           </NavLink>

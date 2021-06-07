@@ -8,11 +8,18 @@ import set from 'lodash-es/set'
 
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
-import { useGetConnectorListV2, PageConnectorResponse, ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
+import {
+  useGetConnectorListV2,
+  PageConnectorResponse,
+  ConnectorInfoDTO,
+  ConnectorConfigDTO,
+  SidecarArtifactWrapper,
+  PrimaryArtifact
+} from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { useStrings } from 'framework/strings'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
@@ -22,6 +29,7 @@ import GcrAuthentication from '@connectors/components/CreateConnector/GcrConnect
 import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
 import { buildAWSPayload, buildDockerPayload, buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
+import { useQueryParams } from '@common/hooks'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
@@ -31,7 +39,7 @@ import { GCRImagePath } from './ArtifactRepository/ArtifactLastSteps/GCRImagePat
 import ArtifactListView, { ModalViewFor } from './ArtifactListView/ArtifactListView'
 import type {
   ArtifactsSelectionProps,
-  ConnectorDataType,
+  InitialArtifactDataType,
   ConnectorRefLabelType,
   ArtifactType,
   ImagePathProps
@@ -77,7 +85,7 @@ export default function ArtifactsSelection({
 
   const { getString } = useStrings()
 
-  const getPrimaryArtifactByIdentifier = (): void => {
+  const getPrimaryArtifactByIdentifier = (): PrimaryArtifact => {
     return artifacts
       .map((artifact: { overrideSet: { identifier: string; artifacts: { primary: Record<string, any> } } }) => {
         if (artifact?.overrideSet?.identifier === identifierName) {
@@ -87,7 +95,7 @@ export default function ArtifactsSelection({
       .filter((x: { overrideSet: { identifier: string; artifacts: [] } }) => x !== undefined)[0]
   }
 
-  const getSidecarArtifactByIdentifier = (): void => {
+  const getSidecarArtifactByIdentifier = (): SidecarArtifactWrapper[] => {
     return artifacts
       .map(
         (artifact: {
@@ -131,7 +139,7 @@ export default function ArtifactsSelection({
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts', {})
   }
 
-  const getPrimaryArtifactPath = useCallback((): any => {
+  const getPrimaryArtifactPath = useCallback((): PrimaryArtifact => {
     if (isForOverrideSets) {
       return getPrimaryArtifactByIdentifier()
     }
@@ -158,7 +166,7 @@ export default function ArtifactsSelection({
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', null)
   }, [stage])
 
-  const getSidecarPath = useCallback((): any => {
+  const getSidecarPath = useCallback((): SidecarArtifactWrapper[] => {
     if (isForOverrideSets) {
       return getSidecarArtifactByIdentifier()
     }
@@ -184,6 +192,8 @@ export default function ArtifactsSelection({
     if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', null)) {
       set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
     } else return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
+
+    return []
   }, [stage])
 
   const artifacts = getArtifactsPath()
@@ -209,6 +219,7 @@ export default function ArtifactsSelection({
       accountId: string
     }>
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const defaultQueryParams = {
     pageIndex: 0,
     pageSize: 10,
@@ -234,21 +245,10 @@ export default function ArtifactsSelection({
   const getConnectorList = () => {
     return sideCarArtifact && sideCarArtifact.length
       ? sideCarArtifact &&
-          sideCarArtifact.map(
-            (data: {
-              sidecar: {
-                type: string
-                identifier: string
-                spec: {
-                  connectorRef: string
-                  imagePath: string
-                }
-              }
-            }) => ({
-              scope: getScopeFromValue(data?.sidecar?.spec?.connectorRef),
-              identifier: getIdentifierFromValue(data?.sidecar?.spec?.connectorRef)
-            })
-          )
+          sideCarArtifact.map((data: SidecarArtifactWrapper) => ({
+            scope: getScopeFromValue(data?.sidecar?.spec?.connectorRef),
+            identifier: getIdentifierFromValue(data?.sidecar?.spec?.connectorRef)
+          }))
       : []
   }
 
@@ -334,19 +334,23 @@ export default function ArtifactsSelection({
     }
   }
 
-  const getConnectorDataValues = (): ConnectorDataType => {
-    let spec
+  const getArtifactInitialValues = (): InitialArtifactDataType => {
+    let spec, artifactType
     if (context === ModalViewFor.PRIMARY) {
+      artifactType = primaryArtifact?.type
       spec = primaryArtifact?.spec
     } else {
-      spec = sideCarArtifact?.[sidecarIndex]?.sidecar.spec
+      artifactType = sideCarArtifact?.[sidecarIndex]?.sidecar?.type
+      spec = sideCarArtifact?.[sidecarIndex]?.sidecar?.spec
     }
     if (!spec) {
       return {
+        submittedArtifact: selectedArtifact,
         connectorId: undefined
       }
     }
     return {
+      submittedArtifact: artifactType,
       connectorId: spec?.connectorRef
     }
   }
@@ -356,7 +360,7 @@ export default function ArtifactsSelection({
     setConnectorView(false)
 
     if (viewType === ModalViewFor.SIDECAR) {
-      setEditIndex(sideCarArtifact?.length)
+      setEditIndex(sideCarArtifact?.length || 0)
     }
     showConnectorModal()
     refetchConnectorList()
@@ -408,7 +412,7 @@ export default function ArtifactsSelection({
     return iconProps
   }
 
-  const getImagePathProps = (): ImagePathProps => {
+  const artifactLastStepProps = (): ImagePathProps => {
     const imagePathProps: ImagePathProps = {
       key: getString('connectors.stepFourName'),
       name: getString('connectors.stepFourName'),
@@ -417,7 +421,8 @@ export default function ArtifactsSelection({
       initialValues: getLastStepInitialData(),
       handleSubmit: (data: any) => {
         addArtifact(data)
-      }
+      },
+      artifactIdentifiers: sideCarArtifact?.map((item: SidecarArtifactWrapper) => item.sidecar?.identifier as string)
     }
 
     return imagePathProps
@@ -439,9 +444,10 @@ export default function ArtifactsSelection({
               type={('Gcr' as unknown) as ConnectorInfoDTO['type']}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <GcrAuthentication
-              name={getString('connectors.GCR.stepTwoName')}
+              name={getString('details')}
               identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
@@ -469,6 +475,7 @@ export default function ArtifactsSelection({
               type={ArtifactToConnectorMap[selectedArtifact]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <StepAWSAuthentication
               name={getString('credentials')}
@@ -507,6 +514,7 @@ export default function ArtifactsSelection({
               type={ArtifactToConnectorMap[selectedArtifact]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <StepDockerAuthentication
               name={getString('details')}
@@ -541,33 +549,34 @@ export default function ArtifactsSelection({
 
     switch (selectedArtifact) {
       case ENABLED_ARTIFACT_TYPES.Gcr:
-        arr.push(<GCRImagePath {...getImagePathProps()} />)
+        arr.push(<GCRImagePath {...artifactLastStepProps()} />)
         break
       case ENABLED_ARTIFACT_TYPES.Ecr:
-        arr.push(<ECRArtifact {...getImagePathProps()} />)
+        arr.push(<ECRArtifact {...artifactLastStepProps()} />)
         break
       case ENABLED_ARTIFACT_TYPES.DockerRegistry:
       default:
-        arr.push(<ImagePath {...getImagePathProps()} />)
+        arr.push(<ImagePath {...artifactLastStepProps()} />)
         break
     }
     return arr
   }
 
-  const changeArtifactType = (selected: ArtifactType): void => {
+  const changeArtifactType = useCallback((selected: ArtifactType): void => {
     setSelectedArtifact(selected)
-  }
-  const handleConnectorViewChange = (isConnectorView: boolean): void => {
+  }, [])
+
+  const handleConnectorViewChange = useCallback((isConnectorView: boolean): void => {
     setConnectorView(isConnectorView)
     setIsEditMode(false)
-  }
+  }, [])
 
   const { expressions } = useVariablesExpression()
   const renderExistingArtifact = (): JSX.Element => {
     return (
       <div>
         <ConnectorRefSteps
-          connectorData={getConnectorDataValues()}
+          artifactInitialValue={getArtifactInitialValues()}
           iconsProps={getIconProps()}
           types={allowedArtifactTypes}
           expressions={expressions}

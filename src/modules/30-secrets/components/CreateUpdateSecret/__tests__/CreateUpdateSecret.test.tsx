@@ -57,7 +57,7 @@ describe('CreateUpdateSecret', () => {
       </TestWrapper>
     )
     expect(getByText(container, 'secret.labelSecretType')).toBeDefined()
-    expect(getByText(container, 'secret.labelSecretValue')).toBeDefined()
+    expect(getByText(container, 'secrets.labelValue')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 
@@ -67,10 +67,10 @@ describe('CreateUpdateSecret', () => {
         <CreateUpdateSecret />
       </TestWrapper>
     )
-    expect(getByText(container, 'secret.labelSecretValue')).toBeDefined()
+    expect(getByText(container, 'secrets.labelValue')).toBeDefined()
     fireEvent.click(getByText(container, 'secret.labelFile'))
     expect(getByText(container, 'secret.labelSecretFile')).toBeDefined()
-    expect(queryByText(container, 'secret.labelSecretValue')).toBeNull()
+    expect(queryByText(container, 'secrets.labelValue')).toBeNull()
     expect(container).toMatchSnapshot()
   })
 
@@ -80,13 +80,13 @@ describe('CreateUpdateSecret', () => {
         <CreateUpdateSecret />
       </TestWrapper>
     )
-    expect(getByText(container, 'secret.labelSecretValue')).toBeDefined()
+    expect(getByText(container, 'secrets.labelValue')).toBeDefined()
     fireEvent.click(getByText(container, 'secret.labelFile'))
     expect(getByText(container, 'secret.labelSecretFile')).toBeDefined()
-    expect(queryByText(container, 'secret.labelSecretValue')).toBeNull()
+    expect(queryByText(container, 'secrets.labelValue')).toBeNull()
     fireEvent.click(getByText(container, 'secret.labelText'))
     expect(queryByText(container, 'secret.labelSecretFile')).toBeNull()
-    expect(getByText(container, 'secret.labelSecretValue')).toBeDefined()
+    expect(getByText(container, 'secrets.labelValue')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 

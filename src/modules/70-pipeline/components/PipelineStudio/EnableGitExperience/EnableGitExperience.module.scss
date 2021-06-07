@@ -1,5 +1,18 @@
 .enableGitExpContainer {
   margin: 24px 38px !important;
+  .enableGitExpHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--grey-800);
+    .enableGitExpHeaderText {
+      margin-left: 11px;
+    }
+  }
   .enableGitExpContent {
     width: 427px;
     height: 72px;

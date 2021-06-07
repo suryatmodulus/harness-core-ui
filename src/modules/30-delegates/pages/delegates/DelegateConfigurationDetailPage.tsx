@@ -47,17 +47,8 @@ export default function DelegateProfileDetails(): JSX.Element {
   }, [profile])
   const breadcrumbs = [
     {
-      title: getString('resources'),
-      url: routes.toResources({
-        accountId,
-        orgIdentifier,
-        projectIdentifier,
-        module
-      })
-    },
-    {
       title: getString('delegate.delegates'),
-      url: routes.toResourcesDelegates({
+      url: routes.toDelegates({
         accountId,
         orgIdentifier,
         projectIdentifier,
@@ -67,7 +58,7 @@ export default function DelegateProfileDetails(): JSX.Element {
     {
       title: getString('delegate.delegatesConfigurations'),
       url:
-        routes.toResourcesDelegates({
+        routes.toDelegates({
           accountId,
           orgIdentifier,
           projectIdentifier,

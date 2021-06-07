@@ -25,7 +25,7 @@ import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import css from './ResourceGroupModal.module.scss'
 interface ResourceGroupModalData {
   data?: ResourceGroupDTO
-  onSubmit?: () => void
+  onSubmit?: (resourceGroup: ResourceGroupDTO) => void
   editMode: boolean
 }
 
@@ -59,13 +59,13 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
         const created = await createResourceGroup(dataToSubmit)
         if (created) {
           showSuccess(getString('resourceGroup.createSuccess'))
-          onSubmit?.()
+          onSubmit?.(dataToSubmit.resourcegroup)
         }
       } else {
         const updated = await updateResourceGroup(dataToSubmit)
         if (updated) {
           showSuccess(getString('resourceGroup.updateSuccess'))
-          onSubmit?.()
+          onSubmit?.(dataToSubmit.resourcegroup)
         }
       }
     } catch (e) {

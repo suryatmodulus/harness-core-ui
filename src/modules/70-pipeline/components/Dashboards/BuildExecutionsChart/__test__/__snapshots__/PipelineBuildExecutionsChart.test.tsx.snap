@@ -17,7 +17,7 @@ exports[`PipelineBuildExecutionsChart shows data correctly 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-right-small"
           >
-            pipeline.dashboards.buildExecutions
+            executionsText
           </p>
         </div>
       </p>

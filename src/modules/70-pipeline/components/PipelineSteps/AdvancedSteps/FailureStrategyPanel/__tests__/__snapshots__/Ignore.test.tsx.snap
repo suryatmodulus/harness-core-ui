@@ -96,7 +96,7 @@ exports[`Failure Strategy: Ignore selection works 1`] = `
     </button>
   </div>
   <div
-    class="bp3-form-group"
+    class="bp3-form-group failureSelect"
   >
     <label
       class="bp3-label"
@@ -137,6 +137,19 @@ exports[`Failure Strategy: Ignore selection works 1`] = `
           </div>
         </div>
       </div>
+      <label
+        class="bp3-control bp3-checkbox"
+      >
+        <input
+          name="failureStrategies[0].onFailure.errors"
+          type="checkbox"
+          value="AllErrors"
+        />
+        <span
+          class="bp3-control-indicator"
+        />
+        pipeline.failureStrategies.errorTypeLabels.AllErrors
+      </label>
     </div>
   </div>
   <div

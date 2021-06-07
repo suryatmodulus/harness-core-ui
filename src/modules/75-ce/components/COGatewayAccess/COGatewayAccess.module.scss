@@ -70,6 +70,13 @@
   }
 }
 
+.setupAccessHeading {
+  color: var(--black) !important;
+}
+.setupAccessSubHeading {
+  color: var(--grey-400) !important;
+}
+
 .dnsLinkContainer {
   padding: var(--spacing-xlarge) var(--spacing-large) !important;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.02), 0px -1px 2px rgba(40, 41, 61, 0.04), 0px 4px 6px rgba(96, 97, 112, 0.1);
@@ -84,7 +91,7 @@
     }
     .loadBalancerSelector {
       min-width: 200px;
-      max-width: 550px;
+      max-width: 300px;
       margin-bottom: 0;
       margin-right: var(--spacing-medium);
     }
@@ -95,7 +102,13 @@
     margin-top: 0 !important;
   }
   .header {
+    color: var(--black) !important;
     margin-bottom: var(--spacing-large) !important;
+  }
+  span[data-icon='info'] {
+    cursor: pointer;
+    margin-left: 5px;
+    vertical-align: middle;
   }
 }
 
@@ -129,7 +142,7 @@
     margin-right: var(--spacing-large);
   }
   .othersHelpTextContainer {
-    padding: var(--spacing-medium) !important;
+    padding: var(--spacing-xlarge) !important;
     background: rgba(#d8d8d8, 0.16);
     flex-basis: var(--form-width);
     flex-grow: 0;
@@ -147,6 +160,9 @@
         margin-bottom: var(--spacing-medium) !important;
         font-size: 12px !important;
       }
+    }
+    .helpTextHeader {
+      color: var(--grey-800) !important;
     }
   }
   .formFieldRow {

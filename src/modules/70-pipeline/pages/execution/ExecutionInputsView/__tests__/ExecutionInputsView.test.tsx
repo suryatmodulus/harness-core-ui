@@ -11,7 +11,7 @@ import mock from './mocks/schema.json'
 
 import ExecutionInputsView from '../ExecutionInputsView'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => <div>Mock Monaco Editor</div>)
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('services/pipeline-ng', () => ({
   useGetInputsetYaml: jest.fn(() => ({ data: null })),
@@ -20,7 +20,8 @@ jest.mock('services/pipeline-ng', () => ({
   usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: null })),
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => ({ data: null })),
   useGetInputSetsListForPipeline: jest.fn(() => ({ data: null })),
-  useGetYamlSchema: jest.fn(() => ({ data: null }))
+  useGetYamlSchema: jest.fn(() => ({ data: null })),
+  useCreateInputSetForPipeline: jest.fn(() => ({ data: null }))
 }))
 
 const TEST_PATH = routes.toExecutionInputsView({

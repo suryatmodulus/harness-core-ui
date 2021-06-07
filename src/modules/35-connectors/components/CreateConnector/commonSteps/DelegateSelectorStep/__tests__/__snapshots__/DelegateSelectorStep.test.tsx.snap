@@ -1,5 +1,547 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`DelegateSelectorStep should open Git Sync modal on clicking Save and Continue: Save Connectors to Git 1`] = `
+<div
+  class="bp3-dialog gitDialog"
+  style="width: 720px; min-height: 540px; border-left: 0; padding-bottom: 0px; position: relative; overflow: hidden;"
+>
+  <div
+    class="StyledProps--font StyledProps--main modalContainer"
+    style="height: inherit;"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main userInfo StyledProps--flex StyledProps--flex-alignItems-center StyledProps--margin-top-xsmall"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+      >
+        common.git.currentUserLabel
+      </p>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main modalHeader StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800 StyledProps--padding-bottom-small StyledProps--margin-bottom-small StyledProps--margin-top-xlarge"
+    >
+      common.git.saveResourceLabel
+    </p>
+    <div
+      class="StyledProps--font StyledProps--main modalBody"
+    >
+      <div
+        class="OverlaySpinner--overlaySpinner"
+      >
+        <form
+          class="FormikForm--main"
+        >
+          <div>
+            <div
+              class="StyledProps--font StyledProps--main formBody"
+            >
+              <div
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    ID
+                    :
+                  </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                      >
+                        <span
+                          class="bp3-editable-text-content"
+                          style="height: 1px; line-height: 1px; min-width: 0;"
+                        >
+                          docker
+                        </span>
+                      </div>
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="bp3-form-group bp3-disabled"
+                  data-id="name-0"
+                >
+                  <label
+                    class="bp3-label"
+                    for="name"
+                  >
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_name"
+                    >
+                      name
+                    </span>
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group bp3-disabled"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        disabled=""
+                        name="name"
+                        type="text"
+                        value="doker"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--font-size-medium StyledProps--color StyledProps--color-grey400"
+              >
+                COMMON.GITSYNC.HARNESSFOLDERLABEL
+              </p>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
+              >
+                <div
+                  class="bp3-form-group bp3-disabled"
+                  data-id="repoIdentifier-1"
+                >
+                  <label
+                    class="bp3-label"
+                    for="repoIdentifier"
+                  >
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_repoIdentifier"
+                    >
+                      common.git.selectRepoLabel
+                    </span>
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-popover-wrapper Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group bp3-disabled"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            disabled=""
+                            name="repoIdentifier"
+                            placeholder="Search..."
+                            style="padding-right: 0px;"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                              icon="caret-down"
+                            >
+                              <svg
+                                data-icon="caret-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  caret-down
+                                </desc>
+                                <path
+                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group bp3-disabled"
+                  data-id="rootFolder-2"
+                >
+                  <label
+                    class="bp3-label"
+                    for="rootFolder"
+                  >
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_rootFolder"
+                    >
+                      common.gitSync.harnessFolderLabel
+                    </span>
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-popover-wrapper Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group bp3-disabled"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            disabled=""
+                            name="rootFolder"
+                            placeholder="Search..."
+                            style="padding-right: 0px;"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                              icon="caret-down"
+                            >
+                              <svg
+                                data-icon="caret-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  caret-down
+                                </desc>
+                                <path
+                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group bp3-disabled"
+                data-id="filePath-3"
+              >
+                <label
+                  class="bp3-label"
+                  for="filePath"
+                >
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="saveToGitForm_filePath"
+                  >
+                    common.git.filePath
+                  </span>
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group bp3-disabled"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      disabled=""
+                      name="filePath"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--margin-top-large StyledProps--font-size-medium StyledProps--color StyledProps--color-grey400"
+              >
+                COMMON.GITSYNC.COMMITDETAILSLABEL
+              </p>
+              <div
+                class="bp3-form-group"
+                data-id="commitMsg-4"
+              >
+                <label
+                  class="bp3-label"
+                  for="commitMsg"
+                >
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="saveToGitForm_commitMsg"
+                  >
+                    common.git.commitMessage
+                  </span>
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <textarea
+                    autocomplete="off"
+                    class="bp3-input bp3-fill"
+                    name="commitMsg"
+                  >
+                    common.gitSync.updateResource
+                  </textarea>
+                </div>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-grey600 StyledProps--padding-bottom-small StyledProps--margin-top-large"
+              >
+                common.git.branchSelectHeader
+              </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main branchSection StyledProps--padding-top-small"
+                >
+                  <label
+                    class="bp3-control bp3-radio bp3-large StyledProps--font Radio--radio StyledProps--main"
+                  >
+                    <input
+                      checked=""
+                      type="radio"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="git-branch-existing"
+                    >
+                      <svg
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 16 9"
+                        width="16"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M12.403 3.67H16v1.626h-3.597a4.477 4.477 0 01-8.807 0H0V3.67h3.596a4.477 4.477 0 018.807 0zm-7.26.813a2.857 2.857 0 105.714 0 2.857 2.857 0 00-5.714 0z"
+                          fill="#383946"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--inline"
+                    >
+                      common.git.existingBranchCommitLabel
+                    </span>
+                    <span
+                      class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--inline StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-left-small StyledProps--padding-right-small StyledProps--background-primary2 StyledProps--border StyledProps--color StyledProps--color-black"
+                    >
+                      
+                    </span>
+                  </label>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-small"
+                  >
+                    <div
+                      class="bp3-form-group"
+                      data-id="createPr-5"
+                    >
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <label
+                          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+                        >
+                          <input
+                            name="createPr"
+                            type="checkbox"
+                          />
+                          <span
+                            class="bp3-control-indicator"
+                          />
+                          <span
+                            class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                            data-tooltip-id="saveToGitForm_createPr"
+                          >
+                            common.git.startPRLabel
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="bp3-popover-wrapper branchSelector Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group bp3-disabled"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            disabled=""
+                            name="targetBranch"
+                            placeholder="Search..."
+                            style="padding-right: 0px;"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                              icon="caret-down"
+                            >
+                              <svg
+                                data-icon="caret-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  caret-down
+                                </desc>
+                                <path
+                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main branchSection StyledProps--padding-bottom-small"
+                >
+                  <label
+                    class="bp3-control bp3-radio bp3-large StyledProps--font Radio--radio StyledProps--main"
+                  >
+                    <input
+                      data-test="newBranchRadioBtn"
+                      type="radio"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey700"
+                      data-icon="git-new-branch"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 13 16"
+                        width="16"
+                      >
+                        <path
+                          d="M10.406.003a2.399 2.399 0 00-.8 4.658v.94a.8.8 0 01-.8.8H4.001a2.413 2.413 0 00-.8.14V4.66A2.399 2.399 0 002.402 0a2.399 2.399 0 00-.8 4.661v6.678a2.399 2.399 0 00.8 4.661 2.399 2.399 0 00.8-4.661v-2.54a.8.8 0 01.8-.799h4.803a2.4 2.4 0 002.402-2.4v-.939a2.399 2.399 0 00-.8-4.658z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small"
+                    >
+                      common.git.newBranchCommitLabel
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main formButton StyledProps--intent-primary Button--with-current-color"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  save
+                </span>
+              </button>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main formButton StyledProps--margin-left-medium Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  cancel
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <button
+    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main crossIcon Button--with-current-color Button--iconOnly Button--without-shadow"
+    type="button"
+  >
+    <span
+      class="bp3-icon bp3-icon-cross StyledProps--main"
+      icon="cross"
+    >
+      <svg
+        data-icon="cross"
+        height="18"
+        viewBox="0 0 16 16"
+        width="18"
+      >
+        <desc>
+          cross
+        </desc>
+        <path
+          d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </span>
+  </button>
+</div>
+`;
+
 exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] = `
 <div>
   <div

@@ -112,7 +112,7 @@ describe('ConfigureNotifications', () => {
         container,
         fieldId: 'to',
         type: InputTypes.TEXTAREA,
-        value: 'testrecepient'
+        value: 'test@harness.io'
       },
       {
         container,
@@ -133,7 +133,7 @@ describe('ConfigureNotifications', () => {
       expect(handleTest).toHaveBeenCalledWith({
         body: 'test body',
         subject: 'test subject',
-        to: 'testrecepient'
+        to: 'test@harness.io'
       })
     )
   })

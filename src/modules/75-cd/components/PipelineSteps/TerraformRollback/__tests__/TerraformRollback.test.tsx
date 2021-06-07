@@ -7,9 +7,8 @@ import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Step
 import { TerraformRollback } from '../TerraformRollback'
 
 const mockGetCallFunction = jest.fn()
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+
 jest.mock('services/portal', () => ({
   useGetDelegateSelectors: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)

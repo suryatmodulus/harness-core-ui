@@ -123,7 +123,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          connectors.GCR.stepTwoName
+          details
         </p>
       </div>
       <div
@@ -349,7 +349,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -524,7 +524,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          connectors.GCR.stepTwoName
+          details
         </p>
       </div>
       <div
@@ -569,7 +569,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          connectors.GCR.stepTwoName
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -700,7 +700,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  saveAndContinue
+                  continue
                 </span>
                 <span
                   class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -854,7 +854,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          connectors.GCR.stepTwoName
+          details
         </p>
       </div>
       <div
@@ -1055,7 +1055,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1230,7 +1230,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          connectors.GCR.stepTwoName
+          details
         </p>
       </div>
       <div
@@ -1275,7 +1275,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          connectors.GCR.stepTwoName
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1406,7 +1406,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                 <span
                   class="bp3-button-text"
                 >
-                  saveAndContinue
+                  continue
                 </span>
                 <span
                   class="bp3-icon bp3-icon-chevron-right StyledProps--main"

@@ -539,7 +539,7 @@ inputSets:
   newOverlayInputSet: New Overlay Input Set
   newInputSetLabel: New Input Set
   inputSetSaved: Input Set saved
-  nameIsRequired: InputSet Name is Required field
+  nameIsRequired: Input Set Name is Required field
   inputSetIsRequired: Input Set field cannot be empty
   inputSetName: Input set name
   overlaySetName: Overlay set name
@@ -550,12 +550,12 @@ inputSets:
   inputSetSavedError: Error while saving InputSet
   searchInputSet: Search Input Set
   addInputSet: Add Input Set
-  saveAsInputSet: Save as input set
+  saveAsInputSet: Save as Input Set
   aboutInputSets: Input sets are collections of variables/values that should be provided to a pipeline before execution.
   confirmDeleteTitle: 'Delete {{type}}'
   overlayInputSet: Overlay Input Set
   inputFieldSummary: Input Field Summary
-  selectPlaceholder: Select Input Set
+  selectPlaceholder: Add Input Set(s)
   noRecord: No Input Sets Created
   selectMultipleInputSets: select multiple input sets
   helpTextForMultiSelect: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
@@ -568,8 +568,8 @@ duration: 'Duration:'
 runPipelineForm:
   pipelineRunSuccessFully: Pipeline started successfully
   runPipelineFailed: Failed to run pipeline
-  noRuntimeInput: No Runtime input in pipeline
-  notifyOnlyMe: Notify only me
+  noRuntimeInput: No runtime inputs are required for the execution of this pipeline
+  notifyOnlyMe: Notify only me about the status of the execution
 skipped: 'Step has been skipped.'
 skipCondition: 'Skip condition:'
 skipConditionValidation: 'Skip condition is required.'
@@ -737,11 +737,8 @@ secret:
   referenceSecret: 'Reference Secret'
   secretCreated: Secret Created
   secretActivity: Secret Activity
-  labelSecretName: 'Secret Name*'
-  labelSecretValue: 'Secret Value*'
   labelSecretFile: 'Select File'
   labelSecretReference: 'Reference Secret Identifier'
-  labelSecretsManager: 'Secrets Manager*'
   saving: 'Saving'
   messageSelectSM: 'Please select a Secret Manager'
   placeholderSecretValue: 'Add your secret value'
@@ -906,10 +903,6 @@ execution:
     WEBHOOK: Webhook
   stepLogs: Step Logs
   consoleLogs: Console Logs
-  actionMessages:
-    abortedMessage: Pipeline has been aborted successfully
-    pausedMessage: Pipeline has been paused successfully
-    resumedMessage: Pipeline has been resumed successfully
   iotab:
     noInputText: No input found for current step
     noOutputText: No output found for current step
@@ -985,15 +978,13 @@ pipelineSteps:
   content: 'Content'
   InheritFromPlan: 'InheritFromPlan'
   InheritFromApply: 'InheritFromApply'
-  commitIdValue: 'CommitId'
+  commitIdValue: 'Commit'
   configFiles: 'Config Files'
-  terraformVarFiles: 'Terraform Var Files'
   backendConfig: 'Backend Config'
   storeType: 'Store Type'
   configurationTypeRequired: 'Configuration Type is required.'
   configurationType: 'Configuration Type'
   remoteFile: 'Remote File'
-  addTFVarFileLabel: 'Add TF Var file'
   commandRequired: 'Command is required.'
   paths: 'Paths'
   deleteNamespace: 'Delete namespace'
@@ -1025,7 +1016,7 @@ pipelineSteps:
   endpointPlaceholder: http://minio.company.com
   endpointInfo: Endpoint for S3 compatible providers (not needed for AWS).
   contextLabel: 'Context'
-  contextInfo: By default, the context is set to the root of your git repository. Set context if you need to specify a different folder.
+  contextInfo: Context represents a directory containing a Dockerfile which kaniko will use to build your image. For example, a COPY command in your Dockerfile should refer to a file in the build context.
   labelsLabel: 'Labels'
   labelsInfo: Use Labels to add metadata to the Docker image
   regionPlaceholder: us-east-1
@@ -1232,7 +1223,7 @@ validation:
   uniqueKeys: Keys should be unique
   uniqueValues: Values should be unique
   matchPattern: Invalid value, please look for info above to read more
-  duplicateIdError: 'Failed to create connector: {{ connectorName }}, there is a connector with identifier {{ connectorIdentifier }} that is already present or was soft deleted. Please provide a unique identifier name and try saving again.'
+  duplicateIdError: 'Failed to create connector: {{ connectorName }}. There is already a connector with identifier {{ connectorIdentifier }} present or soft deleted. Please provide a new unique identifier and save again.'
   username: 'Username is a required field'
   password: 'Password is a required field'
   accountName: Account Name is a required field

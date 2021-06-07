@@ -6,7 +6,8 @@ import KustomizeWithGIT from '../KustomizeWithGIT'
 const props = {
   stepName: 'Manifest details',
   expressions: [],
-  handleSubmit: jest.fn()
+  handleSubmit: jest.fn(),
+  manifestIdsList: []
 }
 describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
   test(`renders without crashing`, () => {

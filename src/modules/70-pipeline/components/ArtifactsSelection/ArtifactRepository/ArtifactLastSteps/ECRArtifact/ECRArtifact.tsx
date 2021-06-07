@@ -23,10 +23,9 @@ import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForEcr } from 'se
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { StringUtils } from '@common/exports'
 
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
-import { tagOptions } from '../../../ArtifactHelper'
+import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../ArtifactConnector.module.scss'
 
 export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
@@ -36,7 +35,8 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   expressions,
   prevStepData,
   initialValues,
-  previousStep
+  previousStep,
+  artifactIdentifiers
 }) => {
   const { getString } = useStrings()
 
@@ -55,11 +55,11 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   })
 
   const sideCarSchema = Yup.object().shape({
-    identifier: Yup.string()
-      .trim()
-      .required(getString('artifactsSelection.validation.sidecarId'))
-      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-      .notOneOf(StringUtils.illegalIdentifiers),
+    ...ArtifactIdentifierValidation(
+      artifactIdentifiers,
+      initialValues?.identifier,
+      getString('pipeline.uniqueIdentifier')
+    ),
     imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
     region: Yup.mixed().required(getString('artifactsSelection.validation.region')),
     tagType: Yup.string().required(),

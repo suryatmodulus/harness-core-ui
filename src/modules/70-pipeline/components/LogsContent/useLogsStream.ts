@@ -4,27 +4,27 @@ import { throttle } from 'lodash-es'
 
 const STREAM_ENDPOINT = `${window.apiUrl || ''}/log-service/stream`
 
-export interface UseLogsStreamProps {
+export interface StartStreamProps {
   queryParams: {
     key: string
     accountId: string
   }
-  headers: Record<string, any>
-  unitId: string
+  headers: Record<string, string>
+  key: string
   throttleTime?: number
 }
 
 export interface UseLogsStreamReturn {
   log: string
-  unitId: string
-  startStream(props: UseLogsStreamProps): void
+  key: string
+  startStream(props: StartStreamProps): void
   closeStream(): void
 }
 
 export function useLogsStream(): UseLogsStreamReturn {
   const eventSource = React.useRef<null | EventSource>(null)
   const [log, setLog] = React.useState('')
-  const [unitId, setUnitId] = React.useState('')
+  const [key, setKey] = React.useState('')
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const throttledSetLog = React.useCallback(throttle(setLog, 2000), [setLog])
 
@@ -35,13 +35,13 @@ export function useLogsStream(): UseLogsStreamReturn {
   }, [throttledSetLog])
 
   const startStream = React.useCallback(
-    (props: UseLogsStreamProps): void => {
+    (props: StartStreamProps): void => {
       closeStream()
       setLog('')
 
       let cache = ''
 
-      setUnitId(props.unitId)
+      setKey(props.key)
 
       const currentEventSource: EventSource = new EventSourcePolyfill(
         `${STREAM_ENDPOINT}?accountID=${props.queryParams.accountId}&key=${props.queryParams.key}`,
@@ -70,5 +70,5 @@ export function useLogsStream(): UseLogsStreamReturn {
     [throttledSetLog, closeStream]
   )
 
-  return { log, startStream, closeStream, unitId }
+  return { log, startStream, closeStream, key }
 }

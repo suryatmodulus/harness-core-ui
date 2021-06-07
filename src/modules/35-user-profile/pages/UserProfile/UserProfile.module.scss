@@ -1,6 +1,5 @@
 .details {
   background-color: var(--grey-100) !important;
-  height: calc(100%);
   padding: var(--spacing-large) var(--spacing-large) var(--spacing-huge) var(--spacing-huge) !important;
 }
 
@@ -25,4 +24,13 @@
 
 .overflow {
   overflow-wrap: anywhere;
+}
+
+.hasBanner {
+  --page-header-height: 45px !important;
+  height: calc(100vh - var(--page-header-height, 64px));
+}
+
+.noBanner {
+  height: 100vh !important;
 }

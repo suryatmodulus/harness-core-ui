@@ -249,7 +249,7 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
   return (
     <Page.Body
       loading={loading}
-      error={error?.message}
+      error={(error as any)?.data?.message || error?.message}
       retryOnError={() => refetch()}
       noData={
         !searchTerm

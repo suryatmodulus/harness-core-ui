@@ -39,6 +39,7 @@ interface VerifyOutOfClusterDelegateProps {
   name?: string
   connectorInfo: ConnectorInfoDTO | void
   gitDetails?: EntityGitDetails
+  stepIndex?: number // will make this mandatory once all usages sends the value
 }
 export interface VerifyOutOfClusterStepProps extends ConnectorConfigDTO {
   isEditMode?: boolean
@@ -176,6 +177,8 @@ const VerifyOutOfClusterDelegate: React.FC<
         return 'https://ngdocs.harness.io/article/5abnoghjgo-git-lab-connector-settings-reference'
       case Connectors.BITBUCKET:
         return 'https://ngdocs.harness.io/article/iz5tucdwyu-bitbucket-connector-settings-reference'
+      case Connectors.Jira:
+        return 'https://ngdocs.harness.io/category/y6gyszr0kl'
       default:
         return ''
     }
@@ -323,6 +326,7 @@ const VerifyOutOfClusterDelegate: React.FC<
               intent: Intent.SUCCESS,
               status: 'DONE'
             })
+            props.completedStep?.(props.stepIndex as number)
           } else {
             setStepDetails({
               step: 1,
@@ -378,7 +382,6 @@ const VerifyOutOfClusterDelegate: React.FC<
         isLastStep ? (
           <Layout.Horizontal spacing="large" className={css.btnWrapper}>
             <Button
-              disabled={loading || stepDetails.status === 'ERROR'}
               intent="primary"
               onClick={() => {
                 props.onClose?.()

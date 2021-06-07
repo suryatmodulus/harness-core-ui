@@ -70,6 +70,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     startX: number,
     startY: number,
     selectedStageId?: string,
+    disableCollapseButton?: boolean,
     diagramContainerHeight?: number,
     prevNodes?: Diagram.DefaultNodeModel[],
     showEndNode?: boolean,
@@ -90,7 +91,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       const tertiaryIconProps = getTertiaryIconProps(stage)
       let nodeRender = this.getNodeFromId(stage.identifier)
       const commonOption: Diagram.DiamondNodeModelOptions = {
-        customNodeStyle: getNodeStyles(isSelected, stage.status),
+        customNodeStyle: getNodeStyles(isSelected, stage.status, type),
         canDelete: false,
         ...statusProps,
         ...tertiaryIconProps,
@@ -98,10 +99,11 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           { [css.runningNode]: stage.status === ExecutionStatusEnum.Running },
           { [css.selected]: stage.status === ExecutionStatusEnum.Running && isSelected }
         ),
-        iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected),
+        iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected, stage.data),
         icon: stage.icon,
         skipCondition: stage?.skipCondition,
-        conditionalExecutionEnabled: getConditionalExecutionFlag(stage.when!)
+        conditionalExecutionEnabled: getConditionalExecutionFlag(stage.when!),
+        disableClick: stage.disableClick
       }
 
       if (!nodeRender) {
@@ -193,7 +195,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 parallel[0].item?.identifier || parallel[0].group?.identifier
               }-Start`,
               name: 'Empty',
-              showPorts: !verticalStepGroup
+              showPorts: !verticalStepGroup,
+              hideOutPort: true
             })
           this.addNode(emptyNodeStart)
           newX += verticalStepGroup ? this.gapX / 2 : this.gapX
@@ -221,6 +224,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             newX,
             newY,
             selectedStageId,
+            disableCollapseButton,
             diagramContainerHeight,
             prevNodes,
             showEndNode,
@@ -249,7 +253,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 parallel[0].item?.identifier || parallel[0].group?.identifier
               }${EmptyNodeSeparator}-End`,
               name: 'Empty',
-              showPorts: !verticalStepGroup
+              showPorts: !verticalStepGroup,
+              hideOutPort: true
             })
           this.addNode(emptyNodeEnd)
           startX += verticalStepGroup ? this.gapX / 2 : this.gapX
@@ -277,6 +282,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           startX,
           startY,
           selectedStageId,
+          disableCollapseButton,
           diagramContainerHeight,
           prevNodes,
           showEndNode,
@@ -312,7 +318,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           textCss: node.group.textCss,
           skipCondition: node.group.skipCondition,
           conditionalExecutionEnabled: getConditionalExecutionFlag(node.group.when!),
-          showRollback: false
+          showRollback: false,
+          disableCollapseButton: disableCollapseButton
         })
 
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
@@ -341,6 +348,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               startX,
               startY,
               selectedStageId,
+              disableCollapseButton,
               diagramContainerHeight,
               prevNodes,
               showEndNode,
@@ -456,7 +464,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     diagramContainerHeight?: number,
     showStartEndNode?: boolean,
     showEndNode?: boolean,
-    groupStage?: Map<string, GroupState<T>>
+    groupStage?: Map<string, GroupState<T>>,
+    hideCollapseButton?: boolean
   ): void {
     const { gapX } = this
     let { startX, startY } = this
@@ -487,6 +496,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         startX,
         startY,
         selectedId,
+        hideCollapseButton,
         diagramContainerHeight,
         prevNodes,
         showEndNode,
@@ -512,7 +522,12 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           lastNode,
           false,
           0,
-          getArrowsColor(pipeline.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted)
+          getArrowsColor(
+            pipeline.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted,
+            false,
+            false,
+            true
+          )
         )
       }
       this.addNode(stopNode)

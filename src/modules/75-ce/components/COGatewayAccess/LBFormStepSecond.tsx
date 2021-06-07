@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { isEmpty as _isEmpty } from 'lodash-es'
+import { Menu } from '@blueprintjs/core'
 import { Button, Formik, FormikForm, FormInput, Icon, Layout, SelectOption } from '@wings-software/uicore'
 import { AccessPoint, useAllCertificates, useAllRegions, useAllSecurityGroups, useAllVPCs } from 'services/lw'
 // import {
@@ -260,6 +261,16 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
               name="securityGroups"
               label={getString('ce.co.accessPoint.select.securityGroups')}
               placeholder={getString('ce.co.accessPoint.select.securityGroups')}
+              multiSelectProps={{
+                itemRender: (_item, { handleClick }) => (
+                  <Menu.Item
+                    key={_item.label}
+                    style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', padding: '5px 10px' }}
+                    onClick={handleClick}
+                    text={_item.label}
+                  />
+                )
+              }}
               items={sgOptions}
               onChange={e => {
                 setFieldValue('securityGroups', e)

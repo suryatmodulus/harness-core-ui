@@ -94,7 +94,7 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.GCR.stepTwoName')}
+        {getString('details')}
       </Text>
       <Formik
         initialValues={{
@@ -140,7 +140,7 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
                 <SecretInput name={'password'} label={getString('encryptedKeyLabel')} type={'SecretFile'} />
               ) : null}
             </Container>
-            <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
+            <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
           </Form>
         )}
       </Formik>

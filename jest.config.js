@@ -10,7 +10,7 @@ module.exports = {
     },
     __DEV__: false
   },
-  setupFiles: ['<rootDir>/scripts/jest/setup-file.js', 'fake-indexeddb/auto', 'jest-canvas-mock'],
+  setupFilesAfterEnv: ['<rootDir>/scripts/jest/setup-file.js', 'fake-indexeddb/auto', 'jest-canvas-mock'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/framework/app/App.tsx',

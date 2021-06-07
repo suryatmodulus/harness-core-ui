@@ -5,9 +5,7 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import BuildStageSpecifications from '../BuildStageSpecifications'
 import { getDummyPipelineContextValue } from './BuildStageSpecificationsTestHelpers'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('lodash-es', () => ({
   ...(jest.requireActual('lodash-es') as any),

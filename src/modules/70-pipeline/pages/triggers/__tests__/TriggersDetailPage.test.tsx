@@ -8,17 +8,15 @@ import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import TriggersDetailPage from '../TriggersDetailPage'
 import { GetTriggerResponse, GetTriggerDetailsResponse } from './TriggerDetailPageMock'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
-const mockUpdateTriggerStatus = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
+const mockUpdateTrigger = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
 
 jest.mock('services/pipeline-ng', () => ({
   useGetTrigger: jest.fn(() => GetTriggerResponse),
   useGetPipelineSummary: jest.fn(() => PipelineResponse),
   useGetTriggerDetails: jest.fn(() => GetTriggerDetailsResponse),
-  useUpdateTriggerStatus: jest.fn().mockImplementation(() => ({ mutate: mockUpdateTriggerStatus })),
+  useUpdateTrigger: jest.fn().mockImplementation(() => ({ mutate: mockUpdateTrigger })),
   useGetYamlSchema: jest.fn(() => ({}))
 }))
 const TEST_PATH = routes.toTriggersDetailPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })

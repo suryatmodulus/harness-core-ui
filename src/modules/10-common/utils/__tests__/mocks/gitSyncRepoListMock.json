@@ -1,6 +1,6 @@
 [
   {
-    "identifier": "606312ffef03c30721080b85",
+    "identifier": "gitSyncRepoTest",
     "name": "gitSyncRepoTest",
     "projectIdentifier": "dummyProject",
     "orgIdentifier": "default",
@@ -20,7 +20,7 @@
     ]
   },
   {
-    "identifier": "6062f6e4ef03c30721080b81",
+    "identifier": "gitSyncRepo",
     "name": "gitSyncRepo",
     "projectIdentifier": "dummyProject",
     "orgIdentifier": "default",

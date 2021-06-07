@@ -1,4 +1,4 @@
-import type { ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ResponseListSourceCodeManagerDTO } from 'services/cd-ng'
 
 export const defaultProps = {
   name: 'Setup Delegates',
@@ -100,4 +100,55 @@ export const mockedDelegates = {
     scalingGroups: []
   },
   responseMessages: []
+}
+
+export const requestBody = {
+  connector: {
+    name: 'doker',
+    description: '',
+    projectIdentifier: 'projId',
+    identifier: 'docker',
+    orgIdentifier: 'orgId',
+    tags: {},
+    type: 'DockerRegistry',
+    spec: {
+      delegateSelectors: [],
+      dockerRegistryUrl: 'https://registry.hub.docker.com/v2/',
+      providerType: 'DockerHub',
+      auth: { type: 'Anonymous' }
+    }
+  }
+}
+
+export const gitConfigs = [
+  {
+    identifier: 'identifier',
+    name: 'name',
+    projectIdentifier: 'projectIdentifier',
+    orgIdentifier: 'orgIdentifier',
+    gitConnectorRef: 'gitConnectorRef',
+    repo: 'repo',
+    branch: 'branch',
+    gitConnectorType: 'Github'
+  }
+]
+
+export const sourceCodeManagers: ResponseListSourceCodeManagerDTO = {
+  status: 'SUCCESS',
+  data: [
+    {
+      userIdentifier: 'userId',
+      name: 'BB UP',
+      createdAt: 1617868887547,
+      lastModifiedAt: 1617868887547,
+      type: 'BITBUCKET',
+      authentication: {
+        type: 'Http',
+        spec: {
+          type: 'UsernamePassword',
+          spec: { username: 'Uname', usernameRef: null, passwordRef: 'account.selected_secret' }
+        }
+      }
+    }
+  ]
 }

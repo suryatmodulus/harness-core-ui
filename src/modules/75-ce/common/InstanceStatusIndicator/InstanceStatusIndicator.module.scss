@@ -1,0 +1,17 @@
+.instanceStatusIndicator {
+  span {
+    margin-right: 5px;
+    :global {
+      svg[data-icon='stop'] {
+        path {
+          fill: #da291d;
+        }
+      }
+      svg[data-icon='play'] {
+        path {
+          fill: #42ab45;
+        }
+      }
+    }
+  }
+}

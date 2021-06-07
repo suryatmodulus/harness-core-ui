@@ -63,7 +63,7 @@ export default function ConditionalExecution(props: ConditionalExecutionProps): 
               <Container width={'48%'} padding={{ right: 'xxlarge' }} border={{ right: true, color: Color.GREY_200 }}>
                 <ConditionalExecutionStatus formikProps={formikProps} mode={Modes.STAGE} isReadonly={isReadonly} />
               </Container>
-              <Container width={'52%'} padding={{ left: 'huge' }}>
+              <Container width={'52%'} padding={{ left: 'xxlarge' }}>
                 <ConditionalExecutionCondition formikProps={formikProps} mode={Modes.STAGE} isReadonly={isReadonly} />
               </Container>
             </Layout.Horizontal>

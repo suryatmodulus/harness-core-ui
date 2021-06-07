@@ -10,7 +10,6 @@ declare const styles: {
   readonly stagesTreeBulletCircle: string
   readonly topAccordion: string
   readonly nestedAccordions: string
-  readonly nopadLeft: string
   readonly accordionSummary: string
 }
 export default styles

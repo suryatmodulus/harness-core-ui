@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { isEmpty } from 'lodash-es'
-import { Popover, Layout, TextInput, useModalHook } from '@wings-software/uicore'
+import { Popover, Layout, TextInput, useModalHook, Text } from '@wings-software/uicore'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
-import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
+import {
+  InputSetSummaryResponse,
+  useGetInputSetsListForPipeline,
+  useGetTemplateFromPipeline
+} from 'services/pipeline-ng'
 import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
 import routes from '@common/RouteDefinitions'
 import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -26,7 +30,11 @@ const InputSetList: React.FC = (): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
   const [page, setPage] = React.useState(0)
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const [gitFilter, setGitFilter] = useState<GitFilterScope>({ repo: repoIdentifier || '', branch: branch || '' })
+  const [gitFilter, setGitFilter] = useState<GitFilterScope>({
+    repo: repoIdentifier || '',
+    branch: branch || '',
+    getDefaultFromOtherRepo: true
+  })
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<PipelinePathProps> & { accountId: string }
   >()
@@ -50,6 +58,27 @@ const InputSetList: React.FC = (): JSX.Element => {
     },
     debounce: 300
   })
+
+  const { data: template } = useGetTemplateFromPipeline({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch
+    }
+  })
+
+  // These flags will be used to disable the Add Input set buttons in the page.
+  const [pipelineHasRuntimeInputs, setPipelineHasRuntimeInputs] = useState(true)
+  useEffect(() => {
+    if (!template?.data?.inputSetTemplateYaml) {
+      setPipelineHasRuntimeInputs(false)
+    } else {
+      setPipelineHasRuntimeInputs(true)
+    }
+  }, [template])
 
   const [selectedInputSet, setSelectedInputSet] = React.useState<{
     identifier?: string
@@ -137,7 +166,7 @@ const InputSetList: React.FC = (): JSX.Element => {
                 </Menu>
               }
               position={Position.BOTTOM}
-              disabled={!canUpdateInputSet}
+              disabled={!canUpdateInputSet || !pipelineHasRuntimeInputs}
             >
               <RbacButton
                 text={getString('inputSets.newInputSet')}
@@ -150,6 +179,12 @@ const InputSetList: React.FC = (): JSX.Element => {
                   },
                   permission: PermissionIdentifier.EDIT_PIPELINE
                 }}
+                disabled={!pipelineHasRuntimeInputs}
+                tooltip={
+                  !pipelineHasRuntimeInputs ? (
+                    <Text padding="medium">{getString('pipeline.inputSets.noRuntimeInputsCurrently')}</Text>
+                  ) : undefined
+                }
               />
             </Popover>
             {isGitSyncEnabled && (
@@ -160,7 +195,7 @@ const InputSetList: React.FC = (): JSX.Element => {
                     setPage(0)
                   }}
                   className={css.gitFilter}
-                  defaultValue={{ repo: repoIdentifier || '', branch: branch }}
+                  defaultValue={{ repo: repoIdentifier || '', branch: branch, getDefaultFromOtherRepo: true }}
                 />
               </GitSyncStoreProvider>
             )}
@@ -190,12 +225,14 @@ const InputSetList: React.FC = (): JSX.Element => {
           message: getString('inputSets.aboutInputSets'),
           buttonText: getString('inputSets.addInputSet'),
           onClick: () => goToInputSetForm(),
-          buttonDisabled: !canUpdateInputSet
+          buttonDisabled: !canUpdateInputSet || !pipelineHasRuntimeInputs,
+          buttonDisabledTooltip: getString('pipeline.inputSets.noRuntimeInputsCurrently')
         }}
       >
         <InputSetListView
           data={inputSet?.data}
           gotoPage={setPage}
+          pipelineHasRuntimeInputs={pipelineHasRuntimeInputs}
           goToInputSetDetail={inputSetTemp => {
             setSelectedInputSet({
               identifier: inputSetTemp?.identifier,

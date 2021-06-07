@@ -229,20 +229,34 @@ exports[`Autostopping rule analytics drawer render analytics drawer 1`] = `
                 />
               </svg>
             </span>
-            <span
-              class="Tag--main"
+            <div
+              class="Layout--horizontal StyledProps--main instanceStatusIndicator"
             >
               <span
-                class="bp3-tag bp3-intent-danger bp3-minimal"
-                style="border-radius: 25px;"
+                class="bp3-icon bp3-icon-stop StyledProps--main"
+                icon="stop"
               >
-                <span
-                  class="bp3-text-overflow-ellipsis bp3-fill"
+                <svg
+                  data-icon="stop"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                 >
-                  STOPPED
-                </span>
+                  <desc>
+                    stop
+                  </desc>
+                  <path
+                    d="M12 3H4c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h8c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
               </span>
-            </span>
+              <span
+                style="color: rgb(218, 41, 29);"
+              >
+                Stopped
+              </span>
+            </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main"

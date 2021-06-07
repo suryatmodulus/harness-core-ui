@@ -6,9 +6,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { K8sCanaryDeleteStep } from '../K8sCanaryDeleteStep'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 describe('Test K8sCanaryDeleteStep', () => {
   beforeEach(() => {

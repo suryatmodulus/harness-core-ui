@@ -89,7 +89,7 @@ const RenderColumnMenu: Renderer<CellProps<UserInfo>> = ({ row, column }) => {
     openDialog()
   }
 
-  return (
+  return (column as any).ssoLinked ? null : (
     <Layout.Horizontal flex={{ justifyContent: 'flex-end' }}>
       <Popover
         isOpen={menuOpen}
@@ -132,7 +132,7 @@ const RenderColumnMenu: Renderer<CellProps<UserInfo>> = ({ row, column }) => {
   )
 }
 
-const MemberList: React.FC = () => {
+const MemberList: React.FC<{ ssoLinked?: boolean }> = ({ ssoLinked }) => {
   const { getString } = useStrings()
   const [page, setPage] = useState<number>(0)
   const { accountId, orgIdentifier, projectIdentifier, userGroupIdentifier } = useParams<
@@ -153,35 +153,35 @@ const MemberList: React.FC = () => {
 
   const users = useMemo(() => data?.data?.content, [data?.data])
 
-  const columns: Column<UserInfo>[] = useMemo(
-    () => [
+  const columns: Column<UserInfo>[] = useMemo(() => {
+    return [
       {
         Header: getString('users'),
         id: 'user',
-        accessor: row => row.name,
+        accessor: (row: UserInfo) => row.name,
         width: '45%',
         Cell: RenderColumnUser
       },
       {
         Header: getString('email'),
         id: 'email',
-        accessor: row => row.email,
+        accessor: (row: UserInfo) => row.email,
         width: '50%',
         Cell: RenderColumnEmail
       },
       {
         Header: '',
         id: 'menu',
-        accessor: row => row.uuid,
+        accessor: (row: UserInfo) => row.uuid,
         width: '5%',
         Cell: RenderColumnMenu,
         refetchMembers: refetch,
         userGroupIdentifier: userGroupIdentifier,
-        disableSortBy: true
+        disableSortBy: true,
+        ssoLinked: ssoLinked
       }
-    ],
-    [refetch]
-  )
+    ]
+  }, [refetch])
   if (users?.length)
     return (
       <Container className={css.memberList}>

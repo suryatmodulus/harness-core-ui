@@ -46,7 +46,8 @@ const entitySubTypeToTagMap: {
   NewRelic: 'newrelic',
   GcpCloudCost: 'gcpcloudcost',
   Prometheus: 'prometheus',
-  Datadog: 'datadog'
+  Datadog: 'datadog',
+  SumoLogic: 'sumologic'
 }
 
 export const getSnippetTags = (

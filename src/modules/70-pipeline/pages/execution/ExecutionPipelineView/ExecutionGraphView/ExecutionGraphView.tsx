@@ -67,7 +67,7 @@ export default function ExecutionGraphView(): React.ReactElement {
     <ExecutionLayout className={css.main}>
       <ExecutionGraph onSelectedStage={handleStageSelection} />
       <ExecutionStageDetails onStepSelect={handleStepSelection} onStageSelect={handleStageSelection} />
-      <ExecutionStepDetails closeDetails={() => handleStepSelection()} />
+      <ExecutionStepDetails />
     </ExecutionLayout>
   )
 }

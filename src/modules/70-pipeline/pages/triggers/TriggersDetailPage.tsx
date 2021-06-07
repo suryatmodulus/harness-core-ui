@@ -3,13 +3,12 @@ import React from 'react'
 import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
-import { parse } from 'yaml'
+import { parse, stringify } from 'yaml'
 import { Page, useToaster } from '@common/exports'
-import type { NgPipeline } from 'services/cd-ng'
 import {
-  NGTriggerConfig,
+  NGTriggerConfigV2,
   useGetTriggerDetails,
-  useUpdateTriggerStatus,
+  useUpdateTrigger,
   useGetYamlSchema,
   useGetPipelineSummary
 } from 'services/pipeline-ng'
@@ -27,7 +26,8 @@ import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useQueryParams } from '@common/hooks'
 import { TriggerBreadcrumbs } from '../trigger-details/TriggerDetails'
-import { getTriggerIcon } from './utils/TriggersListUtils'
+import { getTriggerIcon, getEnabledStatusTriggerValues } from './utils/TriggersListUtils'
+import { clearNullUndefined, ResponseStatus } from './utils/TriggersWizardPageUtils'
 import css from './TriggersDetailPage.module.scss'
 
 enum SelectedView {
@@ -74,14 +74,13 @@ export default function TriggersDetailPage(): JSX.Element {
     }
   })
 
-  const { mutate: updateTriggerStatus, loading: updatingTrigger } = useUpdateTriggerStatus({
+  const { mutate: updateTrigger, loading: updateTriggerLoading } = useUpdateTrigger({
     triggerIdentifier,
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: orgIdentifier,
-      projectIdentifier: projectIdentifier,
-      targetIdentifier: pipelineIdentifier,
-      status: !triggerResponse?.data?.enabled
+      orgIdentifier,
+      projectIdentifier,
+      targetIdentifier: pipelineIdentifier
     },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
@@ -151,8 +150,8 @@ export default function TriggersDetailPage(): JSX.Element {
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
   useDocumentTitle([getString('pipelines'), getString('pipeline.triggers.triggersLabel')])
-  const triggerObj = parse(triggerResponse?.data?.yaml || '')?.trigger as NGTriggerConfig
-  const pipelineInputSet = triggerObj?.target?.spec?.runtimeInputYaml as NgPipeline
+  const triggerObj = parse(triggerResponse?.data?.yaml || '')?.trigger as NGTriggerConfigV2
+  const pipelineInputSet = triggerObj?.inputYaml
   let conditionsArr: string[] = []
   const headerConditionsArr: string[] = triggerObj?.source?.spec?.spec?.headerConditions?.length
     ? getTriggerConditionsStr(triggerObj.source.spec.spec.headerConditions)
@@ -193,7 +192,7 @@ export default function TriggersDetailPage(): JSX.Element {
                         type: triggerResponse.data.type,
                         webhookSourceRepo: triggerResponse?.data?.webhookDetails?.webhookSourceRepo
                       })
-                    : 'deployment-success-new'
+                    : 'yaml-builder-trigger'
                 }
                 size={26}
               />
@@ -209,18 +208,30 @@ export default function TriggersDetailPage(): JSX.Element {
                       disabled={isTriggerRbacDisabled}
                       checked={triggerResponse?.data?.enabled ?? false}
                       onChange={async () => {
-                        const updated = await updateTriggerStatus()
-
-                        if (updated.status === 'SUCCESS') {
-                          showSuccess(
-                            getString('pipeline.triggers.toast.toggleEnable', {
-                              enabled: !triggerResponse?.data?.enabled ? 'enabled' : 'disabled',
-                              name: triggerResponse?.data?.name
-                            })
+                        const { values, error } = getEnabledStatusTriggerValues({
+                          data: triggerResponse?.data,
+                          enabled: (triggerResponse?.data && !triggerResponse?.data.enabled) || false,
+                          getString
+                        })
+                        if (error) {
+                          showError(error)
+                          return
+                        }
+                        try {
+                          const { status, data } = await updateTrigger(
+                            stringify({ trigger: clearNullUndefined(values) }) as any
                           )
-                          refetchTrigger()
-                        } else if (updated.status === 'ERROR') {
-                          showError('Error')
+                          if (status === ResponseStatus.SUCCESS) {
+                            showSuccess(
+                              getString('pipeline.triggers.toast.toggleEnable', {
+                                enabled: data?.enabled ? 'enabled' : 'disabled',
+                                name: data?.name
+                              })
+                            )
+                            refetchTrigger()
+                          }
+                        } catch (err) {
+                          showError(err?.data?.message)
                         }
                       }}
                     />
@@ -233,7 +244,7 @@ export default function TriggersDetailPage(): JSX.Element {
         </Layout.Vertical>
       </Container>
 
-      <Page.Body loading={loadingTrigger || updatingTrigger} className={css.main}>
+      <Page.Body loading={loadingTrigger || updateTriggerLoading} className={css.main}>
         <Layout.Horizontal className={css.panel}>
           <Layout.Vertical spacing="medium" className={css.information}>
             <Layout.Horizontal flex={{ distribution: 'space-between' }}>
@@ -332,6 +343,7 @@ export default function TriggersDetailPage(): JSX.Element {
                     isReadOnlyMode={true}
                     showSnippetSection={false}
                     schema={pipelineSchema?.data}
+                    onEnableEditMode={goToEditWizard}
                   />
                 )}
               </div>
@@ -340,7 +352,7 @@ export default function TriggersDetailPage(): JSX.Element {
           <Layout.Vertical style={{ flex: 1 }}>
             <Layout.Horizontal spacing="xxlarge">
               <Text font={{ size: 'medium', weight: 'bold' }}>
-                {getString('pipeline.triggers.lastExecutionDetails')}
+                {getString('pipeline.triggers.lastActivationDetails')}
               </Text>
               {triggerResponse?.data?.lastTriggerExecutionDetails?.lastExecutionSuccessful === false ? (
                 <Text
@@ -368,14 +380,14 @@ export default function TriggersDetailPage(): JSX.Element {
               <div>
                 {triggerResponse?.data?.lastTriggerExecutionDetails?.lastExecutionTime ? (
                   <Text>
-                    {`${getString('pipeline.triggers.lastExecutionAt')}: ${new Date(
+                    {`${getString('pipeline.triggers.lastActivationAt')}: ${new Date(
                       triggerResponse.data.lastTriggerExecutionDetails.lastExecutionTime
                     ).toLocaleDateString()} ${new Date(
                       triggerResponse.data.lastTriggerExecutionDetails.lastExecutionTime
                     ).toLocaleTimeString()}`}
                   </Text>
                 ) : (
-                  <Text>{`${getString('pipeline.triggers.lastExecutionAt')}: -`}</Text>
+                  <Text>{`${getString('pipeline.triggers.lastActivationAt')}: -`}</Text>
                 )}
               </div>
               <hr />

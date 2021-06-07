@@ -37,9 +37,8 @@ import { PipelineDBName } from '@pipeline/components/PipelineStudio/PipelineCont
 
 jest.mock('@common/utils/YamlUtils', () => ({ useValidationError: () => ({ errorMap: new Map() }) }))
 // eslint-disable-next-line react/display-name
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+
 const fetchConnectors = (): Promise<unknown> => Promise.resolve({})
 window.HTMLElement.prototype.scrollTo = jest.fn()
 

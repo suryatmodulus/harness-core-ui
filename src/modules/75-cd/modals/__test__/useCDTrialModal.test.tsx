@@ -32,8 +32,7 @@ const TestComponent = ({ trialType = TrialType.SET_UP_PIPELINE }: { trialType?: 
     actionProps: {
       onSuccess: jest.fn(),
       onCloseModal,
-      onCreateProject: jest.fn(),
-      onSelectProject: jest.fn()
+      onCreateProject: jest.fn()
     },
     trialType
   })

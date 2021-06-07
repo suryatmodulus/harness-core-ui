@@ -28,6 +28,7 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
   const activityId = step?.progressData?.activityId as any
   const estimatedRemainingTime = step?.progressData?.estimatedRemainingTime
   const progressPercentage = step?.progressData?.progressPercentage
+  const timeout = step?.stepParameters?.timeout as any
 
   const { openDelegateSelectionLogsModal } = useDelegateSelectionLogsModal()
 
@@ -49,10 +50,12 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
             <Duration className={css.timer} durationText="" startTime={step?.startTs} endTime={step?.endTs} />
           </td>
         </tr>
-        <tr>
-          <th>{getString('common.timeout')}</th>
-          <td>{step?.stepParameters?.timeout || '-'}</td>
-        </tr>
+        {!!timeout && (
+          <tr>
+            <th>{getString('common.timeout')}</th>
+            <td>{timeout}</td>
+          </tr>
+        )}
         {step.delegateInfoList && step.delegateInfoList.length > 0 ? (
           <tr className={css.delegateRow}>
             <th>{getString('delegateLabel')}</th>
@@ -71,13 +74,11 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
                     <Text
                       font={{ size: 'small' }}
                       onClick={() =>
-                        openDelegateSelectionLogsModal([
-                          {
-                            taskId: item.taskId as string,
-                            taskName: item.taskName as string,
-                            delegateName: item.name as string
-                          }
-                        ])
+                        openDelegateSelectionLogsModal({
+                          taskId: item.taskId as string,
+                          taskName: item.taskName as string,
+                          delegateName: item.name as string
+                        })
                       }
                       style={{ cursor: 'pointer' }}
                       color={Color.PRIMARY_7}

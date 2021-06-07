@@ -52,7 +52,11 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
   return (
     <div
       className={cssDefault.defaultNode}
-      onClick={e => onClickNode(e, props.node)}
+      onClick={e => {
+        if (!options.disableClick) {
+          onClickNode(e, props.node)
+        }
+      }}
       onMouseEnter={event => onMouseEnterNode((event as unknown) as MouseEvent, props.node)}
       onMouseLeave={event => onMouseLeaveNode((event as unknown) as MouseEvent, props.node)}
     >

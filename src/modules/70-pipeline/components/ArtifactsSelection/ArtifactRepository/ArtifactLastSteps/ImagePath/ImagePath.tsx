@@ -20,10 +20,9 @@ import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForDocker } from 
 import { useStrings } from 'framework/strings'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { StringUtils } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
-import { tagOptions } from '../../../ArtifactHelper'
+import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../ArtifactConnector.module.scss'
 
 export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
@@ -33,7 +32,8 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   expressions,
   prevStepData,
   initialValues,
-  previousStep
+  previousStep,
+  artifactIdentifiers
 }) => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
@@ -54,11 +54,11 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   })
 
   const sidecarSchema = Yup.object().shape({
-    identifier: Yup.string()
-      .trim()
-      .required(getString('artifactsSelection.validation.sidecarId'))
-      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-      .notOneOf(StringUtils.illegalIdentifiers),
+    ...ArtifactIdentifierValidation(
+      artifactIdentifiers,
+      initialValues?.identifier,
+      getString('pipeline.uniqueIdentifier')
+    ),
     imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {

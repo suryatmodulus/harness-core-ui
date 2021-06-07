@@ -90,22 +90,12 @@ exports[`Sidenav render 1`] = `
     </a>
     <a
       class="link"
-      href="/account/dummy/cf/orgs/dummy/projects/dummy/targets"
+      href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management"
     >
       <p
         class="StyledProps--font StyledProps--main text"
       >
-        pipeline.targets.title
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/dummy/cf/orgs/dummy/projects/dummy/segments"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        cf.shared.segments
+        cf.shared.targetManagement
       </p>
     </a>
     <a
@@ -118,6 +108,35 @@ exports[`Sidenav render 1`] = `
         environments
       </p>
     </a>
+    <div
+      class="Layout--vertical StyledProps--main main"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text StyledProps--font-xsmall StyledProps--flex StyledProps--flex-alignItems-flex-start StyledProps--flex-justifyContent-space-between"
+        style="display: flex; align-items: center;"
+      >
+        common.projectSetup
+        <span
+          class="bp3-icon bp3-icon-chevron-up StyledProps--main StyledProps--padding-left-xsmall"
+          icon="chevron-up"
+        >
+          <svg
+            data-icon="chevron-up"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-up
+            </desc>
+            <path
+              d="M12.71 9.29l-4-4C8.53 5.11 8.28 5 8 5s-.53.11-.71.29l-4 4a1.003 1.003 0 001.42 1.42L8 7.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </p>
+    </div>
   </div>
 </div>
 `;

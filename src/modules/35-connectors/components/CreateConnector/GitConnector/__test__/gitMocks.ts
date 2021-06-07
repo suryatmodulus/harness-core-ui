@@ -10,7 +10,7 @@ export const usernamePassword: ConnectorInfoDTO = {
   type: 'Git',
   spec: {
     delegateSelectors: ['dummyDelegateSelector'],
-    url: 'dumyGitUrl',
+    url: 'http://www.github.com/',
     type: 'Http',
     connectionType: 'Account',
     spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.connectorPass' }

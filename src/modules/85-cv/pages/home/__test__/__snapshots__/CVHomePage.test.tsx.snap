@@ -3,55 +3,57 @@
 exports[`CVHomePage snapshot test should render properly 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
-    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+    class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      class="StyledProps--font StyledProps--main body"
+      style="--image-url: url(test-file-stub);"
     >
-      <h1
-        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color"
-      >
-        cv.continuous
-      </h1>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--font-size-normal"
-        style="line-height: 24px; width: 400px;"
-      >
-        cv.dashboard.subHeading
-      </p>
-      <a
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--link"
-        href="https://ngdocs.harness.io/"
-        rel="noreferrer noopener"
-        role="button"
-        style="align-self: flex-start;"
-        tabindex="0"
-        target="_blank"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          cv.learnMore
-        </span>
-      </a>
       <div
-        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
-        <a
-          class="createBtn"
-          href="/account/undefined/projects"
+        <h1
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color"
         >
-          createProject
-        </a>
+          cv.continuous
+        </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
+          class="StyledProps--font StyledProps--main StyledProps--color"
         >
-          orSelectExisting
+          cv.dashboard.subHeading
         </p>
-        <span
-          style="flex-grow: 1;"
-        />
+        <a
+          class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--color StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--link"
+          href="https://ngdocs.harness.io/"
+          rel="noreferrer noopener"
+          role="button"
+          tabindex="0"
+          target="_blank"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            cv.learnMore
+          </span>
+        </a>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
+        >
+          <a
+            class="createBtn"
+            href="/account/undefined/home/projects"
+          >
+            createProject
+          </a>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
+          >
+            orSelectExisting
+          </p>
+          <span
+            style="flex-grow: 1;"
+          />
+        </div>
       </div>
     </div>
   </div>

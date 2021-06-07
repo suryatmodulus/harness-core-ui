@@ -201,7 +201,19 @@ export const SaveCacheGCSStepBase = (
               <FormMultiTypeCheckboxField
                 name="spec.override"
                 label={getString('override')}
-                multiTypeTextbox={{ expressions, disabled: readonly }}
+                className={css.checkboxField}
+                multiTypeTextbox={{
+                  children: (
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('ci.pipelineSteps.overrideCacheInfo')}
+                      iconProps={{ size: 14 }}
+                    />
+                  ),
+                  expressions,
+                  disabled: readonly
+                }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
                 disabled={readonly}
               />

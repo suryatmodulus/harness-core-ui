@@ -19,12 +19,7 @@ import { REFRESH_APPROVAL } from './Tabs/ApprovalTab/ApprovalTab'
 import { StepDetailTabs } from './StepDetailTabs'
 import css from './ExecutionStepDetails.module.scss'
 
-export interface ExecutionStepDetailsProps {
-  closeDetails(): void
-}
-
-export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): React.ReactElement {
-  const { closeDetails } = props
+export default function ExecutionStepDetails(): React.ReactElement {
   const { allNodeMap, addNewNodeToMap, queryParams, selectedStepId } = useExecutionContext()
   const { retryStep } = queryParams
   const { getString } = useStrings()
@@ -88,7 +83,6 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
         ) : null}
         <div className={css.actions}>
           <ExecutionLayout.Toggle />
-          <Button minimal className={css.btn} icon="cross" onClick={closeDetails} />
           {interruptHistories.length > 0 ? (
             <Popover wrapperTagName="div" targetTagName="div" minimal position="bottom-right">
               <Button minimal className={cx(css.btn, css.more)} icon="more" data-testid="retry-logs" />

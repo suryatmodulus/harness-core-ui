@@ -8,7 +8,6 @@ import { useStrings } from 'framework/strings'
 import type { InlineTerraformVarFileSpec, RemoteTerraformVarFileSpec, TerraformVarFileWrapper } from 'services/cd-ng'
 
 import { TerraformStoreTypes, TFPlanFormData } from '../Common/Terraform/TerraformInterfaces'
-import TfVarFile from '../Common/Terraform/Editview/TfVarFile'
 import css from './TerraformVarfile.module.scss'
 
 interface TfVarFileProps {
@@ -17,7 +16,6 @@ interface TfVarFileProps {
 
 export default function TfVarFileList(props: TfVarFileProps): React.ReactElement {
   const { formik } = props
-  const [showTfModal, setShowTfModal] = React.useState(false)
   const { getString } = useStrings()
 
   const remoteRender = (varFile: TerraformVarFileWrapper) => {
@@ -48,7 +46,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   return (
     <FieldArray
       name="spec.configuration.varFiles"
-      render={({ push, remove }) => {
+      render={({ remove }) => {
         return (
           <div>
             {formik?.values?.spec?.configuration?.varFiles?.map((varFile: TerraformVarFileWrapper, i) => {
@@ -62,29 +60,9 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 </div>
               )
             })}
-            <Button
-              icon="plus"
-              minimal
-              intent="primary"
-              data-testid="add-tfvar-file"
-              onClick={() => setShowTfModal(true)}
-            >
+            <Button icon="plus" minimal intent="primary" data-testid="add-tfvar-file">
               {getString('pipelineSteps.addTerraformVarFile')}
             </Button>
-            {showTfModal && (
-              <TfVarFile
-                onHide={() => {
-                  /* istanbul ignore next */
-                  setShowTfModal(false)
-                }}
-                onSubmit={(values: any) => {
-                  /* istanbul ignore next */
-                  push(values)
-                  /* istanbul ignore next */
-                  setShowTfModal(false)
-                }}
-              />
-            )}
           </div>
         )
       }}

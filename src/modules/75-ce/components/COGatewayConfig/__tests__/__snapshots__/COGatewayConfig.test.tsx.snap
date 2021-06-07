@@ -6,101 +6,6 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
     class="Layout--vertical StyledProps--main page"
   >
     <div
-      style="top: 85px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-    >
-      <div
-        class="StyledProps--font StyledProps--main"
-      >
-        <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-large"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-weight: 500; line-height: 24px;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="info"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-               
-              ce.co.autoStoppingRule.helpText.step1.title
-            </p>
-            <div
-              class="StyledProps--font StyledProps--main StyledProps--flex"
-              style="justify-content: center; flex-grow: 1;"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="test-file-stub"
-              />
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="line-height: 20px;"
-            >
-              ce.co.autoStoppingRule.helpText.step1.description
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-weight: 500; line-height: 24px;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="info"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-               
-              ce.co.autoStoppingRule.helpText.step2.title
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="line-height: 20px;"
-            >
-              ce.co.autoStoppingRule.helpText.step2.description.heading
-              <br />
-              <ol
-                type="1"
-              >
-                <li>
-                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms
-                </li>
-                <li>
-                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg
-                </li>
-              </ol>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
       class="StyledProps--font StyledProps--main"
       style="padding-top: 10px;"
     >
@@ -165,7 +70,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                   </svg>
                 </span>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-medium"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                   style="margin-top: 5px;"
                 >
                   AWS
@@ -219,6 +124,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="gatewayName"
+                                placeholder="ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -289,7 +195,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="idleTime"
-                                placeholder="Enter time"
+                                placeholder="ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder"
                                 type="text"
                                 value="15"
                               />
@@ -321,6 +227,22 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
             class="StyledProps--font StyledProps--main title"
           >
             ce.co.autoStoppingRule.configuration.step2.title
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
@@ -388,6 +310,22 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
             class="StyledProps--font StyledProps--main title"
           >
             ce.co.autoStoppingRule.configuration.step3.title
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
@@ -435,7 +373,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main instanceTypeNameGrid"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main instanceTypeNameGrid"
               >
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-align-center"
@@ -469,7 +407,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ce.co.autoStoppingRule.configuration.step4.title
+            ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
         </div>
       </div>
@@ -483,101 +421,6 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
   <div
     class="Layout--vertical StyledProps--main page"
   >
-    <div
-      style="top: 85px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-    >
-      <div
-        class="StyledProps--font StyledProps--main"
-      >
-        <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-large"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-weight: 500; line-height: 24px;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="info"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-               
-              ce.co.autoStoppingRule.helpText.step1.title
-            </p>
-            <div
-              class="StyledProps--font StyledProps--main StyledProps--flex"
-              style="justify-content: center; flex-grow: 1;"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="test-file-stub"
-              />
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="line-height: 20px;"
-            >
-              ce.co.autoStoppingRule.helpText.step1.description
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-weight: 500; line-height: 24px;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="info"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-               
-              ce.co.autoStoppingRule.helpText.step2.title
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="line-height: 20px;"
-            >
-              ce.co.autoStoppingRule.helpText.step2.description.heading
-              <br />
-              <ol
-                type="1"
-              >
-                <li>
-                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms
-                </li>
-                <li>
-                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg
-                </li>
-              </ol>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
     <div
       class="StyledProps--font StyledProps--main"
       style="padding-top: 10px;"
@@ -643,7 +486,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                   </svg>
                 </span>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-medium"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                   style="margin-top: 5px;"
                 >
                   AWS
@@ -697,6 +540,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="gatewayName"
+                                placeholder="ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder"
                                 type="text"
                                 value="New Rule"
                               />
@@ -767,7 +611,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="idleTime"
-                                placeholder="Enter time"
+                                placeholder="ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder"
                                 type="text"
                                 value="10"
                               />
@@ -799,6 +643,22 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
             class="StyledProps--font StyledProps--main title"
           >
             ce.co.autoStoppingRule.configuration.step2.title
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
@@ -1057,6 +917,22 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
             class="StyledProps--font StyledProps--main title"
           >
             ce.co.autoStoppingRule.configuration.step3.title
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
@@ -1130,7 +1006,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main instanceTypeNameGrid"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main instanceTypeNameGrid"
               >
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-align-center"
@@ -1164,7 +1040,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ce.co.autoStoppingRule.configuration.step4.title
+            ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
           <div
             class="childrenContainer"
@@ -1856,101 +1732,6 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
     class="Layout--vertical StyledProps--main page"
   >
     <div
-      style="top: 85px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-    >
-      <div
-        class="StyledProps--font StyledProps--main"
-      >
-        <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-large"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-weight: 500; line-height: 24px;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="info"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-               
-              ce.co.autoStoppingRule.helpText.step1.title
-            </p>
-            <div
-              class="StyledProps--font StyledProps--main StyledProps--flex"
-              style="justify-content: center; flex-grow: 1;"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="test-file-stub"
-              />
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="line-height: 20px;"
-            >
-              ce.co.autoStoppingRule.helpText.step1.description
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-weight: 500; line-height: 24px;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="info"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-               
-              ce.co.autoStoppingRule.helpText.step2.title
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="line-height: 20px;"
-            >
-              ce.co.autoStoppingRule.helpText.step2.description.heading
-              <br />
-              <ol
-                type="1"
-              >
-                <li>
-                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms
-                </li>
-                <li>
-                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg
-                </li>
-              </ol>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
       class="StyledProps--font StyledProps--main"
       style="padding-top: 10px;"
     >
@@ -2015,7 +1796,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-medium"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                   style="margin-top: 5px;"
                 >
                   AWS
@@ -2069,6 +1850,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="gatewayName"
+                                placeholder="ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder"
                                 type="text"
                                 value="New Rule"
                               />
@@ -2139,7 +1921,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="idleTime"
-                                placeholder="Enter time"
+                                placeholder="ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder"
                                 type="text"
                                 value="10"
                               />
@@ -2171,6 +1953,22 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
             class="StyledProps--font StyledProps--main title"
           >
             ce.co.autoStoppingRule.configuration.step2.title
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
@@ -2327,6 +2125,22 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
             class="StyledProps--font StyledProps--main title"
           >
             ce.co.autoStoppingRule.configuration.step3.asgTitle
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
@@ -2513,7 +2327,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ce.co.autoStoppingRule.configuration.step4.title
+            ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
           <div
             class="childrenContainer"
@@ -2952,101 +2766,6 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
     class="Layout--vertical StyledProps--main page"
   >
     <div
-      style="top: 85px; box-shadow: rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px; width: 392px; bottom: 0px; right: 0px; position: fixed; z-index: 20; overflow-y: scroll;"
-    >
-      <div
-        class="StyledProps--font StyledProps--main"
-      >
-        <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-large"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-medium"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-weight: 500; line-height: 24px;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="info"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-               
-              ce.co.autoStoppingRule.helpText.step1.title
-            </p>
-            <div
-              class="StyledProps--font StyledProps--main StyledProps--flex"
-              style="justify-content: center; flex-grow: 1;"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="test-file-stub"
-              />
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="line-height: 20px;"
-            >
-              ce.co.autoStoppingRule.helpText.step1.description
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-weight: 500; line-height: 24px;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="info"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-               
-              ce.co.autoStoppingRule.helpText.step2.title
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="line-height: 20px;"
-            >
-              ce.co.autoStoppingRule.helpText.step2.description.heading
-              <br />
-              <ol
-                type="1"
-              >
-                <li>
-                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms
-                </li>
-                <li>
-                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg
-                </li>
-              </ol>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
       class="StyledProps--font StyledProps--main"
       style="padding-top: 10px;"
     >
@@ -3111,7 +2830,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-medium"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                   style="margin-top: 5px;"
                 >
                   AWS
@@ -3165,6 +2884,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="gatewayName"
+                                placeholder="ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder"
                                 type="text"
                                 value="New Rule"
                               />
@@ -3235,7 +2955,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="idleTime"
-                                placeholder="Enter time"
+                                placeholder="ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder"
                                 type="text"
                                 value="10"
                               />
@@ -3267,6 +2987,22 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
             class="StyledProps--font StyledProps--main title"
           >
             ce.co.autoStoppingRule.configuration.step2.title
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
@@ -3423,6 +3159,22 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
             class="StyledProps--font StyledProps--main title"
           >
             ce.co.autoStoppingRule.configuration.step3.asgTitle
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
@@ -3609,7 +3361,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ce.co.autoStoppingRule.configuration.step4.title
+            ce.co.autoStoppingRule.configuration.step4.setup ce.co.gatewayReview.routing, ce.co.gatewayConfig.healthCheck and ce.co.autoStoppingRule.configuration.step4.advancedConfiguration
           </p>
           <div
             class="childrenContainer"

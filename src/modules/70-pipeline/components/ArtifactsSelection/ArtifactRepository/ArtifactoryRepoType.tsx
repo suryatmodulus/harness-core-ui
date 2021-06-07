@@ -4,13 +4,14 @@ import { useStrings } from 'framework/strings'
 
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ArtifactIconByType, ArtifactTitleIdByType } from '../ArtifactHelper'
-import type { ArtifactType } from '../ArtifactInterface'
+import type { ArtifactType, InitialArtifactDataType } from '../ArtifactInterface'
 import css from './ArtifactConnector.module.scss'
 
 interface ArtifactPropType {
   changeArtifactType: (selected: ArtifactType) => void
   artifactTypes: Array<ArtifactType>
   selectedArtifact: ArtifactType
+  artifactInitialValue: InitialArtifactDataType
   stepName: string
 }
 
@@ -19,6 +20,7 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
   artifactTypes,
   changeArtifactType,
   stepName,
+  artifactInitialValue,
   nextStep
 }) => {
   const [selectedArtifactType, setSelectedArtifactType] = React.useState(selectedArtifact)
@@ -26,6 +28,15 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
   const handleOptionSelection = (selected: ArtifactType): void => {
     setSelectedArtifactType(selected)
     changeArtifactType(selected)
+  }
+
+  const gotoNextStep = (): void => {
+    changeArtifactType(selectedArtifactType)
+    if (selectedArtifactType !== artifactInitialValue.submittedArtifact) {
+      nextStep?.({ connectorId: '' })
+    } else {
+      nextStep?.()
+    }
   }
 
   const { getString } = useStrings()
@@ -64,10 +75,7 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
           type="submit"
           text={getString('continue')}
           rightIcon="chevron-right"
-          onClick={() => {
-            changeArtifactType(selectedArtifactType)
-            nextStep?.()
-          }}
+          onClick={gotoNextStep}
           className={css.saveBtn}
         />
       </Layout.Horizontal>

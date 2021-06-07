@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
 import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { ModuleName } from 'framework/types/ModuleName'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
-import { useGetModuleLicenseInfo } from 'services/portal'
+import { useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
 import bgImageURL from './cf-homepage-bg.svg'
 
 const CFHomePage: React.FC = () => {
@@ -18,13 +19,18 @@ const CFHomePage: React.FC = () => {
   const { accountId } = useParams<{
     accountId: string
   }>()
-  const moduleLicenseQueryParams = {
-    queryParams: {
-      accountIdentifier: accountId,
-      moduleType: ModuleName.CF
-    }
+  const getModuleLicenseQueryParams = {
+    accountIdentifier: accountId,
+    moduleType: ModuleName.CF as any
   }
-  const { data, error, refetch, loading } = useGetModuleLicenseInfo(moduleLicenseQueryParams)
+  const { currentUserInfo } = useAppStore()
+
+  const { accounts, defaultAccountId } = currentUserInfo
+  const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
+
+  const { data, error, refetch, loading } = useGetModuleLicenseByAccountAndModuleType({
+    queryParams: getModuleLicenseQueryParams
+  })
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {
@@ -58,6 +64,10 @@ const CFHomePage: React.FC = () => {
 
   const history = useHistory()
 
+  useEffect(() => {
+    refetch()
+  }, [trial])
+
   if (loading) {
     return <PageSpinner />
   }
@@ -66,7 +76,7 @@ const CFHomePage: React.FC = () => {
     return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   }
 
-  if (data?.status === 'SUCCESS' && !data.data) {
+  if (createdFromNG && data?.status === 'SUCCESS' && !data.data) {
     history.push(
       routes.toModuleTrialHome({
         accountId,
@@ -75,7 +85,7 @@ const CFHomePage: React.FC = () => {
     )
   }
 
-  if (data && data.data && trial) {
+  if (createdFromNG && data && data.data && trial) {
     return (
       <TrialInProgressTemplate
         title={getString('cf.continuous')}

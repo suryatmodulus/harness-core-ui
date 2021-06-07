@@ -254,7 +254,7 @@ exports[`PreflightCheck click on section title open correct section 2`] = `
                       idLabel
                     </span>
                     <a
-                      href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/Connector1"
+                      href="/account/accId/ci/orgs/orgId/projects/projId/setup/connectors/Connector1"
                       target="_blank"
                     >
                       <p
@@ -321,7 +321,7 @@ exports[`PreflightCheck click on section title open correct section 2`] = `
                       idLabel
                     </span>
                     <a
-                      href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/Connector1"
+                      href="/account/accId/ci/orgs/orgId/projects/projId/setup/connectors/Connector1"
                       target="_blank"
                     >
                       <p
@@ -507,7 +507,7 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                       idLabel
                     </span>
                     <a
-                      href="/account/accId/admin/resources/connectors/testconttlshanf"
+                      href="/account/accId/ci/orgs/orgId/projects/projId/setup/connectors/testconttlshanf"
                       target="_blank"
                     >
                       <p
@@ -592,7 +592,7 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                               idLabel
                             </span>
                             <a
-                              href="/account/accId/admin/organizations/orgId/resources/connectors/orgConnectorId"
+                              href="/account/accId/ci/orgs/orgId/projects/projId/setup/connectors/orgConnectorId"
                               target="_blank"
                             >
                               <p
@@ -690,7 +690,7 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                               idLabel
                             </span>
                             <a
-                              href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/projectConnectorId"
+                              href="/account/accId/ci/orgs/orgId/projects/projId/setup/connectors/projectConnectorId"
                               target="_blank"
                             >
                               <p
@@ -770,7 +770,7 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                       idLabel
                     </span>
                     <a
-                      href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/Connector1"
+                      href="/account/accId/ci/orgs/orgId/projects/projId/setup/connectors/Connector1"
                       target="_blank"
                     >
                       <p
@@ -961,7 +961,7 @@ exports[`PreflightCheck renders property when has in progress checks 1`] = `
                       idLabel
                     </span>
                     <a
-                      href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/Connector1"
+                      href="/account/accId/ci/orgs/orgId/projects/projId/setup/connectors/Connector1"
                       target="_blank"
                     >
                       <p
@@ -1028,7 +1028,7 @@ exports[`PreflightCheck renders property when has in progress checks 1`] = `
                       idLabel
                     </span>
                     <a
-                      href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/Connector1"
+                      href="/account/accId/ci/orgs/orgId/projects/projId/setup/connectors/Connector1"
                       target="_blank"
                     >
                       <p

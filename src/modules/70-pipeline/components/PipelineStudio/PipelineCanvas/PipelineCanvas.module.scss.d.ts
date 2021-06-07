@@ -14,7 +14,7 @@ declare const styles: {
   readonly savePublishContainer: string
   readonly tagRender: string
   readonly runPipelineBtn: string
-  readonly savePublishBtn: string
+  readonly discardBtn: string
   readonly pipelineNameContainer: string
   readonly pipelineName: string
   readonly pipelineIcon: string

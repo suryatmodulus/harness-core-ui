@@ -13,10 +13,10 @@ exports[`TargetDetailPage TargetDetailPage should render data correctly 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <a
-          href="/account/dummy/cf/orgs/dummy/projects/dummy/targets"
+          href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
-          pipeline.targets.title
+          cf.shared.targetManagement: pipeline.targets.title
         </a>
         <span>
           /
@@ -336,10 +336,10 @@ exports[`TargetDetailPage TargetDetailPage should render its segments 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <a
-          href="/account/dummy/cf/orgs/dummy/projects/dummy/targets"
+          href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
-          pipeline.targets.title
+          cf.shared.targetManagement: pipeline.targets.title
         </a>
         <span>
           /

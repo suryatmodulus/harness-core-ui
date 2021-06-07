@@ -63,7 +63,7 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
             return (
               <div className={css.ioRow} key={key}>
                 <div className={css.key}>
-                  <CopyText textToCopy={toVariableStr(newKey)}>{startCase(key)}</CopyText>
+                  <CopyText textToCopy={toVariableStr(newKey)}>{key}</CopyText>
                 </div>
                 <div className={css.value}>
                   <CopyText textToCopy={value.join(', ')}>{value.join(', ')}</CopyText>
@@ -91,7 +91,7 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
         return (
           <div className={css.ioRow} key={key}>
             <div data-fqn={newKey} className={css.key}>
-              <CopyText textToCopy={toVariableStr(newKey)}>{startCase(key)}</CopyText>
+              <CopyText textToCopy={toVariableStr(newKey)}>{key}</CopyText>
             </div>
             <div className={css.value}>
               <CopyText textToCopy={value.toString()}>{value.toString()}</CopyText>
@@ -105,19 +105,19 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
 
 export interface ExecutionStepInputOutputTabProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: Array<Record<string, any>>
+  data?: Record<string, any>
   mode: 'input' | 'output'
   baseFqn?: string
 }
 
 export default function ExecutionStepInputOutputTab(props: ExecutionStepInputOutputTabProps): React.ReactElement {
+  const { mode, baseFqn = '', data } = props
   const { getString } = useStrings()
-  const prefix = props.mode === 'output' ? `${props.baseFqn || ''}.output` : props.baseFqn || ''
 
-  if (!Array.isArray(props.data) || props.data.length === 0) {
+  if (!data || isEmpty(data)) {
     return (
       <div className={css.ioTab} data-empty="true">
-        {getString(props.mode === 'output' ? 'execution.iotab.noOutputText' : 'execution.iotab.noInputText')}
+        {getString(mode === 'output' ? 'execution.iotab.noOutputText' : 'execution.iotab.noInputText')}
       </div>
     )
   }
@@ -125,12 +125,10 @@ export default function ExecutionStepInputOutputTab(props: ExecutionStepInputOut
   return (
     <div className={css.ioTab}>
       <div className={cx(css.ioRow, css.header)}>
-        <div>{getString(props.mode === 'input' ? 'inputName' : 'outputName')}</div>
-        <div>{getString(props.mode === 'input' ? 'inputValue' : 'outputValue')}</div>
+        <div>{getString(mode === 'input' ? 'inputName' : 'outputName')}</div>
+        <div>{getString(mode === 'input' ? 'inputValue' : 'outputValue')}</div>
       </div>
-      {props.data.map((row, i) => (
-        <ExecutionStepInputOutputTabRow prefix={prefix} data={row} key={i} level={0} />
-      ))}
+      <ExecutionStepInputOutputTabRow prefix={baseFqn} data={data} level={0} />
     </div>
   )
 }

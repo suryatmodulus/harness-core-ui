@@ -8,6 +8,8 @@ declare const styles: {
   readonly page: string
   readonly centerAlignedRadio: string
   readonly radioFont: string
+  readonly setupAccessHeading: string
+  readonly setupAccessSubHeading: string
   readonly dnsLinkContainer: string
   readonly selectLoadBalancerContainer: string
   readonly helperImage: string
@@ -24,6 +26,7 @@ declare const styles: {
   readonly customDomainContainer: string
   readonly configFormWrapper: string
   readonly othersHelpTextContainer: string
+  readonly helpTextHeader: string
   readonly formFieldRow: string
   readonly radioBtn: string
   readonly saveBtn: string

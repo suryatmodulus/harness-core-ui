@@ -222,7 +222,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                 style="width: 250px;"
               >
                 <div
-                  class="bp3-form-group"
+                  class="bp3-form-group multiSelect"
                   data-id="dataSource-2"
                   style="z-index: 4;"
                 >

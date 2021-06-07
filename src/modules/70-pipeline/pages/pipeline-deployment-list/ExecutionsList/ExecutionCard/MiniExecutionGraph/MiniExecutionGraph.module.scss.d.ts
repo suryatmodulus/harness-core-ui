@@ -34,9 +34,5 @@ declare const styles: {
   readonly extraCount: string
   readonly pulse: string
   readonly infoPopover: string
-  readonly title: string
-  readonly section: string
-  readonly sectionTitle: string
-  readonly sectionData: string
 }
 export default styles

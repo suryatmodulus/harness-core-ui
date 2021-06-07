@@ -13,7 +13,7 @@ import CreatePrometheusConnector from '../CreatePrometheusConnector'
 
 const PrometheusURL = 'http://1234.45.565.67:8080'
 
-describe('Create newrelic connector Wizard', () => {
+describe('Create prometheus connector Wizard', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })

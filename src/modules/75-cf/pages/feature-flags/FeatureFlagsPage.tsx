@@ -20,7 +20,7 @@ import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
-import { useConfirmAction, useQueryParams } from '@common/hooks'
+import { useConfirmAction } from '@common/hooks'
 import Table from '@common/components/Table/Table'
 import {
   useGetAllFeatures,
@@ -89,7 +89,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
       <Text margin={{ top: 'medium', bottom: 'small' }} style={{ lineHeight: '22px', color: '#383946' }}>
         <span
           // This is used to retain simple HTML markup in i18n string like <strong>
-          // to make sure formating is aligned with translations
+          // to make sure formatting is aligned with translations
           dangerouslySetInnerHTML={{
             __html: getString(status ? 'cf.featureFlags.turnOffMessage' : 'cf.featureFlags.turnOnMessage', {
               name: data.name,
@@ -103,7 +103,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
         {(!featureFlagHasCustomRules(data) && (
           <span
             // This is used to retain simple HTML markup in i18n string like <strong>
-            // to make sure formating is aligned with translations
+            // to make sure formatting is aligned with translations
             dangerouslySetInnerHTML={{
               __html: getString('cf.featureFlags.defaultWillBeServed', {
                 defaultVariation: status ? data.defaultOffVariation : data.defaultOnVariation
@@ -128,7 +128,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
                   update(!status)
                 })
                 .catch(error => {
-                  showError(getErrorMessage(error), 0)
+                  showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')
                 })
             }}
           />
@@ -327,10 +327,10 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
             refetch?.()
           })
           .catch(error => {
-            showError(getErrorMessage(error))
+            showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')
           })
       } catch (error) {
-        showError(getErrorMessage(error))
+        showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')
       }
     }
   })
@@ -372,23 +372,22 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 const FeatureFlagsPage: React.FC = () => {
   // const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
   // const [isDrawerOpened, setIsDrawerOpened] = useState(false)
-  const [activeEnvironment, setActiveEnvironment] = useState<EnvironmentResponseDTO>()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
-  const urlQuery: Record<string, string> = useQueryParams()
   const history = useHistory()
-  const { withActiveEnvironment } = useActiveEnvironment()
+  const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
   const [pageNumber, setPageNumber] = useState(0)
   const queryParams = useMemo(
     () => ({
       project: projectIdentifier as string,
-      environment: activeEnvironment?.identifier as string,
+      environment: activeEnvironment,
       account: accountId,
       accountIdentifier: accountId,
       org: orgIdentifier,
       pageSize: CF_DEFAULT_PAGE_SIZE,
-      pageNumber
+      pageNumber,
+      metrics: true
     }),
-    [projectIdentifier, activeEnvironment?.identifier, accountId, orgIdentifier, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
+    [projectIdentifier, activeEnvironment, accountId, orgIdentifier, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const { data, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
     lazy: true,
@@ -401,9 +400,8 @@ const FeatureFlagsPage: React.FC = () => {
     refetch: refetchEnvironments,
     environments
   } = useEnvironmentSelectV2({
-    selectedEnvironmentIdentifier: urlQuery.activeEnvironment || activeEnvironment?.identifier,
+    selectedEnvironmentIdentifier: activeEnvironment,
     onChange: (_value, _environment, _userEvent) => {
-      setActiveEnvironment(_environment)
       rewriteCurrentLocationWithActiveEnvironment(_environment)
       refetch({ queryParams: { ...queryParams, environment: _environment.identifier as string } })
     },
@@ -530,7 +528,7 @@ const FeatureFlagsPage: React.FC = () => {
       headerStyle={{ display: 'flex' }}
       toolbar={
         <Layout.Horizontal>
-          <FlagDialog disabled={loading} environment={activeEnvironment?.identifier as string} />
+          <FlagDialog disabled={loading} environment={activeEnvironment} />
           <FlexExpander />
 
           {/** TODO: Disable search as backend does not support it yet */}
@@ -575,7 +573,7 @@ const FeatureFlagsPage: React.FC = () => {
           {!loading && emptyFeatureFlags && (
             <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
               <NoData imageURL={imageURL} message={getString('cf.noFlag')}>
-                <FlagDialog environment={activeEnvironment?.identifier as string} />
+                <FlagDialog environment={activeEnvironment} />
               </NoData>
             </Container>
           )}

@@ -1,27 +1,32 @@
 .optionBtns {
   display: inline-block;
-  background-color: var(--grey-200);
-  border-radius: 10px;
   font-size: var(--font-size-xsmall);
   line-height: 14px;
-  width: 138px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
+  width: 136px;
+  margin: 0 250px;
 
   .item {
     display: inline-block;
-    padding: var(--spacing-xsmall) var(--spacing-medium);
+    padding: 4px 8px;
     border-radius: 10px;
     margin: 2px;
     cursor: pointer;
+    border: solid 1px var(--primary-9);
+    color: var(--primary-9);
+    background: #fff;
+    width: 55px;
+    text-align: center;
   }
 
   .selected {
     font-weight: bold;
-    background-color: var(--grey-400);
+    background-color: var(--primary-9);
     color: var(--white);
     cursor: default;
+  }
+
+  .disabledMode {
+    cursor: not-allowed;
   }
 }
 
@@ -29,6 +34,8 @@
   min-height: initial;
   .editor {
     width: 100%;
+    // max height is same as the height in visual view
+    max-height: 65vh !important;
     padding-top: var(--spacing-medium);
     padding-bottom: var(--spacing-medium);
   }
@@ -59,15 +66,11 @@
   .divider {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin-bottom: var(--spacing-3);
-    .gitFilters {
-      margin-bottom: var(--spacing-3);
-    }
   }
 
   .footer {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     width: 100%;
-    padding-top: var(--spacing-medium);
   }
 
   [class*='OverlaySpinner--overlaySpinner'] {
@@ -99,15 +102,6 @@
   .inputSetcard {
     margin: var(--spacing-large);
   }
-  .errorHeader {
-    background: #fff9e7;
-    color: #000;
-    :global {
-      .bp3-icon {
-        padding-right: var(--spacing-large);
-      }
-    }
-  }
 }
 
 .preFlightCheckModal {
@@ -131,8 +125,9 @@
 
 .modal-card {
   max-height: fit-content;
+  min-height: 150px;
   height: calc(100% - 48px);
-  padding-top: var(--spacing-xlarge) !important;
+  min-height: 150px;
 
   &.bp3-dialog-header {
     color: var(--grey-700);
@@ -147,13 +142,12 @@
 .run-modal-header {
   min-height: var(--spacing-8);
   display: flex;
-  justify-content: space-between !important;
-  padding-left: var(--spacing-xlarge) !important;
-  padding-right: var(--spacing-xlarge) !important;
+  padding: var(--spacing-medium) var(--spacing-large);
 }
 
 .run-modal-sub-heading {
   justify-content: space-between !important;
+  align-items: center;
 }
 
 .run-modal-header-title {
@@ -163,8 +157,10 @@
 
 .run-modal-form-content {
   max-height: 65vh !important;
-  min-height: 145px;
-  overflow: scroll !important;
+  min-height: 200px;
+  overflow-x: hidden;
+  overflow: auto !important;
+  border-top: 1px solid var(--grey-200);
 }
 
 .no-pipeline-input-set-form {
@@ -195,5 +191,52 @@
 
 .dialog {
   position: relative;
-  padding-bottom: var(--spacing-xlarge) !important;
+  padding-bottom: 0 !important;
+  background-color: var(--form-bg) !important;
+}
+
+.runPipelineErrorPopover {
+  padding: 0 var(--spacing-medium);
+  background: white;
+  color: var(--red-400);
+  font-weight: 500;
+}
+
+.valueProviderRadio {
+  padding: var(--spacing-small) var(--spacing-xlarge) var(--spacing-small) var(--spacing-huge) !important;
+  border: 1px solid var(--grey-200);
+  border-radius: 4px;
+  background-color: white;
+}
+
+.selectedValueProvider {
+  border-color: var(--primary-7);
+  background-color: var(--primary-2) !important;
+  color: var(--form-body-text);
+}
+
+.runPipelineErrorDesc {
+  padding: var(--spacing-small);
+}
+
+.runPipelineErrorLine {
+  margin: var(--spacing-xsmall) 0 !important;
+}
+
+.errorHeader {
+  padding: var(--spacing-small) var(--spacing-large) !important;
+  background-color: var(--red-50) !important;
+}
+
+.actionButtons {
+  margin-top: 0 !important;
+}
+
+.secondaryButton {
+  margin-left: var(--spacing-medium) !important;
+}
+
+.footerCheckbox {
+  border-radius: 4px;
+  font-size: var(--font-size-small) !important;
 }

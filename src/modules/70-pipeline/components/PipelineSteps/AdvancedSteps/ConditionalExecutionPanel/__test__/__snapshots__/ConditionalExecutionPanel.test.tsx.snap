@@ -75,41 +75,30 @@ exports[`ConditionalExecutionPanel matches snapshot 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-xxlarge StyledProps--padding-right-medium"
+        class="StyledProps--font StyledProps--main StyledProps--padding-top-medium"
       >
+        <label
+          class="bp3-control bp3-checkbox blackText"
+        >
+          <input
+            name="enableJEXL"
+            type="checkbox"
+          />
+          <span
+            class="bp3-control-indicator"
+          />
+          pipeline.conditionalExecution.condition
+        </label>
         <div
-          class="bp3-form-group"
-          style="font-size: 13px;"
+          class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-large"
         >
           <div
-            class="bp3-form-content"
+            class="main disabled"
           >
-            <label
-              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--color StyledProps--color-grey900 StyledProps--inline"
-              style="font-size: 13px;"
-            >
-              <input
-                name="enableJEXL"
-                type="checkbox"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              <span
-                class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                data-tooltip-id="conditionalExecution_enableJEXL"
-              >
-                 pipeline.conditionalExecution.condition
-              </span>
-            </label>
+            <textarea
+              name="condition"
+            />
           </div>
-        </div>
-        <div
-          class="main"
-        >
-          <textarea
-            name="condition"
-          />
         </div>
       </div>
     </div>

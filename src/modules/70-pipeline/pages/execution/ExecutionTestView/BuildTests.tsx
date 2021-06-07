@@ -132,6 +132,15 @@ const BuildTests: React.FC = () => {
     fetchTestOverview
   ])
 
+  const testsCountDiff = useMemo(() => {
+    const newTests = testOverviewData?.selected_tests?.new_tests
+    const total = testOverviewData?.total_tests
+    if (newTests && total) {
+      return Number(Number(newTests / (total / 100)).toFixed(2))
+    }
+    return 0
+  }, [testOverviewData?.total_tests, testOverviewData?.selected_tests?.new_tests])
+
   // When build/execution is not resolved from context, render nothing
   if (!status) {
     return null
@@ -181,6 +190,7 @@ const BuildTests: React.FC = () => {
                   skippedTests={testOverviewData.skipped_tests}
                   timeSavedMS={testOverviewData.time_saved_ms}
                   durationMS={reportSummaryData.duration_ms}
+                  testsCountDiff={testsCountDiff}
                 />
               )}
             {reportSummaryData?.total_tests && reportSummaryData?.tests && (
@@ -213,6 +223,7 @@ const BuildTests: React.FC = () => {
                 totalTests={testOverviewData.total_tests}
                 skippedTests={testOverviewData.skipped_tests}
                 timeSavedMS={testOverviewData.time_saved_ms}
+                testsCountDiff={testsCountDiff}
               />
             )}
           {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&

@@ -204,7 +204,7 @@ const COGatewayList: React.FC = () => {
   }, [servicesData?.response])
 
   if (error) {
-    showError(error.data || error.message)
+    showError(error.data || error.message, undefined, 'ce.get.svc.error')
   }
 
   if (_isEmpty(tableData) && loading) {
@@ -295,14 +295,31 @@ const COGatewayList: React.FC = () => {
       debounce: 300
     })
     if (resourcesError) {
-      showError(`could not load resources for rule ${tableProps.row.original.name}`)
+      showError(
+        `could not load resources for rule ${tableProps.row.original.name}`,
+        undefined,
+        'ce.get.svc.resource.error'
+      )
     }
+
+    const hasCustomDomains = (tableProps.row.original.custom_domains?.length as number) > 0
+
+    const handleDomainClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.stopPropagation()
+      const link = hasCustomDomains ? tableProps.row.original.custom_domains?.[0] : tableProps.row.original.host_name
+      window.open(`http://${link}`, '_blank')
+    }
+
     return (
-      <Container>
+      <Container style={{ maxWidth: '80%' }}>
         <Layout.Vertical spacing="medium">
           <Layout.Horizontal spacing="xxxsmall">
             <Text
-              style={{ alignSelf: 'center', color: tableProps.row.original.disabled ? textColor.disable : 'inherit' }}
+              style={{
+                alignSelf: 'center',
+                color: tableProps.row.original.disabled ? textColor.disable : 'inherit',
+                marginRight: 5
+              }}
             >
               No. of instances:
             </Text>
@@ -313,7 +330,8 @@ const COGatewayList: React.FC = () => {
                 style={{
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
-                  color: tableProps.row.original.disabled ? textColor.disable : 'inherit'
+                  color: tableProps.row.original.disabled ? textColor.disable : 'inherit',
+                  marginRight: 5
                 }}
                 onClick={e => {
                   e.stopPropagation()
@@ -322,7 +340,7 @@ const COGatewayList: React.FC = () => {
                 {resources?.response?.length}
               </Link>
             ) : (
-              <Icon name="spinner" size={12} color="blue500" />
+              <Icon name="spinner" size={12} color="blue500" style={{ marginRight: 5 }} />
             )}
             {!tableProps.row.original.disabled && (
               <>
@@ -336,44 +354,23 @@ const COGatewayList: React.FC = () => {
               </>
             )}
           </Layout.Horizontal>
-          <Layout.Horizontal spacing="large">
-            {tableProps.row.original.custom_domains?.length ? (
-              <Text lineClamp={3} color={tableProps.row.original.disabled ? textColor.disable : Color.GREY_500}>
-                Custom Domain:
-                <Link
-                  href={`http://${tableProps.row.original.custom_domains[0]}`}
-                  target="_blank"
-                  style={{
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    color: tableProps.row.original.disabled ? textColor.disable : '#0278D5'
-                  }}
-                  onClick={e => {
-                    e.stopPropagation()
-                  }}
-                >
-                  {tableProps.row.original.custom_domains?.join(',')}
-                </Link>
-              </Text>
-            ) : (
-              <Text lineClamp={3} color={tableProps.row.original.disabled ? textColor.disable : Color.GREY_500}>
-                Host name:
-                <Link
-                  href={`http://${tableProps.row.original.host_name}`}
-                  target="_blank"
-                  style={{
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    color: tableProps.row.original.disabled ? textColor.disable : '#0278D5'
-                  }}
-                  onClick={e => {
-                    e.stopPropagation()
-                  }}
-                >
-                  {tableProps.row.original.host_name}
-                </Link>
-              </Text>
-            )}
+          <Layout.Horizontal spacing="small">
+            <span style={{ color: tableProps.row.original.disabled ? textColor.disable : Color.GREY_500 }}>
+              {hasCustomDomains ? 'Custom Domain: ' : 'Host name: '}
+            </span>
+            <Text
+              style={{
+                flex: 1,
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                color: tableProps.row.original.disabled ? textColor.disable : '#0278D5',
+                textDecoration: 'underline'
+              }}
+              onClick={handleDomainClick}
+            >
+              {hasCustomDomains ? tableProps.row.original.custom_domains?.join(',') : tableProps.row.original.host_name}
+            </Text>
           </Layout.Horizontal>
         </Layout.Vertical>
         {/* <Icon name={tableProps.row.original.provider.icon as IconName}></Icon> */}
@@ -467,7 +464,7 @@ const COGatewayList: React.FC = () => {
       }
       showSuccess(`Rule ${data.name} ${!data.disabled ? 'enabled' : 'disabled'}`)
     } else {
-      showError(data)
+      showError(data, undefined, 'ce.svc.stage.toggle.error')
     }
   }
 
@@ -480,7 +477,7 @@ const COGatewayList: React.FC = () => {
       }
       refetchServices()
     } else {
-      showError(data)
+      showError(data, undefined, 'ce.svc.delete.error')
     }
   }
 

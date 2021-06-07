@@ -8,7 +8,7 @@ $node-width: 40px;
 
   .graphWrapper {
     height: $node-height;
-    margin: var(--spacing-large) var(--spacing-medium);
+    margin: var(--spacing-large) var(--spacing-6);
   }
 
   .graph {
@@ -26,7 +26,7 @@ $node-width: 40px;
   .scrollRight {
     position: absolute;
     top: calc(var(--spacing-large) + 5px);
-    background: var(--blue-100) !important;
+    background: var(--primary-1) !important;
     color: var(--primary-7) !important;
     border: 1px solid var(--primary-7) !important;
     padding: 0 !important;
@@ -51,6 +51,13 @@ $node-width: 40px;
     z-index: 1;
     margin-top: var(--spacing-small);
     overflow: hidden;
+    padding: 0 var(--spacing-6);
+
+    & :global(.bp3-popover-wrapper),
+    & :global(.bp3-popover-target) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .stepCount {
@@ -326,33 +333,5 @@ $node-width: 40px;
 }
 
 .infoPopover {
-  padding: var(--spacing-small) var(--spacing-large);
-  width: 250px;
-
-  .title {
-    margin-bottom: var(--spacing-xsmall);
-    font-weight: 500;
-    line-height: 26px;
-    font-size: var(--font-size-normal);
-  }
-
-  .section {
-    margin-top: var(--spacing-small);
-    border-top: 1px solid var(--grey-200);
-    padding: var(--spacing-small) 0;
-  }
-
-  .sectionTitle {
-    font-size: var(--font-size-xsmall);
-    color: var(--grey-500);
-  }
-
-  .sectionData {
-    font-size: var(--font-size-normal);
-    line-height: 20px;
-
-    &:not(:last-child) {
-      margin-bottom: var(--spacing-medium);
-    }
-  }
+  max-width: 449px;
 }

@@ -21,7 +21,6 @@ import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 
 import {
-  DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -128,14 +127,23 @@ function K8sBGSwapWidget(
 
 const K8sBGSwapInputStep: React.FC<K8sBGSwapProps> = ({ inputSetData }) => {
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
-        <DurationInputFieldForInputSet
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
-          label={getString('pipelineSteps.timeoutLabel')}
-          disabled={inputSetData?.readonly}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.sm)}>
+          <FormMultiTypeDurationField
+            multiTypeDurationProps={{
+              enableConfigureOptions: false,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              expressions,
+              disabled: inputSetData?.readonly
+            }}
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
+            label={getString('pipelineSteps.timeoutLabel')}
+            disabled={inputSetData?.readonly}
+          />
+        </div>
       )}
     </>
   )

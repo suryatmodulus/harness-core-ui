@@ -259,14 +259,16 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     if (event.node?.identifier) {
       const dropEntity = model.getNodeFromId(event.node.id)
       if (dropEntity) {
-        const dropNode = getStepFromNode(state.stepsData, dropEntity, true).node
+        const drop = getStepFromNode(state.stepsData, dropEntity, true)
+        const dropNode = drop.node
         const current = getStepFromNode(state.stepsData, eventTemp.entity, true, true)
+        const skipFlattenIfSameParallel = drop.parent === current.node?.parallel
         // Check Drop Node and Current node should not be same
         if (event.node.identifier !== eventTemp.entity.getIdentifier() && dropNode) {
           if (dropNode?.stepGroup && eventTemp.entity.getParent() instanceof StepGroupNodeLayerModel) {
             showError(getString('stepGroupInAnotherStepGroup'))
           } else {
-            const isRemove = removeStepOrGroup(state, dropEntity)
+            const isRemove = removeStepOrGroup(state, dropEntity, skipFlattenIfSameParallel)
             if (isRemove) {
               if (current.node) {
                 if (current.parent && (current.node.step || current.node.stepGroup)) {

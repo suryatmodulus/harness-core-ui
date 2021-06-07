@@ -1,5 +1,7 @@
-import React, { useEffect, useRef } from 'react'
-import { Tooltip, Intent, Dialog, Classes, RadioGroup, Radio } from '@blueprintjs/core'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import type { MutateMethod } from 'restful-react'
+import * as Yup from 'yup'
+import { Tooltip, Intent, Dialog, Classes, RadioGroup, Radio, PopoverPosition } from '@blueprintjs/core'
 import {
   Button,
   Checkbox,
@@ -8,16 +10,20 @@ import {
   Layout,
   Text,
   NestedAccordionProvider,
-  Accordion,
   Icon,
-  useModalHook
+  useModalHook,
+  Utils,
+  Heading,
+  Color,
+  Popover
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
-import { pick, merge, isEmpty, debounce } from 'lodash-es'
+import { pick, merge, isEmpty, isEqual } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { NameIdDescriptionTags } from '@common/components'
 import type { NgPipeline, ResponseJsonNode } from 'services/cd-ng'
 import {
   useGetPipeline,
@@ -25,14 +31,21 @@ import {
   useGetTemplateFromPipeline,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
   getInputSetForPipelinePromise,
-  useGetInputSetsListForPipeline
+  useGetInputSetsListForPipeline,
+  ResponseInputSetTemplateResponse,
+  useCreateInputSetForPipeline,
+  ResponseInputSetResponse,
+  CreateInputSetForPipelineQueryParams
 } from 'services/pipeline-ng'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
+import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
+import { usePermission } from '@rbac/hooks/usePermission'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import type { GitQueryParams, InputSetGitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -44,16 +57,171 @@ import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
 import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
+import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
+import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
+import factory from '../PipelineSteps/PipelineStepFactory'
 import css from './RunPipelineModal.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
-const debouncedValidatePipeline = debounce(validatePipeline, 300)
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & GitQueryParams> {
   inputSetSelected?: InputSetSelectorProps['value']
   inputSetYAML?: string
   onClose?: () => void
   executionView?: boolean
   mockData?: ResponseJsonNode
+}
+
+const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
+  fileName: `run-pipeline.yaml`,
+  entityType: 'Pipelines',
+  showSnippetSection: false,
+  yamlSanityConfig: {
+    removeEmptyString: false,
+    removeEmptyObject: false,
+    removeEmptyArray: false
+  }
+}
+
+enum SelectedView {
+  VISUAL = 'VISUAL',
+  YAML = 'YAML'
+}
+
+interface ModeSelectorProps {
+  selectedView: SelectedView
+  handleModeSwitch: (view: SelectedView) => void
+  template: ResponseInputSetTemplateResponse | null
+}
+
+const ModeSelector = ({ selectedView, handleModeSwitch, template }: ModeSelectorProps) => {
+  const { getString } = useStrings()
+  const noRuntimeInputs = !template?.data?.inputSetTemplateYaml
+  return (
+    <div className={css.optionBtns}>
+      <div
+        className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
+        onClick={() => handleModeSwitch(SelectedView.VISUAL)}
+      >
+        {getString('visual')}
+      </div>
+      <div
+        className={cx(css.item, {
+          [css.selected]: selectedView === SelectedView.YAML,
+          [css.disabledMode]: noRuntimeInputs
+        })}
+        onClick={() => {
+          if (noRuntimeInputs) {
+            // No runtime inputs in the pipeline, do not allow the user to switch to YAML mode
+            return
+          }
+          handleModeSwitch(SelectedView.YAML)
+        }}
+      >
+        {getString('yaml')}
+      </div>
+    </div>
+  )
+}
+
+interface SaveAsInputSetProps {
+  pipeline?: NgPipeline
+  currentPipeline?: { pipeline?: NgPipeline }
+  template: ResponseInputSetTemplateResponse | null
+  values: Values
+  projectIdentifier: string
+  orgIdentifier: string
+  canEdit: boolean
+  createInputSetLoading: boolean
+  createInputSet: MutateMethod<ResponseInputSetResponse, void, CreateInputSetForPipelineQueryParams, void>
+}
+
+const SaveAsInputSet = ({
+  pipeline,
+  currentPipeline,
+  template,
+  orgIdentifier,
+  projectIdentifier,
+  values,
+  canEdit,
+  createInputSet,
+  createInputSetLoading
+}: SaveAsInputSetProps): JSX.Element | null => {
+  const { getString } = useStrings()
+
+  const { showError, showSuccess } = useToaster()
+  const { GIT_SYNC_NG } = useFeatureFlags()
+  if (pipeline && currentPipeline && template?.data?.inputSetTemplateYaml) {
+    return (
+      <Popover
+        content={
+          <div className={Classes.POPOVER_DISMISS_OVERRIDE}>
+            <Formik
+              onSubmit={input => {
+                createInputSet(stringify({ inputSet: { ...input, orgIdentifier, projectIdentifier } }) as any)
+                  .then(response => {
+                    if (response.data?.errorResponse) {
+                      showError(getString('inputSets.inputSetSavedError'))
+                    } else {
+                      showSuccess(getString('inputSets.inputSetSaved'))
+                    }
+                  })
+                  .catch(e => {
+                    showError(e?.data?.message || e?.message)
+                  })
+              }}
+              validationSchema={Yup.object().shape({
+                name: Yup.string().trim().required(getString('inputSets.nameIsRequired'))
+              })}
+              initialValues={{ pipeline: values, name: '', identifier: '' } as InputSetDTO}
+            >
+              {createInputSetFormikProps => {
+                const { submitForm: submitFormIs } = createInputSetFormikProps
+                return (
+                  <Layout.Vertical padding="large" width={400}>
+                    <NameIdDescriptionTags
+                      identifierProps={{
+                        inputLabel: getString('inputSets.inputSetName'),
+                        isIdentifierEditable: true,
+                        inputGroupProps: {
+                          disabled: !canEdit
+                        }
+                      }}
+                      descriptionProps={{ disabled: !canEdit }}
+                      tagsProps={{
+                        disabled: !canEdit
+                      }}
+                      formikProps={createInputSetFormikProps}
+                    />
+                    <Layout.Horizontal spacing="medium">
+                      <Button
+                        intent="primary"
+                        text={createInputSetLoading ? getString('loading') : getString('save')}
+                        type="submit"
+                        disabled={createInputSetLoading}
+                        onClick={event => {
+                          event.stopPropagation()
+                          submitFormIs()
+                        }}
+                      />
+                      <Button className={Classes.POPOVER_DISMISS} text={getString('cancel')} />
+                    </Layout.Horizontal>
+                  </Layout.Vertical>
+                )
+              }}
+            </Formik>
+          </div>
+        }
+      >
+        <Button
+          minimal
+          intent="primary"
+          text={getString('inputSets.saveAsInputSet')}
+          disabled={!canEdit || GIT_SYNC_NG}
+        />
+      </Popover>
+    )
+  }
+  return null
 }
 
 function RunPipelineFormBasic({
@@ -72,6 +240,7 @@ function RunPipelineFormBasic({
   inputSetBranch
 }: RunPipelineFormProps & InputSetGitQueryParams): React.ReactElement {
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
+  const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [notifyOnlyMe, setNotifyOnlyMe] = React.useState<boolean>(false)
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>(inputSetSelected)
   const [formErrors, setFormErrors] = React.useState<FormikErrors<InputSetDTO>>({})
@@ -80,15 +249,47 @@ function RunPipelineFormBasic({
   )
   const [gitFilter, setGitFilter] = React.useState<GitFilterScope | null>({
     repo: inputSetRepoIdentifier || '',
-    branch: inputSetBranch || ''
+    branch: inputSetBranch || '',
+    getDefaultFromOtherRepo: true
   })
   const { showError, showSuccess, showWarning } = useToaster()
   const history = useHistory()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
 
+  const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    },
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
+  })
+
+  const [canEdit] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE]
+    },
+    [accountId, orgIdentifier, projectIdentifier, pipelineIdentifier]
+  )
+
   useEffect(() => {
     if (inputSetYAML) {
+      setExistingProvide('provide')
       setCurrentPipeline(parse(inputSetYAML))
     }
   }, [inputSetYAML])
@@ -223,33 +424,36 @@ function RunPipelineFormBasic({
 
   const pipeline: NgPipeline | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
   const renderErrors = React.useCallback(() => {
-    const errorList = getErrorsList(formErrors)
-    const errorCount = errorList.length
+    const { errorStrings, errorCount } = getErrorsList(formErrors)
     if (!errorCount) {
       return null
     }
     const errorString = `Errors: ${errorCount}`
     return (
-      <div className={css.errorHeader}>
-        <Accordion className={css.errorsContent}>
-          <Accordion.Panel
-            id="errors"
-            summary={
-              <Layout.Horizontal spacing="small">
-                <Icon name="warning-sign" intent={Intent.DANGER} />
-                <Text intent="danger">{errorString}</Text>
-              </Layout.Horizontal>
-            }
-            details={
-              <ul>
-                {errorList.map((errorMessage, index) => (
-                  <li key={index}>{errorMessage}</li>
-                ))}
-              </ul>
-            }
-          />
-        </Accordion>
-      </div>
+      <Layout.Horizontal className={css.errorHeader}>
+        <Icon name="warning-sign" intent={Intent.DANGER} margin={{ right: 'small' }} />
+        <Text intent="danger">{errorString}</Text>
+        <Utils.WrapOptionalTooltip
+          tooltip={
+            <div className={css.runPipelineErrorDesc}>
+              {errorStrings.map((errorMessage, index) => (
+                <Text intent="danger" key={index} font={{ weight: 'semi-bold' }} className={css.runPipelineErrorLine}>
+                  {errorMessage}
+                </Text>
+              ))}
+            </div>
+          }
+          tooltipProps={{
+            position: PopoverPosition.BOTTOM,
+            inheritDarkTheme: true,
+            popoverClassName: css.runPipelineErrorPopover
+          }}
+        >
+          <Text font={{ size: 'small' }} margin={{ left: 'small' }}>
+            See details
+          </Text>
+        </Utils.WrapOptionalTooltip>
+      </Layout.Horizontal>
     )
   }, [formErrors])
 
@@ -336,13 +540,61 @@ function RunPipelineFormBasic({
 
   const mountRefForError = React.useRef<boolean>(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (mountRefForError.current && selectedInputSets) {
       mountRefForError.current = false
     }
   }, [selectedInputSets])
 
-  React.useEffect(() => {
+  const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
+  const [lastYaml, setLastYaml] = useState({})
+
+  const handleModeSwitch = useCallback(
+    (view: SelectedView) => {
+      if (view === SelectedView.VISUAL) {
+        const presentPipeline = parse(yamlHandler?.getLatestYaml() || '') as { pipeline: NgPipeline }
+        const errors = validatePipeline(
+          presentPipeline.pipeline,
+          parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
+          currentPipeline?.pipeline,
+          getString
+        ) as any
+        setFormErrors(errors)
+        setCurrentPipeline(presentPipeline)
+      }
+      setSelectedView(view)
+    },
+    [yamlHandler?.getLatestYaml]
+  )
+
+  useEffect(() => {
+    try {
+      if (yamlHandler) {
+        const Interval = window.setInterval(() => {
+          const parsedYaml = parse(yamlHandler.getLatestYaml() || '')
+
+          if (!isEqual(lastYaml, parsedYaml)) {
+            const errors = validatePipeline(
+              parsedYaml.pipeline,
+              parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
+              currentPipeline?.pipeline,
+              getString
+            ) as any
+            setFormErrors(errors)
+            setCurrentPipeline(parsedYaml as { pipeline: NgPipeline })
+            setLastYaml(parsedYaml)
+          }
+        }, POLL_INTERVAL)
+        return () => {
+          window.clearInterval(Interval)
+        }
+      }
+    } catch (e) {
+      // Ignore Error
+    }
+  }, [yamlHandler, lastYaml])
+
+  useEffect(() => {
     let errors: FormikErrors<InputSetDTO> = formErrors
 
     if (
@@ -356,7 +608,7 @@ function RunPipelineFormBasic({
         selectedInputSets && selectedInputSets.length > 0
           ? currentPipeline.pipeline
           : { ...clearRuntimeInput(currentPipeline.pipeline) },
-        parse(template?.data?.inputSetTemplateYaml || '').pipeline,
+        parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
         currentPipeline.pipeline,
         getString
       ) as any
@@ -395,184 +647,284 @@ function RunPipelineFormBasic({
           handleRunPipeline(values as any)
         }}
         enableReinitialize
-        validate={values => {
+        validate={async values => {
           let errors: FormikErrors<InputSetDTO> = formErrors
 
           setCurrentPipeline({ ...currentPipeline, pipeline: values as NgPipeline })
-          if (values && yamlTemplate && pipeline) {
-            errors =
-              (debouncedValidatePipeline(
-                values as NgPipeline,
-                parse(template?.data?.inputSetTemplateYaml || '').pipeline,
-                pipeline,
-                getString
-              ) as any) || formErrors
+
+          function validateErrors() {
+            const promise: Promise<FormikErrors<InputSetDTO>> = new Promise(resolve => {
+              setTimeout(() => {
+                const validatedErrors =
+                  (validatePipeline(
+                    values as NgPipeline,
+                    parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
+                    pipeline,
+                    getString
+                  ) as any) || formErrors
+                resolve(validatedErrors)
+              }, 300)
+            })
+            return promise
           }
+
+          errors = await validateErrors()
+
           if (typeof errors !== undefined) setFormErrors(errors)
           return errors
         }}
       >
-        {({ submitForm }) => {
+        {({ submitForm, values }) => {
           return (
-            <>
+            <Layout.Vertical>
               {executionView ? null : (
-                <Layout.Vertical style={{ background: 'white' }}>
+                <>
                   <div className={css.runModalHeader}>
-                    <Text className={css.runModalHeaderTitle}>{getString('runPipeline')}</Text>
-                    {renderErrors()}
+                    <Heading
+                      level={2}
+                      font={{ weight: 'bold' }}
+                      color={Color.BLACK_100}
+                      className={css.runModalHeaderTitle}
+                    >
+                      {getString('runPipeline')}
+                    </Heading>
+                    <ModeSelector selectedView={selectedView} handleModeSwitch={handleModeSwitch} template={template} />
                   </div>
-                  <div className={css.runModalFormContent}>
-                    <FormikForm>
-                      {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
-                        <>
-                          {inputSets && inputSets.length > 0 && (
-                            <Layout.Vertical
-                              className={css.pipelineHeader}
-                              padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
-                            >
-                              <div className={css.divider}>
-                                <Layout.Horizontal className={css.runModalSubHeading} id="use-input-set">
-                                  <RadioGroup
-                                    name="existingProvideRadio"
-                                    label={getString('pipeline.triggers.pipelineInputPanel.selectedExisitingOrProvide')}
-                                    inline
-                                    selectedValue={existingProvide}
-                                    onChange={ev => {
-                                      setExistingProvide((ev.target as HTMLInputElement).value)
-                                    }}
-                                  >
-                                    <Radio
-                                      label={getString('pipeline.triggers.pipelineInputPanel.existing')}
-                                      value="existing"
-                                    />
-                                    <Radio
-                                      label={getString('pipeline.triggers.pipelineInputPanel.provide')}
-                                      value="provide"
-                                    />
-                                  </RadioGroup>
-                                  <span className={css.helpSection}>
-                                    <Icon name="question" className={css.helpIcon} />
-                                    <Text>{getString('pipeline.triggers.pipelineInputPanel.whatAreInputsets')}</Text>
-                                  </span>
-                                </Layout.Horizontal>
-                                {isGitSyncEnabled && (
-                                  <div className={css.gitFilters}>
-                                    <GitSyncStoreProvider>
-                                      <GitFilters
-                                        onChange={filter => {
-                                          setGitFilter(filter)
-                                        }}
-                                        defaultValue={gitFilter || undefined}
-                                      />
-                                    </GitSyncStoreProvider>
-                                  </div>
-                                )}
-                              </div>
-                              {!executionView &&
-                                pipeline &&
-                                currentPipeline &&
-                                template?.data?.inputSetTemplateYaml &&
-                                existingProvide === 'existing' && (
-                                  <InputSetSelector
-                                    pipelineIdentifier={pipelineIdentifier}
-                                    onChange={setSelectedInputSets}
-                                    value={selectedInputSets}
-                                    gitFilter={gitFilter || undefined}
-                                  />
-                                )}
-                            </Layout.Vertical>
-                          )}
-                          {(existingProvide === 'provide' || (selectedInputSets && selectedInputSets?.length > 0)) && (
-                            <PipelineInputSetForm
-                              originalPipeline={pipeline}
-                              template={parse(template.data.inputSetTemplateYaml).pipeline}
-                              readonly={executionView}
-                              path=""
-                            />
-                          )}
-                          {existingProvide === 'existing' && selectedInputSets && selectedInputSets?.length > 0 && (
-                            <div className={css.noPipelineInputSetForm} />
-                          )}
-                        </>
-                      ) : (
-                        <Layout.Horizontal padding="medium" margin="medium">
-                          <Text>{getString('runPipelineForm.noRuntimeInput')}</Text>
-                        </Layout.Horizontal>
-                      )}
-                    </FormikForm>
-                  </div>
-                  <div>
-                    <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', bottom: 'medium', top: 'medium' }}>
-                      <div className={css.footer}>
-                        <Layout.Horizontal padding={{ left: 'xxlarge' }}>
-                          <Checkbox
-                            label={getString('pre-flight-check.skipCheckBtn')}
-                            checked={skipPreFlightCheck}
-                            onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
-                          />
-                          <Tooltip position="top" content={getString('featureNA')}>
-                            <Checkbox
-                              padding={{ left: 'xxlarge' }}
-                              disabled
-                              label={getString('runPipelineForm.notifyOnlyMe')}
-                              checked={notifyOnlyMe}
-                              onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
-                            />
-                          </Tooltip>
-                        </Layout.Horizontal>
-                      </div>
-                    </Layout.Horizontal>
-                    <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge' }}>
-                      <div className={css.footer}>
-                        <Layout.Horizontal style={{ width: '100%', justifyContent: 'start' }}>
-                          <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
-                            <RbacButton
-                              style={{ backgroundColor: 'var(--green-600' }}
-                              intent="primary"
-                              type="submit"
-                              text={getString('runPipeline')}
-                              onClick={event => {
-                                event.stopPropagation()
-                                if (
-                                  (!selectedInputSets || selectedInputSets.length === 0) &&
-                                  existingProvide === 'existing'
-                                ) {
-                                  setExistingProvide('provide')
-                                } else {
-                                  submitForm()
-                                }
-                              }}
-                              permission={{
-                                resource: {
-                                  resourceIdentifier: pipeline?.identifier as string,
-                                  resourceType: ResourceType.PIPELINE
-                                },
-                                permission: PermissionIdentifier.EXECUTE_PIPELINE
-                              }}
-                              disabled={getErrorsList(formErrors).length > 0}
-                            />
-                          </Layout.Horizontal>
-                          <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
-                            <Button
-                              id="cancel-runpipeline"
-                              text={getString('cancel')}
-                              style={{ backgroundColor: 'var(--grey-50)', color: 'var(--grey-2)' }}
-                              onClick={() => {
-                                if (onClose) {
-                                  onClose()
-                                } else {
-                                  history.goBack()
-                                }
-                              }}
-                            />
-                          </Layout.Horizontal>
-                        </Layout.Horizontal>
-                      </div>
-                    </Layout.Horizontal>
-                  </div>
-                </Layout.Vertical>
+                  {renderErrors()}
+                </>
               )}
-            </>
+              {selectedView === SelectedView.VISUAL ? (
+                <div className={css.runModalFormContent}>
+                  <FormikForm>
+                    {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
+                      <>
+                        {inputSets && inputSets.length > 0 && (
+                          <>
+                            {!executionView && (
+                              <Layout.Vertical
+                                className={css.pipelineHeader}
+                                padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+                              >
+                                <div>
+                                  <Layout.Horizontal className={css.runModalSubHeading} id="use-input-set">
+                                    <RadioGroup
+                                      name="existingProvideRadio"
+                                      label={getString(
+                                        'pipeline.triggers.pipelineInputPanel.selectedExisitingOrProvide'
+                                      )}
+                                      inline
+                                      selectedValue={existingProvide}
+                                      onChange={ev => {
+                                        setExistingProvide((ev.target as HTMLInputElement).value)
+                                      }}
+                                    >
+                                      <Radio
+                                        label={getString('pipeline.triggers.pipelineInputPanel.provide')}
+                                        value="provide"
+                                        className={cx(
+                                          css.valueProviderRadio,
+                                          existingProvide === 'provide' ? css.selectedValueProvider : ''
+                                        )}
+                                      />
+                                      <Radio
+                                        label={getString('pipeline.triggers.pipelineInputPanel.existing')}
+                                        value="existing"
+                                        className={cx(
+                                          css.valueProviderRadio,
+                                          existingProvide === 'existing' ? css.selectedValueProvider : ''
+                                        )}
+                                      />
+                                    </RadioGroup>
+                                    <span className={css.helpSection}>
+                                      <Icon name="question" className={css.helpIcon} />
+                                      <Text
+                                        tooltipProps={{
+                                          position: PopoverPosition.BOTTOM
+                                        }}
+                                        tooltip={
+                                          <Text padding="medium" width={400}>
+                                            Harness Input Sets are collections of variables/values that can be provided
+                                            to one or more Pipelines before execution.
+                                            <a
+                                              href="https://ngdocs.harness.io/article/3fqwa8et3d-input-sets"
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                            >
+                                              Learn more
+                                            </a>
+                                          </Text>
+                                        }
+                                      >
+                                        {getString('pipeline.triggers.pipelineInputPanel.whatAreInputsets')}
+                                      </Text>
+                                    </span>
+                                  </Layout.Horizontal>
+                                  {isGitSyncEnabled && (
+                                    <Layout.Horizontal padding={{ bottom: 'small' }}>
+                                      <GitSyncStoreProvider>
+                                        <GitFilters
+                                          onChange={filter => {
+                                            setGitFilter(filter)
+                                          }}
+                                          defaultValue={gitFilter || undefined}
+                                        />
+                                      </GitSyncStoreProvider>
+                                    </Layout.Horizontal>
+                                  )}
+                                </div>
+                                {!executionView &&
+                                  pipeline &&
+                                  currentPipeline &&
+                                  template?.data?.inputSetTemplateYaml &&
+                                  existingProvide === 'existing' && (
+                                    <InputSetSelector
+                                      pipelineIdentifier={pipelineIdentifier}
+                                      onChange={inputsets => {
+                                        setSelectedInputSets(inputsets)
+                                      }}
+                                      value={selectedInputSets}
+                                      gitFilter={gitFilter || undefined}
+                                    />
+                                  )}
+                              </Layout.Vertical>
+                            )}
+                          </>
+                        )}
+                        {(existingProvide === 'provide' ||
+                          (selectedInputSets && selectedInputSets?.length > 0) ||
+                          executionView) && (
+                          <PipelineInputSetForm
+                            originalPipeline={pipeline}
+                            template={parse(template.data.inputSetTemplateYaml).pipeline}
+                            readonly={executionView}
+                            path=""
+                          />
+                        )}
+                        {existingProvide === 'existing' && selectedInputSets && selectedInputSets?.length > 0 && (
+                          <div className={css.noPipelineInputSetForm} />
+                        )}
+                      </>
+                    ) : (
+                      <Layout.Horizontal padding="medium" margin="medium">
+                        <Text>
+                          {executionView
+                            ? getString('pipeline.inputSets.noRuntimeInputsWhileExecution')
+                            : getString('runPipelineForm.noRuntimeInput')}
+                        </Text>
+                      </Layout.Horizontal>
+                    )}
+                  </FormikForm>
+                </div>
+              ) : (
+                <div className={css.editor}>
+                  <Layout.Vertical className={css.content} padding="xlarge">
+                    <YamlBuilderMemo
+                      {...yamlBuilderReadOnlyModeProps}
+                      existingJSON={{ pipeline: values }}
+                      bind={setYamlHandler}
+                      invocationMap={factory.getInvocationMap()}
+                      height="55vh"
+                      width="32vw"
+                      showSnippetSection={false}
+                      isEditModeSupported={canEdit}
+                    />
+                  </Layout.Vertical>
+                </div>
+              )}
+              {executionView ? null : (
+                <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', top: 'medium', bottom: 'medium' }}>
+                  <Checkbox
+                    label={getString('pre-flight-check.skipCheckBtn')}
+                    background={skipPreFlightCheck ? Color.PRIMARY_2 : Color.GREY_100}
+                    color={skipPreFlightCheck ? Color.PRIMARY_7 : Color.BLACK}
+                    className={css.footerCheckbox}
+                    padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
+                    checked={skipPreFlightCheck}
+                    onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
+                  />
+                  <Tooltip position="top" content={getString('featureNA')}>
+                    <Checkbox
+                      background={notifyOnlyMe ? Color.PRIMARY_2 : Color.GREY_100}
+                      color={notifyOnlyMe ? Color.PRIMARY_7 : Color.BLACK}
+                      className={css.footerCheckbox}
+                      margin={{ left: 'medium' }}
+                      padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
+                      disabled
+                      label={getString('runPipelineForm.notifyOnlyMe')}
+                      checked={notifyOnlyMe}
+                      onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
+                    />
+                  </Tooltip>
+                </Layout.Horizontal>
+              )}
+              {executionView ? null : (
+                <Layout.Horizontal
+                  padding={{ left: 'xlarge', right: 'xlarge', top: 'large', bottom: 'large' }}
+                  flex={{ justifyContent: 'space-between', alignItems: 'center' }}
+                  className={css.footer}
+                >
+                  <Layout.Horizontal className={cx(css.actionButtons)}>
+                    <RbacButton
+                      style={{ backgroundColor: 'var(--green-600' }}
+                      intent="primary"
+                      type="submit"
+                      text={getString('runPipeline')}
+                      onClick={event => {
+                        event.stopPropagation()
+                        if ((!selectedInputSets || selectedInputSets.length === 0) && existingProvide === 'existing') {
+                          setExistingProvide('provide')
+                        } else {
+                          submitForm()
+                        }
+                      }}
+                      permission={{
+                        resource: {
+                          resourceIdentifier: pipeline?.identifier as string,
+                          resourceType: ResourceType.PIPELINE
+                        },
+                        permission: PermissionIdentifier.EXECUTE_PIPELINE
+                      }}
+                      disabled={getErrorsList(formErrors).errorCount > 0}
+                    />
+                    <div className={css.secondaryButton}>
+                      <Button
+                        id="cancel-runpipeline"
+                        text={getString('cancel')}
+                        margin={{ left: 'medium' }}
+                        background={Color.GREY_50}
+                        onClick={() => {
+                          if (onClose) {
+                            onClose()
+                          }
+                          history.replace(
+                            routes.toPipelineStudio({
+                              accountId,
+                              projectIdentifier,
+                              orgIdentifier,
+                              module,
+                              pipelineIdentifier,
+                              repoIdentifier,
+                              branch
+                            })
+                          )
+                        }}
+                      />
+                    </div>
+                  </Layout.Horizontal>
+                  <SaveAsInputSet
+                    pipeline={pipeline}
+                    currentPipeline={currentPipeline}
+                    values={values}
+                    template={template}
+                    canEdit={canEdit}
+                    projectIdentifier={projectIdentifier}
+                    orgIdentifier={orgIdentifier}
+                    createInputSet={createInputSet}
+                    createInputSetLoading={createInputSetLoading}
+                  />
+                </Layout.Horizontal>
+              )}
+            </Layout.Vertical>
           )
         }}
       </Formik>

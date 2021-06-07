@@ -132,8 +132,9 @@ export default function RunPipelineListView({ data, refetch, gotoPage }: Pipelin
     return (
       <RbacButton
         icon="run-pipeline"
+        className={css.rbacButton}
         intent="primary"
-        text={<String stringID="runPipelineText" />}
+        text={<String stringID="runPipeline" />}
         onClick={() => routeToPipelinesPage(rowdata)}
         permission={{
           resource: {
@@ -150,13 +151,13 @@ export default function RunPipelineListView({ data, refetch, gotoPage }: Pipelin
       {
         Header: getString('common.pipeline').toUpperCase(),
         accessor: 'name',
-        width: isGitSyncEnabled ? '30%' : '50%',
+        width: isGitSyncEnabled ? '27.5%' : '50%',
         Cell: RenderColumnPipeline
       },
       {
         Header: getString('common.gitSync.repoDetails').toUpperCase(),
         accessor: 'gitDetails',
-        width: isGitSyncEnabled ? '30%' : 0,
+        width: isGitSyncEnabled ? '27.5%' : 0,
         Cell: RenderGitDetails
       },
       {
@@ -167,7 +168,7 @@ export default function RunPipelineListView({ data, refetch, gotoPage }: Pipelin
       },
       {
         accessor: 'tags',
-        width: isGitSyncEnabled ? '15%' : '20%',
+        width: isGitSyncEnabled ? '20%' : '20%',
         Cell: RenderColumnMenu,
         disableSortBy: true
       }

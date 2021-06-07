@@ -25,12 +25,18 @@ import {
   useUpdateConnector
 } from 'services/cd-ng'
 import { AppDynamicsAuthType, setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
+import {
+  Connectors,
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  CreateConnectorModalProps,
+  TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { buildAppDynamicsPayload as _buildAppDynamicsPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
+import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import styles from './CreateAppDynamicsConnector.module.scss'
 
 interface CreateAppDynamicsConnectorProps extends CreateConnectorModalProps {
@@ -130,6 +136,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
         isLastStep
         type={Connectors.APP_DYNAMICS}
         setIsEditMode={props.setIsEditMode}
+        stepIndex={TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )
@@ -165,7 +172,7 @@ function UsernamePasswordAndApiClientOption(props: UsernamePasswordAndApiClientO
         <FormInput.Select
           name="authType"
           items={authOptions}
-          className={styles.authTypeSelect}
+          className={commonStyles.authTypeSelect}
           onChange={updatedAuth => onAuthTypeChange(updatedAuth.value as string)}
         />
       </Container>
@@ -317,7 +324,7 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
           </Layout.Vertical>
           <Layout.Horizontal spacing="large">
             <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />
-            <Button type="submit" intent="primary" text={getString('connectors.connectAndSave')} />
+            <Button type="submit" intent="primary" text={getString('continue')} />
           </Layout.Horizontal>
         </FormikForm>
       )}

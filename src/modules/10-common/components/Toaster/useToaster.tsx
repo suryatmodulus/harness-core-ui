@@ -8,21 +8,21 @@ const toaster = Toaster.create({
 })
 
 export interface ToasterProps extends IToaster {
-  showSuccess: (message: string | ReactNode, timeout?: number) => void
-  showError: (message: string | ReactNode, timeout?: number) => void
-  showWarning: (message: string) => void
+  showSuccess: (message: string | ReactNode, timeout?: number, key?: string) => void
+  showError: (message: string | ReactNode, timeout?: number, key?: string) => void
+  showWarning: (message: string | ReactNode, timeout?: number, key?: string) => void
 }
 
-const showSuccess = (message: string | ReactNode, timeout?: number): void => {
-  toaster.show({ message, intent: Intent.SUCCESS, icon: 'tick', timeout })
+const showSuccess = (message: string | ReactNode, timeout?: number, key?: string): void => {
+  toaster.show({ message, intent: Intent.SUCCESS, icon: 'tick', timeout }, key)
 }
 
-const showError = (message: string | ReactNode, timeout?: number): void => {
-  toaster.show({ message, intent: Intent.DANGER, icon: 'error', timeout })
+const showError = (message: string | ReactNode, timeout?: number, key?: string): void => {
+  toaster.show({ message, intent: Intent.DANGER, icon: 'error', timeout }, key)
 }
 
-const showWarning = (message: string): void => {
-  toaster.show({ message, intent: Intent.WARNING, icon: 'warning-sign' })
+const showWarning = (message: string | ReactNode, timeout?: number, key?: string): void => {
+  toaster.show({ message, intent: Intent.WARNING, icon: 'warning-sign', timeout }, key)
 }
 
 export function useToaster(): ToasterProps {

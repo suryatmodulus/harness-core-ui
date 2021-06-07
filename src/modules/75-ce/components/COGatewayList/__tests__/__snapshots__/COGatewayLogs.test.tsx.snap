@@ -4,80 +4,84 @@ exports[`Auto stopping rule logs should show logs 1`] = `
 <div>
   <div
     class="logViewer"
+    style="--char-size: 2ch;"
   >
     <pre>
       <div
-        class="logLine"
+        class="line"
       >
-        <div
+        <span
           class="lineNumber"
         >
           1
-        </div>
-        <div
-          class="line"
+        </span>
+        <span
+          class="logLine"
         >
           <span
-            class="logLineLevel "
-            id="log-level"
+            class=""
           >
             2021-04-05T13:14:58.857084Z  Rule state changed to: coolingdown  
           </span>
-        </div>
+        </span>
       </div>
       <div
-        class="logLine"
+        class="line"
       >
-        <div
+        <span
           class="lineNumber"
         >
           2
-        </div>
-        <div
-          class="line"
+        </span>
+        <span
+          class="logLine"
         >
-          
           <span
-            class="logLineLevel ansi-red-fg"
-            id="log-level"
+            class=""
+          />
+          <span
+            class="ansi-red-fg"
           >
             2021-04-05T13:14:58.857084Z  Rule state changed to: coolingdown Error: null 
           </span>
-        </div>
+        </span>
       </div>
       <div
-        class="logLine"
+        class="line"
       >
-        <div
+        <span
           class="lineNumber"
         >
           3
-        </div>
-        <div
-          class="line"
+        </span>
+        <span
+          class="logLine"
         >
-          
           <span
-            class="logLineLevel ansi-green-fg"
-            id="log-level"
+            class=""
+          />
+          <span
+            class="ansi-green-fg"
           >
             2021-04-05T13:14:58.857084Z  Rule state changed to: active 
           </span>
-        </div>
+        </span>
       </div>
       <div
-        class="logLine"
+        class="line"
       >
-        <div
+        <span
           class="lineNumber"
         >
           4
-        </div>
-        <div
-          class="line"
+        </span>
+        <span
+          class="logLine"
         >
-          
-        </div>
+          <span
+            class=""
+          />
+        </span>
       </div>
     </pre>
   </div>

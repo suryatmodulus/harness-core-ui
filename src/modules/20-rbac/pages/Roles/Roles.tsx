@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { Container, ExpandingSearchInput, Layout, Pagination } from '@wings-software/uicore'
 
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { Role, RoleResponse, useGetRoleList } from 'services/rbac'
 import RoleCard from '@rbac/components/RoleCard/RoleCard'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useRoleModal } from '@rbac/modals/RoleModal/useRoleModal'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import routes from '@common/RouteDefinitions'
 import css from './Roles.module.scss'
 
 const Roles: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
+  const history = useHistory()
   useDocumentTitle(getString('roles'))
   const [page, setPage] = useState(0)
   const [searchTerm, setSearchTerm] = useState<string>()
@@ -36,7 +38,19 @@ const Roles: React.FC = () => {
     if (searchTerm) setPage(0)
   }, [searchTerm])
 
-  const { openRoleModal } = useRoleModal({ onSuccess: refetch })
+  const { openRoleModal } = useRoleModal({
+    onSuccess: role => {
+      history.push(
+        routes.toRoleDetails({
+          accountId,
+          orgIdentifier,
+          projectIdentifier,
+          module,
+          roleIdentifier: role.identifier
+        })
+      )
+    }
+  })
 
   const editRoleModal = (role: Role): void => {
     openRoleModal(role)

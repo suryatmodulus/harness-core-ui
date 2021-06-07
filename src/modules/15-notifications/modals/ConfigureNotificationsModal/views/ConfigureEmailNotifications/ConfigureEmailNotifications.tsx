@@ -5,7 +5,7 @@ import { FormikForm, FormInput, Button, Layout, Container, Icon, Heading } from 
 import { Popover, Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-
+import { EmailSchema } from '@common/utils/Validation'
 import { useToaster } from '@common/components'
 import type { EmailNotificationConfiguration } from '@notifications/interfaces/Notifications'
 import { TestStatus } from '@notifications/interfaces/Notifications'
@@ -47,7 +47,7 @@ export const TestEmailConfig: React.FC<TestEmailConfigProps> = props => {
       <Formik<EmailTestConfigData>
         onSubmit={handleSubmit}
         validationSchema={Yup.object().shape({
-          to: Yup.string().trim().required(getString('notifications.validationTo')),
+          to: EmailSchema(),
           subject: Yup.string().trim().required(getString('notifications.validationSubject')),
           body: Yup.string().trim().required(getString('notifications.validationBody'))
         })}
@@ -139,7 +139,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
         <Formik
           onSubmit={handleSubmit}
           validationSchema={Yup.object().shape({
-            emailIds: Yup.string().trim().required()
+            emailIds: EmailSchema({ allowMultiple: true, emailSeparator: ',' })
           })}
           initialValues={{
             emailIds: props.config?.emailIds.toString() || '',

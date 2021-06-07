@@ -3,11 +3,6 @@
   margin-top: var(--spacing-small);
 }
 
-.connectorLabel {
-  margin-bottom: var(--spacing-xsmall);
-  font-size: var(--font-size-normal) !important;
-}
-
 .formRow {
   > button {
     margin-top: var(--spacing-xxlarge) !important;
@@ -16,7 +11,7 @@
 
 .simultaneousDeployment {
   input {
-    margin-left: var(--spacing-small);
+    margin-left: var(--spacing-medium);
     position: relative;
     margin-top: var(--spacing-small);
   }

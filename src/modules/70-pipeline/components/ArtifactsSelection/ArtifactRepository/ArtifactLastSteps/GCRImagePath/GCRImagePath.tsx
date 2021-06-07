@@ -9,7 +9,8 @@ import {
   Button,
   StepProps,
   Text,
-  RUNTIME_INPUT_VALUE
+  RUNTIME_INPUT_VALUE,
+  SelectOption
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
@@ -20,11 +21,22 @@ import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'se
 import { useStrings } from 'framework/strings'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { StringUtils } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
-import { tagOptions } from '../../../ArtifactHelper'
+import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../GCRArtifact.module.scss'
+
+export enum RegistryHostNames {
+  GCR_URL = 'gcr.io',
+  US_GCR_URL = 'us.gcr.io',
+  ASIA_GCR_URL = 'asia.gcr.io',
+  EU_GCR_URL = 'eu.gcr.io',
+  MIRROR_GCR_URL = 'mirror.gcr.io',
+  K8S_GCR_URL = 'k8s.gcr.io',
+  LAUNCHER_GCR_URL = 'launcher.gcr.io'
+}
+
+export const gcrUrlList: SelectOption[] = Object.values(RegistryHostNames).map(item => ({ label: item, value: item }))
 
 export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   name,
@@ -33,7 +45,8 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   handleSubmit,
   prevStepData,
   initialValues,
-  previousStep
+  previousStep,
+  artifactIdentifiers
 }) => {
   const { getString } = useStrings()
 
@@ -52,11 +65,11 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   })
 
   const sidecarSchema = Yup.object().shape({
-    identifier: Yup.string()
-      .trim()
-      .required(getString('artifactsSelection.validation.sidecarId'))
-      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-      .notOneOf(StringUtils.illegalIdentifiers),
+    ...ArtifactIdentifierValidation(
+      artifactIdentifiers,
+      initialValues?.identifier,
+      getString('pipeline.uniqueIdentifier')
+    ),
     imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
     registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
     tagType: Yup.string().required(),
@@ -222,11 +235,16 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                 </div>
               )}
               <div className={css.imagePathContainer}>
-                <FormInput.MultiTextInput
+                <FormInput.MultiTypeInput
                   label={getString('connectors.GCR.registryHostname')}
                   placeholder={getString('UrlLabel')}
                   name="registryHostname"
-                  multiTextInputProps={{ expressions }}
+                  selectItems={gcrUrlList}
+                  useValue
+                  multiTypeInputProps={{
+                    expressions,
+                    selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList, usePortal: true }
+                  }}
                 />
                 {getMultiTypeFromValue(formik.values.registryHostname) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>

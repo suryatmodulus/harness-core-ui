@@ -1,9 +1,9 @@
 import React from 'react'
-import { Layout, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { Layout, getMultiTypeFromValue, MultiTypeInputType, Text, Icon, Color, IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
 import { StageInputSetForm } from './StageInputSetForm'
@@ -18,6 +18,7 @@ import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '../AbstractSteps/Step'
 import { getStageFromPipeline } from '../PipelineStudio/StepUtil'
+import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/PipelineVariablesContext'
 import css from './PipelineInputSetForm.module.scss'
 
 export interface PipelineInputSetFormProps {
@@ -25,6 +26,14 @@ export interface PipelineInputSetFormProps {
   template: PipelineInfoConfig
   path?: string
   readonly?: boolean
+}
+
+const stageTypeToIconMap: Record<string, IconName> = {
+  Deployment: 'cd-main',
+  ci: 'ci-main',
+  Pipeline: 'pipeline',
+  Custom: 'pipeline-custom',
+  Approval: 'pipeline-approval'
 }
 
 function StageForm({
@@ -39,9 +48,15 @@ function StageForm({
   readonly?: boolean
 }): JSX.Element {
   const { getString } = useStrings()
+  const icon = stageTypeToIconMap[allValues?.stage?.type || 'Deployment']
   return (
-    <div id={`Stage.${allValues?.stage?.identifier}`} className={cx(css.accordionSummary)}>
-      <div className={css.subheading}>{allValues?.stage?.name || ''}</div>
+    <div id={`Stage.${allValues?.stage?.identifier}`}>
+      <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'medium', right: 0, bottom: 0 }}>
+        <Icon name={icon} size={18} />
+        <Text color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
+          Stage: {allValues?.stage?.name || ''}
+        </Text>
+      </Layout.Horizontal>
 
       <div className={css.topAccordion}>
         {template?.stage?.variables && (
@@ -83,68 +98,67 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
   const { originalPipeline, template, path = '', readonly } = props
   const { getString } = useStrings()
   return (
-    <Layout.Vertical spacing="medium" padding="xlarge" className={css.container}>
-      {(originalPipeline as any)?.variables?.length > 0 && (
+    <PipelineVariablesContextProvider pipeline={originalPipeline}>
+      <Layout.Vertical spacing="medium" padding="xlarge" className={css.container}>
+        {(originalPipeline as any)?.variables?.length > 0 && (
+          <>
+            <div className={css.subheading}>{getString('customVariables.pipelineVariablesTitle')}</div>
+            <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
+              factory={(factory as unknown) as AbstractStepFactory}
+              initialValues={{
+                variables: (originalPipeline.variables || []) as AllNGVariables[],
+                canAddVariable: true
+              }}
+              readonly={readonly}
+              type={StepType.CustomVariable}
+              stepViewType={StepViewType.InputSet}
+              customStepProps={{
+                template: { variables: (template?.variables || []) as AllNGVariables[] },
+                path
+              }}
+            />
+          </>
+        )}
+        {getMultiTypeFromValue((template?.properties?.ci?.codebase?.build as unknown) as string) ===
+          MultiTypeInputType.RUNTIME && (
+          <>
+            <div className={css.header}>{getString('ciCodebase')}</div>
+            <CICodebaseInputSetForm path={path} readonly={readonly} />
+          </>
+        )}
         <>
-          <div className={css.subheading}>{getString('customVariables.pipelineVariablesTitle')}</div>
-          <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
-            factory={(factory as unknown) as AbstractStepFactory}
-            initialValues={{
-              variables: (originalPipeline.variables || []) as AllNGVariables[],
-              canAddVariable: true
-            }}
-            readonly={readonly}
-            type={StepType.CustomVariable}
-            stepViewType={StepViewType.InputSet}
-            customStepProps={{
-              template: { variables: (template?.variables || []) as AllNGVariables[] },
-              path
-            }}
-          />
-        </>
-      )}
-      {getMultiTypeFromValue((template?.properties?.ci?.codebase?.build as unknown) as string) ===
-        MultiTypeInputType.RUNTIME && (
-        <>
-          <div className={css.header}>{getString('ciCodebase')}</div>
-          <CICodebaseInputSetForm path={path} readonly={readonly} />
-        </>
-      )}
-      <>
-        <div className={css.header}>
-          <String stringID="pipeline-list.listStages" />
-        </div>
-        {template?.stages?.map((stageObj, index) => {
-          const pathPrefix = !isEmpty(path) ? `${path}.` : ''
-          if (stageObj.stage) {
-            const allValues = getStageFromPipeline(stageObj?.stage?.identifier || '', originalPipeline)
-            return (
-              <Layout.Vertical key={stageObj?.stage?.identifier || index}>
-                <StageForm
-                  template={stageObj}
-                  allValues={allValues}
-                  path={`${pathPrefix}stages[${index}].stage`}
-                  readonly={readonly}
-                />
-              </Layout.Vertical>
-            )
-          } else if (stageObj.parallel) {
-            return ((stageObj.parallel as unknown) as StageElementWrapperConfig[]).map((stageP, indexp) => {
-              const allValues = getStageFromPipeline(stageP?.stage?.identifier || '', originalPipeline)
+          {template?.stages?.map((stageObj, index) => {
+            const pathPrefix = !isEmpty(path) ? `${path}.` : ''
+            if (stageObj.stage) {
+              const allValues = getStageFromPipeline(stageObj?.stage?.identifier || '', originalPipeline)
               return (
-                <Layout.Vertical key={`${stageObj?.stage?.identifier}-${stageP.stage?.identifier}-${indexp}`}>
+                <Layout.Vertical key={stageObj?.stage?.identifier || index}>
                   <StageForm
-                    template={stageP}
+                    template={stageObj}
                     allValues={allValues}
-                    path={`${pathPrefix}stages[${index}].parallel[${indexp}].stage`}
+                    path={`${pathPrefix}stages[${index}].stage`}
                     readonly={readonly}
                   />
                 </Layout.Vertical>
               )
-            })
-          }
-        })}
-      </>
-    </Layout.Vertical>
+            } else if (stageObj.parallel) {
+              return ((stageObj.parallel as unknown) as StageElementWrapperConfig[]).map((stageP, indexp) => {
+                const allValues = getStageFromPipeline(stageP?.stage?.identifier || '', originalPipeline)
+                return (
+                  <Layout.Vertical key={`${stageObj?.stage?.identifier}-${stageP.stage?.identifier}-${indexp}`}>
+                    <StageForm
+                      template={stageP}
+                      allValues={allValues}
+                      path={`${pathPrefix}stages[${index}].parallel[${indexp}].stage`}
+                      readonly={readonly}
+                    />
+                  </Layout.Vertical>
+                )
+              })
+            }
+          })}
+        </>
+      </Layout.Vertical>
+    </PipelineVariablesContextProvider>
   )
 }

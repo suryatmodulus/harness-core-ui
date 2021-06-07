@@ -9,28 +9,62 @@ export interface StringsMap {
   'common.accViewer': string
   'common.accessKey': string
   'common.accountName': string
+  'common.accountSetup': string
   'common.addVariable': string
   'common.approve': string
+  'common.artifactTag': string
   'common.banners.email.description': string
   'common.banners.email.resend': string
   'common.banners.email.success': string
   'common.banners.trial.contactSales': string
+  'common.banners.trial.contactSalesForm.companySize': string
+  'common.banners.trial.contactSalesForm.companySizeItems.above5000': string
+  'common.banners.trial.contactSalesForm.companySizeItems.below100': string
+  'common.banners.trial.contactSalesForm.companySizeItems.below2000': string
+  'common.banners.trial.contactSalesForm.companySizeItems.below500': string
+  'common.banners.trial.contactSalesForm.companySizeItems.below5000': string
+  'common.banners.trial.contactSalesForm.companySizeValidation': string
+  'common.banners.trial.contactSalesForm.country': string
+  'common.banners.trial.contactSalesForm.countryValidation': string
+  'common.banners.trial.contactSalesForm.description': string
+  'common.banners.trial.contactSalesForm.email': string
+  'common.banners.trial.contactSalesForm.fullName': string
+  'common.banners.trial.contactSalesForm.orgName': string
+  'common.banners.trial.contactSalesForm.orgNameValidation': string
+  'common.banners.trial.contactSalesForm.phone': string
+  'common.banners.trial.contactSalesForm.phonePlaceHolder': string
+  'common.banners.trial.contactSalesForm.phoneValidation.number': string
+  'common.banners.trial.contactSalesForm.phoneValidation.required': string
+  'common.banners.trial.contactSalesForm.role': string
+  'common.banners.trial.contactSalesForm.roleItems.devOps': string
+  'common.banners.trial.contactSalesForm.roleItems.devSecOps': string
+  'common.banners.trial.contactSalesForm.roleItems.engineeringDirector': string
+  'common.banners.trial.contactSalesForm.roleItems.engineeringManager': string
+  'common.banners.trial.contactSalesForm.roleItems.it': string
+  'common.banners.trial.contactSalesForm.roleItems.others': string
+  'common.banners.trial.contactSalesForm.roleItems.softwareArchitect': string
+  'common.banners.trial.contactSalesForm.roleItems.softwareDeveloper': string
+  'common.banners.trial.contactSalesForm.roleItems.vp': string
+  'common.banners.trial.contactSalesForm.roleValidation': string
   'common.banners.trial.description': string
+  'common.banners.trial.expired.description': string
+  'common.banners.trial.expired.extendTrial': string
   'common.blank': string
   'common.capsAll': string
   'common.ce.cost': string
   'common.ce.optimization': string
-  'common.ce.startTrial': string
   'common.ce.visibility': string
   'common.ce.visibilityLaunchButton': string
   'common.ce.visibilityWarning': string
   'common.changesUnsaved': string
   'common.clearSelection': string
+  'common.clientId': string
   'common.cluster': string
   'common.comments': string
   'common.confictOccured': string
   'common.confirmText': string
   'common.createPipeline': string
+  'common.dashboards': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
   'common.datePickerShortcuts.Last3Days': string
@@ -49,6 +83,7 @@ export interface StringsMap {
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
   'common.failureRate': string
+  'common.filters.saveNewFilter': string
   'common.git.APIAccessDescriptipn': string
   'common.git.APIAuthentication': string
   'common.git.addUserCredentialLabel': string
@@ -84,16 +119,21 @@ export interface StringsMap {
   'common.git.selectRepoLabel': string
   'common.git.startPRLabel': string
   'common.git.urlType': string
+  'common.git.validation.commitMessage': string
   'common.git.validation.filePath': string
   'common.gitSync.allRepositories': string
   'common.gitSync.commitDetailsLabel': string
+  'common.gitSync.creatingPR': string
   'common.gitSync.defaultBranches': string
   'common.gitSync.gitRepositoryDetails': string
   'common.gitSync.harnessFolderLabel': string
+  'common.gitSync.pushingChangestoBranch': string
   'common.gitSync.repoDetails': string
   'common.gitSync.resourceLabel': string
   'common.gitSync.rootFolderLabel': string
+  'common.gitSync.savingInProgress': string
   'common.gitSync.selectBranchLabel': string
+  'common.gitSync.settingUpNewBranch': string
   'common.gitSync.sync': string
   'common.gitSync.syncStartSuccess': string
   'common.gitSync.syncing.header': string
@@ -101,7 +141,10 @@ export interface StringsMap {
   'common.gitSync.unSynced.header': string
   'common.gitSync.unSynced.message1': string
   'common.gitSync.unSynced.message2': string
+  'common.gitSync.unableToCreatePR': string
   'common.gitSync.updateResource': string
+  'common.home': string
+  'common.in': string
   'common.input': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
@@ -115,14 +158,17 @@ export interface StringsMap {
   'common.logs.noLogsText': string
   'common.member': string
   'common.namespace': string
+  'common.new': string
   'common.newLines': string
   'common.newVersion': string
   'common.noRefData': string
   'common.note': string
   'common.ok': string
   'common.options': string
+  'common.orgSetup': string
   'common.orgViewer': string
   'common.other': string
+  'common.paste': string
   'common.path': string
   'common.pendingInvitation': string
   'common.performAction': string
@@ -130,12 +176,18 @@ export interface StringsMap {
   'common.pipelineDetails': string
   'common.plusNumber': string
   'common.production': string
+  'common.projectSetup': string
   'common.projectViewer': string
   'common.provisioner': string
+  'common.purpose.cd.1stGen.description': string
+  'common.purpose.cd.1stGen.title': string
   'common.purpose.cd.continuous': string
   'common.purpose.cd.delivery': string
   'common.purpose.cd.description': string
+  'common.purpose.cd.newGen.description': string
+  'common.purpose.cd.newGen.title': string
   'common.purpose.cd.subtitle': string
+  'common.purpose.cd.supportedStack': string
   'common.purpose.ce.continuous': string
   'common.purpose.ce.description': string
   'common.purpose.ce.descriptionOnly': string
@@ -156,6 +208,7 @@ export interface StringsMap {
   'common.purpose.cv.description': string
   'common.purpose.cv.subtitle': string
   'common.purpose.cv.verification': string
+  'common.purpose.howToProceed': string
   'common.purpose.infoCardIntent': string
   'common.purpose.moduleSuccess': string
   'common.purpose.selectAModule': string
@@ -200,6 +253,8 @@ export interface StringsMap {
   'common.unsavedChanges': string
   'common.userGroup': string
   'common.userGroups': string
+  'common.validation.email.format': string
+  'common.validation.email.required': string
   'common.validation.fileIsRequired': string
   'common.validation.formatMustBeAlphanumeric': string
   'common.validation.groupAttributeIsRequired': string
@@ -210,6 +265,7 @@ export interface StringsMap {
   'common.validation.valueMustBeANumber': string
   'common.validation.valueMustBeGreaterThanOrEqualToN': string
   'common.validation.valueMustBeLessThanOrEqualTo64': string
+  'common.welcome': string
   'notifications.buttonSend': string
   'notifications.emailRecipients': string
   'notifications.emailTestSuccess': string
@@ -273,6 +329,17 @@ export interface StringsMap {
   'rbac.roleAssignment.userPlaceHolder': string
   'rbac.roleAssignment.userValidation': string
   'rbac.roleBinding': string
+  'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string
+  'rbac.userDetails.linkToSSOProviderModal.delinkLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.delinkText': string
+  'rbac.userDetails.linkToSSOProviderModal.group': string
+  'rbac.userDetails.linkToSSOProviderModal.groupNameLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.linkLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.retainMembersLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.saml': string
+  'rbac.userDetails.linkToSSOProviderModal.selectSSOSetting': string
+  'rbac.userDetails.linkToSSOProviderModal.validation.groupNameRequired': string
+  'rbac.userDetails.linkToSSOProviderModal.validation.ssoIdRequired': string
   'rbac.userDetails.noMembersMessage': string
   'rbac.userDetails.userGroup.addToGroup': string
   'rbac.userDetails.userGroup.confirmDeleteText': string
@@ -324,7 +391,7 @@ export interface StringsMap {
   'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
   'authSettings.addSAMLProvider': string
   'authSettings.allowLoginFromTheseDomains': string
-  'authSettings.allowUsersWIthEmails': string
+  'authSettings.allowUsersWithEmails': string
   'authSettings.atLeastNChars': string
   'authSettings.authenticationSettings': string
   'authSettings.authorizationEnabledFor': string
@@ -405,6 +472,7 @@ export interface StringsMap {
   'authSettings.plusSAMLProvider': string
   'authSettings.publicOAuthLoginDisabled': string
   'authSettings.publicOAuthLoginEnabled': string
+  'authSettings.restrictUsersToEmailDomains': string
   'authSettings.samlLoginEnabled': string
   'authSettings.samlProviderAddedSuccessfully': string
   'authSettings.samlProviderDeleted': string
@@ -418,6 +486,7 @@ export interface StringsMap {
   'authSettings.testingSSODescription': string
   'authSettings.twoFAEnforcementDisabled': string
   'authSettings.twoFAEnforcementEnabled': string
+  'authSettings.typeAndPressEnterToAddADomain': string
   'authSettings.uploadIdentityProvider': string
   'authSettings.useHarnessUsernameAndPassword': string
   'authSettings.usePublicOAuth': string
@@ -473,7 +542,8 @@ export interface StringsMap {
   'secrets.createSSHCredWizard.verifyStepTwo': string
   'secrets.incompleteSecret': string
   'secrets.labelPath': string
-  'secrets.labelSecretManager': string
+  'secrets.labelSecretName': string
+  'secrets.labelSecretsManager': string
   'secrets.labelType': string
   'secrets.labelValue': string
   'secrets.selectSecret': string
@@ -548,6 +618,15 @@ export interface StringsMap {
   'connectors.awsKms.validation.selectAWSArn': string
   'connectors.awsKms.validation.selectDelegate': string
   'connectors.awsKms.validation.selectRegion': string
+  'connectors.azureKeyVault.labels.fetchVault': string
+  'connectors.azureKeyVault.labels.subscription': string
+  'connectors.azureKeyVault.labels.tenantId': string
+  'connectors.azureKeyVault.labels.vaultName': string
+  'connectors.azureKeyVault.validation.clientId': string
+  'connectors.azureKeyVault.validation.secretKey': string
+  'connectors.azureKeyVault.validation.subscription': string
+  'connectors.azureKeyVault.validation.tenantId': string
+  'connectors.azureKeyVault.validation.vaultName': string
   'connectors.cdng.baseline': string
   'connectors.cdng.baselineDefaultLabel.lastSuccess': string
   'connectors.cdng.continousVerificationStep': string
@@ -565,7 +644,6 @@ export interface StringsMap {
   'connectors.cdng.noJobsConfigured': string
   'connectors.cdng.selectTheJobNameFirst': string
   'connectors.cdng.trafficsplit': string
-  'connectors.cdng.validations.baselineRequired': string
   'connectors.cdng.validations.deploymentTagRequired': string
   'connectors.cdng.validations.durationRequired': string
   'connectors.cdng.validations.jobNameRequired': string
@@ -582,6 +660,11 @@ export interface StringsMap {
   'connectors.createFromYaml': string
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string
+  'connectors.creating': string
+  'connectors.datadog.encryptedAPPKeyLabel': string
+  'connectors.datadog.encryptedAPPKeyValidation': string
+  'connectors.datadog.urlValidation': string
+  'connectors.datadogConnectorDetails': string
   'connectors.delegate.configure': string
   'connectors.delegate.delegateSelectorAny': string
   'connectors.delegate.delegateSelectorSelective': string
@@ -597,6 +680,13 @@ export interface StringsMap {
   'connectors.docker.harbour': string
   'connectors.docker.other': string
   'connectors.docker.quay': string
+  'connectors.dynatrace.apiToken': string
+  'connectors.dynatrace.apiTokenValidation': string
+  'connectors.dynatrace.urlValidation': string
+  'connectors.dynatraceConnectorDetails': string
+  'connectors.dynatraceLabel': string
+  'connectors.encryptedAPIKeyLabel': string
+  'connectors.encryptedAPIKeyValidation': string
   'connectors.gcrConnectorDetails': string
   'connectors.hashiCorpVault.appRoleId': string
   'connectors.hashiCorpVault.baseSecretPath': string
@@ -627,6 +717,7 @@ export interface StringsMap {
   'connectors.k8.clientKeyAlgorithm': string
   'connectors.k8.clientKeyCACertificate': string
   'connectors.k8.clientKeyPassphrase': string
+  'connectors.k8.clientSecretOptional': string
   'connectors.k8.delegateInClusterInfo': string
   'connectors.k8.delegateOutClusterInfo': string
   'connectors.k8.masterUrlLabel': string
@@ -653,8 +744,6 @@ export interface StringsMap {
   'connectors.newRelic.accountIdFieldLabel': string
   'connectors.newRelic.accountIdTooltip': string
   'connectors.newRelic.accountIdValidation': string
-  'connectors.newRelic.encryptedAPIKeyLabel': string
-  'connectors.newRelic.encryptedKeyValidation': string
   'connectors.newRelic.products.fullStackObservability': string
   'connectors.newRelic.subTitle': string
   'connectors.newRelic.urlFieldLabel': string
@@ -693,13 +782,16 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.artifactory': string
   'connectors.testConnectionStep.validationText.aws': string
   'connectors.testConnectionStep.validationText.azure': string
+  'connectors.testConnectionStep.validationText.azureKeyVault': string
   'connectors.testConnectionStep.validationText.bitbucket': string
+  'connectors.testConnectionStep.validationText.datadog': string
   'connectors.testConnectionStep.validationText.docker': string
   'connectors.testConnectionStep.validationText.gcp': string
   'connectors.testConnectionStep.validationText.gcr': string
   'connectors.testConnectionStep.validationText.git': string
   'connectors.testConnectionStep.validationText.github': string
   'connectors.testConnectionStep.validationText.gitlab': string
+  'connectors.testConnectionStep.validationText.jira': string
   'connectors.testConnectionStep.validationText.k8s': string
   'connectors.testConnectionStep.validationText.nexus': string
   'connectors.testConnectionStep.validationText.splunk': string
@@ -712,8 +804,10 @@ export interface StringsMap {
   'connectors.title.aws': string
   'connectors.title.awsCodeCommit': string
   'connectors.title.awsKms': string
+  'connectors.title.azureKeyVault': string
   'connectors.title.bitbucketConnector': string
   'connectors.title.ceAzureConnector': string
+  'connectors.title.datadog': string
   'connectors.title.delegateSelection': string
   'connectors.title.gcpConnector': string
   'connectors.title.gitConnector': string
@@ -751,7 +845,10 @@ export interface StringsMap {
   'userProfile.myTools': string
   'userProfile.mysourceCodeManagers': string
   'userProfile.newPassword': string
+  'userProfile.newPasswordShouldMeetTheRequirements': string
+  'userProfile.newPasswordShouldNotBeCurrentPassword': string
   'userProfile.noProjects': string
+  'userProfile.passwordChangedSuccessfully': string
   'userProfile.passwordMatch': string
   'userProfile.passwordReqs': string
   'userProfile.plusSCM': string
@@ -777,6 +874,65 @@ export interface StringsMap {
   'userProfile.twofactorAuth': string
   'userProfile.userEditFail': string
   'userProfile.userEditSuccess': string
+  'userProfile.yourCurrentPasswordIncorrect': string
+  'gitsync.addFolder': string
+  'gitsync.addNewHarnessFolderLabel': string
+  'gitsync.configureHarnessFolder': string
+  'gitsync.connectThroughDelegate': string
+  'gitsync.connectThroughDelegateLabel': string
+  'gitsync.connectThroughManager': string
+  'gitsync.connectThroughManagerLabel': string
+  'gitsync.connectToGitProvider': string
+  'gitsync.defaultFolder': string
+  'gitsync.entitiesByRepositories': string
+  'gitsync.folderDetails': string
+  'gitsync.harnessFolderHeader': string
+  'gitsync.harnessFolderText': string
+  'gitsync.label': string
+  'gitsync.learnMore': string
+  'gitsync.markAsDefault': string
+  'gitsync.markAsDefaultLabel': string
+  'gitsync.moveFolder': string
+  'gitsync.pathToHarnessFolder': string
+  'gitsync.repositoryPath': string
+  'gitsync.rootFolderListHeader': string
+  'gitsync.rootFolderUpdatedSuccessfully': string
+  'gitsync.rootfolderLabel': string
+  'gitsync.seeLess': string
+  'gitsync.seeMore': string
+  'gitsync.selectConnectivityMode': string
+  'gitsync.selectDefaultBranch': string
+  'gitsync.selectHarnessFolder': string
+  'gitsync.successfullCreate': string
+  'gitsync.successfullySavedConnectivityMode': string
+  'dashboards.createModal.dataSource': string
+  'dashboards.createModal.descriptionPlaceholder': string
+  'dashboards.createModal.fav': string
+  'dashboards.createModal.namePlaceholder': string
+  'dashboards.createModal.nameValidation': string
+  'dashboards.createModal.sampleDesc': string
+  'dashboards.createModal.sampleTitle': string
+  'dashboards.createModal.stepOne': string
+  'dashboards.createModal.submitFail': string
+  'dashboards.createModal.view': string
+  'dashboards.homePage.title': string
+  'dashboards.serviceDashboard.activeServiceInstancesLabel': string
+  'dashboards.serviceDashboard.day': string
+  'dashboards.serviceDashboard.executionId': string
+  'dashboards.serviceDashboard.frequency': string
+  'dashboards.serviceDashboard.in': string
+  'dashboards.serviceDashboard.lastDeployment': string
+  'dashboards.serviceDashboard.month': string
+  'dashboards.serviceDashboard.months': string
+  'dashboards.serviceDashboard.nonProd': string
+  'dashboards.serviceDashboard.prod': string
+  'dashboards.serviceDashboard.serviceInstances': string
+  'dashboards.serviceDashboard.servicesInLast': string
+  'dashboards.serviceDashboard.totalServices': string
+  'dashboards.serviceDashboard.week': string
+  'dashboards.sideNav.byHarness': string
+  'dashboards.sideNav.custom': string
+  'dashboards.sideNav.noDashboard': string
   'projectsOrgs.aboutProject': string
   'projectsOrgs.aboutTitle': string
   'projectsOrgs.blank': string
@@ -863,64 +1019,6 @@ export interface StringsMap {
   'projectsOrgs.viewProjects': string
   'projectsOrgs.welcome': string
   'projectsOrgs.welcomeSecondLine': string
-  'dashboards.createModal.dataSource': string
-  'dashboards.createModal.descriptionPlaceholder': string
-  'dashboards.createModal.fav': string
-  'dashboards.createModal.namePlaceholder': string
-  'dashboards.createModal.nameValidation': string
-  'dashboards.createModal.sampleDesc': string
-  'dashboards.createModal.sampleTitle': string
-  'dashboards.createModal.stepOne': string
-  'dashboards.createModal.submitFail': string
-  'dashboards.createModal.view': string
-  'dashboards.homePage.title': string
-  'dashboards.serviceDashboard.activeServiceInstancesLabel': string
-  'dashboards.serviceDashboard.day': string
-  'dashboards.serviceDashboard.executionId': string
-  'dashboards.serviceDashboard.frequency': string
-  'dashboards.serviceDashboard.in': string
-  'dashboards.serviceDashboard.lastDeployment': string
-  'dashboards.serviceDashboard.month': string
-  'dashboards.serviceDashboard.months': string
-  'dashboards.serviceDashboard.nonProd': string
-  'dashboards.serviceDashboard.prod': string
-  'dashboards.serviceDashboard.serviceInstances': string
-  'dashboards.serviceDashboard.servicesInLast': string
-  'dashboards.serviceDashboard.totalServices': string
-  'dashboards.serviceDashboard.week': string
-  'dashboards.sideNav.byHarness': string
-  'dashboards.sideNav.custom': string
-  'dashboards.sideNav.noDashboard': string
-  'gitsync.addFolder': string
-  'gitsync.addNewHarnessFolderLabel': string
-  'gitsync.configureHarnessFolder': string
-  'gitsync.connectThroughDelegate': string
-  'gitsync.connectThroughDelegateLabel': string
-  'gitsync.connectThroughManager': string
-  'gitsync.connectThroughManagerLabel': string
-  'gitsync.connectToGitProvider': string
-  'gitsync.defaultFolder': string
-  'gitsync.entitiesByRepositories': string
-  'gitsync.folderDetails': string
-  'gitsync.harnessFolderHeader': string
-  'gitsync.harnessFolderText': string
-  'gitsync.label': string
-  'gitsync.learnMore': string
-  'gitsync.markAsDefault': string
-  'gitsync.markAsDefaultLabel': string
-  'gitsync.moveFolder': string
-  'gitsync.pathToHarnessFolder': string
-  'gitsync.repositoryPath': string
-  'gitsync.rootFolderListHeader': string
-  'gitsync.rootFolderUpdatedSuccessfully': string
-  'gitsync.rootfolderLabel': string
-  'gitsync.seeLess': string
-  'gitsync.seeMore': string
-  'gitsync.selectConnectivityMode': string
-  'gitsync.selectDefaultBranch': string
-  'gitsync.selectHarnessFolder': string
-  'gitsync.successfullCreate': string
-  'gitsync.successfullySavedConnectivityMode': string
   'pipeline.and': string
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string
@@ -947,8 +1045,10 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.barrierWaiting': string
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
+  'pipeline.branchRequired': string
   'pipeline.clickHere': string
   'pipeline.closeStepConfig': string
+  'pipeline.collapseIsDisabledWhileStageIsRunning': string
   'pipeline.conditionalExecution.belowExpression': string
   'pipeline.conditionalExecution.condition': string
   'pipeline.conditionalExecution.statusOption.all': string
@@ -1002,13 +1102,33 @@ export interface StringsMap {
   'pipeline.execution.actions.resumePipeline': string
   'pipeline.execution.actions.resumeStage': string
   'pipeline.execution.currentExecution': string
+  'pipeline.execution.layouts.bottom': string
+  'pipeline.execution.layouts.float': string
+  'pipeline.execution.layouts.minimize': string
+  'pipeline.execution.layouts.right': string
   'pipeline.execution.noInputsText': string
+  'pipeline.execution.pipelineActionMessages.abortedMessage': string
+  'pipeline.execution.pipelineActionMessages.pausedMessage': string
+  'pipeline.execution.pipelineActionMessages.resumedMessage': string
   'pipeline.execution.retryStepCount': string
+  'pipeline.execution.stageActionMessages.abortedMessage': string
+  'pipeline.execution.stageActionMessages.pausedMessage': string
+  'pipeline.execution.stageActionMessages.resumedMessage': string
   'pipeline.execution.stageTitlePrefix': string
   'pipeline.execution.stagesExecuted': string
   'pipeline.execution.stepTitlePrefix': string
   'pipeline.execution.timePrefix': string
   'pipeline.execution.upcomingStagesPrefix': string
+  'pipeline.executionFilters.labels.Aborted': string
+  'pipeline.executionFilters.labels.ApprovalRejected': string
+  'pipeline.executionFilters.labels.ApprovalWaiting': string
+  'pipeline.executionFilters.labels.Expired': string
+  'pipeline.executionFilters.labels.Failed': string
+  'pipeline.executionFilters.labels.InterventionWaiting': string
+  'pipeline.executionFilters.labels.Paused': string
+  'pipeline.executionFilters.labels.Running': string
+  'pipeline.executionFilters.labels.Success': string
+  'pipeline.executionFilters.labels.Waiting': string
   'pipeline.executionStatus.Aborted': string
   'pipeline.executionStatus.Aborting': string
   'pipeline.executionStatus.ApprovalRejected': string
@@ -1027,13 +1147,13 @@ export interface StringsMap {
   'pipeline.executionStatus.Unknown': string
   'pipeline.executionStatus.Waiting': string
   'pipeline.failureStrategies.defaultStageText': string
-  'pipeline.failureStrategies.errorTypeLabels.AnyOther': string
-  'pipeline.failureStrategies.errorTypeLabels.Application': string
+  'pipeline.failureStrategies.errorTypeLabels.AllErrors': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
   'pipeline.failureStrategies.errorTypeLabels.Authorization': string
   'pipeline.failureStrategies.errorTypeLabels.Connectivity': string
   'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning': string
   'pipeline.failureStrategies.errorTypeLabels.Timeout': string
+  'pipeline.failureStrategies.errorTypeLabels.Unknown': string
   'pipeline.failureStrategies.errorTypeLabels.Verification': string
   'pipeline.failureStrategies.fieldLabels.onRetryFailureLabel': string
   'pipeline.failureStrategies.fieldLabels.onTimeoutLabel': string
@@ -1067,6 +1187,8 @@ export interface StringsMap {
   'pipeline.gitDetails': string
   'pipeline.gitExperience.skipNow': string
   'pipeline.infrastructureKey': string
+  'pipeline.inputSets.noRuntimeInputsCurrently': string
+  'pipeline.inputSets.noRuntimeInputsWhileExecution': string
   'pipeline.jiraApprovalStep.allConditions': string
   'pipeline.jiraApprovalStep.anyCondition': string
   'pipeline.jiraApprovalStep.approvalCriteria': string
@@ -1157,6 +1279,7 @@ export interface StringsMap {
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
   'pipeline.progressPercentage': string
+  'pipeline.repoRequired': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
@@ -1168,6 +1291,8 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.setupHeader': string
   'pipeline.startTime': string
   'pipeline.stepConfigHasChanges': string
+  'pipeline.stepDetails': string
+  'pipeline.stepLabel': string
   'pipeline.targets.title': string
   'pipeline.testsReports.className': string
   'pipeline.testsReports.commitId': string
@@ -1205,8 +1330,8 @@ export interface StringsMap {
   'pipeline.testsReports.testCasesExecution': string
   'pipeline.testsReports.testCasesExecutionInfo': string
   'pipeline.testsReports.testSuite': string
-  'pipeline.testsReports.testsIntelligentlySkipped': string
   'pipeline.testsReports.timeSaved': string
+  'pipeline.testsReports.totalDuration': string
   'pipeline.testsReports.totalExecutedTest': string
   'pipeline.testsReports.totalTests': string
   'pipeline.testsReports.totalWithColon': string
@@ -1220,8 +1345,8 @@ export interface StringsMap {
   'pipeline.triggers.cannotParseInputValues': string
   'pipeline.triggers.cannotParseTriggersData': string
   'pipeline.triggers.conditionsPanel.attribute': string
-  'pipeline.triggers.conditionsPanel.branchConditions': string
   'pipeline.triggers.conditionsPanel.branchName': string
+  'pipeline.triggers.conditionsPanel.changedFiles': string
   'pipeline.triggers.conditionsPanel.headerConditions': string
   'pipeline.triggers.conditionsPanel.jexlCondition': string
   'pipeline.triggers.conditionsPanel.matchesValue': string
@@ -1238,9 +1363,9 @@ export interface StringsMap {
   'pipeline.triggers.cronLabel': string
   'pipeline.triggers.deleteTrigger': string
   'pipeline.triggers.enableLabel': string
+  'pipeline.triggers.lastActivationAt': string
+  'pipeline.triggers.lastActivationDetails': string
   'pipeline.triggers.lastActivationLabel': string
-  'pipeline.triggers.lastExecutionAt': string
-  'pipeline.triggers.lastExecutionDetails': string
   'pipeline.triggers.newArtifactLabel': string
   'pipeline.triggers.newManifestLabel': string
   'pipeline.triggers.newTrigger': string
@@ -1303,14 +1428,13 @@ export interface StringsMap {
   'pipeline.triggers.triggerConfigurationLabel': string
   'pipeline.triggers.triggerConfigurationPanel.actions': string
   'pipeline.triggers.triggerConfigurationPanel.anyActions': string
-  'pipeline.triggers.triggerConfigurationPanel.copiedToken': string
+  'pipeline.triggers.triggerConfigurationPanel.autoAbortIssueComment': string
+  'pipeline.triggers.triggerConfigurationPanel.autoAbortPR': string
+  'pipeline.triggers.triggerConfigurationPanel.autoAbortPush': string
   'pipeline.triggers.triggerConfigurationPanel.event': string
   'pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook': string
   'pipeline.triggers.triggerConfigurationPanel.payloadType': string
   'pipeline.triggers.triggerConfigurationPanel.recurrenceLabel': string
-  'pipeline.triggers.triggerConfigurationPanel.regenerateToken': string
-  'pipeline.triggers.triggerConfigurationPanel.regeneratedToken': string
-  'pipeline.triggers.triggerConfigurationPanel.secureTokenRegenerateWarning': string
   'pipeline.triggers.triggerConfigurationPanel.selectTimezonePlaceholder': string
   'pipeline.triggers.triggerConfigurationPanel.title': string
   'pipeline.triggers.triggerConfigurationPanel.triggerName': string
@@ -1330,11 +1454,20 @@ export interface StringsMap {
   'pipeline.triggers.validation.payloadConditions': string
   'pipeline.triggers.validation.repoName': string
   'pipeline.triggers.validation.triggerName': string
+  'pipeline.uniqueIdentifier': string
   'pipeline.verificationResult': string
+  'cd.addInline': string
+  'cd.addRemote': string
+  'cd.addTFVarFileLabel': string
   'cd.allowSimultaneousDeployments': string
+  'cd.backEndConfig': string
   'cd.cdTrialHomePage.startTrial.description': string
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
   'cd.chooseProvisionerText': string
+  'cd.configFilePlaceHolder': string
+  'cd.configIdentifer': string
+  'cd.configurationFile': string
+  'cd.contentRequired': string
   'cd.continuous': string
   'cd.createOrSelectProject': string
   'cd.dashboard.createProject': string
@@ -1344,17 +1477,26 @@ export interface StringsMap {
   'cd.filePathPlaceholder': string
   'cd.filePathRequired': string
   'cd.folderPath': string
+  'cd.gitFetchTypeRequired': string
   'cd.learnMore': string
   'cd.namespaceValidation': string
+  'cd.optionalConfig': string
   'cd.pathCannotBeEmpty': string
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string
   'cd.setUpProvisionerBtnText': string
+  'cd.specifyTfVarStore': string
+  'cd.stepName': string
+  'cd.steps.common.clusterDetails': string
+  'cd.steps.common.infrastructureKeyPlaceholder': string
   'cd.steps.common.namespacePlaceholder': string
   'cd.steps.common.releaseNamePlaceholder': string
   'cd.steps.common.selectConnectorPlaceholder': string
   'cd.steps.common.selectOrEnterClusterPlaceholder': string
   'cd.steps.kubernetesGcpStep.stepName': string
+  'cd.terraformVarFiles': string
+  'cd.tfVarStore': string
+  'cd.varFileDetails': string
   'ce.ceTrialHomePage.startTrial.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
@@ -1403,6 +1545,8 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.asgSelectionInfoText': string
   'ce.co.autoStoppingRule.configuration.instanceModal.description': string
   'ce.co.autoStoppingRule.configuration.step1.form.idleTime.label': string
+  'ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder': string
+  'ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder': string
   'ce.co.autoStoppingRule.configuration.step1.subTitle': string
   'ce.co.autoStoppingRule.configuration.step1.title': string
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg': string
@@ -1416,7 +1560,8 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.step3.policyNotEnabled': string
   'ce.co.autoStoppingRule.configuration.step3.subTitle': string
   'ce.co.autoStoppingRule.configuration.step3.title': string
-  'ce.co.autoStoppingRule.configuration.step4.title': string
+  'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration': string
+  'ce.co.autoStoppingRule.configuration.step4.setup': string
   'ce.co.autoStoppingRule.confirm.deleteDialogText': string
   'ce.co.autoStoppingRule.confirm.deleteServiceTitle': string
   'ce.co.autoStoppingRule.confirm.disable': string
@@ -1666,6 +1811,7 @@ export interface StringsMap {
   'cf.clause.operators.endsWith': string
   'cf.clause.operators.equal': string
   'cf.clause.operators.equalSensitive': string
+  'cf.clause.operators.in': string
   'cf.clause.operators.match': string
   'cf.clause.operators.matchSegment': string
   'cf.clause.operators.startsWith': string
@@ -1706,7 +1852,6 @@ export interface StringsMap {
   'cf.environments.adminEnvironments': string
   'cf.environments.apiKeys.addKey': string
   'cf.environments.apiKeys.addKeyTitle': string
-  'cf.environments.apiKeys.clientId': string
   'cf.environments.apiKeys.clientType': string
   'cf.environments.apiKeys.deleteMessage': string
   'cf.environments.apiKeys.deleteTitle': string
@@ -1895,6 +2040,7 @@ export interface StringsMap {
   'cf.segments.nameRequired': string
   'cf.segments.noSegment': string
   'cf.segments.noSegmentForEnv': string
+  'cf.segments.pageDescription': string
   'cf.segments.targetDefinition': string
   'cf.segments.uploadImage': string
   'cf.segments.usingSegment': string
@@ -1921,6 +2067,8 @@ export interface StringsMap {
   'cf.shared.selectEnvironment': string
   'cf.shared.selected': string
   'cf.shared.target': string
+  'cf.shared.targetManagement': string
+  'cf.shared.targets': string
   'cf.shared.variation': string
   'cf.shared.variations': string
   'cf.targetDetail.addTargetToSegment': string
@@ -1966,6 +2114,7 @@ export interface StringsMap {
   'cf.targets.noSegmentFound': string
   'cf.targets.noTargetFound': string
   'cf.targets.noneDefined': string
+  'cf.targets.pageDescription': string
   'cf.targets.targetSegment': string
   'cf.targets.upload': string
   'cf.targets.uploadHeadline': string
@@ -2012,6 +2161,9 @@ export interface StringsMap {
   'ci.noData': string
   'ci.optimize': string
   'ci.optimizeInfo': string
+  'ci.pipelineSteps.failIfKeyNotFoundInfo': string
+  'ci.pipelineSteps.overrideCacheInfo': string
+  'ci.pipelineSteps.pathStyleInfo': string
   'ci.previous': string
   'ci.privileged': string
   'ci.privilegedInfo': string
@@ -3863,18 +4015,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'execution.actionMessages.abortedMessage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.actionMessages.pausedMessage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.actionMessages.resumedMessage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'execution.approvals.allConditionsMsg': string
   /**
    * @deprecated migrate this string to module level file
@@ -5011,10 +5151,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.addTFVarFileLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.addTerraformVarFile': string
   /**
    * @deprecated migrate this string to module level file
@@ -5783,10 +5919,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.terraformVarFiles': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.timeoutInfo': string
   /**
    * @deprecated migrate this string to module level file
@@ -6371,23 +6503,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'secret.labelSecretName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'secret.labelSecretReference': string
   /**
    * @deprecated migrate this string to module level file
    */
   'secret.labelSecretType': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelSecretValue': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelSecretsManager': string
   /**
    * @deprecated migrate this string to module level file
    */

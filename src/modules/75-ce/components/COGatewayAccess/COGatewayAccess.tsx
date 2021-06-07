@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Heading, Container, Layout, Checkbox, Icon, Tabs, Tab } from '@wings-software/uicore'
+import { Heading, Container, Layout, Checkbox, Icon, Tabs, Tab, Button } from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
+import { Drawer } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import DNSLinkSetup from './DNSLinkSetup'
 import SSHSetup from './SSHSetup'
 import IPSetup from './IPAddressSetup'
 import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/models'
-import COFixedDrawer from './COFixedDrawer'
+// import COFixedDrawer from './COFixedDrawer'
 import css from './COGatewayAccess.module.scss'
 
 interface COGatewayAccessProps {
@@ -32,6 +33,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const [selectedTabId, setSelectedTabId] = useState<string>('')
   const [selectedHelpText, setSelectedHelpText] = useState<string>('')
   const [selectedHelpTextSections, setSelectedHelpTextSections] = useState<string[]>([])
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
   const selectTab = (tabId: string) => {
     setSelectedTabId(tabId)
   }
@@ -105,7 +107,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   }, [selectedTabId])
   return (
     <Container className={css.page}>
-      <COFixedDrawer
+      {/* <COFixedDrawer
         topMargin={86}
         content={
           <COHelpSidebar
@@ -116,24 +118,54 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
             hostName={props.gatewayDetails.hostName}
           />
         }
-      />
+      /> */}
+      <Drawer
+        autoFocus={true}
+        enforceFocus={true}
+        hasBackdrop={true}
+        usePortal={true}
+        canOutsideClickClose={true}
+        canEscapeKeyClose={true}
+        isOpen={drawerOpen}
+        onClose={() => {
+          setDrawerOpen(false)
+        }}
+        size="392px"
+        style={{
+          // top: '85px',
+          boxShadow: 'rgb(40 41 61 / 4%) 0px 2px 8px, rgb(96 97 112 / 16%) 0px 16px 24px',
+          height: '100vh',
+          overflowY: 'scroll'
+        }}
+      >
+        <Container style={{ textAlign: 'right' }}>
+          <Button icon="cross" minimal onClick={_ => setDrawerOpen(false)} />
+        </Container>
+        <COHelpSidebar
+          key={selectedHelpTextSections.join()}
+          pageName={selectedHelpText}
+          activeSectionNames={selectedHelpTextSections}
+          customDomain={props.gatewayDetails.customDomains?.join(',')}
+          hostName={props.gatewayDetails.hostName}
+        />
+      </Drawer>
       <Layout.Vertical spacing="large" padding="medium" style={{ marginLeft: '10px' }}>
         <Layout.Vertical spacing="small" padding="medium">
           <Layout.Horizontal spacing="small">
-            <Heading level={2} font={{ weight: 'semi-bold' }}>
+            <Heading level={2} font={{ weight: 'semi-bold' }} className={css.setupAccessHeading}>
               {getString('ce.co.autoStoppingRule.setupAccess.pageName')}
             </Heading>
           </Layout.Horizontal>
-          <Heading level={3} font={{ weight: 'light' }}>
+          <Heading level={3} font={{ weight: 'light' }} className={css.setupAccessSubHeading}>
             {getString('ce.co.gatewayAccess.subtitle')}
           </Heading>
         </Layout.Vertical>
         <Layout.Vertical spacing="small" padding="medium">
           <Layout.Horizontal spacing="small">
-            <Heading level={3} font={{ weight: 'light' }}>
+            <Heading level={3} font={{ weight: 'light' }} className={css.setupAccessSubHeading}>
               {getString('ce.co.gatewayAccess.accessDescription')}
             </Heading>
-            <Icon name="info"></Icon>
+            <Icon name="info" style={{ cursor: 'pointer' }} onClick={() => setDrawerOpen(true)}></Icon>
           </Layout.Horizontal>
           <Layout.Horizontal spacing="xxxlarge">
             <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-small)' }}>
@@ -191,6 +223,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                     gatewayDetails={props.gatewayDetails}
                     setHelpTextSections={setSelectedHelpTextSections}
                     setGatewayDetails={props.setGatewayDetails}
+                    onInfoIconClick={() => setDrawerOpen(true)}
                   />
                 }
               ></Tab>

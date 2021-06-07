@@ -15,7 +15,6 @@ declare const styles: {
   readonly shadow: string
   readonly notwide: string
   readonly nopadleft: string
-  readonly propagatedropdown: string
   readonly name: string
   readonly addDataLinks: string
   readonly removeLink: string
@@ -34,5 +33,7 @@ declare const styles: {
   readonly stageSelectionGrid: string
   readonly radioColumn: string
   readonly useoverrideCheckbox: string
+  readonly propagationPadding: string
+  readonly propagateDropdown: string
 }
 export default styles

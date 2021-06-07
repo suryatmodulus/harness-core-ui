@@ -265,7 +265,7 @@ exports[`Create Splunk connector Wizard should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span

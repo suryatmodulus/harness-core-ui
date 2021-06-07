@@ -60,6 +60,7 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
       )}
       {getMultiTypeFromValue(template?.spec?.privileged) === MultiTypeInputType.RUNTIME && (
         <FormInput.CheckBox
+          className={css.checkbox}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.privileged`}
           label={getString('ci.privileged')}
           disabled={readonly}

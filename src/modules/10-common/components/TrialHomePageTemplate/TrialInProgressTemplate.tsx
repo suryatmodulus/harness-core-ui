@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import { Button, Color, Container, Heading, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
@@ -6,6 +6,7 @@ import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, PageNames } from '@common/constants/TrackingConstants'
 import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanner'
 import { Page } from '../Page/Page'
+import css from './TrialInProgressTemplate.module.scss'
 
 interface TrialBannerProps {
   expiryTime?: number
@@ -70,16 +71,7 @@ export const TrialInProgressTemplate: React.FC<TrialInProgressTemplateProps> = (
     <>
       <TrialLicenseBanner {...trialBannerProps} />
       <Page.Body>
-        <Container
-          height="calc(100% - 160px)"
-          style={{
-            margin: '80px',
-            background: `transparent url(${bgImageUrl}) no-repeat`,
-            position: 'relative',
-            backgroundSize: 'contain',
-            backgroundPositionY: 'center'
-          }}
-        >
+        <Container style={{ '--image-url': `url(${bgImageUrl})` } as CSSProperties} className={css.body}>
           <Layout.Vertical spacing="medium">
             <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
               <Heading font={{ weight: 'bold', size: 'large' }} color={Color.BLACK_100}>
@@ -91,11 +83,8 @@ export const TrialInProgressTemplate: React.FC<TrialInProgressTemplateProps> = (
                 height={18}
                 border={{ radius: 3 }}
                 color={Color.WHITE}
-                style={{
-                  backgroundColor: 'var(--orange-500)',
-                  textAlign: 'center',
-                  display: 'inline-block'
-                }}
+                background={Color.ORANGE_500}
+                font={{ align: 'center' }}
               >
                 {getString('common.trialInProgress')}
               </Text>

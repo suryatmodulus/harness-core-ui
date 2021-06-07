@@ -14,9 +14,8 @@ import CIPipelineStudio from '../CFPipelineStudio'
 import { PipelineResponse } from './PipelineStudioMocks'
 
 jest.mock('@common/utils/YamlUtils', () => ({ useValidationError: () => ({ errorMap: new Map() }) }))
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+
 jest.mock('resize-observer-polyfill', () => {
   class ResizeObserver {
     static default = ResizeObserver

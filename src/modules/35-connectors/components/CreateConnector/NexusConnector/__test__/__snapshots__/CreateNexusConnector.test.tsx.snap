@@ -307,7 +307,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -624,7 +624,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                     authentication
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-2"
                   >
                     <div
@@ -882,7 +882,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1196,7 +1196,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1503,7 +1503,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                     authentication
                   </span>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-2"
                   >
                     <div
@@ -1783,7 +1783,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

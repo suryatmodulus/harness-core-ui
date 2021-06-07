@@ -6,36 +6,51 @@ import { useUserProfile } from '@user-profile/modals/UserProfile/useUserProfile'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGetAuthenticationSettings } from 'services/cd-ng'
+import type { UsernamePasswordSettings } from 'services/cd-ng'
 import { Page } from '@common/components'
 import TwoFactorAuthentication from '@user-profile/components/TwoFactorAuthentication/TwoFactorAuthentication'
 import useSwitchAccountModal from '@user-profile/modals/SwitchAccount/useSwitchAccountModal'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
+import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
 import UserOverView from './views/UserOverView'
 import css from './UserProfile.module.scss'
 
 const UserProfilePage: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const { openPasswordModal } = useChangePassword()
   const { openSwitchAccountModal } = useSwitchAccountModal({})
   const { openUserProfile } = useUserProfile({})
   const { currentUserInfo: user } = useAppStore()
 
   const {
-    data: loginSettings,
+    data: loginSettingsData,
     loading: fetchingAuthSettings,
-    error: errorWhileFetchingAuthSettings
+    error: errorWhileFetchingAuthSettings,
+    refetch: refetchLoginSettings
   } = useGetAuthenticationSettings({
     queryParams: {
       accountIdentifier: accountId
     }
   })
 
+  const userPasswordSettings = loginSettingsData?.resource?.ngAuthSettings?.find(
+    ({ settingsType }) => settingsType === AuthenticationMechanisms.USER_PASSWORD
+  ) as UsernamePasswordSettings | undefined
+
+  const passwordStrengthPolicy = userPasswordSettings?.loginSettings?.passwordStrengthPolicy
+
+  const { openPasswordModal } = useChangePassword()
+  const className = user.emailVerified ? css.noBanner : css.hasBanner
+
   return (
     <>
       <EmailVerificationBanner />
-      <Page.Body filled loading={fetchingAuthSettings} error={errorWhileFetchingAuthSettings?.message}>
+      <Page.Body
+        error={errorWhileFetchingAuthSettings?.message}
+        retryOnError={() => refetchLoginSettings()}
+        className={className}
+      >
         <Layout.Horizontal height="inherit">
           <Container width="30%" className={css.details}>
             <Layout.Vertical>
@@ -61,13 +76,17 @@ const UserProfilePage: React.FC = () => {
                 <Text icon="main-email" iconProps={{ padding: { right: 'medium' } }}>
                   {user.email}
                 </Text>
-                {__DEV__ ? (
-                  <Text icon="lock" iconProps={{ padding: { right: 'medium' } }}>
-                    <Button minimal onClick={openPasswordModal} font={{ weight: 'semi-bold' }} className={css.button}>
-                      {getString('userProfile.changePassword')}
-                    </Button>
-                  </Text>
-                ) : null}
+                <Text icon="lock" iconProps={{ padding: { right: 'medium' } }}>
+                  <Button
+                    minimal
+                    onClick={() => openPasswordModal(passwordStrengthPolicy)}
+                    font={{ weight: 'semi-bold' }}
+                    className={css.button}
+                    disabled={fetchingAuthSettings}
+                  >
+                    {getString('userProfile.changePassword')}
+                  </Button>
+                </Text>
                 <Text icon="people" iconProps={{ padding: { right: 'medium' } }}>
                   <Button
                     minimal
@@ -81,7 +100,9 @@ const UserProfilePage: React.FC = () => {
               </Layout.Vertical>
               <Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex>
                 <TwoFactorAuthentication
-                  isTwoFactorAuthEnabledForCurrentAccount={!!loginSettings?.resource?.twoFactorEnabled}
+                  twoFactorAuthenticationDisabled={
+                    !!loginSettingsData?.resource?.twoFactorEnabled || fetchingAuthSettings
+                  }
                 />
               </Layout.Horizontal>
             </Layout.Vertical>

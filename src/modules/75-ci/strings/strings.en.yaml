@@ -44,3 +44,7 @@ remoteCacheImage:
   ecrInfo: The remote cache repository needs to be created in the same account and region as the build image. The repository must already exist for caching to work
   gcrInfo: The remote cache repository needs to be created in the same host and project as the build image. The repository will be automatically created if it doesn’t exist.
   dockerInfo: The remote cache repository needs to be created in the same account and organization as the build image. The repository must already exist for caching to work
+pipelineSteps:
+  overrideCacheInfo: Select whether you want to override the cache if the key already exists. default is true
+  pathStyleInfo: Select whether to use Virtual Hosted Style (http://bucket.host/key) or Path Style (http://host/bucket/key). For MinIO use Path Style (true). Default value is false.
+  failIfKeyNotFoundInfo: Fail step if the key doesn’t exist. Default is False.

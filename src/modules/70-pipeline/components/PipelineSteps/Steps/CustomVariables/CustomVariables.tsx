@@ -66,6 +66,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
           initialValues={initialValues}
           onUpdate={data => onUpdate?.(this.processFormData(data))}
           stepViewType={stepViewType}
+          enableValidation
           readonly={readonly}
           {...customStepProps}
         />
@@ -107,7 +108,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
     return errors
   }
 
-  protected async getSecretsListForYaml(
+  async getSecretsListForYaml(
     path: string,
     yaml: string,
     params: Record<string, unknown>

@@ -11,7 +11,11 @@ import {
   secretPathProps,
   verificationPathProps,
   delegatePathProps,
-  delegateConfigProps
+  delegateConfigProps,
+  resourceGroupPathProps,
+  rolePathProps,
+  userGroupPathProps,
+  userPathProps
 } from '@common/utils/routeUtils'
 import type { AccountPathProps, ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { MinimalLayout } from '@common/layouts'
@@ -40,12 +44,26 @@ import SecretDetailsHomePage from '@secrets/pages/secretDetailsHomePage/SecretDe
 import CVActivitySourcesPage from '@cv/pages/admin/activity-sources/CVActivitySourcesPage'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import ResourcesPage from '@common/pages/resources/ResourcesPage'
-import CVNotificationPage from './pages/admin/notifications/CVNotificationPage'
-import CVMonitoringSourcesPage from './pages/admin/monitoring-sources/CVMonitoringSourcesPage'
+import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
+import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
+import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
+import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
+import Roles from '@rbac/pages/Roles/Roles'
+import UserDetails from '@rbac/pages/UserDetails/UserDetails'
+import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
+import UserGroups from '@rbac/pages/UserGroups/UserGroups'
+import UsersPage from '@rbac/pages/Users/UsersPage'
 import CVVerificationJobsPage from './pages/admin/verification-jobs/CVVerificationJobsPage'
+import CVMonitoringSourcesPage from './pages/admin/monitoring-sources/CVMonitoringSourcesPage'
+import CVNotificationPage from './pages/admin/notifications/CVNotificationPage'
 import VerificationJobs from './pages/verification-jobs/VerificationJobsSetup'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
+
+const RedirectToAccessControlHome = (): React.ReactElement => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+
+  return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module: 'cv' })} />
+}
 
 const RedirectToCVHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -58,15 +76,18 @@ const RedirectToCVProject = (): React.ReactElement => {
   const { selectedProject } = useAppStore()
 
   if (selectedProject?.modules?.includes(ModuleName.CV)) {
-    return <Redirect to={routes.toCVProjectOverview(params)} />
+    return (
+      <Redirect
+        to={routes.toCVProjectOverview({
+          accountId: params.accountId,
+          orgIdentifier: selectedProject.orgIdentifier || '',
+          projectIdentifier: selectedProject.identifier
+        })}
+      />
+    )
   } else {
     return <Redirect to={routes.toCVHome(params)} />
   }
-}
-
-const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps & ModulePathParams>()
-  return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
 const CVSideNavProps: SidebarContext = {
@@ -224,45 +245,33 @@ export default (
     >
       <VerificationJobs />
     </RouteWithLayout>
-    <Route
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toResources({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
-    >
-      <RedirectToResourcesHome />
-    </Route>
+
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesConnectors({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+      path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
     >
-      <ResourcesPage>
-        <ConnectorsPage />
-      </ResourcesPage>
+      <ConnectorsPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesSecrets({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+      path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
     >
-      <ResourcesPage>
-        <SecretsPage />
-      </ResourcesPage>
+      <SecretsPage />
     </RouteWithLayout>
 
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesDelegates({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+      path={routes.toDelegates({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
     >
-      <ResourcesPage>
-        <DelegatesPage />
-      </ResourcesPage>
+      <DelegatesPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesDelegatesDetails({
+      path={routes.toDelegatesDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...delegatePathProps,
@@ -274,7 +283,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesDelegateConfigsDetails({
+      path={routes.toDelegateConfigsDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...delegateConfigProps,
@@ -286,10 +295,10 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminResourcesConnectorDetails({
-        ...accountPathProps,
+      path={routes.toConnectorDetails({
         ...projectPathProps,
-        ...connectorPathProps
+        ...connectorPathProps,
+        ...cvModuleParams
       })}
     >
       <ConnectorDetailsPage />
@@ -297,7 +306,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesSecretDetails({
+      path={routes.toSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -309,7 +318,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesSecretDetailsOverview({
+      path={routes.toSecretDetailsOverview({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -323,7 +332,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesSecretDetailsReferences({
+      path={routes.toSecretDetailsReferences({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -343,6 +352,85 @@ export default (
       })}
     >
       <CVNotificationPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={[routes.toAccessControl({ ...projectPathProps, ...cvModuleParams })]}
+      exact
+    >
+      <RedirectToAccessControlHome />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={[routes.toUsers({ ...projectPathProps, ...cvModuleParams })]}
+      exact
+    >
+      <AccessControlPage>
+        <UsersPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={routes.toUserDetails({ ...projectPathProps, ...cvModuleParams, ...userPathProps })}
+      exact
+    >
+      <UserDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={[routes.toUserGroups({ ...projectPathProps, ...cvModuleParams })]}
+      exact
+    >
+      <AccessControlPage>
+        <UserGroups />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={routes.toUserGroupDetails({ ...projectPathProps, ...cvModuleParams, ...userGroupPathProps })}
+      exact
+    >
+      <UserGroupDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={[routes.toResourceGroups({ ...projectPathProps, ...cvModuleParams })]}
+      exact
+    >
+      <AccessControlPage>
+        <ResourceGroups />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={[routes.toRoles({ ...projectPathProps, ...cvModuleParams })]}
+      exact
+    >
+      <AccessControlPage>
+        <Roles />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={[routes.toRoleDetails({ ...projectPathProps, ...cvModuleParams, ...rolePathProps })]}
+      exact
+    >
+      <RoleDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={[routes.toResourceGroupDetails({ ...projectPathProps, ...cvModuleParams, ...resourceGroupPathProps })]}
+      exact
+    >
+      <ResourceGroupDetails />
     </RouteWithLayout>
   </>
 )

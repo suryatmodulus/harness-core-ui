@@ -63,7 +63,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const { getString } = useStrings()
 
   const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store || initialValues.store)
-  const newConnectorLabel = `${getString('newLabel')} ${ManifestToConnectorMap[selectedManifest]} ${getString(
+  const newConnectorLabel = `${getString('newLabel')} ${ManifestToConnectorLabelMap[selectedManifest]} ${getString(
     'connector'
   )}`
 
@@ -174,14 +174,14 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     isNewConnectorLabelVisible={false}
                     type={ManifestToConnectorMap[selectedManifest]}
                     enableConfigureOptions={false}
-                    gitScope={{ repo: repoIdentifier || '', branch }}
+                    gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                   />
                   {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME ? (
                     <div className={css.configureOptions}>
                       <ConfigureOptions
                         value={(formik.values.connectorRef as unknown) as string}
                         type={ManifestToConnectorMap[selectedManifest]}
-                        variableName="connectorId"
+                        variableName="connectorRef"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}

@@ -44,7 +44,7 @@ describe('Stepk8ClusterDetails', () => {
     expect(container).toMatchSnapshot()
 
     await act(async () => {
-      fireEvent.click(getByText('saveAndContinue'))
+      fireEvent.click(getByText('continue'))
     })
 
     expect(container).toMatchSnapshot()

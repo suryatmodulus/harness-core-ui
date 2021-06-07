@@ -12,9 +12,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import BuildStageSetupShell from '../BuildStageSetupShell'
 
 import pipelineContextMock from './pipelineContext.json'
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
 
 class StepFactory extends AbstractStepFactory {

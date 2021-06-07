@@ -14,9 +14,7 @@ const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactEle
   <TestWrapper>{children}</TestWrapper>
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 describe('Wizard tests', () => {
   describe('Renders/snapshots', () => {

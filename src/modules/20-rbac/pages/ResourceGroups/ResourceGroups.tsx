@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Layout, ExpandingSearchInput, Container } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { useResourceGroupModal } from '@rbac/modals/ResourceGroupModal/useResourceGroupModal'
 import { useGetResourceGroupList } from 'services/resourcegroups'
 import ResourceGroupListView from '@rbac/components/ResourceGroupList/ResourceGroupListView'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import routes from '@common/RouteDefinitions'
 
 const ResourceGroups: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
+  const history = useHistory()
   useDocumentTitle(getString('resourceGroups'))
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
@@ -37,7 +39,19 @@ const ResourceGroups: React.FC = () => {
     if (searchTerm) setPage(0)
   }, [searchTerm])
 
-  const { openResourceGroupModal } = useResourceGroupModal({ onSuccess: refetch })
+  const { openResourceGroupModal } = useResourceGroupModal({
+    onSuccess: resourceGroup => {
+      history.push(
+        routes.toResourceGroupDetails({
+          accountId,
+          orgIdentifier,
+          projectIdentifier,
+          module,
+          resourceGroupIdentifier: resourceGroup.identifier
+        })
+      )
+    }
+  })
 
   return (
     <>

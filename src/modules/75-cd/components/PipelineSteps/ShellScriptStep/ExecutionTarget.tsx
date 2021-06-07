@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, FormInput, getMultiTypeFromValue, MultiTypeInputType, Layout } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'
+import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
@@ -52,7 +53,7 @@ export default function ExecutionTarget(props: {
       </div>
       {formValues.spec.onDelegate === 'targethost' ? (
         <>
-          <div className={stepCss.formGroup}>
+          <div className={cx(stepCss.formGroup, stepCss.md)}>
             <FormInput.MultiTextInput
               name="spec.executionTarget.host"
               label={getString('targetHost')}
@@ -73,11 +74,12 @@ export default function ExecutionTarget(props: {
               />
             )}
           </div>
-          <div className={stepCss.formGroup}>
+          <div className={cx(stepCss.formGroup, stepCss.md)}>
             <MultiTypeSecretInput
               type="SSHKey"
               name="spec.executionTarget.connectorRef"
               label={getString('sshConnector')}
+              expressions={expressions}
               disabled={readonly}
             />
             {getMultiTypeFromValue(formValues?.spec.executionTarget.connectorRef) === MultiTypeInputType.RUNTIME && (
@@ -99,7 +101,7 @@ export default function ExecutionTarget(props: {
               />
             )}
           </div>
-          <div className={stepCss.formGroup}>
+          <div className={cx(stepCss.formGroup, stepCss.md)}>
             <FormInput.MultiTextInput
               name="spec.executionTarget.workingDirectory"
               label={getString('workingDirectory')}

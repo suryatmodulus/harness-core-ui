@@ -27,6 +27,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
+import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import css from './Stepk8ClusterDetails.module.scss'
 
 interface Stepk8ClusterDetailsProps extends ConnectorInfoDTO {
@@ -121,7 +122,7 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
             label={getString('connectors.k8.OIDCIssuerUrl')}
             className={css.formFieldWidth}
           />
-          <Container className={css.applyFlex}>
+          <Container flex={{ justifyContent: 'flex-start' }}>
             <Container width={'42%'}>
               <TextReference
                 name="oidcUsername"
@@ -134,7 +135,7 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
 
             <Container width={'42%'} margin={{ top: 'medium', left: 'xxlarge' }}>
               <SecretInput name={'oidcCleintId'} label={getString('connectors.k8.OIDCClientId')} />
-              <SecretInput name={'oidcCleintSecret'} label={getString('connectors.k8.OIDCSecret')} />
+              <SecretInput name={'oidcCleintSecret'} label={getString('connectors.k8.clientSecretOptional')} />
             </Container>
           </Container>
 
@@ -145,18 +146,22 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
           />
         </>
       )
+
     case AuthTypes.CLIENT_KEY_CERT:
       return (
         <>
-          <Container className={css.formRow}>
-            <SecretInput name={'clientKey'} label={getString('connectors.k8.clientKey')} />
-            <SecretInput name={'clientKeyPassphrase'} label={getString('connectors.k8.clientKeyPassphrase')} />
+          <Container flex={{ justifyContent: 'flex-start' }}>
+            <Container className={css.formFieldWidth}>
+              <SecretInput name={'clientKey'} label={getString('connectors.k8.clientKey')} />
+              <SecretInput name={'clientKeyCertificate'} label={getString('connectors.k8.clientCertificate')} />
+            </Container>
+
+            <Container className={css.formFieldWidth} margin={{ left: 'xxlarge' }}>
+              <SecretInput name={'clientKeyPassphrase'} label={getString('connectors.k8.clientKeyPassphrase')} />
+              <FormInput.Text name="clientKeyAlgo" label={getString('connectors.k8.clientKeyAlgorithm')} />
+            </Container>
           </Container>
-          <Container className={css.formRow}>
-            <SecretInput name={'clientKeyCertificate'} label={getString('connectors.k8.clientCertificate')} />
-            <FormInput.Text name="clientKeyAlgo" label={getString('connectors.k8.clientKeyAlgorithm')} />
-          </Container>
-          <Container width={'42%'}>
+          <Container className={css.formFieldWidth}>
             <SecretInput name={'clientKeyCACertificate'} label={getString('connectors.k8.clientKeyCACertificate')} />
           </Container>
         </>
@@ -250,11 +255,6 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
     oidcCleintId: Yup.object().when('authType', {
       is: authType => authType === AuthTypes.OIDC,
       then: Yup.object().required(getString('validation.OIDCClientId')),
-      otherwise: Yup.object().nullable()
-    }),
-    oidcCleintSecret: Yup.object().when('authType', {
-      is: authType => authType === AuthTypes.OIDC,
-      then: Yup.object().required(getString('validation.OIDCSecret')),
       otherwise: Yup.object().nullable()
     }),
     clientKey: Yup.object().when('authType', {
@@ -355,7 +355,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                       name="authType"
                       items={authOptions}
                       disabled={false}
-                      className={css.authTypeSelect}
+                      className={commonStyles.authTypeSelect}
                     />
                   </Container>
 
@@ -375,7 +375,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
               <Button
                 type="submit"
                 intent="primary"
-                text={getString('saveAndContinue')}
+                text={getString('continue')}
                 rightIcon="chevron-right"
                 margin={{ left: 'medium' }}
               />

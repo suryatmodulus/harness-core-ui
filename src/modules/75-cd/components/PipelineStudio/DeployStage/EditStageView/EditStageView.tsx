@@ -89,6 +89,7 @@ export const EditStageView: React.FC<EditStageView> = ({
   const { stepsFactory, getStageFromPipeline } = usePipelineContext()
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
+  const allNGVariables = ((data?.stage as StageElementConfig)?.variables || []) as AllNGVariables[]
 
   return (
     <div className={cx({ [css.contentSection]: context })} ref={scrollRef}>
@@ -136,7 +137,7 @@ export const EditStageView: React.FC<EditStageView> = ({
             }}
             validate={values => {
               const errors: { name?: string } = {}
-              if (isDuplicateStageId(values.identifier, stages)) {
+              if (isDuplicateStageId(values.identifier, stages, !!context)) {
                 errors.name = getString('validation.identifierDuplicate')
               }
               if (context && data) {
@@ -246,7 +247,7 @@ export const EditStageView: React.FC<EditStageView> = ({
         </Container>
       </div>
       {context && (
-        <Accordion className={css.accordionTitle}>
+        <Accordion activeId={allNGVariables.length > 0 ? 'advanced' : ''} className={css.accordionTitle}>
           <Accordion.Panel
             id="advanced"
             addDomId={true}
@@ -264,7 +265,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                         <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
                           factory={stepsFactory}
                           initialValues={{
-                            variables: ((data?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
+                            variables: allNGVariables,
                             canAddVariable: true
                           }}
                           readonly={isReadonly}

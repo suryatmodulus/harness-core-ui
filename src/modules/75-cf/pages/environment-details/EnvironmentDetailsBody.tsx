@@ -44,7 +44,7 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
     if (textRef.current) {
       Utils.copy(textRef.current.innerText)
         .then(() => showSuccess(getString('clipboardCopySuccess')))
-        .catch(() => showError(getString('clipboardCopyFail')))
+        .catch(() => showError(getString('clipboardCopyFail'), undefined, 'cf.copy.text.error'))
     }
   }
 
@@ -52,7 +52,7 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
     <Layout.Horizontal flex={{ distribution: 'space-between' }}>
       <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
         <Text font={{ weight: 'bold' }}>
-          {apiKey.type === EnvironmentSDKKeyType.CLIENT ? getEnvString(`apiKeys.clientId`) : getString('secretType')}
+          {apiKey.type === EnvironmentSDKKeyType.CLIENT ? getString(`common.clientId`) : getString('secretType')}
         </Text>
         {showCopy ? (
           <div ref={textRef}>
@@ -140,7 +140,9 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
     deleteKey(id)
       .then(() => showSuccess(`Succesfuly deleted Key: ${id}`))
       .then(() => refetch())
-      .catch(deleteError => showError(get(deleteError, 'data.error', deleteError?.message)))
+      .catch(deleteError =>
+        showError(get(deleteError, 'data.error', deleteError?.message), undefined, 'cf.delete.api.key.error')
+      )
   }
 
   const { apiKeys, ...pagination } = data ?? {

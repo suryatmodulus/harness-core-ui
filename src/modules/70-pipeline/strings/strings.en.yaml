@@ -1,13 +1,16 @@
 enterDescription: Enter Description
 verificationResult: 'Verification result:'
-estimatedTimeRemaining: 'Estimated time remaning:'
+estimatedTimeRemaining: 'Estimated time remaining:'
 progressPercentage: 'Progress percentage:'
 discard: Discard
+stepLabel: '{{name}} (ID: {{identifier}})'
 enableVerificationOptions: Enable verification options
 closeStepConfig: Step Config
 infrastructureKey: 'Infrastructure Key'
 stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
 clickHere: Click here
+stepDetails: Step details
+collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required
@@ -103,33 +106,33 @@ manifestType:
   helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
   helmCommandFlagLabel: Helm Command Flags (optional)
   helmCommandType: Command Type
-  helmVersionRequired: 'Helm Version is required'
-  commandFlagRequired: 'Command Flag is required'
-  folderPathRequired: Folder Path is required
-  chartPathRequired: Chart Path is required
-  kustomizePathRequired: Kustomize Path is required
+  helmVersionRequired: 'Helm version is required'
+  commandFlagRequired: 'Command flag is required'
+  folderPathRequired: Folder path is required
+  chartPathRequired: Chart path is required
+  kustomizePathRequired: Kustomize path is required
   reponameRequired: Repository name is required
-  pathRequired: Path is required
+  pathRequired: File path is required
   path: '{{$.common.path}}'
-  osTemplatePath: 'Template File Path'
-  osTemplatePathPlaceHolder: 'Enter Template File Path'
-  osTemplatePathRequired: Template File Path is required
+  osTemplatePath: Template File Path
+  osTemplatePathPlaceHolder: Enter template file path
+  osTemplatePathRequired: Template file path is required
   pathPlaceholder: Enter file path
   bucketName: Bucket Name
   gitFetchTypeLabel: Git Fetch Type
   commitId: Commit ID
-  branchPlaceholder: Enter branch name here
-  commitPlaceholder: Enter Commit ID here
+  branchPlaceholder: Enter branch name
+  commitPlaceholder: Enter commit id
   filePathPlaceholder: Enter file or folder path
   kustomizeFolderPath: Kustomize Folder Path
-  repoNamePlacefolder: Enter repo name here
+  repoNamePlacefolder: Enter repo name
   http:
     chartName: 'Helm Chart Name'
     chartVersion: 'Helm Chart Version'
-    chartNameRequired: 'Chart Name is required'
-    chartNamePlaceHolder: 'Enter Chart Name'
-    chartVersionPlaceHolder: 'Enter Chart Version'
-    chartVersionRequired: 'Chart Version is required'
+    chartNameRequired: 'Chart name is required'
+    chartNamePlaceHolder: 'Enter chart name'
+    chartVersionPlaceHolder: 'Enter chart version'
+    chartVersionRequired: 'Chart version is required'
 failureStrategies:
   selectStrategy: '{{ $.common.selectStrategy }}'
   performAction: '{{ $.common.performAction }}'
@@ -154,13 +157,13 @@ failureStrategies:
     MarkAsSuccess: Mark As Success
   errorTypeLabels:
     Authentication: Authentication Errors
-    Application: Application Errors
     Authorization: Authorization Errors
     Connectivity: Connectivity Errors
     Timeout: Timeout Errors
     Verification: Verification Errors
     DelegateProvisioning: Delegate Provisioning Errors
-    AnyOther: Any Other
+    AllErrors: All Errors
+    Unknown: Unknown Errors
   validation:
     errorsRequired: At least one failure type is required
     errorsMinimum: '{{ $.pipeline.failureStrategies.validation.errorsRequired }}'
@@ -196,6 +199,14 @@ execution:
   retryStepCount: 'Retry #{{ num }}'
   currentExecution: Current Execution
   timePrefix: 'Execution Time: '
+  pipelineActionMessages:
+    abortedMessage: Pipeline has been aborted successfully
+    pausedMessage: Pipeline has been paused successfully
+    resumedMessage: Pipeline has been resumed successfully
+  stageActionMessages:
+    abortedMessage: Stage "{{stageName}}" has been aborted successfully
+    pausedMessage: Stage "{{stageName}}" has been paused successfully
+    resumedMessage: Stage  "{{stageName}}" has been resumed successfully
   actions:
     resumePipeline: Resume Pipeline
     rerunPipeline: Re-run Pipeline
@@ -206,6 +217,11 @@ execution:
     pauseStage: Pause Stage
     abortStage: Abort Stage
     downloadLogs: Download logs
+  layouts:
+    bottom: Align to bottom
+    right: Align to right
+    float: Floating window
+    minimize: Minimize window
 resourceConstraints:
   title: Resource Constraint
   infoText: 'You have {{executioncount}} executions in queue that have to complete before your execution begins. Only one execution on a K8s namespace is allowed at a time.'
@@ -240,6 +256,18 @@ executionStatus:
   NotStarted: NOT STARTED
   ApprovalRejected: REJECTED
   Unknown: UNKNOWN
+executionFilters:
+  labels:
+    Aborted: Aborted
+    Expired: Expired
+    Failed: '{{ $.failed }}'
+    Running: Running
+    Success: '{{ $.success }}'
+    ApprovalRejected: Approval Rejected
+    Paused: Paused
+    ApprovalWaiting: Waiting on approval
+    InterventionWaiting: Waiting on intervention
+    Waiting: Waiting for resources
 logs:
   fetchError: Could not fetch logs. Please try again later.
 conditionalExecution:
@@ -268,8 +296,8 @@ triggers:
   noTriggersFound: 'No Triggers Found'
   newTrigger: + New Trigger
   pipelineExecutionInput: Pipeline Execution Input
-  lastExecutionDetails: Last Execution Details
-  lastExecutionAt: 'Last execution at'
+  lastActivationDetails: Last Activation Details
+  lastActivationAt: 'Last activation at'
   showAllTriggers: 'Show all Triggers'
   onNewWebhookTitle: 'On New Webhook'
   onNewArtifactTitle: 'On New Artifact/Manifest'
@@ -321,17 +349,16 @@ triggers:
     event: 'Event'
     actions: Actions
     anyActions: Any Actions
-    copiedToken: 'Successfully copied secure token'
-    regenerateToken: 'Regenerate Token'
-    regeneratedToken: 'Successfully regenerated secure token'
-    secureTokenRegenerateWarning: 'When the existing secure token is regenerated or removed and the trigger is saved, the existing webhook configured in third party tools will be invalid. You will need to navigate to them and update the webhook.'
     recurrenceLabel: Recurrence
     selectTimezonePlaceholder: Select timezone
+    autoAbortPush: 'If a branch is updated, Harness will automatically cancel active builds for the same branch if invoked by the same Trigger.'
+    autoAbortPR: 'If a PR is updated, Harness will automatically cancel active builds for the same PR if invoked by the same Trigger.'
+    autoAbortIssueComment: 'If a PR is updated with a new comment, Harness will automatically cancel active builds for the same PR.'
   conditionsPanel:
     subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
-    branchConditions: 'Branch Conditions'
     sourceBranch: 'Source Branch'
     targetBranch: 'Target Branch'
+    changedFiles: 'Changed Files'
     branchName: 'Branch Name'
     tagName: 'Tag Name'
     headerConditions: 'Header Conditions'
@@ -343,10 +370,10 @@ triggers:
   pipelineInputPanel:
     noRuntimeInputs: 'No Runtime Inputs'
     automaticallyExtractedFromText: Automatically extracted from event payload
-    selectedExisitingOrProvide: 'Select an existing inputset or provide new set of values'
-    existing: Use Existing Inputsets
+    selectedExisitingOrProvide: 'Select an existing Input Set or provide new set of values'
+    existing: Use Existing Input Sets
     provide: Provide Values
-    whatAreInputsets: What are Inputsets?
+    whatAreInputsets: What are Input Sets?
   triggerOverviewPanel:
     title: 'Trigger Overview'
   schedulePanel:
@@ -416,11 +443,11 @@ testsReports:
   type: Failure Type
   status: '{{ $.status }}'
   executionOverview: Test Execution Overview
-  numberOfSelectedTests: '# of Selected Tests'
-  testsIntelligentlySkipped: Tests Intelligently Skipped
+  numberOfSelectedTests: 'Selected Tests'
+  totalDuration: Total Duration
   timeSaved: Time Saved
   totalExecutedTest: Total Executed Tests
-  selectionBreakdown: Testcase Selection Breakdown
+  selectionBreakdown: Test Selection Breakdown
   selectionBreakdownInfo: Shows aggregated data on how tests were selected
   totalWithColon: 'TOTAL:'
   failedWithColon: 'FAILED:'
@@ -441,10 +468,10 @@ testsReports:
   consoleOutput: Console Output
   testSuite: 'Test Suite:'
   totalTests: Total Tests
-  testCaseName: TEST CASE NAME
+  testCaseName: TEST NAME
   className: CLASS NAME
   result: RESULT
-  testCasesExecution: Testcases Execution
+  testCasesExecution: Tests Execution
   testCasesExecutionInfo: Shows a list of executed tests and result. In case of error, hover the test to see additional information
   noFailedTestsFound: No failed tests found
   showOnlyFailedTests: Show only failed tests
@@ -453,6 +480,12 @@ testsReports:
   notfound: No tests were found to analyze.
   willBeDisplayedIfAvailable: Test reports will be displayed here if they are configured and available.
   learnMore: Learn how to enable Unit test reporting
-  resultLabel: Testcase Execution Result
+  resultLabel: Test Execution Result
   resultInfo: Heat Map showing a graphical over of the test results
   sortBy: 'Sort by:'
+uniqueIdentifier: Identifier must be unique
+repoRequired: 'Repository name is a required field'
+branchRequired: 'Branch is a required field'
+inputSets:
+  noRuntimeInputsCurrently: No runtime inputs in the pipeline currently
+  noRuntimeInputsWhileExecution: No runtime inputs were present in the pipeline during this execution

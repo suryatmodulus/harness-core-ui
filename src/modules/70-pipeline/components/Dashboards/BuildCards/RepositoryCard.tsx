@@ -5,15 +5,15 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import merge from 'lodash-es/merge'
 import type { RepositoryBuildInfo } from 'services/ci'
-import { roundNumber } from '../shared'
+import { diffStartAndEndTime, roundNumber } from '../shared'
 import styles from './BuildCards.module.scss'
 
 export interface RepositoryCardProps {
   title: React.ReactNode
-  message: string
+  message?: string
   username?: string
-  durationMin?: number
-  startTime: number
+  startTime?: number
+  endTime?: number
   count: number
   successRate: number
   successRateDiff: number
@@ -27,8 +27,8 @@ export default function RepositoryCard({
   title,
   message,
   username,
-  durationMin,
   startTime,
+  endTime,
   count,
   successRate,
   successRateDiff,
@@ -38,6 +38,8 @@ export default function RepositoryCard({
   countList
 }: RepositoryCardProps) {
   const [chartOptions, setChartOptions] = useState(defaultChartOptions)
+  const duration = diffStartAndEndTime(startTime, endTime)
+  const mapTime = (value: RepositoryBuildInfo) => (value?.time ? moment(value.time).format('YYYY-MM-DD') : '')
 
   useEffect(() => {
     if (countList?.length) {
@@ -47,7 +49,7 @@ export default function RepositoryCard({
             enabled: true
           },
           xAxis: {
-            categories: countList.map(val => val.time)
+            categories: countList.map(mapTime)
           },
           series: [
             {
@@ -110,10 +112,10 @@ export default function RepositoryCard({
         </Container>
         <Container className={styles.times}>
           {moment(startTime).fromNow()}
-          {durationMin !== undefined && (
+          {duration !== undefined && (
             <>
               <Icon size={10} name="time" className={styles.timeIcon} />
-              {`${durationMin}m`}
+              {duration}
             </>
           )}
         </Container>

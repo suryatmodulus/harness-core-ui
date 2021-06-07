@@ -21,7 +21,7 @@ const LocalFormFields: React.FC<LocalFormFieldsProps & FormikContextProps<any>> 
       {type === 'SecretText' ? (
         <FormInput.Text
           name="value"
-          label={getString('secret.labelSecretValue')}
+          label={getString('secrets.labelValue')}
           placeholder={editing ? getString('encrypted') : getString('secret.placeholderSecretValue')}
           inputGroup={{ type: 'password' }}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +32,8 @@ const LocalFormFields: React.FC<LocalFormFieldsProps & FormikContextProps<any>> 
       {type === 'SecretFile' ? (
         <FormInput.FileInput name="file" label={getString('secret.labelSecretFile')} multiple />
       ) : null}
-      <FormInput.TextArea name="description" label={getString('description')} />
-      <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} />
+      <FormInput.TextArea name="description" isOptional={true} label={getString('description')} />
+      <FormInput.KVTagInput name="tags" isOptional={true} label={getString('tagsLabel')} />
     </>
   )
 }

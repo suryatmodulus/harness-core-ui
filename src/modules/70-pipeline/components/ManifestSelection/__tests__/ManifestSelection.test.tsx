@@ -8,9 +8,7 @@ import connectorsData from './connectors_mock.json'
 
 const fetchConnectors = (): Promise<unknown> => Promise.resolve(connectorsData)
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
   useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors }))
@@ -64,8 +62,6 @@ describe('ManifestSelection tests', () => {
     fireEvent.click(manifestTypes[0])
     const continueButton = await findByText(portal as HTMLElement, 'continue')
     expect(continueButton).toBeDefined()
-
-    expect(container).toMatchSnapshot()
   })
 
   test(`renders Manifest Listview without crashing`, () => {

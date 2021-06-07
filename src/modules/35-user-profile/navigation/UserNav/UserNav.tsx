@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Text } from '@wings-software/uicore'
+import { Layout, Text } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 
 import routes from '@common/RouteDefinitions'
@@ -35,13 +35,21 @@ export default function UserNav(): React.ReactElement {
 
   return (
     <div>
-      <SidebarLink exact label={getString('profile')} to={routes.toUserProfile({ accountId })} />
-      {/* Enable when Ready */}
-      {/* <SidebarLink label={getString('preferences')} to={routes.toUserPreferences({ accountId })} /> */}
+      <Layout.Vertical margin={{ top: 'xxxlarge' }}>
+        <SidebarLink exact label={getString('profile')} to={routes.toUserProfile({ accountId })} />
+        {/* Enable when Ready */}
+        {/* <SidebarLink label={getString('preferences')} to={routes.toUserPreferences({ accountId })} /> */}
+      </Layout.Vertical>
       <div className={css.signout}>
-        <Button minimal icon="log-out" iconProps={{ size: 15, padding: { right: 'small' } }} onClick={signOut}>
-          <Text font={{ weight: 'semi-bold' }}>{getString('signOut')}</Text>
-        </Button>
+        <Text
+          font={{ weight: 'semi-bold' }}
+          icon="log-out"
+          iconProps={{ size: 16, padding: { right: 'small' } }}
+          onClick={signOut}
+          className={css.text}
+        >
+          {getString('signOut')}
+        </Text>
       </div>
     </div>
   )

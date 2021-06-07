@@ -27,13 +27,15 @@ export const processFormData = (data: HarnessApprovalData): HarnessApprovalData 
     if (getMultiTypeFromValue(data.spec.approverInputs as string) === MultiTypeInputType.RUNTIME) {
       toReturn.spec.approverInputs = data.spec.approverInputs
     } else if (Array.isArray(data.spec.approverInputs)) {
-      toReturn.spec.approverInputs = (data.spec.approverInputs as ApproverInputsSubmitCallInterface[])?.map(
-        (input: ApproverInputsSubmitCallInterface) =>
-          ({
-            name: input.name,
-            defaultValue: input.defaultValue
-          } as ApproverInputsSubmitCallInterface)
-      )
+      toReturn.spec.approverInputs = (data.spec.approverInputs as ApproverInputsSubmitCallInterface[])
+        ?.filter(input => input.name)
+        ?.map(
+          (input: ApproverInputsSubmitCallInterface) =>
+            ({
+              name: input.name,
+              defaultValue: input.defaultValue
+            } as ApproverInputsSubmitCallInterface)
+        )
     }
   }
   return toReturn

@@ -11,35 +11,12 @@
 
   .authHeaderRow {
     display: flex;
-
     justify-content: space-between;
-    .authTypeSelect {
-      :global {
-        .bp3-input-action {
-          > span {
-            padding-top: 12px !important;
-            padding-right: 0px !important;
-          }
-        }
-      }
-    }
-
     .authTitle {
       font-size: var(font-size-normal);
       color: var(--black-600);
       padding-top: var(--spacing-small);
       font-weight: bold !important;
-    }
-    :global {
-      .bp3-input-group {
-        .bp3-input {
-          width: 100% !important;
-          border: none !important;
-          padding: var(--spacing-small) 0;
-          min-width: 260px;
-          text-align: end !important;
-        }
-      }
     }
   }
 }

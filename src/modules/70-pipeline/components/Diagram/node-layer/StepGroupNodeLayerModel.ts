@@ -17,6 +17,7 @@ export interface StepGroupNodeLayerOptions extends LayerModelOptions {
   skipCondition?: string
   conditionalExecutionEnabled?: boolean
   rollBackProps?: Omit<RollbackToggleSwitchProps, 'onChange'>
+  disableCollapseButton?: boolean
 }
 
 export interface StepGroupNodeLayerModelGenerics extends LayerModelGenerics {
@@ -44,8 +45,8 @@ export class StepGroupNodeLayerModel<
       showRollback: true,
       ...options
     })
-    this.startNode = new EmptyNodeModel({ identifier: options.identifier, name: 'Empty' })
-    this.endNode = new EmptyNodeModel({ identifier: options.identifier, name: 'Empty' })
+    this.startNode = new EmptyNodeModel({ identifier: options.identifier, name: 'Empty', hideOutPort: true })
+    this.endNode = new EmptyNodeModel({ identifier: options.identifier, name: 'Empty', hideInPort: true })
     this.addModel(this.startNode)
     this.addModel(this.endNode)
   }

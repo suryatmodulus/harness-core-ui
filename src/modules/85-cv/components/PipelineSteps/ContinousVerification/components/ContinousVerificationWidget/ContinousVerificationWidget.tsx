@@ -44,11 +44,6 @@ export function ContinousVerificationWidget(
           getString('connectors.cdng.validations.sensitivityRequired'),
           value => value !== ''
         ),
-        baseline: Yup.mixed().test(
-          'baseline',
-          getString('connectors.cdng.validations.baselineRequired'),
-          value => value !== ''
-        ),
         deploymentTag: Yup.string().required(getString('connectors.cdng.validations.deploymentTagRequired'))
       })
     }),

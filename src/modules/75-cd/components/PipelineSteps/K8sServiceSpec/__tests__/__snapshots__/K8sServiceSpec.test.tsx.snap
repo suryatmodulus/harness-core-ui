@@ -208,35 +208,36 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
       </div>
     </div>
     <div
-      class="Accordion--accordion accordionTitle"
+      class="accordionTitle"
     >
       <div
-        class="Accordion--panel"
-        data-open="false"
-        data-testid="advanced-panel"
-        id="advanced-panel"
+        id="advanced"
+      >
+        advancedTitle
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card--card sectionCard"
+        id="variablesText"
       >
         <div
-          class="Accordion--summary"
-          data-testid="advanced-summary"
+          class="tabSubHeading"
         >
-          <div
-            class="Accordion--chevron"
-          />
-          <div
-            class="Accordion--label"
-          >
-            advancedTitle
-          </div>
+          variablesText
         </div>
         <div
-          class="bp3-collapse Accordion--collapse"
+          class="Layout--vertical StyledProps--main"
+          style="border-radius: 5px;"
         >
-          <div
-            aria-hidden="false"
-            class="bp3-collapse-body"
-            style="transform: translateY(-undefinedpx);"
-          />
+          <section
+            class="variablesList"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="line-height: 24px;"
+            >
+              workflowVariableInfo
+            </p>
+          </section>
         </div>
       </div>
     </div>

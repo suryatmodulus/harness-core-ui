@@ -3,7 +3,6 @@ import { Container, Text, Icon, Color } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import classnames from 'classnames'
 import { useParams } from 'react-router-dom'
-import moment from 'moment'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { useGetBuildHealth } from 'services/ci'
@@ -31,11 +30,11 @@ export default function CIDashboardSummaryCards() {
 
   const { data, loading } = useGetBuildHealth({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startInterval: moment(range[0]).format('YYYY-MM-DD'),
-      endInterval: moment(range[1]).format('YYYY-MM-DD')
+      startTime: range[0],
+      endTime: range[1]
     }
   })
 

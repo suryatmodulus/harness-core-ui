@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Tag, Text, Color, Container, Icon, IconName } from '@wings-software/uicore'
 import moment from 'moment'
 import { Connectors } from '@connectors/constants'
-import type { ConnectorInfoDTO, VaultConnectorDTO, AwsKmsConnectorDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO, VaultConnectorDTO, AwsKmsConnectorDTO, AzureKeyVaultConnectorDTO } from 'services/cd-ng'
 import { StringUtils } from '@common/exports'
 import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
 import { useStrings } from 'framework/strings'
@@ -376,6 +376,32 @@ const getAwsKmsSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
   ]
 }
 
+const getAzureKeyVaultSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  const data = connector.spec as AzureKeyVaultConnectorDTO
+  return [
+    {
+      label: 'common.clientId',
+      value: data.clientId
+    },
+    {
+      label: 'connectors.azureKeyVault.labels.tenantId',
+      value: data.tenantId
+    },
+    {
+      label: 'connectors.azureKeyVault.labels.subscription',
+      value: data.subscription
+    },
+    {
+      label: 'connectors.azureKeyVault.labels.vaultName',
+      value: data.vaultName
+    },
+    {
+      label: 'connectors.hashiCorpVault.default',
+      value: data.default
+    }
+  ]
+}
+
 const getGCPSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
@@ -474,6 +500,23 @@ const getArtifactorySchema = (connector: ConnectorInfoDTO): Array<ActivityDetail
   ]
 }
 
+const getDataDogSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  return [
+    {
+      label: 'UrlLabel',
+      value: connector?.spec?.url
+    },
+    {
+      label: 'connectors.encryptedAPIKeyLabel',
+      value: connector?.spec?.apiKeyRef
+    },
+    {
+      label: 'connectors.datadog.encryptedAPPKeyLabel',
+      value: connector?.spec?.applicationKeyRef
+    }
+  ]
+}
+
 const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<ActivityDetailsRowInterface> => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
@@ -504,6 +547,10 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
       return getVaultSchema(connector)
     case Connectors.AWS_KMS:
       return getAwsKmsSchema(connector)
+    case Connectors.DATADOG:
+      return getDataDogSchema(connector)
+    case Connectors.AZURE_KEY_VAULT:
+      return getAzureKeyVaultSchema(connector)
     default:
       return []
   }
@@ -531,18 +578,19 @@ const getSchema = (props: SavedConnectorDetailsProps): Array<ActivityDetailsRowI
   ]
 }
 
-const renderTags = (value: TagsInterface) => {
-  const tagKeys = Object.keys(value)
+const renderTags = (tags: TagsInterface) => {
+  const tagKeys = Object.keys(tags)
   return (
-    <Layout.Horizontal spacing="small">
-      {tagKeys.map((tag, index) => {
+    <Container>
+      {tagKeys.map(key => {
+        const value = tags[key]
         return (
-          <Tag minimal={true} key={tag + index}>
-            {tag}
+          <Tag className={css.tag} key={key}>
+            {value ? `${key}:${value}` : key}
           </Tag>
         )
       })}
-    </Layout.Horizontal>
+    </Container>
   )
 }
 

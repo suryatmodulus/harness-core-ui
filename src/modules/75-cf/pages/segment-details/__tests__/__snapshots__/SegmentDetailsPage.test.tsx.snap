@@ -13,10 +13,10 @@ exports[`SegmentDetailsPage SegmentDetailsPage should render data correctly 1`] 
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <a
-          href="/account/dummy/cf/orgs/dummy/projects/dummy/segments"
+          href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
-          cf.shared.segments
+          cf.shared.targetManagement: cf.shared.segments
         </a>
         <span>
           /

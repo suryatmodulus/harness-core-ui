@@ -1,12 +1,12 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useResendEmail } from 'services/portal'
+import { useResendVerifyEmail } from 'services/cd-ng'
 
 import { EmailVerificationBanner } from '../EmailVerificationBanner'
 
-jest.mock('services/portal')
-const useResendEmailMock = useResendEmail as jest.MockedFunction<any>
+jest.mock('services/cd-ng')
+const useResendEmailMock = useResendVerifyEmail as jest.MockedFunction<any>
 
 describe('EmailVerificationBanner', () => {
   test('render', () => {

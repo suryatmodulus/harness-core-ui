@@ -31,6 +31,7 @@ export interface ExecutionPipelineItem<T> {
    * @default false
    */
   showInLabel?: boolean
+  disableClick?: boolean
   cssProps?: CSSProperties
   data?: T
   pipeline?: ExecutionPipeline<T>

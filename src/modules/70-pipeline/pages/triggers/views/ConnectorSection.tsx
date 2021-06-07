@@ -10,6 +10,10 @@ import {
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
+import { AWS_CODECOMMIT } from '../utils/TriggersWizardPageUtils'
+import { GitSourceProviders } from '../utils/TriggersListUtils'
 
 interface ConnectorSectionInterface {
   formikProps?: any
@@ -26,6 +30,7 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   // undefined scope means added from + Add
   const [liveRepoName, setLiveRepoName] = React.useState(repoName || '')
@@ -51,7 +56,7 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
   })
   const connectorUrl = connectorRef?.connector?.spec?.url
   const constructRepoUrl = `${connectorUrl}${connectorUrl?.endsWith('/') ? '' : '/'}`
-
+  const updatedSourceRepo = sourceRepo === GitSourceProviders.AWS_CODECOMMIT.value ? AWS_CODECOMMIT : sourceRepo
   const renderRepoUrl = (): JSX.Element | null => {
     const connectorURLType = connectorRef?.connector?.spec?.type
     if (connectorURLType === connectorUrlType.REPO) {
@@ -90,7 +95,7 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
         name="connectorRef"
         style={{ marginBottom: 'var(--spacing-xsmall)' }}
         width={324}
-        type={Connectors[sourceRepo]}
+        type={Connectors[updatedSourceRepo?.toUpperCase()]}
         selected={formikProps.values.connectorRef}
         label={getString('connector')}
         placeholder={getString('select')}
@@ -101,12 +106,15 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
           setSelectedConnector(value, scope)
           formikProps.validateForm()
         }}
+        gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
       />
       <Text
         intent="primary"
         style={{ cursor: 'pointer', width: '70px', marginBottom: 'var(--spacing-medium)' }}
         onClick={() => {
-          openConnectorModal(false, Connectors[sourceRepo], undefined) // isEditMode, type, and connectorInfo
+          openConnectorModal(false, Connectors[sourceRepo?.toUpperCase()], {
+            gitDetails: { repoIdentifier, branch, getDefaultFromOtherRepo: true }
+          }) // isEditMode, type, and connectorInfo
         }}
       >
         {getString('plusAdd')}

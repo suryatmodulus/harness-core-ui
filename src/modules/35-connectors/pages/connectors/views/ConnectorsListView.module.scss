@@ -2,7 +2,6 @@
   width: calc(100vw - 270px);
   min-width: 1300px;
   padding: var(--spacing-small) var(--spacing-xlarge);
-  background-color: var(--grey-100);
 
   :global {
     [class*='Pagination'] {

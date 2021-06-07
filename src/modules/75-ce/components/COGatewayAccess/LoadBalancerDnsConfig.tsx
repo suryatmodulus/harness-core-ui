@@ -93,7 +93,11 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
       if (!accessPointStatusLoading) {
         if (accessPointData?.response?.status == 'errored') {
           setLbCreationInProgress(false)
-          showError(getString('ce.co.accessPoint.error') + '\n' + accessPointData.response.metadata?.error)
+          showError(
+            getString('ce.co.accessPoint.error') + '\n' + accessPointData.response.metadata?.error,
+            undefined,
+            'ce.ap.creation.error'
+          )
         } else if (accessPointData?.response?.status == 'created') {
           setLbCreationInProgress(false)
           // props.setAccessPoint(accessPointData?.response as AccessPoint)
@@ -120,7 +124,7 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
         setLoadBalancerId(result.response.id as string)
       }
     } catch (e) {
-      showError(e.data?.errors?.join('\n') || e.data?.message || e.message)
+      showError(e.data?.errors?.join('\n') || e.data?.message || e.message, undefined, 'ce.lb.create.error')
       setLbCreationInProgress(false)
     }
   }
@@ -147,7 +151,7 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
       <Heading level={2} className={css.configHeading}>
         {createMode
           ? 'Create a new Application Load Balancer'
-          : `The Load Balancer ${loadBalancer?.id || ''} requires additional Configuration`}
+          : `The Load Balancer ${loadBalancer?.name || ''} requires additional Configuration`}
       </Heading>
       <div>
         {currentStep === FormStep.FIRST && (

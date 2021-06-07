@@ -148,6 +148,7 @@ const VerificationJobsSetup = (): JSX.Element => {
     if (verificationJob?.data) {
       setCurrentData({
         ...pick(verificationJob.data, ['identifier', 'type']),
+        allMonitoringSourcesEnabled: verificationJob.data?.allMonitoringSourcesEnabled,
         dataSource: verificationJob.data.monitoringSources?.map(source => ({
           label: source,
           value: source

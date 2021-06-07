@@ -21,9 +21,7 @@ import filters from './filters.json'
 import services from '../../pipelines/__tests__/mocks/services.json'
 import environments from '../../pipelines/__tests__/mocks/environments.json'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards', () => () => <div />)
 jest.mock('@pipeline/components/Dashboards/BuildExecutionsChart/PipelineBuildExecutionsChart', () => () => <div />)
@@ -197,7 +195,9 @@ describe('Test Pipeline Deployment list', () => {
     fireEvent.click(select)
 
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-    const option1 = await findByTextGlobal(document.body, 'Failed', { selector: '.bp3-fill' })
+    const option1 = await findByTextGlobal(document.body, 'pipeline.executionFilters.labels.Failed', {
+      selector: '.bp3-fill > span'
+    })
 
     fireEvent.click(option1)
 

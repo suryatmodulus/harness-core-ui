@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cumulative Analytics tests render component 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--padding-small"
+  >
+    <div>
+      <p
+        class="StyledProps--font StyledProps--main summaryHeading"
+      >
+        SUMMARY OF RULES
+      </p>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main analyticsContainer StyledProps--background-white"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+          style="flex: 1.2;"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-small"
+          >
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-small"
+              style="border-radius: 4px; background-color: rgba(71, 213, 223, 0.05);"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main analyticsColHeader"
+                  style="color: rgb(5, 170, 182);"
+                >
+                  TOTAL SAVINGS TILL DATE
+                </p>
+                <h1
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  level="1"
+                  style="color: rgb(5, 170, 182);"
+                >
+                  $
+                  21
+                </h1>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-small"
+              style="border-radius: 4px; background-color: rgba(124, 77, 211, 0.05);"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main analyticsColHeader"
+                  style="color: rgb(89, 43, 170);"
+                >
+                  TOTAL SPEND TILL DATE
+                </p>
+                <h1
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  level="1"
+                  style="color: rgb(89, 43, 170);"
+                >
+                  $
+                  0
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+          style="text-align: center; flex: 3;"
+        >
+          <p
+            class="StyledProps--font StyledProps--main analyticsColHeader"
+          >
+            TOTAL SPEND VS SAVINGS
+          </p>
+          <div />
+        </div>
+        <div
+          class="Layout--vertical StyledProps--main"
+          style="flex: 1;"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main analyticsColHeader"
+            >
+              SAVINGS PERCENTAGE
+            </p>
+            <h1
+              class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+              level="1"
+            >
+              100
+              %
+            </h1>
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <div />
+            </div>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main analyticsColHeader"
+          >
+            ACTIVE RULES
+          </p>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
+            <h1
+              class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+              level="1"
+            >
+              5
+            </h1>
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="align-self: center;"
+            >
+              Rules
+            </p>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+          style="flex: 1;"
+        >
+          <p
+            class="StyledProps--font StyledProps--main analyticsColHeader"
+          >
+            INSTANCES MANAGED
+          </p>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+          >
+            <h1
+              class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+              level="1"
+            >
+              5
+            </h1>
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="align-self: center;"
+            >
+              Instances
+            </p>
+          </div>
+          <div
+            class="instanceManager"
+          >
+            <p
+              class="StyledProps--font StyledProps--main instanceCount"
+            >
+              1
+            </p>
+            <div
+              class="Layout--horizontal StyledProps--main instanceStatusIndicator"
+            >
+              <span
+                class="bp3-icon bp3-icon-play StyledProps--main"
+                icon="play"
+              >
+                <svg
+                  data-icon="play"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    play
+                  </desc>
+                  <path
+                    d="M12 8c0-.35-.19-.64-.46-.82l.01-.02-6-4-.01.02A.969.969 0 005 3c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1 .21 0 .39-.08.54-.18l.01.02 6-4-.01-.02c.27-.18.46-.47.46-.82z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                style="color: rgb(66, 171, 69);"
+              >
+                Running
+              </span>
+            </div>
+          </div>
+          <div
+            class="instanceManager"
+          >
+            <p
+              class="StyledProps--font StyledProps--main instanceCount"
+            >
+              4
+            </p>
+            <div
+              class="Layout--horizontal StyledProps--main instanceStatusIndicator"
+            >
+              <span
+                class="bp3-icon bp3-icon-stop StyledProps--main"
+                icon="stop"
+              >
+                <svg
+                  data-icon="stop"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    stop
+                  </desc>
+                  <path
+                    d="M12 3H4c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h8c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                style="color: rgb(218, 41, 29);"
+              >
+                Stopped
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

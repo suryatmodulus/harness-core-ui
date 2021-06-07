@@ -1,7 +1,12 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
+import {
+  Connectors,
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  CreateConnectorModalProps,
+  TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
@@ -44,6 +49,7 @@ export default function CreateAWSCodeCommitConnector(props: CreateConnectorModal
         isLastStep
         type={Connectors.AWS_CODECOMMIT}
         onClose={props.onClose}
+        stepIndex={TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

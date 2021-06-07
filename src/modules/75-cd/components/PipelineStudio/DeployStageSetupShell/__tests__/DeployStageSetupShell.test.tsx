@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import DeployStageSetupShell from '../DeployStageSetupShell'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => null)
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({
   validateJSONWithSchema: jest.fn(() => Promise.resolve(new Map()))
 }))

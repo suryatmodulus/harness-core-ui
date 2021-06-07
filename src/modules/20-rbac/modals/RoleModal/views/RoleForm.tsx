@@ -22,7 +22,7 @@ import css from '@rbac/modals/RoleModal/useRoleModal.module.scss'
 interface RoleModalData {
   data?: Role
   isEdit?: boolean
-  onSubmit?: () => void
+  onSubmit?: (role: Role) => void
 }
 
 const RoleForm: React.FC<RoleModalData> = props => {
@@ -54,13 +54,13 @@ const RoleForm: React.FC<RoleModalData> = props => {
         const updated = await editRole(values)
         /* istanbul ignore else */ if (updated) {
           showSuccess(getString('roleForm.updateSuccess'))
-          onSubmit?.()
+          onSubmit?.(values)
         }
       } else {
         const created = await createRole(values)
         /* istanbul ignore else */ if (created) {
           showSuccess(getString('roleForm.createSuccess'))
-          onSubmit?.()
+          onSubmit?.(values)
         }
       }
     } catch (e) {

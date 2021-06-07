@@ -2,17 +2,17 @@ import React from 'react'
 import { stringify, parse } from 'yaml'
 import { useParams } from 'react-router-dom'
 
-import type { NgPipeline } from 'services/cd-ng'
+import type { NgPipeline, PipelineInfoConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse, Failure } from 'services/pipeline-ng'
 import { useMutateAsGet } from '@common/hooks'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import type { UseMutateAsGetReturn } from '@common/hooks/useMutateAsGet'
 import { useCreateVariables } from 'services/pipeline-ng'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 
 export interface PipelineVariablesData {
   variablesPipeline: NgPipeline
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
-  error?: Failure | Error | null
+  error?: UseMutateAsGetReturn<Failure | Error>['error'] | null
   initLoading: boolean
   loading: boolean
 }
@@ -29,18 +29,10 @@ export function usePipelineVariables(): PipelineVariablesData {
   return React.useContext(PipelineVariablesContext)
 }
 
-// export function useStageVariables(stageId?: string): string[] {
-//   const { variablesPipeline, metadataMap } = usePipelineVariables()
-
-//   variablesPipeline.stages?.find()
-
-//   return []
-// }
-
-export function PipelineVariablesContextProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
-  const {
-    state: { pipeline: originalPipeline }
-  } = usePipelineContext()
+export function PipelineVariablesContextProvider(
+  props: React.PropsWithChildren<{ pipeline: PipelineInfoConfig }>
+): React.ReactElement {
+  const { pipeline: originalPipeline } = props
   const [{ variablesPipeline, metadataMap }, setPipelineVariablesData] = React.useState<
     Pick<PipelineVariablesData, 'metadataMap' | 'variablesPipeline'>
   >({

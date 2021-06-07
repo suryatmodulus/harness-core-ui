@@ -76,13 +76,13 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
           tagsLabel
         </p>
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="StyledProps--font StyledProps--main"
         >
           <span
             class="Tag--main"
           >
             <span
-              class="bp3-tag bp3-minimal"
+              class="bp3-tag tag"
             >
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
@@ -95,7 +95,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
             class="Tag--main"
           >
             <span
-              class="bp3-tag bp3-minimal"
+              class="bp3-tag tag"
             >
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
@@ -385,13 +385,13 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
           tagsLabel
         </p>
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="StyledProps--font StyledProps--main"
         >
           <span
             class="Tag--main"
           >
             <span
-              class="bp3-tag bp3-minimal"
+              class="bp3-tag tag"
             >
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
@@ -564,13 +564,13 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
           tagsLabel
         </p>
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="StyledProps--font StyledProps--main"
         >
           <span
             class="Tag--main"
           >
             <span
-              class="bp3-tag bp3-minimal"
+              class="bp3-tag tag"
             >
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
@@ -583,7 +583,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
             class="Tag--main"
           >
             <span
-              class="bp3-tag bp3-minimal"
+              class="bp3-tag tag"
             >
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
@@ -720,13 +720,13 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
           tagsLabel
         </p>
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="StyledProps--font StyledProps--main"
         >
           <span
             class="Tag--main"
           >
             <span
-              class="bp3-tag bp3-minimal"
+              class="bp3-tag tag"
             >
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
@@ -917,18 +917,18 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
           tagsLabel
         </p>
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="StyledProps--font StyledProps--main"
         >
           <span
             class="Tag--main"
           >
             <span
-              class="bp3-tag bp3-minimal"
+              class="bp3-tag tag"
             >
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
               >
-                connectot
+                connectot:dx
               </span>
             </span>
           </span>
@@ -1402,13 +1402,13 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
           tagsLabel
         </p>
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="StyledProps--font StyledProps--main"
         >
           <span
             class="Tag--main"
           >
             <span
-              class="bp3-tag bp3-minimal"
+              class="bp3-tag tag"
             >
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"

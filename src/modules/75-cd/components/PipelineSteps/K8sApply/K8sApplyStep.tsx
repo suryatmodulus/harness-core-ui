@@ -27,7 +27,6 @@ import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 
 import {
-  DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -232,29 +231,50 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
 
 const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) => {
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
-        <DurationInputFieldForInputSet
-          label={getString('pipelineSteps.timeoutLabel')}
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
-          disabled={readonly}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.sm)}>
+          <FormMultiTypeDurationField
+            multiTypeDurationProps={{
+              enableConfigureOptions: false,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              expressions,
+              disabled: readonly
+            }}
+            label={getString('pipelineSteps.timeoutLabel')}
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
+            disabled={readonly}
+          />
+        </div>
       )}
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
-          className={stepCss.checkbox}
-          label={getString('pipelineSteps.skipDryRun')}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.sm)}>
+          <FormMultiTypeCheckboxField
+            multiTypeTextbox={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+            }}
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
+            className={stepCss.checkbox}
+            label={getString('pipelineSteps.skipDryRun')}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(inputSetData?.template?.spec?.skipSteadyStateCheck) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipSteadyStateCheck`}
-          className={stepCss.checkbox}
-          label={getString('pipelineSteps.skipSteadyStateCheck')}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormMultiTypeCheckboxField
+            multiTypeTextbox={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+            }}
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipSteadyStateCheck`}
+            className={stepCss.checkbox}
+            label={getString('pipelineSteps.skipSteadyStateCheck')}
+          />
+        </div>
       )}
     </>
   )

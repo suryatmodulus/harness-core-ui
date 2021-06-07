@@ -56,6 +56,18 @@
     margin: var(--spacing-large) 0;
     font-size: var(--font-size-small);
   }
+
+  .failureSelect {
+    & > :global(.bp3-form-content) {
+      display: flex;
+      align-items: center;
+      column-gap: var(--spacing-medium);
+    }
+
+    & :global(.bp3-checkbox) {
+      white-space: nowrap;
+    }
+  }
 }
 
 .errorSelect {

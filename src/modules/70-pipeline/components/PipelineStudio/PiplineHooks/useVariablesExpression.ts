@@ -29,9 +29,7 @@ export function useVariablesExpression(): { expressions: string[] } {
   const [expressions, setExpressions] = useState<string[]>([])
   const [localStageKeys, setLocalStageKeys] = useState<string[]>([])
   const {
-    state: {
-      selectionState: { selectedStageId }
-    },
+    state: { selectionState: { selectedStageId } = { selectedStageId: '' } },
     getStageFromPipeline
   } = useContext(PipelineContext)
 

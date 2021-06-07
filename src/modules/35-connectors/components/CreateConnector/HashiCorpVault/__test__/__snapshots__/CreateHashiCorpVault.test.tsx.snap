@@ -275,7 +275,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -534,9 +534,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
         >
           <button
-            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            disabled=""
-            tabindex="-1"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="button"
           >
             <span
@@ -804,7 +802,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1270,7 +1268,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-top-xsmall Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                   type="button"
                 >
                   <span
@@ -1644,9 +1642,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
           class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
         >
           <button
-            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            disabled=""
-            tabindex="-1"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="button"
           >
             <span

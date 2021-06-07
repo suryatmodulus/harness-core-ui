@@ -123,3 +123,27 @@ $ yarn test
 6. When this PR gets merged, this [Workflow](https://uat.harness.io/ng/#/account/sjmVqavzTuS1segZNyZqbA/ci/orgs/default/projects/uiprchecks/pipelines/build_release_branch/executions) will create a new build for you automatically
 7. Please inform Ops/QE team to deploy your new build, especially in QA, UAT or prod environment.
 8. Make sure to raise a PR with the same changes (minus the version bump) for `master` branch too. Otherwise your changes will get overriden with next deployment.
+
+## For wndows environment setup only
+
+#### Download Git bash for windows
+
+Use git bash for executing any git command and it is also helpful to run scripts of package.json where shell script is used.
+
+https://git-scm.com/download/win
+
+#### Git clone
+
+If you face any issue while taking clone of this repo in Windows operating system. Kindly refer below.
+
+For development \*NIX system is preferred. On Windows 10 you can use [Ubuntu via WSL](https://ubuntu.com/wsl)
+
+#### Running scripts
+
+To run various scripts of package.json , you need to install dev dependency "cross-env": "^7.0.3"(any latest version) in package.json.
+Example:-
+
+1. To run this script "dev": "NODE_ENV=development webpack-dev-server --progress", just change it to "dev": "cross-env NODE_ENV=development webpack-dev-server --progress"
+2. To run shell script "setup-github-registry": "sh scripts/setup-github-registry.sh", just change it to "setup-github-registry": "cross-env scripts/setup-github-registry.sh"
+
+> Note: Similary you can update the scripts part wherever needed as per above to run in windows environment.

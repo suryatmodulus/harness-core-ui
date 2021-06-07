@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Container } from '@wings-software/uicore'
-import moment from 'moment'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { useGetPipelinedHealth } from 'services/pipeline-ng'
@@ -21,17 +20,12 @@ export default function PipelineSummaryCards() {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startInterval: moment(range[0]).format('YYYY-MM-DD'),
-      endInterval: moment(range[1]).format('YYYY-MM-DD'),
+      startTime: range[0],
+      endTime: range[1],
       pipelineIdentifier,
       moduleInfo: module
-    } as any
+    }
   })
-
-  const parseDuration = (value?: string) => {
-    const ret = Number.parseInt(value!)
-    return Number.isNaN(ret) ? 0 : ret
-  }
 
   return (
     <Container>
@@ -53,13 +47,13 @@ export default function PipelineSummaryCards() {
         <SummaryCard
           title={getString('pipeline.dashboards.meanDuration')}
           text={formatDuration(data?.data?.executions?.meanInfo?.duration)}
-          rateDuration={parseDuration(data?.data?.executions?.meanInfo?.rate)}
+          rateDuration={data?.data?.executions?.meanInfo?.rate}
           isLoading={loading}
         />
         <SummaryCard
           title={getString('pipeline.dashboards.medianDuration')}
           text={formatDuration(data?.data?.executions?.medianInfo?.duration)}
-          rateDuration={parseDuration(data?.data?.executions?.medianInfo?.rate)}
+          rateDuration={data?.data?.executions?.medianInfo?.rate}
           isLoading={loading}
         />
       </Container>

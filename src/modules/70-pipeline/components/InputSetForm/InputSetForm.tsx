@@ -1,14 +1,12 @@
 import React from 'react'
-import { isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
+import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import cx from 'classnames'
-import { IconName, Intent } from '@blueprintjs/core'
+import { Intent } from '@blueprintjs/core'
 import {
   Button,
-  Collapse,
   Container,
   Formik,
   FormikForm,
-  FormInput,
   Layout,
   Text,
   NestedAccordionProvider,
@@ -52,6 +50,7 @@ import { useQueryParams } from '@common/hooks'
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
+import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, getErrorsList } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -65,50 +64,16 @@ export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipe
   branch?: string
 }
 
-const getDefaultInputSet = (template: NgPipeline): InputSetDTO => ({
+const getDefaultInputSet = (template: NgPipeline, orgIdentifier: string, projectIdentifier: string): InputSetDTO => ({
   name: undefined,
   identifier: '',
   description: undefined,
+  orgIdentifier,
+  projectIdentifier,
   pipeline: template,
   repo: '',
   branch: ''
 })
-
-const collapseProps = {
-  collapsedIcon: 'small-plus' as IconName,
-  expandedIcon: 'small-minus' as IconName,
-  isOpen: false,
-  isRemovable: false,
-  className: 'collapse'
-}
-
-export const BasicInputSetForm: React.FC<{ isEdit: boolean; values: InputSetDTO }> = ({ isEdit, values }) => {
-  const { getString } = useStrings()
-  const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: getString('description') })
-  const tagCollapseProps = Object.assign({}, collapseProps, { heading: getString('tagsLabel') })
-  return (
-    <div className={css.basicForm}>
-      <FormInput.InputWithIdentifier
-        isIdentifierEditable={!isEdit}
-        inputLabel={getString('inputSets.inputSetName')}
-        inputGroupProps={{ placeholder: getString('name') }}
-      />
-      <div className={css.collapseDiv}>
-        <Collapse
-          {...descriptionCollapseProps}
-          isOpen={(values.description && values.description?.length > 0) || false}
-        >
-          <FormInput.TextArea name="description" />
-        </Collapse>
-      </div>
-      <div className={css.collapseDiv}>
-        <Collapse {...tagCollapseProps} isOpen={values.tags && Object.keys(values.tags).length > 0}>
-          <FormInput.KVTagInput name="tags" />
-        </Collapse>
-      </div>
-    </div>
-  )
-}
 
 enum SelectedView {
   VISUAL = 'VISUAL',
@@ -128,8 +93,10 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   }
 }
 
-const clearNullUndefined = /* istanbul ignore next */ (data: InputSetDTO): InputSetDTO =>
-  omitBy(omitBy(data, isUndefined), isNull)
+const clearNullUndefined = /* istanbul ignore next */ (data: InputSetDTO): InputSetDTO => {
+  const omittedInputset = omitBy(omitBy(data, isUndefined), isNull)
+  return changeEmptyValuesToRunTimeInput(cloneDeep(omittedInputset))
+}
 
 export interface InputSetFormProps {
   executionView?: boolean
@@ -144,6 +111,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   >()
   const { repoIdentifier, branch, inputSetRepoIdentifier, inputSetBranch } = useQueryParams<InputSetGitQueryParams>()
   const [savedInputSetObj, setSavedInputSetObj] = React.useState<InputSetDTO>({})
+  const [initialGitDetails, setInitialGitDetails] = React.useState<EntityGitDetails>({ repoIdentifier, branch })
   const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const history = useHistory()
   const { refetch: refetchTemplate, data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
@@ -257,12 +225,16 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         tags: inputSetObj.tags,
         identifier: inputSetObj.identifier || /* istanbul ignore next */ '',
         description: inputSetObj?.description,
+        orgIdentifier,
+        projectIdentifier,
         pipeline: clearRuntimeInput(inputYamlObj),
         gitDetails: inputSetObj.gitDetails ?? {}
       }
     }
     return getDefaultInputSet(
-      clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || /* istanbul ignore next */ '')?.pipeline as any)
+      clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || /* istanbul ignore next */ '')?.pipeline as any),
+      orgIdentifier,
+      projectIdentifier
     )
   }, [mergeTemplate, inputSetResponse?.data, template?.data?.inputSetTemplateYaml])
 
@@ -345,7 +317,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             projectIdentifier,
             pipelineRepoID: repoIdentifier,
             pipelineBranch: branch,
-            ...(gitDetails ?? {})
+            ...(gitDetails ?? {}),
+            ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
           }
         })
       }
@@ -380,6 +353,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const handleSubmit = React.useCallback(
     async (inputSetObj: InputSetDTO, gitDetails?: EntityGitDetails) => {
       setSavedInputSetObj(omit(inputSetObj, 'repo', 'branch'))
+      setInitialGitDetails(gitDetails as EntityGitDetails)
       if (inputSetObj) {
         if (isGitSyncEnabled) {
           openSaveToGitDialog(isEdit, {
@@ -397,8 +371,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   )
 
   const renderErrors = React.useCallback(() => {
-    const errorList = getErrorsList(formErrors)
-    if (!errorList.length) {
+    const { errorStrings, errorCount } = getErrorsList(formErrors)
+    if (!errorCount) {
       return null
     }
     return (
@@ -409,12 +383,12 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             summary={
               <Layout.Horizontal spacing="small">
                 <Icon name="warning-sign" intent={Intent.DANGER} />
-                <span>{`${errorList.length} problem${errorList.length > 1 ? 's' : ''} with Input Set`}</span>
+                <span>{`${errorCount} problem${errorCount > 1 ? 's' : ''} with Input Set`}</span>
               </Layout.Horizontal>
             }
             details={
               <ul>
-                {errorList.map((errorMessage, index) => (
+                {errorStrings.map((errorMessage, index) => (
                   <li key={index}>{errorMessage}</li>
                 ))}
               </ul>
@@ -435,6 +409,9 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             const errors: FormikErrors<InputSetDTO> = {}
             if (isEmpty(values.name)) {
               errors.name = getString('inputSets.nameIsRequired')
+            }
+            if (isEmpty(values.identifier)) {
+              errors.name = getString('common.validation.identifierIsRequired')
             }
             setFormErrors(errors)
             return errors
@@ -473,7 +450,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                               <GitSyncStoreProvider>
                                 <GitContextForm
                                   formikProps={formikProps}
-                                  gitDetails={isEdit ? inputSet.gitDetails : { repoIdentifier, branch }}
+                                  gitDetails={
+                                    isEdit
+                                      ? { ...inputSet.gitDetails, getDefaultFromOtherRepo: false }
+                                      : { repoIdentifier, branch, getDefaultFromOtherRepo: false }
+                                  }
                                   className={css.gitContextForm}
                                 />
                               </GitSyncStoreProvider>
@@ -543,7 +524,19 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                         text={getString('save')}
                         onClick={() => {
                           const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
-                          handleSubmit(parse(latestYaml)?.inputSet, {
+                          const inputSetDto: InputSetDTO = parse(latestYaml)?.inputSet
+                          const errors: FormikErrors<InputSetDTO> = {}
+                          if (isEmpty(inputSetDto.name)) {
+                            errors.name = getString('inputSets.nameIsRequired')
+                          }
+                          if (isEmpty(inputSetDto.identifier)) {
+                            errors.identifier = getString('common.validation.identifierIsRequired')
+                          }
+                          if (Object.keys(errors).length) {
+                            setFormErrors(errors)
+                            return
+                          }
+                          handleSubmit(inputSetDto, {
                             repoIdentifier: formikProps.values.repo,
                             branch: formikProps.values.branch
                           })
@@ -618,7 +611,7 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
             <Breadcrumbs
               links={[
                 {
-                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
+                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
                   label: project?.name as string
                 },
                 {

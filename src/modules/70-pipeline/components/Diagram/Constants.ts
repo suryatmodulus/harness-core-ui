@@ -21,7 +21,9 @@ export const Event: { [key: string]: string } = {
   DropNodeEvent: 'dropNodeEvent',
   MouseEnterNode: 'mouseEnterNode',
   MouseOverNode: 'mouseOverNode',
-  MouseLeaveNode: 'mouseLeaveNode'
+  MouseLeaveNode: 'mouseLeaveNode',
+  MouseEnterStepGroupTitle: 'mouseEnterStepGroupTitle',
+  MouseLeaveStepGroupTitle: 'mouseLeaveStepGroupTitle'
 }
 
 export const DiagramType: { [key: string]: string } = {

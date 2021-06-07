@@ -62,6 +62,17 @@ jest.mock('services/cd-ng', () => ({
 
 jest.mock('services/pipeline-ng', () => ({
   useGetInputSetForPipeline: jest.fn(() => GetInputSetEdit),
+  useCreateVariables: jest.fn().mockImplementation(() => {
+    return {
+      cancel: jest.fn(),
+      loading: false,
+      mutate: jest.fn().mockImplementation(() => {
+        return {
+          status: 'SUCCESS'
+        }
+      })
+    }
+  }),
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => MergeInputSetResponse),
   useGetPipeline: jest.fn(() => PipelineResponse),
   useGetTemplateFromPipeline: jest.fn(() => TemplateResponse),

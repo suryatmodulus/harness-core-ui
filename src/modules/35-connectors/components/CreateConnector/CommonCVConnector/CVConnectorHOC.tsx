@@ -1,13 +1,13 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
-import type { CreateConnectorModalProps } from '@connectors/constants'
+import { CreateConnectorModalProps, TESTCONNECTION_STEP_INDEX } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import DelegateSelectorStep, { DelegateSelectorProps } from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
-import { dsconfigTypeToConnectorDetailsTitle } from './utils'
+import { dsconfigTypetoResourcesConnectorDetailsTitle } from './utils'
 import type { ConnectionConfigProps } from './constants'
 
 export interface CVConnectorHOCInput {
@@ -34,7 +34,7 @@ export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateCon
       <StepWizard icon={getConnectorIconByType(connectorType)} iconProps={{ size: 37 }}>
         <ConnectorDetailsStep
           type={connectorType}
-          name={dsconfigTypeToConnectorDetailsTitle(connectorType, getString)}
+          name={dsconfigTypetoResourcesConnectorDetailsTitle(connectorType, getString)}
           isEditMode={isEditMode}
           connectorInfo={connectorInfo}
           gitDetails={props.gitDetails}
@@ -63,6 +63,7 @@ export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateCon
           isStep
           isLastStep
           type={connectorType}
+          stepIndex={TESTCONNECTION_STEP_INDEX}
         />
       </StepWizard>
     )

@@ -31,7 +31,7 @@ exports[`<ExecutionStepDetails /> tests approval steps click on refresh triggers
         >
           <label
             class="label"
-            title="Align right"
+            title="pipeline.execution.layouts.right"
           >
             <input
               checked=""
@@ -70,46 +70,7 @@ exports[`<ExecutionStepDetails /> tests approval steps click on refresh triggers
           </label>
           <label
             class="label"
-            title="Align bottom"
-          >
-            <input
-              name="layout"
-              type="radio"
-              value="BOTTOM"
-            />
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="layout-bottom"
-            >
-              <svg
-                height="16"
-                viewBox="0 0 4.233 4.233"
-                width="16"
-              >
-                <g
-                  fill="none"
-                  transform="matrix(.21166 0 0 .21166 0 .423)"
-                >
-                  <rect
-                    fill="#f2f2f2"
-                    height="15"
-                    rx="0.5"
-                    stroke="#9ea9b4"
-                    width="19"
-                    x="0.5"
-                    y="0.5"
-                  />
-                  <path
-                    d="M1 10h18v5H1z"
-                    fill="#9ea9b4"
-                  />
-                </g>
-              </svg>
-            </span>
-          </label>
-          <label
-            class="label"
-            title="Align floating"
+            title="pipeline.execution.layouts.float"
           >
             <input
               name="layout"
@@ -153,31 +114,36 @@ exports[`<ExecutionStepDetails /> tests approval steps click on refresh triggers
               </svg>
             </span>
           </label>
-        </div>
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
+          <label
+            class="label"
+            title="pipeline.execution.layouts.minimize"
           >
-            <svg
-              data-icon="cross"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <input
+              name="layout"
+              type="radio"
+              value="MINIMIZE"
+            />
+            <span
+              class="bp3-icon bp3-icon-minus StyledProps--main"
+              icon="minus"
             >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+              <svg
+                data-icon="minus"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  minus
+                </desc>
+                <path
+                  d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </label>
+        </div>
       </div>
     </div>
     <div
@@ -285,7 +251,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval complete
         >
           <label
             class="label"
-            title="Align right"
+            title="pipeline.execution.layouts.right"
           >
             <input
               checked=""
@@ -324,46 +290,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval complete
           </label>
           <label
             class="label"
-            title="Align bottom"
-          >
-            <input
-              name="layout"
-              type="radio"
-              value="BOTTOM"
-            />
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="layout-bottom"
-            >
-              <svg
-                height="16"
-                viewBox="0 0 4.233 4.233"
-                width="16"
-              >
-                <g
-                  fill="none"
-                  transform="matrix(.21166 0 0 .21166 0 .423)"
-                >
-                  <rect
-                    fill="#f2f2f2"
-                    height="15"
-                    rx="0.5"
-                    stroke="#9ea9b4"
-                    width="19"
-                    x="0.5"
-                    y="0.5"
-                  />
-                  <path
-                    d="M1 10h18v5H1z"
-                    fill="#9ea9b4"
-                  />
-                </g>
-              </svg>
-            </span>
-          </label>
-          <label
-            class="label"
-            title="Align floating"
+            title="pipeline.execution.layouts.float"
           >
             <input
               name="layout"
@@ -407,31 +334,36 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval complete
               </svg>
             </span>
           </label>
-        </div>
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
+          <label
+            class="label"
+            title="pipeline.execution.layouts.minimize"
           >
-            <svg
-              data-icon="cross"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <input
+              name="layout"
+              type="radio"
+              value="MINIMIZE"
+            />
+            <span
+              class="bp3-icon bp3-icon-minus StyledProps--main"
+              icon="minus"
             >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+              <svg
+                data-icon="minus"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  minus
+                </desc>
+                <path
+                  d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </label>
+        </div>
       </div>
     </div>
     <div
@@ -538,7 +470,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval waiting 
         >
           <label
             class="label"
-            title="Align right"
+            title="pipeline.execution.layouts.right"
           >
             <input
               checked=""
@@ -577,46 +509,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval waiting 
           </label>
           <label
             class="label"
-            title="Align bottom"
-          >
-            <input
-              name="layout"
-              type="radio"
-              value="BOTTOM"
-            />
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="layout-bottom"
-            >
-              <svg
-                height="16"
-                viewBox="0 0 4.233 4.233"
-                width="16"
-              >
-                <g
-                  fill="none"
-                  transform="matrix(.21166 0 0 .21166 0 .423)"
-                >
-                  <rect
-                    fill="#f2f2f2"
-                    height="15"
-                    rx="0.5"
-                    stroke="#9ea9b4"
-                    width="19"
-                    x="0.5"
-                    y="0.5"
-                  />
-                  <path
-                    d="M1 10h18v5H1z"
-                    fill="#9ea9b4"
-                  />
-                </g>
-              </svg>
-            </span>
-          </label>
-          <label
-            class="label"
-            title="Align floating"
+            title="pipeline.execution.layouts.float"
           >
             <input
               name="layout"
@@ -660,31 +553,36 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval waiting 
               </svg>
             </span>
           </label>
-        </div>
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
+          <label
+            class="label"
+            title="pipeline.execution.layouts.minimize"
           >
-            <svg
-              data-icon="cross"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <input
+              name="layout"
+              type="radio"
+              value="MINIMIZE"
+            />
+            <span
+              class="bp3-icon bp3-icon-minus StyledProps--main"
+              icon="minus"
             >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+              <svg
+                data-icon="minus"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  minus
+                </desc>
+                <path
+                  d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </label>
+        </div>
       </div>
     </div>
     <div
@@ -793,7 +691,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
         >
           <label
             class="label"
-            title="Align right"
+            title="pipeline.execution.layouts.right"
           >
             <input
               checked=""
@@ -832,46 +730,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
           </label>
           <label
             class="label"
-            title="Align bottom"
-          >
-            <input
-              name="layout"
-              type="radio"
-              value="BOTTOM"
-            />
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="layout-bottom"
-            >
-              <svg
-                height="16"
-                viewBox="0 0 4.233 4.233"
-                width="16"
-              >
-                <g
-                  fill="none"
-                  transform="matrix(.21166 0 0 .21166 0 .423)"
-                >
-                  <rect
-                    fill="#f2f2f2"
-                    height="15"
-                    rx="0.5"
-                    stroke="#9ea9b4"
-                    width="19"
-                    x="0.5"
-                    y="0.5"
-                  />
-                  <path
-                    d="M1 10h18v5H1z"
-                    fill="#9ea9b4"
-                  />
-                </g>
-              </svg>
-            </span>
-          </label>
-          <label
-            class="label"
-            title="Align floating"
+            title="pipeline.execution.layouts.float"
           >
             <input
               name="layout"
@@ -915,31 +774,36 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
               </svg>
             </span>
           </label>
-        </div>
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
+          <label
+            class="label"
+            title="pipeline.execution.layouts.minimize"
           >
-            <svg
-              data-icon="cross"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <input
+              name="layout"
+              type="radio"
+              value="MINIMIZE"
+            />
+            <span
+              class="bp3-icon bp3-icon-minus StyledProps--main"
+              icon="minus"
             >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+              <svg
+                data-icon="minus"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  minus
+                </desc>
+                <path
+                  d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </label>
+        </div>
       </div>
     </div>
     <div
@@ -1049,14 +913,6 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                   </div>
                 </td>
               </tr>
-              <tr>
-                <th>
-                  common.timeout
-                </th>
-                <td>
-                  -
-                </td>
-              </tr>
               <tr
                 class="delegateRow"
               >
@@ -1117,10 +973,10 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                 execution.stepLogs
               </div>
               <div
-                class="searchContainer"
+                class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
                   data-name=""
                 >
                   <span
@@ -1151,8 +1007,6 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                     value=""
                   />
                 </div>
-              </div>
-              <div>
                 <a
                   class="toConsoleView"
                   href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -1163,13 +1017,15 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                 </a>
               </div>
             </div>
-            <div>
+            <pre
+              class="container"
+            >
               <div
                 class="noLogs"
               >
                 common.logs.noLogsText
               </div>
-            </div>
+            </pre>
           </div>
         </div>
       </div>
@@ -1199,7 +1055,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
         >
           <label
             class="label"
-            title="Align right"
+            title="pipeline.execution.layouts.right"
           >
             <input
               checked=""
@@ -1238,46 +1094,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
           </label>
           <label
             class="label"
-            title="Align bottom"
-          >
-            <input
-              name="layout"
-              type="radio"
-              value="BOTTOM"
-            />
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="layout-bottom"
-            >
-              <svg
-                height="16"
-                viewBox="0 0 4.233 4.233"
-                width="16"
-              >
-                <g
-                  fill="none"
-                  transform="matrix(.21166 0 0 .21166 0 .423)"
-                >
-                  <rect
-                    fill="#f2f2f2"
-                    height="15"
-                    rx="0.5"
-                    stroke="#9ea9b4"
-                    width="19"
-                    x="0.5"
-                    y="0.5"
-                  />
-                  <path
-                    d="M1 10h18v5H1z"
-                    fill="#9ea9b4"
-                  />
-                </g>
-              </svg>
-            </span>
-          </label>
-          <label
-            class="label"
-            title="Align floating"
+            title="pipeline.execution.layouts.float"
           >
             <input
               name="layout"
@@ -1321,31 +1138,36 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
               </svg>
             </span>
           </label>
-        </div>
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
+          <label
+            class="label"
+            title="pipeline.execution.layouts.minimize"
           >
-            <svg
-              data-icon="cross"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <input
+              name="layout"
+              type="radio"
+              value="MINIMIZE"
+            />
+            <span
+              class="bp3-icon bp3-icon-minus StyledProps--main"
+              icon="minus"
             >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+              <svg
+                data-icon="minus"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  minus
+                </desc>
+                <path
+                  d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </label>
+        </div>
       </div>
     </div>
     <div
@@ -1443,14 +1265,6 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                   </div>
                 </td>
               </tr>
-              <tr>
-                <th>
-                  common.timeout
-                </th>
-                <td>
-                  -
-                </td>
-              </tr>
             </tbody>
           </table>
           <div
@@ -1464,10 +1278,10 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 execution.stepLogs
               </div>
               <div
-                class="searchContainer"
+                class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
                   data-name=""
                 >
                   <span
@@ -1498,8 +1312,6 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                     value=""
                   />
                 </div>
-              </div>
-              <div>
                 <a
                   class="toConsoleView"
                   href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -1510,13 +1322,15 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 </a>
               </div>
             </div>
-            <div>
+            <pre
+              class="container"
+            >
               <div
                 class="noLogs"
               >
                 common.logs.noLogsText
               </div>
-            </div>
+            </pre>
           </div>
         </div>
       </div>
@@ -1547,7 +1361,7 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
         >
           <label
             class="label"
-            title="Align right"
+            title="pipeline.execution.layouts.right"
           >
             <input
               checked=""
@@ -1586,46 +1400,7 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
           </label>
           <label
             class="label"
-            title="Align bottom"
-          >
-            <input
-              name="layout"
-              type="radio"
-              value="BOTTOM"
-            />
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="layout-bottom"
-            >
-              <svg
-                height="16"
-                viewBox="0 0 4.233 4.233"
-                width="16"
-              >
-                <g
-                  fill="none"
-                  transform="matrix(.21166 0 0 .21166 0 .423)"
-                >
-                  <rect
-                    fill="#f2f2f2"
-                    height="15"
-                    rx="0.5"
-                    stroke="#9ea9b4"
-                    width="19"
-                    x="0.5"
-                    y="0.5"
-                  />
-                  <path
-                    d="M1 10h18v5H1z"
-                    fill="#9ea9b4"
-                  />
-                </g>
-              </svg>
-            </span>
-          </label>
-          <label
-            class="label"
-            title="Align floating"
+            title="pipeline.execution.layouts.float"
           >
             <input
               name="layout"
@@ -1669,31 +1444,36 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
               </svg>
             </span>
           </label>
-        </div>
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
+          <label
+            class="label"
+            title="pipeline.execution.layouts.minimize"
           >
-            <svg
-              data-icon="cross"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <input
+              name="layout"
+              type="radio"
+              value="MINIMIZE"
+            />
+            <span
+              class="bp3-icon bp3-icon-minus StyledProps--main"
+              icon="minus"
             >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+              <svg
+                data-icon="minus"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  minus
+                </desc>
+                <path
+                  d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </label>
+        </div>
         <div
           class="bp3-popover-wrapper"
         >
@@ -1824,14 +1604,6 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                   </div>
                 </td>
               </tr>
-              <tr>
-                <th>
-                  common.timeout
-                </th>
-                <td>
-                  -
-                </td>
-              </tr>
             </tbody>
           </table>
           <div
@@ -1845,10 +1617,10 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                 execution.stepLogs
               </div>
               <div
-                class="searchContainer"
+                class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
                   data-name=""
                 >
                   <span
@@ -1879,8 +1651,6 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                     value=""
                   />
                 </div>
-              </div>
-              <div>
                 <a
                   class="toConsoleView"
                   href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -1891,13 +1661,15 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                 </a>
               </div>
             </div>
-            <div>
+            <pre
+              class="container"
+            >
               <div
                 class="noLogs"
               >
                 common.logs.noLogsText
               </div>
-            </div>
+            </pre>
           </div>
         </div>
       </div>
@@ -1928,7 +1700,7 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
         >
           <label
             class="label"
-            title="Align right"
+            title="pipeline.execution.layouts.right"
           >
             <input
               checked=""
@@ -1967,46 +1739,7 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
           </label>
           <label
             class="label"
-            title="Align bottom"
-          >
-            <input
-              name="layout"
-              type="radio"
-              value="BOTTOM"
-            />
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="layout-bottom"
-            >
-              <svg
-                height="16"
-                viewBox="0 0 4.233 4.233"
-                width="16"
-              >
-                <g
-                  fill="none"
-                  transform="matrix(.21166 0 0 .21166 0 .423)"
-                >
-                  <rect
-                    fill="#f2f2f2"
-                    height="15"
-                    rx="0.5"
-                    stroke="#9ea9b4"
-                    width="19"
-                    x="0.5"
-                    y="0.5"
-                  />
-                  <path
-                    d="M1 10h18v5H1z"
-                    fill="#9ea9b4"
-                  />
-                </g>
-              </svg>
-            </span>
-          </label>
-          <label
-            class="label"
-            title="Align floating"
+            title="pipeline.execution.layouts.float"
           >
             <input
               name="layout"
@@ -2050,31 +1783,36 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
               </svg>
             </span>
           </label>
-        </div>
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
+          <label
+            class="label"
+            title="pipeline.execution.layouts.minimize"
           >
-            <svg
-              data-icon="cross"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <input
+              name="layout"
+              type="radio"
+              value="MINIMIZE"
+            />
+            <span
+              class="bp3-icon bp3-icon-minus StyledProps--main"
+              icon="minus"
             >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+              <svg
+                data-icon="minus"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  minus
+                </desc>
+                <path
+                  d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </label>
+        </div>
         <div
           class="bp3-popover-wrapper"
         >
@@ -2205,14 +1943,6 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                   </div>
                 </td>
               </tr>
-              <tr>
-                <th>
-                  common.timeout
-                </th>
-                <td>
-                  -
-                </td>
-              </tr>
             </tbody>
           </table>
           <div
@@ -2226,10 +1956,10 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                 execution.stepLogs
               </div>
               <div
-                class="searchContainer"
+                class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
                   data-name=""
                 >
                   <span
@@ -2260,8 +1990,6 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                     value=""
                   />
                 </div>
-              </div>
-              <div>
                 <a
                   class="toConsoleView"
                   href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -2272,13 +2000,15 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                 </a>
               </div>
             </div>
-            <div>
+            <pre
+              class="container"
+            >
               <div
                 class="noLogs"
               >
                 common.logs.noLogsText
               </div>
-            </div>
+            </pre>
           </div>
         </div>
       </div>
@@ -2308,7 +2038,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
         >
           <label
             class="label"
-            title="Align right"
+            title="pipeline.execution.layouts.right"
           >
             <input
               checked=""
@@ -2347,46 +2077,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
           </label>
           <label
             class="label"
-            title="Align bottom"
-          >
-            <input
-              name="layout"
-              type="radio"
-              value="BOTTOM"
-            />
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="layout-bottom"
-            >
-              <svg
-                height="16"
-                viewBox="0 0 4.233 4.233"
-                width="16"
-              >
-                <g
-                  fill="none"
-                  transform="matrix(.21166 0 0 .21166 0 .423)"
-                >
-                  <rect
-                    fill="#f2f2f2"
-                    height="15"
-                    rx="0.5"
-                    stroke="#9ea9b4"
-                    width="19"
-                    x="0.5"
-                    y="0.5"
-                  />
-                  <path
-                    d="M1 10h18v5H1z"
-                    fill="#9ea9b4"
-                  />
-                </g>
-              </svg>
-            </span>
-          </label>
-          <label
-            class="label"
-            title="Align floating"
+            title="pipeline.execution.layouts.float"
           >
             <input
               name="layout"
@@ -2430,31 +2121,36 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
               </svg>
             </span>
           </label>
-        </div>
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
+          <label
+            class="label"
+            title="pipeline.execution.layouts.minimize"
           >
-            <svg
-              data-icon="cross"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <input
+              name="layout"
+              type="radio"
+              value="MINIMIZE"
+            />
+            <span
+              class="bp3-icon bp3-icon-minus StyledProps--main"
+              icon="minus"
             >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+              <svg
+                data-icon="minus"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  minus
+                </desc>
+                <path
+                  d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </label>
+        </div>
         <div
           class="bp3-popover-wrapper"
         >
@@ -2541,7 +2237,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
         >
           <label
             class="label"
-            title="Align right"
+            title="pipeline.execution.layouts.right"
           >
             <input
               checked=""
@@ -2580,46 +2276,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
           </label>
           <label
             class="label"
-            title="Align bottom"
-          >
-            <input
-              name="layout"
-              type="radio"
-              value="BOTTOM"
-            />
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="layout-bottom"
-            >
-              <svg
-                height="16"
-                viewBox="0 0 4.233 4.233"
-                width="16"
-              >
-                <g
-                  fill="none"
-                  transform="matrix(.21166 0 0 .21166 0 .423)"
-                >
-                  <rect
-                    fill="#f2f2f2"
-                    height="15"
-                    rx="0.5"
-                    stroke="#9ea9b4"
-                    width="19"
-                    x="0.5"
-                    y="0.5"
-                  />
-                  <path
-                    d="M1 10h18v5H1z"
-                    fill="#9ea9b4"
-                  />
-                </g>
-              </svg>
-            </span>
-          </label>
-          <label
-            class="label"
-            title="Align floating"
+            title="pipeline.execution.layouts.float"
           >
             <input
               name="layout"
@@ -2663,31 +2320,36 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
               </svg>
             </span>
           </label>
-        </div>
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
+          <label
+            class="label"
+            title="pipeline.execution.layouts.minimize"
           >
-            <svg
-              data-icon="cross"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <input
+              name="layout"
+              type="radio"
+              value="MINIMIZE"
+            />
+            <span
+              class="bp3-icon bp3-icon-minus StyledProps--main"
+              icon="minus"
             >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+              <svg
+                data-icon="minus"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  minus
+                </desc>
+                <path
+                  d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </label>
+        </div>
         <div
           class="bp3-popover-wrapper"
         >
@@ -2818,14 +2480,6 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                   </div>
                 </td>
               </tr>
-              <tr>
-                <th>
-                  common.timeout
-                </th>
-                <td>
-                  -
-                </td>
-              </tr>
             </tbody>
           </table>
           <div
@@ -2839,10 +2493,10 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                 execution.stepLogs
               </div>
               <div
-                class="searchContainer"
+                class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
                   data-name=""
                 >
                   <span
@@ -2873,8 +2527,6 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                     value=""
                   />
                 </div>
-              </div>
-              <div>
                 <a
                   class="toConsoleView"
                   href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
@@ -2885,13 +2537,15 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                 </a>
               </div>
             </div>
-            <div>
+            <pre
+              class="container"
+            >
               <div
                 class="noLogs"
               >
                 common.logs.noLogsText
               </div>
-            </div>
+            </pre>
           </div>
         </div>
       </div>

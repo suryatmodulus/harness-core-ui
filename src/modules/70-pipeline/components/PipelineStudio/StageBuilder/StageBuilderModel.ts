@@ -110,7 +110,7 @@ export class StageBuilderModel extends DiagramModel {
             allowAdd: allowAdd === true && !isReadonly,
             height: 50,
             iconStyle: { color: isSelected ? 'var(--white)' : type?.iconColor },
-            icon: type.icon,
+            icon: type?.icon,
             ...(node.stage.when && {})
           })
 
@@ -166,7 +166,8 @@ export class StageBuilderModel extends DiagramModel {
           /* istanbul ignore else */ if (!isEmpty(prevNodes)) {
             const emptyNodeStart = new EmptyNodeModel({
               identifier: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
-              name: 'Empty'
+              name: 'Empty',
+              hideOutPort: true
             })
             this.addNode(emptyNodeStart)
             newX += this.gapX
@@ -203,7 +204,8 @@ export class StageBuilderModel extends DiagramModel {
           /* istanbul ignore else */ if (!isEmpty(prevNodesAr)) {
             const emptyNodeEnd = new EmptyNodeModel({
               identifier: `${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
-              name: 'Empty'
+              name: 'Empty',
+              hideInPort: true
             })
             this.addNode(emptyNodeEnd)
             startX += this.gapX

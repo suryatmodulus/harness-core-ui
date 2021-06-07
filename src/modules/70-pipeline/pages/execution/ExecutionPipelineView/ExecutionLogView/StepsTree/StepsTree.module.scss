@@ -67,15 +67,20 @@ $height: 40px;
     .name-wrapper {
       display: flex;
       align-items: center;
+      column-gap: var(--spacing-small);
     }
 
-    & > :global(.bp3-popover-wrapper) {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    &,
+    & .name-wrapper {
+      & > :global(.bp3-popover-wrapper) {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
 
-      & > :global(.bp3-popover-target) {
-        width: 100%;
+        & > :global(.bp3-popover-target) {
+          display: block;
+        }
       }
     }
 
@@ -86,11 +91,6 @@ $height: 40px;
       text-overflow: ellipsis;
       color: currentColor !important;
       width: 100%;
-    }
-
-    .parallelIcon ~ .name,
-    .groupIcon ~ .name {
-      margin-left: 10px;
     }
 
     .icon {
@@ -181,6 +181,7 @@ $height: 40px;
   border-radius: 1px;
   border: 1px solid var(--grey-400);
   min-width: 17px;
+  transform: translateY(-1px);
 
   &::before,
   &::after {

@@ -8,3 +8,11 @@
   padding: var(--spacing-xsmall) var(--spacing-none) !important;
   min-width: 50px;
 }
+
+.truncatedText {
+  :global {
+    .bp3-popover-wrapper {
+      height: 17.5px !important;
+    }
+  }
+}

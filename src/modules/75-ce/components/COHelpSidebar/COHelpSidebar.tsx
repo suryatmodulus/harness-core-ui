@@ -168,10 +168,10 @@ const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
                 <Icon name="info-sign" size={23} color={Color.BLUE_500}></Icon>
                 <Layout.Vertical spacing="small" style={{ maxWidth: '80%' }}>
                   <Text style={{ fontWeight: 'bold', lineHeight: '20px' }}>
-                    {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step3.title')}
+                    {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step2.title')}
                   </Text>
                   <Text style={{ lineHeight: '20px' }}>
-                    {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step3.description')}
+                    {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step2.description')}
                   </Text>
                 </Layout.Vertical>
               </Layout.Horizontal>
@@ -180,10 +180,10 @@ const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
                   <Icon name="info-sign" size={23} color={Color.BLUE_500}></Icon>
                   <Layout.Vertical spacing="small" style={{ maxWidth: '80%' }}>
                     <Text style={{ fontWeight: 'bold', lineHeight: '20px' }}>
-                      {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step2.title')}
+                      {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step3.title')}
                     </Text>
                     <Text style={{ lineHeight: '20px' }}>
-                      {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step2.description')}
+                      {getString('ce.co.autoStoppingRule.setupAccess.helpText.dns.setup.step3.description')}
                     </Text>
                     {activeSections.includes('dns-others') ? (
                       <>

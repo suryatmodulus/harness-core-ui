@@ -229,7 +229,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            validation.connectorName
+                            validation.nameRequired
                           </div>
                         </div>
                       </div>
@@ -309,7 +309,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -618,7 +618,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                           name="url"
                           placeholder="common.git.gitHubUrlPlaceholder"
                           type="text"
-                          value="githubTestUrl"
+                          value="http://www.github.com/"
                         />
                       </div>
                     </div>
@@ -665,7 +665,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1074,7 +1074,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1391,7 +1391,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1822,7 +1822,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

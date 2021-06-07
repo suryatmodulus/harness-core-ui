@@ -7,10 +7,10 @@ import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
-import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
+import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMenu'
 
 export default function CVSideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()
@@ -57,46 +57,35 @@ export default function CVSideNav(): React.ReactElement {
             to={routes.toCVActivityDashboard({ accountId, projectIdentifier, orgIdentifier })}
           /> */}
           <SidebarLink label="Services" to={routes.toCVServices({ accountId, projectIdentifier, orgIdentifier })} />
-          <AdminSelector path={routes.toCVAdmin({ accountId, projectIdentifier, orgIdentifier })}>
-            <AdminSelectorLink
-              label={getString('cv.navLinks.adminSideNavLinks.setup')}
-              iconName="resources-icon"
-              to={routes.toCVAdminSetup({
-                projectIdentifier,
-                orgIdentifier,
-                accountId
-              })}
-            />
-            <AdminSelectorLink
-              label="Notifications"
-              iconName="main-notifications"
-              to={routes.toCVAdminNotifications({
-                projectIdentifier,
-                orgIdentifier,
-                accountId
-              })}
-            />
-            <AdminSelectorLink
-              label={getString('resources')}
-              iconName="main-scope"
-              to={routes.toResources({ projectIdentifier, orgIdentifier, accountId, module: 'cv' })}
-            />
-            <AdminSelectorLink
-              label={getString('cv.navLinks.adminSideNavLinks.activitySources')}
-              iconName="square"
-              to={routes.toCVAdminActivitySources({ projectIdentifier, orgIdentifier, accountId })}
-            />
-            <AdminSelectorLink
-              label={getString('cv.navLinks.adminSideNavLinks.monitoringSources')}
-              iconName="desktop"
-              to={routes.toCVAdminMonitoringSources({ projectIdentifier, orgIdentifier, accountId })}
-            />
-            <AdminSelectorLink
-              label={getString('verificationJobs')}
-              iconName="confirm"
-              to={routes.toCVAdminVerificationJobs({ projectIdentifier, orgIdentifier, accountId })}
-            />
-          </AdminSelector>
+          <SidebarLink
+            label={getString('cv.navLinks.adminSideNavLinks.setup')}
+            to={routes.toCVAdminSetup({
+              projectIdentifier,
+              orgIdentifier,
+              accountId
+            })}
+          />
+          <SidebarLink
+            label="Notifications"
+            to={routes.toCVAdminNotifications({
+              projectIdentifier,
+              orgIdentifier,
+              accountId
+            })}
+          />
+          <SidebarLink
+            label={getString('cv.navLinks.adminSideNavLinks.activitySources')}
+            to={routes.toCVAdminActivitySources({ projectIdentifier, orgIdentifier, accountId })}
+          />
+          <SidebarLink
+            label={getString('cv.navLinks.adminSideNavLinks.monitoringSources')}
+            to={routes.toCVAdminMonitoringSources({ projectIdentifier, orgIdentifier, accountId })}
+          />
+          <SidebarLink
+            label={getString('verificationJobs')}
+            to={routes.toCVAdminVerificationJobs({ projectIdentifier, orgIdentifier, accountId })}
+          />
+          <ProjectSetupMenu module="cv" />
         </React.Fragment>
       ) : null}
     </Layout.Vertical>

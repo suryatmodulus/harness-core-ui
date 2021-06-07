@@ -13,7 +13,7 @@ import {
   CardSelect
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, isNil, noop, omit, pick } from 'lodash-es'
+import { get, isEmpty, isNull, noop, omit, omitBy, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog, FormGroup, Intent } from '@blueprintjs/core'
 import { parse } from 'yaml'
@@ -207,7 +207,6 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
     isEdit: false,
     data: { name: '', identifier: '', type: 'PreProduction' }
   })
-  const onMountRef = React.useRef<boolean>(false)
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -228,7 +227,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           onCreateOrUpdate={values => {
             onUpdate?.({
               ...omit(initialValues, 'environmentRef'),
-              environment: pick(values, ['name', 'identifier', 'description', 'tags', 'type'])
+              environment: pick(omitBy(values, isNull), ['name', 'identifier', 'description', 'tags', 'type'])
             })
             const item = environments.filter(env => env.value === values.identifier)[0]
             if (item) {
@@ -255,7 +254,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   }, [initialValues.environment, initialValues.environment?.identifier, environments])
 
   React.useEffect(() => {
-    if (environmentsResponse?.data?.content?.length && !isNil(initialValues.environmentRef)) {
+    if (environmentsResponse?.data?.content?.length) {
       setEnvironments(
         environmentsResponse.data.content.map(env => ({
           label: env.name || env.identifier || '',
@@ -266,7 +265,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   }, [environmentsResponse, environmentsResponse?.data?.content?.length, initialValues.environmentRef])
 
   if (error?.message) {
-    showError(error.message)
+    showError(error.message, undefined, 'cd.env.list.error')
   }
 
   const { expressions } = useVariablesExpression()
@@ -327,11 +326,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           environmentRef: Yup.string().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
         })}
       >
-        {({ values, setFieldValue, setFieldTouched }) => {
-          if (!onMountRef.current) {
-            onMountRef.current = true
-            isEmpty(values.environmentRef) && setFieldTouched('environmentRef')
-          }
+        {({ values, setFieldValue }) => {
           return (
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <FormInput.MultiTypeInput
@@ -407,6 +402,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
   >()
 
   const { showError } = useToaster()
+  const { expressions } = useVariablesExpression()
   const { data: environmentsResponse, error, refetch } = useGetEnvironmentListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier },
     lazy: true
@@ -430,17 +426,26 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
   }, [environmentsResponse, environmentsResponse?.data?.content?.length])
 
   if (error?.message) {
-    showError(error.message)
+    showError(error.message, undefined, 'cd.env.list.error')
   }
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.environmentRef) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Select
+        <FormInput.MultiTypeInput
           label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
           tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}environmentRef`}
           placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
-          items={environments}
+          selectItems={environments}
+          useValue
+          multiTypeInputProps={{
+            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+            selectProps: {
+              addClearBtn: !inputSetData?.readonly,
+              items: environments
+            },
+            expressions
+          }}
           disabled={inputSetData?.readonly}
           className={css.inputWidth}
         />

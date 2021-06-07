@@ -1,8 +1,13 @@
+import * as Yup from 'yup'
+
 import type { IconName } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { StringKeys } from 'framework/strings'
+import { useStrings } from 'framework/strings'
+
+import { StringUtils } from '@common/exports'
 import type { ArtifactType } from './ArtifactInterface'
 
 export const ArtifactIconByType: Record<ArtifactType, IconName> = {
@@ -44,3 +49,29 @@ export const tagOptions: IOptionProps[] = [
     value: 'regex'
   }
 ]
+
+export const ArtifactIdentifierValidation = (
+  artifactIdentifiers: string[],
+  id: string | undefined,
+  validationMsg: string
+): { identifier: Yup.Schema<unknown> } => {
+  const { getString } = useStrings()
+
+  if (!id) {
+    return {
+      identifier: Yup.string()
+        .trim()
+        .required(getString('artifactsSelection.validation.sidecarId'))
+        .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+        .notOneOf(StringUtils.illegalIdentifiers)
+        .notOneOf(artifactIdentifiers, validationMsg)
+    }
+  }
+  return {
+    identifier: Yup.string()
+      .trim()
+      .required(getString('validation.identifierRequired'))
+      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+      .notOneOf(StringUtils.illegalIdentifiers)
+  }
+}

@@ -13,7 +13,6 @@ import { String } from 'framework/strings'
 import type { NgPipeline } from 'services/cd-ng'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
 import { PipelineContext } from './PipelineContext/PipelineContext'
-import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/PipelineVariablesContext'
 import { PipelineSchemaContextProvider } from './PipelineSchema/PipelineSchemaContext'
 import css from './PipelineStudio.module.scss'
 
@@ -101,17 +100,15 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
     } = this.props
     return (
       <PipelineSchemaContextProvider>
-        <PipelineVariablesContextProvider>
-          <div className={cx(css.container, className)}>
-            <PipelineCanvas
-              toPipelineStudio={routePipelineStudio}
-              toPipelineDetail={routePipelineDetail}
-              toPipelineList={routePipelineList}
-              toPipelineProject={routePipelineProject}
-              getOtherModal={getOtherModal}
-            />
-          </div>
-        </PipelineVariablesContextProvider>
+        <div className={cx(css.container, className)}>
+          <PipelineCanvas
+            toPipelineStudio={routePipelineStudio}
+            toPipelineDetail={routePipelineDetail}
+            toPipelineList={routePipelineList}
+            toPipelineProject={routePipelineProject}
+            getOtherModal={getOtherModal}
+          />
+        </div>
       </PipelineSchemaContextProvider>
     )
   }

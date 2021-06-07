@@ -62,7 +62,13 @@ export default function CreatePipelines({
                   .required(getString('validation.identifierRequired'))
                   .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
                   .notOneOf(StringUtils.illegalIdentifiers)
-              })
+              }),
+              ...(isGitSyncEnabled
+                ? {
+                    repo: Yup.string().trim().required(getString('pipeline.repoRequired')),
+                    branch: Yup.string().trim().required(getString('pipeline.branchRequired'))
+                  }
+                : {})
             })}
             onSubmit={values => {
               logger.info(JSON.stringify(values))
@@ -85,7 +91,10 @@ export default function CreatePipelines({
                 </div>
                 {isGitSyncEnabled && (
                   <GitSyncStoreProvider>
-                    <GitContextForm formikProps={formikProps} gitDetails={pick(initialValues, ['repo', 'branch'])} />
+                    <GitContextForm
+                      formikProps={formikProps}
+                      gitDetails={{ ...pick(initialValues, ['repo', 'branch']), getDefaultFromOtherRepo: false }}
+                    />
                   </GitSyncStoreProvider>
                 )}
                 <Button

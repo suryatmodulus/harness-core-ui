@@ -28,6 +28,8 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   secondaryIconProps?: Omit<IconProps, 'name'>
   secondaryIconStyle?: CSSProperties
   showPorts?: boolean
+  hideInPort?: boolean
+  hideOutPort?: boolean
   tertiaryIcon?: IconName
   tertiaryIconProps?: Omit<IconProps, 'name'>
   tertiaryIconStyle?: CSSProperties
@@ -35,6 +37,7 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   selected?: boolean
   allowDropOnLink?: boolean
   allowDropOnNode?: boolean
+  disableClick?: boolean
 }
 
 export interface DefaultNodeModelGenerics extends NodeModelGenerics {

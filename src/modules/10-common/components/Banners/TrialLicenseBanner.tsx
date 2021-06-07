@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import moment from 'moment'
-import { Text, Layout, Icon, Button } from '@wings-software/uicore'
+import cx from 'classnames'
+import { Text, Layout, Button, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { StringsMap } from 'stringTypes'
+import { useContactSalesModal, ContactSalesFormProps } from '@common/modals/ContactSales/useContactSalesModal'
 import { Page } from '../Page/Page'
 import css from './TrialLicenseBanner.module.scss'
 
@@ -21,6 +23,32 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
   const moduleDescription = getString(`${moduleName}.continuous` as keyof StringsMap)
 
   const days = Math.round(moment(expiryTime).diff(moment.now(), 'days', true))
+  const isExpired = days < 0
+  const expiredDays = Math.abs(days)
+  const expiredClassName = isExpired ? css.expired : css.notExpired
+
+  const alertMsg = isExpired ? (
+    <Text font={{ weight: 'semi-bold' }} icon="info" iconProps={{ size: 18, color: Color.RED_500 }}>
+      {getString('common.banners.trial.expired.description', {
+        expiredDays,
+        moduleDescription
+      })}
+    </Text>
+  ) : (
+    <Text font={{ weight: 'semi-bold' }} icon="info" iconProps={{ size: 18, color: Color.ORANGE_500 }}>
+      {getString('common.banners.trial.description', {
+        module,
+        days,
+        moduleDescription
+      })}
+    </Text>
+  )
+
+  const { openContactSalesModal } = useContactSalesModal({
+    onSubmit: (_values: ContactSalesFormProps) => {
+      // TO-DO: call the API
+    }
+  })
 
   if (licenseType !== 'TRIAL' || !display) {
     return <></>
@@ -28,21 +56,25 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
 
   return (
     <Page.Header
-      className={css.trialLicenseBanner}
+      className={cx(css.trialLicenseBanner, expiredClassName)}
       title={''}
       content={
         <Layout.Horizontal spacing="xxxlarge">
           <Layout.Horizontal spacing="small" padding={{ right: 'xxxlarge' }}>
-            <Icon style={{ paddingTop: 6, color: 'var(--orange-500)' }} name="info" size={18} />
-            <Text style={{ lineHeight: 2.5, fontWeight: 500 }}>
-              {getString('common.banners.trial.description' as keyof StringsMap, {
-                module,
-                days,
-                moduleDescription
-              })}
-            </Text>
+            {alertMsg}
           </Layout.Horizontal>
-          <Button padding="small" text={getString('common.banners.trial.contactSales' as keyof StringsMap)} />
+          <Button
+            className={css.contactSales}
+            border={{ color: Color.PRIMARY_7 }}
+            padding="xsmall"
+            text={getString('common.banners.trial.contactSales')}
+            onClick={openContactSalesModal}
+          />
+          {isExpired && (
+            <Text padding={'small'} color={Color.PRIMARY_7} className={css.extendTrial}>
+              {getString('common.banners.trial.expired.extendTrial')}
+            </Text>
+          )}
         </Layout.Horizontal>
       }
       toolbar={

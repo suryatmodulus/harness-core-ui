@@ -38,12 +38,14 @@ import {
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import GcpAuthentication from '@connectors/components/CreateConnector/GcpConnector/StepAuth/GcpAuthentication'
 
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
   getFlattenedStages,
-  getStatus
+  getStatus,
+  getConnectorNameFromValue
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import {
   ManifestIconByType,
@@ -117,6 +119,7 @@ const ManifestListView = ({
   }
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
 
   let listOfManifests = useMemo(() => {
@@ -283,7 +286,8 @@ const ManifestListView = ({
       stepName: getString('pipeline.manifestType.manifestDetails'),
       initialValues: getLastStepInitialData(),
       handleSubmit: handleSubmit,
-      selectedManifest
+      selectedManifest,
+      manifestIdsList: listOfManifests.map((item: ManifestConfigWrapper) => item.manifest?.identifier)
     }
   }
 
@@ -388,6 +392,7 @@ const ManifestListView = ({
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <StepHelmAuth
               name={getString('details')}
@@ -423,6 +428,7 @@ const ManifestListView = ({
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <StepAWSAuthentication
               name={getString('credentials')}
@@ -461,6 +467,7 @@ const ManifestListView = ({
               name={getString('overview')}
               isEditMode={isEditMode}
               connectorInfo={undefined}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <GcpAuthentication
               name={getString('details')}
@@ -502,6 +509,7 @@ const ManifestListView = ({
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <GitDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
@@ -598,7 +606,6 @@ const ManifestListView = ({
       selectedManifest === ManifestDataType.HelmChart
         ? [...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]
         : manifestStoreTypes
-
     return (
       <Dialog onClose={onClose} {...DIALOG_PROPS} className={cx(css.modal, Classes.DIALOG)}>
         <div className={css.createConnectorWizard}>
@@ -643,6 +650,7 @@ const ManifestListView = ({
               const manifest = data['manifest']
 
               const { color } = getStatus(manifest?.spec?.store?.spec?.connectorRef, connectors, accountId)
+              const connectorName = getConnectorNameFromValue(manifest?.spec?.store?.spec?.connectorRef, connectors)
 
               return (
                 <section className={cx(css.manifestList, css.rowItem)} key={`${manifest?.identifier}-${index}`}>
@@ -653,20 +661,17 @@ const ManifestListView = ({
                     </Text>
                   </div>
                   <div>{manifestTypeLabels[manifest?.type as ManifestTypes]}</div>
-                  <span>
-                    <Text
-                      inline
-                      icon={ManifestIconByType[manifest?.spec?.store.type as ManifestStores]}
-                      iconProps={{ size: 18 }}
-                      width={300}
-                      lineClamp={1}
-                      rightIcon="full-circle"
-                      rightIconProps={{ size: 12, color }}
-                      style={{ color: Color.BLACK, fontWeight: 900 }}
-                    >
-                      {manifest?.spec?.store.spec.connectorRef}
+                  <div className={css.connectorNameField}>
+                    <Icon
+                      padding={{ right: 'small' }}
+                      name={ManifestIconByType[manifest?.spec?.store.type as ManifestStores]}
+                      size={18}
+                    />
+                    <Text className={css.connectorName} lineClamp={1}>
+                      {connectorName ?? manifest?.spec?.store.spec.connectorRef}
                     </Text>
-                  </span>
+                    <Icon name="full-circle" size={12} color={color} />
+                  </div>
 
                   {!!manifest?.spec?.store.spec.paths?.length && (
                     <span>

@@ -152,7 +152,7 @@ function AppWithoutAuthentication(props: AppProps): React.ReactElement {
           path={[
             // this path is needed for AppStoreProvider to populate accountId, orgId and projectId
             '/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier',
-            '/account/:accountId/projects/:projectIdentifier/orgs/:orgIdentifier',
+            '/account/:accountId/orgs/:orgIdentifier/projects/:projectIdentifier',
             '/account/:accountId'
           ]}
         >

@@ -1,0 +1,30 @@
+.dialog {
+  border-radius: 11px;
+  position: relative;
+  &.contactSales {
+    padding: 5% 5%;
+    width: 500px;
+    height: auto;
+    :global {
+      .bp3-menu {
+        max-height: 120px;
+        overflow-y: auto;
+        min-width: unset !important;
+      }
+    }
+  }
+}
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}
+
+.phone {
+  width: 30% !important;
+  margin-right: 5% !important;
+}
+
+.contactNumber {
+  width: 70% !important;
+}

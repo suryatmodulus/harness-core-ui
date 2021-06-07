@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { UseMutateProps, UseMutateReturn, MutateMethod } from 'restful-react'
+import type { UseMutateProps, UseMutateReturn, MutateMethod, GetDataError } from 'restful-react'
 import { useState, useCallback, useEffect, Dispatch, SetStateAction } from 'react'
 // eslint-disable-next-line no-restricted-imports
 import type { Cancelable, DebounceSettings } from 'lodash' // only type imports
-import { debounce } from 'lodash-es'
+import { debounce, identity } from 'lodash-es'
 
 import { shouldShowError } from '../utils/errorUtils'
 import { useDeepCompareEffect } from './useDeepCompareEffect'
@@ -43,9 +43,11 @@ export interface UseMutateAsGetReturn<
   data: TData | null
   initLoading: boolean
   loading: boolean
-  error: TError | null
+  error: GetDataError<TError> | null
   cancel(): void
-  refetch(props?: WrappedUseMutateProps<TData, TError, TRequestBody, TQueryParams, TPathParams>): Promise<void>
+  refetch(
+    props?: WrappedUseMutateProps<TData, TError, TRequestBody, TQueryParams, TPathParams>
+  ): Promise<void> | undefined
 }
 
 async function _fetchData<TData, TError, TQueryParams, TRequestBody, TPathParams>(
@@ -76,7 +78,7 @@ export function useMutateAsGet<
 ): UseMutateAsGetReturn<TData, TError, TQueryParams, TRequestBody, TPathParams> {
   const [data, setData] = useState<TData | null>(null)
   const [initLoading, setInitLoading] = useState(!props.lazy)
-  const [error, setError] = useState<TError | null>(null)
+  const [error, setError] = useState<GetDataError<TError> | null>(null)
   const { mutate, loading, cancel } = useMutateWrapper(props)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,7 +99,9 @@ export function useMutateAsGet<
   useDeepCompareEffect(() => {
     if (!props.lazy && !props.mock) {
       try {
-        fetchData(mutate, props, setInitLoading, setData)
+        fetchData(mutate, props, setInitLoading, setData)?.then(identity, e => {
+          if (shouldShowError(e)) setError(e)
+        })
       } catch (e) {
         if (shouldShowError(e)) {
           setError(e)
@@ -117,6 +121,16 @@ export function useMutateAsGet<
     loading,
     error,
     cancel,
-    refetch: newProps => fetchData(mutate, newProps || props, setInitLoading, setData)
+    refetch: newProps => {
+      try {
+        return fetchData(mutate, newProps || props, setInitLoading, setData)?.then(identity, e => {
+          if (shouldShowError(e)) setError(e)
+        })
+      } catch (e) {
+        if (shouldShowError(e)) {
+          setError(e)
+        }
+      }
+    }
   }
 }

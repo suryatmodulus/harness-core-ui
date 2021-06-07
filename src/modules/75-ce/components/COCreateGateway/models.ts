@@ -53,7 +53,7 @@ export interface GatewayDetails {
   matchAllSubdomains?: boolean
   disabled?: boolean
   routing: Routing
-  healthCheck: HealthCheck
+  healthCheck: HealthCheck | null
   opts: ServiceOpts
   provider: Provider
   selectedInstances: InstanceDetails[]

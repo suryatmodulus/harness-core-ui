@@ -9,6 +9,10 @@ import { TerraformDestroy } from '../TerraformDestroy'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
+
+jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => {
+  return <textarea value={value} onChange={e => onChange(e.target.value)} name={name || 'spec.source.spec.script'} />
+})
 describe('Test TerraformDestroy', () => {
   beforeEach(() => {
     factory.registerStep(new TerraformDestroy())
@@ -63,7 +67,7 @@ describe('Test TerraformDestroy', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
+    fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
 
     expect(container).toMatchSnapshot()
   })

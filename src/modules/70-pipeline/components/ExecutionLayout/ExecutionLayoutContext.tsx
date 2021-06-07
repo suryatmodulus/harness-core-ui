@@ -4,7 +4,8 @@ import type { SetStateAction } from 'react'
 export enum ExecutionLayoutState {
   RIGHT = 'RIGHT',
   BOTTOM = 'BOTTOM',
-  FLOATING = 'FLOATING'
+  FLOATING = 'FLOATING',
+  MINIMIZE = 'MINIMIZE'
 }
 
 export interface ExecutionLayoutContextParams {
@@ -15,6 +16,7 @@ export interface ExecutionLayoutContextParams {
   tertiaryPaneSize: number
   setTertiaryPaneSize(action: SetStateAction<number>): void
   isStepDetailsVisible: boolean
+  restoreDialog(): void
   setStepDetailsVisibility(action: SetStateAction<boolean>): void
 }
 
@@ -26,6 +28,7 @@ export const ExecutionLayoutContext = createContext<ExecutionLayoutContextParams
   setPrimaryPaneSize: /* istanbul ignore next */ () => void 0,
   setTertiaryPaneSize: /* istanbul ignore next */ () => void 0,
   isStepDetailsVisible: false,
+  restoreDialog: /* istanbul ignore next */ () => void 0,
   setStepDetailsVisibility: /* istanbul ignore next */ () => void 0
 })
 

@@ -4,10 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import ConnectorDetailsPage from '../ConnectorDetailsPage'
 import connector from './mocks/get-connector-mock.json'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
-  const ComponentToMock = () => <div />
-  return ComponentToMock
-})
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
   useGetOrganizationAggregateDTO: jest.fn().mockImplementation(() => {
@@ -33,7 +30,9 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => {
     return { data: {} }
-  })
+  }),
+  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() })),
+  useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 describe('Connector DetailsPage Page Test', () => {

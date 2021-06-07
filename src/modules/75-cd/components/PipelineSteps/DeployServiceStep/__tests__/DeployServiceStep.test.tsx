@@ -8,9 +8,7 @@ import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { DeployService } from '../DeployServiceStep.stories'
 import services from './serviceMock'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
   useGetServiceListForProject: jest

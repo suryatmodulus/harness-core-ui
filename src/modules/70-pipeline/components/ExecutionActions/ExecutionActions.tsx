@@ -41,12 +41,13 @@ export interface ExecutionActionsProps {
   refetch?(): Promise<void>
   noMenu?: boolean
   stageId?: string
+  stageName?: string
   canEdit?: boolean
   canExecute?: boolean
 }
 
 export default function ExecutionActions(props: ExecutionActionsProps): React.ReactElement {
-  const { executionStatus, params, noMenu, stageId, canEdit = true, canExecute = true } = props
+  const { executionStatus, params, noMenu, stageId, canEdit = true, canExecute = true, stageName } = props
   const {
     orgIdentifier,
     executionIdentifier,
@@ -101,6 +102,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Abort'
           }
         })
+        showSuccess(getString('pipeline.execution.stageActionMessages.abortedMessage', { stageName }))
       } else {
         await interrupt({} as never, {
           queryParams: {
@@ -110,9 +112,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Abort'
           }
         })
+        showSuccess(getString('pipeline.execution.pipelineActionMessages.abortedMessage'))
       }
-      // await refetch()
-      showSuccess(getString('execution.actionMessages.abortedMessage'))
     } catch (_) {
       //
     }
@@ -129,6 +130,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Pause'
           }
         })
+        showSuccess(getString('pipeline.execution.stageActionMessages.pausedMessage', { stageName }))
       } else {
         await interrupt({} as never, {
           queryParams: {
@@ -138,9 +140,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Pause'
           }
         })
+        showSuccess(getString('pipeline.execution.pipelineActionMessages.pausedMessage'))
       }
-      // await refetch()
-      showSuccess(getString('execution.actionMessages.pausedMessage'))
     } catch (_) {
       //
     }
@@ -157,6 +158,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Resume'
           }
         })
+        showSuccess(getString('pipeline.execution.stageActionMessages.resumedMessage', { stageName }))
       } else {
         await interrupt({} as never, {
           queryParams: {
@@ -166,9 +168,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             interruptType: 'Resume'
           }
         })
+        showSuccess(getString('pipeline.execution.pipelineActionMessages.resumedMessage'))
       }
-      // await refetch()
-      showSuccess(getString('execution.actionMessages.resumedMessage'))
     } catch (_) {
       //
     }

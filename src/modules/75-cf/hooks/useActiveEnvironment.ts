@@ -15,7 +15,10 @@ const useActiveEnvironment = (): {
     return `${url}${url.includes('?') ? '&' : '?'}activeEnvironment=${env}`
   }
 
-  return { activeEnvironment, withActiveEnvironment }
+  return {
+    activeEnvironment: activeEnvironment !== 'undefined' ? activeEnvironment : '',
+    withActiveEnvironment
+  }
 }
 
 export default useActiveEnvironment

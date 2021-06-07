@@ -11,7 +11,7 @@ import {
   useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, isNil, noop, omit, pick } from 'lodash-es'
+import { get, isEmpty, isNil, isNull, noop, omit, omitBy, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
@@ -159,7 +159,6 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
 
   const { expressions } = useVariablesExpression()
 
-  const onMountRef = React.useRef<boolean>(false)
   const [services, setService] = React.useState<SelectOption[]>([])
   const [state, setState] = React.useState<DeployServiceState>({ isEdit: false, data: { name: '', identifier: '' } })
   const [showModal, hideModal] = useModalHook(
@@ -182,7 +181,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           onCreateOrUpdate={values => {
             onUpdate?.({
               ...omit(initialValues, 'serviceRef'),
-              service: pick(values, ['name', 'identifier', 'description', 'tags'])
+              service: pick(omitBy(values, isNull), ['name', 'identifier', 'description', 'tags'])
             })
             const item = services.filter(service => service.value === values.identifier)[0]
             if (item) {
@@ -217,7 +216,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   }, [serviceResponse, serviceResponse?.data?.content?.length, initialValues.serviceRef])
 
   if (error?.message) {
-    showError(error.message)
+    showError(error.message, undefined, 'cd.svc.list.error')
   }
 
   const [canEdit] = usePermission({
@@ -275,11 +274,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           serviceRef: Yup.string().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
         })}
       >
-        {({ values, setFieldValue, setFieldTouched }) => {
-          if (!onMountRef.current) {
-            onMountRef.current = true
-            isEmpty(values.serviceRef) && setFieldTouched('serviceRef')
-          }
+        {({ values, setFieldValue }) => {
           return (
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <FormInput.MultiTypeInput
@@ -352,7 +347,8 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
     }>
   >()
 
-  const { showError } = useToaster()
+  const { showError, clear } = useToaster()
+  const { expressions } = useVariablesExpression()
   const { data: serviceResponse, error, refetch } = useGetServiceListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier },
     lazy: true
@@ -373,17 +369,27 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
   }, [serviceResponse, serviceResponse?.data?.content?.length])
 
   if (error?.message) {
-    showError(error.message)
+    clear()
+    showError(error.message, undefined, 'cd.svc.list.error')
   }
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.serviceRef) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Select
+        <FormInput.MultiTypeInput
           tooltipProps={{ dataTooltipId: 'specifyYourService' }}
           label={getString('pipelineSteps.serviceTab.specifyYourService')}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}serviceRef`}
           placeholder={getString('pipelineSteps.serviceTab.selectService')}
-          items={services}
+          selectItems={services}
+          useValue
+          multiTypeInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+            selectProps: {
+              addClearBtn: true && !inputSetData?.readonly,
+              items: services
+            }
+          }}
           disabled={inputSetData?.readonly}
           className={css.inputWidth}
         />

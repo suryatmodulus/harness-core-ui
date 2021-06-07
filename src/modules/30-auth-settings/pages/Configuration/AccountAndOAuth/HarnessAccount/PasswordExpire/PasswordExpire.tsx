@@ -121,18 +121,19 @@ const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings, p
         margin={{ bottom: 'large' }}
         className={cssHarnessAccount.passwordChecksDiv}
       >
-        <RbacButton
-          minimal
-          intent="primary"
-          icon="edit"
-          onClick={() => openPasswordExpirationModal(true)}
-          data-testid="update-password-expire-settings"
-          className={cssHarnessAccount.editIcon}
-          permission={{
-            ...permissionRequest,
-            permission: PermissionIdentifier.EDIT_AUTHSETTING
-          }}
-        />
+        <div className={cssHarnessAccount.editIcon}>
+          <RbacButton
+            minimal
+            intent="primary"
+            icon="edit"
+            onClick={() => openPasswordExpirationModal(true)}
+            data-testid="update-password-expire-settings"
+            permission={{
+              ...permissionRequest,
+              permission: PermissionIdentifier.EDIT_AUTHSETTING
+            }}
+          />
+        </div>
         <Text margin={{ bottom: 'xsmall' }} color={Color.BLACK}>
           {getString('authSettings.periodicallyExpirePasswordNote')}
         </Text>

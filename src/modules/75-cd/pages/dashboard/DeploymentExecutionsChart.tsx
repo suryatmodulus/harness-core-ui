@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import moment from 'moment'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { ExecutionsChart } from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
@@ -24,7 +23,7 @@ export default function DeploymentExecutionsChart() {
   const chartData = useMemo(() => {
     if (data?.data?.executionDeploymentList?.length) {
       return data.data.executionDeploymentList.map(val => ({
-        time: moment(val.time).format('YYYY-MM-DD'),
+        time: val.time,
         success: val.deployments!.success,
         failed: val.deployments!.failure
       }))

@@ -111,9 +111,12 @@ exports[`<PipelineDetailsTab /> tests snapshot test 1`] = `
                   >
                     serviceOrServices
                   </div>
-                  <div>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1;"
+                  >
                     dummy-svc
-                  </div>
+                  </p>
                 </div>
                 <div>
                   <div
@@ -129,9 +132,12 @@ exports[`<PipelineDetailsTab /> tests snapshot test 1`] = `
                   >
                     environmentOrEnvironments
                   </div>
-                  <div>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1;"
+                  >
                     dev
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>
@@ -203,9 +209,12 @@ exports[`<PipelineDetailsTab /> tests snapshot test 1`] = `
                   >
                     serviceOrServices
                   </div>
-                  <div>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1;"
+                  >
                     dummy-svc
-                  </div>
+                  </p>
                 </div>
                 <div>
                   <div
@@ -215,10 +224,44 @@ exports[`<PipelineDetailsTab /> tests snapshot test 1`] = `
                   </div>
                   <div>
                     <div>
-                      artifactDisplay
+                      <div>
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                          style="--text-line-clamp: 1;"
+                        >
+                          library/nginx
+                        </p>
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                          style="--text-line-clamp: 1;"
+                        >
+                          (
+                          common.artifactTag
+                          : #
+                          latest
+                          )
+                        </p>
+                      </div>
                     </div>
                     <div>
-                      artifactDisplay
+                      <div>
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                          style="--text-line-clamp: 1;"
+                        >
+                          library/nginx
+                        </p>
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                          style="--text-line-clamp: 1;"
+                        >
+                          (
+                          common.artifactTag
+                          : #
+                          latest
+                          )
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -228,9 +271,12 @@ exports[`<PipelineDetailsTab /> tests snapshot test 1`] = `
                   >
                     environmentOrEnvironments
                   </div>
-                  <div>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1;"
+                  >
                     dev
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>

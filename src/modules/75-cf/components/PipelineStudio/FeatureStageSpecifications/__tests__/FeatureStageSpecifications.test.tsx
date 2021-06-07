@@ -11,9 +11,7 @@ import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/Step
 import { CustomVariables } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariables'
 import FeatureStageSpecifications from '../FeatureStageSpecifications'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 factory.registerStep(new CustomVariables())
 

@@ -1,23 +1,18 @@
 import React from 'react'
-import { Text } from '@wings-software/uicore'
+import { Text, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useGetSelectionLogsV2 } from 'services/portal'
 import { String, useStrings } from 'framework/strings'
+import type { DelegateTaskData } from '@common/components/DelegateSelectionLogs/DelegateSelectionLogs'
 import { PageSpinner } from '..'
 import DelegateSelectionLogsTable from './DelegateSelectionLogsTable'
 
 export interface DelegateSelectionLogsTaskProps {
-  taskId: string
-  taskName: string
-  delegateName: string
+  task: DelegateTaskData
 }
 const PAGE_SIZE = 5
 
-export function DelegateSelectionLogsTask({
-  taskId,
-  taskName,
-  delegateName
-}: DelegateSelectionLogsTaskProps): JSX.Element {
+export function DelegateSelectionLogsTask({ task }: DelegateSelectionLogsTaskProps): JSX.Element {
   const { accountId } = useParams<{
     accountId: string
   }>()
@@ -25,7 +20,7 @@ export function DelegateSelectionLogsTask({
   const [page, setPage] = React.useState(0)
   const { getString } = useStrings()
 
-  const { data, loading } = useGetSelectionLogsV2({ queryParams: { accountId, taskId } })
+  const { data, loading } = useGetSelectionLogsV2({ queryParams: { accountId, taskId: task.taskId } })
   if (loading) {
     return <PageSpinner />
   }
@@ -34,13 +29,17 @@ export function DelegateSelectionLogsTask({
     <>
       {data?.resource?.delegateSelectionLogs && data?.resource?.delegateSelectionLogs.length > 0 ? (
         <>
-          <Text>
-            <String
-              stringID="common.delegateForTask"
-              vars={{ delegate: delegateName, taskName: taskName }}
-              useRichText
-            />
-          </Text>
+          <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
+            <Text>
+              <String
+                stringID="common.delegateForTask"
+                vars={{ delegate: task.delegateName, taskName: task.taskName }}
+                useRichText
+              />
+            </Text>
+            <Text>{getString('taskId', { id: task.taskId })}</Text>
+          </Layout.Horizontal>
+
           <DelegateSelectionLogsTable
             pageIndex={page}
             pageCount={Math.ceil(data.resource.delegateSelectionLogs.length / PAGE_SIZE)}

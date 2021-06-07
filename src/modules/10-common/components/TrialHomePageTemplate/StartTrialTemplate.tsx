@@ -3,7 +3,7 @@ import { Heading, Layout, Text, Container, Button, Color, Icon } from '@wings-so
 import { useParams, useHistory } from 'react-router-dom'
 import type { MutateMethod } from 'restful-react'
 import { useToaster } from '@common/components'
-import { useStartTrial, RestResponseModuleLicenseInfo, StartTrialRequestBody } from 'services/portal'
+import { useStartTrialLicense, ResponseModuleLicenseDTO, StartTrialRequestDTO } from 'services/cd-ng'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, TrialActions } from '@common/constants/TrackingConstants'
@@ -29,7 +29,7 @@ interface StartTrialProps {
     onClick?: () => void
   }
   shouldShowStartTrialModal?: boolean
-  startTrial: MutateMethod<RestResponseModuleLicenseInfo, void, StartTrialRequestBody, void>
+  startTrial: MutateMethod<ResponseModuleLicenseDTO, void, StartTrialRequestDTO, void>
   module: Module
   loading: boolean
 }
@@ -105,11 +105,11 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
     accountId: string
   }>()
 
-  const startTrialRequestBody: StartTrialRequestBody = {
-    moduleType: module.toUpperCase()
+  const startTrialRequestBody: StartTrialRequestDTO = {
+    moduleType: module.toUpperCase() as any
   }
 
-  const { mutate: startTrial, loading } = useStartTrial({
+  const { mutate: startTrial, loading } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }

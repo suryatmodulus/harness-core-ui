@@ -16,6 +16,7 @@ export interface NoDataCardProps {
   className?: string
   containerClassName?: string
   buttonDisabled?: boolean
+  buttonDisabledTooltip?: string
 }
 
 export const NoDataCard: React.FC<NoDataCardProps> = props => {
@@ -53,7 +54,7 @@ export const NoDataCard: React.FC<NoDataCardProps> = props => {
             text={props.buttonText}
             width={props.buttonWidth}
             onClick={props.onClick}
-            tooltip={buttonDisabled ? getString('noPermission') : undefined}
+            tooltip={props.buttonDisabledTooltip || (buttonDisabled ? getString('noPermission') : undefined)}
             disabled={buttonDisabled}
           />
         ) : null}

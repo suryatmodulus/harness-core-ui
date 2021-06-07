@@ -7,9 +7,7 @@ import { InstanceTypes } from '@common/constants/InstanceTypes'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { K8sCanaryDeployStep } from '../K8sCanaryDeployStep'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 describe('Test K8sCanaryDeployStep', () => {
   beforeEach(() => {

@@ -335,7 +335,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
           >
-            pipeline.triggers.lastExecutionDetails
+            pipeline.triggers.lastActivationDetails
           </p>
           <span
             class="bp3-popover-wrapper"
@@ -379,7 +379,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              pipeline.triggers.lastExecutionAt: MOCK_DATE MOCK_TIME
+              pipeline.triggers.lastActivationAt: MOCK_DATE MOCK_TIME
             </p>
           </div>
           <hr />

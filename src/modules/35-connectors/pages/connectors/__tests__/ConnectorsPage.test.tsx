@@ -171,7 +171,9 @@ describe('Connectors Page Test', () => {
     expect(searchInput?.nodeValue).toBe(null)
     expect(getConnectorsListV2).toBeCalledTimes(1)
     fireEvent.click(searchIcon!)
-    fireEvent.change(searchInput!, { target: { value: 'abcd' } })
+    await act(async () => {
+      fireEvent.change(searchInput!, { target: { value: 'abcd' } })
+    })
     await waitFor(() => expect(getConnectorsListV2).toBeCalledTimes(2))
   })
 })

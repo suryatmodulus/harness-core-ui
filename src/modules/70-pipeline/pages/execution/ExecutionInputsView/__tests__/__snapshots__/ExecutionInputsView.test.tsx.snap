@@ -10,7 +10,31 @@ exports[`<ExecutionInputsView /> tests snapshot test 1`] = `
     >
       <div
         class="OverlaySpinner--overlaySpinner"
-      />
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <div
+            class="runModalFormContent"
+          >
+            <form
+              class="FormikForm--main"
+            >
+              <div>
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--padding-medium StyledProps--margin-medium"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    pipeline.inputSets.noRuntimeInputsWhileExecution
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

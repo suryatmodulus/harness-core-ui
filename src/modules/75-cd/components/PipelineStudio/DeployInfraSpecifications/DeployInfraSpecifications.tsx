@@ -75,7 +75,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       ]
     },
     {
-      name: 'Via Cloud Provider - Vaibhav to Check',
+      name: 'Via Cloud Provider',
       items: [
         {
           name: 'AWS SAM',

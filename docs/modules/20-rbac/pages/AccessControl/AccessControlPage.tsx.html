@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">72.73% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/12</span>
+                <span class='fraction'>8/11</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">72.73% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/12</span>
+                <span class='fraction'>8/11</span>
             </div>
         
             
@@ -102,20 +102,7 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -123,24 +110,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,14 +148,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { NavLink, useParams } from 'react-router-dom'
-import { Container, Layout } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
+import { TabNavigation } from '@wings-software/uicore'
 &nbsp;
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import css from './AccessControlPage.module.scss'
 &nbsp;
 const AccessControlPage: React.FC = <span class="fstat-no" title="function not covered" >({</span> children }) =&gt; {
   const { accountId, orgIdentifier, projectIdentifier, module } = <span class="cstat-no" title="statement not covered" >useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()</span>
@@ -191,38 +164,26 @@ const AccessControlPage: React.FC = <span class="fstat-no" title="function not c
       &lt;Page.Header
         title={getString('accessControl')}
         toolbar={
-          &lt;Container&gt;
-            &lt;Layout.Horizontal spacing="medium"&gt;
-              &lt;NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toUsers({ accountId, orgIdentifier, projectIdentifier, module })}
-              &gt;
-                {getString('users')}
-              &lt;/NavLink&gt;
-              &lt;NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module })}
-              &gt;
-                {getString('common.userGroups')}
-              &lt;/NavLink&gt;
-              &lt;NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier, module })}
-              &gt;
-                {getString('resourceGroups')}
-              &lt;/NavLink&gt;
-              &lt;NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toRoles({ accountId, orgIdentifier, projectIdentifier, module })}
-              &gt;
-                {getString('roles')}
-              &lt;/NavLink&gt;
-            &lt;/Layout.Horizontal&gt;
-          &lt;/Container&gt;
+          &lt;TabNavigation
+            links={[
+              {
+                label: getString('users'),
+                to: routes.toUsers({ accountId, orgIdentifier, projectIdentifier, module })
+              },
+              {
+                label: getString('common.userGroups'),
+                to: routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module })
+              },
+              {
+                label: getString('resourceGroups'),
+                to: routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier, module })
+              },
+              {
+                label: getString('roles'),
+                to: routes.toRoles({ accountId, orgIdentifier, projectIdentifier, module })
+              }
+            ]}
+          /&gt;
         }
       /&gt;
       &lt;Page.Body&gt;{children}&lt;/Page.Body&gt;
@@ -238,7 +199,7 @@ export default AccessControlPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jun 05 2021 02:31:13 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 07 2021 05:48:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

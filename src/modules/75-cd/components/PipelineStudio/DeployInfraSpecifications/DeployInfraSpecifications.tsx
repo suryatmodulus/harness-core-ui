@@ -502,7 +502,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         {selectedDeploymentType ? (
           <Card className={css.sectionCard} id="clusterDetails">
             <Text style={{ fontWeight: 600, fontSize: 16 }} color={Color.GREY_700} margin={{ bottom: 'medium' }}>
-              {getString('cd.steps.common.clusterDetails')}
+              Infrastructure Details
             </Text>
             {getClusterConfigurationStep(selectedDeploymentType)}
           </Card>

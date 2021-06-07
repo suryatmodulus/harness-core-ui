@@ -363,13 +363,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                   <MultiTypeFieldSelector
                     defaultValueToReset={defaultValueToReset}
                     name={'paths'}
-                    label={
-                      <Text>
-                        {selectedManifest === ManifestDataType.K8sManifest
-                          ? getString('fileFolderPathText')
-                          : getString('common.git.filePath')}
-                      </Text>
-                    }
+                    label={<Text>Folder Path</Text>}
                     style={{ width: 370 }}
                   >
                     <FieldArray
@@ -394,13 +388,12 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                                 onDragLeave={onDragLeave}
                                 onDrop={event => onDrop(event, arrayHelpers, index)}
                               >
-                                <Icon name="drag-handle-vertical" className={css.drag} />
                                 {/*<Text>{`${index + 1}.`}</Text>*/}
                                 <FormInput.MultiTextInput
                                   label={''}
                                   placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                                   name={`paths[${index}].path`}
-                                  style={{ width: 312 }}
+                                  style={{ width: 370 }}
                                   multiTextInputProps={{
                                     expressions,
                                     allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
@@ -413,13 +406,13 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                             </Layout.Horizontal>
                           ))}
                           {/*<span>*/}
-                            {/*<Button*/}
-                              {/*minimal*/}
-                              {/*text={getString('addFileText')}*/}
-                              {/*intent="primary"*/}
-                              {/*className={css.addFileButton}*/}
-                              {/*onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}*/}
-                            {/*/>*/}
+                          {/*<Button*/}
+                          {/*minimal*/}
+                          {/*text={getString('addFileText')}*/}
+                          {/*intent="primary"*/}
+                          {/*className={css.addFileButton}*/}
+                          {/*onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}*/}
+                          {/*/>*/}
                           {/*</span>*/}
                         </Layout.Vertical>
                       )}

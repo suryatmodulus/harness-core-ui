@@ -15,7 +15,7 @@ Grouped Code Coverage report for master branch: [Coverage Report](https://github
 
 ### Getting Started
 
-1. Install **NodeJS v14.16** or above. There are many ways to do this (**choose any one**):
+1. Install **NodeJS v14.16** or above. There are many ways to do this (**choose any one**): test
 
    - Download relevant package from https://nodejs.org/download/release/v14.16.0/, unpack and install.
    - Use Homebrew: `brew install node@14.16`

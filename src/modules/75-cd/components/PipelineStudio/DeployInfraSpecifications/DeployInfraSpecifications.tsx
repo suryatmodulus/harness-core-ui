@@ -20,6 +20,7 @@ import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { InfraProvisioningData } from '@cd/components/PipelineSteps/InfraProvisioning/InfraProvisioning'
 import type { GcpInfrastructureSpec } from '@cd/components/PipelineSteps/GcpInfrastructureSpec/GcpInfrastructureSpec'
+import type { AwsSAMInfraSpec } from '@cd/components/PipelineSteps/AwsSAMInfraSpec/AwsSAMInfrastructureSpec'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { String, useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -417,11 +418,11 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       }
       case 'AwsSamInfra':{
         return (
-          <StepWidget<GcpInfrastructureSpec>
+          <StepWidget<AwsSAMInfraSpec>
             factory={factory}
             key={updateKey}
             readonly={isReadonly}
-            initialValues={initialInfrastructureDefinitionValues as GcpInfrastructureSpec}
+            initialValues={initialInfrastructureDefinitionValues as AwsSAMInfraSpec}
             type={StepType.AwsSamInfra}
             stepViewType={StepViewType.Edit}
             onUpdate={value => console.log(value)}

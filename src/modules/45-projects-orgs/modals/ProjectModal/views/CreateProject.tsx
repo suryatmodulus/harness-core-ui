@@ -8,18 +8,16 @@ import { usePostProject } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
-import type { ModuleName } from 'framework/types/ModuleName'
 import { PageSpinner } from '@common/components'
 import ProjectForm from './ProjectForm'
 
 interface CreateModalData {
   modules?: Project['modules']
-  module?: ModuleName
 }
 
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
   const { accountId, orgIdentifier } = useParams<OrgPathProps>()
-  const { nextStep, modules, module } = props
+  const { nextStep, modules } = props
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
   const { mutate: createProject, loading: saving } = usePostProject({
@@ -55,9 +53,7 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
       'tags'
     ])
     ;(dataToSubmit as Project)['modules'] = values.modules || []
-    if (module) {
-      dataToSubmit.modules?.push(module as any)
-    }
+
     try {
       await createProject(
         { project: dataToSubmit },

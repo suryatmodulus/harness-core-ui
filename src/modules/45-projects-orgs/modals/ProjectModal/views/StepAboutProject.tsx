@@ -7,7 +7,6 @@ import type {
   ResponseProjectResponse
 } from 'services/cd-ng'
 import type { UseGetMockData, UseMutateMockData } from '@common/utils/testUtils'
-import type { ModuleName } from 'framework/types/ModuleName'
 import CreateProject from './CreateProject'
 import EditProject from './EditProject'
 
@@ -19,7 +18,6 @@ interface ProjectModalData {
   editOrgMockData?: UseGetMockData<ResponseOrganizationResponse>
   projectMockData?: UseGetMockData<ResponseProjectResponse>
   createMock?: UseMutateMockData<ResponseProjectResponse>
-  module?: ModuleName
 }
 
 const StepAboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {

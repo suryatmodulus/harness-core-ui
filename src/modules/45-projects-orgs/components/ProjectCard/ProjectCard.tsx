@@ -5,6 +5,7 @@ import { Classes } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { Project, ProjectAggregateDTO } from 'services/cd-ng'
 import DefaultRenderer from '@projects-orgs/components/ModuleRenderer/DefaultRenderer'
 import CVRenderer from '@projects-orgs/components/ModuleRenderer/cv/CVRenderer'
@@ -42,6 +43,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     harnessManagedOrg
   } = projectAggregateDTO
   const data = projectResponse.project || null
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const history = useHistory()
@@ -60,7 +62,6 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     reloadProjects?.()
   }
   const { openDialog } = useDeleteProjectDialog(data, onDeleted)
-
   return (
     <Card
       className={cx(css.projectCard, props.className)}
@@ -181,11 +182,11 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         </Container>
       </Container>
       {!data.modules?.length ? <DefaultRenderer /> : null}
-      {data.modules?.includes(ModuleName.CD) ? <CDRenderer data={data} isPreview={isPreview} /> : null}
-      {data.modules?.includes(ModuleName.CV) ? <CVRenderer data={data} isPreview={isPreview} /> : null}
-      {data.modules?.includes(ModuleName.CI) ? <CIRenderer data={data} isPreview={isPreview} /> : null}
-      {data.modules?.includes(ModuleName.CF) ? <CFRenderer data={data} isPreview={isPreview} /> : null}
-      {data.modules?.includes(ModuleName.CE) ? <CERenderer data={data} isPreview={isPreview} /> : null}
+      {CDNG_ENABLED && data.modules?.includes(ModuleName.CD) ? <CDRenderer data={data} isPreview={isPreview} /> : null}
+      {CVNG_ENABLED && data.modules?.includes(ModuleName.CV) ? <CVRenderer data={data} isPreview={isPreview} /> : null}
+      {CING_ENABLED && data.modules?.includes(ModuleName.CI) ? <CIRenderer data={data} isPreview={isPreview} /> : null}
+      {CENG_ENABLED && data.modules?.includes(ModuleName.CF) ? <CFRenderer data={data} isPreview={isPreview} /> : null}
+      {CFNG_ENABLED && data.modules?.includes(ModuleName.CE) ? <CERenderer data={data} isPreview={isPreview} /> : null}
     </Card>
   )
 }

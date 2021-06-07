@@ -3,7 +3,6 @@
 declare const styles: {
   readonly dialog: string
   readonly create: string
-  readonly purposeList: string
   readonly collaborators: string
   readonly stepWizard: string
   readonly crossIcon: string

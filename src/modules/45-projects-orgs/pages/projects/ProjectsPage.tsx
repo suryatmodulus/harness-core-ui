@@ -95,8 +95,12 @@ const ProjectsListPage: React.FC = () => {
     refetch()
   }
 
-  const { openProjectModal } = useProjectModal({
-    onSuccess: projectCreateSuccessHandler
+  const { openProjectModal, closeProjectModal } = useProjectModal({
+    onSuccess: projectCreateSuccessHandler,
+    onWizardComplete: () => {
+      closeProjectModal()
+      projectCreateSuccessHandler()
+    }
   })
 
   const showEditProject = (project: Project): void => {

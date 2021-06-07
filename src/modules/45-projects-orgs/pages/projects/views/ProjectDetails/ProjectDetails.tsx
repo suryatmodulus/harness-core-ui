@@ -87,6 +87,35 @@ const ProjectDetails: React.FC = () => {
     return modulesPresent.filter(module => !projectData?.modules?.includes(module))
   }
 
+  const getModuleInfoCards = (): React.ReactElement | React.ReactElement[] => {
+    if (!projectData?.modules?.length) {
+      return (
+        <Layout.Vertical padding="huge" flex={{ align: 'center-center' }} spacing="huge">
+          <Icon name="nav-project" size={70} />
+          <Text font="medium">{getString('projectsOrgs.noModules')}</Text>
+        </Layout.Vertical>
+      )
+    }
+
+    const infoCards = []
+
+    if (CDNG_ENABLED && projectData.modules.includes(ModuleName.CD)) infoCards.push(ModuleName.CD)
+    if (CVNG_ENABLED && projectData.modules.includes(ModuleName.CV)) infoCards.push(ModuleName.CV)
+    if (CING_ENABLED && projectData.modules.includes(ModuleName.CI)) infoCards.push(ModuleName.CI)
+    if (CENG_ENABLED && projectData.modules.includes(ModuleName.CE)) infoCards.push(ModuleName.CE)
+    if (CFNG_ENABLED && projectData.modules.includes(ModuleName.CF)) infoCards.push(ModuleName.CF)
+
+    return infoCards.map(module => (
+      <ModuleListCard
+        module={module as ModuleName}
+        key={module}
+        projectIdentifier={projectData.identifier}
+        orgIdentifier={projectData.orgIdentifier || ''}
+        accountId={accountId}
+      />
+    ))
+  }
+
   /* istanbul ignore next */ if (loading) return <Page.Spinner />
   /* istanbul ignore next */ if (error)
     return <Page.Error message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
@@ -189,22 +218,7 @@ const ProjectDetails: React.FC = () => {
                 <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
                   {getString('projectsOrgs.modulesEnabled')}
                 </Text>
-                {projectData.modules?.length ? (
-                  projectData.modules.map(module => (
-                    <ModuleListCard
-                      module={module as ModuleName}
-                      key={module}
-                      projectIdentifier={projectData.identifier}
-                      orgIdentifier={projectData.orgIdentifier || ''}
-                      accountId={accountId}
-                    />
-                  ))
-                ) : (
-                  <Layout.Vertical padding="huge" flex={{ align: 'center-center' }} spacing="huge">
-                    <Icon name="nav-project" size={70} />
-                    <Text font="medium">{getString('projectsOrgs.noModules')}</Text>
-                  </Layout.Vertical>
-                )}
+                {getModuleInfoCards()}
               </Layout.Vertical>
             </Container>
             <Container padding="xxlarge">

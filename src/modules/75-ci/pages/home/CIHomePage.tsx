@@ -48,8 +48,7 @@ const CIHomePage: React.FC = () => {
           }),
           search: '?modal=trial'
         })
-    },
-    module: ModuleName.CI
+    }
   })
 
   const trialInProgressProps = {

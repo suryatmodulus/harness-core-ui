@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { useModalHook, StepWizard, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
-import isEmpty from 'lodash/isEmpty'
 import cx from 'classnames'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { Project } from 'services/cd-ng'
@@ -9,7 +8,6 @@ import { useStrings } from 'framework/strings'
 
 import { Views } from './Constants'
 import { ProjectCollaboratorsStep } from './views/Collaborators'
-import PurposeList from './views/PurposeList'
 import StepAboutProject from './views/StepAboutProject'
 import EditProject from './views/EditProject'
 import css from './useProjectModal.module.scss'
@@ -29,8 +27,7 @@ export interface UseProjectModalReturn {
 export const useProjectModal = ({
   onSuccess,
   onCloseModal,
-  onWizardComplete,
-  module
+  onWizardComplete
 }: UseProjectModalProps): UseProjectModalReturn => {
   const [view, setView] = useState(Views.CREATE)
   const [projectData, setProjectData] = useState<Project>()
@@ -38,8 +35,7 @@ export const useProjectModal = ({
   const { getString } = useStrings()
 
   const wizardCompleteHandler = async (wizardData: Project | undefined): Promise<void> => {
-    /* istanbul ignore else */ if (!wizardData || isEmpty(wizardData.modules)) {
-      setView(Views.PURPOSE)
+    if (!wizardData) {
       setProjectData(wizardData)
     }
     onWizardComplete?.(wizardData)
@@ -58,8 +54,7 @@ export const useProjectModal = ({
           hideModal()
         }}
         className={cx(css.dialog, Classes.DIALOG, {
-          [css.create]: view === Views.CREATE,
-          [css.purposeList]: view === Views.PURPOSE
+          [css.create]: view === Views.CREATE
         })}
       >
         {view === Views.CREATE ? (
@@ -72,16 +67,10 @@ export const useProjectModal = ({
             }}
             stepClassName={css.stepClass}
           >
-            <StepAboutProject
-              name={getString('projectsOrgs.aboutProject')}
-              modules={projectData?.modules}
-              module={module}
-            />
+            <StepAboutProject name={getString('projectsOrgs.aboutProject')} modules={projectData?.modules} />
             <ProjectCollaboratorsStep name={getString('projectsOrgs.invite')} />
           </StepWizard>
         ) : null}
-
-        {view === Views.PURPOSE ? <PurposeList data={projectData as Project} /> : null}
 
         {view === Views.EDIT ? (
           <EditProject

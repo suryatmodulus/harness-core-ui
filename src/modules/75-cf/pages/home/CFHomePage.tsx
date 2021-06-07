@@ -42,8 +42,7 @@ const CFHomePage: React.FC = () => {
             accountId
           })
         })
-    },
-    module: ModuleName.CF
+    }
   })
 
   const trialInProgressProps = {

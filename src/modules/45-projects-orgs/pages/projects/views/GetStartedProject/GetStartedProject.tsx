@@ -17,8 +17,12 @@ const GetStartedProject: React.FC = () => {
   const { getString } = useStrings()
   useDocumentTitle(getString('getStarted'))
 
-  const { openProjectModal } = useProjectModal({
+  const { openProjectModal, closeProjectModal } = useProjectModal({
     onSuccess: () => {
+      history.push(routes.toProjects({ accountId }))
+    },
+    onWizardComplete: () => {
+      closeProjectModal()
       history.push(routes.toProjects({ accountId }))
     }
   })

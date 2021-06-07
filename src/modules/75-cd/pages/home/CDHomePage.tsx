@@ -56,8 +56,7 @@ export const CDHomePage: React.FC = () => {
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {
       closeProjectModal(), pushToPipelineStudio('-1', projectData, '?modal=trial')
-    },
-    module: ModuleName.CD
+    }
   })
 
   const trialInProgressProps = {

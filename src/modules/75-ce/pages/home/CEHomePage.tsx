@@ -77,8 +77,7 @@ const CEHomePage: React.FC = () => {
       updateAppStore({ selectedProject: project })
       closeProjectModal()
       showModal()
-    },
-    module: ModuleName.CE
+    }
   })
 
   function handleOpenProjectModal(): void {

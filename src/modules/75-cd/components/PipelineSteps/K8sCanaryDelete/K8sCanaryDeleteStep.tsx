@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -21,7 +22,6 @@ import {
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -65,12 +65,11 @@ function K8sCanaryDeleteWidget(
         formName="k*CanaryDelete"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-
+          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
-          ...IdentifierValidation()
+          identifier: IdentifierSchema()
         })}
       >
         {(formik: FormikProps<K8sCanaryDeleteStepData>) => {

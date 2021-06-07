@@ -1,10 +1,7 @@
 import React from 'react'
-import * as Yup from 'yup'
 import type { ITreeNode } from '@blueprintjs/core'
 import { Text, Color } from '@wings-software/uicore'
 import get from 'lodash-es/get'
-import { StringUtils } from '@common/exports'
-import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 
 import type { NgPipeline, StageElement, StageElementWrapper } from 'services/cd-ng'
@@ -17,17 +14,6 @@ export interface NodeClasses {
   primary?: string
   secondary?: string
   empty?: string
-}
-
-export const IdentifierValidation = () => {
-  const { getString } = useStrings()
-  return {
-    identifier: Yup.string()
-      .trim()
-      .required(getString('validation.identifierRequired'))
-      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-      .notOneOf(StringUtils.illegalIdentifiers)
-  }
 }
 
 const getStageTree = (

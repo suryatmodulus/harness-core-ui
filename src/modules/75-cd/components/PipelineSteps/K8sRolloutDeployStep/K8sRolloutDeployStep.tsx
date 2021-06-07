@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingStepInfo, StepElementConfig } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
@@ -24,7 +25,6 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8RolloutDeployData extends StepElementConfig {
@@ -62,12 +62,11 @@ function K8RolloutDeployWidget(
         formName="k8RolloutDeploy"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-
+          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
-          ...IdentifierValidation()
+          identifier: IdentifierSchema()
         })}
       >
         {(formik: FormikProps<K8RolloutDeployData>) => {

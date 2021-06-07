@@ -22,9 +22,8 @@ import cx from 'classnames'
 
 import { isEmpty } from 'lodash-es'
 import { yupToFormErrors, FormikErrors, FormikProps, Formik } from 'formik'
-
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
-
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 import {
@@ -39,7 +38,6 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import { useStrings } from 'framework/strings'
 
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -108,10 +106,10 @@ function TerraformPlanWidget(
       }}
       initialValues={setInitialValues(initialValues)}
       validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
 
-        ...IdentifierValidation(),
+        identifier: IdentifierSchema(),
         spec: Yup.object().shape({
           provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
           configuration: Yup.object().shape({

@@ -14,6 +14,7 @@ import * as Yup from 'yup'
 import { v4 as uuid } from 'uuid'
 import type {} from 'formik'
 import { isEmpty } from 'lodash-es'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -35,7 +36,6 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sApplyData extends StepElementConfig {
@@ -105,7 +105,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
         formName="k8Apply"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
@@ -116,7 +116,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
               })
             ).required(getString('cd.filePathRequired'))
           }),
-          ...IdentifierValidation()
+          identifier: IdentifierSchema()
         })}
       >
         {(formik: FormikProps<K8sApplyFormData>) => {

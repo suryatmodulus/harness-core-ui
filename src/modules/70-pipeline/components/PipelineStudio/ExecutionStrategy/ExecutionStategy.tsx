@@ -71,7 +71,8 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
   useEffect(() => {
     const _strategies = strategies?.data
     /* istanbul ignore else */ if (_strategies) {
-      setStrategies(_strategies[serviceDefinitionType] as any)
+      // @ts-ignore
+      setStrategies(_strategies[serviceDefinitionType] || _strategies['Ssh'] as any)
     }
   }, [strategies?.data, serviceDefinitionType])
 

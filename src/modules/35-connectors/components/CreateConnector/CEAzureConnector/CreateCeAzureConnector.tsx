@@ -2,7 +2,6 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/strings'
 
 // This is an old implementation of the overview page of the Azure Connector creation process
@@ -12,6 +11,7 @@ import { useStrings } from 'framework/strings'
 // import AzureBillingInfo from './AzureBillingInfo'
 // import CreateServicePrincipal from './CreateServicePrincipal'
 // Below is the new one:
+import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import Overview from './Steps/Overview/AzureConnectorOverview'
 import Billing from './Steps/Billing/AzureConnectorBilling'
 import ModalExtension from './ModalExtension'
@@ -38,11 +38,9 @@ const CreateCeAzureConnector: React.FC<CreateConnectorModalProps> = props => {
           connectorInfo={props.connectorInfo}
           gitDetails={props.gitDetails}
         />
-        <StepWizard title={'Create Service Principal'}>
-          <ChooseRequirements name={'Choose requirements'} />
-          <CreateServicePrincipal name={'Create Service Principal'} />
-        </StepWizard>
         <Billing name={'Azure Billing Export'} />
+        <ChooseRequirements name={'Choose Requirements'} />
+        <CreateServicePrincipal name={'Create Service Principal'} />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.verifyConnection')}
           onClose={props.onClose}
@@ -51,8 +49,6 @@ const CreateCeAzureConnector: React.FC<CreateConnectorModalProps> = props => {
           type={Connectors.CE_AZURE}
           connectorInfo={props.connectorInfo}
         />
-        {/* <VerifyConnection name="Verify Connection" /> */}
-        {/* <CreateServicePrincipal name={'Create Service Principal'} /> */}
       </StepWizard>
     </ModalExtension>
   )

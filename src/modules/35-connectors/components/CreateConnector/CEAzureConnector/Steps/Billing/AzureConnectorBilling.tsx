@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
 import {
   Button,
   Formik,
@@ -9,14 +10,14 @@ import {
   Text,
   // ModalErrorHandler,
   StepProps,
-  Container
-  // Icon
+  Container,
+  Icon
 } from '@wings-software/uicore'
-
+import { Popover, Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 // import * as Yup from 'yup'
 import cx from 'classnames'
-
 import type { ConnectorInfoDTO } from 'services/cd-ng' //ConnectorConfigDTO
+import { DialogExtensionContext } from '../../ModalExtension'
 import css from '../../CreateCeAzureConnector.module.scss'
 
 interface BillingForm {
@@ -28,7 +29,6 @@ interface BillingForm {
 
 const BillingExport: React.FC<StepProps<ConnectorInfoDTO>> = props => {
   const billingExportExists = false
-
   return (
     <Layout.Vertical className={css.stepContainer}>
       <Heading level={2} className={css.header}>
@@ -41,6 +41,51 @@ const BillingExport: React.FC<StepProps<ConnectorInfoDTO>> = props => {
       {billingExportExists ? <Show /> : <Create {...props} />}
     </Layout.Vertical>
   )
+}
+
+const TextInputWithToolTip = ({ name, label }: { name: string; label: string }) => {
+  const { triggerExtension } = useContext(DialogExtensionContext)
+  const renderLabel = () => {
+    return (
+      <Layout.Horizontal spacing={'xsmall'}>
+        <Text inline>{label}</Text>
+        <Popover
+          popoverClassName={Classes.DARK}
+          position={Position.RIGHT}
+          interactionKind={PopoverInteractionKind.HOVER}
+          content={
+            <div className={css.popoverContent}>
+              <Text color="grey50" font={'xsmall'}>
+                Provided in the delivery options when the template is opened in the AWS console
+              </Text>
+              <div className={css.btnCtn}>
+                <Button
+                  intent="primary"
+                  className={css.instructionBtn}
+                  font={'xsmall'}
+                  minimal
+                  text="Show instructions"
+                  onClick={() => triggerExtension('CostUsageEx')}
+                />
+              </div>
+            </div>
+          }
+        >
+          <Icon
+            name="info"
+            size={12}
+            color={'primary5'}
+            onClick={async (event: React.MouseEvent<HTMLHeadingElement, globalThis.MouseEvent>) => {
+              event.preventDefault()
+              event.stopPropagation()
+            }}
+          />
+        </Popover>
+      </Layout.Horizontal>
+    )
+  }
+
+  return <FormInput.Text name={name} label={renderLabel()} />
 }
 
 const Create: React.FC<StepProps<ConnectorInfoDTO>> = props => {
@@ -101,10 +146,10 @@ const Create: React.FC<StepProps<ConnectorInfoDTO>> = props => {
               <FormikForm style={{ padding: '10px 0 25px' }}>
                 <Container style={{ minHeight: 300 }}>
                   <Container className={cx(css.main, css.dataFields)}>
-                    <FormInput.Text name={'storageAccount'} label={'Storage Account Name'} />
-                    <FormInput.Text name={'subscriptionId'} label={'Storage Account Subscription ID'} />
-                    <FormInput.Text name={'storageContainer'} label={'Storage Container'} />
-                    <FormInput.Text name={'storageDir'} label={'Storage Directory'} />
+                    <TextInputWithToolTip name="storageAccount" label={'Storage Account Name'} />
+                    <TextInputWithToolTip name="subscriptionId" label={'Storage Account Subscription ID'} />
+                    <TextInputWithToolTip name="storageContainer" label={'Storage Container'} />
+                    <TextInputWithToolTip name="storageDir" label={'Storage Directory'} />
                   </Container>
                 </Container>
                 <Layout.Horizontal spacing="medium" className={css.continueAndPreviousBtns}>

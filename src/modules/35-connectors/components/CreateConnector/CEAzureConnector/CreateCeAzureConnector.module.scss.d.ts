@@ -21,5 +21,8 @@ declare const styles: {
   readonly editOpen: string
   readonly extension: string
   readonly closeBtn: string
+  readonly popoverContent: string
+  readonly btnCtn: string
+  readonly instructionBtn: string
 }
 export default styles

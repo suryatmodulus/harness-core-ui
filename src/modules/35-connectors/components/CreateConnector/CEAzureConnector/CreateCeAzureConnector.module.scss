@@ -215,3 +215,17 @@
     cursor: pointer;
   }
 }
+
+.popoverContent {
+  width: 300px;
+  font-size: var(--font-size-xsmall);
+  padding: var(--spacing-small) var(--spacing-large);
+
+  .btnCtn {
+    text-align: right;
+    .instructionBtn {
+      color: var(--primary-4) !important;
+      padding: 0 !important;
+    }
+  }
+}

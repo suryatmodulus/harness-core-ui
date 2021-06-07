@@ -381,7 +381,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                                 onDrop={event => onDrop(event, arrayHelpers, index)}
                               >
                                 <Icon name="drag-handle-vertical" className={css.drag} />
-                                <Text>{`${index + 1}.`}</Text>
+                                {/*<Text>{`${index + 1}.`}</Text>*/}
                                 <FormInput.MultiTextInput
                                   label={''}
                                   placeholder={getString('pipeline.manifestType.pathPlaceholder')}
@@ -398,15 +398,15 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                               )}
                             </Layout.Horizontal>
                           ))}
-                          <span>
-                            <Button
-                              minimal
-                              text={getString('addFileText')}
-                              intent="primary"
-                              className={css.addFileButton}
-                              onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}
-                            />
-                          </span>
+                          {/*<span>*/}
+                            {/*<Button*/}
+                              {/*minimal*/}
+                              {/*text={getString('addFileText')}*/}
+                              {/*intent="primary"*/}
+                              {/*className={css.addFileButton}*/}
+                              {/*onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}*/}
+                            {/*/>*/}
+                          {/*</span>*/}
                         </Layout.Vertical>
                       )}
                     />

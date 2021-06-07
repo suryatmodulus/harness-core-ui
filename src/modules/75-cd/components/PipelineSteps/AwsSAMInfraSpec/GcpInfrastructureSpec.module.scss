@@ -1,0 +1,18 @@
+.inputWidth {
+  width: 450px;
+  margin-top: var(--spacing-small);
+}
+
+.formRow {
+  > button {
+    margin-top: var(--spacing-xxlarge) !important;
+  }
+}
+
+.simultaneousDeployment {
+  input {
+    margin-left: var(--spacing-medium);
+    position: relative;
+    margin-top: var(--spacing-small);
+  }
+}

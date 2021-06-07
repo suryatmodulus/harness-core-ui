@@ -21,6 +21,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import css from './ProjectCard.module.scss'
+import { StackedColumnChart } from '@common/components/StackedColumnChart/StackedColumnChart'
 
 export interface ProjectCardProps {
   data: ProjectAggregateDTO
@@ -60,6 +61,59 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     reloadProjects?.()
   }
   const { openDialog } = useDeleteProjectDialog(data, onDeleted)
+
+  const UsageDetails: React.FC = props => {
+    const columnData = [
+      100,
+      200,
+      500,
+      250,
+      605,
+      1000,
+      200,
+      50,
+      305,
+      4,
+      206,
+      85,
+      54,
+      203,
+      140,
+      506,
+      205,
+      340,
+      25,
+      305,
+      10,
+      500,
+      30,
+      450,
+      35,
+      100,
+      20,
+      30,
+      250,
+      350
+    ]
+    const parsedColumnData = [
+      {
+        label: undefined,
+        data: columnData.map(value => ({
+          y: value,
+          color: `var(--primary-${3 + Math.min(5, parseInt(`${value / 100}`))})`
+        }))
+      }
+    ]
+    const high = columnData.reduce((prev, curr) => Math.max(prev, curr))
+    return (
+      <Layout.Vertical height={150}>
+        <StackedColumnChart
+          data={parsedColumnData}
+          options={{ chart: { height: 150 }, legend: { enabled: false }, yAxis: { max: high } }}
+        />
+      </Layout.Vertical>
+    )
+  }
 
   return (
     <Card
@@ -186,6 +240,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
       {data.modules?.includes(ModuleName.CI) ? <CIRenderer data={data} isPreview={isPreview} /> : null}
       {data.modules?.includes(ModuleName.CF) ? <CFRenderer data={data} isPreview={isPreview} /> : null}
       {data.modules?.includes(ModuleName.CE) ? <CERenderer data={data} isPreview={isPreview} /> : null}
+      <UsageDetails />
     </Card>
   )
 }

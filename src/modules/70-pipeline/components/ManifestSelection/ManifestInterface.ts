@@ -16,6 +16,7 @@ export type ManifestTypes =
   | 'Kustomize'
   | 'OpenshiftTemplate'
   | 'OpenshiftParam'
+  | 'SAMManifest'
 
 export type ManifestStores = 'Git' | 'Github' | 'GitLab' | 'Bitbucket' | 'Http' | 'S3' | 'Gcs'
 export type HelmVersionOptions = 'V2' | 'V3'

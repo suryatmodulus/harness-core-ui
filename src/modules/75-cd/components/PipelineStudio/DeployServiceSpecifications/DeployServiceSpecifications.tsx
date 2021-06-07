@@ -35,7 +35,7 @@ const setupMode = {
   PROPAGATE: 'PROPAGATE',
   DIFFERENT: 'DIFFERENT'
 }
-
+const SAM = 'SAM'
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const { getString } = useStrings()
 
@@ -79,6 +79,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       name: getString('serviceDeploymentTypes.ssh'),
       icon: 'secret-ssh',
       enabled: false
+    },
+    {
+      name: SAM,
+      icon: 'app-aws-lambda',
+      enabled: true
     }
   ]
   const [setupModeType, setSetupMode] = React.useState('')
@@ -433,8 +438,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                       <Card
                         disabled={!type.enabled || isReadonly}
                         interactive={true}
-                        selected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
-                        cornerSelected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
+                        selected={type.name === SAM}
+                        cornerSelected={type.name === SAM}
                         className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
                       >
                         <Icon name={type.icon as IconName} size={26} height={26} />

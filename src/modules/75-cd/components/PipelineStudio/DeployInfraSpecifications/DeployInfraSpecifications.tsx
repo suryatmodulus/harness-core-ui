@@ -356,6 +356,16 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           infrastructureKey
         }
       }
+
+      case 'AwsSamInfra': {
+        const connectorRef = infrastructure?.spec?.connectorRef
+
+        return {
+          connectorRef,
+          allowSimultaneousDeployments,
+          infrastructureKey
+        }
+      }
       default: {
         return {}
       }

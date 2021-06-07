@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.73% </span>
+                <span class="strong">80.26% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>59/74</span>
+                <span class='fraction'>61/76</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.41% </span>
+                <span class="strong">71.56% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>147/203</span>
+                <span class='fraction'>151/211</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.73% </span>
+                <span class="strong">80.26% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>59/74</span>
+                <span class='fraction'>61/76</span>
             </div>
         
             
@@ -405,17 +405,7 @@
 <a name='L346'></a><a href='#L346'>346</a>
 <a name='L347'></a><a href='#L347'>347</a>
 <a name='L348'></a><a href='#L348'>348</a>
-<a name='L349'></a><a href='#L349'>349</a>
-<a name='L350'></a><a href='#L350'>350</a>
-<a name='L351'></a><a href='#L351'>351</a>
-<a name='L352'></a><a href='#L352'>352</a>
-<a name='L353'></a><a href='#L353'>353</a>
-<a name='L354'></a><a href='#L354'>354</a>
-<a name='L355'></a><a href='#L355'>355</a>
-<a name='L356'></a><a href='#L356'>356</a>
-<a name='L357'></a><a href='#L357'>357</a>
-<a name='L358'></a><a href='#L358'>358</a>
-<a name='L359'></a><a href='#L359'>359</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L349'></a><a href='#L349'>349</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -552,6 +542,8 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -597,18 +589,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -775,7 +755,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { set } from 'lodash-es'
-import { Tabs, Tab, Icon, Button, Layout } from '@wings-software/uicore'
+import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StageElementWrapper } from 'services/cd-ng'
@@ -910,6 +890,8 @@ export default function BuildStageSetupShell(): JSX.Element {
   const executionRef = React.useRef&lt;ExecutionGraphRefObj | null&gt;(null)
   const selectedStage = getStageFromPipeline(selectedStageId).stage
   const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
+  const infraHasWarning = !filledUpStages.infra
+  const executionHasWarning = !filledUpStages.execution
 &nbsp;
   const navBtns = (
     &lt;Layout.Horizontal spacing="medium" padding="medium" className={css.footer}&gt;
@@ -962,7 +944,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           panel={&lt;BuildStageSpecifications&gt;{navBtns}&lt;/BuildStageSpecifications&gt;}
           title={
             &lt;span className={css.tab}&gt;
-              &lt;Icon name="ci-main" height={20} size={20} /&gt;
+              &lt;Icon name="ci-main" height={14} size={14} /&gt;
               Overview
             &lt;/span&gt;
           }
@@ -980,18 +962,12 @@ export default function BuildStageSetupShell(): JSX.Element {
           id={getString('ci.infraLabel')}
           title={
             &lt;span className={css.tab}&gt;
-              &lt;Icon name="infrastructure" height={20} size={20} /&gt;
+              &lt;Icon
+                name={infraHasWarning ? 'warning-sign' : <span class="branch-1 cbranch-no" title="branch not covered" >'infrastructure'}</span>
+                size={infraHasWarning ? 16 : <span class="branch-1 cbranch-no" title="branch not covered" >20}</span>
+                color={infraHasWarning ? Color.ORANGE_500 : <span class="branch-1 cbranch-no" title="branch not covered" >undefined}</span>
+              /&gt;
               {getString('ci.infraLabel')}
-              {filledUpStages.infra ? <span class="branch-0 cbranch-no" title="branch not covered" >null </span>: (
-                &lt;Icon
-                  name="warning-sign"
-                  height={10}
-                  size={10}
-                  color={'orange500'}
-                  margin={{ left: 'small', right: 0 }}
-                  style={{ verticalAlign: 'baseline' }}
-                /&gt;
-              )}
             &lt;/span&gt;
           }
           panel={&lt;BuildInfraSpecifications&gt;{navBtns}&lt;/BuildInfraSpecifications&gt;}
@@ -1009,18 +985,12 @@ export default function BuildStageSetupShell(): JSX.Element {
           id={getString('ci.executionLabel')}
           title={
             &lt;span className={css.tab}&gt;
-              &lt;Icon name="execution" height={20} size={20} /&gt;
+              &lt;Icon
+                name={executionHasWarning ? 'warning-sign' : <span class="branch-1 cbranch-no" title="branch not covered" >'execution'}</span>
+                size={executionHasWarning ? 16 : <span class="branch-1 cbranch-no" title="branch not covered" >20}</span>
+                color={executionHasWarning ? Color.ORANGE_500 : <span class="branch-1 cbranch-no" title="branch not covered" >undefined}</span>
+              /&gt;
               {getString('ci.executionLabel')}
-              {filledUpStages.execution ? <span class="branch-0 cbranch-no" title="branch not covered" >null </span>: (
-                &lt;Icon
-                  name="warning-sign"
-                  height={10}
-                  size={10}
-                  color={'orange500'}
-                  margin={{ left: 'small', right: 0 }}
-                  style={{ verticalAlign: 'baseline' }}
-                /&gt;
-              )}
             &lt;/span&gt;
           }
           panel={
@@ -1138,7 +1108,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 07 2021 16:24:24 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 07 2021 16:45:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

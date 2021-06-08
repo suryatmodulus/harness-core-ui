@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Avatar, Button, Card, CardBody, CardSelect, Color, IconName, Layout, Text } from '@wings-software/uicore'
+import { Avatar, Button, CardBody, CardSelect, Color, IconName, Layout, Text } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import Table from '@common/components/Table/Table'
 

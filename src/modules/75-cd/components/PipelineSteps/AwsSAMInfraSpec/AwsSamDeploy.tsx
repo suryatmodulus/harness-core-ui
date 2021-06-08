@@ -87,6 +87,7 @@ export class AwsSamDeploy extends PipelineStep<AwsSamDeployData> {
                 </div>
                 <FormInput.Text name="spec.region" label="Region" placeholder="Enter Region" />
                 <FormInput.Text name="spec.stackName" label="Stack Name" placeholder="Stack Name" />
+                <FormInput.Text name="spec.s3bucketName" label="S3 Bucket Name" placeholder="s3bucketName" />
                 <AwsSamOverrides formik={formik} />
                 <FormInput.Text
                   name="spec.globalAdditionalFlags"

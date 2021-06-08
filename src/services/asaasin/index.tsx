@@ -50,12 +50,18 @@ export interface PagerDutySavings {
   savings_percent?: number
 }
 
+export interface PagerDutyRecommendations {
+  message?: string
+  level?: number
+  savings?: number
+}
+
 export interface PagerDutySavingsResponse {
   total_users?: number
   active_users?: number
   monthly_savings?: PagerDutySavings
   yearly_savings?: PagerDutySavings
-  optimization?: string[]
+  recommendations?: PagerDutyRecommendations[]
 }
 
 export type GithubDetailsProps = Omit<GetProps<GithubDetailsResponse, void, void, void>, 'path'>

@@ -184,6 +184,22 @@
         }
       }
     },
+    "PagerDutyRecommendations": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "savings": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
     "PagerDutySavingsResponse": {
       "type": "object",
       "properties": {
@@ -203,10 +219,11 @@
           "type": "object",
           "$ref": "#/definitions/PagerDutySavings"
         },
-        "optimization": {
+        "recommendations": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object",
+            "$ref": "#/definitions/PagerDutyRecommendations"
           }
         }
       }

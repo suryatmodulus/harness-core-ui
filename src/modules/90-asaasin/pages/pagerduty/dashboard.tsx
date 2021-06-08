@@ -1,6 +1,44 @@
 import React from 'react'
-import { Layout, Text, Container, Heading } from '@wings-software/uicore'
+import { Layout, Text, Container, Heading, Color } from '@wings-software/uicore'
 import { usePagerdutySavings } from 'services/asaasin'
+import { Table } from '@common/components'
+import type { CellProps } from 'react-table'
+
+function TableCell(tableProps: CellProps<any>): JSX.Element {
+  return (
+    <Text lineClamp={3} color={Color.BLACK}>
+      {tableProps.value}
+    </Text>
+  )
+}
+function DollarCell(tableProps: CellProps<any>): JSX.Element {
+  return (
+    <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 'bold' }}>
+      ${tableProps.value}
+    </Text>
+  )
+}
+function RiskCell(tableProps: CellProps<any>): JSX.Element {
+  return (
+    <>
+      {tableProps.value == 1 && (
+        <Text lineClamp={3} color={Color.GREEN_300}>
+          Low
+        </Text>
+      )}
+      {tableProps.value == 2 && (
+        <Text lineClamp={3} color={Color.YELLOW_300}>
+          Moderate
+        </Text>
+      )}
+      {tableProps.value == 3 && (
+        <Text lineClamp={3} color={Color.RED_300}>
+          High
+        </Text>
+      )}
+    </>
+  )
+}
 
 const AsaasinPagerdutyDashboard: React.FC = () => {
   const { data: savings, loading: loading } = usePagerdutySavings({
@@ -72,6 +110,34 @@ const AsaasinPagerdutyDashboard: React.FC = () => {
                 </Layout.Vertical>
               </Container>
             </Layout.Horizontal>
+            <Container>
+              <Text font="medium" style={{ lineHeight: '18px', marginTop: '20px' }}>
+                Recommendations
+              </Text>
+              <Table
+                data={savings.recommendations || []}
+                columns={[
+                  {
+                    accessor: 'message',
+                    Header: 'Action',
+                    width: '50%',
+                    Cell: TableCell
+                  },
+                  {
+                    accessor: 'savings',
+                    Header: 'Est. Savings',
+                    width: '25%',
+                    Cell: DollarCell
+                  },
+                  {
+                    accessor: 'level',
+                    Header: 'Risk Score',
+                    width: '25%',
+                    Cell: RiskCell
+                  }
+                ]}
+              />
+            </Container>
           </>
         )}
       </Layout.Vertical>

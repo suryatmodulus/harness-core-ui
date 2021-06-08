@@ -27,6 +27,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 // import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 // import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import AwsSamOverrides from './AwsSamOverrides'
 
 export interface AwsSamDeployData extends StepElementConfig {
   spec: Omit<K8sRollingStepInfo, 'skipDryRun'> & {
@@ -85,6 +86,7 @@ export class AwsSamDeploy extends PipelineStep<AwsSamDeployData> {
                 </div>
                 <FormInput.Text name="spec.region" label="Region" placeholder="Enter Region" />
                 <FormInput.Text name="spec.stackName" label="Stack Name" placeholder="Stack Name" />
+                <AwsSamOverrides formik={formik} />
                 <FormInput.Text
                   name="spec.globalAdditionalFlags"
                   label="Global Additional Flags"

@@ -10,7 +10,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import UserProfilePage from '@user-profile/pages/UserProfile/UserProfilePage'
 import UserPreferencesPage from '@user-profile/pages/UserPreferences/UserPreferences'
 import UserNav from '@user-profile/navigation/UserNav/UserNav'
-import UserInsights from './pages/UserInsights/UserInsights'
+import { UserInsights } from './pages/UserInsights/UserInsights'
 
 const RedirectToUserHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()

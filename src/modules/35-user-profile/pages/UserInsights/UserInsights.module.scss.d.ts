@@ -1,6 +1,8 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly card: string
+  readonly userInsights: string
+  readonly heatmap: string
+  readonly panel: string
 }
 export default styles

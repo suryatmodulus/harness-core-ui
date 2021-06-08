@@ -731,7 +731,6 @@ export interface ConnectorCatalogueItem {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
-    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -797,7 +796,6 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
-    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -840,7 +838,6 @@ export interface ConnectorInfoDTO {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
-    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -894,7 +891,6 @@ export interface ConnectorTypeStatistics {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
-    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -1131,12 +1127,6 @@ export type DockerUserNamePasswordDTO = DockerAuthCredentialsDTO & {
   passwordRef: string
   username?: string
   usernameRef?: string
-}
-
-export type DynatraceConnectorDTO = ConnectorConfigDTO & {
-  apiTokenRef: string
-  delegateSelectors?: string[]
-  url: string
 }
 
 export type EcrArtifactConfig = ArtifactConfig & {
@@ -9195,7 +9185,6 @@ export interface GetConnectorListQueryParams {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
-    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -9467,7 +9456,6 @@ export interface GetAllAllowedFieldValuesQueryParams {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
-    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -10645,8 +10633,6 @@ export const listDelegateProfilesNgPromise = (
 
 export interface AddDelegateProfileNgQueryParams {
   accountId?: string
-  orgId?: string
-  projectId?: string
 }
 
 export type AddDelegateProfileNgProps = Omit<
@@ -10724,8 +10710,6 @@ export const addDelegateProfileNgPromise = (
 
 export interface DeleteDelegateProfileNgQueryParams {
   accountId?: string
-  orgId?: string
-  projectId?: string
 }
 
 export type DeleteDelegateProfileNgProps = Omit<
@@ -10777,8 +10761,6 @@ export const deleteDelegateProfileNgPromise = (
 
 export interface GetDelegateProfileNgQueryParams {
   accountId?: string
-  orgId?: string
-  projectId?: string
 }
 
 export interface GetDelegateProfileNgPathParams {
@@ -10857,8 +10839,6 @@ export const getDelegateProfileNgPromise = (
 
 export interface UpdateDelegateProfileNgQueryParams {
   accountId?: string
-  orgId?: string
-  projectId?: string
 }
 
 export interface UpdateDelegateProfileNgPathParams {
@@ -10949,8 +10929,6 @@ export const updateDelegateProfileNgPromise = (
 
 export interface UpdateScopingRulesNgQueryParams {
   accountId?: string
-  orgId?: string
-  projectId?: string
 }
 
 export interface UpdateScopingRulesNgPathParams {
@@ -11042,8 +11020,6 @@ export const updateScopingRulesNgPromise = (
 
 export interface UpdateSelectorsNgQueryParams {
   accountId?: string
-  orgId?: string
-  projectId?: string
 }
 
 export interface UpdateSelectorsNgPathParams {
@@ -20016,7 +19992,6 @@ export interface GetYamlSchemaQueryParams {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
-    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -20131,7 +20106,6 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'prometheus'
     | 'datadog'
     | 'sumologic'
-    | 'dynatrace'
   )[]
 }
 

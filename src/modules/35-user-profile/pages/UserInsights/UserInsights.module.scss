@@ -1,3 +1,20 @@
-.card {
-  margin: var(--spacing-xlarge) 0;
+.userInsights {
+  .heatmap {
+    background: var(--grey-0) !important;
+    :global {
+      .bp3-popover-wrapper {
+        position: absolute;
+        right: 0px;
+        width: 190px !important;
+        margin-top: var(--spacing-small);
+      }
+      .bp3-button-text {
+        font-size: var(--font-size-normal) !important;
+      }
+    }
+  }
+  .panel {
+    height: 570px;
+    overflow: scroll;
+  }
 }

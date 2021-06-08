@@ -177,7 +177,7 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
         }}
       >
         <Layout.Horizontal spacing="xxlarge">
-          <Icon name="service-github" size={48}></Icon>
+          <Icon name="github" size={48}></Icon>
           <Text font="large" style={{ lineHeight: '24px', marginTop: '20px' }}>
             Github
           </Text>

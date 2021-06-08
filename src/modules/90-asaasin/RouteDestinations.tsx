@@ -11,6 +11,7 @@ import AsaasinDashboardPage from './pages/AsaasinDashboard'
 import AsaasinGitHubDashboardPage from './pages/github/dashboard'
 import AsaasinPagerDutyDashboard from './pages/pagerduty/dashboard'
 import AsaasinAtlassianDashboard from './pages/atlassian/dashboard'
+import AsaasinWorkflowPage from './pages/home/AsaasinWorkflows'
 
 const CESideNavProps: SidebarContext = {
   navComponent: AsaasinSideNav,
@@ -26,6 +27,9 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toAsaasinDashboard({ ...accountPathProps })} exact>
       <AsaasinDashboardPage />
+    </RouteWithLayout>
+    <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toAsaasinSaaSWorkflows({ ...accountPathProps })} exact>
+      <AsaasinWorkflowPage />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CESideNavProps}

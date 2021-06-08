@@ -198,7 +198,7 @@ describe('Create Sumo Logic connector Wizard', () => {
 
     await waitFor(() => expect(getByText('connectors.sumologic.urlLabel')).not.toBeNull())
     // expect recieved value to be there
-    waitFor(() => expect(container.querySelector(`input[value=sumologicapi]`)).not.toBeNull())
+    await waitFor(() => expect(container.querySelector(`input[value=endpoint2]`)).not.toBeNull())
 
     // change old url
     await fillAtForm([
@@ -286,7 +286,7 @@ describe('Create Sumo Logic connector Wizard', () => {
     await waitFor(() => expect(getByText('connectors.sumologic.urlLabel')).not.toBeNull())
 
     // expect recieved value to be there
-    waitFor(() => expect(container.querySelector(`input[value="endpoint2"]`)).not.toBeNull())
+    await waitFor(() => expect(container.querySelector(`input[value="endpoint2"]`)).not.toBeNull())
     // update it with new value
     await setFieldValue({ container, fieldId: 'url', value: 'endpoint2', type: InputTypes.SELECT })
     await fillAtForm([

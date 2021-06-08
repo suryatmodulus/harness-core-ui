@@ -64,6 +64,14 @@ export interface PagerDutySavingsResponse {
   recommendations?: PagerDutyRecommendations[]
 }
 
+export interface AtlassianDetailsResponse {
+  contract_value?: number
+  idle_users?: any
+  inactive_members?: any
+  potential_savings?: number
+  total_users?: number
+}
+
 export type GithubDetailsProps = Omit<GetProps<GithubDetailsResponse, void, void, void>, 'path'>
 
 /**
@@ -109,3 +117,24 @@ export type UsePagerdutySavingsProps = Omit<UseGetProps<PagerDutySavingsResponse
  */
 export const usePagerdutySavings = (props: UsePagerdutySavingsProps) =>
   useGet<PagerDutySavingsResponse, void, void, void>(`/pagerduty/savings`, { base: getConfig('asaasin/api'), ...props })
+
+export type AtlassianDetailsProps = Omit<GetProps<AtlassianDetailsResponse, void, void, void>, 'path'>
+
+/**
+ * Get atlassianDetails
+ *
+ * atlassianDetails
+ */
+export const AtlassianDetails = (props: AtlassianDetailsProps) => (
+  <Get<AtlassianDetailsResponse, void, void, void> path={`/atlassian/all`} base={getConfig('asaasin/api')} {...props} />
+)
+
+export type UseAtlassianDetailsProps = Omit<UseGetProps<AtlassianDetailsResponse, void, void, void>, 'path'>
+
+/**
+ * Get atlassianDetails
+ *
+ * atlassianDetails
+ */
+export const useAtlassianDetails = (props: UseAtlassianDetailsProps) =>
+  useGet<AtlassianDetailsResponse, void, void, void>(`/atlassian/all`, { base: getConfig('asaasin/api'), ...props })

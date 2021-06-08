@@ -347,7 +347,7 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                   style={{
                     overflowY: 'scroll',
                     maxHeight: '30vh',
-                    padding: '20px',
+                    paddingLeft: '20px',
                     alignSelf: 'center'
                   }}
                 >
@@ -404,7 +404,7 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                   style={{
                     overflowY: 'scroll',
                     maxHeight: '30vh',
-                    padding: '20px',
+                    paddingLeft: '20px',
                     alignSelf: 'center'
                   }}
                 >

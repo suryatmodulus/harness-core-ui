@@ -10,6 +10,8 @@
   width: 50%;
 }
 
-.tour {
-  align-items: center;
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
 }

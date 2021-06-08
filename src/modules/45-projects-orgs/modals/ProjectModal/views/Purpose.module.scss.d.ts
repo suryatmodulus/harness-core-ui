@@ -12,5 +12,6 @@ declare const styles: {
   readonly time: string
   readonly enable: string
   readonly enabled: string
+  readonly newPipeline: string
 }
 export default styles

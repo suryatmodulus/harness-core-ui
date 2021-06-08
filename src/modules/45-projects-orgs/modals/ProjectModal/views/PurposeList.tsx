@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Text, Layout, Icon, IconName, Container, Button, Card, Color } from '@wings-software/uicore'
 
 import { Link, useParams } from 'react-router-dom'
+import Joyride from 'react-joyride'
 import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
@@ -30,10 +31,37 @@ const getModuleLinks = (
   projectIdentifier: string,
   accountId: string
 ): React.ReactElement => {
+  const steps = [
+    {
+      content: <p>Well done, You have completed your first project set up!!</p>,
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      target: '.Purpose-module_border_TLBw9F'
+    },
+    {
+      content: <p>lets start by creating our first pipeline. Great going !!</p>,
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      target: '.Purpose-module_newPipeline_3f6oZi'
+    }
+  ]
   switch (module) {
     case ModuleName.CD:
       return (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
+          <Joyride
+            // callback={handleJoyrideCallback}
+            continuous={true}
+            // getHelpers={this.getHelpers}
+            run={true}
+            scrollToFirstStep={true}
+            // showProgress={true}
+            showSkipButton={true}
+            steps={steps}
+            styles={{
+              options: {
+                zIndex: 10000
+              }
+            }}
+          />
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>
             {<String stringID="projectsOrgs.purposeList.cd" />}
           </Text>
@@ -45,6 +73,7 @@ const getModuleLinks = (
               accountId,
               module: 'cd'
             })}
+            className={css.newPipeline}
           >
             {<String stringID="moduleRenderer.newPipeLine" />}
           </Link>

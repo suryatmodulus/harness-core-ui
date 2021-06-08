@@ -93,6 +93,11 @@ export class AwsSamDeploy extends PipelineStep<AwsSamDeployData> {
                   label="Global Additional Flags"
                   placeholder="Enter Global Additional flags"
                 />
+                <FormInput.CheckBox
+                  margin={{ left: 'xxlarge' }}
+                  name="spec.plan"
+                  label="Only SAM plan, no deployment"
+                ></FormInput.CheckBox>
               </Layout.Vertical>
             )
           }}

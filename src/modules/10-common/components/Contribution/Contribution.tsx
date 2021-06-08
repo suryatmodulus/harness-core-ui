@@ -11,9 +11,10 @@ interface ContributionProps {
   view: 'USER' | 'PROJECT'
   name: string
   count: number
+  rank: number
 }
 
-const Contribution: React.FC<ContributionProps> = ({ view, name, count }) => {
+const Contribution: React.FC<ContributionProps> = ({ view, name, count, rank }) => {
   const { getString } = useStrings()
   return (
     <Card className={css.main}>
@@ -21,16 +22,21 @@ const Contribution: React.FC<ContributionProps> = ({ view, name, count }) => {
         <Layout.Horizontal
           className={css.separator}
           padding={{ top: 'medium', bottom: 'medium', left: 'small', right: 'small' }}
-          flex={{ justifyContent: 'flex-start' }}
+          flex
         >
-          {view === 'PROJECT' ? <Avatar name={name} size="normal" /> : <Icon name="projects" padding="xsmall" />}
-          <Layout.Vertical padding={{ left: 'xsmall' }}>
-            <Text>{name}</Text>
-            <Text>
-              {count}&nbsp;
-              {getString('common.activities')}
-            </Text>
-          </Layout.Vertical>
+          <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
+            {view === 'PROJECT' ? <Avatar name={name} size="normal" /> : <Icon name="projects" padding="xsmall" />}
+            <Layout.Vertical padding={{ left: 'xsmall' }}>
+              <Text font={{ weight: 'bold', size: 'medium' }}>{name}</Text>
+              <Text>
+                {count}&nbsp;
+                {getString('common.activities')}
+              </Text>
+            </Layout.Vertical>
+          </Layout.Horizontal>
+          <Text font={{ weight: 'bold', size: 'medium' }} padding={{ right: 'xsmall' }}>
+            {rank >= 0 ? `#${rank + 1}` : ''}
+          </Text>
         </Layout.Horizontal>
         <Container padding={{ top: 'xlarge' }}>
           <HighchartsReact

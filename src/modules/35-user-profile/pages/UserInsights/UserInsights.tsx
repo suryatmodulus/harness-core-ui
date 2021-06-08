@@ -290,14 +290,22 @@ const UserContributions: React.FC<{ selectedDate: number; currentUserInfo: UserI
     return <PageSpinner />
   }
 
+  const projects = data?.data?.activityHistoryByUserList || []
+  const projectIds = projects.map((project: ActivityHistoryByProject) => project.projectId)
+
   return (
     <Layout.Masonry
       center
       gutter={30}
       width={900}
-      items={data?.data?.activityHistoryByUserList || []}
+      items={projects}
       renderItem={(item: ActivityHistoryByProject) => (
-        <Contribution view="USER" name={currentUserInfo.name || ''} count={item.total} />
+        <Contribution
+          view="USER"
+          name={currentUserInfo.name || ''}
+          count={item.activityStatsPerTimestampList?.length || 0}
+          rank={projectIds.indexOf(item.projectId || '')}
+        />
       )}
       keyOf={item => item.projectId}
     />

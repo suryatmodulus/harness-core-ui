@@ -10,6 +10,7 @@ export interface StringsMap {
   'common.accessKey': string
   'common.accountName': string
   'common.accountSetup': string
+  'common.activities': string
   'common.addVariable': string
   'common.approve': string
   'common.artifactTag': string
@@ -63,6 +64,7 @@ export interface StringsMap {
   'common.comments': string
   'common.confictOccured': string
   'common.confirmText': string
+  'common.contributions': string
   'common.createPipeline': string
   'common.dashboards': string
   'common.datePickerShortcuts.Last2Days': string

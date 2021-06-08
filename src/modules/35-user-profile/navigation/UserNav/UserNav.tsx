@@ -40,6 +40,11 @@ export default function UserNav(): React.ReactElement {
         {/* Enable when Ready */}
         {/* <SidebarLink label={getString('preferences')} to={routes.toUserPreferences({ accountId })} /> */}
       </Layout.Vertical>
+      <Layout.Vertical margin={{ top: 'small' }}>
+        <SidebarLink exact label={'Insights'} to={routes.toUserInsights({ accountId })} />
+        {/* Enable when Ready */}
+        {/* <SidebarLink label={getString('preferences')} to={routes.toUserPreferences({ accountId })} /> */}
+      </Layout.Vertical>
       <div className={css.signout}>
         <Text
           font={{ weight: 'semi-bold' }}

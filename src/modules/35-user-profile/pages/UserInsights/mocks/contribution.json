@@ -1,0 +1,74 @@
+{
+  "data": [
+    {
+      "timestamp": 1623064269,
+      "countPerActivityType": [
+        {
+          "activityType": "CREATE",
+          "count": 20
+        },
+        {
+          "activityType": "UPDATE",
+          "count": 20
+        }
+      ],
+      "total": 50
+    },
+    {
+      "timestamp": 1623064269,
+      "countPerActivityType": [
+        {
+          "activityType": "CREATE",
+          "count": 20
+        },
+        {
+          "activityType": "UPDATE",
+          "count": 20
+        }
+      ],
+      "total": 50
+    },
+    {
+      "timestamp": 1623064269,
+      "countPerActivityType": [
+        {
+          "activityType": "CREATE",
+          "count": 20
+        },
+        {
+          "activityType": "UPDATE",
+          "count": 20
+        }
+      ],
+      "total": 50
+    },
+    {
+      "timestamp": 1623064269,
+      "countPerActivityType": [
+        {
+          "activityType": "CREATE",
+          "count": 20
+        },
+        {
+          "activityType": "UPDATE",
+          "count": 20
+        }
+      ],
+      "total": 50
+    },
+    {
+      "timestamp": 1623064269,
+      "countPerActivityType": [
+        {
+          "activityType": "CREATE",
+          "count": 20
+        },
+        {
+          "activityType": "UPDATE",
+          "count": 20
+        }
+      ],
+      "total": 50
+    }
+  ]
+}

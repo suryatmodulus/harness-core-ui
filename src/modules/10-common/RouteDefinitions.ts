@@ -57,6 +57,7 @@ const routes = {
   toPurpose: withAccountId(() => '/purpose'),
   //user profile
   toUserProfile: withAccountId(() => '/user/profile'),
+  toUserInsights: withAccountId(() => '/user/insights'),
   toUserPreferences: withAccountId(() => '/user/preferences'),
   // account resources
   toCreateConnectorFromYaml: withAccountId(

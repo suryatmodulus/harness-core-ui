@@ -5,7 +5,13 @@ import { Classes, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
-import { Project, ProjectAggregateDTO, useGetActivityStats } from 'services/cd-ng'
+import {
+  ActivityStatsPerTimestamp,
+  Project,
+  ProjectAggregateDTO,
+  useGetActivityStats,
+  CountPerActivityType
+} from 'services/cd-ng'
 import DefaultRenderer from '@projects-orgs/components/ModuleRenderer/DefaultRenderer'
 import CVRenderer from '@projects-orgs/components/ModuleRenderer/cv/CVRenderer'
 import CIRenderer from '@projects-orgs/components/ModuleRenderer/ci/CIRenderer'
@@ -31,12 +37,14 @@ export interface ProjectCardProps {
   reloadProjects?: () => Promise<void>
   editProject?: (project: Project) => void
   handleInviteCollaborators?: (project: Project) => void
+  categories: string[]
 }
 
-const UsageDetails: React.FC<{ projectId: string; now: number; thirtyDaysAgo: number }> = ({
+const UsageDetails: React.FC<{ projectId: string; now: number; thirtyDaysAgo: number; categories: string[] }> = ({
   projectId,
   now,
-  thirtyDaysAgo
+  thirtyDaysAgo,
+  categories
 }) => {
   const { data: projectActivityData, loading } = useGetActivityStats({
     queryParams: {
@@ -49,7 +57,15 @@ const UsageDetails: React.FC<{ projectId: string; now: number; thirtyDaysAgo: nu
     return <PageSpinner />
   }
   const perDayData = (projectActivityData?.data?.activityStatsPerTimestampList || []).map(
-    value => value.totalCount || 0
+    (value: ActivityStatsPerTimestamp) => {
+      let total = 0
+      value.countPerActivityTypeList?.map((countPerActivityType: CountPerActivityType) => {
+        if (categories.indexOf(countPerActivityType.activityType || '') !== -1) {
+          total += countPerActivityType.count || 0
+        }
+      })
+      return total
+    }
   )
   const high = perDayData.reduce((prev, curr) => Math.max(prev, curr), 0)
   const parsedColumnData = [
@@ -64,16 +80,27 @@ const UsageDetails: React.FC<{ projectId: string; now: number; thirtyDaysAgo: nu
       })
     }
   ]
+  const sum = perDayData.reduce((prev, curr) => prev + curr, 0)
   return (
-    <StackedColumnChart
-      data={parsedColumnData}
-      options={{ chart: { height: 150 }, legend: { enabled: false }, yAxis: { max: high } }}
-    />
+    <Layout.Vertical flex={{ justifyContent: 'center' }}>
+      <Text>Total {sum}</Text>
+      <StackedColumnChart
+        data={parsedColumnData}
+        options={{ chart: { height: 150 }, legend: { enabled: false }, yAxis: { max: high } }}
+      />
+    </Layout.Vertical>
   )
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = props => {
-  const { data: projectAggregateDTO, isPreview, reloadProjects, editProject, handleInviteCollaborators } = props
+  const {
+    data: projectAggregateDTO,
+    isPreview,
+    reloadProjects,
+    editProject,
+    handleInviteCollaborators,
+    categories
+  } = props
   const now = Date.now()
   const thirtyDaysAgo = now - 2592000000
   const [menuOpen, setMenuOpen] = useState(false)
@@ -246,6 +273,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           projectId={props.data.projectResponse.project.identifier}
           now={now}
           thirtyDaysAgo={thirtyDaysAgo}
+          categories={categories}
         />
       </Layout.Vertical>
       {/* </Popover> */}

@@ -10,10 +10,11 @@ interface ProjectGridViewProps {
   collaborators?: (project: Project) => void
   reloadPage: () => Promise<void>
   gotoPage: (index: number) => void
+  categories: string[]
 }
 
 const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
-  const { data, showEditProject, collaborators, reloadPage, gotoPage } = props
+  const { data, showEditProject, collaborators, reloadPage, gotoPage, categories } = props
 
   return (
     <>
@@ -28,6 +29,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
               reloadProjects={reloadPage}
               editProject={showEditProject}
               handleInviteCollaborators={collaborators}
+              categories={categories}
             />
           )}
           keyOf={(projectDTO: ProjectAggregateDTO) =>

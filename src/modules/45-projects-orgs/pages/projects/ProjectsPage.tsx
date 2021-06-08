@@ -53,10 +53,7 @@ const ProjectsListPage: React.FC = () => {
   const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
   const [sortedProjectIdsByActivities, setSortedProjectIdsByActivities] = useState<string[]>()
   const [sortedProjectResponse, setSortedProjectResponse] = useState<ResponsePageProjectAggregateDTO>({})
-  const [sortBy, setSortBy] = useState<SelectOption>({
-    label: 'None',
-    value: ''
-  })
+  const [appliedCategories, setAppliedCategories] = useState<string[]>()
 
   const ACTIVITY_TYPES = {
     VIEW_PROJECT: 'VIEW_PROJECT',
@@ -84,7 +81,16 @@ const ProjectsListPage: React.FC = () => {
     DEPLOYMENT_ACTIVITY: 'Deployment Activity'
   }
 
-  const OVERALL_CATEGORY_GROUP = [ACTIVITY_TYPES.ALL]
+  const OVERALL_CATEGORY_GROUP = [
+    ACTIVITY_TYPES.VIEW_PROJECT,
+    ACTIVITY_TYPES.VIEW_RESOURCE,
+    ACTIVITY_TYPES.CREATE_RESOURCE,
+    ACTIVITY_TYPES.UPDATE_RESOURCE,
+    ACTIVITY_TYPES.RUN_PIPELINE,
+    ACTIVITY_TYPES.CREATE_PIPELINE,
+    ACTIVITY_TYPES.UPDATE_PIPELINE,
+    ACTIVITY_TYPES.VIEW_PIPELINE
+  ]
   const USAGE_CATEGORY_GROUP = [
     ACTIVITY_TYPES.CREATE_RESOURCE,
     ACTIVITY_TYPES.UPDATE_RESOURCE,
@@ -105,6 +111,10 @@ const ProjectsListPage: React.FC = () => {
     DEPLOYMENT_ACTIVITY: DEPLOYMENT_ACTIVITY_CATEGORY_GROUP
   }
   const { currentUserInfo } = useAppStore()
+  const [sortBy, setSortBy] = useState<SelectOption>({
+    label: ACTIVITY_CATEGORY_LABEL.OVERALL,
+    value: ACTIVITY_CATEGORY_VALUE.OVERALL
+  })
 
   const endTime = useMemo(() => Date.now(), [])
   const startTime = endTime - 2592000000
@@ -147,13 +157,22 @@ const ProjectsListPage: React.FC = () => {
               default:
                 break
             }
-            return categories?.includes(item.activityType || '')
+            setAppliedCategories(categories)
+            return (categories || []).includes(item.activityType || '')
           })
+          // if (matching.length) {
+          //   total += matching[0].count || 0
+          //   return {
+          //     x: activityStatsPerTimestamp?.timestamp,
+          //     y: matching[0].count
+          //   }
+          // }
           if (matching.length) {
-            total += matching[0].count || 0
+            const matchingSum = matching.reduce((prev, curr) => prev + (curr.count || 0), 0)
+            total += matchingSum
             return {
               x: activityStatsPerTimestamp?.timestamp,
-              y: matching[0].count
+              y: matchingSum
             }
           }
           return {
@@ -170,8 +189,9 @@ const ProjectsListPage: React.FC = () => {
         }
       }
     )
-    formattedData.sort((itemA, itemB) => (itemA.total < itemB.total ? -1 : 1))
+    formattedData.sort((itemA, itemB) => (itemA.total < itemB.total ? 1 : -1))
     formattedData = formattedData.map((value, index) => ({ ...value, index }))
+    console.log(formattedData)
     setSortedProjectIdsByActivities(formattedData.map(formattedData => formattedData.projectId || ''))
   }, [sortBy, fetchingProjectActivities])
 
@@ -222,9 +242,9 @@ const ProjectsListPage: React.FC = () => {
 
   React.useEffect(() => {
     let sortedProjects: ProjectAggregateDTO[] = []
-    sortedProjectIdsByActivities?.forEach(element => {
+    sortedProjectIdsByActivities?.forEach(projectId => {
       const project = data?.data?.content?.find(
-        project => project?.projectResponse?.project?.identifier === element
+        project => project?.projectResponse?.project?.identifier === projectId
       ) as ProjectAggregateDTO
       sortedProjects.push(project)
     })
@@ -233,9 +253,6 @@ const ProjectsListPage: React.FC = () => {
     if (sortedProjectResponse?.data?.content) {
       sortedProjectResponse['data']['content'] = sortedProjects
     }
-    console.log(sortedProjectIdsByActivities)
-    console.log(sortedProjects?.map(p => p?.projectResponse?.project?.identifier))
-    console.log(sortedProjectResponse)
     setSortedProjectResponse(sortedProjectResponse || {})
   }, [sortedProjectIdsByActivities])
 
@@ -390,16 +407,17 @@ const ProjectsListPage: React.FC = () => {
       >
         {view === Views.GRID ? (
           <ProjectsGridView
-            data={sortBy.value ? sortedProjectResponse : data}
+            data={sortedProjectResponse}
             showEditProject={showEditProject}
             collaborators={showCollaborators}
             reloadPage={refetch}
             gotoPage={(pageNumber: number) => setPage(pageNumber)}
+            categories={appliedCategories || []}
           />
         ) : null}
         {view === Views.LIST ? (
           <ProjectsListView
-            data={sortBy.value ? sortedProjectResponse : data}
+            data={sortedProjectResponse}
             showEditProject={showEditProject}
             collaborators={showCollaborators}
             reloadPage={refetch}

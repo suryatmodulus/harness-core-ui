@@ -403,27 +403,29 @@ export const ProjectInsights: React.FC = () => {
     <Layout.Vertical className={css.projectInsights}>
       <ProjectHeader />
       <ProjectHeatMap {...projectHeatmapProps} />
-      <Tabs id="project-insights" defaultSelectedTabId="overview">
-        <Tab
-          id="overview"
-          title="Overview"
-          panel={<ProjectOverview {...projectOverviewProps} />}
-          panelClassName={css.panel}
-        />
-        <Tab
-          id="contributions"
-          title="Contributions"
-          panel={<ProjectContributions {...projectContributionsProps} />}
-          panelClassName={css.panel}
-        />
-        <Layout.Horizontal className={css.user}>
-          {selectedUser ? (
-            <div dangerouslySetInnerHTML={{ __html: `Showing data for user: <b>${selectedUser}</b>` }} />
-          ) : (
-            <div dangerouslySetInnerHTML={{ __html: `Showing data for <b>all users</b>` }} />
-          )}
-        </Layout.Horizontal>
-      </Tabs>
+      <Container padding={{ left: 'medium', right: 'medium' }}>
+        <Tabs id="project-insights" defaultSelectedTabId="overview">
+          <Tab
+            id="overview"
+            title="Overview"
+            panel={<ProjectOverview {...projectOverviewProps} />}
+            panelClassName={css.panel}
+          />
+          <Tab
+            id="contributions"
+            title="Contributions"
+            panel={<ProjectContributions {...projectContributionsProps} />}
+            panelClassName={css.panel}
+          />
+          <Layout.Horizontal className={css.user}>
+            {selectedUser ? (
+              <div dangerouslySetInnerHTML={{ __html: `Showing data for user: <b>${selectedUser}</b>` }} />
+            ) : (
+              <div dangerouslySetInnerHTML={{ __html: `Showing data for <b>all users</b>` }} />
+            )}
+          </Layout.Horizontal>
+        </Tabs>
+      </Container>
     </Layout.Vertical>
   )
 }

@@ -54,6 +54,9 @@ const Contribution: React.FC<ContributionProps> = ({
               chart: {
                 type: 'line'
               },
+              credits: {
+                enabled: false
+              },
               title: false,
               xAxis: {
                 labels: {
@@ -77,7 +80,7 @@ const Contribution: React.FC<ContributionProps> = ({
               },
               series: [
                 {
-                  name: 'Month',
+                  name: 'Date',
                   data
                 }
               ]

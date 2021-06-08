@@ -59,20 +59,29 @@ const UserHeatMap: React.FC<{
   today: number
   selectedDate: number
   setSelectedDate: (selectedDate: number) => void
-  projectIdentifier: string
   activityType: ACTIVITY_TYPES_ENUM
   setActivityType: (activityType: ACTIVITY_TYPES_ENUM) => void
   currentUserId?: string
-}> = ({ today, selectedDate, setSelectedDate, projectIdentifier, activityType, setActivityType, currentUserId }) => {
+  selectedProject?: string | null
+}> = ({
+  today,
+  selectedDate,
+  setSelectedDate,
+  projectIdentifier,
+  activityType,
+  setActivityType,
+  currentUserId,
+  selectedProject
+}) => {
   const end = today + 86400000
   const start = end - 15552000000 // 6 months back
 
   const { data, loading } = useGetActivityStats({
     queryParams: {
       userId: currentUserId,
-      // projectId: projectIdentifier,
       startTime: start,
-      endTime: end
+      endTime: end,
+      ...(selectedProject ? { projectId: selectedProject } : {})
     }
   })
 
@@ -177,13 +186,14 @@ const UserOverView: React.FC<{
   activityType: ACTIVITY_TYPES_ENUM
   projectIdentifier: string
   currentUserId?: string
-}> = ({ selectedDate, activityType, projectIdentifier, currentUserId }) => {
+  selectedProject: string | null
+}> = ({ selectedDate, activityType, projectIdentifier, currentUserId, selectedProject }) => {
   const { loading, data } = useGetActivityHistory({
     queryParams: {
       userId: currentUserId,
-      // projectId: projectIdentifier,
       startTime: selectedDate,
-      endTime: selectedDate + 86400000
+      endTime: selectedDate + 86400000,
+      ...(selectedProject ? { projectId: selectedProject } : {})
     }
   })
   if (loading) {
@@ -273,38 +283,76 @@ const UserOverView: React.FC<{
   )
 }
 
-const UserContributions: React.FC<{ selectedDate: number; currentUserInfo: UserInfo }> = ({
-  selectedDate,
-  currentUserInfo
-}) => {
+const UserContributions: React.FC<{
+  currentUserInfo: UserInfo
+  activityType: ACTIVITY_TYPES_ENUM
+  selectedProject: string | null
+  setSelectedProject: (selectedProject: string | null) => void
+  today: number
+}> = ({ currentUserInfo, activityType, selectedProject, setSelectedProject, today }) => {
+  const end = today + 86400000
+  const start = end - 2592000000 // 1 months back
   const { loading, data } = useGetActivityStatsByProjects({
     queryParams: {
       userId: currentUserInfo?.uuid,
-      // projectId: projectIdentifier,
-      startTime: selectedDate,
-      endTime: selectedDate + 86400000
+      startTime: start,
+      endTime: end
     }
   })
 
   if (loading) {
     return <PageSpinner />
   }
-
-  const projects = data?.data?.activityHistoryByUserList || []
-  const projectIds = projects.map((project: ActivityHistoryByProject) => project.projectId)
-
+  let formattedData = (data?.data?.activityHistoryByUserList || []).map((activityHistoryByUser, index) => {
+    let total = 0
+    const dataItems = (activityHistoryByUser.activityStatsPerTimestampList || []).map(activityStatsPerTimestamp => {
+      if (activityType === ACTIVITY_TYPES_ENUM.ALL) {
+        total += activityStatsPerTimestamp.totalCount || 0
+        return {
+          x: activityStatsPerTimestamp?.timestamp,
+          y: activityStatsPerTimestamp.totalCount
+        }
+      }
+      const matching = (activityStatsPerTimestamp?.countPerActivityTypeList || []).filter(
+        item => item.activityType === activityType
+      )
+      if (matching.length) {
+        total += matching[0].count || 0
+        return {
+          x: activityStatsPerTimestamp?.timestamp,
+          y: matching[0].count
+        }
+      }
+      return {
+        x: activityStatsPerTimestamp?.timestamp,
+        y: 0
+      }
+    })
+    dataItems.sort((itemA, itemB) => (itemA.x && itemB.x && itemA.x < itemB.x ? -1 : 1))
+    return {
+      projectId: activityHistoryByUser.projectId,
+      total,
+      data: dataItems,
+      index
+    }
+  })
+  formattedData.sort((itemA, itemB) => (itemA.total < itemB.total ? -1 : 1))
+  formattedData = formattedData.map((value, index) => ({ ...value, index }))
   return (
     <Layout.Masonry
       center
       gutter={30}
       width={900}
-      items={projects}
-      renderItem={(item: ActivityHistoryByProject) => (
+      items={formattedData}
+      renderItem={item => (
         <Contribution
-          view="USER"
-          name={currentUserInfo.name || ''}
-          count={item.activityStatsPerTimestampList?.length || 0}
-          rank={projectIds.indexOf(item.projectId || '')}
+          rank={item.index}
+          view="PROJECT"
+          name={item.projectId || ''}
+          count={item.total}
+          data={item.data}
+          selected={selectedProject === item.projectId}
+          onClick={() => setSelectedProject(item.projectId || null)}
         />
       )}
       keyOf={item => item.projectId}
@@ -316,6 +364,7 @@ export const UserInsights: React.FC = () => {
   const [today] = useState(new Date().setHours(0, 0, 0, 0))
   const [selectedDate, setSelectedDate] = useState(today)
   const [activityType, setActivityType] = useState<ACTIVITY_TYPES_ENUM>(ACTIVITY_TYPES_ENUM.ALL)
+  const [selectedProject, setSelectedProject] = useState(null)
   const { projectIdentifier } = useParams<ProjectPathProps>()
   const { currentUserInfo } = useAppStore()
   const userHeatMapProps = {
@@ -325,16 +374,25 @@ export const UserInsights: React.FC = () => {
     projectIdentifier,
     activityType,
     setActivityType,
-    currentUserId: currentUserInfo?.uuid
+    currentUserId: currentUserInfo?.uuid,
+    selectedProject
   }
   const userOveriewProps = {
     selectedDate,
     activityType,
     projectIdentifier,
-    currentUserId: currentUserInfo?.uuid
+    currentUserId: currentUserInfo?.uuid,
+    selectedProject
   }
 
-  const userContributionProps = { selectedDate, currentUserInfo }
+  const userContributionProps = {
+    selectedDate,
+    currentUserInfo,
+    selectedProject,
+    setSelectedProject,
+    today,
+    activityType
+  }
 
   return (
     <Layout.Vertical className={css.userInsights}>
@@ -353,6 +411,13 @@ export const UserInsights: React.FC = () => {
             panel={<UserContributions {...userContributionProps} />}
             panelClassName={css.panel}
           />
+          <Layout.Horizontal className={css.project}>
+            {selectedProject ? (
+              <div dangerouslySetInnerHTML={{ __html: `Showing data for project: <b>${selectedProject}</b>` }} />
+            ) : (
+              <div dangerouslySetInnerHTML={{ __html: `Showing data for <b>all projects</b>` }} />
+            )}
+          </Layout.Horizontal>
         </Tabs>
       </Container>
     </Layout.Vertical>

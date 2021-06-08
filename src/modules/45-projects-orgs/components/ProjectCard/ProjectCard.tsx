@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
-import { Card, Text, Layout, CardBody, Container, Color } from '@wings-software/uicore'
-import { Classes } from '@blueprintjs/core'
+import { Card, Text, Layout, CardBody, Container, Color, Popover } from '@wings-software/uicore'
+import { Classes, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -229,6 +229,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
       {data.modules?.includes(ModuleName.CI) ? <CIRenderer data={data} isPreview={isPreview} /> : null}
       {data.modules?.includes(ModuleName.CF) ? <CFRenderer data={data} isPreview={isPreview} /> : null}
       {data.modules?.includes(ModuleName.CE) ? <CERenderer data={data} isPreview={isPreview} /> : null}
+      {/* <Popover interactionKind={PopoverInteractionKind.HOVER} position={Position.BOTTOM} content={<>Details</>}> */}
       <Layout.Vertical
         height={150}
         onClick={() => {
@@ -247,6 +248,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           thirtyDaysAgo={thirtyDaysAgo}
         />
       </Layout.Vertical>
+      {/* </Popover> */}
     </Card>
   )
 }

@@ -6,7 +6,7 @@ import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { useQueryParams } from '@common/hooks'
-import { useGetOrganizationList, useGetProjectAggregateDTOList } from 'services/cd-ng'
+import { useGetActivityStatsByProjects, useGetOrganizationList, useGetProjectAggregateDTOList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
@@ -111,6 +111,55 @@ const ProjectsListPage: React.FC = () => {
   }
 
   const bodyClassName = user.emailVerified ? css.noBanner : css.hasBanner
+
+  const { currentUserInfo } = useAppStore()
+
+  const now = Date.now()
+  const thirtyDaysAgo = now - 2592000000
+
+  const { loading: loadingx, data: datax } = useGetActivityStatsByProjects({
+    queryParams: {
+      userId: currentUserInfo?.uuid,
+      startTime: now,
+      endTime: thirtyDaysAgo
+    }
+  })
+
+  // let formattedData = (data?.data?.activityHistoryByUserList || []).map((activityHistoryByUser, index) => {
+  //   let total = 0
+  //   const dataItems = (activityHistoryByUser.activityStatsPerTimestampList || []).map(activityStatsPerTimestamp => {
+  //     if (activityType === ACTIVITY_TYPES_ENUM.ALL) {
+  //       total += activityStatsPerTimestamp.totalCount || 0
+  //       return {
+  //         x: activityStatsPerTimestamp?.timestamp,
+  //         y: activityStatsPerTimestamp.totalCount
+  //       }
+  //     }
+  //     const matching = (activityStatsPerTimestamp?.countPerActivityTypeList || []).filter(
+  //       item => item.activityType === activityType
+  //     )
+  //     if (matching.length) {
+  //       total += matching[0].count || 0
+  //       return {
+  //         x: activityStatsPerTimestamp?.timestamp,
+  //         y: matching[0].count
+  //       }
+  //     }
+  //     return {
+  //       x: activityStatsPerTimestamp?.timestamp,
+  //       y: 0
+  //     }
+  //   })
+  //   dataItems.sort((itemA, itemB) => (itemA.x && itemB.x && itemA.x < itemB.x ? -1 : 1))
+  //   return {
+  //     userId: activityHistoryByUser.userId,
+  //     total,
+  //     data: dataItems,
+  //     index
+  //   }
+  // })
+  // formattedData.sort((itemA, itemB) => (itemA.total < itemB.total ? -1 : 1))
+  // formattedData = formattedData.map((value, index) => ({ ...value, index }))
 
   return (
     <Container className={css.projectsPage}>

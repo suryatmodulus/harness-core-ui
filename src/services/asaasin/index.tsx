@@ -64,6 +64,21 @@ export interface PagerDutySavingsResponse {
   recommendations?: PagerDutyRecommendations[]
 }
 
+export interface PagerDutyUser {
+  id?: string
+  type?: string
+  summary?: string
+  self?: string
+  name?: string
+  email?: string
+  time_zone?: string
+  role?: string
+  avatar_url?: string
+  description?: string
+}
+
+export type PagerDutyUsersResponse = PagerDutyUser[]
+
 export type GithubDetailsProps = Omit<GetProps<GithubDetailsResponse, void, void, void>, 'path'>
 
 /**
@@ -109,3 +124,31 @@ export type UsePagerdutySavingsProps = Omit<UseGetProps<PagerDutySavingsResponse
  */
 export const usePagerdutySavings = (props: UsePagerdutySavingsProps) =>
   useGet<PagerDutySavingsResponse, void, void, void>(`/pagerduty/savings`, { base: getConfig('asaasin/api'), ...props })
+
+export type PagerdutyInactiveUsersProps = Omit<GetProps<PagerDutyUsersResponse, void, void, void>, 'path'>
+
+/**
+ * Get pagerduty inactive users
+ *
+ * pagerdutyInactiveUsers
+ */
+export const PagerdutyInactiveUsers = (props: PagerdutyInactiveUsersProps) => (
+  <Get<PagerDutyUsersResponse, void, void, void>
+    path={`/pagerduty/users/inactive`}
+    base={getConfig('asaasin/api')}
+    {...props}
+  />
+)
+
+export type UsePagerdutyInactiveUsersProps = Omit<UseGetProps<PagerDutyUsersResponse, void, void, void>, 'path'>
+
+/**
+ * Get pagerduty inactive users
+ *
+ * pagerdutyInactiveUsers
+ */
+export const usePagerdutyInactiveUsers = (props: UsePagerdutyInactiveUsersProps) =>
+  useGet<PagerDutyUsersResponse, void, void, void>(`/pagerduty/users/inactive`, {
+    base: getConfig('asaasin/api'),
+    ...props
+  })

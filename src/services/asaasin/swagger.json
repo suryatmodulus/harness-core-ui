@@ -58,6 +58,26 @@
         }
       }
     },
+    "/atlassian/all": {
+      "get": {
+        "tags": ["atlassianDetails"],
+        "summary": "Get atlassianDetails",
+        "description": "atlassianDetails",
+        "operationId": "atlassianDetails",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AtlassianDetailsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
     "/pagerduty/users/inactive": {
       "get": {
         "tags": ["pagerdutyInactiveUsers"],
@@ -268,6 +288,40 @@
         }
       }
     },
+    "AtlassianDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "contract_value": {
+          "type": "number",
+          "format": "float"
+        },
+        "idle_users": { "type": "list", "items": { "type": "string" } },
+        "potential_savings": {
+          "type": "number",
+          "format": "float"
+        },
+        "total_users": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "recommendations": {
+          "type": "list",
+          "items": { "type": "object", "$ref": "#/definitions/GithubRecommendations" }
+        },
+        "rarely_active_users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+
     "PagerDutyUser": {
       "type": "object",
       "properties": {
@@ -328,13 +382,13 @@
           "format": "float"
         },
         "total_users": {
-          "type": "number",
-          "format": "int64"
-        },
-        "inactive_users": {
-          "type": "number",
+          "type": "integer",
           "format": "int64"
         }
+      },
+      "inactive_users": {
+        "type": "number",
+        "format": "int64"
       }
     },
     "AllStatsResponse": {

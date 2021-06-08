@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
+import { Dialog } from '@blueprintjs/core'
 import {
   Text,
   Container,
@@ -11,7 +12,8 @@ import {
   useIsMounted,
   Icon,
   Color,
-  Button
+  Button,
+  useModalHook
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import cx from 'classnames'
@@ -20,6 +22,8 @@ import { PageError } from '@common/components/Page/PageError'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { TestSuiteSummaryQueryParams, useTestSuiteSummary } from 'services/ti-service'
 import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { TestsCallgraph } from './TestsCallgraph/TestsCallgraph'
 import { TestsExecutionItem } from './TestsExecutionItem'
 import { SortByKey } from './TestsUtils'
 import css from './BuildTests.module.scss'
@@ -32,8 +36,22 @@ interface TestsExecutionProps {
 
 export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) => {
   const context = useExecutionContext()
+  const callgraphEnabled = useFeatureFlag('TI_CALLGRAPH')
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
+
+  const [showModal, hideModal] = useModalHook(() => (
+    <Dialog
+      className={css.callgraphDialog}
+      title={getString('pipeline.testsReports.callgraphTitle')}
+      isCloseButtonShown
+      isOpen
+      onClose={() => hideModal()}
+    >
+      <TestsCallgraph />
+    </Dialog>
+  ))
+
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState<number | undefined>(0)
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
@@ -129,6 +147,22 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
           margin={{ left: 'xsmall' }}
         />
         {loading && <Icon name="steps-spinner" size={16} color="blue500" margin={{ left: 'xsmall' }} />}
+        {!loading && callgraphEnabled && (
+          <Button
+            className={css.viewCallgraph}
+            color={Color.PRIMARY_7}
+            icon="graph"
+            iconProps={{
+              margin: {
+                right: 'small'
+              }
+            }}
+            minimal
+            onClick={showModal}
+          >
+            {getString('pipeline.testsReports.viewCallgraph')}
+          </Button>
+        )}
       </Container>
 
       <Container className={css.widget} padding="medium">

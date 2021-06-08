@@ -10,6 +10,7 @@ import AsaasinHomePage from './pages/home/AsaasinHomePage'
 import AsaasinDashboardPage from './pages/AsaasinDashboard'
 import AsaasinGitHubDashboardPage from './pages/github/dashboard'
 import AsaasinPagerDutyDashboard from './pages/pagerduty/dashboard'
+import AsaasinAtlassianDashboard from './pages/atlassian/dashboard'
 
 const CESideNavProps: SidebarContext = {
   navComponent: AsaasinSideNav,
@@ -39,6 +40,14 @@ export default (
       exact
     >
       <AsaasinPagerDutyDashboard />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CESideNavProps}
+      path={routes.toAsaasinAtlassianDashboard({ ...accountPathProps })}
+      exact
+    >
+      <AsaasinAtlassianDashboard />
     </RouteWithLayout>
   </>
 )

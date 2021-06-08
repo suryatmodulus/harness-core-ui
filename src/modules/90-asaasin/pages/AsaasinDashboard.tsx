@@ -25,6 +25,16 @@ const saasData = [
     users: 177,
     wastage: 39,
     icon: 'https://img.apksum.com/32/com.pagerduty.android/6.01/icon.png'
+  },
+  {
+    name: 'Atlassian',
+    value: 'atlassian',
+    owner: 'Navaneeth',
+    category: 'Engineering',
+    annual_spend: 20000.98,
+    users: 177,
+    wastage: 39,
+    icon: 'https://www.atlassian.com/dam/jcr:93075b1a-484c-4fe5-8a4f-942710e51760/Atlassian-horizontal-blue@2x-rgb.png'
   }
 ]
 function NameCell(tableProps: CellProps<any>): JSX.Element {

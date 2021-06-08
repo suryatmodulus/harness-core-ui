@@ -13,7 +13,10 @@ import {
 import * as Yup from 'yup'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useCreateCheckoutSession, useSetup } from 'services/cd-ng'
 import { useContactSalesModal, ContactSalesFormProps } from '@common/modals/ContactSales/useContactSalesModal'
 import { WorkloadSlider } from './WorkloadSlider'
 import css from './usePlanModal.module.scss'
@@ -24,6 +27,7 @@ export interface PlanModalProps {
   workloads: number
   premium: boolean
   unitPrice: number
+  priceId: string
 }
 
 interface UsePlanModalProps {
@@ -31,7 +35,7 @@ interface UsePlanModalProps {
   icon: IconName
   unitPrice: number
   contactSalesThreshold: number
-  onSubmit: (values: PlanModalProps) => void
+  priceId: string
   onCloseModal?: () => void
 }
 
@@ -41,12 +45,33 @@ interface UsePlanModalReturn {
 }
 
 const PlanForm = ({
-  onSubmit,
   module,
   icon,
   unitPrice,
-  contactSalesThreshold
+  contactSalesThreshold,
+  priceId
 }: UsePlanModalProps): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+  const { currentUserInfo } = useAppStore()
+  const { data: stripeData, loading: setupLoading } = useSetup({})
+  const { mutate: createSession, loading: checkoutLoading } = useCreateCheckoutSession({})
+  const stripe = () => {
+    if (stripeData?.publishableKey) {
+      return window.Stripe(stripeData?.publishableKey)
+    }
+  }
+  const handleSubmit = (values: PlanModalProps): void => {
+    createSession({
+      accountId: accountId,
+      quantity: values.workloads as any,
+      priceId: priceId,
+      email: currentUserInfo.email
+    }).then(data => {
+      stripe() && stripe().redirectToCheckout(data)
+    })
+  }
   const { openContactSalesModal } = useContactSalesModal({
     onSubmit: (_values: ContactSalesFormProps) => {
       // TO-DO: call the API
@@ -63,11 +88,12 @@ const PlanForm = ({
         module,
         unitPrice,
         workloads: 1,
-        premium: true
+        premium: true,
+        priceId: ''
       }}
       validationSchema={validationSchema}
       enableReinitialize={true}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
     >
       {formikProps => {
         return (
@@ -107,7 +133,7 @@ const PlanForm = ({
 
             <Layout.Vertical padding={{ top: 'xxlarge', bottom: 'xxlarge' }} spacing="small">
               <Text font={{ size: 'small' }}>
-                {formikProps.values.workloads < 100
+                {formikProps.values.workloads < contactSalesThreshold
                   ? getString('common.license.planForm.payment.description', { unitPrice: unitPrice })
                   : getString('common.license.planForm.payment.contactSales')}
               </Text>
@@ -120,7 +146,12 @@ const PlanForm = ({
 
             <Layout.Horizontal spacing={'large'}>
               {formikProps.values.workloads < contactSalesThreshold && (
-                <Button intent="primary" text={getString('common.license.planForm.continue')} type="submit" />
+                <Button
+                  intent="primary"
+                  text={getString('common.license.planForm.continue')}
+                  disabled={checkoutLoading || setupLoading}
+                  type="submit"
+                />
               )}
               <Button
                 border={{ width: 1, color: Color.PRIMARY_7 }}
@@ -138,11 +169,11 @@ const PlanForm = ({
 
 export const usePlanModal = ({
   onCloseModal,
-  onSubmit,
   module,
   icon,
   unitPrice,
-  contactSalesThreshold
+  contactSalesThreshold,
+  priceId
 }: UsePlanModalProps): UsePlanModalReturn => {
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -154,11 +185,11 @@ export const usePlanModal = ({
         className={cx(css.dialog, Classes.DIALOG, css.planForm)}
       >
         <PlanForm
-          onSubmit={onSubmit}
           module={module}
           icon={icon}
           unitPrice={unitPrice}
           contactSalesThreshold={contactSalesThreshold}
+          priceId={priceId}
         />
         <Button
           aria-label="close modal"

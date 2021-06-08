@@ -9,7 +9,6 @@ const TestComponent = (): React.ReactElement => {
     module: 'cd',
     icon: 'cd-main',
     unitPrice: 175,
-    onSubmit: jest.fn(),
     onCloseModal,
     contactSalesThreshold: 25
   })

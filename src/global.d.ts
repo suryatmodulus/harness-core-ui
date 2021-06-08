@@ -40,6 +40,7 @@ declare interface Window {
   Harness: {
     openNgTooltipEditor: () => void
   }
+  Stripe: Stripe
 }
 
 declare const monaco: any

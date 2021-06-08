@@ -74,11 +74,15 @@ export interface AccountEvent {
   }
 }
 
-export interface AccountLicensesDTO {
+export interface AccountLicenseDTO {
   accountId?: string
+  allInactive?: boolean
+  createdAt?: number
+  lastUpdatedAt?: number
   moduleLicenses?: {
     [key: string]: ModuleLicenseDTO
   }
+  uuid?: string
 }
 
 export interface AccountPermissions {
@@ -585,9 +589,14 @@ export interface BuildSpec {
   [key: string]: any
 }
 
+export type CDLicenseTransactionDTO = LicenseTransactionDTO & {
+  workload?: number
+}
+
 export type CDModuleLicenseDTO = ModuleLicenseDTO & {
   deploymentsPerDay?: number
   maxWorkLoads?: number
+  totalWorkLoads?: number
 }
 
 export interface CDPipelineModuleInfo {
@@ -623,25 +632,40 @@ export type CEKubernetesClusterConfig = ConnectorConfigDTO & {
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
 }
 
+export type CELicenseTransactionDTO = LicenseTransactionDTO & {}
+
 export type CEModuleLicenseDTO = ModuleLicenseDTO & {
   dataRetentionInDays?: number
   numberOfCluster?: number
   spendLimit?: number
 }
 
+export type CFLicenseTransactionDTO = LicenseTransactionDTO & {
+  clientMAU?: number
+  featureFlagUnit?: number
+}
+
 export type CFModuleLicenseDTO = ModuleLicenseDTO & {
-  numberOfClientMAUs?: number
-  numberOfUsers?: number
-  updateChannels?: ('POLLING' | 'STREAMING')[]
+  maxClientMAUs?: number
+  maxFeatureFlagUnit?: number
+  totalClientMAUs?: number
+  totalFeatureFlagUnit?: number
+}
+
+export type CILicenseTransactionDTO = LicenseTransactionDTO & {
+  developers?: number
 }
 
 export type CIModuleLicenseDTO = ModuleLicenseDTO & {
-  numberOfCommitters?: number
+  maxDevelopers?: number
+  totalDevelopers?: number
 }
 
 export interface CIProperties {
   codebase?: CodeBase
 }
+
+export type CVLicenseTransactionDTO = LicenseTransactionDTO & {}
 
 export type CVModuleLicenseDTO = ModuleLicenseDTO & {}
 
@@ -901,6 +925,13 @@ export interface ContainerResource {
 
 export type CountInstanceSelection = InstanceSelectionBase & {
   count?: ParameterFieldString
+}
+
+export interface CreateCheckoutSessionRequest {
+  accountId?: string
+  email?: string
+  priceId?: string
+  quantity?: string
 }
 
 export interface CreateInvite {
@@ -1876,6 +1907,12 @@ export interface FailureStrategyConfig {
 }
 
 export type FeatureFlagStageConfig = StageInfoConfig & {}
+
+export interface FieldValues {
+  fieldValues?: {
+    [key: string]: string[]
+  }
+}
 
 export interface Filter {
   ids?: string[]
@@ -2905,6 +2942,19 @@ export interface LicenseInfo {
   licenseUnits?: number
 }
 
+export interface LicenseTransactionDTO {
+  accountIdentifier?: string
+  createdAt?: number
+  edition?: 'FREE' | 'TEAM' | 'ENTERPRISE'
+  expiryTime?: number
+  lastModifiedAt?: number
+  licenseType?: 'TRIAL' | 'PAID'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
+  startTime?: number
+  status?: 'ACTIVE' | 'DELETED' | 'EXPIRED'
+  uuid?: string
+}
+
 export interface Limits {
   cpu?: string
   memory?: string
@@ -2991,13 +3041,12 @@ export interface ModuleLicenseDTO {
   accountIdentifier?: string
   createdAt?: number
   edition?: 'FREE' | 'TEAM' | 'ENTERPRISE'
-  expiryTime?: number
   id?: string
   lastModifiedAt?: number
   licenseType?: 'TRIAL' | 'PAID'
   moduleType?: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
-  startTime?: number
   status?: 'ACTIVE' | 'DELETED' | 'EXPIRED'
+  transactions?: LicenseTransactionDTO[]
 }
 
 export interface NGAuthSettings {
@@ -3112,10 +3161,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -3777,9 +3825,9 @@ export interface ResponseAccount {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseAccountLicensesDTO {
+export interface ResponseAccountLicenseDTO {
   correlationId?: string
-  data?: AccountLicensesDTO
+  data?: AccountLicenseDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3913,6 +3961,13 @@ export interface ResponseEnvironmentResponseDTO {
 export interface ResponseExecutionDeploymentInfo {
   correlationId?: string
   data?: ExecutionDeploymentInfo
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseFieldValues {
+  correlationId?: string
+  data?: FieldValues
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5983,6 +6038,8 @@ export interface YamlSnippets {
   yamlSnippets?: YamlSnippetMetaData[]
 }
 
+export type AccountLicenseDTORequestBody = AccountLicenseDTO
+
 export type ConnectorRequestBody = Connector
 
 export type DelegateProfileDetailsNgRequestBody = DelegateProfileDetailsNg
@@ -6001,8 +6058,6 @@ export type GitSyncConfigRequestBody = GitSyncConfig
 
 export type InputSetConfigRequestBody = InputSetConfig
 
-export type ModuleLicenseDTORequestBody = ModuleLicenseDTO
-
 export type OrganizationRequestRequestBody = OrganizationRequest
 
 export type OverlayInputSetConfigRequestBody = OverlayInputSetConfig
@@ -6019,6 +6074,8 @@ export type ServiceRequestDTOArrayRequestBody = ServiceRequestDTO[]
 
 export type SourceCodeManagerDTORequestBody = SourceCodeManagerDTO
 
+export type StartTrialRequestDTORequestBody = StartTrialRequestDTO
+
 export type UserFilterRequestBody = UserFilter
 
 export type UserGroupDTORequestBody = UserGroupDTO
@@ -6026,6 +6083,8 @@ export type UserGroupDTORequestBody = UserGroupDTO
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
 export type UploadSamlMetaDataRequestBody = void
+
+export type WebhookCatcherBodyRequestBody = string
 
 export interface GetAccountPathParams {
   accountIdentifier: string
@@ -6360,17 +6419,65 @@ export const getActivitiesSummaryPromise = (
     signal
   )
 
+export interface CreateQueryParams {
+  accountIdentifier?: string
+}
+
+export type CreateProps = Omit<
+  MutateProps<ResponseAccountLicenseDTO, Failure | Error, CreateQueryParams, AccountLicenseDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+export const Create = (props: CreateProps) => (
+  <Mutate<ResponseAccountLicenseDTO, Failure | Error, CreateQueryParams, AccountLicenseDTORequestBody, void>
+    verb="POST"
+    path={`/admin/licenses`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateProps = Omit<
+  UseMutateProps<ResponseAccountLicenseDTO, Failure | Error, CreateQueryParams, AccountLicenseDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useCreate = (props: UseCreateProps) =>
+  useMutate<ResponseAccountLicenseDTO, Failure | Error, CreateQueryParams, AccountLicenseDTORequestBody, void>(
+    'POST',
+    `/admin/licenses`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+export const createPromise = (
+  props: MutateUsingFetchProps<
+    ResponseAccountLicenseDTO,
+    Failure | Error,
+    CreateQueryParams,
+    AccountLicenseDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseAccountLicenseDTO, Failure | Error, CreateQueryParams, AccountLicenseDTORequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/admin/licenses`,
+    props,
+    signal
+  )
+
 export interface GetAccountLicensesDTOQueryParams {
   accountIdentifier?: string
 }
 
 export type GetAccountLicensesDTOProps = Omit<
-  GetProps<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>,
+  GetProps<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>,
   'path'
 >
 
 export const GetAccountLicensesDTO = (props: GetAccountLicensesDTOProps) => (
-  <Get<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>
+  <Get<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>
     path={`/admin/licenses/account`}
     base={getConfig('ng/api')}
     {...props}
@@ -6378,101 +6485,26 @@ export const GetAccountLicensesDTO = (props: GetAccountLicensesDTOProps) => (
 )
 
 export type UseGetAccountLicensesDTOProps = Omit<
-  UseGetProps<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>,
+  UseGetProps<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>,
   'path'
 >
 
 export const useGetAccountLicensesDTO = (props: UseGetAccountLicensesDTOProps) =>
-  useGet<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>(
+  useGet<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>(
     `/admin/licenses/account`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const getAccountLicensesDTOPromise = (
-  props: GetUsingFetchProps<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>,
+  props: GetUsingFetchProps<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>(
+  getUsingFetch<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicensesDTOQueryParams, void>(
     getConfig('ng/api'),
     `/admin/licenses/account`,
     props,
     signal
   )
-
-export interface CreateQueryParams {
-  accountIdentifier?: string
-}
-
-export interface CreatePathParams {
-  identifier: string
-}
-
-export type CreateProps = Omit<
-  MutateProps<
-    ResponseModuleLicenseDTO,
-    Failure | Error,
-    CreateQueryParams,
-    ModuleLicenseDTORequestBody,
-    CreatePathParams
-  >,
-  'path' | 'verb'
-> &
-  CreatePathParams
-
-export const Create = ({ identifier, ...props }: CreateProps) => (
-  <Mutate<ResponseModuleLicenseDTO, Failure | Error, CreateQueryParams, ModuleLicenseDTORequestBody, CreatePathParams>
-    verb="POST"
-    path={`/admin/licenses/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseCreateProps = Omit<
-  UseMutateProps<
-    ResponseModuleLicenseDTO,
-    Failure | Error,
-    CreateQueryParams,
-    ModuleLicenseDTORequestBody,
-    CreatePathParams
-  >,
-  'path' | 'verb'
-> &
-  CreatePathParams
-
-export const useCreate = ({ identifier, ...props }: UseCreateProps) =>
-  useMutate<
-    ResponseModuleLicenseDTO,
-    Failure | Error,
-    CreateQueryParams,
-    ModuleLicenseDTORequestBody,
-    CreatePathParams
-  >('POST', (paramsInPath: CreatePathParams) => `/admin/licenses/${paramsInPath.identifier}`, {
-    base: getConfig('ng/api'),
-    pathParams: { identifier },
-    ...props
-  })
-
-export const createPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseModuleLicenseDTO,
-    Failure | Error,
-    CreateQueryParams,
-    ModuleLicenseDTORequestBody,
-    CreatePathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseModuleLicenseDTO,
-    Failure | Error,
-    CreateQueryParams,
-    ModuleLicenseDTORequestBody,
-    CreatePathParams
-  >('POST', getConfig('ng/api'), `/admin/licenses/${identifier}`, props, signal)
 
 export interface UpdateQueryParams {
   accountIdentifier?: string
@@ -6484,10 +6516,10 @@ export interface UpdatePathParams {
 
 export type UpdateProps = Omit<
   MutateProps<
-    ResponseModuleLicenseDTO,
+    ResponseAccountLicenseDTO,
     Failure | Error,
     UpdateQueryParams,
-    ModuleLicenseDTORequestBody,
+    AccountLicenseDTORequestBody,
     UpdatePathParams
   >,
   'path' | 'verb'
@@ -6495,7 +6527,7 @@ export type UpdateProps = Omit<
   UpdatePathParams
 
 export const Update = ({ identifier, ...props }: UpdateProps) => (
-  <Mutate<ResponseModuleLicenseDTO, Failure | Error, UpdateQueryParams, ModuleLicenseDTORequestBody, UpdatePathParams>
+  <Mutate<ResponseAccountLicenseDTO, Failure | Error, UpdateQueryParams, AccountLicenseDTORequestBody, UpdatePathParams>
     verb="PUT"
     path={`/admin/licenses/${identifier}`}
     base={getConfig('ng/api')}
@@ -6505,10 +6537,10 @@ export const Update = ({ identifier, ...props }: UpdateProps) => (
 
 export type UseUpdateProps = Omit<
   UseMutateProps<
-    ResponseModuleLicenseDTO,
+    ResponseAccountLicenseDTO,
     Failure | Error,
     UpdateQueryParams,
-    ModuleLicenseDTORequestBody,
+    AccountLicenseDTORequestBody,
     UpdatePathParams
   >,
   'path' | 'verb'
@@ -6517,10 +6549,10 @@ export type UseUpdateProps = Omit<
 
 export const useUpdate = ({ identifier, ...props }: UseUpdateProps) =>
   useMutate<
-    ResponseModuleLicenseDTO,
+    ResponseAccountLicenseDTO,
     Failure | Error,
     UpdateQueryParams,
-    ModuleLicenseDTORequestBody,
+    AccountLicenseDTORequestBody,
     UpdatePathParams
   >('PUT', (paramsInPath: UpdatePathParams) => `/admin/licenses/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -6533,19 +6565,19 @@ export const updatePromise = (
     identifier,
     ...props
   }: MutateUsingFetchProps<
-    ResponseModuleLicenseDTO,
+    ResponseAccountLicenseDTO,
     Failure | Error,
     UpdateQueryParams,
-    ModuleLicenseDTORequestBody,
+    AccountLicenseDTORequestBody,
     UpdatePathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
-    ResponseModuleLicenseDTO,
+    ResponseAccountLicenseDTO,
     Failure | Error,
     UpdateQueryParams,
-    ModuleLicenseDTORequestBody,
+    AccountLicenseDTORequestBody,
     UpdatePathParams
   >('PUT', getConfig('ng/api'), `/admin/licenses/${identifier}`, props, signal)
 
@@ -7123,7 +7155,7 @@ export interface GetBuildDetailsForDockerWithYamlQueryParams {
 }
 
 export type GetBuildDetailsForDockerWithYamlProps = Omit<
-  MutateProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, void, void>,
+  MutateProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -7131,7 +7163,7 @@ export type GetBuildDetailsForDockerWithYamlProps = Omit<
  * Gets docker build details with yaml input for expression resolution
  */
 export const GetBuildDetailsForDockerWithYaml = (props: GetBuildDetailsForDockerWithYamlProps) => (
-  <Mutate<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, void, void>
+  <Mutate<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>
     verb="POST"
     path={`/artifacts/docker/getBuildDetailsV2`}
     base={getConfig('ng/api')}
@@ -7140,7 +7172,7 @@ export const GetBuildDetailsForDockerWithYaml = (props: GetBuildDetailsForDocker
 )
 
 export type UseGetBuildDetailsForDockerWithYamlProps = Omit<
-  UseMutateProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, void, void>,
+  UseMutateProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -7148,7 +7180,7 @@ export type UseGetBuildDetailsForDockerWithYamlProps = Omit<
  * Gets docker build details with yaml input for expression resolution
  */
 export const useGetBuildDetailsForDockerWithYaml = (props: UseGetBuildDetailsForDockerWithYamlProps) =>
-  useMutate<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, void, void>(
+  useMutate<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>(
     'POST',
     `/artifacts/docker/getBuildDetailsV2`,
     { base: getConfig('ng/api'), ...props }
@@ -7162,18 +7194,18 @@ export const getBuildDetailsForDockerWithYamlPromise = (
     ResponseDockerResponseDTO,
     Failure | Error,
     GetBuildDetailsForDockerWithYamlQueryParams,
-    void,
+    string,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, void, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/artifacts/docker/getBuildDetailsV2`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseDockerResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForDockerWithYamlQueryParams,
+    string,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/docker/getBuildDetailsV2`, props, signal)
 
 export interface GetLabelsForDockerQueryParams {
   imagePath?: string
@@ -7554,7 +7586,13 @@ export interface GetBuildDetailsForEcrWithYamlQueryParams {
 }
 
 export type GetBuildDetailsForEcrWithYamlProps = Omit<
-  MutateProps<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrWithYamlQueryParams, void, void>,
+  MutateProps<
+    ResponseEcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForEcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -7562,7 +7600,13 @@ export type GetBuildDetailsForEcrWithYamlProps = Omit<
  * Gets ecr build details with yaml expression
  */
 export const GetBuildDetailsForEcrWithYaml = (props: GetBuildDetailsForEcrWithYamlProps) => (
-  <Mutate<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrWithYamlQueryParams, void, void>
+  <Mutate<
+    ResponseEcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForEcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >
     verb="POST"
     path={`/artifacts/ecr/getBuildDetailsV2`}
     base={getConfig('ng/api')}
@@ -7571,7 +7615,13 @@ export const GetBuildDetailsForEcrWithYaml = (props: GetBuildDetailsForEcrWithYa
 )
 
 export type UseGetBuildDetailsForEcrWithYamlProps = Omit<
-  UseMutateProps<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrWithYamlQueryParams, void, void>,
+  UseMutateProps<
+    ResponseEcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForEcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -7579,11 +7629,13 @@ export type UseGetBuildDetailsForEcrWithYamlProps = Omit<
  * Gets ecr build details with yaml expression
  */
 export const useGetBuildDetailsForEcrWithYaml = (props: UseGetBuildDetailsForEcrWithYamlProps) =>
-  useMutate<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrWithYamlQueryParams, void, void>(
-    'POST',
-    `/artifacts/ecr/getBuildDetailsV2`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponseEcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForEcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >('POST', `/artifacts/ecr/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Gets ecr build details with yaml expression
@@ -7593,18 +7645,18 @@ export const getBuildDetailsForEcrWithYamlPromise = (
     ResponseEcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForEcrWithYamlQueryParams,
-    void,
+    WebhookCatcherBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrWithYamlQueryParams, void, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/artifacts/ecr/getBuildDetailsV2`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseEcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForEcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/ecr/getBuildDetailsV2`, props, signal)
 
 export interface GetImagesListForEcrQueryParams {
   region: string
@@ -7966,7 +8018,13 @@ export interface GetBuildDetailsForGcrWithYamlQueryParams {
 }
 
 export type GetBuildDetailsForGcrWithYamlProps = Omit<
-  MutateProps<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrWithYamlQueryParams, void, void>,
+  MutateProps<
+    ResponseGcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForGcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -7974,7 +8032,13 @@ export type GetBuildDetailsForGcrWithYamlProps = Omit<
  * Gets gcr build details with Yaml expression
  */
 export const GetBuildDetailsForGcrWithYaml = (props: GetBuildDetailsForGcrWithYamlProps) => (
-  <Mutate<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrWithYamlQueryParams, void, void>
+  <Mutate<
+    ResponseGcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForGcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >
     verb="POST"
     path={`/artifacts/gcr/getBuildDetailsV2`}
     base={getConfig('ng/api')}
@@ -7983,7 +8047,13 @@ export const GetBuildDetailsForGcrWithYaml = (props: GetBuildDetailsForGcrWithYa
 )
 
 export type UseGetBuildDetailsForGcrWithYamlProps = Omit<
-  UseMutateProps<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrWithYamlQueryParams, void, void>,
+  UseMutateProps<
+    ResponseGcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForGcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -7991,11 +8061,13 @@ export type UseGetBuildDetailsForGcrWithYamlProps = Omit<
  * Gets gcr build details with Yaml expression
  */
 export const useGetBuildDetailsForGcrWithYaml = (props: UseGetBuildDetailsForGcrWithYamlProps) =>
-  useMutate<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrWithYamlQueryParams, void, void>(
-    'POST',
-    `/artifacts/gcr/getBuildDetailsV2`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponseGcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForGcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >('POST', `/artifacts/gcr/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Gets gcr build details with Yaml expression
@@ -8005,18 +8077,18 @@ export const getBuildDetailsForGcrWithYamlPromise = (
     ResponseGcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForGcrWithYamlQueryParams,
-    void,
+    WebhookCatcherBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrWithYamlQueryParams, void, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/artifacts/gcr/getBuildDetailsV2`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseGcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForGcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/gcr/getBuildDetailsV2`, props, signal)
 
 export interface GetLastSuccessfulBuildForGcrQueryParams {
   imagePath: string
@@ -9226,6 +9298,82 @@ export const getConnectorCataloguePromise = (
   getUsingFetch<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>(
     getConfig('ng/api'),
     `/connectors/catalogue`,
+    props,
+    signal
+  )
+
+export interface GetAllAllowedFieldValuesQueryParams {
+  connectorType:
+    | 'K8sCluster'
+    | 'Git'
+    | 'Splunk'
+    | 'AppDynamics'
+    | 'Prometheus'
+    | 'Vault'
+    | 'AzureKeyVault'
+    | 'DockerRegistry'
+    | 'Local'
+    | 'AwsKms'
+    | 'GcpKms'
+    | 'Gcp'
+    | 'Aws'
+    | 'Artifactory'
+    | 'Jira'
+    | 'Nexus'
+    | 'Github'
+    | 'Gitlab'
+    | 'Bitbucket'
+    | 'Codecommit'
+    | 'CEAws'
+    | 'CEAzure'
+    | 'GcpCloudCost'
+    | 'CEK8sCluster'
+    | 'HttpHelmRepo'
+    | 'NewRelic'
+    | 'Datadog'
+    | 'SumoLogic'
+}
+
+export type GetAllAllowedFieldValuesProps = Omit<
+  GetProps<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get All Allowed field values for Connector Type
+ */
+export const GetAllAllowedFieldValues = (props: GetAllAllowedFieldValuesProps) => (
+  <Get<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>
+    path={`/connectors/fieldValues`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllAllowedFieldValuesProps = Omit<
+  UseGetProps<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get All Allowed field values for Connector Type
+ */
+export const useGetAllAllowedFieldValues = (props: UseGetAllAllowedFieldValuesProps) =>
+  useGet<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>(`/connectors/fieldValues`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get All Allowed field values for Connector Type
+ */
+export const getAllAllowedFieldValuesPromise = (
+  props: GetUsingFetchProps<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>(
+    getConfig('ng/api'),
+    `/connectors/fieldValues`,
     props,
     signal
   )
@@ -12856,13 +13004,19 @@ export interface WebhookCatcherPathParams {
 }
 
 export type WebhookCatcherProps = Omit<
-  MutateProps<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams>,
+  MutateProps<
+    RestResponse,
+    unknown,
+    WebhookCatcherQueryParams,
+    WebhookCatcherBodyRequestBody,
+    WebhookCatcherPathParams
+  >,
   'path' | 'verb'
 > &
   WebhookCatcherPathParams
 
 export const WebhookCatcher = ({ entityToken, ...props }: WebhookCatcherProps) => (
-  <Mutate<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams>
+  <Mutate<RestResponse, unknown, WebhookCatcherQueryParams, WebhookCatcherBodyRequestBody, WebhookCatcherPathParams>
     verb="POST"
     path={`/git-sync-trigger/webhook/${entityToken}`}
     base={getConfig('ng/api')}
@@ -12871,13 +13025,19 @@ export const WebhookCatcher = ({ entityToken, ...props }: WebhookCatcherProps) =
 )
 
 export type UseWebhookCatcherProps = Omit<
-  UseMutateProps<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams>,
+  UseMutateProps<
+    RestResponse,
+    unknown,
+    WebhookCatcherQueryParams,
+    WebhookCatcherBodyRequestBody,
+    WebhookCatcherPathParams
+  >,
   'path' | 'verb'
 > &
   WebhookCatcherPathParams
 
 export const useWebhookCatcher = ({ entityToken, ...props }: UseWebhookCatcherProps) =>
-  useMutate<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams>(
+  useMutate<RestResponse, unknown, WebhookCatcherQueryParams, WebhookCatcherBodyRequestBody, WebhookCatcherPathParams>(
     'POST',
     (paramsInPath: WebhookCatcherPathParams) => `/git-sync-trigger/webhook/${paramsInPath.entityToken}`,
     { base: getConfig('ng/api'), pathParams: { entityToken }, ...props }
@@ -12887,18 +13047,22 @@ export const webhookCatcherPromise = (
   {
     entityToken,
     ...props
-  }: MutateUsingFetchProps<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams> & {
-    entityToken: string
-  },
+  }: MutateUsingFetchProps<
+    RestResponse,
+    unknown,
+    WebhookCatcherQueryParams,
+    WebhookCatcherBodyRequestBody,
+    WebhookCatcherPathParams
+  > & { entityToken: string },
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams>(
-    'POST',
-    getConfig('ng/api'),
-    `/git-sync-trigger/webhook/${entityToken}`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    RestResponse,
+    unknown,
+    WebhookCatcherQueryParams,
+    WebhookCatcherBodyRequestBody,
+    WebhookCatcherPathParams
+  >('POST', getConfig('ng/api'), `/git-sync-trigger/webhook/${entityToken}`, props, signal)
 
 export interface IsGitSyncEnabledQueryParams {
   accountIdentifier?: string
@@ -14389,122 +14553,117 @@ export const validateJiraCredentialsPromise = (
     signal
   )
 
-export interface GetModuleLicenseByAccountAndModuleTypeQueryParams {
+export interface GetModuleLicenseQueryParams {
   accountIdentifier: string
   moduleType: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
 }
 
-export type GetModuleLicenseByAccountAndModuleTypeProps = Omit<
-  GetProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>,
+export type GetModuleLicenseProps = Omit<
+  GetProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseQueryParams, void>,
   'path'
 >
 
 /**
- * Gets Module License By Account And ModuleType
+ * Gets Account License
  */
-export const GetModuleLicenseByAccountAndModuleType = (props: GetModuleLicenseByAccountAndModuleTypeProps) => (
-  <Get<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>
+export const GetModuleLicense = (props: GetModuleLicenseProps) => (
+  <Get<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseQueryParams, void>
     path={`/licenses`}
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetModuleLicenseByAccountAndModuleTypeProps = Omit<
-  UseGetProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>,
+export type UseGetModuleLicenseProps = Omit<
+  UseGetProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseQueryParams, void>,
   'path'
 >
 
 /**
- * Gets Module License By Account And ModuleType
+ * Gets Account License
  */
-export const useGetModuleLicenseByAccountAndModuleType = (props: UseGetModuleLicenseByAccountAndModuleTypeProps) =>
-  useGet<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>(
-    `/licenses`,
-    { base: getConfig('ng/api'), ...props }
-  )
+export const useGetModuleLicense = (props: UseGetModuleLicenseProps) =>
+  useGet<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseQueryParams, void>(`/licenses`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 /**
- * Gets Module License By Account And ModuleType
+ * Gets Account License
  */
-export const getModuleLicenseByAccountAndModuleTypePromise = (
-  props: GetUsingFetchProps<
-    ResponseModuleLicenseDTO,
-    Failure | Error,
-    GetModuleLicenseByAccountAndModuleTypeQueryParams,
-    void
-  >,
+export const getModuleLicensePromise = (
+  props: GetUsingFetchProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>(
+  getUsingFetch<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseQueryParams, void>(
     getConfig('ng/api'),
     `/licenses`,
     props,
     signal
   )
 
-export interface GetAccountLicensesQueryParams {
+export interface GetAccountLicenseQueryParams {
   accountIdentifier?: string
 }
 
-export type GetAccountLicensesProps = Omit<
-  GetProps<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesQueryParams, void>,
+export type GetAccountLicenseProps = Omit<
+  GetProps<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicenseQueryParams, void>,
   'path'
 >
 
-/**
- * Gets All Module License Information in Account
- */
-export const GetAccountLicenses = (props: GetAccountLicensesProps) => (
-  <Get<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesQueryParams, void>
+export const GetAccountLicense = (props: GetAccountLicenseProps) => (
+  <Get<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicenseQueryParams, void>
     path={`/licenses/account`}
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetAccountLicensesProps = Omit<
-  UseGetProps<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesQueryParams, void>,
+export type UseGetAccountLicenseProps = Omit<
+  UseGetProps<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicenseQueryParams, void>,
   'path'
 >
 
-/**
- * Gets All Module License Information in Account
- */
-export const useGetAccountLicenses = (props: UseGetAccountLicensesProps) =>
-  useGet<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesQueryParams, void>(`/licenses/account`, {
+export const useGetAccountLicense = (props: UseGetAccountLicenseProps) =>
+  useGet<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicenseQueryParams, void>(`/licenses/account`, {
     base: getConfig('ng/api'),
     ...props
   })
 
-/**
- * Gets All Module License Information in Account
- */
-export const getAccountLicensesPromise = (
-  props: GetUsingFetchProps<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesQueryParams, void>,
+export const getAccountLicensePromise = (
+  props: GetUsingFetchProps<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicenseQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseAccountLicensesDTO, Failure | Error, GetAccountLicensesQueryParams, void>(
+  getUsingFetch<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicenseQueryParams, void>(
     getConfig('ng/api'),
     `/licenses/account`,
     props,
     signal
   )
 
-export interface StartTrialLicenseQueryParams {
+export interface StartTrialLicense1QueryParams {
   accountIdentifier: string
 }
 
-export type StartTrialLicenseProps = Omit<
-  MutateProps<ResponseModuleLicenseDTO, Failure | Error, StartTrialLicenseQueryParams, StartTrialRequestDTO, void>,
+export type StartTrialLicense1Props = Omit<
+  MutateProps<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    StartTrialLicense1QueryParams,
+    StartTrialRequestDTORequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
-/**
- * Starts Trail License For A Module
- */
-export const StartTrialLicense = (props: StartTrialLicenseProps) => (
-  <Mutate<ResponseModuleLicenseDTO, Failure | Error, StartTrialLicenseQueryParams, StartTrialRequestDTO, void>
+export const StartTrialLicense1 = (props: StartTrialLicense1Props) => (
+  <Mutate<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    StartTrialLicense1QueryParams,
+    StartTrialRequestDTORequestBody,
+    void
+  >
     verb="POST"
     path={`/licenses/trial`}
     base={getConfig('ng/api')}
@@ -14512,103 +14671,188 @@ export const StartTrialLicense = (props: StartTrialLicenseProps) => (
   />
 )
 
-export type UseStartTrialLicenseProps = Omit<
-  UseMutateProps<ResponseModuleLicenseDTO, Failure | Error, StartTrialLicenseQueryParams, StartTrialRequestDTO, void>,
+export type UseStartTrialLicense1Props = Omit<
+  UseMutateProps<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    StartTrialLicense1QueryParams,
+    StartTrialRequestDTORequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
-/**
- * Starts Trail License For A Module
- */
-export const useStartTrialLicense = (props: UseStartTrialLicenseProps) =>
-  useMutate<ResponseModuleLicenseDTO, Failure | Error, StartTrialLicenseQueryParams, StartTrialRequestDTO, void>(
-    'POST',
-    `/licenses/trial`,
-    { base: getConfig('ng/api'), ...props }
-  )
+export const useStartTrialLicense1 = (props: UseStartTrialLicense1Props) =>
+  useMutate<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    StartTrialLicense1QueryParams,
+    StartTrialRequestDTORequestBody,
+    void
+  >('POST', `/licenses/trial`, { base: getConfig('ng/api'), ...props })
 
-/**
- * Starts Trail License For A Module
- */
-export const startTrialLicensePromise = (
+export const startTrialLicense1Promise = (
   props: MutateUsingFetchProps<
     ResponseModuleLicenseDTO,
     Failure | Error,
-    StartTrialLicenseQueryParams,
-    StartTrialRequestDTO,
+    StartTrialLicense1QueryParams,
+    StartTrialRequestDTORequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseModuleLicenseDTO, Failure | Error, StartTrialLicenseQueryParams, StartTrialRequestDTO, void>(
-    'POST',
+  mutateUsingFetch<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    StartTrialLicense1QueryParams,
+    StartTrialRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/licenses/trial`, props, signal)
+
+export interface CheckNGLicensesAllInactive1PathParams {
+  accountId: string
+}
+
+export type CheckNGLicensesAllInactive1Props = Omit<
+  GetProps<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactive1PathParams>,
+  'path'
+> &
+  CheckNGLicensesAllInactive1PathParams
+
+export const CheckNGLicensesAllInactive1 = ({ accountId, ...props }: CheckNGLicensesAllInactive1Props) => (
+  <Get<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactive1PathParams>
+    path={`/licenses/${accountId}/inactive-status`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCheckNGLicensesAllInactive1Props = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactive1PathParams>,
+  'path'
+> &
+  CheckNGLicensesAllInactive1PathParams
+
+export const useCheckNGLicensesAllInactive1 = ({ accountId, ...props }: UseCheckNGLicensesAllInactive1Props) =>
+  useGet<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactive1PathParams>(
+    (paramsInPath: CheckNGLicensesAllInactive1PathParams) => `/licenses/${paramsInPath.accountId}/inactive-status`,
+    { base: getConfig('ng/api'), pathParams: { accountId }, ...props }
+  )
+
+export const checkNGLicensesAllInactive1Promise = (
+  {
+    accountId,
+    ...props
+  }: GetUsingFetchProps<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactive1PathParams> & {
+    accountId: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactive1PathParams>(
     getConfig('ng/api'),
-    `/licenses/trial`,
+    `/licenses/${accountId}/inactive-status`,
     props,
     signal
   )
 
-export interface GetModuleLicenseQueryParams {
+export interface SoftDelete1PathParams {
+  accountId: string
+}
+
+export type SoftDelete1Props = Omit<GetProps<ResponseBoolean, Failure | Error, void, SoftDelete1PathParams>, 'path'> &
+  SoftDelete1PathParams
+
+export const SoftDelete1 = ({ accountId, ...props }: SoftDelete1Props) => (
+  <Get<ResponseBoolean, Failure | Error, void, SoftDelete1PathParams>
+    path={`/licenses/${accountId}/soft-delete`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseSoftDelete1Props = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, void, SoftDelete1PathParams>,
+  'path'
+> &
+  SoftDelete1PathParams
+
+export const useSoftDelete1 = ({ accountId, ...props }: UseSoftDelete1Props) =>
+  useGet<ResponseBoolean, Failure | Error, void, SoftDelete1PathParams>(
+    (paramsInPath: SoftDelete1PathParams) => `/licenses/${paramsInPath.accountId}/soft-delete`,
+    { base: getConfig('ng/api'), pathParams: { accountId }, ...props }
+  )
+
+export const softDelete1Promise = (
+  {
+    accountId,
+    ...props
+  }: GetUsingFetchProps<ResponseBoolean, Failure | Error, void, SoftDelete1PathParams> & { accountId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, void, SoftDelete1PathParams>(
+    getConfig('ng/api'),
+    `/licenses/${accountId}/soft-delete`,
+    props,
+    signal
+  )
+
+export interface GetModuleLicenseByIdQueryParams {
   accountIdentifier: string
 }
 
-export interface GetModuleLicensePathParams {
+export interface GetModuleLicenseByIdPathParams {
   identifier: string
 }
 
-export type GetModuleLicenseProps = Omit<
-  GetProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseQueryParams, GetModuleLicensePathParams>,
+export type GetModuleLicenseByIdProps = Omit<
+  GetProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByIdQueryParams, GetModuleLicenseByIdPathParams>,
   'path'
 > &
-  GetModuleLicensePathParams
+  GetModuleLicenseByIdPathParams
 
-/**
- * Gets Module License
- */
-export const GetModuleLicense = ({ identifier, ...props }: GetModuleLicenseProps) => (
-  <Get<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseQueryParams, GetModuleLicensePathParams>
+export const GetModuleLicenseById = ({ identifier, ...props }: GetModuleLicenseByIdProps) => (
+  <Get<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByIdQueryParams, GetModuleLicenseByIdPathParams>
     path={`/licenses/${identifier}`}
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetModuleLicenseProps = Omit<
-  UseGetProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseQueryParams, GetModuleLicensePathParams>,
+export type UseGetModuleLicenseByIdProps = Omit<
+  UseGetProps<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    GetModuleLicenseByIdQueryParams,
+    GetModuleLicenseByIdPathParams
+  >,
   'path'
 > &
-  GetModuleLicensePathParams
+  GetModuleLicenseByIdPathParams
 
-/**
- * Gets Module License
- */
-export const useGetModuleLicense = ({ identifier, ...props }: UseGetModuleLicenseProps) =>
-  useGet<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseQueryParams, GetModuleLicensePathParams>(
-    (paramsInPath: GetModuleLicensePathParams) => `/licenses/${paramsInPath.identifier}`,
+export const useGetModuleLicenseById = ({ identifier, ...props }: UseGetModuleLicenseByIdProps) =>
+  useGet<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByIdQueryParams, GetModuleLicenseByIdPathParams>(
+    (paramsInPath: GetModuleLicenseByIdPathParams) => `/licenses/${paramsInPath.identifier}`,
     { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
   )
 
-/**
- * Gets Module License
- */
-export const getModuleLicensePromise = (
+export const getModuleLicenseByIdPromise = (
   {
     identifier,
     ...props
   }: GetUsingFetchProps<
     ResponseModuleLicenseDTO,
     Failure | Error,
-    GetModuleLicenseQueryParams,
-    GetModuleLicensePathParams
+    GetModuleLicenseByIdQueryParams,
+    GetModuleLicenseByIdPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseQueryParams, GetModuleLicensePathParams>(
-    getConfig('ng/api'),
-    `/licenses/${identifier}`,
-    props,
-    signal
-  )
+  getUsingFetch<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    GetModuleLicenseByIdQueryParams,
+    GetModuleLicenseByIdPathParams
+  >(getConfig('ng/api'), `/licenses/${identifier}`, props, signal)
 
 export interface GetOrganizationListQueryParams {
   accountIdentifier: string
@@ -14988,6 +15232,115 @@ export const getPartialYamlSchemaPromise = (
   getUsingFetch<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>(
     getConfig('ng/api'),
     `/partial-yaml-schema`,
+    props,
+    signal
+  )
+
+export type CreateCheckoutSessionProps = Omit<
+  MutateProps<string, unknown, void, CreateCheckoutSessionRequest, void>,
+  'path' | 'verb'
+>
+
+export const CreateCheckoutSession = (props: CreateCheckoutSessionProps) => (
+  <Mutate<string, unknown, void, CreateCheckoutSessionRequest, void>
+    verb="POST"
+    path={`/payment/create-checkout-session`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateCheckoutSessionProps = Omit<
+  UseMutateProps<string, unknown, void, CreateCheckoutSessionRequest, void>,
+  'path' | 'verb'
+>
+
+export const useCreateCheckoutSession = (props: UseCreateCheckoutSessionProps) =>
+  useMutate<string, unknown, void, CreateCheckoutSessionRequest, void>('POST', `/payment/create-checkout-session`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export const createCheckoutSessionPromise = (
+  props: MutateUsingFetchProps<string, unknown, void, CreateCheckoutSessionRequest, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<string, unknown, void, CreateCheckoutSessionRequest, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/payment/create-checkout-session`,
+    props,
+    signal
+  )
+
+export interface GetSesssionQueryParams {
+  sessionId?: string
+}
+
+export type GetSesssionProps = Omit<GetProps<string, unknown, GetSesssionQueryParams, void>, 'path'>
+
+export const GetSesssion = (props: GetSesssionProps) => (
+  <Get<string, unknown, GetSesssionQueryParams, void> path={`/payment/session`} base={getConfig('ng/api')} {...props} />
+)
+
+export type UseGetSesssionProps = Omit<UseGetProps<string, unknown, GetSesssionQueryParams, void>, 'path'>
+
+export const useGetSesssion = (props: UseGetSesssionProps) =>
+  useGet<string, unknown, GetSesssionQueryParams, void>(`/payment/session`, { base: getConfig('ng/api'), ...props })
+
+export const getSesssionPromise = (
+  props: GetUsingFetchProps<string, unknown, GetSesssionQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<string, unknown, GetSesssionQueryParams, void>(getConfig('ng/api'), `/payment/session`, props, signal)
+
+export type SetupProps = Omit<GetProps<string, unknown, void, void>, 'path'>
+
+export const Setup = (props: SetupProps) => (
+  <Get<string, unknown, void, void> path={`/payment/setup`} base={getConfig('ng/api')} {...props} />
+)
+
+export type UseSetupProps = Omit<UseGetProps<string, unknown, void, void>, 'path'>
+
+export const useSetup = (props: UseSetupProps) =>
+  useGet<string, unknown, void, void>(`/payment/setup`, { base: getConfig('ng/api'), ...props })
+
+export const setupPromise = (props: GetUsingFetchProps<string, unknown, void, void>, signal?: RequestInit['signal']) =>
+  getUsingFetch<string, unknown, void, void>(getConfig('ng/api'), `/payment/setup`, props, signal)
+
+export type WebHookProps = Omit<
+  MutateProps<string, unknown, void, WebhookCatcherBodyRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const WebHook = (props: WebHookProps) => (
+  <Mutate<string, unknown, void, WebhookCatcherBodyRequestBody, void>
+    verb="POST"
+    path={`/payment/webhook`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseWebHookProps = Omit<
+  UseMutateProps<string, unknown, void, WebhookCatcherBodyRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useWebHook = (props: UseWebHookProps) =>
+  useMutate<string, unknown, void, WebhookCatcherBodyRequestBody, void>('POST', `/payment/webhook`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export const webHookPromise = (
+  props: MutateUsingFetchProps<string, unknown, void, WebhookCatcherBodyRequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<string, unknown, void, WebhookCatcherBodyRequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/payment/webhook`,
     props,
     signal
   )
@@ -18790,6 +19143,279 @@ export const removeUserPromise = (
     'DELETE',
     getConfig('ng/api'),
     `/user`,
+    props,
+    signal
+  )
+
+export interface GetModuleLicenseByAccountAndModuleTypeQueryParams {
+  accountIdentifier: string
+  moduleType: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
+}
+
+export type GetModuleLicenseByAccountAndModuleTypeProps = Omit<
+  GetProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Module License By Account And ModuleType
+ */
+export const GetModuleLicenseByAccountAndModuleType = (props: GetModuleLicenseByAccountAndModuleTypeProps) => (
+  <Get<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>
+    path={`/v1/licenses`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetModuleLicenseByAccountAndModuleTypeProps = Omit<
+  UseGetProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Module License By Account And ModuleType
+ */
+export const useGetModuleLicenseByAccountAndModuleType = (props: UseGetModuleLicenseByAccountAndModuleTypeProps) =>
+  useGet<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>(
+    `/v1/licenses`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets Module License By Account And ModuleType
+ */
+export const getModuleLicenseByAccountAndModuleTypePromise = (
+  props: GetUsingFetchProps<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    GetModuleLicenseByAccountAndModuleTypeQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>(
+    getConfig('ng/api'),
+    `/v1/licenses`,
+    props,
+    signal
+  )
+
+export interface StartTrialLicenseQueryParams {
+  accountIdentifier: string
+}
+
+export type StartTrialLicenseProps = Omit<
+  MutateProps<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    StartTrialLicenseQueryParams,
+    StartTrialRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Starts Trail License For A Module
+ */
+export const StartTrialLicense = (props: StartTrialLicenseProps) => (
+  <Mutate<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    StartTrialLicenseQueryParams,
+    StartTrialRequestDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/v1/licenses/trial`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseStartTrialLicenseProps = Omit<
+  UseMutateProps<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    StartTrialLicenseQueryParams,
+    StartTrialRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Starts Trail License For A Module
+ */
+export const useStartTrialLicense = (props: UseStartTrialLicenseProps) =>
+  useMutate<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    StartTrialLicenseQueryParams,
+    StartTrialRequestDTORequestBody,
+    void
+  >('POST', `/v1/licenses/trial`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Starts Trail License For A Module
+ */
+export const startTrialLicensePromise = (
+  props: MutateUsingFetchProps<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    StartTrialLicenseQueryParams,
+    StartTrialRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseModuleLicenseDTO,
+    Failure | Error,
+    StartTrialLicenseQueryParams,
+    StartTrialRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/v1/licenses/trial`, props, signal)
+
+export interface GetAccountLicensesPathParams {
+  accountIdentifier: string
+}
+
+export type GetAccountLicensesProps = Omit<
+  GetProps<ResponseAccountLicenseDTO, Failure | Error, void, GetAccountLicensesPathParams>,
+  'path'
+> &
+  GetAccountLicensesPathParams
+
+/**
+ * Gets Account License
+ */
+export const GetAccountLicenses = ({ accountIdentifier, ...props }: GetAccountLicensesProps) => (
+  <Get<ResponseAccountLicenseDTO, Failure | Error, void, GetAccountLicensesPathParams>
+    path={`/v1/licenses/${accountIdentifier}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetAccountLicensesProps = Omit<
+  UseGetProps<ResponseAccountLicenseDTO, Failure | Error, void, GetAccountLicensesPathParams>,
+  'path'
+> &
+  GetAccountLicensesPathParams
+
+/**
+ * Gets Account License
+ */
+export const useGetAccountLicenses = ({ accountIdentifier, ...props }: UseGetAccountLicensesProps) =>
+  useGet<ResponseAccountLicenseDTO, Failure | Error, void, GetAccountLicensesPathParams>(
+    (paramsInPath: GetAccountLicensesPathParams) => `/v1/licenses/${paramsInPath.accountIdentifier}`,
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
+  )
+
+/**
+ * Gets Account License
+ */
+export const getAccountLicensesPromise = (
+  {
+    accountIdentifier,
+    ...props
+  }: GetUsingFetchProps<ResponseAccountLicenseDTO, Failure | Error, void, GetAccountLicensesPathParams> & {
+    accountIdentifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseAccountLicenseDTO, Failure | Error, void, GetAccountLicensesPathParams>(
+    getConfig('ng/api'),
+    `/v1/licenses/${accountIdentifier}`,
+    props,
+    signal
+  )
+
+export interface CheckNGLicensesAllInactivePathParams {
+  accountId: string
+}
+
+export type CheckNGLicensesAllInactiveProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactivePathParams>,
+  'path'
+> &
+  CheckNGLicensesAllInactivePathParams
+
+export const CheckNGLicensesAllInactive = ({ accountId, ...props }: CheckNGLicensesAllInactiveProps) => (
+  <Get<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactivePathParams>
+    path={`/v1/licenses/${accountId}/inactive-status`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCheckNGLicensesAllInactiveProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactivePathParams>,
+  'path'
+> &
+  CheckNGLicensesAllInactivePathParams
+
+export const useCheckNGLicensesAllInactive = ({ accountId, ...props }: UseCheckNGLicensesAllInactiveProps) =>
+  useGet<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactivePathParams>(
+    (paramsInPath: CheckNGLicensesAllInactivePathParams) => `/v1/licenses/${paramsInPath.accountId}/inactive-status`,
+    { base: getConfig('ng/api'), pathParams: { accountId }, ...props }
+  )
+
+export const checkNGLicensesAllInactivePromise = (
+  {
+    accountId,
+    ...props
+  }: GetUsingFetchProps<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactivePathParams> & {
+    accountId: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, void, CheckNGLicensesAllInactivePathParams>(
+    getConfig('ng/api'),
+    `/v1/licenses/${accountId}/inactive-status`,
+    props,
+    signal
+  )
+
+export interface SoftDeletePathParams {
+  accountId: string
+}
+
+export type SoftDeleteProps = Omit<GetProps<ResponseBoolean, Failure | Error, void, SoftDeletePathParams>, 'path'> &
+  SoftDeletePathParams
+
+export const SoftDelete = ({ accountId, ...props }: SoftDeleteProps) => (
+  <Get<ResponseBoolean, Failure | Error, void, SoftDeletePathParams>
+    path={`/v1/licenses/${accountId}/soft-delete`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseSoftDeleteProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, void, SoftDeletePathParams>,
+  'path'
+> &
+  SoftDeletePathParams
+
+export const useSoftDelete = ({ accountId, ...props }: UseSoftDeleteProps) =>
+  useGet<ResponseBoolean, Failure | Error, void, SoftDeletePathParams>(
+    (paramsInPath: SoftDeletePathParams) => `/v1/licenses/${paramsInPath.accountId}/soft-delete`,
+    { base: getConfig('ng/api'), pathParams: { accountId }, ...props }
+  )
+
+export const softDeletePromise = (
+  {
+    accountId,
+    ...props
+  }: GetUsingFetchProps<ResponseBoolean, Failure | Error, void, SoftDeletePathParams> & { accountId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, void, SoftDeletePathParams>(
+    getConfig('ng/api'),
+    `/v1/licenses/${accountId}/soft-delete`,
     props,
     signal
   )

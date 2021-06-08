@@ -4310,10 +4310,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'formValidation.name': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   functions: string
   /**
    * @deprecated migrate this string to module level file

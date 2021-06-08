@@ -203,69 +203,86 @@ const ProjectOverview: React.FC<{
   if (loading) {
     return <PageSpinner />
   }
+
+  const activityHistoryDetailsList = data?.data?.activityHistoryDetailsList || []
+
+  const resultsPresent =
+    activityHistoryDetailsList?.length !== 0 &&
+    (activityType === ACTIVITY_TYPES_ENUM.ALL ||
+      activityHistoryDetailsList.filter(activityHistoryDetails => activityHistoryDetails.activityType === activityType)
+        .length)
+
   return (
     <Timeline>
-      {(data?.data?.activityHistoryDetailsList || []).map((activityHistoryDetails, index) => {
-        const icon = IconMap[activityHistoryDetails?.activityType ?? 'default']
-        const time = activityHistoryDetails?.timestamp
-          ? new Date(activityHistoryDetails.timestamp).toLocaleTimeString('en-us', {
-              hour: '2-digit',
-              minute: '2-digit'
-            })
-          : ''
-        const actType = activityHistoryDetails?.activityType
-        const username = activityHistoryDetails.userName || ''
-        const userid = activityHistoryDetails.userId || ''
-        const resourceType = activityHistoryDetails.resourceType?.toLowerCase() || ''
-        const resourceName = activityHistoryDetails.resourceName || ''
-        const resourceId = activityHistoryDetails.resourceId || ''
-        let message = ''
-        if (!actType) {
-          /**/
-        } else if (
-          [
-            ACTIVITY_TYPES_ENUM.CREATE_RESOURCE,
-            ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE,
-            ACTIVITY_TYPES_ENUM.VIEW_RESOURCE
-          ].indexOf(actType as ACTIVITY_TYPES_ENUM) !== -1
-        ) {
-          const action =
-            actType === ACTIVITY_TYPES_ENUM.CREATE_RESOURCE
-              ? 'created'
-              : actType === ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE
-              ? 'updated'
-              : 'viewed'
-          message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
-        } else if (
-          [ACTIVITY_TYPES_ENUM.RUN_PIPELINE, ACTIVITY_TYPES_ENUM.BUILD_PIPELINE].indexOf(
-            actType as ACTIVITY_TYPES_ENUM
-          ) !== -1
-        ) {
-          const action = actType === ACTIVITY_TYPES_ENUM.BUILD_PIPELINE ? 'started build for' : 'started'
-          message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
-        } else if (actType === ACTIVITY_TYPES_ENUM.NEW_USER_ADDED) {
-          const action = 'was added to'
-          message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
-        }
-        return (
-          <TimelineItem key={index}>
-            <TimelineOppositeContent>
-              <Text>{time}</Text>
-            </TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot>
-                <Icon name={icon as IconName} />
-              </TimelineDot>
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>
-              <Layout.Horizontal>
-                <div dangerouslySetInnerHTML={{ __html: message }} />
-              </Layout.Horizontal>
-            </TimelineContent>
-          </TimelineItem>
-        )
-      })}
+      {resultsPresent ? (
+        (activityHistoryDetailsList || []).map((activityHistoryDetails, index) => {
+          if (activityType === ACTIVITY_TYPES_ENUM.ALL || activityHistoryDetails.activityType === activityType) {
+            const icon = IconMap[activityHistoryDetails?.activityType ?? 'default']
+            const time = activityHistoryDetails?.timestamp
+              ? new Date(activityHistoryDetails.timestamp).toLocaleTimeString('en-us', {
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })
+              : ''
+            const actType = activityHistoryDetails?.activityType
+            const username = activityHistoryDetails.userName || ''
+            const userid = activityHistoryDetails.userId || ''
+            const resourceType = activityHistoryDetails.resourceType?.toLowerCase() || ''
+            const resourceName = activityHistoryDetails.resourceName || ''
+            const resourceId = activityHistoryDetails.resourceId || ''
+            let message = ''
+            if (!actType) {
+              /**/
+            } else if (
+              [
+                ACTIVITY_TYPES_ENUM.CREATE_RESOURCE,
+                ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE,
+                ACTIVITY_TYPES_ENUM.VIEW_RESOURCE
+              ].indexOf(actType as ACTIVITY_TYPES_ENUM) !== -1
+            ) {
+              const action =
+                actType === ACTIVITY_TYPES_ENUM.CREATE_RESOURCE
+                  ? 'created'
+                  : actType === ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE
+                  ? 'updated'
+                  : 'viewed'
+              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+            } else if (
+              [ACTIVITY_TYPES_ENUM.RUN_PIPELINE, ACTIVITY_TYPES_ENUM.BUILD_PIPELINE].indexOf(
+                actType as ACTIVITY_TYPES_ENUM
+              ) !== -1
+            ) {
+              const action = actType === ACTIVITY_TYPES_ENUM.BUILD_PIPELINE ? 'started build for' : 'started'
+              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+            } else if (actType === ACTIVITY_TYPES_ENUM.NEW_USER_ADDED) {
+              const action = 'was added to'
+              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+            }
+            return (
+              <TimelineItem key={index}>
+                <TimelineOppositeContent>
+                  <Text>{time}</Text>
+                </TimelineOppositeContent>
+                <TimelineSeparator>
+                  <TimelineDot>
+                    <Icon name={icon as IconName} />
+                  </TimelineDot>
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent>
+                  <Layout.Horizontal>
+                    <div dangerouslySetInnerHTML={{ __html: message }} />
+                  </Layout.Horizontal>
+                </TimelineContent>
+              </TimelineItem>
+            )
+          } else {
+            return <></>
+          }
+        })
+      ) : (
+        <>No Activity History</>
+      )}
     </Timeline>
   )
 }

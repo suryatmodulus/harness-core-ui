@@ -45,6 +45,7 @@ const ProjectsListPage: React.FC = () => {
   )
 
   const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
+  const [sortBy, setSortBy] = useState<SelectOption>({ label: 'None', value: 'NONE' })
 
   const { data: orgsData } = useGetOrganizationList({
     queryParams: {
@@ -142,6 +143,36 @@ const ProjectsListPage: React.FC = () => {
               <Layout.Horizontal spacing="xsmall">
                 <Text color={Color.BLACK}>{getString('projectsOrgs.tabOrgs')}</Text>
                 <Text>{orgFilter.label}</Text>
+              </Layout.Horizontal>
+            }
+          />
+        </CustomSelect>
+
+        <CustomSelect
+          items={[
+            { label: 'Overall', value: 'OVERALL' },
+            { label: 'Usage', value: 'USAGE' },
+            { label: 'Visibility', value: 'VISIBILITY' },
+            { label: 'Deployment Activity', value: 'DEPLOYMENT_ACTIVITY' }
+          ]}
+          filterable={false}
+          itemRenderer={(item, { handleClick }) => (
+            <div key={item.value.toString()}>
+              <Menu.Item text={item.label} onClick={handleClick} />
+            </div>
+          )}
+          onItemSelect={item => setSortBy(item)}
+          popoverProps={{ minimal: true, popoverClassName: css.customselect }}
+        >
+          <Button
+            inline
+            round
+            rightIcon="chevron-down"
+            className={css.orgSelect}
+            text={
+              <Layout.Horizontal spacing="xsmall">
+                <Text color={Color.BLACK}>{'Sort by'}</Text>
+                <Text>{sortBy.label}</Text>
               </Layout.Horizontal>
             }
           />

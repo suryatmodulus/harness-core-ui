@@ -4,5 +4,6 @@ declare const styles: {
   readonly projectInsights: string
   readonly heatmap: string
   readonly panel: string
+  readonly user: string
 }
 export default styles

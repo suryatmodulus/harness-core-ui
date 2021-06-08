@@ -115,7 +115,8 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
         </div>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-      target: '.ManifestWizardSteps-module_manifestStore_1F_sZD'
+      target: '.ManifestWizardSteps-module_manifestStore_1F_sZD',
+      disableBeacon: true
     }
   ]
   return (

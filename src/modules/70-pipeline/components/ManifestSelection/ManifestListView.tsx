@@ -640,12 +640,13 @@ const ManifestListView = ({
           <p style={{ marginTop: '35px' }}>
             Add the configuration files that describe the desired state of your app in terms of Kubernetes API object
             descriptions. All files in Manifests must have the .yaml file extension.Configure you pipeline manifest
-            here.
+            here.Click on add Manifest to set up your manifest.
           </p>
         </div>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-      target: '.ManifestSelection-module_manifestText_1jNFcG'
+      target: '.ManifestSelection-module_manifestText_1jNFcG',
+      disableBeacon: true
     }
   ]
   return (
@@ -760,7 +761,7 @@ const ManifestListView = ({
             style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}
             onClick={() => addNewManifest()}
           >
-            <String stringID="pipelineSteps.serviceTab.manifestList.addManifest" />
+            <String className={css.manifestText} stringID="pipelineSteps.serviceTab.manifestList.addManifest" />
           </Text>
         )}
       </Layout.Vertical>

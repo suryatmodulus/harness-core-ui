@@ -183,7 +183,8 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
         </div>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-      target: '.bp3-input-ghost'
+      target: '.bp3-input-ghost',
+      disableBeacon: true
     }
   ]
   return (

@@ -93,7 +93,8 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
         </div>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-      target: '.ArtifactConnector-module_connectorContainer_8b7Adw'
+      target: '.ArtifactConnector-module_connectorContainer_8b7Adw',
+      disableBeacon: true
     }
   ]
 

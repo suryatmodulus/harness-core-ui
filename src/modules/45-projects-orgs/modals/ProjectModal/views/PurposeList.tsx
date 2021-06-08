@@ -41,7 +41,8 @@ const getModuleLinks = (
         </div>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-      target: '.Purpose-module_border_TLBw9F'
+      target: '.Purpose-module_border_TLBw9F',
+      disableBeacon: true
     },
     {
       content: (
@@ -51,7 +52,8 @@ const getModuleLinks = (
         </div>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-      target: '.Purpose-module_newPipeline_3f6oZi'
+      target: '.Purpose-module_newPipeline_3f6oZi',
+      disableBeacon: true
     }
   ]
   switch (module) {
@@ -64,7 +66,7 @@ const getModuleLinks = (
             // getHelpers={this.getHelpers}
             run={true}
             scrollToFirstStep={true}
-            // showProgress={true}
+            showProgress={true}
             showSkipButton={true}
             steps={steps}
             styles={{
@@ -85,7 +87,7 @@ const getModuleLinks = (
               module: 'cd'
             })}
           >
-            {<String stringID="moduleRenderer.newPipeLine" />}
+            {<String className={css.newPipeline} stringID="moduleRenderer.newPipeLine" />}
           </Link>
         </Layout.Vertical>
       )

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useHistory, useParams } from 'react-router-dom'
 import { Button, Heading, Color, Layout, Container, Text, useModalHook } from '@wings-software/uicore'
@@ -100,9 +100,10 @@ const GetStartedProject: React.FC = () => {
       </Dialog>
     )
   }, [])
-
+  const [runFlag, setFlag] = useState(false)
   const [showModal2, hideModal2] = useModalHook(() => {
     const closeHandler = (): void => {
+      setFlag(true)
       hideModal2()
     }
 
@@ -160,7 +161,8 @@ const GetStartedProject: React.FC = () => {
         </div>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-      target: '.bp3-button'
+      target: '.bp3-button',
+      disableBeacon: true
     }
   ]
 
@@ -171,7 +173,7 @@ const GetStartedProject: React.FC = () => {
         hideBackButton={true}
         continuous={true}
         // getHelpers={this.getHelpers}
-        run={true}
+        run={runFlag}
         scrollToFirstStep={true}
         // showProgress={true}
         showSkipButton={true}

@@ -81,7 +81,8 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
         </div>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
-      target: '.bp3-input-action'
+      target: '.bp3-input-action',
+      disableBeacon: true
     }
   ]
   return (

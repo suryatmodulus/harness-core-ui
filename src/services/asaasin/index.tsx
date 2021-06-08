@@ -29,11 +29,18 @@ export interface GithubPlan {
   name?: string
 }
 
+export interface GithubRecommendations {
+  message?: string
+  level?: number
+  savings?: number
+}
+
 export interface GithubDetailsResponse {
   org?: GithubOrg
   members?: any
   inactive_members?: any
   rarely_active_members?: any
+  recommendations?: any
 }
 
 export type GithubDetailsProps = Omit<GetProps<GithubDetailsResponse, void, void, void>, 'path'>

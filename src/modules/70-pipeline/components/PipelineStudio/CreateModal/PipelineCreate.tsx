@@ -14,7 +14,6 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitContextForm from '@common/components/GitContextForm/GitContextForm'
 import type { EntityGitDetails } from 'services/pipeline-ng'
-import diamond from './images/diamond.png'
 
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import css from './PipelineCreate.module.scss'

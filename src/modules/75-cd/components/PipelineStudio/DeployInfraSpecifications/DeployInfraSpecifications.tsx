@@ -488,26 +488,27 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           </Card>
         ) : null}
 
-        <Popover
-          interactionKind={PopoverInteractionKind.CLICK}
-          targetProps={{ onClick: () => <RoadMapForGamification initialProgress={50} /> }}
-          defaultIsOpen={true}
-          // onInteraction={nextOpenState => {
-          //   if (nextOpenState === false) {
-          //     setShowRoadMap(false)
-          //   }
-          // }}
-          boundary="viewport"
-          popoverClassName={Classes.ACTIVE}
-          content={<RoadMapForGamification initialProgress={50} />}
-        >
-          <Button>
-            {' '}
-            <Icon name="multi-service" size={20} className="icon" />
-          </Button>
-        </Popover>
-
         <div className={css.navigationButtons}>{props.children}</div>
+        <div style={{ marginLeft: '50%' }}>
+          <Popover
+            interactionKind={PopoverInteractionKind.CLICK}
+            targetProps={{ onClick: () => <RoadMapForGamification initialProgress={50} /> }}
+            defaultIsOpen={true}
+            // onInteraction={nextOpenState => {
+            //   if (nextOpenState === false) {
+            //     setShowRoadMap(false)
+            //   }
+            // }}
+            boundary="viewport"
+            popoverClassName={Classes.ACTIVE}
+            content={<RoadMapForGamification initialProgress={50} />}
+          >
+            <Button>
+              {' '}
+              <Icon name="multi-service" size={20} className="icon" />
+            </Button>
+          </Popover>
+        </div>
       </div>
     </div>
   )

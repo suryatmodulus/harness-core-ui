@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Layout, Icon } from '@wings-software/uicore'
 import { NavLink, useParams, useRouteMatch } from 'react-router-dom'
+import Joyride from 'react-joyride'
 import cx from 'classnames'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -13,6 +14,7 @@ import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/in
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { String } from 'framework/strings'
 import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorHandler'
+import NeutralCard from './images/Neutral Card (1).png'
 import css from './PipelineDetails.module.scss'
 
 // add custom event to the global scope
@@ -94,12 +96,44 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     return <GenericErrorHandler errStatusCode={error?.status} errorMessage={(error?.data as Error)?.message} />
   }
 
+  const coins30 = {}
+  const steps = [
+    {
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>
+            This is your harness wallet where the coins you collected are stored. Your current balance:{' '}
+          </p>
+        </div>
+      ),
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      target: '.coins30',
+      disableBeacon: true
+    }
+  ]
+
   return (
     <>
       <Page.Header
         title={
           <>
             <Layout.Vertical spacing="xsmall">
+              <Joyride
+                // callback={handleJoyrideCallback}
+                continuous={true}
+                // getHelpers={this.getHelpers}
+                run={true}
+                scrollToFirstStep={true}
+                // showProgress={true}
+                showSkipButton={true}
+                steps={steps}
+                styles={{
+                  options: {
+                    zIndex: 10000
+                  }
+                }}
+              />
               <Breadcrumbs links={getBreadCrumbs()} />
               <div
                 style={{
@@ -109,6 +143,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   color: 'gold',
                   margin: '0'
                 }}
+                className="coins30"
               >
                 30 <Icon name="database" color="yellow-600" size={20} />{' '}
               </div>

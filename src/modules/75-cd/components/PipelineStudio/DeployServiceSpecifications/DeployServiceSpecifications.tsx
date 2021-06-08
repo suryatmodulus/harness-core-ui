@@ -337,7 +337,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   }
 
   let currentProgress = stage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests.length === 0 ? 0 : 25
-  currentProgress += stage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts.length === 0 ? 0 : 25
+  currentProgress += stage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts.primary ? 25 : 0
+
   return (
     <>
       {stageIndex > 0 && canPropagate && (
@@ -467,25 +468,26 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                 />
               </Layout.Horizontal>
             </div>
-            <Popover
-              interactionKind={PopoverInteractionKind.CLICK}
-              targetProps={{ onClick: () => <RoadMapForGamification initialProgress={currentProgress} /> }}
-              defaultIsOpen={true}
-              // onInteraction={nextOpenState => {
-              //   if (nextOpenState === false) {
-              //     setShowRoadMap(false)
-              //   }
-              // }}
-              boundary="viewport"
-              popoverClassName={Classes.ACTIVE}
-              content={<RoadMapForGamification initialProgress={currentProgress} />}
-            >
-              <Button>
-                {' '}
-                <Icon name="multi-service" size={20} className="icon" />
-              </Button>
-            </Popover>
             <div className={css.navigationButtons}>{props.children}</div>
+            <div style={{ marginLeft: '50%' }}>
+              <Popover
+                interactionKind={PopoverInteractionKind.CLICK}
+                targetProps={{ onClick: () => <RoadMapForGamification initialProgress={currentProgress} /> }}
+                // onInteraction={nextOpenState => {
+                //   if (nextOpenState === false) {
+                //     setShowRoadMap(false)
+                //   }
+                // }}
+                boundary="viewport"
+                popoverClassName={Classes.ACTIVE}
+                content={<RoadMapForGamification initialProgress={currentProgress} />}
+              >
+                <Button>
+                  {' '}
+                  <Icon name="multi-service" size={20} className="icon" />
+                </Button>
+              </Popover>
+            </div>
           </div>
         </div>
       ) : (

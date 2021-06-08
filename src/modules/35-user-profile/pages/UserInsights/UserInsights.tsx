@@ -9,7 +9,7 @@ import TimelineSeparator from '@material-ui/lab/TimelineSeparator'
 import TimelineDot from '@material-ui/lab/TimelineDot'
 import TimelineConnector from '@material-ui/lab/TimelineConnector'
 import TimelineContent from '@material-ui/lab/TimelineContent'
-import { Button, Icon, Layout, Popover, Tabs, Text } from '@wings-software/uicore'
+import { Button, Container, Icon, Layout, Popover, Tabs, Text } from '@wings-software/uicore'
 import { IconName, Menu, MenuItem, Position, Tab } from '@blueprintjs/core'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
@@ -308,15 +308,22 @@ export const UserInsights: React.FC = () => {
   return (
     <Layout.Vertical className={css.userInsights}>
       <UserHeatMap {...userHeatMapProps} />
-      <Tabs id="user-insights" defaultSelectedTabId="overview" className={css.tabs}>
-        <Tab id="overview" title="Overview" panel={<UserOverView {...userOveriewProps} />} panelClassName={css.panel} />
-        <Tab
-          id="contributions"
-          title="Contributions"
-          panel={<UserContributions {...userContributionProps} />}
-          panelClassName={css.panel}
-        />
-      </Tabs>
+      <Container padding={{ left: 'medium', right: 'medium' }}>
+        <Tabs id="user-insights" defaultSelectedTabId="overview" className={css.tabs}>
+          <Tab
+            id="overview"
+            title="Overview"
+            panel={<UserOverView {...userOveriewProps} />}
+            panelClassName={css.panel}
+          />
+          <Tab
+            id="contributions"
+            title="Contributions"
+            panel={<UserContributions {...userContributionProps} />}
+            panelClassName={css.panel}
+          />
+        </Tabs>
+      </Container>
     </Layout.Vertical>
   )
 }

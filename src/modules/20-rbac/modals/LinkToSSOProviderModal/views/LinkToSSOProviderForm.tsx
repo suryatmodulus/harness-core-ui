@@ -112,7 +112,7 @@ const LinkToSSOProviderForm: React.FC<LinkToSSOProviderModalData> = props => {
               groupName: Yup.string()
                 .trim()
                 .required(getString('rbac.userDetails.linkToSSOProviderModal.validation.groupNameRequired'))
-                .matches(regexName, getString('common.validation.nameRegExNotValid')),
+                .matches(regexName, getString('common.validation.namePatternIsNotValid')),
               sso: Yup.string().required(getString('rbac.userDetails.linkToSSOProviderModal.validation.ssoIdRequired'))
             })}
             onSubmit={values => {

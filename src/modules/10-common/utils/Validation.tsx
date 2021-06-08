@@ -11,7 +11,7 @@ export function NameSchema(config?: { requiredErrorMsg?: string }): Yup.Schema<s
   return Yup.string()
     .trim()
     .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('common.validation.nameIsRequired'))
-    .matches(regexName, getString('common.validation.nameRegExNotValid'))
+    .matches(regexName, getString('common.validation.namePatternIsNotValid'))
 }
 
 export function IdentifierSchema(config?: { requiredErrorMsg?: string }): Yup.Schema<string | undefined> {

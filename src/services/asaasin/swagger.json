@@ -167,16 +167,20 @@
       "type": "object",
       "properties": {
         "current_spend": {
-          "type": "number"
+          "type": "number",
+          "format": "float"
         },
         "potential_spend": {
-          "type": "number"
+          "type": "number",
+          "format": "float"
         },
         "potential_savings": {
-          "type": "number"
+          "type": "number",
+          "format": "float"
         },
         "savings_percent": {
-          "type": "number"
+          "type": "number",
+          "format": "float"
         }
       }
     },
@@ -184,10 +188,12 @@
       "type": "object",
       "properties": {
         "total_users": {
-          "type": "integer"
+          "type": "integer",
+          "format": "int64"
         },
         "active_users": {
-          "type": "integer"
+          "type": "integer",
+          "format": "int64"
         },
         "monthly_savings": {
           "type": "object",

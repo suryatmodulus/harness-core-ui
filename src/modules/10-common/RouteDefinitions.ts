@@ -831,7 +831,7 @@ const routes = {
   toAsaasinWorkflows: withAccountId(() => `/asaasin/workflows`),
   toAsaasinGithubDashboard: withAccountId(() => `/asaasin/dashboard/github`),
   toAsaasinSaaSDashboard: withAccountId(({ saasApp }: { saasApp: string }) => `/asaasin/dashboard/${saasApp}`),
-  toAsaasinPagerDutyDashboard: withAccountId(() => `/asaasin/pagerduty/dashboard`),
+  toAsaasinPagerDutyDashboard: withAccountId(() => `/asaasin/dashboard/pagerduty`),
   toCVHome: withAccountId(() => `/cv/home`),
   toCVProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>

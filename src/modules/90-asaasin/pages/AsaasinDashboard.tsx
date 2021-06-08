@@ -15,6 +15,16 @@ const saasData = [
     users: 177,
     wastage: 39,
     icon: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
+  },
+  {
+    name: 'Pager Duty',
+    value: 'pagerduty',
+    owner: 'Shalin',
+    category: 'Engineering',
+    annual_spend: 20000.98,
+    users: 177,
+    wastage: 39,
+    icon: 'https://img.apksum.com/32/com.pagerduty.android/6.01/icon.png'
   }
 ]
 function NameCell(tableProps: CellProps<any>): JSX.Element {

@@ -22,12 +22,14 @@ import { useGetActivityHistory, useGetActivityStats, UserInfo, useGetActivitySta
 import css from './UserInsights.module.scss'
 
 enum ACTIVITY_TYPES_ENUM {
-  CREATE_RESOURCE = 'CREATE_RESOURCE',
+  VIEW_PROJECT = 'VIEW_PROJECT',
   VIEW_RESOURCE = 'VIEW_RESOURCE',
+  CREATE_RESOURCE = 'CREATE_RESOURCE',
   UPDATE_RESOURCE = 'UPDATE_RESOURCE',
   RUN_PIPELINE = 'RUN_PIPELINE',
-  BUILD_PIPELINE = 'BUILD_PIPELINE',
-  NEW_USER_ADDED = 'NEW_USER_ADDED',
+  CREATE_PIPELINE = 'CREATE_PIPELINE',
+  UPDATE_PIPELINE = 'UPDATE_PIPELINE',
+  VIEW_PIPELINE = 'VIEW_PIPELINE',
   ALL = 'ALL'
 }
 
@@ -36,8 +38,10 @@ const ACTIVITY_TYPES = {
   [ACTIVITY_TYPES_ENUM.VIEW_RESOURCE]: 'View Resource',
   [ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE]: 'Update Resource',
   [ACTIVITY_TYPES_ENUM.RUN_PIPELINE]: 'Run Pipeline',
-  [ACTIVITY_TYPES_ENUM.BUILD_PIPELINE]: 'Build Pipeline',
-  [ACTIVITY_TYPES_ENUM.NEW_USER_ADDED]: 'User Added',
+  [ACTIVITY_TYPES_ENUM.CREATE_PIPELINE]: 'Create Pipeline',
+  [ACTIVITY_TYPES_ENUM.VIEW_PROJECT]: 'View Project',
+  [ACTIVITY_TYPES_ENUM.VIEW_PIPELINE]: 'View Pipeline',
+  [ACTIVITY_TYPES_ENUM.UPDATE_PIPELINE]: 'Update Pipeline',
   [ACTIVITY_TYPES_ENUM.ALL]: 'All'
 }
 
@@ -46,8 +50,10 @@ const IconMap = {
   [ACTIVITY_TYPES_ENUM.VIEW_RESOURCE]: 'eye-open',
   [ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE]: 'edit',
   [ACTIVITY_TYPES_ENUM.RUN_PIPELINE]: 'run-pipeline',
-  [ACTIVITY_TYPES_ENUM.BUILD_PIPELINE]: 'build',
-  [ACTIVITY_TYPES_ENUM.NEW_USER_ADDED]: 'user',
+  [ACTIVITY_TYPES_ENUM.CREATE_PIPELINE]: 'plus',
+  [ACTIVITY_TYPES_ENUM.UPDATE_PIPELINE]: 'edit',
+  [ACTIVITY_TYPES_ENUM.VIEW_PROJECT]: 'eye-open',
+  [ACTIVITY_TYPES_ENUM.VIEW_PIPELINE]: 'eye-open',
   default: 'plus'
 }
 
@@ -56,8 +62,10 @@ const ColorMap = {
   [ACTIVITY_TYPES_ENUM.VIEW_RESOURCE]: css.green200,
   [ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE]: css.red200,
   [ACTIVITY_TYPES_ENUM.RUN_PIPELINE]: css.orange200,
-  [ACTIVITY_TYPES_ENUM.BUILD_PIPELINE]: css.yellow200,
-  [ACTIVITY_TYPES_ENUM.NEW_USER_ADDED]: css.grey200
+  [ACTIVITY_TYPES_ENUM.CREATE_PIPELINE]: css.yellow200,
+  [ACTIVITY_TYPES_ENUM.UPDATE_PIPELINE]: css.grey200,
+  [ACTIVITY_TYPES_ENUM.VIEW_PROJECT]: css.blue200,
+  [ACTIVITY_TYPES_ENUM.VIEW_PIPELINE]: css.blue200
 }
 
 const UserHeader: React.FC = () => {
@@ -263,14 +271,24 @@ const UserOverView: React.FC<{
                   : 'viewed'
               message = `${username} (<b>${userid}</b>) ${action} ${resourceType} <a>${resourceName}</a> (<b>${resourceId}</b>)`
             } else if (
-              [ACTIVITY_TYPES_ENUM.RUN_PIPELINE, ACTIVITY_TYPES_ENUM.BUILD_PIPELINE].indexOf(
-                actType as ACTIVITY_TYPES_ENUM
-              ) !== -1
+              [
+                ACTIVITY_TYPES_ENUM.RUN_PIPELINE,
+                ACTIVITY_TYPES_ENUM.CREATE_PIPELINE,
+                ACTIVITY_TYPES_ENUM.VIEW_PIPELINE,
+                ACTIVITY_TYPES_ENUM.UPDATE_PIPELINE
+              ].indexOf(actType as ACTIVITY_TYPES_ENUM) !== -1
             ) {
-              const action = actType === ACTIVITY_TYPES_ENUM.BUILD_PIPELINE ? 'started build for' : 'started'
+              const action =
+                actType === ACTIVITY_TYPES_ENUM.RUN_PIPELINE
+                  ? 'started'
+                  : actType === ACTIVITY_TYPES_ENUM.VIEW_PIPELINE
+                  ? 'viewed'
+                  : actType === ACTIVITY_TYPES_ENUM.UPDATE_PIPELINE
+                  ? 'updated'
+                  : 'created'
               message = `${username} (<b>${userid}</b>) ${action} ${resourceType} <a>${resourceName}</a> (<b>${resourceId}</b>)`
-            } else if (actType === ACTIVITY_TYPES_ENUM.NEW_USER_ADDED) {
-              const action = 'was added to'
+            } else if (actType === ACTIVITY_TYPES_ENUM.VIEW_PROJECT) {
+              const action = 'viewed'
               message = `${username} (<b>${userid}</b>) ${action} ${resourceType} <a>${resourceName}</a> (<b>${resourceId}</b>)`
             }
             return (

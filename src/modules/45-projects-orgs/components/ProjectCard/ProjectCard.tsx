@@ -82,13 +82,17 @@ const UsageDetails: React.FC<{ projectId: string; now: number; thirtyDaysAgo: nu
   ]
   const sum = perDayData.reduce((prev, curr) => prev + curr, 0)
   return (
-    <Layout.Vertical flex={{ justifyContent: 'center' }}>
-      <Text>Total {sum}</Text>
-      <StackedColumnChart
-        data={parsedColumnData}
-        options={{ chart: { height: 150 }, legend: { enabled: false }, yAxis: { max: high } }}
-      />
-    </Layout.Vertical>
+    <StackedColumnChart
+      data={parsedColumnData}
+      options={{
+        chart: { height: 150 },
+        legend: { enabled: false },
+        yAxis: { max: high },
+        title: {
+          text: `Total ${sum}`
+        }
+      }}
+    />
   )
 }
 

@@ -412,6 +412,14 @@ savingInProgress: Saving in progress...
 gitExperience:
   skipNow: SKIP NOW
 testsReports:
+  callgraphTitle: Test Callgraph
+  viewCallgraph: View Callgraph
+  testMethods: Test methods
+  changedTestMethods: Changed/New Test methods
+  changedSourceMethods: Changed/New Source methods
+  selectedTestMethods: Selected Test Methods
+  sourceMethods: Source methods
+  calls: Calls
   description: Failure Description
   type: Failure Type
   status: '{{ $.status }}'

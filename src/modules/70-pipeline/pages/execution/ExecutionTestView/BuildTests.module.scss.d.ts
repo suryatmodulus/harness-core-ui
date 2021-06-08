@@ -49,5 +49,7 @@ declare const styles: {
   readonly testPopoverDetail: string
   readonly loadingContainer: string
   readonly progress: string
+  readonly viewCallgraph: string
+  readonly callgraphDialog: string
 }
 export default styles

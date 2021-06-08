@@ -395,7 +395,7 @@ const AsaasinHomePage: React.FC = () => {
               alignContent: 'space-between',
               justifyContent: 'space-between',
               minHeight: '25vh',
-              maxHeight: '40vh',
+              maxHeight: '75vh',
               maxWidth: '80vw',
               flexWrap: 'wrap',
               overflow: 'scroll'

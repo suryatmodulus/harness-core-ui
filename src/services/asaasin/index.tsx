@@ -10,9 +10,38 @@ export interface GithubMember {
   name?: string
   login?: string
   avatar_url?: string
+  contributions?: number
 }
 
-export type AllGithubUsersResponse = GithubMember[]
+export interface GithubOrg {
+  id?: number
+  name?: string
+  login?: string
+  public_repos?: number
+  total_private_repos?: number
+  two_factor_requirement_enabled?: boolean
+  plan?: GithubPlan
+}
+
+export interface GithubPlan {
+  seats?: number
+  filled_seats?: number
+  name?: string
+}
+
+export interface GithubRecommendations {
+  message?: string
+  level?: number
+  savings?: number
+}
+
+export interface GithubDetailsResponse {
+  org?: GithubOrg
+  members?: any
+  inactive_members?: any
+  rarely_active_members?: any
+  recommendations?: any
+}
 
 export interface PagerDutySavings {
   current_spend?: number
@@ -29,30 +58,26 @@ export interface PagerDutySavingsResponse {
   optimization?: string[]
 }
 
-export type AllGithubUsersProps = Omit<GetProps<AllGithubUsersResponse, void, void, void>, 'path'>
+export type GithubDetailsProps = Omit<GetProps<GithubDetailsResponse, void, void, void>, 'path'>
 
 /**
- * Gets allGithubUsers
+ * Gets githubDetails
  *
- * allGithubUsers
+ * githubDetails
  */
-export const AllGithubUsers = (props: AllGithubUsersProps) => (
-  <Get<AllGithubUsersResponse, void, void, void>
-    path={`/github/all_users`}
-    base={getConfig('asaasin/api')}
-    {...props}
-  />
+export const GithubDetails = (props: GithubDetailsProps) => (
+  <Get<GithubDetailsResponse, void, void, void> path={`/github/details`} base={getConfig('asaasin/api')} {...props} />
 )
 
-export type UseAllGithubUsersProps = Omit<UseGetProps<AllGithubUsersResponse, void, void, void>, 'path'>
+export type UseGithubDetailsProps = Omit<UseGetProps<GithubDetailsResponse, void, void, void>, 'path'>
 
 /**
- * Gets allGithubUsers
+ * Gets githubDetails
  *
- * allGithubUsers
+ * githubDetails
  */
-export const useAllGithubUsers = (props: UseAllGithubUsersProps) =>
-  useGet<AllGithubUsersResponse, void, void, void>(`/github/all_users`, { base: getConfig('asaasin/api'), ...props })
+export const useGithubDetails = (props: UseGithubDetailsProps) =>
+  useGet<GithubDetailsResponse, void, void, void>(`/github/details`, { base: getConfig('asaasin/api'), ...props })
 
 export type PagerdutySavingsProps = Omit<GetProps<PagerDutySavingsResponse, void, void, void>, 'path'>
 

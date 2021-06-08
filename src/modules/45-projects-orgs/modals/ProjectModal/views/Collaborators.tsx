@@ -395,7 +395,8 @@ export const ProjectCollaboratorsStep: React.FC<StepProps<Project> & Collaborato
         <Button onClick={() => previousStep?.(prevStepData)} text={getString('back')} />
         <Button
           intent="primary"
-          text={getString('saveAndContinue')}
+          text={getString('saveAndContinue') + ' 10 '}
+          rightIcon="database"
           onClick={() => {
             /* istanbul ignore else */ if (prevStepData) {
               nextStep?.({ ...prevStepData })

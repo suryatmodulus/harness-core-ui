@@ -9,14 +9,16 @@ import {
   Radio,
   Select,
   Checkbox,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  Popover,
+  Button
 } from '@wings-software/uicore'
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
 import { cloneDeep, get, set } from 'lodash-es'
 import debounce from 'p-debounce'
-import { FormGroup, Intent } from '@blueprintjs/core'
+import { FormGroup, Intent, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
@@ -29,6 +31,7 @@ import {
   getFlattenedStages
 } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
+import RoadMapForGamification from '@projects-orgs/pages/projects/views/GetStartedProject/RoadMapForGamification'
 import type { K8SDirectServiceStep } from '../../PipelineSteps/K8sServiceSpec/K8sServiceSpec'
 import css from './DeployServiceSpecifications.module.scss'
 const setupMode = {
@@ -333,6 +336,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     })
   }
 
+  let currentProgress = stage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests.length === 0 ? 0 : 25
+  currentProgress += stage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts.length === 0 ? 0 : 25
   return (
     <>
       {stageIndex > 0 && canPropagate && (
@@ -462,6 +467,24 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                 />
               </Layout.Horizontal>
             </div>
+            <Popover
+              interactionKind={PopoverInteractionKind.CLICK}
+              targetProps={{ onClick: () => <RoadMapForGamification initialProgress={currentProgress} /> }}
+              defaultIsOpen={true}
+              // onInteraction={nextOpenState => {
+              //   if (nextOpenState === false) {
+              //     setShowRoadMap(false)
+              //   }
+              // }}
+              boundary="viewport"
+              popoverClassName={Classes.ACTIVE}
+              content={<RoadMapForGamification initialProgress={currentProgress} />}
+            >
+              <Button>
+                {' '}
+                <Icon name="multi-service" size={20} className="icon" />
+              </Button>
+            </Popover>
             <div className={css.navigationButtons}>{props.children}</div>
           </div>
         </div>

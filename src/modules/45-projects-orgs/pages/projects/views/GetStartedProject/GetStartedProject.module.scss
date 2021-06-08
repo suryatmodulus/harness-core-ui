@@ -15,3 +15,40 @@
   right: var(--spacing-large);
   top: var(--spacing-large);
 }
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+.icon {
+  color: var(--icon-color) !important;
+}
+
+.defaultNode {
+  display: block;
+  width: 126px;
+  height: 80px;
+  cursor: default;
+
+  .defaultCard {
+    cursor: pointer;
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid var(--pipeline-grey-border);
+    background-color: var(--white);
+    border-radius: 8px;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: -1px 4px 7px 0 rgba(135, 149, 159, 0.27);
+
+    &.selected {
+      border-width: 2px;
+      border-color: var(--diagram-selected) !important;
+    }
+  }
+}

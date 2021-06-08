@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Layout, Card, Icon, Text, Accordion, Button, Color } from '@wings-software/uicore'
+import { Layout, Card, Icon, Text, Accordion, Button, Color, Popover } from '@wings-software/uicore'
+import { PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import type { IconName } from '@wings-software/uicore'
 import { clone, get, isEmpty, isNil, omit } from 'lodash-es'
 import debounce from 'p-debounce'
@@ -25,6 +26,7 @@ import { String, useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import css from './DeployInfraSpecifications.module.scss'
+import RoadMapForGamification from '@projects-orgs/pages/projects/views/GetStartedProject/RoadMapForGamification'
 
 interface DeploymentTypeItem {
   name: string
@@ -485,6 +487,25 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             {getClusterConfigurationStep(selectedDeploymentType)}
           </Card>
         ) : null}
+
+        <Popover
+          interactionKind={PopoverInteractionKind.CLICK}
+          targetProps={{ onClick: () => <RoadMapForGamification initialProgress={50} /> }}
+          defaultIsOpen={true}
+          // onInteraction={nextOpenState => {
+          //   if (nextOpenState === false) {
+          //     setShowRoadMap(false)
+          //   }
+          // }}
+          boundary="viewport"
+          popoverClassName={Classes.ACTIVE}
+          content={<RoadMapForGamification initialProgress={50} />}
+        >
+          <Button>
+            {' '}
+            <Icon name="multi-service" size={20} className="icon" />
+          </Button>
+        </Popover>
 
         <div className={css.navigationButtons}>{props.children}</div>
       </div>

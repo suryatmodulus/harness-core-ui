@@ -1,7 +1,9 @@
 import React from 'react'
-import { Container, Layout, Pagination } from '@wings-software/uicore'
+import { Container, Layout, Pagination, Button, Popover, Icon } from '@wings-software/uicore'
+import { PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import type { Project, ProjectAggregateDTO, ResponsePageProjectAggregateDTO } from 'services/cd-ng'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
+import RoadMapForGamification from '../GetStartedProject/RoadMapForGamification'
 import css from './ProjectGridView.module.scss'
 
 interface ProjectGridViewProps {
@@ -35,6 +37,24 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
           }
         />
       </Container>
+      <Popover
+        interactionKind={PopoverInteractionKind.CLICK}
+        targetProps={{ onClick: () => <RoadMapForGamification initialProgress={0} /> }}
+        defaultIsOpen={true}
+        // onInteraction={nextOpenState => {
+        //   if (nextOpenState === false) {
+        //     setShowRoadMap(false)
+        //   }
+        // }}
+        boundary="viewport"
+        popoverClassName={Classes.ACTIVE}
+        content={<RoadMapForGamification initialProgress={0} />}
+      >
+        <Button>
+          {' '}
+          <Icon name="multi-service" size={20} className="icon" />
+        </Button>
+      </Popover>
       <Container className={css.pagination}>
         <Pagination
           itemCount={data?.data?.totalItems || 0}

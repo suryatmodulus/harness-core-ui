@@ -202,4 +202,5 @@ const GetStartedProject: React.FC = () => {
     </>
   )
 }
+
 export default GetStartedProject

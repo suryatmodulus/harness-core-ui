@@ -161,7 +161,13 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                   </Collapse>
                 </Container>
                 <Layout.Horizontal>
-                  <Button intent="primary" text={getString('saveAndContinue')} type="submit" disabled={disableSubmit} />
+                  <Button
+                    intent="primary"
+                    text={getString('saveAndContinue') + '   10 '}
+                    rightIcon="database"
+                    type="submit"
+                    disabled={disableSubmit}
+                  />
                 </Layout.Horizontal>
               </Layout.Vertical>
               {displayProjectCardPreview && (

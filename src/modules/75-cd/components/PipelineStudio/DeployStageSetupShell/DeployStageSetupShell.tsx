@@ -1,7 +1,8 @@
 import React from 'react'
-import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
+import { Layout, Tabs, Tab, Button, Icon, Popover } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
+import { PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
@@ -13,6 +14,7 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { useStrings } from 'framework/strings'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import RoadMapForGamification from '@projects-orgs/pages/projects/views/GetStartedProject/RoadMapForGamification'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
@@ -299,6 +301,24 @@ export default function DeployStageSetupShell(): JSX.Element {
           data-testid="advanced"
         />
       </Tabs>
+      <Popover
+        interactionKind={PopoverInteractionKind.CLICK}
+        targetProps={{ onClick: () => <RoadMapForGamification initialProgress={75} /> }}
+        // isOpen={true}
+        // onInteraction={nextOpenState => {
+        //   if (nextOpenState === false) {
+        //     setShowRoadMap(false)
+        //   }
+        // }}
+        boundary="viewport"
+        popoverClassName={Classes.ACTIVE}
+        content={<RoadMapForGamification initialProgress={75} />}
+      >
+        <Button>
+          {' '}
+          <Icon name="multi-service" size={20} className="icon" />
+        </Button>
+      </Popover>
     </section>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Layout } from '@wings-software/uicore'
+import { Container, Layout, Icon } from '@wings-software/uicore'
 import { NavLink, useParams, useRouteMatch } from 'react-router-dom'
 import cx from 'classnames'
 import { Page } from '@common/exports'
@@ -101,6 +101,17 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
           <>
             <Layout.Vertical spacing="xsmall">
               <Breadcrumbs links={getBreadCrumbs()} />
+              <div
+                style={{
+                  width: '70px',
+                  padding: '10px',
+                  background: '#B0C4DE',
+                  color: 'gold',
+                  margin: '0'
+                }}
+              >
+                30 <Icon name="database" color="yellow-600" size={20} />{' '}
+              </div>
             </Layout.Vertical>
             {isPipelineStudioRoute && (
               <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />

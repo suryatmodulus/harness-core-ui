@@ -45,3 +45,4 @@ declare interface Window {
 declare const monaco: any
 
 declare module 'event-source-polyfill'
+declare module 'react-step-progress-bar'

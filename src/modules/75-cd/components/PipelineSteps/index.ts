@@ -24,6 +24,7 @@ import { TerraformApply } from './TerraformApply/TerraformApply'
 import { InfraProvisioning } from './InfraProvisioning/InfraProvisioning'
 import { GcpInfrastructureSpec } from './GcpInfrastructureSpec/GcpInfrastructureSpec'
 import { AwsSAMInfraSpec } from './AwsSAMInfraSpec/AwsSAMInfrastructureSpec'
+import { AwsSamDeploy } from './AwsSAMInfraSpec/AwsSamDeploy'
 
 factory.registerStep(new HttpStep())
 factory.registerStep(new K8RolloutDeployStep())
@@ -39,6 +40,7 @@ factory.registerStep(new ShellScriptStep())
 factory.registerStep(new KubernetesInfraSpec())
 factory.registerStep(new GcpInfrastructureSpec())
 factory.registerStep(new AwsSAMInfraSpec())
+factory.registerStep(new AwsSamDeploy())
 factory.registerStep(new DeployEnvironmentStep())
 factory.registerStep(new DeployServiceStep())
 factory.registerStep(new KubernetesServiceSpec())

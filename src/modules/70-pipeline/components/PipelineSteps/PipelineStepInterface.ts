@@ -45,5 +45,6 @@ export enum StepType {
   InfraProvisioning = 'InfraProvisioning',
   KubernetesGcp = 'KubernetesGcp',
   AwsSamInfra = 'AwsSamInfra',
+  AwsSamDeploy = 'AwsSamDeploy',
   ResourceConstraint = 'ResourceConstraint'
 }

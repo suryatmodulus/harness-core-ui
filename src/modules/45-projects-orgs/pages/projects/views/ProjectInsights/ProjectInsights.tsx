@@ -2,15 +2,15 @@ import * as React from 'react'
 import { useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import CalendarHeatmap from 'react-calendar-heatmap'
-import { Button, Color, Layout, Popover, Text } from '@wings-software/uicore'
-import { Menu, MenuItem, Position } from '@blueprintjs/core'
+import { Button, Color, Layout, Popover, Tabs, Text } from '@wings-software/uicore'
+import { Menu, MenuItem, Position, Tab } from '@blueprintjs/core'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { PageSpinner } from '@common/components'
 import { useGetActivityStats } from 'services/cd-ng'
 import css from './ProjectInsights.module.scss'
-import { PageSpinner } from '@common/components'
 
 enum ACTIVITY_TYPES_ENUM {
   CREATE_RESOURCE = 'CREATE_RESOURCE',
@@ -96,9 +96,11 @@ const ProjectHeatMap: React.FC<{
   ;(data?.data?.activityStatsPerTimestampList || []).map(activityStatsPerTimestamp => {
     const date = new Date(activityStatsPerTimestamp?.timestamp as number).setHours(0, 0, 0, 0)
     const count =
-      activityStatsPerTimestamp.countPerActivityTypeList?.filter(
-        countPerActivityType => countPerActivityType.activityType === activityType
-      )[0]?.count || (activityStatsPerTimestamp.totalCount as number)
+      activityType === ACTIVITY_TYPES_ENUM.ALL
+        ? (activityStatsPerTimestamp.totalCount as number)
+        : activityStatsPerTimestamp.countPerActivityTypeList?.filter(
+            countPerActivityType => countPerActivityType.activityType === activityType
+          )[0]?.count || 0
     dateToCountMap[date] = count
   })
 
@@ -169,8 +171,12 @@ const ProjectHeatMap: React.FC<{
   )
 }
 
-const ProjectHistory: React.FC<{ selectedDate: number }> = ({ selectedDate }) => {
+const ProjectOverview: React.FC<{ selectedDate: number }> = ({ selectedDate }) => {
   return <Text>{selectedDate}</Text>
+}
+
+const ProjectContributions: React.FC<> = () => {
+  return <Text>Contributions</Text>
 }
 
 export const ProjectInsights: React.FC = () => {
@@ -186,15 +192,21 @@ export const ProjectInsights: React.FC = () => {
     activityType,
     setActivityType
   }
-  const projectHistoryProps = {
+  const projectOverviewProps = {
     selectedDate,
     activityType
   }
+
+  const projectContributionsProps = {}
+
   return (
     <Layout.Vertical className={css.projectInsights}>
       <ProjectHeader />
       <ProjectHeatMap {...projectHeatmapProps} />
-      <ProjectHistory {...projectHistoryProps} />
+      <Tabs id="project-insights" defaultSelectedTabId="overview">
+        <Tab id="overview" title="Overview" panel={<ProjectOverview {...projectOverviewProps} />} />
+        <Tab id="contributions" title="Contributions" panel={<ProjectContributions {...projectContributionsProps} />} />
+      </Tabs>
     </Layout.Vertical>
   )
 }

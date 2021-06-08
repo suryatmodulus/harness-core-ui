@@ -5,7 +5,11 @@
       .bp3-popover-wrapper {
         position: absolute;
         right: 0px;
-        width: 170px !important;
+        width: 190px !important;
+        margin-top: var(--spacing-small);
+      }
+      .bp3-button-text {
+        font-size: var(--font-size-normal) !important;
       }
     }
   }

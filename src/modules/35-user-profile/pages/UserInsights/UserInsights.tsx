@@ -15,7 +15,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import Contribution from '@common/components/Contribution/Contribution'
-import { useGetActivityHistory, useGetActivityStats } from 'services/cd-ng'
+import { useGetActivityHistory, useGetActivityStats, UserInfo } from 'services/cd-ng'
 import contributions from './mocks/contribution.json'
 
 import css from './UserInsights.module.scss'
@@ -57,13 +57,15 @@ const UserHeatMap: React.FC<{
   projectIdentifier: string
   activityType: ACTIVITY_TYPES_ENUM
   setActivityType: (activityType: ACTIVITY_TYPES_ENUM) => void
-}> = ({ today, selectedDate, setSelectedDate, projectIdentifier, activityType, setActivityType }) => {
+  currentUserId?: string
+}> = ({ today, selectedDate, setSelectedDate, projectIdentifier, activityType, setActivityType, currentUserId }) => {
   const end = today + 86400000
   const start = end - 15552000000 // 6 months back
 
   const { data, loading } = useGetActivityStats({
     queryParams: {
-      projectId: projectIdentifier,
+      userId: currentUserId,
+      // projectId: projectIdentifier,
       startTime: start,
       endTime: end
     }
@@ -169,10 +171,12 @@ const UserOverView: React.FC<{
   selectedDate: number
   activityType: ACTIVITY_TYPES_ENUM
   projectIdentifier: string
-}> = ({ selectedDate, activityType, projectIdentifier }) => {
+  currentUserId?: string
+}> = ({ selectedDate, activityType, projectIdentifier, currentUserId }) => {
   const { loading, data } = useGetActivityHistory({
     queryParams: {
-      projectId: projectIdentifier,
+      userId: currentUserId,
+      // projectId: projectIdentifier,
       startTime: selectedDate,
       endTime: selectedDate + 86400000
     }
@@ -264,8 +268,7 @@ const UserOverView: React.FC<{
   )
 }
 
-const UserContributions: React.FC = () => {
-  const { currentUserInfo } = useAppStore()
+const UserContributions: React.FC<{ currentUserInfo: UserInfo }> = ({ currentUserInfo }) => {
   return (
     <Layout.Masonry
       center
@@ -283,26 +286,29 @@ export const UserInsights: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(today)
   const [activityType, setActivityType] = useState<ACTIVITY_TYPES_ENUM>(ACTIVITY_TYPES_ENUM.ALL)
   const { projectIdentifier } = useParams<ProjectPathProps>()
+  const { currentUserInfo } = useAppStore()
   const userHeatMapProps = {
     today,
     selectedDate,
     setSelectedDate,
     projectIdentifier,
     activityType,
-    setActivityType
+    setActivityType,
+    currentUserId: currentUserInfo?.uuid
   }
   const userOveriewProps = {
     selectedDate,
     activityType,
-    projectIdentifier
+    projectIdentifier,
+    currentUserId: currentUserInfo?.uuid
   }
 
-  const userContributionProps = {}
+  const userContributionProps = { currentUserInfo }
 
   return (
     <Layout.Vertical className={css.userInsights}>
       <UserHeatMap {...userHeatMapProps} />
-      <Tabs id="user-insights" defaultSelectedTabId="overview">
+      <Tabs id="user-insights" defaultSelectedTabId="overview" className={css.tabs}>
         <Tab id="overview" title="Overview" panel={<UserOverView {...userOveriewProps} />} panelClassName={css.panel} />
         <Tab
           id="contributions"

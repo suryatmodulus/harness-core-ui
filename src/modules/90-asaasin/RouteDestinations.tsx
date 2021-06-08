@@ -5,14 +5,14 @@ import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import { accountPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
 
-import CESideNav from '@ce/components/CESideNav/CESideNav'
+import AsaasinSideNav from '@asaasin/components/sideNav'
 import AsaasinHomePage from './pages/home/AsaasinHomePage'
 import AsaasinDashboardPage from './pages/AsaasinDashboard'
 import AsaasinGitHubDashboardPage from './pages/github/dashboard'
 import AsaasinPagerDutyDashboard from './pages/pagerduty/dashboard'
 
 const CESideNavProps: SidebarContext = {
-  navComponent: CESideNav,
+  navComponent: AsaasinSideNav,
   subtitle: '',
   title: 'aSaaSin',
   icon: 'ce-main'

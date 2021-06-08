@@ -160,6 +160,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
             <div className={css.actions}>
               <ExecutionStatusLabel status={pipelineExecution.status as ExecutionStatus} />
               <ExecutionActions
+                pipelineExecution={pipelineExecution}
                 executionStatus={pipelineExecution.status as ExecutionStatus}
                 params={{
                   accountId,

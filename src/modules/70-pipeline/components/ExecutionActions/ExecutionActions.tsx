@@ -1,24 +1,39 @@
+import { useStrings } from 'framework/strings'
 import React from 'react'
-import { Button, Popover, ButtonProps } from '@wings-software/uicore'
-import { Menu, MenuItem } from '@blueprintjs/core'
 import { Link, useHistory } from 'react-router-dom'
-
 import { useHandleInterrupt, useHandleStageInterrupt } from 'services/pipeline-ng'
-import routes from '@common/RouteDefinitions'
+import type { PipelineExecutionSummary } from 'services/pipeline-ng'
+import { Dialog, IDialogProps, Menu, MenuItem } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
-import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import routes from '@common/RouteDefinitions'
 import {
-  isExecutionComplete,
   isExecutionActive,
+  isExecutionComplete,
   isExecutionPaused,
   isExecutionPausing
 } from '@pipeline/utils/statusHelpers'
-import { useStrings } from 'framework/strings'
+import {
+  Button,
+  ButtonProps,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
+  Layout,
+  Popover,
+  Radio,
+  RadioGroup,
+  Text,
+  useModalHook
+} from '@wings-software/uicore'
+
+import css from './ExecutionActions.module.scss'
+
+import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import type { StringKeys } from 'framework/strings'
 
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
-import css from './ExecutionActions.module.scss'
-
+import { useSendslacknotifications } from 'services/cd-ng'
 const commonButtonProps: ButtonProps = {
   minimal: true,
   small: true,
@@ -29,6 +44,7 @@ const commonButtonProps: ButtonProps = {
 }
 
 export interface ExecutionActionsProps {
+  pipelineExecution?: PipelineExecutionSummary
   executionStatus?: ExecutionStatus
   params: PipelineType<{
     orgIdentifier: string
@@ -180,6 +196,171 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     e.stopPropagation()
   }
 
+  const confirmDialogProps: IDialogProps = {
+    isOpen: true,
+    usePortal: true,
+    autoFocus: true,
+    canEscapeKeyClose: true,
+    canOutsideClickClose: true,
+    enforceFocus: true,
+    style: { width: 600, height: 300 }
+  }
+
+  const nonHarnessOptions = [
+    { label: 'meenakshi.raikwar@harness.io', value: 'meenakshi.raikwar@harness.io' },
+    { label: 'akhilesh.pandey@harness.io', value: 'akhilesh.pandey@harness.io' },
+    { label: 'sainath.batthala@harness.io', value: 'sainath.batthala@harness.io' },
+    { label: 'prashant.batra@harness.io', value: 'prashant.batra@harness.io' }
+  ]
+
+  const harnessOptions = [
+    { label: 'meenakshi.raikwar@harness.io', value: 'meenakshi.raikwar@harness.io' },
+    { label: 'akhilesh.pandey@harness.io', value: 'akhilesh.pandey@harness.io' },
+    { label: 'sainath.batthala@harness.io', value: 'sainath.batthala@harness.io' },
+    { label: 'prashant.batra@harness.io', value: 'prashant.batra@harness.io' }
+  ]
+  const { loading: loadingSlack, mutate: sentSlackInvite } = useSendslacknotifications({})
+
+  // const handleSendNonHarnessInvitation = payload => {}
+  // const handleSendHarnessInvitation = payload => {}
+
+  const [showModal, hideModal] = useModalHook(() => {
+    return (
+      <Dialog title={'Invite Users'} {...confirmDialogProps} onClose={hideModal}>
+        <Container padding="small" height="310px">
+          <Formik
+            initialValues={{
+              accountType: 'NON_HARNESS',
+              emailInvites: [{ label: 'All', value: 'All' }],
+              slackNotification: [{ label: 'All', value: 'All' }]
+            }}
+            formName="sendInvite"
+            enableReinitialize={true}
+            onSubmit={data => {
+              let payloadHarness = {}
+              let payloadNonHarness = {}
+              if (data.accountType === 'NON_HARNESS') {
+                let userData = null
+                if (data.emailInvites.includes({ label: 'All', value: 'All' })) {
+                  userData = nonHarnessOptions.map(item => {
+                    return {
+                      name: item.value,
+                      hasHarnessAccount: false,
+                      hasSlackAccount: false
+                    }
+                  })
+                } else {
+                  userData = data.emailInvites.map(item => {
+                    return {
+                      name: item.value,
+                      hasHarnessAccount: false,
+                      hasSlackAccount: false
+                    }
+                  })
+                }
+                payloadNonHarness = {
+                  deploymentDetails: {
+                    deploymentType: 'Production',
+                    deploymentStatus: executionStatus,
+                    triggeredBy: 'sainath.batthala',
+                    triggeredOn: props.pipelineExecution?.createdAt,
+                    pipelineExecutionLink: props.pipelineExecution?.planExecutionId
+                  },
+                  users: userData
+                }
+              } else if (data.accountType === 'HARNESS') {
+                let userData = null
+                if (data.slackNotification.includes({ label: 'All', value: 'All' })) {
+                  userData = nonHarnessOptions.map(item => {
+                    return {
+                      name: item.value,
+                      hasHarnessAccount: true,
+                      hasSlackAccount: true
+                    }
+                  })
+                } else {
+                  userData = data.slackNotification.map(item => {
+                    return {
+                      name: item.value,
+                      hasHarnessAccount: true,
+                      hasSlackAccount: true
+                    }
+                  })
+                }
+                payloadHarness = {
+                  deploymentDetails: {
+                    deploymentType: 'Production',
+                    deploymentStatus: executionStatus,
+                    triggeredBy: 'sainath.batthala',
+                    triggeredOn: props.pipelineExecution?.createdAt,
+                    pipelineExecutionLink: `${window.location.origin}#${routes.toExecutionPipelineView({
+                      orgIdentifier,
+                      pipelineIdentifier: props.pipelineExecution?.pipelineIdentifier || '',
+                      executionIdentifier: props.pipelineExecution?.planExecutionId || '',
+                      projectIdentifier,
+                      accountId,
+                      module
+                    })}`
+                  },
+                  users: userData
+                }
+              }
+              sentSlackInvite(payloadHarness)
+            }}
+          >
+            {formikProps => {
+              return (
+                <Container margin={{ right: 'large', left: 'large' }}>
+                  <FormikForm>
+                    <FormInput.RadioGroup
+                      name="accountType"
+                      label={''}
+                      items={[
+                        { label: 'Non Harness Accounts', value: 'NON_HARNESS' },
+                        { label: 'Harness Accounts', value: 'HARNESS' }
+                      ]}
+                      radioGroup={{ inline: true }}
+                    />
+                    {formikProps.values.accountType === 'NON_HARNESS' ? (
+                      <>
+                        <FormInput.MultiSelect
+                          items={[{ label: 'All', value: 'All' }].concat(nonHarnessOptions)}
+                          label={'Email Invitations'}
+                          name="emailInvites"
+                        />
+                        <Text>Invite users to harness who have their commits as part of this build</Text>
+                      </>
+                    ) : null}
+
+                    {formikProps.values.accountType === 'HARNESS' ? (
+                      <>
+                        <FormInput.MultiSelect
+                          items={[{ label: 'All', value: 'All' }].concat(harnessOptions)}
+                          label={'Slack Notifications'}
+                          name="slackNotification"
+                        />
+                        <Text>
+                          Send slack notifications to harness accounts who have their commits as part of this build
+                        </Text>
+                      </>
+                    ) : null}
+                    <Button
+                      style={{ marginTop: '40px' }}
+                      intent="primary"
+                      type="submit"
+                      text={loadingSlack ? 'Sending Invites' : 'Send'}
+                      margin={{ top: 'large' }}
+                    />
+                  </FormikForm>
+                </Container>
+              )
+            }}
+          </Formik>
+        </Container>
+      </Dialog>
+    )
+  }, [])
+
   const resumeText: StringKeys = stageId
     ? 'pipeline.execution.actions.resumeStage'
     : 'pipeline.execution.actions.resumePipeline'
@@ -235,6 +416,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         <Popover position="bottom-right" minimal>
           <Button icon="more" {...commonButtonProps} className={css.more} />
           <Menu>
+            <MenuItem text={'Invite'} onClick={() => showModal()} />
             <Link
               className={`bp3-menu-item${!canEdit ? ' bp3-disabled' : ''}`}
               to={routes.toPipelineStudio({
@@ -250,6 +432,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             >
               {getString('editPipeline')}
             </Link>
+
             {stageId ? null : <MenuItem text={getString(rerunText)} disabled={!canRerun} onClick={reRunPipeline} />}
             <MenuItem text={getString(pauseText)} onClick={pausePipeline} disabled={!canPause} />
             <MenuItem text={getString(abortText)} onClick={abortPipeline} disabled={!canAbort} />

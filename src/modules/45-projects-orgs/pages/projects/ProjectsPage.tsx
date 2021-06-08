@@ -6,7 +6,13 @@ import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { useQueryParams } from '@common/hooks'
-import { useGetActivityStatsByProjects, useGetOrganizationList, useGetProjectAggregateDTOList } from 'services/cd-ng'
+import {
+  useGetActivityStatsByProjects,
+  useGetOrganizationList,
+  useGetProjectAggregateDTOList,
+  ResponsePageProjectAggregateDTO,
+  ProjectAggregateDTO
+} from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
@@ -45,6 +51,12 @@ const ProjectsListPage: React.FC = () => {
   )
 
   const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
+  const [sortedProjectIdsByActivities, setSortedProjectIdsByActivities] = useState<string[]>()
+  const [sortedProjectResponse, setSortedProjectResponse] = useState<ResponsePageProjectAggregateDTO>({})
+  const [sortBy, setSortBy] = useState<SelectOption>({
+    label: 'None',
+    value: ''
+  })
 
   const ACTIVITY_TYPES = {
     VIEW_PROJECT: 'VIEW_PROJECT',
@@ -92,16 +104,10 @@ const ProjectsListPage: React.FC = () => {
     VISIBILITY: VISIBILITY_CATEGORY_GROUP,
     DEPLOYMENT_ACTIVITY: DEPLOYMENT_ACTIVITY_CATEGORY_GROUP
   }
-
-  const [sortBy, setSortBy] = useState<SelectOption>({
-    label: ACTIVITY_CATEGORY_LABEL.OVERALL,
-    value: ACTIVITY_CATEGORY_VALUE.OVERALL
-  })
-
   const { currentUserInfo } = useAppStore()
 
-  const startTime = Date.now(),
-    endTime = Date.now() - 2592000000
+  const endTime = useMemo(() => Date.now(), [])
+  const startTime = endTime - 2592000000
 
   const { loading: fetchingProjectActivities, data: projectActivities } = useGetActivityStatsByProjects({
     queryParams: {
@@ -157,7 +163,7 @@ const ProjectsListPage: React.FC = () => {
         })
         dataItems.sort((itemA, itemB) => (itemA.x && itemB.x && itemA.x < itemB.x ? -1 : 1))
         return {
-          project: activityHistoryByUser.projectId,
+          projectId: activityHistoryByUser.projectId,
           total,
           data: dataItems,
           index
@@ -166,8 +172,8 @@ const ProjectsListPage: React.FC = () => {
     )
     formattedData.sort((itemA, itemB) => (itemA.total < itemB.total ? -1 : 1))
     formattedData = formattedData.map((value, index) => ({ ...value, index }))
-    console.log(formattedData)
-  }, [sortBy])
+    setSortedProjectIdsByActivities(formattedData.map(formattedData => formattedData.projectId || ''))
+  }, [sortBy, fetchingProjectActivities])
 
   const { data: orgsData } = useGetOrganizationList({
     queryParams: {
@@ -213,6 +219,25 @@ const ProjectsListPage: React.FC = () => {
     },
     debounce: 300
   })
+
+  React.useEffect(() => {
+    let sortedProjects: ProjectAggregateDTO[] = []
+    sortedProjectIdsByActivities?.forEach(element => {
+      const project = data?.data?.content?.find(
+        project => project?.projectResponse?.project?.identifier === element
+      ) as ProjectAggregateDTO
+      sortedProjects.push(project)
+    })
+
+    let sortedProjectResponse = data
+    if (sortedProjectResponse?.data?.content) {
+      sortedProjectResponse['data']['content'] = sortedProjects
+    }
+    console.log(sortedProjectIdsByActivities)
+    console.log(sortedProjects?.map(p => p?.projectResponse?.project?.identifier))
+    console.log(sortedProjectResponse)
+    setSortedProjectResponse(sortedProjectResponse || {})
+  }, [sortedProjectIdsByActivities])
 
   const projectCreateSuccessHandler = (): void => {
     refetch()
@@ -365,7 +390,7 @@ const ProjectsListPage: React.FC = () => {
       >
         {view === Views.GRID ? (
           <ProjectsGridView
-            data={data}
+            data={sortBy.value ? sortedProjectResponse : data}
             showEditProject={showEditProject}
             collaborators={showCollaborators}
             reloadPage={refetch}
@@ -374,7 +399,7 @@ const ProjectsListPage: React.FC = () => {
         ) : null}
         {view === Views.LIST ? (
           <ProjectsListView
-            data={data}
+            data={sortBy.value ? sortedProjectResponse : data}
             showEditProject={showEditProject}
             collaborators={showCollaborators}
             reloadPage={refetch}

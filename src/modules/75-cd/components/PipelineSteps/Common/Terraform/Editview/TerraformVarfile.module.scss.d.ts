@@ -37,5 +37,6 @@ declare const styles: {
   readonly configFileLabel: string
   readonly tfVarLabel: string
   readonly tfVarMargin: string
+  readonly radioBtns: string
 }
 export default styles

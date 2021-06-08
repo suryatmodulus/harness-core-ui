@@ -128,6 +128,8 @@ interface SaveAsInputSetProps {
   currentPipeline?: { pipeline?: NgPipeline }
   template: ResponseInputSetTemplateResponse | null
   values: Values
+  projectIdentifier: string
+  orgIdentifier: string
   canEdit: boolean
   createInputSetLoading: boolean
   createInputSet: MutateMethod<ResponseInputSetResponse, void, CreateInputSetForPipelineQueryParams, void>
@@ -137,12 +139,15 @@ const SaveAsInputSet = ({
   pipeline,
   currentPipeline,
   template,
+  orgIdentifier,
+  projectIdentifier,
   values,
   canEdit,
   createInputSet,
   createInputSetLoading
-}: SaveAsInputSetProps) => {
+}: SaveAsInputSetProps): JSX.Element | null => {
   const { getString } = useStrings()
+
   const { showError, showSuccess } = useToaster()
   const { GIT_SYNC_NG } = useFeatureFlags()
   if (pipeline && currentPipeline && template?.data?.inputSetTemplateYaml) {
@@ -152,7 +157,7 @@ const SaveAsInputSet = ({
           <div className={Classes.POPOVER_DISMISS_OVERRIDE}>
             <Formik
               onSubmit={input => {
-                createInputSet(stringify({ inputSet: input }) as any)
+                createInputSet(stringify({ inputSet: { ...input, orgIdentifier, projectIdentifier } }) as any)
                   .then(response => {
                     if (response.data?.errorResponse) {
                       showError(getString('inputSets.inputSetSavedError'))
@@ -912,6 +917,8 @@ function RunPipelineFormBasic({
                     values={values}
                     template={template}
                     canEdit={canEdit}
+                    projectIdentifier={projectIdentifier}
+                    orgIdentifier={orgIdentifier}
                     createInputSet={createInputSet}
                     createInputSetLoading={createInputSetLoading}
                   />

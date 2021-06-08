@@ -63,7 +63,8 @@ export const TargetsPage: React.FC = () => {
     [accountId, orgIdentifier, projectIdentifier, activeEnvironment, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const { data: targetsData, loading: loadingTargets, error: errTargets, refetch: refetchTargets } = useGetAllTargets({
-    queryParams
+    queryParams,
+    lazy: !activeEnvironment
   })
   const history = useHistory()
   const loading = loadingEnvironments || loadingTargets
@@ -102,7 +103,7 @@ export const TargetsPage: React.FC = () => {
         )
       )
     },
-    [history, accountId, orgIdentifier, projectIdentifier] // eslint-disable-line react-hooks/exhaustive-deps
+    [history, accountId, orgIdentifier, projectIdentifier, withActiveEnvironment]
   )
   const { showError, clear } = useToaster()
   const deleteTargetParams = useMemo(
@@ -218,10 +219,10 @@ export const TargetsPage: React.FC = () => {
                     showToaster(getString('cf.messages.targetDeleted'))
                   })
                   .catch(_error => {
-                    showError(getErrorMessage(_error), 0)
+                    showError(getErrorMessage(_error), 0, 'cf.delete.target.error')
                   })
               } catch (err) {
-                showError(getErrorMessage(err), 0)
+                showError(getErrorMessage(err), 0, 'cf.delete.target.error')
               }
             }
           })
@@ -270,7 +271,13 @@ export const TargetsPage: React.FC = () => {
 
   const content = noEnvironmentExists ? (
     <Container flex={{ align: 'center-center' }} height="100%">
-      <NoEnvironment onCreated={() => refetchEnvs()} />
+      <NoEnvironment
+        onCreated={response => {
+          const { location } = window
+          location.replace(`${location.href}?activeEnvironment=${response?.data?.identifier}`)
+          refetchEnvs()
+        }}
+      />
     </Container>
   ) : noTargetExists ? (
     <NoTargetsView

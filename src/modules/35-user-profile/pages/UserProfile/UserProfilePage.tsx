@@ -41,11 +41,16 @@ const UserProfilePage: React.FC = () => {
   const passwordStrengthPolicy = userPasswordSettings?.loginSettings?.passwordStrengthPolicy
 
   const { openPasswordModal } = useChangePassword()
+  const className = user.emailVerified ? css.noBanner : css.hasBanner
 
   return (
     <>
       <EmailVerificationBanner />
-      <Page.Body filled error={errorWhileFetchingAuthSettings?.message} retryOnError={() => refetchLoginSettings()}>
+      <Page.Body
+        error={errorWhileFetchingAuthSettings?.message}
+        retryOnError={() => refetchLoginSettings()}
+        className={className}
+      >
         <Layout.Horizontal height="inherit">
           <Container width="30%" className={css.details}>
             <Layout.Vertical>

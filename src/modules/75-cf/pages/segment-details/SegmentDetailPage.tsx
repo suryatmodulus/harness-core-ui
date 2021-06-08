@@ -97,10 +97,10 @@ export const SegmentDetailPage: React.FC = () => {
             showToaster(getString('cf.messages.segmentDeleted'))
           })
           .catch(error => {
-            showError(getErrorMessage(error), 0)
+            showError(getErrorMessage(error), 0, 'cf.delete.segment.error')
           })
       } catch (error) {
-        showError(getErrorMessage(error), 0)
+        showError(getErrorMessage(error), 0, 'cf.delete.segment.error')
       }
     }
   })

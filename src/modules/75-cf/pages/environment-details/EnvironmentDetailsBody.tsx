@@ -44,7 +44,7 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
     if (textRef.current) {
       Utils.copy(textRef.current.innerText)
         .then(() => showSuccess(getString('clipboardCopySuccess')))
-        .catch(() => showError(getString('clipboardCopyFail')))
+        .catch(() => showError(getString('clipboardCopyFail'), undefined, 'cf.copy.text.error'))
     }
   }
 
@@ -140,7 +140,9 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
     deleteKey(id)
       .then(() => showSuccess(`Succesfuly deleted Key: ${id}`))
       .then(() => refetch())
-      .catch(deleteError => showError(get(deleteError, 'data.error', deleteError?.message)))
+      .catch(deleteError =>
+        showError(get(deleteError, 'data.error', deleteError?.message), undefined, 'cf.delete.api.key.error')
+      )
   }
 
   const { apiKeys, ...pagination } = data ?? {

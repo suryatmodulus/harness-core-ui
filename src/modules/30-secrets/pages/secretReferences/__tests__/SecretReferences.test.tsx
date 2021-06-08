@@ -10,7 +10,7 @@ describe('Secret Referenced By', () => {
   test('render for no data', async () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsReferences({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsReferences({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <SecretReferences secretData={{} as any} />
@@ -22,7 +22,7 @@ describe('Secret Referenced By', () => {
   test('render for data', async () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsReferences({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsReferences({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <SecretReferences secretData={referencedData as any} />

@@ -1,6 +1,6 @@
 import React from 'react'
 import { set } from 'lodash-es'
-import { Tabs, Tab, Icon, Button, Layout } from '@wings-software/uicore'
+import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StageElementWrapper } from 'services/cd-ng'
@@ -135,6 +135,8 @@ export default function BuildStageSetupShell(): JSX.Element {
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const selectedStage = getStageFromPipeline(selectedStageId).stage
   const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
+  const infraHasWarning = !filledUpStages.infra
+  const executionHasWarning = !filledUpStages.execution
 
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
@@ -187,7 +189,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           panel={<BuildStageSpecifications>{navBtns}</BuildStageSpecifications>}
           title={
             <span className={css.tab}>
-              <Icon name="ci-main" height={20} size={20} />
+              <Icon name="ci-main" height={14} size={14} />
               Overview
             </span>
           }
@@ -205,18 +207,12 @@ export default function BuildStageSetupShell(): JSX.Element {
           id={getString('ci.infraLabel')}
           title={
             <span className={css.tab}>
-              <Icon name="infrastructure" height={20} size={20} />
+              <Icon
+                name={infraHasWarning ? 'warning-sign' : 'infrastructure'}
+                size={infraHasWarning ? 16 : 20}
+                color={infraHasWarning ? Color.ORANGE_500 : undefined}
+              />
               {getString('ci.infraLabel')}
-              {filledUpStages.infra ? null : (
-                <Icon
-                  name="warning-sign"
-                  height={10}
-                  size={10}
-                  color={'orange500'}
-                  margin={{ left: 'small', right: 0 }}
-                  style={{ verticalAlign: 'baseline' }}
-                />
-              )}
             </span>
           }
           panel={<BuildInfraSpecifications>{navBtns}</BuildInfraSpecifications>}
@@ -234,18 +230,12 @@ export default function BuildStageSetupShell(): JSX.Element {
           id={getString('ci.executionLabel')}
           title={
             <span className={css.tab}>
-              <Icon name="execution" height={20} size={20} />
+              <Icon
+                name={executionHasWarning ? 'warning-sign' : 'execution'}
+                size={executionHasWarning ? 16 : 20}
+                color={executionHasWarning ? Color.ORANGE_500 : undefined}
+              />
               {getString('ci.executionLabel')}
-              {filledUpStages.execution ? null : (
-                <Icon
-                  name="warning-sign"
-                  height={10}
-                  size={10}
-                  color={'orange500'}
-                  margin={{ left: 'small', right: 0 }}
-                  style={{ verticalAlign: 'baseline' }}
-                />
-              )}
             </span>
           }
           panel={
@@ -279,11 +269,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                           onUpdate: executionRef.current?.stepGroupUpdated,
                           addOrEdit: 'add',
                           isStepGroup: false,
-                          hiddenAdvancedPanels: [
-                            AdvancedPanels.FailureStrategy,
-                            AdvancedPanels.PreRequisites,
-                            AdvancedPanels.DelegateSelectors
-                          ]
+                          hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
                         }
                       }
                     }
@@ -302,11 +288,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                           // isAddStepOverride: true,
                           isRollback: event.isRollback,
                           isParallelNodeClicked: event.isParallel,
-                          hiddenAdvancedPanels: [
-                            AdvancedPanels.FailureStrategy,
-                            AdvancedPanels.PreRequisites,
-                            AdvancedPanels.DelegateSelectors
-                          ]
+                          hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
                         }
                       }
                     }

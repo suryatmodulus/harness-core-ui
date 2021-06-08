@@ -187,7 +187,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   })
 
   if (resourceError) {
-    showError(`could not load resources for rule`)
+    showError(`could not load resources for rule`, undefined, 'ce.load.resource.error')
   }
   useEffect(() => {
     if (graphLoading) {

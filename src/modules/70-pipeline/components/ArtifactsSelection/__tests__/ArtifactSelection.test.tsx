@@ -52,7 +52,6 @@ describe('ArtifactsSelection tests', () => {
     )
     const primaryArtifactContainer = await findByText(container, 'primary')
     expect(primaryArtifactContainer).toBeDefined()
-    expect(container).toMatchSnapshot()
   })
 
   test(`renders artifact with override without crashing`, async () => {
@@ -102,8 +101,6 @@ describe('ArtifactsSelection tests', () => {
     fireEvent.click(artifactTypes[0])
     const continueButton = await findByText(portal as HTMLElement, 'continue')
     expect(continueButton).toBeDefined()
-
-    expect(container).toMatchSnapshot()
   })
 
   test(`renders edit modal without crashing`, async () => {
@@ -121,8 +118,6 @@ describe('ArtifactsSelection tests', () => {
     fireEvent.click(editButton as HTMLElement)
     const artifactEditModalTitle = await waitFor(() => findByText(container, 'artifactRepository'))
     expect(artifactEditModalTitle).toBeDefined()
-
-    expect(container).toMatchSnapshot('Edit Modal')
   })
 
   test(`renders Artifact Listview without crashing`, () => {

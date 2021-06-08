@@ -274,7 +274,7 @@ const FlagSettingsRow: React.FC<{
                 })
                 return true
               } catch (error) {
-                showError(getErrorMessage(error), 0)
+                showError(getErrorMessage(error), 0, 'cf.serve.flag.variant.error')
               }
               return false
             }}

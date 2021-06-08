@@ -15,6 +15,8 @@ import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
+import { getCDTrialDialog, TrialType } from '@cd/modals/CDTrial/useCDTrialModal'
+import type { NgPipeline } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import css from './CDPipelineStudio.module.scss'
 
@@ -26,6 +28,20 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
 
   const history = useHistory()
+
+  const getTrialPipelineCreateForm = (
+    onSubmit: (values: NgPipeline) => void,
+    onClose: () => void
+  ): React.ReactElement => {
+    return getCDTrialDialog({
+      actionProps: { onSuccess: onSubmit, onCloseModal: onClose },
+      trialType: TrialType.SET_UP_PIPELINE
+    })
+  }
+
+  const { modal } = useQueryParams<{ modal?: string }>()
+
+  const getOtherModal = modal === 'trial' ? getTrialPipelineCreateForm : undefined
   const handleRunPipeline = (): void => {
     history.push(
       routes.toRunPipeline({
@@ -66,6 +82,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
         routePipelineProject={routes.toDeployments}
         routePipelineDetail={routes.toPipelineDetail}
         routePipelineList={routes.toPipelines}
+        getOtherModal={getOtherModal}
       />
     </PipelineProvider>
   )

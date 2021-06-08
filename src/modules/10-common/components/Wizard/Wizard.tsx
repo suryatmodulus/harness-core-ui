@@ -12,7 +12,11 @@ import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlTogg
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
+import type {
+  YamlBuilderHandlerBinding,
+  YamlBuilderProps,
+  InvocationMapFunction
+} from '@common/interfaces/YAMLBuilderProps'
 import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { renderTitle, setNewTouchedPanel } from './WizardUtils'
 import css from './Wizard.module.scss'
@@ -43,7 +47,7 @@ interface FormikPropsInterface {
 interface VisualYamlPropsInterface {
   showVisualYaml: boolean
   schema?: Record<string, any>
-  invocationMap?: unknown
+  invocationMap?: Map<RegExp, InvocationMapFunction>
   handleModeSwitch: (mode: SelectedView, yamlHandler?: YamlBuilderHandlerBinding) => void
   convertFormikValuesToYaml: (formikPropsValues: any) => any
   onYamlSubmit: (val: any) => void
@@ -106,7 +110,8 @@ const Wizard: React.FC<WizardProps> = ({
     schema,
     convertFormikValuesToYaml,
     onYamlSubmit,
-    yamlObjectKey
+    yamlObjectKey,
+    invocationMap
   } = visualYamlProps
   const isYamlView = selectedView === SelectedView.YAML
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
@@ -125,7 +130,7 @@ const Wizard: React.FC<WizardProps> = ({
     })
   }
   const history = useHistory()
-  const { showError } = useToaster()
+  const { showError, clear } = useToaster()
 
   const getIsDirtyForm = (parsedYaml: any): boolean =>
     !isEqual(convertFormikValuesToYaml?.(formikInitialProps?.initialValues), parsedYaml)
@@ -133,6 +138,8 @@ const Wizard: React.FC<WizardProps> = ({
   useEffect(() => {
     if (errorToasterMessage) {
       showError(errorToasterMessage)
+    } else {
+      clear()
     }
   }, [showError, errorToasterMessage])
 
@@ -155,7 +162,7 @@ const Wizard: React.FC<WizardProps> = ({
           {title}
           {showVisualYaml ? (
             <VisualYamlToggle
-              onChange={(mode, callback) => {
+              beforeOnChange={(mode, callback) => {
                 try {
                   const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
                   parse(latestYaml)
@@ -228,6 +235,7 @@ const Wizard: React.FC<WizardProps> = ({
                     isReadOnlyMode={false}
                     showSnippetSection={false}
                     bind={setYamlHandler}
+                    invocationMap={invocationMap}
                     schema={schema}
                   />
                 )

@@ -10,14 +10,12 @@ exports[`SelectOrCreatePipelineForm Rendering should open create pipeline modal 
     >
       <div>
         <p
-          class="StyledProps--font StyledProps--main"
-          style="color: black; padding-bottom: 8px; font-weight: 600; font-size: large;"
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large"
         >
           pipeline.selectOrCreatePipeline.setupHeader
         </p>
         <p
-          class="StyledProps--font StyledProps--main"
-          style="color: black; padding-bottom: 40px;"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-black"
         >
           common.letsGetYouStarted
         </p>
@@ -25,8 +23,7 @@ exports[`SelectOrCreatePipelineForm Rendering should open create pipeline modal 
           class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-small"
         >
           <p
-            class="StyledProps--font StyledProps--main"
-            style="color: black;"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-black"
           >
             pipeline.selectOrCreatePipeline.selectAPipeline
           </p>
@@ -98,7 +95,6 @@ exports[`SelectOrCreatePipelineForm Rendering should open create pipeline modal 
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            style="font-size: 11px;"
             type="submit"
           >
             <span
@@ -108,8 +104,8 @@ exports[`SelectOrCreatePipelineForm Rendering should open create pipeline modal 
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
-            style="text-align: center; padding: 7px; width: 150px; height: 33px; display: inline-block; border-width: 1px; font-size: 11px;"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-small StyledProps--inline StyledProps--border Button--with-current-color"
+            style="width: 200px; height: 33px;"
             type="button"
           >
             <span
@@ -135,14 +131,12 @@ exports[`SelectOrCreatePipelineForm Rendering should render SelectOrCreatePipeli
     >
       <div>
         <p
-          class="StyledProps--font StyledProps--main"
-          style="color: black; padding-bottom: 8px; font-weight: 600; font-size: large;"
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large"
         >
           pipeline.selectOrCreatePipeline.setupHeader
         </p>
         <p
-          class="StyledProps--font StyledProps--main"
-          style="color: black; padding-bottom: 40px;"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-black"
         >
           common.letsGetYouStarted
         </p>
@@ -150,8 +144,7 @@ exports[`SelectOrCreatePipelineForm Rendering should render SelectOrCreatePipeli
           class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-small"
         >
           <p
-            class="StyledProps--font StyledProps--main"
-            style="color: black;"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-black"
           >
             pipeline.selectOrCreatePipeline.selectAPipeline
           </p>
@@ -223,7 +216,6 @@ exports[`SelectOrCreatePipelineForm Rendering should render SelectOrCreatePipeli
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            style="font-size: 11px;"
             type="submit"
           >
             <span
@@ -233,8 +225,8 @@ exports[`SelectOrCreatePipelineForm Rendering should render SelectOrCreatePipeli
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
-            style="text-align: center; padding: 7px; width: 150px; height: 33px; display: inline-block; border-width: 1px; font-size: 11px;"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-small StyledProps--inline StyledProps--border Button--with-current-color"
+            style="width: 200px; height: 33px;"
             type="button"
           >
             <span

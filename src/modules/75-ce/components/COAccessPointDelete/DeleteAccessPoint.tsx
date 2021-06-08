@@ -50,7 +50,7 @@ const DeleteAccessPoint = (props: DeleteAccessPointProps) => {
       showSuccess(getString('ce.co.accessPoint.delete.success'))
       refresh()
     } catch (e) {
-      showError(e.data.errors[0])
+      showError(e.data.errors[0], undefined, 'ce.delete.ap.error')
     }
     hideModal()
   }

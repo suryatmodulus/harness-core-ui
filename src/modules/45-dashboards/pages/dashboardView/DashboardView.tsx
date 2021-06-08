@@ -70,11 +70,11 @@ const DashboardViewPage: React.FC = () => {
         className={css.breadCrumb}
         links={[
           {
-            url: routes.toCustomDasboardHome({ accountId }),
+            url: routes.toCustomDasboard({ accountId }),
             label: 'All Dashboards'
           },
           {
-            url: routes.toCustomDasboardHome({ accountId }),
+            url: routes.toCustomDasboard({ accountId }),
             label: dashboardData?.title
           }
         ]}

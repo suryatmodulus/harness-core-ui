@@ -14,7 +14,7 @@ import { TagsPopover } from '@common/components'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
+import { ExecutionStatus, isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import ServicesDeployed from './ExecutionDetails/ServicesDeployed'
@@ -158,9 +158,9 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               module={module}
             />
             <div className={css.actions}>
-              <ExecutionStatusLabel status={pipelineExecution.status} />
+              <ExecutionStatusLabel status={pipelineExecution.status as ExecutionStatus} />
               <ExecutionActions
-                executionStatus={pipelineExecution.status}
+                executionStatus={pipelineExecution.status as ExecutionStatus}
                 params={{
                   accountId,
                   orgIdentifier,

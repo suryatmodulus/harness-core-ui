@@ -2,7 +2,7 @@ import React from 'react'
 import { Tabs, Tab } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
-import { isEmpty } from 'lodash-es'
+import { isEmpty, merge } from 'lodash-es'
 
 import { useStrings } from 'framework/strings'
 import { StepWidgetWithFormikRef } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -54,7 +54,7 @@ export function StepCommands(
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
   const advancedConfRef = React.useRef<FormikProps<unknown> | null>(null)
-  const [stepFromAdvancedTab, setStepFromAdvancedTab] = React.useState<ExecutionWrapper>(step)
+  const [stepForAdvancedTab, setStepForAdvancedTab] = React.useState<ExecutionWrapper>(step)
 
   async function handleTabChange(newTab: StepCommandTabs, prevTab: StepCommandTabs): Promise<void> {
     if (prevTab === StepCommandTabs.StepConfiguration && stepRef.current) {
@@ -66,7 +66,7 @@ export function StepCommands(
       await stepRef.current.submitForm()
 
       if (isEmpty(stepRef.current.errors)) {
-        setStepFromAdvancedTab(stepRef.current?.values as ExecutionWrapper)
+        setStepForAdvancedTab(merge(stepRef.current?.values as ExecutionWrapper, stepForAdvancedTab))
         setActiveTab(newTab)
       }
     } else if (prevTab === StepCommandTabs.Advanced && advancedConfRef.current) {
@@ -154,7 +154,7 @@ export function StepCommands(
             title={getString('advancedTitle')}
             panel={
               <AdvancedStepsWithRef
-                step={stepFromAdvancedTab}
+                step={stepForAdvancedTab}
                 isReadonly={isReadonly}
                 stepsFactory={stepsFactory}
                 onChange={onChange}

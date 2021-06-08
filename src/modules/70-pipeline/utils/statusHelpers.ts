@@ -1,8 +1,8 @@
 import { camelCase } from 'lodash-es'
-import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
+import type { ExecutionSummaryInfo } from 'services/pipeline-ng'
 
 export type ExecutionStatus = Exclude<
-  Required<PipelineExecutionSummaryDTO>['executionStatus'],
+  Required<ExecutionSummaryInfo>['lastExecutionStatus'],
   'NOT_STARTED' | 'INTERVENTION_WAITING' | 'APPROVAL_WAITING' | 'APPROVAL_REJECTED'
 >
 

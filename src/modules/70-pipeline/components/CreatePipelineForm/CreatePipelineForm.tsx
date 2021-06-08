@@ -1,6 +1,5 @@
 import React from 'react'
-import { Text, Layout, Formik, FormikForm as Form, Button, Color } from '@wings-software/uicore'
-import { Link } from 'react-router-dom'
+import { Text, Layout, Formik, FormikForm as Form, Button, Color, Icon } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { omit } from 'lodash-es'
 import { NameIdDescriptionTags } from '@common/components'
@@ -16,12 +15,13 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 interface CreatePipelineFormProps {
   handleSubmit: (value: NgPipeline, gitDetail: EntityGitDetails) => void
   closeModal?: () => void
+  learnMoreUrl?: string
 }
 
 export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
   const { getString } = useStrings()
-  const { handleSubmit, closeModal } = props
   const { isGitSyncEnabled } = useAppStore()
+  const { handleSubmit, closeModal, learnMoreUrl } = props
   return (
     <Formik
       initialValues={{
@@ -91,18 +91,10 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
               />
             </Layout.Horizontal>
             <Layout.Horizontal padding={{ top: 'large' }}>
-              <Link to={''}>
-                <Layout.Horizontal spacing="small">
-                  <Text
-                    color={Color.BLUE_700}
-                    font="normal"
-                    rightIcon="chevron-right"
-                    rightIconProps={{ color: Color.BLUE_700 }}
-                  >
-                    {getString('pipeline.createPipeline.learnMore')}
-                  </Text>
-                </Layout.Horizontal>
-              </Link>
+              <a href={learnMoreUrl} rel="noreferrer" target="_blank">
+                {getString('pipeline.createPipeline.learnMore')}
+                <Icon name="chevron-right" />
+              </a>
             </Layout.Horizontal>
           </Form>
         )

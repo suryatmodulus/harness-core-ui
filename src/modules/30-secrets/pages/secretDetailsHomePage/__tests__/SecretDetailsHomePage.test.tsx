@@ -16,7 +16,7 @@ describe('Secret Details', () => {
   test('render for data', async () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <SecretDetailsHomePage mockSecretDetails={mockData as any} />
@@ -27,7 +27,7 @@ describe('Secret Details', () => {
   test('render for no  data', async () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <SecretDetailsHomePage mockSecretDetails={{} as any} />

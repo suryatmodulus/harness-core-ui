@@ -95,22 +95,23 @@ testConnectionStep:
     gcr: 'GCR URL : '
   validationText:
     k8s: Validating the reachability of provided URL
-    docker: Validating the Docker Registry authentication and permissions
-    artifactory: Validating the Artifactory Repository authentication and permissions
-    nexus: Validating the Nexus Repository authentication and permissions
-    gcp: Validating the Google Cloud Provider authentication and permissions
-    gcr: Validating the Google Container Registry authentication and permissions
+    docker: Validating Docker Registry authentication and permissions
+    artifactory: Validating Artifactory Repository authentication and permissions
+    nexus: Validating Nexus Repository authentication and permissions
+    gcp: Validating Google Cloud Provider authentication and permissions
+    gcr: Validating Google Container Registry authentication and permissions
     aws: Validating the AWS Cloud Provider authentication and permissions
-    appD: Validating the AppDynamics authentication and permissions
-    splunk: Validating the Splunk authentication and permissions
-    vault: Validating the HashiCorp Vault authentication and permissions
-    bitbucket: Validating the Bitbucket authentication and permissions
-    gitlab: Validating the GitLab authentication and permissions
-    github: Validating the GitHub authentication and permissions
-    git: Validating the Git authentication and permissions
-    azure: Validating the azure authentication and permission
-    datadog: Validating the Datadog authentication and permission
-    azureKeyVault: Validating the azure key vault authentication and permission
+    appD: Validating AppDynamics authentication and permissions
+    splunk: Validating Splunk authentication and permissions
+    vault: Validating HashiCorp Vault authentication and permissions
+    bitbucket: Validating Bitbucket authentication and permissions
+    gitlab: Validating GitLab authentication and permissions
+    github: Validating GitHub authentication and permissions
+    git: Validating Git authentication and permissions
+    azure: Validating Azure authentication and permissions
+    datadog: Validating Datadog authentication and permissions
+    azureKeyVault: Validating Azure key vault authentication and permissions
+    jira: Validating Jira authentication and permissions
 httpHelm:
   httpHelmRepoUrl: 'Helm Repo URL'
 jira:

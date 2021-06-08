@@ -9,16 +9,17 @@ import { TrialLicenseBanner } from '../TrialLicenseBanner'
 const props = {
   module: 'ci' as ModuleName,
   licenseType: 'TRIAL',
-  expiryTime: moment().add(15, 'days').unix()
+  expiryTime: moment.now() + 24 * 60 * 60 * 1000
 }
 describe('TrialLicenseBanner', () => {
   test('should render banner if api call returns TRIAL', () => {
-    const { container, getByText } = render(
+    const { container, getByText, queryByText } = render(
       <TestWrapper>
         <TrialLicenseBanner {...props} />
       </TestWrapper>
     )
-    expect(getByText('common.banners.trial.contactSales')).toBeDefined()
+    expect(getByText('common.banners.trial.description')).toBeDefined()
+    expect(queryByText('common.banners.trial.expired.extendTrial')).toBeNull()
     expect(container).toMatchSnapshot()
   })
 
@@ -33,6 +34,23 @@ describe('TrialLicenseBanner', () => {
       </TestWrapper>
     )
     expect(queryByText('common.banners.trial.contactSales')).toBeNull()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render expired banner if it is expired', () => {
+    const newProps = {
+      module: 'ci' as ModuleName,
+      licenseType: 'TRIAL',
+      expiryTime: moment.now() - 24 * 60 * 60 * 1000
+    }
+
+    const { container, getByText, queryByText } = render(
+      <TestWrapper>
+        <TrialLicenseBanner {...newProps} />
+      </TestWrapper>
+    )
+    expect(queryByText('common.banners.trial.description')).toBeNull()
+    expect(getByText('common.banners.trial.expired.extendTrial')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

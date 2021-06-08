@@ -4,18 +4,9 @@ import cx from 'classnames'
 import { FieldArray } from 'formik'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
+import { mockOperators, inNotInArr, inNotInPlaceholder } from '../utils/TriggersWizardPageUtils'
 import css from './WebhookConditionsPanel.module.scss'
 
-export const mockOperators = [
-  { label: '', value: '' },
-  { label: 'equals', value: 'equals' },
-  { label: 'not equals', value: 'not equals' },
-  { label: 'in', value: 'in' },
-  { label: 'not in', value: 'not in' },
-  { label: 'starts with', value: 'starts with' },
-  { label: 'ends with', value: 'ends with' },
-  { label: 'regex', value: 'regex' }
-]
 export interface AddConditionInterface {
   key: string
   operator: string
@@ -25,6 +16,7 @@ export interface AddConditionInterface {
 interface AddConditionsSectionPropsInterface {
   title: string
   fieldId: string
+  attributePlaceholder?: string
   formikValues?: { [key: string]: any }
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
   errors: { [key: string]: string }
@@ -33,16 +25,25 @@ interface AddConditionsSectionPropsInterface {
 interface AddConditionRowInterface {
   fieldId: string
   index: number
+  attributePlaceholder: string
+  valuePlaceholder: string
   getString: UseStringsReturn['getString']
 }
 
-const AddConditionRow: React.FC<AddConditionRowInterface> = ({ fieldId, index, getString }) => (
+const AddConditionRow: React.FC<AddConditionRowInterface> = ({
+  fieldId,
+  index,
+  getString,
+  attributePlaceholder,
+  valuePlaceholder
+}) => (
   <div className={cx(css.conditionsRow, css.addConditionsRow)}>
-    <FormInput.Text name={`${fieldId}.${[index]}.key`} label="Attribute" />
+    <FormInput.Text placeholder={attributePlaceholder} name={`${fieldId}.${[index]}.key`} label="Attribute" />
     <FormInput.Select items={mockOperators} name={`${fieldId}.${[index]}.operator`} label="Operator" />
     <FormInput.Text
       name={`${fieldId}.${[index]}.value`}
       label={getString('pipeline.triggers.conditionsPanel.matchesValue')}
+      placeholder={valuePlaceholder}
     />
   </div>
 )
@@ -50,6 +51,7 @@ const AddConditionRow: React.FC<AddConditionRowInterface> = ({ fieldId, index, g
 export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> = ({
   title,
   fieldId,
+  attributePlaceholder = '',
   formikValues,
   setFieldValue,
   errors
@@ -67,7 +69,15 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
           <div style={{ marginTop: '20px' }}>
             {addConditions?.map((_addCondition: AddConditionInterface, index: number) => (
               <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
-                <AddConditionRow index={index} getString={getString} fieldId={fieldId} />
+                <AddConditionRow
+                  index={index}
+                  getString={getString}
+                  fieldId={fieldId}
+                  attributePlaceholder={attributePlaceholder}
+                  valuePlaceholder={
+                    inNotInArr.includes(formikValues?.[fieldId]?.[index]?.operator) ? inNotInPlaceholder : ''
+                  }
+                />
                 <Icon
                   style={{
                     position: 'absolute',
@@ -86,11 +96,12 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
                 />
               </div>
             ))}
-            {errors[fieldId] && (
+            {(addConditions?.length && errors[fieldId] && (
               <Text color={Color.RED_500} style={{ marginBottom: 'var(--spacing-medium)' }}>
                 {errors[fieldId]}
               </Text>
-            )}
+            )) ||
+              null}
           </div>
         )}
       />

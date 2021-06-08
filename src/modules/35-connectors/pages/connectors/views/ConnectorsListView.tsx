@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import { Text, Link, Layout, Color, Icon, Button, Popover, StepsProgress, Container } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, Intent, PopoverInteractionKind, TextArea } from '@blueprintjs/core'
-import { useParams, useHistory, useLocation } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import classNames from 'classnames'
 import { pick } from 'lodash-es'
@@ -31,8 +31,9 @@ import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErr
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import routes from '@common/RouteDefinitions'
 import { getIconByType, GetTestConnectionValidationTextByType, DelegateTypes } from '../utils/ConnectorUtils'
 import css from './ConnectorsListView.module.scss'
 
@@ -431,7 +432,8 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   const gitParams = gitDetails?.objectId
     ? {
         ...pick(gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
-        commitMsg
+        commitMsg,
+        lastObjectId: gitDetails.objectId
       }
     : {}
   const { mutate: deleteConnector } = useDeleteConnector({
@@ -544,11 +546,11 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
 
 const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
   const { data, reload, gotoPage } = props
+  const params = useParams<PipelineType<ProjectPathProps>>()
   const history = useHistory()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
   const listData: ConnectorResponse[] = useMemo(() => data?.content || [], [data?.content])
-  const { pathname } = useLocation()
   const columns: CustomColumn<ConnectorResponse>[] = useMemo(
     () => [
       {
@@ -617,9 +619,9 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
       columns={columns}
       data={listData}
       onRowClick={connector => {
-        const url = `${pathname}/${connector.connector?.identifier}`
+        const url = routes.toConnectorDetails({ ...params, connectorId: connector.connector?.identifier })
         const gitInfo: EntityGitDetails = connector.gitDetails ?? {}
-        const urlForGit = `${pathname}/${connector.connector?.identifier}?repoIdentifier=${gitInfo.repoIdentifier}&branch=${gitInfo.branch}`
+        const urlForGit = `${url}?repoIdentifier=${gitInfo.repoIdentifier}&branch=${gitInfo.branch}`
         history.push(gitInfo?.objectId ? urlForGit : url)
       }}
       pagination={{

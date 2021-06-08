@@ -38,6 +38,7 @@ export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepDetailTab.STEP_DETAILS)
   const manuallySelected = React.useRef(false)
+  const shouldShowInputOutput = ((step?.stepType ?? '') as string) !== 'liteEngineTask'
   const isWaitingOnApproval = isExecutionWaitingForApproval(step.status)
   const isApproval = isApprovalStep(step.stepType)
   const shouldShowApproval =
@@ -89,22 +90,26 @@ export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
           panel={<PipelineDetailsTab />}
         />
       ) : null}
-      <Tabs.Tab
-        id={StepDetailTab.INPUT}
-        title={getString('common.input')}
-        panel={<ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="input" data={step.stepParameters} />}
-      />
-      <Tabs.Tab
-        id={StepDetailTab.OUTPUT}
-        title={getString('outputLabel')}
-        panel={
-          <ExecutionStepInputOutputTab
-            baseFqn={step.baseFqn}
-            mode="output"
-            data={Array.isArray(step.outcomes) ? { output: merge({}, ...step.outcomes) } : step.outcomes}
-          />
-        }
-      />
+      {shouldShowInputOutput && (
+        <Tabs.Tab
+          id={StepDetailTab.INPUT}
+          title={getString('common.input')}
+          panel={<ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="input" data={step.stepParameters} />}
+        />
+      )}
+      {shouldShowInputOutput && (
+        <Tabs.Tab
+          id={StepDetailTab.OUTPUT}
+          title={getString('outputLabel')}
+          panel={
+            <ExecutionStepInputOutputTab
+              baseFqn={step.baseFqn}
+              mode="output"
+              data={Array.isArray(step.outcomes) ? { output: merge({}, ...step.outcomes) } : step.outcomes}
+            />
+          }
+        />
+      )}
       {isManualInterruption ? (
         <Tabs.Tab
           id={StepDetailTab.MANUAL_INTERVENTION}

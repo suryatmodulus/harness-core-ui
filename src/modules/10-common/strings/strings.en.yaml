@@ -1,4 +1,10 @@
 secrets: Secrets
+home: Home
+welcome: Welcome
+dashboards: Dashboards
+accountSetup: Account Setup
+projectSetup: Project Setup
+orgSetup: Org Setup
 delegateForTask: '{{delegate}} for {{taskName}}'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
@@ -18,6 +24,7 @@ reject: Reject
 disable: Disable
 remove: Remove
 member: Member
+subscriptions: Subscriptions
 PermissibleActions: Permissible Actions
 My: My
 ok: OK
@@ -71,14 +78,15 @@ ce:
   cost: COST
   optimization: Optimization
   visibility: Visibility
-  startTrial: Start 14 day CE Enterprise trial
   visibilityWarning: Cost Visibility is currently only available in CE First Generation
   visibilityLaunchButton: Launch CE First Generation
 launchFirstGen: 'Launch {{module}} First Generation'
 startTrial: 'Start 14 day {{module}} Enterprise trial'
+new: new
 purpose:
   welcome: 'Welcome, let’s get you started!'
   infoCardIntent: 'How would you like to get started?'
+  howToProceed: 'How would you like to proceed?'
   continuous: CONTINUOUS
   moduleSuccess: Module Added Successfully
   startATrial: Start A Trial
@@ -87,9 +95,18 @@ purpose:
   cd:
     delivery: Delivery
     subtitle: Deploy your services with blazingly fast pipelines.
-    description: CD description placeholder
     continuous: Continuous Delivery
-
+    description:
+      'Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
+      <br><br>You can access this module via your free trial.
+      Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
+    supportedStack: Supported Stack
+    1stGen:
+      title: CD First Generation
+      description: Self-Service Continuous Delivery that enables engineers to deploy on-demand without scripts. Setup and easily manage automated canary deployments, GitOps and Self service deployments.
+    newGen:
+      title: CD Next Generation
+      description: CD Next Generation simplifies the experience with simpler UI Information Architecture and shared resources across projects. Pipelines can be easily parameterized with Friendly YAML.
   cv:
     verification: Verification
     subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.
@@ -233,9 +250,12 @@ banners:
   email:
     description: Please check your email and follow the link to verify your email. Didn’t receive it?
     resend: Resend Email
-    success: Thank you for verifying your email address.
+    success: Verification email re-sent
   trial:
     description: Your Enterprise {{ module }} trial expires in {{ days }} days. Contact Sales to continue using {{ moduleDescription }}
+    expired:
+      description: Your trial expired {{ expiredDays }} days ago. Contact Sales or extend trial to continue using {{ moduleDescription }}
+      extendTrial: Extend Trial
     contactSales: Contact Sales
     contactSalesForm:
       description: Let’s connect you with our Sales team
@@ -283,3 +303,6 @@ confirmText: Are you sure?
 paste: Paste
 artifactTag: tag
 clientId: Client ID
+filters:
+  saveNewFilter: Save New Filter
+in: in

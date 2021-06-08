@@ -56,7 +56,7 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
   })
 
   if (error) {
-    showError(error.message)
+    showError(error.message, undefined, 'ce.get.cf.tmpl.error')
   }
 
   const randomString = (): string => {
@@ -66,7 +66,7 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
   const createTemplate = (): void => {
     const cftPath: string = data?.response?.path as string
     if (!cftPath) {
-      showError('Template path is empty')
+      showError('Template path is empty', undefined, 'ce.create.tpml.error')
       return
     }
     setExternalIDEnabled(false)

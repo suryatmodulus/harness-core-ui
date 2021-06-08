@@ -9,6 +9,7 @@ export interface StringsMap {
   'common.accViewer': string
   'common.accessKey': string
   'common.accountName': string
+  'common.accountSetup': string
   'common.addVariable': string
   'common.approve': string
   'common.artifactTag': string
@@ -46,11 +47,12 @@ export interface StringsMap {
   'common.banners.trial.contactSalesForm.roleItems.vp': string
   'common.banners.trial.contactSalesForm.roleValidation': string
   'common.banners.trial.description': string
+  'common.banners.trial.expired.description': string
+  'common.banners.trial.expired.extendTrial': string
   'common.blank': string
   'common.capsAll': string
   'common.ce.cost': string
   'common.ce.optimization': string
-  'common.ce.startTrial': string
   'common.ce.visibility': string
   'common.ce.visibilityLaunchButton': string
   'common.ce.visibilityWarning': string
@@ -62,6 +64,7 @@ export interface StringsMap {
   'common.confictOccured': string
   'common.confirmText': string
   'common.createPipeline': string
+  'common.dashboards': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
   'common.datePickerShortcuts.Last3Days': string
@@ -80,6 +83,7 @@ export interface StringsMap {
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
   'common.failureRate': string
+  'common.filters.saveNewFilter': string
   'common.git.APIAccessDescriptipn': string
   'common.git.APIAuthentication': string
   'common.git.addUserCredentialLabel': string
@@ -139,6 +143,8 @@ export interface StringsMap {
   'common.gitSync.unSynced.message2': string
   'common.gitSync.unableToCreatePR': string
   'common.gitSync.updateResource': string
+  'common.home': string
+  'common.in': string
   'common.input': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
@@ -152,12 +158,14 @@ export interface StringsMap {
   'common.logs.noLogsText': string
   'common.member': string
   'common.namespace': string
+  'common.new': string
   'common.newLines': string
   'common.newVersion': string
   'common.noRefData': string
   'common.note': string
   'common.ok': string
   'common.options': string
+  'common.orgSetup': string
   'common.orgViewer': string
   'common.other': string
   'common.paste': string
@@ -168,12 +176,18 @@ export interface StringsMap {
   'common.pipelineDetails': string
   'common.plusNumber': string
   'common.production': string
+  'common.projectSetup': string
   'common.projectViewer': string
   'common.provisioner': string
+  'common.purpose.cd.1stGen.description': string
+  'common.purpose.cd.1stGen.title': string
   'common.purpose.cd.continuous': string
   'common.purpose.cd.delivery': string
   'common.purpose.cd.description': string
+  'common.purpose.cd.newGen.description': string
+  'common.purpose.cd.newGen.title': string
   'common.purpose.cd.subtitle': string
+  'common.purpose.cd.supportedStack': string
   'common.purpose.ce.continuous': string
   'common.purpose.ce.description': string
   'common.purpose.ce.descriptionOnly': string
@@ -194,6 +208,7 @@ export interface StringsMap {
   'common.purpose.cv.description': string
   'common.purpose.cv.subtitle': string
   'common.purpose.cv.verification': string
+  'common.purpose.howToProceed': string
   'common.purpose.infoCardIntent': string
   'common.purpose.moduleSuccess': string
   'common.purpose.selectAModule': string
@@ -227,6 +242,7 @@ export interface StringsMap {
   'common.startTrial': string
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
+  'common.subscriptions': string
   'common.test.connectionFailed': string
   'common.test.connectionSuccessful': string
   'common.test.inProgress': string
@@ -250,6 +266,7 @@ export interface StringsMap {
   'common.validation.valueMustBeANumber': string
   'common.validation.valueMustBeGreaterThanOrEqualToN': string
   'common.validation.valueMustBeLessThanOrEqualTo64': string
+  'common.welcome': string
   'notifications.buttonSend': string
   'notifications.emailRecipients': string
   'notifications.emailTestSuccess': string
@@ -375,7 +392,7 @@ export interface StringsMap {
   'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
   'authSettings.addSAMLProvider': string
   'authSettings.allowLoginFromTheseDomains': string
-  'authSettings.allowUsersWIthEmails': string
+  'authSettings.allowUsersWithEmails': string
   'authSettings.atLeastNChars': string
   'authSettings.authenticationSettings': string
   'authSettings.authorizationEnabledFor': string
@@ -456,6 +473,7 @@ export interface StringsMap {
   'authSettings.plusSAMLProvider': string
   'authSettings.publicOAuthLoginDisabled': string
   'authSettings.publicOAuthLoginEnabled': string
+  'authSettings.restrictUsersToEmailDomains': string
   'authSettings.samlLoginEnabled': string
   'authSettings.samlProviderAddedSuccessfully': string
   'authSettings.samlProviderDeleted': string
@@ -469,6 +487,7 @@ export interface StringsMap {
   'authSettings.testingSSODescription': string
   'authSettings.twoFAEnforcementDisabled': string
   'authSettings.twoFAEnforcementEnabled': string
+  'authSettings.typeAndPressEnterToAddADomain': string
   'authSettings.uploadIdentityProvider': string
   'authSettings.useHarnessUsernameAndPassword': string
   'authSettings.usePublicOAuth': string
@@ -780,6 +799,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.git': string
   'connectors.testConnectionStep.validationText.github': string
   'connectors.testConnectionStep.validationText.gitlab': string
+  'connectors.testConnectionStep.validationText.jira': string
   'connectors.testConnectionStep.validationText.k8s': string
   'connectors.testConnectionStep.validationText.nexus': string
   'connectors.testConnectionStep.validationText.splunk': string
@@ -864,6 +884,64 @@ export interface StringsMap {
   'userProfile.userEditFail': string
   'userProfile.userEditSuccess': string
   'userProfile.yourCurrentPasswordIncorrect': string
+  'gitsync.addFolder': string
+  'gitsync.addNewHarnessFolderLabel': string
+  'gitsync.configureHarnessFolder': string
+  'gitsync.connectThroughDelegate': string
+  'gitsync.connectThroughDelegateLabel': string
+  'gitsync.connectThroughManager': string
+  'gitsync.connectThroughManagerLabel': string
+  'gitsync.connectToGitProvider': string
+  'gitsync.defaultFolder': string
+  'gitsync.entitiesByRepositories': string
+  'gitsync.folderDetails': string
+  'gitsync.harnessFolderHeader': string
+  'gitsync.harnessFolderText': string
+  'gitsync.label': string
+  'gitsync.learnMore': string
+  'gitsync.markAsDefault': string
+  'gitsync.markAsDefaultLabel': string
+  'gitsync.moveFolder': string
+  'gitsync.pathToHarnessFolder': string
+  'gitsync.repositoryPath': string
+  'gitsync.rootFolderListHeader': string
+  'gitsync.rootFolderUpdatedSuccessfully': string
+  'gitsync.rootfolderLabel': string
+  'gitsync.seeLess': string
+  'gitsync.seeMore': string
+  'gitsync.selectConnectivityMode': string
+  'gitsync.selectDefaultBranch': string
+  'gitsync.selectHarnessFolder': string
+  'gitsync.successfullCreate': string
+  'gitsync.successfullySavedConnectivityMode': string
+  'dashboards.createModal.dataSource': string
+  'dashboards.createModal.descriptionPlaceholder': string
+  'dashboards.createModal.fav': string
+  'dashboards.createModal.namePlaceholder': string
+  'dashboards.createModal.nameValidation': string
+  'dashboards.createModal.sampleDesc': string
+  'dashboards.createModal.sampleTitle': string
+  'dashboards.createModal.stepOne': string
+  'dashboards.createModal.submitFail': string
+  'dashboards.createModal.view': string
+  'dashboards.homePage.title': string
+  'dashboards.serviceDashboard.activeServiceInstancesLabel': string
+  'dashboards.serviceDashboard.day': string
+  'dashboards.serviceDashboard.executionId': string
+  'dashboards.serviceDashboard.frequency': string
+  'dashboards.serviceDashboard.in': string
+  'dashboards.serviceDashboard.lastDeployment': string
+  'dashboards.serviceDashboard.month': string
+  'dashboards.serviceDashboard.months': string
+  'dashboards.serviceDashboard.nonProd': string
+  'dashboards.serviceDashboard.prod': string
+  'dashboards.serviceDashboard.serviceInstances': string
+  'dashboards.serviceDashboard.servicesInLast': string
+  'dashboards.serviceDashboard.totalServices': string
+  'dashboards.serviceDashboard.week': string
+  'dashboards.sideNav.byHarness': string
+  'dashboards.sideNav.custom': string
+  'dashboards.sideNav.noDashboard': string
   'projectsOrgs.aboutProject': string
   'projectsOrgs.aboutTitle': string
   'projectsOrgs.blank': string
@@ -950,64 +1028,6 @@ export interface StringsMap {
   'projectsOrgs.viewProjects': string
   'projectsOrgs.welcome': string
   'projectsOrgs.welcomeSecondLine': string
-  'dashboards.createModal.dataSource': string
-  'dashboards.createModal.descriptionPlaceholder': string
-  'dashboards.createModal.fav': string
-  'dashboards.createModal.namePlaceholder': string
-  'dashboards.createModal.nameValidation': string
-  'dashboards.createModal.sampleDesc': string
-  'dashboards.createModal.sampleTitle': string
-  'dashboards.createModal.stepOne': string
-  'dashboards.createModal.submitFail': string
-  'dashboards.createModal.view': string
-  'dashboards.homePage.title': string
-  'dashboards.serviceDashboard.activeServiceInstancesLabel': string
-  'dashboards.serviceDashboard.day': string
-  'dashboards.serviceDashboard.executionId': string
-  'dashboards.serviceDashboard.frequency': string
-  'dashboards.serviceDashboard.in': string
-  'dashboards.serviceDashboard.lastDeployment': string
-  'dashboards.serviceDashboard.month': string
-  'dashboards.serviceDashboard.months': string
-  'dashboards.serviceDashboard.nonProd': string
-  'dashboards.serviceDashboard.prod': string
-  'dashboards.serviceDashboard.serviceInstances': string
-  'dashboards.serviceDashboard.servicesInLast': string
-  'dashboards.serviceDashboard.totalServices': string
-  'dashboards.serviceDashboard.week': string
-  'dashboards.sideNav.byHarness': string
-  'dashboards.sideNav.custom': string
-  'dashboards.sideNav.noDashboard': string
-  'gitsync.addFolder': string
-  'gitsync.addNewHarnessFolderLabel': string
-  'gitsync.configureHarnessFolder': string
-  'gitsync.connectThroughDelegate': string
-  'gitsync.connectThroughDelegateLabel': string
-  'gitsync.connectThroughManager': string
-  'gitsync.connectThroughManagerLabel': string
-  'gitsync.connectToGitProvider': string
-  'gitsync.defaultFolder': string
-  'gitsync.entitiesByRepositories': string
-  'gitsync.folderDetails': string
-  'gitsync.harnessFolderHeader': string
-  'gitsync.harnessFolderText': string
-  'gitsync.label': string
-  'gitsync.learnMore': string
-  'gitsync.markAsDefault': string
-  'gitsync.markAsDefaultLabel': string
-  'gitsync.moveFolder': string
-  'gitsync.pathToHarnessFolder': string
-  'gitsync.repositoryPath': string
-  'gitsync.rootFolderListHeader': string
-  'gitsync.rootFolderUpdatedSuccessfully': string
-  'gitsync.rootfolderLabel': string
-  'gitsync.seeLess': string
-  'gitsync.seeMore': string
-  'gitsync.selectConnectivityMode': string
-  'gitsync.selectDefaultBranch': string
-  'gitsync.selectHarnessFolder': string
-  'gitsync.successfullCreate': string
-  'gitsync.successfullySavedConnectivityMode': string
   'pipeline.and': string
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string
@@ -1281,6 +1301,7 @@ export interface StringsMap {
   'pipeline.startTime': string
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDetails': string
+  'pipeline.stepLabel': string
   'pipeline.targets.title': string
   'pipeline.testsReports.className': string
   'pipeline.testsReports.commitId': string
@@ -1333,8 +1354,8 @@ export interface StringsMap {
   'pipeline.triggers.cannotParseInputValues': string
   'pipeline.triggers.cannotParseTriggersData': string
   'pipeline.triggers.conditionsPanel.attribute': string
-  'pipeline.triggers.conditionsPanel.branchConditions': string
   'pipeline.triggers.conditionsPanel.branchName': string
+  'pipeline.triggers.conditionsPanel.changedFiles': string
   'pipeline.triggers.conditionsPanel.headerConditions': string
   'pipeline.triggers.conditionsPanel.jexlCondition': string
   'pipeline.triggers.conditionsPanel.matchesValue': string
@@ -1351,9 +1372,9 @@ export interface StringsMap {
   'pipeline.triggers.cronLabel': string
   'pipeline.triggers.deleteTrigger': string
   'pipeline.triggers.enableLabel': string
+  'pipeline.triggers.lastActivationAt': string
+  'pipeline.triggers.lastActivationDetails': string
   'pipeline.triggers.lastActivationLabel': string
-  'pipeline.triggers.lastExecutionAt': string
-  'pipeline.triggers.lastExecutionDetails': string
   'pipeline.triggers.newArtifactLabel': string
   'pipeline.triggers.newManifestLabel': string
   'pipeline.triggers.newTrigger': string
@@ -1416,14 +1437,13 @@ export interface StringsMap {
   'pipeline.triggers.triggerConfigurationLabel': string
   'pipeline.triggers.triggerConfigurationPanel.actions': string
   'pipeline.triggers.triggerConfigurationPanel.anyActions': string
-  'pipeline.triggers.triggerConfigurationPanel.copiedToken': string
+  'pipeline.triggers.triggerConfigurationPanel.autoAbortIssueComment': string
+  'pipeline.triggers.triggerConfigurationPanel.autoAbortPR': string
+  'pipeline.triggers.triggerConfigurationPanel.autoAbortPush': string
   'pipeline.triggers.triggerConfigurationPanel.event': string
   'pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook': string
   'pipeline.triggers.triggerConfigurationPanel.payloadType': string
   'pipeline.triggers.triggerConfigurationPanel.recurrenceLabel': string
-  'pipeline.triggers.triggerConfigurationPanel.regenerateToken': string
-  'pipeline.triggers.triggerConfigurationPanel.regeneratedToken': string
-  'pipeline.triggers.triggerConfigurationPanel.secureTokenRegenerateWarning': string
   'pipeline.triggers.triggerConfigurationPanel.selectTimezonePlaceholder': string
   'pipeline.triggers.triggerConfigurationPanel.title': string
   'pipeline.triggers.triggerConfigurationPanel.triggerName': string
@@ -1800,6 +1820,7 @@ export interface StringsMap {
   'cf.clause.operators.endsWith': string
   'cf.clause.operators.equal': string
   'cf.clause.operators.equalSensitive': string
+  'cf.clause.operators.in': string
   'cf.clause.operators.match': string
   'cf.clause.operators.matchSegment': string
   'cf.clause.operators.startsWith': string

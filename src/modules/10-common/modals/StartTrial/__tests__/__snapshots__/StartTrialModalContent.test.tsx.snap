@@ -7,7 +7,6 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
   >
     <h1
       class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--padding-top-xxlarge"
-      style="margin-bottom: 30px;"
     >
       common.purpose.welcome
     </h1>
@@ -51,7 +50,7 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
         </svg>
       </span>
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
       >
         ce.continuous
       </p>
@@ -68,13 +67,12 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
     </h1>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-      style="margin-right: 300px;"
     >
       <div
         class="bp3-card bp3-elevation-0 Card--card card infoCard selected"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
         >
           <span
             class="bp3-icon StyledProps--main"
@@ -99,13 +97,17 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
             </svg>
           </span>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
-              common.ce.cost
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main title StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+              >
+                common.ce.cost
+              </p>
+            </div>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
             >
               common.ce.optimization
             </p>
@@ -113,7 +115,6 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
-          style="min-height: 70px;"
         >
           common.purpose.ce.optimizationCard.description
         </p>
@@ -122,7 +123,7 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
         class="bp3-card bp3-elevation-0 Card--card card infoCard"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
         >
           <span
             class="bp3-icon StyledProps--main"
@@ -160,13 +161,17 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
             </svg>
           </span>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
-              common.ce.cost
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main title StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+              >
+                common.ce.cost
+              </p>
+            </div>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
             >
               common.ce.visibility
             </p>
@@ -174,15 +179,14 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
-          style="min-height: 70px;"
         >
           common.purpose.ce.visibilityCard.description
         </p>
       </div>
     </div>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-      style="width: 270px; border-radius: 4px; line-height: 2.5; text-align: center; padding: 19px;"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--border StyledProps--font StyledProps--font-align-center StyledProps--padding-medium StyledProps--intent-primary Button--with-current-color"
+      style="width: 270px; height: 2.5px;"
       type="button"
     >
       <span
@@ -202,7 +206,6 @@ exports[`StartTrialModalContent Rendering test that the warning container render
   >
     <h1
       class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--padding-top-xxlarge"
-      style="margin-bottom: 30px;"
     >
       common.purpose.welcome
     </h1>
@@ -246,7 +249,7 @@ exports[`StartTrialModalContent Rendering test that the warning container render
         </svg>
       </span>
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
       >
         ce.continuous
       </p>
@@ -263,13 +266,12 @@ exports[`StartTrialModalContent Rendering test that the warning container render
     </h1>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-      style="margin-right: 300px;"
     >
       <div
         class="bp3-card bp3-elevation-0 Card--card card infoCard"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
         >
           <span
             class="bp3-icon StyledProps--main"
@@ -294,13 +296,17 @@ exports[`StartTrialModalContent Rendering test that the warning container render
             </svg>
           </span>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
-              common.ce.cost
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main title StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+              >
+                common.ce.cost
+              </p>
+            </div>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
             >
               common.ce.optimization
             </p>
@@ -308,7 +314,6 @@ exports[`StartTrialModalContent Rendering test that the warning container render
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
-          style="min-height: 70px;"
         >
           common.purpose.ce.optimizationCard.description
         </p>
@@ -317,7 +322,7 @@ exports[`StartTrialModalContent Rendering test that the warning container render
         class="bp3-card bp3-elevation-0 Card--card card infoCard selected"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
         >
           <span
             class="bp3-icon StyledProps--main"
@@ -355,13 +360,17 @@ exports[`StartTrialModalContent Rendering test that the warning container render
             </svg>
           </span>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
-              common.ce.cost
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main title StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+              >
+                common.ce.cost
+              </p>
+            </div>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
             >
               common.ce.visibility
             </p>
@@ -369,7 +378,6 @@ exports[`StartTrialModalContent Rendering test that the warning container render
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
-          style="min-height: 70px;"
         >
           common.purpose.ce.visibilityCard.description
         </p>
@@ -416,8 +424,8 @@ exports[`StartTrialModalContent Rendering test that the warning container render
       </p>
     </div>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-      style="width: 270px; border-radius: 4px; line-height: 2.5; text-align: center; padding: 19px;"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--border StyledProps--font StyledProps--font-align-center StyledProps--padding-medium StyledProps--intent-primary Button--with-current-color"
+      style="width: 270px; height: 2.5px;"
       type="button"
     >
       <span
@@ -437,7 +445,6 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
   >
     <h1
       class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--padding-top-xxlarge"
-      style="margin-bottom: 30px;"
     >
       common.purpose.welcome
     </h1>
@@ -481,7 +488,7 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
         </svg>
       </span>
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
       >
         ce.continuous
       </p>
@@ -498,13 +505,12 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
     </h1>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-      style="margin-right: 300px;"
     >
       <div
         class="bp3-card bp3-elevation-0 Card--card card infoCard selected"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
         >
           <span
             class="bp3-icon StyledProps--main"
@@ -529,13 +535,17 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
             </svg>
           </span>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
-              common.ce.cost
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main title StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+              >
+                common.ce.cost
+              </p>
+            </div>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
             >
               common.ce.optimization
             </p>
@@ -543,7 +553,6 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
-          style="min-height: 70px;"
         >
           common.purpose.ce.optimizationCard.description
         </p>
@@ -552,7 +561,7 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
         class="bp3-card bp3-elevation-0 Card--card card infoCard"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
         >
           <span
             class="bp3-icon StyledProps--main"
@@ -590,13 +599,17 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
             </svg>
           </span>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
-              common.ce.cost
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main title StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+              >
+                common.ce.cost
+              </p>
+            </div>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
             >
               common.ce.visibility
             </p>
@@ -604,15 +617,14 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
-          style="min-height: 70px;"
         >
           common.purpose.ce.visibilityCard.description
         </p>
       </div>
     </div>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-      style="width: 270px; border-radius: 4px; line-height: 2.5; text-align: center; padding: 19px;"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--border StyledProps--font StyledProps--font-align-center StyledProps--padding-medium StyledProps--intent-primary Button--with-current-color"
+      style="width: 270px; height: 2.5px;"
       type="button"
     >
       <span

@@ -11,9 +11,12 @@ import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
+import { listSecretsV2Promise } from 'services/cd-ng'
 import { CustomVariables } from '../CustomVariables'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+
+jest.mock('services/cd-ng')
 
 describe('Custom Variables', () => {
   beforeAll(() => {
@@ -118,5 +121,44 @@ describe('Custom Variables', () => {
 
     expect(container.querySelectorAll('.tableRow:not(.headerRow)').length).toBe(2)
     expect(container).toMatchSnapshot('After Delete')
+  })
+
+  test('validates input set correctly', () => {
+    const response = new CustomVariables().validateInputSet(
+      {
+        variables: [
+          { name: 'myVar1', type: 'Number', value: NaN },
+          { name: 'myVar1', type: 'String', value: 'myVar1Value' },
+          { name: 'myVar1', type: 'Secret', value: '<+input>' }
+        ]
+      },
+      {
+        variables: [{ value: '<+input>' }]
+      }
+    )
+    expect(response).toMatchSnapshot()
+  })
+
+  test('handles secrets correctly', () => {
+    ;(listSecretsV2Promise as any).mockResolvedValue({
+      data: {
+        content: [
+          {
+            secret: {
+              name: 'test'
+            }
+          }
+        ]
+      }
+    })
+    const response = new CustomVariables().getSecretsListForYaml(
+      'variables.0.value',
+      `
+      variables:
+        - type: Secret
+      `,
+      {}
+    )
+    expect(response).toMatchSnapshot()
   })
 })

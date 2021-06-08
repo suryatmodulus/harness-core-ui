@@ -76,9 +76,12 @@ const TextReference: React.FC<FormikTextReference> = props => {
       })
 
       val = {
-        identifier: secretString.split('.')[1],
+        identifier: response.data?.secret.identifier,
         name: response.data?.secret.name || secretString.split('.')[1],
-        referenceString: secretString
+        referenceString: secretString,
+        accountIdentifier: accountId,
+        orgIdentifier: orgIdentifier,
+        projectIdentifier: projectIdentifier
       }
     } catch (e) {
       showError(e.message)

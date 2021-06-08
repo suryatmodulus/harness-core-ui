@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { Text, Layout, Icon, Button, Color } from '@wings-software/uicore'
+import { Text, Layout, Button, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useResendVerifyEmail } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
-import type { StringsMap } from 'framework/strings/StringsContext'
 import { Page } from '../Page/Page'
 import css from './EmailVerificationBanner.module.scss'
 
@@ -37,12 +36,14 @@ export const EmailVerificationBanner = (): React.ReactElement => {
       className={cx(css.page, css.sendSuccess)}
       title={''}
       content={
-        <Layout.Horizontal spacing="small" padding={{ right: 'xxxlarge' }}>
-          <Icon style={{ paddingTop: 6, color: 'var(--green-500)' }} name="deployment-success-legacy" size={18} />
-          <Text color={'var(--green-500)'} style={{ lineHeight: 2.5, fontWeight: 500 }}>
-            {getString('common.banners.email.success' as keyof StringsMap)}
-          </Text>
-        </Layout.Horizontal>
+        <Text
+          color={Color.GREEN_500}
+          font={{ weight: 'semi-bold' }}
+          icon={'deployment-success-legacy'}
+          iconProps={{ size: 18 }}
+        >
+          {getString('common.banners.email.success')}
+        </Text>
       }
     />
   ) : (
@@ -51,21 +52,17 @@ export const EmailVerificationBanner = (): React.ReactElement => {
       title={''}
       content={
         <Layout.Horizontal spacing="xxxlarge">
-          <Layout.Horizontal spacing="small" padding={{ right: 'xxxlarge' }}>
-            <Icon style={{ paddingTop: 6, color: 'var(--orange-500)' }} name="deployment-incomplete-legacy" size={18} />
-            <Text style={{ lineHeight: 2.5, fontWeight: 500 }}>
-              {getString('common.banners.email.description' as keyof StringsMap)}
-            </Text>
-          </Layout.Horizontal>
-          <Layout.Horizontal spacing="small">
-            <Button
-              padding="xsmall"
-              disabled={loading}
-              text={getString('common.banners.email.resend' as keyof StringsMap)}
-              onClick={handleResendEmail}
-            />
-            {loading && <Icon name="steps-spinner" size={20} color={Color.BLUE_600} style={{ marginTop: 7 }} />}
-          </Layout.Horizontal>
+          <Text font={{ weight: 'semi-bold' }} icon="deployment-incomplete-legacy" iconProps={{ size: 18 }}>
+            {getString('common.banners.email.description')}
+          </Text>
+
+          <Button
+            className={css.resend}
+            padding="xsmall"
+            disabled={loading}
+            text={getString('common.banners.email.resend')}
+            onClick={handleResendEmail}
+          />
         </Layout.Horizontal>
       }
     />

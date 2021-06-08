@@ -1,6 +1,6 @@
 .main {
-  width: 180px;
-  background: #07182b;
+  height: 100%;
+  background: var(--theme-light-nav-panel-bg);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -10,7 +10,7 @@
     position: relative;
 
     .titleContainer {
-      margin-left: var(--spacing-small);
+      margin-left: var(--spacing-medium);
       margin-bottom: var(--spacing-medium);
 
       .title {
@@ -25,7 +25,7 @@
       right: 0;
       overflow: hidden;
       height: 350px;
-      width: 180px;
+      width: 192px;
 
       .icon {
         position: absolute;
@@ -39,27 +39,24 @@
 
 .link {
   display: block;
-  padding: var(--spacing-small);
   margin-left: var(--spacing-medium);
-
-  &:first-child {
-    margin-top: var(--spacing-medium) !important;
-  }
+  padding: var(--spacing-small) var(--spacing-medium);
+  opacity: 0.8;
 
   &:hover {
     text-decoration: none;
-    background: rgba(255, 255, 255, 0.15);
+    opacity: 1;
   }
 
   &.selected {
-    background-color: var(--primary-7);
-
-    .text {
-      color: var(--white) !important;
-    }
+    background-color: var(--primary-6);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    opacity: 1;
   }
 
   .text {
-    color: var(--grey-400) !important;
+    color: var(--white) !important;
+    font-size: 13px !important;
   }
 }

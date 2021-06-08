@@ -135,7 +135,6 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     openNestedPath(id)
     document.getElementById(`${id}-panel`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
-
   return (
     <Layout.Vertical className={css.webhookPipelineInputContainer} spacing="large" padding="none">
       {loading && (

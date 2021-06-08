@@ -38,10 +38,10 @@ export const ExcludeSegmentRow: React.FC<{
         _useRemoveTargetsFromExcludeList(segment.identifier as string, [target?.identifier as string])
           .then(refetch)
           .catch(error => {
-            showError(getErrorMessage(error), 0)
+            showError(getErrorMessage(error), 0, 'cf.remove.target.error')
           })
       } catch (error) {
-        showError(getErrorMessage(error), 0)
+        showError(getErrorMessage(error), 0, 'cf.remove.target.error')
       }
     }
   })

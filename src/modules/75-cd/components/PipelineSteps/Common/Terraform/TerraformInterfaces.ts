@@ -54,7 +54,9 @@ export interface TerraformPlanProps {
     template?: TFPlanFormData
     path?: string
   }
+  path?: string
   readonly?: boolean
+  gitScope?: GitFilterScope
   stepType?: string
 }
 
@@ -167,7 +169,10 @@ export interface Connector {
   value: string
   scope: Scope
   live: boolean
-  connector: { type: string; spec: { val: string; url: string; connectionType?: string; type?: string } }
+  connector: {
+    type: string
+    spec: { val: string; url: string; connectionType?: string; type?: string }
+  }
 }
 export interface TerraformData extends StepElementConfig {
   spec?: {
@@ -276,7 +281,11 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
     if (Array.isArray(envVars)) {
       envVars.forEach(mapValue => {
         if (mapValue.value) {
-          envMap.push({ name: mapValue.key, value: mapValue.value, type: 'String' })
+          envMap.push({
+            name: mapValue.key,
+            value: mapValue.value,
+            type: 'String'
+          })
         }
       })
     }
@@ -372,7 +381,11 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
   if (Array.isArray(envVars)) {
     envVars.forEach(mapValue => {
       if (mapValue.value) {
-        envMap.push({ name: mapValue.key, value: mapValue.value, type: 'String' })
+        envMap.push({
+          name: mapValue.key,
+          value: mapValue.value,
+          type: 'String'
+        })
       }
     })
   }

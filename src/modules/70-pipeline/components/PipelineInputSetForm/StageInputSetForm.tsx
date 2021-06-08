@@ -49,7 +49,7 @@ function StepForm({
           name={factory.getStepIcon(allValues?.step?.type || /* istanbul ignore next */ '')}
         />
         {getString('pipeline.execution.stepTitlePrefix')}
-        {`${allValues?.step?.name} (${allValues?.step?.identifier})`}
+        {getString('pipeline.stepLabel', allValues?.step)}
       </Label>
       <div>
         <StepWidget<ExecutionWrapper>

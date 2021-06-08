@@ -17,8 +17,7 @@ import {
   startPreflightCheckPromise,
   useGetPreflightCheckResponse
 } from 'services/pipeline-ng'
-import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
-import { Scope } from '@common/interfaces/SecretsInterface'
+import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import { useToaster } from '@common/exports'
 import type { GitQueryParams, Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
@@ -174,26 +173,15 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps & GitQueryParams> = ({
     return <Text intent="danger">{getString('pre-flight-check.couldNotVerifyConnectors')}</Text>
   }
 
-  function getConnectorUrl(connectorRef: string) {
-    const scope = getScopeFromValue(connectorRef)
+  function getConnectorUrl(connectorRef: string): string {
     const connectorId = getIdentifierFromValue(connectorRef)
-    switch (scope) {
-      case Scope.ACCOUNT: {
-        return routes.toResourcesConnectorDetails({ connectorId, accountId })
-      }
-      case Scope.ORG: {
-        return routes.toOrgResourcesConnectorDetails({ orgIdentifier, connectorId, accountId })
-      }
-      case Scope.PROJECT: {
-        return routes.toProjectAdminResourcesConnectorDetails({
-          projectIdentifier,
-          orgIdentifier,
-          connectorId,
-          accountId,
-          module
-        })
-      }
-    }
+    return routes.toConnectorDetails({
+      projectIdentifier,
+      orgIdentifier,
+      connectorId,
+      accountId,
+      module
+    })
   }
 
   const getStageLink = (stageId: string): string => {

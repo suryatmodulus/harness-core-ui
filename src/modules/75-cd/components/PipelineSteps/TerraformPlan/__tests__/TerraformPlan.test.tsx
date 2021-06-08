@@ -16,6 +16,10 @@ jest.mock('services/portal', () => ({
   })
 }))
 
+jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => {
+  return <textarea value={value} onChange={e => onChange(e.target.value)} name={name || 'spec.source.spec.script'} />
+})
+
 describe('Test TerraformPlan', () => {
   beforeEach(() => {
     factory.registerStep(new TerraformPlan())
@@ -494,6 +498,7 @@ describe('Test TerraformPlan', () => {
   test('should render input set view', () => {
     const { container } = render(
       <TestStepWidget
+        path={'test'}
         initialValues={{
           type: 'TerraformPlan',
           name: 'Test A',

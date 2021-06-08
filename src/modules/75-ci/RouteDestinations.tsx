@@ -14,7 +14,9 @@ import {
   rolePathProps,
   resourceGroupPathProps,
   delegatePathProps,
-  delegateConfigProps
+  delegateConfigProps,
+  userGroupPathProps,
+  userPathProps
 } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import type {
@@ -72,8 +74,9 @@ import Roles from '@rbac/pages/Roles/Roles'
 import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import UserGroups from '@rbac/pages/UserGroups/UserGroups'
-import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import BuildTests from '@pipeline/pages/execution/ExecutionTestView/BuildTests'
+import UserDetails from '@rbac/pages/UserDetails/UserDetails'
+import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import CIHomePage from './pages/home/CIHomePage'
 import CIDashboardPage from './pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from './pages/pipeline-studio/CIPipelineStudio'
@@ -93,13 +96,21 @@ const RedirectToCIHome = (): React.ReactElement => {
 }
 
 const RedirectToCIProject = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps>()
+  const { accountId } = useParams<ProjectPathProps>()
   const { selectedProject } = useAppStore()
 
   if (selectedProject?.modules?.includes(ModuleName.CI)) {
-    return <Redirect to={routes.toCIProjectOverview(params)} />
+    return (
+      <Redirect
+        to={routes.toCIProjectOverview({
+          accountId,
+          orgIdentifier: selectedProject.orgIdentifier || '',
+          projectIdentifier: selectedProject.identifier
+        })}
+      />
+    )
   } else {
-    return <Redirect to={routes.toCIHome(params)} />
+    return <Redirect to={routes.toCIHome({ accountId })} />
   }
 }
 const RedirectToExecutionPipeline = (): React.ReactElement => {
@@ -120,11 +131,6 @@ const CIDashboardPageOrRedirect = (): React.ReactElement => {
   } else {
     return <Redirect to={routes.toCIHome(params)} />
   }
-}
-
-const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps & ModulePathParams>()
-  return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
 const RedirectToPipelineDetailHome = (): React.ReactElement => {
@@ -212,21 +218,13 @@ export default (
         path={routes.toCIBuildCommits({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
         component={<BuildCommits />}
       /> */}
-    <Route
-      sidebarProps={CISideNavProps}
-      exact
-      path={routes.toResources({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-    >
-      <RedirectToResourcesHome />
-    </Route>
+
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toResourcesConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <ResourcesPage>
-        <ConnectorsPage />
-      </ResourcesPage>
+      <ConnectorsPage />
     </RouteWithLayout>
 
     <Route
@@ -257,11 +255,9 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toResourcesSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <ResourcesPage>
-        <SecretsPage module="ci" />
-      </ResourcesPage>
+      <SecretsPage module="ci" />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CISideNavProps}
@@ -278,10 +274,11 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toCIAdminResourcesConnectorDetails({
+      path={routes.toConnectorDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...connectorPathProps
+        ...connectorPathProps,
+        ...pipelineModuleParams
       })}
     >
       <ConnectorDetailsPage />
@@ -289,7 +286,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toResourcesSecretDetails({
+      path={routes.toSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -301,7 +298,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toResourcesSecretDetailsOverview({
+      path={routes.toSecretDetailsOverview({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -315,7 +312,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toResourcesSecretDetailsReferences({
+      path={routes.toSecretDetailsReferences({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -329,7 +326,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toResourcesDelegates({
+      path={routes.toDelegates({
         ...accountPathProps,
         ...projectPathProps,
         ...pipelineModuleParams
@@ -340,7 +337,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toResourcesDelegatesDetails({
+      path={routes.toDelegatesDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...delegatePathProps,
@@ -352,7 +349,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toResourcesDelegateConfigsDetails({
+      path={routes.toDelegateConfigsDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...delegateConfigProps,
@@ -566,12 +563,28 @@ export default (
 
     <RouteWithLayout
       sidebarProps={CISideNavProps}
+      path={routes.toUserDetails({ ...projectPathProps, ...pipelineModuleParams, ...userPathProps })}
+      exact
+    >
+      <UserDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
       path={[routes.toUserGroups({ ...projectPathProps, ...pipelineModuleParams })]}
       exact
     >
       <AccessControlPage>
         <UserGroups />
       </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={routes.toUserGroupDetails({ ...projectPathProps, ...pipelineModuleParams, ...userGroupPathProps })}
+      exact
+    >
+      <UserGroupDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

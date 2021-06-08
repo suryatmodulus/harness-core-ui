@@ -55,7 +55,7 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
         onCreated(values.identifier)
       })
       .catch(e => {
-        showError(getErrorMessage(e), 0)
+        showError(getErrorMessage(e), 0, 'cf.create.segment.error')
       })
   }
 

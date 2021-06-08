@@ -201,37 +201,29 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
           class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
         >
           <a
-            href="/"
+            rel="noreferrer"
+            target="_blank"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            pipeline.createPipeline.learnMore
+            <span
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+              icon="chevron-right"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue700 StyledProps--font-normal"
-                style="display: flex; align-items: center;"
+              <svg
+                data-icon="chevron-right"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
               >
-                pipeline.createPipeline.learnMore
-                <span
-                  class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-blue700"
-                  icon="chevron-right"
-                >
-                  <svg
-                    data-icon="chevron-right"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      chevron-right
-                    </desc>
-                    <path
-                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </p>
-            </div>
+                <desc>
+                  chevron-right
+                </desc>
+                <path
+                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </a>
         </div>
       </div>
@@ -441,37 +433,29 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
           class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
         >
           <a
-            href="/"
+            rel="noreferrer"
+            target="_blank"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            pipeline.createPipeline.learnMore
+            <span
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+              icon="chevron-right"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue700 StyledProps--font-normal"
-                style="display: flex; align-items: center;"
+              <svg
+                data-icon="chevron-right"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
               >
-                pipeline.createPipeline.learnMore
-                <span
-                  class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-blue700"
-                  icon="chevron-right"
-                >
-                  <svg
-                    data-icon="chevron-right"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      chevron-right
-                    </desc>
-                    <path
-                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </p>
-            </div>
+                <desc>
+                  chevron-right
+                </desc>
+                <path
+                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </a>
         </div>
       </div>
@@ -686,37 +670,29 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
           class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
         >
           <a
-            href="/"
+            rel="noreferrer"
+            target="_blank"
           >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            pipeline.createPipeline.learnMore
+            <span
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+              icon="chevron-right"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue700 StyledProps--font-normal"
-                style="display: flex; align-items: center;"
+              <svg
+                data-icon="chevron-right"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
               >
-                pipeline.createPipeline.learnMore
-                <span
-                  class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-blue700"
-                  icon="chevron-right"
-                >
-                  <svg
-                    data-icon="chevron-right"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      chevron-right
-                    </desc>
-                    <path
-                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </p>
-            </div>
+                <desc>
+                  chevron-right
+                </desc>
+                <path
+                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </a>
         </div>
       </div>

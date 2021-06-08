@@ -104,13 +104,9 @@ const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.Reac
   )
 }
 
-export const getCITrialModal = (
-  onSubmit: (values: NgPipeline) => void,
-  onClose: () => void,
-  isSelect: boolean
-): React.ReactElement => {
-  return <CITrialDialog onSubmit={onSubmit} onClose={onClose} isSelect={isSelect} />
-}
+export const getCITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.ReactElement => (
+  <CITrialDialog onSubmit={onSubmit} onClose={onClose} isSelect={isSelect} />
+)
 
 export const useCITrialModal = ({
   onSubmit,

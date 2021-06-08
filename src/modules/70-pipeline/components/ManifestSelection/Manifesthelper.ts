@@ -127,5 +127,6 @@ export const ManifestIdentifierValidation = (
       .trim()
       .required(getString('validation.identifierRequired'))
       .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+      .notOneOf(StringUtils.illegalIdentifiers)
   }
 }

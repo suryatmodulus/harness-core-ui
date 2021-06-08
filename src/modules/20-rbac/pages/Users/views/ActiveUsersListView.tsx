@@ -17,7 +17,7 @@ import { useConfirmationDialog, useToaster, Page } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { useMutateAsGet } from '@common/hooks'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -178,7 +178,7 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
 const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, openRoleAssignmentModal }) => {
   const { getString } = useStrings()
   const history = useHistory()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const [page, setPage] = useState(0)
 
   const { data, loading, error, refetch } = useMutateAsGet(useGetAggregatedUsers, {
@@ -288,6 +288,7 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
               accountId,
               orgIdentifier,
               projectIdentifier,
+              module,
               userIdentifier: user.user.uuid
             })
           )

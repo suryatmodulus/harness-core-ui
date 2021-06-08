@@ -1,8 +1,9 @@
 enterDescription: Enter Description
 verificationResult: 'Verification result:'
-estimatedTimeRemaining: 'Estimated time remaning:'
+estimatedTimeRemaining: 'Estimated time remaining:'
 progressPercentage: 'Progress percentage:'
 discard: Discard
+stepLabel: '{{name}} (ID: {{identifier}})'
 enableVerificationOptions: Enable verification options
 closeStepConfig: Step Config
 infrastructureKey: 'Infrastructure Key'
@@ -159,7 +160,7 @@ failureStrategies:
     Authorization: Authorization Errors
     Connectivity: Connectivity Errors
     Timeout: Timeout Errors
-    Verification: Verification Errors
+    Verification: Verification Failures
     DelegateProvisioning: Delegate Provisioning Errors
     AllErrors: All Errors
     Unknown: Unknown Errors
@@ -295,8 +296,8 @@ triggers:
   noTriggersFound: 'No Triggers Found'
   newTrigger: + New Trigger
   pipelineExecutionInput: Pipeline Execution Input
-  lastExecutionDetails: Last Execution Details
-  lastExecutionAt: 'Last execution at'
+  lastActivationDetails: Last Activation Details
+  lastActivationAt: 'Last activation at'
   showAllTriggers: 'Show all Triggers'
   onNewWebhookTitle: 'On New Webhook'
   onNewArtifactTitle: 'On New Artifact/Manifest'
@@ -348,17 +349,16 @@ triggers:
     event: 'Event'
     actions: Actions
     anyActions: Any Actions
-    copiedToken: 'Successfully copied secure token'
-    regenerateToken: 'Regenerate Token'
-    regeneratedToken: 'Successfully regenerated secure token'
-    secureTokenRegenerateWarning: 'When the existing secure token is regenerated or removed and the trigger is saved, the existing webhook configured in third party tools will be invalid. You will need to navigate to them and update the webhook.'
     recurrenceLabel: Recurrence
     selectTimezonePlaceholder: Select timezone
+    autoAbortPush: 'If a branch is updated, Harness will automatically cancel active builds for the same branch if invoked by the same Trigger.'
+    autoAbortPR: 'If a PR is updated, Harness will automatically cancel active builds for the same PR if invoked by the same Trigger.'
+    autoAbortIssueComment: 'If a PR is updated with a new comment, Harness will automatically cancel active builds for the same PR.'
   conditionsPanel:
     subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
-    branchConditions: 'Branch Conditions'
     sourceBranch: 'Source Branch'
     targetBranch: 'Target Branch'
+    changedFiles: 'Changed Files'
     branchName: 'Branch Name'
     tagName: 'Tag Name'
     headerConditions: 'Header Conditions'

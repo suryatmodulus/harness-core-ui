@@ -17,10 +17,11 @@ import {
   rolePathProps,
   resourceGroupPathProps,
   delegatePathProps,
-  delegateConfigProps
+  delegateConfigProps,
+  userPathProps,
+  userGroupPathProps
 } from '@common/utils/routeUtils'
 import type {
-  AccountPathProps,
   PipelinePathProps,
   ExecutionPathProps,
   ProjectPathProps,
@@ -77,23 +78,19 @@ import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 
-import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import SessionToken from 'framework/utils/SessionToken'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 import BuildTests from '@pipeline/pages/execution/ExecutionTestView/BuildTests'
+import UserDetails from '@rbac/pages/UserDetails/UserDetails'
+import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
 
   return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module })} />
-}
-
-const RedirectToCDHome = (): React.ReactElement => {
-  const params = useParams<AccountPathProps>()
-  return <Redirect to={routes.toCDHome(params)} />
 }
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
@@ -104,13 +101,21 @@ const RedirectToGitSyncHome = (): React.ReactElement => {
 }
 
 const RedirectToCDProject = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps>()
+  const { accountId } = useParams<ProjectPathProps>()
   const { selectedProject } = useAppStore()
-
   if (selectedProject?.modules?.includes(ModuleName.CD)) {
-    return <Redirect to={routes.toCDProjectOverview(params)} />
+    return (
+      <Redirect
+        to={routes.toCDProjectOverview({
+          accountId,
+          orgIdentifier: selectedProject.orgIdentifier || '',
+          projectIdentifier: selectedProject.identifier,
+          module: 'cd'
+        })}
+      />
+    )
   } else {
-    return <Redirect to={routes.toCDHome(params)} />
+    return <Redirect to={routes.toCDHome({ accountId })} />
   }
 }
 
@@ -126,11 +131,6 @@ const CDDashboardPageOrRedirect = (): React.ReactElement => {
   } else {
     return <Redirect to={routes.toCDHome(params)} />
   }
-}
-
-const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<PipelineType<ProjectPathProps>>()
-  return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
 const RedirectToPipelineDetailHome = (): React.ReactElement => {
@@ -159,10 +159,6 @@ const pipelineModuleParams: ModulePathParams = {
 export default (
   <>
     <Route path={routes.toCD({ ...accountPathProps })} exact>
-      <RedirectToCDHome />
-    </Route>
-
-    <Route path={routes.toCDProject({ ...accountPathProps, ...projectPathProps })} exact>
       <RedirectToCDProject />
     </Route>
 
@@ -171,7 +167,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      layout={MinimalLayout}
+      sidebarProps={CDSideNavProps}
       path={routes.toModuleTrialHome({ ...accountPathProps, module: 'cd' })}
       exact
     >
@@ -180,7 +176,7 @@ export default (
 
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
-      path={routes.toCDProjectOverview({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toCDProjectOverview({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
     >
       <CDDashboardPageOrRedirect />
@@ -241,52 +237,42 @@ export default (
         <CDPipelineDeploymentList />
       </PipelineDetails>
     </RouteWithLayout>
-    <Route
-      exact
-      sidebarProps={CDSideNavProps}
-      path={routes.toResources({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-    >
-      <RedirectToResourcesHome />
-    </Route>
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toResourcesConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <ResourcesPage>
-        <ConnectorsPage />
-      </ResourcesPage>
+      <ConnectorsPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toCreateConnectorFromYamlAtProjectLevel({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <CreateConnectorFromYamlPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toCreateConnectorFromYamlAtOrgLevel({ ...accountPathProps, ...orgPathProps })}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...orgPathProps })}
     >
       <CreateConnectorFromYamlPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toResourcesSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <ResourcesPage>
-        <SecretsPage module="cd" />
-      </ResourcesPage>
+      <SecretsPage module="cd" />
     </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toCDResourcesConnectorDetails({
+      path={routes.toConnectorDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...connectorPathProps
+        ...connectorPathProps,
+        ...pipelineModuleParams
       })}
     >
       <ConnectorDetailsPage />
@@ -294,7 +280,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toResourcesSecretDetails({
+      path={routes.toSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -306,7 +292,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toResourcesSecretDetailsOverview({
+      path={routes.toSecretDetailsOverview({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -320,7 +306,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toResourcesSecretDetailsReferences({
+      path={routes.toSecretDetailsReferences({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -334,7 +320,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toResourcesDelegates({
+      path={routes.toDelegates({
         ...accountPathProps,
         ...projectPathProps,
         ...pipelineModuleParams
@@ -345,7 +331,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toResourcesDelegatesDetails({
+      path={routes.toDelegatesDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...delegatePathProps,
@@ -357,7 +343,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toResourcesDelegateConfigsDetails({
+      path={routes.toDelegateConfigsDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...delegateConfigProps,
@@ -488,7 +474,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toCDGovernance({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toGovernance({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <CDGovernancePage />
     </RouteWithLayout>
@@ -520,12 +506,28 @@ export default (
 
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
+      path={routes.toUserDetails({ ...projectPathProps, ...pipelineModuleParams, ...userPathProps })}
+      exact
+    >
+      <UserDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
       path={[routes.toUserGroups({ ...projectPathProps, ...pipelineModuleParams })]}
       exact
     >
       <AccessControlPage>
         <UserGroups />
       </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      path={routes.toUserGroupDetails({ ...projectPathProps, ...pipelineModuleParams, ...userGroupPathProps })}
+      exact
+    >
+      <UserGroupDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

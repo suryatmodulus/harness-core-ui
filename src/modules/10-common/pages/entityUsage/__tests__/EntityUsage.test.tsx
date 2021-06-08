@@ -10,7 +10,7 @@ describe('Entity Usage', () => {
   test('render for no data', async () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsReferences({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsReferences({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <EntityUsage
@@ -29,7 +29,7 @@ describe('Entity Usage', () => {
   test('render for data', async () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsReferences({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsReferences({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <EntityUsage

@@ -32,19 +32,84 @@ exports[`Sidenav render 1`] = `
         Services
       </p>
     </a>
-    <div
-      class="bp3-popover-wrapper bp3-fill"
+    <a
+      class="link"
+      href="/account/dummy/cv/orgs/dummy/projects/dummy/admin/setup"
     >
-      <div
-        class="bp3-popover-target"
+      <p
+        class="StyledProps--font StyledProps--main text"
       >
-        <a
-          class="adminLink"
-          href="/account/dummy/cv/orgs/dummy/projects/dummy/admin"
+        cv.navLinks.adminSideNavLinks.setup
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/cv/orgs/dummy/projects/dummy/admin/notifications"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        Notifications
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/cv/orgs/dummy/projects/dummy/admin/activity-sources"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        cv.navLinks.adminSideNavLinks.activitySources
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/cv/orgs/dummy/projects/dummy/admin/monitoring-sources"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        cv.navLinks.adminSideNavLinks.monitoringSources
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/cv/orgs/dummy/projects/dummy/admin/verification-jobs"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        verificationJobs
+      </p>
+    </a>
+    <div
+      class="Layout--vertical StyledProps--main main"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text StyledProps--font-xsmall StyledProps--flex StyledProps--flex-alignItems-flex-start StyledProps--flex-justifyContent-space-between"
+        style="display: flex; align-items: center;"
+      >
+        common.projectSetup
+        <span
+          class="bp3-icon bp3-icon-chevron-up StyledProps--main StyledProps--padding-left-xsmall"
+          icon="chevron-up"
         >
-          Admin
-        </a>
-      </div>
+          <svg
+            data-icon="chevron-up"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-up
+            </desc>
+            <path
+              d="M12.71 9.29l-4-4C8.53 5.11 8.28 5 8 5s-.53.11-.71.29l-4 4a1.003 1.003 0 001.42 1.42L8 7.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </p>
     </div>
   </div>
 </div>

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subscriptions Page it renders the subscriptions page 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+  >
+    <h2
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+      level="2"
+    >
+      common.subscriptions
+    </h2>
+  </div>
+</div>
+`;

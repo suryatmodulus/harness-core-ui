@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
@@ -42,8 +42,7 @@ const CFHomePage: React.FC = () => {
             accountId
           })
         })
-    },
-    module: ModuleName.CF
+    }
   })
 
   const trialInProgressProps = {
@@ -63,6 +62,10 @@ const CFHomePage: React.FC = () => {
   const { trial } = useQueryParams<{ trial?: boolean }>()
 
   const history = useHistory()
+
+  useEffect(() => {
+    refetch()
+  }, [trial])
 
   if (loading) {
     return <PageSpinner />

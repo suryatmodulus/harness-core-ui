@@ -14,7 +14,7 @@ exports[`UserDetails Test render data 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/testAcc/admin/access-control"
+            href="/account/testAcc/home/setup/access-control"
           >
             accessControl
           </a>
@@ -37,7 +37,7 @@ exports[`UserDetails Test render data 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/testAcc/admin/access-control/users"
+            href="/account/testAcc/home/setup/access-control/users"
           >
             users
           </a>

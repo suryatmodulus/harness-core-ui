@@ -7,11 +7,10 @@ import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
-import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { ModuleName } from 'framework/types/ModuleName'
-import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMenu'
 
 export default function CDSideNav(): React.ReactElement {
   const params = useParams<PipelinePathProps>()
@@ -19,9 +18,8 @@ export default function CDSideNav(): React.ReactElement {
   const routeMatch = useRouteMatch()
   const history = useHistory()
   const module = 'cd'
-  const { getString } = useStrings()
   const { updateAppStore } = useAppStore()
-  const { SERVICE_DASHBOARD_NG, GIT_SYNC_NG, CD_OVERVIEW_PAGE } = useFeatureFlags()
+  const { SERVICE_DASHBOARD_NG, CD_OVERVIEW_PAGE } = useFeatureFlags()
 
   return (
     <Layout.Vertical spacing="small">
@@ -44,7 +42,8 @@ export default function CDSideNav(): React.ReactElement {
               routes.toCDProjectOverview({
                 projectIdentifier: data.identifier,
                 orgIdentifier: data.orgIdentifier || '',
-                accountId
+                accountId,
+                module
               })
             )
           }
@@ -52,28 +51,11 @@ export default function CDSideNav(): React.ReactElement {
       />
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
-          {CD_OVERVIEW_PAGE && <SidebarLink label="Overview" to={routes.toCDProjectOverview(params)} />}
+          {CD_OVERVIEW_PAGE && <SidebarLink label="Overview" to={routes.toCDProjectOverview({ ...params, module })} />}
           <SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
           {SERVICE_DASHBOARD_NG ? <SidebarLink label="Services" to={routes.toServices({ ...params, module })} /> : null}
-          <AdminSelector path={routes.toCDAdmin(params)}>
-            <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toResources({ ...params, module })} />
-            {GIT_SYNC_NG ? (
-              <AdminSelectorLink
-                label={getString('gitManagement')}
-                iconName="git-repo"
-                to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier, module })}
-              />
-            ) : null}
-            <AdminSelectorLink
-              label="Access Control"
-              iconName="user"
-              to={routes.toAccessControl({ orgIdentifier, projectIdentifier, module, accountId })}
-            />
-            {/* <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />
-            <AdminSelectorLink label="Governance" iconName="shield" to="" disabled />
-            <AdminSelectorLink label="General Settings" iconName="settings" to="" disabled /> */}
-          </AdminSelector>
+          <ProjectSetupMenu module={module} />
         </React.Fragment>
       ) : null}
     </Layout.Vertical>

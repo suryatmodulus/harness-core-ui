@@ -9,10 +9,12 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { useStrings } from 'framework/strings'
 import {
   GetTemplateFromPipelineResponse,
+  GetTemplateStageVariablesFromPipelineResponse,
   GetTemplateFromPipelineResponseEmpty,
   GetMergeInputSetFromPipelineTemplateWithListInputResponse,
   ConnectorResponse,
-  GetInputSetsResponse
+  GetInputSetsResponse,
+  GetEnvironmentListForProject
 } from './sharedMockResponses'
 import { getTriggerConfigDefaultProps, pipelineInputInitialValues } from './webhookMockConstants'
 import WebhookPipelineInputPanel from '../views/WebhookPipelineInputPanel'
@@ -20,6 +22,7 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('services/cd-ng', () => ({
+  useGetEnvironmentListForProject: jest.fn(() => GetEnvironmentListForProject),
   useGetConnector: jest.fn(() => ConnectorResponse)
 }))
 
@@ -83,7 +86,7 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
       expect(container).toMatchSnapshot()
     })
 
-    test('Initial Render - Pipeline Input Panel with two runtime inputs', async () => {
+    test('Initial Render - Pipeline Input Panel with pipeline variable runtime inputs', async () => {
       jest
         .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
         .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
@@ -95,10 +98,26 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
       jest
         .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
         .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
-
       const { container } = render(<WrapperComponent />)
       await waitFor(() => expect(result.current.getString('pipeline.triggers.pipelineInputLabel')).toBeTruthy())
-      // await waitFor(() => expect(strings['pipeline'].triggers.pipelineInputLabel).toBeTruthy())
+      await waitFor(() => queryByAttribute('placeholder', container, 'cd.steps.common.namespacePlaceholder'))
+      expect(container).toMatchSnapshot()
+    })
+
+    test('Initial Render - Pipeline Input Panel with two runtime inputs', async () => {
+      jest
+        .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
+        .mockReturnValue(GetTemplateStageVariablesFromPipelineResponse as UseGetReturn<any, any, any, any>)
+
+      jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
+        mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
+      } as UseMutateReturn<any, any, any, any, any>)
+
+      jest
+        .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
+        .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
+      const { container } = render(<WrapperComponent />)
+      await waitFor(() => expect(result.current.getString('pipeline.triggers.pipelineInputLabel')).toBeTruthy())
       await waitFor(() => queryByAttribute('placeholder', container, 'cd.steps.common.namespacePlaceholder'))
       expect(container).toMatchSnapshot()
     })

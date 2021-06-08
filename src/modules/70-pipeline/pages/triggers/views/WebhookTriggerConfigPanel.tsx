@@ -1,86 +1,83 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, FormInput, SelectOption, Text, Heading, Container, Icon, Button, Color } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
-import { Spinner } from '@blueprintjs/core'
-import { useGetActionsList, useGetSourceRepoToEvent, useGenerateWebhookToken } from 'services/pipeline-ng'
+import { Layout, FormInput, SelectOption, Text, Heading, Color } from '@wings-software/uicore'
+import { isEmpty, isUndefined } from 'lodash-es'
+import { useGetGitTriggerEventDetails } from 'services/pipeline-ng'
 import { NameIdDescriptionTags } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-
-import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { GitSourceProviders, getSourceRepoOptions } from '../utils/TriggersListUtils'
-import { eventTypes } from '../utils/TriggersWizardPageUtils'
+import {
+  eventTypes,
+  autoAbortPreviousExecutionsTypes,
+  getAutoAbortDescription,
+  getEventAndActions
+} from '../utils/TriggersWizardPageUtils'
 import { ConnectorSection } from './ConnectorSection'
 import css from './WebhookTriggerConfigPanel.module.scss'
 
 export interface WebhookTriggerConfigPanelPropsInterface {
   formikProps?: any
   isEdit?: boolean
-  enableSecureToken?: boolean
 }
 
 const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterface> = ({
   formikProps,
-  enableSecureToken = false, // enable later with proper security handling
   isEdit = false
 }) => {
-  const { sourceRepo, identifier, actions, anyAction, event, connectorRef } = formikProps.values
-  const { data: ResponseSourceRepoToEvent, loading: loadingGetSourceRepoToEvent } = useGetSourceRepoToEvent({})
-  const { data: actionsListResponse, refetch: refetchActions } = useGetActionsList({
-    queryParams: { sourceRepo, event },
-    lazy: true,
-    debounce: 300
-  })
+  const { sourceRepo, identifier, actions, event, connectorRef } = formikProps.values
   const {
-    data: generateWebhookTokenResponse,
-    loading: loadingSecureToken,
-    refetch: refetchGenerateWebhookToken
-  } = useGenerateWebhookToken({
+    data: eventDetailsResponse,
+    refetch: refetchEventDetails,
+    error: eventDetailsError,
+    loading: loadingGetGitTriggerEventDetails
+  } = useGetGitTriggerEventDetails({
+    // queryParams: { sourceRepo, event },
     lazy: true
   })
 
   const [eventOptions, setEventOptions] = useState<SelectOption[]>([])
-  const [actionsOptions, setActionsOptions] = useState<SelectOption[]>([]) // will need to get actions from api
+  const [actionsOptions, setActionsOptions] = useState<SelectOption[]>([])
+  const [actionsOptionsMap, setActionsOptionsMap] = useState<{ [key: string]: string[] }>({})
   const { getString } = useStrings()
-  const loading = loadingGetSourceRepoToEvent
-  const { showSuccess, showError } = useToaster()
+  const loading = false
 
   useEffect(() => {
-    if (sourceRepo && ResponseSourceRepoToEvent?.data?.[sourceRepo]) {
-      const eventsList = ResponseSourceRepoToEvent.data[sourceRepo]
-      if (eventsList.length) {
-        setEventOptions(eventsList.map(e => ({ label: e, value: e })))
-        if (event && !eventsList.includes(event)) {
-          formikProps.setFieldValue('event', '')
+    if (eventDetailsResponse?.data && !isEmpty(eventDetailsResponse.data) && sourceRepo && !eventDetailsError) {
+      const { eventOptions: newEventOptions, actionsOptionsMap: newActionsOptionsMap } = getEventAndActions({
+        data: eventDetailsResponse?.data,
+        sourceRepo
+      })
+
+      setEventOptions(newEventOptions)
+      setActionsOptionsMap(newActionsOptionsMap)
+
+      if (event) {
+        if (isUndefined(newActionsOptionsMap[event])) {
+          formikProps.setFieldValue('event', undefined)
+          return
+        }
+
+        const newActionsOptions = newActionsOptionsMap[event]?.map((val: string) => ({ label: val, value: val }))
+        setActionsOptions(newActionsOptions)
+        if (newActionsOptions?.length === 0) {
+          formikProps.setFieldValue('actions', [])
         }
       }
     }
-  }, [ResponseSourceRepoToEvent?.data, sourceRepo])
+  }, [eventDetailsResponse?.data, sourceRepo])
 
   useEffect(() => {
-    if (generateWebhookTokenResponse?.resource) {
-      formikProps.setFieldValue('secureToken', generateWebhookTokenResponse.resource)
+    if (!isEmpty(actionsOptionsMap) && event) {
+      const newActionsOptions = actionsOptionsMap[event]?.map(val => ({ label: val, value: val }))
+      setActionsOptions(newActionsOptions)
     }
-  }, [generateWebhookTokenResponse])
+  }, [event, actions])
 
   useEffect(() => {
-    if (actionsListResponse?.data) {
-      const actionsOptionsKV = actionsListResponse.data.map(item => ({ label: item, value: item }))
-      setActionsOptions(actionsOptionsKV)
-      // undefined actions requires user to select value
-      if (actionsOptionsKV.length === 0) {
-        formikProps.setFieldValue('actions', [])
-      } else if (actionsOptionsKV.length && !anyAction && Array.isArray(actions) && actions.length === 0) {
-        formikProps.setFieldValue('actions', undefined)
-      }
+    if (sourceRepo !== GitSourceProviders.CUSTOM.value && !eventDetailsResponse && !loadingGetGitTriggerEventDetails) {
+      refetchEventDetails()
     }
-  }, [actionsListResponse?.data])
-
-  useEffect(() => {
-    if (event && sourceRepo) {
-      refetchActions()
-    }
-  }, [event, sourceRepo])
+  }, [sourceRepo])
 
   useEffect(() => {
     if (event && identifier && connectorRef) {
@@ -161,12 +158,12 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 onChange={e => {
                   const additionalValues: any = {}
 
-                  if (event === eventTypes.PUSH) {
+                  if (e.value === eventTypes.PUSH) {
                     additionalValues.sourceBranchOperator = undefined
                     additionalValues.sourceBranchValue = undefined
                   }
 
-                  if (event !== eventTypes.TAG) {
+                  if (e.value !== eventTypes.TAG) {
                     additionalValues.tagConditionOperator = undefined
                     additionalValues.tagConditionValue = undefined
                   }
@@ -174,97 +171,74 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                   formikProps.setValues({
                     ...formikProps.values,
                     event: e.value,
-                    actions: undefined,
+                    actions: e.value === eventTypes.PUSH ? [] : undefined,
                     anyAction: false,
                     ...additionalValues
                   })
                 }}
               />
-              {event && event !== eventTypes.PUSH && actionsOptions.length !== 0 && (
-                <div className={css.actionsContainer}>
-                  <div>
-                    <Text style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
-                      {getString('pipeline.triggers.triggerConfigurationPanel.actions')}
-                    </Text>
-                    <FormInput.MultiSelect
-                      name="actions"
-                      items={actionsOptions}
-                      // yaml design: empty array means selecting all
-                      disabled={Array.isArray(actions) && isEmpty(actions)}
-                      onChange={e => {
-                        if (!e || (Array.isArray(e) && isEmpty(e))) {
-                          formikProps.setFieldValue('actions', undefined)
-                        } else {
-                          formikProps.setFieldValue('actions', e)
-                        }
-                      }}
-                    />
-                  </div>
-                  <FormInput.CheckBox
-                    name="anyAction"
-                    key={Date.now()}
-                    label={getString('pipeline.triggers.triggerConfigurationPanel.anyActions')}
-                    defaultChecked={Array.isArray(actions) && actions.length === 0}
-                    className={css.anyAction}
-                    onClick={(e: React.FormEvent<HTMLInputElement>) => {
-                      formikProps.setFieldTouched('actions', true)
-                      if (e.currentTarget?.checked) {
-                        formikProps.setFieldValue('actions', [])
-                      } else {
-                        formikProps.setFieldValue('actions', undefined)
-                      }
-                    }}
-                  />
-                </div>
-              )}
-            </>
-          ) : enableSecureToken ? (
-            <>
-              <Layout.Horizontal width={'324px'} style={{ justifyContent: 'space-between' }}>
-                <Layout.Horizontal spacing="small">
-                  <FormInput.CheckBox
-                    style={{ paddingTop: 'var(--spacing-xsmall' }}
-                    className={css.checkbox}
-                    label={getString('secureToken')}
-                    name="secureToken"
-                    onChange={(e: React.FormEvent<HTMLInputElement>) => {
-                      if (!e.currentTarget.checked) {
-                        formikProps.setFieldValue('secureToken', undefined)
-                      } else {
-                        refetchGenerateWebhookToken()
-                      }
-                    }}
-                  />
-                  {loadingSecureToken && <Spinner className={css.secureTokenLoader} size={Spinner.SIZE_SMALL} />}
-                </Layout.Horizontal>
-                <Container style={{ paddingBottom: 'var(--spacing-xsmall)' }}>
-                  {isEdit && formikProps.initialValues.secureToken && (
-                    <Button
-                      className={css.regenerateButton}
-                      data-name="regenerate-token"
-                      icon="main-refresh"
-                      tooltip={getString('pipeline.triggers.triggerConfigurationPanel.regenerateToken')}
-                      tooltipProps={{ hoverOpenDelay: 300 }}
-                      minimal
-                      style={{ paddingLeft: 'var(--spacing-small)' }}
-                      onClick={() => {
-                        refetchGenerateWebhookToken()
-                          .then(_res => {
-                            showSuccess(getString('pipeline.triggers.triggerConfigurationPanel.regeneratedToken'))
-                          })
-                          .catch(_err => showError(getString('commonError')))
-                      }}
-                    />
+              {event && (
+                <>
+                  {actionsOptions?.length !== 0 && (
+                    <div className={css.actionsContainer}>
+                      <div>
+                        <Text style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
+                          {getString('pipeline.triggers.triggerConfigurationPanel.actions')}
+                        </Text>
+                        <FormInput.MultiSelect
+                          className={css.multiSelect}
+                          name="actions"
+                          items={actionsOptions}
+                          // yaml design: empty array means selecting all
+                          disabled={Array.isArray(actions) && isEmpty(actions)}
+                          onChange={e => {
+                            if (!e || (Array.isArray(e) && isEmpty(e))) {
+                              formikProps.setFieldValue('actions', undefined)
+                            } else {
+                              formikProps.setFieldValue('actions', e)
+                            }
+                          }}
+                        />
+                      </div>
+                      <FormInput.CheckBox
+                        name="anyAction"
+                        key={Date.now()}
+                        label={getString('pipeline.triggers.triggerConfigurationPanel.anyActions')}
+                        defaultChecked={(Array.isArray(actions) && actions.length === 0) || false}
+                        className={css.checkboxAlignment}
+                        onClick={(e: React.FormEvent<HTMLInputElement>) => {
+                          formikProps.setFieldTouched('actions', true)
+                          if (e.currentTarget?.checked) {
+                            formikProps.setFieldValue('actions', [])
+                          } else {
+                            formikProps.setFieldValue('actions', undefined)
+                          }
+                        }}
+                      />
+                    </div>
                   )}
-                </Container>
-              </Layout.Horizontal>
-              {isEdit && formikProps.initialValues.secureToken && (
-                <Layout.Horizontal spacing="small" className={css.fieldWarning}>
-                  <Icon name="main-warning" color={Color.YELLOW_500} />
-                  <Text color={Color.GREY_800}>
-                    {getString('pipeline.triggers.triggerConfigurationPanel.secureTokenRegenerateWarning')}
-                  </Text>
-                </Layout.Horizontal>
+                  {autoAbortPreviousExecutionsTypes.includes(event) && (
+                    <>
+                      <FormInput.CheckBox
+                        style={{ position: 'relative', left: '0' }}
+                        name="autoAbortPreviousExecutions"
+                        label="Auto-abort Previous Execution"
+                        className={css.checkboxAlignment}
+                      />
+                      <Text
+                        style={{
+                          marginBottom: 'var(--spacing-medium)',
+                          marginLeft: '29px',
+                          position: 'relative',
+                          top: '-10px'
+                        }}
+                        color={Color.GREY_400}
+                      >
+                        {getAutoAbortDescription({ event, getString })}
+                      </Text>
+                    </>
+                  )}
+                </>
               )}
             </>
           ) : null}

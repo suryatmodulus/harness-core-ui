@@ -101,6 +101,7 @@ homepage:
 clause:
   operators:
     and: and
+    in: '{{ $.common.in }}'
     startsWith: 'starts with'
     endsWith: 'ends with'
     match: 'match'

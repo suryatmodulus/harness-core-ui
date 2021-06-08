@@ -7,7 +7,7 @@
   height: 210px;
   box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid transparent !important;
-  margin: var(--spacing-medium);
+  margin: var(--spacing-medium) var(--spacing-medium) var(--spacing-medium) 0;
 
   &.infoCard {
     width: 240px;
@@ -18,4 +18,39 @@
 .selected {
   box-shadow: 0 0 5px 0px var(--blue-400) !important;
   border: 1px solid var(--blue-400) !important;
+}
+
+.cd {
+  width: 300px !important;
+  .title {
+    padding-top: 2px !important;
+    font-size: var(--font-size-normal) !important;
+    font-weight: bold !important;
+  }
+
+  .new {
+    margin-top: 4px !important;
+  }
+
+  .commandApproval svg {
+    > path {
+      fill: var(--primary-5) !important;
+    }
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .cdMain svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+.enabled {
+  padding-bottom: 2px !important;
+}
+
+.footerTitle {
+  font-size: x-small !important;
+  font-weight: bold !important;
 }

@@ -1016,7 +1016,7 @@ pipelineSteps:
   endpointPlaceholder: http://minio.company.com
   endpointInfo: Endpoint for S3 compatible providers (not needed for AWS).
   contextLabel: 'Context'
-  contextInfo: By default, the context is set to the root of your git repository. Set context if you need to specify a different folder.
+  contextInfo: Context represents a directory containing a Dockerfile which kaniko will use to build your image. For example, a COPY command in your Dockerfile should refer to a file in the build context.
   labelsLabel: 'Labels'
   labelsInfo: Use Labels to add metadata to the Docker image
   regionPlaceholder: us-east-1

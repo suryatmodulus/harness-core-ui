@@ -75,7 +75,10 @@ const RestrictEmailDomainsForm: React.FC<Props> = ({ onSubmit, onCancel, whiteli
       >
         {() => (
           <FormikForm>
-            <FormInput.MultiInput name="domains" />
+            <FormInput.MultiInput
+              name="domains"
+              tagsProps={{ placeholder: getString('authSettings.typeAndPressEnterToAddADomain') }}
+            />
             <Layout.Horizontal margin={{ top: 'xxxlarge', bottom: 'xlarge' }}>
               <Button
                 text={getString('save')}

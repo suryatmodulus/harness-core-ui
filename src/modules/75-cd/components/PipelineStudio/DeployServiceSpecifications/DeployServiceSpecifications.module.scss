@@ -53,10 +53,6 @@
     padding-left: 0 !important;
   }
 
-  .propagatedropdown {
-    margin-top: var(--spacing-small);
-    width: 200px;
-  }
   .name {
     width: 300px;
   }
@@ -224,4 +220,9 @@
 }
 .propagationPadding {
   padding-left: var(--spacing-3);
+}
+
+.propagateDropdown {
+  margin-top: var(--spacing-small);
+  bottom: 13px !important;
 }

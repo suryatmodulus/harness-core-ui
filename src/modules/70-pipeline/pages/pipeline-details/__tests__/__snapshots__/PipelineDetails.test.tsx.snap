@@ -67,36 +67,32 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main TabNavigation--container"
     >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+      <a
+        class="TabNavigation--tags TabNavigation--small"
+        href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/pipeline-studio/"
       >
-        <a
-          class="tags"
-          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/pipeline-studio/"
-        >
-          pipelineStudio
-        </a>
-        <a
-          class="tags"
-          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
-        >
-          inputSetsText
-        </a>
-        <a
-          class="tags"
-          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
-        >
-          pipeline.triggers.triggersLabel
-        </a>
-        <a
-          class="tags"
-          href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/executions"
-        >
-          executionHeaderText
-        </a>
-      </div>
+        pipelineStudio
+      </a>
+      <a
+        class="TabNavigation--tags TabNavigation--small"
+        href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
+      >
+        inputSetsText
+      </a>
+      <a
+        class="TabNavigation--tags TabNavigation--small"
+        href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
+      >
+        pipeline.triggers.triggersLabel
+      </a>
+      <a
+        class="TabNavigation--tags TabNavigation--small"
+        href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/executions"
+      >
+        executionHeaderText
+      </a>
     </div>
   </div>
   <div

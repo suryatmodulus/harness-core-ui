@@ -10,7 +10,14 @@
   .link {
     word-break: break-all;
   }
+  .text {
+    word-break: break-word;
+  }
   .linkSmall {
     font-size: var(--font-size-small);
   }
+}
+
+.shrink {
+  flex-shrink: 1 !important;
 }

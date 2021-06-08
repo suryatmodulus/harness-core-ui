@@ -24,7 +24,7 @@ const props = {
 const params = {
   accountId: 'testAcc'
 }
-const TEST_PATH = routes.toResourcesDelegates({
+const TEST_PATH = routes.toDelegates({
   ...accountPathProps
 })
 describe('Delegate Selectors test', () => {

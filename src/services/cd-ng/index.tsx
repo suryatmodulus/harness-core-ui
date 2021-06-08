@@ -585,11 +585,6 @@ export interface BuildSpec {
   [key: string]: any
 }
 
-export interface ByteString {
-  empty?: boolean
-  validUtf8?: boolean
-}
-
 export type CDModuleLicenseDTO = ModuleLicenseDTO & {
   deploymentsPerDay?: number
   maxWorkLoads?: number
@@ -601,39 +596,6 @@ export interface CDPipelineModuleInfo {
   infrastructureTypes?: string[]
   serviceDefinitionTypes?: string[]
   serviceIdentifiers?: string[]
-}
-
-export type CDStageExecutionSummaryDTO = StageExecutionSummaryDTO & {
-  endedAt?: number
-  envIdentifier?: string
-  errorInfo?: ExecutionErrorInfo
-  executionStatus?:
-    | 'Running'
-    | 'Failed'
-    | 'NotStarted'
-    | 'Expired'
-    | 'Aborted'
-    | 'Queued'
-    | 'Paused'
-    | 'Waiting'
-    | 'InterventionWaiting'
-    | 'ApprovalWaiting'
-    | 'Success'
-    | 'Suspended'
-    | 'Skipped'
-    | 'Pausing'
-    | 'ApprovalRejected'
-    | 'NOT_STARTED'
-    | 'INTERVENTION_WAITING'
-    | 'APPROVAL_WAITING'
-    | 'APPROVAL_REJECTED'
-  planExecutionId?: string
-  serviceDefinitionType?: string
-  serviceIdentifier?: string
-  serviceInfo?: ServiceExecutionSummary
-  stageIdentifier?: string
-  stageName?: string
-  startedAt?: number
 }
 
 export interface CDStageModuleInfo {
@@ -1075,21 +1037,6 @@ export interface DeploymentStatusInfo {
   status?: string
 }
 
-export interface Descriptor {
-  containingType?: Descriptor
-  enumTypes?: EnumDescriptor[]
-  extendable?: boolean
-  extensions?: FieldDescriptor[]
-  fields?: FieldDescriptor[]
-  file?: FileDescriptor
-  fullName?: string
-  index?: number
-  name?: string
-  nestedTypes?: Descriptor[]
-  oneofs?: OneofDescriptor[]
-  options?: MessageOptions
-}
-
 export interface DockerAuthCredentialsDTO {
   [key: string]: any
 }
@@ -1246,67 +1193,6 @@ export interface EntitySetupUsageDTO {
   detail?: SetupUsageDetail
   referredByEntity: EntityDetail
   referredEntity?: EntityDetail
-}
-
-export interface EnumDescriptor {
-  containingType?: Descriptor
-  file?: FileDescriptor
-  fullName?: string
-  index?: number
-  name?: string
-  options?: EnumOptions
-  values?: EnumValueDescriptor[]
-}
-
-export interface EnumOptions {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  allFieldsRaw?: {
-    [key: string]: { [key: string]: any }
-  }
-  allowAlias?: boolean
-  defaultInstanceForType?: EnumOptions
-  deprecated?: boolean
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserEnumOptions
-  serializedSize?: number
-  uninterpretedOptionCount?: number
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  unknownFields?: UnknownFieldSet
-}
-
-export interface EnumValueDescriptor {
-  file?: FileDescriptor
-  fullName?: string
-  index?: number
-  name?: string
-  number?: number
-  options?: EnumValueOptions
-  type?: EnumDescriptor
-}
-
-export interface EnumValueOptions {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  allFieldsRaw?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: EnumValueOptions
-  deprecated?: boolean
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserEnumValueOptions
-  serializedSize?: number
-  uninterpretedOptionCount?: number
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  unknownFields?: UnknownFieldSet
 }
 
 export type EnvFilter = Filter & {
@@ -1644,6 +1530,7 @@ export interface Error {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1677,42 +1564,10 @@ export interface ExecutionElementConfig {
   steps: ExecutionWrapperConfig[]
 }
 
-export interface ExecutionErrorInfo {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: ExecutionErrorInfo
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  message?: string
-  messageBytes?: ByteString
-  parserForType?: ParserExecutionErrorInfo
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-}
-
 export interface ExecutionTarget {
   connectorRef?: string
   host?: string
   workingDirectory?: string
-}
-
-export interface ExecutionTriggerInfo {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: ExecutionTriggerInfo
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserExecutionTriggerInfo
-  serializedSize?: number
-  triggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'WEBHOOK_CUSTOM' | 'SCHEDULER_CRON' | 'UNRECOGNIZED'
-  triggerTypeValue?: number
-  triggeredBy?: TriggeredBy
-  triggeredByOrBuilder?: TriggeredByOrBuilder
-  unknownFields?: UnknownFieldSet
 }
 
 export interface ExecutionWrapper {
@@ -2005,6 +1860,7 @@ export interface Failure {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -2020,158 +1876,6 @@ export interface FailureStrategyConfig {
 }
 
 export type FeatureFlagStageConfig = StageInfoConfig & {}
-
-export interface FieldDescriptor {
-  containingOneof?: OneofDescriptor
-  containingType?: Descriptor
-  defaultValue?: { [key: string]: any }
-  enumType?: EnumDescriptor
-  extension?: boolean
-  extensionScope?: Descriptor
-  file?: FileDescriptor
-  fullName?: string
-  index?: number
-  javaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
-  jsonName?: string
-  liteJavaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
-  liteType?:
-    | 'DOUBLE'
-    | 'FLOAT'
-    | 'INT64'
-    | 'UINT64'
-    | 'INT32'
-    | 'FIXED64'
-    | 'FIXED32'
-    | 'BOOL'
-    | 'STRING'
-    | 'GROUP'
-    | 'MESSAGE'
-    | 'BYTES'
-    | 'UINT32'
-    | 'ENUM'
-    | 'SFIXED32'
-    | 'SFIXED64'
-    | 'SINT32'
-    | 'SINT64'
-  mapField?: boolean
-  messageType?: Descriptor
-  name?: string
-  number?: number
-  optional?: boolean
-  options?: FieldOptions
-  packable?: boolean
-  packed?: boolean
-  repeated?: boolean
-  required?: boolean
-  type?:
-    | 'DOUBLE'
-    | 'FLOAT'
-    | 'INT64'
-    | 'UINT64'
-    | 'INT32'
-    | 'FIXED64'
-    | 'FIXED32'
-    | 'BOOL'
-    | 'STRING'
-    | 'GROUP'
-    | 'MESSAGE'
-    | 'BYTES'
-    | 'UINT32'
-    | 'ENUM'
-    | 'SFIXED32'
-    | 'SFIXED64'
-    | 'SINT32'
-    | 'SINT64'
-}
-
-export interface FieldOptions {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  allFieldsRaw?: {
-    [key: string]: { [key: string]: any }
-  }
-  ctype?: 'STRING' | 'CORD' | 'STRING_PIECE'
-  defaultInstanceForType?: FieldOptions
-  deprecated?: boolean
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  jstype?: 'JS_NORMAL' | 'JS_STRING' | 'JS_NUMBER'
-  lazy?: boolean
-  packed?: boolean
-  parserForType?: ParserFieldOptions
-  serializedSize?: number
-  uninterpretedOptionCount?: number
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  unknownFields?: UnknownFieldSet
-  weak?: boolean
-}
-
-export interface FileDescriptor {
-  dependencies?: FileDescriptor[]
-  enumTypes?: EnumDescriptor[]
-  extensions?: FieldDescriptor[]
-  file?: FileDescriptor
-  fullName?: string
-  messageTypes?: Descriptor[]
-  name?: string
-  options?: FileOptions
-  package?: string
-  publicDependencies?: FileDescriptor[]
-  services?: ServiceDescriptor[]
-  syntax?: 'UNKNOWN' | 'PROTO2' | 'PROTO3'
-}
-
-export interface FileOptions {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  allFieldsRaw?: {
-    [key: string]: { [key: string]: any }
-  }
-  ccEnableArenas?: boolean
-  ccGenericServices?: boolean
-  csharpNamespace?: string
-  csharpNamespaceBytes?: ByteString
-  defaultInstanceForType?: FileOptions
-  deprecated?: boolean
-  descriptorForType?: Descriptor
-  goPackage?: string
-  goPackageBytes?: ByteString
-  initializationErrorString?: string
-  initialized?: boolean
-  javaGenerateEqualsAndHash?: boolean
-  javaGenericServices?: boolean
-  javaMultipleFiles?: boolean
-  javaOuterClassname?: string
-  javaOuterClassnameBytes?: ByteString
-  javaPackage?: string
-  javaPackageBytes?: ByteString
-  javaStringCheckUtf8?: boolean
-  objcClassPrefix?: string
-  objcClassPrefixBytes?: ByteString
-  optimizeFor?: 'SPEED' | 'CODE_SIZE' | 'LITE_RUNTIME'
-  parserForType?: ParserFileOptions
-  phpClassPrefix?: string
-  phpClassPrefixBytes?: ByteString
-  phpGenericServices?: boolean
-  phpMetadataNamespace?: string
-  phpMetadataNamespaceBytes?: ByteString
-  phpNamespace?: string
-  phpNamespaceBytes?: ByteString
-  pyGenericServices?: boolean
-  rubyPackage?: string
-  rubyPackageBytes?: ByteString
-  serializedSize?: number
-  swiftPrefix?: string
-  swiftPrefixBytes?: ByteString
-  uninterpretedOptionCount?: number
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  unknownFields?: UnknownFieldSet
-}
 
 export interface Filter {
   ids?: string[]
@@ -2213,12 +1917,12 @@ export interface GatewayAccountRequestDTO {
 
 export interface GcpBillingExportSpec {
   datasetId: string
-  projectId: string
 }
 
 export type GcpCloudCostConnector = ConnectorConfigDTO & {
   billingExportSpec?: GcpBillingExportSpec
-  featuresEnabled?: 'BILLING'[]
+  featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
+  projectId: string
 }
 
 export type GcpConnector = ConnectorConfigDTO & {
@@ -2759,8 +2463,8 @@ export interface Infrastructure {
 
 export interface InfrastructureDef {
   provisioner?: ExecutionElementConfig
-  spec?: Infrastructure
-  type?: string
+  spec: Infrastructure
+  type: string
 }
 
 export type InlineTerraformBackendConfigSpec = TerraformBackendConfigSpec & {
@@ -3275,83 +2979,6 @@ export interface MergeInputSetResponse {
   pipelineYaml?: string
 }
 
-export interface Message {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: MessageLite
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserMessage
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-}
-
-export interface MessageLite {
-  defaultInstanceForType?: MessageLite
-  initialized?: boolean
-  parserForType?: ParserMessageLite
-  serializedSize?: number
-}
-
-export interface MessageOptions {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  allFieldsRaw?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: MessageOptions
-  deprecated?: boolean
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  mapEntry?: boolean
-  messageSetWireFormat?: boolean
-  noStandardDescriptorAccessor?: boolean
-  parserForType?: ParserMessageOptions
-  serializedSize?: number
-  uninterpretedOptionCount?: number
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  unknownFields?: UnknownFieldSet
-}
-
-export interface MethodDescriptor {
-  clientStreaming?: boolean
-  file?: FileDescriptor
-  fullName?: string
-  index?: number
-  inputType?: Descriptor
-  name?: string
-  options?: MethodOptions
-  outputType?: Descriptor
-  serverStreaming?: boolean
-  service?: ServiceDescriptor
-}
-
-export interface MethodOptions {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  allFieldsRaw?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: MethodOptions
-  deprecated?: boolean
-  descriptorForType?: Descriptor
-  idempotencyLevel?: 'IDEMPOTENCY_UNKNOWN' | 'NO_SIDE_EFFECTS' | 'IDEMPOTENT'
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserMethodOptions
-  serializedSize?: number
-  uninterpretedOptionCount?: number
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  unknownFields?: UnknownFieldSet
-}
-
 export type MicrosoftTeamsConfig = NotificationSettingConfig & {
   microsoftTeamsWebhookUrl?: string
 }
@@ -3381,10 +3008,6 @@ export interface NGProperties {
   ci?: CIProperties
 }
 
-export interface NGStageType {
-  type?: string
-}
-
 export interface NGTag {
   key: string
   value: string
@@ -3405,36 +3028,6 @@ export interface NGVariableOverrideSetWrapper {
 export interface NGVariableOverrideSets {
   identifier?: string
   variables?: NGVariable[]
-}
-
-export interface NamePart {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: NamePart
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  isExtension?: boolean
-  namePart?: string
-  namePartBytes?: ByteString
-  parserForType?: ParserNamePart
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-}
-
-export interface NamePartOrBuilder {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  isExtension?: boolean
-  namePart?: string
-  namePartBytes?: ByteString
-  unknownFields?: UnknownFieldSet
 }
 
 export type NativeHelmServiceSpec = ServiceSpec & {
@@ -3556,36 +3149,6 @@ export interface OnRetryFailureConfig {
 
 export interface OnTimeoutConfig {
   action?: FailureStrategyActionConfig
-}
-
-export interface OneofDescriptor {
-  containingType?: Descriptor
-  fieldCount?: number
-  fields?: FieldDescriptor[]
-  file?: FileDescriptor
-  fullName?: string
-  index?: number
-  name?: string
-  options?: OneofOptions
-}
-
-export interface OneofOptions {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  allFieldsRaw?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: OneofOptions
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserOneofOptions
-  serializedSize?: number
-  uninterpretedOptionCount?: number
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  unknownFields?: UnknownFieldSet
 }
 
 export type OpenshiftManifest = ManifestAttributes & {
@@ -3808,16 +3371,6 @@ export interface PageOrganizationResponse {
   totalPages?: number
 }
 
-export interface PagePipelineExecutionSummaryDTO {
-  content?: PipelineExecutionSummaryDTO[]
-  empty?: boolean
-  pageIndex?: number
-  pageItemCount?: number
-  pageSize?: number
-  totalItems?: number
-  totalPages?: number
-}
-
 export interface PageProject {
   content?: Project[]
   empty?: boolean
@@ -3952,10 +3505,6 @@ export type ParallelStageElement = StageElementWrapper & {
 
 export type ParallelStageElementConfig = StageElementWrapperConfig[]
 
-export type ParallelStageExecutionSummaryDTO = StageExecutionSummaryDTO & {
-  stageExecutions?: StageExecutionSummaryDTO[]
-}
-
 export type ParallelStepElement = ExecutionWrapper & {
   metadata?: string
   sections: ExecutionWrapper[]
@@ -3991,70 +3540,6 @@ export interface ParameterFieldString {
   responseField?: string
   typeString?: boolean
   value?: string
-}
-
-export interface Parser {
-  [key: string]: any
-}
-
-export interface ParserEnumOptions {
-  [key: string]: any
-}
-
-export interface ParserEnumValueOptions {
-  [key: string]: any
-}
-
-export interface ParserExecutionErrorInfo {
-  [key: string]: any
-}
-
-export interface ParserExecutionTriggerInfo {
-  [key: string]: any
-}
-
-export interface ParserFieldOptions {
-  [key: string]: any
-}
-
-export interface ParserFileOptions {
-  [key: string]: any
-}
-
-export interface ParserMessage {
-  [key: string]: any
-}
-
-export interface ParserMessageLite {
-  [key: string]: any
-}
-
-export interface ParserMessageOptions {
-  [key: string]: any
-}
-
-export interface ParserMethodOptions {
-  [key: string]: any
-}
-
-export interface ParserNamePart {
-  [key: string]: any
-}
-
-export interface ParserOneofOptions {
-  [key: string]: any
-}
-
-export interface ParserServiceOptions {
-  [key: string]: any
-}
-
-export interface ParserTriggeredBy {
-  [key: string]: any
-}
-
-export interface ParserUninterpretedOption {
-  [key: string]: any
 }
 
 export interface PartialSchemaDTO {
@@ -4113,52 +3598,6 @@ export interface PipelineEvent {
     | 'StageFailed'
     | 'StageStart'
     | 'StepFailed'
-}
-
-export interface PipelineExecutionSummaryDTO {
-  deploymentId?: string
-  endedAt?: number
-  envIdentifiers?: string[]
-  errorInfo?: ExecutionErrorInfo
-  errorMsg?: string
-  executionStatus?:
-    | 'Running'
-    | 'Failed'
-    | 'NotStarted'
-    | 'Expired'
-    | 'Aborted'
-    | 'Queued'
-    | 'Paused'
-    | 'Waiting'
-    | 'InterventionWaiting'
-    | 'ApprovalWaiting'
-    | 'Success'
-    | 'Suspended'
-    | 'Skipped'
-    | 'Pausing'
-    | 'ApprovalRejected'
-    | 'NOT_STARTED'
-    | 'INTERVENTION_WAITING'
-    | 'APPROVAL_WAITING'
-    | 'APPROVAL_REJECTED'
-  failedStagesCount?: number
-  inputSetYaml?: string
-  pipelineIdentifier?: string
-  pipelineName?: string
-  planExecutionId?: string
-  runningStagesCount?: number
-  serviceDefinitionTypes?: string[]
-  serviceIdentifiers?: string[]
-  stageExecutionSummaryElements?: StageExecutionSummaryDTO[]
-  stageIdentifiers?: string[]
-  stageTypes?: NGStageType[]
-  startedAt?: number
-  successfulStagesCount?: number
-  tags?: {
-    [key: string]: string
-  }
-  totalStagesCount?: number
-  triggerInfo?: ExecutionTriggerInfo
 }
 
 export type PipelineFilterProperties = FilterProperties & {
@@ -4983,6 +4422,7 @@ export interface ResponseMessage {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -5117,13 +4557,6 @@ export interface ResponsePageOrganizationResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponsePagePipelineExecutionSummaryDTO {
-  correlationId?: string
-  data?: PagePipelineExecutionSummaryDTO
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponsePageProject {
   correlationId?: string
   data?: PageProject
@@ -5222,13 +4655,6 @@ export interface ResponsePipelineConfig {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponsePipelineExecutionInterrupt {
-  correlationId?: string
-  data?: PipelineExecutionInterrupt
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponseProjectAggregateDTO {
   correlationId?: string
   data?: ProjectAggregateDTO
@@ -5253,13 +4679,6 @@ export interface ResponseRoleAssignmentResponse {
 export interface ResponseSaasGitDTO {
   correlationId?: string
   data?: SaasGitDTO
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseScmGitWebhookTaskResponseData {
-  correlationId?: string
-  data?: ScmGitWebhookTaskResponseData
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5640,11 +5059,6 @@ export type SamlSettings = SSOSettings & {
   origin: string
 }
 
-export interface ScmGitWebhookTaskResponseData {
-  createWebhookResponse?: string[]
-  gitWebhookTaskType?: 'UPSERT' | 'CREATE'
-}
-
 export interface ScopeDTO {
   accountIdentifier?: string
   orgIdentifier?: string
@@ -5795,15 +5209,6 @@ export interface ServiceDeploymentListInfo {
   totalDeploymentsChangeRate?: number
 }
 
-export interface ServiceDescriptor {
-  file?: FileDescriptor
-  fullName?: string
-  index?: number
-  methods?: MethodDescriptor[]
-  name?: string
-  options?: ServiceOptions
-}
-
 export interface ServiceDetailsDTO {
   deploymentTypeList?: string[]
   failureRate?: number
@@ -5828,26 +5233,6 @@ export interface ServiceExecutionSummary {
   deploymentType?: string
   displayName?: string
   identifier?: string
-}
-
-export interface ServiceOptions {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  allFieldsRaw?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: ServiceOptions
-  deprecated?: boolean
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserServiceOptions
-  serializedSize?: number
-  uninterpretedOptionCount?: number
-  uninterpretedOptionList?: UninterpretedOption[]
-  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
-  unknownFields?: UnknownFieldSet
 }
 
 export interface ServiceOverrides {
@@ -6060,10 +5445,6 @@ export interface StageElementWrapperConfig {
   stage?: StageElementConfig
 }
 
-export interface StageExecutionSummaryDTO {
-  [key: string]: any
-}
-
 export interface StageInfoConfig {
   execution?: ExecutionElementConfig
 }
@@ -6226,7 +5607,7 @@ export interface TechStack {
 }
 
 export type TerraformApplyStepInfo = StepSpecType & {
-  configuration?: TerrformStepConfiguration
+  configuration?: TerraformStepConfiguration
   delegateSelectors?: string[]
   metadata?: string
   provisionerIdentifier?: string
@@ -6246,7 +5627,7 @@ export interface TerraformConfigFilesWrapper {
 }
 
 export type TerraformDestroyStepInfo = StepSpecType & {
-  configuration?: TerrformStepConfiguration
+  configuration?: TerraformStepConfiguration
   delegateSelectors?: string[]
   metadata?: string
   provisionerIdentifier?: string
@@ -6283,6 +5664,11 @@ export type TerraformRollbackStepInfo = StepSpecType & {
   provisionerIdentifier: string
 }
 
+export interface TerraformStepConfiguration {
+  spec?: TerraformExecutionData
+  type?: 'Inline' | 'InheritFromPlan' | 'InheritFromApply'
+}
+
 export interface TerraformVarFile {
   identifier?: string
   spec?: TerraformVarFileSpec
@@ -6295,11 +5681,6 @@ export interface TerraformVarFileSpec {
 
 export interface TerraformVarFileWrapper {
   varFile?: TerraformVarFile
-}
-
-export interface TerrformStepConfiguration {
-  spec?: TerraformExecutionData
-  type?: 'Inline' | 'InheritFromPlan' | 'InheritFromApply'
 }
 
 export interface Throwable {
@@ -6335,52 +5716,6 @@ export interface TrialSignupOptions {
   productsSelected?: ('CD' | 'CE' | 'CI')[]
 }
 
-export interface TriggeredBy {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: TriggeredBy
-  descriptorForType?: Descriptor
-  extraInfo?: {
-    [key: string]: string
-  }
-  extraInfoCount?: number
-  extraInfoMap?: {
-    [key: string]: string
-  }
-  identifier?: string
-  identifierBytes?: ByteString
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserTriggeredBy
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-  uuid?: string
-  uuidBytes?: ByteString
-}
-
-export interface TriggeredByOrBuilder {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  extraInfo?: {
-    [key: string]: string
-  }
-  extraInfoCount?: number
-  extraInfoMap?: {
-    [key: string]: string
-  }
-  identifier?: string
-  identifierBytes?: ByteString
-  initializationErrorString?: string
-  initialized?: boolean
-  unknownFields?: UnknownFieldSet
-  uuid?: string
-  uuidBytes?: ByteString
-}
-
 export interface TwoFactorAdminOverrideSettings {
   adminOverrideTwoFactorEnabled?: boolean
 }
@@ -6392,60 +5727,6 @@ export interface TwoFactorAuthSettingsInfo {
   totpqrurl?: string
   twoFactorAuthenticationEnabled?: boolean
   userId?: string
-}
-
-export interface UninterpretedOption {
-  aggregateValue?: string
-  aggregateValueBytes?: ByteString
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: UninterpretedOption
-  descriptorForType?: Descriptor
-  doubleValue?: number
-  identifierValue?: string
-  identifierValueBytes?: ByteString
-  initializationErrorString?: string
-  initialized?: boolean
-  nameCount?: number
-  nameList?: NamePart[]
-  nameOrBuilderList?: NamePartOrBuilder[]
-  negativeIntValue?: number
-  parserForType?: ParserUninterpretedOption
-  positiveIntValue?: number
-  serializedSize?: number
-  stringValue?: ByteString
-  unknownFields?: UnknownFieldSet
-}
-
-export interface UninterpretedOptionOrBuilder {
-  aggregateValue?: string
-  aggregateValueBytes?: ByteString
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  doubleValue?: number
-  identifierValue?: string
-  identifierValueBytes?: ByteString
-  initializationErrorString?: string
-  initialized?: boolean
-  nameCount?: number
-  nameList?: NamePart[]
-  nameOrBuilderList?: NamePartOrBuilder[]
-  negativeIntValue?: number
-  positiveIntValue?: number
-  stringValue?: ByteString
-  unknownFields?: UnknownFieldSet
-}
-
-export interface UnknownFieldSet {
-  defaultInstanceForType?: UnknownFieldSet
-  initialized?: boolean
-  parserForType?: Parser
-  serializedSize?: number
-  serializedSizeAsMessageSet?: number
 }
 
 export interface User {
@@ -6700,12 +5981,6 @@ export interface YamlSnippetMetaData {
 
 export interface YamlSnippets {
   yamlSnippets?: YamlSnippetMetaData[]
-}
-
-export interface PipelineExecutionInterrupt {
-  id?: string
-  planExecutionId?: string
-  type?: 'Abort' | 'Pause' | 'Resume'
 }
 
 export type ConnectorRequestBody = Connector
@@ -10453,6 +9728,7 @@ export interface DeleteConnectorQueryParams {
   filePath?: string
   commitMsg?: string
   createPr?: boolean
+  lastObjectId?: string
 }
 
 export type DeleteConnectorProps = Omit<
@@ -12422,91 +11698,6 @@ export const getEnvironmentV2Promise = (
     signal
   )
 
-export interface GetListOfExecutionsQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier: string
-  serviceIdentifiers?: string[]
-  envIdentifiers?: string[]
-  pipelineIdentifiers?: string[]
-  executionStatuses?: (
-    | 'Running'
-    | 'Failed'
-    | 'NotStarted'
-    | 'Expired'
-    | 'Aborted'
-    | 'Queued'
-    | 'Paused'
-    | 'Waiting'
-    | 'InterventionWaiting'
-    | 'ApprovalWaiting'
-    | 'Success'
-    | 'Suspended'
-    | 'Skipped'
-    | 'Pausing'
-    | 'ApprovalRejected'
-    | 'NOT_STARTED'
-    | 'INTERVENTION_WAITING'
-    | 'APPROVAL_WAITING'
-    | 'APPROVAL_REJECTED'
-  )[]
-  startTime?: number
-  endTime?: number
-  searchTerm?: string
-  page?: number
-  size?: number
-  sort?: string[]
-}
-
-export type GetListOfExecutionsProps = Omit<
-  GetProps<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>,
-  'path'
->
-
-/**
- * Gets Executions list
- */
-export const GetListOfExecutions = (props: GetListOfExecutionsProps) => (
-  <Get<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>
-    path={`/executions`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetListOfExecutionsProps = Omit<
-  UseGetProps<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>,
-  'path'
->
-
-/**
- * Gets Executions list
- */
-export const useGetListOfExecutions = (props: UseGetListOfExecutionsProps) =>
-  useGet<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>(
-    `/executions`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Gets Executions list
- */
-export const getListOfExecutionsPromise = (
-  props: GetUsingFetchProps<
-    ResponsePagePipelineExecutionSummaryDTO,
-    Failure | Error,
-    GetListOfExecutionsQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>(
-    getConfig('ng/api'),
-    `/executions`,
-    props,
-    signal
-  )
-
 export type DummyApiForSwaggerSchemaCheckProps = Omit<
   GetProps<ResponsePipelineConfig, Failure | Error, void, void>,
   'path'
@@ -12679,99 +11870,6 @@ export const getExecutionStatusesPromise = (
     props,
     signal
   )
-
-export interface HandleInterruptQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  interruptType: 'Abort' | 'Pause' | 'Resume'
-}
-
-export interface HandleInterruptPathParams {
-  planExecutionId: string
-}
-
-export type HandleInterruptProps = Omit<
-  MutateProps<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >,
-  'path' | 'verb'
-> &
-  HandleInterruptPathParams
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const HandleInterrupt = ({ planExecutionId, ...props }: HandleInterruptProps) => (
-  <Mutate<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >
-    verb="PUT"
-    path={`/executions/interrupt/${planExecutionId}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseHandleInterruptProps = Omit<
-  UseMutateProps<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >,
-  'path' | 'verb'
-> &
-  HandleInterruptPathParams
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const useHandleInterrupt = ({ planExecutionId, ...props }: UseHandleInterruptProps) =>
-  useMutate<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >('PUT', (paramsInPath: HandleInterruptPathParams) => `/executions/interrupt/${paramsInPath.planExecutionId}`, {
-    base: getConfig('ng/api'),
-    pathParams: { planExecutionId },
-    ...props
-  })
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const handleInterruptPromise = (
-  {
-    planExecutionId,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  > & { planExecutionId: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    void,
-    HandleInterruptPathParams
-  >('PUT', getConfig('ng/api'), `/executions/interrupt/${planExecutionId}`, props, signal)
 
 export interface GetFilterListQueryParams {
   pageIndex?: number
@@ -15012,6 +14110,10 @@ export interface GetJiraIssueCreateMetadataQueryParams {
   issueType?: string
   expand?: string
   fetchStatus?: boolean
+  ignoreComment?: boolean
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetJiraIssueCreateMetadataProps = Omit<
@@ -15068,6 +14170,9 @@ export interface GetJiraProjectsQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetJiraProjectsProps = Omit<
@@ -15121,6 +14226,9 @@ export interface GetJiraStatusesQueryParams {
   projectIdentifier?: string
   projectKey?: string
   issueType?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetJiraStatusesProps = Omit<
@@ -15173,6 +14281,9 @@ export interface GetJiraIssueUpdateMetadataQueryParams {
   orgIdentifier?: string
   projectIdentifier?: string
   issueKey?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetJiraIssueUpdateMetadataProps = Omit<
@@ -15229,6 +14340,9 @@ export interface ValidateJiraCredentialsQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type ValidateJiraCredentialsProps = Omit<
@@ -20536,69 +19650,6 @@ export const webhookEndpointPromise = (
     'POST',
     getConfig('ng/api'),
     `/webhook`,
-    props,
-    signal
-  )
-
-export interface WebhookUpsertQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  connectorIdentifierRef: string
-  target: string
-  hookEventType: 'TRIGGER_EVENTS'
-  repoURL?: string
-}
-
-export type WebhookUpsertProps = Omit<
-  MutateProps<ResponseScmGitWebhookTaskResponseData, Failure | Error, WebhookUpsertQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * Upsert a webhook event
- */
-export const WebhookUpsert = (props: WebhookUpsertProps) => (
-  <Mutate<ResponseScmGitWebhookTaskResponseData, Failure | Error, WebhookUpsertQueryParams, void, void>
-    verb="POST"
-    path={`/webhook/UpsertWebhook`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseWebhookUpsertProps = Omit<
-  UseMutateProps<ResponseScmGitWebhookTaskResponseData, Failure | Error, WebhookUpsertQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * Upsert a webhook event
- */
-export const useWebhookUpsert = (props: UseWebhookUpsertProps) =>
-  useMutate<ResponseScmGitWebhookTaskResponseData, Failure | Error, WebhookUpsertQueryParams, void, void>(
-    'POST',
-    `/webhook/UpsertWebhook`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Upsert a webhook event
- */
-export const webhookUpsertPromise = (
-  props: MutateUsingFetchProps<
-    ResponseScmGitWebhookTaskResponseData,
-    Failure | Error,
-    WebhookUpsertQueryParams,
-    void,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseScmGitWebhookTaskResponseData, Failure | Error, WebhookUpsertQueryParams, void, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/webhook/UpsertWebhook`,
     props,
     signal
   )

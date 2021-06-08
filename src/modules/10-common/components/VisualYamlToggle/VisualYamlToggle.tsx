@@ -9,20 +9,22 @@ export enum SelectedView {
 }
 
 interface VisualYamlToggleInterface {
-  onChange: (val: SelectedView, callbackFn: Dispatch<SetStateAction<SelectedView>>) => void
+  initialSelectedView?: SelectedView
+  beforeOnChange: (val: SelectedView, callbackFn: Dispatch<SetStateAction<SelectedView>>) => void
 }
 
 export default function VisualYamlToggle(props: VisualYamlToggleInterface): JSX.Element {
-  const { onChange } = props
-  const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
+  const { initialSelectedView, beforeOnChange } = props
+  const [selectedView, setSelectedView] = React.useState<SelectedView>(initialSelectedView || SelectedView.VISUAL)
   const { getString } = useStrings()
 
   return (
     <div className={css.optionBtns}>
       <div
+        data-name="visual-btn"
         className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
         onClick={() => {
-          onChange(SelectedView.VISUAL, setSelectedView)
+          beforeOnChange(SelectedView.VISUAL, setSelectedView)
         }}
         tabIndex={0}
         role="button"
@@ -30,9 +32,10 @@ export default function VisualYamlToggle(props: VisualYamlToggleInterface): JSX.
         {getString('visual')}
       </div>
       <div
+        data-name="yaml-btn"
         className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
         onClick={() => {
-          onChange(SelectedView.YAML, setSelectedView)
+          beforeOnChange(SelectedView.YAML, setSelectedView)
         }}
         tabIndex={0}
         role="button"

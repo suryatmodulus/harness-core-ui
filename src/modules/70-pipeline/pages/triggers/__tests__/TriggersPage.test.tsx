@@ -11,7 +11,7 @@ import { GetPipelineResponse, GetTriggerListForTargetResponse } from './sharedMo
 import TriggersPage from '../TriggersPage'
 
 const mockDelete = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
-const mockUpdateTriggerStatus = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
+const mockUpdateTrigger = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
 const mockGetTriggersFunction = jest.fn()
 jest.mock('services/pipeline-ng', () => ({
   useGetPipeline: jest.fn(() => GetPipelineResponse),
@@ -21,7 +21,7 @@ jest.mock('services/pipeline-ng', () => ({
   }),
   useGetTrigger: jest.fn(() => GetTriggerResponse),
   useDeleteTrigger: jest.fn().mockImplementation(() => ({ mutate: mockDelete })),
-  useUpdateTriggerStatus: jest.fn().mockImplementation(() => ({ mutate: mockUpdateTriggerStatus }))
+  useUpdateTrigger: jest.fn().mockImplementation(() => ({ mutate: mockUpdateTrigger }))
 }))
 
 const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (

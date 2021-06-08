@@ -63,7 +63,7 @@ describe('Secret Details', () => {
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <SecretDetails secretData={mockData.sshKey.data as any} />

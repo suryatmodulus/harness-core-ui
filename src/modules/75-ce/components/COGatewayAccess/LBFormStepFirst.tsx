@@ -74,7 +74,11 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
   useEffect(() => {
     if (hostedZonesLoading) return
     if (fetchHostedZonesError) {
-      showError((fetchHostedZonesError.data as any).errors?.join('\n') || fetchHostedZonesError.message)
+      showError(
+        (fetchHostedZonesError.data as any).errors?.join('\n') || fetchHostedZonesError.message,
+        undefined,
+        'ce.hostedzone.fetch.error'
+      )
       return
     }
     if (hostedZones?.response?.length == 0) {

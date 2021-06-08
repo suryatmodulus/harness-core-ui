@@ -96,7 +96,7 @@ export default function DelegateConfigurations(): JSX.Element {
     })
     const gotoEditDetailPage = (): void => {
       history.push(
-        routes.toResourcesEditDelegateConfigsDetails({
+        routes.toEditDelegateConfigsDetails({
           accountId,
           delegateConfigId: profile.uuid as string
         })
@@ -105,7 +105,7 @@ export default function DelegateConfigurations(): JSX.Element {
 
     const gotoDetailPage = (): void => {
       history.push(
-        routes.toResourcesDelegateConfigsDetails({
+        routes.toDelegateConfigsDetails({
           accountId,
           delegateConfigId: profile.uuid as string,
           orgIdentifier,

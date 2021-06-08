@@ -45,19 +45,7 @@ export default function DelegateDetails(): JSX.Element {
         <Layout.Horizontal spacing="small">
           <Link
             style={{ color: '#0092E4', fontSize: '12px' }}
-            to={routes.toResources({
-              accountId,
-              orgIdentifier,
-              projectIdentifier,
-              module
-            })}
-          >
-            {getString('resources')}
-          </Link>
-          <span>/</span>
-          <Link
-            style={{ color: '#0092E4', fontSize: '12px' }}
-            to={routes.toResourcesDelegates({
+            to={routes.toDelegates({
               accountId,
               orgIdentifier,
               projectIdentifier,

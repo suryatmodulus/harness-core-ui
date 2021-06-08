@@ -248,26 +248,26 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   }
 
   const editorDidMount = (editor: editor.IStandaloneCodeEditor): void => {
-    editor.addAction({
-      id: 'Paste',
-      label: getString('common.paste'),
-      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_V],
-      contextMenuGroupId: '9_cutcopypaste',
-      run: async (editor: editor.IStandaloneCodeEditor) => {
-        try {
-          const response = await navigator?.clipboard?.readText()
-          const line = editor.getPosition()
-          editor.executeEdits('', [
-            {
-              range: new monaco.Range(line?.lineNumber, line?.column, line?.lineNumber, line?.column),
-              text: response ?? ''
-            }
-          ])
-        } catch (e) {
-          showError(e)
-        }
-      }
-    })
+    // editor.addAction({
+    //   id: 'Paste',
+    //   label: getString('common.paste'),
+    //   keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_V],
+    //   contextMenuGroupId: '9_cutcopypaste',
+    //   run: async (editor: editor.IStandaloneCodeEditor) => {
+    //     try {
+    //       const response = await navigator?.clipboard?.readText()
+    //       const line = editor.getPosition()
+    //       editor.executeEdits('', [
+    //         {
+    //           range: new monaco.Range(line?.lineNumber, line?.column, line?.lineNumber, line?.column),
+    //           text: response ?? ''
+    //         }
+    //       ])
+    //     } catch (e) {
+    //       showError(e)
+    //     }
+    //   }
+    // })
     editorVersionRef.current = editor.getModel()?.getAlternativeVersionId()
     if (!props.isReadOnlyMode) {
       editor?.focus()

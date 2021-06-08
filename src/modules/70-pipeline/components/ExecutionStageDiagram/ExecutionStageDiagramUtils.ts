@@ -210,6 +210,7 @@ export const getStatusProps = (
         secondaryIconStyle.color = 'var(--red-600)'
         secondaryIconStyle.backgroundColor = 'var(--white)'
         secondaryIconStyle.borderRadius = '50%'
+        secondaryIconStyle.height = 'fit-content'
         break
       case ExecutionStatusEnum.Expired:
         secondaryIcon = 'execution-abort'

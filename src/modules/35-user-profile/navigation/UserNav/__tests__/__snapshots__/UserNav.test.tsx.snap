@@ -3,22 +3,26 @@
 exports[`User Profile Page To Profile 1`] = `
 <div>
   <div>
-    <a
-      class="link"
-      href="/account/testAcc/user/profile"
+    <div
+      class="Layout--vertical StyledProps--main StyledProps--margin-top-xxxlarge"
     >
-      <p
-        class="StyledProps--font StyledProps--main text"
+      <a
+        class="link"
+        href="/account/testAcc/user/profile"
       >
-        profile
-      </p>
-    </a>
+        <p
+          class="StyledProps--font StyledProps--main text"
+        >
+          profile
+        </p>
+      </a>
+    </div>
     <div
       class="signout"
     >
-      <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-        type="button"
+      <p
+        class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold"
+        style="display: flex; align-items: center;"
       >
         <span
           class="bp3-icon bp3-icon-log-out StyledProps--main StyledProps--padding-right-small"
@@ -26,9 +30,9 @@ exports[`User Profile Page To Profile 1`] = `
         >
           <svg
             data-icon="log-out"
-            height="15"
+            height="16"
             viewBox="0 0 16 16"
-            width="15"
+            width="16"
           >
             <desc>
               log-out
@@ -39,16 +43,8 @@ exports[`User Profile Page To Profile 1`] = `
             />
           </svg>
         </span>
-        <span
-          class="bp3-button-text"
-        >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold"
-          >
-            signOut
-          </p>
-        </span>
-      </button>
+        signOut
+      </p>
     </div>
   </div>
 </div>

@@ -27,7 +27,7 @@ export default function DashboardsSideNav(): React.ReactElement {
 
   return (
     <Layout.Vertical spacing="small">
-      <SidebarLink label="All Dashboards" to={routes.toCustomDasboardHome({ accountId })} />
+      <SidebarLink label="All Dashboards" to={routes.toCustomDasboard({ accountId })} />
       {dashboardList?.resource?.list?.length > 0 && (
         <section
           style={{

@@ -1,8 +1,9 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
+import type { IconName } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { Module } from '@common/interfaces/RouteInterfaces'
-import ModuleInfoCards, { INFO_CARD_PROPS } from '../ModuleInfoCards'
+import ModuleInfoCards from '../ModuleInfoCards'
 
 describe('ModuleInfoCards Test', () => {
   describe('Rendering', () => {
@@ -26,7 +27,13 @@ describe('ModuleInfoCards Test', () => {
       const props = {
         module: 'ce' as Module,
         setSelectedInfoCard: jest.fn(),
-        selectedInfoCard: INFO_CARD_PROPS['ce'][1]
+        selectedInfoCard: {
+          icon: 'ce-visibility' as IconName,
+          title: 'common.ce.cost',
+          subtitle: 'common.ce.visibility',
+          description: 'common.purpose.ce.visibilityCard.description',
+          route: () => '/continuous-efficiency/settings'
+        }
       }
 
       const { container, getByText } = render(
@@ -45,7 +52,13 @@ describe('ModuleInfoCards Test', () => {
       const props = {
         module: 'ce' as Module,
         setSelectedInfoCard: setSelectedInfoCardMock,
-        selectedInfoCard: INFO_CARD_PROPS['ce'][0]
+        selectedInfoCard: {
+          icon: 'ce-visibility' as IconName,
+          title: 'common.ce.cost',
+          subtitle: 'common.ce.visibility',
+          description: 'common.purpose.ce.visibilityCard.description',
+          route: () => '/continuous-efficiency/settings'
+        }
       }
 
       const { getByText } = render(
@@ -60,11 +73,17 @@ describe('ModuleInfoCards Test', () => {
       await waitFor(() => expect(setSelectedInfoCardMock).toHaveBeenCalled())
     })
 
-    test('that nothing is rendered', async () => {
+    test('that nothing is rendered', () => {
       const props = {
         module: 'cf' as Module,
         setSelectedInfoCard: jest.fn(),
-        selectedInfoCard: INFO_CARD_PROPS['ce'][1]
+        selectedInfoCard: {
+          icon: 'ce-visibility' as IconName,
+          title: 'common.ce.cost',
+          subtitle: 'common.ce.visibility',
+          description: 'common.purpose.ce.visibilityCard.description',
+          route: () => '/continuous-efficiency/settings'
+        }
       }
 
       const { container } = render(
@@ -73,6 +92,26 @@ describe('ModuleInfoCards Test', () => {
         </TestWrapper>
       )
 
+      expect(container).toMatchSnapshot()
+    })
+
+    test('should render footer when it is cd module', () => {
+      const props = {
+        module: 'cd' as Module,
+        setSelectedInfoCard: jest.fn(),
+        selectedInfoCard: {
+          icon: 'cd-main' as IconName,
+          title: 'common.purpose.cd.newGen.title',
+          description: 'common.purpose.cd.newGen.description'
+        }
+      }
+
+      const { container, getAllByText } = render(
+        <TestWrapper>
+          <ModuleInfoCards {...props} />
+        </TestWrapper>
+      )
+      expect(getAllByText('common.purpose.cd.supportedStack')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
   })

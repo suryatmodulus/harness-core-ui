@@ -1,5 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CDTrialHomePage snapshot test should pop up start trial modal if there is queryparam source value signup 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        style="align-items: center;"
+      >
+        <h1
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
+          style="font-size: 30px;"
+        >
+          cd.continuous
+        </h1>
+      </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
+          style="width: 500px; line-height: 2;"
+        >
+          cd.cdTrialHomePage.startTrial.description
+        </p>
+        <a
+          href="https://ngdocs.harness.io/category/c9j6jejsws-cd-quickstarts"
+          rel="noreferrer"
+          style="width: 25%;"
+          target="_blank"
+        >
+          cd.learnMore
+        </a>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          style="align-items: center;"
+        >
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            style="width: 300px; height: 45px;"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              cd.cdTrialHomePage.startTrial.startBtn.description
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`CDTrialHomePage snapshot test should render properly 1`] = `
 <div>
   <div
@@ -30,7 +89,7 @@ exports[`CDTrialHomePage snapshot test should render properly 1`] = `
           cd.cdTrialHomePage.startTrial.description
         </p>
         <a
-          href=""
+          href="https://ngdocs.harness.io/category/c9j6jejsws-cd-quickstarts"
           rel="noreferrer"
           style="width: 25%;"
           target="_blank"
@@ -49,7 +108,7 @@ exports[`CDTrialHomePage snapshot test should render properly 1`] = `
             <span
               class="bp3-button-text"
             >
-              cd.cdTrialHomePage.startTrial.startBtn.description
+              getStarted
             </span>
           </button>
         </div>

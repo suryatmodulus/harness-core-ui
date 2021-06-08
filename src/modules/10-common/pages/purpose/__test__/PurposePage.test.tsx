@@ -7,6 +7,14 @@ import { PurposePage } from '../PurposePage'
 jest.mock('services/cd-ng')
 const useGetAccountLicenseInfoMock = useGetAccountLicenses as jest.MockedFunction<any>
 
+const featureFlags = {
+  CDNG_ENABLED: true,
+  CVNG_ENABLED: true,
+  CING_ENABLED: true,
+  CENG_ENABLED: true,
+  CFNG_ENABLED: true
+}
+
 describe('PurposePage', () => {
   test('should render module description and continue button when select module', async () => {
     useGetAccountLicenseInfoMock.mockImplementation(() => {
@@ -37,7 +45,7 @@ describe('PurposePage', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ featureFlags }}>
         <PurposePage />
       </TestWrapper>
     )
@@ -56,12 +64,11 @@ describe('PurposePage', () => {
         refetch: jest.fn()
       }
     })
-    const { container, getByText } = render(
-      <TestWrapper>
+    const { getByText } = render(
+      <TestWrapper defaultAppStoreValues={{ featureFlags }}>
         <PurposePage />
       </TestWrapper>
     )
     expect(getByText('call failed')).toBeDefined()
-    expect(container).toMatchSnapshot()
   })
 })

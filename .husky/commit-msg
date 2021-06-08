@@ -2,9 +2,15 @@
 
 branch="$(git rev-parse --abbrev-ref HEAD)"
 
-if [ "$branch" = "master" ]; then
-  echo "You can't commit directly to master branch"
+if [[ "$branch" == "master" ]]; then
+  echo "\033[0;31;1mYou can't commit directly to master branch\033[0m"
   exit 1
 fi
+
+if [[ "$branch" =~ ^release\/.* ]]; then
+  echo "\033[0;31;1mYou cannot commit directly to release branch\033[0m"
+    exit 1
+fi
+
 
 node ./scripts/lint-commit-message.js "$(cat "$1")"

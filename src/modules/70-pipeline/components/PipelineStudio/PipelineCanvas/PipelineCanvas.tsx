@@ -168,7 +168,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         ...(lastObject ?? {}),
         ...(updatedGitDetails && updatedGitDetails.isNewBranch ? { baseBranch: branch } : {})
       },
-      latestPipeline,
+      omit(latestPipeline, 'repo', 'branch'),
       pipelineIdentifier !== DefaultNewPipelineId
     )
     setSaving(false)

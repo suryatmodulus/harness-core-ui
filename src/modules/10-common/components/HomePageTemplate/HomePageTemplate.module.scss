@@ -14,3 +14,16 @@
     text-decoration: none;
   }
 }
+
+.body {
+  padding: 80px !important;
+  position: relative !important;
+  height: calc(100vh - var(--page-header-height, 64px));
+  background: transparent var(--image-url) no-repeat !important;
+  background-size: contain !important;
+  background-position-y: center !important;
+}
+
+.link {
+  align-self: flex-start;
+}

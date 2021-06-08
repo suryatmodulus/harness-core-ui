@@ -7,5 +7,7 @@ declare const styles: {
   readonly overview: string
   readonly button: string
   readonly overflow: string
+  readonly hasBanner: string
+  readonly noBanner: string
 }
 export default styles

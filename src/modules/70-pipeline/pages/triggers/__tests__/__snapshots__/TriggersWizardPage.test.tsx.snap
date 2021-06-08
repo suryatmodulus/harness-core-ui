@@ -1,422 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TriggersWizardPage Triggers tests Payload/Values Comparison OnEdit Schedule submit 1`] = `
-<div>
-  <div
-    class="StyledProps--font StyledProps--main pageBody"
-  >
-    
-    <section
-      class="wizardShell tabs"
-    >
-      <section
-        class="extendedNav"
-      >
-        <div
-          class="sideItems"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
-            style="align-items: baseline;"
-          >
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
-              level="2"
-            >
-              Trigger: test-schedule
-            </h2>
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              enabledLabel
-            </p>
-            <label
-              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
-            >
-              <input
-                checked=""
-                data-name="enabled-switch"
-                type="checkbox"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              
-            </label>
-          </div>
-        </div>
-        <div
-          class="sideItems"
-        />
-      </section>
-      <div
-        class="headerLine"
-      />
-      <div
-        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
-      >
-        <div
-          class="OverlaySpinner--overlaySpinner"
-        >
-          <form
-            class="FormikForm--main"
-          >
-            <div>
-              <div
-                class="bp3-tabs Tabs--main Tabs--horizontal"
-              >
-                <div
-                  class="bp3-tab-list"
-                  role="tablist"
-                >
-                  <div
-                    class="bp3-tab-indicator-wrapper"
-                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
-                  >
-                    <div
-                      class="bp3-tab-indicator"
-                    />
-                  </div>
-                  <div
-                    aria-controls="bp3-tab-panel_Wizard_Trigger Overview"
-                    aria-disabled="false"
-                    aria-expanded="true"
-                    aria-selected="true"
-                    class="bp3-tab"
-                    data-tab-id="Trigger Overview"
-                    id="bp3-tab-title_Wizard_Trigger Overview"
-                    role="tab"
-                    style="width: 218px;"
-                    tabindex="0"
-                  >
-                    <span
-                      class="tab"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
-                        icon="tick-circle"
-                      >
-                        <svg
-                          data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
-                        >
-                          <desc>
-                            tick-circle
-                          </desc>
-                          <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      1. 
-                      pipeline.triggers.triggerOverviewPanel.title
-                    </span>
-                  </div>
-                  <div
-                    aria-controls="bp3-tab-panel_Wizard_Schedule"
-                    aria-disabled="false"
-                    aria-expanded="false"
-                    aria-selected="false"
-                    class="bp3-tab"
-                    data-tab-id="Schedule"
-                    id="bp3-tab-title_Wizard_Schedule"
-                    role="tab"
-                    style="width: 218px;"
-                    tabindex="0"
-                  >
-                    <span
-                      class="tab"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
-                        icon="tick-circle"
-                      >
-                        <svg
-                          data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
-                        >
-                          <desc>
-                            tick-circle
-                          </desc>
-                          <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      2. 
-                      pipeline.triggers.schedulePanel.title
-                    </span>
-                  </div>
-                  <div
-                    aria-controls="bp3-tab-panel_Wizard_Pipeline Input"
-                    aria-disabled="false"
-                    aria-expanded="false"
-                    aria-selected="false"
-                    class="bp3-tab"
-                    data-tab-id="Pipeline Input"
-                    id="bp3-tab-title_Wizard_Pipeline Input"
-                    role="tab"
-                    style="width: 218px;"
-                    tabindex="0"
-                  >
-                    <span
-                      class="tab"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
-                        icon="tick-circle"
-                      >
-                        <svg
-                          data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
-                        >
-                          <desc>
-                            tick-circle
-                          </desc>
-                          <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      3. 
-                      pipeline.triggers.pipelineInputLabel
-                    </span>
-                  </div>
-                </div>
-                <div
-                  aria-hidden="false"
-                  aria-labelledby="bp3-tab-title_Wizard_Trigger Overview"
-                  class="bp3-tab-panel"
-                  id="bp3-tab-panel_Wizard_Trigger Overview"
-                  role="tabpanel"
-                >
-                  <div
-                    class="Layout--vertical Layout--layout-spacing-large StyledProps--main triggerOverviewPanelContainer StyledProps--padding-xxlarge"
-                  >
-                    <h2>
-                      pipeline.triggers.triggerOverviewPanel.title
-                    </h2>
-                    <div
-                      class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
-                    >
-                      <div
-                        class="InputWithIdentifier--txtNameContainer TextInput--main"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
-                        >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                          >
-                            ID
-                            :
-                          </p>
-                          <span
-                            class="bp3-popover-wrapper"
-                          >
-                            <span
-                              class="bp3-popover-target"
-                            >
-                              <div
-                                class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
-                              >
-                                <span
-                                  class="bp3-editable-text-content"
-                                  style="height: 1px; line-height: 1px; min-width: 0;"
-                                >
-                                  testschedule
-                                </span>
-                              </div>
-                            </span>
-                          </span>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="name-0"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="name"
-                          >
-                            name
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-input-group"
-                            >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="name"
-                                type="text"
-                                value="test-schedule"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                        style="margin-bottom: 0px;"
-                      >
-                        <label
-                          class="Label--main"
-                          style="font-size: 13px; font-weight: normal;"
-                        >
-                          optionalField
-                        </label>
-                        <div
-                          class="bp3-form-group"
-                          data-id="description-1"
-                        >
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <textarea
-                              autocomplete="off"
-                              class="bp3-input bp3-fill"
-                              name="description"
-                            >
-                              desc
-                            </textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      >
-                        <label
-                          class="Label--main"
-                          style="font-size: 13px; font-weight: normal;"
-                        >
-                          optionalField
-                        </label>
-                        <div
-                          class="bp3-form-group"
-                          data-id="undefined-2"
-                        >
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-input bp3-tag-input"
-                            >
-                              <div
-                                class="bp3-tag-input-values"
-                              >
-                                <span
-                                  class="bp3-tag"
-                                  data-tag-index="0"
-                                >
-                                  <span
-                                    class="bp3-text-overflow-ellipsis bp3-fill"
-                                  >
-                                    tag1
-                                  </span>
-                                  <button
-                                    class="bp3-tag-remove"
-                                    type="button"
-                                  >
-                                    <span
-                                      class="bp3-icon bp3-icon-small-cross"
-                                      icon="small-cross"
-                                    >
-                                      <svg
-                                        data-icon="small-cross"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                        width="16"
-                                      >
-                                        <desc>
-                                          small-cross
-                                        </desc>
-                                        <path
-                                          d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </button>
-                                </span>
-                                <input
-                                  class="bp3-input-ghost"
-                                  data-mentions="kv-tag-input-tags}"
-                                  value=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
-              >
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    continue
-                  </span>
-                  <span
-                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                    icon="chevron-right"
-                  >
-                    <svg
-                      data-icon="chevron-right"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <desc>
-                        chevron-right
-                      </desc>
-                      <path
-                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
-                <p
-                  class="StyledProps--font StyledProps--main cancel"
-                >
-                  cancel
-                </p>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div
-        class="footerLine"
-      />
-    </section>
-  </div>
-</div>
-`;
-
 exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - GitHub Show all fields filled 1`] = `
 <div>
   <div
@@ -440,7 +23,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
               class="StyledProps--font StyledProps--font-h2 StyledProps--main"
               level="2"
             >
-              Trigger: AllValues123
+              Trigger: All Values
             </h2>
             <p
               class="StyledProps--font StyledProps--main"
@@ -451,6 +34,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
             >
               <input
+                checked=""
                 data-name="enabled-switch"
                 type="checkbox"
               />
@@ -466,6 +50,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
         >
           <div
             class="item selected"
+            data-name="visual-btn"
             role="button"
             tabindex="0"
           >
@@ -473,6 +58,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           </div>
           <div
             class="item"
+            data-name="yaml-btn"
             role="button"
             tabindex="0"
           >
@@ -670,7 +256,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     class="bp3-editable-text-content"
                                     style="height: 1px; line-height: 1px; min-width: 0;"
                                   >
-                                    AllValues
+                                    All_Values
                                   </span>
                                 </div>
                               </span>
@@ -701,7 +287,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                   class="bp3-input"
                                   name="name"
                                   type="text"
-                                  value="AllValues123"
+                                  value="All Values"
                                 />
                               </div>
                             </div>
@@ -742,28 +328,63 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             style="font-size: 13px; font-weight: normal;"
                           >
                             optionalField
-                            <span
-                              class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
-                              data-name="edit"
-                              data-testid="tags-edit"
-                              icon="edit"
-                            >
-                              <svg
-                                data-icon="edit"
-                                height="12"
-                                viewBox="0 0 16 16"
-                                width="12"
-                              >
-                                <desc>
-                                  edit
-                                </desc>
-                                <path
-                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
                           </label>
+                          <div
+                            class="bp3-form-group"
+                            data-id="undefined-2"
+                          >
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input bp3-tag-input"
+                              >
+                                <div
+                                  class="bp3-tag-input-values"
+                                >
+                                  <span
+                                    class="bp3-tag"
+                                    data-tag-index="0"
+                                  >
+                                    <span
+                                      class="bp3-text-overflow-ellipsis bp3-fill"
+                                    >
+                                      tag1:value1
+                                    </span>
+                                    <button
+                                      class="bp3-tag-remove"
+                                      type="button"
+                                    >
+                                      <span
+                                        class="bp3-icon bp3-icon-small-cross"
+                                        icon="small-cross"
+                                      >
+                                        <svg
+                                          data-icon="small-cross"
+                                          height="16"
+                                          viewBox="0 0 16 16"
+                                          width="16"
+                                        >
+                                          <desc>
+                                            small-cross
+                                          </desc>
+                                          <path
+                                            d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                            fill-rule="evenodd"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </button>
+                                  </span>
+                                  <input
+                                    class="bp3-input-ghost"
+                                    data-mentions="kv-tag-input-tags}"
+                                    value=""
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <h2
@@ -777,7 +398,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       >
                         <div
                           class="bp3-form-group"
-                          data-id="sourceRepo-2"
+                          data-id="sourceRepo-3"
                         >
                           <label
                             class="bp3-label"
@@ -841,7 +462,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         <section>
                           <div
                             class="bp3-form-group"
-                            data-id="null-3"
+                            data-id="null-4"
                           >
                             <label
                               class="bp3-label"
@@ -867,9 +488,20 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                   <div
                                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                   >
-                                    <p
-                                      class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
-                                    />
+                                    <span
+                                      class="bp3-popover-wrapper"
+                                    >
+                                      <span
+                                        class="bp3-popover-target"
+                                      >
+                                        <p
+                                          class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
+                                          tabindex="0"
+                                        >
+                                          test
+                                        </p>
+                                      </span>
+                                    </span>
                                     <div
                                       class="rightStatus"
                                     >
@@ -937,10 +569,45 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           >
                             plusAdd
                           </p>
+                          <div
+                            class="bp3-form-group"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="repoName"
+                            >
+                              pipelineSteps.build.create.repositoryNameLabel
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="repoName"
+                                  type="text"
+                                  value="reponame"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                            data-name=""
+                          >
+                            github.com/account/reponame
+                          </p>
                         </section>
                         <div
                           class="bp3-form-group"
-                          data-id="event-4"
+                          data-id="event-5"
                         >
                           <label
                             class="bp3-label"
@@ -971,7 +638,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="Pull Request"
+                                    value="Issue Comment"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -1012,7 +679,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               pipeline.triggers.triggerConfigurationPanel.actions
                             </p>
                             <div
-                              class="bp3-form-group"
+                              class="bp3-form-group multiSelect"
                             >
                               <div
                                 class="bp3-form-content"
@@ -1039,7 +706,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                             <span
                                               class="bp3-text-overflow-ellipsis bp3-fill"
                                             >
-                                              closed
+                                              Create
                                             </span>
                                             <button
                                               class="bp3-tag-remove"
@@ -1073,7 +740,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                             <span
                                               class="bp3-text-overflow-ellipsis bp3-fill"
                                             >
-                                              edited
+                                              Edit
                                             </span>
                                             <button
                                               class="bp3-tag-remove"
@@ -1107,7 +774,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                             <span
                                               class="bp3-text-overflow-ellipsis bp3-fill"
                                             >
-                                              opened
+                                              Delete
                                             </span>
                                             <button
                                               class="bp3-tag-remove"
@@ -1155,7 +822,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-form-content"
                             >
                               <label
-                                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox anyAction StyledProps--main StyledProps--inline"
+                                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
                               >
                                 <input
                                   name="anyAction"
@@ -1169,6 +836,36 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             </div>
                           </div>
                         </div>
+                        <div
+                          class="bp3-form-group"
+                          data-id="autoAbortPreviousExecutions-6"
+                          style="position: relative; left: 0px;"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <label
+                              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
+                              style="position: relative; left: 0px;"
+                            >
+                              <input
+                                checked=""
+                                name="autoAbortPreviousExecutions"
+                                type="checkbox"
+                              />
+                              <span
+                                class="bp3-control-indicator"
+                              />
+                              Auto-abort Previous Execution
+                            </label>
+                          </div>
+                        </div>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                          style="margin-left: 29px; position: relative; top: -10px;"
+                        >
+                          pipeline.triggers.triggerConfigurationPanel.autoAbortIssueComment
+                        </p>
                       </section>
                     </div>
                   </div>
@@ -1247,7 +944,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
               class="StyledProps--font StyledProps--font-h2 StyledProps--main"
               level="2"
             >
-              Trigger: test-repo-connector
+              Trigger: test-github-repo
             </h2>
             <p
               class="StyledProps--font StyledProps--main"
@@ -1258,6 +955,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
             >
               <input
+                checked=""
                 data-name="enabled-switch"
                 type="checkbox"
               />
@@ -1273,6 +971,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
         >
           <div
             class="item selected"
+            data-name="visual-btn"
             role="button"
             tabindex="0"
           >
@@ -1280,6 +979,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           </div>
           <div
             class="item"
+            data-name="yaml-btn"
             role="button"
             tabindex="0"
           >
@@ -1477,7 +1177,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     class="bp3-editable-text-content"
                                     style="height: 1px; line-height: 1px; min-width: 0;"
                                   >
-                                    testrepoconnector
+                                    testgithub
                                   </span>
                                 </div>
                               </span>
@@ -1508,7 +1208,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                   class="bp3-input"
                                   name="name"
                                   type="text"
-                                  value="test-repo-connector"
+                                  value="test-github-repo"
                                 />
                               </div>
                             </div>
@@ -1678,9 +1378,20 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                   <div
                                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                   >
-                                    <p
-                                      class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
-                                    />
+                                    <span
+                                      class="bp3-popover-wrapper"
+                                    >
+                                      <span
+                                        class="bp3-popover-target"
+                                      >
+                                        <p
+                                          class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
+                                          tabindex="0"
+                                        >
+                                          repo-connector
+                                        </p>
+                                      </span>
+                                    </span>
                                     <div
                                       class="rightStatus"
                                     >
@@ -1713,7 +1424,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                           <span
                                             class="bp3-text-overflow-ellipsis bp3-fill"
                                           >
-                                            org
+                                            project
                                           </span>
                                         </span>
                                       </span>
@@ -1748,6 +1459,25 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           >
                             plusAdd
                           </p>
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                          >
+                            repositoryUrlLabel
+                          </p>
+                          <div
+                            class="TextInput--main"
+                          >
+                            <div
+                              class="bp3-input-group bp3-disabled"
+                            >
+                              <input
+                                class="bp3-input"
+                                disabled=""
+                                type="text"
+                                value="https://github.com/account"
+                              />
+                            </div>
+                          </div>
                         </section>
                         <div
                           class="bp3-form-group"
@@ -1823,7 +1553,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               pipeline.triggers.triggerConfigurationPanel.actions
                             </p>
                             <div
-                              class="bp3-form-group bp3-disabled"
+                              class="bp3-form-group multiSelect"
                             >
                               <div
                                 class="bp3-form-content"
@@ -1838,17 +1568,117 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                       class=""
                                     >
                                       <div
-                                        class="bp3-input bp3-tag-input bp3-disabled bp3-multi-select"
+                                        class="bp3-input bp3-tag-input bp3-multi-select"
                                       >
                                         <div
                                           class="bp3-tag-input-values"
                                         >
+                                          <span
+                                            class="bp3-tag MultiSelect--tag"
+                                            data-tag-index="0"
+                                          >
+                                            <span
+                                              class="bp3-text-overflow-ellipsis bp3-fill"
+                                            >
+                                              Close
+                                            </span>
+                                            <button
+                                              class="bp3-tag-remove"
+                                              type="button"
+                                            >
+                                              <span
+                                                class="bp3-icon bp3-icon-small-cross"
+                                                icon="small-cross"
+                                              >
+                                                <svg
+                                                  data-icon="small-cross"
+                                                  height="16"
+                                                  viewBox="0 0 16 16"
+                                                  width="16"
+                                                >
+                                                  <desc>
+                                                    small-cross
+                                                  </desc>
+                                                  <path
+                                                    d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                                    fill-rule="evenodd"
+                                                  />
+                                                </svg>
+                                              </span>
+                                            </button>
+                                          </span>
+                                          <span
+                                            class="bp3-tag MultiSelect--tag"
+                                            data-tag-index="1"
+                                          >
+                                            <span
+                                              class="bp3-text-overflow-ellipsis bp3-fill"
+                                            >
+                                              Edit
+                                            </span>
+                                            <button
+                                              class="bp3-tag-remove"
+                                              type="button"
+                                            >
+                                              <span
+                                                class="bp3-icon bp3-icon-small-cross"
+                                                icon="small-cross"
+                                              >
+                                                <svg
+                                                  data-icon="small-cross"
+                                                  height="16"
+                                                  viewBox="0 0 16 16"
+                                                  width="16"
+                                                >
+                                                  <desc>
+                                                    small-cross
+                                                  </desc>
+                                                  <path
+                                                    d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                                    fill-rule="evenodd"
+                                                  />
+                                                </svg>
+                                              </span>
+                                            </button>
+                                          </span>
+                                          <span
+                                            class="bp3-tag MultiSelect--tag"
+                                            data-tag-index="2"
+                                          >
+                                            <span
+                                              class="bp3-text-overflow-ellipsis bp3-fill"
+                                            >
+                                              Reopen
+                                            </span>
+                                            <button
+                                              class="bp3-tag-remove"
+                                              type="button"
+                                            >
+                                              <span
+                                                class="bp3-icon bp3-icon-small-cross"
+                                                icon="small-cross"
+                                              >
+                                                <svg
+                                                  data-icon="small-cross"
+                                                  height="16"
+                                                  viewBox="0 0 16 16"
+                                                  width="16"
+                                                >
+                                                  <desc>
+                                                    small-cross
+                                                  </desc>
+                                                  <path
+                                                    d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                                    fill-rule="evenodd"
+                                                  />
+                                                </svg>
+                                              </span>
+                                            </button>
+                                          </span>
                                           <input
                                             autocomplete="off"
                                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                                            disabled=""
                                             name="actions"
-                                            placeholder="Search..."
                                             value=""
                                           />
                                         </div>
@@ -1866,10 +1696,9 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-form-content"
                             >
                               <label
-                                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox anyAction StyledProps--main StyledProps--inline"
+                                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
                               >
                                 <input
-                                  checked=""
                                   name="anyAction"
                                   type="checkbox"
                                 />
@@ -1881,6 +1710,36 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             </div>
                           </div>
                         </div>
+                        <div
+                          class="bp3-form-group"
+                          data-id="autoAbortPreviousExecutions-4"
+                          style="position: relative; left: 0px;"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <label
+                              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
+                              style="position: relative; left: 0px;"
+                            >
+                              <input
+                                checked=""
+                                name="autoAbortPreviousExecutions"
+                                type="checkbox"
+                              />
+                              <span
+                                class="bp3-control-indicator"
+                              />
+                              Auto-abort Previous Execution
+                            </label>
+                          </div>
+                        </div>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                          style="margin-left: 29px; position: relative; top: -10px;"
+                        >
+                          pipeline.triggers.triggerConfigurationPanel.autoAbortPR
+                        </p>
                       </section>
                     </div>
                   </div>
@@ -1959,7 +1818,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
               class="StyledProps--font StyledProps--font-h2 StyledProps--main"
               level="2"
             >
-              Trigger: test-schedule
+              Trigger: test-cron
             </h2>
             <p
               class="StyledProps--font StyledProps--main"
@@ -1979,6 +1838,26 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
               />
               
             </label>
+          </div>
+        </div>
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
+          >
+            visual
+          </div>
+          <div
+            class="item"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
+          >
+            yaml
           </div>
         </div>
         <div
@@ -2169,7 +2048,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                                   class="bp3-editable-text-content"
                                   style="height: 1px; line-height: 1px; min-width: 0;"
                                 >
-                                  testschedule
+                                  testcron
                                 </span>
                               </div>
                             </span>
@@ -2200,7 +2079,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                                 class="bp3-input"
                                 name="name"
                                 type="text"
-                                value="test-schedule"
+                                value="test-cron"
                               />
                             </div>
                           </div>
@@ -2262,7 +2141,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                                   <span
                                     class="bp3-text-overflow-ellipsis bp3-fill"
                                   >
-                                    tag1
+                                    tag1:value1
                                   </span>
                                   <button
                                     class="bp3-tag-remove"
@@ -2376,7 +2255,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
               class="StyledProps--font StyledProps--font-h2 StyledProps--main"
               level="2"
             >
-              Trigger: test-schedule
+              Trigger: test-cron
             </h2>
             <p
               class="StyledProps--font StyledProps--main"
@@ -2396,6 +2275,26 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
               />
               
             </label>
+          </div>
+        </div>
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
+          >
+            visual
+          </div>
+          <div
+            class="item"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
+          >
+            yaml
           </div>
         </div>
         <div

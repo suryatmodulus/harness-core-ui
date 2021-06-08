@@ -108,7 +108,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     const timeoutId = window.setTimeout(() => {
       if (page === 1 && !loading) {
         setPollingRequest(true)
-        fetchExecutions().then(
+        fetchExecutions()?.then(
           () => setPollingRequest(false),
           () => setPollingRequest(false)
         )

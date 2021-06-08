@@ -14,7 +14,7 @@ exports[`Resource Groups Page render data 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/dummy/admin/access-control"
+            href="/account/dummy/home/setup/access-control"
           >
             accessControl
           </a>
@@ -37,7 +37,7 @@ exports[`Resource Groups Page render data 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/dummy/admin/access-control/resource-groups"
+            href="/account/dummy/home/setup/access-control/resource-groups"
           >
             resourceGroups
           </a>

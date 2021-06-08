@@ -1,6 +1,5 @@
 import React from 'react'
 import { Menu } from '@blueprintjs/core'
-
 import {
   Formik,
   FormInput,

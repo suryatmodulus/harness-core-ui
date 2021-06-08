@@ -318,7 +318,8 @@ export class ExecutionStepModel extends DiagramModel {
             identifier: node.parallel[0].step
               ? `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].step.identifier}${EmptyNodeSeparator}`
               : `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stepGroup.identifier}${EmptyNodeSeparator}`,
-            name: 'Empty'
+            name: 'Empty',
+            hideOutPort: true
           })
           this.addNode(emptyNode)
           newX += this.gapX
@@ -368,7 +369,8 @@ export class ExecutionStepModel extends DiagramModel {
             identifier: node.parallel[0].step
               ? `${EmptyNodeSeparator}${node.parallel[0].step.identifier}${EmptyNodeSeparator}`
               : `${EmptyNodeSeparator}${node.parallel[0].stepGroup.identifier}${EmptyNodeSeparator}`,
-            name: 'Empty'
+            name: 'Empty',
+            hideInPort: true
           })
           this.addNode(emptyNodeEnd)
           startX += this.gapX

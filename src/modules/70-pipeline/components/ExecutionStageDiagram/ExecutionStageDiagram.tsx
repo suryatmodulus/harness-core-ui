@@ -14,6 +14,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useDeepCompareEffect, useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
+import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import type {
   ExecutionPipeline,
   ExecutionPipelineGroupInfo,
@@ -393,7 +394,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
               />
             </StageSelection>
             <ExecutionActions
-              executionStatus={stageNode?.status}
+              executionStatus={stageNode?.status as ExecutionStatus}
               refetch={refetch}
               params={{
                 orgIdentifier,

@@ -259,7 +259,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
       fqnPath: getFqnPath(),
       accountIdentifier: accountId,
       orgIdentifier,
-      projectIdentifier
+      projectIdentifier,
+      repoIdentifier,
+      branch: branchParam
     },
     lazy: true
   })
@@ -281,7 +283,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
         registryHostname: lastQueryData.registryHostname || '',
         accountIdentifier: accountId,
         orgIdentifier,
-        projectIdentifier
+        projectIdentifier,
+        repoIdentifier,
+        branch: branchParam
       },
       lazy: true
     }
@@ -304,7 +308,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
         region: lastQueryData.region || '',
         accountIdentifier: accountId,
         orgIdentifier,
-        projectIdentifier
+        projectIdentifier,
+        repoIdentifier,
+        branch: branchParam
       },
       lazy: true
     }
@@ -322,9 +328,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   }, [pipelineResponse?.data?.yamlPipeline])
 
   useDeepCompareEffect(() => {
-    if (gcrError || dockerError) {
-      clear()
-      showError(getString('errorTag'))
+    if (gcrError || dockerError || ecrError) {
+      const stageName = get(pipeline, `pipeline.${stagePath}.stage.name`, '')
+      showError(`Stage ${stageName}: ${getString('errorTag')}`, undefined, 'cd.tag.fetch.error')
       return
     }
     if (Array.isArray(dockerdata?.data?.buildDetailsList)) {
@@ -643,7 +649,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           usePortal: true,
                           addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type)),
                           noResults: (
-                            <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
+                            <Text lineClamp={1}>
+                              {get(ecrError || gcrError || dockerError, 'data.message', null) ||
+                                getString('pipelineSteps.deploy.errors.notags')}
+                            </Text>
                           ),
                           itemRenderer: itemRenderer,
                           allowCreatingNewItems: true,
@@ -731,6 +740,25 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
                       />
                     )}
+                    {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) ===
+                      MultiTypeInputType.RUNTIME && (
+                      <FormInput.MultiTypeInput
+                        useValue
+                        multiTypeInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          selectProps: {
+                            items: regions,
+                            usePortal: true,
+                            addClearBtn: true && !readonly
+                          }
+                        }}
+                        disabled={readonly}
+                        selectItems={regions}
+                        label={getString('regionLabel')}
+                        name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.region`}
+                      />
+                    )}
                     {getMultiTypeFromValue(imagePath) === MultiTypeInputType.RUNTIME && (
                       <FormInput.MultiTextInput
                         label={getString('pipelineSteps.deploy.inputSet.imagePath')}
@@ -756,25 +784,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         name={`${path}.artifacts.sidecars[${index}].sidecar.spec.registryHostname`}
                       />
                     )}
-                    {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) ===
-                      MultiTypeInputType.RUNTIME && (
-                      <FormInput.MultiTypeInput
-                        useValue
-                        multiTypeInputProps={{
-                          expressions,
-                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                          selectProps: {
-                            items: regions,
-                            usePortal: true,
-                            addClearBtn: true && !readonly
-                          }
-                        }}
-                        disabled={readonly}
-                        selectItems={regions}
-                        label={getString('regionLabel')}
-                        name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.region`}
-                      />
-                    )}
+
                     {getMultiTypeFromValue(template?.artifacts?.sidecars?.[index]?.sidecar?.spec?.tag) ===
                       MultiTypeInputType.RUNTIME && (
                       <div
@@ -832,7 +842,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                               usePortal: true,
                               addClearBtn: true && !readonly,
                               noResults: (
-                                <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
+                                <Text lineClamp={1}>
+                                  {get(ecrError || gcrError || dockerError, 'data.message', null) ||
+                                    getString('pipelineSteps.deploy.errors.notags')}
+                                </Text>
                               ),
                               itemRenderer: itemRenderer,
                               allowCreatingNewItems: true,

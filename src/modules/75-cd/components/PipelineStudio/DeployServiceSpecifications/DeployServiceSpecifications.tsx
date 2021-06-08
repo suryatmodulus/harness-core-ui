@@ -357,8 +357,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             >
               <Select
                 disabled={setupModeType === setupMode.DIFFERENT || isReadonly}
-                className={css.propagatedropdown}
                 items={previousStageList}
+                className={css.propagateDropdown}
                 value={selectedPropagatedState}
                 onChange={(item: SelectOption) => selectPropagatedStep(item)}
               />

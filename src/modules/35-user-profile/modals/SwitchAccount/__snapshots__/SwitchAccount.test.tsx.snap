@@ -133,7 +133,7 @@ exports[`Switch Account render 1`] = `
           style="width: 30%;"
         >
           <a
-            href="/account/zEaak-FLS425IEO7OLzMUg/projects"
+            href="/account/zEaak-FLS425IEO7OLzMUg/home"
           >
             Harness.io
           </a>
@@ -183,7 +183,7 @@ exports[`Switch Account render 1`] = `
           style="width: 30%;"
         >
           <a
-            href="/account/XICOBc_qRa2PJmVaWOx-cQ/projects"
+            href="/account/XICOBc_qRa2PJmVaWOx-cQ/home"
           >
             AutomationOne
           </a>
@@ -239,7 +239,7 @@ exports[`Switch Account render 1`] = `
           style="width: 30%;"
         >
           <a
-            href="/account/px7xd_BFRCi-pfWPYXVjvw/projects"
+            href="/account/px7xd_BFRCi-pfWPYXVjvw/home"
           >
             harness-dev
           </a>
@@ -295,7 +295,7 @@ exports[`Switch Account render 1`] = `
           style="width: 30%;"
         >
           <a
-            href="/account/nqqlJ_62S0q7wFnYSmwNpQ/projects"
+            href="/account/nqqlJ_62S0q7wFnYSmwNpQ/home"
           >
             abc1
           </a>
@@ -351,7 +351,7 @@ exports[`Switch Account render 1`] = `
           style="width: 30%;"
         >
           <a
-            href="/account/3P9jX4EfQ3moXBbQfORaLw/projects"
+            href="/account/3P9jX4EfQ3moXBbQfORaLw/home"
           >
             raj-ng-defaul-experience-1
           </a>

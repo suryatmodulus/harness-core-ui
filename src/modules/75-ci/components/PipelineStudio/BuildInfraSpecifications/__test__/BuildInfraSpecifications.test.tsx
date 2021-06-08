@@ -3,7 +3,9 @@ import { waitFor, act, fireEvent, findByText, findAllByText, render } from '@tes
 import { TestWrapper } from '@common/utils/testUtils'
 import type { UseGetReturnData } from '@common/utils/testUtils'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import BuildInfraSpecifications from '../BuildInfraSpecifications'
+import contextMock from './pipelineContextMock.json'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
@@ -80,6 +82,38 @@ describe('BuildInfraSpecifications snapshot test', () => {
     })
     const chosenConnector = await findByText(container, 'tesa 1')
     expect(chosenConnector).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('can add new label', async () => {
+    const { container, findByTestId } = render(
+      <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
+        <PipelineContext.Provider
+          value={
+            {
+              ...contextMock,
+              getStageFromPipeline: jest.fn(() => {
+                return { stage: contextMock.state.pipeline.stages[0], parent: undefined }
+              }),
+              updatePipeline: jest.fn
+            } as any
+          }
+        >
+          <BuildInfraSpecifications />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+
+    await act(async () => {
+      fireEvent.click(await findByTestId('advanced-summary'))
+    })
+
+    await act(async () => {
+      fireEvent.click(await findByTestId('add-labels'))
+      fireEvent.change(container.querySelector('[name="labels[2].key"]')!, { target: { value: 'projectid' } })
+      fireEvent.change(container.querySelector('[name="labels[2].value"]')!, { target: { value: 'testVal' } })
+    })
+    // TODO - check why validation error is not appearing
     expect(container).toMatchSnapshot()
   })
 })

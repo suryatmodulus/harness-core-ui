@@ -7,4 +7,5 @@ You can use the following comments to re-trigger PR Checks
 - Standards: `retrigger standards`
 - Build: `retrigger build`
 - Title Check: `retrigger titlecheck`
+- Coverage: `retrigger coverage`
 - Rebase: `trigger rebase`

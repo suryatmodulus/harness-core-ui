@@ -1,25 +1,17 @@
 import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
 
+import Configuration from '@auth-settings/pages/Configuration/Configuration'
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
 
-import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
-import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
-import Configuration from '@auth-settings/pages/Configuration/Configuration'
-
-const AccountSettingsSideNavProps: SidebarContext = {
-  navComponent: AccountSettingsSideNav,
-  subtitle: 'ACCOUNT',
-  title: 'Settings',
-  icon: 'nav-settings'
-}
+import { HomeSideNavProps } from '@common/RouteDestinations'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.AUTHSETTING, {
   icon: 'nav-settings',
@@ -39,15 +31,11 @@ const RedirectToConfiguration = (): React.ReactElement => {
 
 export default (
   <>
-    <Route
-      sidebarProps={AccountSettingsSideNavProps}
-      path={routes.toAuthenticationSettings({ ...accountPathProps })}
-      exact
-    >
+    <Route sidebarProps={HomeSideNavProps} path={routes.toAuthenticationSettings({ ...accountPathProps })} exact>
       <RedirectToConfiguration />
     </Route>
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={routes.toAccountConfiguration({ ...accountPathProps })}
       exact
     >

@@ -51,7 +51,7 @@ export default (
     <Route path={routes.toCE({ ...accountPathProps })} exact>
       <RedirectToCEHome />
     </Route>
-    <Route path={routes.toCDProject({ ...accountPathProps, ...projectPathProps })} exact>
+    <Route path={routes.toCEProject({ ...accountPathProps, ...projectPathProps })} exact>
       <RedirectToCEProject />
     </Route>
     <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEHome({ ...accountPathProps })} exact>

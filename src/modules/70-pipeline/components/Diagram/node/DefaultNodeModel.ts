@@ -28,6 +28,8 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   secondaryIconProps?: Omit<IconProps, 'name'>
   secondaryIconStyle?: CSSProperties
   showPorts?: boolean
+  hideInPort?: boolean
+  hideOutPort?: boolean
   tertiaryIcon?: IconName
   tertiaryIconProps?: Omit<IconProps, 'name'>
   tertiaryIconStyle?: CSSProperties

@@ -10,9 +10,9 @@ rules:
         - modules/30-secrets/*
         - modules/35-connectors/*
         - modules/35-user-profile/*
-        - modules/40-projects-orgs/*
+        - modules/40-gitsync/*
         - modules/45-dashboards/*
-        - modules/60-gitsync/*
+        - modules/45-projects-orgs/*
         - modules/70-pipeline/*
         - modules/75-cd/*
         - modules/75-ce/*
@@ -26,9 +26,9 @@ rules:
         - '@secrets/*'
         - '@connectors/*'
         - '@user-profile/*'
-        - '@projects-orgs/*'
-        - '@dashboards/*'
         - '@gitsync/*'
+        - '@dashboards/*'
+        - '@projects-orgs/*'
         - '@pipeline/*'
         - '@cd/*'
         - '@ce/*'

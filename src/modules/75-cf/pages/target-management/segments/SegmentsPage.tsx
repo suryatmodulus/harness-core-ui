@@ -67,7 +67,8 @@ export const SegmentsPage: React.FC = () => {
     error: errSegments,
     refetch: refetchSegments
   } = useGetAllSegments({
-    queryParams
+    queryParams,
+    lazy: !activeEnvironment
   })
   const history = useHistory()
   const loading = loadingEnvironments || loadingSegments
@@ -89,7 +90,7 @@ export const SegmentsPage: React.FC = () => {
         )
       )
     },
-    [history, accountId, orgIdentifier, projectIdentifier] // eslint-disable-line react-hooks/exhaustive-deps
+    [history, accountId, orgIdentifier, projectIdentifier, withActiveEnvironment]
   )
   const toolbar = (
     <Layout.Horizontal spacing="medium">
@@ -185,10 +186,10 @@ export const SegmentsPage: React.FC = () => {
                     showToaster(getString('cf.messages.segmentDeleted'))
                   })
                   .catch(_error => {
-                    showError(getErrorMessage(_error), 0)
+                    showError(getErrorMessage(_error), 0, 'cf.delete.segment.error')
                   })
               } catch (err) {
-                showError(getErrorMessage(err), 0)
+                showError(getErrorMessage(err), 0, 'cf.delete.segment.error')
               }
             }
           })
@@ -237,7 +238,13 @@ export const SegmentsPage: React.FC = () => {
 
   const content = noEnvironmentExists ? (
     <Container flex={{ align: 'center-center' }} height="100%">
-      <NoEnvironment onCreated={() => refetchEnvs()} />
+      <NoEnvironment
+        onCreated={response => {
+          const { location } = window
+          location.replace(`${location.href}?activeEnvironment=${response?.data?.identifier}`)
+          refetchEnvs()
+        }}
+      />
     </Container>
   ) : noSegmentExists ? (
     <NoSegmentsView

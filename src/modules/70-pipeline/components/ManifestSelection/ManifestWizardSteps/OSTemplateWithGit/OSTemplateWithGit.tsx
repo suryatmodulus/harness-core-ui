@@ -313,7 +313,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                   addDomId={true}
                   summary={getString('advancedTitle')}
                   details={
-                    <Layout.Horizontal height={90} flex={{ justifyContent: 'flex-start' }}>
+                    <Layout.Horizontal height={90} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                       <FormMultiTypeCheckboxField
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}

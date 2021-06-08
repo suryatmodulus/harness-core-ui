@@ -16,7 +16,7 @@ import { useStrings } from 'framework/strings'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -240,7 +240,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
 
 const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
   const { data, gotoPage, reload, openRoleAssignmentModal, openUserGroupModal } = props
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
   const history = useHistory()
 
@@ -294,6 +294,7 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
             accountId,
             orgIdentifier,
             projectIdentifier,
+            module,
             userGroupIdentifier: userGroup.userGroupDTO.identifier
           })
         )

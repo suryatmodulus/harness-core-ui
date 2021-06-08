@@ -142,7 +142,10 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     intermediateLabel: props.isEditMode
       ? getString('connectors.updating', { name: connectorName })
       : getString('connectors.creating', { name: connectorName }),
-    finalLabel: connectorCreateUpdateError?.data?.message || connectorCreateUpdateError?.message
+    finalLabel:
+      `${connectorCreateUpdateError?.data?.errors?.[0].fieldId} ${connectorCreateUpdateError?.data?.errors?.[0].error}` ||
+      connectorCreateUpdateError?.data?.message ||
+      connectorCreateUpdateError?.message
   }
   const setupBranchStage = {
     status: connectorCreateUpdateStatus,
@@ -343,7 +346,9 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       ) {
         openGitDiffDialog(payload, connectorData?.gitData)
       } else {
-        modalErrorHandler?.showDanger(e.data?.message || e.message)
+        const errorMessage = `${e.data?.errors?.[0].fieldId} ${e.data?.errors?.[0].error}`
+        const message = e.data?.errors?.[0].fieldId ? errorMessage : e.message
+        modalErrorHandler?.showDanger(message)
       }
     }
   }

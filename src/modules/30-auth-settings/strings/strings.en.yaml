@@ -91,7 +91,9 @@ confirmDisableWhitelistedDomains: Are you sure you want to disable email restric
 WhitelistedDomainsUpdated: Domain restrictions have been updated successfully.
 whitelistedDomainsDisabled: Domain restrictions have been disabled successfully.
 allowLoginFromTheseDomains: Allow login from these domains
-allowUsersWIthEmails: 'Only allow users with the following email domains:'
+allowUsersWithEmails: 'Only allow users with the following email domains:'
+typeAndPressEnterToAddADomain: Type and press enter to add a domain
+restrictUsersToEmailDomains: Restrict users to email domains
 domainNameRequired: At least one domain name is required
 yourAccountWillBeLockedOut: Your account will be locked out. Please set up Two Factor Authentication for yourself.
 goToSettings: Go to settings

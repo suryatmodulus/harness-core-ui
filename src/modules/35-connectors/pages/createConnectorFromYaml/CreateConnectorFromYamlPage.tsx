@@ -24,15 +24,11 @@ import { sanitize } from '@common/utils/JSONUtils'
 import type { SaveToGitFormInterface, GitResourceInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { ProgressOverlay, StepStatus } from '@common/modals/ProgressOverlay/ProgressOverlay'
 import { Entities } from '@common/interfaces/GitSyncInterface'
-
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './CreateConnectorFromYamlPage.module.scss'
 
 const CreateConnectorFromYamlPage: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    accountId: string
-    projectIdentifier: string
-    orgIdentifier: string
-  }>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const history = useHistory()
   const { showError } = useToaster()
@@ -68,13 +64,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   }
 
   const rerouteBasedOnContext = (connectorId: string): void => {
-    if (projectIdentifier && orgIdentifier) {
-      history.push(routes.toCDResourcesConnectorDetails({ projectIdentifier, orgIdentifier, connectorId, accountId }))
-    } else if (orgIdentifier) {
-      history.push(routes.toOrgResourcesConnectorDetails({ orgIdentifier, connectorId, accountId }))
-    } else {
-      history.push(routes.toResourcesConnectorDetails({ connectorId, accountId }))
-    }
+    history.push(routes.toConnectorDetails({ connectorId, accountId, orgIdentifier, projectIdentifier, module }))
   }
 
   // modal to show while creating a PR

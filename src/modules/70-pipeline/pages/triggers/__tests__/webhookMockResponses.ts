@@ -1,53 +1,32 @@
 import type { UseGetReturnData } from '@common/utils/testUtils'
-import type {
-  ResponseMapWebhookSourceRepoListWebhookEvent,
-  ResponseListWebhookAction,
-  ResponseNGTriggerResponse
-} from 'services/pipeline-ng'
+import type { ResponseMapStringMapStringListString, ResponseNGTriggerResponse } from 'services/pipeline-ng'
 
-export const GetSourceRepoToEventResponse: UseGetReturnData<ResponseMapWebhookSourceRepoListWebhookEvent> = {
+export const GetGitTriggerEventDetailsResponse: UseGetReturnData<ResponseMapStringMapStringListString> = {
   loading: false,
   refetch: jest.fn(),
   error: null,
   data: {
     status: 'SUCCESS',
     data: {
-      GITLAB: ['Push', 'Merge Request'],
-      GITHUB: ['Pull Request', 'Push', 'Delete'],
-      BITBUCKET: ['Pull Request', 'Repository']
+      Github: {
+        IssueComment: ['Create', 'Edit', 'Delete'],
+        PullRequest: ['Close', 'Edit', 'Open', 'Reopen', 'Label', 'Unlabel', 'Synchronize'],
+        Push: []
+      },
+      Bitbucket: {
+        PullRequest: ['Create', 'Update', 'Merge', 'Decline'],
+        Push: []
+      },
+      Gitlab: {
+        MergeRequest: ['Open', 'Close', 'Reopen', 'Merge', 'Update', 'Sync'],
+        Push: []
+      },
+      AwsCodeCommit: {
+        Push: []
+      }
     },
     metaData: (null as unknown) as undefined,
     correlationId: '45939431-731c-4434-89b0-4414ac46d3f7'
-  }
-}
-
-export const GenerateWebhookTokenResponse = {
-  metaData: {},
-  resource: 'token',
-  responseMessages: []
-}
-
-export const GetActionsListResponse: UseGetReturnData<ResponseListWebhookAction> = {
-  loading: false,
-  refetch: jest.fn(),
-  error: null,
-  data: {
-    status: 'SUCCESS',
-    data: ['closed', 'edited', 'opened', 'reopened', 'labeled', 'unlabeled', 'synchronized'],
-    metaData: (null as unknown) as undefined,
-    correlationId: '4b575abb-9519-485e-ab11-9a805dda5cc1'
-  }
-}
-
-export const GetActionsListPushEventResponse: UseGetReturnData<ResponseListWebhookAction> = {
-  loading: false,
-  refetch: jest.fn(),
-  error: null,
-  data: {
-    status: 'SUCCESS',
-    data: [],
-    metaData: (null as unknown) as undefined,
-    correlationId: (null as unknown) as undefined
   }
 }
 
@@ -58,18 +37,18 @@ export const GetTriggerResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
   data: {
     status: 'SUCCESS',
     data: {
-      name: 'AllValues123',
-      identifier: 'AllValues',
+      name: 'All Values',
+      identifier: 'All_Values',
       description: 'desc',
       type: 'Webhook',
-      accountIdentifier: 'accountIdentifier',
+      accountIdentifier: 'accountId',
       orgIdentifier: 'default',
       projectIdentifier: 'project1',
-      targetIdentifier: 'p1',
-      enabled: false,
+      targetIdentifier: 'noinputspipeline1',
       yaml:
-        'trigger:\n  name: AllValues123\n  identifier: AllValues\n  enabled: false\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: tesa1\n          repoName: triggerNgDemo\n        event: Pull Request\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: equals\n            value: "123"\n          - key: targetBranch\n            operator: regex\n            value: regex\n          - key: abcd\n            operator: in\n            value: abc\n          - key: defg\n            operator: not in\n            value: def\n',
-      version: 12
+        'trigger:\n    name: All Values\n    identifier: All_Values\n    enabled: true\n    description: desc\n    tags:\n        tag1: value1\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: noinputspipeline1\n    source:\n        type: Webhook\n        spec:\n            type: Github\n            spec:\n                type: IssueComment\n                spec:\n                    connectorRef: test\n                    autoAbortPreviousExecutions: true\n                    payloadConditions:\n                        - key: changedFiles\n                          operator: NotEquals\n                          value: x\n                        - key: sourceBranch\n                          operator: Equals\n                          value: sourceBranch\n                        - key: targetBranch\n                          operator: In\n                          value: val1, val2\n                        - key: <+trigger.payload.path>\n                          operator: StartsWith\n                          value: "1"\n                    headerConditions:\n                        - key: <+trigger.header["key-name"]>\n                          operator: EndsWith\n                          value: release\n                    jexlCondition: jexlCondition\n                    repoName: reponame\n                    actions:\n                        - Create\n                        - Edit\n                        - Delete\n    inputYaml: ""\n',
+      version: 1,
+      enabled: true
     },
     metaData: (null as unknown) as undefined,
     correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
@@ -82,18 +61,18 @@ export const GetTriggerRepoOrgConnectorResponse: UseGetReturnData<ResponseNGTrig
   data: {
     status: 'SUCCESS',
     data: {
-      name: 'AllValues123',
-      identifier: 'AllValues',
-      description: 'desc',
+      name: 'test-github-repo',
+      identifier: 'testgithub',
+      description: '',
       type: 'Webhook',
-      accountIdentifier: 'accountIdentifier',
+      accountIdentifier: 'accountId',
       orgIdentifier: 'default',
       projectIdentifier: 'project1',
-      targetIdentifier: 'p1',
-      enabled: false,
+      targetIdentifier: 'pipeline1',
       yaml:
-        'trigger:\n  name: test-repo-connector\n  identifier: testrepoconnector\n  enabled: true\n  tags: {}\n  target:\n    targetIdentifier: pipeline1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline: {}\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: org.repogithub\n          repoName: null\n        event: Pull Request\n        actions: []\n',
-      version: 12
+        'trigger:\n    name: test-github-repo\n    identifier: testgithub\n    enabled: true\n    description: ""\n    tags: {}\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: pipeline1\n    source:\n        type: Webhook\n        spec:\n            type: Github\n            spec:\n                type: PullRequest\n                spec:\n                    connectorRef: repoconnector\n                    autoAbortPreviousExecutions: true\n                    payloadConditions:\n                        - key: sourceBranch\n                          operator: Equals\n                          value: sourceBranchValue\n                        - key: targetBranch\n                          operator: Equals\n                          value: targetBranchValue\n                    headerConditions:\n                        - key: <+trigger.header["key-name"]>\n                          operator: Equals\n                          value: "123"\n                    jexlCondition: jexlCondition\n                    actions:\n                        - Close\n                        - Edit\n                        - Reopen\n    inputYaml: |\n        pipeline:\n            identifier: pipeline1\n            stages:\n                - stage:\n                      identifier: stage1\n                      type: Deployment\n                      spec:\n                          infrastructure:\n                              environmentRef: ""\n                              infrastructureDefinition:\n                                  type: KubernetesDirect\n                                  spec:\n                                      namespace: ""\n',
+      version: 1,
+      enabled: true
     },
     metaData: (null as unknown) as undefined,
     correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
@@ -118,7 +97,7 @@ export const GetTriggerInvalidYamlResponse: UseGetReturnData<ResponseNGTriggerRe
       targetIdentifier: 'p1',
       enabled: false,
       yaml:
-        'trigger:\n  name: AllValues123\n  identifier: AllValues\n  enabled: false\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      spec:\n        gitRepoSpec:\n          identifier: tesa1\n          repoName: triggerNgDemo\n        event: Pull Request\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: equals\n            value: "123"\n          - key: targetBranch\n            operator: regex\n            value: regex\n          - key: abcd\n            operator: in\n            value: abc\n          - key: defg\n            operator: not in\n            value: def\n',
+        'trigger:\n  name: AllValues123\n  identifier: AllValues\n  enabled: false\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      spec:\n        gitRepoSpec:\n          identifier: tesa1\n          repoName: triggerNgDemo\n        event: PullRequest\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: Equals\n            value: "123"\n          - key: targetBranch\n            operator: Regex\n            value: Regex\n          - key: abcd\n            operator: In\n            value: abc\n          - key: defg\n            operator: NotIn\n            value: def\n',
       version: 12
     },
     metaData: (null as unknown) as undefined,
@@ -133,18 +112,18 @@ export const GetTriggerEmptyActionsResponse: UseGetReturnData<ResponseNGTriggerR
   data: {
     status: 'SUCCESS',
     data: {
-      name: 'github-connector',
-      identifier: 'githubconnector',
+      name: 'All Values',
+      identifier: 'All_Values',
       description: 'desc',
       type: 'Webhook',
-      accountIdentifier: 'accountIdentifier',
+      accountIdentifier: 'accountId',
       orgIdentifier: 'default',
       projectIdentifier: 'project1',
-      targetIdentifier: 'p1',
-      enabled: false,
+      targetIdentifier: 'noinputspipeline1',
       yaml:
-        'trigger:\n  name: github-connector\n  identifier: githubconnector\n  enabled: false\n  tags: {}\n  target:\n    targetIdentifier: pipeline1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: pipeline1\n          stages:\n            - stage:\n                identifier: stage1\n                spec:\n                  serviceConfig:\n                    serviceRef: ""\n                  infrastructure:\n                    environmentRef: ""\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: mtrepogithub\n          repoName: ""\n        event: Pull Request\n        actions: []\n',
-      version: 12
+        'trigger:\n    name: All Values\n    identifier: All_Values\n    enabled: false\n    description: desc\n    tags:\n        tag1: value1\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: noinputspipeline1\n    source:\n        type: Webhook\n        spec:\n            type: Github\n            spec:\n                type: IssueComment\n                spec:\n                    connectorRef: test\n                    autoAbortPreviousExecutions: true\n                    payloadConditions:\n                        - key: changedFiles\n                          operator: NotEquals\n                          value: x\n                        - key: sourceBranch\n                          operator: Equals\n                          value: sourceBranch\n                        - key: targetBranch\n                          operator: In\n                          value: val1, val2\n                        - key: <+trigger.payload.path>\n                          operator: StartsWith\n                          value: "1"\n                    headerConditions:\n                        - key: <+trigger.header["key-name"]>\n                          operator: EndsWith\n                          value: release\n                    jexlCondition: jexlCondition\n                    repoName: reponame\n                    actions: []\n    inputYaml: |\n        pipeline: {}\n',
+      version: 6,
+      enabled: false
     },
     metaData: (null as unknown) as undefined,
     correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
@@ -175,30 +154,6 @@ export const GetTriggerWithPushEventResponse: UseGetReturnData<ResponseNGTrigger
   }
 }
 
-export const GetTriggerWithMergeRequestEventResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
-  loading: false,
-  refetch: jest.fn(),
-  error: null,
-  data: {
-    status: 'SUCCESS',
-    data: {
-      name: 'github-connector',
-      identifier: 'githubconnector',
-      type: 'Webhook',
-      accountIdentifier: 'accountId',
-      orgIdentifier: 'default',
-      projectIdentifier: 'mtproject',
-      targetIdentifier: 'pipeline1',
-      yaml:
-        'trigger:\n  name: github-connector\n  identifier: githubconnector\n  enabled: true\n  tags: {}\n  target:\n    targetIdentifier: pipeline1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: pipeline1\n          stages:\n            - stage:\n                identifier: stage1\n                spec:\n                  serviceConfig:\n                    serviceRef: ""\n                  infrastructure:\n                    environmentRef: ""\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: mtaccountgithubconnector\n          repoName: repoName\n        event: Merge Request\n        actions: []\n',
-      version: 0,
-      enabled: true
-    },
-    metaData: (null as unknown) as undefined,
-    correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
-  }
-}
-
 export const updateTriggerMockResponse = {
   status: 'SUCCESS',
   data: {
@@ -211,7 +166,7 @@ export const updateTriggerMockResponse = {
     projectIdentifier: 'project1',
     targetIdentifier: 'p1',
     yaml:
-      'trigger:\n  name: AllValues123\n  identifier: AllValues\n  enabled: false\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: tesa1\n          repoName: triggerNgDemo\n        event: Pull Request\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: equals\n            value: "123"\n          - key: targetBranch\n            operator: regex\n            value: regex\n          - key: abcd\n            operator: in\n            value: abc\n          - key: defg\n            operator: not in\n            value: def\n',
+      'trigger:\n  name: AllValues123\n  identifier: AllValues\n  enabled: false\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: tesa1\n          repoName: triggerNgDemo\n        event: PullRequest\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: Equals\n            value: "123"\n          - key: targetBranch\n            operator: Regex\n            value: Regex\n          - key: abcd\n            operator: In\n            value: abc\n          - key: defg\n            operator: NotIn\n            value: def\n',
     version: 13
   },
   metaData: null,
@@ -220,11 +175,11 @@ export const updateTriggerMockResponse = {
 
 export const CreateTriggerResponse = {}
 
+// double space instead of 4 and removed 3 org, project, pipeline identifiers
 export const updateTriggerMockResponseYaml =
-  'trigger:\n  name: AllValues123\n  identifier: AllValues\n  enabled: false\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: tesa1\n          repoName: triggerNgDemo\n        event: Pull Request\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: equals\n            value: "123"\n          - key: targetBranch\n            operator: regex\n            value: regex\n          - key: abcd\n            operator: in\n            value: abc\n          - key: defg\n            operator: not in\n            value: def\n'
-
+  'trigger:\n  name: All Values\n  identifier: All_Values\n  enabled: true\n  description: desc\n  tags:\n    tag1: value1\n  source:\n    type: Webhook\n    spec:\n      type: Github\n      spec:\n        type: IssueComment\n        spec:\n          connectorRef: test\n          autoAbortPreviousExecutions: true\n          payloadConditions:\n            - key: changedFiles\n              operator: NotEquals\n              value: x\n            - key: sourceBranch\n              operator: Equals\n              value: sourceBranch\n            - key: targetBranch\n              operator: In\n              value: val1, val2\n            - key: <+trigger.payload.path>\n              operator: StartsWith\n              value: "1"\n          headerConditions:\n            - key: <+trigger.header["key-name"]>\n              operator: EndsWith\n              value: release\n          jexlCondition: jexlCondition\n          repoName: reponame\n          actions:\n            - Create\n            - Edit\n            - Delete\n  inputYaml: |\n    pipeline:\n      identifier: noinputspipeline1\n      variables:\n        - name: newVar\n          type: String\n          value: ""\n        - name: otherVariable\n          type: String\n          value: ""\n'
 export const enabledFalseUpdateTriggerMockResponseYaml =
-  'trigger:\n  name: AllValues123\n  identifier: AllValues\n  enabled: true\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: tesa1\n          repoName: triggerNgDemo\n        event: Pull Request\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: equals\n            value: "123"\n          - key: targetBranch\n            operator: regex\n            value: regex\n          - key: abcd\n            operator: in\n            value: abc\n          - key: defg\n            operator: not in\n            value: def\n'
+  'trigger:\n  name: All Values\n  identifier: All_Values\n  enabled: false\n  description: desc\n  tags:\n    tag1: value1\n  source:\n    type: Webhook\n    spec:\n      type: Github\n      spec:\n        type: IssueComment\n        spec:\n          connectorRef: test\n          autoAbortPreviousExecutions: true\n          payloadConditions:\n            - key: changedFiles\n              operator: NotEquals\n              value: x\n            - key: sourceBranch\n              operator: Equals\n              value: sourceBranch\n            - key: targetBranch\n              operator: In\n              value: val1, val2\n            - key: <+trigger.payload.path>\n              operator: StartsWith\n              value: "1"\n          headerConditions:\n            - key: <+trigger.header["key-name"]>\n              operator: EndsWith\n              value: release\n          jexlCondition: jexlCondition\n          repoName: reponame\n          actions:\n            - Create\n            - Edit\n            - Delete\n  inputYaml: |\n    pipeline:\n      identifier: noinputspipeline1\n      variables:\n        - name: newVar\n          type: String\n          value: ""\n        - name: otherVariable\n          type: String\n          value: ""\n'
 
 export const GetSchemaYaml = {
   status: 'SUCCESS',
@@ -232,69 +187,206 @@ export const GetSchemaYaml = {
     type: 'object',
     properties: {
       trigger: {
-        $ref: '#/definitions/NGTriggerConfig'
+        $ref: '#/definitions/NGTriggerConfigV2'
       }
     },
     $schema: 'http://json-schema.org/draft-07/schema#',
     definitions: {
-      AuthToken: {
-        type: 'object',
-        properties: {
-          type: {
-            type: 'string'
-          }
-        },
-        $schema: 'http://json-schema.org/draft-07/schema#',
-        allOf: [
-          {
-            if: {
-              properties: {
-                type: {
-                  const: 'inline'
-                }
-              }
-            },
-            then: {
-              properties: {
-                spec: {
-                  $ref: '#/definitions/CustomWebhookInlineAuthToken'
-                }
-              }
-            }
-          }
-        ]
-      },
-      AuthTokenSpec: {
+      AwsCodeCommitEventSpec: {
         type: 'object',
         discriminator: 'type',
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      AwsCodeCommitTriggerSpec: {
+      AwsCodeCommitPushSpec: {
         allOf: [
           {
-            $ref: '#/definitions/WebhookTriggerSpec'
+            $ref: '#/definitions/AwsCodeCommitEventSpec'
           },
           {
             type: 'object',
             properties: {
-              gitRepoSpec: {
-                $ref: '#/definitions/GitRepoSpec'
+              connectorRef: {
+                type: 'string'
+              },
+              jexlCondition: {
+                type: 'string'
+              },
+              payloadConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              repoName: {
+                type: 'string'
               }
             }
           }
         ],
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      BitbucketTriggerSpec: {
+      AwsCodeCommitSpec: {
         allOf: [
           {
-            $ref: '#/definitions/WebhookTriggerSpec'
+            $ref: '#/definitions/WebhookTriggerSpecV2'
           },
           {
             type: 'object',
             properties: {
-              gitRepoSpec: {
-                $ref: '#/definitions/GitRepoSpec'
+              type: {
+                type: 'string',
+                enum: ['Push']
+              }
+            }
+          },
+          {
+            if: {
+              properties: {
+                type: {
+                  const: 'Push'
+                }
+              }
+            },
+            then: {
+              properties: {
+                spec: {
+                  $ref: '#/definitions/AwsCodeCommitPushSpec'
+                }
+              }
+            }
+          }
+        ],
+        $schema: 'http://json-schema.org/draft-07/schema#'
+      },
+      BitbucketEventSpec: {
+        type: 'object',
+        discriminator: 'type',
+        $schema: 'http://json-schema.org/draft-07/schema#'
+      },
+      BitbucketPRSpec: {
+        allOf: [
+          {
+            $ref: '#/definitions/BitbucketEventSpec'
+          },
+          {
+            type: 'object',
+            properties: {
+              actions: {
+                type: 'array',
+                items: {
+                  type: 'string',
+                  enum: ['Create', 'Update', 'Merge', 'Decline']
+                }
+              },
+              autoAbortPreviousExecutions: {
+                type: 'boolean'
+              },
+              connectorRef: {
+                type: 'string'
+              },
+              headerConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              jexlCondition: {
+                type: 'string'
+              },
+              payloadConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              repoName: {
+                type: 'string'
+              }
+            }
+          }
+        ],
+        $schema: 'http://json-schema.org/draft-07/schema#'
+      },
+      BitbucketPushSpec: {
+        allOf: [
+          {
+            $ref: '#/definitions/BitbucketEventSpec'
+          },
+          {
+            type: 'object',
+            properties: {
+              autoAbortPreviousExecutions: {
+                type: 'boolean'
+              },
+              connectorRef: {
+                type: 'string'
+              },
+              headerConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              jexlCondition: {
+                type: 'string'
+              },
+              payloadConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              repoName: {
+                type: 'string'
+              }
+            }
+          }
+        ],
+        $schema: 'http://json-schema.org/draft-07/schema#'
+      },
+      BitbucketSpec: {
+        allOf: [
+          {
+            $ref: '#/definitions/WebhookTriggerSpecV2'
+          },
+          {
+            type: 'object',
+            properties: {
+              type: {
+                type: 'string',
+                enum: ['PullRequest', 'Push']
+              }
+            }
+          },
+          {
+            if: {
+              properties: {
+                type: {
+                  const: 'PullRequest'
+                }
+              }
+            },
+            then: {
+              properties: {
+                spec: {
+                  $ref: '#/definitions/BitbucketPRSpec'
+                }
+              }
+            }
+          },
+          {
+            if: {
+              properties: {
+                type: {
+                  const: 'Push'
+                }
+              }
+            },
+            then: {
+              properties: {
+                spec: {
+                  $ref: '#/definitions/BitbucketPushSpec'
+                }
               }
             }
           }
@@ -317,15 +409,76 @@ export const GetSchemaYaml = {
         ],
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      CustomWebhookInlineAuthToken: {
+      CustomTriggerSpec: {
         allOf: [
           {
-            $ref: '#/definitions/AuthTokenSpec'
+            $ref: '#/definitions/WebhookTriggerSpecV2'
           },
           {
             type: 'object',
             properties: {
-              value: {
+              headerConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              jexlCondition: {
+                type: 'string'
+              },
+              payloadConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              }
+            }
+          }
+        ],
+        $schema: 'http://json-schema.org/draft-07/schema#'
+      },
+      GithubEventSpec: {
+        type: 'object',
+        discriminator: 'type',
+        $schema: 'http://json-schema.org/draft-07/schema#'
+      },
+      GithubIssueCommentSpec: {
+        allOf: [
+          {
+            $ref: '#/definitions/GithubEventSpec'
+          },
+          {
+            type: 'object',
+            properties: {
+              actions: {
+                type: 'array',
+                items: {
+                  type: 'string',
+                  enum: ['Create', 'Edit', 'Delete']
+                }
+              },
+              autoAbortPreviousExecutions: {
+                type: 'boolean'
+              },
+              connectorRef: {
+                type: 'string'
+              },
+              headerConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              jexlCondition: {
+                type: 'string'
+              },
+              payloadConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              repoName: {
                 type: 'string'
               }
             }
@@ -333,69 +486,290 @@ export const GetSchemaYaml = {
         ],
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      CustomWebhookTriggerSpec: {
+      GithubPRSpec: {
         allOf: [
           {
-            $ref: '#/definitions/WebhookTriggerSpec'
+            $ref: '#/definitions/GithubEventSpec'
           },
           {
             type: 'object',
             properties: {
-              authToken: {
-                $ref: '#/definitions/AuthToken'
+              actions: {
+                type: 'array',
+                items: {
+                  type: 'string',
+                  enum: ['Close', 'Edit', 'Open', 'Reopen', 'Label', 'Unlabel', 'Synchronize']
+                }
+              },
+              autoAbortPreviousExecutions: {
+                type: 'boolean'
+              },
+              connectorRef: {
+                type: 'string'
+              },
+              headerConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              jexlCondition: {
+                type: 'string'
+              },
+              payloadConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              repoName: {
+                type: 'string'
               }
             }
           }
         ],
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      GitRepoSpec: {
+      GithubPushSpec: {
+        allOf: [
+          {
+            $ref: '#/definitions/GithubEventSpec'
+          },
+          {
+            type: 'object',
+            properties: {
+              autoAbortPreviousExecutions: {
+                type: 'boolean'
+              },
+              connectorRef: {
+                type: 'string'
+              },
+              headerConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              jexlCondition: {
+                type: 'string'
+              },
+              payloadConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              repoName: {
+                type: 'string'
+              }
+            }
+          }
+        ],
+        $schema: 'http://json-schema.org/draft-07/schema#'
+      },
+      GithubSpec: {
+        allOf: [
+          {
+            $ref: '#/definitions/WebhookTriggerSpecV2'
+          },
+          {
+            type: 'object',
+            properties: {
+              type: {
+                type: 'string',
+                enum: ['PullRequest', 'Push', 'IssueComment']
+              }
+            }
+          },
+          {
+            if: {
+              properties: {
+                type: {
+                  const: 'IssueComment'
+                }
+              }
+            },
+            then: {
+              properties: {
+                spec: {
+                  $ref: '#/definitions/GithubIssueCommentSpec'
+                }
+              }
+            }
+          },
+          {
+            if: {
+              properties: {
+                type: {
+                  const: 'PullRequest'
+                }
+              }
+            },
+            then: {
+              properties: {
+                spec: {
+                  $ref: '#/definitions/GithubPRSpec'
+                }
+              }
+            }
+          },
+          {
+            if: {
+              properties: {
+                type: {
+                  const: 'Push'
+                }
+              }
+            },
+            then: {
+              properties: {
+                spec: {
+                  $ref: '#/definitions/GithubPushSpec'
+                }
+              }
+            }
+          }
+        ],
+        $schema: 'http://json-schema.org/draft-07/schema#'
+      },
+      GitlabEventSpec: {
         type: 'object',
-        properties: {
-          identifier: {
-            type: 'string'
-          },
-          repoName: {
-            type: 'string'
-          }
-        },
+        discriminator: 'type',
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      GithubTriggerSpec: {
+      GitlabPRSpec: {
         allOf: [
           {
-            $ref: '#/definitions/WebhookTriggerSpec'
+            $ref: '#/definitions/GitlabEventSpec'
           },
           {
             type: 'object',
             properties: {
-              gitRepoSpec: {
-                $ref: '#/definitions/GitRepoSpec'
+              actions: {
+                type: 'array',
+                items: {
+                  type: 'string',
+                  enum: ['Open', 'Close', 'Reopen', 'Merge', 'Update', 'Sync']
+                }
+              },
+              autoAbortPreviousExecutions: {
+                type: 'boolean'
+              },
+              connectorRef: {
+                type: 'string'
+              },
+              headerConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              jexlCondition: {
+                type: 'string'
+              },
+              payloadConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              repoName: {
+                type: 'string'
               }
             }
           }
         ],
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      GitlabTriggerSpec: {
+      GitlabPushSpec: {
         allOf: [
           {
-            $ref: '#/definitions/WebhookTriggerSpec'
+            $ref: '#/definitions/GitlabEventSpec'
           },
           {
             type: 'object',
             properties: {
-              gitRepoSpec: {
-                $ref: '#/definitions/GitRepoSpec'
+              autoAbortPreviousExecutions: {
+                type: 'boolean'
+              },
+              connectorRef: {
+                type: 'string'
+              },
+              headerConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              jexlCondition: {
+                type: 'string'
+              },
+              payloadConditions: {
+                type: 'array',
+                items: {
+                  $ref: '#/definitions/TriggerEventDataCondition'
+                }
+              },
+              repoName: {
+                type: 'string'
               }
             }
           }
         ],
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      NGTriggerConfig: {
+      GitlabSpec: {
+        allOf: [
+          {
+            $ref: '#/definitions/WebhookTriggerSpecV2'
+          },
+          {
+            type: 'object',
+            properties: {
+              type: {
+                type: 'string',
+                enum: ['MergeRequest', 'Push']
+              }
+            }
+          },
+          {
+            if: {
+              properties: {
+                type: {
+                  const: 'MergeRequest'
+                }
+              }
+            },
+            then: {
+              properties: {
+                spec: {
+                  $ref: '#/definitions/GitlabPRSpec'
+                }
+              }
+            }
+          },
+          {
+            if: {
+              properties: {
+                type: {
+                  const: 'Push'
+                }
+              }
+            },
+            then: {
+              properties: {
+                spec: {
+                  $ref: '#/definitions/GitlabPushSpec'
+                }
+              }
+            }
+          }
+        ],
+        $schema: 'http://json-schema.org/draft-07/schema#'
+      },
+      NGTriggerConfigV2: {
         type: 'object',
-        required: ['identifier'],
+        required: ['identifier', 'orgIdentifier', 'projectIdentifier'],
         properties: {
           description: {
             type: 'string'
@@ -406,30 +780,41 @@ export const GetSchemaYaml = {
           identifier: {
             type: 'string'
           },
+          inputYaml: {
+            type: 'string'
+          },
           name: {
             type: 'string'
           },
+          orgIdentifier: {
+            type: 'string',
+            const: 'default'
+          },
+          pipelineIdentifier: {
+            type: 'string'
+          },
+          projectIdentifier: {
+            type: 'string',
+            const: 'project1'
+          },
           source: {
-            $ref: '#/definitions/NGTriggerSource'
+            $ref: '#/definitions/NGTriggerSourceV2'
           },
           tags: {
             type: 'object',
             additionalProperties: {
               type: 'string'
             }
-          },
-          target: {
-            $ref: '#/definitions/NGTriggerTarget'
           }
         },
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      NGTriggerSource: {
+      NGTriggerSourceV2: {
         type: 'object',
         properties: {
           type: {
             type: 'string',
-            enum: ['Webhook', 'NewArtifact', 'Scheduled']
+            enum: ['Webhook', 'Scheduled']
           }
         },
         $schema: 'http://json-schema.org/draft-07/schema#',
@@ -461,82 +846,23 @@ export const GetSchemaYaml = {
             then: {
               properties: {
                 spec: {
-                  $ref: '#/definitions/WebhookTriggerConfig'
+                  $ref: '#/definitions/WebhookTriggerConfigV2'
                 }
               }
             }
           }
         ]
       },
-      NGTriggerSpec: {
+      NGTriggerSpecV2: {
         type: 'object',
         discriminator: 'type',
         $schema: 'http://json-schema.org/draft-07/schema#'
-      },
-      NGTriggerTarget: {
-        type: 'object',
-        properties: {
-          targetIdentifier: {
-            type: 'string'
-          },
-          type: {
-            type: 'string',
-            enum: ['Pipeline']
-          }
-        },
-        $schema: 'http://json-schema.org/draft-07/schema#',
-        allOf: [
-          {
-            if: {
-              properties: {
-                type: {
-                  const: 'Pipeline'
-                }
-              }
-            },
-            then: {
-              properties: {
-                spec: {
-                  $ref: '#/definitions/PipelineTargetSpec'
-                }
-              }
-            }
-          }
-        ]
       },
       NgTriggerConfigSchemaWrapper: {
         type: 'object',
         properties: {
           trigger: {
-            $ref: '#/definitions/NGTriggerConfig'
-          }
-        },
-        $schema: 'http://json-schema.org/draft-07/schema#'
-      },
-      PipelineTargetSpec: {
-        allOf: [
-          {
-            $ref: '#/definitions/TargetSpec'
-          },
-          {
-            type: 'object',
-            properties: {
-              runtimeInputYaml: {
-                type: 'string'
-              }
-            }
-          }
-        ],
-        $schema: 'http://json-schema.org/draft-07/schema#'
-      },
-      RepoSpec: {
-        type: 'object',
-        properties: {
-          identifier: {
-            type: 'string'
-          },
-          repoName: {
-            type: 'string'
+            $ref: '#/definitions/NGTriggerConfigV2'
           }
         },
         $schema: 'http://json-schema.org/draft-07/schema#'
@@ -544,7 +870,7 @@ export const GetSchemaYaml = {
       ScheduledTriggerConfig: {
         allOf: [
           {
-            $ref: '#/definitions/NGTriggerSpec'
+            $ref: '#/definitions/NGTriggerSpecV2'
           },
           {
             type: 'object',
@@ -578,19 +904,15 @@ export const GetSchemaYaml = {
         discriminator: 'type',
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      TargetSpec: {
-        type: 'object',
-        discriminator: 'type',
-        $schema: 'http://json-schema.org/draft-07/schema#'
-      },
-      WebhookCondition: {
+      TriggerEventDataCondition: {
         type: 'object',
         properties: {
           key: {
             type: 'string'
           },
           operator: {
-            type: 'string'
+            type: 'string',
+            enum: ['In', 'Equals', 'NotEquals', 'NotIn', 'Regex', 'EndsWith', 'StartsWith', 'Contains']
           },
           value: {
             type: 'string'
@@ -598,16 +920,17 @@ export const GetSchemaYaml = {
         },
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      WebhookTriggerConfig: {
+      WebhookTriggerConfigV2: {
         allOf: [
           {
-            $ref: '#/definitions/NGTriggerSpec'
+            $ref: '#/definitions/NGTriggerSpecV2'
           },
           {
             type: 'object',
             properties: {
               type: {
-                type: 'string'
+                type: 'string',
+                enum: ['Github', 'Gitlab', 'Bitbucket', 'Custom', 'AwsCodeCommit']
               }
             }
           },
@@ -615,30 +938,14 @@ export const GetSchemaYaml = {
             if: {
               properties: {
                 type: {
-                  const: 'AWS_CODECOMMIT'
+                  const: 'AwsCodeCommit'
                 }
               }
             },
             then: {
               properties: {
                 spec: {
-                  $ref: '#/definitions/AwsCodeCommitTriggerSpec'
-                }
-              }
-            }
-          },
-          {
-            if: {
-              properties: {
-                type: {
-                  const: 'BITBUCKET'
-                }
-              }
-            },
-            then: {
-              properties: {
-                spec: {
-                  $ref: '#/definitions/BitbucketTriggerSpec'
+                  $ref: '#/definitions/AwsCodeCommitSpec'
                 }
               }
             }
@@ -647,14 +954,14 @@ export const GetSchemaYaml = {
             if: {
               properties: {
                 type: {
-                  const: 'CUSTOM'
+                  const: 'Bitbucket'
                 }
               }
             },
             then: {
               properties: {
                 spec: {
-                  $ref: '#/definitions/CustomWebhookTriggerSpec'
+                  $ref: '#/definitions/BitbucketSpec'
                 }
               }
             }
@@ -663,14 +970,14 @@ export const GetSchemaYaml = {
             if: {
               properties: {
                 type: {
-                  const: 'GITHUB'
+                  const: 'Custom'
                 }
               }
             },
             then: {
               properties: {
                 spec: {
-                  $ref: '#/definitions/GithubTriggerSpec'
+                  $ref: '#/definitions/CustomTriggerSpec'
                 }
               }
             }
@@ -679,14 +986,30 @@ export const GetSchemaYaml = {
             if: {
               properties: {
                 type: {
-                  const: 'GITLAB'
+                  const: 'Github'
                 }
               }
             },
             then: {
               properties: {
                 spec: {
-                  $ref: '#/definitions/GitlabTriggerSpec'
+                  $ref: '#/definitions/GithubSpec'
+                }
+              }
+            }
+          },
+          {
+            if: {
+              properties: {
+                type: {
+                  const: 'Gitlab'
+                }
+              }
+            },
+            then: {
+              properties: {
+                spec: {
+                  $ref: '#/definitions/GitlabSpec'
                 }
               }
             }
@@ -694,72 +1017,9 @@ export const GetSchemaYaml = {
         ],
         $schema: 'http://json-schema.org/draft-07/schema#'
       },
-      WebhookTriggerSpec: {
+      WebhookTriggerSpecV2: {
         type: 'object',
         discriminator: 'type',
-        properties: {
-          actions: {
-            type: 'array',
-            items: {
-              type: 'string',
-              enum: [
-                'created',
-                'closed',
-                'edited',
-                'edited',
-                'opened',
-                'reopened',
-                'labeled',
-                'unlabeled',
-                'deleted',
-                'synchronized',
-                'synced',
-                'merged',
-                'sync',
-                'open',
-                'close',
-                'reopen',
-                'merge',
-                'update',
-                'pull request created',
-                'pull request updated',
-                'pull request merged',
-                'pull request declined',
-                'created',
-                'deleted'
-              ]
-            }
-          },
-          event: {
-            type: 'string',
-            enum: ['Pull Request', 'Push', 'Issue Comment', 'Delete', 'Merge Request', 'Repository', 'Branch', 'Tag']
-          },
-          headerConditions: {
-            type: 'array',
-            items: {
-              $ref: '#/definitions/WebhookCondition'
-            }
-          },
-          pathFilters: {
-            type: 'array',
-            items: {
-              type: 'string'
-            }
-          },
-          payloadConditions: {
-            type: 'array',
-            items: {
-              $ref: '#/definitions/WebhookCondition'
-            }
-          },
-          repoSpec: {
-            $ref: '#/definitions/RepoSpec'
-          },
-          type: {
-            type: 'string',
-            enum: ['GITHUB', 'GITLAB', 'BITBUCKET', 'AWS_CODECOMMIT', 'CUSTOM']
-          }
-        },
         $schema: 'http://json-schema.org/draft-07/schema#'
       }
     }

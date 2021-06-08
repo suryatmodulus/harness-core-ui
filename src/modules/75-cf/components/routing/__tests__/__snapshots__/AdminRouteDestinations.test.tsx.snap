@@ -7,7 +7,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
     layout={[Function]}
     path={
       Array [
-        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/admin/access-control",
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control",
       ]
     }
     sidebarProps={
@@ -26,7 +26,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
     layout={[Function]}
     path={
       Array [
-        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/admin/access-control/users",
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/users",
       ]
     }
     sidebarProps={
@@ -47,7 +47,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
     layout={[Function]}
     path={
       Array [
-        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/admin/access-control/user-groups",
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/user-groups",
       ]
     }
     sidebarProps={
@@ -68,7 +68,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
     layout={[Function]}
     path={
       Array [
-        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/admin/access-control/resource-groups",
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/resource-groups",
       ]
     }
     sidebarProps={
@@ -89,7 +89,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
     layout={[Function]}
     path={
       Array [
-        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/admin/access-control/roles",
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/roles",
       ]
     }
     sidebarProps={
@@ -110,7 +110,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
     layout={[Function]}
     path={
       Array [
-        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/admin/access-control/roles/:roleIdentifier",
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/roles/:roleIdentifier",
       ]
     }
     sidebarProps={
@@ -129,7 +129,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
     layout={[Function]}
     path={
       Array [
-        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/admin/access-control/resource-groups/:resourceGroupIdentifier",
+        "/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/resource-groups/:resourceGroupIdentifier",
       ]
     }
     sidebarProps={

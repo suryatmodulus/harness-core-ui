@@ -265,7 +265,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   }, [environmentsResponse, environmentsResponse?.data?.content?.length, initialValues.environmentRef])
 
   if (error?.message) {
-    showError(error.message)
+    showError(error.message, undefined, 'cd.env.list.error')
   }
 
   const { expressions } = useVariablesExpression()
@@ -426,7 +426,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
   }, [environmentsResponse, environmentsResponse?.data?.content?.length])
 
   if (error?.message) {
-    showError(error.message)
+    showError(error.message, undefined, 'cd.env.list.error')
   }
   return (
     <>

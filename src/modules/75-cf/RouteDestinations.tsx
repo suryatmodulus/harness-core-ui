@@ -60,6 +60,10 @@ import ExecutionArtifactsView from '@pipeline/pages/execution/ExecutionArtifacts
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import AdminRouteDestinations from '@cf/components/routing/AdminRouteDestinations'
 import { CFSideNavProps } from '@cf/constants'
+import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
+import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
+import SecretsPage from '@secrets/pages/secrets/SecretsPage'
+import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
@@ -88,12 +92,6 @@ const RedirectToCFProject = (): React.ReactElement => {
   }
 }
 
-const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps & ModulePathParams>()
-
-  return <Redirect to={routes.toResourcesConnectors(params)} />
-}
-
 const RedirectToExecutionPipeline = (): React.ReactElement => {
   const params = useParams<PipelineType<ExecutionPathProps>>()
 
@@ -111,6 +109,10 @@ const RedirectToTargets = (): React.ReactElement => {
   const params = useParams<ProjectPathProps & AccountPathProps>()
 
   return <Redirect to={withActiveEnvironment(routes.toCFTargets(params))} />
+}
+
+const cfModuleParams: ModulePathParams = {
+  module: ':module(cf)'
 }
 
 export default (
@@ -392,21 +394,29 @@ export default (
       <RedirectToPipelineDetailHome />
     </RouteWithLayout>
 
-    <Route
+    <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toResources({ ...accountPathProps, ...projectPathProps, ...modulePathProps })}
+      path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <RedirectToResourcesHome />
-    </Route>
+      <ConnectorsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CreateConnectorFromYamlPage />
+    </RouteWithLayout>
 
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toCFAdminResourcesConnectorDetails({
+      path={routes.toConnectorDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...connectorPathProps
+        ...connectorPathProps,
+        ...cfModuleParams
       })}
     >
       <ConnectorDetailsPage />
@@ -415,7 +425,27 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toResourcesSecretDetails({
+      path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <SecretsPage module="cf" />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCreateSecretFromYaml({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...pipelineModuleParams
+      })}
+      exact
+    >
+      <CreateSecretFromYamlPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -427,7 +457,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toResourcesSecretDetailsOverview({
+      path={routes.toSecretDetailsOverview({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -441,7 +471,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toResourcesSecretDetailsReferences({
+      path={routes.toSecretDetailsReferences({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,

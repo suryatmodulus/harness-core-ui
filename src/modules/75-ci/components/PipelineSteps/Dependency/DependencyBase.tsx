@@ -9,6 +9,7 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -41,6 +42,7 @@ export const DependencyBase = (
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -102,7 +104,8 @@ export const DependencyBase = (
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
                 style={{ marginBottom: 'var(--spacing-xsmall)' }}
                 multiTypeTextArea={{
-                  disabled: readonly
+                  disabled: readonly,
+                  expressions
                 }}
               />
               <FormMultiTypeConnectorField
@@ -127,7 +130,7 @@ export const DependencyBase = (
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
                 style={{ marginBottom: 0 }}
-                multiTypeProps={{ disabled: readonly }}
+                multiTypeProps={{ expressions, disabled: readonly }}
               />
               <MultiTypeTextField
                 name="spec.image"
@@ -139,7 +142,18 @@ export const DependencyBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('dependencyImagePlaceholder'),
-                  disabled: readonly
+                  disabled: readonly,
+                  multiTextInputProps: {
+                    expressions,
+                    allowableTypes: [
+                      MultiTypeInputType.EXPRESSION,
+                      MultiTypeInputType.FIXED,
+                      MultiTypeInputType.RUNTIME
+                    ],
+                    textProps: {
+                      autoComplete: 'off'
+                    }
+                  }
                 }}
               />
             </div>
@@ -149,6 +163,7 @@ export const DependencyBase = (
               </Text>
               <MultiTypeMap
                 name="spec.envVariables"
+                valueMultiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -166,6 +181,7 @@ export const DependencyBase = (
               />
               <MultiTypeList
                 name="spec.entrypoint"
+                multiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -179,6 +195,7 @@ export const DependencyBase = (
               />
               <MultiTypeList
                 name="spec.args"
+                multiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>

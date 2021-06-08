@@ -458,13 +458,13 @@ exports[`User Profile Page User Profile 1`] = `
     <div
       class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
     >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-right-xxxlarge"
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold"
+        style="display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon StyledProps--main"
+          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
           data-icon="deployment-incomplete-legacy"
-          style="padding-top: 6px;"
         >
           <svg
             height="18"
@@ -489,31 +489,22 @@ exports[`User Profile Page User Profile 1`] = `
             />
           </svg>
         </span>
-        <p
-          class="StyledProps--font StyledProps--main"
-          style="line-height: 2.5; font-weight: 500;"
-        >
-          common.banners.email.description
-        </p>
-      </div>
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        common.banners.email.description
+      </p>
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main resend StyledProps--padding-xsmall Button--with-current-color"
+        type="button"
       >
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--padding-xsmall Button--with-current-color"
-          type="button"
+        <span
+          class="bp3-button-text"
         >
-          <span
-            class="bp3-button-text"
-          >
-            common.banners.email.resend
-          </span>
-        </button>
-      </div>
+          common.banners.email.resend
+        </span>
+      </button>
     </div>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody filled"
+    class="StyledProps--font StyledProps--main pageBody hasBanner"
   >
     <div
       class="Layout--horizontal StyledProps--main"

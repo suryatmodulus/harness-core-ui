@@ -3,9 +3,9 @@ import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import { Formik, FormikForm, Button } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
 import { useStrings } from 'framework/strings'
-import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
+import { setFieldValue, InputTypes } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { NGTriggerSource } from 'services/pipeline-ng'
+import type { NGTriggerSourceV2 } from 'services/pipeline-ng'
 import { getTriggerConfigDefaultProps, getTriggerConfigInitialValues } from './webhookMockConstants'
 import { getValidationSchema, TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import WebhookConditionsPanel from '../views/WebhookConditionsPanel'
@@ -24,7 +24,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
         enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={getValidationSchema(
-          (TriggerTypes.WEBHOOK as unknown) as NGTriggerSource['type'],
+          (TriggerTypes.WEBHOOK as unknown) as NGTriggerSourceV2['type'],
           result.current.getString
         )}
         onSubmit={jest.fn()}
@@ -185,20 +185,9 @@ describe('WebhookConditionsPanel Triggers tests', () => {
         throw Error('No target branch operator')
       }
 
-      fillAtForm([
-        {
-          container: container,
-          type: InputTypes.SELECT,
-          fieldId: 'sourceBranchOperator',
-          value: 'not equals'
-        },
-        {
-          container: container,
-          type: InputTypes.TEXTFIELD,
-          fieldId: 'sourceBranchValue',
-          value: ''
-        }
-      ])
+      setFieldValue({ container, type: InputTypes.SELECT, fieldId: 'sourceBranchOperator', value: 'Equals' })
+      setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: 'sourceBranchValue', value: '' })
+
       const submit = document.querySelector('[class*="submitButton"]')
       if (!submit) {
         throw Error('no submit')
@@ -207,14 +196,8 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       await waitFor(() =>
         expect(getByText(result.current.getString('pipeline.triggers.validation.matchesValue'))).not.toBeNull()
       )
-      fillAtForm([
-        {
-          container: container,
-          type: InputTypes.TEXTFIELD,
-          fieldId: 'sourceBranchValue',
-          value: 'val'
-        }
-      ])
+      setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: 'sourceBranchValue', value: 'val' })
+
       fireEvent.click(submit)
       await waitFor(() => expect(container.querySelector('[class*="bp3-form-helper-text"]')).toBeNull())
     })
@@ -239,14 +222,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
         throw Error('No target branch operator')
       }
 
-      fillAtForm([
-        {
-          container: container,
-          type: InputTypes.SELECT,
-          fieldId: 'payloadConditions.0.operator',
-          value: 'not equals'
-        }
-      ])
+      setFieldValue({ container, type: InputTypes.SELECT, fieldId: 'payloadConditions.0.operator', value: 'Equals' })
 
       const submit = document.querySelector('[class*="submitButton"]')
       if (!submit) {
@@ -261,7 +237,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
   describe('Interactivity: Custom Source Repo/Payload Type', () => {
     test('Add Header Conditions row', async () => {
       const { container } = render(
-        <WrapperComponent initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM' })} />
+        <WrapperComponent initialValues={getTriggerConfigInitialValues({ sourceRepo: 'Custom' })} />
       )
 
       await waitFor(() => queryByText(container, result.current.getString('conditions')))

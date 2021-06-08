@@ -219,3 +219,10 @@
 .tfVarMargin {
   margin-bottom: 10px;
 }
+
+.radioBtns {
+  > div > div > label {
+    color: #000000;
+    font-size: 13px;
+  }
+}

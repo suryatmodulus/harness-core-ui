@@ -2200,7 +2200,14 @@
         },
         "health_check": {
           "type": "object",
-          "$ref": "#/definitions/HealthCheck"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/HealthCheck"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "custom_domains": {
           "type": "array",

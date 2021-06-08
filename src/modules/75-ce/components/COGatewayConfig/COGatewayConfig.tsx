@@ -121,7 +121,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const [filteredInstances, setFilteredInstances] = useState<InstanceDetails[]>([])
   const [allInstances, setAllInstances] = useState<InstanceDetails[]>([])
   const [healthCheck, setHealthCheck] = useState<boolean>(props.gatewayDetails.healthCheck ? true : false)
-  const [healthCheckPattern, setHealthCheckPattern] = useState<HealthCheck>(props.gatewayDetails.healthCheck)
+  const [healthCheckPattern, setHealthCheckPattern] = useState<HealthCheck | null>(props.gatewayDetails.healthCheck)
   const [gatewayName, setGatewayName] = useState<string>(props.gatewayDetails.name)
   const [idleTime, setIdleTime] = useState<number>(props.gatewayDetails.idleTimeMins)
   const [fullfilment, setFullfilment] = useState<string>(props.gatewayDetails.fullfilment)
@@ -218,7 +218,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     debounce: 300
   })
   if (error) {
-    showError('Faield to fetch services')
+    showError('Faield to fetch services', undefined, 'ce.svc.fetch.error')
   }
 
   const [openInstancesModal, closeInstancesModal] = useModalHook(() => {
@@ -339,13 +339,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     props.setGatewayDetails(props.gatewayDetails)
   }, [serviceDependencies])
   useEffect(() => {
-    if (healthCheck) {
-      props.gatewayDetails.healthCheck = healthCheckPattern
-      props.setGatewayDetails(props.gatewayDetails)
-    } else {
-      props.gatewayDetails.healthCheck = {}
-      props.setGatewayDetails(props.gatewayDetails)
-    }
+    const updatedGatewayDetails = { ...props.gatewayDetails, healthCheck: healthCheckPattern }
+    props.setGatewayDetails(updatedGatewayDetails)
   }, [healthCheckPattern])
   const refreshInstances = async (): Promise<void> => {
     try {
@@ -380,7 +375,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         setFilteredInstances(instances)
       }
     } catch (e) {
-      showError(e.data?.message || e.message)
+      showError(e.data?.message || e.message, undefined, 'ce.refetch.instance.error')
     }
   }
 
@@ -392,7 +387,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         setAllAsg(filteredAsgs)
       }
     } catch (err) {
-      showError(err.data?.message || err.message)
+      showError(err.data?.message || err.message, undefined, 'ce.fetchAndSetAsgItems.error')
     }
   }
 
@@ -443,7 +438,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         })
       }
     } catch (e) {
-      showError(e.data?.message || e.message)
+      showError(e.data?.message || e.message, undefined, 'ce.creaetap.result.error')
     }
   }
 
@@ -622,6 +617,11 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         }
         break
     }
+  }
+
+  const handleHealthCheckToggle = (toggleStatus: boolean) => {
+    setHealthCheckPattern(toggleStatus ? Utils.getDefaultRuleHealthCheck() : null)
+    setHealthCheck(toggleStatus)
   }
 
   const step4Title = isAwsProvider
@@ -1060,7 +1060,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                               label={getString('ce.co.gatewayConfig.healthCheck')}
                               className={css.switchFont}
                               onChange={e => {
-                                setHealthCheck(e.currentTarget.checked)
+                                handleHealthCheckToggle(e.currentTarget.checked)
                               }}
                               checked={healthCheck}
                             />

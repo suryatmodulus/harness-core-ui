@@ -84,7 +84,11 @@ const RestrictEmailDomains: React.FC<Props> = ({
         <Switch
           labelElement={
             <Text inline color={Color.BLACK} font={{ weight: 'bold', size: 'normal' }}>
-              {getString('authSettings.allowUsersWIthEmails')}
+              {getString(
+                emailRestrictionsEnabled
+                  ? 'authSettings.allowUsersWithEmails'
+                  : 'authSettings.restrictUsersToEmailDomains'
+              )}
             </Text>
           }
           checked={emailRestrictionsEnabled}

@@ -195,7 +195,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 parallel[0].item?.identifier || parallel[0].group?.identifier
               }-Start`,
               name: 'Empty',
-              showPorts: !verticalStepGroup
+              showPorts: !verticalStepGroup,
+              hideOutPort: true
             })
           this.addNode(emptyNodeStart)
           newX += verticalStepGroup ? this.gapX / 2 : this.gapX
@@ -252,7 +253,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 parallel[0].item?.identifier || parallel[0].group?.identifier
               }${EmptyNodeSeparator}-End`,
               name: 'Empty',
-              showPorts: !verticalStepGroup
+              showPorts: !verticalStepGroup,
+              hideOutPort: true
             })
           this.addNode(emptyNodeEnd)
           startX += verticalStepGroup ? this.gapX / 2 : this.gapX

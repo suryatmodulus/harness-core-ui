@@ -53,7 +53,7 @@ const ErrorList: React.FC<{
   return (
     <Layout.Horizontal margin={{ bottom: 'xlarge' }}>
       <Icon name={props.icon} margin={{ right: 'small' }} />
-      <Layout.Vertical className={css.errorListTextContainer}>
+      <Layout.Vertical className={cx(css.errorListTextContainer, css.shrink)}>
         <Text font={{ weight: 'semi-bold', size: 'small' }} color={Color.BLACK} margin={{ bottom: 'xsmall' }}>
           {props.header}
         </Text>
@@ -61,7 +61,7 @@ const ErrorList: React.FC<{
           <Container margin={{ bottom: 'xsmall' }} key={index}>
             <LinkifyText
               content={`- ${item.message}`}
-              textProps={{ color: Color.BLACK, font: { size: 'small' } }}
+              textProps={{ color: Color.BLACK, font: { size: 'small' }, className: css.text }}
               linkStyles={cx(css.link, css.linkSmall)}
             />
           </Container>
@@ -79,7 +79,7 @@ export const ErrorHandler: React.FC<ErrorHandlerProps> = props => {
     <Layout.Vertical
       background={Color.RED_100}
       padding={{ top: 'medium', bottom: 'medium', left: 'medium', right: 'medium' }}
-      className={cx(css.container, className)}
+      className={cx(css.container, css.shrink, className)}
       width={width}
       height={height}
     >
@@ -87,16 +87,16 @@ export const ErrorHandler: React.FC<ErrorHandlerProps> = props => {
         {errorObjects.map((errorObject, index) => {
           const { error = {}, explanations = [], hints = [] } = errorObject
           return (
-            <Layout.Vertical key={index}>
+            <Layout.Vertical key={index} className={css.shrink}>
               <Container margin={{ bottom: 'medium' }}>
                 {skipUrlsInErrorHeader ? (
-                  <Text font={{ weight: 'bold' }} color={Color.RED_700}>
+                  <Text font={{ weight: 'bold' }} color={Color.RED_700} className={css.text}>
                     {error.message}
                   </Text>
                 ) : (
                   <LinkifyText
                     content={error.message}
-                    textProps={{ font: { weight: 'bold' }, color: Color.RED_700 }}
+                    textProps={{ font: { weight: 'bold' }, color: Color.RED_700, className: css.text }}
                     linkStyles={css.link}
                   />
                 )}

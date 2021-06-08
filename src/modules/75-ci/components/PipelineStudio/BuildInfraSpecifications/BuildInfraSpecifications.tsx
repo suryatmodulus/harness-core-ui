@@ -58,6 +58,14 @@ const getMapValues: (value: MultiTypeMapUIType) => MultiTypeMapType = value => {
   return typeof value === 'string' ? value : map
 }
 
+const testLabelKey = (value: string): boolean => {
+  return (
+    ['accountid', 'orgid', 'projectid', 'pipelineid', 'pipelineexecutionid', 'stageid', 'buildnumber'].indexOf(
+      value.toLowerCase()
+    ) === -1
+  )
+}
+
 const validationSchema = yup.object().shape({
   connectorRef: yup.mixed().required(),
   namespace: yup.string().trim().required()
@@ -192,7 +200,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             connectorRef: values.connectorRef.value,
             namespace: values.namespace,
             annotations: getMapValues(values.annotations),
-            labels: getMapValues(values.labels)
+            labels: getMapValues(values.labels.filter((val: any) => testLabelKey(val.key)))
           }
         }
         if (
@@ -208,6 +216,13 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       }
 
       updatePipeline(pipeline)
+
+      return values.labels.reduce((acc: Record<string, string>, curr: any, index: number) => {
+        if (!testLabelKey(curr.key)) {
+          acc[`labels[${index}].key`] = curr.key + ' is not allowed.'
+        }
+        return acc
+      }, {})
     }
   }
 

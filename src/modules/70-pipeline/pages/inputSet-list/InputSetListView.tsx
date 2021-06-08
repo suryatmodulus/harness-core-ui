@@ -28,6 +28,7 @@ interface InputSetListViewProps {
   refetchInputSet?: () => void
   gotoPage: (pageNumber: number) => void
   canUpdate?: boolean
+  pipelineHasRuntimeInputs?: boolean
 }
 
 interface InputSetLocal extends InputSetSummaryResponse {
@@ -114,7 +115,7 @@ export const RenderGitDetails: Renderer<CellProps<InputSetLocal>> = ({ row }) =>
   )
 }
 
-const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
+const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
   const data = row.original
   const { getString } = useStrings()
 
@@ -140,6 +141,7 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
 
   return (
     <RbacButton
+      disabled={!(column as any)?.pipelineHasRuntimeInputs}
       icon="run-pipeline"
       className={css.runPipelineBtn}
       intent="primary"
@@ -275,7 +277,8 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
   goToInputSetDetail,
   refetchInputSet,
   cloneInputSet,
-  canUpdate = true
+  canUpdate = true,
+  pipelineHasRuntimeInputs
 }): JSX.Element => {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
@@ -307,7 +310,8 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         width: isGitSyncEnabled ? '15%' : '30%',
         Cell: RenderColumnActions,
         disableSortBy: true,
-        goToInputSetDetail
+        goToInputSetDetail,
+        pipelineHasRuntimeInputs
       },
       {
         Header: '',
@@ -321,7 +325,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         canUpdate
       }
     ],
-    [goToInputSetDetail, refetchInputSet, cloneInputSet]
+    [goToInputSetDetail, refetchInputSet, cloneInputSet, pipelineHasRuntimeInputs]
   )
 
   if (!isGitSyncEnabled) {
@@ -333,7 +337,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       className={css.table}
       columns={columns}
       data={data?.content || /* istanbul ignore next */ []}
-      onRowClick={item => goToInputSetDetail?.(item)}
+      onRowClick={item => pipelineHasRuntimeInputs && goToInputSetDetail?.(item)}
       pagination={{
         itemCount: data?.totalItems || /* istanbul ignore next */ 0,
         pageSize: data?.pageSize || /* istanbul ignore next */ 10,

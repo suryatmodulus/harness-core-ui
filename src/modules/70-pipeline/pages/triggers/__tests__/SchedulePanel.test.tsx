@@ -2,10 +2,10 @@ import React from 'react'
 import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import { Formik, FormikForm, Button } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
-import { InputTypes, fillAtForm } from '@common/utils/JestFormHelper'
+import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import { useStrings } from 'framework/strings'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { NGTriggerSource } from 'services/pipeline-ng'
+import type { NGTriggerSourceV2 } from 'services/pipeline-ng'
 import { getTriggerConfigDefaultProps, getTriggerConfigInitialValues } from './scheduleMockConstants'
 import { getValidationSchema, TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import SchedulePanel from '../views/SchedulePanel'
@@ -83,7 +83,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
         enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={getValidationSchema(
-          (TriggerTypes.SCHEDULE as unknown) as NGTriggerSource['type'],
+          (TriggerTypes.SCHEDULE as unknown) as NGTriggerSourceV2['type'],
           result.current.getString
         )}
         onSubmit={jest.fn()}
@@ -102,7 +102,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
 }
 
 // eslint-disable-next-line jest/no-disabled-tests
-describe.skip('SchedulePanel Triggers tests', () => {
+describe('SchedulePanel Triggers tests', () => {
   describe('Renders/snapshots', () => {
     test('Initial Render - Schedule Panel', async () => {
       const { container } = render(<WrapperComponent initialValues={getTriggerConfigInitialValues({})} />)
@@ -121,14 +121,9 @@ describe.skip('SchedulePanel Triggers tests', () => {
         />
       )
       await waitFor(() => queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.title')))
-      fillAtForm([
-        {
-          container: container,
-          type: InputTypes.SELECT,
-          fieldId: 'minutes',
-          value: '30'
-        }
-      ])
+
+      setFieldValue({ container, type: InputTypes.SELECT, fieldId: 'minutes', value: '30' })
+
       // should show disabled fields, slash before 30, expression breakdown, and expression as in snapshot
       expect(container).toMatchSnapshot()
     })
@@ -407,40 +402,16 @@ describe.skip('SchedulePanel Triggers tests', () => {
 
       await waitFor(() => expect(queryByText(container, '0/5 * * * *')).not.toBeNull()) // persists last
 
-      fillAtForm([
-        {
-          container: container,
-          type: InputTypes.TEXTFIELD,
-          fieldId: 'expression',
-          value: ''
-        }
-      ])
+      setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: 'expression', value: '' })
 
-      // expect(container).toMatchSnapshot('custom')
-
-      // const errorField = document.body.querySelector('[class*="errorField"]')
       await waitFor(() => expect(document.body.querySelector('[class*="errorField"]')).not.toBeNull())
       expect(queryByText(container, result.current.getString('invalidText'))).toBeNull() // all invalid text hidden
 
-      fillAtForm([
-        {
-          container: container,
-          type: InputTypes.TEXTFIELD,
-          fieldId: 'expression',
-          value: '0 1 1 1/1'
-        }
-      ])
+      setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: 'expression', value: '0 1 1 1/1' })
 
       await waitFor(() => expect(queryByText(container, result.current.getString('invalidText'))).not.toBeNull())
 
-      fillAtForm([
-        {
-          container: container,
-          type: InputTypes.TEXTFIELD,
-          fieldId: 'expression',
-          value: '0 1 1 1/1 SAT'
-        }
-      ])
+      setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: 'expression', value: '0 1 1 1/1 SAT' })
 
       await waitFor(() => expect(queryByText(container, result.current.getString('invalidText'))).toBeNull())
     })

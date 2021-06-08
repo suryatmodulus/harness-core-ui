@@ -1,63 +1,37 @@
 import React from 'react'
 
 import { RouteWithLayout } from '@common/router'
-import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
-import {
-  accountPathProps,
-  orgPathProps,
-  delegateConfigProps,
-  delegatePathProps,
-  projectPathProps
-} from '@common/utils/routeUtils'
-import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
+import { accountPathProps, orgPathProps, delegateConfigProps, delegatePathProps } from '@common/utils/routeUtils'
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
-import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
-
-const AccountSettingsSideNavProps: SidebarContext = {
-  navComponent: AccountSettingsSideNav,
-  subtitle: 'ACCOUNT',
-  title: 'Settings',
-  icon: 'nav-settings'
-}
+import { HomeSideNavProps } from '@common/RouteDestinations'
 
 export default (
   <>
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
-      path={[
-        routes.toResourcesDelegates({ ...accountPathProps }),
-        routes.toResourcesDelegates({ ...orgPathProps }),
-        routes.toResourcesDelegates({ ...projectPathProps })
-      ]}
+      sidebarProps={HomeSideNavProps}
+      path={[routes.toDelegates({ ...accountPathProps }), routes.toDelegates({ ...accountPathProps, ...orgPathProps })]}
       exact
     >
-      <ResourcesPage>
-        <DelegatesPage />
-      </ResourcesPage>
+      <DelegatesPage />
     </RouteWithLayout>
 
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[
-        routes.toResourcesDelegatesDetails({ ...accountPathProps, ...delegatePathProps }),
-        routes.toResourcesDelegatesDetails({ ...orgPathProps, ...delegatePathProps }),
-        routes.toResourcesDelegatesDetails({ ...projectPathProps, ...delegatePathProps })
+        routes.toDelegatesDetails({ ...accountPathProps, ...delegatePathProps }),
+        routes.toDelegatesDetails({ ...accountPathProps, ...delegatePathProps })
       ]}
     >
       <DelegateDetails />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[
-        routes.toResourcesDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps }),
-        routes.toResourcesDelegateConfigsDetails({ ...orgPathProps, ...delegateConfigProps }),
-        routes.toResourcesDelegateConfigsDetails({
-          ...projectPathProps,
-          ...delegateConfigProps
-        })
+        routes.toDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps }),
+        routes.toDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps })
       ]}
     >
       <DelegateProfileDetails />

@@ -28,7 +28,7 @@ jest.mock('services/portal', () => ({
 describe('CITrialHomePage snapshot test', () => {
   test('should render properly', async () => {
     const { container } = render(
-      <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
+      <TestWrapper>
         <CITrialHomePage />
       </TestWrapper>
     )
@@ -37,7 +37,7 @@ describe('CITrialHomePage snapshot test', () => {
 
   test('should call button event when click', async () => {
     const { container, getByText } = render(
-      <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
+      <TestWrapper>
         <CITrialHomePage />
       </TestWrapper>
     )

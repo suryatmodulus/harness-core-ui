@@ -6135,7 +6135,6 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 data-testid="remove-spec.tags-[0]"
-                style="margin-top: 4px;"
                 type="button"
               >
                 <span

@@ -177,6 +177,8 @@ const VerifyOutOfClusterDelegate: React.FC<
         return 'https://ngdocs.harness.io/article/5abnoghjgo-git-lab-connector-settings-reference'
       case Connectors.BITBUCKET:
         return 'https://ngdocs.harness.io/article/iz5tucdwyu-bitbucket-connector-settings-reference'
+      case Connectors.Jira:
+        return 'https://ngdocs.harness.io/category/y6gyszr0kl'
       default:
         return ''
     }

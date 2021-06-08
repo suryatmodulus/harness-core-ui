@@ -96,7 +96,9 @@
 }
 
 .addFileButton {
-  margin-bottom: var(--spacing-large) !important;
+  padding: 0 !important;
+  margin-left: 0;
+  margin-bottom: var(--spacing-medium);
 }
 
 .headerContainer {

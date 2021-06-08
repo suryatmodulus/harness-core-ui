@@ -1301,6 +1301,8 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
 </div>
 `;
 
+exports[`Custom Variables handles secrets correctly 1`] = `Promise {}`;
+
 exports[`Custom Variables should render edit view as new step 1`] = `
 <div>
   <div
@@ -2013,4 +2015,14 @@ exports[`Custom Variables should render variables 1`] = `
     </button>
   </div>
 </div>
+`;
+
+exports[`Custom Variables validates input set correctly 1`] = `
+Object {
+  "variables": Array [
+    Object {
+      "value": undefined,
+    },
+  ],
+}
 `;

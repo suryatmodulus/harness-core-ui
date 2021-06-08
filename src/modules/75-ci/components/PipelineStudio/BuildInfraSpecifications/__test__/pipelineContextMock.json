@@ -1,0 +1,160 @@
+{
+  "state": {
+    "pipeline": {
+      "name": "sdf",
+      "identifier": "sdf",
+      "projectIdentifier": "Milos2",
+      "orgIdentifier": "CV",
+      "tags": {},
+      "properties": {
+        "ci": {
+          "codebase": {
+            "connectorRef": "Git5",
+            "build": "<+input>"
+          }
+        }
+      },
+      "stages": [
+        {
+          "stage": {
+            "name": "s1",
+            "identifier": "s1",
+            "description": "",
+            "type": "CI",
+            "spec": {
+              "cloneCodebase": true,
+              "serviceDependencies": [],
+              "infrastructure": {
+                "type": "KubernetesDirect",
+                "spec": {
+                  "namespace": "",
+                  "labels": {
+                    "lab1": "test",
+                    "projectid": "invalidKey"
+                  }
+                }
+              },
+              "execution": {
+                "steps": []
+              }
+            }
+          }
+        }
+      ]
+    },
+    "originalPipeline": {
+      "name": "sdf",
+      "identifier": "sdf",
+      "projectIdentifier": "Milos2",
+      "orgIdentifier": "CV",
+      "tags": {},
+      "properties": {
+        "ci": {
+          "codebase": {
+            "connectorRef": "Git5",
+            "build": "<+input>"
+          }
+        }
+      },
+      "stages": [
+        {
+          "stage": {
+            "name": "s1",
+            "identifier": "s1",
+            "description": "",
+            "type": "CI",
+            "spec": {
+              "cloneCodebase": true,
+              "serviceDependencies": [],
+              "infrastructure": {
+                "type": "KubernetesDirect",
+                "spec": {
+                  "namespace": "",
+                  "labels": {
+                    "lab1": "test",
+                    "lab2": "test2"
+                  }
+                }
+              },
+              "execution": {
+                "steps": []
+              }
+            }
+          }
+        }
+      ]
+    },
+    "pipelineIdentifier": "-1",
+    "pipelineView": {
+      "isSplitViewOpen": true,
+      "isDrawerOpened": false,
+      "splitViewData": {
+        "type": "StageView"
+      },
+      "drawerData": {
+        "type": "AddCommand"
+      }
+    },
+    "gitDetails": {},
+    "isLoading": false,
+    "isBEPipelineUpdated": false,
+    "isDBInitialized": true,
+    "isUpdated": false,
+    "isInitialized": true,
+    "selectionState": {
+      "selectedStageId": "s1"
+    },
+    "error": ""
+  },
+  "stepsFactory": { "invocationMap": {}, "stepBank": {}, "stepIconMap": {}, "type": "pipeline-factory" },
+  "stagesMap": {
+    "Approval": {
+      "name": "Approval",
+      "type": "Approval",
+      "icon": "pipeline-approval",
+      "iconColor": "var(--pipeline-approval-stage-color)",
+      "isApproval": true,
+      "openExecutionStrategy": false
+    },
+    "Custom": {
+      "name": "Custom",
+      "type": "Custom",
+      "icon": "pipeline-custom",
+      "iconColor": "var(--pipeline-custom-stage-color)",
+      "isApproval": false,
+      "openExecutionStrategy": false
+    },
+    "Pipeline": {
+      "name": "Pipeline",
+      "type": "Pipeline",
+      "icon": "pipeline",
+      "iconColor": "var(--pipeline-blue-color)",
+      "isApproval": false,
+      "openExecutionStrategy": false
+    },
+    "Deployment": {
+      "name": "Deploy",
+      "type": "Deployment",
+      "icon": "cd-main",
+      "iconColor": "var(--pipeline-deploy-stage-color)",
+      "isApproval": false,
+      "openExecutionStrategy": true
+    },
+    "CI": {
+      "name": "Build",
+      "type": "CI",
+      "icon": "ci-main",
+      "iconColor": "var(--pipeline-build-stage-color)",
+      "isApproval": false,
+      "openExecutionStrategy": false
+    },
+    "Feature": {
+      "name": "Feature Flag",
+      "type": "Feature",
+      "icon": "cf-main",
+      "iconColor": "var(--pipeline-feature-stage-color)",
+      "isApproval": false,
+      "openExecutionStrategy": false
+    }
+  }
+}

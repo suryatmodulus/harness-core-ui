@@ -82,6 +82,48 @@ describe('StartTrialTemplate snapshot test', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('should call prop onClick when there is such prop', async () => {
+    useStartTrialModalMock.mockImplementation(() => ({ showModal: jest.fn(), hideModal: jest.fn() }))
+    useStartTrialMock.mockImplementation(() => {
+      return {
+        cancel: jest.fn(),
+        loading: false,
+        mutate: jest.fn().mockImplementation(() => {
+          return {
+            status: 'SUCCESS',
+            data: {
+              licenseType: 'TRIAL'
+            }
+          }
+        })
+      }
+    })
+    const onClick = jest.fn()
+    const newProps = {
+      ...props,
+      startTrialProps: {
+        description: 'continue',
+        learnMore: {
+          description: 'learn more description',
+          url: ''
+        },
+        startBtn: {
+          description: 'Continue',
+          onClick
+        }
+      },
+      module: 'ci' as Module
+    }
+    const { container, getByText } = render(
+      <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
+        <StartTrialTemplate {...newProps} />
+      </TestWrapper>
+    )
+    fireEvent.click(getByText('Continue'))
+    await waitFor(() => expect(onClick).toBeCalled())
+    expect(container).toMatchSnapshot()
+  })
+
   test('should open the modal when a button is clicked and shouldShowStartTrialModal is true', async () => {
     const showModalMock = jest.fn()
     useStartTrialModalMock.mockImplementation(() => ({ showModal: showModalMock, hideModal: jest.fn() }))

@@ -137,7 +137,7 @@ export const EditStageView: React.FC<EditStageView> = ({
             }}
             validate={values => {
               const errors: { name?: string } = {}
-              if (isDuplicateStageId(values.identifier, stages)) {
+              if (isDuplicateStageId(values.identifier, stages, !!context)) {
                 errors.name = getString('validation.identifierDuplicate')
               }
               if (context && data) {

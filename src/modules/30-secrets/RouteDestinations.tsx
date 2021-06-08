@@ -1,17 +1,14 @@
 import React from 'react'
 import { Redirect, useParams } from 'react-router'
 import { RouteWithLayout } from '@common/router'
-import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, orgPathProps, secretPathProps } from '@common/utils/routeUtils'
+import { accountPathProps, secretPathProps } from '@common/utils/routeUtils'
 
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import SecretReferences from '@secrets/pages/secretReferences/SecretReferences'
 import SecretDetailsHomePage from '@secrets/pages/secretDetailsHomePage/SecretDetailsHomePage'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
-import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
-import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import SecretResourceModalBody from '@secrets/components/SecretResourceModalBody/SecretResourceModalBody'
@@ -19,13 +16,7 @@ import type { ModulePathParams, ProjectPathProps, SecretsPathProps } from '@comm
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import SecretResourceRenderer from '@secrets/components/SecretResourceRenderer/SecretResourceRenderer'
-
-const AccountSettingsSideNavProps: SidebarContext = {
-  navComponent: AccountSettingsSideNav,
-  subtitle: 'ACCOUNT',
-  title: 'Settings',
-  icon: 'nav-settings'
-}
+import { HomeSideNavProps } from '@common/RouteDestinations'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.SECRET, {
   icon: 'lock',
@@ -48,47 +39,31 @@ const RedirectToSecretDetailHome = () => {
     ProjectPathProps & SecretsPathProps & ModulePathParams
   >()
   return (
-    <Redirect
-      to={routes.toResourcesSecretDetailsOverview({ accountId, projectIdentifier, orgIdentifier, secretId, module })}
-    />
+    <Redirect to={routes.toSecretDetailsOverview({ accountId, projectIdentifier, orgIdentifier, secretId, module })} />
   )
 }
 
 export default (
   <>
-    <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
-      path={[routes.toResourcesSecrets({ ...accountPathProps }), routes.toResourcesSecrets({ ...orgPathProps })]}
-      exact
-    >
-      <ResourcesPage>
-        <SecretsPage />
-      </ResourcesPage>
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toSecrets({ ...accountPathProps })} exact>
+      <SecretsPage />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
-      path={[
-        routes.toResourcesSecretDetails({ ...accountPathProps, ...secretPathProps }),
-        routes.toResourcesSecretDetails({
-          ...accountPathProps,
-          ...orgPathProps,
-          ...secretPathProps
-        })
-      ]}
+      sidebarProps={HomeSideNavProps}
+      path={routes.toSecretDetails({
+        ...accountPathProps,
+        ...secretPathProps
+      })}
       exact
     >
       <RedirectToSecretDetailHome />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
-      path={[
-        routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps }),
-        routes.toResourcesSecretDetailsOverview({
-          ...accountPathProps,
-          ...orgPathProps,
-          ...secretPathProps
-        })
-      ]}
+      sidebarProps={HomeSideNavProps}
+      path={routes.toSecretDetailsOverview({
+        ...accountPathProps,
+        ...secretPathProps
+      })}
       exact
     >
       <SecretDetailsHomePage>
@@ -96,15 +71,11 @@ export default (
       </SecretDetailsHomePage>
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
-      path={[
-        routes.toResourcesSecretDetailsReferences({ ...accountPathProps, ...secretPathProps }),
-        routes.toResourcesSecretDetailsReferences({
-          ...accountPathProps,
-          ...orgPathProps,
-          ...secretPathProps
-        })
-      ]}
+      sidebarProps={HomeSideNavProps}
+      path={routes.toSecretDetailsReferences({
+        ...accountPathProps,
+        ...secretPathProps
+      })}
       exact
     >
       <SecretDetailsHomePage>
@@ -112,11 +83,8 @@ export default (
       </SecretDetailsHomePage>
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
-      path={[
-        routes.toCreateSecretFromYaml({ ...accountPathProps }),
-        routes.toCreateSecretFromYaml({ ...accountPathProps, ...orgPathProps })
-      ]}
+      sidebarProps={HomeSideNavProps}
+      path={routes.toCreateSecretFromYaml({ ...accountPathProps })}
       exact
     >
       <CreateSecretFromYamlPage />

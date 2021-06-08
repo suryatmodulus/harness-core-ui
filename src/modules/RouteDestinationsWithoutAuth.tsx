@@ -10,7 +10,7 @@ import { getLoginPageURL } from 'framework/utils/SessionUtils'
 const RedirectToHome: React.FC = () => {
   const accountId = SessionToken.accountId()
   if (accountId) {
-    return <Redirect to={routes.toProjects({ accountId })} />
+    return <Redirect to={routes.toHome({ accountId })} />
   } else {
     window.location.href = getLoginPageURL(false)
     return null

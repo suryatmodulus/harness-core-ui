@@ -1,0 +1,21 @@
+.main {
+  z-index: 1;
+}
+
+.text {
+  margin: var(--spacing-small) var(--spacing-small) var(--spacing-xsmall) var(--spacing-medium) !important;
+  padding: var(--spacing-small) var(--spacing-medium) !important;
+  color: var(--white) !important;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1px !important;
+  cursor: pointer;
+
+  span[class*='bp3-icon'] {
+    color: inherit !important;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}

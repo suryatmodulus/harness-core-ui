@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Button, CardBody, CardSelect, Color, Icon, IconName, Layout, Text } from '@wings-software/uicore'
+import { Button, CardBody, CardSelect, Color, IconName, Layout, Text } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import Table from '@common/components/Table/Table'
 
 import routes from '@common/RouteDefinitions'
+import asaasinLogo from './asaasin.svg'
 import css from './AsaasinHomePage.module.scss'
 const providerData: any[] = [
   {
@@ -72,8 +73,14 @@ const AsaasinHomePage: React.FC = () => {
             paddingTop: '220px'
           }}
         >
-          {/* <img width="150px" src="https://www.lightwing.io/assets/images/lw-dark.svg"></img> */}
-          <Icon name="harness" size={48}></Icon>
+          <img
+            src={asaasinLogo}
+            style={{
+              height: '80px',
+              width: '400px',
+              marginRight: '50px'
+            }}
+          ></img>
           <Text font="large" style={{ lineHeight: '24px', textAlign: 'center', width: '760px', marginTop: '20px' }}>
             Harness aSaaSin
           </Text>
@@ -82,8 +89,7 @@ const AsaasinHomePage: React.FC = () => {
           </Text>
           <Button
             intent="primary"
-            text="Get Staretd"
-            icon="plus"
+            text="Get Started"
             onClick={() => {
               setCurrentSection('sso-selection')
             }}
@@ -198,7 +204,6 @@ const AsaasinHomePage: React.FC = () => {
           <Button
             intent="primary"
             text="Get Started"
-            icon="plus"
             onClick={() => {
               history.push(
                 routes.toAsaasinDashboard({

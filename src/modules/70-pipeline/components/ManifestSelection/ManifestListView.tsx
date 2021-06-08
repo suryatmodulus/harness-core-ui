@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { get, set } from 'lodash-es'
+import Joyride from 'react-joyride'
 
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import produce from 'immer'
@@ -72,6 +73,7 @@ import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariab
 import HelmWithS3 from './ManifestWizardSteps/HelmWithS3/HelmWithS3'
 import KustomizeWithGIT from './ManifestWizardSteps/KustomizeWithGIT/KustomizeWithGIT'
 import OpenShiftParamWithGit from './ManifestWizardSteps/OpenShiftParam/OSWithGit'
+import NeutralCard from './images/Neutral Card (1).png'
 import css from './ManifestSelection.module.scss'
 
 const allowedManifestTypes: Array<ManifestTypes> = [
@@ -630,9 +632,39 @@ const ManifestListView = ({
       </Dialog>
     )
   }, [selectedManifest, connectorView, manifestIndex, manifestStore, expressions.length, expressions, isEditMode])
-
+  const steps = [
+    {
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>
+            Add the configuration files that describe the desired state of your app in terms of Kubernetes API object
+            descriptions. All files in Manifests must have the .yaml file extension.Configure you pipeline manifest
+            here.
+          </p>
+        </div>
+      ),
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      target: '.ManifestSelection-module_manifestText_1jNFcG'
+    }
+  ]
   return (
     <Layout.Vertical spacing="small">
+      <Joyride
+        // callback={handleJoyrideCallback}
+        continuous={true}
+        // getHelpers={this.getHelpers}
+        run={true}
+        scrollToFirstStep={true}
+        // showProgress={true}
+        showSkipButton={true}
+        steps={steps}
+        styles={{
+          options: {
+            zIndex: 10000
+          }
+        }}
+      />
       {!!listOfManifests?.length && (
         <div className={cx(css.manifestList, css.listHeader)}>
           <span>{getString('common.ID')}</span>

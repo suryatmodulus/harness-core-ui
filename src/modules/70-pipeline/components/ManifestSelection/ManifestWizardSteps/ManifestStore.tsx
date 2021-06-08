@@ -16,8 +16,11 @@ import {
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
+import Joyride from 'react-joyride'
+
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/strings'
+
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
@@ -27,6 +30,7 @@ import type { ConnectorSelectedValue } from '@connectors/components/ConnectorRef
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import NeutralCard from '../images/Neutral Card (1).png'
 import type { ManifestStepInitData, ManifestStores } from '../ManifestInterface'
 import {
   ManifestIconByType,
@@ -99,8 +103,38 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
     }
     return initValues
   }, [selectedManifest])
+  const steps = [
+    {
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>
+            Harness will store your details which will be used for connecting to your repo.For now we will use a default
+            connector for your feasibility.{' '}
+          </p>
+        </div>
+      ),
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      target: '.ManifestWizardSteps-module_manifestStore_1F_sZD'
+    }
+  ]
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
+      <Joyride
+        // callback={handleJoyrideCallback}
+        continuous={true}
+        // getHelpers={this.getHelpers}
+        run={true}
+        scrollToFirstStep={true}
+        // showProgress={true}
+        showSkipButton={true}
+        steps={steps}
+        styles={{
+          options: {
+            zIndex: 10000
+          }
+        }}
+      />
       <Heading level={2} style={{ color: Color.GREY_800, fontSize: 24 }} margin={{ bottom: 'large' }}>
         {stepName}
       </Heading>

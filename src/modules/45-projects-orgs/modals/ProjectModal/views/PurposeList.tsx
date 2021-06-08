@@ -84,7 +84,6 @@ const getModuleLinks = (
               accountId,
               module: 'cd'
             })}
-            className={css.newPipeline}
           >
             {<String stringID="moduleRenderer.newPipeLine" />}
           </Link>

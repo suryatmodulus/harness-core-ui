@@ -1,11 +1,14 @@
 import React from 'react'
 import { Layout, Text, Icon, Color } from '@wings-software/uicore'
 import cx from 'classnames'
+import Joyride from 'react-joyride'
 import { String, useStrings } from 'framework/strings'
 import { getConnectorNameFromValue, getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { SidecarArtifactWrapper } from 'services/cd-ng'
 import { ArtifactIconByType } from '../ArtifactHelper'
 import type { ArtifactListViewProps, ArtifactType } from '../ArtifactInterface'
+
+import NeutralCard from '../../ManifestSelection/images/Neutral Card (1).png'
 import css from '../ArtifactsSelection.module.scss'
 
 export enum ModalViewFor {
@@ -32,8 +35,39 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
     accountId
   )
   const primaryConnectorName = getConnectorNameFromValue(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse)
+  const steps = [
+    {
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>
+            A software artifact is a by-product produced during the development of software. It contains everything
+            needed for a piece of software to be generated, including parts like dependencies, metadata, security and
+            license, and more.
+          </p>
+        </div>
+      ),
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      target: '.ArtifactsSelection-module_addArtifact_30UwHk'
+    }
+  ]
   return (
     <Layout.Vertical style={{ flexShrink: 'initial' }}>
+      <Joyride
+        // callback={handleJoyrideCallback}
+        continuous={true}
+        // getHelpers={this.getHelpers}
+        run={true}
+        scrollToFirstStep={true}
+        // showProgress={true}
+        showSkipButton={true}
+        steps={steps}
+        styles={{
+          options: {
+            zIndex: 10000
+          }
+        }}
+      />
       <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
         {!!(sideCarArtifact?.length || primaryArtifact?.type) && (
           <div className={cx(css.artifactList, css.listHeader)}>

@@ -3,5 +3,6 @@
 declare const styles: {
   readonly projectInsights: string
   readonly heatmap: string
+  readonly panel: string
 }
 export default styles

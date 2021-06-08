@@ -9,14 +9,14 @@ import TimelineSeparator from '@material-ui/lab/TimelineSeparator'
 import TimelineDot from '@material-ui/lab/TimelineDot'
 import TimelineConnector from '@material-ui/lab/TimelineConnector'
 import TimelineContent from '@material-ui/lab/TimelineContent'
-import { Button, Color, Layout, Popover, Tabs, Text } from '@wings-software/uicore'
-import { Menu, MenuItem, Position, Tab } from '@blueprintjs/core'
+import { Button, Color, Icon, Layout, Popover, Tabs, Text } from '@wings-software/uicore'
+import { IconName, Menu, MenuItem, Position, Tab } from '@blueprintjs/core'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
-import { useGetActivityStats } from 'services/cd-ng'
+import { useGetActivityHistory, useGetActivityStats } from 'services/cd-ng'
 import css from './ProjectInsights.module.scss'
 
 enum ACTIVITY_TYPES_ENUM {
@@ -45,7 +45,8 @@ const IconMap = {
   [ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE]: 'edit',
   [ACTIVITY_TYPES_ENUM.RUN_PIPELINE]: 'run-pipeline',
   [ACTIVITY_TYPES_ENUM.BUILD_PIPELINE]: 'build',
-  [ACTIVITY_TYPES_ENUM.NEW_USER_ADDED]: 'user'
+  [ACTIVITY_TYPES_ENUM.NEW_USER_ADDED]: 'user',
+  default: 'plus'
 }
 
 const ProjectHeader: React.FC = () => {
@@ -187,30 +188,84 @@ const ProjectHeatMap: React.FC<{
   )
 }
 
-const ProjectOverview: React.FC<{ selectedDate: number }> = ({ selectedDate }) => {
+const ProjectOverview: React.FC<{
+  selectedDate: number
+  activityType: ACTIVITY_TYPES_ENUM
+  projectIdentifier: string
+}> = ({ selectedDate, activityType, projectIdentifier }) => {
+  const { loading, data } = useGetActivityHistory({
+    queryParams: {
+      projectId: projectIdentifier,
+      startTime: selectedDate,
+      endTime: selectedDate + 86400000
+    }
+  })
+  if (loading) {
+    return <PageSpinner />
+  }
   return (
     <Timeline>
-      {Array(10)
-        .fill('')
-        .map((value, index) => (
+      {(data?.data?.activityHistoryDetailsList || []).map((activityHistoryDetails, index) => {
+        const icon = IconMap[activityHistoryDetails?.activityType ?? 'default']
+        const time = activityHistoryDetails?.timestamp
+          ? new Date(activityHistoryDetails.timestamp).toLocaleTimeString('en-us', {
+              hour: '2-digit',
+              minute: '2-digit'
+            })
+          : ''
+        const actType = activityHistoryDetails?.activityType
+        const username = activityHistoryDetails.userName || ''
+        const userid = activityHistoryDetails.userId || ''
+        const resourceType = activityHistoryDetails.resourceType?.toLowerCase() || ''
+        const resourceName = activityHistoryDetails.resourceName || ''
+        const resourceId = activityHistoryDetails.resourceId || ''
+        let message = ''
+        if (!actType) {
+          /**/
+        } else if (
+          [
+            ACTIVITY_TYPES_ENUM.CREATE_RESOURCE,
+            ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE,
+            ACTIVITY_TYPES_ENUM.VIEW_RESOURCE
+          ].indexOf(actType as ACTIVITY_TYPES_ENUM) !== -1
+        ) {
+          const action =
+            actType === ACTIVITY_TYPES_ENUM.CREATE_RESOURCE
+              ? 'created'
+              : actType === ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE
+              ? 'updated'
+              : 'viewed'
+          message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+        } else if (
+          [ACTIVITY_TYPES_ENUM.RUN_PIPELINE, ACTIVITY_TYPES_ENUM.BUILD_PIPELINE].indexOf(
+            actType as ACTIVITY_TYPES_ENUM
+          ) !== -1
+        ) {
+          const action = actType === ACTIVITY_TYPES_ENUM.BUILD_PIPELINE ? 'started build for' : 'started'
+          message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+        } else if (actType === ACTIVITY_TYPES_ENUM.NEW_USER_ADDED) {
+          const action = 'was added to'
+          message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+        }
+        return (
           <TimelineItem key={index}>
             <TimelineOppositeContent>
-              <Text>9:30 am</Text>
+              <Text>{time}</Text>
             </TimelineOppositeContent>
             <TimelineSeparator>
               <TimelineDot>
-                <>Icon</>
+                <Icon name={icon as IconName} />
               </TimelineDot>
               <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
               <Layout.Horizontal>
-                <Text>Eat</Text>
-                <Text>Because you need strength</Text>
+                <div dangerouslySetInnerHTML={{ __html: message }} />
               </Layout.Horizontal>
             </TimelineContent>
           </TimelineItem>
-        ))}
+        )
+      })}
     </Timeline>
   )
 }
@@ -234,7 +289,8 @@ export const ProjectInsights: React.FC = () => {
   }
   const projectOverviewProps = {
     selectedDate,
-    activityType
+    activityType,
+    projectIdentifier
   }
 
   const projectContributionsProps = {}
@@ -244,8 +300,18 @@ export const ProjectInsights: React.FC = () => {
       <ProjectHeader />
       <ProjectHeatMap {...projectHeatmapProps} />
       <Tabs id="project-insights" defaultSelectedTabId="overview">
-        <Tab id="overview" title="Overview" panel={<ProjectOverview {...projectOverviewProps} />} />
-        <Tab id="contributions" title="Contributions" panel={<ProjectContributions {...projectContributionsProps} />} />
+        <Tab
+          id="overview"
+          title="Overview"
+          panel={<ProjectOverview {...projectOverviewProps} />}
+          panelClassName={css.panel}
+        />
+        <Tab
+          id="contributions"
+          title="Contributions"
+          panel={<ProjectContributions {...projectContributionsProps} />}
+          panelClassName={css.panel}
+        />
       </Tabs>
     </Layout.Vertical>
   )

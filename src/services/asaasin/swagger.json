@@ -37,6 +37,26 @@
           }
         }
       }
+    },
+    "/pagerduty/savings": {
+      "get": {
+        "tags": ["pagerdutySavings"],
+        "summary": "Get pagerduty savings",
+        "description": "pagerdutySavings",
+        "operationId": "pagerdutySavings",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PagerDutySavingsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -63,6 +83,48 @@
       "items": {
         "type": "object",
         "$ref": "#/definitions/GithubMember"
+      }
+    },
+    "PagerDutySavings": {
+      "type": "object",
+      "properties": {
+        "current_spend": {
+          "type": "number"
+        },
+        "potential_spend": {
+          "type": "number"
+        },
+        "potential_savings": {
+          "type": "number"
+        },
+        "savings_percent": {
+          "type": "number"
+        }
+      }
+    },
+    "PagerDutySavingsResponse": {
+      "type": "object",
+      "properties": {
+        "total_users": {
+          "type": "integer"
+        },
+        "active_users": {
+          "type": "integer"
+        },
+        "monthly_savings": {
+          "type": "object",
+          "$ref": "#/definitions/PagerDutySavings"
+        },
+        "yearly_savings": {
+          "type": "object",
+          "$ref": "#/definitions/PagerDutySavings"
+        },
+        "optimization": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     }
   },

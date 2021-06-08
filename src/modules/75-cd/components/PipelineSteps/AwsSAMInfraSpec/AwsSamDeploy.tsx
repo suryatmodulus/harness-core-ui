@@ -83,10 +83,10 @@ export class AwsSamDeploy extends PipelineStep<AwsSamDeployData> {
                     inputGroupProps={{ disabled: readonly }}
                   />
                 </div>
-                <FormInput.Text name="region" label="Region" placeholder="Enter Region" />
-                <FormInput.Text name="stackName" label="Stack Name" placeholder="Stack Name" />
+                <FormInput.Text name="spec.region" label="Region" placeholder="Enter Region" />
+                <FormInput.Text name="spec.stackName" label="Stack Name" placeholder="Stack Name" />
                 <FormInput.Text
-                  name="globalAdditionalFlags"
+                  name="spec.globalAdditionalFlags"
                   label="Global Additional Flags"
                   placeholder="Enter Global Additional flags"
                 />

@@ -5,7 +5,7 @@ import { Classes } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
-import type { Project, ProjectAggregateDTO } from 'services/cd-ng'
+import { Project, ProjectAggregateDTO, useGetActivityStats } from 'services/cd-ng'
 import DefaultRenderer from '@projects-orgs/components/ModuleRenderer/DefaultRenderer'
 import CVRenderer from '@projects-orgs/components/ModuleRenderer/cv/CVRenderer'
 import CIRenderer from '@projects-orgs/components/ModuleRenderer/ci/CIRenderer'
@@ -22,6 +22,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import css from './ProjectCard.module.scss'
 import { StackedColumnChart } from '@common/components/StackedColumnChart/StackedColumnChart'
+import { PageSpinner } from '@common/components'
 
 export interface ProjectCardProps {
   data: ProjectAggregateDTO
@@ -32,8 +33,46 @@ export interface ProjectCardProps {
   handleInviteCollaborators?: (project: Project) => void
 }
 
+const UsageDetails: React.FC<{ projectId: string; now: number; thirtyDaysAgo: number }> = ({
+  projectId,
+  now,
+  thirtyDaysAgo
+}) => {
+  const { data: projectActivityData, loading } = useGetActivityStats({
+    queryParams: {
+      projectId: projectId,
+      startTime: now,
+      endTime: thirtyDaysAgo
+    }
+  })
+  if (loading) {
+    return <PageSpinner />
+  }
+  const perDayData = (projectActivityData?.data?.activityStatsPerTimestampList || []).map(
+    value => value.totalCount || 0
+  )
+  const parsedColumnData = [
+    {
+      label: undefined,
+      data: perDayData.map(value => ({
+        y: value,
+        color: `var(--primary-${3 + Math.min(5, parseInt(`${value / 100}`))})`
+      }))
+    }
+  ]
+  const high = perDayData.reduce((prev, curr) => Math.max(prev, curr), 0)
+  return (
+    <StackedColumnChart
+      data={parsedColumnData}
+      options={{ chart: { height: 150 }, legend: { enabled: false }, yAxis: { max: high } }}
+    />
+  )
+}
+
 const ProjectCard: React.FC<ProjectCardProps> = props => {
   const { data: projectAggregateDTO, isPreview, reloadProjects, editProject, handleInviteCollaborators } = props
+  const now = Date.now()
+  const thirtyDaysAgo = now - 2592000000
   const [menuOpen, setMenuOpen] = useState(false)
   const {
     projectResponse,
@@ -61,59 +100,6 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     reloadProjects?.()
   }
   const { openDialog } = useDeleteProjectDialog(data, onDeleted)
-
-  const UsageDetails: React.FC = props => {
-    const columnData = [
-      100,
-      200,
-      500,
-      250,
-      605,
-      1000,
-      200,
-      50,
-      305,
-      4,
-      206,
-      85,
-      54,
-      203,
-      140,
-      506,
-      205,
-      340,
-      25,
-      305,
-      10,
-      500,
-      30,
-      450,
-      35,
-      100,
-      20,
-      30,
-      250,
-      350
-    ]
-    const parsedColumnData = [
-      {
-        label: undefined,
-        data: columnData.map(value => ({
-          y: value,
-          color: `var(--primary-${3 + Math.min(5, parseInt(`${value / 100}`))})`
-        }))
-      }
-    ]
-    const high = columnData.reduce((prev, curr) => Math.max(prev, curr))
-    return (
-      <Layout.Vertical height={150}>
-        <StackedColumnChart
-          data={parsedColumnData}
-          options={{ chart: { height: 150 }, legend: { enabled: false }, yAxis: { max: high } }}
-        />
-      </Layout.Vertical>
-    )
-  }
 
   return (
     <Card
@@ -240,7 +226,13 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
       {data.modules?.includes(ModuleName.CI) ? <CIRenderer data={data} isPreview={isPreview} /> : null}
       {data.modules?.includes(ModuleName.CF) ? <CFRenderer data={data} isPreview={isPreview} /> : null}
       {data.modules?.includes(ModuleName.CE) ? <CERenderer data={data} isPreview={isPreview} /> : null}
-      <UsageDetails />
+      <Layout.Vertical height={150}>
+        <UsageDetails
+          projectId={props.data.projectResponse.project.identifier}
+          now={now}
+          thirtyDaysAgo={thirtyDaysAgo}
+        />
+      </Layout.Vertical>
     </Card>
   )
 }

@@ -37,4 +37,55 @@ body {
   min-height: 100vh;
 }
 
+.react-calendar-heatmap .color-empty {
+  fill: var(--grey-100);
+}
+
+.react-calendar-heatmap .color-scale-1 {
+  fill: var(--primary-1);
+}
+
+.react-calendar-heatmap .color-scale-2 {
+  fill: var(--primary-2);
+}
+
+.react-calendar-heatmap .color-scale-3 {
+  fill: var(--primary-3);
+}
+
+.react-calendar-heatmap .color-scale-4 {
+  fill: var(--primary-4);
+}
+
+.react-calendar-heatmap .color-scale-5 {
+  fill: var(--primary-5);
+}
+
+.react-calendar-heatmap .color-scale-6 {
+  fill: var(--primary-6);
+}
+
+.react-calendar-heatmap .color-scale-7 {
+  fill: var(--primary-7);
+}
+
+.react-calendar-heatmap .color-scale-8 {
+  fill: var(--primary-8);
+}
+
+.react-calendar-heatmap .color-scale-9 {
+  fill: var(--primary-9);
+}
+
+.react-calendar-heatmap .color-scale-10 {
+  fill: var(--primary-10);
+}
+
+.react-calendar-heatmap-month-label,
+.react-calendar-heatmap-weekday-label {
+  font-size: 6px;
+  font-weight: 800;
+  fill: var(--primary-darker);
+}
+
 @import '@common/styles/index.scss';

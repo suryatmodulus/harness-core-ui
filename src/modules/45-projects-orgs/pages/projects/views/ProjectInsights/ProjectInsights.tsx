@@ -16,8 +16,9 @@ import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
-import { useGetActivityHistory, useGetActivityStats } from 'services/cd-ng'
+import { useGetActivityHistory, useGetActivityStats, useGetActivityStatsByUsers } from 'services/cd-ng'
 import css from './ProjectInsights.module.scss'
+import Contribution from '@common/components/Contribution/Contribution'
 
 enum ACTIVITY_TYPES_ENUM {
   CREATE_RESOURCE = 'CREATE_RESOURCE',
@@ -80,7 +81,8 @@ const ProjectHeatMap: React.FC<{
   projectIdentifier: string
   activityType: ACTIVITY_TYPES_ENUM
   setActivityType: (activityType: ACTIVITY_TYPES_ENUM) => void
-}> = ({ today, selectedDate, setSelectedDate, projectIdentifier, activityType, setActivityType }) => {
+  selectedUser: string | null
+}> = ({ today, selectedDate, setSelectedDate, projectIdentifier, activityType, setActivityType, selectedUser }) => {
   const end = today + 86400000
   const start = end - 15552000000 // 6 months back
 
@@ -88,7 +90,8 @@ const ProjectHeatMap: React.FC<{
     queryParams: {
       projectId: projectIdentifier,
       startTime: start,
-      endTime: end
+      endTime: end,
+      ...(selectedUser ? { userId: selectedUser } : {})
     }
   })
 
@@ -192,12 +195,14 @@ const ProjectOverview: React.FC<{
   selectedDate: number
   activityType: ACTIVITY_TYPES_ENUM
   projectIdentifier: string
-}> = ({ selectedDate, activityType, projectIdentifier }) => {
+  selectedUser: string | null
+}> = ({ selectedDate, activityType, projectIdentifier, selectedUser }) => {
   const { loading, data } = useGetActivityHistory({
     queryParams: {
       projectId: projectIdentifier,
       startTime: selectedDate,
-      endTime: selectedDate + 86400000
+      endTime: selectedDate + 86400000,
+      ...(selectedUser ? { userId: selectedUser } : {})
     }
   })
   if (loading) {
@@ -246,17 +251,17 @@ const ProjectOverview: React.FC<{
                   : actType === ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE
                   ? 'updated'
                   : 'viewed'
-              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} <a>${resourceName}</a> (<b>${resourceId}</b>)`
             } else if (
               [ACTIVITY_TYPES_ENUM.RUN_PIPELINE, ACTIVITY_TYPES_ENUM.BUILD_PIPELINE].indexOf(
                 actType as ACTIVITY_TYPES_ENUM
               ) !== -1
             ) {
               const action = actType === ACTIVITY_TYPES_ENUM.BUILD_PIPELINE ? 'started build for' : 'started'
-              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} <a>${resourceName}</a> (<b>${resourceId}</b>)`
             } else if (actType === ACTIVITY_TYPES_ENUM.NEW_USER_ADDED) {
               const action = 'was added to'
-              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} <a>${resourceName}</a> (<b>${resourceId}</b>)`
             }
             return (
               <TimelineItem key={index}>
@@ -287,14 +292,87 @@ const ProjectOverview: React.FC<{
   )
 }
 
-const ProjectContributions: React.FC = () => {
-  return <Text>Contributions</Text>
+const ProjectContributions: React.FC<{
+  activityType: ACTIVITY_TYPES_ENUM
+  selectedUser: string | null
+  setSelectedUser: (selectedUser: string | null) => void
+  projectIdentifier: string
+  today: number
+}> = ({ activityType, selectedUser, setSelectedUser, projectIdentifier, today }) => {
+  const end = today + 86400000
+  const start = end - 2592000000 // 1 months back
+  const { loading, data } = useGetActivityStatsByUsers({
+    queryParams: {
+      projectId: projectIdentifier,
+      startTime: start,
+      endTime: end
+    }
+  })
+  if (loading) {
+    return <PageSpinner />
+  }
+  let formattedData = (data?.data?.activityHistoryByUserList || []).map((activityHistoryByUser, index) => {
+    let total = 0
+    const dataItems = (activityHistoryByUser.activityStatsPerTimestampList || []).map(activityStatsPerTimestamp => {
+      if (activityType === ACTIVITY_TYPES_ENUM.ALL) {
+        total += activityStatsPerTimestamp.totalCount || 0
+        return {
+          x: activityStatsPerTimestamp?.timestamp,
+          y: activityStatsPerTimestamp.totalCount
+        }
+      }
+      const matching = (activityStatsPerTimestamp?.countPerActivityTypeList || []).filter(
+        item => item.activityType === activityType
+      )
+      if (matching.length) {
+        total += matching[0].count || 0
+        return {
+          x: activityStatsPerTimestamp?.timestamp,
+          y: matching[0].count
+        }
+      }
+      return {
+        x: activityStatsPerTimestamp?.timestamp,
+        y: 0
+      }
+    })
+    dataItems.sort((itemA, itemB) => (itemA.x && itemB.x && itemA.x < itemB.x ? -1 : 1))
+    return {
+      userId: activityHistoryByUser.userId,
+      total,
+      data: dataItems,
+      index
+    }
+  })
+  formattedData.sort((itemA, itemB) => (itemA.total < itemB.total ? -1 : 1))
+  formattedData = formattedData.map((value, index) => ({ ...value, index }))
+  return (
+    <Layout.Masonry
+      center
+      gutter={30}
+      width={900}
+      items={formattedData}
+      renderItem={item => (
+        <Contribution
+          rank={item.index}
+          view="USER"
+          name={item.userId || ''}
+          count={item.total}
+          data={item.data}
+          selected={selectedUser === item.userId}
+          onClick={() => setSelectedUser(item.userId || null)}
+        />
+      )}
+      keyOf={item => item.userId}
+    />
+  )
 }
 
 export const ProjectInsights: React.FC = () => {
   const [today] = useState(new Date().setHours(0, 0, 0, 0))
   const [selectedDate, setSelectedDate] = useState(today)
   const [activityType, setActivityType] = useState<ACTIVITY_TYPES_ENUM>(ACTIVITY_TYPES_ENUM.ALL)
+  const [selectedUser, setSelectedUser] = useState(null)
   const { projectIdentifier } = useParams<ProjectPathProps>()
   const projectHeatmapProps = {
     today,
@@ -302,36 +380,50 @@ export const ProjectInsights: React.FC = () => {
     setSelectedDate,
     projectIdentifier,
     activityType,
-    setActivityType
+    setActivityType,
+    selectedUser
   }
+
   const projectOverviewProps = {
     selectedDate,
     activityType,
-    projectIdentifier
+    projectIdentifier,
+    selectedUser
   }
 
-  const projectContributionsProps = {}
+  const projectContributionsProps = {
+    activityType,
+    selectedUser,
+    setSelectedUser,
+    projectIdentifier,
+    today
+  }
 
   return (
     <Layout.Vertical className={css.projectInsights}>
       <ProjectHeader />
       <ProjectHeatMap {...projectHeatmapProps} />
-      <Container padding={{ left: 'medium', right: 'medium' }}>
-        <Tabs id="project-insights" defaultSelectedTabId="overview">
-          <Tab
-            id="overview"
-            title="Overview"
-            panel={<ProjectOverview {...projectOverviewProps} />}
-            panelClassName={css.panel}
-          />
-          <Tab
-            id="contributions"
-            title="Contributions"
-            panel={<ProjectContributions {...projectContributionsProps} />}
-            panelClassName={css.panel}
-          />
-        </Tabs>
-      </Container>
+      <Tabs id="project-insights" defaultSelectedTabId="overview">
+        <Tab
+          id="overview"
+          title="Overview"
+          panel={<ProjectOverview {...projectOverviewProps} />}
+          panelClassName={css.panel}
+        />
+        <Tab
+          id="contributions"
+          title="Contributions"
+          panel={<ProjectContributions {...projectContributionsProps} />}
+          panelClassName={css.panel}
+        />
+        <Layout.Horizontal className={css.user}>
+          {selectedUser ? (
+            <div dangerouslySetInnerHTML={{ __html: `Showing data for user: <b>${selectedUser}</b>` }} />
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: `Showing data for <b>all users</b>` }} />
+          )}
+        </Layout.Horizontal>
+      </Tabs>
     </Layout.Vertical>
   )
 }

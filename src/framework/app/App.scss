@@ -75,7 +75,8 @@ body {
 
 .react-calendar-heatmap .color-selected {
   stroke-width: 1px;
-  stroke: var(--yellow-900);
+  stroke: var(--blue-900);
+  stroke-dasharray: 2;
 }
 
 .react-calendar-heatmap-month-label,

@@ -70,7 +70,7 @@ const ProjectHeatMap: React.FC<{
     return className
   }
   return (
-    <Layout.Horizontal width={'100%'} height={300} margin={{ top: 'medium' }} background={Color.GREY_0}>
+    <Layout.Horizontal width={'100%'} height={300} margin={{ top: 'medium' }}>
       <CalendarHeatmap
         startDate={start}
         endDate={end}

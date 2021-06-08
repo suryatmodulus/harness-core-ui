@@ -1,18 +1,32 @@
 import React from 'react'
 import { Avatar, Color, Container, Heading, Icon, Layout, Text } from '@wings-software/uicore'
-import { useGithubDetails, GithubDetailsResponse } from 'services/asaasin'
+import { useGithubDetails, GithubDetailsResponse, GithubMember } from 'services/asaasin'
 import { Table } from '@common/components'
 import type { CellProps } from 'react-table'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 
-function NameCell(tableProps: CellProps<any>): JSX.Element {
+function NameCell({ name, avatar_url }: GithubMember): JSX.Element {
   return (
-    <Layout.Horizontal>
-      <Avatar src={tableProps.row.original.avatar_url}></Avatar>
-      <Text lineClamp={3} color={Color.BLACK} style={{ alignSelf: 'center' }}>
-        {tableProps.value}
-      </Text>
+    <Layout.Horizontal
+      spacing="medium"
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'start',
+        alignContent: 'space-between',
+        alignItems: 'center',
+        minWidth: '300px',
+        boxShadow: '0px 1px 5px -4px black',
+        borderRadius: '10px',
+        marginBottom: '10px',
+        padding: '12px',
+        backgroundColor: 'white',
+        border: '1px solid transparent'
+      }}
+    >
+      <Avatar src={avatar_url}></Avatar>
+      <div style={{ display: 'flex', alignItems: 'center', color: 'black' }}>{name}</div>
     </Layout.Horizontal>
   )
 }
@@ -26,7 +40,7 @@ function TableCell(tableProps: CellProps<any>): JSX.Element {
 function DollarCell(tableProps: CellProps<any>): JSX.Element {
   return (
     <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 'bold' }}>
-      ${tableProps.value}
+      ${tableProps.value.toLocaleString()}
     </Text>
   )
 }
@@ -100,7 +114,7 @@ function getUtilisationChart(details: GithubDetailsResponse): Highcharts.Options
     chart: {
       type: 'pie',
       plotBackgroundColor: '',
-      width: 320,
+      width: 250,
       plotBorderWidth: 0,
       plotShadow: false,
       margin: [0, 0, 0, 0],
@@ -191,7 +205,7 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
           <>
             <Layout.Horizontal
               style={{
-                paddingTop: '20px',
+                padding: '20px',
                 backgroundColor: Color.WHITE,
                 alignItems: 'center'
               }}
@@ -208,15 +222,12 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                     marginLeft: '100px'
                   }}
                 >
-                  <Container
-                    padding="small"
-                    style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}
-                  >
+                  <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd' }}>
                     <Layout.Vertical spacing="small">
-                      <Heading level={1} style={{ color: '#05AAB6' }}>
+                      <Heading level={1} style={{ color: '#9872e7' }}>
                         {getTotalLicences(details)}
                       </Heading>
-                      <Text style={{ color: '#05AAB6' }}>Total Licenses</Text>
+                      <Text style={{ color: '#9872e7' }}>Total Licenses</Text>
                     </Layout.Vertical>
                   </Container>
                   <Container
@@ -230,15 +241,12 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                       <Text style={{ color: '#05AAB6' }}>Active Users</Text>
                     </Layout.Vertical>
                   </Container>
-                  <Container
-                    padding="small"
-                    style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}
-                  >
+                  <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd' }}>
                     <Layout.Vertical spacing="small">
-                      <Heading level={1} style={{ color: '#05AAB6' }}>
-                        ${getAnnualSpend(details)}
+                      <Heading level={1} style={{ color: '#9872e7' }}>
+                        ${getAnnualSpend(details).toLocaleString()}
                       </Heading>
-                      <Text style={{ color: '#05AAB6' }}>Est. Annual Spend</Text>
+                      <Text style={{ color: '#9872e7' }}>Est. Annual Spend</Text>
                     </Layout.Vertical>
                   </Container>
                   <Container
@@ -247,7 +255,7 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                   >
                     <Layout.Vertical spacing="small">
                       <Heading level={1} style={{ color: '#05AAB6' }}>
-                        ${getEstimatedSavings(details)}
+                        ${getEstimatedSavings(details).toLocaleString()}
                       </Heading>
                       <Text style={{ color: '#05AAB6' }}>Potential Savings</Text>
                     </Layout.Vertical>
@@ -272,15 +280,12 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                       <Text style={{ color: '#05AAB6' }}>Total Wastage</Text>
                     </Layout.Vertical>
                   </Container>
-                  <Container
-                    padding="small"
-                    style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}
-                  >
+                  <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd' }}>
                     <Layout.Vertical spacing="small">
-                      <Heading level={1} style={{ color: '#05AAB6' }}>
+                      <Heading level={1} style={{ color: '#9872e7' }}>
                         {details.org?.public_repos}
                       </Heading>
-                      <Text style={{ color: '#05AAB6' }}>Public Repos</Text>
+                      <Text style={{ color: '#9872e7' }}>Public Repos</Text>
                     </Layout.Vertical>
                   </Container>
                   <Container
@@ -294,15 +299,12 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                       <Text style={{ color: '#05AAB6' }}>Private Repos</Text>
                     </Layout.Vertical>
                   </Container>
-                  <Container
-                    padding="small"
-                    style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}
-                  >
+                  <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd' }}>
                     <Layout.Vertical spacing="small">
-                      <Heading level={1} style={{ color: '#05AAB6' }}>
+                      <Heading level={1} style={{ color: '#9872e7' }}>
                         {99.98}%
                       </Heading>
-                      <Text style={{ color: '#05AAB6' }}>Uptime last quarter</Text>
+                      <Text style={{ color: '#9872e7' }}>Uptime last quarter</Text>
                     </Layout.Vertical>
                   </Container>
                 </Layout.Horizontal>
@@ -343,56 +345,23 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                 <Text font="medium" style={{ lineHeight: '18px', marginTop: '20px' }}>
                   Inactive Users ({details.inactive_members.length}/{details.members.length})
                 </Text>
-                <Container
+                <div
                   style={{
-                    overflowY: 'scroll',
-                    maxHeight: '30vh',
-                    paddingLeft: '20px',
-                    alignSelf: 'center'
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignContent: 'space-between',
+                    justifyContent: 'space-between',
+                    minHeight: '25vh',
+                    maxHeight: '40vh',
+                    maxWidth: '80vw',
+                    flexWrap: 'wrap',
+                    overflow: 'scroll'
                   }}
                 >
-                  <Layout.Horizontal spacing="medium">
-                    <Table
-                      data={details.inactive_members.slice(0, getInactiveUsers(details) / 3)}
-                      columns={[
-                        {
-                          accessor: 'login',
-                          Header: '',
-                          width: '100%',
-                          Cell: NameCell
-                        }
-                      ]}
-                    />
-                    <Table
-                      data={details.inactive_members.slice(
-                        getInactiveUsers(details) / 3,
-                        (2 * getInactiveUsers(details)) / 3
-                      )}
-                      columns={[
-                        {
-                          accessor: 'login',
-                          Header: '',
-                          width: '100%',
-                          Cell: NameCell
-                        }
-                      ]}
-                    />
-                    <Table
-                      data={details.inactive_members.slice(
-                        (2 * getInactiveUsers(details)) / 3,
-                        getInactiveUsers(details)
-                      )}
-                      columns={[
-                        {
-                          accessor: 'login',
-                          Header: '',
-                          width: '100%',
-                          Cell: NameCell
-                        }
-                      ]}
-                    />
-                  </Layout.Horizontal>
-                </Container>
+                  {details.inactive_members.map(user => {
+                    return <NameCell name={user.login} avatar_url={user.avatar_url}></NameCell>
+                  })}
+                </div>
               </>
             )}
             {details.rarely_active_members.length && (
@@ -400,56 +369,23 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                 <Text font="medium" style={{ lineHeight: '18px', marginTop: '20px' }}>
                   Rarely Active Users ({details.rarely_active_members.length}/{details.members.length})
                 </Text>
-                <Container
+                <div
                   style={{
-                    overflowY: 'scroll',
-                    maxHeight: '30vh',
-                    paddingLeft: '20px',
-                    alignSelf: 'center'
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignContent: 'space-between',
+                    justifyContent: 'space-between',
+                    minHeight: '25vh',
+                    maxHeight: '40vh',
+                    maxWidth: '80vw',
+                    flexWrap: 'wrap',
+                    overflow: 'scroll'
                   }}
                 >
-                  <Layout.Horizontal spacing="medium">
-                    <Table
-                      data={details.rarely_active_members.slice(0, getRarelyActiveUsers(details) / 3)}
-                      columns={[
-                        {
-                          accessor: 'login',
-                          Header: '',
-                          width: '100%',
-                          Cell: NameCell
-                        }
-                      ]}
-                    />
-                    <Table
-                      data={details.rarely_active_members.slice(
-                        getRarelyActiveUsers(details) / 3,
-                        (2 * getRarelyActiveUsers(details)) / 3
-                      )}
-                      columns={[
-                        {
-                          accessor: 'login',
-                          Header: '',
-                          width: '100%',
-                          Cell: NameCell
-                        }
-                      ]}
-                    />
-                    <Table
-                      data={details.rarely_active_members.slice(
-                        (2 * getRarelyActiveUsers(details)) / 3,
-                        getRarelyActiveUsers(details)
-                      )}
-                      columns={[
-                        {
-                          accessor: 'login',
-                          Header: '',
-                          width: '100%',
-                          Cell: NameCell
-                        }
-                      ]}
-                    />
-                  </Layout.Horizontal>
-                </Container>
+                  {details.rarely_active_members.map(user => {
+                    return <NameCell name={user.login} avatar_url={user.avatar_url}></NameCell>
+                  })}
+                </div>
               </>
             )}
           </>

@@ -109,7 +109,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/PagerDutyUsersResponse"
+              "$ref": "#/definitions/AllStatsResponse"
             }
           },
           "400": {
@@ -384,11 +384,14 @@
         "total_users": {
           "type": "integer",
           "format": "int64"
+        },
+        "inactive_users": {
+          "type": "number",
+          "format": "int64"
+        },
+        "icon": {
+          "type": "string"
         }
-      },
-      "inactive_users": {
-        "type": "number",
-        "format": "int64"
       }
     },
     "AllStatsResponse": {

@@ -96,6 +96,8 @@ export interface AllStat {
   annual_spend?: number
   annual_savings?: number
   total_users?: number
+  inactive_users?: number
+  icon?: string
 }
 
 export type AllStatsResponse = AllStat[]
@@ -195,7 +197,7 @@ export const usePagerdutyInactiveUsers = (props: UsePagerdutyInactiveUsersProps)
     ...props
   })
 
-export type AllStatusOfApplicationsProps = Omit<GetProps<PagerDutyUsersResponse, void, void, void>, 'path'>
+export type AllStatusOfApplicationsProps = Omit<GetProps<AllStatsResponse, void, void, void>, 'path'>
 
 /**
  * Get overall status of applications
@@ -203,10 +205,10 @@ export type AllStatusOfApplicationsProps = Omit<GetProps<PagerDutyUsersResponse,
  * allStatsOfApplications
  */
 export const AllStatusOfApplications = (props: AllStatusOfApplicationsProps) => (
-  <Get<PagerDutyUsersResponse, void, void, void> path={`/stats`} base={getConfig('asaasin/api')} {...props} />
+  <Get<AllStatsResponse, void, void, void> path={`/stats`} base={getConfig('asaasin/api')} {...props} />
 )
 
-export type UseAllStatusOfApplicationsProps = Omit<UseGetProps<PagerDutyUsersResponse, void, void, void>, 'path'>
+export type UseAllStatusOfApplicationsProps = Omit<UseGetProps<AllStatsResponse, void, void, void>, 'path'>
 
 /**
  * Get overall status of applications
@@ -214,4 +216,4 @@ export type UseAllStatusOfApplicationsProps = Omit<UseGetProps<PagerDutyUsersRes
  * allStatsOfApplications
  */
 export const useAllStatusOfApplications = (props: UseAllStatusOfApplicationsProps) =>
-  useGet<PagerDutyUsersResponse, void, void, void>(`/stats`, { base: getConfig('asaasin/api'), ...props })
+  useGet<AllStatsResponse, void, void, void>(`/stats`, { base: getConfig('asaasin/api'), ...props })

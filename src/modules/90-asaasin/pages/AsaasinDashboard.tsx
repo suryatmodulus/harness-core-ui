@@ -5,38 +5,8 @@ import type { CellProps } from 'react-table'
 import { useHistory, useParams } from 'react-router-dom'
 
 import routes from '@common/RouteDefinitions'
-const saasData = [
-  {
-    name: 'Github',
-    value: 'github',
-    owner: 'Riyas',
-    category: 'Engineering',
-    annual_spend: 20000.98,
-    users: 177,
-    wastage: 39,
-    icon: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
-  },
-  {
-    name: 'Pager Duty',
-    value: 'pagerduty',
-    owner: 'Shalin',
-    category: 'Engineering',
-    annual_spend: 20000.98,
-    users: 177,
-    wastage: 39,
-    icon: 'https://img.apksum.com/32/com.pagerduty.android/6.01/icon.png'
-  },
-  {
-    name: 'Atlassian',
-    value: 'atlassian',
-    owner: 'Navaneeth',
-    category: 'Engineering',
-    annual_spend: 20000.98,
-    users: 177,
-    wastage: 39,
-    icon: 'https://www.atlassian.com/dam/jcr:93075b1a-484c-4fe5-8a4f-942710e51760/Atlassian-horizontal-blue@2x-rgb.png'
-  }
-]
+import { AllStat, AllStatsResponse, useAllStatusOfApplications } from 'services/asaasin'
+import { getNodePath } from 'jsonc-parser'
 function NameCell(tableProps: CellProps<any>): JSX.Element {
   return (
     <Layout.Horizontal>
@@ -57,22 +27,54 @@ function TableCell(tableProps: CellProps<any>): JSX.Element {
 function DollarCell(tableProps: CellProps<any>): JSX.Element {
   return (
     <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 'bold' }}>
-      ${tableProps.value}
+      ${tableProps.value.toLocaleString()}
     </Text>
   )
 }
 function WastageCell(tableProps: CellProps<any>): JSX.Element {
+  let total = tableProps.row.original.total_users
+  let inactive = tableProps.row.original.inactive_users
   return (
     <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 'bold' }}>
-      {tableProps.value}%
+      {Math.round((inactive / total) * 100)}%
     </Text>
   )
 }
+function getAnnualSpend(details: AllStatsResponse): number {
+  let spend = 0
+  details.forEach(r => {
+    spend += r.annual_spend as number
+  })
+  return spend
+}
+function getAnnualSavings(details: AllStatsResponse): number {
+  let spend = 0
+  details.forEach(r => {
+    spend += r.annual_savings as number
+  })
+  return spend
+}
+
+function getPath(name: string): string {
+  switch (name) {
+    case 'Github':
+      return 'github'
+    case 'Pager Duty':
+      return 'pagerduty'
+    case 'Atlassian - Jira':
+      return 'atlassian'
+  }
+  return ''
+}
+
 const AsaasinDashboardPage: React.FC = () => {
   const history = useHistory()
   const { accountId } = useParams<{
     accountId: string
   }>()
+  const { data: details, loading: loading } = useAllStatusOfApplications({
+    debounce: 300
+  })
   return (
     <>
       <Layout.Vertical
@@ -90,90 +92,104 @@ const AsaasinDashboardPage: React.FC = () => {
           View and manage your entire SaaS portfolio. Discover cost-saving opportunities and potential compliance and
           security risks.
         </Text>
-        <Layout.Horizontal spacing="xxlarge">
-          <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}>
-            <Layout.Vertical spacing="small">
-              <Heading level={1} style={{ color: '#05AAB6' }}>
-                $1,200,000
-              </Heading>
-              <Text style={{ color: '#05AAB6' }}>Est. Annual Spend</Text>
-            </Layout.Vertical>
-          </Container>
-          <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd' }}>
-            <Layout.Vertical spacing="small">
-              <Heading level={1} style={{ color: '#9872e7' }}>
-                $300,000
-              </Heading>
-              <Text style={{ color: '#9872e7' }}>Est. Annual Savings</Text>
-            </Layout.Vertical>
-          </Container>
-          <Container padding="small" style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}>
-            <Layout.Vertical spacing="small">
-              <Heading level={1} style={{ color: '#05AAB6' }}>
-                384
-              </Heading>
-              <Text style={{ color: '#05AAB6' }}>Total Users</Text>
-            </Layout.Vertical>
-          </Container>
-          <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd' }}>
-            <Layout.Vertical spacing="small">
-              <Heading level={1} style={{ color: '#9872e7' }}>
-                105
-              </Heading>
-              <Text style={{ color: '#9872e7' }}>SaaS Application</Text>
-            </Layout.Vertical>
-          </Container>
-        </Layout.Horizontal>
-        <Table
-          data={saasData}
-          onRowClick={(e, index) => {
-            history.push(
-              routes.toAsaasinSaaSDashboard({
-                accountId: accountId,
-                saasApp: e.value
-              })
-            )
-            console.log({ e }, { index })
-          }}
-          columns={[
-            {
-              accessor: 'name',
-              Header: 'Application',
-              width: '20%',
-              Cell: NameCell
-            },
-            {
-              accessor: 'owner',
-              Header: 'Owner',
-              width: '10%',
-              Cell: TableCell
-            },
-            {
-              accessor: 'category',
-              Header: 'Category',
-              width: '15%',
-              Cell: TableCell
-            },
-            {
-              accessor: 'annual_spend',
-              Header: 'Annual Spend',
-              width: '15%',
-              Cell: DollarCell
-            },
-            {
-              accessor: 'users',
-              Header: 'Users',
-              width: '10%',
-              Cell: TableCell
-            },
-            {
-              accessor: 'wastage',
-              Header: 'Wastage',
-              width: '15%',
-              Cell: WastageCell
-            }
-          ]}
-        />
+        {!loading && details != null && (
+          <Layout.Horizontal
+            spacing="xxlarge"
+            style={{
+              padding: '5%'
+            }}
+          >
+            <Container
+              padding="small"
+              style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)', minWidth: '20%' }}
+            >
+              <Layout.Vertical spacing="small">
+                <Heading level={1} style={{ color: '#05AAB6' }}>
+                  ${getAnnualSpend(details).toLocaleString()}
+                </Heading>
+                <Text style={{ color: '#05AAB6' }}>Est. Annual Spend</Text>
+              </Layout.Vertical>
+            </Container>
+            <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd', minWidth: '20%' }}>
+              <Layout.Vertical spacing="small">
+                <Heading level={1} style={{ color: '#9872e7' }}>
+                  ${getAnnualSavings(details).toLocaleString()}
+                </Heading>
+                <Text style={{ color: '#9872e7' }}>Est. Annual Savings</Text>
+              </Layout.Vertical>
+            </Container>
+            <Container
+              padding="small"
+              style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)', minWidth: '20%' }}
+            >
+              <Layout.Vertical spacing="small">
+                <Heading level={1} style={{ color: '#05AAB6' }}>
+                  392
+                </Heading>
+                <Text style={{ color: '#05AAB6' }}>Total Users</Text>
+              </Layout.Vertical>
+            </Container>
+            <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd', minWidth: '20%' }}>
+              <Layout.Vertical spacing="small">
+                <Heading level={1} style={{ color: '#9872e7' }}>
+                  105
+                </Heading>
+                <Text style={{ color: '#9872e7' }}>SaaS Applications</Text>
+              </Layout.Vertical>
+            </Container>
+          </Layout.Horizontal>
+        )}
+        {!loading && details != null && (
+          <Table
+            data={details as AllStat[]}
+            onRowClick={(e, index) => {
+              history.push(
+                routes.toAsaasinSaaSDashboard({
+                  accountId: accountId,
+                  saasApp: getPath(e.name)
+                })
+              )
+            }}
+            columns={[
+              {
+                accessor: 'name',
+                Header: 'Application',
+                width: '20%',
+                Cell: NameCell
+              },
+              {
+                accessor: 'category',
+                Header: 'Category',
+                width: '15%',
+                Cell: TableCell
+              },
+              {
+                accessor: 'annual_spend',
+                Header: 'Annual Spend',
+                width: '15%',
+                Cell: DollarCell
+              },
+              {
+                accessor: 'annual_savings',
+                Header: 'Annual Savings',
+                width: '15%',
+                Cell: DollarCell
+              },
+              {
+                accessor: 'total_users',
+                Header: 'Users',
+                width: '10%',
+                Cell: TableCell
+              },
+              {
+                accessor: 'inactive_users',
+                Header: 'Wastage',
+                width: '15%',
+                Cell: WastageCell
+              }
+            ]}
+          />
+        )}
       </Layout.Vertical>
     </>
   )

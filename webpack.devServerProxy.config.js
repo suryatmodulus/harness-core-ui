@@ -1,5 +1,5 @@
-const baseUrl = 'https://qa.harness.io/gateway'
-const targetLocalHost = true // set to false to target baseUrl environment instead of localhost
+const baseUrl = 'https://uat.harness.io/gateway'
+const targetLocalHost = false // set to false to target baseUrl environment instead of localhost
 
 module.exports = {
   '/ng/api': {
@@ -47,7 +47,7 @@ module.exports = {
     pathRewrite: { '^/lw/api': '' }
   },
   '/asaasin/api': {
-    target: targetLocalHost ? 'http://localhost:8085' : `${baseUrl}/asaasin/api`,
+    target: true ? 'http://15.207.221.68:8085' : `${baseUrl}/asaasin/api`,
     pathRewrite: { '^/asaasin/api': '' }
   },
   '/dashboard': {

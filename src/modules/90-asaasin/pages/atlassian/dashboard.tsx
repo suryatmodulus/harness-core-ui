@@ -39,7 +39,7 @@ function TableCell(tableProps: CellProps<any>): JSX.Element {
 function DollarCell(tableProps: CellProps<any>): JSX.Element {
   return (
     <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 'bold' }}>
-      ${tableProps.value}
+      ${tableProps.value.toLocaleString()}
     </Text>
   )
 }
@@ -204,7 +204,7 @@ const AsaasinAtlassianDashboard: React.FC = () => {
                   >
                     <Layout.Vertical spacing="small">
                       <Heading level={1} style={{ color: '#05AAB6' }}>
-                        ${details.contract_value}
+                        ${details.contract_value?.toLocaleString()}
                       </Heading>
                       <Text style={{ color: '#05AAB6' }}>Est. Annual Spend</Text>
                     </Layout.Vertical>
@@ -215,7 +215,7 @@ const AsaasinAtlassianDashboard: React.FC = () => {
                   >
                     <Layout.Vertical spacing="small">
                       <Heading level={1} style={{ color: '#05AAB6' }}>
-                        ${details.potential_savings}
+                        ${details.potential_savings?.toLocaleString()}
                       </Heading>
                       <Text style={{ color: '#05AAB6' }}>Potential Savings</Text>
                     </Layout.Vertical>

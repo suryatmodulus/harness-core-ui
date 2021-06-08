@@ -9,14 +9,19 @@ import TimelineSeparator from '@material-ui/lab/TimelineSeparator'
 import TimelineDot from '@material-ui/lab/TimelineDot'
 import TimelineConnector from '@material-ui/lab/TimelineConnector'
 import TimelineContent from '@material-ui/lab/TimelineContent'
-import { Button, Icon, Layout, Popover, Tabs, Text } from '@wings-software/uicore'
+import { Button, Container, Icon, Layout, Popover, Tabs, Text } from '@wings-software/uicore'
 import { IconName, Menu, MenuItem, Position, Tab } from '@blueprintjs/core'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import Contribution from '@common/components/Contribution/Contribution'
-import { useGetActivityHistory, useGetActivityStats } from 'services/cd-ng'
-import contributions from './mocks/contribution.json'
+import {
+  useGetActivityHistory,
+  useGetActivityStats,
+  UserInfo,
+  useGetActivityStatsByProjects,
+  ActivityHistoryByProject
+} from 'services/cd-ng'
 
 import css from './UserInsights.module.scss'
 
@@ -57,13 +62,15 @@ const UserHeatMap: React.FC<{
   projectIdentifier: string
   activityType: ACTIVITY_TYPES_ENUM
   setActivityType: (activityType: ACTIVITY_TYPES_ENUM) => void
-}> = ({ today, selectedDate, setSelectedDate, projectIdentifier, activityType, setActivityType }) => {
+  currentUserId?: string
+}> = ({ today, selectedDate, setSelectedDate, projectIdentifier, activityType, setActivityType, currentUserId }) => {
   const end = today + 86400000
   const start = end - 15552000000 // 6 months back
 
   const { data, loading } = useGetActivityStats({
     queryParams: {
-      projectId: projectIdentifier,
+      userId: currentUserId,
+      // projectId: projectIdentifier,
       startTime: start,
       endTime: end
     }
@@ -169,10 +176,12 @@ const UserOverView: React.FC<{
   selectedDate: number
   activityType: ACTIVITY_TYPES_ENUM
   projectIdentifier: string
-}> = ({ selectedDate, activityType, projectIdentifier }) => {
+  currentUserId?: string
+}> = ({ selectedDate, activityType, projectIdentifier, currentUserId }) => {
   const { loading, data } = useGetActivityHistory({
     queryParams: {
-      projectId: projectIdentifier,
+      userId: currentUserId,
+      // projectId: projectIdentifier,
       startTime: selectedDate,
       endTime: selectedDate + 86400000
     }
@@ -264,16 +273,41 @@ const UserOverView: React.FC<{
   )
 }
 
-const UserContributions: React.FC = () => {
-  const { currentUserInfo } = useAppStore()
+const UserContributions: React.FC<{ selectedDate: number; currentUserInfo: UserInfo }> = ({
+  selectedDate,
+  currentUserInfo
+}) => {
+  const { loading, data } = useGetActivityStatsByProjects({
+    queryParams: {
+      userId: currentUserInfo?.uuid,
+      // projectId: projectIdentifier,
+      startTime: selectedDate,
+      endTime: selectedDate + 86400000
+    }
+  })
+
+  if (loading) {
+    return <PageSpinner />
+  }
+
+  const projects = data?.data?.activityHistoryByUserList || []
+  const projectIds = projects.map((project: ActivityHistoryByProject) => project.projectId)
+
   return (
     <Layout.Masonry
       center
       gutter={30}
       width={900}
-      items={contributions.data}
-      renderItem={item => <Contribution view="USER" name={currentUserInfo.name || ''} count={item.total} />}
-      keyOf={item => item.timestamp.toString()}
+      items={projects}
+      renderItem={(item: ActivityHistoryByProject) => (
+        <Contribution
+          view="USER"
+          name={currentUserInfo.name || ''}
+          count={item.activityStatsPerTimestampList?.length || 0}
+          rank={projectIds.indexOf(item.projectId || '')}
+        />
+      )}
+      keyOf={item => item.projectId}
     />
   )
 }
@@ -283,34 +317,44 @@ export const UserInsights: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(today)
   const [activityType, setActivityType] = useState<ACTIVITY_TYPES_ENUM>(ACTIVITY_TYPES_ENUM.ALL)
   const { projectIdentifier } = useParams<ProjectPathProps>()
+  const { currentUserInfo } = useAppStore()
   const userHeatMapProps = {
     today,
     selectedDate,
     setSelectedDate,
     projectIdentifier,
     activityType,
-    setActivityType
+    setActivityType,
+    currentUserId: currentUserInfo?.uuid
   }
   const userOveriewProps = {
     selectedDate,
     activityType,
-    projectIdentifier
+    projectIdentifier,
+    currentUserId: currentUserInfo?.uuid
   }
 
-  const userContributionProps = {}
+  const userContributionProps = { selectedDate, currentUserInfo }
 
   return (
     <Layout.Vertical className={css.userInsights}>
       <UserHeatMap {...userHeatMapProps} />
-      <Tabs id="user-insights" defaultSelectedTabId="overview">
-        <Tab id="overview" title="Overview" panel={<UserOverView {...userOveriewProps} />} panelClassName={css.panel} />
-        <Tab
-          id="contributions"
-          title="Contributions"
-          panel={<UserContributions {...userContributionProps} />}
-          panelClassName={css.panel}
-        />
-      </Tabs>
+      <Container padding={{ left: 'medium', right: 'medium' }}>
+        <Tabs id="user-insights" defaultSelectedTabId="overview" className={css.tabs}>
+          <Tab
+            id="overview"
+            title="Overview"
+            panel={<UserOverView {...userOveriewProps} />}
+            panelClassName={css.panel}
+          />
+          <Tab
+            id="contributions"
+            title="Contributions"
+            panel={<UserContributions {...userContributionProps} />}
+            panelClassName={css.panel}
+          />
+        </Tabs>
+      </Container>
     </Layout.Vertical>
   )
 }

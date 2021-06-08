@@ -10,7 +10,7 @@ function NameCell(tableProps: CellProps<any>): JSX.Element {
   return (
     <Layout.Horizontal>
       <Avatar src={tableProps.row.original.avatar_url}></Avatar>
-      <Text lineClamp={3} color={Color.BLACK}>
+      <Text lineClamp={3} color={Color.BLACK} style={{ alignSelf: 'center' }}>
         {tableProps.value}
       </Text>
     </Layout.Horizontal>
@@ -177,7 +177,7 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
         }}
       >
         <Layout.Horizontal spacing="xxlarge">
-          <Icon name="service-github" size={48}></Icon>
+          <Icon name="github" size={48}></Icon>
           <Text font="large" style={{ lineHeight: '24px', marginTop: '20px' }}>
             Github
           </Text>

@@ -45,7 +45,126 @@ const ProjectsListPage: React.FC = () => {
   )
 
   const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
-  const [sortBy, setSortBy] = useState<SelectOption>({ label: 'None', value: 'NONE' })
+
+  const ACTIVITY_TYPES = {
+    VIEW_PROJECT: 'VIEW_PROJECT',
+    VIEW_RESOURCE: 'VIEW_RESOURCE',
+    CREATE_RESOURCE: 'CREATE_RESOURCE',
+    UPDATE_RESOURCE: 'UPDATE_RESOURCE',
+    RUN_PIPELINE: 'RUN_PIPELINE',
+    CREATE_PIPELINE: 'CREATE_PIPELINE',
+    UPDATE_PIPELINE: 'UPDATE_PIPELINE',
+    VIEW_PIPELINE: 'VIEW_PIPELINE',
+    ALL: 'ALL'
+  }
+
+  const ACTIVITY_CATEGORY_VALUE = {
+    OVERALL: 'OVERALL',
+    USAGE: 'USAGE',
+    VISIBILITY: 'VISIBILITY',
+    DEPLOYMENT_ACTIVITY: 'DEPLOYMENT_ACTIVITY'
+  }
+
+  const ACTIVITY_CATEGORY_LABEL = {
+    OVERALL: 'Overall',
+    USAGE: 'Usage',
+    VISIBILITY: 'Visibility',
+    DEPLOYMENT_ACTIVITY: 'Deployment Activity'
+  }
+
+  const OVERALL_CATEGORY_GROUP = [ACTIVITY_TYPES.ALL]
+  const USAGE_CATEGORY_GROUP = [
+    ACTIVITY_TYPES.CREATE_RESOURCE,
+    ACTIVITY_TYPES.UPDATE_RESOURCE,
+    ACTIVITY_TYPES.CREATE_PIPELINE,
+    ACTIVITY_TYPES.UPDATE_PIPELINE
+  ]
+  const VISIBILITY_CATEGORY_GROUP = [
+    ACTIVITY_TYPES.VIEW_PROJECT,
+    ACTIVITY_TYPES.VIEW_RESOURCE,
+    ACTIVITY_TYPES.VIEW_PIPELINE
+  ]
+  const DEPLOYMENT_ACTIVITY_CATEGORY_GROUP = [ACTIVITY_TYPES.RUN_PIPELINE]
+
+  const CATEGORY_GROUP = {
+    OVERALL: OVERALL_CATEGORY_GROUP,
+    USAGE: USAGE_CATEGORY_GROUP,
+    VISIBILITY: VISIBILITY_CATEGORY_GROUP,
+    DEPLOYMENT_ACTIVITY: DEPLOYMENT_ACTIVITY_CATEGORY_GROUP
+  }
+
+  const [sortBy, setSortBy] = useState<SelectOption>({
+    label: ACTIVITY_CATEGORY_LABEL.OVERALL,
+    value: ACTIVITY_CATEGORY_VALUE.OVERALL
+  })
+
+  const { currentUserInfo } = useAppStore()
+
+  const { loading: fetchingProjectActivities, data: projectActivities } = useGetActivityStatsByProjects({
+    queryParams: {
+      userId: currentUserInfo?.uuid,
+      startTime: Date.now(),
+      endTime: Date.now() - 2592000000
+    }
+  })
+
+  React.useEffect(() => {
+    let formattedData = (projectActivities?.data?.activityHistoryByUserList || []).map(
+      (activityHistoryByUser, index) => {
+        let total = 0
+        const dataItems = (activityHistoryByUser.activityStatsPerTimestampList || []).map(activityStatsPerTimestamp => {
+          if (sortBy.value === ACTIVITY_CATEGORY_VALUE.OVERALL) {
+            total += activityStatsPerTimestamp.totalCount || 0
+            return {
+              x: activityStatsPerTimestamp?.timestamp,
+              y: activityStatsPerTimestamp.totalCount
+            }
+          }
+          const matching = (activityStatsPerTimestamp?.countPerActivityTypeList || []).filter(item => {
+            let categories
+            switch (sortBy.value) {
+              case ACTIVITY_CATEGORY_VALUE.OVERALL:
+                categories = CATEGORY_GROUP.OVERALL
+                break
+              case ACTIVITY_CATEGORY_VALUE.USAGE:
+                categories = CATEGORY_GROUP.USAGE
+                break
+              case ACTIVITY_CATEGORY_VALUE.VISIBILITY:
+                categories = CATEGORY_GROUP.VISIBILITY
+                break
+              case ACTIVITY_CATEGORY_VALUE.DEPLOYMENT_ACTIVITY:
+                categories = CATEGORY_GROUP.DEPLOYMENT_ACTIVITY
+                break
+              default:
+                break
+            }
+            return categories?.includes(item.activityType || '')
+          })
+          if (matching.length) {
+            total += matching[0].count || 0
+            return {
+              x: activityStatsPerTimestamp?.timestamp,
+              y: matching[0].count
+            }
+          }
+          return {
+            x: activityStatsPerTimestamp?.timestamp,
+            y: 0
+          }
+        })
+        dataItems.sort((itemA, itemB) => (itemA.x && itemB.x && itemA.x < itemB.x ? -1 : 1))
+        return {
+          project: activityHistoryByUser.projectId,
+          total,
+          data: dataItems,
+          index
+        }
+      }
+    )
+    formattedData.sort((itemA, itemB) => (itemA.total < itemB.total ? -1 : 1))
+    formattedData = formattedData.map((value, index) => ({ ...value, index }))
+    console.log(formattedData)
+  }, [sortBy])
 
   const { data: orgsData } = useGetOrganizationList({
     queryParams: {
@@ -112,55 +231,6 @@ const ProjectsListPage: React.FC = () => {
 
   const bodyClassName = user.emailVerified ? css.noBanner : css.hasBanner
 
-  const { currentUserInfo } = useAppStore()
-
-  const now = Date.now()
-  const thirtyDaysAgo = now - 2592000000
-
-  const { loading: loadingx, data: datax } = useGetActivityStatsByProjects({
-    queryParams: {
-      userId: currentUserInfo?.uuid,
-      startTime: now,
-      endTime: thirtyDaysAgo
-    }
-  })
-
-  // let formattedData = (data?.data?.activityHistoryByUserList || []).map((activityHistoryByUser, index) => {
-  //   let total = 0
-  //   const dataItems = (activityHistoryByUser.activityStatsPerTimestampList || []).map(activityStatsPerTimestamp => {
-  //     if (activityType === ACTIVITY_TYPES_ENUM.ALL) {
-  //       total += activityStatsPerTimestamp.totalCount || 0
-  //       return {
-  //         x: activityStatsPerTimestamp?.timestamp,
-  //         y: activityStatsPerTimestamp.totalCount
-  //       }
-  //     }
-  //     const matching = (activityStatsPerTimestamp?.countPerActivityTypeList || []).filter(
-  //       item => item.activityType === activityType
-  //     )
-  //     if (matching.length) {
-  //       total += matching[0].count || 0
-  //       return {
-  //         x: activityStatsPerTimestamp?.timestamp,
-  //         y: matching[0].count
-  //       }
-  //     }
-  //     return {
-  //       x: activityStatsPerTimestamp?.timestamp,
-  //       y: 0
-  //     }
-  //   })
-  //   dataItems.sort((itemA, itemB) => (itemA.x && itemB.x && itemA.x < itemB.x ? -1 : 1))
-  //   return {
-  //     userId: activityHistoryByUser.userId,
-  //     total,
-  //     data: dataItems,
-  //     index
-  //   }
-  // })
-  // formattedData.sort((itemA, itemB) => (itemA.total < itemB.total ? -1 : 1))
-  // formattedData = formattedData.map((value, index) => ({ ...value, index }))
-
   return (
     <Container className={css.projectsPage}>
       <EmailVerificationBanner />
@@ -199,10 +269,22 @@ const ProjectsListPage: React.FC = () => {
 
         <CustomSelect
           items={[
-            { label: 'Overall', value: 'OVERALL' },
-            { label: 'Usage', value: 'USAGE' },
-            { label: 'Visibility', value: 'VISIBILITY' },
-            { label: 'Deployment Activity', value: 'DEPLOYMENT_ACTIVITY' }
+            {
+              label: ACTIVITY_CATEGORY_LABEL.OVERALL,
+              value: ACTIVITY_CATEGORY_VALUE.OVERALL
+            },
+            {
+              label: ACTIVITY_CATEGORY_LABEL.USAGE,
+              value: ACTIVITY_CATEGORY_VALUE.USAGE
+            },
+            {
+              label: ACTIVITY_CATEGORY_LABEL.VISIBILITY,
+              value: ACTIVITY_CATEGORY_VALUE.VISIBILITY
+            },
+            {
+              label: ACTIVITY_CATEGORY_LABEL.DEPLOYMENT_ACTIVITY,
+              value: ACTIVITY_CATEGORY_VALUE.DEPLOYMENT_ACTIVITY
+            }
           ]}
           filterable={false}
           itemRenderer={(item, { handleClick }) => (
@@ -258,7 +340,7 @@ const ProjectsListPage: React.FC = () => {
       </Layout.Horizontal>
 
       <Page.Body
-        loading={loading}
+        loading={loading || fetchingProjectActivities}
         retryOnError={() => refetch()}
         error={(error?.data as Error)?.message || error?.message}
         noData={

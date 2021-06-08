@@ -340,7 +340,7 @@ export const UserInsights: React.FC = () => {
     <Layout.Vertical className={css.userInsights}>
       <UserHeatMap {...userHeatMapProps} />
       <Container padding={{ left: 'medium', right: 'medium' }}>
-        <Tabs id="user-insights" defaultSelectedTabId="contributions" className={css.tabs}>
+        <Tabs id="user-insights" defaultSelectedTabId="overview" className={css.tabs}>
           <Tab
             id="overview"
             title="Overview"

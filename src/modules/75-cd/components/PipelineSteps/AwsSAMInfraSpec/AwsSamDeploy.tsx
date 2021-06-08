@@ -67,7 +67,7 @@ export class AwsSamDeploy extends PipelineStep<AwsSamDeployData> {
       <>
         <Formik<AwsSamDeployData>
           onSubmit={(values: AwsSamDeployData) => {
-            onUpdate?.(values)
+            onUpdate?.(this.processFormData(values))
           }}
           formName="AwsSamDeploy"
           initialValues={initialValues}

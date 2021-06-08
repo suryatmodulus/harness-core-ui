@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Button, CardBody, CardSelect, Color, Icon, IconName, Layout, Text } from '@wings-software/uicore'
-import Table from '@common/components/Table/Table'
-import type { CellProps } from 'react-table'
-
-import css from './AsaasinHomePage.module.scss'
-import routes from '@common/RouteDefinitions'
 import { useHistory, useParams } from 'react-router-dom'
+import { Button, CardBody, CardSelect, Color, Icon, IconName, Layout, Text } from '@wings-software/uicore'
+import type { CellProps } from 'react-table'
+import Table from '@common/components/Table/Table'
+
+import routes from '@common/RouteDefinitions'
+import css from './AsaasinHomePage.module.scss'
 const providerData: any[] = [
   {
     name: 'Okta',
@@ -197,7 +197,7 @@ const AsaasinHomePage: React.FC = () => {
           />
           <Button
             intent="primary"
-            text="Get Staretd"
+            text="Get Started"
             icon="plus"
             onClick={() => {
               history.push(

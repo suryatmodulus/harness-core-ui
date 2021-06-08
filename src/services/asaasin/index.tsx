@@ -43,6 +43,21 @@ export interface GithubDetailsResponse {
   recommendations?: any
 }
 
+export interface PagerDutySavings {
+  current_spend?: number
+  potential_spend?: number
+  potential_savings?: number
+  savings_percent?: number
+}
+
+export interface PagerDutySavingsResponse {
+  total_users?: number
+  active_users?: number
+  monthly_savings?: PagerDutySavings
+  yearly_savings?: PagerDutySavings
+  optimization?: string[]
+}
+
 export type GithubDetailsProps = Omit<GetProps<GithubDetailsResponse, void, void, void>, 'path'>
 
 /**
@@ -63,3 +78,28 @@ export type UseGithubDetailsProps = Omit<UseGetProps<GithubDetailsResponse, void
  */
 export const useGithubDetails = (props: UseGithubDetailsProps) =>
   useGet<GithubDetailsResponse, void, void, void>(`/github/details`, { base: getConfig('asaasin/api'), ...props })
+
+export type PagerdutySavingsProps = Omit<GetProps<PagerDutySavingsResponse, void, void, void>, 'path'>
+
+/**
+ * Get pagerduty savings
+ *
+ * pagerdutySavings
+ */
+export const PagerdutySavings = (props: PagerdutySavingsProps) => (
+  <Get<PagerDutySavingsResponse, void, void, void>
+    path={`/pagerduty/savings`}
+    base={getConfig('asaasin/api')}
+    {...props}
+  />
+)
+
+export type UsePagerdutySavingsProps = Omit<UseGetProps<PagerDutySavingsResponse, void, void, void>, 'path'>
+
+/**
+ * Get pagerduty savings
+ *
+ * pagerdutySavings
+ */
+export const usePagerdutySavings = (props: UsePagerdutySavingsProps) =>
+  useGet<PagerDutySavingsResponse, void, void, void>(`/pagerduty/savings`, { base: getConfig('asaasin/api'), ...props })

@@ -10,6 +10,7 @@ import paths from '@common/RouteDefinitions'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import assasin from './asaasin.svg'
 import css from './MainNav.module.scss'
 
 const commonLinkProps: Partial<NavLinkProps> = {
@@ -62,7 +63,7 @@ export default function L1Nav(): React.ReactElement {
         <li className={css.navItem}>
           <Link {...commonLinkProps} to={paths.toAsaasin(params)}>
             <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={90}>
-              <Icon name="command-icon" size={30} />
+              <img src={assasin} />
               <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
                 aSaaSin
               </Text>

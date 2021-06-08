@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Card, Icon, Avatar, Button, CardBody, CardSelect, Color, IconName, Layout, Text } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
-import Table from '@common/components/Table/Table'
 
 import routes from '@common/RouteDefinitions'
 import asaasinLogo from './asaasin.svg'
@@ -42,46 +41,31 @@ const hrSoftware: any[] = [
     icon: 'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco/zofsulj3hqgfkung3nkw'
   }
 ]
-const saasData: any[] = [
-  {
-    name: 'Slack',
-    purchased_on: 'January 1st 2017',
-    purchased_by: 'Jane Doe',
-    annual_spend: '$60000',
-    status: 'Connected'
-  },
-  {
-    name: 'Zoom',
-    purchased_on: 'January 1st 2017',
-    purchased_by: 'Jane Doe',
-    annual_spend: '$60000',
-    status: 'Connected'
-  },
-  {
-    name: 'Salesforce',
-    purchased_on: 'January 1st 2017',
-    purchased_by: 'Jane Doe',
-    annual_spend: '$60000',
-    status: 'Connect'
-  }
-]
-function TableCell(tableProps: CellProps<any>): JSX.Element {
+
+function ProfileView({ name, avatar_url }: any): JSX.Element {
   return (
-    <Text lineClamp={3} color={Color.BLACK}>
-      {tableProps.value}
-    </Text>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'start',
+        alignContent: 'space-between',
+        alignItems: 'center',
+        minWidth: '300px',
+        boxShadow: '0px 1px 5px -4px black',
+        borderRadius: '10px',
+        marginBottom: '10px',
+        padding: '12px',
+        backgroundColor: 'white',
+        border: '1px solid transparent'
+      }}
+    >
+      <Avatar src={avatar_url}></Avatar>
+      <div style={{ display: 'flex', alignItems: 'center', color: 'black' }}>{name}</div>
+    </div>
   )
 }
-function NameCell(tableProps: CellProps<any>): JSX.Element {
-  return (
-    <Layout.Horizontal>
-      <Avatar src={tableProps.row.original.picture}></Avatar>
-      <Text lineClamp={3} color={Color.BLACK} style={{ alignSelf: 'center' }}>
-        {tableProps.value}
-      </Text>
-    </Layout.Horizontal>
-  )
-}
+
 const AsaasinHomePage: React.FC = () => {
   const { accountId } = useParams<{
     accountId: string
@@ -404,41 +388,23 @@ const AsaasinHomePage: React.FC = () => {
               setCurrentSection('saas-selection')
             }}
           />
-          <Layout.Horizontal spacing="xxxlarge" style={{ alignSelf: 'center' }}>
-            <Table
-              data={userData.slice(0, userData.length / 3)}
-              columns={[
-                {
-                  accessor: 'full_name',
-                  Header: '',
-                  width: '100%',
-                  Cell: NameCell
-                }
-              ]}
-            />
-            <Table
-              data={userData.slice(userData.length / 3, (2 * userData.length) / 3)}
-              columns={[
-                {
-                  accessor: 'full_name',
-                  Header: '',
-                  width: '100%',
-                  Cell: NameCell
-                }
-              ]}
-            />
-            <Table
-              data={userData.slice((2 * userData.length) / 3, userData.length)}
-              columns={[
-                {
-                  accessor: 'full_name',
-                  Header: '',
-                  width: '100%',
-                  Cell: NameCell
-                }
-              ]}
-            />
-          </Layout.Horizontal>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignContent: 'space-between',
+              justifyContent: 'space-between',
+              minHeight: '25vh',
+              maxHeight: '40vh',
+              maxWidth: '80vw',
+              flexWrap: 'wrap',
+              overflow: 'scroll'
+            }}
+          >
+            {userData.map(user => {
+              return <ProfileView name={user.preferred_full_name} avatar_url={user.picture} />
+            })}
+          </div>
         </Layout.Vertical>
       )}
     </>

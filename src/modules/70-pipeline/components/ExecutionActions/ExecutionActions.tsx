@@ -19,10 +19,7 @@ import {
   Formik,
   FormikForm,
   FormInput,
-  Layout,
   Popover,
-  Radio,
-  RadioGroup,
   Text,
   useModalHook
 } from '@wings-software/uicore'
@@ -33,7 +30,7 @@ import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import type { StringKeys } from 'framework/strings'
 
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useSendslacknotifications } from 'services/cd-ng'
+import { useSendslacknotifications, useSendemailnotifications } from 'services/cd-ng'
 const commonButtonProps: ButtonProps = {
   minimal: true,
   small: true,
@@ -203,10 +200,11 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     canEscapeKeyClose: true,
     canOutsideClickClose: true,
     enforceFocus: true,
-    style: { width: 600, height: 300 }
+    style: { width: 600, minHeight: 300 }
   }
 
   const nonHarnessOptions = [
+    { label: 'meenakshiraikwar@gmail.com', value: 'meenakshiraikwar@gmail.com' },
     { label: 'meenakshi.raikwar@harness.io', value: 'meenakshi.raikwar@harness.io' },
     { label: 'akhilesh.pandey@harness.io', value: 'akhilesh.pandey@harness.io' },
     { label: 'sainath.batthala@harness.io', value: 'sainath.batthala@harness.io' },
@@ -220,6 +218,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     { label: 'prashant.batra@harness.io', value: 'prashant.batra@harness.io' }
   ]
   const { loading: loadingSlack, mutate: sentSlackInvite } = useSendslacknotifications({})
+  const { loading: loadingEmail, mutate: sendEmailInvite } = useSendemailnotifications({})
 
   // const handleSendNonHarnessInvitation = payload => {}
   // const handleSendHarnessInvitation = payload => {}
@@ -239,7 +238,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             onSubmit={data => {
               let payloadHarness = {}
               let payloadNonHarness = {}
-              if (data.accountType === 'NON_HARNESS') {
+              console.log(data)
+              if (data.accountType === 'NON_HARNESS' || data.emailInvites.length) {
                 let userData = null
                 if (data.emailInvites.includes({ label: 'All', value: 'All' })) {
                   userData = nonHarnessOptions.map(item => {
@@ -264,11 +264,19 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
                     deploymentStatus: executionStatus,
                     triggeredBy: 'sainath.batthala',
                     triggeredOn: props.pipelineExecution?.createdAt,
-                    pipelineExecutionLink: props.pipelineExecution?.planExecutionId
+                    pipelineExecutionLink: `${window.location.origin}#${routes.toExecutionPipelineView({
+                      orgIdentifier,
+                      pipelineIdentifier: props.pipelineExecution?.pipelineIdentifier || '',
+                      executionIdentifier: props.pipelineExecution?.planExecutionId || '',
+                      projectIdentifier,
+                      accountId,
+                      module
+                    })}`
                   },
                   users: userData
                 }
-              } else if (data.accountType === 'HARNESS') {
+              }
+              if (data.accountType === 'HARNESS' || data.slackNotification.length) {
                 let userData = null
                 if (data.slackNotification.includes({ label: 'All', value: 'All' })) {
                   userData = nonHarnessOptions.map(item => {
@@ -306,6 +314,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
                 }
               }
               sentSlackInvite(payloadHarness)
+              sendEmailInvite(payloadNonHarness)
             }}
           >
             {formikProps => {

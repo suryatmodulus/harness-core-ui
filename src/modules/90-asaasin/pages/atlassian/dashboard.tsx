@@ -69,7 +69,7 @@ function getUtilisationChart(details: AtlassianDetailsResponse): Highcharts.Opti
     chart: {
       type: 'pie',
       plotBackgroundColor: '',
-      width: 320,
+      width: 250,
       plotBorderWidth: 0,
       plotShadow: false,
       margin: [0, 0, 0, 0],
@@ -109,11 +109,11 @@ function getUtilisationChart(details: AtlassianDetailsResponse): Highcharts.Opti
         data: [
           {
             name: 'Active',
-            y: (details.total_users as number) - details.idle_users.length
+            y: (details.total_users as number) - (details.idle_users?.length as number)
           },
           {
             name: 'Inactive',
-            y: details.idle_users.length
+            y: details.idle_users?.length
           },
           {
             name: 'Rarely Active',
@@ -159,7 +159,7 @@ const AsaasinAtlassianDashboard: React.FC = () => {
           <>
             <Layout.Horizontal
               style={{
-                paddingTop: '20px',
+                padding: '20px',
                 backgroundColor: Color.WHITE,
                 alignItems: 'center'
               }}
@@ -182,42 +182,31 @@ const AsaasinAtlassianDashboard: React.FC = () => {
                   >
                     <Layout.Vertical spacing="small">
                       <Heading level={1} style={{ color: '#05AAB6' }}>
-                        {details.total_users}
-                      </Heading>
-                      <Text style={{ color: '#05AAB6' }}>Total Users</Text>
-                    </Layout.Vertical>
-                  </Container>
-                  <Container
-                    padding="small"
-                    style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}
-                  >
-                    <Layout.Vertical spacing="small">
-                      <Heading level={1} style={{ color: '#05AAB6' }}>
-                        {(details.total_users as number) - details.idle_users.length}
-                      </Heading>
-                      <Text style={{ color: '#05AAB6' }}>Active Users</Text>
-                    </Layout.Vertical>
-                  </Container>
-                  <Container
-                    padding="small"
-                    style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}
-                  >
-                    <Layout.Vertical spacing="small">
-                      <Heading level={1} style={{ color: '#05AAB6' }}>
                         ${details.contract_value?.toLocaleString()}
                       </Heading>
                       <Text style={{ color: '#05AAB6' }}>Est. Annual Spend</Text>
                     </Layout.Vertical>
                   </Container>
+                  <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd' }}>
+                    <Layout.Vertical spacing="small">
+                      <Heading level={1} style={{ color: '#9872e7' }}>
+                        ${details.potential_savings?.toLocaleString()}
+                      </Heading>
+                      <Text style={{ color: '#9872e7' }}>Potential Savings</Text>
+                    </Layout.Vertical>
+                  </Container>
                   <Container
                     padding="small"
                     style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}
                   >
                     <Layout.Vertical spacing="small">
                       <Heading level={1} style={{ color: '#05AAB6' }}>
-                        ${details.potential_savings?.toLocaleString()}
+                        {details.total_users
+                          ? Math.round(((details.idle_users?.length as number) / details.total_users) * 100)
+                          : 0}
+                        %
                       </Heading>
-                      <Text style={{ color: '#05AAB6' }}>Potential Savings</Text>
+                      <Text style={{ color: '#05AAB6' }}>Total Wastage</Text>
                     </Layout.Vertical>
                   </Container>
                 </Layout.Horizontal>
@@ -229,15 +218,12 @@ const AsaasinAtlassianDashboard: React.FC = () => {
                     marginLeft: '100px'
                   }}
                 >
-                  <Container
-                    padding="small"
-                    style={{ borderRadius: '4px', backgroundColor: 'rgba(71, 213, 223,0.05)' }}
-                  >
+                  <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd' }}>
                     <Layout.Vertical spacing="small">
-                      <Heading level={1} style={{ color: '#05AAB6' }}>
-                        {details.total_users ? Math.round((details.idle_users.length / details.total_users) * 100) : 0}%
+                      <Heading level={1} style={{ color: '#9872e7' }}>
+                        {details.total_users}
                       </Heading>
-                      <Text style={{ color: '#05AAB6' }}>Total Wastage</Text>
+                      <Text style={{ color: '#9872e7' }}>Total Users</Text>
                     </Layout.Vertical>
                   </Container>
                   <Container
@@ -246,15 +232,24 @@ const AsaasinAtlassianDashboard: React.FC = () => {
                   >
                     <Layout.Vertical spacing="small">
                       <Heading level={1} style={{ color: '#05AAB6' }}>
+                        {(details.total_users as number) - (details.idle_users?.length as number)}
+                      </Heading>
+                      <Text style={{ color: '#05AAB6' }}>Active Users</Text>
+                    </Layout.Vertical>
+                  </Container>
+
+                  <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd' }}>
+                    <Layout.Vertical spacing="small">
+                      <Heading level={1} style={{ color: '#9872e7' }}>
                         {99.98}%
                       </Heading>
-                      <Text style={{ color: '#05AAB6' }}>Uptime last quarter</Text>
+                      <Text style={{ color: '#9872e7' }}>Uptime last quarter</Text>
                     </Layout.Vertical>
                   </Container>
                 </Layout.Horizontal>
               </Layout.Vertical>
             </Layout.Horizontal>
-            {details.recommendations.length && (
+            {details.recommendations?.length && (
               <Container>
                 <Text font="medium" style={{ lineHeight: '18px', marginTop: '20px' }}>
                   Recommendations
@@ -284,7 +279,7 @@ const AsaasinAtlassianDashboard: React.FC = () => {
                 />
               </Container>
             )}
-            {details.idle_users.length && (
+            {details.idle_users?.length && (
               <>
                 <Text font="medium" style={{ lineHeight: '18px', marginTop: '20px' }}>
                   Inactive Users ({details.idle_users.length}/{details.total_users})

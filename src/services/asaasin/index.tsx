@@ -37,10 +37,10 @@ export interface GithubRecommendations {
 
 export interface GithubDetailsResponse {
   org?: GithubOrg
-  members?: any
-  inactive_members?: any
-  rarely_active_members?: any
-  recommendations?: any
+  members?: GithubMember[]
+  inactive_members?: GithubMember[]
+  rarely_active_members?: GithubMember[]
+  recommendations?: GithubRecommendations[]
 }
 
 export interface PagerDutySavings {
@@ -66,10 +66,10 @@ export interface PagerDutySavingsResponse {
 
 export interface AtlassianDetailsResponse {
   contract_value?: number
-  idle_users?: any
+  idle_users?: string[]
   potential_savings?: number
   total_users?: number
-  recommendations?: any
+  recommendations?: GithubRecommendations[]
   rarely_active_users?: {
     email?: string
   }[]

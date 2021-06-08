@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router-dom'
 
 import routes from '@common/RouteDefinitions'
 import { AllStat, AllStatsResponse, useAllStatusOfApplications } from 'services/asaasin'
-import { getNodePath } from 'jsonc-parser'
+
 function NameCell(tableProps: CellProps<any>): JSX.Element {
   return (
     <Layout.Horizontal>
@@ -132,7 +132,7 @@ const AsaasinDashboardPage: React.FC = () => {
             <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd', minWidth: '20%' }}>
               <Layout.Vertical spacing="small">
                 <Heading level={1} style={{ color: '#9872e7' }}>
-                  105
+                  3
                 </Heading>
                 <Text style={{ color: '#9872e7' }}>SaaS Applications</Text>
               </Layout.Vertical>
@@ -142,7 +142,7 @@ const AsaasinDashboardPage: React.FC = () => {
         {!loading && details != null && (
           <Table
             data={details as AllStat[]}
-            onRowClick={(e, index) => {
+            onRowClick={(e, _) => {
               history.push(
                 routes.toAsaasinSaaSDashboard({
                   accountId: accountId,

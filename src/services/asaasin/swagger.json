@@ -211,14 +211,14 @@
           "type": "object",
           "$ref": "#/definitions/GithubOrg"
         },
-        "members": { "type": "list", "items": { "type": "object", "$ref": "#/definitions/GithubMember" } },
-        "inactive_members": { "type": "list", "items": { "type": "object", "$ref": "#/definitions/GithubMember" } },
+        "members": { "type": "array", "items": { "type": "object", "$ref": "#/definitions/GithubMember" } },
+        "inactive_members": { "type": "array", "items": { "type": "object", "$ref": "#/definitions/GithubMember" } },
         "rarely_active_members": {
-          "type": "list",
+          "type": "array",
           "items": { "type": "object", "$ref": "#/definitions/GithubMember" }
         },
         "recommendations": {
-          "type": "list",
+          "type": "array",
           "items": { "type": "object", "$ref": "#/definitions/GithubRecommendations" }
         }
       }
@@ -295,7 +295,7 @@
           "type": "number",
           "format": "float"
         },
-        "idle_users": { "type": "list", "items": { "type": "string" } },
+        "idle_users": { "type": "array", "items": { "type": "string" } },
         "potential_savings": {
           "type": "number",
           "format": "float"
@@ -305,7 +305,7 @@
           "format": "int64"
         },
         "recommendations": {
-          "type": "list",
+          "type": "array",
           "items": { "type": "object", "$ref": "#/definitions/GithubRecommendations" }
         },
         "rarely_active_users": {

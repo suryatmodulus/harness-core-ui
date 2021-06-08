@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Card, Icon, Avatar, Button, CardBody, CardSelect, Color, IconName, Layout, Text } from '@wings-software/uicore'
-import type { CellProps } from 'react-table'
+import { Card, Icon, Avatar, Button, CardBody, CardSelect, IconName, Layout, Text } from '@wings-software/uicore'
 
 import routes from '@common/RouteDefinitions'
 import asaasinLogo from './asaasin.svg'

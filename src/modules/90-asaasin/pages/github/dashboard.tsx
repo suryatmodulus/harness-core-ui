@@ -67,9 +67,9 @@ function RiskCell(tableProps: CellProps<any>): JSX.Element {
 }
 
 function getEstimatedSavings(details: GithubDetailsResponse): number {
-  let inactive_members = details?.inactive_members.length
+  let inactive_members = details?.inactive_members?.length as number
   let unused_seats = 0
-  let rarely_active_members = details?.rarely_active_members.length
+  let rarely_active_members = details?.rarely_active_members?.length as number
   if (details?.org?.plan?.seats != null && details?.org?.plan?.filled_seats != null) {
     unused_seats = details.org.plan.seats - details.org.plan.filled_seats
   }
@@ -82,9 +82,9 @@ function getWastagePercentage(details: GithubDetailsResponse): number {
 }
 
 function getActiveUsers(details: GithubDetailsResponse): number {
-  let inactive_members = details?.inactive_members.length
-  let rarely_active_members = details?.rarely_active_members.length
-  return details.members.length - (inactive_members + rarely_active_members)
+  let inactive_members = details?.inactive_members?.length as number
+  let rarely_active_members = details?.rarely_active_members?.length as number
+  return (details.members?.length as number) - (inactive_members + rarely_active_members)
 }
 
 function getTotalLicences(details: GithubDetailsResponse): number {
@@ -93,10 +93,10 @@ function getTotalLicences(details: GithubDetailsResponse): number {
 }
 
 function getInactiveUsers(details: GithubDetailsResponse): number {
-  return details?.inactive_members.length
+  return details?.inactive_members?.length as number
 }
 function getRarelyActiveUsers(details: GithubDetailsResponse): number {
-  return details?.rarely_active_members.length
+  return details?.rarely_active_members?.length as number
 }
 function getUnusedSeats(details: GithubDetailsResponse): number {
   let unused_seats = 0
@@ -310,7 +310,7 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                 </Layout.Horizontal>
               </Layout.Vertical>
             </Layout.Horizontal>
-            {details.recommendations.length && (
+            {details.recommendations?.length && (
               <Container>
                 <Text font="medium" style={{ lineHeight: '18px', marginTop: '20px' }}>
                   Recommendations
@@ -340,10 +340,10 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                 />
               </Container>
             )}
-            {details.inactive_members.length && (
+            {details.inactive_members?.length && (
               <>
                 <Text font="medium" style={{ lineHeight: '18px', marginTop: '20px' }}>
-                  Inactive Users ({details.inactive_members.length}/{details.members.length})
+                  Inactive Users ({details.inactive_members.length}/{details.members?.length})
                 </Text>
                 <div
                   style={{
@@ -364,10 +364,10 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                 </div>
               </>
             )}
-            {details.rarely_active_members.length && (
+            {details.rarely_active_members?.length && (
               <>
                 <Text font="medium" style={{ lineHeight: '18px', marginTop: '20px' }}>
-                  Rarely Active Users ({details.rarely_active_members.length}/{details.members.length})
+                  Rarely Active Users ({details.rarely_active_members?.length}/{details.members?.length})
                 </Text>
                 <div
                   style={{
@@ -382,7 +382,7 @@ const AsaasinGitHubDashboardPage: React.FC = () => {
                     overflow: 'scroll'
                   }}
                 >
-                  {details.rarely_active_members.map(user => {
+                  {details.rarely_active_members?.map(user => {
                     return <NameCell name={user.login} avatar_url={user.avatar_url}></NameCell>
                   })}
                 </div>

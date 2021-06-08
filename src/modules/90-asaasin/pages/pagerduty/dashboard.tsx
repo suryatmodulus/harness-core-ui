@@ -39,7 +39,7 @@ function TableCell(tableProps: CellProps<any>): JSX.Element {
 function DollarCell(tableProps: CellProps<any>): JSX.Element {
   return (
     <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 'bold' }}>
-      ${tableProps.value}
+      ${tableProps.value.toLocaleString()}
     </Text>
   )
 }
@@ -102,7 +102,7 @@ const AsaasinPagerdutyDashboard: React.FC = () => {
               >
                 <Layout.Vertical spacing="small">
                   <Heading level={1} style={{ color: '#05AAB6' }}>
-                    ${savings.yearly_savings?.current_spend}
+                    ${savings.yearly_savings?.current_spend?.toLocaleString()}
                   </Heading>
                   <Text style={{ color: '#05AAB6' }}>Est. Annual Spend</Text>
                 </Layout.Vertical>
@@ -110,7 +110,7 @@ const AsaasinPagerdutyDashboard: React.FC = () => {
               <Container padding="small" style={{ borderRadius: '4px', backgroundColor: '#f8f6fd', width: '270px' }}>
                 <Layout.Vertical spacing="small">
                   <Heading level={1} style={{ color: '#9872e7' }}>
-                    ${savings.yearly_savings?.potential_savings}
+                    ${savings.yearly_savings?.potential_savings?.toLocaleString()}
                   </Heading>
                   <Text style={{ color: '#9872e7' }}>Est. Annual Savings</Text>
                 </Layout.Vertical>

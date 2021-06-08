@@ -9,6 +9,7 @@ import {
   StepProps
 } from '@wings-software/uicore'
 import { Form } from 'formik'
+import Joyride from 'react-joyride'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { set } from 'lodash-es'
@@ -24,7 +25,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useQueryParams } from '@common/hooks'
 import { ArtifactConnectorLabelMap, ArtifactToConnectorMap } from '../ArtifactHelper'
 import type { ArtifactType, InitialArtifactDataType } from '../ArtifactInterface'
-
+import NeutralCard from '../../ManifestSelection/images/Neutral Card (1).png'
 import css from './ArtifactConnector.module.scss'
 interface ArtifactConnectorProps {
   handleViewChange: () => void
@@ -81,9 +82,39 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
     }
     return initialValues
   }, [initialValues, prevStepData?.connectorId])
+  const steps = [
+    {
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>
+            Select your artifact source from where Harness can fetch the artifact details.
+          </p>
+        </div>
+      ),
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      target: '.ArtifactConnector-module_connectorContainer_8b7Adw',
+      disableBeacon: true
+    }
+  ]
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
+      <Joyride
+        // callback={handleJoyrideCallback}
+        continuous={true}
+        // getHelpers={this.getHelpers}
+        run={true}
+        scrollToFirstStep={true}
+        // showProgress={true}
+        showSkipButton={true}
+        steps={steps}
+        styles={{
+          options: {
+            zIndex: 10000
+          }
+        }}
+      />
       <div className={css.heading}>{stepName}</div>
       <Formik
         initialValues={getInitialValues()}

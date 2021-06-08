@@ -17,6 +17,7 @@ import {
   ModalErrorHandler,
   Avatar
 } from '@wings-software/uicore'
+import Joyride from 'react-joyride'
 import { Select } from '@blueprintjs/select'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -42,6 +43,7 @@ import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import InviteListRenderer from './InviteListRenderer'
+import NeutralCard from './images/Neutral Card (1).png'
 import css from './Steps.module.scss'
 
 interface CollaboratorModalData {
@@ -172,6 +174,19 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
     }
   }
 
+  const steps = [
+    {
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>Add your team members with whom you want to share your project details.</p>
+        </div>
+      ),
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      target: '.bp3-input-ghost',
+      disableBeacon: true
+    }
+  ]
   return (
     <Formik<CollaboratorsData>
       initialValues={initialValues}
@@ -194,6 +209,21 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
       {formik => {
         return (
           <Form>
+            <Joyride
+              // callback={handleJoyrideCallback}
+              continuous={true}
+              // getHelpers={this.getHelpers}
+              run={true}
+              scrollToFirstStep={true}
+              // showProgress={true}
+              showSkipButton={true}
+              steps={steps}
+              styles={{
+                options: {
+                  zIndex: 10000
+                }
+              }}
+            />
             <ModalErrorHandler bind={setModalErrorHandler} />
             <Container className={css.collaboratorForm}>
               <Text font="medium" color={Color.BLACK} padding={{ bottom: 'xxlarge' }}>

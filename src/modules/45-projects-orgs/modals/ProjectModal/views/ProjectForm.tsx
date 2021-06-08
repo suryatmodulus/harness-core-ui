@@ -15,12 +15,14 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
+import Joyride from 'react-joyride'
 import * as Yup from 'yup'
 import type { Project } from 'services/cd-ng'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
 import { useStrings } from 'framework/strings'
 import { NameSchema, IdentifierSchema } from '@common/utils/Validation'
+import NeutralCard from './images/Neutral Card (1).png'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
@@ -67,7 +69,22 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
     heading: getString('description')
   })
   const tagCollapseProps = Object.assign({}, collapseProps, { heading: getString('tagsLabel') })
-
+  const steps = [
+    {
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>
+            Organizations in NG represent the different Business Units in a Company.Select the organization for which
+            you want to create the project.
+          </p>
+        </div>
+      ),
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      target: '.bp3-input-action',
+      disableBeacon: true
+    }
+  ]
   return (
     <Formik
       initialValues={{
@@ -94,6 +111,21 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
       {formikProps => {
         return (
           <Form>
+            <Joyride
+              // callback={handleJoyrideCallback}
+              continuous={true}
+              // getHelpers={this.getHelpers}
+              run={true}
+              scrollToFirstStep={true}
+              // showProgress={true}
+              showSkipButton={true}
+              steps={steps}
+              styles={{
+                options: {
+                  zIndex: 10000
+                }
+              }}
+            />
             <Layout.Horizontal>
               <Layout.Vertical width={displayProjectCardPreview ? '50%' : '100%'} padding="xxlarge">
                 <Container style={{ minHeight: '450px' }}>

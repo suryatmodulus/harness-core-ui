@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Text, Layout, Icon, IconName, Container, Button, Card, Color } from '@wings-software/uicore'
 
 import { Link, useParams } from 'react-router-dom'
+import Joyride from 'react-joyride'
 import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
@@ -12,6 +13,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
+import NeutralCard from './images/Neutral Card (1).png'
 import css from './Purpose.module.scss'
 
 interface ProjectModalData {
@@ -30,10 +32,49 @@ const getModuleLinks = (
   projectIdentifier: string,
   accountId: string
 ): React.ReactElement => {
+  const steps = [
+    {
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>Well done, You have completed your first project set up!!</p>
+        </div>
+      ),
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      target: '.Purpose-module_border_TLBw9F',
+      disableBeacon: true
+    },
+    {
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>lets start by creating our first pipeline. Great going !!</p>
+        </div>
+      ),
+      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      target: '.Purpose-module_newPipeline_3f6oZi',
+      disableBeacon: true
+    }
+  ]
   switch (module) {
     case ModuleName.CD:
       return (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
+          <Joyride
+            // callback={handleJoyrideCallback}
+            continuous={true}
+            // getHelpers={this.getHelpers}
+            run={true}
+            scrollToFirstStep={true}
+            showProgress={true}
+            showSkipButton={true}
+            steps={steps}
+            styles={{
+              options: {
+                zIndex: 10000
+              }
+            }}
+          />
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>
             {<String stringID="projectsOrgs.purposeList.cd" />}
           </Text>
@@ -46,7 +87,7 @@ const getModuleLinks = (
               module: 'cd'
             })}
           >
-            {<String stringID="moduleRenderer.newPipeLine" />}
+            {<String className={css.newPipeline} stringID="moduleRenderer.newPipeLine" />}
           </Link>
         </Layout.Vertical>
       )

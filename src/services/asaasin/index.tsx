@@ -67,10 +67,34 @@ export interface PagerDutySavingsResponse {
 export interface AtlassianDetailsResponse {
   contract_value?: number
   idle_users?: any
-  inactive_members?: any
   potential_savings?: number
   total_users?: number
 }
+
+export interface PagerDutyUser {
+  id?: string
+  type?: string
+  summary?: string
+  self?: string
+  name?: string
+  email?: string
+  time_zone?: string
+  role?: string
+  avatar_url?: string
+  description?: string
+}
+
+export type PagerDutyUsersResponse = PagerDutyUser[]
+
+export interface AllStat {
+  name?: string
+  category?: string
+  annual_spend?: number
+  annual_savings?: number
+  total_users?: number
+}
+
+export type AllStatsResponse = AllStat[]
 
 export type GithubDetailsProps = Omit<GetProps<GithubDetailsResponse, void, void, void>, 'path'>
 
@@ -138,3 +162,52 @@ export type UseAtlassianDetailsProps = Omit<UseGetProps<AtlassianDetailsResponse
  */
 export const useAtlassianDetails = (props: UseAtlassianDetailsProps) =>
   useGet<AtlassianDetailsResponse, void, void, void>(`/atlassian/all`, { base: getConfig('asaasin/api'), ...props })
+
+export type PagerdutyInactiveUsersProps = Omit<GetProps<PagerDutyUsersResponse, void, void, void>, 'path'>
+
+/**
+ * Get pagerduty inactive users
+ *
+ * pagerdutyInactiveUsers
+ */
+export const PagerdutyInactiveUsers = (props: PagerdutyInactiveUsersProps) => (
+  <Get<PagerDutyUsersResponse, void, void, void>
+    path={`/pagerduty/users/inactive`}
+    base={getConfig('asaasin/api')}
+    {...props}
+  />
+)
+
+export type UsePagerdutyInactiveUsersProps = Omit<UseGetProps<PagerDutyUsersResponse, void, void, void>, 'path'>
+
+/**
+ * Get pagerduty inactive users
+ *
+ * pagerdutyInactiveUsers
+ */
+export const usePagerdutyInactiveUsers = (props: UsePagerdutyInactiveUsersProps) =>
+  useGet<PagerDutyUsersResponse, void, void, void>(`/pagerduty/users/inactive`, {
+    base: getConfig('asaasin/api'),
+    ...props
+  })
+
+export type AllStatusOfApplicationsProps = Omit<GetProps<PagerDutyUsersResponse, void, void, void>, 'path'>
+
+/**
+ * Get overall status of applications
+ *
+ * allStatsOfApplications
+ */
+export const AllStatusOfApplications = (props: AllStatusOfApplicationsProps) => (
+  <Get<PagerDutyUsersResponse, void, void, void> path={`/stats`} base={getConfig('asaasin/api')} {...props} />
+)
+
+export type UseAllStatusOfApplicationsProps = Omit<UseGetProps<PagerDutyUsersResponse, void, void, void>, 'path'>
+
+/**
+ * Get overall status of applications
+ *
+ * allStatsOfApplications
+ */
+export const useAllStatusOfApplications = (props: UseAllStatusOfApplicationsProps) =>
+  useGet<PagerDutyUsersResponse, void, void, void>(`/stats`, { base: getConfig('asaasin/api'), ...props })

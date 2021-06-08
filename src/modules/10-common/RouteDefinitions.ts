@@ -967,6 +967,10 @@ const routes = {
       `/home/orgs/${orgIdentifier}/projects/${projectIdentifier}/details`
   ),
   toProjects: withAccountId(() => '/home/projects'),
+  toProjectInsights: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/home/orgs/${orgIdentifier}/projects/${projectIdentifier}/insights`
+  ),
   toGetStarted: withAccountId(() => '/home/get-started'),
   /********************************************************************************************************************/
   toCE: (params: Partial<ProjectPathProps>) =>

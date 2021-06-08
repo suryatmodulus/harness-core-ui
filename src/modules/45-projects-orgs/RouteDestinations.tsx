@@ -59,6 +59,7 @@ import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import SessionToken from 'framework/utils/SessionToken'
+import { ProjectInsights } from './pages/projects/views/ProjectInsights/ProjectInsights'
 
 const ProjectDetailsSideNavProps: SidebarContext = {
   navComponent: ProjectDetailsSideNav,
@@ -129,6 +130,14 @@ export default (
       exact
     >
       <ProjectDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toProjectInsights({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <ProjectInsights />
     </RouteWithLayout>
 
     <RouteWithLayout

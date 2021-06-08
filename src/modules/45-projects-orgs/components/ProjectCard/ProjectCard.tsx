@@ -226,7 +226,18 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
       {data.modules?.includes(ModuleName.CI) ? <CIRenderer data={data} isPreview={isPreview} /> : null}
       {data.modules?.includes(ModuleName.CF) ? <CFRenderer data={data} isPreview={isPreview} /> : null}
       {data.modules?.includes(ModuleName.CE) ? <CERenderer data={data} isPreview={isPreview} /> : null}
-      <Layout.Vertical height={150}>
+      <Layout.Vertical
+        height={150}
+        onClick={() => {
+          history.push({
+            pathname: routes.toProjectInsights({
+              accountId,
+              orgIdentifier: data.orgIdentifier || '',
+              projectIdentifier: data.identifier
+            })
+          })
+        }}
+      >
         <UsageDetails
           projectId={props.data.projectResponse.project.identifier}
           now={now}

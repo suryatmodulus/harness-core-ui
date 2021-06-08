@@ -13,6 +13,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
+import NeutralCard from './images/Neutral Card (1).png'
 import css from './Purpose.module.scss'
 
 interface ProjectModalData {
@@ -33,12 +34,22 @@ const getModuleLinks = (
 ): React.ReactElement => {
   const steps = [
     {
-      content: <p>Well done, You have completed your first project set up!!</p>,
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>Well done, You have completed your first project set up!!</p>
+        </div>
+      ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
       target: '.Purpose-module_border_TLBw9F'
     },
     {
-      content: <p>lets start by creating our first pipeline. Great going !!</p>,
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>lets start by creating our first pipeline. Great going !!</p>
+        </div>
+      ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
       target: '.Purpose-module_newPipeline_3f6oZi'
     }

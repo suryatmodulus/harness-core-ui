@@ -43,6 +43,7 @@ import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import InviteListRenderer from './InviteListRenderer'
+import NeutralCard from './images/Neutral Card (1).png'
 import css from './Steps.module.scss'
 
 interface CollaboratorModalData {
@@ -175,7 +176,12 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
 
   const steps = [
     {
-      content: <p>Add your team members with whom you want to share your project details.</p>,
+      content: (
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>Add your team members with whom you want to share your project details.</p>
+        </div>
+      ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
       target: '.bp3-input-ghost'
     }

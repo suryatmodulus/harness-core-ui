@@ -13,6 +13,7 @@ import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '../../components/ModuleInfoCards/ModuleInfoCards'
+
 import css from './PurposePage.module.scss'
 
 interface PurposeType {

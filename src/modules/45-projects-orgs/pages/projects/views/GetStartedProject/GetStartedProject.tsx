@@ -12,8 +12,11 @@ import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import getStarted from './images/getStarted.png'
+import NeutralCard from './images/Neutral Card (1).png'
+import Boy from './images/Boy.png'
+import GirlCard from './images/Girl Card.png'
+import Frame from './images/Frame 4566.png'
 import css from './GetStartedProject.module.scss'
-import NeutralCard from './images/Neutral Card.png'
 
 const modalProps: IDialogProps = {
   isOpen: true,
@@ -51,7 +54,7 @@ const GetStartedProject: React.FC = () => {
       <Dialog {...modalProps}>
         <div style={{ display: 'flex' }}>
           <Container style={{ flex: 1, marginTop: '30px', alignItems: 'center' }}>
-            <img src={getStarted} style={{ height: '100%', width: '100%', marginTop: '50px' }} />
+            <img src={Frame} style={{ height: '100%', width: '100%', marginTop: '10px' }} />
           </Container>
           <Container style={{ flex: 2, marginTop: '30px', alignItems: 'center', marginLeft: '35px' }}>
             <h2>You are ready to go ...</h2>
@@ -115,9 +118,9 @@ const GetStartedProject: React.FC = () => {
           </Container>
           <Container style={{ flex: 2, marginTop: '30px', alignItems: 'center', marginRight: '35px' }}>
             <h2>Select your Avatar</h2>
-            <img src={NeutralCard} style={{ margin: '10px' }} />
-            <img src={NeutralCard} style={{ margin: '10px' }} />
-            <img src={NeutralCard} style={{ margin: '10px' }} />
+            <img src={NeutralCard} style={{ margin: '10px', width: '100px' }} />
+            <img src={Boy} style={{ margin: '10px', width: '100px' }} />
+            <img src={GirlCard} style={{ margin: '10px', width: '100px' }} />
             <Button intent="primary" text={'Continue'} style={{ marginTop: '75px' }} onClick={closeHandler} />
           </Container>
           )
@@ -147,11 +150,14 @@ const GetStartedProject: React.FC = () => {
   const steps = [
     {
       content: (
-        <p>
-          Let's begin our journey! Project in Harness is like your locker in a bank.You will create your pipelines
-          inside a project after building your configurations inside it.Start creating your project by clicking on
-          +Project button.{' '}
-        </p>
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p>
+            Let's begin our journey! Project in Harness is like your locker in a bank.You will create your pipelines
+            inside a project after building your configurations inside it.Start creating your project by clicking on
+            +Project button.{' '}
+          </p>
+        </div>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
       target: '.bp3-button'

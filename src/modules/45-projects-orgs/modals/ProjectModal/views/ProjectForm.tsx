@@ -22,6 +22,7 @@ import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
 import { useStrings } from 'framework/strings'
 import { NameSchema, IdentifierSchema } from '@common/utils/Validation'
+import NeutralCard from './images/Neutral Card (1).png'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
@@ -71,10 +72,13 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
   const steps = [
     {
       content: (
-        <p>
-          Organizations in NG represent the different Business Units in a Company.Select the organization for which you
-          want to create the project.
-        </p>
+        <div style={{ display: 'flex' }}>
+          <img src={NeutralCard}></img>
+          <p style={{ marginTop: '35px' }}>
+            Organizations in NG represent the different Business Units in a Company.Select the organization for which
+            you want to create the project.
+          </p>
+        </div>
       ),
       locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
       target: '.bp3-input-action'

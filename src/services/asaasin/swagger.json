@@ -303,6 +303,21 @@
         "total_users": {
           "type": "integer",
           "format": "int64"
+        },
+        "recommendations": {
+          "type": "list",
+          "items": { "type": "object", "$ref": "#/definitions/GithubRecommendations" }
+        },
+        "rarely_active_users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     },

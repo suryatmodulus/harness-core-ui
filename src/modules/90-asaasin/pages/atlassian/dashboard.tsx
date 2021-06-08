@@ -4,15 +4,64 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import React from 'react'
 import type { CellProps } from 'react-table'
-import { AtlassianDetailsResponse, useAtlassianDetails } from 'services/asaasin'
-function NameCell(tableProps: CellProps<any>): JSX.Element {
+import { AtlassianDetailsResponse, GithubMember, useAtlassianDetails } from 'services/asaasin'
+function NameCell({ name }: GithubMember): JSX.Element {
   return (
-    <Layout.Horizontal spacing="large">
+    <Layout.Horizontal
+      spacing="medium"
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'start',
+        alignContent: 'space-between',
+        alignItems: 'center',
+        minWidth: '300px',
+        boxShadow: '0px 1px 5px -4px black',
+        borderRadius: '10px',
+        marginBottom: '10px',
+        padding: '12px',
+        backgroundColor: 'white',
+        border: '1px solid transparent'
+      }}
+    >
       <Icon name="user"></Icon>
-      <Text lineClamp={3} color={Color.BLACK} style={{ alignSelf: 'center' }}>
-        {tableProps.row.original}
-      </Text>
+      <div style={{ display: 'flex', alignItems: 'center', color: 'black' }}>{name}</div>
     </Layout.Horizontal>
+  )
+}
+function TableCell(tableProps: CellProps<any>): JSX.Element {
+  return (
+    <Text lineClamp={3} color={Color.BLACK}>
+      {tableProps.value}
+    </Text>
+  )
+}
+function DollarCell(tableProps: CellProps<any>): JSX.Element {
+  return (
+    <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 'bold' }}>
+      ${tableProps.value}
+    </Text>
+  )
+}
+function RiskCell(tableProps: CellProps<any>): JSX.Element {
+  return (
+    <>
+      {tableProps.value == 1 && (
+        <Text lineClamp={3} color={Color.GREEN_300}>
+          Low
+        </Text>
+      )}
+      {tableProps.value == 2 && (
+        <Text lineClamp={3} color={Color.YELLOW_300}>
+          Moderate
+        </Text>
+      )}
+      {tableProps.value == 3 && (
+        <Text lineClamp={3} color={Color.RED_300}>
+          High
+        </Text>
+      )}
+    </>
   )
 }
 function getUtilisationChart(details: AtlassianDetailsResponse): Highcharts.Options {
@@ -205,7 +254,7 @@ const AsaasinAtlassianDashboard: React.FC = () => {
                 </Layout.Horizontal>
               </Layout.Vertical>
             </Layout.Horizontal>
-            {/* {details.recommendations.length && (
+            {details.recommendations.length && (
               <Container>
                 <Text font="medium" style={{ lineHeight: '18px', marginTop: '20px' }}>
                   Recommendations
@@ -234,59 +283,53 @@ const AsaasinAtlassianDashboard: React.FC = () => {
                   ]}
                 />
               </Container>
-            )} */}
+            )}
             {details.idle_users.length && (
               <>
                 <Text font="medium" style={{ lineHeight: '18px', marginTop: '20px' }}>
                   Inactive Users ({details.idle_users.length}/{details.total_users})
                 </Text>
-                <Container
+                <div
                   style={{
-                    overflowY: 'scroll',
-                    maxHeight: '30vh',
-                    paddingLeft: '20px',
-                    alignSelf: 'center'
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignContent: 'space-between',
+                    justifyContent: 'space-between',
+                    minHeight: '25vh',
+                    maxHeight: '40vh',
+                    maxWidth: '80vw',
+                    flexWrap: 'wrap',
+                    overflow: 'scroll'
                   }}
                 >
-                  <Layout.Horizontal spacing="medium">
-                    <Table
-                      data={details.idle_users.slice(0, details.idle_users.length / 3)}
-                      columns={[
-                        {
-                          accessor: 'login',
-                          Header: '',
-                          width: '100%',
-                          Cell: NameCell
-                        }
-                      ]}
-                    />
-                    <Table
-                      data={details.idle_users.slice(
-                        details.idle_users.length / 3,
-                        (2 * details.idle_users.length) / 3
-                      )}
-                      columns={[
-                        {
-                          accessor: 'login',
-                          Header: '',
-                          width: '100%',
-                          Cell: NameCell
-                        }
-                      ]}
-                    />
-                    <Table
-                      data={details.idle_users.slice((2 * details.idle_users.length) / 3, details.idle_users.length)}
-                      columns={[
-                        {
-                          accessor: 'login',
-                          Header: '',
-                          width: '100%',
-                          Cell: NameCell
-                        }
-                      ]}
-                    />
-                  </Layout.Horizontal>
-                </Container>
+                  {details.idle_users.map(user => {
+                    return <NameCell name={user}></NameCell>
+                  })}
+                </div>
+              </>
+            )}
+            {details.rarely_active_users?.length && (
+              <>
+                <Text font="medium" style={{ lineHeight: '18px', marginTop: '20px' }}>
+                  Rarely Active Users ({details.rarely_active_users.length}/{details.total_users})
+                </Text>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignContent: 'space-between',
+                    justifyContent: 'space-between',
+                    minHeight: '25vh',
+                    maxHeight: '40vh',
+                    maxWidth: '80vw',
+                    flexWrap: 'wrap',
+                    overflow: 'scroll'
+                  }}
+                >
+                  {details.rarely_active_users.map(user => {
+                    return <NameCell name={user.email}></NameCell>
+                  })}
+                </div>
               </>
             )}
             {/* {details.rarely_active_members.length && (

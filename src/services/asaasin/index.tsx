@@ -69,6 +69,10 @@ export interface AtlassianDetailsResponse {
   idle_users?: any
   potential_savings?: number
   total_users?: number
+  recommendations?: any
+  rarely_active_users?: {
+    email?: string
+  }[]
 }
 
 export interface PagerDutyUser {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Avatar, Button, CardBody, CardSelect, Color, IconName, Layout, Text } from '@wings-software/uicore'
+import { Card, Icon, Avatar, Button, CardBody, CardSelect, Color, IconName, Layout, Text } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import Table from '@common/components/Table/Table'
 
@@ -245,49 +245,129 @@ const AsaasinHomePage: React.FC = () => {
           }}
         >
           <Text font="large" style={{ lineHeight: '24px', width: '760px', marginTop: '20px' }}>
-            Connect SaaS Applications
+            Connected SaaS Applications
           </Text>
-          <Text font="normal" style={{ lineHeight: '24px', marginTop: '20px' }}>
+          <Text font="normal" style={{ lineHeight: '24px', marginTop: '10px', maxWidth: '40vw' }}>
             Here is a list of all the SaaS applications used in your company. Link each tool to get detailed usage and
             spend information, industry benchmarks and more. Connect with Google and other social login tools to
             effectively track Shadow IT.{' '}
           </Text>
-          <Table
-            //   className={css.instancesTable}
-            data={saasData}
-            columns={[
-              {
-                accessor: 'name',
-                Header: 'SaaS App',
-                width: '35%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'purchased_on',
-                Header: 'Purchased On',
-                width: '15%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'purchased_by',
-                Header: 'Purchased By',
-                width: '15%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'annual_spend',
-                Header: 'Annual Spend',
-                width: '15%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'status',
-                Header: 'Status',
-                width: '15%',
-                Cell: TableCell
-              }
-            ]}
-          />
+          <Layout.Horizontal spacing="xlarge">
+            <Card interactive>
+              <div>
+                <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
+                  <img
+                    src="https://img.apksum.com/32/com.pagerduty.android/6.01/icon.png"
+                    style={{ height: '102px', width: '102px' }}
+                  ></img>
+                  <Text>PagerDuty</Text>
+                </Layout.Vertical>
+              </div>
+            </Card>
+            <Card interactive>
+              <div>
+                <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
+                  <img
+                    src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                    style={{ height: '102px', width: '102px' }}
+                  ></img>
+                  <Text>Github</Text>
+                </Layout.Vertical>
+              </div>
+            </Card>
+            <Card interactive>
+              <div>
+                <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
+                  <img
+                    src="https://wac-cdn-2.atlassian.com/image/upload/f_auto,q_auto/dam/jcr:89e146b4-642e-41fc-8e65-7848337d7bdd/Atlassian-icon-blue-onecolor@2x.png"
+                    style={{ height: '102px', width: '102px' }}
+                  ></img>
+                  <Text>Atlassian</Text>
+                </Layout.Vertical>
+              </div>
+            </Card>
+          </Layout.Horizontal>
+        </Layout.Vertical>
+      )}
+
+      {currentSection == 'saas-selection' && (
+        <Layout.Vertical
+          spacing="large"
+          style={{
+            margin: '20px',
+            marginBottom: '50px'
+          }}
+        >
+          <Text font="large" style={{ lineHeight: '24px', width: '760px', marginTop: '5vh', marginBottom: '30px' }}>
+            Connect More
+          </Text>
+          <Layout.Horizontal spacing="xlarge" style={{ marginTop: '5vh' }}>
+            <Card interactive>
+              <div>
+                <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
+                  <img
+                    src="https://cdn.freelogovectors.net/wp-content/uploads/2020/10/zoom-icon-logo.png"
+                    style={{ height: '80px', width: '80px' }}
+                  ></img>
+                  <Text>Zoom</Text>
+                </Layout.Vertical>
+              </div>
+            </Card>
+            <Card interactive>
+              <div>
+                <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
+                  <img
+                    src="https://cdn.iconscout.com/icon/free/png-512/docker-226091.png"
+                    style={{ height: '80px', width: '80px' }}
+                  ></img>
+                  <Text>Docker</Text>
+                </Layout.Vertical>
+              </div>
+            </Card>
+            <Card interactive>
+              <div>
+                <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
+                  <img
+                    src="https://cdn.iconscout.com/icon/free/png-512/aws-1869025-1583149.png"
+                    style={{ height: '80px', width: '80px' }}
+                  ></img>
+                  <Text>AWS</Text>
+                </Layout.Vertical>
+              </div>
+            </Card>
+            <Card interactive>
+              <div>
+                <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
+                  <img
+                    src="https://symbols.getvecta.com/stencil_78/22_datadog-icon.b88168ad33.jpg"
+                    style={{ height: '80px', width: '80px' }}
+                  ></img>
+                  <Text>DATADOG</Text>
+                </Layout.Vertical>
+              </div>
+            </Card>
+            <Card interactive>
+              <div>
+                <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
+                  <img
+                    src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco/r80fm8bimcin1vhxgnia"
+                    style={{ height: '80px', width: '80px' }}
+                  ></img>
+                  <Text>Sapling</Text>
+                </Layout.Vertical>
+              </div>
+            </Card>
+            <Card interactive>
+              <div>
+                <Layout.Vertical spacing="large">
+                  <div>
+                    <Icon name="service-slack" size={80} />
+                  </div>
+                  <Text>Slack</Text>
+                </Layout.Vertical>
+              </div>
+            </Card>
+          </Layout.Horizontal>
           <Button
             intent="primary"
             text="skip"
@@ -302,6 +382,7 @@ const AsaasinHomePage: React.FC = () => {
           />
         </Layout.Vertical>
       )}
+
       {currentSection == 'employee-list' && (
         <Layout.Vertical
           spacing="large"

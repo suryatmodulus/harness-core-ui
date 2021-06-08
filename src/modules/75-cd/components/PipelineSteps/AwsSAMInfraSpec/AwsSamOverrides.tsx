@@ -20,8 +20,7 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from '../ShellScriptStep/ShellScript.module.scss'
 
 export const scriptInputType: SelectOption[] = [
-  { label: 'String', value: 'String' },
-  { label: 'Number', value: 'Number' }
+  { label: 'String', value: 'String' }
 ]
 
 // @ts-ignore

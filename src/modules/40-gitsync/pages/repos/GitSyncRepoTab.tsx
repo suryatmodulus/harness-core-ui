@@ -401,7 +401,6 @@ const GitSyncRepoTab: React.FC = () => {
           {repoData?.gitSyncFolderConfigDTOs?.length
             ? repoData.gitSyncFolderConfigDTOs.map((rootFolderData: GitSyncFolderConfigDTO, index: number) => {
                 const folder = '/'.concat(rootFolderData.rootFolder?.split('/.harness')[0] || '')
-                const folderPath = `${repoData.repo}/${rootFolderData.rootFolder}`
                 const linkToProvider = getExternalUrl(repoData.repo, repoData.branch, rootFolderData.rootFolder)
                 return (
                   <Layout.Horizontal
@@ -423,8 +422,10 @@ const GitSyncRepoTab: React.FC = () => {
                           {folder}
                         </Text>
                       </Container>
-                      <Container width={rootFolderData.isDefault ? '55%' : '75%'}>
+
+                      <Link href={linkToProvider} target="_blank" rel="noopener noreferrer">
                         <Text
+                          width={rootFolderData.isDefault ? '55%' : '75%'}
                           style={{
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -432,13 +433,12 @@ const GitSyncRepoTab: React.FC = () => {
                           }}
                           title={linkToProvider}
                         >
-                          <Link href={linkToProvider} target="_blank" rel="noopener noreferrer">
-                            {linkToProvider}{' '}
-                          </Link>
+                          {linkToProvider}
                         </Text>
-                      </Container>
+                      </Link>
+
                       <Container width="5%">
-                        <CopyToClipboard content={folderPath} showFeedback={true} />
+                        <CopyToClipboard content={linkToProvider} showFeedback={true} />
                       </Container>
                       {rootFolderData.isDefault && (
                         <Container width="20%">

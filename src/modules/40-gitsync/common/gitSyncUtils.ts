@@ -75,7 +75,6 @@ export const getCompleteGitPath = (repo: string, rootFolder: string, suffix: str
   repo.concat('/').concat(rootFolder).concat(suffix)
 
 export const getExternalUrl = (repo?: string, branch?: string, folderPath?: string): string => {
-  console.log(repo, branch, folderPath)
   if (repo && branch && folderPath) {
     return repo.concat('/').concat('tree').concat('/').concat(branch).concat('/').concat(folderPath)
   }

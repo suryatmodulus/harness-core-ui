@@ -52,7 +52,9 @@ const Contribution: React.FC<ContributionProps> = ({
             highcharts={Highcharts}
             options={{
               chart: {
-                type: 'line'
+                type: 'area',
+                width: 500,
+                height: 200
               },
               credits: {
                 enabled: false

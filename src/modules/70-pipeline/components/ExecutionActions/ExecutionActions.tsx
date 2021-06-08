@@ -222,6 +222,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
 
   // const handleSendNonHarnessInvitation = payload => {}
   // const handleSendHarnessInvitation = payload => {}
+  const loading = loadingSlack || loadingEmail
+  console.log('loading', loading)
 
   const [showModal, hideModal] = useModalHook(() => {
     return (
@@ -238,10 +240,9 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             onSubmit={data => {
               let payloadHarness = {}
               let payloadNonHarness = {}
-              console.log(data)
-              if (data.accountType === 'NON_HARNESS' || data.emailInvites.length) {
+              if (data.accountType === 'NON_HARNESS' || data.emailInvites?.length) {
                 let userData = null
-                if (data.emailInvites.includes({ label: 'All', value: 'All' })) {
+                if (data.emailInvites?.filter(e => e.value === 'All').length > 0) {
                   userData = nonHarnessOptions.map(item => {
                     return {
                       name: item.value,
@@ -276,9 +277,9 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
                   users: userData
                 }
               }
-              if (data.accountType === 'HARNESS' || data.slackNotification.length) {
+              if (data.accountType === 'HARNESS' || data.slackNotification?.length) {
                 let userData = null
-                if (data.slackNotification.includes({ label: 'All', value: 'All' })) {
+                if (data.slackNotification?.filter(e => e.value === 'All').length > 0) {
                   userData = nonHarnessOptions.map(item => {
                     return {
                       name: item.value,
@@ -357,8 +358,9 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
                       style={{ marginTop: '40px' }}
                       intent="primary"
                       type="submit"
-                      text={loadingSlack ? 'Sending Invites' : 'Send'}
+                      text={loading ? 'Sending Invites...' : 'Send'}
                       margin={{ top: 'large' }}
+                      disabled={loading}
                     />
                   </FormikForm>
                 </Container>
@@ -368,7 +370,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         </Container>
       </Dialog>
     )
-  }, [])
+  }, [loading])
 
   const resumeText: StringKeys = stageId
     ? 'pipeline.execution.actions.resumeStage'

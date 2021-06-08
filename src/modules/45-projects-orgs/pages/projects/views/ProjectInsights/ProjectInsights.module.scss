@@ -1,2 +1,12 @@
 .projectInsights {
+  .heatmap {
+    background: var(--grey-0) !important;
+    :global {
+      .bp3-popover-wrapper {
+        position: absolute;
+        right: 0px;
+        width: 170px !important;
+      }
+    }
+  }
 }

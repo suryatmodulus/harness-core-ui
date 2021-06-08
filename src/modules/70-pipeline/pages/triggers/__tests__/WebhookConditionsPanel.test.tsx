@@ -42,7 +42,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
   )
 }
 
-describe('WebhookConditionsPanel Triggers tests', () => {
+describe.skip('WebhookConditionsPanel Triggers tests', () => {
   describe('Renders/snapshots', () => {
     test('Initial Render - Github Trigger Conditions Panel', async () => {
       const { container } = render(<WrapperComponent initialValues={getTriggerConfigInitialValues({})} />)

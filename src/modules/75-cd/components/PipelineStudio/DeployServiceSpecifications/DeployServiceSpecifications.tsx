@@ -46,6 +46,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       enabled: true
     },
     {
+      name: SAM,
+      icon: 'app-aws-lambda',
+      enabled: true
+    },
+    {
       name: getString('serviceDeploymentTypes.amazonEcs'),
       icon: 'service-ecs',
       enabled: false
@@ -79,11 +84,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       name: getString('serviceDeploymentTypes.ssh'),
       icon: 'secret-ssh',
       enabled: false
-    },
-    {
-      name: SAM,
-      icon: 'app-aws-lambda',
-      enabled: true
     }
   ]
   const [setupModeType, setSetupMode] = React.useState('')

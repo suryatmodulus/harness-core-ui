@@ -30,14 +30,16 @@ const iconMap: { [key: string]: IconName } = {
   Rolling: 'rolling',
   Canary: 'canary',
   BlueGreen: 'bluegreen',
-  Default: 'step-group'
+  Default: 'step-group',
+  Basic: 'step-group'
 }
 
 const imageByType: { [key: string]: string } = {
   BlueGreen,
   Rolling,
   Canary,
-  Default
+  Default,
+  Basic: Default
 }
 
 type StrategyType = GetExecutionStrategyYamlQueryParams['strategyType'] | 'BlankCanvas'
@@ -51,7 +53,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
   const { getString } = useStrings()
   const [strategiesByDeploymentType, setStrategies] = useState([])
   const [isSubmitDisabled, disableSubmit] = useState(false)
-  const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>('Rolling')
+  const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>('Basic')
   const [isVerifyEnabled, setIsVerifyEnabled] = useState(false)
   const serviceDefinitionType: GetExecutionStrategyYamlQueryParams['serviceDefinitionType'] = get(
     selectedStage,
@@ -63,7 +65,8 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
     BlueGreen: getString('executionStrategy.strategies.blueGreen'),
     Rolling: getString('executionStrategy.strategies.rolling'),
     Canary: getString('executionStrategy.strategies.canary'),
-    Default: getString('executionStrategy.strategies.default')
+    Default: getString('executionStrategy.strategies.default'),
+    Basic: 'Basic Strategy'
   }
 
   const { data: strategies } = useGetExecutionStrategyList({})
@@ -79,7 +82,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
   const { data: yamlSnippet, error } = useGetExecutionStrategyYaml({
     queryParams: {
       serviceDefinitionType,
-      strategyType: selectedStrategy !== 'BlankCanvas' ? selectedStrategy : 'Rolling',
+      strategyType: selectedStrategy !== 'BlankCanvas' ? selectedStrategy : 'Basic',
       ...(isVerifyEnabled && { includeVerify: true })
     }
   })

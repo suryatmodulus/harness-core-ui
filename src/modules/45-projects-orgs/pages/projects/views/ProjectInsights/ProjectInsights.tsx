@@ -50,6 +50,15 @@ const IconMap = {
   default: 'plus'
 }
 
+const ColorMap = {
+  [ACTIVITY_TYPES_ENUM.CREATE_RESOURCE]: css.blue200,
+  [ACTIVITY_TYPES_ENUM.VIEW_RESOURCE]: css.green200,
+  [ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE]: css.red200,
+  [ACTIVITY_TYPES_ENUM.RUN_PIPELINE]: css.orange200,
+  [ACTIVITY_TYPES_ENUM.BUILD_PIPELINE]: css.yellow200,
+  [ACTIVITY_TYPES_ENUM.NEW_USER_ADDED]: css.grey200
+}
+
 const ProjectHeader: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   return (
@@ -269,7 +278,7 @@ const ProjectOverview: React.FC<{
                   <Text>{time}</Text>
                 </TimelineOppositeContent>
                 <TimelineSeparator>
-                  <TimelineDot>
+                  <TimelineDot classes={{ root: ColorMap[actType!] }}>
                     <Icon name={icon as IconName} />
                   </TimelineDot>
                   <TimelineConnector />

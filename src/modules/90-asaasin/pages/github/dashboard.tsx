@@ -10,7 +10,7 @@ function NameCell(tableProps: CellProps<any>): JSX.Element {
   return (
     <Layout.Horizontal>
       <Avatar src={tableProps.row.original.avatar_url}></Avatar>
-      <Text lineClamp={3} color={Color.BLACK}>
+      <Text lineClamp={3} color={Color.BLACK} style={{ alignSelf: 'center' }}>
         {tableProps.value}
       </Text>
     </Layout.Horizontal>

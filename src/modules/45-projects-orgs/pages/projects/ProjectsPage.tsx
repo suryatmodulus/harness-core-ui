@@ -100,11 +100,14 @@ const ProjectsListPage: React.FC = () => {
 
   const { currentUserInfo } = useAppStore()
 
+  const startTime = Date.now(),
+    endTime = Date.now() - 2592000000
+
   const { loading: fetchingProjectActivities, data: projectActivities } = useGetActivityStatsByProjects({
     queryParams: {
       userId: currentUserInfo?.uuid,
-      startTime: Date.now(),
-      endTime: Date.now() - 2592000000
+      startTime,
+      endTime
     }
   })
 

@@ -829,7 +829,7 @@ const routes = {
   toAsaasin: withAccountId(() => `/asaasin`),
   toAsaasinDashboard: withAccountId(() => `/asaasin/dashboard`),
   toAsaasinGithubDashboard: withAccountId(() => `/asaasin/github/dashboard`),
-  toAsaasinPagerDutyDashboard: withAccountId(() => `/asaasin/pagerduty/dashboard`),
+  toAsaasinPagerDutyDashboard: withAccountId(() => `/asaasin/pagerduty`),
   toCVHome: withAccountId(() => `/cv/home`),
   toCVProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>

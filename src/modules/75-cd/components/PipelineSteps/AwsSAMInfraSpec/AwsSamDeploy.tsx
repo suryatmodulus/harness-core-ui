@@ -32,6 +32,7 @@ import AwsSamOverrides from './AwsSamOverrides'
 export interface AwsSamDeployData extends StepElementConfig {
   spec: Omit<K8sRollingStepInfo, 'skipDryRun'> & {
     skipDryRun?: boolean
+    overrides?: any[]
   }
   identifier: string
 }
@@ -106,23 +107,21 @@ export class AwsSamDeploy extends PipelineStep<AwsSamDeployData> {
   protected stepIcon: IconName = 'app-aws-lambda'
   protected isHarnessSpecific = true
 
-  // processFormData(values: AwsSamDeployData): AwsSamDeployData {
-  //   if (
-  //     get(values, 'spec.instanceSelection.type') === InstanceTypes.Instances &&
-  //     has(values, 'spec.instanceSelection.spec.percentage')
-  //   ) {
-  //     delete values.spec.instanceSelection.spec.percentage
-  //   }
-  //
-  //   if (
-  //     get(values, 'spec.instanceSelection.type') === InstanceTypes.Percentage &&
-  //     has(values, 'spec.instanceSelection.spec.count')
-  //   ) {
-  //     delete values.spec.instanceSelection.spec.count
-  //   }
-  //
-  //   return values
-  // }
+  processFormData(values: AwsSamDeployData): AwsSamDeployData {
+    // @ts-ignore
+    delete values.spec?.skipDryRun
+    // @ts-ignore
+    delete values.spec?.instanceSelection
+    return {
+      ...values,
+      spec: {
+        ...values.spec,
+        overrides: Array.isArray(values.spec?.overrides)
+          ? values.spec?.overrides.filter(variable => variable.value).map(({ id, ...variable }) => variable)
+          : undefined
+      }
+    }
+  }
 
   protected defaultValues: AwsSamDeployData = {
     identifier: '',
@@ -135,11 +134,4 @@ export class AwsSamDeploy extends PipelineStep<AwsSamDeployData> {
       }
     }
   }
-  // validateInputSet(
-  //   data: AwsSamDeployData,
-  //   template?: AwsSamDeployData,
-  //   getString?: any
-  // ): FormikErrors<AwsSamDeployData> {
-  //   return undefined
-  // }
 }

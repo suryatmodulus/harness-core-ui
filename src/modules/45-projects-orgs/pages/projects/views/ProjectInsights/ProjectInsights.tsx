@@ -75,6 +75,16 @@ const ProjectHeatMap: React.FC<{
     }
   })
 
+  const dateToCountMap = useMemo(() => {
+    const currDateToCountMap: Record<number, number> = {}
+    let currDate = start
+    while (currDate <= end) {
+      currDateToCountMap[currDate] = 0
+      currDate += 86400000 // increment by a day
+    }
+    return currDateToCountMap
+  }, [])
+
   if (loading) {
     return (
       <Layout.Horizontal width={'100%'} height={300} margin={{ top: 'medium' }} className={css.heatmap}>
@@ -83,26 +93,19 @@ const ProjectHeatMap: React.FC<{
     )
   }
 
-  const values = (data?.data?.activityStatsPerTimestampList || []).map(activityStatsPerTimestamp => ({
-    data: activityStatsPerTimestamp.timestamp,
-    count:
+  ;(data?.data?.activityStatsPerTimestampList || []).map(activityStatsPerTimestamp => {
+    const date = new Date(activityStatsPerTimestamp?.timestamp as number).setHours(0, 0, 0, 0)
+    const count =
       activityStatsPerTimestamp.countPerActivityTypeList?.filter(
         countPerActivityType => countPerActivityType.activityType === activityType
-      )[0]?.count || activityStatsPerTimestamp.totalCount
-  }))
+      )[0]?.count || (activityStatsPerTimestamp.totalCount as number)
+    dateToCountMap[date] = count
+  })
 
-  //   const values = useMemo(() => {
-  //     const currValues = []
-  //     let currDate = start
-  //     while (currDate <= end) {
-  //       currValues.push({
-  //         date: currDate,
-  //         count: currDate > end - 2592000000 ? parseInt(`${Math.random() * 1000}`, 10) : 0
-  //       })
-  //       currDate += 86400000 // increment by a day
-  //     }
-  //     return currValues
-  //   }, [])
+  const values = Object.keys(dateToCountMap).map(date => ({
+    date: parseInt(date),
+    count: dateToCountMap[parseInt(date)]
+  }))
 
   const large = values.length
     ? (values as { count: number }[]).reduce((prev, curr) => (curr && prev.count < curr.count ? curr : prev)).count
@@ -130,6 +133,11 @@ const ProjectHeatMap: React.FC<{
         classForValue={classForValue}
         showWeekdayLabels
         onClick={(value: any) => setSelectedDate(value?.date as number)}
+        titleForValue={(value: any) =>
+          `Date: ${new Date(value.date).toLocaleString('default', { month: 'long', day: 'numeric' })}, Count: ${
+            value.count
+          }`
+        }
       />
       <Popover
         minimal

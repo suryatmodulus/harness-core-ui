@@ -9,19 +9,15 @@ import TimelineSeparator from '@material-ui/lab/TimelineSeparator'
 import TimelineDot from '@material-ui/lab/TimelineDot'
 import TimelineConnector from '@material-ui/lab/TimelineConnector'
 import TimelineContent from '@material-ui/lab/TimelineContent'
-import { Button, Container, Icon, Layout, Popover, Tabs, Text } from '@wings-software/uicore'
+import { Button, Color, Container, Icon, Layout, Popover, Tabs, Text } from '@wings-software/uicore'
 import { IconName, Menu, MenuItem, Position, Tab } from '@blueprintjs/core'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { PageSpinner } from '@common/components'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { Page, PageSpinner } from '@common/components'
+import routes from '@common/RouteDefinitions'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import Contribution from '@common/components/Contribution/Contribution'
-import {
-  useGetActivityHistory,
-  useGetActivityStats,
-  UserInfo,
-  useGetActivityStatsByProjects,
-  ActivityHistoryByProject
-} from 'services/cd-ng'
+import { useGetActivityHistory, useGetActivityStats, UserInfo, useGetActivityStatsByProjects } from 'services/cd-ng'
 
 import css from './UserInsights.module.scss'
 
@@ -55,6 +51,39 @@ const IconMap = {
   default: 'plus'
 }
 
+const ColorMap = {
+  [ACTIVITY_TYPES_ENUM.CREATE_RESOURCE]: css.blue200,
+  [ACTIVITY_TYPES_ENUM.VIEW_RESOURCE]: css.green200,
+  [ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE]: css.red200,
+  [ACTIVITY_TYPES_ENUM.RUN_PIPELINE]: css.orange200,
+  [ACTIVITY_TYPES_ENUM.BUILD_PIPELINE]: css.yellow200,
+  [ACTIVITY_TYPES_ENUM.NEW_USER_ADDED]: css.grey200
+}
+
+const UserHeader: React.FC = () => {
+  const { accountId } = useParams<ProjectPathProps>()
+  return (
+    <Page.Header
+      title={
+        <Layout.Vertical spacing="xsmall">
+          <Breadcrumbs
+            links={[
+              {
+                url: routes.toUserInsights({ accountId }),
+                label: 'User'
+              },
+              { url: '#', label: 'User Insights' }
+            ]}
+          />
+          <Text font={{ size: 'medium' }} color={Color.GREY_700}>
+            Insights
+          </Text>
+        </Layout.Vertical>
+      }
+    />
+  )
+}
+
 const UserHeatMap: React.FC<{
   today: number
   selectedDate: number
@@ -63,16 +92,7 @@ const UserHeatMap: React.FC<{
   setActivityType: (activityType: ACTIVITY_TYPES_ENUM) => void
   currentUserId?: string
   selectedProject?: string | null
-}> = ({
-  today,
-  selectedDate,
-  setSelectedDate,
-  projectIdentifier,
-  activityType,
-  setActivityType,
-  currentUserId,
-  selectedProject
-}) => {
+}> = ({ today, selectedDate, setSelectedDate, activityType, setActivityType, currentUserId, selectedProject }) => {
   const end = today + 86400000
   const start = end - 15552000000 // 6 months back
 
@@ -184,10 +204,9 @@ const UserHeatMap: React.FC<{
 const UserOverView: React.FC<{
   selectedDate: number
   activityType: ACTIVITY_TYPES_ENUM
-  projectIdentifier: string
   currentUserId?: string
   selectedProject: string | null
-}> = ({ selectedDate, activityType, projectIdentifier, currentUserId, selectedProject }) => {
+}> = ({ selectedDate, activityType, currentUserId, selectedProject }) => {
   const { loading, data } = useGetActivityHistory({
     queryParams: {
       userId: currentUserId,
@@ -242,17 +261,17 @@ const UserOverView: React.FC<{
                   : actType === ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE
                   ? 'updated'
                   : 'viewed'
-              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} <a>${resourceName}</a> (<b>${resourceId}</b>)`
             } else if (
               [ACTIVITY_TYPES_ENUM.RUN_PIPELINE, ACTIVITY_TYPES_ENUM.BUILD_PIPELINE].indexOf(
                 actType as ACTIVITY_TYPES_ENUM
               ) !== -1
             ) {
               const action = actType === ACTIVITY_TYPES_ENUM.BUILD_PIPELINE ? 'started build for' : 'started'
-              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} <a>${resourceName}</a> (<b>${resourceId}</b>)`
             } else if (actType === ACTIVITY_TYPES_ENUM.NEW_USER_ADDED) {
               const action = 'was added to'
-              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} ${resourceName} (<b>${resourceId}</b>)`
+              message = `${username} (<b>${userid}</b>) ${action} ${resourceType} <a>${resourceName}</a> (<b>${resourceId}</b>)`
             }
             return (
               <TimelineItem key={index}>
@@ -260,7 +279,7 @@ const UserOverView: React.FC<{
                   <Text>{time}</Text>
                 </TimelineOppositeContent>
                 <TimelineSeparator>
-                  <TimelineDot>
+                  <TimelineDot classes={{ root: ColorMap[actType!] }}>
                     <Icon name={icon as IconName} />
                   </TimelineDot>
                   <TimelineConnector />
@@ -365,13 +384,11 @@ export const UserInsights: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(today)
   const [activityType, setActivityType] = useState<ACTIVITY_TYPES_ENUM>(ACTIVITY_TYPES_ENUM.ALL)
   const [selectedProject, setSelectedProject] = useState(null)
-  const { projectIdentifier } = useParams<ProjectPathProps>()
   const { currentUserInfo } = useAppStore()
   const userHeatMapProps = {
     today,
     selectedDate,
     setSelectedDate,
-    projectIdentifier,
     activityType,
     setActivityType,
     currentUserId: currentUserInfo?.uuid,
@@ -380,7 +397,6 @@ export const UserInsights: React.FC = () => {
   const userOveriewProps = {
     selectedDate,
     activityType,
-    projectIdentifier,
     currentUserId: currentUserInfo?.uuid,
     selectedProject
   }
@@ -396,6 +412,7 @@ export const UserInsights: React.FC = () => {
 
   return (
     <Layout.Vertical className={css.userInsights}>
+      <UserHeader />
       <UserHeatMap {...userHeatMapProps} />
       <Container padding={{ left: 'medium', right: 'medium' }}>
         <Tabs id="user-insights" defaultSelectedTabId="overview" className={css.tabs}>

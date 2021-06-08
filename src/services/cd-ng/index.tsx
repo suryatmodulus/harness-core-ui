@@ -148,6 +148,16 @@ export interface ActivityDetail {
   [key: string]: any
 }
 
+export interface ActivityHistoryByProject {
+  activityStatsPerTimestampList?: ActivityStatsPerTimestamp[]
+  projectId?: string
+}
+
+export interface ActivityHistoryByUser {
+  activityStatsPerTimestampList?: ActivityStatsPerTimestamp[]
+  userId?: string
+}
+
 export interface ActivityHistoryDetails {
   activityType?:
     | 'CREATE_RESOURCE'
@@ -4805,6 +4815,20 @@ export interface ResponseSourceCodeManagerDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseStatsDetailsByProjectResponse {
+  correlationId?: string
+  data?: StatsDetailsByProjectResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseStatsDetailsByUserResponse {
+  correlationId?: string
+  data?: StatsDetailsByUserResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseStatsDetailsResponse {
   correlationId?: string
   data?: StatsDetailsResponse
@@ -5539,6 +5563,14 @@ export interface StageWhenCondition {
 
 export interface StartTrialRequestDTO {
   moduleType: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
+}
+
+export interface StatsDetailsByProjectResponse {
+  activityHistoryByUserList?: ActivityHistoryByProject[]
+}
+
+export interface StatsDetailsByUserResponse {
+  activityHistoryByUserList?: ActivityHistoryByUser[]
 }
 
 export interface StatsDetailsResponse {
@@ -6535,6 +6567,116 @@ export const getActivityStatsPromise = (
   getUsingFetch<ResponseStatsDetailsResponse, Failure | Error, GetActivityStatsQueryParams, void>(
     getConfig('ng/api'),
     `/activitytracker/statsdetails`,
+    props,
+    signal
+  )
+
+export interface GetActivityStatsByProjectsQueryParams {
+  userId?: string
+  startTime: number
+  endTime: number
+}
+
+export type GetActivityStatsByProjectsProps = Omit<
+  GetProps<ResponseStatsDetailsByProjectResponse, Failure | Error, GetActivityStatsByProjectsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get activity stats by projects
+ */
+export const GetActivityStatsByProjects = (props: GetActivityStatsByProjectsProps) => (
+  <Get<ResponseStatsDetailsByProjectResponse, Failure | Error, GetActivityStatsByProjectsQueryParams, void>
+    path={`/activitytracker/statsdetailsbyprojects`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetActivityStatsByProjectsProps = Omit<
+  UseGetProps<ResponseStatsDetailsByProjectResponse, Failure | Error, GetActivityStatsByProjectsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get activity stats by projects
+ */
+export const useGetActivityStatsByProjects = (props: UseGetActivityStatsByProjectsProps) =>
+  useGet<ResponseStatsDetailsByProjectResponse, Failure | Error, GetActivityStatsByProjectsQueryParams, void>(
+    `/activitytracker/statsdetailsbyprojects`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get activity stats by projects
+ */
+export const getActivityStatsByProjectsPromise = (
+  props: GetUsingFetchProps<
+    ResponseStatsDetailsByProjectResponse,
+    Failure | Error,
+    GetActivityStatsByProjectsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseStatsDetailsByProjectResponse, Failure | Error, GetActivityStatsByProjectsQueryParams, void>(
+    getConfig('ng/api'),
+    `/activitytracker/statsdetailsbyprojects`,
+    props,
+    signal
+  )
+
+export interface GetActivityStatsByUsersQueryParams {
+  projectId?: string
+  startTime: number
+  endTime: number
+}
+
+export type GetActivityStatsByUsersProps = Omit<
+  GetProps<ResponseStatsDetailsByUserResponse, Failure | Error, GetActivityStatsByUsersQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get activity stats by users
+ */
+export const GetActivityStatsByUsers = (props: GetActivityStatsByUsersProps) => (
+  <Get<ResponseStatsDetailsByUserResponse, Failure | Error, GetActivityStatsByUsersQueryParams, void>
+    path={`/activitytracker/statsdetailsbyusers`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetActivityStatsByUsersProps = Omit<
+  UseGetProps<ResponseStatsDetailsByUserResponse, Failure | Error, GetActivityStatsByUsersQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get activity stats by users
+ */
+export const useGetActivityStatsByUsers = (props: UseGetActivityStatsByUsersProps) =>
+  useGet<ResponseStatsDetailsByUserResponse, Failure | Error, GetActivityStatsByUsersQueryParams, void>(
+    `/activitytracker/statsdetailsbyusers`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get activity stats by users
+ */
+export const getActivityStatsByUsersPromise = (
+  props: GetUsingFetchProps<
+    ResponseStatsDetailsByUserResponse,
+    Failure | Error,
+    GetActivityStatsByUsersQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseStatsDetailsByUserResponse, Failure | Error, GetActivityStatsByUsersQueryParams, void>(
+    getConfig('ng/api'),
+    `/activitytracker/statsdetailsbyusers`,
     props,
     signal
   )

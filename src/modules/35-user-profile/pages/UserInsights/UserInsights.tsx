@@ -15,8 +15,13 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import Contribution from '@common/components/Contribution/Contribution'
-import { useGetActivityHistory, useGetActivityStats, UserInfo } from 'services/cd-ng'
-import contributions from './mocks/contribution.json'
+import {
+  useGetActivityHistory,
+  useGetActivityStats,
+  UserInfo,
+  useGetActivityStatsByProjects,
+  ActivityHistoryByProject
+} from 'services/cd-ng'
 
 import css from './UserInsights.module.scss'
 
@@ -268,15 +273,33 @@ const UserOverView: React.FC<{
   )
 }
 
-const UserContributions: React.FC<{ currentUserInfo: UserInfo }> = ({ currentUserInfo }) => {
+const UserContributions: React.FC<{ selectedDate: number; currentUserInfo: UserInfo }> = ({
+  selectedDate,
+  currentUserInfo
+}) => {
+  const { loading, data } = useGetActivityStatsByProjects({
+    queryParams: {
+      userId: currentUserInfo?.uuid,
+      // projectId: projectIdentifier,
+      startTime: selectedDate,
+      endTime: selectedDate + 86400000
+    }
+  })
+
+  if (loading) {
+    return <PageSpinner />
+  }
+
   return (
     <Layout.Masonry
       center
       gutter={30}
       width={900}
-      items={contributions.data}
-      renderItem={item => <Contribution view="USER" name={currentUserInfo.name || ''} count={item.total} />}
-      keyOf={item => item.timestamp.toString()}
+      items={data?.data?.activityHistoryByUserList || []}
+      renderItem={(item: ActivityHistoryByProject) => (
+        <Contribution view="USER" name={currentUserInfo.name || ''} count={item.total} />
+      )}
+      keyOf={item => item.projectId}
     />
   )
 }
@@ -303,13 +326,13 @@ export const UserInsights: React.FC = () => {
     currentUserId: currentUserInfo?.uuid
   }
 
-  const userContributionProps = { currentUserInfo }
+  const userContributionProps = { selectedDate, currentUserInfo }
 
   return (
     <Layout.Vertical className={css.userInsights}>
       <UserHeatMap {...userHeatMapProps} />
       <Container padding={{ left: 'medium', right: 'medium' }}>
-        <Tabs id="user-insights" defaultSelectedTabId="overview" className={css.tabs}>
+        <Tabs id="user-insights" defaultSelectedTabId="contributions" className={css.tabs}>
           <Tab
             id="overview"
             title="Overview"

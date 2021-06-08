@@ -16,5 +16,11 @@
   .panel {
     height: 570px;
     overflow: scroll;
+    :global {
+      .MuiTimelineItem-oppositeContent {
+        flex: none !important;
+        margin-left: 100px !important;
+      }
+    }
   }
 }

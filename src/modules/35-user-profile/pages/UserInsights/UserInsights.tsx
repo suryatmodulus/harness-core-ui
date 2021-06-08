@@ -336,7 +336,7 @@ const UserContributions: React.FC<{
       index
     }
   })
-  formattedData.sort((itemA, itemB) => (itemA.total < itemB.total ? -1 : 1))
+  formattedData.sort((itemA, itemB) => (itemA.total < itemB.total ? 1 : -1))
   formattedData = formattedData.map((value, index) => ({ ...value, index }))
   return (
     <Layout.Masonry
@@ -352,7 +352,7 @@ const UserContributions: React.FC<{
           count={item.total}
           data={item.data}
           selected={selectedProject === item.projectId}
-          onClick={() => setSelectedProject(item.projectId || null)}
+          onClick={() => setSelectedProject(selectedProject === item.projectId ? null : item.projectId || null)}
         />
       )}
       keyOf={item => item.projectId}

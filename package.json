@@ -65,6 +65,8 @@
     "@blueprintjs/select": "3.12.3",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "@popperjs/core": "^2.4.2",
     "@projectstorm/react-diagrams-core": "^6.2.0",
     "@testing-library/jest-dom": "^5.12.0",
@@ -77,6 +79,7 @@
     "@wings-software/ng-tooltip": "~1.30.1",
     "@wings-software/telemetry": "^1.0.36",
     "@wings-software/uicore": "0.1.187",
+    "add": "^2.0.6",
     "anser": "^2.0.1",
     "ansi-to-react": "^6.0.7",
     "classnames": "^2.2.6",
@@ -124,6 +127,7 @@
     "uuid": "^8.3.0",
     "vscode-languageserver-types": "3.15.1",
     "yaml": "^1.10.0",
+    "yarn": "^1.22.10",
     "yup": "^0.29.1"
   },
   "devDependencies": {

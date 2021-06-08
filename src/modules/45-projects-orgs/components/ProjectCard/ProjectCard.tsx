@@ -41,8 +41,8 @@ const UsageDetails: React.FC<{ projectId: string; now: number; thirtyDaysAgo: nu
   const { data: projectActivityData, loading } = useGetActivityStats({
     queryParams: {
       projectId: projectId,
-      startTime: now,
-      endTime: thirtyDaysAgo
+      startTime: thirtyDaysAgo,
+      endTime: now
     }
   })
   if (loading) {
@@ -51,16 +51,19 @@ const UsageDetails: React.FC<{ projectId: string; now: number; thirtyDaysAgo: nu
   const perDayData = (projectActivityData?.data?.activityStatsPerTimestampList || []).map(
     value => value.totalCount || 0
   )
+  const high = perDayData.reduce((prev, curr) => Math.max(prev, curr), 0)
   const parsedColumnData = [
     {
       label: undefined,
-      data: perDayData.map(value => ({
-        y: value,
-        color: `var(--primary-${3 + Math.min(5, parseInt(`${value / 100}`))})`
-      }))
+      data: perDayData.map(value => {
+        const colorKey = 1 + parseInt(`${(value * 7) / high}`)
+        return {
+          y: value,
+          color: `var(--primary-${colorKey})`
+        }
+      })
     }
   ]
-  const high = perDayData.reduce((prev, curr) => Math.max(prev, curr), 0)
   return (
     <StackedColumnChart
       data={parsedColumnData}

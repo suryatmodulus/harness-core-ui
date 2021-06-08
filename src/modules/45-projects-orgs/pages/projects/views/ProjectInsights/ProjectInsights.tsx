@@ -2,6 +2,13 @@ import * as React from 'react'
 import { useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import CalendarHeatmap from 'react-calendar-heatmap'
+import Timeline from '@material-ui/lab/Timeline'
+import TimelineItem from '@material-ui/lab/TimelineItem'
+import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent'
+import TimelineSeparator from '@material-ui/lab/TimelineSeparator'
+import TimelineDot from '@material-ui/lab/TimelineDot'
+import TimelineConnector from '@material-ui/lab/TimelineConnector'
+import TimelineContent from '@material-ui/lab/TimelineContent'
 import { Button, Color, Layout, Popover, Tabs, Text } from '@wings-software/uicore'
 import { Menu, MenuItem, Position, Tab } from '@blueprintjs/core'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -30,6 +37,15 @@ const ACTIVITY_TYPES = {
   [ACTIVITY_TYPES_ENUM.BUILD_PIPELINE]: 'Build Pipeline',
   [ACTIVITY_TYPES_ENUM.NEW_USER_ADDED]: 'User Added',
   [ACTIVITY_TYPES_ENUM.ALL]: 'All'
+}
+
+const IconMap = {
+  [ACTIVITY_TYPES_ENUM.CREATE_RESOURCE]: 'plus',
+  [ACTIVITY_TYPES_ENUM.VIEW_RESOURCE]: 'eye-open',
+  [ACTIVITY_TYPES_ENUM.UPDATE_RESOURCE]: 'edit',
+  [ACTIVITY_TYPES_ENUM.RUN_PIPELINE]: 'run-pipeline',
+  [ACTIVITY_TYPES_ENUM.BUILD_PIPELINE]: 'build',
+  [ACTIVITY_TYPES_ENUM.NEW_USER_ADDED]: 'user'
 }
 
 const ProjectHeader: React.FC = () => {
@@ -64,7 +80,7 @@ const ProjectHeatMap: React.FC<{
   activityType: ACTIVITY_TYPES_ENUM
   setActivityType: (activityType: ACTIVITY_TYPES_ENUM) => void
 }> = ({ today, selectedDate, setSelectedDate, projectIdentifier, activityType, setActivityType }) => {
-  const end = today
+  const end = today + 86400000
   const start = end - 15552000000 // 6 months back
 
   const { data, loading } = useGetActivityStats({
@@ -78,7 +94,7 @@ const ProjectHeatMap: React.FC<{
   const dateToCountMap = useMemo(() => {
     const currDateToCountMap: Record<number, number> = {}
     let currDate = start
-    while (currDate <= end) {
+    while (currDate < end) {
       currDateToCountMap[currDate] = 0
       currDate += 86400000 // increment by a day
     }
@@ -130,7 +146,7 @@ const ProjectHeatMap: React.FC<{
     <Layout.Horizontal width={'100%'} height={300} margin={{ top: 'medium' }} className={css.heatmap}>
       <CalendarHeatmap
         startDate={start}
-        endDate={end}
+        endDate={today}
         values={values}
         classForValue={classForValue}
         showWeekdayLabels
@@ -172,10 +188,34 @@ const ProjectHeatMap: React.FC<{
 }
 
 const ProjectOverview: React.FC<{ selectedDate: number }> = ({ selectedDate }) => {
-  return <Text>{selectedDate}</Text>
+  return (
+    <Timeline>
+      {Array(10)
+        .fill('')
+        .map((value, index) => (
+          <TimelineItem key={index}>
+            <TimelineOppositeContent>
+              <Text>9:30 am</Text>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot>
+                <>Icon</>
+              </TimelineDot>
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>
+              <Layout.Horizontal>
+                <Text>Eat</Text>
+                <Text>Because you need strength</Text>
+              </Layout.Horizontal>
+            </TimelineContent>
+          </TimelineItem>
+        ))}
+    </Timeline>
+  )
 }
 
-const ProjectContributions: React.FC<> = () => {
+const ProjectContributions: React.FC = () => {
   return <Text>Contributions</Text>
 }
 

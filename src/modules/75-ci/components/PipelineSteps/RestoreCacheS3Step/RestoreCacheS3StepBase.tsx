@@ -215,6 +215,7 @@ export const RestoreCacheS3StepBase = (
                   disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
+                disabled={readonly}
               />
               <FormMultiTypeCheckboxField
                 name="spec.pathStyle"

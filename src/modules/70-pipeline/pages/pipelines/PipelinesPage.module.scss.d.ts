@@ -25,10 +25,9 @@ declare const styles: {
   readonly lastExecutionTs: string
   readonly clickable: string
   readonly actionButton: string
-  readonly gridView: string
   readonly gridLayout: string
-  readonly pageBody: string
   readonly pagination: string
+  readonly pageBody: string
   readonly loading: string
   readonly noData: string
   readonly noPipelineSection: string

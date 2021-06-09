@@ -45,7 +45,7 @@ export default function CreatePipelines({
   }
   const isEdit = (initialValues?.identifier?.length || '') > 0
   return (
-    <Container className={css.container} background={isGitSyncEnabled ? Color.FORM_BG : ''}>
+    <Container className={css.container} background={Color.FORM_BG}>
       <Button icon="cross" minimal className={css.closeModal} onClick={closeModal} />
       <div className={css.heading}>{isEdit ? getString('editPipeline') : getString('moduleRenderer.newPipeLine')}</div>
       <Container padding="xsmall" className={css.layout}>

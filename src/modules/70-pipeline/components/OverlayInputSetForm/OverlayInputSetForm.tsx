@@ -630,6 +630,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                           schema={pipelineSchema?.data}
                           isReadOnlyMode={isReadOnly}
                           showSnippetSection={false}
+                          isEditModeSupported={!isReadOnly}
                         />
                       )}
                       <Layout.Horizontal padding={{ top: 'medium' }}>

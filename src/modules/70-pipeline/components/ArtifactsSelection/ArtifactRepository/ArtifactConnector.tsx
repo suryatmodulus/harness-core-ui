@@ -126,6 +126,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                       onChange={value => {
                         formik.setFieldValue('connectorId', value)
                       }}
+                      isReadonly={isReadonly}
                     />
                   </div>
                 ) : (

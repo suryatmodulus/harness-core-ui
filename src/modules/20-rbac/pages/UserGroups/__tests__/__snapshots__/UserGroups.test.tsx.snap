@@ -1181,18 +1181,18 @@ exports[`UsersPage Test render data 1`] = `
               <span
                 class="bp3-popover-target"
               >
-                <button
+                <a
                   class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main roleButton Button--with-current-color Button--without-shadow"
                   disabled=""
+                  role="button"
                   tabindex="-1"
-                  type="button"
                 >
                   <span
                     class="bp3-button-text"
                   >
                     plusNumber
                   </span>
-                </button>
+                </a>
               </span>
             </span>
           </div>

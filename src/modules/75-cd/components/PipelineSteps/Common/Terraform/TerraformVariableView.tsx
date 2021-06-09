@@ -11,7 +11,6 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
   const { getString } = useStrings()
   return (
     <>
-      <VariablesListTable data={variablesData} originalData={initialValues} metadataMap={metadataMap} />
       {initialValues?.spec?.configuration?.type === 'Inline' ||
         (props?.stepType === 'TerrafomPlan' && (
           <>

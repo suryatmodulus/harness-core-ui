@@ -1,8 +1,8 @@
 import React from 'react'
 import { LogLine } from '@common/components/LogViewer/LogLine'
 
-import { getRegexForSearch } from '../LogsState/utils'
-import type { LogLineData } from '../LogsState/types'
+import { getRegexForSearch } from '../../LogsState/utils'
+import type { LogLineData } from '../../LogsState/types'
 import css from './MultiLogLine.module.scss'
 
 export interface GetTextWithSearchMarkersProps {

@@ -3,7 +3,7 @@ import { Icon, IconName } from '@wings-software/uicore'
 
 import { Duration } from '@common/components'
 
-import css from './GroupedHeader.module.scss'
+import css from './GroupHeader.module.scss'
 
 export type LogViewerAccordionStatus = 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'NOT_STARTED' | 'LOADING' | 'QUEUED'
 

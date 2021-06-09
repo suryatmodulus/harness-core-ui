@@ -60,6 +60,7 @@ export interface ImagePathProps {
   initialValues: ImagePathTypes
   handleSubmit: (data: ArtifactConfig) => void
   artifactIdentifiers: string[]
+  isReadonly?: boolean
 }
 
 export interface ConnectorRefLabelType {

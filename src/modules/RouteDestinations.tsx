@@ -30,6 +30,7 @@ export default function RouteDestinations(): React.ReactElement {
       {...NG_RBAC_ENABLED ? rbacRoutes.props.children : []}
       {...delegatesRoutes.props.children}
       {...projectsOrgsRoutes.props.children}
+      {...DASHBOARDRoutes.props.children}
       {...connectorRoutes.props.children}
       {...userProfileRoutes.props.children}
       {...CING_ENABLED ? CIRoutes.props.children : []}
@@ -37,7 +38,6 @@ export default function RouteDestinations(): React.ReactElement {
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
       {...CENG_ENABLED ? CERoutes.props.children : []}
       {...CFNG_ENABLED ? CFRoutes.props.children : []}
-      {DASHBOARDRoutes.props.children}
       <Route path="*">
         <NotFoundPage />
       </Route>

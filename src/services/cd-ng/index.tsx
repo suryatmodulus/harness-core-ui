@@ -168,8 +168,10 @@ export type AddSegmentToVariationTargetMapYaml = PatchInstruction & {
 }
 
 export interface AddSegmentToVariationTargetMapYamlSpec {
-  segments?: string[]
-  variation?: string
+  identifier?: ParameterFieldString
+  name?: ParameterFieldString
+  segments?: ParameterFieldListString
+  variation?: ParameterFieldString
 }
 
 export type AddTargetsToVariationTargetMapYaml = PatchInstruction & {
@@ -183,8 +185,10 @@ export type AddTargetsToVariationTargetMapYaml = PatchInstruction & {
 }
 
 export interface AddTargetsToVariationTargetMapYamlSpec {
-  targets?: string[]
-  variation?: string
+  identifier?: ParameterFieldString
+  name?: ParameterFieldString
+  targets?: ParameterFieldListString
+  variation?: ParameterFieldString
 }
 
 export interface AggregateACLRequest {
@@ -3547,6 +3551,16 @@ export interface ParameterFieldBoolean {
   value?: boolean
 }
 
+export interface ParameterFieldListString {
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: string[]
+}
+
 export interface ParameterFieldString {
   expression?: boolean
   expressionValue?: string
@@ -3734,8 +3748,10 @@ export type RemoveSegmentToVariationTargetMapYaml = PatchInstruction & {
 }
 
 export interface RemoveSegmentToVariationTargetMapYamlSpec {
-  segments?: string[]
-  variation?: string
+  identifier?: ParameterFieldString
+  name?: ParameterFieldString
+  segments?: ParameterFieldListString
+  variation?: ParameterFieldString
 }
 
 export type RemoveTargetsToVariationTargetMapYaml = PatchInstruction & {
@@ -3749,8 +3765,10 @@ export type RemoveTargetsToVariationTargetMapYaml = PatchInstruction & {
 }
 
 export interface RemoveTargetsToVariationTargetMapYamlSpec {
-  targets?: string[]
-  variation?: string
+  identifier?: ParameterFieldString
+  name?: ParameterFieldString
+  targets?: ParameterFieldListString
+  variation?: ParameterFieldString
 }
 
 export type ResourceConstraintStepInfo = StepSpecType & {
@@ -5337,7 +5355,9 @@ export type SetFeatureFlagStateYaml = PatchInstruction & {
 }
 
 export interface SetFeatureFlagStateYamlSpec {
-  state?: string
+  identifier?: ParameterFieldString
+  name?: ParameterFieldString
+  state?: ParameterFieldString
 }
 
 export interface SetupUsageDetail {
@@ -7087,6 +7107,9 @@ export interface GetBuildDetailsForDockerQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetBuildDetailsForDockerProps = Omit<
@@ -7517,6 +7540,9 @@ export interface GetBuildDetailsForEcrQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetBuildDetailsForEcrProps = Omit<
@@ -7949,6 +7975,9 @@ export interface GetBuildDetailsForGcrQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetBuildDetailsForGcrProps = Omit<

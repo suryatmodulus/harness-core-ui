@@ -304,1189 +304,1185 @@ exports[`CD Pipeline Page List render card view 1`] = `
       </div>
     </div>
     <div
-      class="gridView"
+      class="StyledProps--font StyledProps--main gridLayout"
     >
       <div
-        class="gridLayout"
+        class="StyledProps--font StyledProps--main uicore-masonry-layout--container0 StyledProps--padding-xxxlarge"
+        style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
       >
         <div
-          class="StyledProps--font StyledProps--main uicore-masonry-layout--container0 StyledProps--padding-xxxlarge"
-          style="margin: 0px auto; width: 0px; height: 0px; position: relative;"
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
-            class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
-            style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard Card--interactive"
+            tabindex="0"
           >
             <div
-              class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard Card--interactive"
-              tabindex="0"
+              class="StyledProps--font StyledProps--main pipelineTitle StyledProps--padding-bottom-medium"
             >
-              <div
-                class="StyledProps--font StyledProps--main pipelineTitle StyledProps--padding-bottom-medium"
-              >
-                <span>
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="cd-main"
-                  >
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 26 21"
-                      width="20"
-                    >
-                      <path
-                        clip-rule="evenodd"
-                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
-                        fill="url(#cd-main_svg__paint0_linear)"
-                        fill-rule="evenodd"
-                      />
-                      <defs>
-                        <lineargradient
-                          gradientUnits="userSpaceOnUse"
-                          id="cd-main_svg__paint0_linear"
-                          x1="3.557"
-                          x2="8.848"
-                          y1="9.622"
-                          y2="18.787"
-                        >
-                          <stop
-                            stop-color="#62F91F"
-                          />
-                          <stop
-                            offset="1"
-                            stop-color="#5EAA53"
-                          />
-                        </lineargradient>
-                      </defs>
-                    </svg>
-                  </span>
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="ci-main"
-                  >
-                    <svg
-                      fill="none"
-                      height="16"
-                      viewBox="0 0 20 20"
-                      width="16"
-                    >
-                      <path
-                        clip-rule="evenodd"
-                        d="M12.005 10.97a2.9 2.9 0 01-3.003-2.96 2.9 2.9 0 013.002-3.008 2.927 2.927 0 012.994 3.007 2.882 2.882 0 01-2.993 2.989v-.027zM6 .9a9.987 9.987 0 014.203-.9C15.56-.053 19.945 4.258 20 9.63v.144A9.928 9.928 0 0119.103 14l-3.092-3.102a5.15 5.15 0 00.762-2.697 4.743 4.743 0 00-4.93-4.937 5.013 5.013 0 00-2.688.765L6 .899zM3.991 2.2l-.099.09L7.36 5.734a5.16 5.16 0 00-.766 2.762c-.081 2.635 1.977 4.838 4.597 4.921.116.003.232.002.349-.002a5.116 5.116 0 002.774-.77L17.8 16.13A9.792 9.792 0 019.91 20c-5.393.08-9.829-4.25-9.908-9.673L0 10.153A9.645 9.645 0 013.99 2.2z"
-                        fill="url(#ci-main_svg__paint0_linear)"
-                        fill-rule="evenodd"
-                      />
-                      <defs>
-                        <lineargradient
-                          gradientUnits="userSpaceOnUse"
-                          id="ci-main_svg__paint0_linear"
-                          x1="-6.46"
-                          x2="6.46"
-                          y1="6.46"
-                          y2="26.46"
-                        >
-                          <stop
-                            stop-color="#73DFE7"
-                          />
-                          <stop
-                            offset="1"
-                            stop-color="#0095F7"
-                          />
-                        </lineargradient>
-                      </defs>
-                    </svg>
-                  </span>
-                </span>
-                <div
-                  class="Card--cardMenu menu"
+              <span>
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="cd-main"
                 >
-                  <div
-                    class="Card--dots"
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 26 21"
+                    width="20"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                      fill="url(#cd-main_svg__paint0_linear)"
+                      fill-rule="evenodd"
+                    />
+                    <defs>
+                      <lineargradient
+                        gradientUnits="userSpaceOnUse"
+                        id="cd-main_svg__paint0_linear"
+                        x1="3.557"
+                        x2="8.848"
+                        y1="9.622"
+                        y2="18.787"
+                      >
+                        <stop
+                          stop-color="#62F91F"
+                        />
+                        <stop
+                          offset="1"
+                          stop-color="#5EAA53"
+                        />
+                      </lineargradient>
+                    </defs>
+                  </svg>
+                </span>
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="ci-main"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 20 20"
+                    width="16"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M12.005 10.97a2.9 2.9 0 01-3.003-2.96 2.9 2.9 0 013.002-3.008 2.927 2.927 0 012.994 3.007 2.882 2.882 0 01-2.993 2.989v-.027zM6 .9a9.987 9.987 0 014.203-.9C15.56-.053 19.945 4.258 20 9.63v.144A9.928 9.928 0 0119.103 14l-3.092-3.102a5.15 5.15 0 00.762-2.697 4.743 4.743 0 00-4.93-4.937 5.013 5.013 0 00-2.688.765L6 .899zM3.991 2.2l-.099.09L7.36 5.734a5.16 5.16 0 00-.766 2.762c-.081 2.635 1.977 4.838 4.597 4.921.116.003.232.002.349-.002a5.116 5.116 0 002.774-.77L17.8 16.13A9.792 9.792 0 019.91 20c-5.393.08-9.829-4.25-9.908-9.673L0 10.153A9.645 9.645 0 013.99 2.2z"
+                      fill="url(#ci-main_svg__paint0_linear)"
+                      fill-rule="evenodd"
+                    />
+                    <defs>
+                      <lineargradient
+                        gradientUnits="userSpaceOnUse"
+                        id="ci-main_svg__paint0_linear"
+                        x1="-6.46"
+                        x2="6.46"
+                        y1="6.46"
+                        y2="26.46"
+                      >
+                        <stop
+                          stop-color="#73DFE7"
+                        />
+                        <stop
+                          offset="1"
+                          stop-color="#0095F7"
+                        />
+                      </lineargradient>
+                    </defs>
+                  </svg>
+                </span>
+              </span>
+              <div
+                class="Card--cardMenu menu"
+              >
+                <div
+                  class="Card--dots"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
                   >
                     <span
-                      class="bp3-popover-wrapper bp3-dark"
+                      class="bp3-popover-target"
                     >
-                      <span
-                        class="bp3-popover-target"
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        type="button"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
-                          type="button"
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="Options"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="Options"
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 4 16"
+                            width="16"
                           >
-                            <svg
-                              fill="none"
-                              height="16"
-                              viewBox="0 0 4 16"
-                              width="16"
-                            >
-                              <path
-                                clip-rule="evenodd"
-                                d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                                fill="currentColor"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-                      </span>
+                            <path
+                              clip-rule="evenodd"
+                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
                     </span>
-                  </div>
+                  </span>
                 </div>
               </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
+            >
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
-              >
-                <div
-                  class="pipelineNameSections"
-                >
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
-                    data-testid="pipeline1"
-                    style="--text-line-clamp: 2;"
-                  >
-                    pipeline1
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
-                  >
-                    idLabel
-                    pipeline1
-                  </p>
-                </div>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-large"
+                class="pipelineNameSections"
               >
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey400"
+                  class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                  data-testid="pipeline1"
                   style="--text-line-clamp: 2;"
                 >
                   pipeline1
                 </p>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-medium"
-              >
                 <p
-                  class="StyledProps--font StyledProps--main serviceLabel StyledProps--font-small StyledProps--color StyledProps--color-grey400"
+                  class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
                 >
-                  services
+                  idLabel
+                  pipeline1
                 </p>
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
-                  style="--text-line-clamp: 1;"
-                >
-                  nginx service
-                </p>
-              </div>
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
-              >
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                >
-                  <span>
-                    lastRunAtDate
-                  </span>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                    style="display: flex; align-items: center;"
-                  >
-                    1612888596211
-                    <span
-                      class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
-                      icon="full-circle"
-                    >
-                      <svg
-                        data-icon="full-circle"
-                        height="8"
-                        viewBox="0 0 16 16"
-                        width="8"
-                      >
-                        <desc>
-                          full-circle
-                        </desc>
-                        <path
-                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </p>
-                </div>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-large StyledProps--padding-bottom-small"
-                  style="align-items: flex-end;"
-                >
-                  <div
-                    class="Layout--horizontal StyledProps--main"
-                  >
-                    <div
-                      style="margin-right: 12px;"
-                    >
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        executionsText
-                      </p>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        (
-                        lastSevenDays
-                        )
-                      </p>
-                    </div>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
-                    >
-                      1
-                    </p>
-                  </div>
-                  <span
-                    class="activityChart"
-                  >
-                    <div
-                      class="StyledProps--font StyledProps--main SparkChart--main"
-                      role="spark-chart"
-                    >
-                      <div
-                        class="container vertical rounded"
-                      >
-                        <div
-                          class="progress-bar"
-                          role="spark"
-                        >
-                          <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
-                        </div>
-                        <div
-                          class="progress-bar"
-                          role="spark"
-                        >
-                          <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
-                        </div>
-                        <div
-                          class="progress-bar"
-                          role="spark"
-                        >
-                          <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
-                        </div>
-                        <div
-                          class="progress-bar"
-                          role="spark"
-                        >
-                          <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
-                        </div>
-                        <div
-                          class="progress-bar"
-                          role="spark"
-                        >
-                          <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
-                        </div>
-                        <div
-                          class="progress-bar"
-                          role="spark"
-                        >
-                          <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 50%;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 50%; bottom: 50%;"
-                            />
-                          </div>
-                        </div>
-                        <div
-                          class="progress-bar"
-                          role="spark"
-                        >
-                          <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </span>
-                </div>
-              </div>
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-bottom-small"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main runPipelineBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                  data-testid="card-run-pipeline"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
-                    data-icon="run-pipeline"
-                  >
-                    <svg
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <defs>
-                        <path
-                          d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
-                          id="run-pipeline_svg__a"
-                        />
-                      </defs>
-                      <clippath
-                        id="run-pipeline_svg__b"
-                      >
-                        <use
-                          overflow="visible"
-                          xlink:href="#run-pipeline_svg__a"
-                        />
-                      </clippath>
-                      <path
-                        clip-path="url(#run-pipeline_svg__b)"
-                        d="M-5-5h26v26H-5z"
-                        fill="#54b610"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="bp3-button-text"
-                  >
-                    <span>
-                      runPipelineText
-                    </span>
-                  </span>
-                </button>
               </div>
             </div>
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
-            style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
-          >
             <div
-              class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard Card--interactive"
-              tabindex="0"
+              class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-large"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey400"
+                style="--text-line-clamp: 2;"
+              >
+                pipeline1
+              </p>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-medium"
+            >
+              <p
+                class="StyledProps--font StyledProps--main serviceLabel StyledProps--font-small StyledProps--color StyledProps--color-grey400"
+              >
+                services
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
+                style="--text-line-clamp: 1;"
+              >
+                nginx service
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
             >
               <div
-                class="StyledProps--font StyledProps--main pipelineTitle StyledProps--padding-bottom-medium"
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <span>
+                  lastRunAtDate
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                  style="display: flex; align-items: center;"
+                >
+                  1612888596211
                   <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="cd-main"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
+                    icon="full-circle"
                   >
                     <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 26 21"
-                      width="20"
+                      data-icon="full-circle"
+                      height="8"
+                      viewBox="0 0 16 16"
+                      width="8"
                     >
+                      <desc>
+                        full-circle
+                      </desc>
                       <path
-                        clip-rule="evenodd"
-                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
-                        fill="url(#cd-main_svg__paint0_linear)"
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
                         fill-rule="evenodd"
                       />
-                      <defs>
-                        <lineargradient
-                          gradientUnits="userSpaceOnUse"
-                          id="cd-main_svg__paint0_linear"
-                          x1="3.557"
-                          x2="8.848"
-                          y1="9.622"
-                          y2="18.787"
-                        >
-                          <stop
-                            stop-color="#62F91F"
-                          />
-                          <stop
-                            offset="1"
-                            stop-color="#5EAA53"
-                          />
-                        </lineargradient>
-                      </defs>
                     </svg>
                   </span>
-                </span>
-                <div
-                  class="Card--cardMenu menu"
-                >
-                  <div
-                    class="Card--dots"
-                  >
-                    <span
-                      class="bp3-popover-wrapper bp3-dark"
-                    >
-                      <span
-                        class="bp3-popover-target"
-                      >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="Options"
-                          >
-                            <svg
-                              fill="none"
-                              height="16"
-                              viewBox="0 0 4 16"
-                              width="16"
-                            >
-                              <path
-                                clip-rule="evenodd"
-                                d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                                fill="currentColor"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
-              >
-                <div
-                  class="pipelineNameSections"
-                >
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
-                    data-testid="First_pipeline"
-                    style="--text-line-clamp: 2;"
-                  >
-                    First pipeline
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
-                  >
-                    idLabel
-                    First_pipeline
-                  </p>
-                </div>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-medium"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main serviceLabel StyledProps--font-small StyledProps--color StyledProps--color-grey400"
-                >
-                  services
-                </p>
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
-                  style="--text-line-clamp: 1;"
-                >
-                  nginx service
                 </p>
               </div>
               <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-large StyledProps--padding-bottom-small"
+                style="align-items: flex-end;"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                >
-                  <span>
-                    lastRunAtDate
-                  </span>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                    style="display: flex; align-items: center;"
-                  >
-                    1612867219333
-                    <span
-                      class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-green800"
-                      icon="full-circle"
-                    >
-                      <svg
-                        data-icon="full-circle"
-                        height="8"
-                        viewBox="0 0 16 16"
-                        width="8"
-                      >
-                        <desc>
-                          full-circle
-                        </desc>
-                        <path
-                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </p>
-                </div>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-large StyledProps--padding-bottom-small"
-                  style="align-items: flex-end;"
+                  class="Layout--horizontal StyledProps--main"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main"
+                    style="margin-right: 12px;"
                   >
-                    <div
-                      style="margin-right: 12px;"
-                    >
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        executionsText
-                      </p>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        (
-                        lastSevenDays
-                        )
-                      </p>
-                    </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
+                      class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                      style="--text-line-clamp: 2;"
                     >
-                      9
+                      executionsText
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                      style="--text-line-clamp: 2;"
+                    >
+                      (
+                      lastSevenDays
+                      )
                     </p>
                   </div>
-                  <span
-                    class="activityChart"
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
+                  >
+                    1
+                  </p>
+                </div>
+                <span
+                  class="activityChart"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main SparkChart--main"
+                    role="spark-chart"
                   >
                     <div
-                      class="StyledProps--font StyledProps--main SparkChart--main"
-                      role="spark-chart"
+                      class="container vertical rounded"
                     >
                       <div
-                        class="container vertical rounded"
+                        class="progress-bar"
+                        role="spark"
                       >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 14.285714285714285%;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 14.285714285714285%; bottom: 14.285714285714285%;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 50%;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 50%; bottom: 50%;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 50%;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 50%; bottom: 50%;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
                         </div>
                       </div>
                     </div>
-                  </span>
-                </div>
-              </div>
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-bottom-small"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main runPipelineBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                  data-testid="card-run-pipeline"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
-                    data-icon="run-pipeline"
-                  >
-                    <svg
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <defs>
-                        <path
-                          d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
-                          id="run-pipeline_svg__a"
-                        />
-                      </defs>
-                      <clippath
-                        id="run-pipeline_svg__b"
-                      >
-                        <use
-                          overflow="visible"
-                          xlink:href="#run-pipeline_svg__a"
-                        />
-                      </clippath>
-                      <path
-                        clip-path="url(#run-pipeline_svg__b)"
-                        d="M-5-5h26v26H-5z"
-                        fill="#54b610"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="bp3-button-text"
-                  >
-                    <span>
-                      runPipelineText
-                    </span>
-                  </span>
-                </button>
+                  </div>
+                </span>
               </div>
             </div>
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
-            style="margin-bottom: 30px; position: absolute; left: 0px; top: 0px;"
-          >
             <div
-              class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard Card--interactive"
-              tabindex="0"
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-bottom-small"
             >
-              <div
-                class="StyledProps--font StyledProps--main pipelineTitle StyledProps--padding-bottom-medium"
+              <button
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main runPipelineBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                data-testid="card-run-pipeline"
+                type="button"
               >
-                <span>
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="cd-main"
+                <span
+                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  data-icon="run-pipeline"
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
                   >
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 26 21"
-                      width="20"
-                    >
+                    <defs>
                       <path
-                        clip-rule="evenodd"
-                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
-                        fill="url(#cd-main_svg__paint0_linear)"
-                        fill-rule="evenodd"
+                        d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
+                        id="run-pipeline_svg__a"
                       />
-                      <defs>
-                        <lineargradient
-                          gradientUnits="userSpaceOnUse"
-                          id="cd-main_svg__paint0_linear"
-                          x1="3.557"
-                          x2="8.848"
-                          y1="9.622"
-                          y2="18.787"
-                        >
-                          <stop
-                            stop-color="#62F91F"
-                          />
-                          <stop
-                            offset="1"
-                            stop-color="#5EAA53"
-                          />
-                        </lineargradient>
-                      </defs>
-                    </svg>
-                  </span>
-                </span>
-                <div
-                  class="Card--cardMenu menu"
-                >
-                  <div
-                    class="Card--dots"
-                  >
-                    <span
-                      class="bp3-popover-wrapper bp3-dark"
+                    </defs>
+                    <clippath
+                      id="run-pipeline_svg__b"
                     >
-                      <span
-                        class="bp3-popover-target"
-                      >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="Options"
-                          >
-                            <svg
-                              fill="none"
-                              height="16"
-                              viewBox="0 0 4 16"
-                              width="16"
-                            >
-                              <path
-                                clip-rule="evenodd"
-                                d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                                fill="currentColor"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
-              >
-                <div
-                  class="pipelineNameSections"
-                >
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
-                    data-testid="Second_Pipeline"
-                    style="--text-line-clamp: 2;"
-                  >
-                    Second Pipeline
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
-                  >
-                    idLabel
-                    Second_Pipeline
-                  </p>
-                </div>
-              </div>
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
-              >
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                      <use
+                        overflow="visible"
+                        xlink:href="#run-pipeline_svg__a"
+                      />
+                    </clippath>
+                    <path
+                      clip-path="url(#run-pipeline_svg__b)"
+                      d="M-5-5h26v26H-5z"
+                      fill="#54b610"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="bp3-button-text"
                 >
                   <span>
-                    lastRunAtDate
+                    runPipelineText
                   </span>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                    style="display: flex; align-items: center;"
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
+        >
+          <div
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard Card--interactive"
+            tabindex="0"
+          >
+            <div
+              class="StyledProps--font StyledProps--main pipelineTitle StyledProps--padding-bottom-medium"
+            >
+              <span>
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="cd-main"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 26 21"
+                    width="20"
                   >
-                    1612787988402
-                    <span
-                      class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
-                      icon="full-circle"
-                    >
-                      <svg
-                        data-icon="full-circle"
-                        height="8"
-                        viewBox="0 0 16 16"
-                        width="8"
+                    <path
+                      clip-rule="evenodd"
+                      d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                      fill="url(#cd-main_svg__paint0_linear)"
+                      fill-rule="evenodd"
+                    />
+                    <defs>
+                      <lineargradient
+                        gradientUnits="userSpaceOnUse"
+                        id="cd-main_svg__paint0_linear"
+                        x1="3.557"
+                        x2="8.848"
+                        y1="9.622"
+                        y2="18.787"
                       >
-                        <desc>
-                          full-circle
-                        </desc>
-                        <path
-                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                          fill-rule="evenodd"
+                        <stop
+                          stop-color="#62F91F"
                         />
-                      </svg>
-                    </span>
-                  </p>
-                </div>
+                        <stop
+                          offset="1"
+                          stop-color="#5EAA53"
+                        />
+                      </lineargradient>
+                    </defs>
+                  </svg>
+                </span>
+              </span>
+              <div
+                class="Card--cardMenu menu"
+              >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-large StyledProps--padding-bottom-small"
-                  style="align-items: flex-end;"
+                  class="Card--dots"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="Options"
+                        >
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 4 16"
+                            width="16"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
+            >
+              <div
+                class="pipelineNameSections"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                  data-testid="First_pipeline"
+                  style="--text-line-clamp: 2;"
+                >
+                  First pipeline
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
+                >
+                  idLabel
+                  First_pipeline
+                </p>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-medium"
+            >
+              <p
+                class="StyledProps--font StyledProps--main serviceLabel StyledProps--font-small StyledProps--color StyledProps--color-grey400"
+              >
+                services
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
+                style="--text-line-clamp: 1;"
+              >
+                nginx service
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <span>
+                  lastRunAtDate
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                  style="display: flex; align-items: center;"
+                >
+                  1612867219333
+                  <span
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-green800"
+                    icon="full-circle"
+                  >
+                    <svg
+                      data-icon="full-circle"
+                      height="8"
+                      viewBox="0 0 16 16"
+                      width="8"
+                    >
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </p>
+              </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-large StyledProps--padding-bottom-small"
+                style="align-items: flex-end;"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main"
+                    style="margin-right: 12px;"
                   >
-                    <div
-                      style="margin-right: 12px;"
-                    >
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        executionsText
-                      </p>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        (
-                        lastSevenDays
-                        )
-                      </p>
-                    </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
+                      class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                      style="--text-line-clamp: 2;"
                     >
-                      1
+                      executionsText
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                      style="--text-line-clamp: 2;"
+                    >
+                      (
+                      lastSevenDays
+                      )
                     </p>
                   </div>
-                  <span
-                    class="activityChart"
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
+                  >
+                    9
+                  </p>
+                </div>
+                <span
+                  class="activityChart"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main SparkChart--main"
+                    role="spark-chart"
                   >
                     <div
-                      class="StyledProps--font StyledProps--main SparkChart--main"
-                      role="spark-chart"
+                      class="container vertical rounded"
                     >
                       <div
-                        class="container vertical rounded"
+                        class="progress-bar"
+                        role="spark"
                       >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 50%;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 50%; bottom: 50%;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 14.285714285714285%;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 14.285714285714285%; bottom: 14.285714285714285%;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 50%;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 50%; bottom: 50%;"
+                          />
                         </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
                         <div
-                          class="progress-bar"
-                          role="spark"
+                          class="progress-track"
                         >
                           <div
-                            class="progress-track"
-                          >
-                            <div
-                              class="progress-fill"
-                              style="height: 2px;"
-                            />
-                            <div
-                              class="progress-fill"
-                              style="height: 0%; bottom: 2px;"
-                            />
-                          </div>
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
                         </div>
                       </div>
                     </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-bottom-small"
+            >
+              <button
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main runPipelineBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                data-testid="card-run-pipeline"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  data-icon="run-pipeline"
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <defs>
+                      <path
+                        d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
+                        id="run-pipeline_svg__a"
+                      />
+                    </defs>
+                    <clippath
+                      id="run-pipeline_svg__b"
+                    >
+                      <use
+                        overflow="visible"
+                        xlink:href="#run-pipeline_svg__a"
+                      />
+                    </clippath>
+                    <path
+                      clip-path="url(#run-pipeline_svg__b)"
+                      d="M-5-5h26v26H-5z"
+                      fill="#54b610"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="bp3-button-text"
+                >
+                  <span>
+                    runPipelineText
+                  </span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main uicore-masonry-layout--item-0"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
+        >
+          <div
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card pipelineCard Card--interactive"
+            tabindex="0"
+          >
+            <div
+              class="StyledProps--font StyledProps--main pipelineTitle StyledProps--padding-bottom-medium"
+            >
+              <span>
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="cd-main"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 26 21"
+                    width="20"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                      fill="url(#cd-main_svg__paint0_linear)"
+                      fill-rule="evenodd"
+                    />
+                    <defs>
+                      <lineargradient
+                        gradientUnits="userSpaceOnUse"
+                        id="cd-main_svg__paint0_linear"
+                        x1="3.557"
+                        x2="8.848"
+                        y1="9.622"
+                        y2="18.787"
+                      >
+                        <stop
+                          stop-color="#62F91F"
+                        />
+                        <stop
+                          offset="1"
+                          stop-color="#5EAA53"
+                        />
+                      </lineargradient>
+                    </defs>
+                  </svg>
+                </span>
+              </span>
+              <div
+                class="Card--cardMenu menu"
+              >
+                <div
+                  class="Card--dots"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="Options"
+                        >
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 4 16"
+                            width="16"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
                   </span>
                 </div>
               </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
+            >
               <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-bottom-small"
+                class="pipelineNameSections"
               >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main runPipelineBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                  data-testid="card-run-pipeline"
-                  type="button"
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
+                  data-testid="Second_Pipeline"
+                  style="--text-line-clamp: 2;"
                 >
+                  Second Pipeline
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
+                >
+                  idLabel
+                  Second_Pipeline
+                </p>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <span>
+                  lastRunAtDate
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                  style="display: flex; align-items: center;"
+                >
+                  1612787988402
                   <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
-                    data-icon="run-pipeline"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
+                    icon="full-circle"
                   >
                     <svg
-                      height="16"
+                      data-icon="full-circle"
+                      height="8"
                       viewBox="0 0 16 16"
-                      width="16"
+                      width="8"
                     >
-                      <defs>
-                        <path
-                          d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
-                          id="run-pipeline_svg__a"
-                        />
-                      </defs>
-                      <clippath
-                        id="run-pipeline_svg__b"
-                      >
-                        <use
-                          overflow="visible"
-                          xlink:href="#run-pipeline_svg__a"
-                        />
-                      </clippath>
+                      <desc>
+                        full-circle
+                      </desc>
                       <path
-                        clip-path="url(#run-pipeline_svg__b)"
-                        d="M-5-5h26v26H-5z"
-                        fill="#54b610"
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
                       />
                     </svg>
                   </span>
-                  <span
-                    class="bp3-button-text"
-                  >
-                    <span>
-                      runPipelineText
-                    </span>
-                  </span>
-                </button>
+                </p>
               </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-large StyledProps--padding-bottom-small"
+                style="align-items: flex-end;"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main"
+                >
+                  <div
+                    style="margin-right: 12px;"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                      style="--text-line-clamp: 2;"
+                    >
+                      executionsText
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                      style="--text-line-clamp: 2;"
+                    >
+                      (
+                      lastSevenDays
+                      )
+                    </p>
+                  </div>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
+                  >
+                    1
+                  </p>
+                </div>
+                <span
+                  class="activityChart"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main SparkChart--main"
+                    role="spark-chart"
+                  >
+                    <div
+                      class="container vertical rounded"
+                    >
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
+                        <div
+                          class="progress-track"
+                        >
+                          <div
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
+                        <div
+                          class="progress-track"
+                        >
+                          <div
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
+                        <div
+                          class="progress-track"
+                        >
+                          <div
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
+                        <div
+                          class="progress-track"
+                        >
+                          <div
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
+                        <div
+                          class="progress-track"
+                        >
+                          <div
+                            class="progress-fill"
+                            style="height: 50%;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 50%; bottom: 50%;"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
+                        <div
+                          class="progress-track"
+                        >
+                          <div
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="progress-bar"
+                        role="spark"
+                      >
+                        <div
+                          class="progress-track"
+                        >
+                          <div
+                            class="progress-fill"
+                            style="height: 2px;"
+                          />
+                          <div
+                            class="progress-fill"
+                            style="height: 0%; bottom: 2px;"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-bottom-small"
+            >
+              <button
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main runPipelineBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                data-testid="card-run-pipeline"
+                type="button"
+              >
+                <span
+                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  data-icon="run-pipeline"
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <defs>
+                      <path
+                        d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
+                        id="run-pipeline_svg__a"
+                      />
+                    </defs>
+                    <clippath
+                      id="run-pipeline_svg__b"
+                    >
+                      <use
+                        overflow="visible"
+                        xlink:href="#run-pipeline_svg__a"
+                      />
+                    </clippath>
+                    <path
+                      clip-path="url(#run-pipeline_svg__b)"
+                      d="M-5-5h26v26H-5z"
+                      fill="#54b610"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="bp3-button-text"
+                >
+                  <span>
+                    runPipelineText
+                  </span>
+                </span>
+              </button>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main pagination"
+    >
       <div
-        class="pagination"
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
-        <div
-          class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+        <span
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
         >
-          <span
-            class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
-          >
-            Showing 
-            <strong>
-              3
-            </strong>
-             of 
-            <strong>
-              3
-            </strong>
-          </span>
-        </div>
+          Showing 
+          <strong>
+            3
+          </strong>
+           of 
+          <strong>
+            3
+          </strong>
+        </span>
       </div>
     </div>
   </div>

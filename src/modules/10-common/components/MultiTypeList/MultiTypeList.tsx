@@ -115,6 +115,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
             showAdvanced={true}
             onChange={val => formik?.setFieldValue(name, val)}
             {...configureOptionsProps}
+            isReadonly={props.disabled}
           />
         )}
     </div>

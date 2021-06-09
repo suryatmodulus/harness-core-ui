@@ -30,6 +30,7 @@ export interface ConfigureOptionsProps {
   className?: string
   fetchValues?: (done: (response: SelectOption[] | MultiSelectOption[]) => void) => void
   style?: CSSProperties
+  isReadonly?: boolean
 }
 
 export enum Validation {
@@ -57,7 +58,8 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
     showRequiredField = false,
     showAdvanced = false,
     fetchValues,
-    className
+    className,
+    isReadonly = false
   } = props
   const [input, setInput] = React.useState(value)
   const { showError } = useToaster()
@@ -175,12 +177,14 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                       items={options}
                       label={getString('configureOptions.defaultValue')}
                       name="defaultValue"
+                      disabled={isReadonly}
                     />
                   ) : (
                     <FormInput.Text
                       inputGroup={{ type: type === 'Number' ? 'number' : 'text' }}
                       label={getString('configureOptions.defaultValue')}
                       name="defaultValue"
+                      disabled={isReadonly}
                     />
                   ))}
                 {showRequiredField && (
@@ -188,10 +192,12 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                     className={css.checkbox}
                     label={getString('configureOptions.requiredDuringExecution')}
                     name="isRequired"
+                    disabled={isReadonly}
                   />
                 )}
                 <div className={css.split}>
                   <FormInput.RadioGroup
+                    disabled={isReadonly}
                     name="validation"
                     label={getString('configureOptions.validation')}
                     items={[
@@ -224,6 +230,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                             onClick={() => {
                               setFieldValue('isAdvanced', !values.isAdvanced)
                             }}
+                            disabled={isReadonly}
                           />
                         </span>
                       ) : /* istanbul ignore next */ null}
@@ -233,6 +240,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                           className={css.secondColumn}
                           label={getString('configureOptions.jexlLabel')}
                           placeholder={getString('inputTypes.EXPRESSION')}
+                          disabled={isReadonly}
                         />
                       ) : (
                         <>
@@ -253,6 +261,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                                 placeholder: getString('configureOptions.enterTags'),
                                 getTagProps: () => ({ intent: 'primary', minimal: true })
                               }}
+                              disabled={isReadonly}
                             />
                           ) : (
                             <FormInput.MultiSelect
@@ -260,6 +269,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                               items={options}
                               label={getString('configureOptions.values')}
                               name="allowedValues"
+                              disabled={isReadonly}
                             />
                           )}
                         </>
@@ -271,12 +281,19 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                       className={css.secondColumn}
                       label={getString('configureOptions.regex')}
                       name="regExValues"
+                      disabled={isReadonly}
                     />
                   )}
                 </div>
               </div>
               <div className={Classes.DIALOG_FOOTER}>
-                <Button intent="primary" text={<String stringID="submit" />} onClick={submitForm} /> &nbsp; &nbsp;
+                <Button
+                  intent="primary"
+                  text={<String stringID="submit" />}
+                  onClick={submitForm}
+                  disabled={isReadonly}
+                />{' '}
+                &nbsp; &nbsp;
                 <Button text={<String stringID="cancel" />} onClick={() => closeModal()} />
               </div>
             </>

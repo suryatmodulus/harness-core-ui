@@ -187,7 +187,9 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
   const deployments = pipeline.executionSummaryInfo?.deployments?.reduce((acc, val) => acc + val, 0) || 0
 
   const runPipeline = useRunPipelineModal({
-    pipelineIdentifier: (pipeline.identifier || '') as string
+    pipelineIdentifier: (pipeline.identifier || '') as string,
+    repoIdentifier: pipeline?.gitDetails?.repoIdentifier,
+    branch: pipeline?.gitDetails?.branch
   })
 
   return (

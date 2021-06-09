@@ -4457,10 +4457,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA==
 
-"@wings-software/uicore@0.1.187":
-  version "0.1.187"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.187/92795f742f63c6b142a84a209dcb1b7aaf076d0fb1e4812aba12c4ebe05c3caf#b4cd9fe19a6e0f3284b577c95222e113547d177d"
-  integrity sha512-FyBnsEySTSOGVFgcaEEvnSaus6qaCqiIJyS9k1fiqvJPKNukMJYwYlK7TNfSUEVBKwpzy9xarC/iv5JgI8YBDA==
+"@wings-software/uicore@0.1.190":
+  version "0.1.190"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.190/0e727e076fd8883d4506dc21f1b5496541c8cb6e856d971c40f906c0c8fff6f2#53b03ee4c927bcada36f85eca24789c232240237"
+  integrity sha512-tFz03NUIUQsQMw2sEAEL+GW6W3jKLOi7GPdo69Vdk94/pWWPffJ1RgGJLnferj5UPFpdsF9EkTNK8MJlK0L1jg==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -12008,9 +12008,9 @@ normalize-range@^0.1.2:
   integrity "sha1-LRDAa9/TEuqXd2laTShDlFa3WUI= sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA=="
 
 normalize-url@^4.1.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.0.tgz#453354087e6ca96957bd8f5baf753f5982142129"
-  integrity sha512-2s47yzUxdexf1OhyRi4Em83iQk0aPvwTddtFz4hnSSw9dCEsLEGf6SwIO8ss/19S9iBb5sJaOuTvTGDeZI00BQ==
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.1.tgz#0dd90cf1288ee1d1313b87081c9a5932ee48518a"
+  integrity sha512-9UZCFRHQdNrfTpGg8+1INIg93B6zE0aXMVFkw1WFwvO4SlZywU6aLg5Of0Ap/PgcbSw4LNxvMWXMeugwMCX0AA==
 
 normalize.css@^8.0.1:
   version "8.0.1"

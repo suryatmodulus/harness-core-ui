@@ -340,6 +340,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
               }}
               style={{ marginLeft: 'var(--spacing-medium)' }}
               {...configureOptionsProps}
+              isReadonly={props.disabled}
             />
           )}
         </div>

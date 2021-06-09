@@ -183,6 +183,7 @@ export const RunTestsStepBase = (
                   multiTypeInputProps: { expressions },
                   disabled: readonly
                 }}
+                disabled={readonly}
               />
               <MultiTypeSelectField
                 name="spec.language"
@@ -197,6 +198,7 @@ export const RunTestsStepBase = (
                   multiTypeInputProps: { expressions },
                   disabled: readonly
                 }}
+                disabled={readonly}
               />
               <MultiTypeTextField
                 name="spec.packages"

@@ -3,7 +3,7 @@
 exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main container"
+    class="StyledProps--font StyledProps--main container StyledProps--background-form"
   >
     <button
       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeModal Button--with-current-color Button--iconOnly Button--without-shadow"
@@ -200,7 +200,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
 exports[`PipelineCreate test initializes ok for CD module 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main container"
+    class="StyledProps--font StyledProps--main container StyledProps--background-form"
   >
     <button
       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeModal Button--with-current-color Button--iconOnly Button--without-shadow"
@@ -420,7 +420,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
 exports[`PipelineCreate test initializes ok for CI module 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main container"
+    class="StyledProps--font StyledProps--main container StyledProps--background-form"
   >
     <button
       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeModal Button--with-current-color Button--iconOnly Button--without-shadow"
@@ -640,7 +640,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
 exports[`PipelineCreate test initializes ok new pipeline 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main container"
+    class="StyledProps--font StyledProps--main container StyledProps--background-form"
   >
     <button
       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeModal Button--with-current-color Button--iconOnly Button--without-shadow"

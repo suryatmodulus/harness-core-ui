@@ -58,13 +58,13 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
             </Text>
             <span className={cx(css.statsNumber, css.row)}>
               {totalTests}
-              {testsCountDiff && (
+              {testsCountDiff ? (
                 <span className={cx(css.diff, { [css.diffNegative]: testsCountDiff < 0 })}>
                   <Icon name={testsCountDiff < 0 ? 'arrow-down' : 'arrow-up'} size={11} />
                   &nbsp;
                   {Math.abs(testsCountDiff)}%
                 </span>
-              )}
+              ) : null}
             </span>
           </Text>
           <Text
@@ -90,27 +90,30 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
             </div>
           </Text>
         </Layout.Horizontal>
+
         <Layout.Horizontal spacing="medium">
-          <Text
-            className={css.stats}
-            padding="medium"
-            color={Color.GREY_700}
-            style={{ backgroundColor: 'var(--white)' }}
-          >
-            <Text className={cx(css.statsTitle)} margin={{ bottom: 'large' }}>
-              {getString('pipeline.testsReports.totalDuration')}
-            </Text>
-            <Duration
+          {durationMS ? (
+            <Text
+              className={css.stats}
+              padding="medium"
               color={Color.GREY_700}
-              durationText=" "
-              startTime={now - (durationMS || 0)}
-              endTime={now}
-              style={{
-                fontSize: '32px',
-                fontWeight: 600
-              }}
-            ></Duration>
-          </Text>
+              style={{ backgroundColor: 'var(--white)' }}
+            >
+              <Text className={cx(css.statsTitle)} margin={{ bottom: 'large' }}>
+                {getString('pipeline.testsReports.totalDuration')}
+              </Text>
+              <Duration
+                color={Color.GREY_700}
+                durationText=" "
+                startTime={now - durationMS}
+                endTime={now}
+                style={{
+                  fontSize: '32px',
+                  fontWeight: 600
+                }}
+              ></Duration>
+            </Text>
+          ) : null}
           <Text className={cx(css.stats, css.timeSaved)} padding="medium" color={Color.WHITE}>
             <Text className={cx(css.statsTitle)} color={Color.PURPLE_700} margin={{ bottom: 'large' }}>
               {getString('pipeline.testsReports.timeSaved')}

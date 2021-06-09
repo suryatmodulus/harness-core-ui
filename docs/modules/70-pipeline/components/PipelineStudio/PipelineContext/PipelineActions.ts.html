@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.65% </span>
+                <span class="strong">67.65% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>63/68</span>
+                <span class='fraction'>46/68</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">10.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>35/56</span>
+                <span class='fraction'>6/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">21.43% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>3/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">78.95% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>54/57</span>
+                <span class='fraction'>45/57</span>
             </div>
         
             
@@ -505,15 +505,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">90x</span>
-<span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -523,15 +518,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -543,7 +530,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -551,9 +551,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -695,9 +695,9 @@ export interface ActionReturnType {
   response?: ActionResponse
 }
 &nbsp;
-const dbInitialized = (): ActionReturnType =&gt; ({ type: PipelineActions.DBInitialize })
-const initialized = (): ActionReturnType =&gt; ({ type: PipelineActions.Initialize })
-const updatePipelineView = (response: ActionResponse): ActionReturnType =&gt; ({
+const dbInitialized = <span class="fstat-no" title="function not covered" >(): ActionReturnType =</span>&gt; (<span class="cstat-no" title="statement not covered" >{ type: PipelineActions.DBInitialize })</span>
+const initialized = <span class="fstat-no" title="function not covered" >(): ActionReturnType =</span>&gt; (<span class="cstat-no" title="statement not covered" >{ type: PipelineActions.Initialize })</span>
+const updatePipelineView = <span class="fstat-no" title="function not covered" >(r</span>esponse: ActionResponse): ActionReturnType =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
   type: PipelineActions.UpdatePipelineView,
   response
 })
@@ -705,16 +705,16 @@ const setYamlHandler = <span class="fstat-no" title="function not covered" >(r</
   type: PipelineActions.SetYamlHandler,
   response
 })
-const updating = (): ActionReturnType =&gt; ({ type: PipelineActions.UpdatePipeline })
-const fetching = (): ActionReturnType =&gt; ({ type: PipelineActions.Fetching })
+const updating = <span class="fstat-no" title="function not covered" >(): ActionReturnType =</span>&gt; (<span class="cstat-no" title="statement not covered" >{ type: PipelineActions.UpdatePipeline })</span>
+const fetching = <span class="fstat-no" title="function not covered" >(): ActionReturnType =</span>&gt; (<span class="cstat-no" title="statement not covered" >{ type: PipelineActions.Fetching })</span>
 const pipelineSavedAction = <span class="fstat-no" title="function not covered" >(r</span>esponse: ActionResponse): ActionReturnType =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
   type: PipelineActions.PipelineSaved,
   response
 })
-const success = (response: ActionResponse): ActionReturnType =&gt; ({ type: PipelineActions.Success, response })
-const error = (response: ActionResponse): ActionReturnType =&gt; ({ type: PipelineActions.Error, response })
+const success = <span class="fstat-no" title="function not covered" >(r</span>esponse: ActionResponse): ActionReturnType =&gt; (<span class="cstat-no" title="statement not covered" >{ type: PipelineActions.Success, response })</span>
+const error = <span class="fstat-no" title="function not covered" >(r</span>esponse: ActionResponse): ActionReturnType =&gt; (<span class="cstat-no" title="statement not covered" >{ type: PipelineActions.Error, response })</span>
 &nbsp;
-const updateSelectionState = (response: ActionResponse): ActionReturnType =&gt; ({
+const updateSelectionState = <span class="fstat-no" title="function not covered" >(r</span>esponse: ActionResponse): ActionReturnType =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
   type: PipelineActions.UpdateSelection,
   response
 })
@@ -756,38 +756,38 @@ export const initialState: PipelineReducerState = {
   }
 }
 &nbsp;
-export const PipelineReducer = (state = <span class="branch-0 cbranch-no" title="branch not covered" >initialState,</span> data: ActionReturnType): PipelineReducerState =&gt; {
-  const { type, response } = data
-  switch (type) {
+export const PipelineReducer = <span class="fstat-no" title="function not covered" >(s</span>tate = <span class="branch-0 cbranch-no" title="branch not covered" >initialState,</span> data: ActionReturnType): PipelineReducerState =&gt; {
+  const { type, response } = <span class="cstat-no" title="statement not covered" >data</span>
+<span class="cstat-no" title="statement not covered" >  switch (type) {</span>
     case PipelineActions.Initialize:
-      return {
+<span class="cstat-no" title="statement not covered" >      return {</span>
         ...state,
         isInitialized: true
       }
     case PipelineActions.DBInitialize:
-      return {
+<span class="cstat-no" title="statement not covered" >      return {</span>
         ...state,
         isDBInitialized: true
       }
-<span class="branch-2 cbranch-no" title="branch not covered" >    case PipelineActions.SetYamlHandler:</span>
+    case PipelineActions.SetYamlHandler:
 <span class="cstat-no" title="statement not covered" >      return {</span>
         ...state,
         yamlHandler: data.response?.yamlHandler
       }
     case PipelineActions.UpdatePipelineView:
-      return {
+<span class="cstat-no" title="statement not covered" >      return {</span>
         ...state,
-        pipelineView: response<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineView
-          ? clone({ ...state.pipelineView, ...response<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineView })
-          : <span class="branch-1 cbranch-no" title="branch not covered" >state.pipelineView</span>
+        pipelineView: response?.pipelineView
+          ? clone({ ...state.pipelineView, ...response?.pipelineView })
+          : state.pipelineView
       }
     case PipelineActions.UpdatePipeline:
-      return {
+<span class="cstat-no" title="statement not covered" >      return {</span>
         ...state,
-        isUpdated: <span class="branch-1 cbranch-no" title="branch not covered" >response?.isUpdated<span class="branch-0 cbranch-no" title="branch not covered" > </span>?? t</span>rue,
-        pipeline: <span class="branch-1 cbranch-no" title="branch not covered" >response?.pipeline </span>? <span class="branch-0 cbranch-no" title="branch not covered" >clone(response?.pipeline) </span>: state.pipeline
+        isUpdated: response?.isUpdated ?? true,
+        pipeline: response?.pipeline ? clone(response?.pipeline) : state.pipeline
       }
-<span class="branch-5 cbranch-no" title="branch not covered" >    case PipelineActions.PipelineSaved:</span>
+    case PipelineActions.PipelineSaved:
 <span class="cstat-no" title="statement not covered" >      return {</span>
         ...state,
         ...response,
@@ -795,7 +795,7 @@ export const PipelineReducer = (state = <span class="branch-0 cbranch-no" title=
         isUpdated: false
       }
     case PipelineActions.Fetching:
-      return {
+<span class="cstat-no" title="statement not covered" >      return {</span>
         ...state,
         isLoading: true,
         isBEPipelineUpdated: false,
@@ -803,13 +803,13 @@ export const PipelineReducer = (state = <span class="branch-0 cbranch-no" title=
       }
     case PipelineActions.Success:
     case PipelineActions.Error:
-      return { ...state, isLoading: false, ...response }
+<span class="cstat-no" title="statement not covered" >      return { ...state, isLoading: false, ...response }</span>
     case PipelineActions.UpdateSelection:
-      return {
+<span class="cstat-no" title="statement not covered" >      return {</span>
         ...state,
-        selectionState: response<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electionState || <span class="branch-1 cbranch-no" title="branch not covered" >state.selectionState</span>
+        selectionState: response?.selectionState || state.selectionState
       }
-<span class="branch-10 cbranch-no" title="branch not covered" >    default:</span>
+    default:
 <span class="cstat-no" title="statement not covered" >      return state</span>
   }
 }
@@ -820,7 +820,7 @@ export const PipelineReducer = (state = <span class="branch-0 cbranch-no" title=
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 09 2021 13:19:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 09 2021 15:00:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">45.45% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>5/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">30% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/10</span>
+                <span class='fraction'>3/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">45.45% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>5/11</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -134,8 +134,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">186x</span>
-<span class="cline-any cline-yes">186x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,11 +144,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,13 +177,13 @@ class StagesCollection {
     this.stagesByType.set(stageType, { stageFactory, stageAttributesFactory })
   }
 &nbsp;
-  getStage(
+<span class="fstat-no" title="function not covered" >  getStage(</span>
     stageType: string,
     isEnabled: boolean,
     getString: UseStringsReturn['getString']
   ): React.ReactElement&lt;PipelineStageProps&gt; | null {
-    const stageFactories = this.stagesByType.get(stageType)
-    return stageFactories?.stageFactory(isEnabled, getString) || null
+    const stageFactories = <span class="cstat-no" title="statement not covered" >this.stagesByType.get(stageType)</span>
+<span class="cstat-no" title="statement not covered" >    return stageFactories?.stageFactory(isEnabled, getString) || null</span>
   }
 &nbsp;
   getStageAttributes(stageType: string, getString: UseStringsReturn['getString']): StageAttributes | undefined {
@@ -191,12 +191,12 @@ class StagesCollection {
     return <span class="branch-1 cbranch-no" title="branch not covered" >stageFactories?.stageAttributesFactory(getString)</span>
   }
 &nbsp;
-  getAllStagesAttributes(getString: UseStringsReturn['getString']): StagesMap {
-    const stagesMap: StagesMap = {}
-    this.stagesByType.forEach((value, key) =&gt; {
-      stagesMap[key] = value.stageAttributesFactory(getString)
+<span class="fstat-no" title="function not covered" >  getAllStagesAttributes(</span>getString: UseStringsReturn['getString']): StagesMap {
+    const stagesMap: StagesMap = <span class="cstat-no" title="statement not covered" >{}</span>
+<span class="cstat-no" title="statement not covered" >    this.stagesByType.forEach(<span class="fstat-no" title="function not covered" >(v</span>alue, key) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      stagesMap[key] = value.stageAttributesFactory(getString)</span>
     })
-    return stagesMap
+<span class="cstat-no" title="statement not covered" >    return stagesMap</span>
   }
 }
 &nbsp;
@@ -208,7 +208,7 @@ export const stagesCollection = new StagesCollection()
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 09 2021 13:19:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 09 2021 15:00:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

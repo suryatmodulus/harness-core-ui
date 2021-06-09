@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>2/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>2/10</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -95,29 +95,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">88x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 interface PipelineSelectionState {
@@ -125,30 +125,30 @@ interface PipelineSelectionState {
   stepId?: string | null
 }
 &nbsp;
-export function usePipelineQuestParamState() {
-  const { stageId, stepId } = useQueryParams&lt;PipelineSelectionState&gt;()
-  const { updateQueryParams } = useUpdateQueryParams&lt;PipelineSelectionState&gt;()
+export function <span class="fstat-no" title="function not covered" >usePipelineQuestParamState(</span>) {
+  const { stageId, stepId } = <span class="cstat-no" title="statement not covered" >useQueryParams&lt;PipelineSelectionState&gt;()</span>
+  const { updateQueryParams } = <span class="cstat-no" title="statement not covered" >useUpdateQueryParams&lt;PipelineSelectionState&gt;()</span>
 &nbsp;
   /**
    * Set selected stage/step.
    * Use null to clear state.
    * NOTE: Clearing 'stage' state will clear 'step' state too
    */
-  const setPipelineQueryParamState = (state: PipelineSelectionState) =&gt; {
+  const setPipelineQueryParamState = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tate: PipelineSelectionState) =&gt; {</span>
     /*if (isNull(state.stageId)) {
       state.stepId = null
     }*/
 &nbsp;
     // clear stepId when stageId is changed
-    const newState = { ...state }
-    if (state.stageId &amp;&amp; state.stageId !== stageId) {
-      newState.stepId = null
+    const newState = <span class="cstat-no" title="statement not covered" >{ ...state }</span>
+<span class="cstat-no" title="statement not covered" >    if (state.stageId &amp;&amp; state.stageId !== stageId) {</span>
+<span class="cstat-no" title="statement not covered" >      newState.stepId = null</span>
     }
 &nbsp;
-    updateQueryParams({ stageId, stepId, ...newState }, { skipNulls: true })
+<span class="cstat-no" title="statement not covered" >    updateQueryParams({ stageId, stepId, ...newState }, { skipNulls: true })</span>
   }
 &nbsp;
-  return { stageId, stepId, setPipelineQuestParamState: setPipelineQueryParamState }
+<span class="cstat-no" title="statement not covered" >  return { stageId, stepId, setPipelineQuestParamState: setPipelineQueryParamState }</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -157,7 +157,7 @@ export function usePipelineQuestParamState() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 09 2021 13:19:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 09 2021 15:00:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

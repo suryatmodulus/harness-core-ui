@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">8.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/24</span>
+                <span class='fraction'>2/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.09% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>37/44</span>
+                <span class='fraction'>0/44</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">8.7% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/23</span>
+                <span class='fraction'>2/23</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,87 +107,87 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">386x</span>
-<span class="cline-any cline-yes">386x</span>
-<span class="cline-any cline-yes">386x</span>
-<span class="cline-any cline-yes">336x</span>
-<span class="cline-any cline-yes">697x</span>
-<span class="cline-any cline-yes">87x</span>
-<span class="cline-any cline-yes">87x</span>
-<span class="cline-any cline-yes">610x</span>
-<span class="cline-any cline-yes">168x</span>
-<span class="cline-any cline-yes">168x</span>
-<span class="cline-any cline-yes">32x</span>
-<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">386x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">88x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">54x</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { PipelineInfoConfig, StageElementWrapper } from 'services/cd-ng'
 &nbsp;
-export function getStageFromPipeline(
+export function <span class="fstat-no" title="function not covered" >getStageFromPipeline(</span>
   stageId: string,
   localPipeline: PipelineInfoConfig
 ): { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined } {
-  let stage: StageElementWrapper | undefined = undefined
-  let parent: StageElementWrapper | undefined = undefined
-  if (localPipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tages) {
-    localPipeline.stages<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ome<span class="branch-0 cbranch-no" title="branch not covered" >?.(i</span>tem =&gt; {
-      if (item<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage &amp;&amp; item.stage.identifier === stageId) {
-        stage = item
-        return true
-      } else if (item<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>arallel) {
-        stage = getStageFromPipeline(stageId, ({ stages: item.parallel } as unknown) as PipelineInfoConfig).stage
-        if (stage) {
-          parent = item
-          return true
+  let stage: StageElementWrapper | undefined = <span class="cstat-no" title="statement not covered" >undefined</span>
+  let parent: StageElementWrapper | undefined = <span class="cstat-no" title="statement not covered" >undefined</span>
+<span class="cstat-no" title="statement not covered" >  if (localPipeline?.stages) {</span>
+<span class="cstat-no" title="statement not covered" >    localPipeline.stages?.some?.(<span class="fstat-no" title="function not covered" >item </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (item?.stage &amp;&amp; item.stage.identifier === stageId) {</span>
+<span class="cstat-no" title="statement not covered" >        stage = item</span>
+<span class="cstat-no" title="statement not covered" >        return true</span>
+      } else <span class="cstat-no" title="statement not covered" >if (item?.parallel) {</span>
+<span class="cstat-no" title="statement not covered" >        stage = getStageFromPipeline(stageId, ({ stages: item.parallel } as unknown) as PipelineInfoConfig).stage</span>
+<span class="cstat-no" title="statement not covered" >        if (stage) {</span>
+<span class="cstat-no" title="statement not covered" >          parent = item</span>
+<span class="cstat-no" title="statement not covered" >          return true</span>
         }
       }
     })
   }
-  return { stage, parent }
+<span class="cstat-no" title="statement not covered" >  return { stage, parent }</span>
 }
 &nbsp;
-export function getStagePathFromPipeline(stageId: string, prefix: string, pipeline: PipelineInfoConfig): string {
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (Array.isArray(pipeline.stages)) {
-    for (let i = 0; i &lt; pipeline.stages.length; i++) {
-      const item = pipeline.stages[i]
+export function <span class="fstat-no" title="function not covered" >getStagePathFromPipeline(</span>stageId: string, prefix: string, pipeline: PipelineInfoConfig): string {
+<span class="cstat-no" title="statement not covered" >  if (Array.isArray(pipeline.stages)) {</span>
+<span class="cstat-no" title="statement not covered" >    for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; pipeline.stages.length; i++) {</span>
+      const item = <span class="cstat-no" title="statement not covered" >pipeline.stages[i]</span>
 &nbsp;
-      if (item<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage?.identifier === stageId) {
-        return `${prefix}.${i}`
+<span class="cstat-no" title="statement not covered" >      if (item?.stage?.identifier === stageId) {</span>
+<span class="cstat-no" title="statement not covered" >        return `${prefix}.${i}`</span>
       }
 &nbsp;
-      if (item.parallel) {
-        return getStagePathFromPipeline(stageId, `${prefix}.${i}.parallel`, {
+<span class="cstat-no" title="statement not covered" >      if (item.parallel) {</span>
+<span class="cstat-no" title="statement not covered" >        return getStagePathFromPipeline(stageId, `${prefix}.${i}.parallel`, {</span>
           stages: item.parallel
         } as PipelineInfoConfig)
       }
     }
   }
 &nbsp;
-  return prefix
+<span class="cstat-no" title="statement not covered" >  return prefix</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -196,7 +196,7 @@ export function getStagePathFromPipeline(stageId: string, prefix: string, pipeli
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 09 2021 13:19:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 09 2021 15:00:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

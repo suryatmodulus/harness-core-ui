@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">70.69% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/55</span>
+                <span class='fraction'>41/58</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.71% </span>
+                <span class="strong">56.9% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>68/112</span>
+                <span class='fraction'>66/116</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.69% </span>
+                <span class="strong">72.73% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>43/52</span>
+                <span class='fraction'>40/55</span>
             </div>
         
             
@@ -203,7 +203,10 @@
 <a name='L144'></a><a href='#L144'>144</a>
 <a name='L145'></a><a href='#L145'>145</a>
 <a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -313,22 +316,25 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
@@ -458,23 +464,26 @@ export function createSections(state: State, action: Action&lt;ActionType.Create
 &nbsp;
   let unitToOpen: string | null = null
 &nbsp;
-  if (isStepComplete) {
-    const isStepSuccess = isExecutionSuccess(node.status)
+  if (logKeys.length &gt; 1) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (isStepComplete) {
+      const isStepSuccess = <span class="cstat-no" title="statement not covered" >isExecutionSuccess(node.status)</span>
 &nbsp;
-    // if step is successful
-    if (isStepSuccess) {
-      // open the first section
-      unitToOpen = logKeys[0]
+      // if step is successful
+<span class="cstat-no" title="statement not covered" >      if (isStepSuccess) {</span>
+        // open the first section
+<span class="cstat-no" title="statement not covered" >        unitToOpen = logKeys[0]</span>
+      } else {
+        // find and open the first failed section
+        const failedUnit = <span class="cstat-no" title="statement not covered" >logKeys.find(<span class="fstat-no" title="function not covered" >(k</span>ey: string) =&gt; <span class="cstat-no" title="statement not covered" >isExecutionFailed(dataMap[key]?.unitStatus))</span></span>
+<span class="cstat-no" title="statement not covered" >        unitToOpen = failedUnit || null</span>
+      }
     } else {
-      // find and open the first failed section
-      const failedUnit = logKeys.find(<span class="fstat-no" title="function not covered" >(k</span>ey: string) =&gt; <span class="cstat-no" title="statement not covered" >isExecutionFailed(dataMap[key]?.unitStatus))</span>
-      unitToOpen = failedUnit || null
+      // open the running section
+      const runningUnit = findLast(logKeys, key =&gt; isExecutionRunningLike(dataMap[key]<span class="branch-0 cbranch-no" title="branch not covered" >?.u</span>nitStatus))
+      unitToOpen = runningUnit || null
     }
-  } else {
-    // open the running section
-&nbsp;
-    const runningUnit = findLast(logKeys, key =&gt; isExecutionRunningLike(dataMap[key]<span class="branch-0 cbranch-no" title="branch not covered" >?.u</span>nitStatus))
-    unitToOpen = runningUnit || null
+  } else <span class="missing-if-branch" title="if path not taken" >I</span>if (logKeys.length === 1) {
+<span class="cstat-no" title="statement not covered" >    unitToOpen = logKeys[0]</span>
   }
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (unitToOpen) {
@@ -502,7 +511,7 @@ export function createSections(state: State, action: Action&lt;ActionType.Create
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 08 2021 11:46:24 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 09 2021 13:19:17 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

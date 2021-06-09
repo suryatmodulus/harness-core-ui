@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.52% </span>
+                <span class="strong">70.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>231/323</span>
+                <span class='fraction'>231/326</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.81% </span>
+                <span class="strong">51.56% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>759/1465</span>
+                <span class='fraction'>759/1472</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.51% </span>
+                <span class="strong">66.79% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>187/277</span>
+                <span class='fraction'>187/280</span>
             </div>
         
             
@@ -1415,7 +1415,12 @@
 <a name='L1356'></a><a href='#L1356'>1356</a>
 <a name='L1357'></a><a href='#L1357'>1357</a>
 <a name='L1358'></a><a href='#L1358'>1358</a>
-<a name='L1359'></a><a href='#L1359'>1359</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">117x</span>
+<a name='L1359'></a><a href='#L1359'>1359</a>
+<a name='L1360'></a><a href='#L1360'>1360</a>
+<a name='L1361'></a><a href='#L1361'>1361</a>
+<a name='L1362'></a><a href='#L1362'>1362</a>
+<a name='L1363'></a><a href='#L1363'>1363</a>
+<a name='L1364'></a><a href='#L1364'>1364</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">117x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">117x</span>
 <span class="cline-any cline-yes">117x</span>
@@ -2541,6 +2546,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">117x</span>
@@ -2551,6 +2558,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2699,6 +2708,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3823,13 +3833,13 @@ export const buildDynatracePayload = <span class="fstat-no" title="function not 
     connector: {
       name: formData.name,
       identifier: formData.identifier,
-      type: Connectors.PROMETHEUS,
+      type: Connectors.DYNATRACE,
       projectIdentifier: formData.projectIdentifier,
       orgIdentifier: formData.orgIdentifier,
       spec: {
         delegateSelectors: formData.delegateSelectors || {},
         url: formData.url,
-        apiToken: formData.apiToken,
+        apiTokenRef: formData.apiTokenRef?.referenceString,
         accountId: formData.accountId
       }
     }
@@ -3896,7 +3906,9 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
 <span class="cstat-no" title="statement not covered" >      return 'service-datadog'</span>
 <span class="branch-23 cbranch-no" title="branch not covered" >    case Connectors.AZURE_KEY_VAULT:</span>
 <span class="cstat-no" title="statement not covered" >      return 'azure-key-vault'</span>
-<span class="branch-24 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-24 cbranch-no" title="branch not covered" >    case Connectors.DYNATRACE:</span>
+<span class="cstat-no" title="statement not covered" >      return 'service-dynatrace'</span>
+<span class="branch-25 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return 'cog'</span>
   }
 }
@@ -3949,7 +3961,9 @@ export const getConnectorDisplayName = (type: string) =&gt; {
 <span class="cstat-no" title="statement not covered" >      return 'AWS KMS'</span>
 <span class="branch-22 cbranch-no" title="branch not covered" >    case Connectors.AZURE_KEY_VAULT:</span>
 <span class="cstat-no" title="statement not covered" >      return 'Azure Key Vault'</span>
-<span class="branch-23 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-23 cbranch-no" title="branch not covered" >    case Connectors.DYNATRACE:</span>
+<span class="cstat-no" title="statement not covered" >      return 'Dynatrace'</span>
+<span class="branch-24 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return ''</span>
   }
 }
@@ -4056,13 +4070,14 @@ export const getUrlValueByType = (type: ConnectorInfoDTO['type'], connector: Con
 <span class="cstat-no" title="statement not covered" >      return connector.spec.url</span>
 <span class="branch-7 cbranch-no" title="branch not covered" >    case Connectors.SPLUNK:</span>
 <span class="cstat-no" title="statement not covered" >      return connector.spec.splunkUrl</span>
-&nbsp;
-<span class="branch-8 cbranch-no" title="branch not covered" >    case Connectors.VAULT:</span>
+<span class="branch-8 cbranch-no" title="branch not covered" >    case Connectors.DYNATRACE:</span>
+<span class="cstat-no" title="statement not covered" >      return connector.spec.url</span>
+<span class="branch-9 cbranch-no" title="branch not covered" >    case Connectors.VAULT:</span>
 <span class="cstat-no" title="statement not covered" >      return connector.spec.vaultUrl</span>
-<span class="branch-9 cbranch-no" title="branch not covered" >    case Connectors.BITBUCKET:</span>
-<span class="branch-10 cbranch-no" title="branch not covered" >    case Connectors.GITLAB:</span>
-<span class="branch-11 cbranch-no" title="branch not covered" >    case Connectors.GITHUB:</span>
-<span class="branch-12 cbranch-no" title="branch not covered" >    case Connectors.GIT:</span>
+<span class="branch-10 cbranch-no" title="branch not covered" >    case Connectors.BITBUCKET:</span>
+<span class="branch-11 cbranch-no" title="branch not covered" >    case Connectors.GITLAB:</span>
+<span class="branch-12 cbranch-no" title="branch not covered" >    case Connectors.GITHUB:</span>
+<span class="branch-13 cbranch-no" title="branch not covered" >    case Connectors.GIT:</span>
 <span class="cstat-no" title="statement not covered" >      return connector.spec.url</span>
 &nbsp;
     default:
@@ -4138,7 +4153,7 @@ export const removeErrorCode = (errors: ErrorDetail[] = <span class="branch-0 cb
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 08 2021 11:46:24 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 09 2021 13:19:17 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

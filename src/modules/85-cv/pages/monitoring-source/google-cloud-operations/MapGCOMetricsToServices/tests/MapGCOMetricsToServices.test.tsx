@@ -191,8 +191,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
       }
     } as UseGetReturn<any, any, any, any>)
   })
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Ensure validation api is called on query input', async () => {
+  test('Ensure validation api is called on query input', async () => {
     const getMetricPackSpy = jest.spyOn(cvService, 'useGetMetricPacks')
     getMetricPackSpy.mockReturnValue({
       data: { resource: [{ identifier: 'Errors' }, { identifier: 'Performance' }] }

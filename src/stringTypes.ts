@@ -1275,6 +1275,10 @@ export interface StringsMap {
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDetails': string
   'pipeline.targets.title': string
+  'pipeline.testsReports.callgraphTitle': string
+  'pipeline.testsReports.calls': string
+  'pipeline.testsReports.changedSourceMethods': string
+  'pipeline.testsReports.changedTestMethods': string
   'pipeline.testsReports.className': string
   'pipeline.testsReports.commitId': string
   'pipeline.testsReports.consoleOutput': string
@@ -1298,18 +1302,21 @@ export interface StringsMap {
   'pipeline.testsReports.result': string
   'pipeline.testsReports.resultInfo': string
   'pipeline.testsReports.resultLabel': string
+  'pipeline.testsReports.selectedTestMethods': string
   'pipeline.testsReports.selectionBreakdown': string
   'pipeline.testsReports.selectionBreakdownInfo': string
   'pipeline.testsReports.showOnlyFailedTests': string
   'pipeline.testsReports.skipped': string
   'pipeline.testsReports.skippedWithColon': string
   'pipeline.testsReports.sortBy': string
+  'pipeline.testsReports.sourceMethods': string
   'pipeline.testsReports.stackTrace': string
   'pipeline.testsReports.status': string
   'pipeline.testsReports.successWithColon': string
   'pipeline.testsReports.testCaseName': string
   'pipeline.testsReports.testCasesExecution': string
   'pipeline.testsReports.testCasesExecutionInfo': string
+  'pipeline.testsReports.testMethods': string
   'pipeline.testsReports.testSuite': string
   'pipeline.testsReports.timeSaved': string
   'pipeline.testsReports.totalDuration': string
@@ -1318,6 +1325,7 @@ export interface StringsMap {
   'pipeline.testsReports.totalWithColon': string
   'pipeline.testsReports.type': string
   'pipeline.testsReports.updatedTests': string
+  'pipeline.testsReports.viewCallgraph': string
   'pipeline.testsReports.willBeDisplayedIfAvailable': string
   'pipeline.triggers.aboutTriggers': string
   'pipeline.triggers.activityActivation': string

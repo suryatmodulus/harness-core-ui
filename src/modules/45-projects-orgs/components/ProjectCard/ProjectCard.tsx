@@ -137,47 +137,45 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           )}
 
           <Layout.Horizontal padding={{ top: 'medium' }}>
-            <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <Text font="small" padding={{ bottom: 'small' }}>{`${getString('adminLabel')} ${
-                adminList?.length ? `(${adminList?.length})` : ``
-              }`}</Text>
-              <RbacAvatarGroup
-                className={css.projectAvatarGroup}
-                avatars={adminList?.length ? adminList : [{}]}
-                onAdd={event => {
-                  event.stopPropagation()
-                  handleInviteCollaborators ? handleInviteCollaborators(data) : null
-                }}
-                restrictLengthTo={1}
-                permission={{
-                  ...invitePermission,
-                  options: {
-                    skipCondition: _permissionRequest => (isPreview ? true : false)
-                  }
-                }}
-              />
-            </Layout.Vertical>
-            <Layout.Vertical spacing="xsmall">
-              <Text font="small" padding={{ bottom: 'small' }}>{`${getString('collaboratorsLabel')} ${
-                collaboratorsList?.length ? `(${collaboratorsList?.length})` : ``
-              }`}</Text>
-              <RbacAvatarGroup
-                className={css.projectAvatarGroup}
-                avatars={collaboratorsList?.length ? collaboratorsList : [{}]}
-                onAdd={event => {
-                  event.stopPropagation()
+            {!isPreview && (
+              <React.Fragment>
+                <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
+                  <Text font="small" padding={{ bottom: 'small' }}>{`${getString('adminLabel')} ${
+                    adminList?.length ? `(${adminList?.length})` : ``
+                  }`}</Text>
+                  <RbacAvatarGroup
+                    className={css.projectAvatarGroup}
+                    avatars={adminList?.length ? adminList : [{}]}
+                    onAdd={event => {
+                      event.stopPropagation()
+                      handleInviteCollaborators ? handleInviteCollaborators(data) : null
+                    }}
+                    restrictLengthTo={1}
+                    permission={{
+                      ...invitePermission
+                    }}
+                  />
+                </Layout.Vertical>
+                <Layout.Vertical spacing="xsmall">
+                  <Text font="small" padding={{ bottom: 'small' }}>{`${getString('collaboratorsLabel')} ${
+                    collaboratorsList?.length ? `(${collaboratorsList?.length})` : ``
+                  }`}</Text>
+                  <RbacAvatarGroup
+                    className={css.projectAvatarGroup}
+                    avatars={collaboratorsList?.length ? collaboratorsList : [{}]}
+                    onAdd={event => {
+                      event.stopPropagation()
 
-                  handleInviteCollaborators ? handleInviteCollaborators(data) : null
-                }}
-                restrictLengthTo={1}
-                permission={{
-                  ...invitePermission,
-                  options: {
-                    skipCondition: _permissionRequest => (isPreview ? true : false)
-                  }
-                }}
-              />
-            </Layout.Vertical>
+                      handleInviteCollaborators ? handleInviteCollaborators(data) : null
+                    }}
+                    restrictLengthTo={1}
+                    permission={{
+                      ...invitePermission
+                    }}
+                  />
+                </Layout.Vertical>
+              </React.Fragment>
+            )}
           </Layout.Horizontal>
         </Container>
       </Container>

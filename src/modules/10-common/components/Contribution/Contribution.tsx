@@ -82,7 +82,7 @@ const Contribution: React.FC<ContributionProps> = ({
               },
               series: [
                 {
-                  name: 'Date',
+                  name: 'Last 1 month',
                   data
                 }
               ]

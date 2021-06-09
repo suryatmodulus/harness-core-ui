@@ -191,7 +191,6 @@ const ProjectsListPage: React.FC = () => {
     )
     formattedData.sort((itemA, itemB) => (itemA.total < itemB.total ? 1 : -1))
     formattedData = formattedData.map((value, index) => ({ ...value, index }))
-    console.log(formattedData)
     setSortedProjectIdsByActivities(formattedData.map(formattedData => formattedData.projectId || ''))
   }, [sortBy, fetchingProjectActivities])
 
@@ -337,7 +336,10 @@ const ProjectsListPage: React.FC = () => {
               <Menu.Item text={item.label} onClick={handleClick} />
             </div>
           )}
-          onItemSelect={item => setSortBy(item)}
+          onItemSelect={item => {
+            window.sortedBy = item
+            setSortBy(item)
+          }}
           popoverProps={{ minimal: true, popoverClassName: css.customselect }}
         >
           <Button
@@ -407,7 +409,7 @@ const ProjectsListPage: React.FC = () => {
       >
         {view === Views.GRID ? (
           <ProjectsGridView
-            data={sortedProjectResponse}
+            data={sortedProjectResponse?.data?.content?.length ? sortedProjectResponse : data}
             showEditProject={showEditProject}
             collaborators={showCollaborators}
             reloadPage={refetch}
@@ -417,7 +419,7 @@ const ProjectsListPage: React.FC = () => {
         ) : null}
         {view === Views.LIST ? (
           <ProjectsListView
-            data={sortedProjectResponse}
+            data={sortedProjectResponse?.data?.content?.length ? sortedProjectResponse : data}
             showEditProject={showEditProject}
             collaborators={showCollaborators}
             reloadPage={refetch}

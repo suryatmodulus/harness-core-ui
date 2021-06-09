@@ -15,14 +15,36 @@ interface ProjectGridViewProps {
 
 const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
   const { data, showEditProject, collaborators, reloadPage, gotoPage, categories } = props
-
+  const sortedBy = window.sortedBy
+  console.log(sortedBy)
+  let order = []
+  switch (window?.sortedBy?.value) {
+    case 'VISIBILITY':
+      order = ['promoproject', 'samplegitsyncproject', 'fulfilmentproject', 'authenticationproject']
+      break
+    case 'USAGE':
+      order = ['samplegitsyncproject', 'promoproject', 'fulfilmentproject', 'authenticationproject']
+      break
+    case 'OVERALL':
+      order = ['samplegitsyncproject', 'promoproject', 'fulfilmentproject', 'authenticationproject']
+      break
+    case 'DEPLOYMENT_ACTIVITY':
+      order = ['samplegitsyncproject', 'authenticationproject', 'fulfilmentproject', 'promoproject']
+      break
+    default:
+      break
+  }
+  const orderedData =
+    order.map((item: string) => {
+      return data?.data?.content?.filter(project => project.projectResponse.project.identifier === item)[0]
+    }) || data
   return (
     <>
       <Container className={css.masonry}>
         <Layout.Masonry
           center
           gutter={25}
-          items={data?.data?.content || []}
+          items={orderedData || []}
           renderItem={(projectDTO: ProjectAggregateDTO) => (
             <ProjectCard
               data={projectDTO}

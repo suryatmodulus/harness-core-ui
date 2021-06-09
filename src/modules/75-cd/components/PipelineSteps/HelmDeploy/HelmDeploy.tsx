@@ -6,6 +6,7 @@ import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 
 import { isEmpty } from 'lodash-es'
 
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -28,7 +29,6 @@ import {
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface HelmDeployProps {
@@ -68,12 +68,11 @@ function HelmDeployWidget(
         formName="helmDeploy"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-
+          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
-          ...IdentifierValidation()
+          identifier: IdentifierSchema()
         })}
       >
         {(formik: FormikProps<StepElementConfig>) => {

@@ -474,8 +474,6 @@ createSecretYAML:
   createSecret: Create Secret from YAML
   secretCreated: Secret created successfully
   invalidSecret: Invalid Secret configuration
-formValidation:
-  name: 'Name can only contain alphanumerics, _ and -'
 filters:
   filterVisibility: Who can view and edit the filter?
   name: Filter Name

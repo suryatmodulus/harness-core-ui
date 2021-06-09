@@ -21,6 +21,7 @@ import type { PipelineInfoConfig, StepElementConfig } from 'services/cd-ng'
 
 import { useGetPipeline, VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+import { NameSchema } from '@common/utils/Validation'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
@@ -122,7 +123,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
         formName="barrierStep"
         initialValues={{ ...initialValuesFormik }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),

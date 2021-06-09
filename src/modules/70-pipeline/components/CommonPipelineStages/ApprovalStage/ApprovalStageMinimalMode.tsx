@@ -3,12 +3,12 @@ import * as Yup from 'yup'
 import cx from 'classnames'
 import { Formik } from 'formik'
 import { Button, Card, Container, FormikForm, Text } from '@wings-software/uicore'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { useStrings } from 'framework/strings'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { NameIdDescriptionTags } from '@common/components'
-import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues } from './types'
 import { ApprovalTypeCards, approvalTypeCardsData } from './ApprovalTypeCards'
 
@@ -58,14 +58,8 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
         enableReinitialize
         initialValues={getInitialValues(data)}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('approvalStage.stageNameRequired')),
-          identifier: Yup.string().when('name', {
-            is: val => val?.length,
-            then: Yup.string()
-              .required(getString('validation.identifierRequired'))
-              .matches(regexIdentifier, getString('validation.validIdRegex'))
-              .notOneOf(illegalIdentifiers)
-          })
+          name: NameSchema({ requiredErrorMsg: getString('approvalStage.stageNameRequired') }),
+          identifier: IdentifierSchema()
         })}
         validate={handleValidate}
         onSubmit={(values: ApprovalStageMinimalValues) => handleSubmit(values)}

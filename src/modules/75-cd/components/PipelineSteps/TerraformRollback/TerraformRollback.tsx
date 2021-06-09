@@ -9,6 +9,7 @@ import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/Pipe
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import {
   DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
@@ -17,10 +18,7 @@ import {
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -74,12 +72,12 @@ function TerraformRollbackWidget(
         formName="terraformRollback"
         initialValues={setInitialValues(initialValues)}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
 
-          ...IdentifierValidation(),
+          identifier: IdentifierSchema(),
           spec: Yup.object().shape({
             provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired'))
           })

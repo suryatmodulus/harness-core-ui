@@ -261,6 +261,7 @@ export interface StringsMap {
   'common.validation.groupAttributeIsRequired': string
   'common.validation.identifierIsRequired': string
   'common.validation.nameIsRequired': string
+  'common.validation.namePatternIsNotValid': string
   'common.validation.urlIsRequired': string
   'common.validation.valueIsRequired': string
   'common.validation.valueMustBeANumber': string
@@ -4314,10 +4315,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   flag: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'formValidation.name': string
   /**
    * @deprecated migrate this string to module level file
    */

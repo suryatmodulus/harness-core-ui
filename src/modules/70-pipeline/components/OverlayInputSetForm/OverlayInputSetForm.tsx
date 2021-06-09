@@ -24,6 +24,7 @@ import {
 } from 'services/pipeline-ng'
 
 import { useToaster } from '@common/exports'
+import { NameSchema } from '@common/utils/Validation'
 import type {
   YamlBuilderHandlerBinding,
   YamlBuilderProps,
@@ -503,7 +504,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
             formName="overlayInputSet"
             enableReinitialize={true}
             validationSchema={Yup.object().shape({
-              name: Yup.string().trim().required(getString('inputSets.nameIsRequired')),
+              name: NameSchema({ requiredErrorMsg: getString('inputSets.nameIsRequired') }),
               inputSetReferences: Yup.array().of(Yup.string().required(getString('inputSets.inputSetIsRequired')))
             })}
             onSubmit={values => {

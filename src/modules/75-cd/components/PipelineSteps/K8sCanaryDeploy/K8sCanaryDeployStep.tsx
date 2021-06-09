@@ -11,6 +11,7 @@ import type { K8sRollingStepInfo, StepElementConfig } from 'services/cd-ng'
 
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { FormMultiTypeCheckboxField, FormInstanceDropdown } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import {
@@ -24,7 +25,6 @@ import type { UseStringsReturn } from 'framework/strings'
 import { getInstanceDropdownSchema } from '@common/components/InstanceDropdownField/InstanceDropdownField'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -69,15 +69,14 @@ function K8CanaryDeployWidget(
         formName="k8CanaryDeploy"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-
+          name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
             instanceSelection: getInstanceDropdownSchema()
           }),
-          ...IdentifierValidation()
+          identifier: IdentifierSchema()
         })}
       >
         {(formik: FormikProps<K8sCanaryDeployData>) => {

@@ -6,20 +6,20 @@ interface EmailProps {
   emailSeparator?: string
 }
 
-export function NameSchema(): Yup.Schema<string> {
+export function NameSchema(config?: { requiredErrorMsg?: string }): Yup.Schema<string> {
   const { getString } = useStrings()
   return Yup.string()
     .trim()
-    .required(getString('validation.nameRequired'))
-    .matches(regexName, getString('formValidation.name'))
+    .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('common.validation.nameIsRequired'))
+    .matches(regexName, getString('common.validation.namePatternIsNotValid'))
 }
 
-export function IdentifierSchema(): Yup.Schema<string | undefined> {
+export function IdentifierSchema(config?: { requiredErrorMsg?: string }): Yup.Schema<string | undefined> {
   const { getString } = useStrings()
   return Yup.string().when('name', {
     is: val => val?.length,
     then: Yup.string()
-      .required(getString('validation.identifierRequired'))
+      .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('validation.identifierRequired'))
       .matches(regexIdentifier, getString('validation.validIdRegex'))
       .notOneOf(illegalIdentifiers)
   })

@@ -13,6 +13,7 @@ import { Classes, Dialog } from '@blueprintjs/core'
 
 import { Form } from 'formik'
 import { useStrings } from 'framework/strings'
+import { IdentifierSchema } from '@common/utils/Validation'
 import { MultiTypeFieldSelector } from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -56,7 +57,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
           }}
           validationSchema={Yup.object().shape({
             varFile: Yup.object().shape({
-              identifier: Yup.string().required(getString('common.validation.identifierIsRequired')),
+              identifier: IdentifierSchema(),
               spec: Yup.object().shape({
                 content: Yup.string().required(getString('cd.contentRequired'))
               })

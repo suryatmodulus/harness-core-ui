@@ -3,12 +3,12 @@ import { Formik, Accordion } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import type { ShellScriptFormData } from './shellScriptTypes'
 import BaseShellScript from './BaseShellScript'
 import ShellScriptInput from './ShellScriptInput'
@@ -37,8 +37,7 @@ export function ShellScriptWidget(
   const { getString } = useStrings()
 
   const defaultSSHSchema = Yup.object().shape({
-    name: Yup.string().trim().required(getString('pipelineSteps.stepNameRequired')),
-
+    name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
     timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
     spec: Yup.object().shape({
       shell: Yup.string().trim().required(getString('validation.scriptTypeRequired')),
@@ -48,7 +47,7 @@ export function ShellScriptWidget(
         })
       })
     }),
-    ...IdentifierValidation()
+    identifier: IdentifierSchema()
   })
 
   const values: any = {

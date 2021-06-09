@@ -20,6 +20,7 @@ import produce from 'immer'
 import { set } from 'lodash-es'
 import type { StageElementWrapper, StageElementConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type {
   CustomVariablesData,
@@ -35,7 +36,6 @@ import type { AllNGVariables } from '@pipeline/utils/types'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import css from './EditStageView.module.scss'
 
 export interface EditStageView {
@@ -146,14 +146,8 @@ export const EditStageView: React.FC<EditStageView> = ({
               return errors
             }}
             validationSchema={Yup.object().shape({
-              name: Yup.string().trim().required(getString('pipelineSteps.build.create.stageNameRequiredError')),
-              identifier: Yup.string().when('name', {
-                is: val => val?.length,
-                then: Yup.string()
-                  .required(getString('validation.identifierRequired'))
-                  .matches(regexIdentifier, getString('validation.validIdRegex'))
-                  .notOneOf(illegalIdentifiers)
-              })
+              name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
+              identifier: IdentifierSchema()
             })}
           >
             {formikProps => {

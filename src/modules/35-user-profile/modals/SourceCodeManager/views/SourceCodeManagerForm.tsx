@@ -17,7 +17,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
-import { regexName } from '@common/utils/StringUtils'
+import { NameSchema } from '@common/utils/Validation'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import { SourceCodeManagerDTO, useSaveSourceCodeManagers } from 'services/cd-ng'
 import { AuthTypes, getAuthentication, getIconBySCM, SourceCodeTypes } from '@user-profile/utils/utils'
@@ -245,10 +245,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
           }}
           formName="sourceCodeManagerForm"
           validationSchema={Yup.object().shape({
-            name: Yup.string()
-              .trim()
-              .required(getString('validation.nameRequired'))
-              .matches(regexName, getString('formValidation.name')),
+            name: NameSchema(),
             username: Yup.string().when(['authType'], {
               is: AuthTypes.USERNAME_PASSWORD || AuthTypes.USERNAME_TOKEN,
               then: Yup.string().trim().required(getString('validation.username')),

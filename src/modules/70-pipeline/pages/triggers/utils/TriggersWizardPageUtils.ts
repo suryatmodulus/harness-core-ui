@@ -2,6 +2,7 @@ import { isNull, isUndefined, omitBy } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
 import type { SelectOption } from '@wings-software/uicore'
 import type { NgPipeline, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { GetActionsListQueryParams, NGTriggerConfigV2, NGTriggerSourceV2 } from 'services/pipeline-ng'
 import { connectorUrlType } from '@connectors/constants'
@@ -337,14 +338,8 @@ export const getValidationSchema = (
 ): ObjectSchema<Record<string, any> | undefined> => {
   if (triggerType === TriggerTypes.WEBHOOK) {
     return object().shape({
-      name: string().trim().required(getString('pipeline.triggers.validation.triggerName')),
-      identifier: string().when('name', {
-        is: val => val?.length,
-        then: string()
-          .required(getString('validation.identifierRequired'))
-          .matches(regexIdentifier, getString('validation.validIdRegex'))
-          .notOneOf(illegalIdentifiers)
-      }),
+      name: NameSchema({ requiredErrorMsg: getString('pipeline.triggers.validation.triggerName') }),
+      identifier: IdentifierSchema(),
       event: string().test(
         getString('pipeline.triggers.validation.event'),
         getString('pipeline.triggers.validation.event'),

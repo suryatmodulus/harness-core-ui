@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94% </span>
+                <span class="strong">92.59% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>47/50</span>
+                <span class='fraction'>50/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.05% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>64/82</span>
+                <span class='fraction'>60/84</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">63.64% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/9</span>
+                <span class='fraction'>7/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94% </span>
+                <span class="strong">92.45% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>47/50</span>
+                <span class='fraction'>49/53</span>
             </div>
         
             
@@ -242,7 +242,23 @@
 <a name='L183'></a><a href='#L183'>183</a>
 <a name='L184'></a><a href='#L184'>184</a>
 <a name='L185'></a><a href='#L185'>185</a>
-<a name='L186'></a><a href='#L186'>186</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -301,7 +317,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
@@ -366,11 +385,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -431,10 +463,10 @@
 import { useParams } from 'react-router-dom'
 import { Text, Icon, OverlaySpinner, Container } from '@wings-software/uicore'
 &nbsp;
-import { useGetListOfExecutions, useGetFilterList } from 'services/pipeline-ng'
-import { useStrings } from 'framework/strings'
+import { useGetListOfExecutions, useGetFilterList, GetListOfExecutionsQueryParams } from 'services/pipeline-ng'
+import { String, useStrings } from 'framework/strings'
 import { Page, StringUtils } from '@common/exports'
-import { useQueryParams, useMutateAsGet } from '@common/hooks'
+import { useQueryParams, useMutateAsGet, useUpdateQueryParams } from '@common/hooks'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
@@ -485,8 +517,11 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       }
     }
   })
+  const { updateQueryParams } = useUpdateQueryParams&lt;Partial&lt;GetListOfExecutionsQueryParams&gt;&gt;()
+&nbsp;
   const { page, filterIdentifier, myDeployments, status } = queryParams
-  const hasFilters = false
+  const hasFilters = [pipelineIdentifier, status, filterIdentifier, myDeployments].some(filter =&gt; filter !== undefined)
+&nbsp;
   const isCIModule = module === 'ci'
   const { getString } = useStrings()
   const hasFilterIdentifier = filterIdentifier &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >filterIdentifier !== StringUtils.getIdentifierFromName(UNSAVED_FILTER)</span>
@@ -550,6 +585,15 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, loading])
 &nbsp;
+  const clearFilters = <span class="fstat-no" title="function not covered" >(): void =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >    updateQueryParams({</span>
+      status: [] as any,
+      myDeployments: [] as any,
+      pipelineIdentifier: [] as any,
+      filterIdentifier: [] as any
+    }) // removes the param
+  }
+&nbsp;
   return (
     &lt;Page.Body
       className={css.main}
@@ -576,11 +620,15 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
           &lt;/OverlaySpinner&gt;
         ) : !pipelineExecutionSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent?.length ? (
           hasFilters ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;Text padding={{ top: 'small', bottom: 'small' }} className={css.noData} font="medium"&gt;</span>
-              {getString('filters.noDataFound')}
-            &lt;/Text&gt;
+            &lt;div className={css.noFilterData}&gt;
+              &lt;Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} /&gt;
+              &lt;Text margin={{ top: 'large', bottom: 'small' }} font={{ weight: 'bold', size: 'medium' }}&gt;
+                {getString('common.filters.noMatchingFilterData')}
+              &lt;/Text&gt;
+              &lt;String stringID="common.filters.clearFilters" className={css.clearFilterText} onClick={clearFilters} /&gt;
+            &lt;/div&gt;
           ) : (
-            &lt;div className={css.noData}&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >            &lt;div className={css.noData}&gt;</span>
               &lt;Icon size={20} name={isCIModule ? 'ci-main' : 'cd-hover'}&gt;&lt;/Icon&gt;
               &lt;Text padding={{ top: 'small', bottom: 'small' }} font="medium"&gt;
                 {getString(isCIModule ? 'noBuildsText' : 'noDeploymentText')}
@@ -604,7 +652,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
           )
         ) : (
           &lt;React.Fragment&gt;
-            &lt;ExecutionsList hasFilters={hasFilters} pipelineExecutionSummary={pipelineExecutionSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent} /&gt;
+            &lt;ExecutionsList pipelineExecutionSummary={pipelineExecutionSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent} /&gt;
             &lt;ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} /&gt;
           &lt;/React.Fragment&gt;
         )}
@@ -619,7 +667,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 09 2021 15:00:41 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 09 2021 15:12:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

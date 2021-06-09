@@ -36,7 +36,7 @@ interface TestsExecutionProps {
 
 export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) => {
   const context = useExecutionContext()
-  const callgraphEnabled = useFeatureFlag('TI_CALLGRAPH')
+  const callgraphEnabled = useFeatureFlag('TI_CALLGRAPH') || localStorage.TI_CALLGRAPH_ENABLED
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
 

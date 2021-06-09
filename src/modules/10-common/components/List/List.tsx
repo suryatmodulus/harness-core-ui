@@ -28,11 +28,12 @@ export const List = (props: ListProps): React.ReactElement => {
   const { getString } = useStrings()
 
   const [value, setValue] = React.useState<ListUIType>(() => {
-    const initialValue = get(formik?.values, name, '') as ListType
-    const initialValueInCorrectFormat = (initialValue || []).map(item => ({
-      id: uuid('', nameSpace()),
-      value: item
-    }))
+    const initialValueInCorrectFormat = [
+      {
+        id: uuid('', nameSpace()),
+        value: ''
+      }
+    ]
 
     // Adding a default value
     if (Array.isArray(initialValueInCorrectFormat) && !initialValueInCorrectFormat.length) {

@@ -32,7 +32,9 @@ export default function TerraformInputStep(props: TerraformProps): React.ReactEl
         />
       )}
       <ConfigInputs {...props} />
-      <label>Var Files</label>
+      {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.length && (
+        <label> {getString('cd.terraformVarFiles')}</label>
+      )}
       {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.map((varFile: any, index) => {
         if (varFile?.varFile?.type === TerraformStoreTypes.Inline) {
           return (

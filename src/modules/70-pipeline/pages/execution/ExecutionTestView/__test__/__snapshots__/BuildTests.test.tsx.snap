@@ -44,7 +44,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 />
               </svg>
             </span>
-             
+
             5h 7m 50s
           </span>
         </div>
@@ -34391,7 +34391,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
                       </p>
                     </span>
@@ -34460,7 +34460,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     11m 37s
                   </span>
                   <div
@@ -34617,7 +34617,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           25s
                         </span>
                       </p>
@@ -34712,7 +34712,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           10s
                         </span>
                       </p>
@@ -34807,7 +34807,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           9s
                         </span>
                       </p>
@@ -34902,7 +34902,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           6s
                         </span>
                       </p>
@@ -34997,7 +34997,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           6s
                         </span>
                       </p>
@@ -35092,7 +35092,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           6s
                         </span>
                       </p>
@@ -35187,7 +35187,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           6s
                         </span>
                       </p>
@@ -35282,7 +35282,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -35377,7 +35377,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -35472,7 +35472,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -35567,7 +35567,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -35662,7 +35662,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -35757,7 +35757,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -35852,7 +35852,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -35947,7 +35947,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -36042,7 +36042,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -36137,7 +36137,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -36232,7 +36232,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -36327,7 +36327,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -36422,7 +36422,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -36435,16 +36435,16 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
                   >
-                    Showing 
+                    Showing
                     <strong>
                       1
                     </strong>
                      -
-                     
+
                     <strong>
                       20
                     </strong>
-                     of 
+                     of
                     <strong>
                       340
                     </strong>
@@ -36610,7 +36610,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
                       </p>
                     </span>
@@ -36679,7 +36679,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     8m 19s
                   </span>
                   <div
@@ -36738,7 +36738,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.PipelineTest
                       </p>
                     </span>
@@ -36807,7 +36807,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     7m 33s
                   </span>
                   <div
@@ -36866,7 +36866,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.SSOProviderTest
                       </p>
                     </span>
@@ -36935,7 +36935,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     7m 4s
                   </span>
                   <div
@@ -36994,7 +36994,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
                       </p>
                     </span>
@@ -37063,7 +37063,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     6m 42s
                   </span>
                   <div
@@ -37122,7 +37122,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.ConnectionTest
                       </p>
                     </span>
@@ -37191,7 +37191,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     6m 26s
                   </span>
                   <div
@@ -37250,7 +37250,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.ConnectorTest
                       </p>
                     </span>
@@ -37319,7 +37319,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     6m 23s
                   </span>
                   <div
@@ -37378,7 +37378,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
                       </p>
                     </span>
@@ -37447,7 +37447,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     6m 9s
                   </span>
                   <div
@@ -37506,7 +37506,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.VerificationComponentTest
                       </p>
                     </span>
@@ -37575,7 +37575,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     5m 45s
                   </span>
                   <div
@@ -37634,7 +37634,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
                       </p>
                     </span>
@@ -37703,7 +37703,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     5m 11s
                   </span>
                   <div
@@ -37762,7 +37762,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.managerclient.VerificationManagerClientHelperTest
                       </p>
                     </span>
@@ -37831,7 +37831,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     5m 9s
                   </span>
                   <div
@@ -37890,7 +37890,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.ChangeSetTest
                       </p>
                     </span>
@@ -37959,7 +37959,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     5m 1s
                   </span>
                   <div
@@ -38018,7 +38018,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
                       </p>
                     </span>
@@ -38087,7 +38087,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     4m 57s
                   </span>
                   <div
@@ -38146,7 +38146,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.userGroup.AddAppPermissionTest
                       </p>
                     </span>
@@ -38215,7 +38215,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     4m 53s
                   </span>
                   <div
@@ -38274,7 +38274,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
                       </p>
                     </span>
@@ -38343,7 +38343,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     4m 53s
                   </span>
                   <div
@@ -38364,16 +38364,16 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
             <span
               class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
             >
-              Showing 
+              Showing
               <strong>
                 1
               </strong>
                -
-               
+
               <strong>
                 15
               </strong>
-               of 
+               of
               <strong>
                 621
               </strong>
@@ -38599,22 +38599,6 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
           <div
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
           >
-            <p
-              class="StyledProps--font StyledProps--main stats StyledProps--padding-medium StyledProps--color StyledProps--color-grey700"
-            >
-              <p
-                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
-              >
-                pipeline.testsReports.totalDuration
-              </p>
-              <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey700"
-                style="font-size: 32px; font-weight: 600;"
-              >
-                 
-                
-              </span>
-            </p>
             <p
               class="StyledProps--font StyledProps--main stats timeSaved StyledProps--padding-medium StyledProps--color StyledProps--color-white"
             >
@@ -38875,7 +38859,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey700"
                 style="font-size: 32px; font-weight: 600;"
               >
-                 
+
                 5h 7m 50s
               </span>
             </p>
@@ -38950,19 +38934,19 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               style="font-size: 10px;"
             >
               pipeline.testsReports.totalWithColon
-               
+
               3782
                |
-               
+
               pipeline.testsReports.failedWithColon
-               
+
               2
                |
-               
+
               pipeline.testsReports.successWithColon
-               
+
               3780
-               
+
             </p>
             <div
               class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -73361,7 +73345,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
                       </p>
                     </span>
@@ -73430,7 +73414,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     11m 37s
                   </span>
                   <div
@@ -73587,7 +73571,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           25s
                         </span>
                       </p>
@@ -73682,7 +73666,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           10s
                         </span>
                       </p>
@@ -73777,7 +73761,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           9s
                         </span>
                       </p>
@@ -73872,7 +73856,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           6s
                         </span>
                       </p>
@@ -73967,7 +73951,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           6s
                         </span>
                       </p>
@@ -74062,7 +74046,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           6s
                         </span>
                       </p>
@@ -74157,7 +74141,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           6s
                         </span>
                       </p>
@@ -74252,7 +74236,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -74347,7 +74331,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -74442,7 +74426,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -74537,7 +74521,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -74632,7 +74616,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -74727,7 +74711,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -74822,7 +74806,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           4s
                         </span>
                       </p>
@@ -74917,7 +74901,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -75012,7 +74996,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -75107,7 +75091,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -75202,7 +75186,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -75297,7 +75281,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -75392,7 +75376,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         <span
                           class="StyledProps--font StyledProps--main StyledProps--inline"
                         >
-                           
+
                           3s
                         </span>
                       </p>
@@ -75405,16 +75389,16 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
                   >
-                    Showing 
+                    Showing
                     <strong>
                       1
                     </strong>
                      -
-                     
+
                     <strong>
                       20
                     </strong>
-                     of 
+                     of
                     <strong>
                       340
                     </strong>
@@ -75580,7 +75564,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
                       </p>
                     </span>
@@ -75649,7 +75633,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     8m 19s
                   </span>
                   <div
@@ -75708,7 +75692,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.PipelineTest
                       </p>
                     </span>
@@ -75777,7 +75761,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     7m 33s
                   </span>
                   <div
@@ -75836,7 +75820,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.SSOProviderTest
                       </p>
                     </span>
@@ -75905,7 +75889,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     7m 4s
                   </span>
                   <div
@@ -75964,7 +75948,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
                       </p>
                     </span>
@@ -76033,7 +76017,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     6m 42s
                   </span>
                   <div
@@ -76092,7 +76076,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.ConnectionTest
                       </p>
                     </span>
@@ -76161,7 +76145,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     6m 26s
                   </span>
                   <div
@@ -76220,7 +76204,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.ConnectorTest
                       </p>
                     </span>
@@ -76289,7 +76273,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     6m 23s
                   </span>
                   <div
@@ -76348,7 +76332,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
                       </p>
                     </span>
@@ -76417,7 +76401,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     6m 9s
                   </span>
                   <div
@@ -76476,7 +76460,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.VerificationComponentTest
                       </p>
                     </span>
@@ -76545,7 +76529,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     5m 45s
                   </span>
                   <div
@@ -76604,7 +76588,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
                       </p>
                     </span>
@@ -76673,7 +76657,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     5m 11s
                   </span>
                   <div
@@ -76732,7 +76716,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.managerclient.VerificationManagerClientHelperTest
                       </p>
                     </span>
@@ -76801,7 +76785,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     5m 9s
                   </span>
                   <div
@@ -76860,7 +76844,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.ChangeSetTest
                       </p>
                     </span>
@@ -76929,7 +76913,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     5m 1s
                   </span>
                   <div
@@ -76988,7 +76972,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
                       </p>
                     </span>
@@ -77057,7 +77041,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     4m 57s
                   </span>
                   <div
@@ -77116,7 +77100,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         io.harness.userGroup.AddAppPermissionTest
                       </p>
                     </span>
@@ -77185,7 +77169,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     4m 53s
                   </span>
                   <div
@@ -77244,7 +77228,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         tabindex="0"
                       >
                         pipeline.testsReports.testSuite
-                         
+
                         software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
                       </p>
                     </span>
@@ -77313,7 +77297,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         />
                       </svg>
                     </span>
-                     
+
                     4m 53s
                   </span>
                   <div
@@ -77334,16 +77318,16 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
             <span
               class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
             >
-              Showing 
+              Showing
               <strong>
                 1
               </strong>
                -
-               
+
               <strong>
                 15
               </strong>
-               of 
+               of
               <strong>
                 621
               </strong>

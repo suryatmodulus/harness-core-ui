@@ -35,7 +35,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                     class="bp3-label"
                   >
                     pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel
-                     
+
                     <span
                       class="bp3-text-muted"
                     />
@@ -141,7 +141,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                   <div
                     style="width: 300px;"
                   >
-                    
+
                     <div
                       style="display: flex; align-items: center;"
                     >
@@ -150,7 +150,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                         data-id="namespace-1"
                         style="margin-bottom: 0px; flex-grow: 1;"
                       >
-                        
+
                         <div
                           class="bp3-form-content"
                         >
@@ -282,7 +282,7 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
                     class="bp3-label"
                   >
                     pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel
-                     
+
                     <span
                       class="bp3-text-muted"
                     />
@@ -388,7 +388,7 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
                   <div
                     style="width: 300px;"
                   >
-                    
+
                     <div
                       style="display: flex; align-items: center;"
                     >
@@ -397,7 +397,7 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
                         data-id="namespace-1"
                         style="margin-bottom: 0px; flex-grow: 1;"
                       >
-                        
+
                         <div
                           class="bp3-form-content"
                         >
@@ -473,12 +473,12 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
                   </div>
                   <div
                     class="bp3-collapse Accordion--collapse"
-                    style="height: auto; overflow-y: visible; transition: none;"
+                    style="height: 0px;"
                   >
                     <div
                       aria-hidden="false"
                       class="bp3-collapse-body"
-                      style="transform: translateY(0); transition: none;"
+                      style="transform: translateY(0);"
                     >
                       <div
                         class="Accordion--details"
@@ -507,7 +507,7 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
                                     ci.annotations
                                   </p>
                                 </div>
-                                 
+
                                 <span
                                   class="bp3-text-muted"
                                 />
@@ -554,7 +554,7 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
                                     ci.labels
                                   </p>
                                 </div>
-                                 
+
                                 <span
                                   class="bp3-text-muted"
                                 />
@@ -613,7 +613,7 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
                                           class="bp3-form-group"
                                           style="flex-grow: 1;"
                                         >
-                                          
+
                                           <div
                                             class="bp3-form-content"
                                           >
@@ -722,7 +722,7 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
                                           class="bp3-form-group"
                                           style="flex-grow: 1;"
                                         >
-                                          
+
                                           <div
                                             class="bp3-form-content"
                                           >
@@ -831,7 +831,7 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
                                           class="bp3-form-group"
                                           style="flex-grow: 1;"
                                         >
-                                          
+
                                           <div
                                             class="bp3-form-content"
                                           >
@@ -971,7 +971,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                     class="bp3-label"
                   >
                     pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel
-                     
+
                     <span
                       class="bp3-text-muted"
                     />
@@ -1077,7 +1077,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                   <div
                     style="width: 300px;"
                   >
-                    
+
                     <div
                       style="display: flex; align-items: center;"
                     >
@@ -1086,7 +1086,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                         data-id="namespace-1"
                         style="margin-bottom: 0px; flex-grow: 1;"
                       >
-                        
+
                         <div
                           class="bp3-form-content"
                         >

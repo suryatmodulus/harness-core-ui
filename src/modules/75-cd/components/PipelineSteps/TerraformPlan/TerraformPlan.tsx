@@ -365,6 +365,15 @@ function TerraformPlanWidget(
               >
                 <ConfigForm
                   onClick={data => {
+                    const configObject = {
+                      ...data.spec?.configuration?.configFiles
+                    }
+
+                    if (configObject?.store.spec.gitFetchType === 'Branch') {
+                      delete configObject.store.spec.commitId
+                    } else if (configObject?.store.spec.gitFetchType === 'Commit') {
+                      delete configObject.store.spec.branch
+                    }
                     const valObj = {
                       ...formik.values,
                       spec: {
@@ -372,7 +381,7 @@ function TerraformPlanWidget(
                         configuration: {
                           ...formik.values?.spec?.configuration,
 
-                          configFiles: data.spec?.configuration?.configFiles
+                          configFiles: { ...configObject }
                         }
                       }
                     }

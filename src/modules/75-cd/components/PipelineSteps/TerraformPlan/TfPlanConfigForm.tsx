@@ -34,7 +34,7 @@ interface ConfigFormProps {
 
 const gitFetchTypes: SelectOption[] = [
   { label: 'Latest from branch', value: 'Branch' },
-  { label: 'Specific Commit ID', value: 'CommitId' }
+  { label: 'Specific Commit ID', value: 'Commit' }
 ]
 
 export default function ConfigForm(props: ConfigFormProps): React.ReactElement {

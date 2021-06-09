@@ -348,6 +348,15 @@ export default function TerraformEditView(
                     >
                       <ConfigForm
                         onClick={data => {
+                          const configObject = {
+                            ...data.spec?.configuration?.spec?.configFiles
+                          }
+
+                          if (configObject?.store.spec.gitFetchType === 'Branch') {
+                            delete configObject.store.spec.commitId
+                          } else if (configObject?.store.spec.gitFetchType === 'Commit') {
+                            delete configObject.store.spec.branch
+                          }
                           const valObj = {
                             ...formik.values,
                             spec: {
@@ -356,7 +365,7 @@ export default function TerraformEditView(
                                 ...formik.values?.spec?.configuration,
                                 spec: {
                                   ...formik.values?.spec?.configuration?.spec,
-                                  configFiles: data.spec?.configuration?.spec?.configFiles
+                                  configFiles: { ...configObject }
                                 }
                               }
                             }

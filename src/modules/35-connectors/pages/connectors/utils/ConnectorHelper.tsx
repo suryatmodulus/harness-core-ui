@@ -147,6 +147,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-newrelic'
     case Connectors.PROMETHEUS:
       return 'service-prometheus'
+    case Connectors.DYNATRACE:
+      return 'service-dynatrace'
     case Connectors.DOCKER:
     case 'Dockerhub':
       return 'service-dockerhub'

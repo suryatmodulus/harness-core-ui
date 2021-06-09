@@ -754,6 +754,7 @@ export interface StringsMap {
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string
   'connectors.prometheusLabel': string
+  'connectors.scopeError': string
   'connectors.secretManagerDetails': string
   'connectors.selectConnectorLabel': string
   'connectors.specifyArtifactRepo': string
@@ -1096,6 +1097,7 @@ export interface StringsMap {
   'pipeline.dashboards.totalBuilds': string
   'pipeline.dashboards.totalExecutions': string
   'pipeline.dashboards.workloads': string
+  'pipeline.depth': string
   'pipeline.discard': string
   'pipeline.duration': string
   'pipeline.enableVerificationOptions': string
@@ -1287,6 +1289,8 @@ export interface StringsMap {
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
+  'pipeline.onlyPositiveInteger': string
+  'pipeline.optionalLabel': string
   'pipeline.progressPercentage': string
   'pipeline.repoRequired': string
   'pipeline.resourceConstraints.currentlyExecuting': string
@@ -1298,11 +1302,16 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
+  'pipeline.sslVerify': string
   'pipeline.startTime': string
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDetails': string
   'pipeline.stepLabel': string
   'pipeline.targets.title': string
+  'pipeline.testsReports.callgraphTitle': string
+  'pipeline.testsReports.calls': string
+  'pipeline.testsReports.changedSourceMethods': string
+  'pipeline.testsReports.changedTestMethods': string
   'pipeline.testsReports.className': string
   'pipeline.testsReports.commitId': string
   'pipeline.testsReports.consoleOutput': string
@@ -1326,18 +1335,21 @@ export interface StringsMap {
   'pipeline.testsReports.result': string
   'pipeline.testsReports.resultInfo': string
   'pipeline.testsReports.resultLabel': string
+  'pipeline.testsReports.selectedTestMethods': string
   'pipeline.testsReports.selectionBreakdown': string
   'pipeline.testsReports.selectionBreakdownInfo': string
   'pipeline.testsReports.showOnlyFailedTests': string
   'pipeline.testsReports.skipped': string
   'pipeline.testsReports.skippedWithColon': string
   'pipeline.testsReports.sortBy': string
+  'pipeline.testsReports.sourceMethods': string
   'pipeline.testsReports.stackTrace': string
   'pipeline.testsReports.status': string
   'pipeline.testsReports.successWithColon': string
   'pipeline.testsReports.testCaseName': string
   'pipeline.testsReports.testCasesExecution': string
   'pipeline.testsReports.testCasesExecutionInfo': string
+  'pipeline.testsReports.testMethods': string
   'pipeline.testsReports.testSuite': string
   'pipeline.testsReports.timeSaved': string
   'pipeline.testsReports.totalDuration': string
@@ -1346,6 +1358,7 @@ export interface StringsMap {
   'pipeline.testsReports.totalWithColon': string
   'pipeline.testsReports.type': string
   'pipeline.testsReports.updatedTests': string
+  'pipeline.testsReports.viewCallgraph': string
   'pipeline.testsReports.willBeDisplayedIfAvailable': string
   'pipeline.triggers.aboutTriggers': string
   'pipeline.triggers.activityActivation': string

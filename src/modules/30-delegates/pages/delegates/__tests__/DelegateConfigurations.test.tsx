@@ -21,7 +21,9 @@ jest.mock('services/cd-ng', () => ({
 
 jest.mock('@common/exports', () => ({
   TimeAgo: jest.fn().mockImplementation(() => <div />),
-  useConfirmationDialog: jest.fn().mockImplementation(() => <div />)
+  useConfirmationDialog: jest.fn().mockImplementation(async ({ onCloseDialog }) => {
+    await onCloseDialog(true)
+  })
 }))
 
 describe('Delegates Configurations Page', () => {
@@ -46,6 +48,22 @@ describe('Delegates Configurations Page', () => {
       fireEvent.click(addBtn)
     })
 
+    expect(container).toMatchSnapshot()
+  })
+  test('delete delegate configuration', () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'dummy' }}>
+        <DelegateConfigurations />
+      </TestWrapper>
+    )
+
+    const allSvgMenus = container.querySelectorAll('svg[data-icon="more"]')
+    const nonPrimaryProfileMenu = allSvgMenus[1]
+
+    fireEvent.click(nonPrimaryProfileMenu!)
+
+    const deleteAction = document.body.querySelector('span[icon="cross"]')
+    fireEvent.click(deleteAction!)
     expect(container).toMatchSnapshot()
   })
 })

@@ -65,6 +65,8 @@ exports[`Delegates Page render data 1`] = `
             >
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                data-test="newDelegateButton"
+                id="newDelegateBtn"
                 type="button"
               >
                 <span

@@ -403,6 +403,15 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                       common.secrets
                     </p>
                   </div>
+                  <div
+                    class="permissionRow groupRow"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
+                    >
+                      delegate.delegates
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -814,6 +823,15 @@ exports[`Role Details Page render data 1`] = `
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
                       common.secrets
+                    </p>
+                  </div>
+                  <div
+                    class="permissionRow groupRow"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
+                    >
+                      delegate.delegates
                     </p>
                   </div>
                 </div>

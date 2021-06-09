@@ -205,7 +205,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           graphCanvasState={stepsGraphCanvasState}
         />
       )}
-      {loading && !isDataLoadedForSelectedStage && <PageSpinner fixed={false} />}
+      {loading && !isDataLoadedForSelectedStage && pipelineExecutionDetail && <PageSpinner fixed={false} />}
       <DynamicPopover
         className={css.popoverHeight}
         darkMode={true}

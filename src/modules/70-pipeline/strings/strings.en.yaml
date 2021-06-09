@@ -11,6 +11,10 @@ stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the ch
 clickHere: Click here
 stepDetails: Step details
 collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
+onlyPositiveInteger: Only positive integer values
+optionalLabel: (Optional)
+depth: Depth
+sslVerify: SSL Verify
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required
@@ -439,6 +443,14 @@ savingInProgress: Saving in progress...
 gitExperience:
   skipNow: SKIP NOW
 testsReports:
+  callgraphTitle: Test Callgraph
+  viewCallgraph: View Callgraph
+  testMethods: Test methods
+  changedTestMethods: Changed/New Test methods
+  changedSourceMethods: Changed/New Source methods
+  selectedTestMethods: Selected Test Methods
+  sourceMethods: Source methods
+  calls: Calls
   description: Failure Description
   type: Failure Type
   status: '{{ $.status }}'

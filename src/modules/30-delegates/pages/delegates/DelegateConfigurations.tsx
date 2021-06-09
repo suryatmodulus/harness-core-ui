@@ -20,6 +20,13 @@ import { useStrings } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
+/* RBAC */
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { usePermission } from '@rbac/hooks/usePermission'
+
 import css from './DelegatesPage.module.scss'
 
 const formatProfileList = (data: any) => {
@@ -127,8 +134,28 @@ export default function DelegateConfigurations(): JSX.Element {
       }
     }
 
+    const [canAccessDelegateConfig] = usePermission(
+      {
+        resourceScope: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier
+        },
+        resource: {
+          resourceType: ResourceType.DELEGATECONFIGURATION
+        },
+        permissions: [PermissionIdentifier.VIEW_DELEGATE_CONFIGURATION]
+      },
+      []
+    )
+
     return (
-      <Card elevation={2} interactive={true} onClick={() => gotoDetailPage()} className={css.delegateProfileElements}>
+      <Card
+        elevation={2}
+        interactive={true}
+        onClick={() => canAccessDelegateConfig && gotoDetailPage()}
+        className={css.delegateProfileElements}
+      >
         <div
           style={{
             width: 250,
@@ -153,14 +180,34 @@ export default function DelegateConfigurations(): JSX.Element {
                 icon="more"
                 tooltip={
                   <Menu style={{ minWidth: 'unset' }}>
-                    <Menu.Item icon="edit" text={getString('edit')} onClick={() => gotoEditDetailPage()} />
+                    <RbacMenuItem
+                      permission={{
+                        resourceScope: {
+                          accountIdentifier: accountId
+                        },
+                        resource: {
+                          resourceType: ResourceType.DELEGATECONFIGURATION
+                        },
+                        permission: PermissionIdentifier.UPDATE_DELEGATE_CONFIGURATION
+                      }}
+                      icon="edit"
+                      text={getString('edit')}
+                      onClick={() => gotoEditDetailPage()}
+                    />
                     {!profile.primary && (
-                      <Menu.Item
+                      <RbacMenuItem
+                        permission={{
+                          resourceScope: {
+                            accountIdentifier: accountId
+                          },
+                          resource: {
+                            resourceType: ResourceType.DELEGATECONFIGURATION
+                          },
+                          permission: PermissionIdentifier.DELETE_DELEGATE_CONFIGURATION
+                        }}
                         icon="cross"
                         text={getString('delete')}
-                        onClick={() => {
-                          openDialog()
-                        }}
+                        onClick={() => openDialog()}
                         className={Classes.POPOVER_DISMISS}
                       />
                     )}
@@ -218,22 +265,37 @@ export default function DelegateConfigurations(): JSX.Element {
   }
 
   if (error) {
+    const message = get(error, 'data.message', error.message)
     return (
       <Container style={fullSizeContentStyle}>
-        <PageError message={error.message} onClick={() => refetch()} />
+        <PageError message={message} onClick={() => refetch()} />
       </Container>
     )
+  }
+
+  const permissionRequestNewConfiguration = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    permission: PermissionIdentifier.UPDATE_DELEGATE_CONFIGURATION,
+    resource: {
+      resourceType: ResourceType.DELEGATECONFIGURATION
+    }
   }
 
   return (
     <Container background={Color.GREY_100}>
       <Layout.Horizontal className={css.header} background={Color.WHITE}>
-        {/** TODO: Implement add configuration */}
-        <Button
+        <RbacButton
           intent="primary"
           text={getString('delegate.newConfiguration')}
           icon="plus"
+          permission={permissionRequestNewConfiguration}
           onClick={() => openDelegateConfigModal()}
+          id="newDelegateConfigurationBtn"
+          data-test="newDelegateConfigurationButton"
         />
         <FlexExpander />
         <Layout.Horizontal spacing="xsmall">

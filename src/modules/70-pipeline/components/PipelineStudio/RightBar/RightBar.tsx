@@ -2,6 +2,7 @@ import React from 'react'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import {
+  Accordion,
   Button,
   IconName,
   Formik,
@@ -11,10 +12,13 @@ import {
   FormInput,
   Text,
   Popover,
-  Color
+  Color,
+  Layout,
+  getMultiTypeFromValue,
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { isEmpty, set } from 'lodash-es'
+import { isEmpty, get, set } from 'lodash-es'
 import { Classes, Dialog, Position } from '@blueprintjs/core'
 import flatten from 'lodash-es/flatten'
 import { useStrings } from 'framework/strings'
@@ -39,6 +43,10 @@ import {
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import {
+  generateSchemaForLimitCPU,
+  generateSchemaForLimitMemory
+} from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
@@ -49,6 +57,10 @@ import css from './RightBar.module.scss'
 interface CodebaseValues {
   connectorRef?: ConnectorReferenceFieldProps['selected']
   repoName?: string
+  depth?: string
+  sslVerify?: number
+  memoryLimit?: any
+  cpuLimit?: any
 }
 
 enum CodebaseStatuses {
@@ -58,6 +70,17 @@ enum CodebaseStatuses {
   Invalid = 'invalid',
   Validating = 'validating'
 }
+
+const sslVerifyOptions = [
+  {
+    label: 'True',
+    value: 1
+  },
+  {
+    label: 'False',
+    value: 0
+  }
+]
 
 const codebaseIcons: Record<CodebaseStatuses, IconName> = {
   [CodebaseStatuses.ZeroState]: 'codebase-zero-state',
@@ -96,7 +119,11 @@ export const RightBar = (): JSX.Element => {
 
   const [isCodebaseDialogOpen, setIsCodebaseDialogOpen] = React.useState(false)
   const codebaseInitialValues: CodebaseValues = {
-    repoName: codebase?.repoName
+    repoName: codebase?.repoName,
+    depth: codebase?.depth !== undefined ? String(codebase.depth) : undefined,
+    sslVerify: codebase?.sslVerify !== undefined ? Number(codebase.sslVerify) : undefined,
+    memoryLimit: codebase?.resources?.limits?.memory,
+    cpuLimit: codebase?.resources?.limits?.cpu
   }
 
   const connectorId = getIdentifierFromValue((codebase?.connectorRef as string) || '')
@@ -394,6 +421,31 @@ export const RightBar = (): JSX.Element => {
                 repoName: Yup.string().required(getString('validation.repositoryName'))
               })
             })}
+            validate={values => {
+              const errors = {}
+              if (getMultiTypeFromValue(values.depth) === MultiTypeInputType.FIXED) {
+                try {
+                  Yup.number()
+                    .integer(getString('pipeline.onlyPositiveInteger'))
+                    .positive(getString('pipeline.onlyPositiveInteger'))
+                    .typeError(getString('pipeline.onlyPositiveInteger'))
+                    .validateSync(values.depth)
+                } catch (error) {
+                  set(errors, 'depth', error.message)
+                }
+              }
+              try {
+                generateSchemaForLimitMemory({ getString }).validateSync(values.memoryLimit)
+              } catch (error) {
+                set(errors, 'memoryLimit', error.message)
+              }
+              try {
+                generateSchemaForLimitCPU({ getString }).validateSync(values.cpuLimit)
+              } catch (error) {
+                set(errors, 'cpuLimit', error.message)
+              }
+              return errors
+            }}
             onSubmit={(values): void => {
               set(pipeline, 'properties.ci.codebase', {
                 connectorRef:
@@ -405,6 +457,29 @@ export const RightBar = (): JSX.Element => {
               // Repo level connectors should not have repoName
               if (connectionType === 'Repo' && (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName) {
                 delete (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName
+              }
+
+              if (get(pipeline, 'properties.ci.codebase.depth') !== values.depth) {
+                const depthValue =
+                  getMultiTypeFromValue(values.depth) === MultiTypeInputType.FIXED
+                    ? values.depth
+                      ? Number.parseInt(values.depth)
+                      : undefined
+                    : values.depth
+                set(pipeline, 'properties.ci.codebase.depth', depthValue)
+              }
+
+              const sslVerifyVal = values.sslVerify === undefined ? values.sslVerify : !!values.sslVerify
+              if (get(pipeline, 'properties.ci.codebase.sslVerify') !== sslVerifyVal) {
+                set(pipeline, 'properties.ci.codebase.sslVerify', sslVerifyVal)
+              }
+
+              if (get(pipeline, 'properties.ci.codebase.resources.limits.memory') !== values.memoryLimit) {
+                set(pipeline, 'properties.ci.codebase.resources.limits.memory', values.memoryLimit)
+              }
+
+              if (get(pipeline, 'properties.ci.codebase.resources.limits.cpu') !== values.cpuLimit) {
+                set(pipeline, 'properties.ci.codebase.resources.limits.cpu', values.cpuLimit)
               }
 
               updatePipeline(pipeline)
@@ -464,6 +539,81 @@ export const RightBar = (): JSX.Element => {
                         ) : null}
                       </>
                     )}
+                    <Accordion>
+                      <Accordion.Panel
+                        id="advanced"
+                        summary={
+                          <Layout.Horizontal>
+                            <Text font={{ weight: 'bold' }}>{getString('advancedTitle')}</Text>&nbsp;
+                            <Text>{getString('pipeline.optionalLabel')}</Text>
+                          </Layout.Horizontal>
+                        }
+                        details={
+                          <div>
+                            <FormInput.Text
+                              name="depth"
+                              label={
+                                <div className={css.labelWrapper}>
+                                  <Text>{getString('pipeline.depth')}</Text>
+                                  <Button
+                                    icon="question"
+                                    minimal
+                                    tooltip={getString('pipeline.depth')}
+                                    iconProps={{ size: 14 }}
+                                  />
+                                </div>
+                              }
+                              style={{ width: '50%' }}
+                            />
+                            <FormInput.Select
+                              name="sslVerify"
+                              label={
+                                <div className={css.labelWrapper}>
+                                  <Text>{getString('pipeline.sslVerify')}</Text>
+                                  <Button
+                                    icon="question"
+                                    minimal
+                                    tooltip={getString('pipeline.sslVerify')}
+                                    iconProps={{ size: 14 }}
+                                  />
+                                </div>
+                              }
+                              items={sslVerifyOptions}
+                              style={{ width: '50%' }}
+                            />
+                            <Text margin={{ top: 'small' }}>
+                              {getString('pipelineSteps.setContainerResources')}
+                              <Button
+                                icon="question"
+                                minimal
+                                tooltip={getString('pipelineSteps.setContainerResourcesTooltip')}
+                                iconProps={{ size: 14 }}
+                              />
+                            </Text>
+                            <Layout.Horizontal spacing="small">
+                              <FormInput.Text
+                                name="memoryLimit"
+                                label={
+                                  <Text margin={{ bottom: 'xsmall' }}>
+                                    {getString('pipelineSteps.limitMemoryLabel')}
+                                  </Text>
+                                }
+                                placeholder={getString('pipelineSteps.limitMemoryPlaceholder')}
+                                style={{ flex: 1 }}
+                              />
+                              <FormInput.Text
+                                name="cpuLimit"
+                                label={
+                                  <Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.limitCPULabel')}</Text>
+                                }
+                                placeholder={getString('pipelineSteps.limitCPUPlaceholder')}
+                                style={{ flex: 1 }}
+                              />
+                            </Layout.Horizontal>
+                          </div>
+                        }
+                      />
+                    </Accordion>
                   </FormikForm>
                 </div>
                 <div className={Classes.DIALOG_FOOTER}>

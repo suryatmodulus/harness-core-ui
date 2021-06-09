@@ -294,6 +294,26 @@ exports[`Resource Groups Page render data 1`] = `
                   common.secrets
                 </p>
               </div>
+              <div
+                class="Layout--horizontal StyledProps--main resourceSubList"
+              >
+                <label
+                  class="bp3-control bp3-checkbox"
+                >
+                  <input
+                    data-testid="CHECK-BOX-DELEGATE"
+                    type="checkbox"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                </label>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                >
+                  delegate.delegates
+                </p>
+              </div>
             </div>
           </div>
         </div>

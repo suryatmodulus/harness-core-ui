@@ -225,7 +225,7 @@ function generateSchemaForOutputVariables(
   }
 }
 
-function generateSchemaForLimitMemory({ getString, isRequired = false }: GenerateSchemaDependencies): Lazy {
+export function generateSchemaForLimitMemory({ getString, isRequired = false }: GenerateSchemaDependencies): Lazy {
   return yup.lazy(value => {
     if (isRequired) {
       return getMultiTypeFromValue(value as string) === MultiTypeInputType.FIXED
@@ -247,7 +247,7 @@ function generateSchemaForLimitMemory({ getString, isRequired = false }: Generat
   })
 }
 
-function generateSchemaForLimitCPU({ getString }: GenerateSchemaDependencies): Lazy {
+export function generateSchemaForLimitCPU({ getString }: GenerateSchemaDependencies): Lazy {
   return yup.lazy(value =>
     getMultiTypeFromValue(value as string) === MultiTypeInputType.FIXED
       ? // ^$ in the end is to pass empty string because otherwise it will fail

@@ -34,6 +34,11 @@ import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 //import { DelegateStatus } from '@delegates/constants'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { usePermission } from '@rbac/hooks/usePermission'
 
 import css from './DelegatesPage.module.scss'
 
@@ -206,8 +211,33 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
           }}
         />
         <Menu style={{ minWidth: 'unset' }}>
-          <Menu.Item icon="edit" text={getString('details')} />
-          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+          <RbacMenuItem
+            permission={{
+              resourceScope: {
+                accountIdentifier: accountId
+              },
+              resource: {
+                resourceType: ResourceType.DELEGATE
+              },
+              permission: PermissionIdentifier.VIEW_DELEGATE
+            }}
+            icon="edit"
+            text={getString('details')}
+          />
+          <RbacMenuItem
+            permission={{
+              resourceScope: {
+                accountIdentifier: accountId
+              },
+              resource: {
+                resourceType: ResourceType.DELEGATE
+              },
+              permission: PermissionIdentifier.DELETE_DELEGATE
+            }}
+            icon="trash"
+            text={getString('delete')}
+            onClick={handleDelete}
+          />
         </Menu>
       </Popover>
     </Layout.Horizontal>
@@ -241,6 +271,21 @@ export const DelegateListing: React.FC = () => {
   const filteredDelegates = searchParam
     ? delegates.filter((delegate: DelegateGroupDetails) => delegate.groupName?.includes(searchParam))
     : delegates
+
+  const [canAccessDelegate] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.DELEGATE
+      },
+      permissions: [PermissionIdentifier.VIEW_DELEGATE]
+    },
+    []
+  )
 
   const groupDelegates: DelegateGroupDetails[] = []
 
@@ -343,27 +388,44 @@ export const DelegateListing: React.FC = () => {
   }
 
   const onDelegateClick = (item: DelegateGroupDetails): void => {
-    const params = {
-      accountId,
-      delegateId: item.groupId as string
+    if (canAccessDelegate) {
+      const params = {
+        accountId,
+        delegateId: item.groupId as string
+      }
+      if (orgIdentifier) {
+        set(params, 'orgIdentifier', orgIdentifier)
+      }
+      if (projectIdentifier) {
+        set(params, 'projectIdentifier', projectIdentifier)
+      }
+      history.push(routes.toDelegatesDetails(params))
     }
-    if (orgIdentifier) {
-      set(params, 'orgIdentifier', orgIdentifier)
+  }
+
+  const permissionRequestNewDelegate = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    permission: PermissionIdentifier.UPDATE_DELEGATE,
+    resource: {
+      resourceType: ResourceType.DELEGATE
     }
-    if (projectIdentifier) {
-      set(params, 'projectIdentifier', projectIdentifier)
-    }
-    history.push(routes.toDelegatesDetails(params))
   }
 
   return (
     <Container>
       <Layout.Horizontal className={css.header}>
-        <Button
+        <RbacButton
           intent="primary"
           text={getString('delegate.NEW_DELEGATE')}
           icon="plus"
+          permission={permissionRequestNewDelegate}
           onClick={() => openDelegateModal()}
+          id="newDelegateBtn"
+          data-test="newDelegateButton"
         />
         <FlexExpander />
         <Layout.Horizontal spacing="xsmall">

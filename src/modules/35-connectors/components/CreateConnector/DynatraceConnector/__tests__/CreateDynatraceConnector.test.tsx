@@ -4,6 +4,7 @@ import { fireEvent, waitFor } from '@testing-library/dom'
 import { render } from '@testing-library/react'
 import { FormInput, Container } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
+import * as connectorUtils from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { onNextMock } from '../../CommonCVConnector/__mocks__/CommonCVConnectorMocks'
@@ -16,7 +17,7 @@ const ApiToken = 'apiToken'
 
 jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
   <Container className="secret-mock">
-    <FormInput.Text name="apiToken" />
+    <FormInput.Text name="apiTokenRef" />
   </Container>
 ))
 
@@ -70,7 +71,7 @@ describe('Unit tests for CreateDynatraceConnector', () => {
     // fill out url field
     await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
     await setFieldValue({ container, fieldId: 'url', value: DynatraceURL, type: InputTypes.TEXTFIELD })
-    await setFieldValue({ container, fieldId: 'apiToken', value: ApiToken, type: InputTypes.TEXTFIELD })
+    await setFieldValue({ container, fieldId: 'apiTokenRef', value: ApiToken, type: InputTypes.TEXTFIELD })
 
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
@@ -80,12 +81,13 @@ describe('Unit tests for CreateDynatraceConnector', () => {
         orgIdentifier: 'dummyOrgId',
         projectIdentifier: 'dummyProjectId',
         url: DynatraceURL,
-        apiToken: ApiToken
+        apiTokenRef: ApiToken
       })
     )
   })
 
   test('Ensure if there is existing data, fields are populated', async () => {
+    jest.spyOn(connectorUtils, 'setSecretField').mockResolvedValue(ApiToken as any)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateDynatraceConnector
@@ -96,7 +98,7 @@ describe('Unit tests for CreateDynatraceConnector', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={({ url: DynatraceURL + '/', apiToken: ApiToken } as unknown) as ConnectorInfoDTO}
+          connectorInfo={({ url: DynatraceURL + '/', apiTokenRef: ApiToken } as unknown) as ConnectorInfoDTO}
         />
       </TestWrapper>
     )
@@ -114,13 +116,17 @@ describe('Unit tests for CreateDynatraceConnector', () => {
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
-        url: 'http://sfsfsf.com',
-        apiToken: ApiToken
+        accountId: 'dummyAccountId',
+        apiTokenRef: ApiToken,
+        orgIdentifier: 'dummyOrgId',
+        projectIdentifier: 'dummyProjectId',
+        url: 'http://sfsfsf.com'
       })
     )
   })
 
   test('Ensure edit flow works', async () => {
+    jest.spyOn(connectorUtils, 'setSecretField').mockResolvedValue(ApiToken as any)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateDynatraceConnector
@@ -131,7 +137,7 @@ describe('Unit tests for CreateDynatraceConnector', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={({ spec: { url: DynatraceURL, apiToken: ApiToken } } as unknown) as ConnectorInfoDTO}
+          connectorInfo={({ spec: { url: DynatraceURL, apiTokenRef: ApiToken } } as unknown) as ConnectorInfoDTO}
         />
       </TestWrapper>
     )
@@ -142,19 +148,62 @@ describe('Unit tests for CreateDynatraceConnector', () => {
     expect(container.querySelector(`input[value="${DynatraceURL}"]`)).not.toBeNull()
     // update it with new value
     await setFieldValue({ container, fieldId: 'url', value: 'http://dgdgtrty.com', type: InputTypes.TEXTFIELD })
-    await setFieldValue({ container, fieldId: 'apiToken', value: 'newToken', type: InputTypes.TEXTFIELD })
+    await setFieldValue({ container, fieldId: 'apiTokenRef', value: 'newToken', type: InputTypes.TEXTFIELD })
 
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
+        accountId: 'dummyAccountId',
+        apiTokenRef: 'newToken',
+        orgIdentifier: 'dummyOrgId',
+        projectIdentifier: 'dummyProjectId',
         spec: {
           url: DynatraceURL,
-          apiToken: ApiToken
+          apiTokenRef: ApiToken
         },
-        url: 'http://dgdgtrty.com',
-        apiToken: 'newToken'
+        url: 'http://dgdgtrty.com'
       })
     )
+  })
+
+  test('Ensure loading spinner is displayed when secrets api is loading', async () => {
+    jest.spyOn(connectorUtils, 'setSecretField').mockImplementation(() => new Promise(() => undefined))
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateDynatraceConnector
+          accountId="dummyAccountId"
+          orgIdentifier="dummyOrgId"
+          projectIdentifier="dummyProjectId"
+          onClose={noop}
+          onSuccess={noop}
+          isEditMode={false}
+          setIsEditMode={noop}
+          connectorInfo={({ spec: { url: DynatraceURL, apiTokenRef: ApiToken } } as unknown) as ConnectorInfoDTO}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[data-icon="steps-spinner"]')).not.toBeNull())
+  })
+
+  test('Ensure toaster displays error when secrets api throows error', async () => {
+    jest.spyOn(connectorUtils, 'setSecretField').mockRejectedValue('mock error')
+    const { getByText } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateDynatraceConnector
+          accountId="dummyAccountId"
+          orgIdentifier="dummyOrgId"
+          projectIdentifier="dummyProjectId"
+          onClose={noop}
+          onSuccess={noop}
+          isEditMode={false}
+          setIsEditMode={noop}
+          connectorInfo={({ spec: { url: DynatraceURL, apiTokenRef: ApiToken } } as unknown) as ConnectorInfoDTO}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('mock error')).not.toBeNull())
   })
 })

@@ -16,6 +16,7 @@ creating: 'Creating connector {{name}}'
 successfullCreate: 'Connector {{name}} created successfully'
 successfullUpdate: 'Connector {{name}} updated successfully'
 connectorNotFound: Connector not found.
+scopeError: 'Cannot create a connector at {{createdAtScope}} scope from {{createdFromScope}} scope.'
 createFromYaml: 'Create New Connector from YAML'
 successfullyCreated: 'Connector created successfully'
 secretManagerDetails: 'Secret Manager Details'

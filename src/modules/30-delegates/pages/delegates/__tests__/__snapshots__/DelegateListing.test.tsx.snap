@@ -10,6 +10,8 @@ exports[`Delegates Listing With Groups render data 1`] = `
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        data-test="newDelegateButton"
+        id="newDelegateBtn"
         type="button"
       >
         <span
@@ -307,7 +309,7 @@ exports[`Delegates Listing With Groups render data 1`] = `
             role="cell"
             style="width: calc(15% - 10px);"
           >
-            2 months ago
+            3 months ago
           </div>
           <div
             class="cell"
@@ -399,7 +401,9 @@ exports[`Delegates Listing test actions render data and click delete 1`] = `
     >
       <button
         class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        data-test="newDelegateButton"
         disabled=""
+        id="newDelegateBtn"
         tabindex="-1"
         type="button"
       >
@@ -724,7 +728,7 @@ exports[`Delegates Listing test actions render data and click delete 1`] = `
             role="cell"
             style="width: calc(15% - 10px);"
           >
-            2 months ago
+            3 months ago
           </div>
           <div
             class="cell"
@@ -816,6 +820,8 @@ exports[`Delegates Listing without tags render data 1`] = `
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        data-test="newDelegateButton"
+        id="newDelegateBtn"
         type="button"
       >
         <span
@@ -1113,7 +1119,7 @@ exports[`Delegates Listing without tags render data 1`] = `
             role="cell"
             style="width: calc(15% - 10px);"
           >
-            2 months ago
+            3 months ago
           </div>
           <div
             class="cell"
@@ -1205,6 +1211,8 @@ exports[`Feature flag enabled render delegates list and check for activity colum
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        data-test="newDelegateButton"
+        id="newDelegateBtn"
         type="button"
       >
         <span
@@ -1502,7 +1510,7 @@ exports[`Feature flag enabled render delegates list and check for activity colum
             role="cell"
             style="width: calc(15% - 10px);"
           >
-            2 months ago
+            3 months ago
           </div>
           <div
             class="cell"

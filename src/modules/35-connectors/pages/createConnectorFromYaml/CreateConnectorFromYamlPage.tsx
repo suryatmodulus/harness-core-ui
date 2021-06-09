@@ -181,6 +181,22 @@ const CreateConnectorFromYamlPage: React.FC = () => {
       hideCreateConnectorModal()
       return
     }
+    const scopeOfConnector = getScopeFromDTO(connectorJSON.connector)
+    const defaultScope = getScopeFromDTO({
+      accountIdentifier: accountId,
+      orgIdentifier: orgIdentifier,
+      projectIdentifier: projectIdentifier
+    })
+    if (scopeOfConnector != defaultScope) {
+      const errorMsg = getString('connectors.scopeError', {
+        createdAtScope: scopeOfConnector,
+        createdFromScope: defaultScope
+      })
+      setConnectorCreateError({ data: { message: errorMsg } })
+      setConnectorCreateStatus('ERROR')
+      setPRCreateStatus('ABORTED')
+      return
+    }
     if (yamlData && connectorJSON) {
       try {
         const queryParams = gitData ? { accountIdentifier: accountId, ...gitData } : {}

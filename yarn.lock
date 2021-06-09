@@ -4448,9 +4448,9 @@
     vscode-uri "^2.1.1"
 
 "@wings-software/ng-tooltip@~1.30.1":
-  version "1.30.2"
-  resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.30.2/ba8a52533df9f5b82820ac43bc33d8dcac8b68b88fced36a9d125c30115679ab#ef45dd4eeeed22fa47232f70e1af8b009cd5d5b8"
-  integrity sha512-wnjfoL8R0BWz9On+HFpiMatcXjE19Ikvv+KxWBcL+W9zZqpdybBX0vYVV/GoSh93d/fKFTMpZgu2kTv58bp+qA==
+  version "1.30.3"
+  resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.30.3/41478f89dffe6e1d9a2033e31692e769a729f82b5b67123db43d32efb67dc52b#daf7c84c72ee16344bfcc5a43e76b2f514d270cd"
+  integrity sha512-pmjCjsOvXnlWDDkzWY7/fuBCsnMvmqrxlvQV8ugmh2QpG3VfQG1CJsrp236UBzHETAe/FlFczQSAPBUCyKmrWQ==
 
 "@wings-software/telemetry@^1.0.36":
   version "1.0.36"
@@ -9017,7 +9017,7 @@ header-case@^2.0.4:
 highcharts-react-official@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/highcharts-react-official/-/highcharts-react-official-3.0.0.tgz#f2e81ed59d299c3473a0dd5ba5df24028875226a"
-  integrity "sha1-8uge1Z0pnDRzoN1bpd8kAoh1Imo= sha512-VefJgDY2hkT9gfppsQGrRF2g5u8d9dtfHGcx2/xqiP+PkZXCqalw9xOeKVCRvJKTOh0coiDFwvVjOvB7KaGl4A=="
+  integrity sha512-VefJgDY2hkT9gfppsQGrRF2g5u8d9dtfHGcx2/xqiP+PkZXCqalw9xOeKVCRvJKTOh0coiDFwvVjOvB7KaGl4A==
 
 highcharts@9.1.0:
   version "9.1.0"

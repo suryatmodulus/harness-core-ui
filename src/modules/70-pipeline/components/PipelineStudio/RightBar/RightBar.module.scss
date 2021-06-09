@@ -132,3 +132,11 @@
 .git-sync-popover {
   background-color: var(--white);
 }
+.labelWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: -var(--spacing-xsmall);
+  :global(.bp3-popover-wrapper) {
+    margin-top: 0 !important;
+  }
+}

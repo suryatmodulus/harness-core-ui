@@ -66,6 +66,7 @@ export const Connectors: ConnectorType = {
   CE_AZURE: 'CEAzure',
   DATADOG: 'Datadog',
   AZURE_KEY_VAULT: 'AzureKeyVault',
+  DYNATRACE: 'Dynatrace',
   SUMOLOGIC: 'SumoLogic'
 }
 
@@ -83,7 +84,8 @@ export const ConnectorInfoText = {
   LOCAL: 'Secret Manager',
   AWS: 'AWS',
   NEXUS: 'Nexus',
-  ARTIFACTORY: 'Artifactory'
+  ARTIFACTORY: 'Artifactory',
+  DYNATRACE: 'Dynatrace'
 }
 export const ConnectorStatus: ConnectorStatusType = {
   SUCCESS: 'SUCCESS',

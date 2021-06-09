@@ -10,5 +10,6 @@ declare const styles: {
   readonly variablesIcon: string
   readonly predefinedValue: string
   readonly gitSyncPopover: string
+  readonly labelWrapper: string
 }
 export default styles

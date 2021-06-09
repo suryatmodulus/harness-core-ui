@@ -40,5 +40,11 @@ export enum PermissionIdentifier {
   DELETE_RESOURCEGROUP = 'core_resourcegroup_delete',
   VIEW_AUTHSETTING = 'core_authsetting_view',
   EDIT_AUTHSETTING = 'core_authsetting_edit',
-  DELETE_AUTHSETTING = 'core_authsetting_delete'
+  DELETE_AUTHSETTING = 'core_authsetting_delete',
+  UPDATE_DELEGATE = 'core_delegate_edit',
+  DELETE_DELEGATE = 'core_delegate_delete',
+  VIEW_DELEGATE = 'core_delegate_view',
+  UPDATE_DELEGATE_CONFIGURATION = 'core_delegateconfiguration_edit',
+  DELETE_DELEGATE_CONFIGURATION = 'core_delegateconfiguration_delete',
+  VIEW_DELEGATE_CONFIGURATION = 'core_delegateconfiguration_view'
 }

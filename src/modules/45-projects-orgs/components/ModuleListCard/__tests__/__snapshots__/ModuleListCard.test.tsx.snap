@@ -214,9 +214,11 @@ exports[`Project Details render 1`] = `
             </p>
           </div>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
+            class="StyledProps--font StyledProps--main captalise StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
-            PROJECTCARD.CDRENDERERTEXT
+            <span>
+              projectCard.cdRendererText
+            </span>
           </p>
         </div>
       </div>
@@ -472,9 +474,11 @@ exports[`Project Details render 2`] = `
             </p>
           </div>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
+            class="StyledProps--font StyledProps--main captalise StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
-            PROJECTCARD.CVRENDERERTEXT
+            <span>
+              projectCard.cvRendererText
+            </span>
           </p>
         </div>
       </div>
@@ -726,9 +730,11 @@ exports[`Project Details render 3`] = `
             </p>
           </div>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
+            class="StyledProps--font StyledProps--main captalise StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
-            PROJECTCARD.CERENDERERTEXT
+            <span>
+              projectCard.ceRendererText
+            </span>
           </p>
         </div>
       </div>
@@ -980,9 +986,11 @@ exports[`Project Details render 4`] = `
             </p>
           </div>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
+            class="StyledProps--font StyledProps--main captalise StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
-            PROJECTCARD.CFRENDERERTEXT
+            <span>
+              projectCard.cfRendererText
+            </span>
           </p>
         </div>
       </div>
@@ -1234,9 +1242,11 @@ exports[`Project Details render 5`] = `
             </p>
           </div>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
+            class="StyledProps--font StyledProps--main captalise StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
-            PROJECTCARD.CIRENDERERTEXT
+            <span>
+              projectCard.ciRendererText
+            </span>
           </p>
         </div>
       </div>

@@ -3,7 +3,6 @@ import { Button, Card, Color, Container, Icon, Layout, SparkChart, Text } from '
 import { useHistory } from 'react-router-dom'
 import { getModuleIcon, getModulePurpose } from '@projects-orgs/utils/utils'
 import { String, useStrings } from 'framework/strings'
-import type { StringKeys } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
 import routes from '@common/RouteDefinitions'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -17,6 +16,23 @@ interface ModuleListCardProps {
   orgIdentifier: string
   projectIdentifier: string
   accountId: string
+}
+
+const getModuleRendererText = (module: ModuleName): React.ReactElement => {
+  switch (module) {
+    case ModuleName.CD:
+      return <String stringID="projectCard.cdRendererText" />
+    case ModuleName.CV:
+      return <String stringID="projectCard.cvRendererText" />
+    case ModuleName.CI:
+      return <String stringID="projectCard.ciRendererText" />
+    case ModuleName.CE:
+      return <String stringID="projectCard.ceRendererText" />
+    case ModuleName.CF:
+      return <String stringID="projectCard.cfRendererText" />
+    default:
+      return <></>
+  }
 }
 
 const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifier, orgIdentifier, accountId }) => {
@@ -173,12 +189,8 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
                   {getString('projectsOrgs.placeholder')}
                 </Text>
               </Layout.Horizontal>
-              <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-                {getString(
-                  `projectCard.${module
-                    .toString()
-                    .toLowerCase()}RendererText` as StringKeys /* TODO: fix this by using a map */
-                ).toUpperCase()}
+              <Text color={Color.GREY_400} font={{ size: 'xsmall' }} className={css.captalise}>
+                {getModuleRendererText(module)}
               </Text>
             </Layout.Vertical>
           </Container>

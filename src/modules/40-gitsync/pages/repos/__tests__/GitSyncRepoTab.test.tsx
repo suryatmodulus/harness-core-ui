@@ -43,7 +43,6 @@ describe('Git Sync - repo tab', () => {
     updateGitSynRepo.mockReset()
   })
   // eslint-disable-next-line jest/no-disabled-tests
-
   test.skip('rendering landing list view', async () => {
     const { container, getByText } = setup()
 
@@ -54,7 +53,6 @@ describe('Git Sync - repo tab', () => {
     expect(container).toMatchSnapshot()
   })
   // eslint-disable-next-line jest/no-disabled-tests
-
   test.skip('test for opening add repo modal in list view', async () => {
     const { container } = setup()
     const addRepoBtn = document.getElementById('newRepoBtn')

@@ -1473,8 +1473,8 @@ export const useGetAllASGs = ({ org_id, project_id, account_id, ...props }: UseG
   )
 
 export interface ListAccessPointsQueryParams {
-  vpc: string
-  region: string
+  vpc?: string
+  region?: string
   cloud_account_id: string
   accountIdentifier: string
 }

@@ -1174,13 +1174,13 @@
           {
             "name": "vpc",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
             "name": "region",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {

@@ -27,7 +27,8 @@ import {
   useAccessPointResources,
   useAllHostedZones,
   useListAccessPoints,
-  AzureAccessPointCore
+  AzureAccessPointCore,
+  ListAccessPointsQueryParams
 } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -138,20 +139,27 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const [accessPoint, setAccessPoint] = useState<AccessPoint>()
   const [selectedApCore, setSelectedApCore] = useState<SelectOption>()
 
+  const getAccessPointFetchQueryParams = (): ListAccessPointsQueryParams => {
+    const params: ListAccessPointsQueryParams = {
+      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
+      accountIdentifier: accountId
+    }
+    if (isAwsProvider) {
+      params.region = props.gatewayDetails.selectedInstances?.length
+        ? props.gatewayDetails.selectedInstances[0].region
+        : props.gatewayDetails.routing.instance.scale_group?.region || ''
+      params.vpc = props.gatewayDetails.selectedInstances?.length
+        ? props.gatewayDetails.selectedInstances[0].vpc
+        : props.gatewayDetails.routing.instance.scale_group?.target_groups?.[0]?.vpc || ''
+    }
+    return params
+  }
+
   const { data: accessPoints, loading: accessPointsLoading, refetch } = useListAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    queryParams: {
-      region: props.gatewayDetails.selectedInstances?.length
-        ? props.gatewayDetails.selectedInstances[0].region
-        : props.gatewayDetails.routing.instance.scale_group?.region || '',
-      vpc: props.gatewayDetails.selectedInstances?.length
-        ? props.gatewayDetails.selectedInstances[0].vpc
-        : props.gatewayDetails.routing.instance.scale_group?.target_groups?.[0]?.vpc || '',
-      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      accountIdentifier: accountId
-    }
+    queryParams: getAccessPointFetchQueryParams()
   })
 
   const { data: apCoresResponse, loading: apCoresLoading, refetch: apCoresRefetch } = useAccessPointResources({

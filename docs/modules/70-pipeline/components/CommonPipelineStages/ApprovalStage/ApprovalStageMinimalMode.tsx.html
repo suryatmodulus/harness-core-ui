@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.37% </span>
+                <span class="strong">97.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>37/38</span>
+                <span class='fraction'>36/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>40/52</span>
+                <span class='fraction'>36/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.22% </span>
+                <span class="strong">97.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/36</span>
+                <span class='fraction'>34/35</span>
             </div>
         
             
@@ -153,13 +153,8 @@
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -168,7 +163,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -221,12 +215,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -266,12 +254,12 @@ import * as Yup from 'yup'
 import cx from 'classnames'
 import { Formik } from 'formik'
 import { Button, Card, Container, FormikForm, Text } from '@wings-software/uicore'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { useStrings } from 'framework/strings'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { NameIdDescriptionTags } from '@common/components'
-import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues } from './types'
 import { ApprovalTypeCards, approvalTypeCardsData } from './ApprovalTypeCards'
 &nbsp;
@@ -321,14 +309,8 @@ export const ApprovalStageMinimalMode: React.FC&lt;ApprovalStageMinimalModeProps
         enableReinitialize
         initialValues={getInitialValues(data)}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('approvalStage.stageNameRequired')),
-          identifier: Yup.string().when('name', {
-            is: val =&gt; val?.length,
-            then: Yup.string()
-              .required(getString('validation.identifierRequired'))
-              .matches(regexIdentifier, getString('validation.validIdRegex'))
-              .notOneOf(illegalIdentifiers)
-          })
+          name: NameSchema({ requiredErrorMsg: getString('approvalStage.stageNameRequired') }),
+          identifier: IdentifierSchema()
         })}
         validate={handleValidate}
         onSubmit={(values: ApprovalStageMinimalValues) =&gt; handleSubmit(values)}
@@ -370,7 +352,7 @@ export const ApprovalStageMinimalMode: React.FC&lt;ApprovalStageMinimalModeProps
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 10 2021 14:35:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 10 2021 14:52:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">52% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>13/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.11% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>32/45</span>
+                <span class='fraction'>0/45</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/24</span>
+                <span class='fraction'>12/24</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -223,13 +223,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">68x</span>
-<span class="cline-any cline-yes">68x</span>
-<span class="cline-any cline-yes">68x</span>
-<span class="cline-any cline-yes">68x</span>
-<span class="cline-any cline-yes">68x</span>
-<span class="cline-any cline-yes">68x</span>
-<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,7 +240,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -248,7 +248,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -262,9 +262,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">34x</span>
-<span class="cline-any cline-yes">34x</span>
-<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -356,7 +356,7 @@ interface WebhookConditionsPanelPropsInterface {
 &nbsp;
 const enablePathBasedFilters = false
 &nbsp;
-export const ConditionRow = ({
+export const ConditionRow = <span class="fstat-no" title="function not covered" >({</span>
   formikProps,
   name,
   label
@@ -365,13 +365,13 @@ export const ConditionRow = ({
   name: string
   label: string
 }): JSX.Element =&gt; {
-  const { getString } = useStrings()
-  const operatorKey = `${name}Operator`
-  const valueKey = `${name}Value`
-  const operatorError = formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>rrors<span class="branch-0 cbranch-no" title="branch not covered" >?.[o</span>peratorKey]
-  const valueError = formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>rrors<span class="branch-0 cbranch-no" title="branch not covered" >?.[v</span>alueKey]
-  const operatorValue = formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.[o</span>peratorKey]
-  return (
+  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+  const operatorKey = <span class="cstat-no" title="statement not covered" >`${name}Operator`</span>
+  const valueKey = <span class="cstat-no" title="statement not covered" >`${name}Value`</span>
+  const operatorError = <span class="cstat-no" title="statement not covered" >formikProps?.errors?.[operatorKey]</span>
+  const valueError = <span class="cstat-no" title="statement not covered" >formikProps?.errors?.[valueKey]</span>
+  const operatorValue = <span class="cstat-no" title="statement not covered" >formikProps?.values?.[operatorKey]</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div className={css.conditionsRow}&gt;
       &lt;div&gt;
         &lt;Text style={{ fontSize: 16 }}&gt;{label}&lt;/Text&gt;
@@ -381,32 +381,32 @@ export const ConditionRow = ({
         items={mockOperators}
         name={operatorKey}
         label={getString('pipeline.triggers.conditionsPanel.operator')}
-        onChange={() =&gt; {
-          formikProps.setFieldTouched(valueKey, true)
+        onChange={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >          formikProps.setFieldTouched(valueKey, true)</span>
         }}
       /&gt;
       &lt;FormInput.Text
         name={valueKey}
-        style={{ alignSelf: operatorError ? <span class="branch-0 cbranch-no" title="branch not covered" >'baseline' </span>: 'center' }}
+        style={{ alignSelf: operatorError ? 'baseline' : 'center' }}
         label={getString('pipeline.triggers.conditionsPanel.matchesValue')}
-        onChange={() =&gt; {
-          formikProps.setFieldTouched(operatorKey, true)
+        onChange={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >          formikProps.setFieldTouched(operatorKey, true)</span>
         }}
-        placeholder={inNotInArr.includes(operatorValue) ? <span class="branch-0 cbranch-no" title="branch not covered" >inNotInPlaceholder </span>: ''}
+        placeholder={inNotInArr.includes(operatorValue) ? inNotInPlaceholder : ''}
       /&gt;
     &lt;/div&gt;
   )
 }
 &nbsp;
-const WebhookConditionsPanel: React.FC&lt;WebhookConditionsPanelPropsInterface&gt; = ({ formikProps }): JSX.Element =&gt; {
+const WebhookConditionsPanel: React.FC&lt;WebhookConditionsPanelPropsInterface&gt; = <span class="fstat-no" title="function not covered" >({</span> formikProps }): JSX.Element =&gt; {
   const {
     values: { event, sourceRepo },
     values: formikValues,
     setFieldValue,
     errors
-  } = formikProps
-  const { getString } = useStrings()
-  return (
+  } = <span class="cstat-no" title="statement not covered" >formikProps</span>
+  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Layout.Vertical className={cx(css.webhookConditionsContainer)} spacing="large" padding="xxlarge"&gt;
       &lt;h2 className={css.heading}&gt;
         {getString('conditions')}{' '}
@@ -433,22 +433,22 @@ const WebhookConditionsPanel: React.FC&lt;WebhookConditionsPanelPropsInterface&g
               name="targetBranch"
               label={
                 event === eventTypes.PUSH
-                  ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('pipeline.triggers.conditionsPanel.branchName')</span>
+                  ? getString('pipeline.triggers.conditionsPanel.branchName')
                   : getString('pipeline.triggers.conditionsPanel.targetBranch')
               }
             /&gt;
           )}
           {enablePathBasedFilters &amp;&amp;
-<span class="branch-1 cbranch-no" title="branch not covered" >            event !== eventTypes.TAG </span>&amp;&amp;
-<span class="branch-2 cbranch-no" title="branch not covered" >            sourceRepo !== GitSourceProviders.AWS_CODECOMMIT.value </span>&amp;&amp; (
-<span class="branch-3 cbranch-no" title="branch not covered" >              &lt;ConditionRow</span>
+            event !== eventTypes.TAG &amp;&amp;
+            sourceRepo !== GitSourceProviders.AWS_CODECOMMIT.value &amp;&amp; (
+              &lt;ConditionRow
                 formikProps={formikProps}
                 name="changedFiles"
                 label={getString('pipeline.triggers.conditionsPanel.changedFiles')}
               /&gt;
             )}
           {event === eventTypes.TAG &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >            &lt;ConditionRow</span>
+            &lt;ConditionRow
               formikProps={formikProps}
               name="tagCondition"
               label={getString('pipeline.triggers.conditionsPanel.tagName')}
@@ -490,7 +490,7 @@ export default WebhookConditionsPanel
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 10 2021 14:35:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 10 2021 14:52:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

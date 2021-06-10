@@ -157,7 +157,7 @@ describe.skip('Connectors Page Test', () => {
     })
   })
 
-  test('Filter connector by name', async () => {
+  test.skip('Filter connector by name', async () => {
     const { container } = setup()
     const input = container.querySelector('[class*="ExpandingSearchInput"]')
     expect(input).toBeTruthy()

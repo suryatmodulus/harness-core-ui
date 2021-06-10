@@ -3,14 +3,14 @@ import { render, queryByText, act, fireEvent, queryAllByText } from '@testing-li
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
-import AccountDetails from '../AccountDetails'
+import AccountDetails from '../views/AccountDetails'
 
 describe('AccountDetails', () => {
   let container: HTMLElement
 
   beforeEach(async () => {
     const renderObj = render(
-      <TestWrapper path={routes.toAdmin({ ...accountPathProps })} pathParams={{ accountId: 'testAcc' }}>
+      <TestWrapper path={routes.toSetup({ ...accountPathProps })} pathParams={{ accountId: 'testAcc' }}>
         <AccountDetails />
       </TestWrapper>
     )

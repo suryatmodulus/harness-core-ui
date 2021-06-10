@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AccountDetails AccountDetails page 1`] = `
+exports[`Admin Page Rendering should render properly 1`] = `
 <div>
   <div
     class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
@@ -16,7 +16,7 @@ exports[`AccountDetails AccountDetails page 1`] = `
     class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="StyledProps--font StyledProps--main container StyledProps--margin-xlarge StyledProps--padding-xlarge"
+      class="StyledProps--font StyledProps--main container StyledProps--margin-xlarge StyledProps--padding-xlarge StyledProps--background-white"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-bottom-xlarge"
@@ -115,7 +115,7 @@ exports[`AccountDetails AccountDetails page 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
         >
-          Harness Next Generation 
+          Harness Next Generation
         </p>
         <button
           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--padding-none Button--with-current-color Button--without-shadow"

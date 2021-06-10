@@ -423,24 +423,28 @@ const GitSyncRepoTab: React.FC = () => {
                         </Text>
                       </Container>
 
-                      <Container width={rootFolderData.isDefault ? '60%' : '75%'} padding={{ left: 'xsmall' }}>
-                        <Link href={linkToProvider} target="_blank" rel="noopener noreferrer" className={css.noShadow}>
+                      <Container
+                        padding={{ left: 'xsmall' }}
+                        className={css.noOverflow}
+                        width={rootFolderData.isDefault ? '60%' : '75%'}
+                      >
+                        <Link
+                          href={linkToProvider}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={cx(css.noShadow)}
+                        >
                           <Text
-                            width={rootFolderData.isDefault ? '70%' : '60%'}
-                            style={{
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap'
-                            }}
                             title={linkToProvider}
                             className={css.link}
+                            width={rootFolderData.isDefault ? '75%' : '90%'}
                           >
                             {linkToProvider}
                           </Text>
                         </Link>
                       </Container>
 
-                      <Container width="5%">
+                      <Container width="5%" padding={{ left: 'small' }}>
                         <CopyToClipboard content={linkToProvider} showFeedback={true} />
                       </Container>
                       {rootFolderData.isDefault && (

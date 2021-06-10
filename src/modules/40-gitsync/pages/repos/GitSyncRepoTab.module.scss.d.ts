@@ -15,5 +15,6 @@ declare const styles: {
   readonly defaultFolderTag: string
   readonly link: string
   readonly noShadow: string
+  readonly noOverflow: string
 }
 export default styles

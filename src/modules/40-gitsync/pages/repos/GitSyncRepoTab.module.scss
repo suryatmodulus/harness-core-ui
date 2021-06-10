@@ -72,8 +72,14 @@
 
 .link {
   color: var(--primary) !important;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .noShadow {
   box-shadow: none !important;
+}
+
+.noOverflow {
+  overflow: hidden;
 }

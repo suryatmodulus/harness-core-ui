@@ -39,7 +39,7 @@ const AWSCOConnector: React.FC<COAWSConnectorProps> = props => {
         />
         <ConnectionDetailsStep name={getString('ce.connector.AWS.crossAccountRole.title')} />
         <TestConnectionStep
-          name={getString('ce.connector.AWS.testConnection.title')}
+          name={getString('common.labelTestConnection')}
           onSuccess={onSuccess}
           onFailure={onSuccess}
         />

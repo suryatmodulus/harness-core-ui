@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.49% </span>
+                <span class="strong">72.13% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>86/122</span>
+                <span class='fraction'>88/122</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.82% </span>
+                <span class="strong">62.86% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>80/136</span>
+                <span class='fraction'>88/140</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.59% </span>
+                <span class="strong">72.27% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>84/119</span>
+                <span class='fraction'>86/119</span>
             </div>
         
             
@@ -904,7 +904,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -914,25 +914,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -942,6 +931,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -959,7 +949,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1476,10 +1476,10 @@ const RenderWebhookIcon = ({
     return &lt;Text color={Color.GREY_400}&gt;N/A&lt;/Text&gt;
   }
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (webhookSourceRepo === GitSourceProviders.CUSTOM.value) {
-    const curlCommand = <span class="cstat-no" title="statement not covered" >`curl -X POST </span>
+  if (webhookSourceRepo?.toLowerCase() === GitSourceProviders.CUSTOM.value.toLowerCase()) {
+    const curlCommand = `curl -X POST 
     ${
-      (webhookSecret &amp;&amp; `-H 'X-Harness-Webhook-Token: ${webhookSecret}'`) || ''
+      (webhookSecret &amp;&amp; `-H 'X-Harness-Webhook-Token: ${webhookSecret}'`) || <span class="branch-2 cbranch-no" title="branch not covered" >''</span>
     } -H 'content-type: application/json' -H 'X-HARNESS-TRIGGER-ID: ${triggerIdentifier}'
      --url ${webhookUrl}
       -d '{
@@ -1487,7 +1487,7 @@ const RenderWebhookIcon = ({
         ...
         }'`
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return (</span>
+    return (
       &lt;Popover
         isOpen={optionsOpen}
         onInteraction={<span class="fstat-no" title="function not covered" >nextOpenState </span>=&gt; {
@@ -1498,7 +1498,7 @@ const RenderWebhookIcon = ({
       &gt;
         &lt;Button
           minimal
-          className={cx(css.webhookUrl, column.isTriggerRbacDisabled ? css.disabledOption : '')}
+          className={cx(css.webhookUrl, column.isTriggerRbacDisabled ? <span class="branch-0 cbranch-no" title="branch not covered" >css.disabledOption </span>: '')}
           icon="main-link"
           onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >            e.stopPropagation()</span>
@@ -1783,7 +1783,7 @@ export const TriggersListSection: React.FC&lt;TriggersListSectionProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 10 2021 19:44:28 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 10 2021 22:28:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

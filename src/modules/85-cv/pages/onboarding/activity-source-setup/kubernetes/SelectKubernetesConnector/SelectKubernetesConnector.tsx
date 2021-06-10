@@ -69,8 +69,10 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
               disableConnector={isEditMode}
               connectToMonitoringSourceText={getString('pipelineSteps.kubernetesInfraStep.stepName')}
               onSuccess={connectorInfo => {
-                const connRef = buildConnectorRef(connectorInfo)
-                formikProps.setFieldValue(SelectOrCreateConnectorFieldNames.CONNECTOR_REF, connRef)
+                formikProps.setFieldValue(
+                  SelectOrCreateConnectorFieldNames.CONNECTOR_REF,
+                  buildConnectorRef(connectorInfo)
+                )
               }}
             />
           </Container>

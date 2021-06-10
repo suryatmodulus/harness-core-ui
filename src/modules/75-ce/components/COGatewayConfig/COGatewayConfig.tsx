@@ -403,12 +403,22 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const fetchInstanceSecurityGroups = async (): Promise<void> => {
     const emptyRecords: PortConfig[] = []
     try {
-      const result = await getSecurityGroups({
-        text: `id = ['${
-          props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].id : ''
-        }']\nregions = ['${
-          props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].region : ''
+      let text = `id = ['${
+        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].id : ''
+      }']\nregions = ['${
+        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].region : ''
+      }']`
+
+      if (isAzureProvider) {
+        text += `\nresource_groups=['${
+          props.gatewayDetails.selectedInstances
+            ? props.gatewayDetails.selectedInstances[0].metadata?.resourceGroup
+            : ''
         }']`
+      }
+
+      const result = await getSecurityGroups({
+        text
       })
       if (result && result.response) {
         Object.keys(result.response).forEach(instance => {
@@ -498,7 +508,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       if (routingRecords.length) {
         return
       }
-      isAwsProvider && fetchInstanceSecurityGroups()
+      fetchInstanceSecurityGroups()
     }
   }, [selectedInstances])
 

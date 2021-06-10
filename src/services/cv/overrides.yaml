@@ -67,6 +67,7 @@ allowpaths:
   - /prometheus/label-values
   - /prometheus/metric-list
   - /prometheus/sample-data
+  - /onboarding/connector
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

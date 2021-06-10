@@ -121,6 +121,7 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
       subnets: [val.subnet],
       vpc: val.virtualNetwork,
       metadata: {
+        ...newAp.metadata,
         resource_group: val.resourceGroup,
         fe_ip_id: val.ip,
         size: val.sku,

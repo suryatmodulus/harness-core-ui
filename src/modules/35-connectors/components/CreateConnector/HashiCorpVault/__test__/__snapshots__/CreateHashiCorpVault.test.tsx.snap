@@ -948,7 +948,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
         style="width: 64%;"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xlarge"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xlarge StyledProps--color StyledProps--color-black"
         >
           connectors.hashiCorpVault.stepTwoName
         </p>

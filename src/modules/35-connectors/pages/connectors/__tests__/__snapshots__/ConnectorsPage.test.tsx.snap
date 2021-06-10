@@ -273,6 +273,21 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
 </div>
 `;
 
+exports[`Connectors Page Test In CV module on clicking createViaYamlButton url should remain in cv 1`] = `
+<div>
+  <div>
+    <h1>
+      Not Found
+    </h1>
+    <div
+      data-testid="location"
+    >
+      /account/dummy/home/orgs/default/projects/dummyProject/setup/connectors/yaml/create-connector
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Connectors Page Test Initial render should match snapshot 1`] = `
 <div>
   <div

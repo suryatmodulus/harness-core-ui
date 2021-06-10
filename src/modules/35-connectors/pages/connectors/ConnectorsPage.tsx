@@ -59,6 +59,7 @@ import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelec
 import { shouldShowError } from '@common/utils/errorUtils'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -88,11 +89,7 @@ interface ConnectorsListProps {
 const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, statisticsMockData, filtersMockData }) => {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
   const [filters, setFilters] = useState<FilterDTO[]>()
@@ -283,7 +280,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   })
 
   const rerouteBasedOnContext = (): void => {
-    history.push(routes.toCreateConnectorFromYaml({ accountId, projectIdentifier, orgIdentifier }))
+    history.push(routes.toCreateConnectorFromYaml({ accountId, projectIdentifier, orgIdentifier, module }))
   }
 
   const [openDrawer, hideDrawer] = useModalHook(() => {

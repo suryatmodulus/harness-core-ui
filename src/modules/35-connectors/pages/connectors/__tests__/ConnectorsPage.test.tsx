@@ -1,6 +1,7 @@
 import React from 'react'
-import { render, waitFor, queryByText, fireEvent, queryByAttribute } from '@testing-library/react'
+import { render, screen, waitFor, queryByText, fireEvent, queryByAttribute } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
+import routes from '@common/RouteDefinitions'
 import * as cdngServices from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as usePermission from '@rbac/hooks/usePermission'
@@ -46,6 +47,33 @@ describe('Connectors Page Test', () => {
         <ConnectorsPage {...props} />
       </TestWrapper>
     )
+
+  test('In CV module on clicking createViaYamlButton url should remain in cv', async () => {
+    const { container } = render(
+      <TestWrapper
+        path={routes.toConnectors({
+          accountId: ':accountId',
+          orgIdentifier: ':orgIdentifier',
+          projectIdentifier: ':projectIdentifier',
+          module: 'cv'
+        })}
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }}
+      >
+        <ConnectorsPage {...props} />
+      </TestWrapper>
+    )
+    const createViaYamlButton = screen.getByText('createViaYaml')
+    fireEvent.click(createViaYamlButton)
+    expect(container.querySelector('[data-testid="location"]')?.textContent).toMatch(
+      routes.toCreateConnectorFromYaml({
+        accountId: 'dummy',
+        orgIdentifier: 'default',
+        projectIdentifier: 'dummyProject'
+      })
+    )
+
+    expect(container).toMatchSnapshot()
+  })
 
   test('Initial render should match snapshot', async () => {
     const { container, getByText } = setup()

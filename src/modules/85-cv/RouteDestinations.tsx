@@ -15,7 +15,9 @@ import {
   resourceGroupPathProps,
   rolePathProps,
   userGroupPathProps,
-  userPathProps
+  userPathProps,
+  orgPathProps,
+  modulePathProps
 } from '@common/utils/routeUtils'
 import type { AccountPathProps, ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { MinimalLayout } from '@common/layouts'
@@ -42,6 +44,7 @@ import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
 import SecretReferences from '@secrets/pages/secretReferences/SecretReferences'
 import SecretDetailsHomePage from '@secrets/pages/secretDetailsHomePage/SecretDetailsHomePage'
 import CVActivitySourcesPage from '@cv/pages/admin/activity-sources/CVActivitySourcesPage'
+import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
@@ -292,16 +295,32 @@ export default (
     >
       <DelegateProfileDetails />
     </RouteWithLayout>
+
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
       path={routes.toConnectorDetails({
+        ...accountPathProps,
         ...projectPathProps,
         ...connectorPathProps,
         ...cvModuleParams
       })}
     >
       <ConnectorDetailsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps, ...modulePathProps })}
+    >
+      <CreateConnectorFromYamlPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...orgPathProps })}
+    >
+      <CreateConnectorFromYamlPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

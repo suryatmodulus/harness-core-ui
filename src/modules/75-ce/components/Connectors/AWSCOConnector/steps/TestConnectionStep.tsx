@@ -86,7 +86,7 @@ const TestConnectionStep: React.FC<StepProps<ConnectorConfigDTO> & TestConnectio
       <ModalErrorHandler bind={setModalErrorHandler} />
       <Container padding="medium">
         <Heading level={2} font={{ weight: 'bold' }}>
-          {getString('common.labelTestConnection')}
+          {'Test Connection'}
         </Heading>
       </Container>
       <StepsProgress steps={steps} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />

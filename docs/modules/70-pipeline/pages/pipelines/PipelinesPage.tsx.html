@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.31% </span>
+                <span class="strong">66.49% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>124/187</span>
+                <span class='fraction'>125/188</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.58% </span>
+                <span class="strong">37.34% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>115/306</span>
+                <span class='fraction'>115/308</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.31% </span>
+                <span class="strong">66.49% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>124/187</span>
+                <span class='fraction'>125/188</span>
             </div>
         
             
@@ -732,7 +732,12 @@
 <a name='L673'></a><a href='#L673'>673</a>
 <a name='L674'></a><a href='#L674'>674</a>
 <a name='L675'></a><a href='#L675'>675</a>
-<a name='L676'></a><a href='#L676'>676</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L676'></a><a href='#L676'>676</a>
+<a name='L677'></a><a href='#L677'>677</a>
+<a name='L678'></a><a href='#L678'>678</a>
+<a name='L679'></a><a href='#L679'>679</a>
+<a name='L680'></a><a href='#L680'>680</a>
+<a name='L681'></a><a href='#L681'>681</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -841,6 +846,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">65x</span>
@@ -1367,6 +1373,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1407,7 +1417,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useEffect, useState } from 'react'
 import {
   Button,
   Color,
@@ -1443,7 +1453,7 @@ import {
 import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useStrings } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'
@@ -1520,8 +1530,9 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
   const project = selectedProject
   const isCDEnabled = (selectedProject<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>odules &amp;&amp; selectedProject.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ndexOf('CD') &gt; -1) || <span class="branch-2 cbranch-no" title="branch not covered" >false</span>
   const isCIEnabled = (selectedProject<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>odules &amp;&amp; selectedProject.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ndexOf('CI') &gt; -1) || <span class="branch-2 cbranch-no" title="branch not covered" >false</span>
+  const isCIModule = module === 'ci'
 &nbsp;
-  const goToPipelineDetail = React.useCallback(
+  const goToPipelineDetail = useCallback(
 <span class="fstat-no" title="function not covered" >    (/</span>* istanbul ignore next */ pipeline?: PMSPipelineSummaryResponse) =&gt; {
 <span class="cstat-no" title="statement not covered" >      history.push(</span>
         routes.toPipelineDeploymentList({
@@ -1538,7 +1549,7 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
     [projectIdentifier, orgIdentifier, history, accountId]
   )
 &nbsp;
-  const goToPipeline = React.useCallback(
+  const goToPipeline = useCallback(
     (pipeline?: PMSPipelineSummaryResponse) =&gt; {
       history.push(
         routes.toPipelineStudio({
@@ -1605,7 +1616,7 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
     mock: mockData
   })
 &nbsp;
-  const fetchPipelines = React.useCallback(
+  const fetchPipelines = useCallback(
     async (params?: GetPipelineListQueryParams, formData?: PipelineFilterProperties): Promise&lt;void&gt; =&gt; {
       try {
         cancel()
@@ -2028,13 +2039,17 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
             &lt;&gt;&lt;/&gt;
           &lt;/OverlaySpinner&gt;
         ) : !pipelineList<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >          appliedFilter ? (</span>
-            &lt;Text padding={{ top: 'small', bottom: 'small' }} className={css.noData} font="medium"&gt;
-              {getString('filters.noDataFound')}
-            &lt;/Text&gt;
-          ) : (
-            &lt;div className={css.noPipelineSection}&gt;
-              &lt;div className={css.noPipelineData}&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;div className={css.noPipelineSection}&gt;</span>
+            {appliedFilter ? (
+              &lt;div className={css.noFilterData}&gt;
+                &lt;Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} /&gt;
+                &lt;Text margin={{ top: 'large', bottom: 'small' }} font={{ weight: 'bold', size: 'medium' }}&gt;
+                  {getString('common.filters.noMatchingFilterData')}
+                &lt;/Text&gt;
+                &lt;String stringID="common.filters.clearFilters" className={css.clearFilterText} onClick={reset} /&gt;
+              &lt;/div&gt;
+            ) : (
+              &lt;div className={css.noFilterData}&gt;
                 &lt;Icon size={20} name="pipeline-ng"&gt;&lt;/Icon&gt;
                 &lt;Text padding={{ top: 'small', bottom: 'small' }} font="medium"&gt;
                   {getString('pipeline-list.aboutPipeline')}
@@ -2057,8 +2072,8 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
                   }}
                 /&gt;
               &lt;/div&gt;
-            &lt;/div&gt;
-          )
+            )}
+          &lt;/div&gt;
         ) : view === Views.GRID ? (
           &lt;PipelineGridView
             gotoPage={/* istanbul ignore next */ pageNumber =&gt; setPage(pageNumber)}
@@ -2089,7 +2104,7 @@ export default PipelinesPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 10 2021 10:01:33 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 10 2021 10:43:34 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

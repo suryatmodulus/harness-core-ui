@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router'
-import { Button, Card, Color, Container, Icon, Layout, Radio, StepProps, Text } from '@wings-software/uicore'
+import { Radio } from '@blueprintjs/core'
+import { Button, Card, Color, Container, Icon, Layout, StepProps, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { GitSyncConfig, isSaasGitPromise, ResponseSaasGitDTO, usePostGitSyncSetting } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
@@ -25,9 +26,9 @@ enum Agent {
 const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { prevStepData, onSuccess } = props
-  const [isSaaS, setIsSaaS] = useState<boolean>(true)
+  const [isSaaS, setIsSaaS] = useState<boolean | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
-  const [agent, setAgent] = useState<Agent>(Agent.Manager)
+  const [agent, setAgent] = useState<Agent | undefined>()
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
 
@@ -72,13 +73,21 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
             style={{ width: '50%' }}
             disabled={!isSaaS}
             className={cx({ [css.selected]: agent === Agent.Manager })}
-            onClick={() => setAgent(Agent.Manager)}
+            onClick={() => {
+              if (isSaaS) {
+                setAgent(Agent.Manager)
+              }
+            }}
           >
             <Layout.Horizontal flex>
               <Text font={{ size: 'normal', weight: 'bold' }} padding={{ bottom: 'medium' }} color={Color.PRIMARY_6}>
                 {getString('gitsync.connectThroughManagerLabel')}
               </Text>
-              <Radio onClick={() => setAgent(Agent.Manager)} checked={agent === Agent.Manager} disabled={loading} />
+              <Radio
+                onClick={() => setAgent(Agent.Manager)}
+                checked={agent === Agent.Manager}
+                disabled={loading || !isSaaS}
+              />
             </Layout.Horizontal>
             <Text font="small" style={{ lineHeight: 'var(--spacing-large' }}>
               {getString('gitsync.connectThroughManager')}
@@ -87,6 +96,7 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
           </Card>
           <Card
             style={{ width: '50%' }}
+            disabled={loading}
             className={cx({ [css.selected]: agent === Agent.Delegate })}
             onClick={() => setAgent(Agent.Delegate)}
           >
@@ -94,7 +104,11 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
               <Text font={{ size: 'normal', weight: 'bold' }} padding={{ bottom: 'medium' }} color={Color.PRIMARY_6}>
                 {getString('gitsync.connectThroughDelegateLabel')}
               </Text>
-              <Radio onClick={() => setAgent(Agent.Delegate)} checked={agent === Agent.Delegate} disabled={loading} />
+              <Radio
+                onClick={() => setAgent(Agent.Delegate)}
+                checked={!isSaaS || agent === Agent.Delegate}
+                disabled={loading}
+              />
             </Layout.Horizontal>
             <Text font="small" padding={{ bottom: 'huge' }} style={{ lineHeight: 'var(--spacing-large' }}>
               {getString('gitsync.connectThroughDelegate')}
@@ -113,6 +127,7 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
           intent="primary"
           text={getString('saveAndContinue')}
           rightIcon="chevron-right"
+          disabled={loading || !agent}
           onClick={async () => {
             setLoading(true)
             try {

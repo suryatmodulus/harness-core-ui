@@ -40,7 +40,7 @@ import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
-import { getExternalUrl } from './../../common/gitSyncUtils'
+import { getExternalUrl } from '@gitsync/common/gitSyncUtils'
 import css from './GitSyncRepoTab.module.scss'
 
 enum RepoState {
@@ -401,7 +401,7 @@ const GitSyncRepoTab: React.FC = () => {
           {repoData?.gitSyncFolderConfigDTOs?.length
             ? repoData.gitSyncFolderConfigDTOs.map((rootFolderData: GitSyncFolderConfigDTO, index: number) => {
                 const folder = '/'.concat(rootFolderData.rootFolder?.split('/.harness')[0] || '')
-                const linkToProvider = getExternalUrl(repoData.repo, repoData.branch, rootFolderData.rootFolder)
+                const linkToProvider = getExternalUrl(repoData, rootFolderData.rootFolder)
                 return (
                   <Layout.Horizontal
                     key={index}
@@ -423,25 +423,28 @@ const GitSyncRepoTab: React.FC = () => {
                         </Text>
                       </Container>
 
-                      <Link href={linkToProvider} target="_blank" rel="noopener noreferrer">
-                        <Text
-                          width={rootFolderData.isDefault ? '55%' : '75%'}
-                          style={{
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap'
-                          }}
-                          title={linkToProvider}
-                        >
-                          {linkToProvider}
-                        </Text>
-                      </Link>
+                      <Container width={rootFolderData.isDefault ? '60%' : '75%'} padding={{ left: 'xsmall' }}>
+                        <Link href={linkToProvider} target="_blank" rel="noopener noreferrer" className={css.noShadow}>
+                          <Text
+                            width={rootFolderData.isDefault ? '70%' : '60%'}
+                            style={{
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap'
+                            }}
+                            title={linkToProvider}
+                            className={css.link}
+                          >
+                            {linkToProvider}
+                          </Text>
+                        </Link>
+                      </Container>
 
                       <Container width="5%">
                         <CopyToClipboard content={linkToProvider} showFeedback={true} />
                       </Container>
                       {rootFolderData.isDefault && (
-                        <Container width="20%">
+                        <Container width="15%">
                           <Tag className={css.defaultFolderTag} style={{ borderRadius: 5 }}>
                             {getString('gitsync.defaultFolder')}
                           </Tag>

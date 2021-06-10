@@ -74,9 +74,17 @@ export const getRepoPath = (gitRepo: GitSyncConfig): string => {
 export const getCompleteGitPath = (repo: string, rootFolder: string, suffix: string): string =>
   repo.concat('/').concat(rootFolder).concat(suffix)
 
-export const getExternalUrl = (repo?: string, branch?: string, folderPath?: string): string => {
-  if (repo && branch && folderPath) {
-    return repo.concat('/').concat('tree').concat('/').concat(branch).concat('/').concat(folderPath)
+export const getExternalUrl = (config: GitSyncConfig, folderPath?: string): string => {
+  const { repo, branch, gitConnectorType } = config
+  if (!repo || !branch || !folderPath) {
+    return ''
   }
-  return ''
+  switch (gitConnectorType) {
+    case Connectors.GITHUB:
+      return `${repo}/tree/${branch}/${folderPath}`
+    case Connectors.GITLAB:
+    case Connectors.BITBUCKET:
+    default:
+      return ''
+  }
 }

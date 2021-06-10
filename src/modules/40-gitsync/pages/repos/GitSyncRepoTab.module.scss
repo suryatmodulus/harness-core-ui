@@ -69,3 +69,11 @@
   color: var(--purple);
   font-size: var(--font-size-small);
 }
+
+.link {
+  color: var(--primary) !important;
+}
+
+.noShadow {
+  box-shadow: none !important;
+}

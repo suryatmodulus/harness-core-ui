@@ -13,5 +13,7 @@ declare const styles: {
   readonly placeholder: string
   readonly inputFields: string
   readonly defaultFolderTag: string
+  readonly link: string
+  readonly noShadow: string
 }
 export default styles

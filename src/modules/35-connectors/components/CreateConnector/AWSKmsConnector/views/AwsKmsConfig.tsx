@@ -11,7 +11,8 @@ import {
   Formik,
   FormikForm,
   Layout,
-  Button
+  Button,
+  Color
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
@@ -166,7 +167,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
 
   return (
     <Container padding={{ top: 'medium' }} width="64%">
-      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
+      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }} color={Color.BLACK}>
         {getString('details')}
       </Text>
       <ModalErrorHandler bind={setModalErrorHandler} />

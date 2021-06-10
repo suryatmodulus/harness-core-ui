@@ -10,7 +10,8 @@ import {
   Layout,
   Button,
   ModalErrorHandlerBinding,
-  ModalErrorHandler
+  ModalErrorHandler,
+  Color
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -101,7 +102,7 @@ const AzureKeyVaultForm: React.FC<StepProps<StepSecretManagerProps> & CreateAzur
 
   return (
     <Container padding={{ top: 'medium' }} width="64%">
-      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
+      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }} color={Color.BLACK}>
         {getString('details')}
       </Text>
       <ModalErrorHandler bind={setModalErrorHandler} />

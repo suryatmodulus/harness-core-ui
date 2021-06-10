@@ -9,7 +9,8 @@ import {
   ModalErrorHandlerBinding,
   ModalErrorHandler,
   Container,
-  Text
+  Text,
+  Color
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
@@ -105,7 +106,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
 
   return (
     <Container padding={{ top: 'medium' }} width="64%">
-      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
+      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }} color={Color.BLACK}>
         {getString('connectors.hashiCorpVault.stepTwoName')}
       </Text>
       <ModalErrorHandler bind={setModalErrorHandler} />

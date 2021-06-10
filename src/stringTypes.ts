@@ -5864,6 +5864,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  'pipelineSteps.secretManagerRequired': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   'pipelineSteps.serviceTab.aboutYourService': string
   /**
    * @deprecated migrate this string to module level file

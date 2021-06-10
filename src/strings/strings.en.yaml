@@ -984,6 +984,7 @@ pipelineSteps:
   configurationType: 'Configuration Type'
   remoteFile: 'Remote File'
   commandRequired: 'Command is required.'
+  secretManagerRequired: 'Secret Manager is required.'
   paths: 'Paths'
   deleteNamespace: 'Delete namespace'
   workspace: Workspace

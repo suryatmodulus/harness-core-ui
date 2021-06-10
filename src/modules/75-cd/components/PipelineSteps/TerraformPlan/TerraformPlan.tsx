@@ -113,7 +113,8 @@ function TerraformPlanWidget(
         spec: Yup.object().shape({
           provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
           configuration: Yup.object().shape({
-            command: Yup.string().required(getString('pipelineSteps.commandRequired'))
+            command: Yup.string().required(getString('pipelineSteps.commandRequired')),
+            secretManagerRef: Yup.string().required(getString('pipelineSteps.secretManagerRequired'))
           })
         })
       })}

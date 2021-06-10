@@ -156,7 +156,7 @@ describe.skip('Connectors Page Test', () => {
       expect(portal).toMatchSnapshot('Connectors')
     })
   })
-
+  // eslint-disable-next-line jest/no-disabled-tests
   test.skip('Filter connector by name', async () => {
     const { container } = setup()
     const input = container.querySelector('[class*="ExpandingSearchInput"]')

@@ -28,6 +28,7 @@ import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { Step, StepProps, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
@@ -35,7 +36,6 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { NameIdDescriptionTags } from '@common/components'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -74,10 +74,8 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
         onCreateOrUpdate(values)
       }}
       validationSchema={Yup.object().shape({
-        name: Yup.string()
-          .trim()
-          .required(getString?.('fieldRequired', { field: 'Service' })),
-        ...IdentifierValidation()
+        name: NameSchema({ requiredErrorMsg: getString?.('fieldRequired', { field: 'Service' }) }),
+        identifier: IdentifierSchema()
       })}
     >
       {formikProps => (

@@ -5,7 +5,8 @@ import { ExpandingSearchInput, Icon, Text } from '@wings-software/uicore'
 import type { GroupedVirtuosoHandle, VirtuosoHandle } from 'react-virtuoso'
 
 import { String } from 'framework/strings'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
+import { useStrings } from 'framework/strings'
 
 import { useLogsContent } from './useLogsContent'
 import { GroupedLogsWithRef as GroupedLogs } from './components/GroupedLogs'
@@ -31,6 +32,8 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     queryParams
   } = useExecutionContext()
   const { state, actions } = useLogsContent()
+  const { getString } = useStrings()
+  const { linesWithResults, currentIndex } = state.searchData
 
   const virtuosoRef = React.useRef<null | GroupedVirtuosoHandle | VirtuosoHandle>(null)
 
@@ -41,7 +44,8 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     actions.createSections({
       node: selectedStep,
       selectedStep: selectedStepId,
-      selectedStage: selectedStageId
+      selectedStage: selectedStageId,
+      getSectionName: (index: number) => getString('pipeline.logs.sectionName', { index })
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -57,14 +61,13 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
 
   // scroll to current search result
   React.useEffect(() => {
-    const { currentIndex, linesWithResults } = state.searchData
     const index = linesWithResults[currentIndex]
 
     if (virtuosoRef.current && typeof index === 'number' && index >= 0) {
       virtuosoRef.current.scrollToIndex(index)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.searchData.currentIndex])
+  }, [currentIndex])
 
   return (
     <div className={cx(css.main, { [css.hasErrorMessage]: !!errorMessage })} data-mode={mode}>
@@ -76,7 +79,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
             showPrevNextButtons
             flip
             className={css.search}
-            fixedText={`${state.searchData.currentIndex + 1} / ${state.searchData.linesWithResults.length}`}
+            fixedText={`${Math.min(currentIndex + 1, linesWithResults.length)} / ${linesWithResults.length}`}
             onNext={() => actions.goToNextSearchResult()}
             onPrev={() => actions.goToPrevSearchResult()}
             onEnter={() => actions.goToNextSearchResult()}

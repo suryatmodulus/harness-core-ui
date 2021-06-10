@@ -13,7 +13,7 @@ import {
   getStageSetupIds
 } from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
 import type { ExecutionQueryParams } from '@pipeline/utils/executionUtils'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { String, useStrings } from 'framework/strings'
 
 import css from './ExecutionTabs.module.scss'

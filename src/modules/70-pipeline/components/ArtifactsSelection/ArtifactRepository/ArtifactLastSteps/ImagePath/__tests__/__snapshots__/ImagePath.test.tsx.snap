@@ -172,7 +172,7 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
             class="imagePathContainer"
           >
             <div
-              class="bp3-form-group bp3-disabled"
+              class="bp3-form-group bp3-disabled tagInputButton"
             >
               <label
                 class="bp3-label"
@@ -505,7 +505,7 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
             class="imagePathContainer"
           >
             <div
-              class="bp3-form-group bp3-disabled"
+              class="bp3-form-group bp3-disabled tagInputButton"
             >
               <label
                 class="bp3-label"
@@ -838,7 +838,7 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
             class="imagePathContainer"
           >
             <div
-              class="bp3-form-group bp3-disabled"
+              class="bp3-form-group bp3-disabled tagInputButton"
             >
               <label
                 class="bp3-label"

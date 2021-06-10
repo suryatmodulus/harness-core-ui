@@ -17,7 +17,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useStrings } from 'framework/strings'
 import css from './SecretInput.module.scss'
 
-interface SecretInputProps {
+export interface SecretInputProps {
   name: string
   label?: string
   placeholder?: string

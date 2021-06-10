@@ -30,6 +30,7 @@ import {
   useGetJiraProjects,
   useGetJiraIssueCreateMetadata
 } from 'services/cd-ng'
+import { NameSchema } from '@common/utils/Validation'
 import type {
   AccountPathProps,
   GitQueryParams,
@@ -293,6 +294,7 @@ const FormContent = ({
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => formik.setFieldValue('timeout', value)}
+            isReadonly={readonly}
           />
         )}
       </Layout.Horizontal>
@@ -337,6 +339,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.connectorRef', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -378,6 +381,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.projectKey', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -418,6 +422,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.issueType', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -449,6 +454,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.summary', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -472,6 +478,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.description', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -622,7 +629,7 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),

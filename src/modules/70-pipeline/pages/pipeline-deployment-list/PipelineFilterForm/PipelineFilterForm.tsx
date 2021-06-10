@@ -130,16 +130,15 @@ export default function PipelineFilterForm<
         <span className={css.separator} key="deploymentSeparator">
           <Text>{getString('deploymentsText').toUpperCase()}</Text>
         </span>
-        <FormInput.Select
-          items={[deploymentTypeLabel]}
+
+        <FormInput.MultiSelect
+          items={[deploymentTypeLabel] || []}
           name="deploymentType"
           label={getString('deploymentTypeText')}
           key="deploymentType"
-          value={
-            (formikProps?.values?.deploymentType as DeploymentTypeContext['deploymentType'])
-              ? deploymentTypeLabel
-              : NO_SELECTION
-          }
+          multiSelectProps={{
+            allowCreatingNewItems: false
+          }}
         />
         {/* <FormInput.Select
           items={[infrastructureTypeLabel]}

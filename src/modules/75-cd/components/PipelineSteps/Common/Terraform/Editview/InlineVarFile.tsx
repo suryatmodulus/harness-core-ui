@@ -15,6 +15,7 @@ import { Classes, Dialog } from '@blueprintjs/core'
 
 import { Form } from 'formik'
 import { useStrings } from 'framework/strings'
+import { IdentifierSchema } from '@common/utils/Validation'
 import { MultiTypeFieldSelector } from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
@@ -32,10 +33,11 @@ interface InlineVarFileProps {
   selectedVar: any
   onClose: () => void
   onSubmit: () => void
+  isReadonly?: boolean
 }
 
 const InlineVarFile = (props: InlineVarFileProps) => {
-  const { arrayHelpers, isEditMode, selectedVarIndex, onSubmit, selectedVar, onClose } = props
+  const { arrayHelpers, isEditMode, selectedVarIndex, onSubmit, selectedVar, onClose, isReadonly = false } = props
   const { expressions } = useVariablesExpression()
 
   const { getString } = useStrings()
@@ -61,7 +63,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
           }}
           validationSchema={Yup.object().shape({
             varFile: Yup.object().shape({
-              identifier: Yup.string().required(getString('common.validation.identifierIsRequired')),
+              identifier: IdentifierSchema(),
               spec: Yup.object().shape({
                 content: Yup.string().required(getString('cd.contentRequired'))
               })
@@ -86,6 +88,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formikProps.setFieldValue('varFile.identifier', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -122,6 +125,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formikProps.setFieldValue('varFile.spec.content', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>

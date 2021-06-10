@@ -174,10 +174,18 @@ $header-height: 80px;
   margin: auto;
 }
 .noPipelineSection {
-  display: flex;
   height: 80%;
-  .noPipelineData {
+  display: flex;
+  .noFilterData {
     margin: auto;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .clearFilterText {
+    color: var(--primary-7);
+    text-transform: uppercase;
+    font-size: var(--spacing-medium);
+    font-weight: 500;
   }
 }

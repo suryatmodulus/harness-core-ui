@@ -2,9 +2,9 @@ import React from 'react'
 import { Text, Layout, Formik, FormikForm as Form, Button, Color, Icon } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { omit } from 'lodash-es'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components'
 import type { NgPipeline } from 'services/cd-ng'
-import { StringUtils } from '@common/exports'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
 import { useStrings } from 'framework/strings'
 import type { EntityGitDetails } from 'services/pipeline-ng'
@@ -35,15 +35,8 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
       }}
       formName="createPipeline"
       validationSchema={Yup.object().shape({
-        name: Yup.string().trim().required(getString('createPipeline.pipelineNameRequired')),
-        identifier: Yup.string().when('name', {
-          is: val => val?.length,
-          then: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(StringUtils.regexIdentifier, getString('validation.validIdRegex'))
-            .notOneOf(StringUtils.illegalIdentifiers)
-        }),
+        name: NameSchema({ requiredErrorMsg: getString('createPipeline.pipelineNameRequired') }),
+        identifier: IdentifierSchema(),
         ...(isGitSyncEnabled
           ? {
               repo: Yup.string().trim().required(getString('pipeline.repoRequired')),

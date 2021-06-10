@@ -23,7 +23,7 @@ import ExecutionStageDiagram from '@pipeline/components/ExecutionStageDiagram/Ex
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import ConditionalExecutionTooltip from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
-import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import CDInfo from './components/CD/CDInfo/CDInfo'
 import css from './ExecutionGraph.module.scss'
 

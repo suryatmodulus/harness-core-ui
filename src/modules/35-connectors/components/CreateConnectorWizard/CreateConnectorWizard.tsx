@@ -70,16 +70,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     case Connectors.Jira:
       return <JiraConnector {...commonProps} />
     case Connectors.APP_DYNAMICS:
-      return (
-        <CreateAppDynamicsConnector
-          {...rest}
-          onClose={onClose}
-          onConnectorCreated={props.onSuccess}
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-        />
-      )
+      return <CreateAppDynamicsConnector {...commonProps} />
     case Connectors.SPLUNK:
       return (
         <CreateSplunkConnector

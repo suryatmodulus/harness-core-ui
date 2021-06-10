@@ -75,12 +75,10 @@ export const List = (props: ListProps): React.ReactElement => {
     const valueWithoutEmptyItems = value.filter(item => !!item.value)
 
     if (isEmpty(valueWithoutEmptyItems) && initialValue) {
-      const initialValueInCorrectFormat = [
-        {
-          id: uuid('', nameSpace()),
-          value: ''
-        }
-      ]
+      const initialValueInCorrectFormat = (Array.isArray(initialValue) ? initialValue : []).map(item => ({
+        id: uuid('', nameSpace()),
+        value: item
+      }))
 
       // Adding a default value
       if (Array.isArray(initialValueInCorrectFormat) && !initialValueInCorrectFormat.length) {

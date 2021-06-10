@@ -46,6 +46,7 @@ interface ManifestDetailsPropType {
   selectedManifest: string
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
+  isReadonly?: boolean
 }
 
 const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsPropType> = ({
@@ -56,7 +57,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   handleSubmit,
   prevStepData,
   previousStep,
-  manifestIdsList
+  manifestIdsList,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
 
@@ -294,6 +296,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                           showAdvanced={true}
                           style={{ marginTop: 10 }}
                           onChange={value => formik.setFieldValue('repoName', value)}
+                          isReadonly={isReadonly}
                         />
                       )}
                     </div>
@@ -331,6 +334,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('branch', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
@@ -355,6 +359,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('commitId', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
@@ -434,6 +439,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={val => formik?.setFieldValue('paths', val)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -469,6 +475,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                               onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
                               style={{ alignSelf: 'center' }}
                               className={css.addmarginTop}
+                              isReadonly={isReadonly}
                             />
                           )}
                           <Tooltip

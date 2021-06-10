@@ -20,7 +20,8 @@ function getCreateSectionsAction(statuses: UnitLoadingStatus[]): Action<ActionTy
         unitProgresses: statuses.map((status, i) => ({ unitName: `Unit ${i + 1}`, status })) as any
       },
       selectedStep: 'SELECTED_STEP_1',
-      selectedStage: 'SELECTED_STAGE_1'
+      selectedStage: 'SELECTED_STAGE_1',
+      getSectionName: jest.fn()
     }
   }
 }

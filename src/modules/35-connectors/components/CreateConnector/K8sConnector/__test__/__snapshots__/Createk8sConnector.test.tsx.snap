@@ -567,7 +567,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="connectors.k8.placeholder.masterUrl"
+                        placeholder="UrlLabel"
                         type="text"
                         value=""
                       />
@@ -1096,7 +1096,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="connectors.k8.placeholder.masterUrl"
+                        placeholder="UrlLabel"
                         type="text"
                         value="/url"
                       />
@@ -1916,7 +1916,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="connectors.k8.placeholder.masterUrl"
+                        placeholder="UrlLabel"
                         type="text"
                         value="/url"
                       />
@@ -2730,7 +2730,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="connectors.k8.placeholder.masterUrl"
+                        placeholder="UrlLabel"
                         type="text"
                         value="/url7878"
                       />
@@ -3291,7 +3291,7 @@ exports[`should render form for edit authtype clientKey 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="connectors.k8.placeholder.masterUrl"
+                        placeholder="UrlLabel"
                         type="text"
                         value="/url"
                       />

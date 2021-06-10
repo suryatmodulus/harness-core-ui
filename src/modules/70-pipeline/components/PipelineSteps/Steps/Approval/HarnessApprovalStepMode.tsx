@@ -18,6 +18,7 @@ import {
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
+import { NameSchema } from '@common/utils/Validation'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
@@ -115,6 +116,7 @@ const FormContent = ({
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => formik.setFieldValue('timeout', value)}
+            isReadonly={readonly}
           />
         )}
       </Layout.Horizontal>
@@ -143,6 +145,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.approvalMessage', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -219,6 +222,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.approvers.userGroups', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -245,6 +249,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.approvers.minimumCount', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -348,7 +353,7 @@ function HarnessApprovalStepMode(
       formName="harnessApproval"
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           approvalMessage: Yup.string().required(getString('pipeline.approvalStep.validation.approvalMessage')),

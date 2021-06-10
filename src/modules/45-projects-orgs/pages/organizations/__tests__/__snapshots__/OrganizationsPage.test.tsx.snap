@@ -81,7 +81,7 @@ exports[`Org Page List Create New Org 1`] = `
             class="bp3-input "
             dir="auto"
             placeholder="projectsOrgs.searchPlaceHolder"
-            style="padding-right: 42px;"
+            style="padding-right: 0px;"
             type="search"
             value=""
           />

@@ -63,6 +63,7 @@ export interface ManifestLastStepProps {
   handleSubmit: (data: ManifestConfigWrapper) => void
   selectedManifest: string
   manifestIdsList: Array<string>
+  isReadonly?: boolean
 }
 export interface CommandFlags {
   commandType: string | SelectOption | undefined

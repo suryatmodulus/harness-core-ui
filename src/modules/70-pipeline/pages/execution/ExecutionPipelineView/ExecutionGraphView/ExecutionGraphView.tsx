@@ -2,7 +2,7 @@ import React from 'react'
 
 import { isExecutionNotStarted, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
 import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import ExecutionStepDetails from '@pipeline/components/ExecutionStepDetails/ExecutionStepDetails'

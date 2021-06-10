@@ -4,6 +4,7 @@ import { useStrings } from 'framework/strings'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { TerraformData, TerraformVariableStepProps, TerraformStoreTypes } from './TerraformInterfaces'
 import { ConfigVariables } from './Variableview/ConfigSection'
+import css from './TerraformStep.module.scss'
 
 export function TerraformVariableStep(props: TerraformVariableStepProps): React.ReactElement {
   const { variablesData = {} as TerraformData, metadataMap, initialValues } = props
@@ -14,7 +15,7 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
       {initialValues?.spec?.configuration?.type === 'Inline' ||
         (props?.stepType === 'TerrafomPlan' && (
           <>
-            <Text>{getString('pipelineSteps.configFiles')}</Text>
+            <Text className={css.stepTitle}>{getString('pipelineSteps.configFiles')}</Text>
 
             <VariablesListTable
               data={variablesData.spec?.provisionerIdentifier}
@@ -22,19 +23,19 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
               metadataMap={metadataMap}
             />
             <ConfigVariables {...props} />
-            <Text>{getString('pipelineSteps.backendConfig')}</Text>
+            <Text className={css.stepTitle}>{getString('pipelineSteps.backendConfig')}</Text>
             <VariablesListTable
               data={variablesData.spec?.configuration?.spec?.backendConfig}
               originalData={initialValues.spec?.configuration?.spec?.backendConfig?.spec}
               metadataMap={metadataMap}
             />
-            <Text>{getString('pipeline.targets.title')}</Text>
+            <Text className={css.stepTitle}>{getString('pipeline.targets.title')}</Text>
             <VariablesListTable
               data={variablesData.spec?.configuration?.spec?.targets}
               originalData={initialValues.spec?.configuration?.spec?.targets}
               metadataMap={metadataMap}
             />
-            <Text>{getString('environmentVariables')}</Text>
+            <Text className={css.stepTitle}>{getString('environmentVariables')}</Text>
 
             <VariablesListTable
               data={variablesData.spec?.configuration?.spec?.environmentVariables}

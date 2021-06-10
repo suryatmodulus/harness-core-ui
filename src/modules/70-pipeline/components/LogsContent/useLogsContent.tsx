@@ -3,11 +3,9 @@ import { useParams } from 'react-router-dom'
 
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { PQueue } from '@common/utils/PQueue'
-import { useToaster } from '@common/components'
 import { useGetToken, logBlobPromise } from 'services/logs'
-import { useStrings } from 'framework/strings'
 import SessionToken from 'framework/utils/SessionToken'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { useDeepCompareEffect } from '@common/hooks'
 
 import { useLogsStream } from './useLogsStream'
@@ -28,8 +26,6 @@ export function useLogsContent(): UseLogsContentReturn {
   const { accountId } = useParams<ExecutionPathProps>()
   const [state, dispatch] = React.useReducer<LogsReducer>(reducer, getDefaultReducerState())
   const actions = useActionCreator(dispatch)
-  const { showError } = useToaster()
-  const { getString } = useStrings()
   const { logsToken, setLogsToken } = useExecutionContext()
   const { data: tokenData } = useGetToken({ queryParams: { accountID: accountId }, lazy: !!logsToken })
   const { log: streamData, startStream, closeStream, key: streamKey } = useLogsStream()
@@ -75,11 +71,9 @@ export function useLogsContent(): UseLogsContentReturn {
           actions.updateSectionData({ id, data })
         } else {
           actions.resetSection(id)
-          showError(getString('pipeline.logs.fetchError'))
         }
       } catch (e) {
         actions.resetSection(id)
-        showError(getString('pipeline.logs.fetchError'))
       }
     })
   }

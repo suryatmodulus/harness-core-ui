@@ -342,7 +342,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                 <>
                   <FormInput.Text
                     label={getString('connectors.k8.masterUrlLabel')}
-                    placeholder={getString('connectors.k8.placeholder.masterUrl')}
+                    placeholder={getString('UrlLabel')}
                     name="masterUrl"
                     className={css.formFieldWidth}
                   />

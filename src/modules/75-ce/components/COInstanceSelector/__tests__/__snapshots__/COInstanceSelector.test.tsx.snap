@@ -68,7 +68,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
             class="bp3-input "
             dir="auto"
             placeholder="Search"
-            style="padding-right: 42px;"
+            style="padding-right: 0px;"
             type="search"
             value="instance"
           />
@@ -341,7 +341,7 @@ exports[`Instance Selector Modal should show data 1`] = `
             class="bp3-input "
             dir="auto"
             placeholder="Search"
-            style="padding-right: 42px;"
+            style="padding-right: 0px;"
             type="search"
             value=""
           />
@@ -580,7 +580,7 @@ exports[`Instance Selector Modal should show loader while loading data 1`] = `
             class="bp3-input "
             dir="auto"
             placeholder="Search"
-            style="padding-right: 42px;"
+            style="padding-right: 0px;"
             type="search"
             value=""
           />

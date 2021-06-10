@@ -9,7 +9,7 @@ import { Connectors } from '@connectors/constants'
 import { cvConnectorHOC } from '../CommonCVConnector/CVConnectorHOC'
 import type { ConnectionConfigProps } from '../CommonCVConnector/constants'
 import { initializeDatadogConnectorWithStepData, setDatadogSecrets } from './utils'
-import { StepDetailsHeader } from '../CommonCVConnector/CredentialsStepHeader'
+import { StepDetailsHeader } from '../CommonCVConnector/components/CredentialsStepHeader/CredentialsStepHeader'
 import css from './CreateDatadogConnector.module.scss'
 
 export function DatadogConfigStep(props: ConnectionConfigProps): JSX.Element {

@@ -31,9 +31,15 @@ interface HelmAdvancedStepProps {
     setFieldValue: (a: string, b: string) => void
     values: HelmWithGITDataType | HelmWithHTTPDataType
   }
+  isReadonly?: boolean
 }
 
-const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, commandFlagOptions, expressions }) => {
+const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
+  formik,
+  commandFlagOptions,
+  expressions,
+  isReadonly
+}) => {
   const { getString } = useStrings()
   const defaultValueToReset = [{ commandType: '', flag: '', id: uuid('', nameSpace()) }]
 
@@ -65,6 +71,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
             onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
             style={{ alignSelf: 'center' }}
             className={cx(css.addmarginTop)}
+            isReadonly={isReadonly}
           />
         )}
         <Tooltip

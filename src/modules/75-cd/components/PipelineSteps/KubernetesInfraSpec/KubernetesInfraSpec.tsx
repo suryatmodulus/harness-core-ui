@@ -149,6 +149,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                     onChange={value => {
                       formik.setFieldValue('connectorRef', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -175,6 +176,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                     onChange={value => {
                       formik.setFieldValue('namespace', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -201,6 +203,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                     onChange={value => {
                       formik.setFieldValue('releaseName', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -232,6 +235,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                     onChange={value => {
                       formik.setFieldValue('infrastructureKey', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>

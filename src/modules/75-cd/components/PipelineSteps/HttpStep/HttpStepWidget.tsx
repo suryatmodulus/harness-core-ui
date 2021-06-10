@@ -3,12 +3,12 @@ import { Formik, Accordion, getMultiTypeFromValue, MultiTypeInputType } from '@w
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import ResponseMapping from './ResponseMapping'
 import type { HttpStepData, HttpStepFormData } from './types'
 import HttpStepBase from './HttpStepBase'
@@ -44,7 +44,7 @@ export function HttpStepWidget(
       initialValues={initialValues}
       formName="httpWidget"
       validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           url: Yup.lazy(
@@ -71,7 +71,7 @@ export function HttpStepWidget(
             })
           )
         }),
-        ...IdentifierValidation()
+        identifier: IdentifierSchema()
       })}
     >
       {(formik: FormikProps<HttpStepFormData>) => {

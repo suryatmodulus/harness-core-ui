@@ -278,6 +278,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                     }}
                     label={getString('tagLabel')}
                     name="tag"
+                    className={css.tagInputButton}
                   />
 
                   {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (

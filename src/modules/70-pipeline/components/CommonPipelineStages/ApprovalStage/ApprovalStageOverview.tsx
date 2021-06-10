@@ -1,9 +1,9 @@
 import React, { useCallback, useRef } from 'react'
 import cx from 'classnames'
-import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { cloneDeep, debounce } from 'lodash-es'
 import { Accordion, Card, Container, FormikForm, Layout } from '@wings-software/uicore'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -15,7 +15,6 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import type { AllNGVariables } from '@pipeline/utils/types'
-import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import type { ApprovalStageOverviewProps } from './types'
 import css from './ApprovalStageOverview.module.scss'
 
@@ -61,14 +60,8 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
               tags: cloneOriginalData?.stage.tags || {}
             }}
             validationSchema={{
-              name: Yup.string().trim().required(getString('approvalStage.stageNameRequired')),
-              identifier: Yup.string().when('name', {
-                is: val => val?.length,
-                then: Yup.string()
-                  .required(getString('validation.identifierRequired'))
-                  .matches(regexIdentifier, getString('validation.validIdRegex'))
-                  .notOneOf(illegalIdentifiers)
-              })
+              name: NameSchema({ requiredErrorMsg: getString('approvalStage.stageNameRequired') }),
+              identifier: IdentifierSchema()
             }}
             validate={values => {
               const errors: { name?: string } = {}

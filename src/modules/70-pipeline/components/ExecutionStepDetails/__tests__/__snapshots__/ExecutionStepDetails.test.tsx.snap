@@ -1002,7 +1002,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                     class="bp3-input "
                     dir="auto"
                     placeholder="Search"
-                    style="padding-right: 206px;"
+                    style="padding-right: 164px;"
                     type="search"
                     value=""
                   />
@@ -1307,7 +1307,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                     class="bp3-input "
                     dir="auto"
                     placeholder="Search"
-                    style="padding-right: 206px;"
+                    style="padding-right: 164px;"
                     type="search"
                     value=""
                   />
@@ -1646,7 +1646,7 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                     class="bp3-input "
                     dir="auto"
                     placeholder="Search"
-                    style="padding-right: 206px;"
+                    style="padding-right: 164px;"
                     type="search"
                     value=""
                   />
@@ -1985,7 +1985,7 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                     class="bp3-input "
                     dir="auto"
                     placeholder="Search"
-                    style="padding-right: 206px;"
+                    style="padding-right: 164px;"
                     type="search"
                     value=""
                   />
@@ -2522,7 +2522,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                     class="bp3-input "
                     dir="auto"
                     placeholder="Search"
-                    style="padding-right: 206px;"
+                    style="padding-right: 164px;"
                     type="search"
                     value=""
                   />

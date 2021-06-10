@@ -404,7 +404,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <CreateConnectorFromYamlPage />
     </RouteWithLayout>

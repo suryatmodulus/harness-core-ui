@@ -37,6 +37,7 @@ interface HelmWithHttpPropType {
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
+  isReadonly?: boolean
 }
 
 const commandFlagOptionsV2 = [
@@ -55,7 +56,8 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
   initialValues,
   handleSubmit,
   previousStep,
-  manifestIdsList
+  manifestIdsList,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
   const [regions, setRegions] = React.useState<SelectOption[]>([])
@@ -233,6 +235,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                       onChange={value => {
                         formik.setFieldValue('region', value)
                       }}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -260,6 +263,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('bucketName', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -288,6 +292,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('folderPath', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -314,6 +319,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('chartName', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -342,6 +348,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('chartVersion', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>

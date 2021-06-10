@@ -29,6 +29,7 @@ newRelicConnectorDetails: New Relic Connector Details
 prometheusConnectorDetails: Prometheus Connector Details
 prometheusLabel: Prometheus
 dynatraceLabel: Dynatrace
+appdLabel: AppDynamics
 dynatraceConnectorDetails: Dynatrace Connector Details
 connectorDetailsHeader: '{{type}} Connector Details'
 addConnectorDetails: Add {{type}} Verification Provider
@@ -129,7 +130,7 @@ k8:
   clientSecretOptional: 'Client Secret (optional)'
   OIDCScopes: 'OIDC Scopes (optional)'
   clientKey: 'Client Key'
-  clientKeyPassphrase: 'Client Key passphrase (optional)'
+  clientKeyPassphrase: 'Client Key Passphrase (optional)'
   clientCertificate: 'Client Certificate'
   clientKeyAlgorithm: 'Client Key Algorithm (optional)'
   clientKeyCACertificate: 'CA Certificate (optional)'

@@ -102,7 +102,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
             class="bp3-input "
             dir="auto"
             placeholder="search"
-            style="padding-right: 42px;"
+            style="padding-right: 0px;"
             type="search"
             value=""
           />
@@ -1591,7 +1591,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             class="bp3-input "
             dir="auto"
             placeholder="search"
-            style="padding-right: 42px;"
+            style="padding-right: 0px;"
             type="search"
             value=""
           />

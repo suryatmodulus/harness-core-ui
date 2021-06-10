@@ -285,7 +285,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
                 class="bp3-input "
                 dir="auto"
                 placeholder="Search"
-                style="padding-right: 206px;"
+                style="padding-right: 164px;"
                 type="search"
                 value=""
               />

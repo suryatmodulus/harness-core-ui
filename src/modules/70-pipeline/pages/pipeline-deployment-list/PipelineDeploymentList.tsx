@@ -59,7 +59,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const { updateQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
 
   const { page, filterIdentifier, myDeployments, status } = queryParams
-  const hasFilters = [pipelineIdentifier, status, filterIdentifier, myDeployments].some(filter => filter !== undefined)
+  const hasFilters =
+    [pipelineIdentifier, status, filterIdentifier].some(filter => filter !== undefined) || myDeployments
 
   const isCIModule = module === 'ci'
   const { getString } = useStrings()

@@ -66,11 +66,11 @@ export default function RepositoryCard({
 
   return (
     <Container className={styles.repositoryCard}>
+      <Text className={styles.title} color={Color.BLACK} lineClamp={1}>
+        {title}
+      </Text>
       <Container className={styles.mainContent}>
         <Container>
-          <Text className={styles.title} color={Color.BLACK} lineClamp={1}>
-            {title}
-          </Text>
           <Container className={styles.cardStats}>
             <Text font={{ size: 'small' }} className={styles.statHeader}>
               {countLabel}

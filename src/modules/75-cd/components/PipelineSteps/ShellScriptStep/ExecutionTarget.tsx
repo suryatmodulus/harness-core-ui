@@ -71,6 +71,7 @@ export default function ExecutionTarget(props: {
                 showAdvanced={true}
                 onChange={value => setFieldValue('spec.executionTarget.host', value)}
                 style={{ marginTop: 12 }}
+                isReadonly={readonly}
               />
             )}
           </div>
@@ -98,6 +99,7 @@ export default function ExecutionTarget(props: {
                   setFieldValue('spec.executionTarget.connectorRef', value)
                 }}
                 style={{ marginTop: 4 }}
+                isReadonly={readonly}
               />
             )}
           </div>
@@ -119,6 +121,7 @@ export default function ExecutionTarget(props: {
                 showAdvanced={true}
                 onChange={value => setFieldValue('spec.executionTarget.workingDirectory', value)}
                 style={{ marginTop: 12 }}
+                isReadonly={readonly}
               />
             )}
           </div>

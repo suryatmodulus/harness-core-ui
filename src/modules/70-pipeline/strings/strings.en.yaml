@@ -273,7 +273,7 @@ executionFilters:
     InterventionWaiting: Waiting on intervention
     Waiting: Waiting for resources
 logs:
-  fetchError: Could not fetch logs. Please try again later.
+  sectionName: 'Section {{index}}'
 conditionalExecution:
   title: Conditional Execution
   subTitle: Conditional Execution allows users to set conditions to determine when the {{entity}} should be executed.

@@ -15,7 +15,7 @@ interface ProjectSetupMenuProps {
 const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelineType<ProjectPathProps>>()
-  const { NG_RBAC_ENABLED, GIT_SYNC_NG } = useFeatureFlags()
+  const { NG_RBAC_ENABLED, GIT_SYNC_NG, NG_SHOW_DELEGATE } = useFeatureFlags()
   const params = { accountId, orgIdentifier, projectIdentifier, module }
   const getGitSyncEnabled = (): boolean => {
     if ((module === 'ci' || module === 'cd' || !module) && GIT_SYNC_NG) return true
@@ -28,6 +28,9 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
         <SidebarLink label={getString('common.secrets')} to={routes.toSecrets(params)} />
         {NG_RBAC_ENABLED ? (
           <SidebarLink to={routes.toAccessControl(params)} label={getString('accessControl')} />
+        ) : null}
+        {NG_SHOW_DELEGATE ? (
+          <SidebarLink label={getString('delegate.delegates')} to={routes.toDelegates(params)} />
         ) : null}
         {getGitSyncEnabled() ? (
           <SidebarLink

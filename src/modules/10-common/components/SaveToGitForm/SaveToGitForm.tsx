@@ -57,6 +57,8 @@ interface ModalConfigureProps {
   onSuccess?: (data: SaveToGitFormInterface) => void
 }
 
+const yamlFileExtension = '.yaml'
+
 export interface SaveToGitFormInterface {
   name?: string
   identifier?: string
@@ -89,7 +91,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     identifier: resource.identifier,
     repoIdentifier: resource.gitDetails?.repoIdentifier || '',
     rootFolder: resource.gitDetails?.rootFolder || '',
-    filePath: resource.gitDetails?.filePath || '',
+    filePath: resource.gitDetails?.filePath || `${resource.identifier}.yaml`,
     isNewBranch: false,
     branch: resource.gitDetails?.branch || '',
     commitMsg: getString('common.gitSync.updateResource', { resource: resource.name }),
@@ -286,7 +288,23 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
           formName="saveToGitForm"
           validationSchema={Yup.object().shape({
             repoIdentifier: Yup.string().trim().required(getString('validation.repositoryName')),
-            filePath: Yup.string().trim().required(getString('common.git.validation.filePath')),
+            filePath: Yup.string()
+              .trim()
+              .required(getString('common.git.validation.filePath'))
+              .test('filePath', getString('common.validation.yamlFilePath'), (filePath: string) => {
+                if (!filePath.endsWith(yamlFileExtension)) {
+                  return false
+                } else {
+                  let isValid = true
+                  const fullPath = filePath.slice(0, filePath.length - yamlFileExtension.length)
+                  const subPaths = fullPath.split('/')
+                  subPaths.every((folderName: string) => {
+                    isValid = !!folderName.length && !!folderName.match(/^[A-Za-z0-9_-][A-Za-z0-9 _-]*$/g)?.length
+                    return isValid
+                  })
+                  return isValid
+                }
+              }),
             branch: Yup.string().trim().required(getString('validation.branchName')),
             commitMsg: Yup.string().trim().min(1).required(getString('common.git.validation.commitMessage'))
           })}

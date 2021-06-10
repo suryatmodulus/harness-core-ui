@@ -1,149 +1,37 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
-import {
-  StepWizard,
-  StepProps,
-  Layout,
-  Button,
-  Text,
-  FormInput,
-  FormikForm,
-  Container,
-  Color
-} from '@wings-software/uicore'
+import React, { useMemo } from 'react'
+import { Layout, Button, Text, FormInput, FormikForm, Container, Color } from '@wings-software/uicore'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { useToaster } from '@common/exports'
-import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
-import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/strings'
+import { AppDynamicsAuthType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { buildAppDynamicsPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ConnectionConfigProps } from '../CommonCVConnector/constants'
+import { cvConnectorHOC } from '../CommonCVConnector/CVConnectorHOC'
 import {
-  useCreateConnector,
-  ConnectorConfigDTO,
-  ConnectorInfoDTO,
-  ConnectorRequestBody,
-  ResponseBoolean,
-  useUpdateConnector
-} from 'services/cd-ng'
-import { AppDynamicsAuthType, setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import {
-  Connectors,
-  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
-  CreateConnectorModalProps,
-  TESTCONNECTION_STEP_INDEX
-} from '@connectors/constants'
-import SecretInput from '@secrets/components/SecretInput/SecretInput'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { buildAppDynamicsPayload as _buildAppDynamicsPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import type { FormData } from '@connectors/interfaces/ConnectorInterface'
-import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
+  ConnectorSecretField,
+  ConnectorSecretFieldProps
+} from '../CommonCVConnector/components/ConnectorSecretField/ConnectorSecretField'
+import { initializeAppDConnector } from './utils'
+import { StepDetailsHeader } from '../CommonCVConnector/components/CredentialsStepHeader/CredentialsStepHeader'
 import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import styles from './CreateAppDynamicsConnector.module.scss'
 
-interface CreateAppDynamicsConnectorProps extends CreateConnectorModalProps {
-  onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
-  mockIdentifierValidate?: ResponseBoolean
-}
-
-export interface ConnectionConfigProps extends StepProps<ConnectorConfigDTO> {
-  accountId: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  isEditMode: boolean
-  setFormData?: (formData: ConnectorConfigDTO) => void
-  connectorInfo?: ConnectorInfoDTO | void
-}
-
-interface UsernamePasswordAndApiClientOptionProps {
+interface UsernamePasswordAndApiClientOptionProps extends Omit<ConnectorSecretFieldProps, 'secretInputProps'> {
   onAuthTypeChange: (authType: string) => void
   authTypeValue?: string
 }
 
-export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConnectorProps): JSX.Element {
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: props.accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: props.accountId } })
-  const { showSuccess } = useToaster()
-  const { getString } = useStrings()
-  const [successfullyCreated, setSuccessfullyCreated] = useState(false)
-  const handleSubmit = async (
-    payload: ConnectorConfigDTO,
-    prevData: ConnectorConfigDTO,
-    stepProps: StepProps<ConnectorConfigDTO>
-  ): Promise<ConnectorInfoDTO | undefined> => {
-    const { isEditMode } = props
-    const res = await (isEditMode ? updateConnector : createConnector)(payload)
-    if (res && res.status === 'SUCCESS') {
-      showSuccess(
-        isEditMode
-          ? getString('connectors.updatedSuccessfully', payload?.name || '')
-          : getString('connectors.createdSuccessfully', payload?.name || '')
-      )
-      if (res.data) {
-        setSuccessfullyCreated(true)
-        props.onConnectorCreated?.(res.data)
-        props.onSuccess?.(res.data)
-        stepProps?.nextStep?.(prevData)
-        props.setIsEditMode?.(true)
-      }
-    } else {
-      throw new Error(
-        getString(isEditMode ? 'connectors.unableToUpdateConnector' : 'connectors.unableToCreateConnector')
-      )
-    }
-    return res.data?.connector
-  }
-
-  const isEditMode = props.isEditMode || successfullyCreated
-  const buildAppDynamicsPayload = useCallback(
-    (formData: FormData) => _buildAppDynamicsPayload(formData, props.accountId),
-    []
-  )
-
-  return (
-    <StepWizard>
-      <ConnectorDetailsStep
-        type={Connectors.APP_DYNAMICS}
-        name={getString('connectors.connectorDetails')}
-        isEditMode={isEditMode}
-        connectorInfo={props.connectorInfo}
-        gitDetails={props.gitDetails}
-        mock={props.mockIdentifierValidate}
-      />
-      <ConnectionConfigStep
-        accountId={props.accountId}
-        orgIdentifier={props.orgIdentifier}
-        projectIdentifier={props.projectIdentifier}
-        name={getString('credentials')}
-        identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
-        isEditMode={isEditMode}
-        connectorInfo={props.connectorInfo}
-      />
-      <DelegateSelectorStep
-        name={getString('delegate.DelegateselectionLabel')}
-        customHandleCreate={handleSubmit}
-        customHandleUpdate={handleSubmit}
-        hideModal={props.onClose}
-        onConnectorCreated={props.onSuccess}
-        connectorInfo={props.connectorInfo}
-        gitDetails={props.gitDetails}
-        isEditMode={props.isEditMode}
-        buildPayload={buildAppDynamicsPayload}
-      />
-      <VerifyOutOfClusterDelegate
-        name={getString('connectors.verifyConnection')}
-        connectorInfo={props.connectorInfo}
-        onClose={props.onClose}
-        isStep
-        isLastStep
-        type={Connectors.APP_DYNAMICS}
-        setIsEditMode={props.setIsEditMode}
-        stepIndex={TESTCONNECTION_STEP_INDEX}
-      />
-    </StepWizard>
-  )
-}
-
 function UsernamePasswordAndApiClientOption(props: UsernamePasswordAndApiClientOptionProps): JSX.Element {
-  const { onAuthTypeChange, authTypeValue } = props
+  const {
+    onAuthTypeChange,
+    authTypeValue,
+    accountIdentifier,
+    projectIdentifier,
+    orgIdentifier,
+    onSuccessfulFetch,
+    secretFieldValue
+  } = props
   const { getString } = useStrings()
   const authOptions = useMemo(
     () => [
@@ -177,157 +65,124 @@ function UsernamePasswordAndApiClientOption(props: UsernamePasswordAndApiClientO
         />
       </Container>
       <FormInput.Text {...fieldProps[0]} />
-      <SecretInput {...fieldProps[1]} />
+      <ConnectorSecretField
+        secretInputProps={fieldProps[1]}
+        accountIdentifier={accountIdentifier}
+        projectIdentifier={projectIdentifier}
+        orgIdentifier={orgIdentifier}
+        secretFieldValue={secretFieldValue}
+        onSuccessfulFetch={onSuccessfulFetch}
+      />
     </Container>
   )
 }
 
-function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
-  const [loadingSecrets, setLoadingSecrets] = useState(
-    Boolean(props.prevStepData?.spec || props.prevStepData?.authType)
-  )
+function AppDynamicsConfigStep(props: ConnectionConfigProps): JSX.Element {
   const { getString } = useStrings()
-  const { nextStep, prevStepData, connectorInfo } = props
-  const [initialValues, setInitialValues] = useState<ConnectorConfigDTO>({
-    url: '',
-    accountName: '',
-    username: '',
-    authType: AppDynamicsAuthType.USERNAME_PASSWORD,
-    password: undefined,
-    projectIdentifier: props.projectIdentifier,
-    orgIdentifier: props.orgIdentifier
-  })
-
-  useEffect(() => {
-    if (!props.prevStepData) {
-      return
-    }
-    const { spec, ...prevData } = props.prevStepData
-    const updatedInitialValues = {
-      url: prevData.url || spec?.controllerUrl || '',
-      accountName: prevData.accountName || spec?.accountname || '',
-      authType: prevData.authType || spec?.authType || AppDynamicsAuthType.USERNAME_PASSWORD,
-      username: prevData.username || spec?.username || '',
-      clientId: prevData.clientId || spec?.clientId
-    }
-
-    if (
-      updatedInitialValues.authType === AppDynamicsAuthType.USERNAME_PASSWORD &&
-      (prevData.password || spec?.passwordRef)
-    ) {
-      setSecretField(prevData.password?.referenceString || spec.passwordRef, {
-        accountIdentifier: props.accountId,
-        projectIdentifier: props.projectIdentifier,
-        orgIdentifier: props.orgIdentifier
-      })
-        .then(result => {
-          ;(updatedInitialValues as any).password = result
-          setLoadingSecrets(false)
-          setInitialValues(currentInitialValues => ({ ...currentInitialValues, ...updatedInitialValues }))
-        })
-        .catch(() => {
-          setLoadingSecrets(false)
-        })
-    } else if (
-      updatedInitialValues.authType === AppDynamicsAuthType.API_CLIENT_TOKEN &&
-      (prevData.clientSecretRef || spec?.clientSecretRef)
-    ) {
-      setSecretField(prevData.clientSecretRef?.referenceString || spec.clientSecretRef, {
-        accountIdentifier: props.accountId,
-        projectIdentifier: props.projectIdentifier,
-        orgIdentifier: props.orgIdentifier
-      })
-        .then(result => {
-          ;(updatedInitialValues as any).clientSecretRef = result
-          setLoadingSecrets(false)
-          setInitialValues(currentInitialValues => ({ ...currentInitialValues, ...updatedInitialValues }))
-        })
-        .catch(() => {
-          setLoadingSecrets(false)
-        })
-    }
-
-    setInitialValues(updatedInitialValues)
-  }, [])
-
+  const { nextStep, prevStepData, connectorInfo, accountId, projectIdentifier, orgIdentifier } = props
+  const initialValues = initializeAppDConnector({ prevStepData, projectIdentifier, accountId, orgIdentifier })
   const handleSubmit = (formData: ConnectorConfigDTO) => {
     nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })
   }
 
-  if (loadingSecrets) {
-    return <PageSpinner />
+  const { spec, ...prevData } = props.prevStepData || {}
+  let secretFieldValue: any
+  if (initialValues.authType === AppDynamicsAuthType.USERNAME_PASSWORD) {
+    secretFieldValue = prevData?.password || spec?.passwordRef
+  } else if (initialValues.authType === AppDynamicsAuthType.API_CLIENT_TOKEN) {
+    secretFieldValue = prevData?.clientSecretRef || spec?.clientSecretRef
   }
 
   return (
-    <Formik
-      enableReinitialize
-      initialValues={{
-        ...initialValues
-      }}
-      validationSchema={Yup.object().shape({
-        url: Yup.string().trim().required(getString('connectors.appD.validation.controllerURL')),
-        accountName: Yup.string().trim().required(getString('validation.accountName')),
-        authType: Yup.string().trim(),
-        username: Yup.string()
-          .nullable()
-          .when('authType', {
-            is: AppDynamicsAuthType.USERNAME_PASSWORD,
-            then: Yup.string().required(getString('validation.username'))
-          }),
-        password: Yup.string()
-          .nullable()
-          .when('authType', {
-            is: AppDynamicsAuthType.USERNAME_PASSWORD,
-            then: Yup.string().required(getString('validation.password'))
-          }),
-        clientId: Yup.string()
-          .nullable()
-          .when('authType', {
-            is: AppDynamicsAuthType.API_CLIENT_TOKEN,
-            then: Yup.string().required(getString('connectors.appD.validation.clientId'))
-          }),
-        clientSecretRef: Yup.string()
-          .nullable()
-          .when('authType', {
-            is: AppDynamicsAuthType.API_CLIENT_TOKEN,
-            then: Yup.string().required(getString('connectors.appD.validation.clientSecret'))
-          })
-      })}
-      onSubmit={handleSubmit}
-    >
-      {formikProps => (
-        <FormikForm className={styles.connectionForm}>
-          <Layout.Vertical spacing="large" className={styles.appDContainer}>
-            <Text font="medium">{getString('connectors.appD.connectionDetailsHeader')}</Text>
-            <FormInput.Text label={getString('connectors.appD.controllerURL')} name="url" />
-            <FormInput.Text label={getString('connectors.appD.accountName')} name="accountName" />
-            <UsernamePasswordAndApiClientOption
-              authTypeValue={formikProps.values.authType}
-              onAuthTypeChange={updatedAuth => {
-                if (updatedAuth === AppDynamicsAuthType.API_CLIENT_TOKEN) {
-                  formikProps.setValues({
-                    ...formikProps.values,
-                    authType: updatedAuth,
-                    username: null,
-                    password: null
-                  })
-                } else if (updatedAuth === AppDynamicsAuthType.USERNAME_PASSWORD) {
-                  formikProps.setValues({
-                    ...formikProps.values,
-                    authType: updatedAuth,
-                    clientId: null,
-                    clientSecretRef: null
-                  })
-                }
-              }}
-            />
-          </Layout.Vertical>
-          <Layout.Horizontal spacing="large">
-            <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />
-            <Button type="submit" intent="primary" text={getString('continue')} />
-          </Layout.Horizontal>
-        </FormikForm>
-      )}
-    </Formik>
+    <>
+      <StepDetailsHeader connectorTypeLabel={getString('connectors.appdLabel')} />
+      <Formik
+        enableReinitialize
+        initialValues={{
+          ...initialValues
+        }}
+        validationSchema={Yup.object().shape({
+          url: Yup.string().trim().required(getString('connectors.appD.validation.controllerURL')),
+          accountName: Yup.string().trim().required(getString('validation.accountName')),
+          authType: Yup.string().trim(),
+          username: Yup.string()
+            .nullable()
+            .when('authType', {
+              is: AppDynamicsAuthType.USERNAME_PASSWORD,
+              then: Yup.string().required(getString('validation.username'))
+            }),
+          password: Yup.string()
+            .nullable()
+            .when('authType', {
+              is: AppDynamicsAuthType.USERNAME_PASSWORD,
+              then: Yup.string().required(getString('validation.password'))
+            }),
+          clientId: Yup.string()
+            .nullable()
+            .when('authType', {
+              is: AppDynamicsAuthType.API_CLIENT_TOKEN,
+              then: Yup.string().required(getString('connectors.appD.validation.clientId'))
+            }),
+          clientSecretRef: Yup.string()
+            .nullable()
+            .when('authType', {
+              is: AppDynamicsAuthType.API_CLIENT_TOKEN,
+              then: Yup.string().required(getString('connectors.appD.validation.clientSecret'))
+            })
+        })}
+        onSubmit={handleSubmit}
+      >
+        {formikProps => (
+          <FormikForm className={styles.connectionForm}>
+            <Layout.Vertical spacing="large" className={styles.appDContainer}>
+              <Text font="medium">{getString('connectors.appD.connectionDetailsHeader')}</Text>
+              <FormInput.Text label={getString('connectors.appD.controllerURL')} name="url" />
+              <FormInput.Text label={getString('connectors.appD.accountName')} name="accountName" />
+              <UsernamePasswordAndApiClientOption
+                accountIdentifier={props.accountId}
+                projectIdentifier={props.projectIdentifier}
+                orgIdentifier={props.orgIdentifier}
+                secretFieldValue={secretFieldValue}
+                onSuccessfulFetch={result => {
+                  if (initialValues.authType === AppDynamicsAuthType.API_CLIENT_TOKEN) {
+                    formikProps.setFieldValue('clientSecretRef', result)
+                  } else if (initialValues.authType === AppDynamicsAuthType.USERNAME_PASSWORD) {
+                    formikProps.setFieldValue('password', result)
+                  }
+                }}
+                authTypeValue={formikProps.values.authType}
+                onAuthTypeChange={updatedAuth => {
+                  if (updatedAuth === AppDynamicsAuthType.API_CLIENT_TOKEN) {
+                    formikProps.setValues({
+                      ...formikProps.values,
+                      authType: updatedAuth,
+                      username: null,
+                      password: null
+                    })
+                  } else if (updatedAuth === AppDynamicsAuthType.USERNAME_PASSWORD) {
+                    formikProps.setValues({
+                      ...formikProps.values,
+                      authType: updatedAuth,
+                      clientId: null,
+                      clientSecretRef: null
+                    })
+                  }
+                }}
+              />
+            </Layout.Vertical>
+            <Layout.Horizontal spacing="large">
+              <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />
+              <Button type="submit" intent="primary" text={getString('continue')} />
+            </Layout.Horizontal>
+          </FormikForm>
+        )}
+      </Formik>
+    </>
   )
 }
+
+export default cvConnectorHOC({
+  connectorType: 'AppDynamics',
+  ConnectorCredentialsStep: AppDynamicsConfigStep,
+  buildSubmissionPayload: buildAppDynamicsPayload
+})

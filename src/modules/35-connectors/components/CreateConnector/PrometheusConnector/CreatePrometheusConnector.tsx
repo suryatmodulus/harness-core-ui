@@ -7,7 +7,7 @@ import { useStrings } from 'framework/strings'
 import { cvConnectorHOC } from '../CommonCVConnector/CVConnectorHOC'
 import type { ConnectionConfigProps } from '../CommonCVConnector/constants'
 import { initializePrometheusConnectorWithStepData } from './utils'
-import { StepDetailsHeader } from '../CommonCVConnector/CredentialsStepHeader'
+import { StepDetailsHeader } from '../CommonCVConnector/components/CredentialsStepHeader/CredentialsStepHeader'
 import css from './CreatePrometheusConnector.module.scss'
 
 export function PrometheusConfigStep(props: ConnectionConfigProps): JSX.Element {

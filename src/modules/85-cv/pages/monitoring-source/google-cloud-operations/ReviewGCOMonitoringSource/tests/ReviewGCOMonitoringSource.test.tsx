@@ -13,6 +13,7 @@ const MockData: GCOMonitoringSourceInfo = {
   selectedDashboards: [],
   accountId: '1234_accountId',
   projectIdentifier: '1234_PROJECT',
+  mappedServicesAndEnvs: new Map(),
   orgIdentifier: '1234_orgIdentifier',
   name: 'solo-dolo',
   identifier: 'semi-auto14',

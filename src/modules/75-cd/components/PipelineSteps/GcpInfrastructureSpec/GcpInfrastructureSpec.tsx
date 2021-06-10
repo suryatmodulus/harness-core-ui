@@ -260,6 +260,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                     onChange={value => {
                       formik.setFieldValue('connectorRef', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -300,6 +301,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                       onChange={value => {
                         formik.setFieldValue('cluster', value)
                       }}
+                      isReadonly={readonly}
                     />
                   )}
               </Layout.Horizontal>
@@ -326,6 +328,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                     onChange={value => {
                       formik.setFieldValue('namespace', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -352,6 +355,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                     onChange={value => {
                       formik.setFieldValue('releaseName', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>

@@ -5,10 +5,12 @@ import { TestWrapper } from '@common/utils/testUtils'
 import type { DSConfig } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps, accountPathProps } from '@common/utils/routeUtils'
-import { GoogleCloudOperationsMonitoringSource, transformGetResponse } from '../GoogleCloudOperationsMonitoringSource'
+import { GoogleCloudOperationsMonitoringSource } from '../GoogleCloudOperationsMonitoringSource'
 import { formatJSON, GCODSConfig } from '../GoogleCloudOperationsMonitoringSourceUtils'
+import { transformGetResponseForStackDriver, transformGetResponseForStackDriverLogs } from '../utils'
+import type { GCOLogsDSConfig } from '../MapQueriesToHarnessService/types'
 
-const MockResponseData = {
+const MockResponseDataCloudMetrics = {
   metaData: {},
   resource: {
     accountId: '1234_accountId',
@@ -52,6 +54,41 @@ const MockResponseData = {
     type: 'STACKDRIVER'
   },
   responseMessages: []
+}
+
+const MockResponseCloudLogs = {
+  accountId: 'kmpySmUISimoRrJL6NL73w',
+  orgIdentifier: 'default',
+  projectIdentifier: 'Newproject',
+  productName: '',
+  connectorIdentifier: 'Teststack',
+  identifier: 'end_to_end_test',
+  monitoringSourceName: 'end to end test',
+  logConfigurations: [
+    {
+      logDefinition: {
+        name: 'GCO Logs Query updated 61',
+        query:
+          'resource.type="k8s_container"\nresource.labels.project_id="prod-setup-205416"\nresource.labels.location="us-west1"\nresource.labels.cluster_name="prod-private-uswest1-primary"\nresource.labels.namespace_name="harness"\nlabels.k8s-pod/app="verification-svc"\nresource.labels.pod_name="verification-svc-5b5f4ff7cc-twt9e"',
+        messageIdentifier: 'test-1',
+        serviceInstanceIdentifier: 'test'
+      },
+      serviceIdentifier: 's2',
+      envIdentifier: 'e2'
+    },
+    {
+      logDefinition: {
+        name: 'GCO Logs Query updated 71',
+        query:
+          'resource.type="k8s_container"\nresource.labels.project_id="prod-setup-205416"\nresource.labels.location="us-west1"\nresource.labels.cluster_name="prod-private-uswest1-primary"\nresource.labels.namespace_name="harness"\nlabels.k8s-pod/app="verification-svc"',
+        messageIdentifier: 'labels.managerHost',
+        serviceInstanceIdentifier: 'resource.labels.project_id'
+      },
+      serviceIdentifier: 's2',
+      envIdentifier: 'e2'
+    }
+  ],
+  type: 'STACKDRIVER_LOG'
 }
 
 const MockResponseManualQuery = {
@@ -117,7 +154,7 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
     await waitFor(() => expect(container.querySelector('[class*="SelectProduct"]')).not.toBeNull())
   })
 
-  test('Ensure edit state works', async () => {
+  test('Ensure edit state works for Google Cloud Metrics', async () => {
     const { container } = render(
       <TestWrapper
         path={routes.toCVAdminSetupMonitoringSourceEdit({
@@ -134,13 +171,13 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
           monitoringSource: '1234_monitoringSource'
         }}
       >
-        <GoogleCloudOperationsMonitoringSource dsConfig={MockResponseData.resource as DSConfig} />
+        <GoogleCloudOperationsMonitoringSource dsConfig={MockResponseDataCloudMetrics.resource as DSConfig} />
       </TestWrapper>
     )
 
     await waitFor(() => expect(container.querySelector('[class*="SelectProduct"]')).not.toBeNull())
     expect(
-      transformGetResponse(MockResponseData.resource as GCODSConfig, {
+      transformGetResponseForStackDriver(MockResponseDataCloudMetrics.resource as GCODSConfig, {
         accountId: '1234_account',
         projectIdentifier: '1234_project',
         orgIdentifier: '1234_ORG',
@@ -153,6 +190,8 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
         value: 'gcpProd2'
       },
       identifier: 'MyGoogleCloudOperationsSource',
+      isEdit: true,
+      mappedServicesAndEnvs: new Map(),
       name: 'MyGoogleCloudOperationsSource',
       orgIdentifier: 'harness_test',
       product: 'Cloud Metrics',
@@ -224,8 +263,9 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
       type: 'STACKDRIVER'
     })
   })
-  test('Ensure transformGetResponse returns manual input query in edit mode', async () => {
-    const res = transformGetResponse(MockResponseManualQuery.resource as GCODSConfig, {
+
+  test('Ensure transformGetResponseForStackDriver returns manual input query in edit mode', async () => {
+    const res = transformGetResponseForStackDriver(MockResponseManualQuery.resource as GCODSConfig, {
       accountId: '1234_account',
       projectIdentifier: '1234_project',
       orgIdentifier: '1234_ORG',
@@ -238,6 +278,8 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
         value: 'gcpProd2'
       },
       identifier: 'MyGoogleCloudOperationsSource',
+      isEdit: true,
+      mappedServicesAndEnvs: new Map(),
       name: 'MyGoogleCloudOperationsSource',
       orgIdentifier: 'harness_test',
       product: 'Cloud Metrics',
@@ -283,7 +325,7 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
   test('Non Manual Input with incorrect payload', async () => {
     const copyMockResponseManualQuery = Object.assign({}, MockResponseManualQuery.resource)
     copyMockResponseManualQuery.metricConfigurations[0].metricDefinition.manualQuery = false
-    const res = transformGetResponse(MockResponseManualQuery.resource as GCODSConfig, {
+    const res = transformGetResponseForStackDriver(MockResponseManualQuery.resource as GCODSConfig, {
       accountId: '1234_account',
       projectIdentifier: '1234_project',
       orgIdentifier: '1234_ORG',
@@ -296,6 +338,8 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
         value: 'gcpProd2'
       },
       identifier: 'MyGoogleCloudOperationsSource',
+      isEdit: true,
+      mappedServicesAndEnvs: new Map(),
       name: 'MyGoogleCloudOperationsSource',
       orgIdentifier: 'harness_test',
       product: 'Cloud Metrics',
@@ -303,6 +347,91 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
       selectedDashboards: [],
       selectedMetrics: new Map([]),
       type: 'STACKDRIVER'
+    })
+  })
+
+  test('Ensure edit state works for Google Cloud Logs', async () => {
+    const { container } = render(
+      <TestWrapper
+        path={routes.toCVAdminSetupMonitoringSourceEdit({
+          ...accountPathProps,
+          ...projectPathProps,
+          identifier: ':identifier',
+          monitoringSource: ':monitoringSource'
+        })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG',
+          identifier: '1234_iden',
+          monitoringSource: '1234_monitoringSource'
+        }}
+      >
+        <GoogleCloudOperationsMonitoringSource dsConfig={MockResponseCloudLogs as DSConfig} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="SelectProduct"]')).not.toBeNull())
+    expect(
+      transformGetResponseForStackDriverLogs(MockResponseCloudLogs as GCOLogsDSConfig, {
+        accountId: '1234_account',
+        projectIdentifier: '1234_project',
+        orgIdentifier: '1234_ORG',
+        identifier: '1234_iden'
+      })
+    ).toEqual({
+      accountId: 'kmpySmUISimoRrJL6NL73w',
+      orgIdentifier: 'default',
+      projectIdentifier: 'Newproject',
+      identifier: 'end_to_end_test',
+      product: 'Cloud Logs',
+      name: 'end to end test',
+      selectedDashboards: [],
+      selectedMetrics: new Map(),
+      type: 'STACKDRIVER_LOG',
+      mappedServicesAndEnvs: new Map([
+        [
+          'GCO Logs Query updated 61',
+          {
+            metricName: 'GCO Logs Query updated 61',
+            serviceIdentifier: {
+              label: 's2',
+              value: 's2'
+            },
+            envIdentifier: {
+              label: 'e2',
+              value: 'e2'
+            },
+            serviceInstance: 'test',
+            messageIdentifier: 'test-1',
+            query:
+              'resource.type="k8s_container"\nresource.labels.project_id="prod-setup-205416"\nresource.labels.location="us-west1"\nresource.labels.cluster_name="prod-private-uswest1-primary"\nresource.labels.namespace_name="harness"\nlabels.k8s-pod/app="verification-svc"\nresource.labels.pod_name="verification-svc-5b5f4ff7cc-twt9e"'
+          }
+        ],
+        [
+          'GCO Logs Query updated 71',
+          {
+            metricName: 'GCO Logs Query updated 71',
+            serviceIdentifier: {
+              label: 's2',
+              value: 's2'
+            },
+            envIdentifier: {
+              label: 'e2',
+              value: 'e2'
+            },
+            serviceInstance: 'resource.labels.project_id',
+            messageIdentifier: 'labels.managerHost',
+            query:
+              'resource.type="k8s_container"\nresource.labels.project_id="prod-setup-205416"\nresource.labels.location="us-west1"\nresource.labels.cluster_name="prod-private-uswest1-primary"\nresource.labels.namespace_name="harness"\nlabels.k8s-pod/app="verification-svc"'
+          }
+        ]
+      ]),
+      isEdit: true,
+      connectorRef: {
+        label: 'Teststack',
+        value: 'Teststack'
+      }
     })
   })
 })

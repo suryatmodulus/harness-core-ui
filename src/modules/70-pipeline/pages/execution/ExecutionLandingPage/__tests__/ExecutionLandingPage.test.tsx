@@ -7,7 +7,7 @@ import { accountPathProps, executionPathProps, pipelineModuleParams } from '@com
 import { ResponsePipelineExecutionDetail, useGetExecutionDetail } from 'services/pipeline-ng'
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { getActiveStageForPipeline, getActiveStep } from '@pipeline/utils/executionUtils'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import ExecutionLandingPage, { POLL_INTERVAL } from '../ExecutionLandingPage'

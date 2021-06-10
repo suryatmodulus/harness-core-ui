@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { has, reverse } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
 import { isExecutionWaitingForApproval } from '@pipeline/utils/statusHelpers'
 import { isHarnessApproval } from '@pipeline/utils/stepUtils'

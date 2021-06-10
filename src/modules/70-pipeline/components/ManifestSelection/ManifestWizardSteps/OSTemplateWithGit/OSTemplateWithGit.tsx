@@ -43,6 +43,7 @@ interface OpenshiftTemplateWithGITPropType {
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
+  isReadonly?: boolean
 }
 
 const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftTemplateWithGITPropType> = ({
@@ -52,7 +53,8 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
   expressions,
   prevStepData,
   previousStep,
-  manifestIdsList
+  manifestIdsList,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
@@ -209,6 +211,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                   expressions={expressions}
                   fieldValue={formik.values?.repoName}
                   changeFieldValue={(value: string) => formik.setFieldValue('repoName', value)}
+                  isReadonly={isReadonly}
                 />
               )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
@@ -243,6 +246,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('branch', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
@@ -271,6 +275,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('commitId', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
@@ -300,6 +305,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('path', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -331,6 +337,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                           onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
                           style={{ alignSelf: 'center' }}
                           className={css.addmarginTop}
+                          isReadonly={isReadonly}
                         />
                       )}
                       <Tooltip

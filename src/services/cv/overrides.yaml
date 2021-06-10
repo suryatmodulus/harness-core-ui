@@ -48,6 +48,7 @@ allowpaths:
   - /stackdriver/dashboards
   - /stackdriver/dashboard-detail
   - /stackdriver/sample-data
+  - /stackdriver-log/sample-data
   - /activity-source
   - /activity-source/{identifier}
   - /activity-source/list

@@ -16,6 +16,7 @@ export enum PipelineActions {
   UpdatePipeline = 'UpdatePipeline',
   SetYamlHandler = 'SetYamlHandler',
   PipelineSaved = 'PipelineSaved',
+  UpdateSchemaErrorsFlag = 'UpdateSchemaErrorsFlag',
   Success = 'Success',
   Error = 'Error'
 }
@@ -100,6 +101,7 @@ export interface PipelineReducerState {
   pipelineView: PipelineViewData
   pipelineIdentifier: string
   error?: string
+  schemaErrors: boolean
   gitDetails: EntityGitDetails
   isDBInitialized: boolean
   isLoading: boolean
@@ -117,6 +119,7 @@ export const DefaultPipeline: PipelineInfoConfig = {
 
 export interface ActionResponse {
   error?: string
+  schemaErrors?: boolean
   isUpdated?: boolean
   gitDetails?: EntityGitDetails
   pipeline?: PipelineInfoConfig
@@ -150,7 +153,10 @@ const pipelineSavedAction = (response: ActionResponse): ActionReturnType => ({
 })
 const success = (response: ActionResponse): ActionReturnType => ({ type: PipelineActions.Success, response })
 const error = (response: ActionResponse): ActionReturnType => ({ type: PipelineActions.Error, response })
-
+const updateSchemaErrorsFlag = (response: ActionResponse): ActionReturnType => ({
+  type: PipelineActions.UpdateSchemaErrorsFlag,
+  response
+})
 const updateSelectionState = (response: ActionResponse): ActionReturnType => ({
   type: PipelineActions.UpdateSelection,
   response
@@ -166,6 +172,7 @@ export const PipelineContextActions = {
   setYamlHandler,
   success,
   error,
+  updateSchemaErrorsFlag,
   updateSelectionState
 }
 
@@ -181,6 +188,7 @@ export const initialState: PipelineReducerState = {
       type: DrawerTypes.AddStep
     }
   },
+  schemaErrors: false,
   gitDetails: {},
   isLoading: false,
   isBEPipelineUpdated: false,
@@ -205,6 +213,11 @@ export const PipelineReducer = (state = initialState, data: ActionReturnType): P
       return {
         ...state,
         isDBInitialized: true
+      }
+    case PipelineActions.UpdateSchemaErrorsFlag:
+      return {
+        ...state,
+        schemaErrors: response?.schemaErrors ?? state.schemaErrors
       }
     case PipelineActions.SetYamlHandler:
       return {

@@ -113,7 +113,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                       <div
                         class="bp3-form-helper-text"
                       >
-                        validation.nameRequired
+                        common.validation.nameIsRequired
                       </div>
                     </div>
                   </div>

@@ -10,13 +10,15 @@ interface GitRepositoryNameProps {
   expressions: Array<string>
   fieldValue: string | undefined
   changeFieldValue: (val: string) => void
+  isReadonly?: boolean
 }
 
 const GitRepositoryName: React.FC<GitRepositoryNameProps> = ({
   accountUrl,
   expressions,
   fieldValue,
-  changeFieldValue
+  changeFieldValue,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
   return (
@@ -38,6 +40,7 @@ const GitRepositoryName: React.FC<GitRepositoryNameProps> = ({
             showDefaultField={false}
             showAdvanced={true}
             onChange={changeFieldValue}
+            isReadonly={isReadonly}
           />
         )}
       </div>

@@ -7,7 +7,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import * as cdService from 'services/cd-ng'
 import { FieldNames, MapGCOMetricsToServices } from '../MapGCOMetricsToServices'
-import { buildGCOMonitoringSourceInfo } from '../../GoogleCloudOperationsMonitoringSourceUtils'
+import { buildGCOMonitoringSourceInfo, GCOProduct } from '../../GoogleCloudOperationsMonitoringSourceUtils'
 import { ManualInputQueryModal, MANUAL_INPUT_QUERY } from '../../ManualInputQueryModal/ManualInputQueryModal'
 
 const MockQuery = `{}`
@@ -17,6 +17,7 @@ const MockSelectedMetricInfo = {
   metric: 'metric_1'
 }
 
+const currentProduct = GCOProduct.CLOUD_METRICS
 const MockParams = {
   accountId: '1234_accountId',
   projectIdentifier: '1234_projectid',
@@ -214,7 +215,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     const { container } = render(
       <TestWrapper>
         <MapGCOMetricsToServices
-          data={buildGCOMonitoringSourceInfo(MockParams)}
+          data={buildGCOMonitoringSourceInfo(MockParams, currentProduct)}
           onNext={jest.fn()}
           onPrevious={jest.fn()}
         />
@@ -266,7 +267,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <MapGCOMetricsToServices
-          data={buildGCOMonitoringSourceInfo(MockParams)}
+          data={buildGCOMonitoringSourceInfo(MockParams, currentProduct)}
           onNext={jest.fn()}
           onPrevious={jest.fn()}
         />
@@ -305,7 +306,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     const { container, getByText, rerender } = render(
       <TestWrapper>
         <MapGCOMetricsToServices
-          data={buildGCOMonitoringSourceInfo(MockParams)}
+          data={buildGCOMonitoringSourceInfo(MockParams, currentProduct)}
           onNext={jest.fn()}
           onPrevious={jest.fn()}
         />
@@ -336,7 +337,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     rerender(
       <TestWrapper>
         <MapGCOMetricsToServices
-          data={buildGCOMonitoringSourceInfo(MockParams)}
+          data={buildGCOMonitoringSourceInfo(MockParams, currentProduct)}
           onNext={jest.fn()}
           onPrevious={jest.fn()}
         />
@@ -367,7 +368,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     const { container } = render(
       <TestWrapper>
         <MapGCOMetricsToServices
-          data={buildGCOMonitoringSourceInfo(MockParams)}
+          data={buildGCOMonitoringSourceInfo(MockParams, currentProduct)}
           onNext={onSubmitMock}
           onPrevious={jest.fn()}
         />

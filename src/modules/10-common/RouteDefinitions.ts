@@ -341,7 +341,9 @@ const routes = {
     }
   ),
   toOrganizations: withAccountId(() => `/home/setup/organizations`),
-  toOrganizationDetails: withAccountId(({ orgIdentifier }: OrgPathProps) => `/home/organizations/${orgIdentifier}`),
+  toOrganizationDetails: withAccountId(
+    ({ orgIdentifier }: OrgPathProps) => `/home/organizations/${orgIdentifier}/details`
+  ),
   toGovernance: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `governance`

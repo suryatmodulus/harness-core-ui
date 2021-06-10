@@ -2,6 +2,7 @@ import * as Yup from 'yup'
 
 import type { IconName } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
+import { IdentifierSchema } from '@common/utils/Validation'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { StringKeys } from 'framework/strings'
@@ -59,12 +60,10 @@ export const ArtifactIdentifierValidation = (
 
   if (!id) {
     return {
-      identifier: Yup.string()
-        .trim()
-        .required(getString('artifactsSelection.validation.sidecarId'))
-        .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-        .notOneOf(StringUtils.illegalIdentifiers)
-        .notOneOf(artifactIdentifiers, validationMsg)
+      identifier: IdentifierSchema({ requiredErrorMsg: getString('artifactsSelection.validation.sidecarId') }).notOneOf(
+        artifactIdentifiers,
+        validationMsg
+      )
     }
   }
   return {

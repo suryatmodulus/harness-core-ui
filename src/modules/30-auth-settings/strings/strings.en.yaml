@@ -46,7 +46,7 @@ lockoutPolicy: Lockout Policy
 failedLoginsBeforeLocked: Failed logins before user is locked out
 lockoutDuration: Lockout duration
 notifyUsersWhenTheyLocked: Notify users when they are locked out
-notifyUsersWHenUserLocked: Notify user groups when a user is locked out
+notifyUsersWhenUserLocked: Notify user groups when a user is locked out
 selectUserGroup: Select User Group(s)
 publicOAuthLoginEnabled: Login via public OAuth providers has been enabled
 publicOAuthLoginDisabled: Login via public OAuth providers has been disabled

@@ -474,8 +474,6 @@ createSecretYAML:
   createSecret: Create Secret from YAML
   secretCreated: Secret created successfully
   invalidSecret: Invalid Secret configuration
-formValidation:
-  name: 'Name can only contain alphanumerics, _ and -'
 filters:
   filterVisibility: Who can view and edit the filter?
   name: Filter Name
@@ -712,7 +710,7 @@ addResourceModal:
 projectCard:
   clone: 'Clone'
   projectName: 'Project Name'
-  confirmDelete: Deleting the Project '{{name}}' would mean that you are also deleting all the resources associated with it. Are you sure you want to delete the Project?
+  confirmDelete: Deleting the Project '{{name}}' will delete its resources also. Are you sure you want to delete the Project?
   confirmDeleteTitle: 'Delete Project'
   successMessage: 'Project {{projectName}} is deleted'
   cdRendererText: 'Deployments in last 7 days'

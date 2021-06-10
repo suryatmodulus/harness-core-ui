@@ -20,6 +20,8 @@ export const getIconBySourceType = (type: string) => {
       return 'lab-test'
     case 'PROMETHEUS':
       return 'service-prometheus'
+    case 'STACKDRIVER_LOG':
+      return 'service-stackdriver'
     default:
       return ''
   }

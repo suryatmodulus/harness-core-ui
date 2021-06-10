@@ -305,7 +305,7 @@ exports[`TargetDetailPage TargetDetailPage should render data correctly 1`] = `
                   class="bp3-input "
                   dir="auto"
                   placeholder="cf.targetDetail.searchPlaceholder"
-                  style="padding-right: 42px;"
+                  style="padding-right: 0px;"
                   type="search"
                   value=""
                 />
@@ -679,7 +679,7 @@ exports[`TargetDetailPage TargetDetailPage should render its segments 1`] = `
                   class="bp3-input "
                   dir="auto"
                   placeholder="cf.targetDetail.searchPlaceholder"
-                  style="padding-right: 42px;"
+                  style="padding-right: 0px;"
                   type="search"
                   value=""
                 />

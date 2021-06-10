@@ -21,6 +21,7 @@ import type { FormikProps } from 'formik'
 
 import { Classes, Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
@@ -29,7 +30,6 @@ import {
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
@@ -59,10 +59,9 @@ export default function TerraformEditView(
   const { expressions } = useVariablesExpression()
 
   const planValidationSchema = Yup.object().shape({
-    name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+    name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
     timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
-
-    ...IdentifierValidation(),
+    identifier: IdentifierSchema(),
     spec: Yup.object().shape({
       provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
       configuration: Yup.object().shape({
@@ -71,10 +70,9 @@ export default function TerraformEditView(
     })
   })
   const regularValidationSchema = Yup.object().shape({
-    name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+    name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
+    identifier: IdentifierSchema(),
     timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
-
-    ...IdentifierValidation(),
     spec: Yup.object().shape({
       provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
       configuration: Yup.object().shape({
@@ -144,6 +142,7 @@ export default function TerraformEditView(
                     onChange={value => {
                       setFieldValue('timeout', value)
                     }}
+                    isReadonly={props.readonly}
                   />
                 )}
               </div>
@@ -175,6 +174,7 @@ export default function TerraformEditView(
                     onChange={value => {
                       setFieldValue('spec.provisionerIdentifier', value)
                     }}
+                    isReadonly={props.readonly}
                   />
                 )}
               </div>
@@ -230,12 +230,13 @@ export default function TerraformEditView(
                                     onChange={value => {
                                       formik.setFieldValue('values.spec.configuration.spec.workspace', value)
                                     }}
+                                    isReadonly={props.readonly}
                                   />
                                 )}
                               </div>
                             )}
                             <div className={cx(css.fieldBorder, css.addMarginBottom)} />
-                            <TfVarFileList formik={formik} />
+                            <TfVarFileList formik={formik} isReadonly={props.readonly} />
                             <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                             <div
                               className={cx(
@@ -292,6 +293,7 @@ export default function TerraformEditView(
                                   onChange={value =>
                                     setFieldValue('spec.configuration.spec.backendConfig.spec.content', value)
                                   }
+                                  isReadonly={props.readonly}
                                 />
                               )}
                             </div>
@@ -377,6 +379,7 @@ export default function TerraformEditView(
                         }}
                         data={formik.values}
                         onHide={() => setShowModal(false)}
+                        isReadonly={props.readonly}
                       />
                     </Dialog>
                   )}

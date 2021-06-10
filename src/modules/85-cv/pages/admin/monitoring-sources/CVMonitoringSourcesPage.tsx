@@ -22,7 +22,8 @@ const getRouteType = (type: string) => {
     APP_DYNAMICS: 'APP_DYNAMICS',
     STACKDRIVER: 'STACKDRIVER',
     NEW_RELIC: 'NEW_RELIC',
-    PROMETHEUS: 'PROMETHEUS'
+    PROMETHEUS: 'PROMETHEUS',
+    STACKDRIVER_LOG: 'STACKDRIVER_LOG'
   }
   return getRoutePathByType(typeMappings[type])
 }
@@ -56,7 +57,7 @@ export default function CVMonitoringSourcesPage() {
       }) + '?step=2'
     )
 
-  const onEdit = (identifier: string, type: string) =>
+  const onEdit = (identifier: string, type: string) => {
     history.push(
       routes.toCVAdminSetupMonitoringSourceEdit({
         accountId,
@@ -66,6 +67,7 @@ export default function CVMonitoringSourcesPage() {
         identifier
       })
     )
+  }
 
   const onDelete = async (identifier: string) => {
     await deleteMonitoringSource('' as any, {
@@ -185,6 +187,7 @@ function TypeTableCell(tableProps: CellProps<MonitoringSource>): JSX.Element {
     <Container>
       {tableProps.value === 'APP_DYNAMICS' && <Icon name="service-appdynamics" size={18} />}
       {tableProps.value === 'STACKDRIVER' && <Icon name="service-stackdriver" size={18} />}
+      {tableProps.value === 'STACKDRIVER_LOG' && <Icon name="service-stackdriver" size={18} />}
       {tableProps.value === 'PROMETHEUS' && <Icon name="service-prometheus" size={18} />}
       {tableProps.value === 'NEW_RELIC' && <Icon name="service-newrelic" size={18} />}
     </Container>

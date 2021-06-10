@@ -9,9 +9,8 @@ import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/Abstract
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
-
 import { useCDNGVerificationJobs } from 'services/cv'
+import { IdentifierSchema } from '@common/utils/Validation'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ContinousVerificationData } from '../../types'
 import type { ContinousVerificationWidgetProps, VerificationJob } from './types'
@@ -47,7 +46,7 @@ export function ContinousVerificationWidget(
         deploymentTag: Yup.string().required(getString('connectors.cdng.validations.deploymentTagRequired'))
       })
     }),
-    ...IdentifierValidation()
+    identifier: IdentifierSchema()
   })
   const validationSchema = defaultCVSchema
   const {

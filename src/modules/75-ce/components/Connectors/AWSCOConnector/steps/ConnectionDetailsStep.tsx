@@ -41,7 +41,7 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const connectorInfo = prevStepData as ConnectorInfoDTO
   const [showRoleView, setShowRoleView] = useState(false)
-  const [externalIDEnabled, setExternalIDEnabled] = useState(true)
+  // const [externalIDEnabled, setExternalIDEnabled] = useState(true)
   const [externalID, setExternalID] = useState(connectorInfo.spec.externalID as string)
   const [saving, setSaving] = useState(false)
   const { showError } = useToaster()
@@ -69,7 +69,7 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
       showError('Template path is empty', undefined, 'ce.create.tpml.error')
       return
     }
-    setExternalIDEnabled(false)
+    // setExternalIDEnabled(false)
     const curEnabled: boolean = connectorInfo.spec.billingPermission
     const optimizationEnabled: boolean = connectorInfo.spec.optimizationPermission
     const eventsEnabled: boolean = connectorInfo.spec.eventsPermission
@@ -163,7 +163,7 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
                     intent="primary"
                     text={getString('ce.connector.AWS.crossAccountRole.templateLaunchText')}
                     onClick={createTemplate}
-                    disabled={!externalIDEnabled}
+                    // disabled={!externalIDEnabled}
                   />
                 </div>
                 <div>

@@ -4,6 +4,7 @@ import { useStrings } from 'framework/strings'
 
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { TerraformPlanData, TerraformPlanVariableStepProps } from '../../Common/Terraform/TerraformInterfaces'
+import css from '@cd/components/PipelineSteps/Common/Terraform/TerraformStep.module.scss'
 
 export function ConfigVariables(props: TerraformPlanVariableStepProps): React.ReactElement {
   const { variablesData = {} as TerraformPlanData, metadataMap, initialValues } = props
@@ -26,7 +27,7 @@ export function ConfigVariables(props: TerraformPlanVariableStepProps): React.Re
         originalData={initialValues.spec?.configuration?.configFiles?.store?.spec}
         metadataMap={metadataMap}
       />
-      <Text>{getString('cd.terraformVarFiles')}</Text>
+      <Text className={css.stepTitle}>{getString('cd.terraformVarFiles')}</Text>
       {variablesData?.spec?.configuration?.varFiles?.map((varFile, index) => (
         <VariablesListTable
           key={index}

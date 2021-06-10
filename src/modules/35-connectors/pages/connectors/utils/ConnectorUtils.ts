@@ -927,7 +927,7 @@ export const buildArtifactoryPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
-export const buildAppDynamicsPayload = (formData: FormData, accountId: string): Connector => {
+export const buildAppDynamicsPayload = (formData: FormData): Connector => {
   const payload: Connector = {
     connector: {
       ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
@@ -937,7 +937,7 @@ export const buildAppDynamicsPayload = (formData: FormData, accountId: string): 
         authType: formData.authType,
         accountname: formData.accountName,
         controllerUrl: formData.url,
-        accountId
+        accountId: formData.accountId
       } as AppDynamicsConnectorDTO
     }
   }

@@ -38,6 +38,7 @@ import {
   CreateInputSetForPipelineQueryParams,
   EntityGitDetails
 } from 'services/pipeline-ng'
+import { NameSchema } from '@common/utils/Validation'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
@@ -242,7 +243,7 @@ const SaveAsInputSet = ({
                 handleSubmit(input, { repoIdentifier: input.repo, branch: input.branch })
               }}
               validationSchema={Yup.object().shape({
-                name: Yup.string().trim().required(getString('inputSets.nameIsRequired'))
+                name: NameSchema({ requiredErrorMsg: getString('inputSets.nameIsRequired') })
               })}
               initialValues={
                 {

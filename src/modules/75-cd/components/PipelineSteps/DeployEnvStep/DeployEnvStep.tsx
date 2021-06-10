@@ -26,6 +26,7 @@ import {
   EnvironmentYaml,
   getEnvironmentListForProjectPromise
 } from 'services/cd-ng'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
@@ -40,7 +41,6 @@ import { errorCheck } from '@common/utils/formikHelpers'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -89,12 +89,9 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
           onCreateOrUpdate(values)
         }}
         validationSchema={Yup.object().shape({
-          name: Yup.string()
-            .trim()
-            .required(getString?.('fieldRequired', { field: 'Environment' })),
-
+          name: NameSchema({ requiredErrorMsg: getString?.('fieldRequired', { field: 'Environment' }) }),
           type: Yup.string().required(getString?.('fieldRequired', { field: 'Type' })),
-          ...IdentifierValidation()
+          identifier: IdentifierSchema()
         })}
       >
         {formikProps => (

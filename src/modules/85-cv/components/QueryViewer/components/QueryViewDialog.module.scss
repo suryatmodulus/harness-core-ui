@@ -1,0 +1,18 @@
+.formQueryBox textarea {
+  width: 100%;
+  border-radius: 8px;
+  resize: vertical;
+  min-height: 200px;
+  padding: var(--spacing-medium) !important;
+}
+
+.queryViewDialog {
+  padding: var(--spacing-large) !important;
+  .chartContainer {
+    height: 580px !important;
+  }
+}
+
+.queryContainer {
+  position: relative;
+}

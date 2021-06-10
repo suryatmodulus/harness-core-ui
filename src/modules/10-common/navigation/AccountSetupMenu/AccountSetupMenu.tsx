@@ -11,7 +11,7 @@ import NavExpandable from '../NavExpandable/NavExpandable'
 const AccountSetupMenu: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const { NG_RBAC_ENABLED, NG_SIGNUP } = useFeatureFlags()
+  const { NG_RBAC_ENABLED, NG_SIGNUP, NG_SHOW_DELEGATE } = useFeatureFlags()
   return (
     <NavExpandable title={getString('common.accountSetup')} route={routes.toSetup({ accountId })}>
       <Layout.Vertical spacing="small">
@@ -19,6 +19,9 @@ const AccountSetupMenu: React.FC = () => {
         <SidebarLink label={getString('authentication')} to={routes.toAuthenticationSettings({ accountId })} />
         <SidebarLink label={getString('connectorsLabel')} to={routes.toConnectors({ accountId })} />
         <SidebarLink label={getString('common.secrets')} to={routes.toSecrets({ accountId })} />
+        {NG_SHOW_DELEGATE ? (
+          <SidebarLink label={getString('delegate.delegates')} to={routes.toDelegates({ accountId })} />
+        ) : null}
         {NG_RBAC_ENABLED ? (
           <SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} />
         ) : null}

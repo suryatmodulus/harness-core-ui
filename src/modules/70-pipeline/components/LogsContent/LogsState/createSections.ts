@@ -27,7 +27,7 @@ function parseToTime(p: unknown): number | undefined {
 const NON_MUTATE_STATES: UnitLoadingStatus[] = ['LOADING', 'QUEUED']
 
 export function createSections(state: State, action: Action<ActionType.CreateSections>): State {
-  const { node, selectedStep, selectedStage } = action.payload
+  const { node, selectedStep, selectedStage, getSectionName } = action.payload
 
   if (!node) {
     return getDefaultReducerState({ selectedStage, selectedStep })
@@ -58,7 +58,7 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
 
   if (units.length === 0 && logKeys.length > 0) {
     hasNoUnits = true
-    units = logKeys.map((_: unknown, i: number) => `Section ${i + 1}`)
+    units = logKeys.map((_: unknown, i: number) => getSectionName(i + 1))
   }
 
   if (Array.isArray(node.unitProgresses)) {

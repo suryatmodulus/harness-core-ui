@@ -85,7 +85,7 @@
 
   .table-row {
     display: grid;
-    grid-template-columns: 2fr 1fr 3fr 1fr;
+    grid-template-columns: 2fr 1fr 3fr;
     column-gap: var(--spacing-medium);
     margin-bottom: var(--spacing-medium);
     align-items: baseline;
@@ -102,7 +102,10 @@
 
     .value-column {
       display: grid;
-      grid-template-columns: 1fr 30px;
+      grid-template-columns: 1fr 90px;
+      &[data-type='RUNTIME'] {
+        grid-template-columns: 1fr 32px 90px;
+      }
     }
 
     .actionButtons {

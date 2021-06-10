@@ -4,6 +4,7 @@ import { Form } from 'formik'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
 import type { NotificationRules } from 'services/pipeline-ng'
+import { NameSchema } from '@common/utils/Validation'
 
 interface OverviewProps {
   data?: NotificationRules
@@ -26,11 +27,13 @@ const Overview: React.FC<StepProps<NotificationRules> & OverviewProps> = ({
         initialValues={{ name: '', ...data, ...prevStepData }}
         formName="notificationsOverview"
         validationSchema={Yup.object().shape({
-          name: Yup.string()
-            .required()
-            .test('isNameUnique', getString('validation.notificationNameDuplicate'), name => {
+          name: (NameSchema() as Yup.StringSchema<string>).test(
+            'isNameUnique',
+            getString('validation.notificationNameDuplicate'),
+            name => {
               return existingNotificationNames.indexOf(name) === -1
-            })
+            }
+          )
         })}
         onSubmit={values => {
           nextStep?.(values)

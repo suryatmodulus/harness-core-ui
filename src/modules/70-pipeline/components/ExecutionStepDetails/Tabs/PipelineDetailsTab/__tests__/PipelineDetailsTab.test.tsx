@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
-import ExecutionContext from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import ExecutionContext from '@pipeline/context/ExecutionContext'
 
 import data from './data.json'
 import { PipelineDetailsTab } from '../PipelineDetailsTab'

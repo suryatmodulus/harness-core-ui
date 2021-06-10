@@ -287,7 +287,8 @@ const ManifestListView = ({
       initialValues: getLastStepInitialData(),
       handleSubmit: handleSubmit,
       selectedManifest,
-      manifestIdsList: listOfManifests.map((item: ManifestConfigWrapper) => item.manifest?.identifier)
+      manifestIdsList: listOfManifests.map((item: ManifestConfigWrapper) => item.manifest?.identifier),
+      isReadonly: isReadonly
     }
   }
 

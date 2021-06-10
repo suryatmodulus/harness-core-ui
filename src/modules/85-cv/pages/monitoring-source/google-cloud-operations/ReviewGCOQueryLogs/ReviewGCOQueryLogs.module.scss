@@ -1,0 +1,17 @@
+.main {
+  width: 100% !important;
+  height: calc(100vh - 150px) !important;
+  overflow-y: scroll;
+  .heading {
+    margin-left: calc(var(--spacing-xxxlarge) + var(--spacing-xsmall)) !important;
+  }
+  .reviewTable {
+    margin: 0 auto !important;
+    width: 95% !important;
+  }
+}
+
+.textOverflow {
+  text-overflow: ellipsis;
+  width: 95% !important;
+}

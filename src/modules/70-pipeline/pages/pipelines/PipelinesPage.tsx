@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Button,
   Color,
@@ -34,7 +34,7 @@ import {
 import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useStrings } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'
@@ -111,8 +111,9 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const project = selectedProject
   const isCDEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CD') > -1) || false
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
+  const isCIModule = module === 'ci'
 
-  const goToPipelineDetail = React.useCallback(
+  const goToPipelineDetail = useCallback(
     (/* istanbul ignore next */ pipeline?: PMSPipelineSummaryResponse) => {
       history.push(
         routes.toPipelineDeploymentList({
@@ -129,7 +130,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     [projectIdentifier, orgIdentifier, history, accountId]
   )
 
-  const goToPipeline = React.useCallback(
+  const goToPipeline = useCallback(
     (pipeline?: PMSPipelineSummaryResponse) => {
       history.push(
         routes.toPipelineStudio({
@@ -196,7 +197,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     mock: mockData
   })
 
-  const fetchPipelines = React.useCallback(
+  const fetchPipelines = useCallback(
     async (params?: GetPipelineListQueryParams, formData?: PipelineFilterProperties): Promise<void> => {
       try {
         cancel()
@@ -619,13 +620,17 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             <></>
           </OverlaySpinner>
         ) : !pipelineList?.content?.length ? (
-          appliedFilter ? (
-            <Text padding={{ top: 'small', bottom: 'small' }} className={css.noData} font="medium">
-              {getString('filters.noDataFound')}
-            </Text>
-          ) : (
-            <div className={css.noPipelineSection}>
-              <div className={css.noPipelineData}>
+          <div className={css.noPipelineSection}>
+            {appliedFilter ? (
+              <div className={css.noFilterData}>
+                <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} />
+                <Text margin={{ top: 'large', bottom: 'small' }} font={{ weight: 'bold', size: 'medium' }}>
+                  {getString('common.filters.noMatchingFilterData')}
+                </Text>
+                <String stringID="common.filters.clearFilters" className={css.clearFilterText} onClick={reset} />
+              </div>
+            ) : (
+              <div className={css.noFilterData}>
                 <Icon size={20} name="pipeline-ng"></Icon>
                 <Text padding={{ top: 'small', bottom: 'small' }} font="medium">
                   {getString('pipeline-list.aboutPipeline')}
@@ -648,8 +653,8 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                   }}
                 />
               </div>
-            </div>
-          )
+            )}
+          </div>
         ) : view === Views.GRID ? (
           <PipelineGridView
             gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}

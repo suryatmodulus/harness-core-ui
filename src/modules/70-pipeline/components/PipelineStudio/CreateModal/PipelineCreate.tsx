@@ -8,7 +8,7 @@ import { useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import type { NgPipeline } from 'services/cd-ng'
-import { StringUtils } from '@common/exports'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -48,15 +48,8 @@ export default function CreatePipelines({
       initialValues={initialValues}
       formName="pipelineCreate"
       validationSchema={Yup.object().shape({
-        name: Yup.string().trim().required(getString('createPipeline.pipelineNameRequired')),
-        identifier: Yup.string().when('name', {
-          is: val => val?.length,
-          then: Yup.string()
-            .trim()
-            .required(getString('validation.identifierRequired'))
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-            .notOneOf(StringUtils.illegalIdentifiers)
-        }),
+        name: NameSchema({ requiredErrorMsg: getString('createPipeline.pipelineNameRequired') }),
+        identifier: IdentifierSchema(),
         ...(isGitSyncEnabled
           ? {
               repo: Yup.string().trim().required(getString('pipeline.repoRequired')),

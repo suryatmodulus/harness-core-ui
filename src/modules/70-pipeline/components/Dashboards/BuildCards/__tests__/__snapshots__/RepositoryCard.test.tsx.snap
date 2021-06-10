@@ -5,18 +5,18 @@ exports[`RepositoryCard Renders correctly when successRateDiff is negative 1`] =
   <div
     class="StyledProps--font StyledProps--main repositoryCard"
   >
+    <p
+      class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"
+      style="--text-line-clamp: 1;"
+    >
+      Pipeline 1
+    </p>
     <div
       class="StyledProps--font StyledProps--main mainContent"
     >
       <div
         class="StyledProps--font StyledProps--main"
       >
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"
-          style="--text-line-clamp: 1;"
-        >
-          Pipeline 1
-        </p>
         <div
           class="StyledProps--font StyledProps--main cardStats"
         >
@@ -146,18 +146,18 @@ exports[`RepositoryCard Renders correctly when successRateDiff is positive 1`] =
   <div
     class="StyledProps--font StyledProps--main repositoryCard"
   >
+    <p
+      class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"
+      style="--text-line-clamp: 1;"
+    >
+      Pipeline 1
+    </p>
     <div
       class="StyledProps--font StyledProps--main mainContent"
     >
       <div
         class="StyledProps--font StyledProps--main"
       >
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"
-          style="--text-line-clamp: 1;"
-        >
-          Pipeline 1
-        </p>
         <div
           class="StyledProps--font StyledProps--main cardStats"
         >

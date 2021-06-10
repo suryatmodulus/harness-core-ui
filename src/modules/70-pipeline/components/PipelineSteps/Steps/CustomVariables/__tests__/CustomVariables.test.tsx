@@ -52,7 +52,7 @@ describe('Custom Variables', () => {
 
     await waitFor(() => findByTextGlobal(document.body, 'common.addVariable', { selector: 'h4.bp3-heading' }))
 
-    const name = queryByAttribute('name', document.body.querySelector('.bp3-dialog-body') as HTMLElement, 'name')
+    const name = queryByAttribute('name', document.body.querySelector('.bp3-dialog') as HTMLElement, 'name')
 
     act(() => {
       fireEvent.change(name!, { target: { value: 'myVar' } })

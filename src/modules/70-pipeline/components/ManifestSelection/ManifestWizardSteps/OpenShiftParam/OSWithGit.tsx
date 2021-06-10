@@ -40,6 +40,7 @@ interface OpenshiftTemplateWithGITPropType {
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
+  isReadonly?: boolean
 }
 
 const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftTemplateWithGITPropType> = ({
@@ -49,7 +50,8 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
   expressions,
   prevStepData,
   previousStep,
-  manifestIdsList
+  manifestIdsList,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
@@ -211,6 +213,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                   expressions={expressions}
                   fieldValue={formik.values?.repoName}
                   changeFieldValue={(value: string) => formik.setFieldValue('repoName', value)}
+                  isReadonly={isReadonly}
                 />
               )}
 
@@ -246,6 +249,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('branch', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
@@ -274,6 +278,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('commitId', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>

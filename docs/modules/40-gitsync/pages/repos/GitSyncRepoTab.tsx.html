@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.64% </span>
+                <span class="strong">83.78% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>92/110</span>
+                <span class='fraction'>93/111</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.49% </span>
+                <span class="strong">52.21% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>69/134</span>
+                <span class='fraction'>71/136</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.64% </span>
+                <span class="strong">83.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>92/110</span>
+                <span class='fraction'>93/111</span>
             </div>
         
             
@@ -581,7 +581,15 @@
 <a name='L522'></a><a href='#L522'>522</a>
 <a name='L523'></a><a href='#L523'>523</a>
 <a name='L524'></a><a href='#L524'>524</a>
-<a name='L525'></a><a href='#L525'>525</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L525'></a><a href='#L525'>525</a>
+<a name='L526'></a><a href='#L526'>526</a>
+<a name='L527'></a><a href='#L527'>527</a>
+<a name='L528'></a><a href='#L528'>528</a>
+<a name='L529'></a><a href='#L529'>529</a>
+<a name='L530'></a><a href='#L530'>530</a>
+<a name='L531'></a><a href='#L531'>531</a>
+<a name='L532'></a><a href='#L532'>532</a>
+<a name='L533'></a><a href='#L533'>533</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -598,6 +606,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -618,6 +627,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1044,6 +1054,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1120,7 +1136,8 @@ import {
   useModalHook,
   ModalErrorHandlerBinding,
   ModalErrorHandler,
-  Tag
+  Tag,
+  Link
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Renderer, Column } from 'react-table'
@@ -1146,6 +1163,7 @@ import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
+import { getExternalUrl } from '@gitsync/common/gitSyncUtils'
 import css from './GitSyncRepoTab.module.scss'
 &nbsp;
 enum RepoState {
@@ -1506,7 +1524,7 @@ const GitSyncRepoTab: React.FC = () =&gt; {
           {repoData?.gitSyncFolderConfigDTOs?.length
             ? repoData.gitSyncFolderConfigDTOs.map((rootFolderData: GitSyncFolderConfigDTO, index: number) =&gt; {
                 const folder = '/'.concat(rootFolderData.rootFolder<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>plit('/.harness')[0] || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>
-                const folderPath = `${repoData.repo}/${rootFolderData.rootFolder}`
+                const linkToProvider = getExternalUrl(repoData, rootFolderData.rootFolder)
                 return (
                   &lt;Layout.Horizontal
                     key={index}
@@ -1527,23 +1545,29 @@ const GitSyncRepoTab: React.FC = () =&gt; {
                           {folder}
                         &lt;/Text&gt;
                       &lt;/Container&gt;
-                      &lt;Container width={rootFolderData.isDefault ? '55%' : '75%'}&gt;
-                        &lt;Text
-                          style={{
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap'
-                          }}
-                          title={folderPath}
-                        &gt;
-                          {folderPath}
-                        &lt;/Text&gt;
+&nbsp;
+                      &lt;Container width={rootFolderData.isDefault ? '60%' : '75%'} padding={{ left: 'xsmall' }}&gt;
+                        &lt;Link href={linkToProvider} target="_blank" rel="noopener noreferrer" className={css.noShadow}&gt;
+                          &lt;Text
+                            width={rootFolderData.isDefault ? '70%' : '60%'}
+                            style={{
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap'
+                            }}
+                            title={linkToProvider}
+                            className={css.link}
+                          &gt;
+                            {linkToProvider}
+                          &lt;/Text&gt;
+                        &lt;/Link&gt;
                       &lt;/Container&gt;
+&nbsp;
                       &lt;Container width="5%"&gt;
-                        &lt;CopyToClipboard content={folderPath} showFeedback={true} /&gt;
+                        &lt;CopyToClipboard content={linkToProvider} showFeedback={true} /&gt;
                       &lt;/Container&gt;
                       {rootFolderData.isDefault &amp;&amp; (
-                        &lt;Container width="20%"&gt;
+                        &lt;Container width="15%"&gt;
                           &lt;Tag className={css.defaultFolderTag} style={{ borderRadius: 5 }}&gt;
                             {getString('gitsync.defaultFolder')}
                           &lt;/Tag&gt;
@@ -1636,7 +1660,7 @@ export default GitSyncRepoTab
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 10 2021 12:00:56 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 10 2021 12:16:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

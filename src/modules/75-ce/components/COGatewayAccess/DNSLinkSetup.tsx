@@ -348,6 +348,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       region: details?.region,
       vpc: details?.vpc,
       name: details?.name,
+      type: props.gatewayDetails.provider.value,
       metadata: {
         app_gateway_id: details?.id, // eslint-disable-line
         fe_ip_id: details?.fe_ip_id, // eslint-disable-line

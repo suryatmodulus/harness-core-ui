@@ -1,5 +1,5 @@
-const baseUrl = 'https://pr.harness.io/git-experience'
-const targetLocalHost = false // set to false to target baseUrl environment instead of localhost
+const baseUrl = 'https://qa.harness.io/gateway'
+const targetLocalHost = true // set to false to target baseUrl environment instead of localhost
 
 module.exports = {
   '/ng/api': {

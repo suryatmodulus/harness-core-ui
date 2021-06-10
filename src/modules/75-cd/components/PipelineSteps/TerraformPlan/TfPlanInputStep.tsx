@@ -21,7 +21,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
     <FormikForm>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
         <FormInput.Text
-          name="spec.provisionerIdentifier"
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.provisionerIdentifier`}
           label={getString('pipelineSteps.provisionerIdentifier')}
           disabled={readonly}
         />

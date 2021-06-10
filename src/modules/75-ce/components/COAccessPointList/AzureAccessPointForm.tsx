@@ -31,6 +31,7 @@ interface AzureAccessPointFormProps {
   lbCreationInProgress: boolean
   handleFormSubmit: (val: AzureApFormVal) => void
   loadBalancer: AccessPoint
+  isCreateMode: boolean
 }
 
 const SKUItems: SelectOption[] = [
@@ -41,7 +42,7 @@ const SKUItems: SelectOption[] = [
 ]
 
 const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
-  const { cloudAccountId, lbCreationInProgress, loadBalancer } = props
+  const { cloudAccountId, lbCreationInProgress, loadBalancer, isCreateMode } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
@@ -127,7 +128,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
       cloud_account_id: cloudAccountId,
       region: (selectedRegion?.value || loadBalancer.region) as string,
       resource_group_name: (selectedResourceGroup?.value || loadBalancer.metadata?.resource_group) as string,
-      accountIdentifier: accountId
+      accountIdentifier: accountId,
+      ...(loadBalancer.metadata?.app_gateway_id && { app_gateway_id: loadBalancer.metadata?.app_gateway_id })
     },
     lazy: true
   })
@@ -300,14 +302,14 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 onChange={regionItem => {
                   setSelectedRegion(regionItem)
                 }}
-                disabled={!_isEmpty(values.region) ? false : regionsLoading}
+                disabled={!isCreateMode || (!_isEmpty(values.region) ? false : regionsLoading)}
               />
               <FormInput.Select
                 label={'Resource Group*'}
                 placeholder={'Select resource group'}
                 name="resourceGroup"
                 items={resourceGroupsOptions}
-                disabled={!_isEmpty(values.resourceGroup) ? false : resourceGroupsLoading}
+                disabled={!isCreateMode || (!_isEmpty(values.resourceGroup) ? false : resourceGroupsLoading)}
                 onChange={resourceItem => {
                   setSelectedResourceGroup(resourceItem)
                 }}
@@ -330,7 +332,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 placeholder={'Select virtual network'}
                 name="virtualNetwork"
                 items={vpcOptions}
-                disabled={!_isEmpty(values.virtualNetwork) ? false : vpcsLoading || !selectedRegion}
+                disabled={!isCreateMode || (!_isEmpty(values.virtualNetwork) ? false : vpcsLoading || !selectedRegion)}
                 onChange={vpcItem => {
                   setSelectedVpc(vpcItem)
                 }}
@@ -342,7 +344,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 placeholder={'Select subnet'}
                 name="subnet"
                 items={subnetsOptions}
-                disabled={!_isEmpty(values.subnet) ? false : subnetsLoading || !selectedVpc}
+                disabled={!isCreateMode || (!_isEmpty(values.subnet) ? false : subnetsLoading || !selectedVpc)}
               />
               <FormInput.Select
                 label={'Frontend IP*'}
@@ -350,14 +352,21 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 name="ip"
                 items={publicIpsOptions}
                 disabled={
-                  !_isEmpty(values.ip)
+                  !isCreateMode ||
+                  (!_isEmpty(values.ip)
                     ? false
-                    : publicIpsLoading || !selectedRegion || !selectedVpc || !selectedResourceGroup
+                    : publicIpsLoading || !selectedRegion || !selectedVpc || !selectedResourceGroup)
                 }
               />
             </Layout.Horizontal>
             <Layout.Horizontal className={css.formFieldRow}>
-              <FormInput.Select label={'SKU*'} placeholder={'Select SKU'} name="sku" items={SKUItems} />
+              <FormInput.Select
+                label={'SKU*'}
+                placeholder={'Select SKU'}
+                name="sku"
+                items={SKUItems}
+                disabled={!isCreateMode}
+              />
             </Layout.Horizontal>
             <Layout.Horizontal style={{ marginTop: 100 }}>
               <Button minimal icon={'chevron-left'} onClick={() => props.handlePreviousClick(values)}>

@@ -38,11 +38,7 @@ const AWSCOConnector: React.FC<COAWSConnectorProps> = props => {
           permission={CO_PERMISSION} // TODO : ACCEPT permission from parent
         />
         <ConnectionDetailsStep name={getString('ce.connector.AWS.crossAccountRole.title')} />
-        <TestConnectionStep
-          name={getString('ce.connector.AWS.testConnection.title')}
-          onSuccess={onSuccess}
-          onFailure={onSuccess}
-        />
+        <TestConnectionStep name={'Test Connection'} onSuccess={onSuccess} onFailure={onSuccess} />
       </StepWizard>
     </section>
   )

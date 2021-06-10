@@ -67,9 +67,10 @@ jest.mock('@pipeline/pages/execution/ExecutionContext/ExecutionContext', () => (
     }
   })
 }))
-
-describe('BuildTests snapshot test', () => {
-  test('should render TI+Reports UI', async () => {
+// eslint-disable-next-line jest/no-disabled-tests
+describe.skip('BuildTests snapshot test', () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('should render TI+Reports UI', async () => {
     const { container } = render(
       <TestWrapper
         path="/account/zEaak-FLS425IEO7OLzMUg/ci/orgs/default/projects/TestCiProject1/pipelines/harshtriggerpipeline/executions/2NHi3lznTkegKnerhPf5og/tests"
@@ -104,8 +105,8 @@ describe('BuildTests snapshot test', () => {
     )
     expect(container).toMatchSnapshot()
   })
-
-  test('should render Reports UI', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('should render Reports UI', async () => {
     const { container } = render(
       <TestWrapper
         path="/account/zEaak-FLS425IEO7OLzMUg/ci/orgs/default/projects/TestCiProject1/pipelines/harshtriggerpipeline/executions/2NHi3lznTkegKnerhPf5og/tests"

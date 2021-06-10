@@ -58,6 +58,7 @@ describe('Azure Access Point Form', () => {
           lbCreationInProgress={false}
           handleFormSubmit={jest.fn()}
           loadBalancer={initialLoadBalancer}
+          isCreateMode={true}
         />
       </TestWrapper>
     )

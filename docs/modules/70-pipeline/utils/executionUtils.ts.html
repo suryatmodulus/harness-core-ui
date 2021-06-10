@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.96% </span>
+                <span class="strong">90.16% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>215/239</span>
+                <span class='fraction'>220/244</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.42% </span>
+                <span class="strong">66.62% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>447/673</span>
+                <span class='fraction'>467/701</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.1% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>27/29</span>
+                <span class='fraction'>28/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.27% </span>
+                <span class="strong">90.48% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>204/226</span>
+                <span class='fraction'>209/231</span>
             </div>
         
             
@@ -717,7 +717,18 @@
 <a name='L658'></a><a href='#L658'>658</a>
 <a name='L659'></a><a href='#L659'>659</a>
 <a name='L660'></a><a href='#L660'>660</a>
-<a name='L661'></a><a href='#L661'>661</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L661'></a><a href='#L661'>661</a>
+<a name='L662'></a><a href='#L662'>662</a>
+<a name='L663'></a><a href='#L663'>663</a>
+<a name='L664'></a><a href='#L664'>664</a>
+<a name='L665'></a><a href='#L665'>665</a>
+<a name='L666'></a><a href='#L666'>666</a>
+<a name='L667'></a><a href='#L667'>667</a>
+<a name='L668'></a><a href='#L668'>668</a>
+<a name='L669'></a><a href='#L669'>669</a>
+<a name='L670'></a><a href='#L670'>670</a>
+<a name='L671'></a><a href='#L671'>671</a>
+<a name='L672'></a><a href='#L672'>672</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1105,12 +1116,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1174,6 +1192,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1760,7 +1782,8 @@ const addDependencies = (
 &nbsp;
 const processLiteEngineTask = (
   nodeData: ExecutionNode | undefined,
-  rootNodes: ExecutionPipelineNode&lt;ExecutionNode&gt;[]
+  rootNodes: ExecutionPipelineNode&lt;ExecutionNode&gt;[],
+  parentNode?: ExecutionNode
 ): void =&gt; {
   // NOTE: liteEngineTask contains information about dependencies
   const serviceDependencyList: ServiceDependency[] =
@@ -1772,7 +1795,13 @@ const processLiteEngineTask = (
   // 1. Add dependency services
   addDependencies(serviceDependencyList, rootNodes)
 &nbsp;
-  // 2. Add Initialize step ( at the first place in array )
+  // 2. Exclude Initialize duration from the parent
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (nodeData &amp;&amp; parentNode) {
+    const taskDuration = nodeData.endTs! - nodeData.startTs!
+    parentNode.startTs = Math.min(parentNode.startTs! + taskDuration, parentNode.endTs!)
+  }
+&nbsp;
+  // 3. Add Initialize step ( at the first place in array )
   const stepItem: ExecutionPipelineItem&lt;ExecutionNode&gt; = {
     identifier: nodeData<span class="branch-0 cbranch-no" title="branch not covered" >?.u</span>uid as string,
     name: 'Initialize',
@@ -1834,7 +1863,11 @@ const processNodeData = (
       })
     } else {
       if (nodeData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tepType === LITE_ENGINE_TASK) {
-        processLiteEngineTask(nodeData, rootNodes)
+        const parentNodeId =
+          Object.entries(nodeAdjacencyListMap || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>.find(([_, val]) =&gt; {
+            return (val<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>hildren<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ndexOf(nodeData.uuid!) ?? <span class="branch-1 cbranch-no" title="branch not covered" >-1)</span> &gt;= 0
+          })<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>] || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+        processLiteEngineTask(nodeData, rootNodes, nodeMap<span class="branch-0 cbranch-no" title="branch not covered" >?.[p</span>arentNodeId])
       } else {
         items.push({
           item: {
@@ -1939,7 +1972,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array&lt;Execution
           // NOTE: exception if we have only lite task engine in Execution group
           <span class="missing-if-branch" title="if path not taken" >I</span>if (hasOnlyLiteEngineTask(nodeAdjacencyListMap[nodeId].children, graph)) {
             const liteTaskEngineId = <span class="cstat-no" title="statement not covered" >nodeAdjacencyListMap?.[nodeId]?.children?.[0] || ''</span>
-<span class="cstat-no" title="statement not covered" >            processLiteEngineTask(graph?.nodeMap?.[liteTaskEngineId], items)</span>
+<span class="cstat-no" title="statement not covered" >            processLiteEngineTask(graph?.nodeMap?.[liteTaskEngineId], items, nodeData)</span>
           } else <span class="missing-if-branch" title="else path not taken" >E</span>if (!isEmpty(nodeAdjacencyListMap[nodeId].children)) {
             items.push({
               group: {
@@ -2044,7 +2077,7 @@ export function getIconDataBasedOnType(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 10 2021 11:28:41 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 10 2021 11:31:45 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

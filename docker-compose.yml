@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  nextgenui:
+    image: nginx:alpine
+    container_name: nextgenui
+    ports:
+      - 443:443
+    volumes:
+      - ./scripts/dev-nginx/ssl_certificates:/opt/ssl_certificates
+      - ./dist/:/opt/nextgenui
+      - ./scripts/dev-nginx/nginx.conf:/etc/nginx/nginx.conf

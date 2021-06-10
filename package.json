@@ -22,7 +22,7 @@
     "strings-check": "node ./scripts/yaml-strings-check.js",
     "clean": "rm -rf dist && rm -rf node_modules/.cache",
     "dev": "NODE_ENV=development webpack serve --progress",
-    "watch": "yarn clean && NODE_ENV=development webpack --watch --progress",
+    "watch": "yarn clean && NODE_OPTIONS=\"--max-old-space-size=4096\" NODE_ENV=development webpack --watch --progress --mode=development",
     "services": "npm-run-all services:*",
     "services:ti-service": "restful-react import --config restful-react.config.js ti-service",
     "services:portal": "restful-react import --config restful-react.config.js portal",

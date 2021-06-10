@@ -61,9 +61,45 @@ $ yarn dev
 
 > Note: This will start the local server in watch mode with hot reloading. Any code changes will trigger fast patch rebuilds and refresh the page in the browser.
 
-</details>
-
 [NextGen Setup and Onboarding Slides (With Troubleshoot section)](https://docs.google.com/presentation/d/1xGl8JJPzEVDz1yew6cz7ADOZ7J-geI0dXk159EgAauA/edit?usp=sharing)
+
+### Advanced Setup
+
+This setup allows you to map `*.harness.dev` to `*.harness.io` and have 1:1 mapping with it. For example using `qa.harness.dev` you will be able point to `qa.harness.io`.
+You'll need [docker to be installed](https://docs.docker.com/docker-for-mac/install/) for this to work.
+
+Follow till step 5 from above.
+
+1. Using editor of your choice, open `/etc/hosts`. You might need priviliged access to edit this file.
+
+```
+sudo nano /etc/hosts
+
+# or
+
+sudo vi /etc/hosts
+```
+
+Once the file is open, add required entries. You can do this as per your requirements.
+
+```
+# Example entires
+127.0.0.1  qa.harness.dev
+```
+
+2.  Compile/Build the code in watch mode
+
+```
+$ yarn watch
+```
+
+3. Start nginx using docker. (You might need to)
+
+```
+docker compose up nextgenui
+```
+
+4. Visit the relevent url `https://qa.harness.dev`. For first time, you may need to accept the SSL certificates for local development
 
 ### Publishing
 

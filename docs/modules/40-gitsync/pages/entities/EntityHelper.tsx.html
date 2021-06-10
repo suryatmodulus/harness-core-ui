@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.66% </span>
+                <span class="strong">62.07% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/29</span>
+                <span class='fraction'>18/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.64% </span>
+                <span class="strong">18.18% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/11</span>
+                <span class='fraction'>2/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">54.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/24</span>
+                <span class='fraction'>13/24</span>
             </div>
         
             
@@ -143,23 +143,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,23 +170,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -215,24 +215,24 @@ export enum Products {
   CORE = 'CORE'
 }
 &nbsp;
-export const getEntityIconName = (entityType: string | undefined): IconName =&gt; {
-  switch (entityType) {
-<span class="branch-0 cbranch-no" title="branch not covered" >    case Entities.PROJECTS:</span>
+export const getEntityIconName = <span class="fstat-no" title="function not covered" >(e</span>ntityType: string | undefined): IconName =&gt; {
+<span class="cstat-no" title="statement not covered" >  switch (entityType) {</span>
+    case Entities.PROJECTS:
 <span class="cstat-no" title="statement not covered" >      return 'nav-project-selected'</span>
-<span class="branch-1 cbranch-no" title="branch not covered" >    case Entities.PIPELINES:</span>
+    case Entities.PIPELINES:
 <span class="cstat-no" title="statement not covered" >      return 'pipeline-ng'</span>
     case Entities.CONNECTORS:
-      return 'resources-icon'
+<span class="cstat-no" title="statement not covered" >      return 'resources-icon'</span>
     case Entities.SECRETS:
-      return 'secret-manager'
-<span class="branch-4 cbranch-no" title="branch not covered" >    default:</span>
+<span class="cstat-no" title="statement not covered" >      return 'secret-manager'</span>
+    default:
 <span class="cstat-no" title="statement not covered" >      return 'placeholder'</span>
   }
 }
 &nbsp;
-export const RenderEntity: Renderer&lt;CellProps&lt;GitSyncEntityDTO&gt;&gt; = ({ row }) =&gt; {
-  const data = row.original
-  return (
+export const RenderEntity: Renderer&lt;CellProps&lt;GitSyncEntityDTO&gt;&gt; = <span class="fstat-no" title="function not covered" >({</span> row }) =&gt; {
+  const data = <span class="cstat-no" title="statement not covered" >row.original</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Layout.Horizontal&gt;
       &lt;Icon inline name={getEntityIconName(data.entityType)}&gt;&lt;/Icon&gt;
       &lt;Text padding={{ left: 'small' }} inline font={{ weight: 'bold' }} lineClamp={1}&gt;
@@ -242,10 +242,10 @@ export const RenderEntity: Renderer&lt;CellProps&lt;GitSyncEntityDTO&gt;&gt; = (
   )
 }
 &nbsp;
-export const RenderYamlPath: Renderer&lt;CellProps&lt;GitSyncEntityDTO&gt;&gt; = ({ row }) =&gt; {
-  const data = row.original
+export const RenderYamlPath: Renderer&lt;CellProps&lt;GitSyncEntityDTO&gt;&gt; = <span class="fstat-no" title="function not covered" >({</span> row }) =&gt; {
+  const data = <span class="cstat-no" title="statement not covered" >row.original</span>
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       &lt;Text inline lineClamp={1}&gt;
         {data.entityGitPath}
@@ -254,8 +254,8 @@ export const RenderYamlPath: Renderer&lt;CellProps&lt;GitSyncEntityDTO&gt;&gt; =
   )
 }
 &nbsp;
-export const getEntityHeaderText = (data: GitSyncEntityListDTO): string =&gt; {
-  return `${data.entityType<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>oUpperCase()} ( ${data.count} )`
+export const getEntityHeaderText = <span class="fstat-no" title="function not covered" >(d</span>ata: GitSyncEntityListDTO): string =&gt; {
+<span class="cstat-no" title="statement not covered" >  return `${data.entityType?.toUpperCase()} ( ${data.count} )`</span>
 }
 &nbsp;
 export const getTableColumns = (): Column&lt;GitSyncEntityDTO&gt;[] =&gt; {
@@ -283,7 +283,7 @@ export const getTableColumns = (): Column&lt;GitSyncEntityDTO&gt;[] =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 10 2021 11:51:28 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 10 2021 12:00:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -66,7 +66,7 @@ describe('Git Sync - repo tab', () => {
     await waitFor(() => findByText(addRepoModal as HTMLElement, 'selectGitProvider'))
     expect(container).toMatchSnapshot()
   })
-    
+
   // eslint-disable-next-line jest/no-disabled-tests
   test.skip('test for adding new root folder', async () => {
     const { container, getAllByText } = setup()
@@ -138,7 +138,7 @@ describe('Git Sync - repo tab', () => {
       repo: 'https://github.com/wings-software/triggerNgDemo'
     })
   })
-    
+
   // eslint-disable-next-line jest/no-disabled-tests
   test.skip('test for making a rootfolder default from leftmenu', async () => {
     updateGitSynRepo.mock

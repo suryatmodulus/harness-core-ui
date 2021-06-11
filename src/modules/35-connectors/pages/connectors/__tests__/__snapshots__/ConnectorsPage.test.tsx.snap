@@ -99,7 +99,7 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
               class="bp3-input "
               dir="auto"
               placeholder="search"
-              style="padding-right: 0px;"
+              style="padding-right: 42px;"
               type="search"
               value=""
             />
@@ -387,7 +387,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
               class="bp3-input "
               dir="auto"
               placeholder="search"
-              style="padding-right: 0px;"
+              style="padding-right: 42px;"
               type="search"
               value=""
             />
@@ -2103,8 +2103,6 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
   </div>
 </div>
 `;
-<<<<<<< HEAD
-=======
 
 exports[`Connectors Page Test Render and check create connector panel: Connectors 1`] = `
 <div
@@ -3325,4 +3323,3 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
   </div>
 </div>
 `;
->>>>>>> 441889e5c5 (fix: app gateway id for azure lb)

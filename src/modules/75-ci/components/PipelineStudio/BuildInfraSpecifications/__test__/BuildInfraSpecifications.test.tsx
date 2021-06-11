@@ -54,8 +54,7 @@ jest.mock('services/cd-ng', () => ({
     })
 }))
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('BuildInfraSpecifications snapshot test', () => {
+describe('BuildInfraSpecifications snapshot test', () => {
   test('initializes ok', async () => {
     const { container } = render(
       <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
@@ -85,8 +84,8 @@ describe.skip('BuildInfraSpecifications snapshot test', () => {
     expect(chosenConnector).toBeDefined()
     expect(container).toMatchSnapshot()
   })
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('can add new label', async () => {
+
+  test('can add new label', async () => {
     const { container, findByTestId } = render(
       <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
         <PipelineContext.Provider

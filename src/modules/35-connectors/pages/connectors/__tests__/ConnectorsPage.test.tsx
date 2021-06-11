@@ -26,8 +26,7 @@ jest.spyOn(cdngServices, 'useGetTestConnectionResult').mockImplementation(() => 
 jest.spyOn(cdngServices, 'useDeleteConnector').mockImplementation(() => Promise.resolve() as any)
 jest.spyOn(cdngServices, 'getListOfBranchesByGitConfigPromise').mockImplementation(() => fetchBranches())
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Connectors Page Test', () => {
+describe('Connectors Page Test', () => {
   const props = {
     mockData: {
       data: connectorsData as any,
@@ -120,8 +119,8 @@ describe.skip('Connectors Page Test', () => {
     })
     // expect(container).toMatchSnapshot()
   })
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Render and check filter panel', async () => {
+
+  test('Render and check filter panel', async () => {
     const renderProps = {
       ...Object.assign(props, {
         filtersMockData: {
@@ -156,8 +155,8 @@ describe.skip('Connectors Page Test', () => {
       expect(portal).toMatchSnapshot('Connectors')
     })
   })
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Filter connector by name', async () => {
+
+  test('Filter connector by name', async () => {
     const { container } = setup()
     const input = container.querySelector('[class*="ExpandingSearchInput"]')
     expect(input).toBeTruthy()
@@ -170,8 +169,8 @@ describe.skip('Connectors Page Test', () => {
   })
 
   //Disabling as this has been reported as flaky multiple times
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('should verify that new connector button and create via yaml button are not disabled if connector edit permission is provided', async () => {
+
+  test('should verify that new connector button and create via yaml button are not disabled if connector edit permission is provided', async () => {
     jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
     const { container } = setup()
     const newConnectorButton = container.querySelector('[data-test="newConnectorButton"]')

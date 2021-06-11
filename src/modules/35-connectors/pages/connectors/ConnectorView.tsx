@@ -384,13 +384,63 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
         <Layout.Horizontal height="100%">
           {/* Edit mode */}
           {enableEdit ? (
-            selectedView === SelectedView.YAML ? (
-              <>
-                {isFetchingSchema || (!isGitSyncEnabled && updating) ? (
-                  <PageSpinner
-                    message={
-                      updating ? getString('connectors.updating', { name: connector?.name }) : getString('loading')
-                    }
+            selectedView === SelectedView.VISUAL ? null : isFetchingSchema ? (
+              <PageSpinner />
+            ) : (
+              <div className={css.fullWidth}>
+                <YamlBuilder
+                  {...yamlBuilderReadOnlyModeProps}
+                  // snippets={snippetMetaData?.data?.yamlSnippets}
+                  // onSnippetCopy={onSnippetCopy}
+                  // snippetFetchResponse={snippetFetchResponse}
+                  schema={connectorSchema?.data}
+                  isReadOnlyMode={false}
+                  bind={setYamlHandler}
+                  onChange={onConnectorChange}
+                  showSnippetSection={false}
+                />
+                <Layout.Horizontal spacing="small">
+                  <Button
+                    id="saveYAMLChanges"
+                    intent="primary"
+                    text={getString('saveChanges')}
+                    onClick={() => {
+                      if (isGitSyncEnabled) {
+                        openSaveToGitDialog({
+                          isEditing: true,
+                          resource: {
+                            type: 'Connectors',
+                            name: props.response.connector?.name || '',
+                            identifier: props.response.connector?.identifier || '',
+                            gitDetails: props.response.gitDetails
+                          },
+                          payload: parse(yamlHandler?.getLatestYaml?.() || '')
+                        })
+                      } else {
+                        handleSaveYaml()
+                          .then(res => {
+                            if (res.status === 'SUCCESS') {
+                              showSuccess(getString('connectors.updatedSuccessfully'))
+                              res.nextCallback?.()
+                            } else {
+                              /* TODO handle error with API status 200 */
+                            }
+                          })
+                          .catch(e => {
+                            if (shouldShowError(e)) {
+                              showError(
+                                e.data?.message ||
+                                  (e.data?.errors?.[0]?.error
+                                    ? `${e.data.errors[0].fieldId} ${e.data.errors[0].error}`
+                                    : e.message)
+                              )
+                            }
+                          })
+                      }
+                    }}
+                    margin={{ top: 'large' }}
+                    title={isValidYAML ? '' : getString('invalidYaml')}
+                    disabled={!hasConnectorChanged}
                   />
                 ) : null}
                 <div className={css.fullWidth}>

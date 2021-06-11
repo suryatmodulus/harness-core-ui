@@ -264,7 +264,12 @@ const CreateConnectorFromYamlPage: React.FC = () => {
                         })
                         .catch(e => {
                           if (shouldShowError(e)) {
-                            showError(e.data?.message || e.message)
+                            showError(
+                              e.data?.message ||
+                                (e.data?.errors?.[0]?.error
+                                  ? `${e.data.errors[0].fieldId} ${e.data.errors[0].error}`
+                                  : e.message)
+                            )
                           }
                         })
                 }

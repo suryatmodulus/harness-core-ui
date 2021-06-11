@@ -127,9 +127,8 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
       }
     } /* istanbul ignore next */ catch (e) {
       showError(
-        e.data?.message || e.data?.errors?.[0]?.error
-          ? `${e.data.errors[0].fieldId} ${e.data.errors[0]?.error}`
-          : e.message
+        e.data?.message ||
+          (e.data?.errors?.[0]?.error ? `${e.data.errors[0].fieldId} ${e.data.errors[0]?.error}` : e.message)
       )
     }
   }

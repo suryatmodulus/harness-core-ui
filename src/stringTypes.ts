@@ -1529,6 +1529,7 @@ export interface StringsMap {
   'cd.pathCannotBeEmpty': string
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string
+  'cd.secretManagerRequired': string
   'cd.setUpProvisionerBtnText': string
   'cd.specifyTfVarStore': string
   'cd.stepName': string
@@ -5892,10 +5893,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.s3ConnectorInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.secretManagerRequired': string
   /**
    * @deprecated migrate this string to module level file
    */

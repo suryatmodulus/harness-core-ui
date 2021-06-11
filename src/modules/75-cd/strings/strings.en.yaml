@@ -48,3 +48,4 @@ specifyTfVarStore: Specify Terraform Var File Store
 addTFVarFileLabel: 'Add File Path'
 configurationFile: 'Configuration File'
 terraformVarFiles: 'Terraform Var Files'
+secretManagerRequired: 'Secret Manager is required.'

@@ -108,13 +108,12 @@ function TerraformPlanWidget(
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
-
         identifier: IdentifierSchema(),
         spec: Yup.object().shape({
           provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
           configuration: Yup.object().shape({
             command: Yup.string().required(getString('pipelineSteps.commandRequired')),
-            secretManagerRef: Yup.string().required(getString('pipelineSteps.secretManagerRequired'))
+            secretManagerRef: Yup.string().required(getString('cd.secretManagerRequired'))
           })
         })
       })}

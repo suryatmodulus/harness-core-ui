@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.33% </span>
+                <span class="strong">26.58% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>79/300</span>
+                <span class='fraction'>80/301</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.08% </span>
+                <span class="strong">27.34% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>78/288</span>
+                <span class='fraction'>79/289</span>
             </div>
         
             
@@ -1604,7 +1604,9 @@
 <a name='L1545'></a><a href='#L1545'>1545</a>
 <a name='L1546'></a><a href='#L1546'>1546</a>
 <a name='L1547'></a><a href='#L1547'>1547</a>
-<a name='L1548'></a><a href='#L1548'>1548</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L1548'></a><a href='#L1548'>1548</a>
+<a name='L1549'></a><a href='#L1549'>1549</a>
+<a name='L1550'></a><a href='#L1550'>1550</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -1678,6 +1680,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -2106,6 +2109,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3231,6 +3235,7 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { gcrUrlList } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
 const clearRuntimeInput = <span class="fstat-no" title="function not covered" >(t</span>emplate: NgPipeline): NgPipeline =&gt; {
 <span class="cstat-no" title="statement not covered" >  return JSON.parse(</span>
@@ -3685,7 +3690,7 @@ const KubernetesServiceSpecInputForm: React.FC&lt;KubernetesServiceInputFormProp
               &lt;/Text&gt;
             )}
             {template?.artifacts?.primary &amp;&amp; (
-              &lt;Layout.Vertical key="primary" className={css.inputWidth}&gt;
+              &lt;Layout.Vertical key="primary" className={cx(stepCss.formGroup, stepCss.md, css.serviceSection)}&gt;
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.connectorRef`, '')) ===
                   MultiTypeInputType.RUNTIME &amp;&amp; (
                   &lt;FormMultiTypeConnectorField
@@ -3696,13 +3701,14 @@ const KubernetesServiceSpecInputForm: React.FC&lt;KubernetesServiceInputFormProp
                     accountIdentifier={accountId}
                     projectIdentifier={projectIdentifier}
                     orgIdentifier={orgIdentifier}
-                    width={400}
+                    width={445}
                     setRefValue
                     disabled={readonly}
                     multiTypeProps={{
                       allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
                       expressions
                     }}
+                    className={css.connectorMargin}
                     type={ArtifactToConnectorMap[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
                     gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
                   /&gt;
@@ -3716,8 +3722,8 @@ const KubernetesServiceSpecInputForm: React.FC&lt;KubernetesServiceInputFormProp
                       expressions,
                       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                     }}
-                    className={css.width50}
                     name={`${path}.artifacts.primary.spec.imagePath`}
+                    className={css.inputWidth}
                   /&gt;
                 )}
 &nbsp;
@@ -4705,7 +4711,7 @@ export class KubernetesServiceSpec extends Step&lt;ServiceSpec&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 08:59:33 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 11 2021 09:44:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

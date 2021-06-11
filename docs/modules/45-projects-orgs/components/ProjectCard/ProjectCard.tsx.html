@@ -251,7 +251,8 @@
 <a name='L192'></a><a href='#L192'>192</a>
 <a name='L193'></a><a href='#L193'>193</a>
 <a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -286,21 +287,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">207x</span>
 <span class="cline-any cline-yes">206x</span>
-<span class="cline-any cline-yes">205x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">205x</span>
-<span class="cline-any cline-yes">205x</span>
-<span class="cline-any cline-yes">205x</span>
-<span class="cline-any cline-yes">205x</span>
-<span class="cline-any cline-yes">205x</span>
-<span class="cline-any cline-yes">205x</span>
-<span class="cline-any cline-yes">205x</span>
+<span class="cline-any cline-yes">206x</span>
+<span class="cline-any cline-yes">206x</span>
+<span class="cline-any cline-yes">206x</span>
+<span class="cline-any cline-yes">206x</span>
+<span class="cline-any cline-yes">206x</span>
+<span class="cline-any cline-yes">206x</span>
+<span class="cline-any cline-yes">206x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -311,11 +312,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">205x</span>
+<span class="cline-any cline-yes">206x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">205x</span>
-<span class="cline-any cline-yes">205x</span>
+<span class="cline-any cline-yes">206x</span>
+<span class="cline-any cline-yes">206x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -345,6 +346,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -558,18 +560,19 @@ const ProjectCard: React.FC&lt;ProjectCardProps&gt; = props =&gt; {
               {getString('projectCard.projectName')}
             &lt;/Text&gt;
           ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
-          &lt;Text font={{ size: 'small' }} margin={{ top: 'xsmall' }}&gt;
-            {data.identifier}
+          &lt;Text font={{ size: 'small' }} margin={{ top: 'xsmall' }} color={Color.GREY_700}&gt;
+            {getString('idLabel', { id: data.identifier })}
           &lt;/Text&gt;
           {harnessManagedOrg || isPreview ? null : (
-            &lt;Container
-              padding="xsmall"
-              margin={{ top: 'small' }}
-              border={{ color: Color.GREY_200 }}
-              flex={{ inline: true }}
-            &gt;
-              &lt;Text font={{ size: 'small' }} margin={{ right: 'xsmall' }}&gt;{`${getString('orgLabel')}:`}&lt;/Text&gt;
-              &lt;Text font={{ size: 'small', weight: 'bold' }}&gt;{organization?.name}&lt;/Text&gt;
+            &lt;Container margin={{ top: 'small', bottom: 'small' }}&gt;
+              &lt;Text
+                font={{ size: 'small', weight: 'semi-bold' }}
+                icon="union"
+                lineClamp={1}
+                iconProps={{ padding: { right: 'small' } }}
+              &gt;
+                {organization?.name}
+              &lt;/Text&gt;
             &lt;/Container&gt;
           )}
           {data.description ? (
@@ -579,15 +582,15 @@ const ProjectCard: React.FC&lt;ProjectCardProps&gt; = props =&gt; {
           ) : null}
           {data.tags &amp;&amp; (
             &lt;Container padding={{ top: 'small' }}&gt;
-              &lt;TagsRenderer tags={data.tags} length={2} width={150} /&gt;
+              &lt;TagsRenderer tags={data.tags} length={2} width={150} tagClassName={css.tagClassName} /&gt;
             &lt;/Container&gt;
           )}
 &nbsp;
           &lt;Layout.Horizontal padding={{ top: 'medium' }}&gt;
             &lt;Layout.Vertical padding={{ right: 'large' }} spacing="xsmall"&gt;
-              &lt;Text font="small" padding={{ bottom: 'small' }}&gt;{`${getString('adminLabel')} ${
-                adminList?.length ? `(${adminList<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength})` : ``
-              }`}&lt;/Text&gt;
+              &lt;Text font={{ size: 'small', weight: 'semi-bold' }} padding={{ bottom: 'small' }}&gt;{`${getString(
+                'adminLabel'
+              )} ${adminList?.length ? `(${adminList<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength})` : ``}`}&lt;/Text&gt;
               &lt;RbacAvatarGroup
                 className={css.projectAvatarGroup}
                 avatars={adminList?.length ? adminList : [{}]}
@@ -605,9 +608,9 @@ const ProjectCard: React.FC&lt;ProjectCardProps&gt; = props =&gt; {
               /&gt;
             &lt;/Layout.Vertical&gt;
             &lt;Layout.Vertical spacing="xsmall"&gt;
-              &lt;Text font="small" padding={{ bottom: 'small' }}&gt;{`${getString('collaboratorsLabel')} ${
-                collaboratorsList?.length ? `(${collaboratorsList<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength})` : ``
-              }`}&lt;/Text&gt;
+              &lt;Text font={{ size: 'small', weight: 'semi-bold' }} padding={{ bottom: 'small' }}&gt;{`${getString(
+                'collaboratorsLabel'
+              )} ${collaboratorsList?.length ? `(${collaboratorsList<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength})` : ``}`}&lt;/Text&gt;
               &lt;RbacAvatarGroup
                 className={css.projectAvatarGroup}
                 avatars={collaboratorsList?.length ? collaboratorsList : [{}]}
@@ -646,7 +649,7 @@ export default ProjectCard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 15:27:27 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 11 2021 16:17:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

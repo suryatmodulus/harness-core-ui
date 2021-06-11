@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">72.41% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/55</span>
+                <span class='fraction'>42/58</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.15% </span>
+                <span class="strong">48.28% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/27</span>
+                <span class='fraction'>14/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">55.56% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/8</span>
+                <span class='fraction'>5/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.58% </span>
+                <span class="strong">73.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>39/53</span>
+                <span class='fraction'>41/56</span>
             </div>
         
             
@@ -267,7 +267,26 @@
 <a name='L208'></a><a href='#L208'>208</a>
 <a name='L209'></a><a href='#L209'>209</a>
 <a name='L210'></a><a href='#L210'>210</a>
-<a name='L211'></a><a href='#L211'>211</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -288,6 +307,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -423,6 +444,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -488,7 +526,7 @@ import { getErrorMessage } from '@cf/utils/CFUtils'
 import type { PlatformEntry } from '@cf/components/LanguageSelection/LanguageSelection'
 import { CreateAFlagView } from './views/CreateAFlagView'
 import { SetUpYourApplicationView } from './views/SetUpYourApplicationView'
-import { TestYourFlagViewView } from './views/TestYourFlagView'
+import { TestYourFlagView } from './views/TestYourFlagView'
 import css from './OnboardingDetailPage.module.scss'
 &nbsp;
 enum TabId {
@@ -505,6 +543,8 @@ export const OnboardingDetailPage: React.FC = () =&gt; {
   const [flagName, setFlagName] = useState('')
   const [language, setLanguage] = useState&lt;PlatformEntry&gt;()
   const [apiKey, setApiKey] = useState&lt;ApiKey&gt;()
+  const [environmentIdentifier, setEnvironmentIdentifier] = useState&lt;string | undefined&gt;()
+  const [testDone, setTestDone] = useState(false)
   const flagInfo: FeatureFlagRequestRequestBody = useMemo(
     () =&gt; ({
       project: projectIdentifier,
@@ -632,6 +672,9 @@ export const OnboardingDetailPage: React.FC = () =&gt; {
                 setLanguage={setLanguage}
                 apiKey={apiKey}
                 setApiKey={setApiKey}
+                setEnvironmentIdentifier={<span class="fstat-no" title="function not covered" >_environmentIdentifier </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                  setEnvironmentIdentifier(_environmentIdentifier)</span>
+                }}
               /&gt;
             }
           /&gt;
@@ -646,9 +689,23 @@ export const OnboardingDetailPage: React.FC = () =&gt; {
           &lt;Tab
             id={TabId.TEST_YOUR_FLAG}
             disabled={disableNext}
-            title={&lt;Text&gt;{getString('cf.onboarding.testYourFlag')}&lt;/Text&gt;}
+            title={
+              &lt;Text icon={testDone ? <span class="branch-0 cbranch-no" title="branch not covered" >'tick-circle' </span>: undefined} iconProps={{ color: Color.GREEN_500, size: 14 }}&gt;
+                {getString('cf.onboarding.testYourFlag')}
+              &lt;/Text&gt;
+            }
             panel={
-              language &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >apiKey </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >&lt;TestYourFlagViewView flagInfo={flagInfo} language={language} apiKey={apiKey} /&gt;</span>
+              language &amp;&amp;
+<span class="branch-1 cbranch-no" title="branch not covered" >              apiKey </span>&amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >                &lt;TestYourFlagView</span>
+                  flagInfo={flagInfo}
+                  language={language}
+                  apiKey={apiKey}
+                  testDone={testDone}
+                  setTestDone={setTestDone}
+                  environmentIdentifier={environmentIdentifier}
+                /&gt;
+              )
             }
           /&gt;
         &lt;/Tabs&gt;
@@ -661,7 +718,7 @@ export const OnboardingDetailPage: React.FC = () =&gt; {
           alignItems: 'center',
           paddingLeft: 'var(--spacing-xlarge)',
           position: 'fixed',
-          left: '270px',
+          left: '288px',
           bottom: 0,
           background: 'var(--white)',
           right: 0
@@ -694,7 +751,7 @@ export const OnboardingDetailPage: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 04:13:49 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 11 2021 04:42:08 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

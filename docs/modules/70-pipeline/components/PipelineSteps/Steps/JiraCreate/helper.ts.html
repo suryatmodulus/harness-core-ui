@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.49% </span>
+                <span class="strong">58.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>47/79</span>
+                <span class='fraction'>46/79</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.75% </span>
+                <span class="strong">63.93% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>79/122</span>
+                <span class='fraction'>78/122</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">58.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>15/24</span>
+                <span class='fraction'>14/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.45% </span>
+                <span class="strong">54.84% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/62</span>
+                <span class='fraction'>34/62</span>
             </div>
         
             
@@ -245,10 +245,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -258,7 +258,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -271,13 +271,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
@@ -325,7 +325,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
@@ -423,7 +423,7 @@ export const processFieldsForSubmit = (values: JiraCreateData): JiraCreateFieldT
       value: values.spec.description || ''
     }
   ]
-  values.spec.selectedFields?.forEach((field: JiraFieldNGWithValue) =&gt; {
+  values.spec.selectedFields<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>orEach((field: JiraFieldNGWithValue) =&gt; {
     const name = field.name
     const value =
       typeof field.value === 'string' || typeof field.value === 'number'
@@ -489,8 +489,8 @@ export const processFormData = (values: JiraCreateData): JiraCreateData =&gt; {
   }
 }
 &nbsp;
-export const getKVFields = (values: JiraCreateData): JiraCreateFieldType[] =&gt; {
-  return omitSummaryDescription(processFieldsForSubmit(values))
+export const getKVFields = <span class="fstat-no" title="function not covered" >(v</span>alues: JiraCreateData): JiraCreateFieldType[] =&gt; {
+<span class="cstat-no" title="statement not covered" >  return omitSummaryDescription(processFieldsForSubmit(values))</span>
 }
 &nbsp;
 export const processInitialValues = (values: JiraCreateData): JiraCreateData =&gt; {
@@ -559,7 +559,7 @@ export const getKVFieldsToBeAddedInForm = <span class="fstat-no" title="function
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 12:27:20 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 11 2021 12:28:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

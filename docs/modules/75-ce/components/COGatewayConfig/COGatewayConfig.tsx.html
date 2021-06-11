@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.33% </span>
+                <span class="strong">71.28% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>204/286</span>
+                <span class='fraction'>206/289</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.23% </span>
+                <span class="strong">59.82% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>199/325</span>
+                <span class='fraction'>198/331</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.63% </span>
+                <span class="strong">71.58% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>202/282</span>
+                <span class='fraction'>204/285</span>
             </div>
         
             
@@ -1194,7 +1194,17 @@
 <a name='L1135'></a><a href='#L1135'>1135</a>
 <a name='L1136'></a><a href='#L1136'>1136</a>
 <a name='L1137'></a><a href='#L1137'>1137</a>
-<a name='L1138'></a><a href='#L1138'>1138</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L1138'></a><a href='#L1138'>1138</a>
+<a name='L1139'></a><a href='#L1139'>1139</a>
+<a name='L1140'></a><a href='#L1140'>1140</a>
+<a name='L1141'></a><a href='#L1141'>1141</a>
+<a name='L1142'></a><a href='#L1142'>1142</a>
+<a name='L1143'></a><a href='#L1143'>1143</a>
+<a name='L1144'></a><a href='#L1144'>1144</a>
+<a name='L1145'></a><a href='#L1145'>1145</a>
+<a name='L1146'></a><a href='#L1146'>1146</a>
+<a name='L1147'></a><a href='#L1147'>1147</a>
+<a name='L1148'></a><a href='#L1148'>1148</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1604,6 +1614,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -2736,12 +2756,22 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
   const fetchInstanceSecurityGroups = async (): Promise&lt;void&gt; =&gt; {
     const emptyRecords: PortConfig[] = []
     try {
-      const result = await getSecurityGroups({
-        text: `id = ['${
-          props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].id : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
-        }']\nregions = ['${
-          props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].region : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+      let text = `id = ['${
+        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].id : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+      }']\nregions = ['${
+        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].region : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+      }']`
+&nbsp;
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (isAzureProvider) {
+<span class="cstat-no" title="statement not covered" >        text += `\nresource_groups=['${</span>
+          props.gatewayDetails.selectedInstances
+            ? props.gatewayDetails.selectedInstances[0].metadata?.resourceGroup
+            : ''
         }']`
+      }
+&nbsp;
+      const result = await getSecurityGroups({
+        text
       })
       <span class="missing-if-branch" title="else path not taken" >E</span>if (result &amp;&amp; result.response) {
         Object.keys(result.response).forEach(instance =&gt; {
@@ -2831,7 +2861,7 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
       if (routingRecords.length) {
         return
       }
-      isAwsProvider &amp;&amp; fetchInstanceSecurityGroups()
+      fetchInstanceSecurityGroups()
     }
   }, [selectedInstances])
 &nbsp;
@@ -3475,7 +3505,7 @@ export default COGatewayConfig
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 06:30:25 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 11 2021 07:24:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

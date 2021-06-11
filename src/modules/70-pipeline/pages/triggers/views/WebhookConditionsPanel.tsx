@@ -131,8 +131,8 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         setFieldValue={setFieldValue}
         errors={errors}
       />
-      <FormInput.Text
-        style={{ width: '100%' }}
+      <FormInput.TextArea
+        className={css.jexlCondition}
         name="jexlCondition"
         label={getString('pipeline.triggers.conditionsPanel.jexlCondition')}
       />

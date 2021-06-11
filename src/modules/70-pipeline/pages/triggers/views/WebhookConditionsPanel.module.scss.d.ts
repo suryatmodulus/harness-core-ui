@@ -5,5 +5,6 @@ declare const styles: {
   readonly heading: string
   readonly conditionsRow: string
   readonly addConditionsRow: string
+  readonly jexlCondition: string
 }
 export default styles

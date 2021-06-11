@@ -294,57 +294,83 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
               optionalField
             </label>
             <div
-              class="bp3-form-group"
-              data-id="undefined-2"
+              class="bp3-popover-wrapper TagInput--tagInput bp3-fill"
             >
               <div
-                class="bp3-form-content"
+                class="bp3-popover-target"
               >
                 <div
-                  class="bp3-input bp3-tag-input"
+                  class=""
                 >
                   <div
-                    class="bp3-tag-input-values"
+                    class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
                   >
-                    <span
-                      class="bp3-tag"
-                      data-tag-index="0"
+                    <div
+                      class="bp3-tag-input-values"
                     >
                       <span
-                        class="bp3-text-overflow-ellipsis bp3-fill"
-                      >
-                        test123:abc
-                      </span>
-                      <button
-                        class="bp3-tag-remove"
-                        type="button"
+                        class="bp3-tag bp3-minimal TagInput--tag"
+                        data-tag-index="0"
                       >
                         <span
-                          class="bp3-icon bp3-icon-small-cross"
-                          icon="small-cross"
+                          class="bp3-text-overflow-ellipsis bp3-fill"
                         >
-                          <svg
-                            data-icon="small-cross"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              small-cross
-                            </desc>
-                            <path
-                              d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
+                          abc
                         </span>
-                      </button>
-                    </span>
-                    <input
-                      class="bp3-input-ghost"
-                      data-mentions="kv-tag-input-tags}"
-                      value=""
-                    />
+                        <button
+                          class="bp3-tag-remove"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-small-cross"
+                            icon="small-cross"
+                          >
+                            <svg
+                              data-icon="small-cross"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              width="16"
+                            >
+                              <desc>
+                                small-cross
+                              </desc>
+                              <path
+                                d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                      <input
+                        class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                        value=""
+                      />
+                    </div>
+                    <button
+                      class="bp3-button bp3-minimal"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-cross"
+                        icon="cross"
+                      >
+                        <svg
+                          data-icon="cross"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            cross
+                          </desc>
+                          <path
+                            d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
                   </div>
                 </div>
               </div>

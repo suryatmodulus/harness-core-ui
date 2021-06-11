@@ -32,9 +32,7 @@ const DelegateConfigOverviewStep: React.FC<DelegateConfigOverviewStepProps> = ({
       validationSchema={Yup.object().shape({
         name: NameSchema()
       })}
-      onSubmit={(values: dataObj) => {
-        nextStep?.({ ...prevStepData, ...values })
-      }}
+      onSubmit={() => undefined}
     >
       {formikProps => (
         <Form>
@@ -50,7 +48,15 @@ const DelegateConfigOverviewStep: React.FC<DelegateConfigOverviewStepProps> = ({
               />
             </Container>
             <Layout.Horizontal spacing="xsmall">
-              <Button type="submit" intent="primary" text={getString('saveAndContinue')} />
+              <Button
+                intent="primary"
+                text={getString('saveAndContinue')}
+                onClick={() => {
+                  if (formikProps.isValid) {
+                    nextStep?.({ ...prevStepData, ...formikProps.values })
+                  }
+                }}
+              />
             </Layout.Horizontal>
           </Layout.Vertical>
         </Form>

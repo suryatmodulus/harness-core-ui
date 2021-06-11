@@ -29,6 +29,7 @@ export interface TagsProps {
 
 export interface TagsComponentProps {
   tagsProps?: Partial<ITagInputProps>
+  formikProps: FormikProps<FormikForNameIdDescriptionTags>
   hasValue?: boolean
   isOptional?: boolean
 }

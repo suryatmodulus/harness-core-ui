@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, FormInput, Icon, Label, Color } from '@wings-software/uicore'
+import { Container, FormInput, Icon, Label, Color, SimpleTagInput } from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import { isEmpty } from 'lodash-es'
 import type { ITagInputProps } from '@blueprintjs/core'
@@ -78,7 +78,11 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
 }
 
 const Tags = (props: TagsComponentProps): JSX.Element => {
-  const { tagsProps, hasValue, isOptional = true } = props
+  const { hasValue, isOptional = true, formikProps } = props
+  const tags = Object.values(formikProps?.values?.tags || {}).map(value => ({
+    label: value,
+    value: value
+  }))
   const { getString } = useStrings()
   const [isTagsOpen, setTagsOpen] = useState<boolean>(hasValue || false)
 
@@ -100,7 +104,20 @@ const Tags = (props: TagsComponentProps): JSX.Element => {
           />
         )}
       </Label>
-      {isTagsOpen && <FormInput.KVTagInput name="tags" tagsProps={tagsProps} />}
+      {isTagsOpen && (
+        <SimpleTagInput
+          fill
+          openOnKeyDown={false}
+          showClearAllButton
+          allowNewTag
+          placeholder={getString('delegate.enterTags')}
+          selectedItems={Object.values(formikProps?.values?.tags || {})}
+          items={tags}
+          onChange={(_selectedItems, _createdItems, _items) => {
+            formikProps.setFieldValue('tags', _selectedItems)
+          }}
+        />
+      )}
     </Container>
   )
 }
@@ -152,7 +169,12 @@ export function NameIdDescriptionTags(props: NameIdDescriptionTagsProps): JSX.El
     <Container className={cx(css.main, className)}>
       <NameId identifierProps={identifierProps} />
       <Description descriptionProps={descriptionProps} hasValue={!!formikProps?.values.description} />
-      <Tags tagsProps={tagsProps} isOptional={tagsProps?.isOption} hasValue={!isEmpty(formikProps?.values.tags)} />
+      <Tags
+        tagsProps={tagsProps}
+        formikProps={formikProps}
+        isOptional={tagsProps?.isOption}
+        hasValue={!isEmpty(formikProps?.values.tags)}
+      />
     </Container>
   )
 }

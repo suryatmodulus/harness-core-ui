@@ -13,8 +13,7 @@ import {
   useModalHook,
   ModalErrorHandlerBinding,
   ModalErrorHandler,
-  Tag,
-  Link
+  Tag
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Renderer, Column } from 'react-table'
@@ -53,10 +52,11 @@ interface RightMenuProps {
   repo: GitSyncConfig
   selectedFolderIndex: number
   handleRepoUpdate: (updatedFolders: GitSyncFolderConfigDTO[]) => unknown
+  isDefault?: boolean
 }
 
 const RightMenu: React.FC<RightMenuProps> = props => {
-  const { repo, selectedFolderIndex, handleRepoUpdate } = props
+  const { repo, selectedFolderIndex, handleRepoUpdate, isDefault } = props
   const [menuOpen, setMenuOpen] = useState(false)
   const { getString } = useStrings()
 
@@ -96,6 +96,7 @@ const RightMenu: React.FC<RightMenuProps> = props => {
             data-test="markDefaultBtn"
             text={getString('gitsync.markAsDefault')}
             onClick={handleMarkAsDefaultFolder}
+            disabled={isDefault}
           />
         </Menu>
       </Popover>
@@ -423,24 +424,19 @@ const GitSyncRepoTab: React.FC = () => {
                         </Text>
                       </Container>
 
-                      <Container width={rootFolderData.isDefault ? '60%' : '75%'} padding={{ left: 'xsmall' }}>
-                        <Link href={linkToProvider} target="_blank" rel="noopener noreferrer" className={css.noShadow}>
-                          <Text
-                            width={rootFolderData.isDefault ? '70%' : '60%'}
-                            style={{
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap'
-                            }}
-                            title={linkToProvider}
-                            className={css.link}
-                          >
+                      <Container
+                        padding={{ left: 'xsmall' }}
+                        className={css.noOverflow}
+                        width={rootFolderData.isDefault ? '60%' : '75%'}
+                      >
+                        <a href={linkToProvider} target="_blank" rel="noopener noreferrer" className={css.noShadow}>
+                          <Text title={linkToProvider} className={css.link}>
                             {linkToProvider}
                           </Text>
-                        </Link>
+                        </a>
                       </Container>
 
-                      <Container width="5%">
+                      <Container width="5%" padding={{ left: 'xsmall' }}>
                         <CopyToClipboard content={linkToProvider} showFeedback={true} />
                       </Container>
                       {rootFolderData.isDefault && (
@@ -451,7 +447,12 @@ const GitSyncRepoTab: React.FC = () => {
                         </Container>
                       )}
                     </Layout.Horizontal>
-                    <RightMenu repo={repoData} selectedFolderIndex={index} handleRepoUpdate={handleRepoUpdate} />
+                    <RightMenu
+                      repo={repoData}
+                      selectedFolderIndex={index}
+                      handleRepoUpdate={handleRepoUpdate}
+                      isDefault={rootFolderData.isDefault}
+                    />
                   </Layout.Horizontal>
                 )
               })

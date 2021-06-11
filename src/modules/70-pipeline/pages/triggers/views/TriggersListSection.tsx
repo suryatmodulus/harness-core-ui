@@ -271,7 +271,7 @@ const RenderWebhookIcon = ({
     return <Text color={Color.GREY_400}>N/A</Text>
   }
 
-  if (webhookSourceRepo === GitSourceProviders.CUSTOM.value) {
+  if (webhookSourceRepo?.toLowerCase() === GitSourceProviders.CUSTOM.value.toLowerCase()) {
     const curlCommand = `curl -X POST 
     ${
       (webhookSecret && `-H 'X-Harness-Webhook-Token: ${webhookSecret}'`) || ''

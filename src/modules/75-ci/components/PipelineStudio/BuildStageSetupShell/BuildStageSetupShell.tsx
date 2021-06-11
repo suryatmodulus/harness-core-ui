@@ -61,9 +61,11 @@ export default function BuildStageSetupShell(): JSX.Element {
     updatePipelineView,
     isReadonly,
     updatePipeline,
-    setSelectedStepId
+    setSelectedStepId,
+    getStagePathFromPipeline
   } = React.useContext(PipelineContext)
 
+  const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
   const [stageData, setStageData] = React.useState<StageElementWrapper | undefined>()
 
   React.useEffect(() => {
@@ -251,6 +253,8 @@ export default function BuildStageSetupShell(): JSX.Element {
               updateStage={() => {
                 updatePipeline(pipeline)
               }}
+              // Check and update the correct stage path here
+              pathToStage={`${stagePath}.stage.spec.execution`}
               onAddStep={(event: ExecutionGraphAddStepEvent) => {
                 if (event.parentIdentifier === STATIC_SERVICE_GROUP_NAME) {
                   updatePipelineView({

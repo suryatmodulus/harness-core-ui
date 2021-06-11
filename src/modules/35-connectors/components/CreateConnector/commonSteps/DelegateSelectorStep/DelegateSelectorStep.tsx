@@ -253,7 +253,9 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
               handleCreateOrEdit({ payload: data }) /* Handling non-git flow */
                 .then(res => {
                   if (res.status === 'SUCCESS') {
-                    showSuccess('connectors.successfullyCreated')
+                    props.isEditMode
+                      ? showSuccess(getString('connectors.updatedSuccessfully'))
+                      : showSuccess(getString('connectors.createdSuccessfully'))
                     res.nextCallback?.()
                   } else {
                     /* TODO handle error with API status 200 */

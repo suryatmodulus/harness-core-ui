@@ -251,7 +251,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
                     : handleCreate() /* Handling non-git flow */
                         .then(res => {
                           if (res.status === 'SUCCESS') {
-                            showSuccess('connectors.successfullyCreated')
+                            showSuccess(getString('connectors.createdSuccessfully'))
                           } else {
                             /* TODO handle error with API status 200 */
                           }

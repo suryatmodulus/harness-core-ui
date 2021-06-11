@@ -38,10 +38,13 @@ export default function FeatureStageSetupShell(): JSX.Element {
     updatePipeline,
     getStageFromPipeline,
     updatePipelineView,
-    setSelectedStepId
+    setSelectedStepId,
+    getStagePathFromPipeline
   } = React.useContext(PipelineContext)
 
   //const { getString } = useStrings()
+
+  const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
 
   React.useEffect(() => {
     if (stageNames.indexOf(selectedStageId) !== -1) {
@@ -166,6 +169,8 @@ export default function FeatureStageSetupShell(): JSX.Element {
               updateStage={() => {
                 updatePipeline(pipeline)
               }}
+              // Check and update the correct stage path here
+              pathToStage={`${stagePath}.stage.spec.execution`}
               onAddStep={(event: ExecutionGraphAddStepEvent) => {
                 updatePipelineView({
                   ...pipelineView,

@@ -158,22 +158,21 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
   goToPipelineStudio,
   refetchPipeline
 }): JSX.Element => {
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<
     PipelineType<{
       orgIdentifier: string
       projectIdentifier: string
-      pipelineIdentifier: string
       accountId: string
     }>
   >()
   const { isGitSyncEnabled } = useAppStore()
   const history = useHistory()
   const goToExecutionPipelineView = (executionId: string | undefined): void => {
-    if (executionId) {
+    if (executionId && pipeline.identifier) {
       history.push(
         routes.toExecutionPipelineView({
           orgIdentifier,
-          pipelineIdentifier,
+          pipelineIdentifier: pipeline.identifier,
           projectIdentifier,
           executionIdentifier: executionId,
           accountId,

@@ -13,7 +13,9 @@ export function dsconfigTypetoResourcesConnectorDetailsTitle(
     case 'NewRelic':
       return getString('connectors.newRelicConnectorDetails')
     case 'Datadog':
-      return getString('connectors.title.datadog')
+      return getString('connectors.datadogConnectorDetails')
+    case 'SumoLogic':
+      return getString('connectors.sumoLogicConnectorDetails')
     default:
       return ''
   }

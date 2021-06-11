@@ -137,7 +137,11 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
                 selected={DelegateCards[DelegateCards.findIndex(card => card.type === formikProps.values.delegateType)]}
               />
               {formikProps.values.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
-                <SecretInput name={'password'} label={getString('encryptedKeyLabel')} type={'SecretFile'} />
+                <SecretInput
+                  name={'password'}
+                  label={getString('connectors.k8.serviceAccountKey')}
+                  type={'SecretFile'}
+                />
               ) : (
                 <></>
               )}

@@ -26,6 +26,7 @@ import CreateDataDogConnector from '../CreateConnector/DataDogConnector/CreateDa
 import CreateCeAzureConnector from '../CreateConnector/CEAzureConnector/CreateCeAzureConnector'
 import CreateAzureKeyVaultConnector from '../CreateConnector/CreateAzureKeyConnector/CreateAzureKeyVaultConnector'
 import CreateDynatraceConnector from '../CreateConnector/DynatraceConnector/CreateDynatraceConnector'
+import CreateSumoLogicConnector from '../CreateConnector/SumoLogicConnector/CreateSumoLogicConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -70,16 +71,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     case Connectors.Jira:
       return <JiraConnector {...commonProps} />
     case Connectors.APP_DYNAMICS:
-      return (
-        <CreateAppDynamicsConnector
-          {...rest}
-          onClose={onClose}
-          onConnectorCreated={props.onSuccess}
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-        />
-      )
+      return <CreateAppDynamicsConnector {...commonProps} />
     case Connectors.SPLUNK:
       return (
         <CreateSplunkConnector
@@ -119,6 +111,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateAzureKeyVaultConnector {...commonProps} />
     case Connectors.DYNATRACE:
       return <CreateDynatraceConnector {...commonProps} />
+    case Connectors.SUMOLOGIC:
+      return <CreateSumoLogicConnector {...commonProps} />
     default:
       return null
   }

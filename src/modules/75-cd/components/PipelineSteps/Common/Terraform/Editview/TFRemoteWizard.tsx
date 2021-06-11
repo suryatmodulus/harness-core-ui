@@ -231,50 +231,52 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                     )}
                   </div>
                 )}
-                <MultiTypeFieldSelector
-                  name="varFile.spec.store.spec.paths"
-                  label={getString('filePaths')}
-                  style={{ width: '200' }}
-                >
-                  <FieldArray
+                <div className={cx(stepCss.formGroup)}>
+                  <MultiTypeFieldSelector
                     name="varFile.spec.store.spec.paths"
-                    render={({ push, remove }) => {
-                      return (
-                        <div>
-                          {(formik.values?.varFile?.spec?.store?.spec?.paths || []).map(
-                            (path: PathInterface, i: number) => (
-                              <div key={`${path}-${i}`} className={css.pathRow}>
-                                <FormInput.MultiTextInput
-                                  name={`varFile.spec.store.spec.paths[${i}].path`}
-                                  label=""
-                                  multiTextInputProps={{
-                                    expressions,
-                                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                                  }}
-                                />
-                                <Button
-                                  minimal
-                                  icon="trash"
-                                  data-testid={`remove-header-${i}`}
-                                  onClick={() => remove(i)}
-                                />
-                              </div>
-                            )
-                          )}
-                          <Button
-                            icon="plus"
-                            minimal
-                            intent="primary"
-                            data-testid="add-header"
-                            onClick={() => push({ path: '' })}
-                          >
-                            {getString('cd.addTFVarFileLabel')}
-                          </Button>
-                        </div>
-                      )
-                    }}
-                  />
-                </MultiTypeFieldSelector>
+                    label={getString('filePaths')}
+                    style={{ width: 370 }}
+                  >
+                    <FieldArray
+                      name="varFile.spec.store.spec.paths"
+                      render={({ push, remove }) => {
+                        return (
+                          <div>
+                            {(formik.values?.varFile?.spec?.store?.spec?.paths || []).map(
+                              (path: PathInterface, i: number) => (
+                                <div key={`${path}-${i}`} className={css.pathRow}>
+                                  <FormInput.MultiTextInput
+                                    name={`varFile.spec.store.spec.paths[${i}].path`}
+                                    label=""
+                                    multiTextInputProps={{
+                                      expressions,
+                                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                    }}
+                                  />
+                                  <Button
+                                    minimal
+                                    icon="trash"
+                                    data-testid={`remove-header-${i}`}
+                                    onClick={() => remove(i)}
+                                  />
+                                </div>
+                              )
+                            )}
+                            <Button
+                              icon="plus"
+                              minimal
+                              intent="primary"
+                              data-testid="add-header"
+                              onClick={() => push({ path: '' })}
+                            >
+                              {getString('cd.addTFVarFileLabel')}
+                            </Button>
+                          </div>
+                        )
+                      }}
+                    />
+                  </MultiTypeFieldSelector>
+                </div>
               </div>
 
               <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>

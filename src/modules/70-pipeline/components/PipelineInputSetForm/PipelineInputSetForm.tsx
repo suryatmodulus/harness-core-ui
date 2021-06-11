@@ -61,7 +61,9 @@ function StageForm({
       <div className={css.topAccordion}>
         {template?.stage?.variables && (
           <div id={`Stage.${allValues?.stage?.identifier}.Variables`} className={cx(css.accordionSummary)}>
-            <div className={css.subheading}>{getString('variablesText')}</div>
+            <Text font={{ weight: 'semi-bold' }} padding={{ top: 'medium', bottom: 'medium' }}>
+              {getString('variablesText')}
+            </Text>
             <div className={css.nestedAccordions}>
               <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
                 factory={(factory as unknown) as AbstractStepFactory}

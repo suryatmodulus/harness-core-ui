@@ -84,11 +84,6 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
-  const commonParams = {
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  }
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [issueTypeFieldList, setIssueTypeFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
@@ -97,6 +92,14 @@ const FormContent = ({
     JiraCreateFormFieldSelector.EXPRESSION
   )
   const [fieldsPopoverOpen, setFieldsPopoverOpen] = useState(false)
+
+  const commonParams = {
+    accountIdentifier: accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier,
+    branch
+  }
 
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const projectKeyFixedValue =
@@ -585,12 +588,15 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
   const { onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
 
   const {
@@ -635,7 +641,7 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
           projectKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.project')),
           issueType: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueType')),
-          summary: Yup.string().required(getString('pipeline.jiraCreateStep.validations.summary'))
+          summary: Yup.string().trim().required(getString('pipeline.jiraCreateStep.validations.summary'))
         })
       })}
     >

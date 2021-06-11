@@ -27,7 +27,7 @@ exports[`Unit tests for InstanceDropdownField Component render the Formik compon
           >
             <input
               class="bp3-input"
-              min="0"
+              min="1"
               placeholder="instanceFieldOptions.instanceHolder"
               type="number"
               value="10"
@@ -130,7 +130,7 @@ exports[`Unit tests for InstanceDropdownField Component render the component 1`]
         >
           <input
             class="bp3-input"
-            min="0"
+            min="1"
             placeholder="instanceFieldOptions.instanceHolder"
             type="number"
             value="10"

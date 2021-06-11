@@ -20,9 +20,10 @@ export interface PrevData {
 
 type AllowedKeyList = keyof PrevData & keyof SpecData
 
-export function initializeDatadogConnectorWithStepData(
-  prevStepData?: ConnectorConfigDTO | null
-): ConnectorConfigDTO | undefined {
+export async function initializeDatadogConnectorWithStepData(
+  prevStepData: ConnectorConfigDTO | undefined,
+  accountId = ''
+): Promise<ConnectorConfigDTO | undefined> {
   if (!prevStepData) {
     return
   }
@@ -42,7 +43,9 @@ export function initializeDatadogConnectorWithStepData(
     'applicationKeyRef' as AllowedKeyList
   )
 
-  return updatedInitialValues
+  const initValueWithSecrets = await setDatadogSecrets(updatedInitialValues, accountId)
+  initValueWithSecrets.loading = false
+  return initValueWithSecrets
 }
 
 function updateInitialValue(

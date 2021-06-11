@@ -35,15 +35,16 @@ export const processFormData = (values: JiraUpdateData): JiraUpdateData => {
           ? (values.spec.connectorRef as SelectOption)?.value?.toString()
           : values.spec.connectorRef,
       issueKey: values.spec.issueKey,
-      transitionTo: values.spec.transitionTo
-        ? {
-            transitionName: values.spec.transitionTo.transitionName,
-            status:
-              getMultiTypeFromValue(values.spec.transitionTo.status as SelectOption) === MultiTypeInputType.FIXED
-                ? (values.spec.transitionTo.status as SelectOption).value?.toString()
-                : values.spec.transitionTo.status
-          }
-        : undefined,
+      transitionTo:
+        values.spec.transitionTo?.transitionName || values.spec.transitionTo?.status
+          ? {
+              transitionName: values.spec.transitionTo.transitionName,
+              status:
+                getMultiTypeFromValue(values.spec.transitionTo.status as SelectOption) === MultiTypeInputType.FIXED
+                  ? (values.spec.transitionTo.status as SelectOption).value?.toString()
+                  : values.spec.transitionTo.status
+            }
+          : undefined,
       fields: processFieldsForSubmit(values)
     }
   }
@@ -58,7 +59,8 @@ export const processInitialValues = (values: JiraUpdateData): JiraUpdateData => 
       transitionTo: values.spec.transitionTo
         ? {
             status:
-              getMultiTypeFromValue(values.spec.transitionTo.status as string) === MultiTypeInputType.FIXED
+              getMultiTypeFromValue(values.spec.transitionTo.status as string) === MultiTypeInputType.FIXED &&
+              values.spec.transitionTo.status
                 ? {
                     label: values.spec.transitionTo.status.toString(),
                     value: values.spec.transitionTo.status.toString()

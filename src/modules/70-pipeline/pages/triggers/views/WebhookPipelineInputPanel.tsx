@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Heading, Text, NestedAccordionProvider, useNestedAccordion } from '@wings-software/uicore'
+import { Layout, Heading, Text, NestedAccordionProvider } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { pick, merge } from 'lodash-es'
-import type { ITreeNode } from '@blueprintjs/core'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
 import type { NgPipeline } from 'services/cd-ng'
 import {
@@ -15,8 +14,6 @@ import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
-import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
-import { getPipelineTree } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { isPipelineWithCiCodebase, ciCodebaseBuild } from '../utils/TriggersWizardPageUtils'
 import css from './WebhookPipelineInputPanel.module.scss'
 
@@ -42,8 +39,6 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
   })
   const [selectedInputSets, setSelectedInputSets] = useState<InputSetSelectorProps['value']>(inputSetSelected)
-  const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
-  const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('')
   const { getString } = useStrings()
 
   useEffect(() => {
@@ -118,23 +113,6 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     pipelineIdentifier
   ])
 
-  useEffect(() => {
-    originalPipeline &&
-      updateNodes(
-        getPipelineTree(originalPipeline, stagesTreeNodeClasses, getString, {
-          hideNonRuntimeFields: true,
-          template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
-        })
-      )
-  }, [originalPipeline, template])
-
-  const { openNestedPath } = useNestedAccordion()
-
-  const handleSelectionChange = (id: string): void => {
-    setSelectedTreeNodeId(id)
-    openNestedPath(id)
-    document.getElementById(`${id}-panel`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
   return (
     <Layout.Vertical className={css.webhookPipelineInputContainer} spacing="large" padding="none">
       {loading && (
@@ -144,9 +122,6 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
       )}
       {pipeline && template?.data?.inputSetTemplateYaml ? (
         <div className={css.inputsetGrid}>
-          <div className={css.treeSidebar}>
-            <StagesTree contents={nodes} selectedId={selectedTreeNodeId} selectionChange={handleSelectionChange} />
-          </div>
           <div className={css.inputSetContent}>
             <div className={css.pipelineInputRow}>
               <Heading level={2}>{getString('pipeline.triggers.pipelineInputLabel')}</Heading>
@@ -156,6 +131,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
                   setSelectedInputSets(value)
                 }}
                 value={selectedInputSets}
+                selectedValueClass={css.inputSetSelectedValue}
               />
             </div>
             <PipelineInputSetForm

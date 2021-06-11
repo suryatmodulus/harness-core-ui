@@ -539,21 +539,21 @@ inputSets:
   inputSetSaved: Input Set saved
   nameIsRequired: Input Set Name is Required field
   inputSetIsRequired: Input Set field cannot be empty
-  inputSetName: Input set name
-  overlaySetName: Overlay set name
-  overlayInputSetSavedError: 'Error while saving Overlay InputSet'
+  inputSetName: Input Set name
+  overlaySetName: Overlay Set name
+  overlayInputSetSavedError: 'Error while saving Overlay Input Set'
   selectInputSets: Select Input Sets
   selectInputSetsHelp: Multiple input sets can be overlaid together. They are applied in the order specified - first one gets applied first, and the subsequent ones get layered in the order and overrides any previously specified values.
   overlayInputSetSaved: 'Overlay Input Set saved'
-  inputSetSavedError: Error while saving InputSet
+  inputSetSavedError: Error while saving Input Set
   searchInputSet: Search Input Set
   addInputSet: Add Input Set
   saveAsInputSet: Save as Input Set
-  aboutInputSets: Input sets are collections of variables/values that should be provided to a pipeline before execution.
+  aboutInputSets: Input Sets are collections of variables/values that should be provided to a pipeline before execution.
   confirmDeleteTitle: 'Delete {{type}}'
   overlayInputSet: Overlay Input Set
   inputFieldSummary: Input Field Summary
-  selectPlaceholder: Add Input Set(s)
+  selectPlaceholder: Apply Input Set(s)
   noRecord: No Input Sets Created
   selectMultipleInputSets: select multiple input sets
   helpTextForMultiSelect: Selected inputs will be applied in the order listed. Drag to reorder the input sets.

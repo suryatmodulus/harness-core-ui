@@ -56,7 +56,11 @@ export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null 
     mock
   })
 
-  const { data: authData, loading: loadingAuthData } = useGetHarnessApprovalInstanceAuthorization({
+  const {
+    data: authData,
+    loading: loadingAuthData,
+    refetch: refetchAuthData
+  } = useGetHarnessApprovalInstanceAuthorization({
     approvalInstanceId,
     lazy: !(isHarnessApproval(step.stepType) && isWaiting),
     mock: getApprovalAuthorizationMock
@@ -88,7 +92,10 @@ export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null 
               approvalData={approvalData.data as HarnessApprovalProps['approvalData']}
               approvalInstanceId={approvalInstanceId}
               isWaiting={isWaiting}
-              updateState={setApprovalData}
+              updateState={updatedData => {
+                setApprovalData(updatedData)
+                refetchAuthData()
+              }}
               authData={authData}
               stepParameters={step.stepParameters}
             />

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 import type { MutateMethod } from 'restful-react'
 import * as Yup from 'yup'
 import { Tooltip, Intent, Dialog, Classes, RadioGroup, Radio, PopoverPosition } from '@blueprintjs/core'
@@ -65,6 +65,7 @@ import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import factory from '../PipelineSteps/PipelineStepFactory'
+import { getFormattedErrors, mergeTemplateWithInputSetData } from './RunPipelineHelper'
 import css from './RunPipelineModal.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
@@ -142,6 +143,7 @@ interface SaveAsInputSetProps {
   repoIdentifier?: string
   branch?: string
   isGitSyncEnabled?: boolean
+  setFormErrors: Dispatch<SetStateAction<FormikErrors<InputSetDTO>>>
 }
 
 const SaveAsInputSet = ({
@@ -157,7 +159,8 @@ const SaveAsInputSet = ({
   createInputSetLoading,
   repoIdentifier,
   branch,
-  isGitSyncEnabled = false
+  isGitSyncEnabled = false,
+  setFormErrors
 }: SaveAsInputSetProps): JSX.Element | null => {
   const { getString } = useStrings()
 
@@ -188,7 +191,12 @@ const SaveAsInputSet = ({
       }
     )
     if (response.data?.errorResponse) {
-      showError(getString('inputSets.inputSetSavedError'))
+      const errors = getFormattedErrors(response.data.inputSetErrorWrapper?.uuidToErrorResponseMap)
+      if (Object.keys(errors).length) {
+        setFormErrors(errors)
+      } else {
+        showError(getString('inputSets.inputSetSavedError'))
+      }
     } else {
       showSuccess(getString('inputSets.inputSetSaved'))
     }
@@ -237,7 +245,7 @@ const SaveAsInputSet = ({
       <Popover
         disabled={!canEdit}
         content={
-          <div className={Classes.POPOVER_DISMISS_OVERRIDE}>
+          <div>
             <Formik<InputSetDTO & GitContextProps>
               onSubmit={input => {
                 handleSubmit(input, { repoIdentifier: input.repo, branch: input.branch })
@@ -350,6 +358,7 @@ function RunPipelineFormBasic({
   const history = useHistory()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
+  const [triggerValidation, setTriggerValidation] = useState(true)
 
   const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
     queryParams: {
@@ -439,10 +448,15 @@ function RunPipelineFormBasic({
     return parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
   }, [template?.data?.inputSetTemplateYaml])
 
+  useEffect(() => {
+    setTriggerValidation(true)
+  }, [currentPipeline])
+
   React.useEffect(() => {
-    setCurrentPipeline(
-      merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as { pipeline: NgPipeline }
-    )
+    const toBeUpdated = merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as {
+      pipeline: NgPipeline
+    }
+    setCurrentPipeline(toBeUpdated)
   }, [template?.data?.inputSetTemplateYaml])
 
   React.useEffect(() => {
@@ -451,6 +465,7 @@ function RunPipelineFormBasic({
 
   React.useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
+      const parsedTemplate = parse(template?.data?.inputSetTemplateYaml) as { pipeline: NgPipeline }
       if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
         const fetchData = async (): Promise<void> => {
           try {
@@ -458,7 +473,11 @@ function RunPipelineFormBasic({
               inputSetReferences: selectedInputSets.map(item => item.value as string)
             })
             if (data?.data?.pipelineYaml) {
-              setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: NgPipeline })
+              const inputSetPortion = parse(data.data.pipelineYaml) as {
+                pipeline: NgPipeline
+              }
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
+              setCurrentPipeline(toBeUpdated)
             }
           } catch (e) {
             showError(e?.data?.message || e?.message)
@@ -480,11 +499,17 @@ function RunPipelineFormBasic({
           })
           if (data?.data?.inputSetYaml) {
             if (selectedInputSets[0].type === 'INPUT_SET') {
-              setCurrentPipeline(pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as { pipeline: NgPipeline })
+              const inputSetPortion = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
+                pipeline: NgPipeline
+              }
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
+              setCurrentPipeline(toBeUpdated)
             }
           }
         }
         fetchData()
+      } else if (!selectedInputSets?.length) {
+        setCurrentPipeline(parsedTemplate)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -630,14 +655,6 @@ function RunPipelineFormBasic({
     }
   }, [inputSets])
 
-  const mountRefForError = React.useRef<boolean>(false)
-
-  useEffect(() => {
-    if (mountRefForError.current && selectedInputSets) {
-      mountRefForError.current = false
-    }
-  }, [selectedInputSets])
-
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const [lastYaml, setLastYaml] = useState({})
 
@@ -645,13 +662,6 @@ function RunPipelineFormBasic({
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
         const presentPipeline = parse(yamlHandler?.getLatestYaml() || '') as { pipeline: NgPipeline }
-        const errors = validatePipeline(
-          presentPipeline.pipeline,
-          parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
-          currentPipeline?.pipeline,
-          getString
-        ) as any
-        setFormErrors(errors)
         setCurrentPipeline(presentPipeline)
       }
       setSelectedView(view)
@@ -664,15 +674,7 @@ function RunPipelineFormBasic({
       if (yamlHandler) {
         const Interval = window.setInterval(() => {
           const parsedYaml = parse(yamlHandler.getLatestYaml() || '')
-
           if (!isEqual(lastYaml, parsedYaml)) {
-            const errors = validatePipeline(
-              parsedYaml.pipeline,
-              parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
-              currentPipeline?.pipeline,
-              getString
-            ) as any
-            setFormErrors(errors)
             setCurrentPipeline(parsedYaml as { pipeline: NgPipeline })
             setLastYaml(parsedYaml)
           }
@@ -690,22 +692,22 @@ function RunPipelineFormBasic({
     let errors: FormikErrors<InputSetDTO> = formErrors
 
     if (
-      !mountRefForError.current &&
+      triggerValidation &&
       currentPipeline?.pipeline &&
       template?.data?.inputSetTemplateYaml &&
       yamlTemplate &&
       pipeline
     ) {
       errors = validatePipeline(
-        selectedInputSets && selectedInputSets.length > 0
-          ? currentPipeline.pipeline
-          : { ...clearRuntimeInput(currentPipeline.pipeline) },
+        { ...clearRuntimeInput(currentPipeline.pipeline) },
         parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
         currentPipeline.pipeline,
         getString
       ) as any
-      mountRefForError.current = true
       setFormErrors(errors)
+      // triggerValidation should be true every time 'currentPipeline' changes
+      // and it needs to be set as false here so that we do not trigger it indefinitely
+      setTriggerValidation(false)
     }
   }, [
     existingProvide,
@@ -786,7 +788,7 @@ function RunPipelineFormBasic({
                 </>
               )}
               {selectedView === SelectedView.VISUAL ? (
-                <div className={css.runModalFormContent}>
+                <div className={executionView ? css.runModalFormContentExecutionView : css.runModalFormContent}>
                   <FormikForm>
                     {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
                       <>
@@ -1017,6 +1019,7 @@ function RunPipelineFormBasic({
                     repoIdentifier={repoIdentifier}
                     branch={branch}
                     isGitSyncEnabled={isGitSyncEnabled}
+                    setFormErrors={setFormErrors}
                   />
                 </Layout.Horizontal>
               )}

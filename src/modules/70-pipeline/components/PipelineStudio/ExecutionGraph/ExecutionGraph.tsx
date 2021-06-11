@@ -132,7 +132,7 @@ export interface ExecutionGraphProp {
   rollBackBannerStyle?: React.CSSProperties
   canvasButtonsLayout?: 'horizontal' | 'vertical'
   canvasButtonsTooltipPosition?: 'top' | 'left'
-  pathToStage?: string
+  pathToStage: string
 }
 
 function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForwardRef): JSX.Element {

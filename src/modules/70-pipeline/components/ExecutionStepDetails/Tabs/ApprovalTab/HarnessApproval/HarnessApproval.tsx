@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, FormInput, TextInput } from '@wings-software/uicore'
+import { Button, FormInput, Icon, Intent, Layout, TextInput, Text } from '@wings-software/uicore'
 import { Formik } from 'formik'
 import cx from 'classnames'
 
@@ -11,7 +11,7 @@ import {
   ResponseHarnessApprovalInstanceAuthorization,
   ResponseApprovalInstanceResponse
 } from 'services/pipeline-ng'
-import { String } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import { Duration } from '@common/exports'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
 import { StepDetails } from '../../Common/StepDetails/StepDetails'
@@ -35,12 +35,15 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
   const { mutate: submitApproval, loading: submitting } = useAddHarnessApprovalActivity({ approvalInstanceId })
   const action = React.useRef<HarnessApprovalActivityRequest['action']>('APPROVE')
   const isCurrentUserAuthorized = !!authData?.data?.authorized
+  const currentUserUnAuthorizedReason = authData?.data?.reason
   const isWaitingAll = isWaiting && isExecutionWaiting(approvalData.status)
 
   async function handleSubmit(data: HarnessApprovalActivityRequest): Promise<void> {
     const newState = await submitApproval({ ...data, action: action.current })
     updateState(newState)
   }
+
+  const { getString } = useStrings()
 
   return (
     <React.Fragment>
@@ -151,6 +154,18 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
               )
             }}
           </Formik>
+        ) : null}
+        {isWaiting && isExecutionWaiting(approvalData.status) && !isCurrentUserAuthorized ? (
+          <Layout.Vertical padding={{ top: 'medium', bottom: 'medium', left: 'large', right: 'large' }} spacing="small">
+            <Icon name="warning-sign" intent={Intent.DANGER} flex={{ justifyContent: 'center' }} />
+            <Text intent="danger" font={{ align: 'center' }}>
+              {currentUserUnAuthorizedReason
+                ? currentUserUnAuthorizedReason
+                : approvalData.details.approvers.disallowPipelineExecutor
+                ? getString('pipeline.approvalStep.disallowedApproverExecution')
+                : getString('pipeline.approvalStep.notAuthorizedExecution')}
+            </Text>
+          </Layout.Vertical>
         ) : null}
       </div>
     </React.Fragment>

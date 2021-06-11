@@ -2,7 +2,7 @@ import React from 'react'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { Formik } from 'formik'
-import { Button, Card, Container, FormikForm, Text } from '@wings-software/uicore'
+import { Button, Card, Color, Container, FormikForm, Intent, Text } from '@wings-software/uicore'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -67,9 +67,8 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
         {formikProps => (
           <FormikForm>
             <Text
-              font={{ size: 'medium', weight: 'semi-bold' }}
-              icon="deployment-success-legacy"
-              iconProps={{ size: 16 }}
+              icon="pipeline-approval"
+              iconProps={{ size: 16, intent: Intent.SUCCESS }}
               margin={{ bottom: 'medium' }}
             >
               {getString('pipelineSteps.build.create.aboutYourStage')}
@@ -77,7 +76,9 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
 
             <NameIdDescriptionTags formikProps={formikProps} />
 
-            <Text className={css.approvalTypeHeading}>{getString('approvalStage.approvalTypeHeading')}</Text>
+            <Text color={Color.BLACK_100} font={{ size: 'medium' }}>
+              {getString('approvalStage.approvalTypeHeading')}
+            </Text>
             <Card className={cx(css.sectionCard, css.shadow)}>
               <ApprovalTypeCards formikProps={formikProps} />
             </Card>

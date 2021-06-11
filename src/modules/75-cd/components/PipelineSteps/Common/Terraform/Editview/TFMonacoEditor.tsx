@@ -4,7 +4,6 @@ import { Dialog, Classes } from '@blueprintjs/core'
 import { FormikProps, connect } from 'formik'
 import { get } from 'lodash-es'
 import { Button } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 
 import css from './TFMonaco.module.scss'
@@ -20,11 +19,11 @@ export interface ShellScriptMonacoProps {
 export interface TFMonacoProps {
   formik: FormikProps<unknown>
   name: string
+  title?: string
 }
 
 export function TFBackendConfigMonaco(props: TFMonacoProps): React.ReactElement {
   const [isFullScreen, setFullScreen] = React.useState(false)
-  const { getString } = useStrings()
   const value = get(props.formik.values, props.name) || ''
 
   const monaco = (
@@ -36,6 +35,7 @@ export function TFBackendConfigMonaco(props: TFMonacoProps): React.ReactElement 
           small
           onClick={() => setFullScreen(true)}
           iconProps={{ size: 10 }}
+          type="button"
         />
       )}
       <MonacoEditor
@@ -65,7 +65,7 @@ export function TFBackendConfigMonaco(props: TFMonacoProps): React.ReactElement 
         isCloseButtonShown
         canOutsideClickClose={false}
         onClose={() => setFullScreen(false)}
-        title={`${getString('script')}`}
+        title={props.title}
         className={css.monacoDialog}
       >
         <div className={Classes.DIALOG_BODY}>{monaco}</div>

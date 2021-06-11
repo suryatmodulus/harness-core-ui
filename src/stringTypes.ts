@@ -599,6 +599,7 @@ export interface StringsMap {
   'connectors.appD.validation.clientSecret': string
   'connectors.appD.validation.controllerURL': string
   'connectors.appDynamicsDetails': string
+  'connectors.appdLabel': string
   'connectors.artifactRepoType': string
   'connectors.artifactRepository': string
   'connectors.artifactory.artifactoryServerUrl': string
@@ -732,6 +733,7 @@ export interface StringsMap {
   'connectors.k8.delegateOutClusterInfo': string
   'connectors.k8.masterUrlLabel': string
   'connectors.k8.placeholder.masterUrl': string
+  'connectors.k8.serviceAccountKey': string
   'connectors.k8.serviceAccountToken': string
   'connectors.k8.skipDefaultValidation': string
   'connectors.name': string
@@ -759,6 +761,7 @@ export interface StringsMap {
   'connectors.newRelic.urlFieldLabel': string
   'connectors.newRelic.urlValidation': string
   'connectors.newRelicConnectorDetails': string
+  'connectors.newRelicLabel': string
   'connectors.nexus.nexusServerUrl': string
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string
@@ -775,6 +778,13 @@ export interface StringsMap {
   'connectors.successfullCreate': string
   'connectors.successfullUpdate': string
   'connectors.successfullyCreated': string
+  'connectors.sumoLogicConnectorDetails': string
+  'connectors.sumologic.encryptedAccessIdLabel': string
+  'connectors.sumologic.encryptedAccessIdValidation': string
+  'connectors.sumologic.encryptedAccessKeyLabel': string
+  'connectors.sumologic.encryptedAccessKeyValidation': string
+  'connectors.sumologic.urlLabel': string
+  'connectors.sumologic.urlValidation': string
   'connectors.testConnectionStep.errorDetails': string
   'connectors.testConnectionStep.executingOn': string
   'connectors.testConnectionStep.installNewDelegate': string
@@ -806,6 +816,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.k8s': string
   'connectors.testConnectionStep.validationText.nexus': string
   'connectors.testConnectionStep.validationText.splunk': string
+  'connectors.testConnectionStep.validationText.sumologic': string
   'connectors.testConnectionStep.validationText.vault': string
   'connectors.testConnectionStep.verificationSuccessful': string
   'connectors.testConnectionStep.viewPermissions': string
@@ -831,6 +842,7 @@ export interface StringsMap {
   'connectors.title.nexus': string
   'connectors.title.secretManager': string
   'connectors.title.splunk': string
+  'connectors.title.sumologic': string
   'connectors.unableToCreateConnector': string
   'connectors.unableToUpdateConnector': string
   'connectors.updatedSuccessfully': string
@@ -1036,11 +1048,14 @@ export interface StringsMap {
   'pipeline.approvalStep.approvers': string
   'pipeline.approvalStep.approversWithColon': string
   'pipeline.approvalStep.disallowPipelineExecutor': string
+  'pipeline.approvalStep.disallowedApproverExecution': string
+  'pipeline.approvalStep.ensureUserGroups': string
   'pipeline.approvalStep.fetchUserGroupsFailed': string
   'pipeline.approvalStep.fetchingUserGroups': string
   'pipeline.approvalStep.includePipelineExecutionHistory': string
   'pipeline.approvalStep.message': string
   'pipeline.approvalStep.minimumCount': string
+  'pipeline.approvalStep.notAuthorizedExecution': string
   'pipeline.approvalStep.status.APPROVE': string
   'pipeline.approvalStep.status.REJECT': string
   'pipeline.approvalStep.validation.approvalMessage': string
@@ -1199,6 +1214,8 @@ export interface StringsMap {
   'pipeline.gitDetails': string
   'pipeline.gitExperience.skipNow': string
   'pipeline.infrastructureKey': string
+  'pipeline.inputSets.applyInputSet': string
+  'pipeline.inputSets.applyInputSets': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
   'pipeline.jiraApprovalStep.allConditions': string
@@ -1293,6 +1310,7 @@ export interface StringsMap {
   'pipeline.onlyPositiveInteger': string
   'pipeline.optionalLabel': string
   'pipeline.progressPercentage': string
+  'pipeline.provisionerSteps': string
   'pipeline.repoRequired': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
@@ -2004,8 +2022,11 @@ export interface StringsMap {
   'cf.noFlag': string
   'cf.noTarget': string
   'cf.noTargetForEnv': string
+  'cf.onboarding.allSet': string
   'cf.onboarding.backToStart': string
+  'cf.onboarding.behindTheSenes': string
   'cf.onboarding.clientKey': string
+  'cf.onboarding.connected': string
   'cf.onboarding.createAFlag': string
   'cf.onboarding.createEnv': string
   'cf.onboarding.envCreated': string
@@ -2040,11 +2061,12 @@ export interface StringsMap {
   'cf.onboarding.subTitle': string
   'cf.onboarding.successLabel': string
   'cf.onboarding.testYourFlag': string
-  'cf.onboarding.theBasics': string
   'cf.onboarding.title': string
   'cf.onboarding.toggleLabel': string
   'cf.onboarding.tryItOut': string
+  'cf.onboarding.tryTarget': string
   'cf.onboarding.upAndRunning': string
+  'cf.onboarding.waitForConnect': string
   'cf.pipeline.default': string
   'cf.pipeline.stages.execution.title': string
   'cf.pipeline.stages.setup.title': string
@@ -2406,7 +2428,6 @@ export interface StringsMap {
   'cv.monitoringSources.appD.validationsFailed': string
   'cv.monitoringSources.appD.validationsPassed': string
   'cv.monitoringSources.appD.verificationsInProgress': string
-  'cv.monitoringSources.appDName': string
   'cv.monitoringSources.backToMapping': string
   'cv.monitoringSources.baselineDeviation': string
   'cv.monitoringSources.buildYourQuery': string
@@ -2485,7 +2506,6 @@ export interface StringsMap {
   'cv.monitoringSources.newRelic.oneMetricMappingValidationSubtext': string
   'cv.monitoringSources.newRelic.selectedApplications': string
   'cv.monitoringSources.newRelic.totalMappedApplications': string
-  'cv.monitoringSources.newRelicName': string
   'cv.monitoringSources.oneMetricMappingValidation': string
   'cv.monitoringSources.oneMetricMappingValidationSubtext': string
   'cv.monitoringSources.oneMetricPackValidation': string

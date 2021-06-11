@@ -63,17 +63,21 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
-  const commonParams = {
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  }
+
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [statusOptions, setStatusOptions] = useState<SelectOption[]>([])
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const [selectedProjectKey, setSelectedProjectKey] = useState<string>('')
   const [selectedIssueTypeKey, setSelectedIssueTypeKey] = useState<string>('')
+
+  const commonParams = {
+    accountIdentifier: accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier,
+    branch
+  }
 
   useEffect(() => {
     // If connector value changes in form, fetch projects
@@ -310,12 +314,13 @@ const FormContent = ({
               <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
                 <FormInput.MultiTextInput
                   label={getString('pipeline.jiraUpdateStep.transitionLabel')}
-                  name="spec.transitionTo.transition"
+                  name="spec.transitionTo.transitionName"
                   placeholder={getString('pipeline.jiraUpdateStep.transitionLabel')}
                   className={css.md}
                   multiTextInputProps={{
                     expressions
                   }}
+                  isOptional={true}
                   disabled={isApprovalStepFieldDisabled(readonly)}
                 />
                 {getMultiTypeFromValue(formik.values.spec.transitionTo?.transitionName) ===
@@ -409,12 +414,15 @@ function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormi
   const { onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
 
   const {
@@ -454,7 +462,13 @@ function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormi
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
-          issueKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueKey'))
+          issueKey: Yup.string().trim().required(getString('pipeline.jiraApprovalStep.validations.issueKey')),
+          transitionTo: Yup.object().shape({
+            status: Yup.string().when('transitionName', {
+              is: val => val?.trim()?.length,
+              then: Yup.string().required(getString('pipeline.jiraUpdateStep.validations.status'))
+            })
+          })
         })
       })}
     >

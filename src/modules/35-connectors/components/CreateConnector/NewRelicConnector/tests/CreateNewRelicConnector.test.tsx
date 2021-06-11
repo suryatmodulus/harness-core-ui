@@ -1,47 +1,38 @@
 import React from 'react'
 import { noop } from 'lodash-es'
+import type { UseGetReturn } from 'restful-react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import { Container, FormInput } from '@wings-software/uicore'
-import { render, fireEvent, queryByText, waitFor } from '@testing-library/react'
-import { act } from 'react-dom/test-utils'
-import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
-import * as toaster from '@common/components/Toaster/useToaster'
-import * as portalService from 'services/portal'
-import * as cdService from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import * as cvService from 'services/cv'
+import { onNextMock } from '../../CommonCVConnector/__mocks__/CommonCVConnectorMocks'
+
+// tells jest we intent to mock CVConnectorHOC and use mock in __mocks__
+jest.mock('../../CommonCVConnector/CVConnectorHOC')
+// file that imports mocked component must be placed after jest.mock
 import CreateNewRelicConnector from '../CreateNewRelicConnector'
 
-const mockIdentifierValidate: cdService.ResponseBoolean = {
-  status: 'SUCCESS',
-  data: true,
-  metaData: {},
-  correlationId: ''
-}
+const NewRelicAccountId = 'newRelicAccountId'
 
-jest.spyOn(portalService, 'useGetDelegatesStatusV2').mockImplementation(() => ({ mutate: jest.fn() } as any))
-
-jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
-  <Container className="secret-mock">
-    <FormInput.Text name="apiKeyRef" />
-  </Container>
-))
-
-jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
-  ...(jest.requireActual('@connectors/pages/connectors/utils/ConnectorUtils') as Record<string, any>),
-  setSecretField: async () => ({
-    identifier: 'secretIdentifier',
-    name: 'secretName',
-    referenceString: 'testReferenceString'
-  })
+jest.mock('../../CommonCVConnector/components/ConnectorSecretField/ConnectorSecretField', () => ({
+  ...(jest.requireActual('../../CommonCVConnector/components/ConnectorSecretField/ConnectorSecretField') as any),
+  ConnectorSecretField: function MockComponent(b: any) {
+    return (
+      <Container className="secret-mock">
+        <FormInput.Text name={b.secretInputProps.name} />
+      </Container>
+    )
+  }
 }))
 
-describe('Create newrelic connector Wizard', () => {
+describe('Unit tests for createNewRelicConnector', () => {
   beforeEach(() => {
-    jest.spyOn(portalService, 'useGetDelegateSelectors')
+    jest.clearAllMocks()
   })
 
-  test('should render form', async () => {
+  test('Ensure validation works', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
       .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
@@ -61,43 +52,20 @@ describe('Create newrelic connector Wizard', () => {
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={undefined}
-          mockIdentifierValidate={mockIdentifierValidate}
         />
       </TestWrapper>
     )
 
-    // match step 1
-    expect(container).toMatchSnapshot()
+    await waitFor(() => expect(getByText('connectors.newRelic.urlFieldLabel')).not.toBeNull())
+    // click submit and verify validation string is visible for user name auth type
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+    await waitFor(() => expect(getByText('connectors.newRelic.accountIdValidation')).not.toBeNull())
+    expect(getByText('connectors.encryptedAPIKeyValidation')).not.toBeNull()
 
-    // fill step 1
-    await act(async () => {
-      fireEvent.change(container.querySelector('input[name="name"]')!, {
-        target: { value: 'dummy name' }
-      })
-    })
-
-    await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
-    })
-    expect(container).toMatchSnapshot()
-
-    // step 2
-    expect(queryByText(container, 'newRelicAccountId')).toBeDefined()
-    fireEvent.click(getByText('continue')) // trying to create coonector with step 2 data
-
-    await act(async () => {
-      fireEvent.change(container.querySelector('input[name="url"]')!, {
-        target: { value: 'dummy url' }
-      })
-    })
-    expect(container).toMatchSnapshot()
-    const backBtn = getByText('back')
-    fireEvent.click(backBtn)
-    // Coonector name should be retained in step 1
-    expect(queryByText(container, 'dummy name')).toBeDefined()
+    expect(onNextMock).not.toHaveBeenCalled()
   })
 
-  test('ensure onCreateConnector is called', async () => {
+  test('Ensure create flow works', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
       .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
@@ -106,78 +74,55 @@ describe('Create newrelic connector Wizard', () => {
         any,
         any
       >)
-    jest.spyOn(cdService, 'useCreateConnector').mockReturnValue({
-      mutate: jest.fn().mockReturnValue({ status: 'SUCCESS', data: {} }) as unknown
-    } as UseMutateReturn<any, any, any, any, any>)
-
-    const onSuccessMock = jest.fn()
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateNewRelicConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
           onClose={noop}
-          onSuccess={onSuccessMock}
+          onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={undefined}
-          mockIdentifierValidate={mockIdentifierValidate}
         />
       </TestWrapper>
     )
 
-    // fill step 1
-    await act(async () => {
-      fireEvent.change(container.querySelector('input[name="name"]')!, {
-        target: { value: 'dummy name' }
-      })
-    })
+    await waitFor(() => expect(getByText('connectors.newRelic.urlFieldLabel')).not.toBeNull())
 
-    await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
-    })
-
-    await waitFor(() => expect(document.body.querySelector('input[name="apiKeyRef"]')).not.toBeNull())
-
-    //select drop down option
-    const selectCaret = document.body
-      .querySelector(`[name="url"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
-    if (!selectCaret) {
-      throw Error('Drop down carrot was not rendered')
-    }
-
-    fireEvent.click(selectCaret)
-    await waitFor(() => expect(document.body.querySelector('[class*="bp3-menu"]')).not.toBeNull())
-    const menu = document.body.querySelectorAll('[class*="bp3-menu"] li[class*="menuItem"]')
-    fireEvent.click(menu[1])
-    await waitFor(() => expect(document.body.querySelector('[name="url"][value="endpoint2"]')).not.toBeNull())
-
+    // fill out fields and compare payload
     await setFieldValue({
       container: document.body,
       type: InputTypes.TEXTFIELD,
       fieldId: 'newRelicAccountId',
-      value: 'semi-auto'
+      value: NewRelicAccountId
     })
     await setFieldValue({
       container: document.body,
       type: InputTypes.TEXTFIELD,
       fieldId: 'apiKeyRef',
-      value: 'dsf-auto'
+      value: 'some_secret'
     })
-    jest
-      .spyOn(portalService, 'useGetDelegateSelectors')
-      .mockReturnValue({ data: [] } as UseGetReturn<any, any, any, any>)
-    const submitButton = document.body.querySelector('button[type="submit"]')
-    if (!submitButton) {
-      throw Error('submit button is not rendered.')
-    }
-    fireEvent.click(submitButton)
-    await waitFor(() => expect(portalService.useGetDelegateSelectors).toHaveBeenCalled())
+
+    // click submit and verify submitted data
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+    await waitFor(() =>
+      expect(onNextMock).toHaveBeenLastCalledWith({
+        accountId: 'dummyAccountId',
+        newRelicAccountId: NewRelicAccountId,
+        orgIdentifier: 'dummyOrgId',
+        apiKeyRef: 'some_secret',
+        projectIdentifier: 'dummyProjectId',
+        url: {
+          label: 'endpoint1',
+          value: 'endpoint1'
+        }
+      })
+    )
   })
 
-  test('update works as expected', async () => {
+  test('Ensure create flow works with different url', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
       .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
@@ -186,175 +131,260 @@ describe('Create newrelic connector Wizard', () => {
         any,
         any
       >)
-    jest.spyOn(cdService, 'useUpdateConnector').mockReturnValue({
-      mutate: jest.fn().mockReturnValue({
-        status: 'SUCCESS',
-        data: {
-          name: 'mockResponseName',
-          identifier: 'mockResponseIdentifier'
-        }
-      }) as unknown
-    } as UseMutateReturn<any, any, any, any, any>)
-
-    const onSuccessMock = jest.fn()
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateNewRelicConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
           onClose={noop}
-          onSuccess={onSuccessMock}
-          isEditMode={true}
+          onSuccess={noop}
+          isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={{
-            identifier: 'Connector1',
-            name: 'Connector1',
-            type: 'AppDynamics',
-            spec: {
-              url: 'endpoint2',
-              newRelicAccountId: 'harness-test',
-              apiKeyRef: 'testRef'
-            }
-          }}
-          mockIdentifierValidate={mockIdentifierValidate}
+          connectorInfo={undefined}
         />
       </TestWrapper>
     )
 
-    await waitFor(() => expect(document.body.querySelector('input[name="name"]')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.newRelic.urlFieldLabel')).not.toBeNull())
 
+    // fill out fields and compare payload
     await setFieldValue({
       container: document.body,
       type: InputTypes.TEXTFIELD,
-      fieldId: 'name',
-      value: 'Connector1update'
+      fieldId: 'newRelicAccountId',
+      value: NewRelicAccountId
+    })
+    await setFieldValue({
+      container: document.body,
+      type: InputTypes.TEXTFIELD,
+      fieldId: 'apiKeyRef',
+      value: 'anothersecret'
+    })
+    await setFieldValue({
+      container: document.body,
+      type: InputTypes.SELECT,
+      fieldId: 'url',
+      value: 'endpoint2'
     })
 
-    await waitFor(() => expect(container.querySelector('button[type="submit"]')).not.toBeNull())
+    // click submit and verify submitted data
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+    await waitFor(() =>
+      expect(onNextMock).toHaveBeenLastCalledWith({
+        accountId: 'dummyAccountId',
+        newRelicAccountId: NewRelicAccountId,
+        orgIdentifier: 'dummyOrgId',
+        apiKeyRef: 'anothersecret',
+        projectIdentifier: 'dummyProjectId',
+        url: {
+          label: 'endpoint2',
+          value: 'endpoint2'
+        }
+      })
+    )
+  })
 
-    await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
-    })
+  test('Ensure if there is existing data, fields are populated', async () => {
+    jest
+      .spyOn(cvService, 'useGetNewRelicEndPoints')
+      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
+        any,
+        any,
+        any,
+        any
+      >)
+    const { container, getByText } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateNewRelicConnector
+          accountId="dummyAccountId"
+          orgIdentifier="dummyOrgId"
+          projectIdentifier="dummyProjectId"
+          onClose={noop}
+          onSuccess={noop}
+          isEditMode={false}
+          setIsEditMode={noop}
+          connectorInfo={
+            ({
+              accountId: 'dummyAccountId',
+              newRelicAccountId: NewRelicAccountId,
+              orgIdentifier: 'dummyOrgId',
+              delegateSelectors: [],
+              apiKeyRef: 'anothersecret',
+              projectIdentifier: 'dummyProjectId',
+              url: {
+                label: 'endpoint2',
+                value: 'endpoint2'
+              }
+            } as unknown) as ConnectorInfoDTO
+          }
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('connectors.newRelic.urlFieldLabel')).not.toBeNull())
+
+    // expect recieved value to be there
+    expect(document.body.querySelector(`input[value="${NewRelicAccountId}"]`)).not.toBeNull()
+    expect(document.body.querySelector(`input[value="anothersecret"]`)).not.toBeNull()
+    expect(document.body.querySelector(`input[value="endpoint2"]`)).not.toBeNull()
 
     await setFieldValue({
       container: document.body,
       type: InputTypes.TEXTFIELD,
       fieldId: 'apiKeyRef',
-      value: 'newPass'
+      value: 'new_secret'
+    })
+    await setFieldValue({
+      container: document.body,
+      type: InputTypes.TEXTFIELD,
+      fieldId: 'newRelicAccountId',
+      value: 'anothernewaccountId'
     })
 
-    await waitFor(() => expect(container.querySelector('button[type="submit"]')).not.toBeNull())
-
-    jest
-      .spyOn(portalService, 'useGetDelegateSelectors')
-      .mockReturnValue({ data: [] } as UseGetReturn<any, any, any, any>)
-    await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
-    })
-    await waitFor(() => expect(portalService.useGetDelegateSelectors).toHaveBeenCalled())
+    // click submit and verify submitted data
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+    await waitFor(() =>
+      expect(onNextMock).toHaveBeenLastCalledWith({
+        accountId: 'dummyAccountId',
+        apiKeyRef: 'new_secret',
+        delegateSelectors: [],
+        newRelicAccountId: 'anothernewaccountId',
+        orgIdentifier: 'dummyOrgId',
+        projectIdentifier: 'dummyProjectId',
+        url: {
+          label: 'endpoint2',
+          value: 'endpoint2'
+        }
+      })
+    )
   })
 
-  test('Ensure that when endpoint api is loading select says loading', async () => {
+  test('Ensure edit flow works', async () => {
+    jest
+      .spyOn(cvService, 'useGetNewRelicEndPoints')
+      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
+        any,
+        any,
+        any,
+        any
+      >)
+    const { container, getByText } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateNewRelicConnector
+          accountId="dummyAccountId"
+          orgIdentifier="dummyOrgId"
+          projectIdentifier="dummyProjectId"
+          onClose={noop}
+          onSuccess={noop}
+          isEditMode={false}
+          setIsEditMode={noop}
+          connectorInfo={
+            ({
+              name: 'dasdadasdasda',
+              identifier: 'dasdadasdasda',
+              description: '',
+              orgIdentifier: 'default',
+              projectIdentifier: 'Test_101',
+              tags: {},
+              type: 'NewRelic',
+              spec: {
+                url: 'endpoint1',
+                apiKeyRef: 'sfsdfs',
+                newRelicAccountId: NewRelicAccountId,
+                delegateSelectors: []
+              }
+            } as unknown) as ConnectorInfoDTO
+          }
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('connectors.newRelic.urlFieldLabel')).not.toBeNull())
+
+    // expect recieved value to be there
+    expect(container.querySelector(`input[value="${NewRelicAccountId}"]`)).not.toBeNull()
+    await setFieldValue({
+      container,
+      type: InputTypes.TEXTFIELD,
+      fieldId: 'newRelicAccountId',
+      value: 'some_newer_accountId'
+    })
+
+    // click submit and verify submitted data
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+    await waitFor(() =>
+      expect(onNextMock).toHaveBeenCalledWith({
+        accountId: 'dummyAccountId',
+        apiKeyRef: 'sfsdfs',
+        delegateSelectors: [],
+        description: '',
+        identifier: 'dasdadasdasda',
+        name: 'dasdadasdasda',
+        newRelicAccountId: 'some_newer_accountId',
+        orgIdentifier: 'default',
+        projectIdentifier: 'Test_101',
+        spec: {
+          apiKeyRef: 'sfsdfs',
+          delegateSelectors: [],
+          newRelicAccountId: 'newRelicAccountId',
+          url: 'endpoint1'
+        },
+        tags: {},
+        type: 'NewRelic',
+        url: {
+          label: 'endpoint1',
+          value: 'endpoint1'
+        }
+      })
+    )
+  })
+
+  test('Ensure drop down shows loading when new relic endpoints are loading', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
       .mockReturnValue({ loading: true } as UseGetReturn<any, any, any, any>)
-    jest.spyOn(cdService, 'useUpdateConnector').mockReturnValue({
-      mutate: jest.fn().mockReturnValue({
-        status: 'SUCCESS',
-        data: {
-          name: 'mockResponseName',
-          identifier: 'mockResponseIdentifier'
-        }
-      }) as unknown
-    } as UseMutateReturn<any, any, any, any, any>)
-    const onSuccessMock = jest.fn()
-    render(
+
+    const { getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateNewRelicConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
           onClose={noop}
-          onSuccess={onSuccessMock}
+          onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={undefined}
-          mockIdentifierValidate={mockIdentifierValidate}
         />
       </TestWrapper>
     )
 
-    await waitFor(() => expect(document.body.querySelector('input[name="name"]')).not.toBeNull())
-
-    // fill step 1
-    await act(async () => {
-      fireEvent.change(document.body.querySelector('input[name="name"]')!, {
-        target: { value: 'dummy name' }
-      })
-    })
-
-    await act(async () => {
-      fireEvent.click(document.body.querySelector('button[type="submit"]')!)
-    })
-
-    // second step
-    await waitFor(() => expect(document.body.querySelector('input[name="apiKeyRef"]')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.newRelic.urlFieldLabel')).not.toBeNull())
     expect(document.body.querySelector('input[placeholder="loading"]')).not.toBeNull()
   })
 
-  test('Ensure that when endpoint api is ini error state toaster is displayed', async () => {
+  test('Ensure error is displayed when new relic endpoints api fails', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
       .mockReturnValue({ error: { message: 'mockError' }, loading: false } as UseGetReturn<any, any, any, any>)
-    jest.spyOn(cdService, 'useUpdateConnector').mockReturnValue({
-      mutate: jest.fn().mockReturnValue({
-        status: 'SUCCESS',
-        data: {
-          name: 'mockResponseName',
-          identifier: 'mockResponseIdentifier'
-        }
-      }) as unknown
-    } as UseMutateReturn<any, any, any, any, any>)
-    const onSuccessMock = jest.fn()
 
-    const mockErrorFn = jest.fn()
-    jest.spyOn(toaster, 'useToaster').mockReturnValue({
-      showError: mockErrorFn,
-      clear: jest.fn()
-    } as any)
-
-    render(
+    const { getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateNewRelicConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
           onClose={noop}
-          onSuccess={onSuccessMock}
+          onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={undefined}
-          mockIdentifierValidate={mockIdentifierValidate}
         />
       </TestWrapper>
     )
 
-    await waitFor(() => expect(document.body.querySelector('input[name="name"]')).not.toBeNull())
-
-    // fill step 1
-    await act(async () => {
-      fireEvent.change(document.body.querySelector('input[name="name"]')!, {
-        target: { value: 'dummy name' }
-      })
-    })
-
-    await act(async () => {
-      fireEvent.click(document.body.querySelector('button[type="submit"]')!)
-    })
-
-    // second step
-    await waitFor(() => expect(document.body.querySelector('input[name="apiKeyRef"]')).not.toBeNull())
-    expect(mockErrorFn).toHaveBeenCalledWith('mockError')
+    await waitFor(() => expect(getByText('connectors.newRelic.urlFieldLabel')).not.toBeNull())
+    expect(getByText('mockError')).not.toBeNull()
   })
 })

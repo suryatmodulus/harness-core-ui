@@ -27,7 +27,6 @@ import {
   ResponseInputSetResponse,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
   ResponsePMSPipelineResponseDTO,
-  InputSetErrorResponse,
   EntityGitDetails
 } from 'services/pipeline-ng'
 
@@ -54,6 +53,7 @@ import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, getErrorsList } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
+import { getFormattedErrors } from '../RunPipelineModal/RunPipelineHelper'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import GitPopover from '../GitPopover/GitPopover'
 import css from './InputSetForm.module.scss'
@@ -275,20 +275,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     },
     [yamlHandler?.getLatestYaml, inputSet]
   )
-
-  const getFormattedErrors = (apiErrorMap?: { [key: string]: InputSetErrorResponse }): Record<string, any> => {
-    const toReturn: Record<string, any> = {}
-    if (apiErrorMap) {
-      const apiErrorKeys = Object.keys(apiErrorMap)
-      apiErrorKeys.forEach(apiErrorKey => {
-        const errorsForKey = apiErrorMap[apiErrorKey].errors || []
-        if (errorsForKey[0].fieldName) {
-          toReturn[errorsForKey[0].fieldName] = `${errorsForKey[0].fieldName}: ${errorsForKey[0].message}`
-        }
-      })
-    }
-    return toReturn
-  }
 
   const createUpdateInputSet = async (inputSetObj: InputSetDTO, gitDetails?: SaveToGitFormInterface, objectId = '') => {
     let response: ResponseInputSetResponse | null = null

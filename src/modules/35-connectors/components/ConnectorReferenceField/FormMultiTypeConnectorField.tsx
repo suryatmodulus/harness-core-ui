@@ -95,7 +95,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     selected: false,
     inlineModalClosed: false
   })
-  const scopeFromSelected = typeof selectedValue === 'string' ? getScopeFromValue(selectedValue || '') : selected.scope
+  const scopeFromSelected = typeof selectedValue === 'string' ? getScopeFromValue(selectedValue || '') : selected?.scope
   const selectedRef =
     typeof selectedValue === 'string' ? getIdentifierFromValue(selected || '') : selectedValue?.connector?.identifier
   const [multiType, setMultiType] = React.useState<MultiTypeInputType>(MultiTypeInputType.FIXED)

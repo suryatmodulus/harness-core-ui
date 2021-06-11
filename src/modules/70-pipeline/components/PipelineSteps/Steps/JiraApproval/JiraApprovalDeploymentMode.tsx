@@ -3,7 +3,13 @@ import { useParams } from 'react-router-dom'
 import { isEmpty, set } from 'lodash-es'
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type {
+  AccountPathProps,
+  GitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -21,6 +27,7 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   return (
     <React.Fragment>
@@ -52,6 +59,7 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
             set(initialValues, 'spec.connectorRef', connectorRef)
             onUpdate?.(initialValues)
           }}
+          gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
       ) : null}
 

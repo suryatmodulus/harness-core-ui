@@ -38,5 +38,6 @@ declare const styles: {
   readonly tfVarLabel: string
   readonly tfVarMargin: string
   readonly radioBtns: string
+  readonly contentTextArea: string
 }
 export default styles

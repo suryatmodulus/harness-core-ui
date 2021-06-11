@@ -7416,6 +7416,44 @@ export const getStackdriverSampleDataPromise = (
     void
   >('POST', getConfig('cv/api'), `/stackdriver/sample-data`, props, signal)
 
+export type GetSumoLogicEndPointsProps = Omit<GetProps<ResponseListString, Failure | Error, void, void>, 'path'>
+
+/**
+ * get all sumologic endpoints
+ */
+export const GetSumoLogicEndPoints = (props: GetSumoLogicEndPointsProps) => (
+  <Get<ResponseListString, Failure | Error, void, void>
+    path={`/sumologic/endpoints`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetSumoLogicEndPointsProps = Omit<UseGetProps<ResponseListString, Failure | Error, void, void>, 'path'>
+
+/**
+ * get all sumologic endpoints
+ */
+export const useGetSumoLogicEndPoints = (props: UseGetSumoLogicEndPointsProps) =>
+  useGet<ResponseListString, Failure | Error, void, void>(`/sumologic/endpoints`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * get all sumologic endpoints
+ */
+export const getSumoLogicEndPointsPromise = (
+  props: GetUsingFetchProps<ResponseListString, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListString, Failure | Error, void, void>(
+    getConfig('cv/api'),
+    `/sumologic/endpoints`,
+    props,
+    signal
+  )
+
 export interface GetAnomalousMetricDashboardDataQueryParams {
   accountId: string
   projectIdentifier: string

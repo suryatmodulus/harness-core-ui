@@ -272,7 +272,11 @@ export default function TerraformEditView(
                                   )
                                 }}
                               >
-                                <TFMonaco name="spec.configuration.spec.backendConfig.spec.content" formik={formik} />
+                                <TFMonaco
+                                  name="spec.configuration.spec.backendConfig.spec.content"
+                                  formik={formik}
+                                  title={getString('cd.backEndConfig')}
+                                />
                               </MultiTypeFieldSelector>
                               {getMultiTypeFromValue(
                                 formik.values.spec?.configuration?.spec?.backendConfig?.spec?.content

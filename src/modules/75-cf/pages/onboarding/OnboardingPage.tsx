@@ -35,11 +35,8 @@ export const OnboardingPage = () => {
         </Text>
       </Heading>
       <Container margin={{ top: 'xxxlarge' }}>
-        <Heading level={2} className={css.h2}>
-          {getString('cf.onboarding.theBasics')}
-        </Heading>
         <Container style={{ display: 'grid', justifyContent: 'center', padding: '100px 0' }}>
-          <img src={theBasicsImage} style={{ transform: 'scale(1.1)' }} />
+          <img src={theBasicsImage} />
         </Container>
       </Container>
 

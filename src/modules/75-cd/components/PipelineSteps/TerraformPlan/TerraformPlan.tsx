@@ -295,7 +295,11 @@ function TerraformPlanWidget(
                             }}
                             skipRenderValueInExpressionLabel
                           >
-                            <TFMonaco name="spec.configuration.backendConfig.spec.content" formik={formik} />
+                            <TFMonaco
+                              name="spec.configuration.backendConfig.spec.content"
+                              formik={formik}
+                              title={getString('cd.backEndConfig')}
+                            />
                           </MultiTypeFieldSelector>
                           {getMultiTypeFromValue(formik.values.spec?.configuration?.backendConfig?.spec?.content) ===
                             MultiTypeInputType.RUNTIME && (

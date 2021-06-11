@@ -891,11 +891,14 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                   type: manifestType = '',
                   spec: {
                     skipResourceVersioning = '',
+                    chartName = '',
                     store: {
                       spec: {
                         branch = '',
+                        region = '',
                         connectorRef = '',
                         folderPath = '',
+                        bucketName = '',
                         commitId = '',
                         repoName = '',
                         paths = ''
@@ -988,6 +991,38 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
                     />
                   )}
+
+                  {getMultiTypeFromValue(region) === MultiTypeInputType.RUNTIME && (
+                    <FormInput.MultiTypeInput
+                      multiTypeInputProps={{
+                        selectProps: {
+                          usePortal: true,
+                          addClearBtn: true && !readonly,
+                          items: regions
+                        },
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      useValue
+                      disabled={readonly}
+                      selectItems={regions}
+                      label={getString('regionLabel')}
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.region`}
+                    />
+                  )}
+
+                  {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME && (
+                    <FormInput.MultiTextInput
+                      multiTextInputProps={{
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      disabled={readonly}
+                      label={getString('pipeline.manifestType.bucketName')}
+                      className={css.inputWidth}
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                    />
+                  )}
                   {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
                     <FormInput.MultiTextInput
                       multiTextInputProps={{
@@ -998,6 +1033,18 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       label={getString('chartPath')}
                       className={css.inputWidth}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
+                    />
+                  )}
+                  {getMultiTypeFromValue(chartName) === MultiTypeInputType.RUNTIME && (
+                    <FormInput.MultiTextInput
+                      multiTextInputProps={{
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      disabled={readonly}
+                      label={getString('pipeline.manifestType.http.chartName')}
+                      className={css.inputWidth}
+                      name={`${path}.manifests[${index}].manifest.spec.chartName`}
                     />
                   )}
                   {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME && (

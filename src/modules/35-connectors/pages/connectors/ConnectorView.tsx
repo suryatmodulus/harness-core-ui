@@ -411,7 +411,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                         handleSaveYaml()
                           .then(res => {
                             if (res.status === 'SUCCESS') {
-                              showSuccess('connectors.successfullyCreated')
+                              showSuccess(getString('connectors.updatedSuccessfully'))
                               res.nextCallback?.()
                             } else {
                               /* TODO handle error with API status 200 */

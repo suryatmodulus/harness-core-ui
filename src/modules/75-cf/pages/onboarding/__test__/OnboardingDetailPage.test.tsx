@@ -1,20 +1,32 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { SupportPlatforms } from '@cf/components/LanguageSelection/LanguageSelection'
+import { PlatformEntryType, SupportPlatforms } from '@cf/components/LanguageSelection/LanguageSelection'
+import mockImport from 'framework/utils/mockImport'
 import { OnboardingDetailPage } from '../OnboardingDetailPage'
 import { CreateAFlagView } from '../views/CreateAFlagView'
 import { SetUpYourApplicationView } from '../views/SetUpYourApplicationView'
-import { TestYourFlagViewView } from '../views/TestYourFlagView'
-
-jest.mock('../views/SelectEnvironmentView', () => ({
-  SelectEnvironmentView: function MockComponent() {
-    return <div />
-  }
-}))
+import { TestYourFlagView } from '../views/TestYourFlagView'
+import { SelectEnvironmentView } from '../views/SelectEnvironmentView'
 
 describe('OnboardingDetailPage', () => {
   test('OnboardingDetailPage empty state should be rendered properly', () => {
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({
+        loading: true,
+        refetch: jest.fn(),
+        EnvironmentSelec: <div />,
+        environments: [
+          {
+            accountId: 'harness',
+            identifier: 'foo',
+            name: 'bar',
+            type: 'Production'
+          }
+        ]
+      })
+    })
+
     const { container } = render(
       <TestWrapper
         path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
@@ -27,6 +39,22 @@ describe('OnboardingDetailPage', () => {
   })
 
   test('Should be able to create a flag', () => {
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({
+        loading: true,
+        refetch: jest.fn(),
+        EnvironmentSelec: <div />,
+        environments: [
+          {
+            accountId: 'harness',
+            identifier: 'foo',
+            name: 'bar',
+            type: 'Production'
+          }
+        ]
+      })
+    })
+
     const { container } = render(
       <TestWrapper
         path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
@@ -52,6 +80,22 @@ describe('OnboardingDetailPage', () => {
   })
 
   test('CreateAFlagView', () => {
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({
+        loading: true,
+        refetch: jest.fn(),
+        EnvironmentSelec: <div />,
+        environments: [
+          {
+            accountId: 'harness',
+            identifier: 'foo',
+            name: 'bar',
+            type: 'Production'
+          }
+        ]
+      })
+    })
+
     const { container } = render(
       <TestWrapper
         path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
@@ -83,6 +127,22 @@ describe('OnboardingDetailPage', () => {
   })
 
   test('SetUpYourApplicationView', () => {
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({
+        loading: true,
+        refetch: jest.fn(),
+        EnvironmentSelec: <div />,
+        environments: [
+          {
+            accountId: 'harness',
+            identifier: 'foo',
+            name: 'bar',
+            type: 'Production'
+          }
+        ]
+      })
+    })
+
     const { container } = render(
       <TestWrapper
         path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
@@ -112,6 +172,7 @@ describe('OnboardingDetailPage', () => {
             type: 'Server'
           }}
           setApiKey={jest.fn()}
+          setEnvironmentIdentifier={jest.fn()}
         />
       </TestWrapper>
     )
@@ -120,12 +181,28 @@ describe('OnboardingDetailPage', () => {
   })
 
   test('TestYourFlagViewView', () => {
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({
+        loading: true,
+        refetch: jest.fn(),
+        EnvironmentSelec: <div />,
+        environments: [
+          {
+            accountId: 'harness',
+            identifier: 'foo',
+            name: 'bar',
+            type: 'Production'
+          }
+        ]
+      })
+    })
+
     const { container } = render(
       <TestWrapper
         path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
       >
-        <TestYourFlagViewView
+        <TestYourFlagView
           flagInfo={{
             project: 'dummy',
             name: 'test-flag',
@@ -147,8 +224,67 @@ describe('OnboardingDetailPage', () => {
             identifier: 'xxx-xxx-xxx',
             type: 'Server'
           }}
+          environmentIdentifier="foo-123-bar"
+          testDone={false}
+          setTestDone={jest.fn()}
         />
       </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('SelectEnvironmentView should render loading correctly', async () => {
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({ loading: true, refetch: jest.fn() })
+    })
+
+    const { container } = render(
+      <SelectEnvironmentView
+        language={{
+          name: 'foo',
+          icon: 'bar',
+          type: PlatformEntryType.CLIENT,
+          readmeStringId: 'cf.onboarding.readme.java'
+        }}
+        apiKey={undefined}
+        setApiKey={jest.fn()}
+        setEnvironmentIdentifier={jest.fn()}
+      />
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('SelectEnvironmentView should render data correctly', async () => {
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({
+        loading: true,
+        refetch: jest.fn(),
+        EnvironmentSelec: <div />,
+        environments: [
+          {
+            accountId: 'harness',
+            identifier: 'foo',
+            name: 'bar',
+            type: 'Production'
+          }
+        ]
+      })
+    })
+
+    const { container } = render(
+      <SelectEnvironmentView
+        language={{
+          name: 'foo',
+          icon: 'bar',
+          type: PlatformEntryType.CLIENT,
+          readmeStringId: 'cf.onboarding.readme.java'
+        }}
+        apiKey={undefined}
+        setApiKey={jest.fn()}
+        setEnvironmentIdentifier={jest.fn()}
+      />
     )
 
     expect(container).toMatchSnapshot()

@@ -3122,9 +3122,6 @@ exports[`Test TerraformDestroy should render inputSet View 1`] = `
             </div>
           </div>
         </div>
-        <label>
-          Var Files
-        </label>
       </div>
     </form>
     <p

@@ -7267,11 +7267,11 @@ exports[`Test TerraformPlan should render input set view 1`] = `
       <div>
         <div
           class="bp3-form-group"
-          data-id="spec.provisionerIdentifier-0"
+          data-id="test.spec.provisionerIdentifier-0"
         >
           <label
             class="bp3-label"
-            for="spec.provisionerIdentifier"
+            for="test.spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
              
@@ -7288,9 +7288,9 @@ exports[`Test TerraformPlan should render input set view 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                name="spec.provisionerIdentifier"
+                name="test.spec.provisionerIdentifier"
                 type="text"
-                value="<+input>"
+                value=""
               />
             </div>
           </div>

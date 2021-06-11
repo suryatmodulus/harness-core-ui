@@ -145,9 +145,6 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                 </div>
               </div>
             </div>
-            <label>
-              Var Files
-            </label>
           </div>
         </form>
       </div>

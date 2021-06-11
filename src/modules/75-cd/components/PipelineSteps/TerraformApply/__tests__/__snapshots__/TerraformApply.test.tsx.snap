@@ -3733,9 +3733,6 @@ exports[`Test TerraformApply should render edit view 1`] = `
             </div>
           </div>
         </div>
-        <label>
-          Var Files
-        </label>
       </div>
     </form>
     <p

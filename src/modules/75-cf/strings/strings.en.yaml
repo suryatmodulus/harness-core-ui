@@ -374,10 +374,14 @@ selectFlagsModal:
   empty: No feature flags found.
   searchPlaceholder: Search for Flag by name or description
 onboarding:
+  connected: CONNECTED
+  behindTheSenes: In case you’re wondering what’s happening behind the scenes…
+  waitForConnect: Waiting for SDK to be connected...{{ message }}
+  allSet: Congratulations! You’re all set!
+  tryTarget: Try out our robust <a href='{{ link }}'>targeting rules for this flag</a> for more granular rollouts.
   backToStart: Back to Start Guide
   title: Continuous Features Quick Guide
   subTitle: Everything you need to know in less than 15 minutes.
-  theBasics: The Basics
   upAndRunning: Get a flag up and running in 3 steps
   tryItOut: Try it Out
   createAFlag: '1. Create a Flag'

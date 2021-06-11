@@ -17,7 +17,6 @@ export default function CFSideNav(): React.ReactElement {
   const params = useParams<PipelinePathProps>()
   const { accountId, projectIdentifier, orgIdentifier } = params
   const history = useHistory()
-  const module = 'cf'
   const { updateAppStore } = useAppStore()
   const isDev = localStorage.ENABLED_FF_EXPERIMENTS
   const { withActiveEnvironment } = useActiveEnvironment()
@@ -48,18 +47,6 @@ export default function CFSideNav(): React.ReactElement {
             to={withActiveEnvironment(routes.toCFTargetManagement(params))}
           />
           <SidebarLink label={getString('environments')} to={withActiveEnvironment(routes.toCFEnvironments(params))} />
-          {isDev && (
-            <>
-              <SidebarLink
-                label={getString('executionsText')}
-                to={withActiveEnvironment(routes.toDeployments({ ...params, module }))}
-              />
-              <SidebarLink
-                label={getString('pipelines')}
-                to={withActiveEnvironment(routes.toPipelines({ ...params, module }))}
-              />
-            </>
-          )}
           {isDev && (
             <SidebarLink
               className={css.onboarding}

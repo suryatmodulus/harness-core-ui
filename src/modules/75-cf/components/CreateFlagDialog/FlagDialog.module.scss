@@ -26,6 +26,10 @@
       }
     }
   }
+
+  [class*='StepWizard'] > div[class*='stepDetails'] {
+    height: 600px;
+  }
 }
 
 .open-modal-btn {

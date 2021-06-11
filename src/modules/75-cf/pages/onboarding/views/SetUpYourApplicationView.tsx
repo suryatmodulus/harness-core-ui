@@ -13,6 +13,7 @@ export interface SetUpYourApplicationViewProps {
   setLanguage: (language: PlatformEntry) => void
   apiKey: ApiKey | undefined
   setApiKey: (key: ApiKey | undefined) => void
+  setEnvironmentIdentifier: (environmentIdentifier: string | undefined) => void
 }
 
 export const SetUpYourApplicationView: React.FC<SetUpYourApplicationViewProps> = props => {
@@ -82,6 +83,9 @@ export const SetUpYourApplicationView: React.FC<SetUpYourApplicationViewProps> =
                   setApiKey={key => {
                     setApiKey(key)
                     props.setApiKey(key)
+                  }}
+                  setEnvironmentIdentifier={environmentIdentifier => {
+                    props.setEnvironmentIdentifier(environmentIdentifier)
                   }}
                   language={language}
                 />

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.51% </span>
+                <span class="strong">84.4% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>120/142</span>
+                <span class='fraction'>119/141</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.12% </span>
+                <span class="strong">87.02% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>115/132</span>
+                <span class='fraction'>114/131</span>
             </div>
         
             
@@ -435,18 +435,16 @@
 <a name='L376'></a><a href='#L376'>376</a>
 <a name='L377'></a><a href='#L377'>377</a>
 <a name='L378'></a><a href='#L378'>378</a>
-<a name='L379'></a><a href='#L379'>379</a>
-<a name='L380'></a><a href='#L380'>380</a>
-<a name='L381'></a><a href='#L381'>381</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">26x</span>
+<a name='L379'></a><a href='#L379'>379</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">26x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">26x</span>
@@ -483,7 +481,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -493,8 +490,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">62x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -523,6 +518,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -823,11 +819,11 @@ import type { FormikErrors } from 'formik'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { get, set, uniq, uniqBy, isEmpty } from 'lodash-es'
 import type { UseStringsReturn } from 'framework/strings'
-import { StringUtils } from '@common/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 import type { StringKeys } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { IdentifierSchemaWithoutHook, NameSchemaWithoutHook } from '@common/utils/Validation'
 &nbsp;
 export enum Types {
   Text,
@@ -864,7 +860,6 @@ interface GenerateSchemaDependencies extends Dependencies {
 }
 &nbsp;
 const validIdRegex = /^(?![0-9])[0-9a-zA-Z_]*$/
-const validNameRegex = /^[0-9a-zA-Z_-\s]*$/
 &nbsp;
 function generateSchemaForIdentifier({
   initialValues,
@@ -872,12 +867,10 @@ function generateSchemaForIdentifier({
   serviceDependencies,
   getString
 }: GenerateSchemaDependencies): StringSchema {
-  return yup
-    .string()
-    .trim()
-    .matches(validIdRegex, getString('validation.validStepIdRegex'))
-    .notOneOf(StringUtils.illegalIdentifiers, getString('validation.illegalIdentifier'))
-    .test('isStepIdUnique', getString('validation.uniqueStepAndServiceDependenciesId'), identifier =&gt; {
+  return (IdentifierSchemaWithoutHook(getString) as StringSchema).test(
+    'isStepIdUnique',
+    getString('validation.uniqueStepAndServiceDependenciesId'),
+    identifier =&gt; {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (isEmpty(initialValues) || (isEmpty(steps) &amp;&amp; isEmpty(serviceDependencies))) return true
 &nbsp;
       const stepsAndDependencies: StepElementConfig[] = <span class="cstat-no" title="statement not covered" >[...serviceDependencies]</span>
@@ -904,11 +897,12 @@ function generateSchemaForIdentifier({
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        return step?.identifier !== identifier</span>
       })
-    })
+    }
+  )
 }
 &nbsp;
 function generateSchemaForName({ getString }: GenerateSchemaDependencies): StringSchema {
-  return yup.string().matches(validNameRegex, getString('validation.validStepNameRegex'))
+  return NameSchemaWithoutHook(getString) as StringSchema
 }
 &nbsp;
 function generateSchemaForList(
@@ -1204,7 +1198,7 @@ export function validateInputSet(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 09:44:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 11 2021 09:45:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -48,7 +48,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
       approvers: {
         userGroups: [],
         minimumCount: 1,
-        disallowPipelineExecutor: true
+        disallowPipelineExecutor: false
       },
       approverInputs: [
         {
@@ -111,7 +111,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     if (
       typeof template?.spec?.approvalMessage === 'string' &&
       getMultiTypeFromValue(template?.spec?.approvalMessage) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.approvalMessage)
+      isEmpty(data?.spec?.approvalMessage?.trim())
     ) {
       errors.spec = {
         ...errors.spec,

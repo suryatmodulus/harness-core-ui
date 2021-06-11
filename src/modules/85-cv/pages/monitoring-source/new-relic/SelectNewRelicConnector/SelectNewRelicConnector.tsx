@@ -84,7 +84,7 @@ export function SelectNewRelicConnector(): JSX.Element {
                   subHeading={getString('cv.onboarding.monitoringSources.monitoringSourceSubheading')}
                 />
                 <SelectCVConnector
-                  connectorTypeLabel={getString('cv.monitoringSources.newRelicName')}
+                  connectorTypeLabel={getString('connectors.newRelicLabel')}
                   connectorType="NewRelic"
                   isEdit={Boolean(identifier)}
                   stepLabelProps={SelectCVConnectorStepProps}
@@ -100,7 +100,7 @@ export function SelectNewRelicConnector(): JSX.Element {
                       }
                     ]}
                     stepLabelProps={SelectMonitoringSourceStepProps}
-                    monitoringSourceName={getString('cv.monitoringSources.newRelicName')}
+                    monitoringSourceName={getString('connectors.newRelicLabel')}
                     monitoringSourceEntityName={getString('applications').toLocaleLowerCase()}
                   />
                 )}

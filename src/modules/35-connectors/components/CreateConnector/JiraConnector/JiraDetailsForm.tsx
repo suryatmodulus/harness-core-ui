@@ -102,7 +102,7 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
             <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'56%'}>
-              <FormInput.MultiTextInput name="jiraUrl" label={getString('UrlLabel')} />
+              <FormInput.Text name="jiraUrl" placeholder={getString('UrlLabel')} label={getString('UrlLabel')} />
 
               <TextReference name="username" label={getString('username')} type={ValueType.TEXT} />
               <SecretInput name={'passwordRef'} label={getString('password')} />

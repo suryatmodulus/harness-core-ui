@@ -164,7 +164,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   }
 
   React.useEffect(() => {
-    if (selectedStepId && selectedStage) {
+    if (selectedStepId && selectedStage && !pipelineView.isDrawerOpened) {
       let step: ExecutionWrapper | undefined
       let drawerType = DrawerTypes.StepConfig
       // 1. search for step in execution
@@ -189,7 +189,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             data: {
               stepConfig: {
                 node: step,
-                stepsMap: data?.paletteData?.stepsMap || new Map(),
+                stepsMap: data?.paletteData?.stepsMap || data?.stepConfig?.stepsMap || new Map(),
                 onUpdate: data?.paletteData?.onUpdate,
                 isStepGroup: false,
                 addOrEdit: 'edit',

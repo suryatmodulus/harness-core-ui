@@ -46,5 +46,14 @@ export enum PermissionIdentifier {
   VIEW_DELEGATE = 'core_delegate_view',
   UPDATE_DELEGATE_CONFIGURATION = 'core_delegateconfiguration_edit',
   DELETE_DELEGATE_CONFIGURATION = 'core_delegateconfiguration_delete',
-  VIEW_DELEGATE_CONFIGURATION = 'core_delegateconfiguration_view'
+  VIEW_DELEGATE_CONFIGURATION = 'core_delegateconfiguration_view',
+
+  // FEATURE FLAG PERMISSIONS
+  DELETE_FF_FEATUREFLAG = 'ff_featureflag_delete',
+  EDIT_FF_FEATUREFLAG = 'ff_featureflag_edit',
+  TOGGLE_FF_FEATUREFLAG = 'ff_featureflag_toggle',
+  DELETE_FF_TARGETGROUP = 'ff_targetgroup_delete',
+  EDIT_FF_TARGETGROUP = 'ff_targetgroup_edit',
+  CREATE_FF_ENVIRONMENT_APIKEY = 'ff_environment_apiKeyCreate',
+  DELETE_FF_ENVIRONMENT_APIKEY = 'ff_environment_apiKeyDelete'
 }

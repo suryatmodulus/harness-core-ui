@@ -1,8 +1,9 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly selectedInputSetsContainer: string
+  readonly isPopoverParent: string
   readonly selectedInputSetCard: string
+  readonly selectedInputSetOrder: string
   readonly selectedInputSetLi: string
   readonly addInputSetButton: string
   readonly clearButton: string
@@ -27,5 +28,6 @@ declare const styles: {
   readonly orderText: string
   readonly tag: string
   readonly spinner: string
+  readonly renderSelectedValue: string
 }
 export default styles

@@ -22,7 +22,15 @@ const strings = {
     uniqueStepAndServiceDependenciesId: 'Identifier should be unique across the steps and service dependencies',
     uniqueKeys: 'Keys should be unique',
     uniqueValues: 'Values should be unique',
-    matchPattern: 'Invalid value, please look for info above to read more'
+    matchPattern: 'Invalid value, please look for info above to read more',
+    identifierRequired: 'validation.identifierRequired',
+    validIdRegex: 'validation.validIdRegex'
+  },
+  common: {
+    validation: {
+      nameIsRequired: 'common.validation.nameIsRequired',
+      namePatternIsNotValid: 'common.validation.namePatternIsNotValid'
+    }
   }
 }
 

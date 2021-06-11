@@ -574,7 +574,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                             </tr>
                             <tr>
                               <th>
-                                duration
+                                pipeline.duration
                               </th>
                               <td>
                                 <span

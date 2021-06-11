@@ -123,3 +123,71 @@ describe('Monitoring Sources component', () => {
     expect(container).toMatchSnapshot()
   })
 })
+
+jest.mock('services/cv', () => ({
+  useGetMonitoringSources: jest.fn().mockReturnValue({
+    data: {
+      metaData: {},
+      data: {
+        content: []
+      },
+      responseMessages: []
+    },
+    refetch: jest.fn() as any
+  })
+}))
+describe('Monitoring Sources component with no monitoring source', () => {
+  test('Verify monitoring sources select all feature in create mode', async () => {
+    const { container } = render(
+      <TestWrapper {...testWrapperProps}>
+        <Formik
+          initialValues={{
+            failureStrategies: [],
+            spec: {
+              verificationJobRef: 'string',
+              type: 'string',
+              spec: undefined
+            }
+          }}
+          onSubmit={noop}
+        >
+          {formik => <DataSources formik={formik} />}
+        </Formik>
+      </TestWrapper>
+    )
+    // get input for multiselect
+    const input = screen.getByPlaceholderText('Search...')
+    // type empty space to so show dropdown
+    fireEvent.change(input, { target: { value: ' ' } })
+    // list all items in dropdown
+    const moniteringItemDropdown = screen.getAllByRole('listitem')
+    // check list has only All
+    expect(moniteringItemDropdown.length).toEqual(1)
+    expect(moniteringItemDropdown[0].textContent).toEqual('all')
+
+    // Choose All
+    moniteringItemDropdown.forEach(moniteringItem => {
+      if (moniteringItem.textContent === 'all') {
+        fireEvent.click(moniteringItem)
+      }
+    })
+
+    // check all is selected (by checking chips added in Multiselect)
+    container.querySelectorAll('.MultiSelect--tag').forEach((tag, i) => {
+      expect(tag.textContent).toContain(moniteringItemDropdown[i].textContent)
+    })
+
+    // Deselect All
+    moniteringItemDropdown.forEach(listItem => {
+      if (listItem.textContent === 'all') {
+        fireEvent.click(listItem)
+      }
+    })
+
+    // check no item is selected
+    const chips = container.querySelectorAll('.MultiSelect--tag')
+    expect(chips.length).toEqual(0)
+
+    expect(container).toMatchSnapshot()
+  })
+})

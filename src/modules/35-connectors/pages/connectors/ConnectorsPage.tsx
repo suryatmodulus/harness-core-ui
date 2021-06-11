@@ -198,10 +198,14 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   }, [page, projectIdentifier, orgIdentifier, gitFilter])
 
   const handleConnectorSearch = (query: string) => {
-    refetchConnectorList(Object.assign(defaultQueryParams, { searchTerm: query }, appliedFilter?.filterProperties))
+    const gitQueryParams =
+      gitFilter?.repo && gitFilter.branch ? { repoIdentifier: gitFilter.repo, branch: gitFilter.branch } : {}
+    refetchConnectorList(
+      Object.assign(defaultQueryParams, { searchTerm: query, ...gitQueryParams }, appliedFilter?.filterProperties)
+    )
   }
 
-  const handler = useCallback(debounce(handleConnectorSearch, 300), [])
+  const handler = useCallback(debounce(handleConnectorSearch, 300), [gitFilter])
 
   const onSearch = (query: string) => {
     handler(encodeURIComponent(query))

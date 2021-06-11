@@ -26,6 +26,11 @@
       cursor: pointer;
     }
   }
+
+  .locationField {
+    display: flex;
+    align-items: center;
+  }
   .connectorNameField {
     display: flex;
     align-items: center;

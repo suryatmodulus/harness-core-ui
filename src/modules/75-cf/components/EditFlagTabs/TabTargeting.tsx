@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
-  Layout,
   Button,
-  Text,
+  FlexExpander,
   Formik,
   FormikForm as Form,
   FormInput,
-  useModalHook,
-  FlexExpander
+  Layout,
+  Text,
+  useModalHook
 } from '@wings-software/uicore'
 import { Classes, Dialog, Switch } from '@blueprintjs/core'
 import cx from 'classnames'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
+import RbacButton from '@rbac/components/Button/Button'
 import { FeatureFlagActivationStatus } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
 import type { Feature } from 'services/cf'
@@ -47,6 +52,16 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
   } = props
   const [isEditRulesOn, setEditRulesOn] = useState(false)
   const { getString } = useStrings()
+  const [canToggle] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.ENVIRONMENT,
+        resourceIdentifier: environmentIdentifier
+      },
+      permissions: [PermissionIdentifier.TOGGLE_FF_FEATUREFLAG]
+    },
+    [environmentIdentifier]
+  )
 
   useEffect(() => {
     if (!editing && isEditRulesOn) setEditRulesOn(false)
@@ -107,15 +122,26 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
           style={{ alignItems: 'center' }}
           margin={{ top: 'small', bottom: 'xlarge' }}
         >
-          <Switch
-            onChange={event => {
-              onChangeSwitchEnv(event.currentTarget.value, formikProps)
-            }}
-            alignIndicator="right"
-            className={cx(Classes.LARGE, css.switch)}
-            checked={formikProps.values.state === FeatureFlagActivationStatus.ON}
-            disabled={feature.archived}
-          />
+          <Text
+            tooltip={
+              !canToggle ? (
+                <RBACTooltip
+                  permission={PermissionIdentifier.TOGGLE_FF_FEATUREFLAG}
+                  resourceType={ResourceType.ENVIRONMENT}
+                />
+              ) : undefined
+            }
+          >
+            <Switch
+              onChange={event => {
+                onChangeSwitchEnv(event.currentTarget.value, formikProps)
+              }}
+              alignIndicator="right"
+              className={cx(Classes.LARGE, css.switch)}
+              checked={formikProps.values.state === FeatureFlagActivationStatus.ON}
+              disabled={feature.archived || !canToggle}
+            />
+          </Text>
           <Text style={{ fontSize: '12px', color: '#6B6D85' }} padding={{ left: 'small' }}>
             {isFlagSwitchChanged
               ? getString(switchOff ? 'cf.featureFlags.flagWillTurnOff' : 'cf.featureFlags.flagWillTurnOn')
@@ -124,7 +150,7 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
               : getString('cf.featureFlags.flagOn')}
           </Text>
           <FlexExpander />
-          <Button
+          <RbacButton
             text={getString('cf.featureFlags.rules.editRules')}
             icon="edit"
             onClick={onEditBtnHandler}
@@ -132,6 +158,13 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
               visibility: isEditRulesOn ? 'hidden' : undefined
             }}
             disabled={feature.archived}
+            permission={{
+              resource: {
+                resourceType: ResourceType.ENVIRONMENT,
+                resourceIdentifier: environmentIdentifier
+              },
+              permission: PermissionIdentifier.EDIT_FF_FEATUREFLAG
+            }}
           />
         </Layout.Horizontal>
         <Layout.Vertical>

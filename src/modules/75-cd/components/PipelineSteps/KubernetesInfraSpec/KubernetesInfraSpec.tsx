@@ -273,7 +273,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
   return (
-    <Layout.Vertical padding="medium" spacing="small">
+    <Layout.Vertical className={css.containerPadding} padding="medium" spacing="small">
       {getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormMultiTypeConnectorField
@@ -283,12 +283,14 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
             tooltipProps={{
               dataTooltipId: 'k8sDirectInfraConnector'
             }}
+            width={445}
             name={`${path}.connectorRef`}
             label={getString('connector')}
             gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
             placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
             disabled={readonly}
             setRefValue
+            className={css.connectorMargin}
             multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
           />
         </div>

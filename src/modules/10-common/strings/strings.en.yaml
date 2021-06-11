@@ -8,7 +8,7 @@ orgSetup: Org Setup
 delegateForTask: '{{delegate}} for {{taskName}}'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
-createPipeline: '+ Create a pipeline'
+createPipeline: Create a pipeline
 production: Production
 addVariable: Add Variable
 editVariable: Edit variable

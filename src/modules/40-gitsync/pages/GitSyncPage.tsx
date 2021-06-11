@@ -8,6 +8,7 @@ import routes from '@common/RouteDefinitions'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ModulePathParams } from '@common/interfaces/RouteInterfaces'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import NewUserView from './newUser/NewUserView'
 import css from './GitSyncPage.module.scss'
 
@@ -19,6 +20,7 @@ export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => 
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { selectedProject, isGitSyncEnabled } = useAppStore()
   const { getString } = useStrings()
+  useDocumentTitle(getString('gitManagement'))
 
   const renderBreadCrumb = React.useMemo(() => {
     return (

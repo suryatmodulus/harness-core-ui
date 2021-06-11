@@ -6,7 +6,15 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
 export const SPEC_VERSION = '2.0'
 export interface AdviserIssuer {
-  adviserType?: 'UNKNOWN' | 'NEXT_STEP' | 'RETRY' | 'INTERVENTION_WAIT' | 'END_PLAN' | 'MARK_SUCCESS' | 'UNRECOGNIZED'
+  adviserType?:
+    | 'UNKNOWN'
+    | 'NEXT_STEP'
+    | 'RETRY'
+    | 'INTERVENTION_WAIT'
+    | 'END_PLAN'
+    | 'MARK_SUCCESS'
+    | 'IGNORE_FAILURE'
+    | 'UNRECOGNIZED'
   adviserTypeValue?: number
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -21,7 +29,15 @@ export interface AdviserIssuer {
 }
 
 export interface AdviserIssuerOrBuilder {
-  adviserType?: 'UNKNOWN' | 'NEXT_STEP' | 'RETRY' | 'INTERVENTION_WAIT' | 'END_PLAN' | 'MARK_SUCCESS' | 'UNRECOGNIZED'
+  adviserType?:
+    | 'UNKNOWN'
+    | 'NEXT_STEP'
+    | 'RETRY'
+    | 'INTERVENTION_WAIT'
+    | 'END_PLAN'
+    | 'MARK_SUCCESS'
+    | 'IGNORE_FAILURE'
+    | 'UNRECOGNIZED'
   adviserTypeValue?: number
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -101,6 +117,29 @@ export interface AsyncExecutableResponseOrBuilder {
   unitsCount?: number
   unitsList?: string[]
   unknownFields?: UnknownFieldSet
+}
+
+export type AuditFilterProperties = FilterProperties & {
+  actions?: (
+    | 'CREATE'
+    | 'UPDATE'
+    | 'RESTORE'
+    | 'DELETE'
+    | 'INVITE'
+    | 'RESEND_INVITE'
+    | 'REVOKE_INVITE'
+    | 'ADD_COLLABORATOR'
+    | 'REMOVE_COLLABORATOR'
+    | 'ADD_MEMBERSHIP'
+    | 'REMOVE_MEMBERSHIP'
+  )[]
+  endTime?: number
+  environments?: Environment[]
+  modules?: ('CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE')[]
+  principals?: Principal[]
+  resources?: ResourceDTO[]
+  scopes?: ResourceScopeDTO[]
+  startTime?: number
 }
 
 export interface AwsCodeCommitEventSpec {
@@ -395,6 +434,7 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
+    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -554,6 +594,11 @@ export interface EnumValueOptions {
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   unknownFields?: UnknownFieldSet
+}
+
+export interface Environment {
+  identifier: string
+  type: 'PreProduction' | 'Production'
 }
 
 export interface Error {
@@ -826,6 +871,7 @@ export interface Error {
     | 'SCM_NOT_FOUND_ERROR'
     | 'SCM_CONFLICT_ERROR'
     | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
     | 'DATA'
     | 'CONTEXT'
@@ -957,13 +1003,19 @@ export interface ExecutionNode {
   startTs?: number
   status?:
     | 'Running'
+    | 'AsyncWaiting'
+    | 'TaskWaiting'
+    | 'TimedWaiting'
     | 'Failed'
+    | 'Errored'
+    | 'IgnoreFailed'
     | 'NotStarted'
     | 'Expired'
     | 'Aborted'
+    | 'Discontinuing'
     | 'Queued'
     | 'Paused'
-    | 'Waiting'
+    | 'ResourceWaiting'
     | 'InterventionWaiting'
     | 'ApprovalWaiting'
     | 'Success'
@@ -975,6 +1027,7 @@ export interface ExecutionNode {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
+    | 'WAITING'
   stepParameters?: {
     [key: string]: { [key: string]: any }
   }
@@ -1358,6 +1411,7 @@ export interface Failure {
     | 'SCM_NOT_FOUND_ERROR'
     | 'SCM_CONFLICT_ERROR'
     | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
     | 'DATA'
     | 'CONTEXT'
@@ -1645,13 +1699,19 @@ export interface GraphLayoutNode {
   startTs?: number
   status?:
     | 'Running'
+    | 'AsyncWaiting'
+    | 'TaskWaiting'
+    | 'TimedWaiting'
     | 'Failed'
+    | 'Errored'
+    | 'IgnoreFailed'
     | 'NotStarted'
     | 'Expired'
     | 'Aborted'
+    | 'Discontinuing'
     | 'Queued'
     | 'Paused'
-    | 'Waiting'
+    | 'ResourceWaiting'
     | 'InterventionWaiting'
     | 'ApprovalWaiting'
     | 'Success'
@@ -1663,6 +1723,7 @@ export interface GraphLayoutNode {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
+    | 'WAITING'
 }
 
 export interface HarnessApprovalActivity {
@@ -2622,13 +2683,19 @@ export type PipelineExecutionFilterProperties = FilterProperties & {
   pipelineName?: string
   status?: (
     | 'Running'
+    | 'AsyncWaiting'
+    | 'TaskWaiting'
+    | 'TimedWaiting'
     | 'Failed'
+    | 'Errored'
+    | 'IgnoreFailed'
     | 'NotStarted'
     | 'Expired'
     | 'Aborted'
+    | 'Discontinuing'
     | 'Queued'
     | 'Paused'
-    | 'Waiting'
+    | 'ResourceWaiting'
     | 'InterventionWaiting'
     | 'ApprovalWaiting'
     | 'Success'
@@ -2640,6 +2707,7 @@ export type PipelineExecutionFilterProperties = FilterProperties & {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
+    | 'WAITING'
   )[]
 }
 
@@ -2673,13 +2741,19 @@ export interface PipelineExecutionSummary {
   startingNodeId?: string
   status?:
     | 'Running'
+    | 'AsyncWaiting'
+    | 'TaskWaiting'
+    | 'TimedWaiting'
     | 'Failed'
+    | 'Errored'
+    | 'IgnoreFailed'
     | 'NotStarted'
     | 'Expired'
     | 'Aborted'
+    | 'Discontinuing'
     | 'Queued'
     | 'Paused'
-    | 'Waiting'
+    | 'ResourceWaiting'
     | 'InterventionWaiting'
     | 'ApprovalWaiting'
     | 'Success'
@@ -2691,6 +2765,7 @@ export interface PipelineExecutionSummary {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
+    | 'WAITING'
   successfulStagesCount?: number
   tags?: NGTag[]
   totalStagesCount?: number
@@ -2733,6 +2808,7 @@ export interface PlanExecution {
   lastUpdatedAt?: number
   metadata?: ExecutionMetadata
   nextIteration?: number
+  planId?: string
   setupAbstractions?: {
     [key: string]: string
   }
@@ -2819,6 +2895,11 @@ export interface PreFlightErrorInfo {
 
 export interface PreFlightResolution {
   resolution?: string
+}
+
+export interface Principal {
+  identifier: string
+  type: 'USER' | 'SYSTEM' | 'API_KEY'
 }
 
 export interface PullRequest {
@@ -3143,6 +3224,23 @@ export interface ResourceConstraintExecutionInfo {
   pipelineIdentifier?: string
   planExecutionId?: string
   state?: 'BLOCKED' | 'ACTIVE' | 'FINISHED' | 'REJECTED'
+}
+
+export interface ResourceDTO {
+  identifier: string
+  labels?: {
+    [key: string]: string
+  }
+  type: string
+}
+
+export interface ResourceScopeDTO {
+  accountIdentifier: string
+  labels?: {
+    [key: string]: string
+  }
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface Response {
@@ -3644,6 +3742,7 @@ export interface ResponseMessage {
     | 'SCM_NOT_FOUND_ERROR'
     | 'SCM_CONFLICT_ERROR'
     | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
     | 'DATA'
     | 'CONTEXT'
@@ -4221,8 +4320,6 @@ export interface TriggerPayload {
   }
   initializationErrorString?: string
   initialized?: boolean
-  jsonPayload?: string
-  jsonPayloadBytes?: ByteString
   parsedPayload?: ParsedPayload
   parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
   parserForType?: ParserTriggerPayload
@@ -4249,8 +4346,6 @@ export interface TriggerPayloadOrBuilder {
   }
   initializationErrorString?: string
   initialized?: boolean
-  jsonPayload?: string
-  jsonPayloadBytes?: ByteString
   parsedPayload?: ParsedPayload
   parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
   sourceType?: 'CUSTOM_REPO' | 'GITHUB_REPO' | 'GITLAB_REPO' | 'BITBUCKET_REPO' | 'AWS_CODECOMMIT_REPO' | 'UNRECOGNIZED'
@@ -4497,13 +4592,19 @@ export interface ExecutionSummaryInfo {
   lastExecutionId?: string
   lastExecutionStatus?:
     | 'Running'
+    | 'AsyncWaiting'
+    | 'TaskWaiting'
+    | 'TimedWaiting'
     | 'Failed'
+    | 'Errored'
+    | 'IgnoreFailed'
     | 'NotStarted'
     | 'Expired'
     | 'Aborted'
+    | 'Discontinuing'
     | 'Queued'
     | 'Paused'
-    | 'Waiting'
+    | 'ResourceWaiting'
     | 'InterventionWaiting'
     | 'ApprovalWaiting'
     | 'Success'
@@ -4515,6 +4616,7 @@ export interface ExecutionSummaryInfo {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
+    | 'WAITING'
   lastExecutionTs?: number
   numOfErrors?: number[]
 }
@@ -5332,8 +5434,6 @@ export interface CreateInputSetForPipelineQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
-  createPr?: boolean
-  targetBranchForPr?: string
   baseBranch?: string
 }
 
@@ -5574,8 +5674,6 @@ export interface CreateOverlayInputSetForPipelineQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
-  createPr?: boolean
-  targetBranchForPr?: string
   baseBranch?: string
 }
 
@@ -5746,9 +5844,7 @@ export interface UpdateOverlayInputSetForPipelineQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
-  createPr?: boolean
   lastObjectId?: string
-  targetBranchForPr?: string
   baseBranch?: string
 }
 
@@ -5914,7 +6010,6 @@ export interface DeleteInputSetForPipelineQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
-  createPr?: boolean
   lastObjectId?: string
 }
 
@@ -6062,9 +6157,7 @@ export interface UpdateInputSetForPipelineQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
-  createPr?: boolean
   lastObjectId?: string
-  targetBranchForPr?: string
   baseBranch?: string
 }
 
@@ -6825,8 +6918,6 @@ export interface CreatePipelineQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
-  createPr?: boolean
-  targetBranchForPr?: string
   baseBranch?: string
 }
 
@@ -6889,13 +6980,19 @@ export interface GetListOfExecutionsQueryParams {
   module?: string
   status?:
     | 'Running'
+    | 'AsyncWaiting'
+    | 'TaskWaiting'
+    | 'TimedWaiting'
     | 'Failed'
+    | 'Errored'
+    | 'IgnoreFailed'
     | 'NotStarted'
     | 'Expired'
     | 'Aborted'
+    | 'Discontinuing'
     | 'Queued'
     | 'Paused'
-    | 'Waiting'
+    | 'ResourceWaiting'
     | 'InterventionWaiting'
     | 'ApprovalWaiting'
     | 'Success'
@@ -6907,7 +7004,11 @@ export interface GetListOfExecutionsQueryParams {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
+    | 'WAITING'
   myDeployments?: boolean
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetListOfExecutionsProps = Omit<
@@ -7681,7 +7782,6 @@ export interface SoftDeletePipelineQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
-  createPr?: boolean
   lastObjectId?: string
 }
 
@@ -7807,9 +7907,7 @@ export interface PutPipelineQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
-  createPr?: boolean
   lastObjectId?: string
-  targetBranchForPr?: string
   baseBranch?: string
 }
 

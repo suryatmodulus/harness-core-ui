@@ -61,7 +61,7 @@ export default function FilterSelector<T extends FilterInterface>(props: FilterS
         }}
         noResults={<MenuItem disabled={true} text={getString('filters.noFilterFound')} />}
       />
-      <div>
+      <div className={css.filterButtonContainer}>
         {fieldCountInAppliedFilter ? (
           <Popover
             interactionKind={PopoverInteractionKind.HOVER}

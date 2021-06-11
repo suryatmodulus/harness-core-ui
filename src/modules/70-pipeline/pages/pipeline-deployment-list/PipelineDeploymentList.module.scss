@@ -21,17 +21,30 @@
   align-items: center;
   margin: auto;
 }
-.noFilterData {
+.noDeploymentSection {
   display: flex;
-  flex-direction: column;
+  height: 100%;
   align-items: center;
-  margin: auto;
-}
-.clearFilterText {
-  color: var(--primary-7);
-  text-transform: uppercase;
-  font-size: var(--spacing-medium);
-  font-weight: 500;
+  justify-content: center;
+  text-align: center;
+  .clearFilterText {
+    color: var(--primary-7);
+    text-transform: uppercase;
+    font-size: var(--spacing-medium);
+    font-weight: 500;
+  }
+  .noDeploymentText {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    line-height: 28px !important;
+    color: var(--grey-1000) !important;
+  }
+  .aboutDeployment {
+    font-size: 16px !important;
+    font-weight: normal !important;
+    line-height: 24px !important;
+    color: var(--grey-600) !important;
+  }
 }
 
 .loading {

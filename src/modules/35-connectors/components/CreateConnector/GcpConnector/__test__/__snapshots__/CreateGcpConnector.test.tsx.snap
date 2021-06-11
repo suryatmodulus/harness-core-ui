@@ -647,7 +647,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                       <label
                         class="bp3-label"
                       >
-                        encryptedKeyLabel
+                        connectors.k8.serviceAccountKey
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1387,7 +1387,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       <label
                         class="bp3-label"
                       >
-                        encryptedKeyLabel
+                        connectors.k8.serviceAccountKey
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"

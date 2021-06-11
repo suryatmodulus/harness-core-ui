@@ -7,7 +7,20 @@ import { String, StringKeys } from 'framework/strings'
 
 import css from './StatusSelect.module.scss'
 
-type AllowedStatus = Exclude<ExecutionStatus, 'NotStarted' | 'Queued' | 'Skipped' | 'Pausing' | 'Suspended'>
+type AllowedStatus = Exclude<
+  ExecutionStatus,
+  | 'NotStarted'
+  | 'Queued'
+  | 'Skipped'
+  | 'Pausing'
+  | 'Suspended'
+  | 'AsyncWaiting'
+  | 'TaskWaiting'
+  | 'TimedWaiting'
+  | 'Errored'
+  | 'IgnoreFailed'
+  | 'Discontinuing'
+>
 const Select = BPSelect.ofType<AllowedStatus>()
 const allowedOptions = [
   ExecutionStatusEnum.Aborted,
@@ -19,7 +32,7 @@ const allowedOptions = [
   ExecutionStatusEnum.Paused,
   ExecutionStatusEnum.ApprovalWaiting,
   ExecutionStatusEnum.InterventionWaiting,
-  ExecutionStatusEnum.Waiting
+  ExecutionStatusEnum.ResourceWaiting
 ] as AllowedStatus[]
 
 const labelMap: Record<AllowedStatus, StringKeys> = {
@@ -32,7 +45,7 @@ const labelMap: Record<AllowedStatus, StringKeys> = {
   Paused: 'pipeline.executionFilters.labels.Paused',
   ApprovalWaiting: 'pipeline.executionFilters.labels.ApprovalWaiting',
   InterventionWaiting: 'pipeline.executionFilters.labels.InterventionWaiting',
-  Waiting: 'pipeline.executionFilters.labels.Waiting'
+  ResourceWaiting: 'pipeline.executionFilters.labels.Waiting'
 }
 
 const itemRenderer: ItemRenderer<AllowedStatus> = (item, props) => (

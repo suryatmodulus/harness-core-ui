@@ -12,7 +12,7 @@ export const TestFlagInfoView: React.FC = () => {
       style={{
         boxShadow: '-8px 0 10px -5px rgb(96 97 112 / 16%)',
         position: 'fixed',
-        top: '80px',
+        top: '90px',
         right: 0,
         bottom: '60px',
         zIndex: 0

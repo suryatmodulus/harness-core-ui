@@ -88,9 +88,9 @@ function AppDynamicsConfigStep(props: ConnectionConfigProps): JSX.Element {
   const { spec, ...prevData } = props.prevStepData || {}
   let secretFieldValue: any
   if (initialValues.authType === AppDynamicsAuthType.USERNAME_PASSWORD) {
-    secretFieldValue = prevData?.password || spec?.passwordRef
+    secretFieldValue = prevData?.password?.referenceString || spec?.passwordRef
   } else if (initialValues.authType === AppDynamicsAuthType.API_CLIENT_TOKEN) {
-    secretFieldValue = prevData?.clientSecretRef || spec?.clientSecretRef
+    secretFieldValue = prevData?.clientSecretRef?.referenceString || spec?.clientSecretRef
   }
 
   return (

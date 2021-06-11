@@ -534,7 +534,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                 class="nestedAccordions"
                               >
                                 <div
-                                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
+                                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main containerPadding StyledProps--padding-medium"
                                 >
                                   <div
                                     class="formGroup md"
@@ -555,7 +555,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                         style="display: flex; align-items: center;"
                                       >
                                         <div
-                                          class="bp3-form-group"
+                                          class="bp3-form-group connectorMargin"
                                           data-id="undefined-1"
                                           style="margin-bottom: 0px;"
                                         >
@@ -564,12 +564,12 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                           >
                                             <div
                                               class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                                              style="width: 400px;"
+                                              style="width: 445px;"
                                             >
                                               <button
                                                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                                                 data-testid="cr-field-pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.connectorRef"
-                                                style="width: 372px;"
+                                                style="width: 417px;"
                                                 type="button"
                                               >
                                                 <span
@@ -1869,7 +1869,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                 class="nestedAccordions"
                               >
                                 <div
-                                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
+                                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main containerPadding StyledProps--padding-medium"
                                 >
                                   <div
                                     class="formGroup md"
@@ -1890,7 +1890,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                         style="display: flex; align-items: center;"
                                       >
                                         <div
-                                          class="bp3-form-group"
+                                          class="bp3-form-group connectorMargin"
                                           data-id="undefined-1"
                                           style="margin-bottom: 0px;"
                                         >
@@ -1899,12 +1899,12 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                           >
                                             <div
                                               class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                                              style="width: 400px;"
+                                              style="width: 445px;"
                                             >
                                               <button
                                                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                                                 data-testid="cr-field-pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.connectorRef"
-                                                style="width: 372px;"
+                                                style="width: 417px;"
                                                 type="button"
                                               >
                                                 <span

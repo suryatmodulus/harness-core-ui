@@ -89,7 +89,6 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     ...rest
   } = restProps
   const selected = get(formik?.values, name, '')
-  const mountRef = React.useRef<boolean>(false)
   const [selectedValue, setSelectedValue] = React.useState(selected)
   const [inlineSelection, setInlineSelection] = React.useState<InlineSelectionInterface>({
     selected: false,
@@ -97,7 +96,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   })
   const scopeFromSelected = typeof selectedValue === 'string' ? getScopeFromValue(selectedValue || '') : selected?.scope
   const selectedRef =
-    typeof selectedValue === 'string' ? getIdentifierFromValue(selected || '') : selectedValue?.connector?.identifier
+    typeof selected === 'string' ? getIdentifierFromValue(selected || '') : selectedValue?.connector?.identifier
+
   const [multiType, setMultiType] = React.useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
   const { data: connectorData, loading, refetch } = useGetConnector({
     identifier: selectedRef as string,
@@ -123,16 +123,16 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   React.useEffect(() => {
     if (
       typeof selected === 'string' &&
-      !mountRef.current &&
       multiType === MultiTypeInputType.FIXED &&
       getMultiTypeFromValue(selected) === MultiTypeInputType.FIXED &&
       selected.length > 0
     ) {
       refetch()
-      mountRef.current = true
+    } else {
+      setSelectedValue(selected)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [selected])
 
   React.useEffect(() => {
     if (

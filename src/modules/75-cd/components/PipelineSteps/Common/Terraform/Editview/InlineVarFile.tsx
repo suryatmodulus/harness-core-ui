@@ -7,13 +7,13 @@ import {
   Formik,
   MultiTypeInputType,
   ExpressionInput,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  FormikForm
 } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import { Classes, Dialog } from '@blueprintjs/core'
 
-import { Form } from 'formik'
 import { useStrings } from 'framework/strings'
 import { IdentifierSchema } from '@common/utils/Validation'
 import { MultiTypeFieldSelector } from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -72,7 +72,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
         >
           {formikProps => {
             return (
-              <Form>
+              <FormikForm>
                 <div className={stepCss.formGroup}>
                   <FormInput.MultiTextInput
                     name="varFile.identifier"
@@ -131,9 +131,11 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                 </div>
 
                 <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-                  <Button type="submit" intent={'primary'} text={getString('submit')} />
+                  <Button type="submit" intent={'primary'} data-testid="submit-inlinevar">
+                    {getString('submit')}
+                  </Button>
                 </Layout.Horizontal>
-              </Form>
+              </FormikForm>
             )
           }}
         </Formik>

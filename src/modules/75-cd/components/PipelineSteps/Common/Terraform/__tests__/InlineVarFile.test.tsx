@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { render, waitFor, getByText as getByTextBody } from '@testing-library/react'
+import { render, waitFor, getByText as getByTextBody, fireEvent, act } from '@testing-library/react'
 
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import InlineVarFile from '../Editview/InlineVarFile'
@@ -30,6 +30,7 @@ describe('Inline var file testing', () => {
       </TestWrapper>
     )
     const dialog = findDialogContainer() as HTMLElement
+
     await waitFor(() => getByTextBody(dialog, 'Add Inline Terraform Var File'))
     expect(dialog).toMatchSnapshot()
   })
@@ -63,5 +64,41 @@ describe('Inline var file testing', () => {
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'Add Inline Terraform Var File'))
     expect(dialog).toMatchSnapshot()
+  })
+
+  test('click submit for inline var file', async () => {
+    const defaultProps = {
+      arrayHelpers: {
+        push: jest.fn(),
+        replace: jest.fn()
+      },
+      isEditMode: false,
+      selectedVarIndex: 1,
+      showTfModal: true,
+      selectedVar: {
+        varFile: {
+          identifer: 'test',
+          spec: {
+            content: 'test-content'
+          }
+        }
+      },
+      onClose: jest.fn(),
+      onSubmit: jest.fn()
+    }
+    const { getByText } = render(
+      <TestWrapper>
+        <InlineVarFile {...defaultProps} />
+      </TestWrapper>
+    )
+
+    const dialog = findDialogContainer() as HTMLElement
+    await waitFor(() => getByTextBody(dialog, 'Add Inline Terraform Var File'))
+
+    act(() => {
+      fireEvent.click(getByText('submit'))
+      expect(dialog).toMatchSnapshot()
+      waitFor(() => expect(props.onSubmit).toBeCalled())
+    })
   })
 })

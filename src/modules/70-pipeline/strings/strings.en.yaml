@@ -15,6 +15,10 @@ onlyPositiveInteger: Only positive integer values
 optionalLabel: (Optional)
 depth: Depth
 sslVerify: SSL Verify
+noPipelineText: There are no pipelines in your project
+noDeploymentText: There are no deployments in your project
+noBuildsText: There are no builds in your project
+runAPipeline: Run a Pipeline
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required
@@ -22,6 +26,7 @@ barrierStep:
 approvalStep:
   message: 'Approval Message'
   approvers: 'Approver(s)'
+  ensureUserGroups: To use Harness Approvals, please make sure your project has user groups.
   approversWithColon: '{{$.pipeline.approvalStep.approvers}}:'
   approverInputs: 'Inputs to be provided by approver'
   includePipelineExecutionHistory: 'Include pipeline execution history in approval details'
@@ -38,6 +43,8 @@ approvalStep:
   status:
     APPROVE: Approved
     REJECT: Rejected
+  notAuthorizedExecution: User is not authorized to approve/reject the pipeline
+  disallowedApproverExecution: This approval step has been configured to disallow pipeline executors to approve this stage.
 jiraApprovalStep:
   connectToJira: Connect to Jira
   connectorRef: Jira Connector
@@ -84,14 +91,14 @@ jiraCreateStep:
   validations:
     summary: Summary is required.
 jiraUpdateStep:
-  statusTransitionAccordion: Status and Transition (Optional)
-  transitionLabel: Transition Name (Optional)
+  statusTransitionAccordion: Status and Transition (optional)
+  transitionLabel: Transition Name
   fetchingStatus: Fetching status list...
   projectIssueTypeDisclaimer:
     Please ensure the values for your project and issuetype matches the values in your issue key. If the
     values don’t match, there will be an error at runtime.
   validations:
-    status: Status is required.
+    status: Status is required with transition.
 manifestType:
   gitConnectorLabel: 'Git'
   bitBucketLabel: 'Bitbucket'
@@ -499,6 +506,8 @@ uniqueIdentifier: Identifier must be unique
 repoRequired: 'Repository name is a required field'
 branchRequired: 'Branch is a required field'
 inputSets:
+  applyInputSet: Apply Input Set
+  applyInputSets: Apply Input Sets
   noRuntimeInputsCurrently: No runtime inputs in the pipeline currently
   noRuntimeInputsWhileExecution: No runtime inputs were present in the pipeline during this execution
 provisionerSteps: Provisioner Steps

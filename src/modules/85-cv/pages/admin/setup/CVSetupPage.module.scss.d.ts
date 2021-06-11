@@ -16,5 +16,6 @@ declare const styles: {
   readonly cardCss: string
   readonly cardSelected: string
   readonly monitoringCard: string
+  readonly disabled: string
 }
 export default styles

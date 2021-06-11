@@ -31,7 +31,9 @@ declare const styles: {
   readonly loading: string
   readonly noData: string
   readonly noPipelineSection: string
-  readonly noFilterData: string
   readonly clearFilterText: string
+  readonly image: string
+  readonly noPipelineText: string
+  readonly aboutPipeline: string
 }
 export default styles

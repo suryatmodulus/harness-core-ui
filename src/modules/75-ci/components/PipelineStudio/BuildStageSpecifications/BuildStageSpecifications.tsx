@@ -15,16 +15,13 @@ import { usePipelineVariables } from '@pipeline/components/PipelineVariablesCont
 import { useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
+import { NameSchema } from '@common/utils/Validation'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { StageElementWrapper } from 'services/cd-ng'
 import css from './BuildStageSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
-
-const validationSchema = yup.object().shape({
-  name: yup.string().trim().required()
-})
 
 export interface Variable {
   name: string
@@ -93,6 +90,10 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
       skipCondition
     }
   }
+
+  const validationSchema = yup.object().shape({
+    name: NameSchema()
+  })
 
   const handleValidate = (values: any): void => {
     if (stage?.stage) {

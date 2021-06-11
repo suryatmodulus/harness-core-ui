@@ -64,6 +64,10 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
+import RbacFactory from '@rbac/factories/RbacFactory'
+import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { String } from 'framework/strings'
 import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
@@ -114,6 +118,32 @@ const RedirectToTargets = (): React.ReactElement => {
 const cfModuleParams: ModulePathParams = {
   module: ':module(cf)'
 }
+
+RbacFactory.registerResourceCategory(ResourceCategory.FEATUREFLAG_FUNCTIONS, {
+  icon: 'nav-cf',
+  label: 'cf.rbac.category'
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.FEATUREFLAG, {
+  icon: 'nav-cf',
+  label: 'cf.rbac.featureflag.label',
+  category: ResourceCategory.FEATUREFLAG_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.TOGGLE_FF_FEATUREFLAG]: <String stringID="cf.rbac.featureflag.toggle" />,
+    [PermissionIdentifier.EDIT_FF_FEATUREFLAG]: <String stringID="cf.rbac.featureflag.edit" />,
+    [PermissionIdentifier.DELETE_FF_FEATUREFLAG]: <String stringID="cf.rbac.featureflag.delete" />
+  }
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.TARGETGROUP, {
+  icon: 'nav-cf',
+  label: 'cf.rbac.targetgroup.label',
+  category: ResourceCategory.FEATUREFLAG_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.EDIT_FF_TARGETGROUP]: <String stringID="cf.rbac.targetgroup.edit" />,
+    [PermissionIdentifier.DELETE_FF_TARGETGROUP]: <String stringID="cf.rbac.targetgroup.delete" />
+  }
+})
 
 export default (
   <>

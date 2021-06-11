@@ -18,15 +18,7 @@
 }
 
 .inputsetGrid {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  background: var(--grey-50);
-  .treeSidebar {
-    border-right: solid 1px #ccc;
-    background: #fff;
-    height: calc(100vh - 236px);
-    overflow: auto;
-  }
+  background-color: var(--form-bg);
   .input-set-content {
     height: calc(100vh - 236px);
     overflow: auto;
@@ -46,4 +38,8 @@
       }
     }
   }
+}
+
+.inputSetSelectedValue {
+  width: 600px !important;
 }

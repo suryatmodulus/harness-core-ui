@@ -154,7 +154,9 @@ exports[`CD Pipeline Page List render card view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          class="filterButtonContainer"
+        >
           <button
             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ngFilter StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             id="ngfilterbtn"
@@ -1643,7 +1645,9 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          class="filterButtonContainer"
+        >
           <button
             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ngFilter StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             id="ngfilterbtn"

@@ -60,16 +60,19 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
-  const commonParams = {
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  }
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [statusList, setStatusList] = useState<JiraStatusNG[]>([])
   const [fieldList, setFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
+
+  const commonParams = {
+    accountIdentifier: accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier,
+    branch
+  }
 
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const projectKeyFixedValue =
@@ -373,12 +376,15 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
   const { onUpdate, readonly, isNewStep } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    branch,
+    repoIdentifier
   }
 
   const {
@@ -420,7 +426,7 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
-          issueKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueKey')),
+          issueKey: Yup.string().trim().required(getString('pipeline.jiraApprovalStep.validations.issueKey')),
           approvalCriteria: Yup.object().shape({
             spec: Yup.object().when('type', {
               is: ApprovalRejectionCriteriaType.KeyValues,
@@ -430,7 +436,7 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
                 )
               }),
               otherwise: Yup.object().shape({
-                expression: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.expression'))
+                expression: Yup.string().trim().required(getString('pipeline.jiraApprovalStep.validations.expression'))
               })
             })
           })

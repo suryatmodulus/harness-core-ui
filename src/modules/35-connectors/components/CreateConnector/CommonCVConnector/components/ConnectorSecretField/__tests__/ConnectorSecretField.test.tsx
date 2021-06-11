@@ -46,7 +46,7 @@ describe('Unit tests for ConnectorSecretField', () => {
 
   test('Ensure that if api is loading field has loading placeholder', async () => {
     jest.spyOn(connectorUtils, 'setSecretField').mockImplementation(() => new Promise(() => undefined))
-    const { getByText } = render(
+    const { container } = render(
       <WrapperComponent
         secretInputProps={{
           label: 'dsfsdf',
@@ -60,7 +60,7 @@ describe('Unit tests for ConnectorSecretField', () => {
       />
     )
 
-    await waitFor(() => expect(getByText('loading')).not.toBeNull())
+    await waitFor(() => expect(container.querySelector('input[placeholder="loading"]')).not.toBeNull())
   })
 
   test('Ensure that when api returns valid value the onsuccess function is called', async () => {

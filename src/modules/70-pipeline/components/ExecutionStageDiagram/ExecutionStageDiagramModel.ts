@@ -2,7 +2,7 @@ import type { LinkModelListener, NodeModelListener } from '@projectstorm/react-d
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import cx from 'classnames'
 import { last, isEmpty } from 'lodash-es'
-import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
+import { ExecutionStatusEnum, isExecutionRunning } from '@pipeline/utils/statusHelpers'
 import { ExecutionPipeline, ExecutionPipelineNode, ExecutionPipelineNodeType } from './ExecutionPipelineModel'
 import {
   getNodeStyles,
@@ -96,8 +96,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         ...statusProps,
         ...tertiaryIconProps,
         nodeClassName: cx(
-          { [css.runningNode]: stage.status === ExecutionStatusEnum.Running },
-          { [css.selected]: stage.status === ExecutionStatusEnum.Running && isSelected }
+          { [css.runningNode]: isExecutionRunning(stage.status) },
+          { [css.selected]: isExecutionRunning(stage.status) && isSelected }
         ),
         iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected, stage.data),
         icon: stage.icon,

@@ -89,7 +89,6 @@ const testWrapperProps: TestWrapperProps = {
   },
   defaultAppStoreValues
 }
-
 jest.useFakeTimers()
 
 // eslint-disable-next-line jest/no-disabled-tests
@@ -190,7 +189,7 @@ describe('Test Pipeline Deployment list', () => {
       </TestWrapper>
     )
 
-    const select = getByTestId('status-select')!
+    const select = await waitFor(() => getByTestId('status-select')!)
 
     fireEvent.click(select)
 
@@ -277,7 +276,7 @@ describe('Test Pipeline Deployment list', () => {
       </TestWrapper>
     )
 
-    const select = getByTestId('pipeline-select')!
+    const select = await waitFor(() => getByTestId('pipeline-select')!)
 
     fireEvent.click(select)
 

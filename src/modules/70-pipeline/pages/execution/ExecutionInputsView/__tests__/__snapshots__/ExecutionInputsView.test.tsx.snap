@@ -15,7 +15,7 @@ exports[`<ExecutionInputsView /> tests snapshot test 1`] = `
           class="Layout--vertical StyledProps--main"
         >
           <div
-            class="runModalFormContent"
+            class="runModalFormContentExecutionView"
           >
             <form
               class="FormikForm--main"

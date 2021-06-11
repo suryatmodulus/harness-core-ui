@@ -403,8 +403,8 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
             validationSchema={Yup.object().shape({
               name: Yup.string()
                 .trim()
-                .required(getString('validation.nameRequired'))
-                .matches(regexIdentifier, getString('validation.validIdRegex')),
+                .required(getString('common.validation.nameIsRequired'))
+                .matches(regexIdentifier, getString('common.validation.namePatternIsNotValid')),
               filterVisibility: Yup.mixed()
                 .oneOf(['OnlyCreator', 'EveryOne'])
                 .required(getString('filters.visibilityRequired'))

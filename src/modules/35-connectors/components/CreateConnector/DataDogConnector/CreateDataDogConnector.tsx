@@ -6,9 +6,10 @@ import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { Connectors } from '@connectors/constants'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { cvConnectorHOC } from '../CommonCVConnector/CVConnectorHOC'
 import type { ConnectionConfigProps } from '../CommonCVConnector/constants'
-import { initializeDatadogConnectorWithStepData, setDatadogSecrets } from './utils'
+import { initializeDatadogConnectorWithStepData } from './utils'
 import { StepDetailsHeader } from '../CommonCVConnector/components/CredentialsStepHeader/CredentialsStepHeader'
 import css from './CreateDatadogConnector.module.scss'
 
@@ -21,17 +22,21 @@ export function DatadogConfigStep(props: ConnectionConfigProps): JSX.Element {
     applicationKeyRef: {},
     accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    loading: true
   })
 
   useEffect(() => {
-    const updatedInitialValues = initializeDatadogConnectorWithStepData(prevStepData)
-    if (updatedInitialValues) {
-      setDatadogSecrets(updatedInitialValues, accountId).then(result => {
-        setInitialValues(result)
-      })
+    async function updateStepData(): Promise<void> {
+      const value = await initializeDatadogConnectorWithStepData(prevStepData, accountId)
+      value && setInitialValues(value)
     }
-  }, [prevStepData])
+    updateStepData()
+  }, [prevStepData, accountId])
+
+  if (initialValues?.loading) {
+    return <PageSpinner />
+  }
 
   return (
     <Container className={css.credentials}>

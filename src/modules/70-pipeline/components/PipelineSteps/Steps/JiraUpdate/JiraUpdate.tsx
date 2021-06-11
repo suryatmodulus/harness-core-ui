@@ -59,7 +59,7 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
 
     if (
       getMultiTypeFromValue(template?.spec?.issueKey) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.issueKey)
+      isEmpty(data?.spec?.issueKey?.trim())
     ) {
       errors.spec = {
         ...errors.spec,

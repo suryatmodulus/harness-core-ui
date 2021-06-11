@@ -35,6 +35,7 @@ export function TFBackendConfigMonaco(props: TFMonacoProps): React.ReactElement 
           small
           onClick={() => setFullScreen(true)}
           iconProps={{ size: 10 }}
+          type="button"
         />
       )}
       <MonacoEditor

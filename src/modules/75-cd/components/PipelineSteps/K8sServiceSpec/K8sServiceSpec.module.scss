@@ -60,7 +60,7 @@
   padding: var(--spacing-small);
 }
 .inputWidth {
-  width: 400px !important;
+  width: 50% !important;
 }
 .nested-accordions {
   box-shadow: none !important;
@@ -166,4 +166,13 @@
 
 .width25 {
   width: 25%;
+}
+
+.serviceSection {
+  align-items: start !important;
+  --layout-spacing: var(--spacing-small) !important;
+}
+
+.connectorMargin {
+  margin-bottom: var(--spacing-small) !important;
 }

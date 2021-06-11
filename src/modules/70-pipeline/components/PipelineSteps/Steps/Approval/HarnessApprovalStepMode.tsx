@@ -356,7 +356,7 @@ function HarnessApprovalStepMode(
         name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
-          approvalMessage: Yup.string().required(getString('pipeline.approvalStep.validation.approvalMessage')),
+          approvalMessage: Yup.string().trim().required(getString('pipeline.approvalStep.validation.approvalMessage')),
           approvers: Yup.object().shape({
             userGroups: Yup.string().required(getString('pipeline.approvalStep.validation.userGroups')),
             minimumCount: Yup.string().required(getString('pipeline.approvalStep.validation.minimumCountRequired'))

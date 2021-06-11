@@ -174,18 +174,30 @@ $header-height: 80px;
   margin: auto;
 }
 .noPipelineSection {
-  height: 80%;
   display: flex;
-  .noFilterData {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   .clearFilterText {
     color: var(--primary-7);
     text-transform: uppercase;
     font-size: var(--spacing-medium);
     font-weight: 500;
+  }
+  .image {
+    width: 720px;
+  }
+  .noPipelineText {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    line-height: 28px !important;
+    color: var(--grey-1000) !important;
+  }
+  .aboutPipeline {
+    font-size: 16px !important;
+    font-weight: normal !important;
+    line-height: 24px !important;
+    color: var(--grey-600) !important;
   }
 }

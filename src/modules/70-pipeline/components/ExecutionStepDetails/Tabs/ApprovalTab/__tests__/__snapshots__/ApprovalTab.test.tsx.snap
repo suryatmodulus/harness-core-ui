@@ -27,7 +27,7 @@ exports[`<ApprovalTab /> tests renders harness approval step 1`] = `
         </tr>
         <tr>
           <th>
-            duration
+            pipeline.duration
           </th>
           <td>
             <div>

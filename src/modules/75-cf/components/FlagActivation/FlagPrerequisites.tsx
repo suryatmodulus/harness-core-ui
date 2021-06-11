@@ -1,23 +1,27 @@
 import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { get, isEqual, flatMap } from 'lodash-es'
+import { flatMap, get, isEqual } from 'lodash-es'
 import {
-  Layout,
-  Text,
   Button,
-  Container,
   Collapse,
+  Container,
   Formik,
   FormikForm as Form,
   FormInput,
+  Layout,
+  Text,
   useModalHook
 } from '@wings-software/uicore'
 import { FieldArray } from 'formik'
 import cx from 'classnames'
-import { Menu, Dialog } from '@blueprintjs/core'
 import type { IconName } from '@blueprintjs/core'
+import { Dialog, Menu } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import {
   Feature,
   PatchFeatureQueryParams,
@@ -37,7 +41,7 @@ const editCardCollapsedProps = {
   className: 'collapse'
 }
 
-interface FlagRerequisitesProps {
+interface FlagPrerequisitesProps {
   featureFlag: Feature
   refetchFlag: () => void
 }
@@ -47,7 +51,7 @@ interface PrerequisiteEntry {
   variation: string
 }
 
-export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
+export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
   const { featureFlag, refetchFlag } = props
   const { showError } = useToaster()
   const { getString } = useStrings()
@@ -289,6 +293,11 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
     </Text>
   )
 
+  const rbacPermission: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier } = {
+    resource: { resourceType: ResourceType.FEATUREFLAG },
+    permission: PermissionIdentifier.EDIT_FF_FEATUREFLAG
+  }
+
   return (
     <Container className={cx(css.collapseFeatures, css.module)}>
       <Collapse {...editCardCollapsedProps} heading={prerequisitesTitle}>
@@ -304,7 +313,7 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
               <Layout.Horizontal key={i} flex padding="medium">
                 <Text>{elem.feature}</Text>
                 <Text>{elem.variations[0]}</Text>
-                <Button
+                <RbacButton
                   minimal
                   icon="Options"
                   style={{ marginLeft: 'auto' }}
@@ -325,10 +334,11 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
                     </Menu>
                   }
                   tooltipProps={{ isDark: true, interactionKind: 'click' }}
+                  permission={rbacPermission}
                 />
               </Layout.Horizontal>
             ))}
-          <Button
+          <RbacButton
             minimal
             intent="primary"
             icon="small-plus"
@@ -338,6 +348,7 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
               openModalPrerequisites()
             }}
             disabled={featureFlag.archived}
+            permission={rbacPermission}
           />
         </Layout.Vertical>
       </Collapse>

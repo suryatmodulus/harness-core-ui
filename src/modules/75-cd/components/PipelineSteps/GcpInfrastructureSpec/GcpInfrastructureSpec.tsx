@@ -284,7 +284,8 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                     selectProps: {
                       items: clusterOptions,
                       itemRenderer: itemRenderer,
-                      allowCreatingNewItems: true
+                      allowCreatingNewItems: true,
+                      addClearBtn: !(loadingClusterNames || readonly)
                     }
                   }}
                   label={getString('common.cluster')}
@@ -477,7 +478,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTypeInput
             name={`${path}.cluster`}
-            disabled={loadingClusterNames}
+            disabled={loadingClusterNames || readonly}
             placeholder={
               loadingClusterNames
                 ? /* istanbul ignore next */ getString('loading')
@@ -490,7 +491,8 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
               selectProps: {
                 items: clusterOptions,
                 itemRenderer: itemRenderer,
-                allowCreatingNewItems: true
+                allowCreatingNewItems: true,
+                addClearBtn: !(loadingClusterNames || readonly)
               },
               expressions,
               allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]

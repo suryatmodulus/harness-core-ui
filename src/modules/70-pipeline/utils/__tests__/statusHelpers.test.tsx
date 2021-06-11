@@ -15,7 +15,7 @@ describe('statusHelpers tests', () => {
   })
 
   describe('isExecutionActive tests', () => {
-    test.each<[utils.ExecutionStatus]>([['Paused'], ['Running'], ['Waiting'], ['Queued']])(
+    test.each<[utils.ExecutionStatus]>([['Paused'], ['Running'], ['ResourceWaiting'], ['Queued']])(
       'Status "%s" marks stage as in-progress',
       status => {
         expect(utils.isExecutionActive(status)).toBe(true)

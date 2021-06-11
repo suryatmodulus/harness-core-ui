@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import {
   Checkbox,
   Color,
@@ -34,6 +34,7 @@ export interface InputSetSelectorProps {
   onChange?: (value?: InputSetValue[]) => void
   width?: number
   gitFilter?: GitFilterScope
+  selectedValueClass?: string
 }
 
 const getIconByType = (type: InputSetSummaryResponse['inputSetType']): IconName => {
@@ -42,10 +43,16 @@ const getIconByType = (type: InputSetSummaryResponse['inputSetType']): IconName 
 
 const RenderValue = React.memo(function RenderValue({
   value,
-  onChange
+  onChange,
+  setSelectedInputSets,
+  setApplyInputSets,
+  selectedValueClass
 }: {
   value: InputSetValue[]
   onChange?: (value?: InputSetValue[]) => void
+  setSelectedInputSets: Dispatch<SetStateAction<InputSetValue[]>>
+  setApplyInputSets: Dispatch<SetStateAction<boolean>>
+  selectedValueClass?: string
 }): JSX.Element {
   const onDragStart = React.useCallback((event: React.DragEvent<HTMLLIElement>, row: InputSetValue) => {
     event.dataTransfer.setData('data', JSON.stringify(row))
@@ -93,56 +100,83 @@ const RenderValue = React.memo(function RenderValue({
     },
     [value]
   )
-  if (value.length) {
-    return (
-      <>
-        {value.map(item => (
-          <li
+
+  const { getString } = useStrings()
+  return (
+    <div className={cx(css.renderSelectedValue, selectedValueClass)}>
+      {value?.map((item, index) => (
+        <li
+          key={item.label}
+          className={css.selectedInputSetLi}
+          draggable={true}
+          onDragStart={event => {
+            onDragStart(event, item)
+          }}
+          onDragEnd={onDragEnd}
+          onDragOver={onDragOver}
+          onDragLeave={onDragLeave}
+          onDrop={event => onDrop(event, item)}
+        >
+          <Button
             key={item.label}
-            className={css.selectedInputSetLi}
-            draggable={true}
-            onDragStart={event => {
-              onDragStart(event, item)
+            round={true}
+            rightIcon="cross"
+            iconProps={{
+              onClick: event => {
+                event.stopPropagation()
+                const valuesAfterRemoval = value.filter(inputset => inputset.value !== item.value)
+                setSelectedInputSets(valuesAfterRemoval)
+                onChange?.(valuesAfterRemoval)
+              },
+              style: {
+                cursor: 'pointer'
+              }
             }}
-            onDragEnd={onDragEnd}
-            onDragOver={onDragOver}
-            onDragLeave={onDragLeave}
-            onDrop={event => onDrop(event, item)}
-          >
-            <Button
-              key={item.label}
-              round={true}
-              rightIcon="cross"
-              iconProps={{
-                onClick: event => {
-                  event.stopPropagation()
-                  const valuesAfterRemoval = value.filter(inputset => inputset.label !== item.label)
-                  onChange?.(valuesAfterRemoval)
-                }
-              }}
-              icon={getIconByType(item.type)}
-              text={item.label}
-              margin={{ right: 'small' }}
-              className={css.selectedInputSetCard}
-              border={{ color: 'var(--form-field-border)', width: 1, style: 'solid' }}
-              color={Color.BLUE_500}
-            />
-          </li>
-        ))}
-      </>
-    )
-  }
-  return <></>
+            icon={getIconByType(item.type)}
+            text={
+              <Layout.Horizontal flex={{ alignItems: 'center' }} spacing="small">
+                <Button
+                  round={true}
+                  withoutBoxShadow={true}
+                  font={{ weight: 'semi-bold' }}
+                  width={20}
+                  height={20}
+                  className={css.selectedInputSetOrder}
+                >
+                  {index + 1}
+                </Button>
+                <Text color={Color.PRIMARY_7}>{item.label}</Text>
+              </Layout.Horizontal>
+            }
+            margin={{ top: 'small', bottom: 'small', left: 0, right: 'small' }}
+            className={css.selectedInputSetCard}
+            color={Color.PRIMARY_7}
+          />
+        </li>
+      ))}
+      <Button
+        icon="small-plus"
+        className={css.addInputSetButton}
+        onClick={() => setApplyInputSets(false)}
+        color={Color.PRIMARY_7}
+        minimal
+        intent="primary"
+      >
+        {getString('inputSets.selectPlaceholder')}
+      </Button>
+    </div>
+  )
 })
 
 export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   value,
   onChange,
   pipelineIdentifier,
-  gitFilter = {}
+  gitFilter = {},
+  selectedValueClass
 }): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
-  const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetValue[]>([])
+  const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetValue[]>(value || [])
   const { getString } = useStrings()
 
   const { projectIdentifier, orgIdentifier, accountId } = useParams<{
@@ -300,10 +334,13 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         </li>
       ))
 
+  const [applyInputSets, setApplyInputSets] = useState(false)
   return (
     <Popover
       position={Position.BOTTOM}
+      usePortal={false}
       minimal={true}
+      className={css.isPopoverParent}
       onOpening={() => {
         refetch()
       }}
@@ -311,49 +348,67 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         onChange?.(selectedInputSets)
       }}
     >
-      <Layout.Horizontal className={css.selectedInputSetsContainer}>
-        {value?.length ? <RenderValue value={value} onChange={onChange} /> : null}
-        <Button icon="small-plus" withoutBoxShadow={true} className={css.addInputSetButton} minimal intent="primary">
-          {getString('inputSets.selectPlaceholder')}
-        </Button>
-      </Layout.Horizontal>
-      <Layout.Vertical spacing="small" className={css.popoverContainer}>
-        <div className={!inputSets ? css.loadingSearchContainer : css.searchContainer}>
-          <TextInput
-            placeholder={getString('search')}
-            rightElement="chevron-down"
-            className={css.search}
-            value={searchParam}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearchParam(e.target.value.trim())
-            }}
-          />
-        </div>
-        {!inputSets ? (
-          <PageSpinner className={css.spinner} />
-        ) : (
-          <Layout.Vertical padding="small">
-            {inputSets && inputSets.length > 0 ? (
-              <ul className={cx(Classes.MENU, css.list, { [css.multiple]: inputSets.length > 0 })}>
+      <RenderValue
+        value={value || []}
+        onChange={onChange}
+        setSelectedInputSets={setSelectedInputSets}
+        setApplyInputSets={setApplyInputSets}
+        selectedValueClass={selectedValueClass}
+      />
+      {applyInputSets ? null : (
+        <Layout.Vertical spacing="small" className={css.popoverContainer}>
+          <div className={!inputSets ? css.loadingSearchContainer : css.searchContainer}>
+            <TextInput
+              placeholder={getString('search')}
+              rightElement="chevron-down"
+              className={css.search}
+              value={searchParam}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setSearchParam(e.target.value.trim())
+              }}
+            />
+          </div>
+          {!inputSets ? (
+            <PageSpinner className={css.spinner} />
+          ) : (
+            <Layout.Vertical padding="small">
+              {inputSets && inputSets.length > 0 ? (
                 <>
-                  {selectedMultipleList}
-                  {multipleInputSetList}
+                  <ul className={cx(Classes.MENU, css.list, { [css.multiple]: inputSets.length > 0 })}>
+                    <>
+                      {selectedMultipleList}
+                      {multipleInputSetList}
+                    </>
+                  </ul>
+                  <Button
+                    text={
+                      selectedInputSets?.length > 1
+                        ? getString('pipeline.inputSets.applyInputSets')
+                        : getString('pipeline.inputSets.applyInputSet')
+                    }
+                    intent="primary"
+                    disabled={!selectedInputSets?.length}
+                    onClick={() => {
+                      setApplyInputSets(true)
+                      onChange?.(selectedInputSets)
+                    }}
+                  />
                 </>
-              </ul>
-            ) : (
-              <Layout.Horizontal
-                spacing="small"
-                background={Color.GREY_200}
-                flex={{ align: 'center-center' }}
-                padding="small"
-                margin="small"
-              >
-                <Text>{getString('inputSets.noRecord')}</Text>
-              </Layout.Horizontal>
-            )}
-          </Layout.Vertical>
-        )}
-      </Layout.Vertical>
+              ) : (
+                <Layout.Horizontal
+                  spacing="small"
+                  background={Color.GREY_200}
+                  flex={{ align: 'center-center' }}
+                  padding="small"
+                  margin="small"
+                >
+                  <Text>{getString('inputSets.noRecord')}</Text>
+                </Layout.Horizontal>
+              )}
+            </Layout.Vertical>
+          )}
+        </Layout.Vertical>
+      )}
     </Popover>
   )
 }

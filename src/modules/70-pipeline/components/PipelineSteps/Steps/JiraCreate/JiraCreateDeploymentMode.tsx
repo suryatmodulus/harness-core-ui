@@ -3,7 +3,13 @@ import { useParams } from 'react-router-dom'
 import { isEmpty, set } from 'lodash-es'
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type {
+  AccountPathProps,
+  GitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { JiraProjectBasicNG, JiraProjectNG, useGetJiraIssueCreateMetadata, useGetJiraProjects } from 'services/cd-ng'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
@@ -34,12 +40,15 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
   const readonly = inputSetData?.readonly
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
@@ -136,6 +145,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
             set(initialValues, 'spec.connectorRef', connectorRef)
             onUpdate?.(initialValues)
           }}
+          gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
       ) : null}
       {getMultiTypeFromValue(template?.spec?.projectKey) === MultiTypeInputType.RUNTIME ? (
@@ -198,13 +208,16 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
 
 export default function JiraCreateDeploymentMode(props: JiraCreateDeploymentModeProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
 
   const {

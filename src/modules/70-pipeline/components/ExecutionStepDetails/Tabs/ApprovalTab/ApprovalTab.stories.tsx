@@ -33,7 +33,7 @@ export const Basic: Story<ApprovalTabStoryProps> = args => {
   return (
     <TestWrapper>
       <ApprovalTab
-        step={{ status: isWaiting ? 'Waiting' : 'Success', stepType: type }}
+        step={{ status: isWaiting ? 'ApprovalWaiting' : 'Success', stepType: type }}
         mock={type === 'HarnessApproval' ? harnessData : jiraData}
         getApprovalAuthorizationMock={{
           loading: false,

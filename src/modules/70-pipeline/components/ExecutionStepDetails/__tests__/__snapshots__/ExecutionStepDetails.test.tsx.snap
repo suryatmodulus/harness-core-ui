@@ -905,7 +905,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
               </tr>
               <tr>
                 <th>
-                  duration
+                  pipeline.duration
                 </th>
                 <td>
                   <div>
@@ -1257,7 +1257,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
               </tr>
               <tr>
                 <th>
-                  duration
+                  pipeline.duration
                 </th>
                 <td>
                   <div>
@@ -1596,7 +1596,7 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
               </tr>
               <tr>
                 <th>
-                  duration
+                  pipeline.duration
                 </th>
                 <td>
                   <div>
@@ -1935,7 +1935,7 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
               </tr>
               <tr>
                 <th>
-                  duration
+                  pipeline.duration
                 </th>
                 <td>
                   <div>
@@ -2472,7 +2472,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
               </tr>
               <tr>
                 <th>
-                  duration
+                  pipeline.duration
                 </th>
                 <td>
                   <div>

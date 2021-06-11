@@ -9,6 +9,7 @@ export interface ListTagsProps {
   tags: tagsType
   length?: number
   className?: string
+  tagClassName?: string
   width?: number
 }
 
@@ -23,7 +24,7 @@ const getWidthForTags = (length: number, width: number): number => {
   }
 }
 const TagsRenderer: React.FC<ListTagsProps> = props => {
-  const { tags, length = 3, className, width = 240 } = props
+  const { tags, length = 3, className, width = 240, tagClassName } = props
   const baseTags = Object.keys(tags).slice(0, length)
   const remainingTags = Object.keys(tags)
     .slice(length)
@@ -38,7 +39,7 @@ const TagsRenderer: React.FC<ListTagsProps> = props => {
         {baseTags.map(key => {
           const value = tags[key]
           return (
-            <Tag style={{ maxWidth: getWidthForTags(baseTags.length, width) }} key={key}>
+            <Tag style={{ maxWidth: getWidthForTags(baseTags.length, width) }} className={tagClassName} key={key}>
               {value ? `${key}:${value}` : key}
             </Tag>
           )
@@ -46,6 +47,7 @@ const TagsRenderer: React.FC<ListTagsProps> = props => {
         {Object.keys(tags).length - length > 0 && (
           <TagsPopover
             tags={remainingTags}
+            tagClassName={tagClassName}
             target={<Text>{getString('plus') + (Object.keys(tags).length - length)}</Text>}
           />
         )}

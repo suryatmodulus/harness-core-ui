@@ -6,6 +6,6 @@ declare const styles: {
   readonly pointer: string
   readonly moduleContainer: string
   readonly activityChart: string
-  readonly moduleLink: string
+  readonly moduleText: string
 }
 export default styles

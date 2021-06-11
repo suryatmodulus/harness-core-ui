@@ -290,10 +290,12 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
       if (view === SelectedView.VISUAL) {
         const yaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
         const inputSetYamlVisual = parse(yaml).overlayInputSet as OverlayInputSetDTO
+
         inputSet.name = inputSetYamlVisual.name
         inputSet.identifier = inputSetYamlVisual.identifier
         inputSet.description = inputSetYamlVisual.description
         inputSet.pipeline = inputSetYamlVisual.pipeline
+        inputSet.inputSetReferences = inputSetYamlVisual.inputSetReferences
       }
       setSelectedView(view)
     },

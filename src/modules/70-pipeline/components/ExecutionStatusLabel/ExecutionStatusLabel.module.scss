@@ -16,10 +16,12 @@
 
   &.failed,
   &.aborted,
-  &.error,
+  &.discontinuing,
+  &.errored,
   &.rejected,
   &.expired,
-  &.approvalrejected {
+  &.approvalrejected,
+  &.ignorefailed {
     --execution-status-color: var(--red-500);
   }
 
@@ -27,11 +29,14 @@
     --execution-status-color: var(--green-500);
   }
 
-  &.running {
+  &.running,
+  &.asyncwaiting,
+  &.taskwaiting,
+  &.timedwaiting {
     --execution-status-color: var(--primary-7);
   }
 
-  &.waiting,
+  &.resourcewaiting,
   &.approvalwaiting,
   &.interventionwaiting,
   &.pausing,

@@ -336,23 +336,9 @@ const VerificatiionContent: React.FC<VerificatiionContentProps> = props => {
             <>
               <Text color={Color.GREY_600}>{getString('cv.onboarding.verificationJobs.subHeading')}</Text>
               <div className={css.items}>
-                <Layout.Vertical
-                  spacing="small"
-                  padding={{ right: 'small' }}
-                  onClick={() => {
-                    history.push(
-                      routes.toCVAdminSetupVerificationJobEdit({
-                        accountId,
-                        projectIdentifier,
-                        orgIdentifier,
-                        verificationId: data?.data?.identifier as string
-                      })
-                    )
-                  }}
-                >
+                <Layout.Vertical spacing="small" className={css.disabled} padding={{ right: 'small' }}>
                   <CVSelectionCard
-                    isSelected={true}
-                    className={css.monitoringCard}
+                    isSelected={false}
                     iconProps={{
                       name: 'health',
                       size: 20

@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import { Text, Popover, Layout, Icon, Container, Tag } from '@wings-software/uicore'
 import { PopoverInteractionKind } from '@blueprintjs/core'
 
@@ -8,10 +9,11 @@ import css from './TagsPopover.module.scss'
 
 export interface ListTagsProps {
   tags: tagsType
+  tagClassName?: string
   target?: React.ReactElement
 }
 const TagsPopover: React.FC<ListTagsProps> = props => {
-  const { tags, target } = props
+  const { tags, target, tagClassName } = props
   return (
     <Popover interactionKind={PopoverInteractionKind.HOVER}>
       {target || (
@@ -26,7 +28,7 @@ const TagsPopover: React.FC<ListTagsProps> = props => {
           {Object.keys(tags).map(key => {
             const value = tags[key]
             return (
-              <Tag className={css.tag} key={key}>
+              <Tag className={cx(css.tag, tagClassName)} key={key}>
                 {value ? `${key}:${value}` : key}
               </Tag>
             )

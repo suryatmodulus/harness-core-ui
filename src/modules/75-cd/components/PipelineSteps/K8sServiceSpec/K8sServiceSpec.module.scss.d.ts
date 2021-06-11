@@ -29,5 +29,7 @@ declare const styles: {
   readonly skipVersioning: string
   readonly width50: string
   readonly width25: string
+  readonly serviceSection: string
+  readonly connectorMargin: string
 }
 export default styles

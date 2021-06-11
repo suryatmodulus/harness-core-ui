@@ -40,6 +40,7 @@ const getContextValue = (): PipelineContextInterface => {
   return {
     ...pipelineContextMock,
     stepsFactory: stepFactory,
+    getStagePathFromPipeline: jest.fn(),
     getStageFromPipeline: jest.fn(() => ({ stage: pipelineContextMock.state.pipeline.stages[0] })),
     updatePipeline: jest.fn()
   } as any

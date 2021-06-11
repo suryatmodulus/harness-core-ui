@@ -253,7 +253,6 @@ monitoringSources:
   oneMetricMappingValidationSubtext: You need to select one Metric Pack for verification
   backToMapping: Back to Mapping
   reviewPageSubHeading: You’ve done it! These services below are ready for your project. If it doesn’t look right, you can make changes now.
-  newRelicName: New Relic
   metricNameLabel: Metric Name
   queryNameLabel: Name your Query
   riskProfile: Risk Profile

@@ -1028,6 +1028,47 @@ export const buildDatadogPayload = (formData: FormData) => {
   }
 }
 
+export interface SumoLogicInitialValue {
+  accessIdRef?: SecretReferenceInterface | void
+  accessKeyRef?: SecretReferenceInterface | void
+  accountId?: string | undefined
+  projectIdentifier?: string
+  orgIdentifier?: string
+  loading?: boolean
+}
+
+export const buildSumoLogicPayload = (formData: FormData) => {
+  const {
+    name,
+    identifier,
+    projectIdentifier,
+    orgIdentifier,
+    delegateSelectors,
+    url,
+    description,
+    tags,
+    accessIdRef: { referenceString: accessIdRef },
+    accessKeyRef: { referenceString: accesskeyRef }
+  } = formData
+  return {
+    connector: {
+      name,
+      identifier,
+      type: Connectors.SUMOLOGIC,
+      projectIdentifier,
+      orgIdentifier,
+      description,
+      tags,
+      spec: {
+        url,
+        accessIdRef: accessIdRef,
+        accessKeyRef: accesskeyRef,
+        delegateSelectors: delegateSelectors || {}
+      }
+    }
+  }
+}
+
 export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
   connector: {
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
@@ -1119,6 +1160,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-azure'
     case Connectors.DATADOG:
       return 'service-datadog'
+    case Connectors.SUMOLOGIC:
+      return 'service-sumologic'
     case Connectors.AZURE_KEY_VAULT:
       return 'azure-key-vault'
     case Connectors.DYNATRACE:
@@ -1259,6 +1302,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.azure')
     case Connectors.DATADOG:
       return getString('connectors.testConnectionStep.validationText.datadog')
+    case Connectors.SUMOLOGIC:
+      return getString('connectors.testConnectionStep.validationText.sumologic')
     case Connectors.CE_AZURE_KEY_VAULT:
       return getString('connectors.testConnectionStep.validationText.azureKeyVault')
     default:

@@ -3,8 +3,15 @@ import type { ExecutionSummaryInfo } from 'services/pipeline-ng'
 
 export type ExecutionStatus = Exclude<
   Required<ExecutionSummaryInfo>['lastExecutionStatus'],
-  'NOT_STARTED' | 'INTERVENTION_WAITING' | 'APPROVAL_WAITING' | 'APPROVAL_REJECTED'
+  'NOT_STARTED' | 'INTERVENTION_WAITING' | 'APPROVAL_WAITING' | 'APPROVAL_REJECTED' | 'WAITING'
 >
+
+/**
+ * Statues are to be grouped as follows:
+ * Running -> Running, AsyncWaiting, TaskWaiting, TimedWaiting
+ * Failed -> Failed, Errored, IgnoreFailed
+ * Aborted -> Discontinuing, Aborted
+ */
 
 export const ExecutionStatusEnum: Readonly<Record<ExecutionStatus, ExecutionStatus>> = {
   Aborted: 'Aborted',
@@ -16,8 +23,14 @@ export const ExecutionStatusEnum: Readonly<Record<ExecutionStatus, ExecutionStat
   Running: 'Running',
   Success: 'Success',
   Suspended: 'Suspended',
-  Waiting: 'Waiting',
+  ResourceWaiting: 'ResourceWaiting',
+  AsyncWaiting: 'AsyncWaiting',
   Skipped: 'Skipped',
+  TaskWaiting: 'TaskWaiting',
+  TimedWaiting: 'TimedWaiting',
+  Errored: 'Errored',
+  IgnoreFailed: 'IgnoreFailed',
+  Discontinuing: 'Discontinuing',
   ApprovalRejected: 'ApprovalRejected',
   InterventionWaiting: 'InterventionWaiting',
   ApprovalWaiting: 'ApprovalWaiting',
@@ -33,23 +46,33 @@ const changeCase = (status?: string): string => {
 }
 
 export function isExecutionRunning(status?: string): boolean {
-  return changeCase(status) === 'Running'
+  const st = changeCase(status)
+  return (
+    st === ExecutionStatusEnum.Running ||
+    st === ExecutionStatusEnum.AsyncWaiting ||
+    st === ExecutionStatusEnum.TimedWaiting ||
+    st === ExecutionStatusEnum.TaskWaiting
+  )
 }
 
 export function isExecutionFailed(status?: string): boolean {
-  return changeCase(status) === 'Failed' || changeCase(status) === 'Failure'
+  const st = changeCase(status)
+  return (
+    st === ExecutionStatusEnum.Failed || st === ExecutionStatusEnum.Errored || st === ExecutionStatusEnum.IgnoreFailed
+  )
 }
 
 export function isExecutionExpired(status?: string): boolean {
-  return changeCase(status) === 'Expired'
+  return changeCase(status) === ExecutionStatusEnum.Expired
 }
 
 export function isExecutionAborted(status?: string): boolean {
-  return changeCase(status) === 'Aborted'
+  const st = changeCase(status)
+  return st === ExecutionStatusEnum.Aborted || st === ExecutionStatusEnum.Discontinuing
 }
 
 export function isExecutionQueued(status?: string): boolean {
-  return changeCase(status) === 'Queued'
+  return changeCase(status) === ExecutionStatusEnum.Queued
 }
 
 export function isExecutionWaiting(status?: string): boolean {
@@ -59,39 +82,39 @@ export function isExecutionWaiting(status?: string): boolean {
 }
 
 export function isExecutionOnlyWaiting(status?: string): boolean {
-  return changeCase(status) === 'Waiting'
+  return changeCase(status) === ExecutionStatusEnum.ResourceWaiting
 }
 
 export function isExecutionWaitingForApproval(status?: string): boolean {
-  return changeCase(status) === 'ApprovalWaiting'
+  return changeCase(status) === ExecutionStatusEnum.ApprovalWaiting
 }
 
 export function isExecutionWaitingForIntervention(status?: string): boolean {
-  return changeCase(status) === 'InterventionWaiting'
+  return changeCase(status) === ExecutionStatusEnum.InterventionWaiting
 }
 
 export function isExecutionPaused(status?: string): boolean {
-  return changeCase(status) === 'Paused'
+  return changeCase(status) === ExecutionStatusEnum.Paused
 }
 
 export function isExecutionNotStarted(status?: string): boolean {
-  return changeCase(status) === 'NotStarted'
+  return changeCase(status) === ExecutionStatusEnum.NotStarted
 }
 
 export function isExecutionSuccess(status?: string): boolean {
-  return changeCase(status) === 'Success'
+  return changeCase(status) === ExecutionStatusEnum.Success
 }
 
 export function isExecutionSuspended(status?: string): boolean {
-  return changeCase(status) === 'Suspended'
+  return changeCase(status) === ExecutionStatusEnum.Suspended
 }
 
 export function isExecutionPausing(status?: string): boolean {
-  return changeCase(status) === 'Pausing'
+  return changeCase(status) === ExecutionStatusEnum.Pausing
 }
 
 export function isExecutionApprovalRejected(status?: string): boolean {
-  return changeCase(status) === 'ApprovalRejected'
+  return changeCase(status) === ExecutionStatusEnum.ApprovalRejected
 }
 
 export function isExecutionComplete(status?: string): boolean {
@@ -99,7 +122,7 @@ export function isExecutionComplete(status?: string): boolean {
 }
 
 export function isExecutionSkipped(status?: string): boolean {
-  return changeCase(status) === 'Skipped'
+  return changeCase(status) === ExecutionStatusEnum.Skipped
 }
 
 export function isExecutionCompletedWithBadState(status?: string): boolean {

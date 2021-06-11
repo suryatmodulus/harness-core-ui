@@ -4,11 +4,11 @@ import type { FormikErrors } from 'formik'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { get, set, uniq, uniqBy, isEmpty } from 'lodash-es'
 import type { UseStringsReturn } from 'framework/strings'
-import { StringUtils } from '@common/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 import type { StringKeys } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { IdentifierSchemaWithoutHook, NameSchemaWithoutHook } from '@common/utils/Validation'
 
 export enum Types {
   Text,
@@ -45,7 +45,6 @@ interface GenerateSchemaDependencies extends Dependencies {
 }
 
 const validIdRegex = /^(?![0-9])[0-9a-zA-Z_]*$/
-const validNameRegex = /^[0-9a-zA-Z_-\s]*$/
 
 function generateSchemaForIdentifier({
   initialValues,
@@ -53,12 +52,10 @@ function generateSchemaForIdentifier({
   serviceDependencies,
   getString
 }: GenerateSchemaDependencies): StringSchema {
-  return yup
-    .string()
-    .trim()
-    .matches(validIdRegex, getString('validation.validStepIdRegex'))
-    .notOneOf(StringUtils.illegalIdentifiers, getString('validation.illegalIdentifier'))
-    .test('isStepIdUnique', getString('validation.uniqueStepAndServiceDependenciesId'), identifier => {
+  return (IdentifierSchemaWithoutHook(getString) as StringSchema).test(
+    'isStepIdUnique',
+    getString('validation.uniqueStepAndServiceDependenciesId'),
+    identifier => {
       if (isEmpty(initialValues) || (isEmpty(steps) && isEmpty(serviceDependencies))) return true
 
       const stepsAndDependencies: StepElementConfig[] = [...serviceDependencies]
@@ -85,11 +82,12 @@ function generateSchemaForIdentifier({
 
         return step?.identifier !== identifier
       })
-    })
+    }
+  )
 }
 
 function generateSchemaForName({ getString }: GenerateSchemaDependencies): StringSchema {
-  return yup.string().matches(validNameRegex, getString('validation.validStepNameRegex'))
+  return NameSchemaWithoutHook(getString) as StringSchema
 }
 
 function generateSchemaForList(

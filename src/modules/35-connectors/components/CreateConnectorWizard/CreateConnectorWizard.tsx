@@ -26,6 +26,7 @@ import CreateDataDogConnector from '../CreateConnector/DataDogConnector/CreateDa
 import CreateCeAzureConnector from '../CreateConnector/CEAzureConnector/CreateCeAzureConnector'
 import CreateAzureKeyVaultConnector from '../CreateConnector/CreateAzureKeyConnector/CreateAzureKeyVaultConnector'
 import CreateDynatraceConnector from '../CreateConnector/DynatraceConnector/CreateDynatraceConnector'
+import CreateSumoLogicConnector from '../CreateConnector/SumoLogicConnector/CreateSumoLogicConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -110,6 +111,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateAzureKeyVaultConnector {...commonProps} />
     case Connectors.DYNATRACE:
       return <CreateDynatraceConnector {...commonProps} />
+    case Connectors.SUMOLOGIC:
+      return <CreateSumoLogicConnector {...commonProps} />
     default:
       return null
   }

@@ -1,13 +1,6 @@
 import React from 'react'
-import {
-  Text,
-  Color,
-  Container,
-  Layout,
-  Icon
-  // SparkChart
-} from '@wings-software/uicore'
-import { useParams, Link } from 'react-router-dom'
+import { Text, Color, Container, Layout, Icon } from '@wings-software/uicore'
+import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
@@ -19,6 +12,7 @@ interface CIRendererProps {
   isPreview?: boolean
 }
 const CIRenderer: React.FC<CIRendererProps> = ({ data, isPreview }) => {
+  const history = useHistory()
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
 
@@ -27,6 +21,17 @@ const CIRenderer: React.FC<CIRendererProps> = ({ data, isPreview }) => {
       border={{ top: true, color: Color.GREY_250 }}
       padding={{ top: 'medium', bottom: 'medium' }}
       className={css.moduleContainer}
+      onClick={() => {
+        !isPreview &&
+          history.push(
+            routes.toDeployments({
+              orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
+              projectIdentifier: data.identifier,
+              module: 'ci',
+              accountId
+            })
+          )
+      }}
     >
       <Layout.Horizontal>
         <Container width="30%" border={{ right: true, color: Color.GREY_250 }} flex={{ align: 'center-center' }}>
@@ -40,25 +45,9 @@ const CIRenderer: React.FC<CIRendererProps> = ({ data, isPreview }) => {
                 {'88'}
               </Text>
             </Layout.Horizontal> */}
-            {isPreview ? (
-              <Text color={Color.GREY_500} font={{ size: 'xsmall' }} className={css.moduleLink}>
-                {getString('projectsOrgs.gotoBuilds')}
-              </Text>
-            ) : (
-              <Link
-                to={routes.toDeployments({
-                  orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
-                  projectIdentifier: data.identifier,
-                  module: 'ci',
-                  accountId
-                })}
-              >
-                <Text color={Color.PRIMARY_6} font={{ size: 'xsmall' }} className={css.moduleLink}>
-                  {/* {getString('projectCard.ciRendererText')} */}
-                  {getString('projectsOrgs.gotoBuilds')}
-                </Text>
-              </Link>
-            )}
+            <Text color={Color.PRIMARY_7} font={{ size: 'xsmall' }} className={css.moduleText}>
+              {getString('projectsOrgs.gotoBuilds')}
+            </Text>
           </Layout.Vertical>
         </Container>
       </Layout.Horizontal>

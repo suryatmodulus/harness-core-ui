@@ -21,7 +21,6 @@ import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
-import { MenuDivider, OptionsMenuButton } from '@common/components'
 import {
   DeleteFeatureFlagQueryParams,
   Feature,
@@ -31,14 +30,17 @@ import {
   Variation
 } from 'services/cf'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
+import FeatureFlagDetailOptions from '@cf/components/FeatureFlagDetailOptions/FeatureFlagDetailOptions'
 import { useConfirmAction, useQueryParams } from '@common/hooks'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
 import { IdentifierText } from '../IdentifierText/IdentifierText'
 import { EditVariationsModal } from '../EditVariationsModal/EditVariationsModal'
-import { FlagRerequisites } from './FlagRerequisites'
+import { FlagPrerequisites } from './FlagPrerequisites'
 import css from './FlagActivationDetails.module.scss'
 
 interface FlagActivationDetailsProps {
@@ -76,6 +78,10 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
           feature={featureFlag}
+          permission={{
+            resource: { resourceType: ResourceType.FEATUREFLAG },
+            permission: PermissionIdentifier.EDIT_FF_FEATUREFLAG
+          }}
           onSuccess={onEditSuccess}
           minimal
           intent="primary"
@@ -335,30 +341,11 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         </Link>
         <span style={{ display: 'inline-block', paddingLeft: 'var(--spacing-xsmall)' }}>/</span>
         <FlexExpander />
-        <OptionsMenuButton
-          items={[
-            {
-              icon: 'edit',
-              text: getString('edit'),
-              onClick: openEditDetailsModal,
-              disabled: featureFlag.archived
-            },
-            {
-              icon: 'archive',
-              text: getString('archive'),
-              onClick: archiveFlag,
-
-              // Disable for now per https://harness.atlassian.net/browse/FFM-772
-              disabled: true || featureFlag.archived,
-              title: getString('cf.featureNotReady')
-            },
-            MenuDivider,
-            {
-              icon: 'trash',
-              text: getString('delete'),
-              onClick: deleteFlag
-            }
-          ]}
+        <FeatureFlagDetailOptions
+          onEdit={openEditDetailsModal}
+          onArchive={archiveFlag}
+          onDelete={deleteFlag}
+          archived={featureFlag.archived}
         />
       </Layout.Horizontal>
 
@@ -408,7 +395,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           }}
         />
 
-        <FlagRerequisites featureFlag={featureFlag} refetchFlag={refetchFlag} />
+        <FlagPrerequisites featureFlag={featureFlag} refetchFlag={refetchFlag} />
       </Container>
     </>
   )

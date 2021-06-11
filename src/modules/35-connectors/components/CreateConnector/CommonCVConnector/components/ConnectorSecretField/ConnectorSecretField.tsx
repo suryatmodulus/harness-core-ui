@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { FormInput } from '@wings-software/uicore'
 import SecretInput, { SecretInputProps } from '@secrets/components/SecretInput/SecretInput'
 import { useToaster } from '@common/exports'
 import { setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -40,10 +41,9 @@ export function ConnectorSecretField(props: ConnectorSecretFieldProps): JSX.Elem
       })
   }, [secretFieldValue])
 
-  return (
-    <SecretInput
-      {...secretInputProps}
-      placeholder={loadingSecrets ? getString('loading') : secretInputProps.placeholder}
-    />
+  return loadingSecrets ? (
+    <FormInput.Text name={''} label={secretInputProps.label} placeholder={getString('loading')} />
+  ) : (
+    <SecretInput {...secretInputProps} />
   )
 }

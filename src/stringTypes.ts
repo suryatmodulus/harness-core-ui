@@ -1971,8 +1971,11 @@ export interface StringsMap {
   'cf.noFlag': string
   'cf.noTarget': string
   'cf.noTargetForEnv': string
+  'cf.onboarding.allSet': string
   'cf.onboarding.backToStart': string
+  'cf.onboarding.behindTheSenes': string
   'cf.onboarding.clientKey': string
+  'cf.onboarding.connected': string
   'cf.onboarding.createAFlag': string
   'cf.onboarding.createEnv': string
   'cf.onboarding.envCreated': string
@@ -2011,7 +2014,9 @@ export interface StringsMap {
   'cf.onboarding.title': string
   'cf.onboarding.toggleLabel': string
   'cf.onboarding.tryItOut': string
+  'cf.onboarding.tryTarget': string
   'cf.onboarding.upAndRunning': string
+  'cf.onboarding.waitForConnect': string
   'cf.pipeline.default': string
   'cf.pipeline.stages.execution.title': string
   'cf.pipeline.stages.setup.title': string

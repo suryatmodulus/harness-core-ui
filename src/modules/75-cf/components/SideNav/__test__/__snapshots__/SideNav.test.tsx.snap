@@ -116,7 +116,7 @@ exports[`Sidenav render 1`] = `
       >
         <a
           class="adminLink"
-          href="/account/dummy/cd/orgs/dummy/projects/dummy/admin"
+          href="/account/dummy/cf/orgs/dummy/projects/dummy/admin"
         >
           Admin
         </a>

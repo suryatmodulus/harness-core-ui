@@ -49,25 +49,13 @@ export default function CFSideNav(): React.ReactElement {
           />
           <SidebarLink label={getString('environments')} to={withActiveEnvironment(routes.toCFEnvironments(params))} />
           {isDev && (
-            <>
-              <SidebarLink
-                label={getString('executionsText')}
-                to={withActiveEnvironment(routes.toDeployments({ ...params, module }))}
-              />
-              <SidebarLink
-                label={getString('pipelines')}
-                to={withActiveEnvironment(routes.toPipelines({ ...params, module }))}
-              />
-            </>
-          )}
-          {isDev && (
             <SidebarLink
               className={css.onboarding}
               label={getString('cf.shared.getStarted')}
               to={withActiveEnvironment(routes.toCFOnboarding(params))}
             />
           )}
-          <AdminSelector path={routes.toCDAdmin(params)}>
+          <AdminSelector path={routes.toCFAdmin(params)}>
             <AdminSelectorLink
               label="Access Control"
               iconName="user"

@@ -15,6 +15,7 @@ export interface SelectEnvironmentViewProps {
   language: PlatformEntry
   apiKey: ApiKey | undefined
   setApiKey: (key: ApiKey | undefined) => void
+  setEnvironmentIdentifier: (environmentIdentifier: string | undefined) => void
 }
 
 export const SelectEnvironmentView: React.FC<SelectEnvironmentViewProps> = props => {
@@ -26,6 +27,7 @@ export const SelectEnvironmentView: React.FC<SelectEnvironmentViewProps> = props
   const { EnvironmentSelect, loading, error, refetch, environments } = useEnvironmentSelectV2({
     onChange: (_value, _environment, userEvent) => {
       setEnvironment(_environment)
+      props.setEnvironmentIdentifier(_environment.identifier)
       if (userEvent) {
         props.setApiKey(undefined)
       }

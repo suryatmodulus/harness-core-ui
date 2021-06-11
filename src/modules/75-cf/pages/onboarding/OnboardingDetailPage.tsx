@@ -9,7 +9,7 @@ import { getErrorMessage } from '@cf/utils/CFUtils'
 import type { PlatformEntry } from '@cf/components/LanguageSelection/LanguageSelection'
 import { CreateAFlagView } from './views/CreateAFlagView'
 import { SetUpYourApplicationView } from './views/SetUpYourApplicationView'
-import { TestYourFlagViewView } from './views/TestYourFlagView'
+import { TestYourFlagView } from './views/TestYourFlagView'
 import css from './OnboardingDetailPage.module.scss'
 
 enum TabId {
@@ -26,6 +26,8 @@ export const OnboardingDetailPage: React.FC = () => {
   const [flagName, setFlagName] = useState('')
   const [language, setLanguage] = useState<PlatformEntry>()
   const [apiKey, setApiKey] = useState<ApiKey>()
+  const [environmentIdentifier, setEnvironmentIdentifier] = useState<string | undefined>()
+  const [testDone, setTestDone] = useState(false)
   const flagInfo: FeatureFlagRequestRequestBody = useMemo(
     () => ({
       project: projectIdentifier,
@@ -153,6 +155,9 @@ export const OnboardingDetailPage: React.FC = () => {
                 setLanguage={setLanguage}
                 apiKey={apiKey}
                 setApiKey={setApiKey}
+                setEnvironmentIdentifier={_environmentIdentifier => {
+                  setEnvironmentIdentifier(_environmentIdentifier)
+                }}
               />
             }
           />
@@ -167,9 +172,23 @@ export const OnboardingDetailPage: React.FC = () => {
           <Tab
             id={TabId.TEST_YOUR_FLAG}
             disabled={disableNext}
-            title={<Text>{getString('cf.onboarding.testYourFlag')}</Text>}
+            title={
+              <Text icon={testDone ? 'tick-circle' : undefined} iconProps={{ color: Color.GREEN_500, size: 14 }}>
+                {getString('cf.onboarding.testYourFlag')}
+              </Text>
+            }
             panel={
-              language && apiKey && <TestYourFlagViewView flagInfo={flagInfo} language={language} apiKey={apiKey} />
+              language &&
+              apiKey && (
+                <TestYourFlagView
+                  flagInfo={flagInfo}
+                  language={language}
+                  apiKey={apiKey}
+                  testDone={testDone}
+                  setTestDone={setTestDone}
+                  environmentIdentifier={environmentIdentifier}
+                />
+              )
             }
           />
         </Tabs>
@@ -182,7 +201,7 @@ export const OnboardingDetailPage: React.FC = () => {
           alignItems: 'center',
           paddingLeft: 'var(--spacing-xlarge)',
           position: 'fixed',
-          left: '270px',
+          left: '288px',
           bottom: 0,
           background: 'var(--white)',
           right: 0

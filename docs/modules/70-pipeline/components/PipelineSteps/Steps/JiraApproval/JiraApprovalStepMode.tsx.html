@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.7% </span>
+                <span class="strong">83.87% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>77/92</span>
+                <span class='fraction'>78/93</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.7% </span>
+                <span class="strong">83.87% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>77/92</span>
+                <span class='fraction'>78/93</span>
             </div>
         
             
@@ -520,7 +520,13 @@
 <a name='L461'></a><a href='#L461'>461</a>
 <a name='L462'></a><a href='#L462'>462</a>
 <a name='L463'></a><a href='#L463'>463</a>
-<a name='L464'></a><a href='#L464'>464</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<a name='L464'></a><a href='#L464'>464</a>
+<a name='L465'></a><a href='#L465'>465</a>
+<a name='L466'></a><a href='#L466'>466</a>
+<a name='L467'></a><a href='#L467'>467</a>
+<a name='L468'></a><a href='#L468'>468</a>
+<a name='L469'></a><a href='#L469'>469</a>
+<a name='L470'></a><a href='#L470'>470</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
@@ -583,15 +589,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -898,6 +907,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1045,16 +1057,19 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;
     PipelineType&lt;PipelinePathProps &amp; AccountPathProps&gt;
   &gt;()
-  const commonParams = {
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  }
   const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
   const [statusList, setStatusList] = useState&lt;JiraStatusNG[]&gt;([])
   const [fieldList, setFieldList] = useState&lt;JiraFieldNG[]&gt;([])
   const [projectOptions, setProjectOptions] = useState&lt;JiraProjectSelectOption[]&gt;([])
   const [projectMetadata, setProjectMetadata] = useState&lt;JiraProjectNG&gt;()
+&nbsp;
+  const commonParams = {
+    accountIdentifier: accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier,
+    branch
+  }
 &nbsp;
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const projectKeyFixedValue =
@@ -1358,12 +1373,15 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
   const { onUpdate, readonly, isNewStep } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;
-    PipelineType&lt;PipelinePathProps &amp; AccountPathProps&gt;
+    PipelineType&lt;PipelinePathProps &amp; AccountPathProps &amp; GitQueryParams&gt;
   &gt;()
+  const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    branch,
+    repoIdentifier
   }
 &nbsp;
   const {
@@ -1405,7 +1423,7 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
-          issueKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueKey')),
+          issueKey: Yup.string().trim().required(getString('pipeline.jiraApprovalStep.validations.issueKey')),
           approvalCriteria: Yup.object().shape({
             spec: Yup.object().when('type', {
               is: ApprovalRejectionCriteriaType.KeyValues,
@@ -1415,7 +1433,7 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
                 )
               }),
               otherwise: Yup.object().shape({
-                expression: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.expression'))
+                expression: Yup.string().trim().required(getString('pipeline.jiraApprovalStep.validations.expression'))
               })
             })
           })
@@ -1453,7 +1471,7 @@ export default JiraApprovalStepModeWithRef
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 04:42:08 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 11 2021 05:09:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

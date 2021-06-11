@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.26% </span>
+                <span class="strong">72.46% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>99/137</span>
+                <span class='fraction'>100/138</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.79% </span>
+                <span class="strong">72.99% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>99/136</span>
+                <span class='fraction'>100/137</span>
             </div>
         
             
@@ -722,7 +722,13 @@
 <a name='L663'></a><a href='#L663'>663</a>
 <a name='L664'></a><a href='#L664'>664</a>
 <a name='L665'></a><a href='#L665'>665</a>
-<a name='L666'></a><a href='#L666'>666</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<a name='L666'></a><a href='#L666'>666</a>
+<a name='L667'></a><a href='#L667'>667</a>
+<a name='L668'></a><a href='#L668'>668</a>
+<a name='L669'></a><a href='#L669'>669</a>
+<a name='L670'></a><a href='#L670'>670</a>
+<a name='L671'></a><a href='#L671'>671</a>
+<a name='L672'></a><a href='#L672'>672</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
@@ -809,11 +815,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-yes">28x</span>
@@ -821,6 +822,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1312,6 +1321,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1473,11 +1485,6 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;
     PipelineType&lt;PipelinePathProps &amp; AccountPathProps&gt;
   &gt;()
-  const commonParams = {
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  }
   const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
   const [issueTypeFieldList, setIssueTypeFieldList] = useState&lt;JiraFieldNG[]&gt;([])
   const [projectOptions, setProjectOptions] = useState&lt;JiraProjectSelectOption[]&gt;([])
@@ -1486,6 +1493,14 @@ const FormContent = ({
     JiraCreateFormFieldSelector.EXPRESSION
   )
   const [fieldsPopoverOpen, setFieldsPopoverOpen] = useState(false)
+&nbsp;
+  const commonParams = {
+    accountIdentifier: accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier,
+    branch
+  }
 &nbsp;
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const projectKeyFixedValue =
@@ -1974,12 +1989,15 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
   const { onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;
-    PipelineType&lt;PipelinePathProps &amp; AccountPathProps&gt;
+    PipelineType&lt;PipelinePathProps &amp; AccountPathProps &amp; GitQueryParams&gt;
   &gt;()
+  const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
 &nbsp;
   const {
@@ -2024,7 +2042,7 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
           projectKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.project')),
           issueType: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueType')),
-          summary: Yup.string().required(getString('pipeline.jiraCreateStep.validations.summary'))
+          summary: Yup.string().trim().required(getString('pipeline.jiraCreateStep.validations.summary'))
         })
       })}
     &gt;
@@ -2059,7 +2077,7 @@ export default JiraCreateStepModeWithRef
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 04:42:08 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 11 2021 05:09:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

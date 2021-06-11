@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.24% </span>
+                <span class="strong">75.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/66</span>
+                <span class='fraction'>52/69</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50.93% </span>
+                <span class="strong">51.38% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>110/216</span>
+                <span class='fraction'>112/218</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">76.12% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>48/64</span>
+                <span class='fraction'>51/67</span>
             </div>
         
             
@@ -307,12 +307,31 @@
 <a name='L248'></a><a href='#L248'>248</a>
 <a name='L249'></a><a href='#L249'>249</a>
 <a name='L250'></a><a href='#L250'>250</a>
-<a name='L251'></a><a href='#L251'>251</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
@@ -346,6 +365,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -444,6 +466,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -509,8 +532,11 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -562,7 +588,13 @@ import { useParams } from 'react-router-dom'
 import { isEmpty, set } from 'lodash-es'
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type {
+  AccountPathProps,
+  GitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { JiraProjectBasicNG, JiraProjectNG, useGetJiraIssueCreateMetadata, useGetJiraProjects } from 'services/cd-ng'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
@@ -593,12 +625,15 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
   const readonly = inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eadonly
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;
-    PipelineType&lt;PipelinePathProps &amp; AccountPathProps&gt;
+    PipelineType&lt;PipelinePathProps &amp; AccountPathProps &amp; GitQueryParams&gt;
   &gt;()
+  const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
   const [projectOptions, setProjectOptions] = useState&lt;JiraProjectSelectOption[]&gt;([])
   const [projectMetadata, setProjectMetadata] = useState&lt;JiraProjectNG&gt;()
@@ -695,6 +730,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
 <span class="cstat-no" title="statement not covered" >            set(initialValues, 'spec.connectorRef', connectorRef)</span>
 <span class="cstat-no" title="statement not covered" >            onUpdate?.(initialValues)</span>
           }}
+          gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         /&gt;
       ) : null}
       {getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rojectKey) === MultiTypeInputType.RUNTIME ? (
@@ -757,13 +793,16 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
 &nbsp;
 export default function JiraCreateDeploymentMode(props: JiraCreateDeploymentModeProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;
-    PipelineType&lt;PipelinePathProps &amp; AccountPathProps&gt;
+    PipelineType&lt;PipelinePathProps &amp; AccountPathProps &amp; GitQueryParams&gt;
   &gt;()
+  const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
 &nbsp;
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
 &nbsp;
   const {
@@ -814,7 +853,7 @@ export default function JiraCreateDeploymentMode(props: JiraCreateDeploymentMode
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 04:42:08 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 11 2021 05:09:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

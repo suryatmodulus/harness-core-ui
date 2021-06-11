@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.31% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/13</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/10</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.67% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/12</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
@@ -136,8 +136,25 @@
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,6 +191,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,18 +225,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import type { FormikValues } from 'formik'
-import { Card, CardSelect, CardSelectType, Color, Icon, Text } from '@wings-software/uicore'
+import { Card, CardSelect, CardSelectType, Color, Icon, Layout, Text } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { ApprovalCardsViewData } from './types'
 import css from './ApprovalStageMinimalMode.module.scss'
@@ -252,46 +285,61 @@ The component to select approval type card in stage
 Used in both minimal view as well as detailed view
 */
 export const ApprovalTypeCards = ({ formikProps, isReadonly }: { formikProps: FormikValues; isReadonly?: boolean }) =&gt; {
+  const { getString } = useStrings()
   return (
-    &lt;CardSelect
-      data={approvalTypeCardsData}
-      type={CardSelectType.Any}
-      className={css.grid}
-      renderItem={(item, selected) =&gt; (
-        &lt;div
-          key={item.text}
-          className={css.squareCardContainer}
-          onClick={e =&gt; {
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (item.disabled || isReadonly) {
-<span class="cstat-no" title="statement not covered" >              e.stopPropagation()</span>
-            }
-          }}
-        &gt;
-          &lt;Card
-            selected={selected}
-            cornerSelected={selected}
-            interactive={!(item.disabled &amp;&amp; isReadonly)}
-            disabled={item.disabled || isReadonly}
-            className={css.squareCard}
-          &gt;
-            &lt;Icon name={item.icon} size={26} height={26} /&gt;
-          &lt;/Card&gt;
-          &lt;Text
-            style={{
-              fontSize: '12px',
-              color: selected ? Color.GREY_900 : Color.GREY_350,
-              textAlign: 'center'
+    &lt;Layout.Vertical&gt;
+      &lt;CardSelect
+        data={approvalTypeCardsData}
+        type={CardSelectType.Any}
+        className={css.grid}
+        renderItem={(item, selected) =&gt; (
+          &lt;div
+            key={item.text}
+            className={css.squareCardContainer}
+            onClick={e =&gt; {
+              <span class="missing-if-branch" title="if path not taken" >I</span>if (item.disabled || isReadonly) {
+<span class="cstat-no" title="statement not covered" >                e.stopPropagation()</span>
+              }
             }}
           &gt;
-            {item.text}
+            &lt;Card
+              selected={selected}
+              cornerSelected={selected}
+              interactive={!(item.disabled &amp;&amp; isReadonly)}
+              disabled={item.disabled || isReadonly}
+              className={css.squareCard}
+            &gt;
+              &lt;Icon name={item.icon} size={26} height={26} /&gt;
+            &lt;/Card&gt;
+            &lt;Text
+              font={{ size: 'small', weight: selected ? 'semi-bold' : undefined, align: 'center' }}
+              color={selected ? Color.BLACK_100 : Color.GREY_600}
+            &gt;
+              {item.text}
+            &lt;/Text&gt;
+          &lt;/div&gt;
+        )}
+        selected={approvalTypeCardsData.find(
+          (type: ApprovalCardsViewData) =&gt; type.value === formikProps.values.approvalType
+        )}
+        onChange={(value: ApprovalCardsViewData) =&gt; formikProps.setFieldValue('approvalType', value.value)}
+      /&gt;
+      {formikProps.values.approvalType === StepType.HarnessApproval ? (
+        &lt;Layout.Horizontal spacing="small" flex={{ alignItems: 'flex-start' }}&gt;
+          &lt;Icon name="info" size={12} margin={{ top: 'xsmall' }} /&gt;
+          &lt;Text lineClamp={2} width={300} color={Color.GREY_400}&gt;
+            {getString('pipeline.approvalStep.ensureUserGroups')}{' '}
+            &lt;a
+              href="https://ngdocs.harness.io/article/fkvso46bok-adding-harness-approval-stages"
+              rel="noreferrer"
+              target="_blank"
+            &gt;
+              {getString('learnMore')}
+            &lt;/a&gt;
           &lt;/Text&gt;
-        &lt;/div&gt;
-      )}
-      selected={approvalTypeCardsData.find(
-        (type: ApprovalCardsViewData) =&gt; type.value === formikProps.values.approvalType
-      )}
-      onChange={(value: ApprovalCardsViewData) =&gt; formikProps.setFieldValue('approvalType', value.value)}
-    /&gt;
+        &lt;/Layout.Horizontal&gt;
+      ) : null}
+    &lt;/Layout.Vertical&gt;
   )
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -301,7 +349,7 @@ export const ApprovalTypeCards = ({ formikProps, isReadonly }: { formikProps: Fo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 04:42:08 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 11 2021 05:09:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

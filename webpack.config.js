@@ -24,12 +24,12 @@ const config = {
   mode: DEV ? 'development' : 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: DEV ? '/' : '',
+    publicPath: '',
     filename: DEV ? 'static/[name].js' : 'static/[name].[contenthash:6].js',
     chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js',
     pathinfo: false
   },
-  devtool: DEV ? 'cheap-module-source-map' : false,
+  devtool: false,
   devServer: {
     contentBase: false,
     port: 8181,
@@ -197,10 +197,10 @@ const commonPlugins = [
     // available options are documented at https://github.com/Microsoft/monaco-editor-webpack-plugin#options
     languages: ['yaml', 'shell', 'powershell']
   }),
-  new CircularDependencyPlugin({
-    exclude: /node_modules/,
-    failOnError: true
-  }),
+  // new CircularDependencyPlugin({
+  //   exclude: /node_modules/,
+  //   failOnError: true
+  // }),
   new GenerateStringTypesPlugin()
 ]
 

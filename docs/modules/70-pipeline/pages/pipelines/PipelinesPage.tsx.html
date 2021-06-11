@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.49% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>125/188</span>
+                <span class='fraction'>126/189</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.34% </span>
+                <span class="strong">40.85% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>115/308</span>
+                <span class='fraction'>134/328</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.49% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>125/188</span>
+                <span class='fraction'>126/189</span>
             </div>
         
             
@@ -737,7 +737,20 @@
 <a name='L678'></a><a href='#L678'>678</a>
 <a name='L679'></a><a href='#L679'>679</a>
 <a name='L680'></a><a href='#L680'>680</a>
-<a name='L681'></a><a href='#L681'>681</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L681'></a><a href='#L681'>681</a>
+<a name='L682'></a><a href='#L682'>682</a>
+<a name='L683'></a><a href='#L683'>683</a>
+<a name='L684'></a><a href='#L684'>684</a>
+<a name='L685'></a><a href='#L685'>685</a>
+<a name='L686'></a><a href='#L686'>686</a>
+<a name='L687'></a><a href='#L687'>687</a>
+<a name='L688'></a><a href='#L688'>688</a>
+<a name='L689'></a><a href='#L689'>689</a>
+<a name='L690'></a><a href='#L690'>690</a>
+<a name='L691'></a><a href='#L691'>691</a>
+<a name='L692'></a><a href='#L692'>692</a>
+<a name='L693'></a><a href='#L693'>693</a>
+<a name='L694'></a><a href='#L694'>694</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -793,6 +806,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1257,6 +1271,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1340,6 +1355,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1351,6 +1368,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1482,6 +1508,7 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
 import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/PipelineFilterForm'
+import pipelineIllustration from './images/pipelines-illustration.svg'
 &nbsp;
 import css from './PipelinesPage.module.scss'
 &nbsp;
@@ -1931,109 +1958,113 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
           &lt;HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} /&gt;
         &lt;/div&gt;
       &lt;/div&gt;
-      &lt;Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}&gt;
-        &lt;Layout.Horizontal&gt;
-          &lt;RbacButton
-            intent="primary"
-            data-testid="add-pipeline"
-            text={getString('addPipeline')}
-            onClick={() =&gt; goToPipeline()}
-            tooltipProps={{
-              dataTooltipId: 'addPipeline'
-            }}
-            permission={{
-              permission: PermissionIdentifier.EDIT_PIPELINE,
-              resource: {
-                resourceType: ResourceType.PIPELINE
-              }
-            }}
-          /&gt;
-          {isGitSyncEnabled &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >            &lt;GitSyncStoreProvider&gt;</span>
-              &lt;GitFilters
-                onChange={<span class="fstat-no" title="function not covered" >filter </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                  setGitFilter(filter)</span>
-<span class="cstat-no" title="statement not covered" >                  setPage(0)</span>
+      {!!pipelineList?.content?.length &amp;&amp; (
+        &lt;Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}&gt;
+          &lt;Layout.Horizontal&gt;
+            &lt;RbacButton
+              intent="primary"
+              data-testid="add-pipeline"
+              text={getString('addPipeline')}
+              onClick={() =&gt; goToPipeline()}
+              tooltipProps={{
+                dataTooltipId: 'addPipeline'
+              }}
+              permission={{
+                permission: PermissionIdentifier.EDIT_PIPELINE,
+                resource: {
+                  resourceType: ResourceType.PIPELINE
+                }
+              }}
+            /&gt;
+            {isGitSyncEnabled &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;GitSyncStoreProvider&gt;</span>
+                &lt;GitFilters
+                  onChange={<span class="fstat-no" title="function not covered" >filter </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                    setGitFilter(filter)</span>
+<span class="cstat-no" title="statement not covered" >                    setPage(0)</span>
+                  }}
+                  className={css.gitFilter}
+                /&gt;
+              &lt;/GitSyncStoreProvider&gt;
+            )}
+          &lt;/Layout.Horizontal&gt;
+          &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
+            &lt;&gt;
+              &lt;div className={css.expandSearch}&gt;
+                &lt;ExpandingSearchInput
+                  placeholder={getString('search')}
+                  throttle={200}
+                  onChange={(text: string) =&gt; {
+                    setSearchParam(text)
+                  }}
+                /&gt;
+              &lt;/div&gt;
+              &lt;Layout.Horizontal padding={{ left: 'small', right: 'small' }}&gt;
+                &lt;FilterSelector&lt;FilterDTO&gt;
+                  appliedFilter={appliedFilter}
+                  filters={filters}
+                  onFilterBtnClick={openFilterDrawer}
+                  onFilterSelect={handleFilterSelection}
+                  fieldToLabelMapping={fieldToLabelMapping}
+                  filterWithValidFields={filterWithValidFieldsWithMetaInfo}
+                /&gt;
+              &lt;/Layout.Horizontal&gt;
+            &lt;/&gt;
+            &lt;Layout.Horizontal flex&gt;
+              &lt;Button
+                minimal
+                icon="grid-view"
+                intent={view === Views.GRID ? 'primary' : 'none'}
+                onClick={() =&gt; {
+                  setView(Views.GRID)
                 }}
-                className={css.gitFilter}
               /&gt;
-            &lt;/GitSyncStoreProvider&gt;
-          )}
-        &lt;/Layout.Horizontal&gt;
-        &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
-          &lt;&gt;
-            &lt;div className={css.expandSearch}&gt;
-              &lt;ExpandingSearchInput
-                placeholder={getString('search')}
-                throttle={200}
-                onChange={(text: string) =&gt; {
-                  setSearchParam(text)
+              &lt;Button
+                minimal
+                icon="list"
+                intent={view === Views.LIST ? 'primary' : 'none'}
+                onClick={() =&gt; {
+                  setView(Views.LIST)
                 }}
-              /&gt;
-            &lt;/div&gt;
-            &lt;Layout.Horizontal padding={{ left: 'small', right: 'small' }}&gt;
-              &lt;FilterSelector&lt;FilterDTO&gt;
-                appliedFilter={appliedFilter}
-                filters={filters}
-                onFilterBtnClick={openFilterDrawer}
-                onFilterSelect={handleFilterSelection}
-                fieldToLabelMapping={fieldToLabelMapping}
-                filterWithValidFields={filterWithValidFieldsWithMetaInfo}
               /&gt;
             &lt;/Layout.Horizontal&gt;
-          &lt;/&gt;
-          &lt;Layout.Horizontal flex&gt;
-            &lt;Button
-              minimal
-              icon="grid-view"
-              intent={view === Views.GRID ? 'primary' : 'none'}
-              onClick={() =&gt; {
-                setView(Views.GRID)
-              }}
-            /&gt;
-            &lt;Button
-              minimal
-              icon="list"
-              intent={view === Views.LIST ? 'primary' : 'none'}
-              onClick={() =&gt; {
-                setView(Views.LIST)
-              }}
-            /&gt;
           &lt;/Layout.Horizontal&gt;
         &lt;/Layout.Horizontal&gt;
-      &lt;/Layout.Horizontal&gt;
+      )}
       &lt;Page.Body
         className={css.pageBody}
         error={<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >error?.m</span>essage}</span>
         retryOnError={/* istanbul ignore next */ () =&gt; fetchPipelines()}
       &gt;
-        &lt;Layout.Horizontal
-          spacing="large"
-          margin={{ left: 'large', top: 'large', bottom: 'large', right: 'large' }}
-          className={css.topHeaderFields}
-        &gt;
-          &lt;Text color={Color.GREY_800} iconProps={{ size: 14 }}&gt;
-            {getString('total')}: {pipelineList?.totalElements}
-          &lt;/Text&gt;
-          &lt;Select
-            items={sortOptions}
-            value={selectedSort}
-            className={css.sortSelector}
-            onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >              if (item.value === SortFields.AZ09) {</span>
-<span class="cstat-no" title="statement not covered" >                setStort([SortFields.Name, Sort.ASC])</span>
-              } else <span class="cstat-no" title="statement not covered" >if (item.value === SortFields.ZA90) {</span>
-<span class="cstat-no" title="statement not covered" >                setStort([SortFields.Name, Sort.DESC])</span>
-              } else <span class="cstat-no" title="statement not covered" >if (item.value === SortFields.LastUpdatedAt) {</span>
-<span class="cstat-no" title="statement not covered" >                setStort([SortFields.LastUpdatedAt, Sort.DESC])</span>
-              } else <span class="cstat-no" title="statement not covered" >if (item.value === SortFields.RecentActivity) {</span>
-<span class="cstat-no" title="statement not covered" >                setStort([SortFields.RecentActivity, Sort.DESC])</span>
-              }
-<span class="cstat-no" title="statement not covered" >              setPage(0)</span>
-<span class="cstat-no" title="statement not covered" >              setSelectedSort(item)</span>
-            }}
-          /&gt;
-        &lt;/Layout.Horizontal&gt;
+        {!!pipelineList?.content?.length &amp;&amp; (
+          &lt;Layout.Horizontal
+            spacing="large"
+            margin={{ left: 'large', top: 'large', bottom: 'large', right: 'large' }}
+            className={css.topHeaderFields}
+          &gt;
+            &lt;Text color={Color.GREY_800} iconProps={{ size: 14 }}&gt;
+              {getString('total')}: {pipelineList<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalElements}
+            &lt;/Text&gt;
+            &lt;Select
+              items={sortOptions}
+              value={selectedSort}
+              className={css.sortSelector}
+              onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                if (item.value === SortFields.AZ09) {</span>
+<span class="cstat-no" title="statement not covered" >                  setStort([SortFields.Name, Sort.ASC])</span>
+                } else <span class="cstat-no" title="statement not covered" >if (item.value === SortFields.ZA90) {</span>
+<span class="cstat-no" title="statement not covered" >                  setStort([SortFields.Name, Sort.DESC])</span>
+                } else <span class="cstat-no" title="statement not covered" >if (item.value === SortFields.LastUpdatedAt) {</span>
+<span class="cstat-no" title="statement not covered" >                  setStort([SortFields.LastUpdatedAt, Sort.DESC])</span>
+                } else <span class="cstat-no" title="statement not covered" >if (item.value === SortFields.RecentActivity) {</span>
+<span class="cstat-no" title="statement not covered" >                  setStort([SortFields.RecentActivity, Sort.DESC])</span>
+                }
+<span class="cstat-no" title="statement not covered" >                setPage(0)</span>
+<span class="cstat-no" title="statement not covered" >                setSelectedSort(item)</span>
+              }}
+            /&gt;
+          &lt;/Layout.Horizontal&gt;
+        )}
         {initLoading ? (
           &lt;OverlaySpinner show={true} className={css.loading}&gt;
             &lt;&gt;&lt;/&gt;
@@ -2041,24 +2072,32 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
         ) : !pipelineList<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >          &lt;div className={css.noPipelineSection}&gt;</span>
             {appliedFilter ? (
-              &lt;div className={css.noFilterData}&gt;
-                &lt;Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} /&gt;
-                &lt;Text margin={{ top: 'large', bottom: 'small' }} font={{ weight: 'bold', size: 'medium' }}&gt;
+              &lt;Layout.Vertical spacing="small" flex&gt;
+                &lt;Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} margin={{ bottom: 'large' }} /&gt;
+                &lt;Text
+                  margin={{ top: 'large', bottom: 'small' }}
+                  font={{ weight: 'bold', size: 'medium' }}
+                  color={Color.GREY_800}
+                &gt;
                   {getString('common.filters.noMatchingFilterData')}
                 &lt;/Text&gt;
                 &lt;String stringID="common.filters.clearFilters" className={css.clearFilterText} onClick={reset} /&gt;
-              &lt;/div&gt;
+              &lt;/Layout.Vertical&gt;
             ) : (
-              &lt;div className={css.noFilterData}&gt;
-                &lt;Icon size={20} name="pipeline-ng"&gt;&lt;/Icon&gt;
-                &lt;Text padding={{ top: 'small', bottom: 'small' }} font="medium"&gt;
+              &lt;Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }} width={720}&gt;
+                &lt;img src={pipelineIllustration} className={css.image} /&gt;
+&nbsp;
+                &lt;Text className={css.noPipelineText} margin={{ top: 'medium', bottom: 'small' }}&gt;
+                  {getString('pipeline.noPipelineText')}
+                &lt;/Text&gt;
+                &lt;Text className={css.aboutPipeline} margin={{ top: 'xsmall', bottom: 'xlarge' }}&gt;
                   {getString('pipeline-list.aboutPipeline')}
                 &lt;/Text&gt;
 &nbsp;
                 &lt;RbacButton
                   intent="primary"
                   onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >goToPipeline()}</span>
-                  text={getString('pipeline-list.createPipeline')}
+                  text={getString('common.createPipeline')}
                   permission={{
                     permission: PermissionIdentifier.EDIT_PIPELINE,
                     resource: {
@@ -2071,7 +2110,7 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
                     }
                   }}
                 /&gt;
-              &lt;/div&gt;
+              &lt;/Layout.Vertical&gt;
             )}
           &lt;/div&gt;
         ) : view === Views.GRID ? (
@@ -2104,7 +2143,7 @@ export default PipelinesPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 11 2021 11:30:08 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 11 2021 12:04:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

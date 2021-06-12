@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.58% </span>
+                <span class="strong">26.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>80/301</span>
+                <span class='fraction'>79/300</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.34% </span>
+                <span class="strong">27.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>79/289</span>
+                <span class='fraction'>78/288</span>
             </div>
         
             
@@ -1605,8 +1605,7 @@
 <a name='L1546'></a><a href='#L1546'>1546</a>
 <a name='L1547'></a><a href='#L1547'>1547</a>
 <a name='L1548'></a><a href='#L1548'>1548</a>
-<a name='L1549'></a><a href='#L1549'>1549</a>
-<a name='L1550'></a><a href='#L1550'>1550</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L1549'></a><a href='#L1549'>1549</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -1680,7 +1679,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -3235,7 +3233,6 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { gcrUrlList } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
-import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
 const clearRuntimeInput = <span class="fstat-no" title="function not covered" >(t</span>emplate: NgPipeline): NgPipeline =&gt; {
 <span class="cstat-no" title="statement not covered" >  return JSON.parse(</span>
@@ -3690,7 +3687,7 @@ const KubernetesServiceSpecInputForm: React.FC&lt;KubernetesServiceInputFormProp
               &lt;/Text&gt;
             )}
             {template?.artifacts?.primary &amp;&amp; (
-              &lt;Layout.Vertical key="primary" className={cx(stepCss.formGroup, stepCss.md, css.serviceSection)}&gt;
+              &lt;Layout.Vertical key="primary" className={css.inputWidth}&gt;
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.connectorRef`, '')) ===
                   MultiTypeInputType.RUNTIME &amp;&amp; (
                   &lt;FormMultiTypeConnectorField
@@ -3713,35 +3710,6 @@ const KubernetesServiceSpecInputForm: React.FC&lt;KubernetesServiceInputFormProp
                     gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
                   /&gt;
                 )}
-                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
-                  MultiTypeInputType.RUNTIME &amp;&amp; (
-                  &lt;FormInput.MultiTextInput
-                    label={getString('pipelineSteps.deploy.inputSet.imagePath')}
-                    disabled={readonly}
-                    multiTextInputProps={{
-                      expressions,
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                    }}
-                    name={`${path}.artifacts.primary.spec.imagePath`}
-                    className={css.inputWidth}
-                  /&gt;
-                )}
-&nbsp;
-                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
-                  MultiTypeInputType.RUNTIME &amp;&amp; (
-                  &lt;FormInput.MultiTypeInput
-                    disabled={readonly}
-                    selectItems={gcrUrlList}
-                    useValue
-                    multiTypeInputProps={{
-                      expressions,
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                      selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
-                    }}
-                    label={getString('connectors.GCR.registryHostname')}
-                    name={`${path}.artifacts.primary.spec.registryHostname`}
-                  /&gt;
-                )}
                 {getMultiTypeFromValue(artifacts?.primary?.spec?.region) === MultiTypeInputType.RUNTIME &amp;&amp; (
                   &lt;FormInput.MultiTypeInput
                     multiTypeInputProps={{
@@ -3760,6 +3728,35 @@ const KubernetesServiceSpecInputForm: React.FC&lt;KubernetesServiceInputFormProp
                     name={`${path}.artifacts.primary.spec.region`}
                   /&gt;
                 )}
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
+                  MultiTypeInputType.RUNTIME &amp;&amp; (
+                  &lt;FormInput.MultiTextInput
+                    label={getString('pipelineSteps.deploy.inputSet.imagePath')}
+                    disabled={readonly}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                    }}
+                    name={`${path}.artifacts.primary.spec.imagePath`}
+                  /&gt;
+                )}
+&nbsp;
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
+                  MultiTypeInputType.RUNTIME &amp;&amp; (
+                  &lt;FormInput.MultiTypeInput
+                    disabled={readonly}
+                    selectItems={gcrUrlList}
+                    useValue
+                    multiTypeInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                      selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
+                    }}
+                    label={getString('connectors.GCR.registryHostname')}
+                    name={`${path}.artifacts.primary.spec.registryHostname`}
+                  /&gt;
+                )}
+&nbsp;
                 {getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME &amp;&amp; (
                   &lt;div
                     onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
@@ -4711,7 +4708,7 @@ export class KubernetesServiceSpec extends Step&lt;ServiceSpec&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jun 12 2021 00:22:11 GMT+0000 (Greenwich Mean Time)
+                at Sat Jun 12 2021 02:55:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

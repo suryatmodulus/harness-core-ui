@@ -1,20 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik, FormikForm, Container, Text } from '@wings-software/uicore'
 import { object as yupObject } from 'yup'
-import { useParams } from 'react-router-dom'
 import {
   ConnectorSelection,
   SelectOrCreateConnectorFieldNames
 } from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
-import { useToaster } from '@common/components'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import { useStrings } from 'framework/strings'
+import ValidateKubernetesConnector from './ValidateKubernetesConnector'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import { buildKubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
-import { validateAndSubmit } from './SelectKubernetesConnector.util'
 import css from './SelectKubernetesConnector.module.scss'
 
 interface SelectKubernetesConnectorProps {
@@ -31,17 +28,18 @@ const ValidationSchema = yupObject().shape({
 export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps): JSX.Element {
   const { onPrevious, onSubmit, data, isEditMode } = props
   const { getString } = useStrings()
-  const { showError } = useToaster()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const [submitValue, setSubmitValue] = useState<KubernetesActivitySourceInfo | null>(null)
+  const [loading, setLoading] = useState(false)
 
   return (
     <Formik
       initialValues={data || buildKubernetesActivitySourceInfo()}
       validationSchema={ValidationSchema}
       formName="cvSelectk8"
-      onSubmit={values =>
-        validateAndSubmit({ values, params: { accountId, projectIdentifier, orgIdentifier }, onSubmit, showError })
-      }
+      onSubmit={values => {
+        setSubmitValue(values)
+        setLoading(true)
+      }}
     >
       {formikProps => (
         <FormikForm id="onBoardingForm">
@@ -75,6 +73,7 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
                 )
               }}
             />
+            {loading && <ValidateKubernetesConnector values={submitValue} onSuccess={onSubmit} />}
           </Container>
           <SubmitAndPreviousButtons onPreviousClick={onPrevious} />
         </FormikForm>

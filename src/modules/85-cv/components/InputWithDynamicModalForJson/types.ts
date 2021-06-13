@@ -11,6 +11,7 @@ export interface InputWithDynamicModalForJsonProps {
   noRecordModalHeader: string
   noRecordInputLabel: string
   recordsModalHeader: string
+  testId?: string
 }
 
 export const DialogProps: IDialogProps = {

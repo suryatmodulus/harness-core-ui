@@ -72,6 +72,7 @@ export function MapGCPLogsQueriesToService(props: MapGCPLogsQueriesToServiceProp
       />
       <InputWithDynamicModalForJson
         onChange={onChange}
+        testId={'service-instance'}
         isQueryExecuted={isQueryExecuted}
         isDisabled={isAddingIdentifiersDisabled}
         sampleRecord={sampleRecord}
@@ -84,6 +85,7 @@ export function MapGCPLogsQueriesToService(props: MapGCPLogsQueriesToServiceProp
       />
       <InputWithDynamicModalForJson
         onChange={onChange}
+        testId={'message-identifier'}
         isDisabled={isAddingIdentifiersDisabled}
         isQueryExecuted={isQueryExecuted}
         sampleRecord={sampleRecord}

@@ -18,7 +18,8 @@ export function InputWithDynamicModalForJson(props: InputWithDynamicModalForJson
     inputPlaceholder,
     noRecordModalHeader,
     noRecordInputLabel,
-    recordsModalHeader
+    recordsModalHeader,
+    testId
   } = props
   const { getString } = useStrings()
 
@@ -87,7 +88,7 @@ export function InputWithDynamicModalForJson(props: InputWithDynamicModalForJson
       label={inputLabel}
       placeholder={inputPlaceholder}
       inputGroup={{
-        rightElement: <InputIcon isDisabled={isDisabled} onClick={handleOnClickAddField} />
+        rightElement: <InputIcon isDisabled={isDisabled} testId={testId} onClick={handleOnClickAddField} />
       }}
     />
   )

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.42% </span>
+                <span class="strong">70.97% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/31</span>
+                <span class='fraction'>22/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.09% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/22</span>
+                <span class='fraction'>11/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.07% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/27</span>
+                <span class='fraction'>18/27</span>
             </div>
         
             
@@ -152,9 +152,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,32 +205,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">54x</span>
-<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">54x</span>
-<span class="cline-any cline-yes">54x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -241,15 +241,15 @@
 import { Connectors } from '@connectors/constants'
 import type { GitSyncConfig, ConnectorInfoDTO } from 'services/cd-ng'
 &nbsp;
-export const getGitConnectorIcon = (type: GitSyncConfig['gitConnectorType']): IconName =&gt; {
-  switch (type) {
+export const getGitConnectorIcon = <span class="fstat-no" title="function not covered" >(t</span>ype: GitSyncConfig['gitConnectorType']): IconName =&gt; {
+<span class="cstat-no" title="statement not covered" >  switch (type) {</span>
     case Connectors.GITHUB:
-      return 'github'
-<span class="branch-1 cbranch-no" title="branch not covered" >    case Connectors.GITLAB:</span>
+<span class="cstat-no" title="statement not covered" >      return 'github'</span>
+    case Connectors.GITLAB:
 <span class="cstat-no" title="statement not covered" >      return 'service-gotlab'</span>
-<span class="branch-2 cbranch-no" title="branch not covered" >    case Connectors.BITBUCKET:</span>
+    case Connectors.BITBUCKET:
 <span class="cstat-no" title="statement not covered" >      return 'bitbucket-selected'</span>
-<span class="branch-3 cbranch-no" title="branch not covered" >    default:</span>
+    default:
 <span class="cstat-no" title="statement not covered" >      return 'cog'</span>
   }
 }
@@ -307,7 +307,7 @@ export const getRepoPath = (gitRepo: GitSyncConfig): string =&gt; {
 <span class="cstat-no" title="statement not covered" >      basePath = 'https://bitbucket.com/'</span>
   }
 &nbsp;
-  return gitRepo.repo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>plit(basePath)[1] || ''
+  return gitRepo.repo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>plit(basePath)[1] || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
 }
 &nbsp;
 export const getCompleteGitPath = (repo: string, rootFolder: string, suffix: string): string =&gt;
@@ -334,7 +334,7 @@ export const getExternalUrl = (config: GitSyncConfig, folderPath?: string): stri
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 14 2021 16:46:46 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 14 2021 16:48:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.23% </span>
+                <span class="strong">77.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>97/124</span>
+                <span class='fraction'>98/127</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.87% </span>
+                <span class="strong">76.8% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>95/122</span>
+                <span class='fraction'>96/125</span>
             </div>
         
             
@@ -514,7 +514,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
@@ -619,7 +618,11 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
@@ -635,9 +638,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
@@ -953,7 +953,6 @@ import {
   useGetSteps,
   UseGetStepsProps
 } from 'services/pipeline-ng'
-import { useGetProvisionerSteps } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
 &nbsp;
@@ -1015,12 +1014,12 @@ const useGetBuildSteps = <span class="fstat-no" title="function not covered" >(p
 }
 &nbsp;
 // TODO: move to StepPaletteUtils.ts
-const dataSourceFactory = (stageType: StageTypes, isProvisioner?: boolean): any =&gt; {
+const dataSourceFactory = (stageType: StageTypes): any =&gt; {
   switch (stageType) {
 <span class="branch-0 cbranch-no" title="branch not covered" >    case StageTypes.BUILD:</span>
 <span class="cstat-no" title="statement not covered" >      return useGetBuildSteps</span>
     case StageTypes.DEPLOY:
-      return isProvisioner ? <span class="branch-0 cbranch-no" title="branch not covered" >useGetProvisionerSteps </span>: useGetSteps
+      return useGetSteps
 <span class="branch-2 cbranch-no" title="branch not covered" >    case StageTypes.APPROVAL:</span>
 <span class="cstat-no" title="statement not covered" >      return useGetSteps</span>
 <span class="branch-3 cbranch-no" title="branch not covered" >    case StageTypes.FEATURE:</span>
@@ -1057,10 +1056,14 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
   const [originalData, setOriginalCategories] = useState&lt;StepCategory[]&gt;([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
   const { module, accountId } = useParams&lt;{ module: string; accountId: string }&gt;()
-  const categoryForStepPalette =
-    (selectedStage as any).stage<span class="branch-1 cbranch-no" title="branch not covered" >?.type </span>=== StageTypes.APPROVAL
-      ? <span class="branch-0 cbranch-no" title="branch not covered" >StageTypes.APPROVAL</span>
-      : get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+  let categoryForStepPalette
+  <span class="missing-if-branch" title="if path not taken" >I</span>if ((selectedStage as any).stage<span class="branch-1 cbranch-no" title="branch not covered" >?.type </span>=== StageTypes.APPROVAL) {
+<span class="cstat-no" title="statement not covered" >    categoryForStepPalette = StageTypes.APPROVAL</span>
+  } else <span class="missing-if-branch" title="if path not taken" >I</span>if (isProvisioner) {
+<span class="cstat-no" title="statement not covered" >    categoryForStepPalette = 'Provisioner'</span>
+  } else {
+    categoryForStepPalette = get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+  }
 &nbsp;
   const Message = ({ stepsDataLoading }: { stepsDataLoading: boolean }) =&gt; {
     const message = stepsDataLoading
@@ -1074,10 +1077,7 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
     ) : null
   }
 &nbsp;
-  const { data: stepsData, loading: stepsDataLoading } = dataSourceFactory(
-    stageType,
-    isProvisioner
-  )({
+  const { data: stepsData, loading: stepsDataLoading } = dataSourceFactory(stageType)({
     queryParams: { category: categoryForStepPalette, module, accountId }
   })
   const { getString } = useStrings()
@@ -1384,7 +1384,7 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 14 2021 16:46:46 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 14 2021 16:48:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

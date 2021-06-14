@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.89% </span>
+                <span class="strong">74.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>71/90</span>
+                <span class='fraction'>71/95</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.58% </span>
+                <span class="strong">50.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>153/291</span>
+                <span class='fraction'>153/303</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.89% </span>
+                <span class="strong">74.74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>71/90</span>
+                <span class='fraction'>71/95</span>
             </div>
         
             
@@ -569,7 +569,16 @@
 <a name='L510'></a><a href='#L510'>510</a>
 <a name='L511'></a><a href='#L511'>511</a>
 <a name='L512'></a><a href='#L512'>512</a>
-<a name='L513'></a><a href='#L513'>513</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a>
+<a name='L516'></a><a href='#L516'>516</a>
+<a name='L517'></a><a href='#L517'>517</a>
+<a name='L518'></a><a href='#L518'>518</a>
+<a name='L519'></a><a href='#L519'>519</a>
+<a name='L520'></a><a href='#L520'>520</a>
+<a name='L521'></a><a href='#L521'>521</a>
+<a name='L522'></a><a href='#L522'>522</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -937,6 +946,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1191,12 +1209,12 @@ function TerraformPlanWidget(
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
-&nbsp;
         identifier: IdentifierSchema(),
         spec: Yup.object().shape({
           provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
           configuration: Yup.object().shape({
-            command: Yup.string().required(getString('pipelineSteps.commandRequired'))
+            command: Yup.string().required(getString('pipelineSteps.commandRequired')),
+            secretManagerRef: Yup.string().required(getString('cd.secretManagerRequired'))
           })
         })
       })}
@@ -1450,6 +1468,15 @@ function TerraformPlanWidget(
               &gt;
                 &lt;ConfigForm
                   onClick={<span class="fstat-no" title="function not covered" >data </span>=&gt; {
+                    const configObject = <span class="cstat-no" title="statement not covered" >{</span>
+                      ...data.spec?.configuration?.configFiles
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    if (configObject?.store.spec.gitFetchType === 'Branch') {</span>
+<span class="cstat-no" title="statement not covered" >                      delete configObject.store.spec.commitId</span>
+                    } else <span class="cstat-no" title="statement not covered" >if (configObject?.store.spec.gitFetchType === 'Commit') {</span>
+<span class="cstat-no" title="statement not covered" >                      delete configObject.store.spec.branch</span>
+                    }
                     const valObj = <span class="cstat-no" title="statement not covered" >{</span>
                       ...formik.values,
                       spec: {
@@ -1457,7 +1484,7 @@ function TerraformPlanWidget(
                         configuration: {
                           ...formik.values?.spec?.configuration,
 &nbsp;
-                          configFiles: data.spec?.configuration?.configFiles
+                          configFiles: { ...configObject }
                         }
                       }
                     }
@@ -1600,7 +1627,7 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 14 2021 16:46:46 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 14 2021 16:48:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.17% </span>
+                <span class="strong">73.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/24</span>
+                <span class='fraction'>17/23</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">16.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/5</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.61% </span>
+                <span class="strong">77.27% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/23</span>
+                <span class='fraction'>17/22</span>
             </div>
         
             
@@ -164,8 +164,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -213,6 +211,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -226,6 +225,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -262,9 +262,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Layout, Text, Card, Color, Button } from '@wings-software/uicore'
-import { Radio } from '@blueprintjs/core'
-import { noop } from 'lodash-es'
+import { Layout, Text, Card, Color, Button, Radio } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
@@ -315,23 +313,25 @@ const ResourcesCard: React.FC&lt;ResourcesCardProps&gt; = ({
             label={getString('resourceGroup.all', { name: getString(label) })}
             checked={resourceValues === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR}
             className={css.radioBtn}
-            onChange={noop}
+            onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >onResourceSelectionChange(resourceType, e.currentTarget.checked)}</span>
           /&gt;
-          &lt;Text lineClamp={1} color={Color.GREY_400} className={css.limitAccessCell}&gt;
-            {getString('resourceGroup.limitAccess', { name: getString(label) })}
-          &lt;/Text&gt;
           {addResourceModalBody &amp;&amp; (
-            &lt;Button
-              intent="primary"
-              minimal
-              disabled={disableAddingResources}
-              className={css.addResourceBtn}
-              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                openAddResourceModal(resourceType, Array.isArray(resourceValues) ? resourceValues : [])</span>
-              }}
-            &gt;
-              {getString('resourceGroup.add', { name: getString(label) })}
-            &lt;/Button&gt;
+            &lt;&gt;
+              &lt;Text lineClamp={1} color={Color.GREY_400} className={css.limitAccessCell}&gt;
+                {getString('resourceGroup.limitAccess', { name: getString(label) })}
+              &lt;/Text&gt;
+              &lt;Button
+                intent="primary"
+                minimal
+                disabled={disableAddingResources}
+                className={css.addResourceBtn}
+                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                  openAddResourceModal(resourceType, Array.isArray(resourceValues) ? resourceValues : [])</span>
+                }}
+              &gt;
+                {getString('resourceGroup.add', { name: getString(label) })}
+              &lt;/Button&gt;
+            &lt;/&gt;
           )}
         &lt;/Layout.Horizontal&gt;
 &nbsp;
@@ -370,7 +370,7 @@ export default ResourcesCard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 14 2021 05:00:03 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 14 2021 07:41:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

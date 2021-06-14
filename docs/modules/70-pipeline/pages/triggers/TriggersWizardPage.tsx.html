@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.82% </span>
+                <span class="strong">53.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>465/864</span>
+                <span class='fraction'>466/868</span>
             </div>
         
             
@@ -1189,7 +1189,9 @@
 <a name='L1130'></a><a href='#L1130'>1130</a>
 <a name='L1131'></a><a href='#L1131'>1131</a>
 <a name='L1132'></a><a href='#L1132'>1132</a>
-<a name='L1133'></a><a href='#L1133'>1133</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L1133'></a><a href='#L1133'>1133</a>
+<a name='L1134'></a><a href='#L1134'>1134</a>
+<a name='L1135'></a><a href='#L1135'>1135</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -2072,6 +2074,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2079,6 +2082,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3198,27 +3202,29 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
   useEffect(() =&gt; {
     if (connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame &amp;&amp; onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef?.identifier) {
       // Assigns label on Visual mode for onEdit
-      const { connector } = connectorData.data
+      const { connector, status } = connectorData.data
       const connectorRef: ConnectorRefInterface = {
         ...(onEditInitialValues || <span class="branch-1 cbranch-no" title="branch not covered" >initialValues)</span>.connectorRef,
         label: connector.name,
-        connector
+        connector,
+        live: status?.status === 'SUCCESS'
       }
       <span class="missing-if-branch" title="else path not taken" >E</span>if (onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier) {
         setOnEditInitialValues({ ...onEditInitialValues, connectorRef })
       }
     } else <span class="missing-if-branch" title="if path not taken" >I</span>if (wizardKey &gt; 0 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >connectorData?.data?.connector?.name </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >initialValues?.connectorRef?.identifier)</span> {
       // means we switched from yaml to visual and need to get the label
-      const { connector } = <span class="cstat-no" title="statement not covered" >connectorData.data</span>
+      const { connector, status } = <span class="cstat-no" title="statement not covered" >connectorData.data</span>
       const connectorRef: ConnectorRefInterface = <span class="cstat-no" title="statement not covered" >{</span>
         ...initialValues.connectorRef,
         label: connector.name,
-        connector
+        connector,
+        live: status?.status === 'SUCCESS'
       }
 <span class="cstat-no" title="statement not covered" >      setInitialValues({ ...initialValues, connectorRef })</span>
     }
   }, [
-    connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame,
+    connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector,
     onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef?.identifier,
     initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef?.identifier
   ])
@@ -3460,7 +3466,7 @@ export default TriggersWizardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 14 2021 15:36:24 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 14 2021 16:46:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

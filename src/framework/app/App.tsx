@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter, Route, Switch, useParams } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
 import { TooltipContextProvider } from '@wings-software/uicore'
@@ -21,9 +21,9 @@ import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
 import { NGTooltipEditorPortal } from 'framework/tooltip/TooltipEditor'
 import AppStorage from 'framework/utils/AppStorage'
-
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import './App.scss'
-import { useRefreshToken } from 'services/portal'
+import { useRefreshToken, Account } from 'services/portal'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -41,6 +41,7 @@ const Harness = (window.Harness = window.Harness || {})
 function AppWithAuthentication(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()
   const accountId = SessionToken.accountId()
+  const { accountId: accountIdFromUrl } = useParams<AccountPathProps>()
 
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
     const headers: RequestInit['headers'] = {}
@@ -100,13 +101,15 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
           // check response body to confirm invalid token
           // response.json().then(body => {
           //   if (['INVALID_TOKEN', 'EXPIRED_TOKEN'].indexOf(body?.code) > -1) {
+          const addReturnUrl = !!AppStorage.get('accounts')?.find(
+            (account: Account) => account.uuid === accountIdFromUrl
+          )
           AppStorage.clear()
-          window.location.href = getLoginPageURL()
+          window.location.href = getLoginPageURL(addReturnUrl)
           return
           // }
           // })
         }
-
         checkAndRefreshToken()
       }}
     >

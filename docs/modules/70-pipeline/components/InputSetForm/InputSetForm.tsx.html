@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.89% </span>
+                <span class="strong">86.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>140/163</span>
+                <span class='fraction'>141/163</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>20/26</span>
+                <span class='fraction'>20/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.63% </span>
+                <span class="strong">86.25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>137/160</span>
+                <span class='fraction'>138/160</span>
             </div>
         
             
@@ -723,13 +723,7 @@
 <a name='L664'></a><a href='#L664'>664</a>
 <a name='L665'></a><a href='#L665'>665</a>
 <a name='L666'></a><a href='#L666'>666</a>
-<a name='L667'></a><a href='#L667'>667</a>
-<a name='L668'></a><a href='#L668'>668</a>
-<a name='L669'></a><a href='#L669'>669</a>
-<a name='L670'></a><a href='#L670'>670</a>
-<a name='L671'></a><a href='#L671'>671</a>
-<a name='L672'></a><a href='#L672'>672</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L667'></a><a href='#L667'>667</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -778,6 +772,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1371,14 +1366,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1401,7 +1391,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
-import cx from 'classnames'
 import { Intent } from '@blueprintjs/core'
 import {
   Button,
@@ -1450,6 +1439,7 @@ import { useQueryParams } from '@common/hooks'
 import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
+import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -2040,18 +2030,13 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
 <span class="branch-2 cbranch-no" title="branch not covered" >                &lt;GitPopover data={inputSet.gitDetails || {}} iconMargin={{ left: 'small', top: 'xsmall' }} /&gt;</span>
               )}
               &lt;div className={css.optionBtns}&gt;
-                &lt;div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >handleModeSwitch(SelectedView.VISUAL)}</span>
-                &gt;
-                  {getString('visual')}
-                &lt;/div&gt;
-                &lt;div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-                  onClick={() =&gt; handleModeSwitch(SelectedView.YAML)}
-                &gt;
-                  {getString('yaml')}
-                &lt;/div&gt;
+                &lt;VisualYamlToggle
+                  initialSelectedView={selectedView}
+                  beforeOnChange={(nextMode, callback) =&gt; {
+                    handleModeSwitch(nextMode)
+                    callback(nextMode)
+                  }}
+                &gt;&lt;/VisualYamlToggle&gt;
               &lt;/div&gt;
             &lt;/Layout.Horizontal&gt;
           &lt;/Layout.Vertical&gt;
@@ -2077,7 +2062,7 @@ export const EnhancedInputSetForm: React.FC&lt;InputSetFormProps&gt; = props =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 14 2021 10:35:42 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 14 2021 13:51:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

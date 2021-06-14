@@ -32,14 +32,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/312</span>
+                <span class='fraction'>0/314</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
@@ -724,16 +724,7 @@
 <a name='L665'></a><a href='#L665'>665</a>
 <a name='L666'></a><a href='#L666'>666</a>
 <a name='L667'></a><a href='#L667'>667</a>
-<a name='L668'></a><a href='#L668'>668</a>
-<a name='L669'></a><a href='#L669'>669</a>
-<a name='L670'></a><a href='#L670'>670</a>
-<a name='L671'></a><a href='#L671'>671</a>
-<a name='L672'></a><a href='#L672'>672</a>
-<a name='L673'></a><a href='#L673'>673</a>
-<a name='L674'></a><a href='#L674'>674</a>
-<a name='L675'></a><a href='#L675'>675</a>
-<a name='L676'></a><a href='#L676'>676</a>
-<a name='L677'></a><a href='#L677'>677</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L668'></a><a href='#L668'>668</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -1334,17 +1325,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1443,6 +1425,7 @@ import type { EntityGitDetails } from 'services/pipeline-ng'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import GitFilters from '@common/components/GitFilters/GitFilters'
 import { TagsPopover } from '@common/components'
+import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -1450,7 +1433,6 @@ import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineAc
 import { RightBar } from '../RightBar/RightBar'
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
 import StageBuilder from '../StageBuilder/StageBuilder'
-import { PipelineStudioView } from '../PipelineUtils'
 import css from './PipelineCanvas.module.scss'
 &nbsp;
 interface OtherModalProps {
@@ -1533,7 +1515,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
   })
 &nbsp;
   const history = <span class="cstat-no" title="statement not covered" >useHistory()</span>
-  const isYaml = <span class="cstat-no" title="statement not covered" >view === 'yaml'</span>
+  const isYaml = <span class="cstat-no" title="statement not covered" >view === SelectedView.YAML</span>
   const [isYamlError, setYamlError] = <span class="cstat-no" title="statement not covered" >React.useState(false)</span>
   const [blockNavigation, setBlockNavigation] = <span class="cstat-no" title="statement not covered" >React.useState(false)</span>
   const [selectedBranch, setSelectedBranch] = <span class="cstat-no" title="statement not covered" >React.useState(branch || '')</span>
@@ -1734,7 +1716,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
 <span class="cstat-no" title="statement not covered" >  React.useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
     // for new pipeline always use UI as default view
 <span class="cstat-no" title="statement not covered" >    if (pipelineIdentifier === DefaultNewPipelineId) {</span>
-<span class="cstat-no" title="statement not covered" >      setView(PipelineStudioView.ui)</span>
+<span class="cstat-no" title="statement not covered" >      setView(SelectedView.VISUAL)</span>
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pipelineIdentifier])
@@ -1819,9 +1801,9 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
     [hideModal, pipeline, updatePipeline]
   )
 &nbsp;
-  function <span class="fstat-no" title="function not covered" >handleViewChange(</span>newView: PipelineStudioView): void {
+  function <span class="fstat-no" title="function not covered" >handleViewChange(</span>newView: SelectedView): void {
 <span class="cstat-no" title="statement not covered" >    if (newView === view) <span class="cstat-no" title="statement not covered" >return</span></span>
-<span class="cstat-no" title="statement not covered" >    if (newView === PipelineStudioView.ui &amp;&amp; yamlHandler) {</span>
+<span class="cstat-no" title="statement not covered" >    if (newView === SelectedView.VISUAL &amp;&amp; yamlHandler) {</span>
 <span class="cstat-no" title="statement not covered" >      try {</span>
         const parsedYaml = <span class="cstat-no" title="statement not covered" >parse(yamlHandler.getLatestYaml())</span>
 <span class="cstat-no" title="statement not covered" >        if (!parsedYaml) {</span>
@@ -2007,22 +1989,13 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
               {isGitSyncEnabled &amp;&amp; &lt;RenderGitDetails /&gt;}
             &lt;/div&gt;
 &nbsp;
-            &lt;div className={css.pipelineStudioTitleContainer}&gt;
-              &lt;div className={css.optionBtns}&gt;
-                &lt;div
-                  className={cx(css.item, { [css.selected]: !isYaml })}
-                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >handleViewChange(PipelineStudioView.ui)}</span>
-                &gt;
-                  {getString('visual')}
-                &lt;/div&gt;
-                &lt;div
-                  className={cx(css.item, { [css.selected]: isYaml })}
-                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >handleViewChange(PipelineStudioView.yaml)}</span>
-                &gt;
-                  {getString('yaml')}
-                &lt;/div&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
+            &lt;VisualYamlToggle
+              initialSelectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
+              beforeOnChange={<span class="fstat-no" title="function not covered" >(n</span>extMode, callback) =&gt; {
+<span class="cstat-no" title="statement not covered" >                handleViewChange(nextMode)</span>
+<span class="cstat-no" title="statement not covered" >                callback(nextMode)</span>
+              }}
+            &gt;&lt;/VisualYamlToggle&gt;
           &lt;/div&gt;
           &lt;div&gt;
             &lt;div className={css.savePublishContainer}&gt;
@@ -2092,7 +2065,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 14 2021 10:35:42 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 14 2021 13:51:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

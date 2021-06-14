@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.63% </span>
+                <span class="strong">86.25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>137/160</span>
+                <span class='fraction'>138/160</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.38% </span>
+                <span class="strong">80.56% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>29/37</span>
+                <span class='fraction'>29/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.53% </span>
+                <span class="strong">86.16% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>136/159</span>
+                <span class='fraction'>137/159</span>
             </div>
         
             
@@ -733,13 +733,7 @@
 <a name='L674'></a><a href='#L674'>674</a>
 <a name='L675'></a><a href='#L675'>675</a>
 <a name='L676'></a><a href='#L676'>676</a>
-<a name='L677'></a><a href='#L677'>677</a>
-<a name='L678'></a><a href='#L678'>678</a>
-<a name='L679'></a><a href='#L679'>679</a>
-<a name='L680'></a><a href='#L680'>680</a>
-<a name='L681'></a><a href='#L681'>681</a>
-<a name='L682'></a><a href='#L682'>682</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L677'></a><a href='#L677'>677</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -779,6 +773,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1243,14 +1238,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1421,7 +1411,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { isNull, isUndefined, omit, omitBy } from 'lodash-es'
-import cx from 'classnames'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { Button, Color, Formik, FormikForm, FormInput, Icon, Layout, SelectOption, Text } from '@wings-software/uicore'
@@ -1462,6 +1451,7 @@ import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveT
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import { useQueryParams } from '@common/hooks'
+import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
@@ -1922,18 +1912,13 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
       &lt;div className={Classes.DIALOG_BODY}&gt;
         &lt;Layout.Vertical spacing="medium"&gt;
           &lt;div className={css.optionBtns}&gt;
-            &lt;div
-              className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >handleModeSwitch(SelectedView.VISUAL)}</span>
-            &gt;
-              {getString('visual')}
-            &lt;/div&gt;
-            &lt;div
-              className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-              onClick={() =&gt; handleModeSwitch(SelectedView.YAML)}
-            &gt;
-              {getString('yaml')}
-            &lt;/div&gt;
+            &lt;VisualYamlToggle
+              initialSelectedView={selectedView}
+              beforeOnChange={(nextMode, callback) =&gt; {
+                handleModeSwitch(nextMode)
+                callback(nextMode)
+              }}
+            &gt;&lt;/VisualYamlToggle&gt;
           &lt;/div&gt;
 &nbsp;
           &lt;Formik&lt;OverlayInputSetDTO &amp; GitContextProps&gt;
@@ -2107,7 +2092,7 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 14 2021 10:35:42 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 14 2021 13:51:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

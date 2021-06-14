@@ -55,6 +55,13 @@ const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: Exec
     serviceDependencyList.forEach(service => {
       if (service?.identifier) {
         service.stepType = 'dependency-service'
+        service.executableResponses = [
+          {
+            task: {
+              logKeys: (service as any).logKeys
+            } as any
+          }
+        ]
         nodeMap[service.identifier] = service
       }
     })

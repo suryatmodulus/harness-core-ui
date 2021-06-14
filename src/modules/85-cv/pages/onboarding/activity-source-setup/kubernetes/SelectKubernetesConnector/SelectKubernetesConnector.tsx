@@ -32,24 +32,22 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
   const { onPrevious, onSubmit, data, isEditMode } = props
   const { getString } = useStrings()
   const [submitValue, setSubmitValue] = useState<KubernetesActivitySourceInfo | null>(null)
-  const [loading, setLoading] = useState(false)
-  // const [refetch, setRefetch] = useState(false)
+
+  const validateAndSubmit = (values: React.SetStateAction<KubernetesActivitySourceInfo | null>): void => {
+    if (submitValue) {
+      // for triggering refetch in ValidateKubernetesConnector
+      refetchConnectorValidation.current.call()
+    } else {
+      setSubmitValue(values)
+    }
+  }
 
   return (
     <Formik
       initialValues={data || buildKubernetesActivitySourceInfo()}
       validationSchema={ValidationSchema}
       formName="cvSelectk8"
-      onSubmit={values => {
-        if (loading) {
-          // for triggering refetch in ValidateKubernetesConnector
-          refetchConnectorValidation.current.call()
-        } else {
-          setSubmitValue(values)
-        }
-        setSubmitValue(values)
-        setLoading(true)
-      }}
+      onSubmit={values => validateAndSubmit(values)}
     >
       {formikProps => (
         <FormikForm id="onBoardingForm">
@@ -83,7 +81,7 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
                 )
               }}
             />
-            {loading && (
+            {!!submitValue && (
               <ValidateKubernetesConnector
                 values={submitValue}
                 onSuccess={onSubmit}

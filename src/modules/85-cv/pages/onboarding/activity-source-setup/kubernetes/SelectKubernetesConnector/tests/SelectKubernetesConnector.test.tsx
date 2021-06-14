@@ -3,6 +3,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Container, FormInput } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
+import { useValidateConnector } from 'services/cv'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { SelectKubernetesConnector } from '../SelectKubernetesConnector'
 
@@ -26,11 +27,18 @@ jest.mock('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
 }))
 
 jest.mock('services/cv', () => ({
-  useValidateConnector: jest.fn().mockReturnValue({
-    data: {},
-    loading: false,
-    error: null
-  })
+  useValidateConnector: jest
+    .fn()
+    .mockReturnValueOnce({
+      data: {},
+      loading: false,
+      error: null
+    })
+    .mockReturnValue({
+      data: {},
+      loading: true,
+      error: { status: 'error' }
+    })
 }))
 
 describe('Unit tests for SelectActivitySource', () => {
@@ -66,7 +74,18 @@ describe('Unit tests for SelectActivitySource', () => {
 
     fireEvent.click(submitButton)
 
-    expect(container.querySelector('p[test-id="connectorSuccess"]')).toBeInTheDocument()
+    await waitFor(() =>
+      expect(useValidateConnector).toHaveBeenCalledWith({
+        queryParams: {
+          accountId: '1234_accountId',
+          connectorIdentifier: 'account.1234_ident',
+          dataSourceType: 'KUBERNETES',
+          orgIdentifier: '1234_ORG',
+          projectIdentifier: '1234_project',
+          tracingId: 'account.1234_ident:testConnection'
+        }
+      })
+    )
 
     await waitFor(() =>
       expect(onSubmitMockFunc).toHaveBeenCalledWith({
@@ -83,18 +102,8 @@ describe('Unit tests for SelectActivitySource', () => {
       })
     )
   })
-})
 
-jest.mock('services/cv', () => ({
-  useValidateConnector: jest.fn().mockReturnValue({
-    data: null,
-    loading: false,
-    error: { status: 'error' }
-  })
-}))
-
-describe('Connector error vallidation', () => {
-  test('Ensure user is not able to move to Choose Namespace Section if connector validation fails', async () => {
+  test('Ensure connector validation fails', async () => {
     const onSubmitMockFunc = jest.fn()
     const { container } = render(
       <TestWrapper
@@ -123,9 +132,23 @@ describe('Connector error vallidation', () => {
     if (!submitButton) {
       throw Error('Submit button was not rendered.')
     }
+
     fireEvent.click(submitButton)
 
-    container.querySelector('p[test-id="connectorError"]')
+    expect(container.querySelector('p[test-id="connectorError"]')).toBeNull()
+
+    await waitFor(() =>
+      expect(useValidateConnector).toHaveBeenCalledWith({
+        queryParams: {
+          accountId: '1234_accountId',
+          connectorIdentifier: 'account.1234_ident',
+          dataSourceType: 'KUBERNETES',
+          orgIdentifier: '1234_ORG',
+          projectIdentifier: '1234_project',
+          tracingId: 'account.1234_ident:testConnection'
+        }
+      })
+    )
 
     await waitFor(() => expect(onSubmitMockFunc).not.toHaveBeenCalled())
   })

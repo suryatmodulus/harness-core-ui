@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">88.46% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/27</span>
+                <span class='fraction'>23/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">88.46% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/27</span>
+                <span class='fraction'>23/26</span>
             </div>
         
             
@@ -165,14 +165,7 @@
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a>
-<a name='L115'></a><a href='#L115'>115</a>
-<a name='L116'></a><a href='#L116'>116</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -216,13 +209,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -303,7 +289,7 @@ import type { StepLabelProps } from '@cv/components/CVSetupSourcesView/StepLabel
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { StringUtils } from '@common/exports'
+import { IdentifierSchemaWithoutHook } from '@common/utils/Validation'
 import { SelectMonitoringSourceProduct } from '@cv/components/CVSetupSourcesView/SelectMonitoringSourceProduct/SelectMonitoringSourceProduct'
 import { NewRelicProductNames } from '../NewRelicMonitoringSourceUtils'
 &nbsp;
@@ -332,16 +318,9 @@ const SelectMonitoringSourceStepProps: StepLabelProps = {
 function getValidationSchema(getString: UseStringsReturn['getString']): Record&lt;string, any&gt; {
   return Yup.object({
     monitoringSourceName: Yup.string().required(getString('cv.onboarding.selectProductScreen.validationText.name')),
-    identifier: Yup.string().when('name', {
-      is: val =&gt; <span class="branch-1 cbranch-no" title="branch not covered" >val?.length,</span>
-      then: Yup.string()
-        .trim()
-        .required(getString('cv.onboarding.selectProductScreen.validationText.identifier'))
-        .matches(
-          /^(?![0-9])[0-9a-zA-Z_$]*$/,
-          getString('cv.onboarding.selectProductScreen.validationText.validIdRegex')
-        )
-        .notOneOf(StringUtils.illegalIdentifiers)
+    identifier: IdentifierSchemaWithoutHook(getString, {
+      requiredErrorMsg: getString('cv.onboarding.selectProductScreen.validationText.identifier'),
+      regexErrorMsg: getString('cv.onboarding.selectProductScreen.validationText.validIdRegex')
     }),
     connectorRef: Yup.object().required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef')),
     productName: Yup.string().required(getString('cv.onboarding.selectProductScreen.validationText.product'))
@@ -409,7 +388,7 @@ export function SelectNewRelicConnector(): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 14 2021 13:51:03 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 14 2021 15:36:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

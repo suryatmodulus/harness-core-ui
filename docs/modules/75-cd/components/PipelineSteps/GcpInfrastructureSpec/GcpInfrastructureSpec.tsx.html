@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.12% </span>
+                <span class="strong">90.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>154/169</span>
+                <span class='fraction'>157/174</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.42% </span>
+                <span class="strong">74.58% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>256/344</span>
+                <span class='fraction'>264/354</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>150/165</span>
+                <span class='fraction'>153/170</span>
             </div>
         
             
@@ -817,7 +817,14 @@
 <a name='L758'></a><a href='#L758'>758</a>
 <a name='L759'></a><a href='#L759'>759</a>
 <a name='L760'></a><a href='#L760'>760</a>
-<a name='L761'></a><a href='#L761'>761</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L761'></a><a href='#L761'>761</a>
+<a name='L762'></a><a href='#L762'>762</a>
+<a name='L763'></a><a href='#L763'>763</a>
+<a name='L764'></a><a href='#L764'>764</a>
+<a name='L765'></a><a href='#L765'>765</a>
+<a name='L766'></a><a href='#L766'>766</a>
+<a name='L767'></a><a href='#L767'>767</a>
+<a name='L768'></a><a href='#L768'>768</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1058,6 +1065,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1075,8 +1083,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1204,6 +1211,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1239,6 +1247,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1594,7 +1608,7 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { debounce, noop, isEmpty, get, memoize } from 'lodash-es'
+import { debounce, noop, isEmpty, get, memoize, set } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { FormikErrors, yupToFormErrors } from 'formik'
@@ -1818,8 +1832,7 @@ const GcpInfrastructureSpecEditable: React.FC&lt;GcpInfrastructureSpecEditablePr
 <span class="cstat-no" title="statement not covered" >                      setClusterOptions([])</span>
                     }
 &nbsp;
-                    // NOTE: clear cluster on connector change
-                    // formik.setFieldValue('cluster', '')
+<span class="cstat-no" title="statement not covered" >                    formik.setFieldValue('cluster', '')</span>
                   }}
                   gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 /&gt;
@@ -1838,6 +1851,7 @@ const GcpInfrastructureSpecEditable: React.FC&lt;GcpInfrastructureSpecEditablePr
                     showAdvanced={true}
                     onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                      formik.setFieldValue('connectorRef', value)</span>
+<span class="cstat-no" title="statement not covered" >                      formik.setFieldValue('cluster', '')</span>
                     }}
                     isReadonly={readonly}
                   /&gt;
@@ -1962,7 +1976,8 @@ const GcpInfrastructureSpecInputForm: React.FC&lt;GcpInfrastructureSpecEditableP
   template,
   initialValues,
   readonly = false,
-  path
+  path,
+  onUpdate
 }) =&gt; {
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;{
     projectIdentifier: string
@@ -2000,6 +2015,12 @@ const GcpInfrastructureSpecInputForm: React.FC&lt;GcpInfrastructureSpecEditableP
           connectorRef: initialValues.connectorRef
         }
       })
+&nbsp;
+      // reset cluster on connectorRef change
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>luster) === MultiTypeInputType.RUNTIME) {
+        set(initialValues, 'cluster', '')
+        onUpdate?.(initialValues)
+      }
     } else {
       setClusterOptions([])
     }
@@ -2344,7 +2365,7 @@ export class GcpInfrastructureSpec extends PipelineStep&lt;GcpInfrastructureSpec
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 14 2021 13:51:03 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 14 2021 15:36:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

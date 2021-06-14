@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.76% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/49</span>
+                <span class='fraction'>42/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.33% </span>
+                <span class="strong">46.15% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/30</span>
+                <span class='fraction'>12/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.31% </span>
+                <span class="strong">91.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/13</span>
+                <span class='fraction'>11/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.76% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>43/49</span>
+                <span class='fraction'>42/48</span>
             </div>
         
             
@@ -251,15 +251,7 @@
 <a name='L192'></a><a href='#L192'>192</a>
 <a name='L193'></a><a href='#L193'>193</a>
 <a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a>
-<a name='L199'></a><a href='#L199'>199</a>
-<a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L195'></a><a href='#L195'>195</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -275,6 +267,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -286,13 +279,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -465,7 +451,6 @@ import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
-import { StringUtils } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import routes from '@common/RouteDefinitions'
@@ -476,6 +461,7 @@ import {
   DataSources,
   iconNameToActivityType
 } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 interface VerificationJobsDetailsProps {
   stepData: any
   onNext: (data: any) =&gt; void
@@ -491,15 +477,8 @@ const VerificationJobsDetails: React.FC&lt;VerificationJobsDetailsProps&gt; = pr
         initialValues={{ ...props.stepData }}
         formName="verifyJobDetails"
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('validation.nameRequired')),
-          identifier: Yup.string().when('name', {
-            is: val =&gt; val?.length,
-            then: Yup.string()
-              .trim()
-              .required(getString('validation.identifierRequired'))
-              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-              .notOneOf(StringUtils.illegalIdentifiers)
-          }),
+          name: NameSchema(),
+          identifier: IdentifierSchema(),
           type: Yup.string().required(getString('cv.verificationJobs.validation.type')),
           dataSource: Yup.string().nullable().required(getString('cv.verificationJobs.validation.dataSource')),
           activitySource: Yup.string().nullable().required(getString('cv.verificationJobs.validation.changeSource'))
@@ -667,7 +646,7 @@ export default VerificationJobsDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 14 2021 13:51:03 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 14 2021 15:36:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -19,6 +19,7 @@ import {
   useGetJiraProjects,
   useGetJiraIssueCreateMetadata
 } from 'services/cd-ng'
+import { NameSchema } from '@common/utils/Validation'
 import type {
   AccountPathProps,
   GitQueryParams,
@@ -59,16 +60,19 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
-  const commonParams = {
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  }
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [statusList, setStatusList] = useState<JiraStatusNG[]>([])
   const [fieldList, setFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
+
+  const commonParams = {
+    accountIdentifier: accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier,
+    branch
+  }
 
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const projectKeyFixedValue =
@@ -184,6 +188,7 @@ const FormContent = ({
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => formik.setFieldValue('timeout', value)}
+            isReadonly={readonly}
           />
         )}
       </Layout.Horizontal>
@@ -228,6 +233,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.connectorRef', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -318,6 +324,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.issueKey', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -369,12 +376,15 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
   const { onUpdate, readonly, isNewStep } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    branch,
+    repoIdentifier
   }
 
   const {
@@ -412,11 +422,11 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
-          issueKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueKey')),
+          issueKey: Yup.string().trim().required(getString('pipeline.jiraApprovalStep.validations.issueKey')),
           approvalCriteria: Yup.object().shape({
             spec: Yup.object().when('type', {
               is: ApprovalRejectionCriteriaType.KeyValues,
@@ -426,7 +436,7 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
                 )
               }),
               otherwise: Yup.object().shape({
-                expression: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.expression'))
+                expression: Yup.string().trim().required(getString('pipeline.jiraApprovalStep.validations.expression'))
               })
             })
           })

@@ -111,18 +111,19 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
               {getString('projectCard.projectName')}
             </Text>
           ) : null}
-          <Text font={{ size: 'small' }} margin={{ top: 'xsmall' }}>
-            {data.identifier}
+          <Text font={{ size: 'small' }} margin={{ top: 'xsmall' }} color={Color.GREY_700}>
+            {getString('idLabel', { id: data.identifier })}
           </Text>
           {harnessManagedOrg || isPreview ? null : (
-            <Container
-              padding="xsmall"
-              margin={{ top: 'small' }}
-              border={{ color: Color.GREY_200 }}
-              flex={{ inline: true }}
-            >
-              <Text font={{ size: 'small' }} margin={{ right: 'xsmall' }}>{`${getString('orgLabel')}:`}</Text>
-              <Text font={{ size: 'small', weight: 'bold' }}>{organization?.name}</Text>
+            <Container margin={{ top: 'small', bottom: 'small' }}>
+              <Text
+                font={{ size: 'small', weight: 'semi-bold' }}
+                icon="union"
+                lineClamp={1}
+                iconProps={{ padding: { right: 'small' } }}
+              >
+                {organization?.name}
+              </Text>
             </Container>
           )}
           {data.description ? (
@@ -132,15 +133,15 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           ) : null}
           {data.tags && (
             <Container padding={{ top: 'small' }}>
-              <TagsRenderer tags={data.tags} length={2} width={150} />
+              <TagsRenderer tags={data.tags} length={2} width={150} tagClassName={css.tagClassName} />
             </Container>
           )}
 
           <Layout.Horizontal padding={{ top: 'medium' }}>
             <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <Text font="small" padding={{ bottom: 'small' }}>{`${getString('adminLabel')} ${
-                adminList?.length ? `(${adminList?.length})` : ``
-              }`}</Text>
+              <Text font={{ size: 'small', weight: 'semi-bold' }} padding={{ bottom: 'small' }}>{`${getString(
+                'adminLabel'
+              )} ${adminList?.length ? `(${adminList?.length})` : ``}`}</Text>
               <RbacAvatarGroup
                 className={css.projectAvatarGroup}
                 avatars={adminList?.length ? adminList : [{}]}
@@ -158,9 +159,9 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
               />
             </Layout.Vertical>
             <Layout.Vertical spacing="xsmall">
-              <Text font="small" padding={{ bottom: 'small' }}>{`${getString('collaboratorsLabel')} ${
-                collaboratorsList?.length ? `(${collaboratorsList?.length})` : ``
-              }`}</Text>
+              <Text font={{ size: 'small', weight: 'semi-bold' }} padding={{ bottom: 'small' }}>{`${getString(
+                'collaboratorsLabel'
+              )} ${collaboratorsList?.length ? `(${collaboratorsList?.length})` : ``}`}</Text>
               <RbacAvatarGroup
                 className={css.projectAvatarGroup}
                 avatars={collaboratorsList?.length ? collaboratorsList : [{}]}

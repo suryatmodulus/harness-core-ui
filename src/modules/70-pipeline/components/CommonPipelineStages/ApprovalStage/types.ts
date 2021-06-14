@@ -1,3 +1,4 @@
+import type React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { tagsType } from '@common/utils/types'
 import type { StageElementWrapper } from 'services/cd-ng'
@@ -31,8 +32,5 @@ export interface ApprovalCardsViewData {
 
 export interface ApprovalStageOverviewProps {
   name?: string
-}
-
-export interface ApprovalStageExecutionProps {
-  name?: string
+  children: React.ReactNode
 }

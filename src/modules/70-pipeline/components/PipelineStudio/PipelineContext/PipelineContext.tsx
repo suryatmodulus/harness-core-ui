@@ -162,6 +162,7 @@ export interface PipelineContextInterface {
   stepsFactory: AbstractStepFactory
   view: string
   isReadonly: boolean
+  setSchemaErrorView: (flag: boolean) => void
   setView: (view: PipelineStudioView) => void
   renderPipelineStage: (args: Omit<PipelineStagesProps, 'children'>) => React.ReactElement<PipelineStagesProps>
   fetchPipeline: (args: FetchPipelineUnboundProps) => Promise<void>
@@ -497,6 +498,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   state: initialState,
   stepsFactory: {} as AbstractStepFactory,
   stagesMap: {},
+  setSchemaErrorView: () => undefined,
   isReadonly: false,
   view: PipelineStudioView.ui,
   updateGitDetails: () => new Promise<void>(() => undefined),
@@ -642,6 +644,10 @@ export const PipelineProvider: React.FC<{
     [state.pipeline, state.pipeline?.stages]
   )
 
+  const setSchemaErrorView = React.useCallback(flag => {
+    dispatch(PipelineContextActions.updateSchemaErrorsFlag({ schemaErrors: flag }))
+  }, [])
+
   const updateStage = React.useCallback(
     async (newStage: StageElementConfig) => {
       function _updateStages(stages: StageElementWrapperConfig[]): StageElementWrapperConfig[] {
@@ -714,6 +720,7 @@ export const PipelineProvider: React.FC<{
         setView,
         runPipeline,
         stepsFactory,
+        setSchemaErrorView,
         stagesMap,
         getStageFromPipeline,
         renderPipelineStage,

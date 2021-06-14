@@ -63,11 +63,14 @@ export function formatDuration(value?: number | string) {
 }
 
 export function diffStartAndEndTime(startTime?: number, endTime?: number): string | undefined {
-  const diff =
-    startTime && startTime > -1 && endTime && endTime > -1 ? moment(endTime).diff(startTime, 'minutes') : undefined
-  if (diff && diff < 180) {
-    return `${diff}m`
-  } else {
-    return `${moment(endTime).diff(startTime, 'hours')}h`
+  if (startTime && startTime > -1 && endTime && endTime > -1) {
+    const diffMins = moment(endTime).diff(startTime, 'minutes')
+    if (diffMins === 0) {
+      return `${moment(endTime).diff(startTime, 'seconds')}s`
+    } else if (diffMins < 180) {
+      return `${diffMins}m`
+    } else {
+      return `${moment(endTime).diff(startTime, 'hours')}h`
+    }
   }
 }

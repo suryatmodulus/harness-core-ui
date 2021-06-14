@@ -875,7 +875,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
                         />
                       </svg>
                     </span>
-                    error
+                    failed
                   </span>
                 </span>
               </span>
@@ -1109,7 +1109,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -1575,7 +1575,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -1875,7 +1875,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
                         />
                       </svg>
                     </span>
-                    error
+                    failed
                   </span>
                 </span>
               </span>
@@ -2541,7 +2541,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
                         />
                       </svg>
                     </span>
-                    error
+                    failed
                   </span>
                 </span>
               </span>
@@ -2775,7 +2775,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -3241,7 +3241,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -4200,7 +4200,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
                         />
                       </svg>
                     </span>
-                    error
+                    failed
                   </span>
                 </span>
               </span>
@@ -4434,7 +4434,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -4900,7 +4900,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -5193,7 +5193,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -5847,7 +5847,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
                         />
                       </svg>
                     </span>
-                    error
+                    failed
                   </span>
                 </span>
               </span>
@@ -6081,7 +6081,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -6547,7 +6547,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -7506,7 +7506,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
                         />
                       </svg>
                     </span>
-                    error
+                    failed
                   </span>
                 </span>
               </span>
@@ -7740,7 +7740,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -8206,7 +8206,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -8506,7 +8506,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
                         />
                       </svg>
                     </span>
-                    error
+                    failed
                   </span>
                 </span>
               </span>
@@ -9172,7 +9172,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
                         />
                       </svg>
                     </span>
-                    error
+                    failed
                   </span>
                 </span>
               </span>
@@ -9406,7 +9406,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -9872,7 +9872,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -10798,7 +10798,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
                         />
                       </svg>
                     </span>
-                    error
+                    failed
                   </span>
                 </span>
               </span>
@@ -11032,7 +11032,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -11498,7 +11498,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -12534,7 +12534,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
                         />
                       </svg>
                     </span>
-                    error
+                    failed
                   </span>
                 </span>
               </span>
@@ -12773,7 +12773,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p
@@ -13249,7 +13249,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
                     />
                   </svg>
                 </span>
-                active
+                success
               </span>
             </div>
             <p

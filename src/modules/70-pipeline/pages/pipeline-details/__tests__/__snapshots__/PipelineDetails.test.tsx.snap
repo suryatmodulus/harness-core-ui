@@ -6,7 +6,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
     class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
     >
       <div
         class="breadcrumbs"

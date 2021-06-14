@@ -13,7 +13,13 @@ export function dsconfigTypetoResourcesConnectorDetailsTitle(
     case 'NewRelic':
       return getString('connectors.newRelicConnectorDetails')
     case 'Datadog':
-      return getString('connectors.title.datadog')
+      return getString('connectors.datadogConnectorDetails')
+    case 'Dynatrace':
+      return getString('connectors.dynatraceConnectorDetails')
+    case 'SumoLogic':
+      return getString('connectors.sumoLogicConnectorDetails')
+    case 'Splunk':
+      return getString('connectors.splunkConnectorDetails')
     default:
       return ''
   }

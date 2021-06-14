@@ -66,3 +66,8 @@
 .monitoringCard {
   margin: 5px;
 }
+
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}

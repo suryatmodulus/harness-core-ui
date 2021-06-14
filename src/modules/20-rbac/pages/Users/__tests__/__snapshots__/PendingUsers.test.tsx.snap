@@ -93,7 +93,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
           class="bp3-input "
           dir="auto"
           placeholder="rbac.usersPage.search"
-          style="padding-right: 42px;"
+          style="padding-right: 0px;"
           type="search"
           value=""
         />

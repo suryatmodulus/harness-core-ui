@@ -57,6 +57,7 @@ import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterC
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { shouldShowError } from '@common/utils/errorUtils'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
@@ -88,11 +89,7 @@ interface ConnectorsListProps {
 const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, statisticsMockData, filtersMockData }) => {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
   const [filters, setFilters] = useState<FilterDTO[]>()
@@ -201,10 +198,14 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   }, [page, projectIdentifier, orgIdentifier, gitFilter])
 
   const handleConnectorSearch = (query: string) => {
-    refetchConnectorList(Object.assign(defaultQueryParams, { searchTerm: query }, appliedFilter?.filterProperties))
+    const gitQueryParams =
+      gitFilter?.repo && gitFilter.branch ? { repoIdentifier: gitFilter.repo, branch: gitFilter.branch } : {}
+    refetchConnectorList(
+      Object.assign(defaultQueryParams, { searchTerm: query, ...gitQueryParams }, appliedFilter?.filterProperties)
+    )
   }
 
-  const handler = useCallback(debounce(handleConnectorSearch, 300), [])
+  const handler = useCallback(debounce(handleConnectorSearch, 300), [gitFilter])
 
   const onSearch = (query: string) => {
     handler(encodeURIComponent(query))
@@ -283,7 +284,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   })
 
   const rerouteBasedOnContext = (): void => {
-    history.push(routes.toCreateConnectorFromYaml({ accountId, projectIdentifier, orgIdentifier }))
+    history.push(routes.toCreateConnectorFromYaml({ accountId, projectIdentifier, orgIdentifier, module }))
   }
 
   const [openDrawer, hideDrawer] = useModalHook(() => {

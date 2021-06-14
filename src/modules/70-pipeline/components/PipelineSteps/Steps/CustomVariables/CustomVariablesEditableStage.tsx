@@ -12,9 +12,11 @@ import { TextInputWithCopyBtn } from '@common/components/TextInputWithCopyBtn/Te
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import type { NGVariable } from 'services/cd-ng'
 
 import type { CustomVariableEditableProps, CustomVariablesData } from './CustomVariableEditable'
-import { VariableType, getVaribaleTypeOptions, labelStringMap } from './CustomVariableUtils'
+import { VariableType, labelStringMap } from './CustomVariableUtils'
+import AddEditCustomVariable, { VariableState } from './AddEditCustomVariable'
 import css from './CustomVariables.module.scss'
 
 const getValidationSchema = (getString: UseStringsReturn['getString']): Yup.Schema<unknown> =>
@@ -33,11 +35,19 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
 
+  const [selectedVariable, setSelectedVariable] = React.useState<VariableState | null>(null)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedUpdate = React.useCallback(
     debounce((data: CustomVariablesData) => onUpdate?.(data), 500),
     [onUpdate]
   )
+
+  function addNew(): void {
+    setSelectedVariable({
+      variable: { name: '', type: 'String', value: '' },
+      index: -1
+    })
+  }
 
   return (
     <Formik
@@ -49,13 +59,13 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
       {({ values, setFieldValue }) => (
         <FieldArray name="variables">
           {({ remove, push, replace }) => {
-            function handleAdd(): void {
+            function handleAdd(variable: NGVariable): void {
               uids.current.push(uuid())
-              push({ name: '', type: 'String', value: '', new: true })
+              push(variable)
             }
 
-            function handleEdit(index: number): void {
-              replace(index, { ...values.variables?.[index], new: true })
+            function handleUpdate(index: number, variable: NGVariable): void {
+              replace(index, variable)
             }
 
             function handleRemove(index: number): void {
@@ -65,6 +75,13 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
 
             return (
               <div className={cx(css.customVariablesStage, className)} id={domId}>
+                <AddEditCustomVariable
+                  selectedVariable={selectedVariable}
+                  setSelectedVariable={setSelectedVariable}
+                  addNewVariable={handleAdd}
+                  updateVariable={handleUpdate}
+                  existingVariables={values.variables}
+                />
                 {values.variables?.length > 0 ? (
                   <div className={cx(css.tableRow, css.headerRow)}>
                     <String stringID="name" />
@@ -86,26 +103,16 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                       <TextInputWithCopyBtn
                         name={`variables[${index}].name`}
                         label=""
-                        disabled={readonly}
+                        disabled={true}
                         localName={yamlData.localName}
                         fullName={yamlData.fqn}
                       />
-                      {variable.new ? (
-                        <FormInput.Select
-                          name={`variables[${index}].type`}
-                          items={getVaribaleTypeOptions(getString)}
-                          label=""
-                          disabled={readonly}
-                          placeholder={getString('typeLabel')}
-                        />
-                      ) : (
-                        <String
-                          className={css.valueString}
-                          stringID={labelStringMap[variable.type as VariableType]}
-                          data-testid={`variables[${index}].type`}
-                        />
-                      )}
-                      <div className={css.valueColumn}>
+                      <String
+                        className={css.valueString}
+                        stringID={labelStringMap[variable.type as VariableType]}
+                        data-testid={`variables[${index}].type`}
+                      />
+                      <div className={css.valueColumn} data-type={getMultiTypeFromValue(variable.value as string)}>
                         {variable.type === VariableType.Secret ? (
                           <MultiTypeSecretInput name={`variables[${index}].value`} label="" disabled={readonly} />
                         ) : (
@@ -134,32 +141,31 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                               setFieldValue(`variables[${index}].value`, value)
                               setFieldValue(`variables[${index}].default`, defaultValue)
                             }}
+                            isReadonly={readonly}
                           />
                         ) : null}
-                      </div>
-                      <div className={css.actionButtons}>
-                        {initialValues.canAddVariable ? (
-                          <React.Fragment>
-                            {!variable.new ? (
+                        <div className={css.actionButtons}>
+                          {initialValues.canAddVariable ? (
+                            <React.Fragment>
                               <Button
                                 icon="edit"
                                 disabled={readonly}
                                 tooltip={<String className={css.tooltip} stringID="common.editVariableType" />}
                                 data-testid={`edit-variable-${index}`}
-                                onClick={() => handleEdit(index)}
+                                onClick={() => setSelectedVariable({ variable, index })}
                                 minimal
                               />
-                            ) : null}
-                            <Button
-                              icon="trash"
-                              disabled={readonly}
-                              data-testid={`delete-variable-${index}`}
-                              tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
-                              onClick={() => handleRemove(index)}
-                              minimal
-                            />
-                          </React.Fragment>
-                        ) : /* istanbul ignore next */ null}
+                              <Button
+                                icon="trash"
+                                disabled={readonly}
+                                data-testid={`delete-variable-${index}`}
+                                tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
+                                onClick={() => handleRemove(index)}
+                                minimal
+                              />
+                            </React.Fragment>
+                          ) : /* istanbul ignore next */ null}
+                        </div>
                       </div>
                     </div>
                   )
@@ -170,7 +176,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                     minimal
                     intent="primary"
                     icon="plus"
-                    onClick={handleAdd}
+                    onClick={addNew}
                     disabled={readonly}
                     data-testid={'add-variable'}
                   >

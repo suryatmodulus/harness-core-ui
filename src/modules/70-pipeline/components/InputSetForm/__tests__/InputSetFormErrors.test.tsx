@@ -57,7 +57,9 @@ jest.mock(
 )
 
 jest.mock('services/cd-ng', () => ({
-  useGetConnector: jest.fn(() => ConnectorResponse)
+  useGetConnector: jest.fn(() => ConnectorResponse),
+  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() })),
+  useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 jest.mock('services/pipeline-ng', () => ({

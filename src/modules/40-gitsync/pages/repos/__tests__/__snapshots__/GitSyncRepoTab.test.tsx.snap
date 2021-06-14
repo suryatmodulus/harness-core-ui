@@ -48,7 +48,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          NAME
+          REPOSITORY
         </div>
         <div
           class="cell"
@@ -56,7 +56,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           role="columnheader"
           style="width: 20%;"
         >
-          GITSYNC.REPOSITORYPATH
+          COMMON.PATH
         </div>
         <div
           class="cell"
@@ -64,7 +64,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          PRIMARYBRANCH
+          GITSYNC.DEFAULTBRANCH
         </div>
         <div
           class="cell"
@@ -179,19 +179,25 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
-                    style="width: 55%;"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
+                    style="width: 60%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://github.com/wings-software/triggerNgDemo/src1/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://github.com/wings-software/triggerNgDemo/src1/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/"
+                      >
+                        https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -233,7 +239,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                   </div>
                   <div
                     class="StyledProps--font StyledProps--main"
-                    style="width: 20%;"
+                    style="width: 15%;"
                   >
                     <span
                       class="Tag--main"
@@ -306,19 +312,25 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
                     style="width: 75%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://github.com/wings-software/triggerNgDemo/src2/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://github.com/wings-software/triggerNgDemo/src2/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/"
+                      >
+                        https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -526,19 +538,25 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
-                    style="width: 55%;"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
+                    style="width: 60%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://www.github.com/testRepo.git/rootFolder1/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://www.github.com/testRepo.git/rootFolder1/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/"
+                      >
+                        https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -580,7 +598,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                   </div>
                   <div
                     class="StyledProps--font StyledProps--main"
-                    style="width: 20%;"
+                    style="width: 15%;"
                   >
                     <span
                       class="Tag--main"
@@ -653,19 +671,25 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
                     style="width: 75%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://www.github.com/testRepo.git/rootFolderTest/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://www.github.com/testRepo.git/rootFolderTest/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/"
+                      >
+                        https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -822,7 +846,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          NAME
+          REPOSITORY
         </div>
         <div
           class="cell"
@@ -830,7 +854,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
           role="columnheader"
           style="width: 20%;"
         >
-          GITSYNC.REPOSITORYPATH
+          COMMON.PATH
         </div>
         <div
           class="cell"
@@ -838,7 +862,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          PRIMARYBRANCH
+          GITSYNC.DEFAULTBRANCH
         </div>
         <div
           class="cell"
@@ -953,19 +977,25 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
-                    style="width: 55%;"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
+                    style="width: 60%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://github.com/wings-software/triggerNgDemo/src1/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://github.com/wings-software/triggerNgDemo/src1/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/"
+                      >
+                        https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -1007,7 +1037,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                   </div>
                   <div
                     class="StyledProps--font StyledProps--main"
-                    style="width: 20%;"
+                    style="width: 15%;"
                   >
                     <span
                       class="Tag--main"
@@ -1080,19 +1110,25 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
                     style="width: 75%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://github.com/wings-software/triggerNgDemo/src2/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://github.com/wings-software/triggerNgDemo/src2/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/"
+                      >
+                        https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -1277,19 +1313,25 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
-                    style="width: 55%;"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
+                    style="width: 60%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://www.github.com/testRepo.git/rootFolder1/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://www.github.com/testRepo.git/rootFolder1/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/"
+                      >
+                        https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -1331,7 +1373,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                   </div>
                   <div
                     class="StyledProps--font StyledProps--main"
-                    style="width: 20%;"
+                    style="width: 15%;"
                   >
                     <span
                       class="Tag--main"
@@ -1404,19 +1446,25 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
                     style="width: 75%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://www.github.com/testRepo.git/rootFolderTest/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://www.github.com/testRepo.git/rootFolderTest/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/"
+                      >
+                        https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -1573,7 +1621,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
           role="columnheader"
           style="width: 15%;"
         >
-          NAME
+          REPOSITORY
         </div>
         <div
           class="cell"
@@ -1581,7 +1629,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
           role="columnheader"
           style="width: 20%;"
         >
-          GITSYNC.REPOSITORYPATH
+          COMMON.PATH
         </div>
         <div
           class="cell"
@@ -1589,7 +1637,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
           role="columnheader"
           style="width: 15%;"
         >
-          PRIMARYBRANCH
+          GITSYNC.DEFAULTBRANCH
         </div>
         <div
           class="cell"
@@ -1704,19 +1752,25 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
                     style="width: 75%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://github.com/wings-software/triggerNgDemo/src1/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://github.com/wings-software/triggerNgDemo/src1/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/"
+                      >
+                        https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -1840,19 +1894,25 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
                     style="width: 75%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://github.com/wings-software/triggerNgDemo/src2/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://github.com/wings-software/triggerNgDemo/src2/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/"
+                      >
+                        https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -2060,19 +2120,25 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
-                    style="width: 55%;"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
+                    style="width: 60%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://www.github.com/testRepo.git/rootFolder1/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://www.github.com/testRepo.git/rootFolder1/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/"
+                      >
+                        https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -2114,7 +2180,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                   </div>
                   <div
                     class="StyledProps--font StyledProps--main"
-                    style="width: 20%;"
+                    style="width: 15%;"
                   >
                     <span
                       class="Tag--main"
@@ -2187,19 +2253,25 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
                     style="width: 75%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://www.github.com/testRepo.git/rootFolderTest/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://www.github.com/testRepo.git/rootFolderTest/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/"
+                      >
+                        https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -2356,7 +2428,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           role="columnheader"
           style="width: 15%;"
         >
-          NAME
+          REPOSITORY
         </div>
         <div
           class="cell"
@@ -2364,7 +2436,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           role="columnheader"
           style="width: 20%;"
         >
-          GITSYNC.REPOSITORYPATH
+          COMMON.PATH
         </div>
         <div
           class="cell"
@@ -2372,7 +2444,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           role="columnheader"
           style="width: 15%;"
         >
-          PRIMARYBRANCH
+          GITSYNC.DEFAULTBRANCH
         </div>
         <div
           class="cell"
@@ -2487,19 +2559,25 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
-                    style="width: 55%;"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
+                    style="width: 60%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://github.com/wings-software/triggerNgDemo/src1/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://github.com/wings-software/triggerNgDemo/src1/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/"
+                      >
+                        https://github.com/wings-software/triggerNgDemo/tree/master/src1/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -2541,7 +2619,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                   </div>
                   <div
                     class="StyledProps--font StyledProps--main"
-                    style="width: 20%;"
+                    style="width: 15%;"
                   >
                     <span
                       class="Tag--main"
@@ -2614,19 +2692,25 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
                     style="width: 75%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://github.com/wings-software/triggerNgDemo/src2/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://github.com/wings-software/triggerNgDemo/src2/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/"
+                      >
+                        https://github.com/wings-software/triggerNgDemo/tree/master/src2/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -2834,19 +2918,25 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
-                    style="width: 55%;"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
+                    style="width: 60%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://www.github.com/testRepo.git/rootFolder1/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://www.github.com/testRepo.git/rootFolder1/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/"
+                      >
+                        https://www.github.com/testRepo.git/tree/feature/rootFolder1/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span
@@ -2888,7 +2978,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                   </div>
                   <div
                     class="StyledProps--font StyledProps--main"
-                    style="width: 20%;"
+                    style="width: 15%;"
                   >
                     <span
                       class="Tag--main"
@@ -2961,19 +3051,25 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                     </p>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main noOverflow StyledProps--padding-left-xsmall"
                     style="width: 75%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                      title="https://www.github.com/testRepo.git/rootFolderTest/.harness/"
+                    <a
+                      class="noShadow"
+                      href="https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      https://www.github.com/testRepo.git/rootFolderTest/.harness/
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main link"
+                        title="https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/"
+                      >
+                        https://www.github.com/testRepo.git/tree/feature/rootFolderTest/.harness/
+                      </p>
+                    </a>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall"
                     style="width: 5%;"
                   >
                     <span

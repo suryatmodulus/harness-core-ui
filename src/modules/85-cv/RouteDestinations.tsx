@@ -15,7 +15,9 @@ import {
   resourceGroupPathProps,
   rolePathProps,
   userGroupPathProps,
-  userPathProps
+  userPathProps,
+  orgPathProps,
+  modulePathProps
 } from '@common/utils/routeUtils'
 import type { AccountPathProps, ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { MinimalLayout } from '@common/layouts'
@@ -32,6 +34,7 @@ import MonitoringSource from '@cv/pages/monitoring-source/MonitoringSource'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cv/components/SideNav/SideNav'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
+import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
@@ -253,6 +256,7 @@ export default (
     >
       <ConnectorsPage />
     </RouteWithLayout>
+
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
@@ -292,16 +296,32 @@ export default (
     >
       <DelegateProfileDetails />
     </RouteWithLayout>
+
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
       path={routes.toConnectorDetails({
+        ...accountPathProps,
         ...projectPathProps,
         ...connectorPathProps,
         ...cvModuleParams
       })}
     >
       <ConnectorDetailsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps, ...modulePathProps })}
+    >
+      <CreateConnectorFromYamlPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...orgPathProps })}
+    >
+      <CreateConnectorFromYamlPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

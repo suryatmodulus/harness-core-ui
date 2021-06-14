@@ -245,6 +245,7 @@ onboarding:
 selectCreateService: Select or create a service
 monitoringSources:
   mapMetricsToServices: Map Metric(s) to Harness Services
+  mapQueriesToServices: Map Queries to Harness Services
   metricPackValidation: Metric Pack Validation
   nameYourMonitoringSource: Name your Monitoring Source
   oneMetricMappingValidation: At least one application must be mapped
@@ -252,20 +253,21 @@ monitoringSources:
   oneMetricMappingValidationSubtext: You need to select one Metric Pack for verification
   backToMapping: Back to Mapping
   reviewPageSubHeading: You’ve done it! These services below are ready for your project. If it doesn’t look right, you can make changes now.
-  appDName: AppDynamics
-  newRelicName: New Relic
   metricNameLabel: Metric Name
+  queryNameLabel: Name your Query
   riskProfile: Risk Profile
   riskCategoryLabel: Risk Category
   baselineDeviation: Deviation Compared to Baseline
   higherCounts: Higher value is higher risk
   lowerCounts: Lower value is higher risk
   metricNameValidation: Metric Name is required.
+  queryNameValidation: Query Name is required.
   envValidation: Environment is required.
   serviceValidation: Service is required.
   buildYourQuery: Build your Query
   serviceInstanceIdentifier: Service Instance Identifier
   addMetric: Add Metric
+  addQuery: Add Query
   totalMappedQueries: '{{total}} {{query}} mapped'
   appD:
     envDescription: An Environment is the representation of your production or non-production infrastructure.
@@ -320,6 +322,7 @@ monitoringSources:
     searchForDashboardsPlaceholder: Search for dashboards
     product:
       metrics: 'Cloud Metrics'
+      logs: 'Cloud Logs'
     productValidationText: 'Google Cloud Operations feature is required.'
     selectDashboardsPage:
       noDataText: 'No Google Cloud Operation dashboards found.'
@@ -400,6 +403,32 @@ monitoringSources:
       groupName: Group Name is required.
       uniqueName: '{{existingName}} already exists. Provide a unique name.'
       recordCount: Current query yields too many records. Please change query to yield one record.
+  gcoLogs:
+    query: QUERY
+    gcoLogsServiceInstance: Add service instance
+    querySpecificationsAndMappings: Query Specifications and Mappings
+    customizeQuery: Enter the query to get the desired output and map to Harness Service.
+    gcoLogsMessageIdentifer: Add message identifier
+    selectPathForServiceInstance: Select path for service instance
+    selectPathForMessageIdentifier: Select path for message identifier
+    newGCOLogsServiceInstance: New Service Instance
+    newGCOLogsMessageIdentifier: New Message Identifier
+    fetchRecords: Fetch records
+    newGCOLogsMessage: New GCO Logs Message
+    records: Records
+    submitQueryToSeeRecords: Submit query to see records from Stackdriver Logs
+    noRecordsForQuery: No records for provided query
+    gcoLogsQuery: GCO Logs Query
+    addQueryTooltip: Fill all required fields before adding a new query
+    serviceInstance: Identify Service Instance
+    messageIdentifier: Identifty Message
+    selectRecords: After fetching records click on the plus icon ...
+    validation:
+      queryNameUnique: Query name must be unique.
+      serviceInstance: Service Instance is required.
+      messageIdentifier: Message Identifier is required.
+      serviceInstanceUniqueName: '{{existingName}} already exists. Provide a unique name for service instance.'
+      messageIdentifierUniqueName: '{{existingName}} already exists. Provide a unique name for message.'
 activitySources:
   name: 'Name your Change Source'
   harnessCD:

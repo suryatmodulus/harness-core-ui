@@ -42,6 +42,7 @@ interface KustomizeWithGITPropType {
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
+  isReadonly?: boolean
 }
 
 const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGITPropType> = ({
@@ -51,7 +52,8 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
   expressions,
   prevStepData,
   previousStep,
-  manifestIdsList
+  manifestIdsList,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
 
@@ -220,6 +222,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   expressions={expressions}
                   fieldValue={formik.values?.repoName}
                   changeFieldValue={(value: string) => formik.setFieldValue('repoName', value)}
+                  isReadonly={isReadonly}
                 />
               )}
 
@@ -255,6 +258,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('branch', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
@@ -283,6 +287,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('commitId', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
@@ -312,6 +317,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('folderPath', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                   <Tooltip
@@ -349,6 +355,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('pluginPath', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                   <Tooltip
@@ -393,6 +400,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                           onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
                           style={{ alignSelf: 'center' }}
                           className={css.addmarginTop}
+                          isReadonly={isReadonly}
                         />
                       )}
                       <Tooltip

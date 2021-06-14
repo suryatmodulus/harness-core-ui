@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, waitFor, fireEvent, createEvent, act } from '@testing-library/react'
+import { noop } from 'lodash-es'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
@@ -54,7 +55,9 @@ jest.mock(
 jest.useFakeTimers()
 
 jest.mock('services/cd-ng', () => ({
-  useGetConnector: jest.fn(() => ConnectorResponse)
+  useGetConnector: jest.fn(() => ConnectorResponse),
+  useCreatePR: jest.fn(() => noop),
+  useGetFileContent: jest.fn(() => noop)
 }))
 
 jest.mock('services/pipeline-ng', () => ({

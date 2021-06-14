@@ -48,6 +48,7 @@ allowpaths:
   - /stackdriver/dashboards
   - /stackdriver/dashboard-detail
   - /stackdriver/sample-data
+  - /stackdriver-log/sample-data
   - /activity-source
   - /activity-source/{identifier}
   - /activity-source/list
@@ -66,6 +67,7 @@ allowpaths:
   - /prometheus/label-values
   - /prometheus/metric-list
   - /prometheus/sample-data
+  - /sumologic/endpoints
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

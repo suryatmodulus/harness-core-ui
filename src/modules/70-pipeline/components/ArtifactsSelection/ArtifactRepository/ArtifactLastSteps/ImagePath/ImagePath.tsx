@@ -20,7 +20,8 @@ import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForDocker } from 
 import { useStrings } from 'framework/strings'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../ArtifactConnector.module.scss'
@@ -33,10 +34,12 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   prevStepData,
   initialValues,
   previousStep,
-  artifactIdentifiers
+  artifactIdentifiers,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [tagList, setTagList] = React.useState([])
   const [lastImagePath, setLastImagePath] = React.useState('')
 
@@ -79,7 +82,9 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
         : prevStepData?.identifier || '',
       accountIdentifier: accountId,
       orgIdentifier,
-      projectIdentifier
+      projectIdentifier,
+      repoIdentifier,
+      branch
     },
     lazy: true,
     debounce: 300
@@ -233,6 +238,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                       onChange={value => {
                         formik.setFieldValue('imagePath', value)
                       }}
+                      isReadonly={isReadonly}
                     />
                   </div>
                 )}
@@ -272,6 +278,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                     }}
                     label={getString('tagLabel')}
                     name="tag"
+                    className={css.tagInputButton}
                   />
 
                   {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
@@ -286,6 +293,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                         onChange={value => {
                           formik.setFieldValue('tag', value)
                         }}
+                        isReadonly={isReadonly}
                       />
                     </div>
                   )}
@@ -312,6 +320,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                         onChange={value => {
                           formik.setFieldValue('tagRegex', value)
                         }}
+                        isReadonly={isReadonly}
                       />
                     </div>
                   )}

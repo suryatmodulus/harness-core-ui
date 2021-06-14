@@ -12,7 +12,8 @@ jest.mock('services/cd-ng', () => ({
 
 const mockRepoName = 'gitSyncRepo'
 
-describe('Git Sync - entity tab', () => {
+// eslint-disable-next-line jest/no-disabled-tests
+describe.skip('Git Sync - entity tab', () => {
   test('rendering landing view', async () => {
     const { getByText, container } = render(
       <GitSyncTestWrapper

@@ -354,7 +354,7 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
           />
           {openMetricsGUID && (
             <MetricsVerificationModal
-              verificationType={getString('cv.monitoringSources.newRelicName')}
+              verificationType={getString('connectors.newRelicLabel')}
               verificationData={transformNewRelicDataToAppd(
                 metricValidationResult.get(openMetricsGUID.applicationId)?.result as MetricPackValidationResponse
               )}

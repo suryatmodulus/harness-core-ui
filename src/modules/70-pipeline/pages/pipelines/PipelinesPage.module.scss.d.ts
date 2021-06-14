@@ -25,13 +25,15 @@ declare const styles: {
   readonly lastExecutionTs: string
   readonly clickable: string
   readonly actionButton: string
-  readonly gridView: string
   readonly gridLayout: string
-  readonly pageBody: string
   readonly pagination: string
+  readonly pageBody: string
   readonly loading: string
   readonly noData: string
   readonly noPipelineSection: string
-  readonly noPipelineData: string
+  readonly clearFilterText: string
+  readonly image: string
+  readonly noPipelineText: string
+  readonly aboutPipeline: string
 }
 export default styles

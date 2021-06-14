@@ -21,19 +21,12 @@ exports[`OnboardingPage OnboardingPage should be rendered properly 1`] = `
     <div
       class="StyledProps--font StyledProps--main StyledProps--margin-top-xxxlarge"
     >
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main h2"
-        level="2"
-      >
-        cf.onboarding.theBasics
-      </h2>
       <div
         class="StyledProps--font StyledProps--main"
         style="display: grid; justify-content: center; padding: 100px 0px;"
       >
         <img
           src="test-file-stub"
-          style="transform: scale(1.1);"
         />
       </div>
     </div>

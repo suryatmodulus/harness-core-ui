@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, fireEvent, getAllByText, render, waitFor } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
@@ -88,7 +88,7 @@ describe('<CDPipelineDeploymentList /> tests', () => {
   })
 
   test('call run pipeline', async () => {
-    const { container, getByTestId } = render(
+    const { getByTestId, findByText } = render(
       <TestWrapper
         path={routes.toPipelineDeploymentList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
         pathParams={{
@@ -104,10 +104,8 @@ describe('<CDPipelineDeploymentList /> tests', () => {
       </TestWrapper>
     )
 
-    const runButton = getAllByText(container, 'runPipelineText')[0]
-    act(() => {
-      fireEvent.click(runButton)
-    })
+    const runButton = await findByText('runPipelineText')
+    fireEvent.click(runButton)
 
     expect(getByTestId('location')).toMatchInlineSnapshot(`
       <div

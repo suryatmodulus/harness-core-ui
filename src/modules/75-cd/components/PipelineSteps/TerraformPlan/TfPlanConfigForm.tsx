@@ -30,6 +30,7 @@ interface ConfigFormProps {
   onClick: (values: any) => void
   data?: any
   onHide: (values: any) => void
+  isReadonly?: boolean
 }
 
 const gitFetchTypes: SelectOption[] = [
@@ -128,6 +129,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('configuration.configFiles.store.spec.repoName', value)}
+                      isReadonly={props.isReadonly}
                     />
                   )}
                 </div>
@@ -162,6 +164,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('configuration.configFiles.store.spec.branch', value)}
+                      isReadonly={props.isReadonly}
                     />
                   )}
                 </div>
@@ -189,6 +192,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       onChange={value =>
                         formik.setFieldValue('spec.configuration.configFiles.spec.store.spec.commitId', value)
                       }
+                      isReadonly={props.isReadonly}
                     />
                   )}
                 </div>
@@ -216,6 +220,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                         value
                       )
                     }
+                    isReadonly={props.isReadonly}
                   />
                 )}
               </div>

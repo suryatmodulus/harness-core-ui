@@ -10,8 +10,8 @@ import {
   FormInput,
   Checkbox,
   Button,
-  Select,
-  Text,
+  // Select,
+  // Text,
   ModalErrorHandler,
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
@@ -45,7 +45,8 @@ const LockoutPolicyForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettings,
   const handleSubmit = async (values: UserLockoutPolicy): Promise<void> => {
     const userLockoutPolicy: UserLockoutPolicy = {
       ...values,
-      enableLockoutPolicy: editing ? userLockoutSettings.enableLockoutPolicy : true
+      enableLockoutPolicy: editing ? userLockoutSettings.enableLockoutPolicy : true,
+      userGroupsToNotify: userLockoutSettings.userGroupsToNotify
     }
 
     try {
@@ -78,8 +79,8 @@ const LockoutPolicyForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettings,
           numberOfFailedAttemptsBeforeLockout:
             userLockoutSettings.numberOfFailedAttemptsBeforeLockout || /* istanbul ignore next */ 1,
           lockOutPeriod: userLockoutSettings.lockOutPeriod || /* istanbul ignore next */ 1,
-          notifyUser: !!userLockoutSettings.notifyUser,
-          userGroupsToNotify: []
+          notifyUser: !!userLockoutSettings.notifyUser
+          // userGroupsToNotify: []
         }}
         validationSchema={yup.object().shape({
           numberOfFailedAttemptsBeforeLockout: yup
@@ -122,14 +123,14 @@ const LockoutPolicyForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettings,
                 onChange={e => setFieldValue('notifyUser', e.currentTarget.checked)}
               />
             </Layout.Vertical>
-            <Text color={Color.GREY_500} padding={{ top: 'xsmall', bottom: 'xsmall' }}>
-              {getString('authSettings.notifyUsersWHenUserLocked')}
+            {/* <Text color={Color.GREY_500} padding={{ top: 'xsmall', bottom: 'xsmall' }}>
+              {getString('authSettings.notifyUsersWhenUserLocked')}
             </Text>
             <Select
               name="userGroupsToNotify"
               items={[]}
               inputProps={{ placeholder: getString('authSettings.selectUserGroup') }}
-            />
+            /> */}
             <Layout.Horizontal margin={{ top: 'xxxlarge', bottom: 'xlarge' }}>
               <Button
                 text={getString('save')}

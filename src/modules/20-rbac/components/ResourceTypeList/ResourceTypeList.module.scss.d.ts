@@ -3,5 +3,6 @@
 declare const styles: {
   readonly resourceTypeCard: string
   readonly resourceSubList: string
+  readonly checkBox: string
 }
 export default styles

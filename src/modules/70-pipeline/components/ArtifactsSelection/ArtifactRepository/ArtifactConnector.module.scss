@@ -32,8 +32,9 @@
   .addNewArtifact {
     position: relative;
     top: 24px;
-    right: 10px;
     box-shadow: none !important;
+    padding-right: 0 !important;
+    justify-content: flex-start;
   }
 
   .artifactSelect {
@@ -47,7 +48,7 @@
   }
   .imagePathContainer {
     display: grid;
-    grid-template-columns: 410px 20px;
+    grid-template-columns: 400px 20px;
     margin-top: var(--spacing-large);
     div.configureOptions {
       position: relative;
@@ -117,4 +118,13 @@
 .artifactIcon {
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
   margin-bottom: var(--spacing-small);
+}
+
+.tagInputButton {
+  :global(.bp3-button) {
+    overflow-wrap: anywhere;
+    height: auto !important;
+    max-height: initial !important;
+    padding-right: var(--spacing-xlarge) !important;
+  }
 }

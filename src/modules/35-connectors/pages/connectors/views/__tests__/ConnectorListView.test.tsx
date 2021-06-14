@@ -128,7 +128,7 @@ describe('Connectors List Test', () => {
     expect(getByText('connectors.testInProgress')).toBeDefined()
 
     await waitFor(() => expect(getAllByText('TEST')[0]).not.toBeNull())
-    await waitFor(() => expect(getAllByText('error')[0]).not.toBeNull())
+    await waitFor(() => expect(getAllByText('failed')[0]).not.toBeNull())
 
     expect(container).toMatchSnapshot()
   })
@@ -149,7 +149,7 @@ describe('Connectors List Test', () => {
     expect(getByText('connectors.testInProgress')).toBeDefined()
     await waitFor(() => expect(getAllByText('TEST')[0]).not.toBeNull())
 
-    await waitFor(() => expect(getAllByText('active')[0]).not.toBeNull())
+    await waitFor(() => expect(getAllByText('success')[0]).not.toBeNull())
 
     expect(container).toMatchSnapshot()
   })

@@ -2,9 +2,9 @@ import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { TestWrapper, CurrentLocation } from '@common/utils/testUtils'
 import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
-import ExecutionContext from '../../../ExecutionContext/ExecutionContext'
+import ExecutionContext from '@pipeline/context/ExecutionContext'
+import type { ExecutionContextParams } from '@pipeline/context/ExecutionContext'
 import ExecutionLogView from '../ExecutionLogView'
-import type { ExecutionContextParams } from '../../../ExecutionContext/ExecutionContext'
 import mock from '../../ExecutionGraphView/__tests__/mock.json'
 
 jest.mock('@pipeline/components/PipelineSteps/PipelineStepFactory', () => ({

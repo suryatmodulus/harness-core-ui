@@ -28,12 +28,17 @@ export const InfraProvisioningBase = (
 ): JSX.Element => {
   const {
     stepsFactory,
-    state: { pipelineView },
+    state: {
+      pipelineView,
+      selectionState: { selectedStageId = '' }
+    },
     updatePipelineView,
-    isReadonly
+    isReadonly,
+    getStagePathFromPipeline
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
+  const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const { showModal, hideModal } = useChooseProvisioner({
@@ -112,6 +117,8 @@ export const InfraProvisioningBase = (
                         updateStage={() => {
                           formik.submitForm()
                         }}
+                        // Check and update the correct stage path here
+                        pathToStage={`${stagePath}.stage.spec.execution`}
                         onAddStep={(event: ExecutionGraphAddStepEvent) => {
                           updatePipelineView({
                             ...pipelineView,

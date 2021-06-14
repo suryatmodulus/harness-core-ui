@@ -3,7 +3,7 @@ import { render, fireEvent, waitFor, findAllByText as findAllByTextGlobal } from
 
 import { TestWrapper, CurrentLocation } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
-import ExecutionContext, { ExecutionContextParams } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import ExecutionContext, { ExecutionContextParams } from '@pipeline/context/ExecutionContext'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import { ExecutionNode, useGetApprovalInstance, useGetExecutionNode } from 'services/pipeline-ng'
 import ExecutionStepDetails from '../ExecutionStepDetails'

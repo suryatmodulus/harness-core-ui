@@ -256,7 +256,7 @@ exports[`OnboardingDetailPage OnboardingDetailPage empty state should be rendere
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-      style="box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1); align-items: center; position: fixed; left: 270px; bottom: 0px; right: 0px; height: 60px;"
+      style="box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1); align-items: center; position: fixed; left: 288px; bottom: 0px; right: 0px; height: 60px;"
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
@@ -321,6 +321,72 @@ exports[`OnboardingDetailPage OnboardingDetailPage empty state should be rendere
       <span
         style="flex-grow: 1;"
       />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`OnboardingDetailPage SelectEnvironmentView should render data correctly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <div
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+    >
+      <span
+        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
+        data-icon="spinner"
+      >
+        <svg
+          fill="none"
+          height="16"
+          viewBox="0 0 36 36"
+          width="16"
+        >
+          <path
+            d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
+            stroke="currentColor"
+            stroke-dasharray="75,100"
+            stroke-linecap="round"
+            stroke-width="2.8"
+            style="animation: 1s linear infinite spinner-rotation; transform-origin: 50% 50%; transform-box: fill-box;"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`OnboardingDetailPage SelectEnvironmentView should render loading correctly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <div
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+    >
+      <span
+        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
+        data-icon="spinner"
+      >
+        <svg
+          fill="none"
+          height="16"
+          viewBox="0 0 36 36"
+          width="16"
+        >
+          <path
+            d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
+            stroke="currentColor"
+            stroke-dasharray="75,100"
+            stroke-linecap="round"
+            stroke-width="2.8"
+            style="animation: 1s linear infinite spinner-rotation; transform-origin: 50% 50%; transform-box: fill-box;"
+          />
+        </svg>
+      </span>
     </div>
   </div>
 </div>
@@ -558,7 +624,34 @@ exports[`OnboardingDetailPage SetUpYourApplicationView 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--padding-large"
             style="background: rgb(250, 251, 252);"
           >
-            <div />
+            <div
+              class="StyledProps--font StyledProps--main"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              >
+                <span
+                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
+                  data-icon="spinner"
+                >
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 36 36"
+                    width="16"
+                  >
+                    <path
+                      d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
+                      stroke="currentColor"
+                      stroke-dasharray="75,100"
+                      stroke-linecap="round"
+                      stroke-width="2.8"
+                      style="animation: 1s linear infinite spinner-rotation; transform-origin: 50% 50%; transform-box: fill-box;"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -853,7 +946,7 @@ exports[`OnboardingDetailPage Should be able to create a flag 1`] = `
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-      style="box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1); align-items: center; position: fixed; left: 270px; bottom: 0px; right: 0px; height: 60px;"
+      style="box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1); align-items: center; position: fixed; left: 288px; bottom: 0px; right: 0px; height: 60px;"
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
@@ -957,7 +1050,7 @@ exports[`OnboardingDetailPage TestYourFlagViewView 1`] = `
   >
     <div
       class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
-      style="overflow: auto; width: calc(100% - 400px); height: calc(100vh - 140px);"
+      style="overflow: auto; width: calc(100% - 765px); height: calc(100vh - 140px);"
     >
       <h2
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-bottom-medium"
@@ -973,13 +1066,66 @@ exports[`OnboardingDetailPage TestYourFlagViewView 1`] = `
         cf.onboarding.toggleLabel
       </p>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--background-white"
-        style="border-radius: 8px; border: 1px solid #d9dae6; width: 510px; height: 150px;"
-      />
+        class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--margin-bottom-xlarge StyledProps--padding-top-xlarge StyledProps--padding-left-large StyledProps--padding-bottom-xlarge"
+        style="border: 1px solid #d9dae5; border-radius: 8px;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main"
+          style="align-items: center;"
+        >
+          <label
+            class="bp3-control bp3-switch bp3-align-right bp3-large"
+          >
+            <input
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+          </label>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--padding-left-large"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="font-weight: 600; font-size: 13px; line-height: 20px; color: rgb(11, 11, 13);"
+            >
+              test-flag
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID: 
+              test_flag
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
     <div
       class="StyledProps--font StyledProps--main StyledProps--padding-xxlarge"
-      style="box-shadow: -8px 0 10px -5px rgb(96 97 112 / 16%); position: fixed; top: 80px; right: 0px; bottom: 60px; z-index: 0; width: 400px;"
+      style="box-shadow: -8px 0 10px -5px rgb(96 97 112 / 16%); position: fixed; top: 90px; right: 400px; bottom: 60px; z-index: 0;"
+    >
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--padding-large StyledProps--background-black"
+        style="border-radius: 8px; border: 1px solid #d9dae6; width: 300px; height: 150px;"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-mono StyledProps--color StyledProps--color-white"
+        >
+          cf.onboarding.waitForConnect
+        </p>
+      </div>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--margin-top-large"
+        style="width: 300px;"
+      >
+        cf.onboarding.behindTheSenes
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-xxlarge"
+      style="box-shadow: -8px 0 10px -5px rgb(96 97 112 / 16%); position: fixed; top: 90px; right: 0px; bottom: 60px; z-index: 0; width: 400px;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main"

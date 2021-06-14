@@ -10,12 +10,13 @@ import {
   SelectOption,
   useModalHook,
   Text,
-  CardSelect
+  CardSelect,
+  Container
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, isNull, noop, omit, omitBy, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Classes, Dialog, FormGroup, Intent } from '@blueprintjs/core'
+import { Dialog, FormGroup, Intent } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
@@ -25,6 +26,7 @@ import {
   EnvironmentYaml,
   getEnvironmentListForProjectPromise
 } from 'services/cd-ng'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
@@ -39,7 +41,6 @@ import { errorCheck } from '@common/utils/formikHelpers'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -55,12 +56,14 @@ interface NewEditEnvironmentModalProps {
   data: EnvironmentYaml
   envIdentifier?: string
   onCreateOrUpdate(data: EnvironmentYaml): void
+  closeModal?: () => void
 }
 
 export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = ({
   isEdit,
   data,
-  onCreateOrUpdate
+  onCreateOrUpdate,
+  closeModal
 }): JSX.Element => {
   const { getString } = useStrings()
   const inputRef = React.useRef<HTMLInputElement | null>(null)
@@ -86,12 +89,9 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
           onCreateOrUpdate(values)
         }}
         validationSchema={Yup.object().shape({
-          name: Yup.string()
-            .trim()
-            .required(getString?.('fieldRequired', { field: 'Environment' })),
-
+          name: NameSchema({ requiredErrorMsg: getString?.('fieldRequired', { field: 'Environment' }) }),
           type: Yup.string().required(getString?.('fieldRequired', { field: 'Type' })),
-          ...IdentifierValidation()
+          identifier: IdentifierSchema()
         })}
       >
         {formikProps => (
@@ -101,8 +101,6 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
                 formikProps.handleSubmit()
               }
             }}
-            spacing="medium"
-            padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
           >
             <NameIdDescriptionTags
               formikProps={formikProps}
@@ -117,6 +115,7 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
               }}
             />
             <FormGroup
+              style={{ marginBottom: 'var(--spacing-medium)' }}
               helperText={errorCheck('type', formikProps) ? get(formikProps?.errors, 'type') : null}
               intent={errorCheck('type', formikProps) ? Intent.DANGER : Intent.NONE}
               label={getString('envType')}
@@ -141,14 +140,16 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
                 {}
               </CardSelect>
             </FormGroup>
-            <div>
+            <Container padding={{ top: 'xlarge' }}>
               <Button
                 data-id="environment-save"
                 onClick={() => formikProps.submitForm()}
                 intent="primary"
                 text={getString('save')}
               />
-            </div>
+              &nbsp; &nbsp;
+              <Button text={getString('cancel')} onClick={closeModal} />
+            </Container>
           </Layout.Vertical>
         )}
       </Formik>
@@ -213,13 +214,10 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
         isOpen={true}
         canEscapeKeyClose
         canOutsideClickClose
-        onClose={() => {
-          setState({ isEdit: false, data: { name: '', identifier: '', type: 'PreProduction' } })
-          hideModal()
-        }}
+        onClose={onClose}
         isCloseButtonShown
         title={state.isEdit ? getString('editEnvironment') : getString('newEnvironment')}
-        className={Classes.DIALOG}
+        className={'padded-dialog'}
       >
         <NewEditEnvironmentModal
           data={state.data}
@@ -234,14 +232,19 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
               item.label = values.name || ''
               setEnvironments(environments)
             }
-            setState({ isEdit: false, data: { name: '', identifier: '', type: 'PreProduction' } })
-            hideModal()
+            onClose.call(null)
           }}
+          closeModal={onClose}
         />
       </Dialog>
     ),
     [state.isEdit, state.data]
   )
+
+  const onClose = React.useCallback(() => {
+    setState({ isEdit: false, data: { name: '', identifier: '', type: 'PreProduction' } })
+    hideModal()
+  }, [hideModal])
 
   React.useEffect(() => {
     const identifier = initialValues.environment?.identifier

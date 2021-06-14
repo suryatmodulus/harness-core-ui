@@ -228,7 +228,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            validation.nameRequired
+                            common.validation.nameIsRequired
                           </div>
                         </div>
                       </div>

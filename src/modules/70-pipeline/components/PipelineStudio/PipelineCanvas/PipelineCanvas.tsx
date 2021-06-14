@@ -25,7 +25,7 @@ import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRu
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import routes from '@common/RouteDefinitions'
 import type { EntityGitDetails } from 'services/pipeline-ng'
@@ -71,6 +71,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     deletePipelineCache,
     fetchPipeline,
     view,
+    setSchemaErrorView,
     setView,
     isReadonly,
     updatePipelineView,
@@ -123,7 +124,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const history = useHistory()
   const isYaml = view === 'yaml'
   const [isYamlError, setYamlError] = React.useState(false)
-  const [saving, setSaving] = React.useState(false)
   const [blockNavigation, setBlockNavigation] = React.useState(false)
   const [selectedBranch, setSelectedBranch] = React.useState(branch || '')
 
@@ -157,8 +157,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     latestPipeline: NgPipeline,
     updatedGitDetails?: SaveToGitFormInterface,
     lastObject?: { lastObjectId?: string }
-  ): Promise<void> => {
-    setSaving(true)
+  ): Promise<UseSaveSuccessResponse> => {
+    setSchemaErrorView(false)
     const response = await savePipeline(
       {
         accountIdentifier: accountId,
@@ -171,7 +171,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       omit(latestPipeline, 'repo', 'branch'),
       pipelineIdentifier !== DefaultNewPipelineId
     )
-    setSaving(false)
     const newPipelineId = latestPipeline?.identifier
 
     if (response && response.status === 'SUCCESS') {
@@ -201,15 +200,18 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       }
     } else {
       clear()
+      setSchemaErrorView(true)
       showError(response?.message || getString('errorWhileSaving'))
     }
+    return { status: response?.status }
   }
 
   const saveAngPublishWithGitInfo = async (
     updatedGitDetails: SaveToGitFormInterface,
-    objectId: string
-  ): Promise<void> => {
-    let latestPipeline: PipelineInfoConfig = pipeline
+    payload?: PipelineInfoConfig,
+    objectId?: string
+  ): Promise<UseSaveSuccessResponse> => {
+    let latestPipeline: PipelineInfoConfig = pipeline || payload
 
     if (isYaml && yamlHandler) {
       try {
@@ -219,15 +221,24 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       }
     }
 
-    await saveAndPublishPipeline(
+    const response = await saveAndPublishPipeline(
       latestPipeline,
       omit(updatedGitDetails, 'name', 'identifier'),
       pipelineIdentifier !== DefaultNewPipelineId ? { lastObjectId: objectId } : {}
     )
+
+    return {
+      status: response?.status
+    }
   }
 
-  const { openSaveToGitDialog } = useSaveToGitDialog({
-    onSuccess: (data: SaveToGitFormInterface) => saveAngPublishWithGitInfo(data, gitDetails?.objectId ?? '')
+  const { openSaveToGitDialog } = useSaveToGitDialog<PipelineInfoConfig>({
+    onSuccess: (
+      gitData: SaveToGitFormInterface,
+      payload?: PipelineInfoConfig,
+      objectId?: string
+    ): Promise<UseSaveSuccessResponse> =>
+      Promise.resolve(saveAngPublishWithGitInfo(gitData, payload, objectId || gitDetails?.objectId || ''))
   })
 
   const saveAndPublish = React.useCallback(async () => {
@@ -248,11 +259,15 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
     // if Git sync enabled then display modal
     if (isGitSyncEnabled) {
-      openSaveToGitDialog(pipelineIdentifier !== DefaultNewPipelineId, {
-        type: 'Pipelines',
-        name: latestPipeline.name,
-        identifier: latestPipeline.identifier,
-        gitDetails: gitDetails ?? {}
+      openSaveToGitDialog({
+        isEditing: pipelineIdentifier !== DefaultNewPipelineId,
+        resource: {
+          type: 'Pipelines',
+          name: latestPipeline.name,
+          identifier: latestPipeline.identifier,
+          gitDetails: gitDetails ?? {}
+        },
+        payload: latestPipeline
       })
     } else {
       await saveAndPublishPipeline(latestPipeline)
@@ -281,9 +296,18 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     } else {
       return (
         <Dialog
-          style={{ width: isGitSyncEnabled ? '614px' : '385px', paddingBottom: 0 }}
+          style={{
+            width: isGitSyncEnabled ? '614px' : '385px',
+            background: 'var(--form-bg)'
+          }}
           isOpen={true}
-          className={cx(css.dialog, Classes.DIALOG)}
+          className={'padded-dialog'}
+          onClose={onCloseCreate}
+          title={
+            pipeline.identifier === DefaultNewPipelineId
+              ? getString('moduleRenderer.newPipeLine')
+              : getString('editPipeline')
+          }
         >
           <CreatePipelines
             afterSave={onSubmit}
@@ -384,6 +408,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   )
 
   function handleViewChange(newView: PipelineStudioView): void {
+    if (newView === view) return
     if (newView === PipelineStudioView.ui && yamlHandler) {
       try {
         const parsedYaml = parse(yamlHandler.getLatestYaml())
@@ -548,7 +573,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 <Text className={css.pipelineName} max-width="100%" lineClamp={1}>
                   {pipeline?.name}
                 </Text>
-                {!isEmpty(pipeline.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
+                {!isEmpty(pipeline?.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
                 {isYaml ? null : (
                   <RbacButton
                     minimal
@@ -644,7 +669,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         </div>
         {isYaml ? <PipelineYamlView /> : <StageBuilder />}
         <RightBar />
-        {saving ? <PageSpinner message={getString('pipeline.savingInProgress')} /> : null}
       </div>
     </PipelineVariablesContextProvider>
   )

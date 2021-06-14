@@ -1,8 +1,8 @@
 import React from 'react'
 import * as Yup from 'yup'
 import { Button, Color, Container, Formik, FormikForm as Form, Heading, Layout } from '@wings-software/uicore'
+import { NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components'
-import { regexName } from '@common/utils/StringUtils'
 import { useStrings } from 'framework/strings'
 import type { dataObj } from '../CreateDelegateConfigWizard'
 
@@ -30,10 +30,7 @@ const DelegateConfigOverviewStep: React.FC<DelegateConfigOverviewStepProps> = ({
       formName="delegateConfigOverviewForm"
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
-        name: Yup.string()
-          .trim()
-          .required(getString('validation.nameRequired'))
-          .matches(regexName, getString('formValidation.name'))
+        name: NameSchema()
       })}
       onSubmit={(values: dataObj) => {
         nextStep?.({ ...prevStepData, ...values })

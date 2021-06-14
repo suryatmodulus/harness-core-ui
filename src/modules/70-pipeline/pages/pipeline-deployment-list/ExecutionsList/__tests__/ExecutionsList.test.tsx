@@ -1,5 +1,5 @@
 import React from 'react'
-import { getByText, render } from '@testing-library/react'
+import { render } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
@@ -33,7 +33,7 @@ describe('<ExecutionsList /> test', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <ExecutionsList hasFilters={false} pipelineExecutionSummary={data.data.content as PipelineExecutionSummary[]} />
+        <ExecutionsList pipelineExecutionSummary={data.data.content as PipelineExecutionSummary[]} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -47,32 +47,13 @@ describe('<ExecutionsList /> test', () => {
           orgIdentifier: 'testOrg',
           projectIdentifier: 'testProject',
           pipelineIdentifier: 'testPipeline',
-          module: 'cd'
+          module: 'ci'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <ExecutionsList hasFilters={true} pipelineExecutionSummary={[] as PipelineExecutionSummary[]} />
+        <ExecutionsList pipelineExecutionSummary={[] as PipelineExecutionSummary[]} />
       </TestWrapper>
     )
-    expect(getByText(container, 'noSearchResultsFoundPeriod')).not.toBeNull()
-  })
-
-  test('if pipelineExecutionSummary is undefined for applied filters then display proper message for no search results found ', () => {
-    const { container } = render(
-      <TestWrapper
-        path={routes.toPipelineDeploymentList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
-        pathParams={{
-          accountId: 'testAcc',
-          orgIdentifier: 'testOrg',
-          projectIdentifier: 'testProject',
-          pipelineIdentifier: 'testPipeline',
-          module: 'cd'
-        }}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
-        <ExecutionsList hasFilters={true} pipelineExecutionSummary={undefined} />
-      </TestWrapper>
-    )
-    expect(getByText(container, 'noSearchResultsFoundPeriod')).not.toBeNull()
+    expect(container).toMatchSnapshot()
   })
 })

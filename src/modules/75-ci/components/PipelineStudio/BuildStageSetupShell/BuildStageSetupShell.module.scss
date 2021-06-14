@@ -59,8 +59,10 @@
       font-weight: 500;
       span.bp3-icon {
         margin-right: var(--spacing-small);
-        path {
-          fill: var(--grey-900);
+        &:not(.bp3-icon-warning-sign) {
+          path {
+            fill: var(--grey-900);
+          }
         }
       }
     }
@@ -69,8 +71,10 @@
       font-weight: 400;
       span.bp3-icon {
         margin-right: var(--spacing-small);
-        path {
-          fill: var(--grey-800);
+        &:not(.bp3-icon-warning-sign) {
+          path {
+            fill: var(--grey-800);
+          }
         }
       }
     }

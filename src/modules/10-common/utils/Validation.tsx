@@ -1,28 +1,42 @@
 import * as Yup from 'yup'
-import { useStrings } from 'framework/strings'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import { illegalIdentifiers, regexIdentifier, regexName } from '@common/utils/StringUtils'
 interface EmailProps {
   allowMultiple?: boolean
   emailSeparator?: string
 }
 
-export function NameSchema(): Yup.Schema<string> {
-  const { getString } = useStrings()
+export function NameSchemaWithoutHook(
+  getString: UseStringsReturn['getString'],
+  config?: { requiredErrorMsg?: string }
+): Yup.Schema<string> {
   return Yup.string()
     .trim()
-    .required(getString('validation.nameRequired'))
-    .matches(regexName, getString('formValidation.name'))
+    .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('common.validation.nameIsRequired'))
+    .matches(regexName, getString('common.validation.namePatternIsNotValid'))
 }
 
-export function IdentifierSchema(): Yup.Schema<string | undefined> {
+export function NameSchema(config?: { requiredErrorMsg?: string }): Yup.Schema<string> {
   const { getString } = useStrings()
+  return NameSchemaWithoutHook(getString, config)
+}
+
+export function IdentifierSchemaWithoutHook(
+  getString: UseStringsReturn['getString'],
+  config?: { requiredErrorMsg?: string }
+): Yup.Schema<string | undefined> {
   return Yup.string().when('name', {
     is: val => val?.length,
     then: Yup.string()
-      .required(getString('validation.identifierRequired'))
+      .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('validation.identifierRequired'))
       .matches(regexIdentifier, getString('validation.validIdRegex'))
       .notOneOf(illegalIdentifiers)
   })
+}
+
+export function IdentifierSchema(config?: { requiredErrorMsg?: string }): Yup.Schema<string | undefined> {
+  const { getString } = useStrings()
+  return IdentifierSchemaWithoutHook(getString, config)
 }
 
 export function EmailSchema(emailProps: EmailProps = {}): Yup.Schema<string> {

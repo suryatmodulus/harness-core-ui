@@ -19,6 +19,7 @@ import {
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
+import { NameSchema } from '@common/utils/Validation'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
@@ -62,17 +63,21 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
-  const commonParams = {
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  }
+
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [statusOptions, setStatusOptions] = useState<SelectOption[]>([])
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const [selectedProjectKey, setSelectedProjectKey] = useState<string>('')
   const [selectedIssueTypeKey, setSelectedIssueTypeKey] = useState<string>('')
+
+  const commonParams = {
+    accountIdentifier: accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier,
+    branch
+  }
 
   useEffect(() => {
     // If connector value changes in form, fetch projects
@@ -90,7 +95,8 @@ const FormContent = ({
           connectorRef: connectorRefFixedValue.toString()
         }
       })
-    } else {
+    } else if (connectorRefFixedValue !== undefined) {
+      // Undefined check is needed so that form is not set to dirty as soon as we open
       // This means we've cleared the value or marked runtime/expression
       // Flush the selected additional fields, and move everything to key value fields
       formik.setFieldValue('spec.selectedFields', [])
@@ -209,6 +215,7 @@ const FormContent = ({
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => formik.setFieldValue('timeout', value)}
+            isReadonly={readonly}
           />
         )}
       </Layout.Horizontal>
@@ -243,6 +250,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.connectorRef', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -264,6 +272,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.issueKey', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -298,6 +307,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.transitionTo.status', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -305,12 +315,13 @@ const FormContent = ({
               <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
                 <FormInput.MultiTextInput
                   label={getString('pipeline.jiraUpdateStep.transitionLabel')}
-                  name="spec.transitionTo.transition"
+                  name="spec.transitionTo.transitionName"
                   placeholder={getString('pipeline.jiraUpdateStep.transitionLabel')}
                   className={css.md}
                   multiTextInputProps={{
                     expressions
                   }}
+                  isOptional={true}
                   disabled={isApprovalStepFieldDisabled(readonly)}
                 />
                 {getMultiTypeFromValue(formik.values.spec.transitionTo?.transitionName) ===
@@ -323,6 +334,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.transitionTo.transitionName', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -403,12 +415,15 @@ function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormi
   const { onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
 
   const {
@@ -444,11 +459,17 @@ function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormi
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
-          issueKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueKey'))
+          issueKey: Yup.string().trim().required(getString('pipeline.jiraApprovalStep.validations.issueKey')),
+          transitionTo: Yup.object().shape({
+            status: Yup.string().when('transitionName', {
+              is: val => val?.trim()?.length,
+              then: Yup.string().required(getString('pipeline.jiraUpdateStep.validations.status'))
+            })
+          })
         })
       })}
     >

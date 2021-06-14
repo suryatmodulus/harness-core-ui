@@ -307,7 +307,7 @@ exports[`Save to git form rendering form to git save form without git credential
                       class="bp3-input"
                       name="filePath"
                       type="text"
-                      value=""
+                      value="testConnector.yaml"
                     />
                   </div>
                 </div>
@@ -793,7 +793,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                 </div>
               </div>
               <div
-                class="bp3-form-group bp3-intent-danger"
+                class="bp3-form-group"
                 data-id="filePath-3"
               >
                 <label
@@ -815,20 +815,15 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="bp3-input-group bp3-intent-danger"
+                    class="bp3-input-group"
                   >
                     <input
                       autocomplete="off"
                       class="bp3-input"
                       name="filePath"
                       type="text"
-                      value=""
+                      value="testConnector.yaml"
                     />
-                  </div>
-                  <div
-                    class="bp3-form-helper-text"
-                  >
-                    common.git.validation.filePath
                   </div>
                 </div>
               </div>
@@ -1311,7 +1306,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                 </div>
               </div>
               <div
-                class="bp3-form-group bp3-intent-danger"
+                class="bp3-form-group"
                 data-id="filePath-3"
               >
                 <label
@@ -1333,20 +1328,15 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="bp3-input-group bp3-intent-danger"
+                    class="bp3-input-group"
                   >
                     <input
                       autocomplete="off"
                       class="bp3-input"
                       name="filePath"
                       type="text"
-                      value=""
+                      value="testConnector.yaml"
                     />
-                  </div>
-                  <div
-                    class="bp3-form-helper-text"
-                  >
-                    common.git.validation.filePath
                   </div>
                 </div>
               </div>

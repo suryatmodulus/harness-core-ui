@@ -3,12 +3,14 @@ import { useParams, useHistory } from 'react-router-dom'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import { useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
@@ -24,6 +26,8 @@ const CIHomePage: React.FC = () => {
     moduleType: ModuleName.CI as any
   }
   const { currentUserInfo } = useAppStore()
+  const { licenseInformation, updateLicenseStore } = useLicenseStore()
+
   const { accounts, defaultAccountId } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
   const { data, error, refetch, loading } = useGetModuleLicenseByAccountAndModuleType({
@@ -32,7 +36,17 @@ const CIHomePage: React.FC = () => {
   const { trial } = useQueryParams<{ trial?: boolean }>()
 
   useEffect(() => {
+    handleUpdateLicenseStore(
+      { ...licenseInformation },
+      updateLicenseStore,
+      ModuleName.CI.toString() as Module,
+      data?.data
+    )
+  }, [data, licenseInformation, updateLicenseStore])
+
+  useEffect(() => {
     refetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trial])
 
   const { openProjectModal, closeProjectModal } = useProjectModal({

@@ -27,6 +27,7 @@ declare const styles: {
   readonly runModalSubHeading: string
   readonly runModalHeaderTitle: string
   readonly runModalFormContent: string
+  readonly runModalFormContentExecutionView: string
   readonly noPipelineInputSetForm: string
   readonly helpSection: string
   readonly helpIcon: string

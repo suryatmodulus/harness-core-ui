@@ -462,7 +462,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
         <div>
           <a
             class="breadcrumb"
-            href="/account/dummy/home/organizations/dummyOrg"
+            href="/account/dummy/home/organizations/dummyOrg/details"
           />
           <span
             class="bp3-icon StyledProps--main separator"

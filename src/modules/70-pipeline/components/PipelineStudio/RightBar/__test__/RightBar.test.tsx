@@ -118,6 +118,7 @@ const pipelineContext: PipelineContextInterface = {
   stepsFactory: factory,
   stagesMap: {},
   isReadonly: false,
+  setSchemaErrorView: jest.fn(),
   view: 'ui',
   renderPipelineStage: jest.fn(),
   setView: jest.fn(),

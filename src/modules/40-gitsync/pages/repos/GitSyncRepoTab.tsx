@@ -39,6 +39,7 @@ import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
+import { getExternalUrl } from '@gitsync/common/gitSyncUtils'
 import css from './GitSyncRepoTab.module.scss'
 
 enum RepoState {
@@ -51,10 +52,11 @@ interface RightMenuProps {
   repo: GitSyncConfig
   selectedFolderIndex: number
   handleRepoUpdate: (updatedFolders: GitSyncFolderConfigDTO[]) => unknown
+  isDefault?: boolean
 }
 
 const RightMenu: React.FC<RightMenuProps> = props => {
-  const { repo, selectedFolderIndex, handleRepoUpdate } = props
+  const { repo, selectedFolderIndex, handleRepoUpdate, isDefault } = props
   const [menuOpen, setMenuOpen] = useState(false)
   const { getString } = useStrings()
 
@@ -94,6 +96,7 @@ const RightMenu: React.FC<RightMenuProps> = props => {
             data-test="markDefaultBtn"
             text={getString('gitsync.markAsDefault')}
             onClick={handleMarkAsDefaultFolder}
+            disabled={isDefault}
           />
         </Menu>
       </Popover>
@@ -399,7 +402,7 @@ const GitSyncRepoTab: React.FC = () => {
           {repoData?.gitSyncFolderConfigDTOs?.length
             ? repoData.gitSyncFolderConfigDTOs.map((rootFolderData: GitSyncFolderConfigDTO, index: number) => {
                 const folder = '/'.concat(rootFolderData.rootFolder?.split('/.harness')[0] || '')
-                const folderPath = `${repoData.repo}/${rootFolderData.rootFolder}`
+                const linkToProvider = getExternalUrl(repoData, rootFolderData.rootFolder)
                 return (
                   <Layout.Horizontal
                     key={index}
@@ -420,30 +423,36 @@ const GitSyncRepoTab: React.FC = () => {
                           {folder}
                         </Text>
                       </Container>
-                      <Container width={rootFolderData.isDefault ? '55%' : '75%'}>
-                        <Text
-                          style={{
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap'
-                          }}
-                          title={folderPath}
-                        >
-                          {folderPath}
-                        </Text>
+
+                      <Container
+                        padding={{ left: 'xsmall' }}
+                        className={css.noOverflow}
+                        width={rootFolderData.isDefault ? '60%' : '75%'}
+                      >
+                        <a href={linkToProvider} target="_blank" rel="noopener noreferrer" className={css.noShadow}>
+                          <Text title={linkToProvider} className={css.link}>
+                            {linkToProvider}
+                          </Text>
+                        </a>
                       </Container>
-                      <Container width="5%">
-                        <CopyToClipboard content={folderPath} showFeedback={true} />
+
+                      <Container width="5%" padding={{ left: 'xsmall' }}>
+                        <CopyToClipboard content={linkToProvider} showFeedback={true} />
                       </Container>
                       {rootFolderData.isDefault && (
-                        <Container width="20%">
+                        <Container width="15%">
                           <Tag className={css.defaultFolderTag} style={{ borderRadius: 5 }}>
                             {getString('gitsync.defaultFolder')}
                           </Tag>
                         </Container>
                       )}
                     </Layout.Horizontal>
-                    <RightMenu repo={repoData} selectedFolderIndex={index} handleRepoUpdate={handleRepoUpdate} />
+                    <RightMenu
+                      repo={repoData}
+                      selectedFolderIndex={index}
+                      handleRepoUpdate={handleRepoUpdate}
+                      isDefault={rootFolderData.isDefault}
+                    />
                   </Layout.Horizontal>
                 )
               })
@@ -475,21 +484,21 @@ const GitSyncRepoTab: React.FC = () => {
   const columns: Column<GitSyncConfig>[] = useMemo(
     () => [
       {
-        Header: getString('name').toUpperCase(),
+        Header: getString('repository').toUpperCase(),
         accessor: 'repo',
         id: 'reponame',
         width: '15%',
         Cell: RenderColumnReponame
       },
       {
-        Header: getString('gitsync.repositoryPath').toUpperCase(),
+        Header: getString('common.path').toUpperCase(),
         accessor: 'repo',
         id: 'repo',
         width: '20%',
         Cell: RenderColumnRepo
       },
       {
-        Header: getString('primaryBranch').toUpperCase(),
+        Header: getString('gitsync.defaultBranch').toUpperCase(),
         accessor: 'branch',
         id: 'branch',
         width: '15%',

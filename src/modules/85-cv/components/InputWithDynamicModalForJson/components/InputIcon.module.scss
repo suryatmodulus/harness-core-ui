@@ -1,0 +1,7 @@
+.iconButton {
+  color: var(--grey-300) !important;
+  &:hover {
+    background-color: transparent !important;
+    color: var(--grey-400) !important;
+  }
+}

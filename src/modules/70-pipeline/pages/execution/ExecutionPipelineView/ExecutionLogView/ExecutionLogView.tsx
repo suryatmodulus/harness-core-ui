@@ -4,7 +4,7 @@ import { get } from 'lodash-es'
 
 import { useUpdateQueryParams } from '@common/hooks'
 import { processExecutionData } from '@pipeline/utils/executionUtils'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { StageSelection, StageSelectOption } from '@pipeline/components/StageSelection/StageSelection'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import { isExecutionNotStarted } from '@pipeline/utils/statusHelpers'

@@ -6,13 +6,15 @@ import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import { SelectGCODashboards } from '../SelectGCODashboards'
-import { buildGCOMonitoringSourceInfo } from '../../GoogleCloudOperationsMonitoringSourceUtils'
+import { buildGCOMonitoringSourceInfo, GCOProduct } from '../../GoogleCloudOperationsMonitoringSourceUtils'
 
 const MockParams = {
   accountId: '1234_account',
   projectIdentifier: '1234_project',
   orgIdentifier: '1234_ORG'
 }
+
+const currentProduct = GCOProduct.CLOUD_METRICS
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps }),
@@ -82,7 +84,7 @@ describe('SelectGCODashboards unit tests', () => {
     const { container, getAllByText } = render(
       <TestWrapper {...testWrapperProps}>
         <SelectGCODashboards
-          data={buildGCOMonitoringSourceInfo(MockParams)}
+          data={buildGCOMonitoringSourceInfo(MockParams, currentProduct)}
           onNext={jest.fn()}
           onPrevious={jest.fn()}
         />
@@ -106,7 +108,7 @@ describe('SelectGCODashboards unit tests', () => {
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <SelectGCODashboards
-          data={buildGCOMonitoringSourceInfo(MockParams)}
+          data={buildGCOMonitoringSourceInfo(MockParams, currentProduct)}
           onNext={jest.fn()}
           onPrevious={jest.fn()}
         />
@@ -136,7 +138,7 @@ describe('SelectGCODashboards unit tests', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <SelectGCODashboards
-          data={buildGCOMonitoringSourceInfo(MockParams)}
+          data={buildGCOMonitoringSourceInfo(MockParams, currentProduct)}
           onNext={onSubmitFunc}
           onPrevious={jest.fn()}
         />
@@ -167,6 +169,8 @@ describe('SelectGCODashboards unit tests', () => {
       expect(onSubmitFunc).toHaveBeenCalledWith({
         accountId: '1234_account',
         identifier: 'MyGoogleCloudOperationsSource',
+        isEdit: false,
+        mappedServicesAndEnvs: new Map(),
         name: 'MyGoogleCloudOperationsSource',
         orgIdentifier: '1234_ORG',
         product: 'Cloud Metrics',

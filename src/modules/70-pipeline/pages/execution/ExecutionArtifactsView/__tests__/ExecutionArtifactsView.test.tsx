@@ -8,7 +8,7 @@ import ExecutionArtifactsView, {
   getArtifactGroups
 } from '../ExecutionArtifactsView'
 
-jest.mock('@pipeline/pages/execution/ExecutionContext/ExecutionContext', () => ({
+jest.mock('@pipeline/context/ExecutionContext', () => ({
   useExecutionContext: () => ({
     pipelineExecutionDetail: {
       pipelineExecutionSummary: executionMock.data.pipelineExecutionSummary as any,

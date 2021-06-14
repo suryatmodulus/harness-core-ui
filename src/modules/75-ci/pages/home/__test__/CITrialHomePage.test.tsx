@@ -3,13 +3,13 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import CITrialHomePage from '../CITrialHomePage'
 
-jest.mock('services/portal', () => ({
+jest.mock('services/cd-ng', () => ({
   useGetModuleLicenseInfo: jest.fn().mockImplementation(() => {
     return {
       data: null
     }
   }),
-  useStartTrial: jest.fn().mockImplementation(() => {
+  useStartTrialLicense: jest.fn().mockImplementation(() => {
     return {
       cancel: jest.fn(),
       loading: false,

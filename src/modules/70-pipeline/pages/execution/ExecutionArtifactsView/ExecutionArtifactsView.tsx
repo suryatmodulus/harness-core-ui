@@ -1,6 +1,6 @@
 import React from 'react'
 import { get } from 'lodash-es'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import type { ExecutionNode, PipelineExecutionSummary, ExecutionGraph } from 'services/pipeline-ng'
 import ArtifactsComponent from './ArtifactsComponent/ArtifactsComponent'
 import type { ArtifactGroup } from './ArtifactsComponent/ArtifactsComponent'

@@ -12,7 +12,8 @@ import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
 export function useValidationErrors(): { errorMap: Map<string, string[]> } {
   const { pipelineSchema } = usePipelineSchema()
   const {
-    state: { pipeline: originalPipeline }
+    state: { pipeline: originalPipeline, schemaErrors },
+    setSchemaErrorView
   } = usePipelineContext()
 
   const [errorMap, setErrorMap] = useState<Map<string, string[]>>(new Map())
@@ -21,6 +22,10 @@ export function useValidationErrors(): { errorMap: Map<string, string[]> } {
     debounce(async (_originalPipeline: PipelineInfoConfig, _pipelineSchema: ResponseJsonNode | null): Promise<void> => {
       if (!isNil(_pipelineSchema) && _pipelineSchema.data) {
         const error = await validateJSONWithSchema({ pipeline: _originalPipeline }, _pipelineSchema.data)
+        // If you resolved all existing errors then clear the schema error flag
+        if (error.size === 0) {
+          setSchemaErrorView(false)
+        }
         setErrorMap(error)
       }
     }, 300),
@@ -28,9 +33,13 @@ export function useValidationErrors(): { errorMap: Map<string, string[]> } {
   )
 
   useDeepCompareEffect(() => {
-    validateErrors(originalPipeline, pipelineSchema)
+    if (schemaErrors) {
+      validateErrors(originalPipeline, pipelineSchema)
+    } else {
+      setErrorMap(new Map())
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [originalPipeline, pipelineSchema])
+  }, [originalPipeline, pipelineSchema, schemaErrors])
 
   return { errorMap }
 }

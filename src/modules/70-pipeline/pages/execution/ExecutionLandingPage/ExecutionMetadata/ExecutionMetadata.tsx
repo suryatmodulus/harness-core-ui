@@ -13,8 +13,8 @@ import { UserLabel } from '@common/exports'
 import { ServicePopoverCard } from '@pipeline/components/ServicePopoverCard/ServicePopoverCard'
 import BuildBranchBadge from '@pipeline/components/badges/BuildBranchBadge/BuildBranchBadge'
 import BuildPullRequestBadge from '@pipeline/components/badges/BuildPullRequestBadge/BuildPullRequestBadge'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 
-import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
 import ExecutionMetadataSection from './ExecutionMetadataSection/ExecutionMetadataSection'
 
 import css from './ExecutionMetadata.module.scss'

@@ -2,13 +2,13 @@ import React from 'react'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { Formik } from 'formik'
-import { Button, Card, Container, FormikForm, Text } from '@wings-software/uicore'
+import { Button, Card, Color, Container, FormikForm, Intent, Text } from '@wings-software/uicore'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { useStrings } from 'framework/strings'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { NameIdDescriptionTags } from '@common/components'
-import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues } from './types'
 import { ApprovalTypeCards, approvalTypeCardsData } from './ApprovalTypeCards'
 
@@ -58,14 +58,8 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
         enableReinitialize
         initialValues={getInitialValues(data)}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('approvalStage.stageNameRequired')),
-          identifier: Yup.string().when('name', {
-            is: val => val?.length,
-            then: Yup.string()
-              .required(getString('validation.identifierRequired'))
-              .matches(regexIdentifier, getString('validation.validIdRegex'))
-              .notOneOf(illegalIdentifiers)
-          })
+          name: NameSchema({ requiredErrorMsg: getString('approvalStage.stageNameRequired') }),
+          identifier: IdentifierSchema()
         })}
         validate={handleValidate}
         onSubmit={(values: ApprovalStageMinimalValues) => handleSubmit(values)}
@@ -73,9 +67,8 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
         {formikProps => (
           <FormikForm>
             <Text
-              font={{ size: 'medium', weight: 'semi-bold' }}
-              icon="deployment-success-legacy"
-              iconProps={{ size: 16 }}
+              icon="pipeline-approval"
+              iconProps={{ size: 16, intent: Intent.SUCCESS }}
               margin={{ bottom: 'medium' }}
             >
               {getString('pipelineSteps.build.create.aboutYourStage')}
@@ -83,7 +76,9 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
 
             <NameIdDescriptionTags formikProps={formikProps} />
 
-            <Text className={css.approvalTypeHeading}>{getString('approvalStage.approvalTypeHeading')}</Text>
+            <Text color={Color.BLACK_100} font={{ size: 'medium' }}>
+              {getString('approvalStage.approvalTypeHeading')}
+            </Text>
             <Card className={cx(css.sectionCard, css.shadow)}>
               <ApprovalTypeCards formikProps={formikProps} />
             </Card>

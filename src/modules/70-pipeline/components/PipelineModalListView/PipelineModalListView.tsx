@@ -8,7 +8,7 @@ import {
   useGetPipelineList
 } from 'services/pipeline-ng'
 import { Page } from '@common/exports'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -36,6 +36,7 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
       accountId: string
     }>
   >()
+  const isCIModule = module === 'ci'
 
   const [data, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
 
@@ -111,14 +112,12 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
         </div>
 
         {!data?.content?.length ? (
-          <div className={css.noResultSection}>
-            <Text font="medium">
-              <String stringID="noSearchResultsFoundPeriod" />
-            </Text>
-          </div>
-        ) : null}
-
-        <RunPipelineListView data={data} refetch={fetchPipelines} gotoPage={pageNumber => setPage(pageNumber)} />
+          <Text className={css.noResultSection} font={{ size: 'medium' }}>
+            {getString(isCIModule ? 'noBuildsText' : 'noDeploymentText')}
+          </Text>
+        ) : (
+          <RunPipelineListView data={data} refetch={fetchPipelines} gotoPage={pageNumber => setPage(pageNumber)} />
+        )}
       </Page.Body>
     </>
   )

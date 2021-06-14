@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Button,
   Color,
@@ -34,7 +34,7 @@ import {
 import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useStrings } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'
@@ -63,6 +63,7 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
 import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/PipelineFilterForm'
+import pipelineIllustration from './images/pipelines-illustration.svg'
 
 import css from './PipelinesPage.module.scss'
 
@@ -111,8 +112,9 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const project = selectedProject
   const isCDEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CD') > -1) || false
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
+  const isCIModule = module === 'ci'
 
-  const goToPipelineDetail = React.useCallback(
+  const goToPipelineDetail = useCallback(
     (/* istanbul ignore next */ pipeline?: PMSPipelineSummaryResponse) => {
       history.push(
         routes.toPipelineDeploymentList({
@@ -129,7 +131,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     [projectIdentifier, orgIdentifier, history, accountId]
   )
 
-  const goToPipeline = React.useCallback(
+  const goToPipeline = useCallback(
     (pipeline?: PMSPipelineSummaryResponse) => {
       history.push(
         routes.toPipelineStudio({
@@ -196,7 +198,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     mock: mockData
   })
 
-  const fetchPipelines = React.useCallback(
+  const fetchPipelines = useCallback(
     async (params?: GetPipelineListQueryParams, formData?: PipelineFilterProperties): Promise<void> => {
       try {
         cancel()
@@ -511,130 +513,146 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           <HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} />
         </div>
       </div>
-      <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
-        <Layout.Horizontal>
-          <RbacButton
-            intent="primary"
-            data-testid="add-pipeline"
-            text={getString('addPipeline')}
-            onClick={() => goToPipeline()}
-            tooltipProps={{
-              dataTooltipId: 'addPipeline'
-            }}
-            permission={{
-              permission: PermissionIdentifier.EDIT_PIPELINE,
-              resource: {
-                resourceType: ResourceType.PIPELINE
-              }
-            }}
-          />
-          {isGitSyncEnabled && (
-            <GitSyncStoreProvider>
-              <GitFilters
-                onChange={filter => {
-                  setGitFilter(filter)
-                  setPage(0)
+      {!!pipelineList?.content?.length && (
+        <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
+          <Layout.Horizontal>
+            <RbacButton
+              intent="primary"
+              data-testid="add-pipeline"
+              text={getString('addPipeline')}
+              onClick={() => goToPipeline()}
+              tooltipProps={{
+                dataTooltipId: 'addPipeline'
+              }}
+              permission={{
+                permission: PermissionIdentifier.EDIT_PIPELINE,
+                resource: {
+                  resourceType: ResourceType.PIPELINE
+                }
+              }}
+            />
+            {isGitSyncEnabled && (
+              <GitSyncStoreProvider>
+                <GitFilters
+                  onChange={filter => {
+                    setGitFilter(filter)
+                    setPage(0)
+                  }}
+                  className={css.gitFilter}
+                />
+              </GitSyncStoreProvider>
+            )}
+          </Layout.Horizontal>
+          <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+            <>
+              <div className={css.expandSearch}>
+                <ExpandingSearchInput
+                  placeholder={getString('search')}
+                  throttle={200}
+                  onChange={(text: string) => {
+                    setSearchParam(text)
+                  }}
+                />
+              </div>
+              <Layout.Horizontal padding={{ left: 'small', right: 'small' }}>
+                <FilterSelector<FilterDTO>
+                  appliedFilter={appliedFilter}
+                  filters={filters}
+                  onFilterBtnClick={openFilterDrawer}
+                  onFilterSelect={handleFilterSelection}
+                  fieldToLabelMapping={fieldToLabelMapping}
+                  filterWithValidFields={filterWithValidFieldsWithMetaInfo}
+                />
+              </Layout.Horizontal>
+            </>
+            <Layout.Horizontal flex>
+              <Button
+                minimal
+                icon="grid-view"
+                intent={view === Views.GRID ? 'primary' : 'none'}
+                onClick={() => {
+                  setView(Views.GRID)
                 }}
-                className={css.gitFilter}
               />
-            </GitSyncStoreProvider>
-          )}
-        </Layout.Horizontal>
-        <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-          <>
-            <div className={css.expandSearch}>
-              <ExpandingSearchInput
-                placeholder={getString('search')}
-                throttle={200}
-                onChange={(text: string) => {
-                  setSearchParam(text)
+              <Button
+                minimal
+                icon="list"
+                intent={view === Views.LIST ? 'primary' : 'none'}
+                onClick={() => {
+                  setView(Views.LIST)
                 }}
-              />
-            </div>
-            <Layout.Horizontal padding={{ left: 'small', right: 'small' }}>
-              <FilterSelector<FilterDTO>
-                appliedFilter={appliedFilter}
-                filters={filters}
-                onFilterBtnClick={openFilterDrawer}
-                onFilterSelect={handleFilterSelection}
-                fieldToLabelMapping={fieldToLabelMapping}
-                filterWithValidFields={filterWithValidFieldsWithMetaInfo}
               />
             </Layout.Horizontal>
-          </>
-          <Layout.Horizontal flex>
-            <Button
-              minimal
-              icon="grid-view"
-              intent={view === Views.GRID ? 'primary' : 'none'}
-              onClick={() => {
-                setView(Views.GRID)
-              }}
-            />
-            <Button
-              minimal
-              icon="list"
-              intent={view === Views.LIST ? 'primary' : 'none'}
-              onClick={() => {
-                setView(Views.LIST)
-              }}
-            />
           </Layout.Horizontal>
         </Layout.Horizontal>
-      </Layout.Horizontal>
+      )}
       <Page.Body
         className={css.pageBody}
         error={error?.message}
         retryOnError={/* istanbul ignore next */ () => fetchPipelines()}
       >
-        <Layout.Horizontal
-          spacing="large"
-          margin={{ left: 'large', top: 'large', bottom: 'large', right: 'large' }}
-          className={css.topHeaderFields}
-        >
-          <Text color={Color.GREY_800} iconProps={{ size: 14 }}>
-            {getString('total')}: {pipelineList?.totalElements}
-          </Text>
-          <Select
-            items={sortOptions}
-            value={selectedSort}
-            className={css.sortSelector}
-            onChange={item => {
-              if (item.value === SortFields.AZ09) {
-                setStort([SortFields.Name, Sort.ASC])
-              } else if (item.value === SortFields.ZA90) {
-                setStort([SortFields.Name, Sort.DESC])
-              } else if (item.value === SortFields.LastUpdatedAt) {
-                setStort([SortFields.LastUpdatedAt, Sort.DESC])
-              } else if (item.value === SortFields.RecentActivity) {
-                setStort([SortFields.RecentActivity, Sort.DESC])
-              }
-              setPage(0)
-              setSelectedSort(item)
-            }}
-          />
-        </Layout.Horizontal>
+        {!!pipelineList?.content?.length && (
+          <Layout.Horizontal
+            spacing="large"
+            margin={{ left: 'large', top: 'large', bottom: 'large', right: 'large' }}
+            className={css.topHeaderFields}
+          >
+            <Text color={Color.GREY_800} iconProps={{ size: 14 }}>
+              {getString('total')}: {pipelineList?.totalElements}
+            </Text>
+            <Select
+              items={sortOptions}
+              value={selectedSort}
+              className={css.sortSelector}
+              onChange={item => {
+                if (item.value === SortFields.AZ09) {
+                  setStort([SortFields.Name, Sort.ASC])
+                } else if (item.value === SortFields.ZA90) {
+                  setStort([SortFields.Name, Sort.DESC])
+                } else if (item.value === SortFields.LastUpdatedAt) {
+                  setStort([SortFields.LastUpdatedAt, Sort.DESC])
+                } else if (item.value === SortFields.RecentActivity) {
+                  setStort([SortFields.RecentActivity, Sort.DESC])
+                }
+                setPage(0)
+                setSelectedSort(item)
+              }}
+            />
+          </Layout.Horizontal>
+        )}
         {initLoading ? (
           <OverlaySpinner show={true} className={css.loading}>
             <></>
           </OverlaySpinner>
         ) : !pipelineList?.content?.length ? (
-          appliedFilter ? (
-            <Text padding={{ top: 'small', bottom: 'small' }} className={css.noData} font="medium">
-              {getString('filters.noDataFound')}
-            </Text>
-          ) : (
-            <div className={css.noPipelineSection}>
-              <div className={css.noPipelineData}>
-                <Icon size={20} name="pipeline-ng"></Icon>
-                <Text padding={{ top: 'small', bottom: 'small' }} font="medium">
+          <div className={css.noPipelineSection}>
+            {appliedFilter ? (
+              <Layout.Vertical spacing="small" flex>
+                <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} margin={{ bottom: 'large' }} />
+                <Text
+                  margin={{ top: 'large', bottom: 'small' }}
+                  font={{ weight: 'bold', size: 'medium' }}
+                  color={Color.GREY_800}
+                >
+                  {getString('common.filters.noMatchingFilterData')}
+                </Text>
+                <String stringID="common.filters.clearFilters" className={css.clearFilterText} onClick={reset} />
+              </Layout.Vertical>
+            ) : (
+              <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }} width={720}>
+                <img src={pipelineIllustration} className={css.image} />
+
+                <Text className={css.noPipelineText} margin={{ top: 'medium', bottom: 'small' }}>
+                  {getString('pipeline.noPipelineText')}
+                </Text>
+                <Text className={css.aboutPipeline} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
                   {getString('pipeline-list.aboutPipeline')}
                 </Text>
 
                 <RbacButton
                   intent="primary"
                   onClick={() => goToPipeline()}
-                  text={getString('pipeline-list.createPipeline')}
+                  text={getString('common.createPipeline')}
                   permission={{
                     permission: PermissionIdentifier.EDIT_PIPELINE,
                     resource: {
@@ -647,9 +665,9 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                     }
                   }}
                 />
-              </div>
-            </div>
-          )
+              </Layout.Vertical>
+            )}
+          </div>
         ) : view === Views.GRID ? (
           <PipelineGridView
             gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}

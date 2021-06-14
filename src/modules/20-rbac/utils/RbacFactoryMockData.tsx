@@ -40,6 +40,14 @@ export const getResourceTypeHandlerMock = (resource: ResourceType): ResourceHand
         // eslint-disable-next-line react/display-name
         addResourceModalBody: () => <></>
       }
+    case ResourceType.DELEGATE:
+      return {
+        icon: 'main-delegates',
+        label: 'delegate.delegates',
+        category: ResourceCategory.SHARED_RESOURCES,
+        // eslint-disable-next-line react/display-name
+        addResourceModalBody: () => <></>
+      }
   }
 }
 
@@ -63,6 +71,11 @@ export const getResourceGroupTypeHandlerMock = (
 export const getResourceCategoryListMock = (): Map<ResourceCategory | ResourceType, ResourceType[] | undefined> => {
   const mockMap = new Map()
   mockMap.set(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, [ResourceType.ORGANIZATION, ResourceType.PROJECT])
-  mockMap.set(ResourceCategory.SHARED_RESOURCES, [ResourceType.SECRET, ResourceType.CONNECTOR])
+  mockMap.set(ResourceCategory.SHARED_RESOURCES, [
+    ResourceType.SECRET,
+    ResourceType.CONNECTOR,
+    ResourceType.DELEGATE,
+    ResourceType.DELEGATECONFIGURATION
+  ])
   return mockMap
 }

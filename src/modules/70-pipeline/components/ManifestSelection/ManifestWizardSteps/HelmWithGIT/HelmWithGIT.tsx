@@ -44,6 +44,7 @@ interface HelmWithGITPropType {
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
+  isReadonly?: boolean
 }
 
 const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType> = ({
@@ -53,7 +54,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   expressions,
   prevStepData,
   previousStep,
-  manifestIdsList
+  manifestIdsList,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
 
@@ -238,6 +240,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                   expressions={expressions}
                   fieldValue={formik.values?.repoName}
                   changeFieldValue={(value: string) => formik.setFieldValue('repoName', value)}
+                  isReadonly={isReadonly}
                 />
               )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
@@ -272,6 +275,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('branch', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
@@ -300,6 +304,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('commitId', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
@@ -329,6 +334,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('folderPath', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -351,6 +357,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                       expressions={expressions}
                       formik={formik}
                       commandFlagOptions={commandFlagOptions}
+                      isReadonly={isReadonly}
                     />
                   }
                 />

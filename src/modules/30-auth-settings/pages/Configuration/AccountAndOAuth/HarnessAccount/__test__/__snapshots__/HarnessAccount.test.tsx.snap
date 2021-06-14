@@ -668,7 +668,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                               />
                             </svg>
                           </span>
-                          authSettings.notifyUsersWHenUserLocked
+                          authSettings.notifyUsersWhenUserLocked
                           :
                         </p>
                         <p

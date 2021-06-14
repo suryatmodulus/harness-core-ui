@@ -927,7 +927,7 @@ export const buildArtifactoryPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
-export const buildAppDynamicsPayload = (formData: FormData, accountId: string): Connector => {
+export const buildAppDynamicsPayload = (formData: FormData): Connector => {
   const payload: Connector = {
     connector: {
       ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
@@ -937,7 +937,7 @@ export const buildAppDynamicsPayload = (formData: FormData, accountId: string): 
         authType: formData.authType,
         accountname: formData.accountName,
         controllerUrl: formData.url,
-        accountId
+        accountId: formData.accountId
       } as AppDynamicsConnectorDTO
     }
   }
@@ -1028,7 +1028,48 @@ export const buildDatadogPayload = (formData: FormData) => {
   }
 }
 
-export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
+export interface SumoLogicInitialValue {
+  accessIdRef?: SecretReferenceInterface | void
+  accessKeyRef?: SecretReferenceInterface | void
+  accountId?: string | undefined
+  projectIdentifier?: string
+  orgIdentifier?: string
+  loading?: boolean
+}
+
+export const buildSumoLogicPayload = (formData: FormData) => {
+  const {
+    name,
+    identifier,
+    projectIdentifier,
+    orgIdentifier,
+    delegateSelectors,
+    url,
+    description,
+    tags,
+    accessIdRef: { referenceString: accessIdRef },
+    accessKeyRef: { referenceString: accesskeyRef }
+  } = formData
+  return {
+    connector: {
+      name,
+      identifier,
+      type: Connectors.SUMOLOGIC,
+      projectIdentifier,
+      orgIdentifier,
+      description,
+      tags,
+      spec: {
+        url,
+        accessIdRef: accessIdRef,
+        accessKeyRef: accesskeyRef,
+        delegateSelectors: delegateSelectors || {}
+      }
+    }
+  }
+}
+
+export const buildSplunkPayload = (formData: FormData) => ({
   connector: {
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
     type: Connectors.SPLUNK,
@@ -1038,7 +1079,7 @@ export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
       accountname: formData.accountName,
       passwordRef: formData.passwordRef.referenceString,
       splunkUrl: formData.url,
-      accountId
+      accountId: formData.accountId
     }
   }
 })
@@ -1048,13 +1089,13 @@ export const buildDynatracePayload = (formData: FormData) => {
     connector: {
       name: formData.name,
       identifier: formData.identifier,
-      type: Connectors.PROMETHEUS,
+      type: Connectors.DYNATRACE,
       projectIdentifier: formData.projectIdentifier,
       orgIdentifier: formData.orgIdentifier,
       spec: {
         delegateSelectors: formData.delegateSelectors || {},
         url: formData.url,
-        apiToken: formData.apiToken,
+        apiTokenRef: formData.apiTokenRef?.referenceString,
         accountId: formData.accountId
       }
     }
@@ -1119,8 +1160,12 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-azure'
     case Connectors.DATADOG:
       return 'service-datadog'
+    case Connectors.SUMOLOGIC:
+      return 'service-sumologic'
     case Connectors.AZURE_KEY_VAULT:
       return 'azure-key-vault'
+    case Connectors.DYNATRACE:
+      return 'service-dynatrace'
     default:
       return 'cog'
   }
@@ -1174,6 +1219,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'AWS KMS'
     case Connectors.AZURE_KEY_VAULT:
       return 'Azure Key Vault'
+    case Connectors.DYNATRACE:
+      return 'Dynatrace'
     default:
       return ''
   }
@@ -1255,6 +1302,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.azure')
     case Connectors.DATADOG:
       return getString('connectors.testConnectionStep.validationText.datadog')
+    case Connectors.SUMOLOGIC:
+      return getString('connectors.testConnectionStep.validationText.sumologic')
     case Connectors.CE_AZURE_KEY_VAULT:
       return getString('connectors.testConnectionStep.validationText.azureKeyVault')
     default:
@@ -1281,7 +1330,8 @@ export const getUrlValueByType = (type: ConnectorInfoDTO['type'], connector: Con
       return connector.spec.url
     case Connectors.SPLUNK:
       return connector.spec.splunkUrl
-
+    case Connectors.DYNATRACE:
+      return connector.spec.url
     case Connectors.VAULT:
       return connector.spec.vaultUrl
     case Connectors.BITBUCKET:

@@ -12,6 +12,7 @@ import type { AccountPathProps } from './interfaces/RouteInterfaces'
 import GenericErrorPage from './pages/GenericError/GenericErrorPage'
 import { PurposePage } from './pages/purpose/PurposePage'
 import HomeSideNav from './components/HomeSideNav/HomeSideNav'
+import SubscriptionsPage from './pages/subscriptions/SubscriptionsPage'
 
 const RedirectToHome = (): React.ReactElement => {
   const { accountId } = useParams<AccountPathProps>()
@@ -43,6 +44,9 @@ export default (
       exact
     >
       <GovernancePage />
+    </RouteWithLayout>
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toSubscriptions({ ...accountPathProps })} exact>
+      <SubscriptionsPage />
     </RouteWithLayout>
     <Route path={routes.toGenericError({ ...accountPathProps })}>
       <GenericErrorPage />

@@ -8,7 +8,7 @@ orgSetup: Org Setup
 delegateForTask: '{{delegate}} for {{taskName}}'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
-createPipeline: '+ Create a pipeline'
+createPipeline: Create a pipeline
 production: Production
 addVariable: Add Variable
 editVariable: Edit variable
@@ -19,11 +19,16 @@ pipelineDetails: Pipeline Details
 accountName: Account Name
 provisioner: Provisioner
 comments: Comments
+updating: 'Updating {{entity}} {{name}}'
+creating: 'Creating {{entity}} {{name}}'
+successfullCreate: '{{entity}} {{name}} created successfully'
+successfullUpdate: '{{entity}} {{name}} updated successfully'
 approve: Approve
 reject: Reject
 disable: Disable
 remove: Remove
 member: Member
+subscriptions: Subscriptions
 PermissibleActions: Permissible Actions
 My: My
 ok: OK
@@ -41,7 +46,6 @@ execute: Execute
 namespace: Namespace
 cluster: Cluster
 releaseName: Release name
-timeout: 'Timeout:'
 datePickerShortcuts:
   Today: Today
   Yesterday: Yesterday
@@ -51,9 +55,12 @@ datePickerShortcuts:
   LastMonth: Last Month
   Last2Months: Last 2 Months
 validation:
+  namePatternIsNotValid: 'Name can only contain alphanumerics, _ and -'
   nameIsRequired: Name is required
   valueIsRequired: Value is required
   fileIsRequired: File is required
+  yamlFilePath: 'File path can only contain valid file/folder name (should contain alphanumerics, _ and -) sepaerated by / and should end with .yaml.'
+  variableAlreadyExists: Variable with same name already exists
   groupAttributeIsRequired: Group Attribute is required
   valueMustBeGreaterThanOrEqualToN: Value must be greater than or equal to {{ n }}
   valueMustBeLessThanOrEqualTo64: Value must be less than or equal to 64
@@ -172,8 +179,8 @@ gitSync:
     message1: 'Branch {{branch}} is currently not Synced.'
     message2: 'Syncing the branch may take a while. Do you want to continue?'
   savingInProgress: Saving in progress
-  pushingChangestoBranch: 'Pushing changes to {{branch}}'
-  creatingPR: 'Creating a Pull Request from  {{fromBranch}} to branch {{toBranch}}'
+  pushingChangestoBranch: 'Pushing changes to branch {{branch}}'
+  creatingPR: 'Creating a Pull Request from {{fromBranch}} to branch {{toBranch}}'
   unableToCreatePR: Unable to create PR
   settingUpNewBranch: 'Setting up new branch {{branch}}'
 git:
@@ -215,6 +222,7 @@ git:
   validation:
     filePath: '{{$.common.git.filePath}} is required'
     commitMessage: '{{$.common.git.commitMessage}} is required'
+    sameBranches: 'Source and target branches cannot be same for a pull request'
 other: Other
 options: Options
 note: Note
@@ -304,4 +312,6 @@ artifactTag: tag
 clientId: Client ID
 filters:
   saveNewFilter: Save New Filter
+  noMatchingFilterData: No Results found matching the Filter criteria
+  clearFilters: Clear Filters
 in: in

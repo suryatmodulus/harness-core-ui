@@ -2,7 +2,7 @@
 
 exports[`Test DeployEnvironment Step should render edit Environment view (environment), then update and then save 1`] = `
 <div
-  class="bp3-dialog bp3-dialog"
+  class="bp3-dialog padded-dialog"
 >
   <div
     class="bp3-dialog-header"
@@ -45,7 +45,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
       class="OverlaySpinner--overlaySpinner"
     >
       <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+        class="Layout--vertical StyledProps--main"
       >
         <div
           class="StyledProps--font StyledProps--main main"
@@ -322,7 +322,9 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
             </div>
           </div>
         </div>
-        <div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
+        >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             data-id="environment-save"
@@ -334,6 +336,17 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
               save
             </span>
           </button>
+             
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              cancel
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -343,7 +356,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
 
 exports[`Test DeployEnvironment Step should render environment view and save 1`] = `
 <div
-  class="bp3-dialog bp3-dialog"
+  class="bp3-dialog padded-dialog"
 >
   <div
     class="bp3-dialog-header"
@@ -386,7 +399,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
       class="OverlaySpinner--overlaySpinner"
     >
       <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+        class="Layout--vertical StyledProps--main"
       >
         <div
           class="StyledProps--font StyledProps--main main"
@@ -619,7 +632,9 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
             </div>
           </div>
         </div>
-        <div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
+        >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             data-id="environment-save"
@@ -629,6 +644,17 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
               class="bp3-button-text"
             >
               save
+            </span>
+          </button>
+             
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              cancel
             </span>
           </button>
         </div>

@@ -119,7 +119,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                       <Icon name="full-circle" size={12} color={sideCarConnectionColor} />
                     </div>
 
-                    <div>
+                    <div className={css.locationField}>
                       <Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}>
                         {sidecar?.spec?.imagePath}
                       </Text>

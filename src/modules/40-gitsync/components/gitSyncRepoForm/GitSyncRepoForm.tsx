@@ -35,6 +35,7 @@ import {
   ConnectorSelectedValue
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { shouldShowError } from '@common/utils/errorUtils'
 import { ConnectorCardInterface, getCompleteGitPath, getRepoPath, gitCards } from '@gitsync/common/gitSyncUtils'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
@@ -145,7 +146,18 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
       })
   }, 1000) // Fetching branches after user input of repoUrl
 
-  const testConnection = async (identifier: string, repoURL: string): Promise<void> => {
+  const testConnection = async ({
+    identifier,
+    _orgIdentifier,
+    _projectIdentifier,
+    repoURL
+  }: {
+    identifier: string
+    _orgIdentifier?: string
+    _projectIdentifier?: string
+    repoURL: string
+  }): Promise<void> => {
+    modalErrorHandler?.hide()
     setTestStatus(TestStatus.IN_PROGRESS)
     testRepo(undefined, {
       pathParams: {
@@ -153,8 +165,8 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
       },
       queryParams: {
         accountIdentifier: accountId,
-        projectIdentifier,
-        orgIdentifier,
+        orgIdentifier: _orgIdentifier,
+        projectIdentifier: _projectIdentifier,
         repoURL
       }
     })
@@ -165,8 +177,11 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
           setTestStatus(TestStatus.SUCCESS)
         }
       })
-      .catch(_e => {
+      .catch(e => {
         setTestStatus(TestStatus.FAILED)
+        if (shouldShowError(e)) {
+          modalErrorHandler?.showDanger(e.data?.message || e.message)
+        }
       })
   }
 
@@ -358,9 +373,14 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                         <Container padding={{ bottom: 'medium' }}>
                           <TestConnectionWidget
                             testStatus={testStatus}
-                            onTest={() =>
-                              testConnection(formValues.gitConnector?.connector?.identifier || '', formValues.repo)
-                            }
+                            onTest={() => {
+                              return testConnection({
+                                identifier: formValues.gitConnector?.connector.identifier || '',
+                                _orgIdentifier: formValues.gitConnector?.connector?.orgIdentifier,
+                                _projectIdentifier: formValues.gitConnector?.connector?.projectIdentifier,
+                                repoURL: formValues.repo
+                              })
+                            }}
                           />
                         </Container>
                       ) : null}

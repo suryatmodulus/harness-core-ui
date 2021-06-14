@@ -403,18 +403,28 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const fetchInstanceSecurityGroups = async (): Promise<void> => {
     const emptyRecords: PortConfig[] = []
     try {
-      const result = await getSecurityGroups({
-        text: `id = ['${
-          props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].id : ''
-        }']\nregions = ['${
-          props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].region : ''
+      let text = `id = ['${
+        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].id : ''
+      }']\nregions = ['${
+        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].region : ''
+      }']`
+
+      if (isAzureProvider) {
+        text += `\nresource_groups=['${
+          props.gatewayDetails.selectedInstances
+            ? props.gatewayDetails.selectedInstances[0].metadata?.resourceGroup
+            : ''
         }']`
+      }
+
+      const result = await getSecurityGroups({
+        text
       })
       if (result && result.response) {
         Object.keys(result.response).forEach(instance => {
           result.response?.[instance].forEach(sg => {
             sg?.inbound_rules?.forEach(rule => {
-              if (rule.protocol == '-1') {
+              if (rule.protocol == '-1' || rule.from === '*') {
                 addAllPorts()
                 return
               } else if (rule && rule.from && [80, 443].includes(+rule.from)) {
@@ -498,7 +508,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       if (routingRecords.length) {
         return
       }
-      isAwsProvider && fetchInstanceSecurityGroups()
+      fetchInstanceSecurityGroups()
     }
   }, [selectedInstances])
 

@@ -5,11 +5,13 @@ import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTe
 import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import routes from '@common/RouteDefinitions'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
 import bgImageURL from './cf-homepage-bg.svg'
@@ -24,6 +26,7 @@ const CFHomePage: React.FC = () => {
     moduleType: ModuleName.CF as any
   }
   const { currentUserInfo } = useAppStore()
+  const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
   const { accounts, defaultAccountId } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
@@ -64,7 +67,17 @@ const CFHomePage: React.FC = () => {
   const history = useHistory()
 
   useEffect(() => {
+    handleUpdateLicenseStore(
+      { ...licenseInformation },
+      updateLicenseStore,
+      ModuleName.CF.toString() as Module,
+      data?.data
+    )
+  }, [data, licenseInformation, updateLicenseStore])
+
+  useEffect(() => {
     refetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trial])
 
   if (loading) {

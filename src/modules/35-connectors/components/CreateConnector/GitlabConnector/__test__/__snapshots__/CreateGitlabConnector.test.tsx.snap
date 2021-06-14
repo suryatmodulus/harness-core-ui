@@ -253,7 +253,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            validation.nameRequired
+                            common.validation.nameIsRequired
                           </div>
                         </div>
                       </div>

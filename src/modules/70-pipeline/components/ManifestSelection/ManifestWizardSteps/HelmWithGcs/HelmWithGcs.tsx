@@ -33,6 +33,7 @@ interface HelmWithGcsPropType {
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
+  isReadonly?: boolean
 }
 
 const commandFlagOptionsV2 = [
@@ -51,7 +52,8 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
   initialValues,
   handleSubmit,
   previousStep,
-  manifestIdsList
+  manifestIdsList,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
@@ -189,6 +191,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('bucketName', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -217,6 +220,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('folderPath', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -243,6 +247,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('chartName', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -271,6 +276,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('chartVersion', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -297,6 +303,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                       commandFlagOptions={
                         formik.values?.helmVersion === 'V2' ? commandFlagOptionsV2 : commandFlagOptionsV3
                       }
+                      isReadonly={isReadonly}
                     />
                   }
                 />

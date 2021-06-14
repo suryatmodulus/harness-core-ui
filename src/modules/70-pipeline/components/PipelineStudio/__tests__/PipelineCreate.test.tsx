@@ -1,5 +1,5 @@
 import React from 'react'
-import { queryByAttribute, render, fireEvent, act, waitFor } from '@testing-library/react'
+import { render, fireEvent, act, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import PipelineCreate from '../CreateModal/PipelineCreate'
 import type { PipelineCreateProps } from '../CreateModal/PipelineCreate'
@@ -34,7 +34,6 @@ describe('PipelineCreate test', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    expect(queryByAttribute('class', container, /container/)).not.toBeNull()
     const nameInput = container.querySelector('[name="name"]')
     expect(nameInput).not.toBeNull()
     const collpase = container.querySelector('.Collapse--main')?.querySelector('.CollapseHeader--leftSection')
@@ -66,7 +65,6 @@ describe('PipelineCreate test', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    expect(queryByAttribute('class', container, /container/)).not.toBeNull()
     const nameInput = container.querySelector('[name="name"]')
     expect(nameInput).not.toBeNull()
     const collpase = container.querySelector('.Collapse--main')?.querySelector('.CollapseHeader--leftSection')
@@ -111,7 +109,7 @@ describe('PipelineCreate test', () => {
       },
       undefined
     )
-    const closeBtn = container.querySelector('[icon="cross"]')
+    const closeBtn = getByText('cancel')
     fireEvent.click(closeBtn!)
     await waitFor(() => expect(closeModal).toBeCalledTimes(1))
     expect(closeModal).toBeCalled()

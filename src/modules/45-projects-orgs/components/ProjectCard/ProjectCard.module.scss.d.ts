@@ -9,5 +9,6 @@ declare const styles: {
   readonly wrap: string
   readonly projectInfo: string
   readonly projectAvatarGroup: string
+  readonly tagClassName: string
 }
 export default styles

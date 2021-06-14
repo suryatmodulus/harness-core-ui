@@ -168,8 +168,10 @@ export type AddSegmentToVariationTargetMapYaml = PatchInstruction & {
 }
 
 export interface AddSegmentToVariationTargetMapYamlSpec {
-  segments?: string[]
-  variation?: string
+  identifier?: ParameterFieldString
+  name?: ParameterFieldString
+  segments?: ParameterFieldListString
+  variation?: ParameterFieldString
 }
 
 export type AddTargetsToVariationTargetMapYaml = PatchInstruction & {
@@ -183,8 +185,10 @@ export type AddTargetsToVariationTargetMapYaml = PatchInstruction & {
 }
 
 export interface AddTargetsToVariationTargetMapYamlSpec {
-  targets?: string[]
-  variation?: string
+  identifier?: ParameterFieldString
+  name?: ParameterFieldString
+  targets?: ParameterFieldListString
+  variation?: ParameterFieldString
 }
 
 export interface AggregateACLRequest {
@@ -503,6 +507,7 @@ export interface BatchRoleAssignmentCreateRequest {
 export interface BillingExportSpec {
   containerName: string
   directoryName: string
+  reportName: string
   storageAccountName: string
 }
 
@@ -526,6 +531,7 @@ export type BitbucketConnector = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   type: 'Account' | 'Repo'
   url: string
+  validationRepo?: string
 }
 
 export interface BitbucketCredentialsDTO {
@@ -702,6 +708,7 @@ export interface ConnectorCatalogueItem {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
+    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -767,6 +774,7 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
+    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -809,6 +817,7 @@ export interface ConnectorInfoDTO {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
+    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -862,6 +871,7 @@ export interface ConnectorTypeStatistics {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
+    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -1087,6 +1097,12 @@ export type DockerUserNamePasswordDTO = DockerAuthCredentialsDTO & {
   passwordRef: string
   username?: string
   usernameRef?: string
+}
+
+export type DynatraceConnectorDTO = ConnectorConfigDTO & {
+  apiTokenRef: string
+  delegateSelectors?: string[]
+  url: string
 }
 
 export type EcrArtifactConfig = ArtifactConfig & {
@@ -1520,6 +1536,7 @@ export interface Error {
     | 'SCM_NOT_FOUND_ERROR'
     | 'SCM_CONFLICT_ERROR'
     | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
     | 'DATA'
     | 'CONTEXT'
@@ -1850,6 +1867,7 @@ export interface Failure {
     | 'SCM_NOT_FOUND_ERROR'
     | 'SCM_CONFLICT_ERROR'
     | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
     | 'DATA'
     | 'CONTEXT'
@@ -1876,6 +1894,12 @@ export interface FailureStrategyConfig {
 }
 
 export type FeatureFlagStageConfig = StageInfoConfig & {}
+
+export interface FieldValues {
+  fieldValues?: {
+    [key: string]: string[]
+  }
+}
 
 export interface Filter {
   ids?: string[]
@@ -2021,6 +2045,7 @@ export type GitConfigDTO = ConnectorConfigDTO & {
   spec: GitAuthenticationDTO
   type: 'Http' | 'Ssh'
   url: string
+  validationRepo?: string
 }
 
 export interface GitEntityBranchFilterSummaryProperties {
@@ -2238,6 +2263,7 @@ export type GithubConnector = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   type: 'Account' | 'Repo'
   url: string
+  validationRepo?: string
 }
 
 export interface GithubCredentialsDTO {
@@ -2308,6 +2334,7 @@ export type GitlabConnector = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   type: 'Account' | 'Repo'
   url: string
+  validationRepo?: string
 }
 
 export interface GitlabCredentialsDTO {
@@ -3112,10 +3139,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -3532,6 +3558,16 @@ export interface ParameterFieldBoolean {
   value?: boolean
 }
 
+export interface ParameterFieldListString {
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: string[]
+}
+
 export interface ParameterFieldString {
   expression?: boolean
   expressionValue?: string
@@ -3719,8 +3755,10 @@ export type RemoveSegmentToVariationTargetMapYaml = PatchInstruction & {
 }
 
 export interface RemoveSegmentToVariationTargetMapYamlSpec {
-  segments?: string[]
-  variation?: string
+  identifier?: ParameterFieldString
+  name?: ParameterFieldString
+  segments?: ParameterFieldListString
+  variation?: ParameterFieldString
 }
 
 export type RemoveTargetsToVariationTargetMapYaml = PatchInstruction & {
@@ -3734,8 +3772,10 @@ export type RemoveTargetsToVariationTargetMapYaml = PatchInstruction & {
 }
 
 export interface RemoveTargetsToVariationTargetMapYamlSpec {
-  targets?: string[]
-  variation?: string
+  identifier?: ParameterFieldString
+  name?: ParameterFieldString
+  targets?: ParameterFieldListString
+  variation?: ParameterFieldString
 }
 
 export type ResourceConstraintStepInfo = StepSpecType & {
@@ -3917,6 +3957,13 @@ export interface ResponseExecutionDeploymentInfo {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseFieldValues {
+  correlationId?: string
+  data?: FieldValues
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseFilterDTO {
   correlationId?: string
   data?: FilterDTO
@@ -4026,13 +4073,19 @@ export interface ResponseListExecutionStatus {
   correlationId?: string
   data?: (
     | 'Running'
+    | 'AsyncWaiting'
+    | 'TaskWaiting'
+    | 'TimedWaiting'
     | 'Failed'
+    | 'Errored'
+    | 'IgnoreFailed'
     | 'NotStarted'
     | 'Expired'
     | 'Aborted'
+    | 'Discontinuing'
     | 'Queued'
     | 'Paused'
-    | 'Waiting'
+    | 'ResourceWaiting'
     | 'InterventionWaiting'
     | 'ApprovalWaiting'
     | 'Success'
@@ -4044,6 +4097,7 @@ export interface ResponseListExecutionStatus {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
+    | 'WAITING'
   )[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
@@ -4412,6 +4466,7 @@ export interface ResponseMessage {
     | 'SCM_NOT_FOUND_ERROR'
     | 'SCM_CONFLICT_ERROR'
     | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
     | 'DATA'
     | 'CONTEXT'
@@ -5315,7 +5370,9 @@ export type SetFeatureFlagStateYaml = PatchInstruction & {
 }
 
 export interface SetFeatureFlagStateYamlSpec {
-  state?: string
+  identifier?: ParameterFieldString
+  name?: ParameterFieldString
+  state?: ParameterFieldString
 }
 
 export interface SetupUsageDetail {
@@ -6026,6 +6083,8 @@ export type UserGroupDTORequestBody = UserGroupDTO
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
 export type UploadSamlMetaDataRequestBody = void
+
+export type WebhookCatcherBodyRequestBody = string
 
 export interface GetAccountPathParams {
   accountIdentifier: string
@@ -7063,6 +7122,9 @@ export interface GetBuildDetailsForDockerQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetBuildDetailsForDockerProps = Omit<
@@ -7123,7 +7185,7 @@ export interface GetBuildDetailsForDockerWithYamlQueryParams {
 }
 
 export type GetBuildDetailsForDockerWithYamlProps = Omit<
-  MutateProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, void, void>,
+  MutateProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -7131,7 +7193,7 @@ export type GetBuildDetailsForDockerWithYamlProps = Omit<
  * Gets docker build details with yaml input for expression resolution
  */
 export const GetBuildDetailsForDockerWithYaml = (props: GetBuildDetailsForDockerWithYamlProps) => (
-  <Mutate<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, void, void>
+  <Mutate<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>
     verb="POST"
     path={`/artifacts/docker/getBuildDetailsV2`}
     base={getConfig('ng/api')}
@@ -7140,7 +7202,7 @@ export const GetBuildDetailsForDockerWithYaml = (props: GetBuildDetailsForDocker
 )
 
 export type UseGetBuildDetailsForDockerWithYamlProps = Omit<
-  UseMutateProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, void, void>,
+  UseMutateProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -7148,7 +7210,7 @@ export type UseGetBuildDetailsForDockerWithYamlProps = Omit<
  * Gets docker build details with yaml input for expression resolution
  */
 export const useGetBuildDetailsForDockerWithYaml = (props: UseGetBuildDetailsForDockerWithYamlProps) =>
-  useMutate<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, void, void>(
+  useMutate<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>(
     'POST',
     `/artifacts/docker/getBuildDetailsV2`,
     { base: getConfig('ng/api'), ...props }
@@ -7162,18 +7224,18 @@ export const getBuildDetailsForDockerWithYamlPromise = (
     ResponseDockerResponseDTO,
     Failure | Error,
     GetBuildDetailsForDockerWithYamlQueryParams,
-    void,
+    string,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, void, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/artifacts/docker/getBuildDetailsV2`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseDockerResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForDockerWithYamlQueryParams,
+    string,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/docker/getBuildDetailsV2`, props, signal)
 
 export interface GetLabelsForDockerQueryParams {
   imagePath?: string
@@ -7493,6 +7555,9 @@ export interface GetBuildDetailsForEcrQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetBuildDetailsForEcrProps = Omit<
@@ -7554,7 +7619,13 @@ export interface GetBuildDetailsForEcrWithYamlQueryParams {
 }
 
 export type GetBuildDetailsForEcrWithYamlProps = Omit<
-  MutateProps<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrWithYamlQueryParams, void, void>,
+  MutateProps<
+    ResponseEcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForEcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -7562,7 +7633,13 @@ export type GetBuildDetailsForEcrWithYamlProps = Omit<
  * Gets ecr build details with yaml expression
  */
 export const GetBuildDetailsForEcrWithYaml = (props: GetBuildDetailsForEcrWithYamlProps) => (
-  <Mutate<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrWithYamlQueryParams, void, void>
+  <Mutate<
+    ResponseEcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForEcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >
     verb="POST"
     path={`/artifacts/ecr/getBuildDetailsV2`}
     base={getConfig('ng/api')}
@@ -7571,7 +7648,13 @@ export const GetBuildDetailsForEcrWithYaml = (props: GetBuildDetailsForEcrWithYa
 )
 
 export type UseGetBuildDetailsForEcrWithYamlProps = Omit<
-  UseMutateProps<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrWithYamlQueryParams, void, void>,
+  UseMutateProps<
+    ResponseEcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForEcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -7579,11 +7662,13 @@ export type UseGetBuildDetailsForEcrWithYamlProps = Omit<
  * Gets ecr build details with yaml expression
  */
 export const useGetBuildDetailsForEcrWithYaml = (props: UseGetBuildDetailsForEcrWithYamlProps) =>
-  useMutate<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrWithYamlQueryParams, void, void>(
-    'POST',
-    `/artifacts/ecr/getBuildDetailsV2`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponseEcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForEcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >('POST', `/artifacts/ecr/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Gets ecr build details with yaml expression
@@ -7593,18 +7678,18 @@ export const getBuildDetailsForEcrWithYamlPromise = (
     ResponseEcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForEcrWithYamlQueryParams,
-    void,
+    WebhookCatcherBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrWithYamlQueryParams, void, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/artifacts/ecr/getBuildDetailsV2`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseEcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForEcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/ecr/getBuildDetailsV2`, props, signal)
 
 export interface GetImagesListForEcrQueryParams {
   region: string
@@ -7905,6 +7990,9 @@ export interface GetBuildDetailsForGcrQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetBuildDetailsForGcrProps = Omit<
@@ -7966,7 +8054,13 @@ export interface GetBuildDetailsForGcrWithYamlQueryParams {
 }
 
 export type GetBuildDetailsForGcrWithYamlProps = Omit<
-  MutateProps<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrWithYamlQueryParams, void, void>,
+  MutateProps<
+    ResponseGcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForGcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -7974,7 +8068,13 @@ export type GetBuildDetailsForGcrWithYamlProps = Omit<
  * Gets gcr build details with Yaml expression
  */
 export const GetBuildDetailsForGcrWithYaml = (props: GetBuildDetailsForGcrWithYamlProps) => (
-  <Mutate<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrWithYamlQueryParams, void, void>
+  <Mutate<
+    ResponseGcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForGcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >
     verb="POST"
     path={`/artifacts/gcr/getBuildDetailsV2`}
     base={getConfig('ng/api')}
@@ -7983,7 +8083,13 @@ export const GetBuildDetailsForGcrWithYaml = (props: GetBuildDetailsForGcrWithYa
 )
 
 export type UseGetBuildDetailsForGcrWithYamlProps = Omit<
-  UseMutateProps<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrWithYamlQueryParams, void, void>,
+  UseMutateProps<
+    ResponseGcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForGcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -7991,11 +8097,13 @@ export type UseGetBuildDetailsForGcrWithYamlProps = Omit<
  * Gets gcr build details with Yaml expression
  */
 export const useGetBuildDetailsForGcrWithYaml = (props: UseGetBuildDetailsForGcrWithYamlProps) =>
-  useMutate<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrWithYamlQueryParams, void, void>(
-    'POST',
-    `/artifacts/gcr/getBuildDetailsV2`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponseGcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForGcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >('POST', `/artifacts/gcr/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Gets gcr build details with Yaml expression
@@ -8005,18 +8113,18 @@ export const getBuildDetailsForGcrWithYamlPromise = (
     ResponseGcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForGcrWithYamlQueryParams,
-    void,
+    WebhookCatcherBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrWithYamlQueryParams, void, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/artifacts/gcr/getBuildDetailsV2`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseGcrResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForGcrWithYamlQueryParams,
+    WebhookCatcherBodyRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/gcr/getBuildDetailsV2`, props, signal)
 
 export interface GetLastSuccessfulBuildForGcrQueryParams {
   imagePath: string
@@ -8966,6 +9074,7 @@ export interface GetConnectorListQueryParams {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
+    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -9053,8 +9162,6 @@ export interface CreateConnectorQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
-  createPr?: boolean
-  targetBranchForPr?: string
   baseBranch?: string
 }
 
@@ -9118,9 +9225,7 @@ export interface UpdateConnectorQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
-  createPr?: boolean
   lastObjectId?: string
-  targetBranchForPr?: string
   baseBranch?: string
 }
 
@@ -9226,6 +9331,83 @@ export const getConnectorCataloguePromise = (
   getUsingFetch<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>(
     getConfig('ng/api'),
     `/connectors/catalogue`,
+    props,
+    signal
+  )
+
+export interface GetAllAllowedFieldValuesQueryParams {
+  connectorType:
+    | 'K8sCluster'
+    | 'Git'
+    | 'Splunk'
+    | 'AppDynamics'
+    | 'Prometheus'
+    | 'Dynatrace'
+    | 'Vault'
+    | 'AzureKeyVault'
+    | 'DockerRegistry'
+    | 'Local'
+    | 'AwsKms'
+    | 'GcpKms'
+    | 'Gcp'
+    | 'Aws'
+    | 'Artifactory'
+    | 'Jira'
+    | 'Nexus'
+    | 'Github'
+    | 'Gitlab'
+    | 'Bitbucket'
+    | 'Codecommit'
+    | 'CEAws'
+    | 'CEAzure'
+    | 'GcpCloudCost'
+    | 'CEK8sCluster'
+    | 'HttpHelmRepo'
+    | 'NewRelic'
+    | 'Datadog'
+    | 'SumoLogic'
+}
+
+export type GetAllAllowedFieldValuesProps = Omit<
+  GetProps<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get All Allowed field values for Connector Type
+ */
+export const GetAllAllowedFieldValues = (props: GetAllAllowedFieldValuesProps) => (
+  <Get<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>
+    path={`/connectors/fieldValues`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllAllowedFieldValuesProps = Omit<
+  UseGetProps<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get All Allowed field values for Connector Type
+ */
+export const useGetAllAllowedFieldValues = (props: UseGetAllAllowedFieldValuesProps) =>
+  useGet<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>(`/connectors/fieldValues`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get All Allowed field values for Connector Type
+ */
+export const getAllAllowedFieldValuesPromise = (
+  props: GetUsingFetchProps<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseFieldValues, Failure | Error, GetAllAllowedFieldValuesQueryParams, void>(
+    getConfig('ng/api'),
+    `/connectors/fieldValues`,
     props,
     signal
   )
@@ -9432,6 +9614,9 @@ export interface GetConnectorStatisticsQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetConnectorStatisticsProps = Omit<
@@ -9727,7 +9912,6 @@ export interface DeleteConnectorQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
-  createPr?: boolean
   lastObjectId?: string
 }
 
@@ -10338,6 +10522,8 @@ export const listDelegateProfilesNgPromise = (
 
 export interface AddDelegateProfileNgQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
 }
 
 export type AddDelegateProfileNgProps = Omit<
@@ -10415,6 +10601,8 @@ export const addDelegateProfileNgPromise = (
 
 export interface DeleteDelegateProfileNgQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
 }
 
 export type DeleteDelegateProfileNgProps = Omit<
@@ -10466,6 +10654,8 @@ export const deleteDelegateProfileNgPromise = (
 
 export interface GetDelegateProfileNgQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
 }
 
 export interface GetDelegateProfileNgPathParams {
@@ -10544,6 +10734,8 @@ export const getDelegateProfileNgPromise = (
 
 export interface UpdateDelegateProfileNgQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
 }
 
 export interface UpdateDelegateProfileNgPathParams {
@@ -10634,6 +10826,8 @@ export const updateDelegateProfileNgPromise = (
 
 export interface UpdateScopingRulesNgQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
 }
 
 export interface UpdateScopingRulesNgPathParams {
@@ -10725,6 +10919,8 @@ export const updateScopingRulesNgPromise = (
 
 export interface UpdateSelectorsNgQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
 }
 
 export interface UpdateSelectorsNgPathParams {
@@ -12856,13 +13052,19 @@ export interface WebhookCatcherPathParams {
 }
 
 export type WebhookCatcherProps = Omit<
-  MutateProps<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams>,
+  MutateProps<
+    RestResponse,
+    unknown,
+    WebhookCatcherQueryParams,
+    WebhookCatcherBodyRequestBody,
+    WebhookCatcherPathParams
+  >,
   'path' | 'verb'
 > &
   WebhookCatcherPathParams
 
 export const WebhookCatcher = ({ entityToken, ...props }: WebhookCatcherProps) => (
-  <Mutate<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams>
+  <Mutate<RestResponse, unknown, WebhookCatcherQueryParams, WebhookCatcherBodyRequestBody, WebhookCatcherPathParams>
     verb="POST"
     path={`/git-sync-trigger/webhook/${entityToken}`}
     base={getConfig('ng/api')}
@@ -12871,13 +13073,19 @@ export const WebhookCatcher = ({ entityToken, ...props }: WebhookCatcherProps) =
 )
 
 export type UseWebhookCatcherProps = Omit<
-  UseMutateProps<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams>,
+  UseMutateProps<
+    RestResponse,
+    unknown,
+    WebhookCatcherQueryParams,
+    WebhookCatcherBodyRequestBody,
+    WebhookCatcherPathParams
+  >,
   'path' | 'verb'
 > &
   WebhookCatcherPathParams
 
 export const useWebhookCatcher = ({ entityToken, ...props }: UseWebhookCatcherProps) =>
-  useMutate<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams>(
+  useMutate<RestResponse, unknown, WebhookCatcherQueryParams, WebhookCatcherBodyRequestBody, WebhookCatcherPathParams>(
     'POST',
     (paramsInPath: WebhookCatcherPathParams) => `/git-sync-trigger/webhook/${paramsInPath.entityToken}`,
     { base: getConfig('ng/api'), pathParams: { entityToken }, ...props }
@@ -12887,18 +13095,22 @@ export const webhookCatcherPromise = (
   {
     entityToken,
     ...props
-  }: MutateUsingFetchProps<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams> & {
-    entityToken: string
-  },
+  }: MutateUsingFetchProps<
+    RestResponse,
+    unknown,
+    WebhookCatcherQueryParams,
+    WebhookCatcherBodyRequestBody,
+    WebhookCatcherPathParams
+  > & { entityToken: string },
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponse, unknown, WebhookCatcherQueryParams, string, WebhookCatcherPathParams>(
-    'POST',
-    getConfig('ng/api'),
-    `/git-sync-trigger/webhook/${entityToken}`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    RestResponse,
+    unknown,
+    WebhookCatcherQueryParams,
+    WebhookCatcherBodyRequestBody,
+    WebhookCatcherPathParams
+  >('POST', getConfig('ng/api'), `/git-sync-trigger/webhook/${entityToken}`, props, signal)
 
 export interface IsGitSyncEnabledQueryParams {
   accountIdentifier?: string
@@ -19681,6 +19893,7 @@ export interface GetYamlSchemaQueryParams {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
+    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -19795,6 +20008,7 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'prometheus'
     | 'datadog'
     | 'sumologic'
+    | 'dynatrace'
   )[]
 }
 

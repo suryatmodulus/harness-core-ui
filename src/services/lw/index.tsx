@@ -152,8 +152,18 @@ export interface AttachTagByFilterResponse {
 }
 
 export interface AzureAccessPointCore {
+  fe_ip_id?: string
+  fe_ip_name?: string
   id?: string
   name?: string
+  region?: string
+  resource_group?: string
+  size?: string
+  size_name?: string
+  subnet_id?: string
+  subnet_name?: string
+  vpc?: string
+  vpc_name?: string
 }
 
 export interface CFTResponse {
@@ -851,6 +861,7 @@ export interface AllCertificatesQueryParams {
   region: string
   resource_group_name?: string
   accountIdentifier: string
+  app_gateway_id?: string
 }
 
 export interface AllCertificatesPathParams {
@@ -1462,8 +1473,8 @@ export const useGetAllASGs = ({ org_id, project_id, account_id, ...props }: UseG
   )
 
 export interface ListAccessPointsQueryParams {
-  vpc: string
-  region: string
+  vpc?: string
+  region?: string
   cloud_account_id: string
   accountIdentifier: string
 }

@@ -25,6 +25,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
       drawerData: { type: DrawerTypes.AddStep },
       splitViewData: {}
     },
+    schemaErrors: false,
     gitDetails: {},
     selectionState: {},
     pipelineIdentifier: '',
@@ -34,6 +35,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
     isLoading: false,
     isUpdated: true
   },
+  setSchemaErrorView: jest.fn(),
   updateGitDetails: jest.fn(),
   stagesMap: {},
   isReadonly: false,

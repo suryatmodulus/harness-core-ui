@@ -1,4 +1,4 @@
-import { Layout, Pagination } from '@wings-software/uicore'
+import { Container, Layout, Pagination } from '@wings-software/uicore'
 import React from 'react'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { PipelineCard } from './PipelineCard/PipelineCard'
@@ -20,12 +20,11 @@ export const PipelineGridView: React.FC<PipelineGridViewProps> = ({
   refetchPipeline
 }): JSX.Element => {
   return (
-    <div className={css.gridView}>
-      <div className={css.gridLayout}>
+    <>
+      <Container className={css.gridLayout}>
         <Layout.Masonry
           center
-          gutter={30}
-          width={900}
+          gutter={25}
           items={data?.content || []}
           renderItem={(item: PMSPipelineSummaryResponse) => (
             <PipelineCard
@@ -37,8 +36,8 @@ export const PipelineGridView: React.FC<PipelineGridViewProps> = ({
           )}
           keyOf={(item: PMSPipelineSummaryResponse) => item.identifier}
         />
-      </div>
-      <div className={css.pagination}>
+      </Container>
+      <Container className={css.pagination}>
         <Pagination
           itemCount={data?.totalElements || /* istanbul ignore next */ 0}
           pageSize={data?.size || /* istanbul ignore next */ 10}
@@ -46,7 +45,7 @@ export const PipelineGridView: React.FC<PipelineGridViewProps> = ({
           pageIndex={data?.number || /* istanbul ignore next */ 0}
           gotoPage={gotoPage}
         />
-      </div>
-    </div>
+      </Container>
+    </>
   )
 }

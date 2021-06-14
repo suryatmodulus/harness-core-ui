@@ -1,21 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import cx from 'classnames'
-import { GroupedVirtuoso, GroupedVirtuosoHandle } from 'react-virtuoso'
 import { ExpandingSearchInput, Icon, Text } from '@wings-software/uicore'
-import { sum } from 'lodash-es'
+import type { GroupedVirtuosoHandle, VirtuosoHandle } from 'react-virtuoso'
 
 import { String } from 'framework/strings'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
+import { useStrings } from 'framework/strings'
 
-import { GroupHeader, GroupHeaderProps, LogViewerAccordionStatus } from './components/GroupHeader'
-import { MultiLogLine } from './components/MultiLogLine'
 import { useLogsContent } from './useLogsContent'
+import { GroupedLogsWithRef as GroupedLogs } from './components/GroupedLogs'
+import { SingleSectionLogsWithRef as SingleSectionLogs } from './components/SingleSectionLogs'
 import css from './LogsContent.module.scss'
 
 // const worker = new Worker(new URL('./logparser.worker', import.meta.url))
-
-const STATUSES_FOR_ACCORDION_SKIP: LogViewerAccordionStatus[] = ['LOADING', 'NOT_STARTED']
 
 export interface LogsContentProps {
   mode: 'step-details' | 'console-view'
@@ -34,8 +32,10 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     queryParams
   } = useExecutionContext()
   const { state, actions } = useLogsContent()
+  const { getString } = useStrings()
+  const { linesWithResults, currentIndex } = state.searchData
 
-  const virtuosoRef = React.useRef<null | GroupedVirtuosoHandle>(null)
+  const virtuosoRef = React.useRef<null | GroupedVirtuosoHandle | VirtuosoHandle>(null)
 
   React.useEffect(() => {
     const currentStepId = mode !== 'console-view' && queryParams.retryStep ? queryParams.retryStep : selectedStepId
@@ -44,7 +44,8 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     actions.createSections({
       node: selectedStep,
       selectedStep: selectedStepId,
-      selectedStage: selectedStageId
+      selectedStage: selectedStageId,
+      getSectionName: (index: number) => getString('pipeline.logs.sectionName', { index })
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -58,37 +59,15 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence
   ])
 
-  function handleSectionClick(id: string, _props: GroupHeaderProps): boolean | void {
-    const currentSection = state.dataMap[id]
-
-    if (currentSection?.status && STATUSES_FOR_ACCORDION_SKIP.includes(currentSection?.status)) {
-      return false
-    }
-
-    if (!currentSection?.data.length) {
-      actions.fetchSectionData(id)
-    } else {
-      actions.toggleSection(id)
-    }
-
-    return false
-  }
-
   // scroll to current search result
   React.useEffect(() => {
-    const { currentIndex, linesWithResults } = state.searchData
     const index = linesWithResults[currentIndex]
 
     if (virtuosoRef.current && typeof index === 'number' && index >= 0) {
       virtuosoRef.current.scrollToIndex(index)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.searchData.currentIndex])
-
-  const groupedCounts = state.logKeys.map(key => {
-    const section = state.dataMap[key]
-    return section.isOpen ? section.data.length : 0
-  })
+  }, [currentIndex])
 
   return (
     <div className={cx(css.main, { [css.hasErrorMessage]: !!errorMessage })} data-mode={mode}>
@@ -100,7 +79,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
             showPrevNextButtons
             flip
             className={css.search}
-            fixedText={`${state.searchData.currentIndex + 1} / ${state.searchData.linesWithResults.length}`}
+            fixedText={`${Math.min(currentIndex + 1, linesWithResults.length)} / ${linesWithResults.length}`}
             onNext={() => actions.goToNextSearchResult()}
             onPrev={() => actions.goToPrevSearchResult()}
             onEnter={() => actions.goToNextSearchResult()}
@@ -114,35 +93,11 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
       </div>
       <pre className={css.container}>
         {state.units.length > 0 ? (
-          <GroupedVirtuoso
-            overscan={5}
-            ref={virtuosoRef}
-            groupCounts={groupedCounts}
-            followOutput={() => 'auto'}
-            groupContent={index => {
-              const logKey = state.logKeys[index]
-              const unit = state.dataMap[logKey]
-
-              return <GroupHeader {...unit} id={logKey} onSectionClick={handleSectionClick} />
-            }}
-            itemContent={(index, groupIndex) => {
-              const logKey = state.logKeys[groupIndex]
-              const unit = state.dataMap[logKey]
-              const previousCount = sum(groupedCounts.slice(0, groupIndex))
-              const lineNumber = index - previousCount
-              const logData = unit.data[lineNumber]
-
-              return (
-                <MultiLogLine
-                  {...logData}
-                  lineNumber={lineNumber}
-                  limit={unit.data.length}
-                  searchText={state.searchData.text}
-                  currentSearchIndex={state.searchData.currentIndex}
-                />
-              )
-            }}
-          />
+          state.units.length === 1 ? (
+            <SingleSectionLogs ref={virtuosoRef} state={state} actions={actions} />
+          ) : (
+            <GroupedLogs ref={virtuosoRef} state={state} actions={actions} />
+          )
         ) : (
           <String tagName="div" className={css.noLogs} stringID="common.logs.noLogsText" />
         )}

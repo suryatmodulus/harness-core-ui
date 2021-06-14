@@ -30,6 +30,7 @@ import {
   useGetJiraProjects,
   useGetJiraIssueCreateMetadata
 } from 'services/cd-ng'
+import { NameSchema } from '@common/utils/Validation'
 import type {
   AccountPathProps,
   GitQueryParams,
@@ -83,11 +84,6 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
-  const commonParams = {
-    accountIdentifier: accountId,
-    projectIdentifier,
-    orgIdentifier
-  }
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [issueTypeFieldList, setIssueTypeFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
@@ -96,6 +92,14 @@ const FormContent = ({
     JiraCreateFormFieldSelector.EXPRESSION
   )
   const [fieldsPopoverOpen, setFieldsPopoverOpen] = useState(false)
+
+  const commonParams = {
+    accountIdentifier: accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier,
+    branch
+  }
 
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const projectKeyFixedValue =
@@ -116,7 +120,8 @@ const FormContent = ({
           connectorRef: connectorRefFixedValue.toString()
         }
       })
-    } else {
+    } else if (connectorRefFixedValue !== undefined) {
+      // Undefined check is needed so that form is not set to dirty as soon as we open
       // This means we've cleared the value or marked runtime/expression
       // Flush the selected additional fields, and move everything to key value fields
       formik.setFieldValue('spec.fields', getKVFields(formik.values))
@@ -134,7 +139,8 @@ const FormContent = ({
           projectKey: projectKeyFixedValue.toString()
         }
       })
-    } else {
+    } else if (connectorRefFixedValue !== undefined && projectKeyFixedValue !== undefined) {
+      // Undefined check is needed so that form is not set to dirty as soon as we open
       // This means we've cleared the value or marked runtime/expression
       // Flush the selected additional fields, and move everything to key value fields
       formik.setFieldValue('spec.fields', getKVFields(formik.values))
@@ -164,7 +170,8 @@ const FormContent = ({
       })
       setIssueTypeFieldList(fieldListToSet)
       formik.setFieldValue('spec.selectedFields', formikSelectedFields)
-    } else {
+    } else if (issueTypeFixedValue !== undefined) {
+      // Undefined check is needed so that form is not set to dirty as soon as we open
       // This means we've cleared the value or marked runtime/expression
       // Flush the selected additional fields, and move everything to key value fields
       formik.setFieldValue('spec.fields', getKVFields(formik.values))
@@ -293,6 +300,7 @@ const FormContent = ({
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => formik.setFieldValue('timeout', value)}
+            isReadonly={readonly}
           />
         )}
       </Layout.Horizontal>
@@ -337,6 +345,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.connectorRef', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -378,6 +387,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.projectKey', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -418,6 +428,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.issueType', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -449,6 +460,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.summary', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -472,6 +484,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.description', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -578,12 +591,15 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
   const { onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
+    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
-    orgIdentifier
+    orgIdentifier,
+    repoIdentifier,
+    branch
   }
 
   const {
@@ -622,13 +638,13 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
           projectKey: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.project')),
           issueType: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.issueType')),
-          summary: Yup.string().required(getString('pipeline.jiraCreateStep.validations.summary'))
+          summary: Yup.string().trim().required(getString('pipeline.jiraCreateStep.validations.summary'))
         })
       })}
     >

@@ -15,10 +15,11 @@ interface AzureApDnsMappingProps {
   createMode: boolean
   handleSubmit: (values: AzureDnsFormVal) => void
   loadBalancer: AccessPoint
+  handleCancel?: () => void
 }
 
 const AzureApDnsMapping: React.FC<AzureApDnsMappingProps> = props => {
-  const { createMode, handleSubmit, loadBalancer } = props
+  const { createMode, handleSubmit, loadBalancer, handleCancel } = props
   return (
     <Formik
       initialValues={{
@@ -70,15 +71,15 @@ const AzureApDnsMapping: React.FC<AzureApDnsMappingProps> = props => {
             {/* {!isSaving && ( */}
             <Button
               intent="primary"
-              text={createMode ? 'Continue' : 'Save'}
-              rightIcon={createMode ? 'chevron-right' : undefined}
+              text={'Continue'}
+              rightIcon={'chevron-right'}
               onClick={submitForm}
               disabled={!(values.customDomain && values.name)}
               className={css.saveBtn}
               data-testid={'saveAzureDetails'}
             ></Button>
             {/* )} */}
-            {/* {!createMode && <Button intent="none" text={'Cancel'} onClick={handleCancel}></Button>} */}
+            {!createMode && <Button intent="none" text={'Cancel'} onClick={handleCancel}></Button>}
           </Layout.Horizontal>
         </FormikForm>
       )}

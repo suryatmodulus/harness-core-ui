@@ -82,7 +82,6 @@ entity: Entity
 entities: Entities
 enableGitExperience: Enable Git Experience
 gitExperienceNewUserText: Git Experience allows you to store the Pipeline and other Harness entities in Git with your code. With this method, Git is the single source of truth for all your code and configurations.
-primaryBranch: Primary branch
 selectGitProvider: Select your Git Provider
 selectGitConnectorTypeLabel: 'Select the connector to your {{type}}'
 lastTested: Last Tested
@@ -474,8 +473,6 @@ createSecretYAML:
   createSecret: Create Secret from YAML
   secretCreated: Secret created successfully
   invalidSecret: Invalid Secret configuration
-formValidation:
-  name: 'Name can only contain alphanumerics, _ and -'
 filters:
   filterVisibility: Who can view and edit the filter?
   name: Filter Name
@@ -510,11 +507,10 @@ customText: '{{text}}'
 adminLabel: 'Admin'
 collaboratorsLabel: 'Collaborators'
 viewDetails: 'View Details'
-startedAt: 'Started at:'
-endedAt: 'Ended at:'
+startedAt: 'Started at'
+endedAt: 'Ended at'
 lastUpdatedBy: Last Updated By
 loggedAt: 'Logged at {{time}}'
-delegateLabel: 'Delegate:'
 order: Order
 artifactsSelection:
   artifactDetails: Artifact Details
@@ -541,21 +537,21 @@ inputSets:
   inputSetSaved: Input Set saved
   nameIsRequired: Input Set Name is Required field
   inputSetIsRequired: Input Set field cannot be empty
-  inputSetName: Input set name
-  overlaySetName: Overlay set name
-  overlayInputSetSavedError: 'Error while saving Overlay InputSet'
+  inputSetName: Input Set name
+  overlaySetName: Overlay Set name
+  overlayInputSetSavedError: 'Error while saving Overlay Input Set'
   selectInputSets: Select Input Sets
   selectInputSetsHelp: Multiple input sets can be overlaid together. They are applied in the order specified - first one gets applied first, and the subsequent ones get layered in the order and overrides any previously specified values.
   overlayInputSetSaved: 'Overlay Input Set saved'
-  inputSetSavedError: Error while saving InputSet
+  inputSetSavedError: Error while saving Input Set
   searchInputSet: Search Input Set
   addInputSet: Add Input Set
   saveAsInputSet: Save as Input Set
-  aboutInputSets: Input sets are collections of variables/values that should be provided to a pipeline before execution.
+  aboutInputSets: Input Sets are collections of variables/values that should be provided to a pipeline before execution.
   confirmDeleteTitle: 'Delete {{type}}'
   overlayInputSet: Overlay Input Set
   inputFieldSummary: Input Field Summary
-  selectPlaceholder: Add Input Set(s)
+  selectPlaceholder: Apply Input Set(s)
   noRecord: No Input Sets Created
   selectMultipleInputSets: select multiple input sets
   helpTextForMultiSelect: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
@@ -712,7 +708,7 @@ addResourceModal:
 projectCard:
   clone: 'Clone'
   projectName: 'Project Name'
-  confirmDelete: Deleting the Project '{{name}}' would mean that you are also deleting all the resources associated with it. Are you sure you want to delete the Project?
+  confirmDelete: Deleting the Project '{{name}}' will delete its resources also. Are you sure you want to delete the Project?
   confirmDeleteTitle: 'Delete Project'
   successMessage: 'Project {{projectName}} is deleted'
   cdRendererText: 'Deployments in last 7 days'

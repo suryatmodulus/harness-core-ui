@@ -43,6 +43,7 @@ describe('Git Sync - repo tab', () => {
     updateGitSynRepo.mockReset()
   })
 
+  // eslint-disable-next-line jest/no-disabled-tests
   test('rendering landing list view', async () => {
     const { container, getByText } = setup()
 
@@ -53,6 +54,7 @@ describe('Git Sync - repo tab', () => {
     expect(container).toMatchSnapshot()
   })
 
+  // eslint-disable-next-line jest/no-disabled-tests
   test('test for opening add repo modal in list view', async () => {
     const { container } = setup()
     const addRepoBtn = document.getElementById('newRepoBtn')
@@ -64,7 +66,7 @@ describe('Git Sync - repo tab', () => {
     await waitFor(() => findByText(addRepoModal as HTMLElement, 'selectGitProvider'))
     expect(container).toMatchSnapshot()
   })
-
+  // eslint-disable-next-line jest/no-disabled-tests
   test('test for adding new root folder', async () => {
     const { container, getAllByText } = setup()
     const addFolderBtn = getAllByText('gitsync.addFolder')
@@ -135,7 +137,7 @@ describe('Git Sync - repo tab', () => {
       repo: 'https://github.com/wings-software/triggerNgDemo'
     })
   })
-
+  // eslint-disable-next-line jest/no-disabled-tests
   test('test for making a rootfolder default from leftmenu', async () => {
     updateGitSynRepo.mock
     const { container } = setup()

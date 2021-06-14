@@ -9,5 +9,6 @@ declare const styles: {
   readonly secondColumn: string
   readonly allowedOptions: string
   readonly advancedBtn: string
+  readonly buttonsContainer: string
 }
 export default styles

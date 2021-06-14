@@ -16,7 +16,7 @@
 
 .moduleContainer {
   &:hover {
-    cursor: auto;
+    cursor: pointer;
     border-bottom-left-radius: inherit !important;
     border-bottom-right-radius: inherit !important;
     background: var(--grey-100) !important;
@@ -31,6 +31,6 @@
   }
 }
 
-.moduleLink {
+.moduleText {
   text-transform: uppercase;
 }

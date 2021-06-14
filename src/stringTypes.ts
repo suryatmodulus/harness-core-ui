@@ -64,6 +64,7 @@ export interface StringsMap {
   'common.confictOccured': string
   'common.confirmText': string
   'common.createPipeline': string
+  'common.creating': string
   'common.dashboards': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
@@ -83,6 +84,8 @@ export interface StringsMap {
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
   'common.failureRate': string
+  'common.filters.clearFilters': string
+  'common.filters.noMatchingFilterData': string
   'common.filters.saveNewFilter': string
   'common.git.APIAccessDescriptipn': string
   'common.git.APIAuthentication': string
@@ -121,6 +124,7 @@ export interface StringsMap {
   'common.git.urlType': string
   'common.git.validation.commitMessage': string
   'common.git.validation.filePath': string
+  'common.git.validation.sameBranches': string
   'common.gitSync.allRepositories': string
   'common.gitSync.commitDetailsLabel': string
   'common.gitSync.creatingPR': string
@@ -242,15 +246,18 @@ export interface StringsMap {
   'common.startTrial': string
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
+  'common.subscriptions': string
+  'common.successfullCreate': string
+  'common.successfullUpdate': string
   'common.test.connectionFailed': string
   'common.test.connectionSuccessful': string
   'common.test.inProgress': string
   'common.test.retest': string
-  'common.timeout': string
   'common.totalLines': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
   'common.unsavedChanges': string
+  'common.updating': string
   'common.userGroup': string
   'common.userGroups': string
   'common.validation.email.format': string
@@ -260,11 +267,14 @@ export interface StringsMap {
   'common.validation.groupAttributeIsRequired': string
   'common.validation.identifierIsRequired': string
   'common.validation.nameIsRequired': string
+  'common.validation.namePatternIsNotValid': string
   'common.validation.urlIsRequired': string
   'common.validation.valueIsRequired': string
   'common.validation.valueMustBeANumber': string
   'common.validation.valueMustBeGreaterThanOrEqualToN': string
   'common.validation.valueMustBeLessThanOrEqualTo64': string
+  'common.validation.variableAlreadyExists': string
+  'common.validation.yamlFilePath': string
   'common.welcome': string
   'notifications.buttonSend': string
   'notifications.emailRecipients': string
@@ -453,8 +463,8 @@ export interface StringsMap {
   'authSettings.loginViaSAML': string
   'authSettings.minLength': string
   'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
-  'authSettings.notifyUsersWHenUserLocked': string
   'authSettings.notifyUsersWhenTheyLocked': string
+  'authSettings.notifyUsersWhenUserLocked': string
   'authSettings.oauthSettingsHaveBeenUpdated': string
   'authSettings.okta': string
   'authSettings.oneLogin': string
@@ -589,6 +599,7 @@ export interface StringsMap {
   'connectors.appD.validation.clientSecret': string
   'connectors.appD.validation.controllerURL': string
   'connectors.appDynamicsDetails': string
+  'connectors.appdLabel': string
   'connectors.artifactRepoType': string
   'connectors.artifactRepository': string
   'connectors.artifactory.artifactoryServerUrl': string
@@ -722,6 +733,7 @@ export interface StringsMap {
   'connectors.k8.delegateOutClusterInfo': string
   'connectors.k8.masterUrlLabel': string
   'connectors.k8.placeholder.masterUrl': string
+  'connectors.k8.serviceAccountKey': string
   'connectors.k8.serviceAccountToken': string
   'connectors.k8.skipDefaultValidation': string
   'connectors.name': string
@@ -749,21 +761,31 @@ export interface StringsMap {
   'connectors.newRelic.urlFieldLabel': string
   'connectors.newRelic.urlValidation': string
   'connectors.newRelicConnectorDetails': string
+  'connectors.newRelicLabel': string
   'connectors.nexus.nexusServerUrl': string
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string
   'connectors.prometheusLabel': string
+  'connectors.scopeError': string
   'connectors.secretManagerDetails': string
   'connectors.selectConnectorLabel': string
   'connectors.specifyArtifactRepo': string
   'connectors.specifyArtifactRepoType': string
   'connectors.splunk.connectorDetailsHeader': string
   'connectors.splunkConnectorDetails': string
+  'connectors.splunkLabel': string
   'connectors.stepFourName': string
   'connectors.stepThreeName': string
   'connectors.successfullCreate': string
   'connectors.successfullUpdate': string
   'connectors.successfullyCreated': string
+  'connectors.sumoLogicConnectorDetails': string
+  'connectors.sumologic.encryptedAccessIdLabel': string
+  'connectors.sumologic.encryptedAccessIdValidation': string
+  'connectors.sumologic.encryptedAccessKeyLabel': string
+  'connectors.sumologic.encryptedAccessKeyValidation': string
+  'connectors.sumologic.urlLabel': string
+  'connectors.sumologic.urlValidation': string
   'connectors.testConnectionStep.errorDetails': string
   'connectors.testConnectionStep.executingOn': string
   'connectors.testConnectionStep.installNewDelegate': string
@@ -795,6 +817,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.k8s': string
   'connectors.testConnectionStep.validationText.nexus': string
   'connectors.testConnectionStep.validationText.splunk': string
+  'connectors.testConnectionStep.validationText.sumologic': string
   'connectors.testConnectionStep.validationText.vault': string
   'connectors.testConnectionStep.verificationSuccessful': string
   'connectors.testConnectionStep.viewPermissions': string
@@ -820,6 +843,7 @@ export interface StringsMap {
   'connectors.title.nexus': string
   'connectors.title.secretManager': string
   'connectors.title.splunk': string
+  'connectors.title.sumologic': string
   'connectors.unableToCreateConnector': string
   'connectors.unableToUpdateConnector': string
   'connectors.updatedSuccessfully': string
@@ -883,6 +907,7 @@ export interface StringsMap {
   'gitsync.connectThroughManager': string
   'gitsync.connectThroughManagerLabel': string
   'gitsync.connectToGitProvider': string
+  'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
   'gitsync.entitiesByRepositories': string
   'gitsync.folderDetails': string
@@ -894,7 +919,6 @@ export interface StringsMap {
   'gitsync.markAsDefaultLabel': string
   'gitsync.moveFolder': string
   'gitsync.pathToHarnessFolder': string
-  'gitsync.repositoryPath': string
   'gitsync.rootFolderListHeader': string
   'gitsync.rootFolderUpdatedSuccessfully': string
   'gitsync.rootfolderLabel': string
@@ -1025,11 +1049,14 @@ export interface StringsMap {
   'pipeline.approvalStep.approvers': string
   'pipeline.approvalStep.approversWithColon': string
   'pipeline.approvalStep.disallowPipelineExecutor': string
+  'pipeline.approvalStep.disallowedApproverExecution': string
+  'pipeline.approvalStep.ensureUserGroups': string
   'pipeline.approvalStep.fetchUserGroupsFailed': string
   'pipeline.approvalStep.fetchingUserGroups': string
   'pipeline.approvalStep.includePipelineExecutionHistory': string
   'pipeline.approvalStep.message': string
   'pipeline.approvalStep.minimumCount': string
+  'pipeline.approvalStep.notAuthorizedExecution': string
   'pipeline.approvalStep.status.APPROVE': string
   'pipeline.approvalStep.status.REJECT': string
   'pipeline.approvalStep.validation.approvalMessage': string
@@ -1087,6 +1114,7 @@ export interface StringsMap {
   'pipeline.dashboards.totalBuilds': string
   'pipeline.dashboards.totalExecutions': string
   'pipeline.dashboards.workloads': string
+  'pipeline.depth': string
   'pipeline.discard': string
   'pipeline.duration': string
   'pipeline.enableVerificationOptions': string
@@ -1187,6 +1215,8 @@ export interface StringsMap {
   'pipeline.gitDetails': string
   'pipeline.gitExperience.skipNow': string
   'pipeline.infrastructureKey': string
+  'pipeline.inputSets.applyInputSet': string
+  'pipeline.inputSets.applyInputSets': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
   'pipeline.jiraApprovalStep.allConditions': string
@@ -1234,7 +1264,7 @@ export interface StringsMap {
   'pipeline.jiraUpdateStep.statusTransitionAccordion': string
   'pipeline.jiraUpdateStep.transitionLabel': string
   'pipeline.jiraUpdateStep.validations.status': string
-  'pipeline.logs.fetchError': string
+  'pipeline.logs.sectionName': string
   'pipeline.manifestType.bitBucketLabel': string
   'pipeline.manifestType.branchPlaceholder': string
   'pipeline.manifestType.bucketName': string
@@ -1278,22 +1308,34 @@ export interface StringsMap {
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
+  'pipeline.noBuildsText': string
+  'pipeline.noDeploymentText': string
+  'pipeline.noPipelineText': string
+  'pipeline.onlyPositiveInteger': string
+  'pipeline.optionalLabel': string
   'pipeline.progressPercentage': string
+  'pipeline.provisionerSteps': string
   'pipeline.repoRequired': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
   'pipeline.resourceConstraints.yourPipeline': string
+  'pipeline.runAPipeline': string
   'pipeline.savingInProgress': string
   'pipeline.selectOrCreateForm.description': string
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
+  'pipeline.sslVerify': string
   'pipeline.startTime': string
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDetails': string
   'pipeline.stepLabel': string
   'pipeline.targets.title': string
+  'pipeline.testsReports.callgraphTitle': string
+  'pipeline.testsReports.calls': string
+  'pipeline.testsReports.changedSourceMethods': string
+  'pipeline.testsReports.changedTestMethods': string
   'pipeline.testsReports.className': string
   'pipeline.testsReports.commitId': string
   'pipeline.testsReports.consoleOutput': string
@@ -1317,18 +1359,21 @@ export interface StringsMap {
   'pipeline.testsReports.result': string
   'pipeline.testsReports.resultInfo': string
   'pipeline.testsReports.resultLabel': string
+  'pipeline.testsReports.selectedTestMethods': string
   'pipeline.testsReports.selectionBreakdown': string
   'pipeline.testsReports.selectionBreakdownInfo': string
   'pipeline.testsReports.showOnlyFailedTests': string
   'pipeline.testsReports.skipped': string
   'pipeline.testsReports.skippedWithColon': string
   'pipeline.testsReports.sortBy': string
+  'pipeline.testsReports.sourceMethods': string
   'pipeline.testsReports.stackTrace': string
   'pipeline.testsReports.status': string
   'pipeline.testsReports.successWithColon': string
   'pipeline.testsReports.testCaseName': string
   'pipeline.testsReports.testCasesExecution': string
   'pipeline.testsReports.testCasesExecutionInfo': string
+  'pipeline.testsReports.testMethods': string
   'pipeline.testsReports.testSuite': string
   'pipeline.testsReports.timeSaved': string
   'pipeline.testsReports.totalDuration': string
@@ -1337,6 +1382,7 @@ export interface StringsMap {
   'pipeline.testsReports.totalWithColon': string
   'pipeline.testsReports.type': string
   'pipeline.testsReports.updatedTests': string
+  'pipeline.testsReports.viewCallgraph': string
   'pipeline.testsReports.willBeDisplayedIfAvailable': string
   'pipeline.triggers.aboutTriggers': string
   'pipeline.triggers.activityActivation': string
@@ -1981,8 +2027,11 @@ export interface StringsMap {
   'cf.noFlag': string
   'cf.noTarget': string
   'cf.noTargetForEnv': string
+  'cf.onboarding.allSet': string
   'cf.onboarding.backToStart': string
+  'cf.onboarding.behindTheSenes': string
   'cf.onboarding.clientKey': string
+  'cf.onboarding.connected': string
   'cf.onboarding.createAFlag': string
   'cf.onboarding.createEnv': string
   'cf.onboarding.envCreated': string
@@ -2017,14 +2066,23 @@ export interface StringsMap {
   'cf.onboarding.subTitle': string
   'cf.onboarding.successLabel': string
   'cf.onboarding.testYourFlag': string
-  'cf.onboarding.theBasics': string
   'cf.onboarding.title': string
   'cf.onboarding.toggleLabel': string
   'cf.onboarding.tryItOut': string
+  'cf.onboarding.tryTarget': string
   'cf.onboarding.upAndRunning': string
+  'cf.onboarding.waitForConnect': string
   'cf.pipeline.default': string
   'cf.pipeline.stages.execution.title': string
   'cf.pipeline.stages.setup.title': string
+  'cf.rbac.category': string
+  'cf.rbac.featureflag.delete': string
+  'cf.rbac.featureflag.edit': string
+  'cf.rbac.featureflag.label': string
+  'cf.rbac.featureflag.toggle': string
+  'cf.rbac.targetgroup.delete': string
+  'cf.rbac.targetgroup.edit': string
+  'cf.rbac.targetgroup.label': string
   'cf.segmentDetail.addSegmentToFlag': string
   'cf.segmentDetail.addToFlag': string
   'cf.segmentDetail.autoAdded': string
@@ -2343,6 +2401,7 @@ export interface StringsMap {
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
   'cv.monitoringSources.addMetric': string
+  'cv.monitoringSources.addQuery': string
   'cv.monitoringSources.appD.appDApplications': string
   'cv.monitoringSources.appD.appDTier': string
   'cv.monitoringSources.appD.connectToMonitoringSource': string
@@ -2382,7 +2441,6 @@ export interface StringsMap {
   'cv.monitoringSources.appD.validationsFailed': string
   'cv.monitoringSources.appD.validationsPassed': string
   'cv.monitoringSources.appD.verificationsInProgress': string
-  'cv.monitoringSources.appDName': string
   'cv.monitoringSources.backToMapping': string
   'cv.monitoringSources.baselineDeviation': string
   'cv.monitoringSources.buildYourQuery': string
@@ -2413,6 +2471,7 @@ export interface StringsMap {
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.tags': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.validJSON': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.viewQuery': string
+  'cv.monitoringSources.gco.product.logs': string
   'cv.monitoringSources.gco.product.metrics': string
   'cv.monitoringSources.gco.productValidationText': string
   'cv.monitoringSources.gco.reviewPage.gcoMetrics': string
@@ -2422,9 +2481,34 @@ export interface StringsMap {
   'cv.monitoringSources.gco.selectDashboardsPage.noDataText': string
   'cv.monitoringSources.gco.selectProduct': string
   'cv.monitoringSources.gco.tabName.selectDashboards': string
+  'cv.monitoringSources.gcoLogs.addQueryTooltip': string
+  'cv.monitoringSources.gcoLogs.customizeQuery': string
+  'cv.monitoringSources.gcoLogs.fetchRecords': string
+  'cv.monitoringSources.gcoLogs.gcoLogsMessageIdentifer': string
+  'cv.monitoringSources.gcoLogs.gcoLogsQuery': string
+  'cv.monitoringSources.gcoLogs.gcoLogsServiceInstance': string
+  'cv.monitoringSources.gcoLogs.messageIdentifier': string
+  'cv.monitoringSources.gcoLogs.newGCOLogsMessage': string
+  'cv.monitoringSources.gcoLogs.newGCOLogsMessageIdentifier': string
+  'cv.monitoringSources.gcoLogs.newGCOLogsServiceInstance': string
+  'cv.monitoringSources.gcoLogs.noRecordsForQuery': string
+  'cv.monitoringSources.gcoLogs.query': string
+  'cv.monitoringSources.gcoLogs.querySpecificationsAndMappings': string
+  'cv.monitoringSources.gcoLogs.records': string
+  'cv.monitoringSources.gcoLogs.selectPathForMessageIdentifier': string
+  'cv.monitoringSources.gcoLogs.selectPathForServiceInstance': string
+  'cv.monitoringSources.gcoLogs.selectRecords': string
+  'cv.monitoringSources.gcoLogs.serviceInstance': string
+  'cv.monitoringSources.gcoLogs.submitQueryToSeeRecords': string
+  'cv.monitoringSources.gcoLogs.validation.messageIdentifier': string
+  'cv.monitoringSources.gcoLogs.validation.messageIdentifierUniqueName': string
+  'cv.monitoringSources.gcoLogs.validation.queryNameUnique': string
+  'cv.monitoringSources.gcoLogs.validation.serviceInstance': string
+  'cv.monitoringSources.gcoLogs.validation.serviceInstanceUniqueName': string
   'cv.monitoringSources.higherCounts': string
   'cv.monitoringSources.lowerCounts': string
   'cv.monitoringSources.mapMetricsToServices': string
+  'cv.monitoringSources.mapQueriesToServices': string
   'cv.monitoringSources.metricNameLabel': string
   'cv.monitoringSources.metricNameValidation': string
   'cv.monitoringSources.metricPackValidation': string
@@ -2435,7 +2519,6 @@ export interface StringsMap {
   'cv.monitoringSources.newRelic.oneMetricMappingValidationSubtext': string
   'cv.monitoringSources.newRelic.selectedApplications': string
   'cv.monitoringSources.newRelic.totalMappedApplications': string
-  'cv.monitoringSources.newRelicName': string
   'cv.monitoringSources.oneMetricMappingValidation': string
   'cv.monitoringSources.oneMetricMappingValidationSubtext': string
   'cv.monitoringSources.oneMetricPackValidation': string
@@ -2476,6 +2559,8 @@ export interface StringsMap {
   'cv.monitoringSources.prometheus.validation.recordCount': string
   'cv.monitoringSources.prometheus.validation.serviceInstanceIdentifier': string
   'cv.monitoringSources.prometheus.validation.uniqueName': string
+  'cv.monitoringSources.queryNameLabel': string
+  'cv.monitoringSources.queryNameValidation': string
   'cv.monitoringSources.reviewPageSubHeading': string
   'cv.monitoringSources.riskCategoryLabel': string
   'cv.monitoringSources.riskProfile': string
@@ -3771,10 +3856,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  delegateLabel: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   delete: string
   /**
    * @deprecated migrate this string to module level file
@@ -4300,10 +4381,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   flag: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'formValidation.name': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6108,10 +6185,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   primaryArtifactText: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  primaryBranch: string
   /**
    * @deprecated migrate this string to module level file
    */

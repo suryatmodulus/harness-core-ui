@@ -10,6 +10,7 @@ import SessionToken from 'framework/utils/SessionToken'
 import languageLoader from 'strings/languageLoader'
 import type { LangLocale } from 'strings/languageLoader'
 import { AppStoreProvider } from 'framework/AppStore/AppStoreContext'
+import { LicenseStoreProvider } from 'framework/LicenseStore/LicenseStoreContext'
 // eslint-disable-next-line aliased-module-imports
 import RouteDestinations from 'modules/RouteDestinations'
 // eslint-disable-next-line aliased-module-imports
@@ -113,13 +114,15 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
         <TooltipContextProvider initialTooltipDictionary={tooltipDictionary}>
           <AppStoreProvider>
             <AppErrorBoundary>
-              <PermissionsProvider>
-                <RouteDestinations />
-                <NGTooltipEditorPortal
-                  showTooltipEditor={showTooltipEditor}
-                  onEditorClose={() => setShowTooltipEditor(false)}
-                />
-              </PermissionsProvider>
+              <LicenseStoreProvider>
+                <PermissionsProvider>
+                  <RouteDestinations />
+                  <NGTooltipEditorPortal
+                    showTooltipEditor={showTooltipEditor}
+                    onEditorClose={() => setShowTooltipEditor(false)}
+                  />
+                </PermissionsProvider>
+              </LicenseStoreProvider>
             </AppErrorBoundary>
           </AppStoreProvider>
         </TooltipContextProvider>

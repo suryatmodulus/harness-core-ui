@@ -6,7 +6,7 @@ import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
 import { useQueryParams } from '@common/hooks'
-import { useStartTrial } from 'services/portal'
+import { useStartTrialLicense } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import bgImageURL from './images/homeIllustration.svg'
@@ -17,7 +17,7 @@ const CDTrialHomePage: React.FC = () => {
   const { source } = useQueryParams<{ source?: string }>()
   const { accountId } = useParams<ProjectPathProps>()
 
-  const { error, mutate: startTrial, loading } = useStartTrial({
+  const { error, mutate: startTrial, loading } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }

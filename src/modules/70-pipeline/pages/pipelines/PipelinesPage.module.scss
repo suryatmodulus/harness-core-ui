@@ -141,21 +141,17 @@ $header-height: 80px;
   transform: rotate(90deg);
 }
 
-.gridView {
-  height: calc(100% - 76px);
-  background-color: var(--grey-50);
-  padding: 0 var(--spacing-large) !important;
-  .gridLayout {
-    height: calc(100% - 64px);
-    overflow: auto;
-    > div {
-      padding-top: var(--spacing-medium) !important;
-    }
-  }
+.gridLayout {
+  min-height: calc(100vh - var(--page-header-height) - 136px);
+  width: 1155px;
+  margin: 0 auto !important;
 }
 
+.pagination {
+  padding: 0 var(--spacing-xxxlarge) !important ;
+}
 .pageBody {
-  --page-header-height: 128px;
+  --page-header-height: 144px;
 }
 
 .pagination {
@@ -179,9 +175,29 @@ $header-height: 80px;
 }
 .noPipelineSection {
   display: flex;
-  height: 80%;
-  .noPipelineData {
-    margin: auto;
-    text-align: center;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  .clearFilterText {
+    color: var(--primary-7);
+    text-transform: uppercase;
+    font-size: var(--spacing-medium);
+    font-weight: 500;
+  }
+  .image {
+    width: 720px;
+  }
+  .noPipelineText {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    line-height: 28px !important;
+    color: var(--grey-1000) !important;
+  }
+  .aboutPipeline {
+    font-size: 16px !important;
+    font-weight: normal !important;
+    line-height: 24px !important;
+    color: var(--grey-600) !important;
   }
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Menu } from '@blueprintjs/core'
-
 import {
   Formik,
   FormInput,
@@ -22,8 +21,9 @@ import { useListAwsRegions } from 'services/portal'
 import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForEcr } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
+import { useQueryParams } from '@common/hooks'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../ArtifactConnector.module.scss'
@@ -36,7 +36,8 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   prevStepData,
   initialValues,
   previousStep,
-  artifactIdentifiers
+  artifactIdentifiers,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
 
@@ -73,6 +74,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     })
   })
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [tagList, setTagList] = React.useState([])
   const [regions, setRegions] = React.useState<SelectOption[]>([])
   const [lastQueryData, setLastQueryData] = React.useState<{ imagePath: string; region: any }>({
@@ -89,7 +91,9 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      region: lastQueryData.region?.value ? lastQueryData.region.value : lastQueryData.region
+      region: lastQueryData.region?.value ? lastQueryData.region.value : lastQueryData.region,
+      repoIdentifier,
+      branch
     },
     lazy: true
   })
@@ -274,6 +278,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                       onChange={value => {
                         formik.setFieldValue('region', value)
                       }}
+                      isReadonly={isReadonly}
                     />
                   </div>
                 )}
@@ -298,6 +303,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                       onChange={value => {
                         formik.setFieldValue('imagePath', value)
                       }}
+                      isReadonly={isReadonly}
                     />
                   </div>
                 )}
@@ -349,6 +355,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                         onChange={value => {
                           formik.setFieldValue('tag', value)
                         }}
+                        isReadonly={isReadonly}
                       />
                     </div>
                   )}
@@ -375,6 +382,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                         onChange={value => {
                           formik.setFieldValue('tagRegex', value)
                         }}
+                        isReadonly={isReadonly}
                       />
                     </div>
                   )}

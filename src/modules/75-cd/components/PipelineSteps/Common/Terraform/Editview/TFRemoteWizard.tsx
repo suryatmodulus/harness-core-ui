@@ -17,6 +17,7 @@ import { FieldArray, Form } from 'formik'
 
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { IdentifierSchema } from '@common/utils/Validation'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 
@@ -28,12 +29,14 @@ import css from './TerraformVarfile.module.scss'
 interface TFRemoteProps {
   onSubmitCallBack: (data: RemoteVar) => void
   isEditMode: boolean
+  isReadonly?: boolean
 }
 export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
   previousStep,
   prevStepData,
   onSubmitCallBack,
-  isEditMode
+  isEditMode,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
   const initialValues = isEditMode
@@ -128,7 +131,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
         }}
         validationSchema={Yup.object().shape({
           varFile: Yup.object().shape({
-            identifier: Yup.string().required(getString('common.validation.identifierIsRequired')),
+            identifier: IdentifierSchema(),
             spec: Yup.object().shape({
               store: Yup.object().shape({
                 spec: Yup.object().shape({
@@ -167,6 +170,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('varFile.identifier', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -197,6 +201,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('varFile.spec.store.spec.branch', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
@@ -221,54 +226,57 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('varFile.spec.store.spec.commitId', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
                 )}
-                <MultiTypeFieldSelector
-                  name="varFile.spec.store.spec.paths"
-                  label={getString('filePaths')}
-                  style={{ width: '200' }}
-                >
-                  <FieldArray
+                <div className={cx(stepCss.formGroup)}>
+                  <MultiTypeFieldSelector
                     name="varFile.spec.store.spec.paths"
-                    render={({ push, remove }) => {
-                      return (
-                        <div>
-                          {(formik.values?.varFile?.spec?.store?.spec?.paths || []).map(
-                            (path: PathInterface, i: number) => (
-                              <div key={`${path}-${i}`} className={css.pathRow}>
-                                <FormInput.MultiTextInput
-                                  name={`varFile.spec.store.spec.paths[${i}].path`}
-                                  label=""
-                                  multiTextInputProps={{
-                                    expressions,
-                                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                                  }}
-                                />
-                                <Button
-                                  minimal
-                                  icon="trash"
-                                  data-testid={`remove-header-${i}`}
-                                  onClick={() => remove(i)}
-                                />
-                              </div>
-                            )
-                          )}
-                          <Button
-                            icon="plus"
-                            minimal
-                            intent="primary"
-                            data-testid="add-header"
-                            onClick={() => push({ path: '' })}
-                          >
-                            {getString('cd.addTFVarFileLabel')}
-                          </Button>
-                        </div>
-                      )
-                    }}
-                  />
-                </MultiTypeFieldSelector>
+                    label={getString('filePaths')}
+                    style={{ width: 370 }}
+                  >
+                    <FieldArray
+                      name="varFile.spec.store.spec.paths"
+                      render={({ push, remove }) => {
+                        return (
+                          <div>
+                            {(formik.values?.varFile?.spec?.store?.spec?.paths || []).map(
+                              (path: PathInterface, i: number) => (
+                                <div key={`${path}-${i}`} className={css.pathRow}>
+                                  <FormInput.MultiTextInput
+                                    name={`varFile.spec.store.spec.paths[${i}].path`}
+                                    label=""
+                                    multiTextInputProps={{
+                                      expressions,
+                                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                    }}
+                                  />
+                                  <Button
+                                    minimal
+                                    icon="trash"
+                                    data-testid={`remove-header-${i}`}
+                                    onClick={() => remove(i)}
+                                  />
+                                </div>
+                              )
+                            )}
+                            <Button
+                              icon="plus"
+                              minimal
+                              intent="primary"
+                              data-testid="add-header"
+                              onClick={() => push({ path: '' })}
+                            >
+                              {getString('cd.addTFVarFileLabel')}
+                            </Button>
+                          </div>
+                        )
+                      }}
+                    />
+                  </MultiTypeFieldSelector>
+                </div>
               </div>
 
               <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>

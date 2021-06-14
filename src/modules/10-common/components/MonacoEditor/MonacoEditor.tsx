@@ -33,9 +33,9 @@ const MonacoEditor = (props: ExtendedMonacoEditorProps, ref: ReactMonacoEditorRe
     monaco?.editor?.defineTheme('disable-theme', {
       base: 'vs',
       inherit: true,
-      rules: [{ background: 'd9dae5' }],
+      rules: [{ background: 'f3f3fa' }],
       colors: {
-        'editor.background': '#d9dae5'
+        'editor.background': '#f3f3fa'
       }
     })
   }

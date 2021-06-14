@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Card, Layout, Text, Color } from '@wings-software/uicore'
+import { Card, Layout, Text, Color } from '@wings-software/uicore'
 import { Checkbox } from '@blueprintjs/core'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
@@ -56,7 +56,7 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
                   }}
                 >
                   <Layout.Vertical>
-                    <Layout.Horizontal>
+                    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
                       <Checkbox
                         data-testid={`CHECK-BOX-${resourceCategory}`}
                         key={resourceCategory}
@@ -67,16 +67,21 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
                             ? getIntermittent(resourceTypes) && !getChecked(resourceCategory, resourceTypes)
                             : undefined
                         }
+                        className={css.checkBox}
                         onChange={e => {
                           if (resourceTypes) onResourceCategorySelect(resourceTypes, e.currentTarget.checked)
                           else onResourceSelectionChange(resourceCategory as ResourceType, e.currentTarget.checked)
                         }}
                         value={resourceCategory}
                       />
-                      <Layout.Horizontal spacing="small">
-                        <Icon name={resourceCategoryHandler.icon} />
-                        <Text color={Color.BLACK}>{getString(resourceCategoryHandler.label)}</Text>
-                      </Layout.Horizontal>
+
+                      <Text
+                        color={Color.BLACK}
+                        icon={resourceCategoryHandler.icon}
+                        iconProps={{ padding: { right: 'small' } }}
+                      >
+                        {getString(resourceCategoryHandler.label)}
+                      </Text>
                     </Layout.Horizontal>
                     {resourceTypes &&
                       Array.from(resourceTypes).map(resource => {

@@ -12,6 +12,9 @@
   }
   .noResultSection {
     margin: var(--spacing-xxxlarge);
+    font-size: var(--spacing-medium);
+    color: var(--grey-500);
+    margin: 30px auto !important;
   }
   .search {
     width: 250px;

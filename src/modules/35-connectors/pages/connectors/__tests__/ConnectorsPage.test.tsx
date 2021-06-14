@@ -1,6 +1,7 @@
 import React from 'react'
-import { render, waitFor, queryByText, fireEvent, queryByAttribute } from '@testing-library/react'
+import { render, screen, waitFor, queryByText, fireEvent, queryByAttribute } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
+import routes from '@common/RouteDefinitions'
 import * as cdngServices from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as usePermission from '@rbac/hooks/usePermission'
@@ -46,6 +47,33 @@ describe('Connectors Page Test', () => {
         <ConnectorsPage {...props} />
       </TestWrapper>
     )
+
+  test('In CV module on clicking createViaYamlButton url should remain in cv', async () => {
+    const { container } = render(
+      <TestWrapper
+        path={routes.toConnectors({
+          accountId: ':accountId',
+          orgIdentifier: ':orgIdentifier',
+          projectIdentifier: ':projectIdentifier',
+          module: 'cv'
+        })}
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }}
+      >
+        <ConnectorsPage {...props} />
+      </TestWrapper>
+    )
+    const createViaYamlButton = screen.getByText('createViaYaml')
+    fireEvent.click(createViaYamlButton)
+    expect(container.querySelector('[data-testid="location"]')?.textContent).toMatch(
+      routes.toCreateConnectorFromYaml({
+        accountId: 'dummy',
+        orgIdentifier: 'default',
+        projectIdentifier: 'dummyProject'
+      })
+    )
+
+    expect(container).toMatchSnapshot()
+  })
 
   test('Initial render should match snapshot', async () => {
     const { container, getByText } = setup()
@@ -140,7 +168,9 @@ describe('Connectors Page Test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should verify that new connector button and create via yaml button are not disabled if connector edit permission is provided', async () => {
+  //Disabling as this has been reported as flaky multiple times
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('should verify that new connector button and create via yaml button are not disabled if connector edit permission is provided', async () => {
     jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
     const { container } = setup()
     const newConnectorButton = container.querySelector('[data-test="newConnectorButton"]')
@@ -158,22 +188,25 @@ describe('Connectors Page Test', () => {
     expect(createViaYamlButton?.getAttribute('disabled')).toBe('')
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('should confirm that searching calls the api', async () => {
+  test('should confirm that searching calls the api', async () => {
     const getConnectorsListV2 = jest.fn()
     jest.spyOn(cdngServices, 'useGetConnectorListV2').mockImplementation(() => ({ mutate: getConnectorsListV2 } as any))
     const { container } = setup()
+    const searchText = 'abcd'
     const searchContainer = container.querySelector('[data-name="connectorSeachContainer"]')
     const searchIcon = searchContainer?.querySelector('span[icon="search"]')
-    const searchInput = searchContainer?.querySelector('input[placeholder="search"]')
+    const searchInput = searchContainer?.querySelector('input[placeholder="search"]') as HTMLInputElement
     expect(searchIcon).toBeTruthy()
     expect(searchInput).toBeTruthy()
-    expect(searchInput?.nodeValue).toBe(null)
+    expect(searchInput?.value).toBe('')
     expect(getConnectorsListV2).toBeCalledTimes(1)
-    fireEvent.click(searchIcon!)
     await act(async () => {
-      fireEvent.change(searchInput!, { target: { value: 'abcd' } })
+      fireEvent.click(searchIcon!)
     })
+    await act(async () => {
+      fireEvent.change(searchInput!, { target: { value: searchText } })
+    })
+    await waitFor(() => expect(searchInput?.value).toBe(searchText))
     await waitFor(() => expect(getConnectorsListV2).toBeCalledTimes(2))
   })
 })

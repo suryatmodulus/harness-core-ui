@@ -21,6 +21,8 @@ export const getRoutePathByType = (type: DSConfig['type'] | ActivitySourceDTO['t
       return MonitoringSourceSetupRoutePaths.APP_DYNAMICS
     case 'STACKDRIVER':
       return MonitoringSourceSetupRoutePaths.GOOGLE_CLOUD_OPERATIONS
+    case 'STACKDRIVER_LOG':
+      return MonitoringSourceSetupRoutePaths.GOOGLE_CLOUD_OPERATIONS
     case 'NEW_RELIC':
       return MonitoringSourceSetupRoutePaths.NEW_RELIC
     case 'PROMETHEUS':

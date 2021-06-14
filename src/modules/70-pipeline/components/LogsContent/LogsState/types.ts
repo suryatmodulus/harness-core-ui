@@ -107,6 +107,7 @@ export interface LogSectionData {
 
 export interface CreateSectionsPayload {
   node: ExecutionNode
+  getSectionName(index: number): string
   selectedStep: string
   selectedStage: string
 }

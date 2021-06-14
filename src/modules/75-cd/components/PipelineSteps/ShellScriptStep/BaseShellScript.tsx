@@ -88,6 +88,7 @@ export default function BaseShellScript(props: {
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => setFieldValue('spec.source.spec.script', value)}
+            isReadonly={readonly}
           />
         )}
       </div>
@@ -110,6 +111,7 @@ export default function BaseShellScript(props: {
             onChange={value => {
               setFieldValue('timeout', value)
             }}
+            isReadonly={readonly}
           />
         )}
       </div>

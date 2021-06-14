@@ -397,9 +397,9 @@ exports[`About Project test create project  1`] = `
                     projectCard.projectName
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall"
+                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
                   >
-                    
+                    idLabel
                   </p>
                   <div
                     class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
@@ -415,7 +415,7 @@ exports[`About Project test create project  1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-small"
                       >
                         adminLabel 
                       </p>
@@ -452,7 +452,7 @@ exports[`About Project test create project  1`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-small"
                       >
                         collaboratorsLabel 
                       </p>
@@ -1130,9 +1130,9 @@ exports[`About Project test create project  2`] = `
                     dummy name
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall"
+                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
                   >
-                    dummy_name
+                    idLabel
                   </p>
                   <p
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--padding-top-small"
@@ -1154,7 +1154,7 @@ exports[`About Project test create project  2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-small"
                       >
                         adminLabel 
                       </p>
@@ -1191,7 +1191,7 @@ exports[`About Project test create project  2`] = `
                       class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-small"
                       >
                         collaboratorsLabel 
                       </p>

@@ -3,8 +3,8 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import CDTrialHomePage from '../CDTrialHomePage'
 
-jest.mock('services/portal', () => ({
-  useStartTrial: jest.fn().mockImplementation(() => {
+jest.mock('services/cd-ng', () => ({
+  useStartTrialLicense: jest.fn().mockImplementation(() => {
     return {
       cancel: jest.fn(),
       loading: false,

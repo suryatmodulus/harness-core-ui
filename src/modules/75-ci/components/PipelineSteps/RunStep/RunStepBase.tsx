@@ -192,6 +192,7 @@ export const RunStepBase = (
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik?.setFieldValue('spec.command', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </div>

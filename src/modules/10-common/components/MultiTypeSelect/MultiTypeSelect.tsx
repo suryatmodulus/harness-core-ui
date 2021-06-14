@@ -33,6 +33,7 @@ export interface MultiTypeSelectProps {
   enableConfigureOptions?: boolean
   configureOptionsProps?: MultiTypeSelectConfigureOptionsProps
   style?: React.CSSProperties
+  disabled?: boolean
 }
 
 export function MultiTypeSelect(props: MultiTypeSelectProps): React.ReactElement {
@@ -43,7 +44,8 @@ export function MultiTypeSelect(props: MultiTypeSelectProps): React.ReactElement
     multiTypeInputProps,
     enableConfigureOptions = true,
     configureOptionsProps,
-    style
+    style,
+    disabled = false
   } = props
 
   const value = get(formik?.values, name, '')
@@ -71,6 +73,7 @@ export function MultiTypeSelect(props: MultiTypeSelectProps): React.ReactElement
             onChange={val => formik?.setFieldValue(name, val)}
             style={{ marginLeft: 'var(--spacing-medium)' }}
             {...configureOptionsProps}
+            isReadonly={disabled}
           />
         )}
       </div>

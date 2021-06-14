@@ -543,44 +543,16 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     accountIdentifier={accountId}
                     projectIdentifier={projectIdentifier}
                     orgIdentifier={orgIdentifier}
-                    width={400}
+                    width={445}
                     setRefValue
                     disabled={readonly}
                     multiTypeProps={{
                       allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
                       expressions
                     }}
+                    className={css.connectorMargin}
                     type={ArtifactToConnectorMap[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
                     gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
-                  />
-                )}
-                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
-                  MultiTypeInputType.RUNTIME && (
-                  <FormInput.MultiTextInput
-                    label={getString('pipelineSteps.deploy.inputSet.imagePath')}
-                    disabled={readonly}
-                    multiTextInputProps={{
-                      expressions,
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                    }}
-                    className={css.width50}
-                    name={`${path}.artifacts.primary.spec.imagePath`}
-                  />
-                )}
-
-                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
-                  MultiTypeInputType.RUNTIME && (
-                  <FormInput.MultiTypeInput
-                    disabled={readonly}
-                    selectItems={gcrUrlList}
-                    useValue
-                    multiTypeInputProps={{
-                      expressions,
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                      selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
-                    }}
-                    label={getString('connectors.GCR.registryHostname')}
-                    name={`${path}.artifacts.primary.spec.registryHostname`}
                   />
                 )}
                 {getMultiTypeFromValue(artifacts?.primary?.spec?.region) === MultiTypeInputType.RUNTIME && (
@@ -601,6 +573,35 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     name={`${path}.artifacts.primary.spec.region`}
                   />
                 )}
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
+                  MultiTypeInputType.RUNTIME && (
+                  <FormInput.MultiTextInput
+                    label={getString('pipelineSteps.deploy.inputSet.imagePath')}
+                    disabled={readonly}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                    }}
+                    name={`${path}.artifacts.primary.spec.imagePath`}
+                  />
+                )}
+
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
+                  MultiTypeInputType.RUNTIME && (
+                  <FormInput.MultiTypeInput
+                    disabled={readonly}
+                    selectItems={gcrUrlList}
+                    useValue
+                    multiTypeInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                      selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
+                    }}
+                    label={getString('connectors.GCR.registryHostname')}
+                    name={`${path}.artifacts.primary.spec.registryHostname`}
+                  />
+                )}
+
                 {getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
                   <div
                     onClick={() => {
@@ -740,6 +741,25 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
                       />
                     )}
+                    {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) ===
+                      MultiTypeInputType.RUNTIME && (
+                      <FormInput.MultiTypeInput
+                        useValue
+                        multiTypeInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          selectProps: {
+                            items: regions,
+                            usePortal: true,
+                            addClearBtn: true && !readonly
+                          }
+                        }}
+                        disabled={readonly}
+                        selectItems={regions}
+                        label={getString('regionLabel')}
+                        name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.region`}
+                      />
+                    )}
                     {getMultiTypeFromValue(imagePath) === MultiTypeInputType.RUNTIME && (
                       <FormInput.MultiTextInput
                         label={getString('pipelineSteps.deploy.inputSet.imagePath')}
@@ -765,25 +785,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         name={`${path}.artifacts.sidecars[${index}].sidecar.spec.registryHostname`}
                       />
                     )}
-                    {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) ===
-                      MultiTypeInputType.RUNTIME && (
-                      <FormInput.MultiTypeInput
-                        useValue
-                        multiTypeInputProps={{
-                          expressions,
-                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                          selectProps: {
-                            items: regions,
-                            usePortal: true,
-                            addClearBtn: true && !readonly
-                          }
-                        }}
-                        disabled={readonly}
-                        selectItems={regions}
-                        label={getString('regionLabel')}
-                        name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.region`}
-                      />
-                    )}
+
                     {getMultiTypeFromValue(template?.artifacts?.sidecars?.[index]?.sidecar?.spec?.tag) ===
                       MultiTypeInputType.RUNTIME && (
                       <div
@@ -890,11 +892,14 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                   type: manifestType = '',
                   spec: {
                     skipResourceVersioning = '',
+                    chartName = '',
                     store: {
                       spec: {
                         branch = '',
+                        region = '',
                         connectorRef = '',
                         folderPath = '',
+                        bucketName = '',
                         commitId = '',
                         repoName = '',
                         paths = ''
@@ -987,6 +992,38 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
                     />
                   )}
+
+                  {getMultiTypeFromValue(region) === MultiTypeInputType.RUNTIME && (
+                    <FormInput.MultiTypeInput
+                      multiTypeInputProps={{
+                        selectProps: {
+                          usePortal: true,
+                          addClearBtn: true && !readonly,
+                          items: regions
+                        },
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      useValue
+                      disabled={readonly}
+                      selectItems={regions}
+                      label={getString('regionLabel')}
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.region`}
+                    />
+                  )}
+
+                  {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME && (
+                    <FormInput.MultiTextInput
+                      multiTextInputProps={{
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      disabled={readonly}
+                      label={getString('pipeline.manifestType.bucketName')}
+                      className={css.inputWidth}
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                    />
+                  )}
                   {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
                     <FormInput.MultiTextInput
                       multiTextInputProps={{
@@ -997,6 +1034,18 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       label={getString('chartPath')}
                       className={css.inputWidth}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
+                    />
+                  )}
+                  {getMultiTypeFromValue(chartName) === MultiTypeInputType.RUNTIME && (
+                    <FormInput.MultiTextInput
+                      multiTextInputProps={{
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      disabled={readonly}
+                      label={getString('pipeline.manifestType.http.chartName')}
+                      className={css.inputWidth}
+                      name={`${path}.manifests[${index}].manifest.spec.chartName`}
                     />
                   )}
                   {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME && (

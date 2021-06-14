@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 import type { MutateMethod } from 'restful-react'
 import * as Yup from 'yup'
 import { Tooltip, Intent, Dialog, Classes, RadioGroup, Radio, PopoverPosition } from '@blueprintjs/core'
@@ -20,7 +20,7 @@ import {
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
-import { pick, merge, isEmpty, isEqual } from 'lodash-es'
+import { pick, merge, isEmpty, isEqual, omit } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NameIdDescriptionTags } from '@common/components'
@@ -35,8 +35,10 @@ import {
   ResponseInputSetTemplateResponse,
   useCreateInputSetForPipeline,
   ResponseInputSetResponse,
-  CreateInputSetForPipelineQueryParams
+  CreateInputSetForPipelineQueryParams,
+  EntityGitDetails
 } from 'services/pipeline-ng'
+import { NameSchema } from '@common/utils/Validation'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
@@ -45,7 +47,6 @@ import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/
 import type { GitQueryParams, InputSetGitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -53,6 +54,10 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
+import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
+import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import { clearNullUndefined } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -60,6 +65,7 @@ import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import factory from '../PipelineSteps/PipelineStepFactory'
+import { getFormattedErrors, mergeTemplateWithInputSetData } from './RunPipelineHelper'
 import css from './RunPipelineModal.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
@@ -128,11 +134,16 @@ interface SaveAsInputSetProps {
   currentPipeline?: { pipeline?: NgPipeline }
   template: ResponseInputSetTemplateResponse | null
   values: Values
+  accountId: string
   projectIdentifier: string
   orgIdentifier: string
   canEdit: boolean
   createInputSetLoading: boolean
   createInputSet: MutateMethod<ResponseInputSetResponse, void, CreateInputSetForPipelineQueryParams, void>
+  repoIdentifier?: string
+  branch?: string
+  isGitSyncEnabled?: boolean
+  setFormErrors: Dispatch<SetStateAction<FormikErrors<InputSetDTO>>>
 }
 
 const SaveAsInputSet = ({
@@ -141,38 +152,116 @@ const SaveAsInputSet = ({
   template,
   orgIdentifier,
   projectIdentifier,
+  accountId,
   values,
   canEdit,
   createInputSet,
-  createInputSetLoading
+  createInputSetLoading,
+  repoIdentifier,
+  branch,
+  isGitSyncEnabled = false,
+  setFormErrors
 }: SaveAsInputSetProps): JSX.Element | null => {
   const { getString } = useStrings()
 
   const { showError, showSuccess } = useToaster()
-  const { GIT_SYNC_NG } = useFeatureFlags()
+  const [savedInputSetObj, setSavedInputSetObj] = React.useState<InputSetDTO>({})
+  const [initialGitDetails, setInitialGitDetails] = React.useState<EntityGitDetails>({ repoIdentifier, branch })
+
+  const createUpdateInputSet = async (
+    inputSetObj: InputSetDTO,
+    gitDetails?: SaveToGitFormInterface,
+    payload?: Omit<InputSetDTO, 'repo' | 'branch'>
+  ): Promise<UseSaveSuccessResponse> => {
+    const response = await createInputSet(
+      stringify({
+        inputSet: { ...clearNullUndefined(payload || inputSetObj), orgIdentifier, projectIdentifier }
+      }) as any,
+      {
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          pipelineIdentifier: pipeline?.identifier as string,
+          pipelineRepoID: repoIdentifier,
+          pipelineBranch: branch,
+          ...(gitDetails ?? {}),
+          ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
+        }
+      }
+    )
+    if (response.data?.errorResponse) {
+      const errors = getFormattedErrors(response.data.inputSetErrorWrapper?.uuidToErrorResponseMap)
+      if (Object.keys(errors).length) {
+        setFormErrors(errors)
+      } else {
+        showError(getString('inputSets.inputSetSavedError'))
+      }
+    } else {
+      showSuccess(getString('inputSets.inputSetSaved'))
+    }
+    return {
+      status: response?.status // nextCallback can be added if required
+    }
+  }
+
+  const createUpdateInputSetWithGitDetails = (gitDetails: SaveToGitFormInterface): Promise<UseSaveSuccessResponse> => {
+    return createUpdateInputSet(savedInputSetObj, gitDetails)
+  }
+
+  const { openSaveToGitDialog } = useSaveToGitDialog({
+    onSuccess: (
+      data: SaveToGitFormInterface,
+      _payload?: Omit<InputSetDTO, 'repo' | 'branch'>
+    ): Promise<UseSaveSuccessResponse> => Promise.resolve(createUpdateInputSetWithGitDetails(data))
+  })
+
+  const handleSubmit = React.useCallback(
+    async (inputSetObj: InputSetDTO, gitDetails?: EntityGitDetails) => {
+      setSavedInputSetObj(omit(inputSetObj, 'repo', 'branch'))
+      setInitialGitDetails(gitDetails as EntityGitDetails)
+      if (inputSetObj) {
+        if (isGitSyncEnabled) {
+          openSaveToGitDialog({
+            isEditing: false,
+            resource: {
+              type: 'InputSets',
+              name: inputSetObj.name as string,
+              identifier: inputSetObj.identifier as string,
+              gitDetails: gitDetails
+            },
+            payload: omit(inputSetObj, 'repo', 'branch')
+          })
+        } else {
+          createUpdateInputSet(omit(inputSetObj, 'repo', 'branch'))
+        }
+      }
+    },
+    [createInputSet, showSuccess, showError, isGitSyncEnabled, pipeline]
+  )
+
   if (pipeline && currentPipeline && template?.data?.inputSetTemplateYaml) {
     return (
       <Popover
+        disabled={!canEdit}
         content={
-          <div className={Classes.POPOVER_DISMISS_OVERRIDE}>
-            <Formik
+          <div>
+            <Formik<InputSetDTO & GitContextProps>
               onSubmit={input => {
-                createInputSet(stringify({ inputSet: { ...input, orgIdentifier, projectIdentifier } }) as any)
-                  .then(response => {
-                    if (response.data?.errorResponse) {
-                      showError(getString('inputSets.inputSetSavedError'))
-                    } else {
-                      showSuccess(getString('inputSets.inputSetSaved'))
-                    }
-                  })
-                  .catch(e => {
-                    showError(e?.data?.message || e?.message)
-                  })
+                handleSubmit(input, { repoIdentifier: input.repo, branch: input.branch })
               }}
               validationSchema={Yup.object().shape({
-                name: Yup.string().trim().required(getString('inputSets.nameIsRequired'))
+                name: NameSchema({ requiredErrorMsg: getString('inputSets.nameIsRequired') })
               })}
-              initialValues={{ pipeline: values, name: '', identifier: '' } as InputSetDTO}
+              initialValues={
+                {
+                  pipeline: values,
+                  name: '',
+                  identifier: '',
+                  repo: repoIdentifier || '',
+                  branch: branch || ''
+                } as InputSetDTO & GitContextProps
+              }
             >
               {createInputSetFormikProps => {
                 const { submitForm: submitFormIs } = createInputSetFormikProps
@@ -192,6 +281,14 @@ const SaveAsInputSet = ({
                       }}
                       formikProps={createInputSetFormikProps}
                     />
+                    {isGitSyncEnabled && (
+                      <GitSyncStoreProvider>
+                        <GitContextForm
+                          formikProps={createInputSetFormikProps}
+                          gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: false }}
+                        />
+                      </GitSyncStoreProvider>
+                    )}
                     <Layout.Horizontal spacing="medium">
                       <Button
                         intent="primary"
@@ -212,11 +309,16 @@ const SaveAsInputSet = ({
           </div>
         }
       >
-        <Button
+        <RbacButton
           minimal
           intent="primary"
           text={getString('inputSets.saveAsInputSet')}
-          disabled={!canEdit || GIT_SYNC_NG}
+          permission={{
+            permission: PermissionIdentifier.EDIT_PIPELINE,
+            resource: {
+              resourceType: ResourceType.PIPELINE
+            }
+          }}
         />
       </Popover>
     )
@@ -256,6 +358,8 @@ function RunPipelineFormBasic({
   const history = useHistory()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
+  const [triggerValidation, setTriggerValidation] = useState(false)
+  const [runClicked, setRunClicked] = useState(false)
 
   const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
     queryParams: {
@@ -263,10 +367,8 @@ function RunPipelineFormBasic({
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      pipelineRepoID: repoIdentifier,
+      pipelineBranch: branch
     },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
@@ -347,10 +449,15 @@ function RunPipelineFormBasic({
     return parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
   }, [template?.data?.inputSetTemplateYaml])
 
+  useEffect(() => {
+    setTriggerValidation(true)
+  }, [currentPipeline])
+
   React.useEffect(() => {
-    setCurrentPipeline(
-      merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as { pipeline: NgPipeline }
-    )
+    const toBeUpdated = merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as {
+      pipeline: NgPipeline
+    }
+    setCurrentPipeline(toBeUpdated)
   }, [template?.data?.inputSetTemplateYaml])
 
   React.useEffect(() => {
@@ -359,6 +466,7 @@ function RunPipelineFormBasic({
 
   React.useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
+      const parsedTemplate = parse(template?.data?.inputSetTemplateYaml) as { pipeline: NgPipeline }
       if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
         const fetchData = async (): Promise<void> => {
           try {
@@ -366,7 +474,11 @@ function RunPipelineFormBasic({
               inputSetReferences: selectedInputSets.map(item => item.value as string)
             })
             if (data?.data?.pipelineYaml) {
-              setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: NgPipeline })
+              const inputSetPortion = parse(data.data.pipelineYaml) as {
+                pipeline: NgPipeline
+              }
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
+              setCurrentPipeline(toBeUpdated)
             }
           } catch (e) {
             showError(e?.data?.message || e?.message)
@@ -388,11 +500,17 @@ function RunPipelineFormBasic({
           })
           if (data?.data?.inputSetYaml) {
             if (selectedInputSets[0].type === 'INPUT_SET') {
-              setCurrentPipeline(pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as { pipeline: NgPipeline })
+              const inputSetPortion = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
+                pipeline: NgPipeline
+              }
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
+              setCurrentPipeline(toBeUpdated)
             }
           }
         }
         fetchData()
+      } else if (!selectedInputSets?.length) {
+        setCurrentPipeline(parsedTemplate)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -538,14 +656,6 @@ function RunPipelineFormBasic({
     }
   }, [inputSets])
 
-  const mountRefForError = React.useRef<boolean>(false)
-
-  useEffect(() => {
-    if (mountRefForError.current && selectedInputSets) {
-      mountRefForError.current = false
-    }
-  }, [selectedInputSets])
-
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const [lastYaml, setLastYaml] = useState({})
 
@@ -553,13 +663,6 @@ function RunPipelineFormBasic({
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
         const presentPipeline = parse(yamlHandler?.getLatestYaml() || '') as { pipeline: NgPipeline }
-        const errors = validatePipeline(
-          presentPipeline.pipeline,
-          parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
-          currentPipeline?.pipeline,
-          getString
-        ) as any
-        setFormErrors(errors)
         setCurrentPipeline(presentPipeline)
       }
       setSelectedView(view)
@@ -572,15 +675,7 @@ function RunPipelineFormBasic({
       if (yamlHandler) {
         const Interval = window.setInterval(() => {
           const parsedYaml = parse(yamlHandler.getLatestYaml() || '')
-
           if (!isEqual(lastYaml, parsedYaml)) {
-            const errors = validatePipeline(
-              parsedYaml.pipeline,
-              parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
-              currentPipeline?.pipeline,
-              getString
-            ) as any
-            setFormErrors(errors)
             setCurrentPipeline(parsedYaml as { pipeline: NgPipeline })
             setLastYaml(parsedYaml)
           }
@@ -598,22 +693,23 @@ function RunPipelineFormBasic({
     let errors: FormikErrors<InputSetDTO> = formErrors
 
     if (
-      !mountRefForError.current &&
+      triggerValidation &&
       currentPipeline?.pipeline &&
       template?.data?.inputSetTemplateYaml &&
       yamlTemplate &&
-      pipeline
+      pipeline &&
+      runClicked
     ) {
       errors = validatePipeline(
-        selectedInputSets && selectedInputSets.length > 0
-          ? currentPipeline.pipeline
-          : { ...clearRuntimeInput(currentPipeline.pipeline) },
+        { ...clearRuntimeInput(currentPipeline.pipeline) },
         parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
         currentPipeline.pipeline,
         getString
       ) as any
-      mountRefForError.current = true
       setFormErrors(errors)
+      // triggerValidation should be true every time 'currentPipeline' changes
+      // and it needs to be set as false here so that we do not trigger it indefinitely
+      setTriggerValidation(false)
     }
   }, [
     existingProvide,
@@ -694,7 +790,7 @@ function RunPipelineFormBasic({
                 </>
               )}
               {selectedView === SelectedView.VISUAL ? (
-                <div className={css.runModalFormContent}>
+                <div className={executionView ? css.runModalFormContentExecutionView : css.runModalFormContent}>
                   <FormikForm>
                     {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
                       <>
@@ -822,6 +918,7 @@ function RunPipelineFormBasic({
                       {...yamlBuilderReadOnlyModeProps}
                       existingJSON={{ pipeline: values }}
                       bind={setYamlHandler}
+                      schema={{}}
                       invocationMap={factory.getInvocationMap()}
                       height="55vh"
                       width="32vw"
@@ -871,6 +968,7 @@ function RunPipelineFormBasic({
                       text={getString('runPipeline')}
                       onClick={event => {
                         event.stopPropagation()
+                        setRunClicked(true)
                         if ((!selectedInputSets || selectedInputSets.length === 0) && existingProvide === 'existing') {
                           setExistingProvide('provide')
                         } else {
@@ -917,10 +1015,15 @@ function RunPipelineFormBasic({
                     values={values}
                     template={template}
                     canEdit={canEdit}
+                    accountId={accountId}
                     projectIdentifier={projectIdentifier}
                     orgIdentifier={orgIdentifier}
                     createInputSet={createInputSet}
                     createInputSetLoading={createInputSetLoading}
+                    repoIdentifier={repoIdentifier}
+                    branch={branch}
+                    isGitSyncEnabled={isGitSyncEnabled}
+                    setFormErrors={setFormErrors}
                   />
                 </Layout.Horizontal>
               )}

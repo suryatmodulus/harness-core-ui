@@ -1,7 +1,5 @@
 import React from 'react'
-import { Layout, Text, Card, Color, Button } from '@wings-software/uicore'
-import { Radio } from '@blueprintjs/core'
-import { noop } from 'lodash-es'
+import { Layout, Text, Card, Color, Button, Radio } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
@@ -52,23 +50,25 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
             label={getString('resourceGroup.all', { name: getString(label) })}
             checked={resourceValues === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR}
             className={css.radioBtn}
-            onChange={noop}
+            onChange={e => onResourceSelectionChange(resourceType, e.currentTarget.checked)}
           />
-          <Text lineClamp={1} color={Color.GREY_400} className={css.limitAccessCell}>
-            {getString('resourceGroup.limitAccess', { name: getString(label) })}
-          </Text>
           {addResourceModalBody && (
-            <Button
-              intent="primary"
-              minimal
-              disabled={disableAddingResources}
-              className={css.addResourceBtn}
-              onClick={() => {
-                openAddResourceModal(resourceType, Array.isArray(resourceValues) ? resourceValues : [])
-              }}
-            >
-              {getString('resourceGroup.add', { name: getString(label) })}
-            </Button>
+            <>
+              <Text lineClamp={1} color={Color.GREY_400} className={css.limitAccessCell}>
+                {getString('resourceGroup.limitAccess', { name: getString(label) })}
+              </Text>
+              <Button
+                intent="primary"
+                minimal
+                disabled={disableAddingResources}
+                className={css.addResourceBtn}
+                onClick={() => {
+                  openAddResourceModal(resourceType, Array.isArray(resourceValues) ? resourceValues : [])
+                }}
+              >
+                {getString('resourceGroup.add', { name: getString(label) })}
+              </Button>
+            </>
           )}
         </Layout.Horizontal>
 

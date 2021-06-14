@@ -182,7 +182,7 @@ describe('Create k8 connector Wizard', () => {
   })
 })
 
-test('should form for edit authtype clientKey', async () => {
+test('should render form for edit authtype clientKey', async () => {
   updateConnector.mockReset()
   const { container } = render(
     <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>

@@ -104,8 +104,8 @@ const LockoutPolicy: React.FC<Props> = ({ loginSettings, refetchAuthSettings, pe
       value: userLockoutSettings.notifyUser ? getString('yes') : /* istanbul ignore next */ getString('no')
     },
     {
-      label: getString('authSettings.notifyUsersWHenUserLocked'),
-      value: userLockoutSettings.userGroupsToNotify || getString('none')
+      label: getString('authSettings.notifyUsersWhenUserLocked'),
+      value: userLockoutSettings.userGroupsToNotify?.map(userGroup => userGroup.name).join(', ') || getString('none')
     }
   ]
 

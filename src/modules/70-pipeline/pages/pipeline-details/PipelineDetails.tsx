@@ -10,6 +10,7 @@ import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import { String } from 'framework/strings'
 import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorHandler'
 import css from './PipelineDetails.module.scss'
@@ -98,9 +99,12 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
       <Page.Header
         title={
           <>
-            <Layout.Vertical spacing="xsmall">
+            <Layout.Horizontal spacing="xsmall">
               <Breadcrumbs links={getBreadCrumbs()} />
-            </Layout.Vertical>
+              {repoIdentifier && !isPipelineStudioRoute && (
+                <GitPopover data={{ repoIdentifier, branch }} iconMargin={{ left: 'small' }} />
+              )}
+            </Layout.Horizontal>
             {isPipelineStudioRoute && (
               <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
             )}

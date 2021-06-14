@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, RenderResult, waitFor, fireEvent, getByText, queryByText, getByTestId } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
+import { noop } from 'lodash-es'
 import { TestWrapper, findDialogContainer, findPopoverContainer } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
@@ -26,7 +27,9 @@ const deleteInputSet = (): Promise<{ status: string }> => {
 const getInputSetList = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
-  useGetConnector: jest.fn(() => ConnectorResponse)
+  useGetConnector: jest.fn(() => ConnectorResponse),
+  useCreatePR: jest.fn(() => noop),
+  useGetFileContent: jest.fn(() => noop)
 }))
 
 jest.mock('services/pipeline-ng', () => ({

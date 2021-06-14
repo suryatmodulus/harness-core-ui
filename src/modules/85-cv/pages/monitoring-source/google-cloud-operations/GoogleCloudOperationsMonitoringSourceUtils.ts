@@ -1,9 +1,11 @@
 import type { SelectOption } from '@wings-software/uicore'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { DSConfig, TimeSeriesMetricDefinition, StackdriverDashboardDTO } from 'services/cv'
+import type { MapGCOLogsQueryToService } from './MapQueriesToHarnessService/types'
 
 export const GCOProduct = {
-  CLOUD_METRICS: 'Cloud Metrics'
+  CLOUD_METRICS: 'Cloud Metrics',
+  CLOUD_LOGS: 'Cloud Logs'
 }
 
 export const MANUAL_QUERY_DASHBOARD = 'Manual_Query_Dashboard'
@@ -29,6 +31,9 @@ export interface GCOMonitoringSourceInfo
   connectorRef?: SelectOption
   product: string
   name?: string
+  mappedServicesAndEnvs: Map<string, MapGCOLogsQueryToService>
+  isEdit?: boolean
+  identifier?: string
 }
 
 // --------------------------------------  DTO's for backend --------------------------------------
@@ -79,15 +84,20 @@ export function buildGCOMetricInfo({
   }
 }
 
-export function buildGCOMonitoringSourceInfo(params: ProjectPathProps): GCOMonitoringSourceInfo {
+export function buildGCOMonitoringSourceInfo(
+  params: ProjectPathProps,
+  currentProduct: string
+): GCOMonitoringSourceInfo {
   return {
-    identifier: 'MyGoogleCloudOperationsSource',
-    product: GCOProduct.CLOUD_METRICS,
-    name: 'MyGoogleCloudOperationsSource',
     ...params,
+    identifier: 'MyGoogleCloudOperationsSource',
+    product: currentProduct,
+    name: 'MyGoogleCloudOperationsSource',
     selectedDashboards: [],
     selectedMetrics: new Map<string, GCOMetricInfo>(),
-    type: 'STACKDRIVER'
+    type: 'STACKDRIVER',
+    mappedServicesAndEnvs: new Map<string, MapGCOLogsQueryToService>(),
+    isEdit: false
   }
 }
 

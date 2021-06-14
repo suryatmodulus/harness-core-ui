@@ -66,9 +66,9 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
             return this.createError({
               message: requiredErrorMessage || `Instance is an required field"`
             })
-          } else if (value < 0) {
+          } else if (value < 1) {
             return this.createError({
-              message: minimumErrorMessage || `Instances must be greater than or equal to 0`
+              message: minimumErrorMessage || `Instances must be greater than or equal to 1`
             })
           } else if (maximum && value > maximum) {
             return this.createError({
@@ -81,9 +81,9 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
             return this.createError({
               message: requiredErrorMessage || `Instance is a required field"`
             })
-          } else if (value < 0) {
+          } else if (value < 1) {
             return this.createError({
-              message: minimumErrorMessage || `Percentage must be greater than or equal to 0`
+              message: minimumErrorMessage || `Percentage must be greater than or equal to 1`
             })
           } else if (value > 100) {
             return this.createError({
@@ -142,7 +142,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
             ? getString('instanceFieldOptions.percentagePlaceHolder')
             : getString('instanceFieldOptions.instanceHolder'),
           ...textProps,
-          min: 0
+          min: 1
         }}
         onChange={(val, _valType, typeInput) => {
           if (typeInput === MultiTypeInputType.FIXED && typeof val === 'string') {

@@ -27,7 +27,6 @@ import {
   ResponseInputSetResponse,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
   ResponsePMSPipelineResponseDTO,
-  InputSetErrorResponse,
   EntityGitDetails
 } from 'services/pipeline-ng'
 
@@ -47,13 +46,14 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useQueryParams } from '@common/hooks'
-import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, getErrorsList } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
+import { getFormattedErrors } from '../RunPipelineModal/RunPipelineHelper'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import GitPopover from '../GitPopover/GitPopover'
 import css from './InputSetForm.module.scss'
@@ -276,23 +276,9 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     [yamlHandler?.getLatestYaml, inputSet]
   )
 
-  const getFormattedErrors = (apiErrorMap?: { [key: string]: InputSetErrorResponse }): Record<string, any> => {
-    const toReturn: Record<string, any> = {}
-    if (apiErrorMap) {
-      const apiErrorKeys = Object.keys(apiErrorMap)
-      apiErrorKeys.forEach(apiErrorKey => {
-        const errorsForKey = apiErrorMap[apiErrorKey].errors || []
-        if (errorsForKey[0].fieldName) {
-          toReturn[errorsForKey[0].fieldName] = `${errorsForKey[0].fieldName}: ${errorsForKey[0].message}`
-        }
-      })
-    }
-    return toReturn
-  }
-
   const createUpdateInputSet = async (inputSetObj: InputSetDTO, gitDetails?: SaveToGitFormInterface, objectId = '') => {
+    let response: ResponseInputSetResponse | null = null
     try {
-      let response: ResponseInputSetResponse | null = null
       if (isEdit) {
         response = await updateInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
           pathParams: {
@@ -305,7 +291,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             projectIdentifier,
             pipelineRepoID: repoIdentifier,
             pipelineBranch: branch,
-            ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {})
+            ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {}),
+            ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
           }
         })
       } else {
@@ -333,21 +320,26 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           }
         } else {
           showSuccess(getString('inputSets.inputSetSaved'))
-          history.goBack()
+          if (!isGitSyncEnabled) {
+            history.goBack()
+          }
         }
       }
     } catch (e) {
       showError(e?.data?.message || e?.message || getString('commonError'))
     }
+    return {
+      status: response?.status, // nextCallback can be added if required
+      nextCallback: () => history.goBack()
+    }
   }
 
-  const createUpdateInputSetWithGitDetails = (gitDetails: SaveToGitFormInterface, objectId = '') => {
-    createUpdateInputSet(savedInputSetObj, gitDetails, objectId)
-  }
-
-  const { openSaveToGitDialog } = useSaveToGitDialog({
-    onSuccess: (data: SaveToGitFormInterface) =>
-      createUpdateInputSetWithGitDetails(data, inputSetResponse?.data?.gitDetails?.objectId ?? '')
+  const { openSaveToGitDialog } = useSaveToGitDialog<InputSetDTO>({
+    onSuccess: (
+      gitData: SaveToGitFormInterface,
+      payload?: InputSetDTO,
+      objectId?: string
+    ): Promise<UseSaveSuccessResponse> => createUpdateInputSet(payload || savedInputSetObj, gitData, objectId)
   })
 
   const handleSubmit = React.useCallback(
@@ -356,11 +348,15 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       setInitialGitDetails(gitDetails as EntityGitDetails)
       if (inputSetObj) {
         if (isGitSyncEnabled) {
-          openSaveToGitDialog(isEdit, {
-            type: 'InputSets',
-            name: inputSetObj.name as string,
-            identifier: inputSetObj.identifier as string,
-            gitDetails: isEdit ? inputSetResponse?.data?.gitDetails : gitDetails
+          openSaveToGitDialog({
+            isEditing: isEdit,
+            resource: {
+              type: 'InputSets',
+              name: inputSetObj.name as string,
+              identifier: inputSetObj.identifier as string,
+              gitDetails: isEdit ? inputSetResponse?.data?.gitDetails : gitDetails
+            },
+            payload: omit(inputSetObj, 'repo', 'branch')
           })
         } else {
           createUpdateInputSet(omit(inputSetObj, 'repo', 'branch'))

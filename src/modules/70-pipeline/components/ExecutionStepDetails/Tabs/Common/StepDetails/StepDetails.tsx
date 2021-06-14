@@ -45,20 +45,20 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
         </tr>
 
         <tr>
-          <th>{getString('duration')}</th>
+          <th>{getString('pipeline.duration')}</th>
           <td>
             <Duration className={css.timer} durationText="" startTime={step?.startTs} endTime={step?.endTs} />
           </td>
         </tr>
         {!!timeout && (
           <tr>
-            <th>{getString('common.timeout')}</th>
+            <th>{getString('pipelineSteps.timeoutLabel')}</th>
             <td>{timeout}</td>
           </tr>
         )}
         {step.delegateInfoList && step.delegateInfoList.length > 0 ? (
           <tr className={css.delegateRow}>
-            <th>{getString('delegateLabel')}</th>
+            <th>{getString('delegate.DelegateName')}</th>
             <td>
               <Layout.Vertical spacing="xsmall">
                 {step.delegateInfoList.map((item, index) => (

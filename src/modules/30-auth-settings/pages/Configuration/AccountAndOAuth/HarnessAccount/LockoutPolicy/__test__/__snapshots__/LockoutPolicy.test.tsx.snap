@@ -232,7 +232,7 @@ exports[`LockoutPolicy Disable lockout policy 1`] = `
                     />
                   </svg>
                 </span>
-                authSettings.notifyUsersWHenUserLocked
+                authSettings.notifyUsersWhenUserLocked
                 :
               </p>
               <p

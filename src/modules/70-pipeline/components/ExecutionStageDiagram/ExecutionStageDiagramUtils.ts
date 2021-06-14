@@ -3,7 +3,7 @@ import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Color, IconName } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import type { CSSProperties } from 'react'
-import { ExecutionStatusEnum, ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import { ExecutionStatusEnum, ExecutionStatus, isExecutionRunning } from '@pipeline/utils/statusHelpers'
 import {
   PipelineOrStageStatus,
   statusToStatusMapping
@@ -110,6 +110,9 @@ export const getNodeStyles = (
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-blue)' : 'var(--white)'
         break
       case ExecutionStatusEnum.Running:
+      case ExecutionStatusEnum.AsyncWaiting:
+      case ExecutionStatusEnum.TaskWaiting:
+      case ExecutionStatusEnum.TimedWaiting:
         style.borderColor = 'var(--execution-pipeline-color-blue)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-blue)' : 'var(--white)'
         break
@@ -119,7 +122,7 @@ export const getNodeStyles = (
         break
       case ExecutionStatusEnum.InterventionWaiting:
       case ExecutionStatusEnum.ApprovalWaiting:
-      case ExecutionStatusEnum.Waiting:
+      case ExecutionStatusEnum.ResourceWaiting:
         style.backgroundColor = isSelected
           ? 'var(--execution-pipeline-color-blue)'
           : 'var(--execution-pipeline-color-orange)'
@@ -161,9 +164,9 @@ export const getArrowsColor = (
     return 'var(--pipeline-transparent-border)'
   } else if (status === ExecutionStatusEnum.NotStarted) {
     return 'var(--execution-pipeline-color-arrow-not-started)'
-  } else if (isParallel && status === ExecutionStatusEnum.Running) {
+  } else if (isParallel && isExecutionRunning(status)) {
     return 'var(--execution-pipeline-color-arrow-not-started)'
-  } else if (isLast && status === ExecutionStatusEnum.Running) {
+  } else if (isLast && isExecutionRunning(status)) {
     return 'var(--execution-pipeline-color-arrow-not-started)'
   } else {
     return 'var(--execution-pipeline-color-arrow-complete)'
@@ -190,7 +193,7 @@ export const getStatusProps = (
         secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-red)'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         break
-      case ExecutionStatusEnum.Waiting:
+      case ExecutionStatusEnum.ResourceWaiting:
         secondaryIcon = 'execution-warning'
         secondaryIconProps.size = 20
         secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
@@ -202,6 +205,9 @@ export const getStatusProps = (
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         break
       case ExecutionStatusEnum.Running:
+      case ExecutionStatusEnum.AsyncWaiting:
+      case ExecutionStatusEnum.TaskWaiting:
+      case ExecutionStatusEnum.TimedWaiting:
         secondaryIconProps.color = Color.WHITE
         break
       case ExecutionStatusEnum.Aborted:
@@ -393,7 +399,7 @@ export const getRunningNode = <T>(data: ExecutionPipeline<T>): ExecutionPipeline
   let stage: ExecutionPipelineItem<T> | undefined = undefined
   data.items?.forEach(node => {
     if (!stage) {
-      if (node?.item?.status === 'Running') {
+      if (isExecutionRunning(node?.item?.status)) {
         stage = node?.item
       } else if (node?.parallel) {
         stage = getRunningNode({ items: node.parallel, identifier: '', allNodes: [] })

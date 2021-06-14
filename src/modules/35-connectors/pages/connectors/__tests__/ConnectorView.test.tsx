@@ -1,6 +1,6 @@
 import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import React from 'react'
-import type { ConnectorResponse, Connector, ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorResponse, ConnectorInfoDTO } from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as mockSchemaData from './mocks/schema.json'
 import ConnectorView from '../ConnectorView'
@@ -11,13 +11,15 @@ import * as mockSecretData from './mocks/secret.json'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
+const updateConnector = jest.fn()
 jest.mock('services/cd-ng', () => ({
   useListSecretsV2: jest.fn().mockImplementation(() => {
     return { data: {} }
   }),
   useGetYamlSchema: jest.fn().mockImplementation(() => ({ refetch: jest.fn(), loading: false })),
   useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() })),
-  useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector }))
 }))
 
 describe('Connector Details Page', () => {
@@ -27,7 +29,6 @@ describe('Connector Details Page', () => {
         <ConnectorView
           type={type as ConnectorInfoDTO['type']}
           response={GitHttp.data.content as ConnectorResponse}
-          updateConnector={(_data: Connector) => new Promise(resolve => resolve({}))}
           refetchConnector={() => new Promise(resolve => resolve(GitHttp.data.content as ConnectorResponse))}
           mockMetaData={mockMetaData as any}
           mockSnippetData={mockSnippetData as any}

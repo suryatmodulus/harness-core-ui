@@ -22,6 +22,9 @@ import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import { Feature, PatchFeatureQueryParams, usePatchFeature, Variation } from 'services/cf'
+import type { PermissionsRequest } from '@rbac/hooks/usePermission'
+import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacButton from '@rbac/components/Button/Button'
 import patch from '../../utils/instructions'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 
@@ -31,6 +34,7 @@ export interface EditVariationsModalProps extends Omit<ButtonProps, 'onClick' | 
   projectIdentifier: string
 
   feature: Feature
+  permission: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
 
   submitButtonTitle?: string
   cancelButtonTitle?: string
@@ -43,6 +47,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
   orgIdentifier,
   projectIdentifier,
   feature,
+  permission,
   submitButtonTitle,
   cancelButtonTitle,
   onSuccess,
@@ -341,5 +346,5 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
 
   const [openModal, hideModal] = useModalHook(ModalComponent, [feature])
 
-  return <Button onClick={openModal} {...props} />
+  return <RbacButton permission={permission} onClick={openModal} {...props} />
 }

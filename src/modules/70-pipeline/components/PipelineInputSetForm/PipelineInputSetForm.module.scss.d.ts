@@ -6,6 +6,7 @@ declare const styles: {
   readonly subheading: string
   readonly inputheader: string
   readonly inputWidth: string
+  readonly noMarginLeft: string
   readonly stagesTreeBulletSquare: string
   readonly stagesTreeBulletCircle: string
   readonly topAccordion: string

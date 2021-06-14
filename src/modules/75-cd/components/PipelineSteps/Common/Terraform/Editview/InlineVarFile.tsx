@@ -7,16 +7,22 @@ import {
   Formik,
   MultiTypeInputType,
   ExpressionInput,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  FormikForm
 } from '@wings-software/uicore'
+import cx from 'classnames'
+
 import { Classes, Dialog } from '@blueprintjs/core'
 
-import { Form } from 'formik'
 import { useStrings } from 'framework/strings'
+import { IdentifierSchema } from '@common/utils/Validation'
 import { MultiTypeFieldSelector } from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { InlineVar } from '../TerraformInterfaces'
+import { TFMonaco } from './TFMonacoEditor'
+
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface InlineVarFileProps {
@@ -27,10 +33,11 @@ interface InlineVarFileProps {
   selectedVar: any
   onClose: () => void
   onSubmit: () => void
+  isReadonly?: boolean
 }
 
 const InlineVarFile = (props: InlineVarFileProps) => {
-  const { arrayHelpers, isEditMode, selectedVarIndex, onSubmit, selectedVar, onClose } = props
+  const { arrayHelpers, isEditMode, selectedVarIndex, onSubmit, selectedVar, onClose, isReadonly = false } = props
   const { expressions } = useVariablesExpression()
 
   const { getString } = useStrings()
@@ -56,7 +63,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
           }}
           validationSchema={Yup.object().shape({
             varFile: Yup.object().shape({
-              identifier: Yup.string().required(getString('common.validation.identifierIsRequired')),
+              identifier: IdentifierSchema(),
               spec: Yup.object().shape({
                 content: Yup.string().required(getString('cd.contentRequired'))
               })
@@ -65,7 +72,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
         >
           {formikProps => {
             return (
-              <Form>
+              <FormikForm>
                 <div className={stepCss.formGroup}>
                   <FormInput.MultiTextInput
                     name="varFile.identifier"
@@ -81,10 +88,11 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formikProps.setFieldValue('varFile.identifier', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
-                <div className={stepCss.formGroup}>
+                <div className={cx(stepCss.formGroup)}>
                   <MultiTypeFieldSelector
                     name="varFile.spec.content"
                     label={getString('pipelineSteps.content')}
@@ -102,7 +110,11 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                     }}
                     skipRenderValueInExpressionLabel
                   >
-                    <FormInput.TextArea name="varFile.spec.content" />
+                    <TFMonaco
+                      name="varFile.spec.content"
+                      formik={formikProps}
+                      title={getString('pipelineSteps.content')}
+                    />
                   </MultiTypeFieldSelector>
                   {getMultiTypeFromValue(formikProps.values.varFile?.spec?.content) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -113,13 +125,17 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formikProps.setFieldValue('varFile.spec.content', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
+
                 <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-                  <Button type="submit" intent={'primary'} text={getString('submit')} />
+                  <Button type="submit" intent={'primary'} data-testid="submit-inlinevar">
+                    {getString('submit')}
+                  </Button>
                 </Layout.Horizontal>
-              </Form>
+              </FormikForm>
             )
           }}
         </Formik>

@@ -87,10 +87,10 @@ describe('Project Card Functionality Test', () => {
       fireEvent.click(cfrow!)
       expect(container).toMatchSnapshot()
     }),
-    test('Click on CE', async () => {
+    test('Click on CF', async () => {
       const cfrow = queryByText('projectsOrgs.gotoFeatureFlags')
       fireEvent.click(cfrow!)
       await waitFor(() => getByTestId('location'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCFProjectOverview(routeParams))).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toCFFeatureFlags(routeParams))).toBeTruthy()
     })
 })

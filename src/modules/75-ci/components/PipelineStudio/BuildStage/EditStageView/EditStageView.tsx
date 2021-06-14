@@ -30,9 +30,9 @@ import {
   getScopeFromDTO,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
-import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import css from './EditStageView.module.scss'
@@ -113,16 +113,8 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const validationSchema = () =>
     Yup.lazy((values: Values): any =>
       Yup.object().shape({
-        name: Yup.string()
-          .trim()
-          .required(getString('fieldRequired', { field: getString('stageNameLabel') })),
-        identifier: Yup.string().when('name', {
-          is: val => val?.length,
-          then: Yup.string()
-            .required(getString('validation.identifierRequired'))
-            .matches(regexIdentifier, getString('validation.validIdRegex'))
-            .notOneOf(illegalIdentifiers)
-        }),
+        name: NameSchema({ requiredErrorMsg: getString('fieldRequired', { field: getString('stageNameLabel') }) }),
+        identifier: IdentifierSchema(),
         ...(!codebase &&
           values.cloneCodebase && {
             connectorRef: Yup.mixed().required(getString('fieldRequired', { field: getString('connector') })),

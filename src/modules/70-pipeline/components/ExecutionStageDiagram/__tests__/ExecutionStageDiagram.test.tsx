@@ -85,7 +85,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
           identifier: 'Service',
           name: 'service',
           isOpen: true,
-          status: ExecutionStatusEnum.Waiting,
+          status: ExecutionStatusEnum.ResourceWaiting,
           data: {
             label: 'service'
           },

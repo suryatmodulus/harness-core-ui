@@ -7,6 +7,7 @@ export interface PageErrorProps {
   width?: number
   className?: string
   onClick?: ButtonProps['onClick']
+  disabled?: boolean
 }
 
 export const PageError: React.FC<PageErrorProps> = props => (
@@ -21,7 +22,7 @@ export const PageError: React.FC<PageErrorProps> = props => (
       <Text font={{ align: 'center' }} color={Color.RED_500}>
         {props.message || i18n.generalError}
       </Text>
-      {props.onClick && <Button intent="primary" text={i18n.retry} onClick={props.onClick} />}
+      {props.onClick && <Button intent="primary" text={i18n.retry} onClick={props.onClick} disabled={props.disabled} />}
     </Layout.Vertical>
   </Container>
 )

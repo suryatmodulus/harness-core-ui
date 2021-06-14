@@ -60,7 +60,7 @@
   padding: var(--spacing-small);
 }
 .inputWidth {
-  width: 400px !important;
+  width: 50% !important;
 }
 .nested-accordions {
   box-shadow: none !important;
@@ -74,7 +74,7 @@
   border: solid 1px #ccc;
   width: 400px;
   max-height: 200px;
-  overflow: scroll;
+  overflow: auto;
   :global {
     .icon-container {
       display: none;
@@ -166,4 +166,13 @@
 
 .width25 {
   width: 25%;
+}
+
+.serviceSection {
+  align-items: start !important;
+  --layout-spacing: var(--spacing-small) !important;
+}
+
+.connectorMargin {
+  margin-bottom: var(--spacing-small) !important;
 }

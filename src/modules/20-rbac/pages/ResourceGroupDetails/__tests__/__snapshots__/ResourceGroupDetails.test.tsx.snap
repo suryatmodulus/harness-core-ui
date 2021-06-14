@@ -145,10 +145,10 @@ exports[`Resource Groups Page render data 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <div
-                class="Layout--horizontal StyledProps--main"
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
               >
                 <label
-                  class="bp3-control bp3-checkbox"
+                  class="bp3-control bp3-checkbox checkBox"
                 >
                   <input
                     data-testid="CHECK-BOX-ADMINSTRATIVE_FUNCTIONS"
@@ -159,11 +159,12 @@ exports[`Resource Groups Page render data 1`] = `
                     class="bp3-control-indicator"
                   />
                 </label>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon StyledProps--main"
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small"
                     data-icon="nav-project"
                   >
                     <svg
@@ -177,12 +178,8 @@ exports[`Resource Groups Page render data 1`] = `
                       />
                     </svg>
                   </span>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                  >
-                    adminFunctions
-                  </p>
-                </div>
+                  adminFunctions
+                </p>
               </div>
               <div
                 class="Layout--horizontal StyledProps--main resourceSubList"
@@ -235,10 +232,10 @@ exports[`Resource Groups Page render data 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <div
-                class="Layout--horizontal StyledProps--main"
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
               >
                 <label
-                  class="bp3-control bp3-checkbox"
+                  class="bp3-control bp3-checkbox checkBox"
                 >
                   <input
                     data-testid="CHECK-BOX-SHARED_RESOURCES"
@@ -249,11 +246,12 @@ exports[`Resource Groups Page render data 1`] = `
                     class="bp3-control-indicator"
                   />
                 </label>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon StyledProps--main"
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small"
                     data-icon="nav-project"
                   >
                     <svg
@@ -267,12 +265,8 @@ exports[`Resource Groups Page render data 1`] = `
                       />
                     </svg>
                   </span>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                  >
-                    rbac.categoryLabels.sharedResources
-                  </p>
-                </div>
+                  rbac.categoryLabels.sharedResources
+                </p>
               </div>
               <div
                 class="Layout--horizontal StyledProps--main resourceSubList"
@@ -292,6 +286,26 @@ exports[`Resource Groups Page render data 1`] = `
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
                   common.secrets
+                </p>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main resourceSubList"
+              >
+                <label
+                  class="bp3-control bp3-checkbox"
+                >
+                  <input
+                    data-testid="CHECK-BOX-DELEGATE"
+                    type="checkbox"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                </label>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                >
+                  delegate.delegates
                 </p>
               </div>
             </div>
@@ -360,7 +374,7 @@ exports[`Resource Groups Page render data 1`] = `
                   orgsText
                 </p>
                 <label
-                  class="bp3-control bp3-radio radioBtn"
+                  class="bp3-control bp3-radio StyledProps--font Radio--radio radioBtn StyledProps--main"
                 >
                   <input
                     checked=""

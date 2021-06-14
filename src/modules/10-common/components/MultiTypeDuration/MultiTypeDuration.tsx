@@ -93,6 +93,7 @@ export function MultiTypeDuration(props: MultiTypeDurationProps): React.ReactEle
               onChange={val => onChange?.(val, MultiTypeInputValue.STRING, MultiTypeInputType.RUNTIME)}
               style={{ marginLeft: 'var(--spacing-medium)' }}
               {...configureOptionsProps}
+              isReadonly={props.disabled}
             />
           )}
         </div>

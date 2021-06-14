@@ -22,5 +22,6 @@ declare const styles: {
   readonly optionsViewGrid: string
   readonly squareCardContainer: string
   readonly artifactIcon: string
+  readonly tagInputButton: string
 }
 export default styles

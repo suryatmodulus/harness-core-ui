@@ -9,10 +9,8 @@ import {
   ModalErrorHandlerBinding,
   FormikForm as Form,
   StepProps,
-  Color,
-  useModalHook
+  Color
 } from '@wings-software/uicore'
-import { Classes, Dialog } from '@blueprintjs/core'
 // import * as Yup from 'yup'
 import { noop, omit } from 'lodash-es'
 import { useStrings } from 'framework/strings'
@@ -27,16 +25,14 @@ import {
   ResponseConnectorResponse,
   Connector,
   EntityGitDetails,
-  ResponseMessage,
-  useCreatePR,
   CreateConnectorQueryParams
 } from 'services/cd-ng'
 
-import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
-import { useGitDiffEditorDialog } from '@common/modals/GitDiffEditor/useGitDiffEditorDialog'
+import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
+import { PageSpinner, useToaster } from '@common/components'
+import { shouldShowError } from '@common/utils/errorUtils'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
-import { ProgressOverlay, StepStatus } from '@common/modals/ProgressOverlay/ProgressOverlay'
 import {
   DelegateOptions,
   DelegateSelector
@@ -95,6 +91,7 @@ const NoMatchingDelegateWarning: React.FC = () => {
 }
 
 const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSelectorProps> = props => {
+  const { showSuccess, showError } = useToaster()
   const { prevStepData, nextStep, buildPayload, customHandleCreate, customHandleUpdate, connectorInfo } = props
   const { accountId, projectIdentifier: projectIdentifierFromUrl, orgIdentifier: orgIdentifierFromUrl } = useParams<
     any
@@ -122,115 +119,6 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   let stepDataRef: ConnectorConfigDTO | null = null
   const [connectorPayloadRef, setConnectorPayloadRef] = useState<Connector | undefined>()
 
-  // git sync related state vars
-  const { mutate: createPullRequest, loading: creatingPR } = useCreatePR({})
-  const [connectorCreateUpdateStatus, setConnectorCreateUpdateStatus] = useState<StepStatus>()
-  const [prCreateStatus, setPRCreateStatus] = useState<StepStatus>()
-  const [prMetaData, setPRMetaData] = useState<
-    Pick<SaveToGitFormInterface, 'branch' | 'targetBranch' | 'isNewBranch'>
-  >()
-  const [connectorCreateUpdateError, setConnectorCreateUpdateError] = useState<Record<string, any>>()
-  const [connectorCreateUpdateResponse, setConnectorCreateUpdateResponse] = useState<ResponseConnectorResponse>({})
-  //TODO Enable it when this experience gets finalized
-  // const syncToGitViaManager = true
-
-  const connectorName = (connectorInfo as ConnectorInfoDTO)?.name
-  const fromBranch = prMetaData?.branch || ''
-  const toBranch = prMetaData?.targetBranch || ''
-  const connectorCreateUpdateStage = {
-    status: connectorCreateUpdateStatus,
-    intermediateLabel: props.isEditMode
-      ? getString('connectors.updating', { name: connectorName })
-      : getString('connectors.creating', { name: connectorName }),
-    finalLabel:
-      `${connectorCreateUpdateError?.data?.errors?.[0].fieldId} ${connectorCreateUpdateError?.data?.errors?.[0].error}` ||
-      connectorCreateUpdateError?.data?.message ||
-      connectorCreateUpdateError?.message
-  }
-  const setupBranchStage = {
-    status: connectorCreateUpdateStatus,
-    intermediateLabel: getString('common.gitSync.settingUpNewBranch', {
-      branch: fromBranch
-    })
-  }
-  const pushingChangesToBranch = {
-    status: connectorCreateUpdateStatus,
-    intermediateLabel: getString('common.gitSync.pushingChangestoBranch', {
-      branch: fromBranch
-    })
-  }
-  const createPRStage = {
-    status: prCreateStatus,
-    intermediateLabel: getString('common.gitSync.creatingPR', {
-      fromBranch,
-      toBranch
-    }),
-    finalLabel: getString('common.gitSync.unableToCreatePR')
-  }
-
-  // modal to show while creating/updating a connector and creating a PR
-  const [
-    showCreateUpdateConnectorWithPRCreationModal,
-    hideCreateUpdateConnectorWithPRCreationModal
-  ] = useModalHook(() => {
-    return (
-      <Dialog
-        isOpen={true}
-        className={Classes.DIALOG}
-        style={{
-          minWidth: 600,
-          paddingBottom: 0,
-          maxHeight: 500
-        }}
-      >
-        <ProgressOverlay
-          preFirstStage={prMetaData?.isNewBranch ? setupBranchStage : undefined}
-          firstStage={connectorCreateUpdateStage}
-          postFirstStage={pushingChangesToBranch}
-          secondStage={createPRStage}
-          onClose={() => {
-            hideCreateUpdateConnectorWithPRCreationModal()
-            if (connectorCreateUpdateStatus === 'SUCCESS') {
-              afterSuccessHandler(connectorCreateUpdateResponse)
-            }
-          }}
-        />
-      </Dialog>
-    )
-  }, [
-    creatingPR,
-    connectorCreateUpdateStatus,
-    connectorCreateUpdateError,
-    prCreateStatus,
-    prMetaData,
-    connectorCreateUpdateResponse
-  ])
-
-  //modal to show while only creating/updating a connector
-  const [showCreateUpdateConnectorModal, hideCreateUpdateConnectorModal] = useModalHook(() => {
-    return (
-      <Dialog
-        isOpen={true}
-        className={Classes.DIALOG}
-        style={{
-          minWidth: 600,
-          paddingBottom: 0,
-          maxHeight: 500
-        }}
-      >
-        <ProgressOverlay
-          firstStage={connectorCreateUpdateStage}
-          onClose={() => {
-            hideCreateUpdateConnectorModal()
-            if (connectorCreateUpdateStatus === 'SUCCESS') {
-              afterSuccessHandler(connectorCreateUpdateResponse)
-            }
-          }}
-        />
-      </Dialog>
-    )
-  }, [connectorCreateUpdateStatus, connectorCreateUpdateError, connectorCreateUpdateResponse])
-
   const afterSuccessHandler = (response: ResponseConnectorResponse): void => {
     props.onConnectorCreated?.(response?.data)
     if (prevStepData?.branch) {
@@ -247,109 +135,46 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   }
 
   // modal to show for git commit
-  const { openSaveToGitDialog } = useSaveToGitDialog({
-    onSuccess: (gitData: SaveToGitFormInterface): void => {
-      handleCreateOrEdit({ gitData, payload: connectorPayloadRef as Connector })
-    },
-    onClose: noop
-  })
-
-  // modal to show when a git conflict occurs
-  const { openGitDiffDialog } = useGitDiffEditorDialog<Connector>({
-    onSuccess: (payload: Connector, objectId: EntityGitDetails['objectId'], gitData?: SaveToGitFormInterface): void => {
-      try {
-        handleCreateOrEdit({ payload, gitData }, objectId)
-      } catch (e) {
-        //ignore error
-      }
-    },
+  const { openSaveToGitDialog } = useSaveToGitDialog<Connector>({
+    onSuccess: (
+      gitData: SaveToGitFormInterface,
+      payload?: Connector,
+      objectId?: string
+    ): Promise<UseSaveSuccessResponse> =>
+      handleCreateOrEdit({ gitData, payload: payload || (connectorPayloadRef as Connector) }, objectId),
     onClose: noop
   })
 
   const handleCreateOrEdit = async (
     connectorData: ConnectorCreateEditProps,
     objectId?: EntityGitDetails['objectId']
-  ): Promise<void> => {
-    setConnectorCreateUpdateStatus('IN_PROGRESS')
+  ): Promise<UseSaveSuccessResponse> => {
     const { gitData } = connectorData
-    if (isGitSyncEnabled && gitData?.createPr) {
-      setPRMetaData({ branch: gitData?.branch, targetBranch: gitData?.targetBranch, isNewBranch: gitData?.isNewBranch })
-      setPRCreateStatus('IN_PROGRESS')
-      showCreateUpdateConnectorWithPRCreationModal()
-    } else {
-      showCreateUpdateConnectorModal()
-    }
     const payload = connectorData.payload || (connectorPayloadRef as Connector)
-    try {
-      modalErrorHandler?.hide()
-      // Create or Update connector
-      let queryParams: CreateConnectorQueryParams = {}
-      if (gitData) {
-        queryParams = {
-          accountIdentifier: accountId,
-          ...omit(gitData, 'sourceBranch')
-        }
-        if (gitData.isNewBranch) {
-          queryParams.baseBranch = prevStepData?.branch
-        }
+    modalErrorHandler?.hide()
+    let queryParams: CreateConnectorQueryParams = {}
+    if (gitData) {
+      queryParams = {
+        accountIdentifier: accountId,
+        ...omit(gitData, 'sourceBranch')
       }
+      if (gitData.isNewBranch) {
+        queryParams.baseBranch = prevStepData?.branch
+      }
+    }
 
-      const response = props.isEditMode
-        ? await updateConnector(payload, {
-            queryParams: {
-              ...queryParams,
-              lastObjectId: objectId ?? gitDetails?.objectId
-            }
-          })
-        : await createConnector(payload, { queryParams: queryParams })
-      setConnectorCreateUpdateStatus(response.status)
-      setConnectorCreateUpdateResponse(response)
-
-      // if connector creation/update succeeds, raise a PR, if specified
-      if (response.status === 'SUCCESS') {
-        if (isGitSyncEnabled && gitData?.createPr) {
-          try {
-            const _response = await createPullRequest(
-              {
-                sourceBranch: gitData?.branch || '',
-                targetBranch: gitData?.targetBranch || '',
-                title: gitData?.commitMsg || ''
-              },
-              {
-                queryParams: {
-                  accountIdentifier: accountId,
-                  orgIdentifier,
-                  projectIdentifier,
-                  yamlGitConfigIdentifier: gitData?.repoIdentifier || ''
-                }
-              }
-            )
-            setPRCreateStatus(_response?.status)
-          } catch (e) {
-            setPRCreateStatus('ERROR')
+    const response = props.isEditMode
+      ? await updateConnector(payload, {
+          queryParams: {
+            ...queryParams,
+            lastObjectId: objectId ?? gitDetails?.objectId
           }
-        }
-      }
-      // if connector creation/update fails, abort PR creation
-      else {
-        setPRCreateStatus('ABORTED')
-      }
-    } catch (e) {
-      setConnectorCreateUpdateError(e)
-      setConnectorCreateUpdateStatus('ERROR')
-      setPRCreateStatus('ABORTED')
-      if (
-        isGitSyncEnabled &&
-        ((e.data?.responseMessages as ResponseMessage[]) || [])?.findIndex(
-          (mssg: ResponseMessage) => mssg.code === 'SCM_CONFLICT_ERROR'
-        ) !== -1
-      ) {
-        openGitDiffDialog(payload, connectorData?.gitData)
-      } else {
-        const errorMessage = `${e.data?.errors?.[0].fieldId} ${e.data?.errors?.[0].error}`
-        const message = e.data?.errors?.[0].fieldId ? errorMessage : e.message
-        modalErrorHandler?.showDanger(message)
-      }
+        })
+      : await createConnector(payload, { queryParams: queryParams })
+
+    return {
+      status: response.status,
+      nextCallback: afterSuccessHandler.bind(null, response)
     }
   }
 
@@ -369,93 +194,128 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     (mode === DelegateOptions.DelegateOptionsSelective && delegateSelectors.length === 0) ||
     creating ||
     updating
+  const connectorName = creating
+    ? (prevStepData as ConnectorConfigDTO)?.name
+    : (connectorInfo as ConnectorInfoDTO)?.name
+
   return (
-    <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
-      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('delegate.DelegateselectionLabel')}
-      </Text>
-      <ModalErrorHandler bind={setModalErrorHandler} />
-      <Formik
-        initialValues={{
-          ...initialValues,
-          ...prevStepData
-        }}
-        formName="delegateSelectorStepForm"
-        //   Enable when delegateSelector adds form validation
-        // validationSchema={Yup.object().shape({
-        //   delegateSelector: Yup.string().when('delegateType', {
-        //     is: DelegateTypes.DELEGATE_IN_CLUSTER,
-        //     then: Yup.string().trim().required(i18n.STEP.TWO.validation.delegateSelector)
-        //   })
-        // })}
-        onSubmit={stepData => {
-          const updatedStepData = {
-            ...stepData,
-            delegateSelectors: mode === DelegateOptions.DelegateOptionsAny ? [] : delegateSelectors
+    <>
+      {!isGitSyncEnabled && (creating || updating) ? (
+        <PageSpinner
+          message={
+            creating
+              ? getString('connectors.creating', { name: connectorName })
+              : getString('connectors.updating', { name: connectorName })
           }
-
-          const connectorData: BuildPayloadProps = {
-            ...prevStepData,
-            ...updatedStepData,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-
-          const data = buildPayload(connectorData)
-          setConnectorPayloadRef(data)
-          stepDataRef = updatedStepData
-          if (isGitSyncEnabled) {
-            // Using git context set at 1st step while creating new connector
-            if (!props.isEditMode) {
-              gitDetails = { branch: prevStepData?.branch, repoIdentifier: prevStepData?.repo }
+        />
+      ) : null}
+      <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
+        <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+          {getString('delegate.DelegateselectionLabel')}
+        </Text>
+        <ModalErrorHandler bind={setModalErrorHandler} />
+        <Formik
+          initialValues={{
+            ...initialValues,
+            ...prevStepData
+          }}
+          formName="delegateSelectorStepForm"
+          //   Enable when delegateSelector adds form validation
+          // validationSchema={Yup.object().shape({
+          //   delegateSelector: Yup.string().when('delegateType', {
+          //     is: DelegateTypes.DELEGATE_IN_CLUSTER,
+          //     then: Yup.string().trim().required(i18n.STEP.TWO.validation.delegateSelector)
+          //   })
+          // })}
+          onSubmit={stepData => {
+            const updatedStepData = {
+              ...stepData,
+              delegateSelectors: mode === DelegateOptions.DelegateOptionsAny ? [] : delegateSelectors
             }
-            openSaveToGitDialog(props.isEditMode, {
-              type: Entities.CONNECTORS,
-              name: data.connector?.name || '',
-              identifier: data.connector?.identifier || '',
-              gitDetails
-            })
-          } else {
-            if (customHandleUpdate || customHandleCreate) {
-              props.isEditMode
-                ? customHandleUpdate?.(data, { ...prevStepData, ...updatedStepData }, props)
-                : customHandleCreate?.(data, { ...prevStepData, ...updatedStepData }, props)
+
+            const connectorData: BuildPayloadProps = {
+              ...prevStepData,
+              ...updatedStepData,
+              projectIdentifier: projectIdentifier,
+              orgIdentifier: orgIdentifier
+            }
+
+            const data = buildPayload(connectorData)
+            setConnectorPayloadRef(data)
+            stepDataRef = updatedStepData
+            if (isGitSyncEnabled) {
+              // Using git context set at 1st step while creating new connector
+              if (!props.isEditMode) {
+                gitDetails = { branch: prevStepData?.branch, repoIdentifier: prevStepData?.repo }
+              }
+              openSaveToGitDialog({
+                isEditing: props.isEditMode,
+                resource: {
+                  type: Entities.CONNECTORS,
+                  name: data.connector?.name || '',
+                  identifier: data.connector?.identifier || '',
+                  gitDetails
+                },
+                payload: data
+              })
             } else {
-              handleCreateOrEdit({ payload: data })
+              if (customHandleUpdate || customHandleCreate) {
+                props.isEditMode
+                  ? customHandleUpdate?.(data, { ...prevStepData, ...updatedStepData }, props)
+                  : customHandleCreate?.(data, { ...prevStepData, ...updatedStepData }, props)
+              } else {
+                handleCreateOrEdit({ payload: data }) /* Handling non-git flow */
+                  .then(res => {
+                    if (res.status === 'SUCCESS') {
+                      props.isEditMode
+                        ? showSuccess(getString('connectors.updatedSuccessfully'))
+                        : showSuccess(getString('connectors.createdSuccessfully'))
+
+                      res.nextCallback?.()
+                    } else {
+                      /* TODO handle error with API status 200 */
+                    }
+                  })
+                  .catch(e => {
+                    if (shouldShowError(e)) {
+                      showError(e.data?.message || e.message)
+                    }
+                  })
+              }
             }
-          }
-        }}
-      >
-        <Form>
-          <DelegateSelector
-            mode={mode}
-            setMode={setMode}
-            delegateSelectors={delegateSelectors}
-            setDelegateSelectors={setDelegateSelectors}
-            setDelegatesFound={setDelegatesFound}
-            delegateSelectorMandatory={DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType}
-          />
-          <Layout.Horizontal padding={{ top: 'small' }} margin={{ top: 'xxxlarge' }} spacing="medium">
-            <Button
-              text={getString('back')}
-              icon="chevron-left"
-              onClick={() => props?.previousStep?.(props?.prevStepData)}
-              data-name="awsBackButton"
+          }}
+        >
+          <Form>
+            <DelegateSelector
+              mode={mode}
+              setMode={setMode}
+              delegateSelectors={delegateSelectors}
+              setDelegateSelectors={setDelegateSelectors}
+              setDelegatesFound={setDelegatesFound}
+              delegateSelectorMandatory={DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType}
             />
-            <Button
-              type="submit"
-              intent={'primary'}
-              text={getString('saveAndContinue')}
-              className={css.saveAndContinue}
-              disabled={isSaveButtonDisabled}
-              rightIcon="chevron-right"
-              data-name="delegateSaveAndContinue"
-            />
-            {!delegatesFound ? <NoMatchingDelegateWarning /> : <></>}
-          </Layout.Horizontal>
-        </Form>
-      </Formik>
-    </Layout.Vertical>
+            <Layout.Horizontal padding={{ top: 'small' }} margin={{ top: 'xxxlarge' }} spacing="medium">
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => props?.previousStep?.(props?.prevStepData)}
+                data-name="awsBackButton"
+              />
+              <Button
+                type="submit"
+                intent={'primary'}
+                text={getString('saveAndContinue')}
+                className={css.saveAndContinue}
+                disabled={isSaveButtonDisabled}
+                rightIcon="chevron-right"
+                data-name="delegateSaveAndContinue"
+              />
+              {!delegatesFound ? <NoMatchingDelegateWarning /> : <></>}
+            </Layout.Horizontal>
+          </Form>
+        </Formik>
+      </Layout.Vertical>
+    </>
   )
 }
 

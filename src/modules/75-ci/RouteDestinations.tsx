@@ -34,6 +34,7 @@ import PipelinesPage from '@pipeline/pages/pipelines/PipelinesPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
+import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
@@ -225,6 +226,13 @@ export default (
       path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <ConnectorsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <CreateConnectorFromYamlPage />
     </RouteWithLayout>
 
     <Route

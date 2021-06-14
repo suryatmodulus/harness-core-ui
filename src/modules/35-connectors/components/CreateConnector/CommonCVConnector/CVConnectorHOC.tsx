@@ -1,6 +1,10 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
-import { CreateConnectorModalProps, TESTCONNECTION_STEP_INDEX } from '@connectors/constants'
+import {
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  CreateConnectorModalProps,
+  TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
@@ -42,6 +46,7 @@ export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateCon
         <ConnectorCredentialsStep
           isEditMode={isEditMode}
           accountId={accountId}
+          identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
           name={getString('credentials')}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

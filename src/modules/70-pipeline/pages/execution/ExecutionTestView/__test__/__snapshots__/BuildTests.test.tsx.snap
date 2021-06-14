@@ -38600,22 +38600,6 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main stats StyledProps--padding-medium StyledProps--color StyledProps--color-grey700"
-            >
-              <p
-                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
-              >
-                pipeline.testsReports.totalDuration
-              </p>
-              <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey700"
-                style="font-size: 32px; font-weight: 600;"
-              >
-                 
-                
-              </span>
-            </p>
-            <p
               class="StyledProps--font StyledProps--main stats timeSaved StyledProps--padding-medium StyledProps--color StyledProps--color-white"
             >
               <p

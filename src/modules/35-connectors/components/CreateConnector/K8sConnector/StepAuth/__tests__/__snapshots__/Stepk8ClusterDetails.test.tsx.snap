@@ -103,7 +103,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="connectors.k8.placeholder.masterUrl"
+                    placeholder="UrlLabel"
                     type="text"
                     value=""
                   />
@@ -501,7 +501,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="connectors.k8.placeholder.masterUrl"
+                    placeholder="UrlLabel"
                     type="text"
                     value=""
                   />
@@ -914,7 +914,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="connectors.k8.placeholder.masterUrl"
+                    placeholder="UrlLabel"
                     type="text"
                     value="dummyMasterUrl"
                   />
@@ -1327,7 +1327,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="connectors.k8.placeholder.masterUrl"
+                    placeholder="UrlLabel"
                     type="text"
                     value="dummymasterUrl"
                   />
@@ -1757,7 +1757,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="connectors.k8.placeholder.masterUrl"
+                    placeholder="UrlLabel"
                     type="text"
                     value="master"
                   />
@@ -2095,7 +2095,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="connectors.k8.placeholder.masterUrl"
+                    placeholder="UrlLabel"
                     type="text"
                     value="nmbshg"
                   />
@@ -2338,7 +2338,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="connectors.k8.placeholder.masterUrl"
+                    placeholder="UrlLabel"
                     type="text"
                     value="nmbshg"
                   />

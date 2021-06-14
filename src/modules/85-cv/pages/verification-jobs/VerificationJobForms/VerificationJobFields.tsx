@@ -364,9 +364,8 @@ export function DataSources(
 ): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
-  const [monitoringOptions, setMonitoringOptions] = useState([
-    { label: getString('all'), value: getString('all'), disabled: false }
-  ])
+  const allOptions = { label: getString('all'), value: getString('all'), disabled: false }
+  const [monitoringOptions, setMonitoringOptions] = useState([allOptions])
   const { data, loading } = useGetMonitoringSources({
     queryParams: {
       accountId,
@@ -401,10 +400,13 @@ export function DataSources(
   const onChangeMultiSelect = (value: MultiSelectOption[], formik: FormikProps<any>): void => {
     const hasAll = value.find(item => item.value === getString('all'))
     if (hasAll) {
-      const disableAll = formik?.values?.dataSourceOptions?.map((item: { disabled: boolean; value: string }) => {
-        item.disabled = item.value !== getString('all')
-        return item
-      })
+      const nonEmptyDataSourceOptions = formik?.values?.dataSourceOptions?.length > 0
+      const disableAll = !nonEmptyDataSourceOptions
+        ? [allOptions]
+        : formik?.values?.dataSourceOptions?.map((item: { disabled: boolean; value: string }) => {
+            item.disabled = item.value !== getString('all')
+            return item
+          })
       formik.setFieldValue('dataSourceOptions', disableAll)
       formik.setFieldValue('dataSource', disableAll)
     } else {

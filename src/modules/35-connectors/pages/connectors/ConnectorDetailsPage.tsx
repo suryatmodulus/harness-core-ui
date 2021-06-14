@@ -8,13 +8,10 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   useGetConnector,
   ConnectorResponse,
-  useUpdateConnector,
   useGetOrganizationAggregateDTO,
   EntityGitDetails,
   useGetListOfBranchesWithStatus,
-  GitBranchDTO,
-  ConnectorRequestBody,
-  UpdateConnectorQueryParams
+  GitBranchDTO
 } from 'services/cd-ng'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
@@ -127,8 +124,6 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     refrencedBy: getString('refrencedBy'),
     activityHistory: getString('activityHistoryLabel')
   }
-
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
 
   const RenderBreadCrumb: React.FC = () => {
     let links = [
@@ -255,9 +250,6 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       return data?.connector?.type ? (
         <ConnectorView
           type={data.connector.type}
-          updateConnector={(_data: ConnectorRequestBody, queryParams?: UpdateConnectorQueryParams) =>
-            updateConnector(_data, { queryParams })
-          }
           response={data || ({} as ConnectorResponse)}
           refetchConnector={refetch}
         />

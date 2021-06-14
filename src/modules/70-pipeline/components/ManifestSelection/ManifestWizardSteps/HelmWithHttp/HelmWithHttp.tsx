@@ -34,6 +34,7 @@ interface HelmWithHttpPropType {
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
+  isReadonly?: boolean
 }
 
 const commandFlagOptionsV2 = [
@@ -52,7 +53,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
   initialValues,
   handleSubmit,
   previousStep,
-  manifestIdsList
+  manifestIdsList,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
@@ -185,6 +187,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('chartName', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -214,6 +217,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('chartVersion', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>

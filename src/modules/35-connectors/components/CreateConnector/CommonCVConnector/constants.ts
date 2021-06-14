@@ -6,5 +6,6 @@ export interface ConnectionConfigProps extends StepProps<ConnectorConfigDTO> {
   orgIdentifier?: string
   projectIdentifier?: string
   isEditMode: boolean
+  identifier?: string
   connectorInfo?: ConnectorInfoDTO | void
 }

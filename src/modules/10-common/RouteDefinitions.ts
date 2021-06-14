@@ -49,6 +49,7 @@ const routes = {
     }
   ),
   toUser: withAccountId(() => '/user'),
+  toSubscriptions: withAccountId(() => '/home/setup/subscriptions'),
   toAuthenticationSettings: withAccountId(() => '/home/setup/authentication'),
   toAccountConfiguration: withAccountId(() => '/home/setup/authentication/configuration'),
   toAccountActivityLog: withAccountId(() => '/home/setup/authentication/activity-log'),
@@ -340,7 +341,9 @@ const routes = {
     }
   ),
   toOrganizations: withAccountId(() => `/home/setup/organizations`),
-  toOrganizationDetails: withAccountId(({ orgIdentifier }: OrgPathProps) => `/home/organizations/${orgIdentifier}`),
+  toOrganizationDetails: withAccountId(
+    ({ orgIdentifier }: OrgPathProps) => `/home/organizations/${orgIdentifier}/details`
+  ),
   toGovernance: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `governance`

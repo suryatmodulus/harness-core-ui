@@ -1,37 +1,38 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import {
-  Layout,
-  Container,
-  Icon,
-  Text,
-  // ExpandingSearchInput,
   Button,
+  Color,
+  Container,
   FlexExpander,
   Heading,
-  Utils,
+  Icon,
+  Layout,
   Pagination,
-  Color
+  Text,
+  Utils
 } from '@wings-software/uicore'
 import ReactTimeago from 'react-timeago'
 import { noop } from 'lodash-es'
-import { /*Drawer,*/ Position, Switch, Classes } from '@blueprintjs/core'
-import type { CellProps, Renderer, Column, Cell } from 'react-table'
-import { useParams } from 'react-router-dom'
+import { Classes, Position, Switch } from '@blueprintjs/core'
+import type { Cell, CellProps, Column, Renderer } from 'react-table'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useConfirmAction } from '@common/hooks'
 import Table from '@common/components/Table/Table'
 import {
-  useGetAllFeatures,
+  DeleteFeatureFlagQueryParams,
   Feature,
-  useDeleteFeatureFlag,
   Features,
   FeatureState,
-  DeleteFeatureFlagQueryParams
+  useDeleteFeatureFlag,
+  useGetAllFeatures
 } from 'services/cf'
 import { useStrings } from 'framework/strings'
-import { OptionsMenuButton } from '@common/components'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
+import { usePermission } from '@rbac/hooks/usePermission'
 import { useToggleFeatureFlag } from '@cf/hooks/useToggleFeatureFlag'
 import { VariationTypeIcon } from '@cf/components/VariationTypeIcon/VariationTypeIcon'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
@@ -42,18 +43,19 @@ import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import { CFEnvironmentSelect } from '@cf/components/CFEnvironmentSelect/CFEnvironmentSelect'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import {
-  isFeatureFlagOn,
   CF_DEFAULT_PAGE_SIZE,
-  featureFlagHasCustomRules,
   FeatureFlagActivationStatus,
+  featureFlagHasCustomRules,
   getErrorMessage,
-  useFeatureFlagTypeToStringMapping,
+  isFeatureFlagOn,
+  rewriteCurrentLocationWithActiveEnvironment,
   showToaster,
-  rewriteCurrentLocationWithActiveEnvironment
+  useFeatureFlagTypeToStringMapping
 } from '@cf/utils/CFUtils'
 import { FlagTypeVariations } from '@cf/components/CreateFlagDialog/FlagDialogUtils'
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '@cf/components/CreateFlagDialog/FlagDialog'
+import FeatureFlagRowOptions from '@cf/components/FeatureFlagRowOptions/FeatureFlagRowOptions'
 import imageURL from './flag.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
@@ -80,6 +82,17 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
   const { showError } = useToaster()
   const [flagNameTextSize, setFlagNameTextSize] = useState(300)
   const ref = useRef<HTMLDivElement>(null)
+  const { activeEnvironment } = useActiveEnvironment()
+  const [canToggle] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.ENVIRONMENT,
+        resourceIdentifier: activeEnvironment
+      },
+      permissions: [PermissionIdentifier.TOGGLE_FF_FEATUREFLAG]
+    },
+    [activeEnvironment]
+  )
 
   const switchTooltip = (
     <Container width={'350px'} padding="xxxlarge">
@@ -159,10 +172,19 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
       <Container onMouseDown={Utils.stopEvent} onClick={Utils.stopEvent}>
         <Button
           noStyling
-          tooltip={data.archived ? undefined : switchTooltip}
+          tooltip={
+            data.archived ? undefined : canToggle ? (
+              switchTooltip
+            ) : (
+              <RBACTooltip
+                permission={PermissionIdentifier.TOGGLE_FF_FEATUREFLAG}
+                resourceType={ResourceType.ENVIRONMENT}
+              />
+            )
+          }
           tooltipProps={{ interactionKind: 'click', hasBackdrop: true, position: Position.TOP_LEFT }}
           className={css.toggleFlagButton}
-          disabled={data.archived}
+          disabled={data.archived || !canToggle}
         >
           <Switch
             style={{ alignSelf: 'baseline', marginLeft: '-10px' }}
@@ -170,7 +192,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
             className={Classes.LARGE}
             checked={status}
             onChange={noop}
-            disabled={data.archived}
+            disabled={data.archived || !canToggle}
           />
         </Button>
       </Container>
@@ -351,20 +373,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 
   return (
     <Container style={{ textAlign: 'right' }} onClick={Utils.stopEvent}>
-      <OptionsMenuButton
-        items={[
-          {
-            icon: 'edit',
-            text: getString('edit'),
-            onClick: gotoDetailPage
-          },
-          {
-            icon: 'trash',
-            text: getString('delete'),
-            onClick: deleteFlag
-          }
-        ]}
-      />
+      <FeatureFlagRowOptions onEdit={gotoDetailPage} onDelete={deleteFlag} />
     </Container>
   )
 }

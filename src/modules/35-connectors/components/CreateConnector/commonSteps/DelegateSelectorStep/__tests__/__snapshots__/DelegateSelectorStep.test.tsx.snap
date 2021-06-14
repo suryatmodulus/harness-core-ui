@@ -282,7 +282,7 @@ exports[`DelegateSelectorStep should open Git Sync modal on clicking Save and Co
                       disabled=""
                       name="filePath"
                       type="text"
-                      value=""
+                      value="docker.yaml"
                     />
                   </div>
                 </div>

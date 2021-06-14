@@ -84,14 +84,20 @@ export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
 export const ExecutionStatusIconMap: Record<ExecutionStatus, IconName> = {
   Success: 'tick-circle',
   Running: 'main-more',
+  AsyncWaiting: 'main-more',
+  TaskWaiting: 'main-more',
+  TimedWaiting: 'main-more',
   Failed: 'circle-cross',
+  Errored: 'circle-cross',
+  IgnoreFailed: 'circle-cross',
   Expired: 'expired',
   Aborted: 'banned',
+  Discontinuing: 'banned',
   Suspended: 'banned',
   Queued: 'queued',
   NotStarted: 'pending',
   Paused: 'pause',
-  Waiting: 'waiting',
+  ResourceWaiting: 'waiting',
   Skipped: 'skipped',
   ApprovalRejected: 'circle-cross',
   InterventionWaiting: 'waiting',
@@ -381,7 +387,8 @@ const addDependencies = (
 
 const processLiteEngineTask = (
   nodeData: ExecutionNode | undefined,
-  rootNodes: ExecutionPipelineNode<ExecutionNode>[]
+  rootNodes: ExecutionPipelineNode<ExecutionNode>[],
+  parentNode?: ExecutionNode
 ): void => {
   // NOTE: liteEngineTask contains information about dependencies
   const serviceDependencyList: ServiceDependency[] =
@@ -393,7 +400,13 @@ const processLiteEngineTask = (
   // 1. Add dependency services
   addDependencies(serviceDependencyList, rootNodes)
 
-  // 2. Add Initialize step ( at the first place in array )
+  // 2. Exclude Initialize duration from the parent
+  if (nodeData && parentNode) {
+    const taskDuration = nodeData.endTs! - nodeData.startTs!
+    parentNode.startTs = Math.min(parentNode.startTs! + taskDuration, parentNode.endTs!)
+  }
+
+  // 3. Add Initialize step ( at the first place in array )
   const stepItem: ExecutionPipelineItem<ExecutionNode> = {
     identifier: nodeData?.uuid as string,
     name: 'Initialize',
@@ -455,7 +468,11 @@ const processNodeData = (
       })
     } else {
       if (nodeData?.stepType === LITE_ENGINE_TASK) {
-        processLiteEngineTask(nodeData, rootNodes)
+        const parentNodeId =
+          Object.entries(nodeAdjacencyListMap || {}).find(([_, val]) => {
+            return (val?.children?.indexOf(nodeData.uuid!) ?? -1) >= 0
+          })?.[0] || ''
+        processLiteEngineTask(nodeData, rootNodes, nodeMap?.[parentNodeId])
       } else {
         items.push({
           item: {
@@ -560,7 +577,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
           // NOTE: exception if we have only lite task engine in Execution group
           if (hasOnlyLiteEngineTask(nodeAdjacencyListMap[nodeId].children, graph)) {
             const liteTaskEngineId = nodeAdjacencyListMap?.[nodeId]?.children?.[0] || ''
-            processLiteEngineTask(graph?.nodeMap?.[liteTaskEngineId], items)
+            processLiteEngineTask(graph?.nodeMap?.[liteTaskEngineId], items, nodeData)
           } else if (!isEmpty(nodeAdjacencyListMap[nodeId].children)) {
             items.push({
               group: {

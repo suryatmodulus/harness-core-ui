@@ -194,13 +194,16 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           useFromStage: values.useFromStage
         }
       } else {
+        const filteredLabels = getMapValues(
+          Array.isArray(values.labels) ? values.labels.filter((val: any) => testLabelKey(val.key)) : values.labels
+        )
         stage.stage.spec.infrastructure = {
           type: 'KubernetesDirect',
           spec: {
             connectorRef: values.connectorRef.value,
             namespace: values.namespace,
             annotations: getMapValues(values.annotations),
-            labels: getMapValues(values.labels.filter((val: any) => testLabelKey(val.key)))
+            labels: !isEmpty(filteredLabels) ? filteredLabels : undefined
           }
         }
         if (
@@ -209,9 +212,6 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           (values.annotations.length === 1 && !values.annotations[0].key)
         ) {
           delete stage.stage.spec.infrastructure.spec.annotations
-        }
-        if (!values.labels || !values.labels.length || (values.labels.length === 1 && !values.labels[0].key)) {
-          delete stage.stage.spec.infrastructure.spec.labels
         }
       }
 

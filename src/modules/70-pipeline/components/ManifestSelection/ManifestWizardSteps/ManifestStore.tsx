@@ -188,6 +188,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                         onChange={value => {
                           formik.setFieldValue('connectoreRef', value)
                         }}
+                        isReadonly={isReadonly}
                       />
                     </div>
                   ) : (

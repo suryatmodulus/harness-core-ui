@@ -14,11 +14,16 @@ import CreateDynatraceConnector from '../CreateDynatraceConnector'
 const DynatraceURL = 'https://dyna.com'
 const ApiToken = 'apiToken'
 
-jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
-  <Container className="secret-mock">
-    <FormInput.Text name="apiToken" />
-  </Container>
-))
+jest.mock('../../CommonCVConnector/components/ConnectorSecretField/ConnectorSecretField', () => ({
+  ...(jest.requireActual('../../CommonCVConnector/components/ConnectorSecretField/ConnectorSecretField') as any),
+  ConnectorSecretField: function MockComponent(b: any) {
+    return (
+      <Container className="secret-mock">
+        <FormInput.Text name={b.secretInputProps.name} />
+      </Container>
+    )
+  }
+}))
 
 describe('Unit tests for CreateDynatraceConnector', () => {
   beforeEach(() => {
@@ -70,17 +75,17 @@ describe('Unit tests for CreateDynatraceConnector', () => {
     // fill out url field
     await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
     await setFieldValue({ container, fieldId: 'url', value: DynatraceURL, type: InputTypes.TEXTFIELD })
-    await setFieldValue({ container, fieldId: 'apiToken', value: ApiToken, type: InputTypes.TEXTFIELD })
+    await setFieldValue({ container, fieldId: 'apiTokenRef', value: ApiToken, type: InputTypes.TEXTFIELD })
 
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
-      expect(onNextMock).toHaveBeenCalledWith({
+      expect(onNextMock).toHaveBeenLastCalledWith({
         accountId: 'dummyAccountId',
         orgIdentifier: 'dummyOrgId',
         projectIdentifier: 'dummyProjectId',
         url: DynatraceURL,
-        apiToken: ApiToken
+        apiTokenRef: ApiToken
       })
     )
   })
@@ -96,7 +101,7 @@ describe('Unit tests for CreateDynatraceConnector', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={({ url: DynatraceURL + '/', apiToken: ApiToken } as unknown) as ConnectorInfoDTO}
+          connectorInfo={({ url: DynatraceURL + '/', apiTokenRef: ApiToken } as unknown) as ConnectorInfoDTO}
         />
       </TestWrapper>
     )
@@ -113,9 +118,12 @@ describe('Unit tests for CreateDynatraceConnector', () => {
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
-      expect(onNextMock).toHaveBeenCalledWith({
-        url: 'http://sfsfsf.com',
-        apiToken: ApiToken
+      expect(onNextMock).toHaveBeenLastCalledWith({
+        accountId: 'dummyAccountId',
+        apiTokenRef: ApiToken,
+        orgIdentifier: 'dummyOrgId',
+        projectIdentifier: 'dummyProjectId',
+        url: 'http://sfsfsf.com'
       })
     )
   })
@@ -131,7 +139,7 @@ describe('Unit tests for CreateDynatraceConnector', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={({ spec: { url: DynatraceURL, apiToken: ApiToken } } as unknown) as ConnectorInfoDTO}
+          connectorInfo={({ spec: { url: DynatraceURL, apiTokenRef: ApiToken } } as unknown) as ConnectorInfoDTO}
         />
       </TestWrapper>
     )
@@ -142,18 +150,21 @@ describe('Unit tests for CreateDynatraceConnector', () => {
     expect(container.querySelector(`input[value="${DynatraceURL}"]`)).not.toBeNull()
     // update it with new value
     await setFieldValue({ container, fieldId: 'url', value: 'http://dgdgtrty.com', type: InputTypes.TEXTFIELD })
-    await setFieldValue({ container, fieldId: 'apiToken', value: 'newToken', type: InputTypes.TEXTFIELD })
+    await setFieldValue({ container, fieldId: 'apiTokenRef', value: 'newToken', type: InputTypes.TEXTFIELD })
 
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
+        accountId: 'dummyAccountId',
+        apiTokenRef: 'newToken',
+        orgIdentifier: 'dummyOrgId',
+        projectIdentifier: 'dummyProjectId',
         spec: {
           url: DynatraceURL,
-          apiToken: ApiToken
+          apiTokenRef: ApiToken
         },
-        url: 'http://dgdgtrty.com',
-        apiToken: 'newToken'
+        url: 'http://dgdgtrty.com'
       })
     )
   })

@@ -22,9 +22,8 @@ import cx from 'classnames'
 
 import { isEmpty } from 'lodash-es'
 import { yupToFormErrors, FormikErrors, FormikProps, Formik } from 'formik'
-
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
-
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 import {
@@ -39,7 +38,6 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import { useStrings } from 'framework/strings'
 
-import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -78,7 +76,7 @@ function TerraformPlanWidget(
   props: TerraformPlanProps,
   formikRef: StepFormikFowardRef<TFPlanFormData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep } = props
+  const { initialValues, onUpdate, isNewStep, readonly = false } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
@@ -108,10 +106,10 @@ function TerraformPlanWidget(
       }}
       initialValues={setInitialValues(initialValues)}
       validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
 
-        ...IdentifierValidation(),
+        identifier: IdentifierSchema(),
         spec: Yup.object().shape({
           provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
           configuration: Yup.object().shape({
@@ -147,6 +145,7 @@ function TerraformPlanWidget(
                     onChange={value => {
                       setFieldValue('timeout', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </div>
@@ -178,6 +177,7 @@ function TerraformPlanWidget(
                     onChange={value => {
                       setFieldValue('spec.provisionerIdentifier', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </div>
@@ -263,11 +263,12 @@ function TerraformPlanWidget(
                                 /* istanbul ignore else */
                                 formik.setFieldValue('values.spec.configuration.workspace', value)
                               }}
+                              isReadonly={readonly}
                             />
                           )}
                         </div>
                         <div className={cx(css.fieldBorder, css.addMarginBottom)} />
-                        <TfVarFileList formik={formik} />
+                        <TfVarFileList formik={formik} isReadonly={props.readonly} />
                         <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                         <div
                           className={cx(stepCss.formGroup, stepCss.alignStart, css.addMarginTop, css.addMarginBottom)}
@@ -294,7 +295,11 @@ function TerraformPlanWidget(
                             }}
                             skipRenderValueInExpressionLabel
                           >
-                            <TFMonaco name="spec.configuration.backendConfig.spec.content" formik={formik} />
+                            <TFMonaco
+                              name="spec.configuration.backendConfig.spec.content"
+                              formik={formik}
+                              title={getString('cd.backEndConfig')}
+                            />
                           </MultiTypeFieldSelector>
                           {getMultiTypeFromValue(formik.values.spec?.configuration?.backendConfig?.spec?.content) ===
                             MultiTypeInputType.RUNTIME && (
@@ -306,6 +311,7 @@ function TerraformPlanWidget(
                               showDefaultField={false}
                               showAdvanced={true}
                               onChange={value => setFieldValue('spec.configuration.backendConfig.spec.content', value)}
+                              isReadonly={readonly}
                             />
                           )}
                         </div>
@@ -379,6 +385,7 @@ function TerraformPlanWidget(
                   }}
                   data={formik.values}
                   onHide={() => setShowModal(false)}
+                  isReadonly={props.readonly}
                 />
               </Dialog>
             )}
@@ -498,6 +505,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
         stepViewType={stepViewType}
         ref={formikRef}
         stepType={StepType.TerraformPlan}
+        readonly={props.readonly}
       />
     )
   }

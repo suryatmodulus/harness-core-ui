@@ -15,6 +15,7 @@ import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import SyncStepDataValues from '@cv/utils/SyncStepDataValues'
 import type { UseStringsReturn } from 'framework/strings'
+import { GCOProduct } from '../google-cloud-operations/GoogleCloudOperationsMonitoringSourceUtils'
 import css from './SelectProduct.module.scss'
 
 interface SelectProductFieldProps {
@@ -23,11 +24,13 @@ interface SelectProductFieldProps {
   isEditMode?: boolean
   connectorValue?: SelectOption
   onConnectorCreate?: (val: any) => void
+  updateSelectedProduct?: (product: string) => void
 }
 
 interface SelectProductProps<T> extends SelectProductFieldProps {
   stepData?: T
   onCompleteStep: (data: T) => void
+  updateSelectedProduct?: (product: string) => void
 }
 interface ProductOption {
   value: string
@@ -105,7 +108,10 @@ const getInfoSchemaByType = (type: string, getString: UseStringsReturn['getStrin
         connectorType: 'Gcp',
         createConnectorText: getString('cv.monitoringSources.gco.createConnectorText'),
         selectProduct: getString('cv.monitoringSources.gco.selectProduct'),
-        products: [{ value: 'Cloud Metrics', label: getString('cv.monitoringSources.gco.product.metrics') }]
+        products: [
+          { value: GCOProduct.CLOUD_METRICS, label: getString('cv.monitoringSources.gco.product.metrics') },
+          { value: GCOProduct.CLOUD_LOGS, label: getString('cv.monitoringSources.gco.product.logs') }
+        ]
       }
     default:
       return {} as MonitoringSourceInfo
@@ -114,7 +120,7 @@ const getInfoSchemaByType = (type: string, getString: UseStringsReturn['getStrin
 
 export function SelectProductFields(props: SelectProductFieldProps): JSX.Element {
   const { getString } = useStrings()
-  const { type, onConnectorCreate } = props
+  const { type, onConnectorCreate, updateSelectedProduct } = props
   const monitoringSource = getInfoSchemaByType(type, getString)
 
   return (
@@ -149,9 +155,10 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
                       name: monitoringSource.iconName,
                       size: 30
                     }}
-                    onCardSelect={isSelected =>
+                    onCardSelect={isSelected => {
                       formikProps.setFieldValue('product', isSelected ? item.value : undefined)
-                    }
+                      updateSelectedProduct && updateSelectedProduct(isSelected ? item.value : '')
+                    }}
                   />
                 )
               })}
@@ -166,6 +173,7 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
 export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
   const history = useHistory()
   const { getString } = useStrings()
+  const { type, updateSelectedProduct } = props
   const { projectIdentifier, orgIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
@@ -181,7 +189,8 @@ export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
       {formikProps => (
         <FormikForm>
           <SelectProductFields
-            type={props.type}
+            type={type}
+            updateSelectedProduct={updateSelectedProduct}
             isEditMode={!!identifier}
             connectorValue={formikProps.values.connectorRef}
             onConnectorCreate={val => formikProps.setFieldValue('connectorRef', buildConnectorRef(val))}

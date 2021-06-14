@@ -25,6 +25,8 @@ import CreatePrometheusConnector from '../CreateConnector/PrometheusConnector/Cr
 import CreateDataDogConnector from '../CreateConnector/DataDogConnector/CreateDataDogConnector'
 import CreateCeAzureConnector from '../CreateConnector/CEAzureConnector/CreateCeAzureConnector'
 import CreateAzureKeyVaultConnector from '../CreateConnector/CreateAzureKeyConnector/CreateAzureKeyVaultConnector'
+import CreateDynatraceConnector from '../CreateConnector/DynatraceConnector/CreateDynatraceConnector'
+import CreateSumoLogicConnector from '../CreateConnector/SumoLogicConnector/CreateSumoLogicConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -41,7 +43,7 @@ interface CreateConnectorWizardProps {
 }
 
 export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
-  const { type, accountId, orgIdentifier, projectIdentifier, onClose, ...rest } = props
+  const { type } = props
   const commonProps = pick(props, [
     'onSuccess',
     'onClose',
@@ -69,27 +71,9 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     case Connectors.Jira:
       return <JiraConnector {...commonProps} />
     case Connectors.APP_DYNAMICS:
-      return (
-        <CreateAppDynamicsConnector
-          {...rest}
-          onClose={onClose}
-          onConnectorCreated={props.onSuccess}
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-        />
-      )
+      return <CreateAppDynamicsConnector {...commonProps} />
     case Connectors.SPLUNK:
-      return (
-        <CreateSplunkConnector
-          {...rest}
-          onClose={onClose}
-          onConnectorCreated={props.onSuccess}
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-        />
-      )
+      return <CreateSplunkConnector {...commonProps} />
     case Connectors.NEW_RELIC:
       return <CreateNewRelicConnector {...commonProps} />
     case Connectors.PROMETHEUS:
@@ -116,6 +100,10 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateDataDogConnector {...commonProps} />
     case Connectors.AZURE_KEY_VAULT:
       return <CreateAzureKeyVaultConnector {...commonProps} />
+    case Connectors.DYNATRACE:
+      return <CreateDynatraceConnector {...commonProps} />
+    case Connectors.SUMOLOGIC:
+      return <CreateSumoLogicConnector {...commonProps} />
     default:
       return null
   }

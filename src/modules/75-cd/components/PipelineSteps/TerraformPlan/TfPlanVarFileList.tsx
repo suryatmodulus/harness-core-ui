@@ -23,10 +23,11 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface TfVarFileProps {
   formik: FormikProps<TerraformPlanData>
+  isReadonly?: boolean
 }
 
 export default function TfVarFileList(props: TfVarFileProps): React.ReactElement {
-  const { formik } = props
+  const { formik, isReadonly = false } = props
   const inlineInitValues: TerraformVarFileWrapper = {
     varFile: {
       type: TerraformStoreTypes.Inline
@@ -266,6 +267,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                           }}
                           isEditMode={isEditMode}
                           // initialValues={remoteInitialValues}
+                          isReadonly={isReadonly}
                         />
                       </StepWizard>
                     </div>
@@ -293,6 +295,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     onSubmit={() => {
                       onCloseOfInlineVarForm()
                     }}
+                    isReadonly={isReadonly}
                   />
                 )}
               </div>

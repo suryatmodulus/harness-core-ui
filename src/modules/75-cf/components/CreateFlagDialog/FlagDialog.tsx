@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { Dialog } from '@blueprintjs/core'
 import { Color, useModalHook, Button, Container, Text, Icon } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { FlagTypeVariations } from './FlagDialogUtils'
 import FlagWizard from '../CreateFlagWizard/FlagWizard'
 import FlagTypeElement from '../CreateFlagType/FlagTypeElement'
@@ -101,12 +104,16 @@ const FlagModal: React.FC<FlagModalProps> = ({ disabled, environment }) => {
   )
 
   return (
-    <Button
+    <RbacButton
       disabled={disabled}
       text={getString('cf.featureFlags.newFlag')}
       intent="primary"
       onClick={showModal}
       className={css.openModalBtn}
+      permission={{
+        permission: PermissionIdentifier.EDIT_FF_FEATUREFLAG,
+        resource: { resourceType: ResourceType.FEATUREFLAG }
+      }}
     />
   )
 }

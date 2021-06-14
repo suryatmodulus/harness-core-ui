@@ -20,9 +20,12 @@
 }
 
 .inputWidth {
-  width: 50%;
+  width: 53%;
   margin-left: var(--spacing-large);
   padding-right: var(--spacing-large);
+  &.no-margin-left {
+    margin-left: 0;
+  }
 }
 
 .stages-tree-bullet-square {
@@ -70,5 +73,5 @@
 .accordionSummary {
   background: var(--white);
   width: 100%;
-  padding: var(--spacing-small) var(--spacing-medium);
+  padding: var(--spacing-small) var(--spacing-xlarge);
 }

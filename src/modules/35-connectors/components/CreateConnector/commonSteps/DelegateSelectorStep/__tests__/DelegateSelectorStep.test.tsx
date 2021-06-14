@@ -49,7 +49,8 @@ jest.mock('services/cd-ng', () => ({
   useUpdateConnector: jest.fn().mockImplementation(() => ({
     mutate: () =>
       Promise.resolve({
-        data: { name: 'ConnectorBeingUpdated' }
+        data: { name: 'ConnectorBeingUpdated' },
+        status: 'SUCCESS'
       })
   })),
   useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
@@ -284,8 +285,7 @@ describe('DelegateSelectorStep', () => {
     expect(container.querySelector('[data-name="delegateNoMatchWarning"]')).toBeTruthy()
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('should call buildPayload with correct data', async () => {
+  test('should call buildPayload with correct data', async () => {
     const buildPayload = jest.fn()
     const { container } = render(
       <TestWrapper>
@@ -307,8 +307,7 @@ describe('DelegateSelectorStep', () => {
     })
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('should call buildPayload with no selectors if create via any delegate option is chosen', async () => {
+  test('should call buildPayload with no selectors if create via any delegate option is chosen', async () => {
     const buildPayload = jest.fn()
     const { container } = render(
       <TestWrapper>

@@ -27,7 +27,7 @@ function parseToTime(p: unknown): number | undefined {
 const NON_MUTATE_STATES: UnitLoadingStatus[] = ['LOADING', 'QUEUED']
 
 export function createSections(state: State, action: Action<ActionType.CreateSections>): State {
-  const { node, selectedStep, selectedStage } = action.payload
+  const { node, selectedStep, selectedStage, getSectionName } = action.payload
 
   if (!node) {
     return getDefaultReducerState({ selectedStage, selectedStep })
@@ -58,7 +58,7 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
 
   if (units.length === 0 && logKeys.length > 0) {
     hasNoUnits = true
-    units = logKeys.map((_: unknown, i: number) => `Section ${i + 1}`)
+    units = logKeys.map((_: unknown, i: number) => getSectionName(i + 1))
   }
 
   if (Array.isArray(node.unitProgresses)) {
@@ -107,23 +107,26 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
 
   let unitToOpen: string | null = null
 
-  if (isStepComplete) {
-    const isStepSuccess = isExecutionSuccess(node.status)
+  if (logKeys.length > 1) {
+    if (isStepComplete) {
+      const isStepSuccess = isExecutionSuccess(node.status)
 
-    // if step is successful
-    if (isStepSuccess) {
-      // open the first section
-      unitToOpen = logKeys[0]
+      // if step is successful
+      if (isStepSuccess) {
+        // open the first section
+        unitToOpen = logKeys[0]
+      } else {
+        // find and open the first failed section
+        const failedUnit = logKeys.find((key: string) => isExecutionFailed(dataMap[key]?.unitStatus))
+        unitToOpen = failedUnit || null
+      }
     } else {
-      // find and open the first failed section
-      const failedUnit = logKeys.find((key: string) => isExecutionFailed(dataMap[key]?.unitStatus))
-      unitToOpen = failedUnit || null
+      // open the running section
+      const runningUnit = findLast(logKeys, key => isExecutionRunningLike(dataMap[key]?.unitStatus))
+      unitToOpen = runningUnit || null
     }
-  } else {
-    // open the running section
-
-    const runningUnit = findLast(logKeys, key => isExecutionRunningLike(dataMap[key]?.unitStatus))
-    unitToOpen = runningUnit || null
+  } else if (logKeys.length === 1) {
+    unitToOpen = logKeys[0]
   }
 
   if (unitToOpen) {

@@ -567,7 +567,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="connectors.k8.placeholder.masterUrl"
+                        placeholder="UrlLabel"
                         type="text"
                         value=""
                       />
@@ -1096,7 +1096,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="connectors.k8.placeholder.masterUrl"
+                        placeholder="UrlLabel"
                         type="text"
                         value="/url"
                       />
@@ -1916,7 +1916,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="connectors.k8.placeholder.masterUrl"
+                        placeholder="UrlLabel"
                         type="text"
                         value="/url"
                       />
@@ -2730,7 +2730,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="connectors.k8.placeholder.masterUrl"
+                        placeholder="UrlLabel"
                         type="text"
                         value="/url7878"
                       />
@@ -3059,7 +3059,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
 </div>
 `;
 
-exports[`should form for edit authtype clientKey 1`] = `
+exports[`should render form for edit authtype clientKey 1`] = `
 <div>
   <div
     class="StepWizard--main StepWizard--navBar"
@@ -3291,7 +3291,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="connectors.k8.placeholder.masterUrl"
+                        placeholder="UrlLabel"
                         type="text"
                         value="/url"
                       />
@@ -3844,7 +3844,7 @@ exports[`should form for edit authtype clientKey 1`] = `
 </div>
 `;
 
-exports[`should form for edit authtype clientKey 2`] = `
+exports[`should render form for edit authtype clientKey 2`] = `
 <div>
   <div
     class="StepWizard--main StepWizard--navBar"
@@ -4002,46 +4002,6 @@ exports[`should form for edit authtype clientKey 2`] = `
         >
           delegate.DelegateselectionLabel
         </p>
-        <div
-          class="StyledProps--font StyledProps--main StyledProps--background-red200 StyledProps--padding-medium StyledProps--flex StyledProps--border StyledProps--border-color-red300 StyledProps--border-bottom"
-          style="padding: 10px 20px;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main StyledProps--flex"
-            style="justify-content: flex-start;"
-          >
-            <span
-              class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-xsmall"
-              icon="warning-sign"
-            >
-              <svg
-                data-icon="warning-sign"
-                height="24"
-                viewBox="0 0 20 20"
-                width="24"
-              >
-                <desc>
-                  warning-sign
-                </desc>
-                <path
-                  d="M19.86 17.52l.01-.01-9-16-.01.01C10.69 1.21 10.37 1 10 1s-.69.21-.86.52l-.01-.01-9 16 .01.01c-.08.14-.14.3-.14.48 0 .55.45 1 1 1h18c.55 0 1-.45 1-1 0-.18-.06-.34-.14-.48zM11 17H9v-2h2v2zm0-3H9V6h2v8z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <div
-              class="StyledProps--font StyledProps--main StyledProps--padding-small"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-red500"
-                data-type="single-message"
-                style="overflow-wrap: break-word; word-wrap: break-word; hyphens: auto; --text-line-clamp: 5;"
-              >
-                Cannot read property 'status' of undefined
-              </p>
-            </div>
-          </div>
-        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >

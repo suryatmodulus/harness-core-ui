@@ -1,15 +1,29 @@
 import React, { useEffect, useRef } from 'react'
 import YAML from 'yaml'
+import produce from 'immer'
 import { Button, Color, Icon, Layout, Tab, Tabs } from '@wings-software/uicore'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import { useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
-import type { StageElementConfig, StageElementWrapper } from 'services/cd-ng'
+import type {
+  ApprovalStageConfig,
+  StageElementConfig,
+  StageElementWrapper,
+  StageElementWrapperConfig
+} from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
 import ApprovalAdvancedSpecifications from './ApprovalStageAdvanced'
 import css from './ApprovalStageSetupShellMode.module.scss'
+
+interface ApprovalStageElementConfig extends StageElementConfig {
+  approvalType?: string
+}
+
+interface ApprovalStageElementWrapperConfig extends StageElementWrapperConfig {
+  stage?: ApprovalStageElementConfig
+}
 
 export const ApprovalStageSetupShellMode: React.FC = () => {
   const { getString } = useStrings()
@@ -75,13 +89,19 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
     if (yamlSnippet?.data) {
       // The last part of condition is important, as we only need to add the YAML snippet the first time in the step.
       if (selectedStage && selectedStage.stage.spec && !selectedStage.stage.spec.execution) {
-        const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
-        selectedStage.stage.failureStrategies = jsonFromYaml.failureStrategies || []
-        selectedStage.stage.spec.execution = jsonFromYaml?.spec?.execution
-        // approvalType is just used in the UI, to populate the default steps for different approval types
-        // For BE, the stage type is always 'Approval' and approval type is defined inside the step
-        delete selectedStage.stage.approvalType
-        updateStage(selectedStage.stage)
+        updateStage(
+          produce<StageElementWrapperConfig>(selectedStage, (draft: ApprovalStageElementWrapperConfig) => {
+            const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as ApprovalStageElementConfig
+            if (draft.stage && draft.stage.spec) {
+              draft.stage.failureStrategies = jsonFromYaml.failureStrategies
+              ;(draft.stage.spec as ApprovalStageConfig).execution =
+                (jsonFromYaml.spec as ApprovalStageConfig)?.execution || {}
+              // approvalType is just used in the UI, to populate the default steps for different approval types
+              // For BE, the stage type is always 'Approval' and approval type is defined inside the step
+              delete draft.stage.approvalType
+            }
+          }).stage as ApprovalStageElementConfig
+        )
       }
     }
   }, [yamlSnippet?.data])

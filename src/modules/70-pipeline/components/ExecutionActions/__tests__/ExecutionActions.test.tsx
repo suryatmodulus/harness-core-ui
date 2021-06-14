@@ -47,7 +47,7 @@ describe('<ExecutionActions /> tests', () => {
     ['Running'],
     ['Success'],
     ['Suspended'],
-    ['Waiting']
+    ['ResourceWaiting']
   ])('snapshot tests "%s" status', async executionStatus => {
     let result: RenderResult
 

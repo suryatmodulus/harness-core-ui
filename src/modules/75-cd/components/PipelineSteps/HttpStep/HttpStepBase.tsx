@@ -63,6 +63,7 @@ export default function HttpStepBase(props: {
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => setFieldValue('spec.url', value)}
+            isReadonly={readonly}
           />
         )}
       </div>
@@ -83,6 +84,7 @@ export default function HttpStepBase(props: {
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => setFieldValue('spec.method', value)}
+            isReadonly={readonly}
           />
         )}
       </div>
@@ -155,6 +157,7 @@ export default function HttpStepBase(props: {
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => setFieldValue('spec.requestBody', value)}
+            isReadonly={readonly}
           />
         )}
       </div>
@@ -174,6 +177,7 @@ export default function HttpStepBase(props: {
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => setFieldValue('spec.assertion', value)}
+            isReadonly={readonly}
           />
         )}
       </div>
@@ -193,6 +197,7 @@ export default function HttpStepBase(props: {
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => setFieldValue('timeout', value)}
+            isReadonly={readonly}
           />
         )}
       </div>

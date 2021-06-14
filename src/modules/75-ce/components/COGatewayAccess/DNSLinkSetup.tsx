@@ -27,7 +27,8 @@ import {
   useAccessPointResources,
   useAllHostedZones,
   useListAccessPoints,
-  AzureAccessPointCore
+  AzureAccessPointCore,
+  ListAccessPointsQueryParams
 } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -138,20 +139,27 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const [accessPoint, setAccessPoint] = useState<AccessPoint>()
   const [selectedApCore, setSelectedApCore] = useState<SelectOption>()
 
+  const getAccessPointFetchQueryParams = (): ListAccessPointsQueryParams => {
+    const params: ListAccessPointsQueryParams = {
+      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
+      accountIdentifier: accountId
+    }
+    if (isAwsProvider) {
+      params.region = props.gatewayDetails.selectedInstances?.length
+        ? props.gatewayDetails.selectedInstances[0].region
+        : props.gatewayDetails.routing.instance.scale_group?.region || ''
+      params.vpc = props.gatewayDetails.selectedInstances?.length
+        ? props.gatewayDetails.selectedInstances[0].vpc
+        : props.gatewayDetails.routing.instance.scale_group?.target_groups?.[0]?.vpc || ''
+    }
+    return params
+  }
+
   const { data: accessPoints, loading: accessPointsLoading, refetch } = useListAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    queryParams: {
-      region: props.gatewayDetails.selectedInstances?.length
-        ? props.gatewayDetails.selectedInstances[0].region
-        : props.gatewayDetails.routing.instance.scale_group?.region || '',
-      vpc: props.gatewayDetails.selectedInstances?.length
-        ? props.gatewayDetails.selectedInstances[0].vpc
-        : props.gatewayDetails.routing.instance.scale_group?.target_groups?.[0]?.vpc || '',
-      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      accountIdentifier: accountId
-    }
+    queryParams: getAccessPointFetchQueryParams()
   })
 
   const { data: apCoresResponse, loading: apCoresLoading, refetch: apCoresRefetch } = useAccessPointResources({
@@ -260,6 +268,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               if (_clearStatus && !isCreateMode) {
                 setSelectedApCore({ label: '', value: '' })
                 updateLoadBalancerDetails('', '')
+                setSelectedLoadBalancer(undefined)
               }
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
@@ -279,10 +288,22 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             cloudAccountId={props.gatewayDetails.cloudAccount.id}
             onSave={savedLb => {
               setAccessPoint(savedLb)
+              if (isCreateMode) {
+                setIsCreateMode(false)
+                apCoresRefetch()
+              }
             }}
-            createMode={true}
-            onClose={hideLoadBalancerModal}
-            loadBalancer={initialAccessPointDetails}
+            createMode={isCreateMode}
+            onClose={_clearStatus => {
+              if (_clearStatus && !isCreateMode) {
+                setSelectedApCore({ label: '', value: '' })
+                updateLoadBalancerDetails('', '')
+                setSelectedLoadBalancer(undefined)
+              }
+              if (isCreateMode) setIsCreateMode(false)
+              hideLoadBalancerModal()
+            }}
+            loadBalancer={createAzureAppGatewayFromLoadBalancer()}
           />
         )}
         <Button
@@ -321,6 +342,27 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         ...((currLoadBalancer.details as ALBAccessPointCore)?.albARN && {
           albArn: (currLoadBalancer.details as ALBAccessPointCore).albARN
         })
+      }
+    }
+  }
+
+  const createAzureAppGatewayFromLoadBalancer = (): AccessPoint => {
+    const details = selectedLoadBalancer?.details as AzureAccessPointCore
+    return {
+      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
+      account_id: accountId, // eslint-disable-line
+      project_id: projectIdentifier, // eslint-disable-line
+      org_id: orgIdentifier, // eslint-disable-line
+      region: details?.region,
+      vpc: details?.vpc,
+      name: details?.name,
+      type: props.gatewayDetails.provider.value,
+      metadata: {
+        app_gateway_id: details?.id, // eslint-disable-line
+        fe_ip_id: details?.fe_ip_id, // eslint-disable-line
+        resource_group: details?.resource_group, // eslint-disable-line
+        size: details?.size,
+        subnet_id: details?.subnet_id // eslint-disable-line
       }
     }
   }
@@ -381,7 +423,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       }
       updateLoadBalancerDetails(linkedAccessPoint?.id as string, linkedAccessPoint?.host_name as string)
     } else {
-      isAwsProvider && openLoadBalancerModal()
+      openLoadBalancerModal()
     }
   }
 

@@ -22,7 +22,7 @@ import { VariableType } from './CustomVariableUtils'
 import css from './CustomVariables.module.scss'
 
 export interface CustomVariablesData {
-  variables: Array<AllNGVariables & { new?: boolean }>
+  variables: AllNGVariables[]
   isPropagating?: boolean
   canAddVariable?: boolean
 }
@@ -98,6 +98,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                   updateVariable={handleUpdate}
                   selectedVariable={selectedVariable}
                   setSelectedVariable={setSelectedVariable}
+                  existingVariables={values.variables}
                 />
                 {values.canAddVariable ? (
                   <div className={css.headerRow}>
@@ -169,6 +170,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 setFieldValue(`variables[${index}].value`, value)
                                 setFieldValue(`variables[${index}].default`, defaultValue)
                               }}
+                              isReadonly={readonly}
                             />
                           ) : null}
                         </div>

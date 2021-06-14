@@ -3,6 +3,7 @@ import { Heading, Layout, Text, Container, Button, Color, Icon } from '@wings-so
 import { useParams, useHistory } from 'react-router-dom'
 import type { MutateMethod } from 'restful-react'
 import { useToaster } from '@common/components'
+import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { useStartTrialLicense, ResponseModuleLicenseDTO, StartTrialRequestDTO } from 'services/cd-ng'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -42,11 +43,15 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
   }>()
   const { showError } = useToaster()
   const { showModal } = useStartTrialModal({ module, handleStartTrial })
+  const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
   async function handleStartTrial(): Promise<void> {
     trackEvent(TrialActions.StartTrialClick, { category: Category.SIGNUP, module: module })
     try {
-      await startTrial()
+      const data = await startTrial()
+
+      handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, data?.data)
+
       history.push({
         pathname: routes.toModuleHome({ accountId, module }),
         search: '?trial=true'

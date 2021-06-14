@@ -8,7 +8,7 @@ import css from './ProgressOverlay.module.scss'
 
 export type StepStatus = ResponseBoolean['status'] | 'IN_PROGRESS' | 'ABORTED'
 
-interface Stage {
+export interface Stage {
   status: StepStatus
   intermediateLabel: string
   finalLabel?: string
@@ -109,6 +109,17 @@ export const ProgressOverlay: React.FC<ProgressOverlay> = ({
     firstStage.status === 'IN_PROGRESS' ||
     (firstStage.status === 'SUCCESS' && secondStage && secondStage.status === 'IN_PROGRESS')
   const opnIsSuccessful = firstStage.status === 'SUCCESS' || (secondStage && secondStage.status === 'SUCCESS')
+
+  React.useEffect(() => {
+    let id: NodeJS.Timeout
+    if (opnIsSuccessful) {
+      id = setTimeout(() => onClose(), 3000)
+    }
+    return () => {
+      clearTimeout(id)
+    }
+  }, [opnIsSuccessful])
+
   return (
     <Container className={css.prModal}>
       <Button icon="cross" minimal className={css.closeModal} onClick={onClose} />

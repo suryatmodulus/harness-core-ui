@@ -7,9 +7,8 @@ import ExecutionGraph, {
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
-import type { ApprovalStageExecutionProps } from './types'
 
-export const ApprovalStageExecution: React.FC<ApprovalStageExecutionProps> = () => {
+export const ApprovalStageExecution: React.FC = () => {
   const {
     state: {
       pipeline,
@@ -22,11 +21,13 @@ export const ApprovalStageExecution: React.FC<ApprovalStageExecutionProps> = () 
     updatePipeline,
     updatePipelineView,
     getStageFromPipeline,
-    setSelectedStepId
+    setSelectedStepId,
+    getStagePathFromPipeline
   } = React.useContext(PipelineContext)
   const selectedStage = getStageFromPipeline(selectedStageId).stage
   const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
+  const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
   return (
     <ExecutionGraph
       allowAddGroup={true}
@@ -35,6 +36,7 @@ export const ApprovalStageExecution: React.FC<ApprovalStageExecutionProps> = () 
       stepsFactory={stepsFactory}
       ref={executionRef}
       hasRollback={false}
+      pathToStage={`${stagePath}.stage.spec.execution`}
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       stage={selectedStage!}
       originalStage={originalStage}

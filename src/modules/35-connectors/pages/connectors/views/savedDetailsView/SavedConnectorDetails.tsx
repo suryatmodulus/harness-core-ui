@@ -517,6 +517,23 @@ const getDataDogSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRow
   ]
 }
 
+const getSumologicSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  return [
+    {
+      label: 'connectors.sumologic.urlLabel',
+      value: connector?.spec?.url
+    },
+    {
+      label: 'connectors.sumologic.encryptedAccessIdLabel',
+      value: connector?.spec?.accessIdRef
+    },
+    {
+      label: 'connectors.sumologic.encryptedAccessKeyLabel',
+      value: connector?.spec?.accessKeyRef
+    }
+  ]
+}
+
 const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<ActivityDetailsRowInterface> => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
@@ -551,6 +568,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
       return getDataDogSchema(connector)
     case Connectors.AZURE_KEY_VAULT:
       return getAzureKeyVaultSchema(connector)
+    case Connectors.SUMOLOGIC:
+      return getSumologicSchema(connector)
     default:
       return []
   }

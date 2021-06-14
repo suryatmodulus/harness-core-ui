@@ -183,6 +183,7 @@ export const RunTestsStepBase = (
                   multiTypeInputProps: { expressions },
                   disabled: readonly
                 }}
+                disabled={readonly}
               />
               <MultiTypeSelectField
                 name="spec.language"
@@ -197,6 +198,7 @@ export const RunTestsStepBase = (
                   multiTypeInputProps: { expressions },
                   disabled: readonly
                 }}
+                disabled={readonly}
               />
               <MultiTypeTextField
                 name="spec.packages"
@@ -277,6 +279,7 @@ export const RunTestsStepBase = (
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik?.setFieldValue('spec.preCommand', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </div>
@@ -321,6 +324,7 @@ export const RunTestsStepBase = (
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik?.setFieldValue('spec.postCommand', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </div>

@@ -30,8 +30,8 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
+import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
 
-import ExecutionContext, { GraphCanvasState } from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import RightBar from './RightBar/RightBar'
@@ -55,6 +55,13 @@ const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: Exec
     serviceDependencyList.forEach(service => {
       if (service?.identifier) {
         service.stepType = 'dependency-service'
+        service.executableResponses = [
+          {
+            task: {
+              logKeys: (service as any).logKeys
+            } as any
+          }
+        ]
         nodeMap[service.identifier] = service
       }
     })

@@ -12,11 +12,10 @@ jest.mock('@common/components/Duration/Duration', () => ({
   }
 }))
 
-jest.mock('moment', () => {
-  const original = jest.requireActual('moment')
-  original().__proto__.format = () => 'XX:YY'
-  return original
-})
+jest.mock('moment', () => () => ({
+  format: () => 'FORMATED_DATE',
+  fromNow: () => 'SOME_TIME_AGO'
+}))
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('services/pipeline-ng', () => ({

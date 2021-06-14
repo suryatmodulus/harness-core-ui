@@ -2360,6 +2360,8 @@ export interface StringsMap {
   'cv.changesPage.eventCount': string
   'cv.changesPage.viewKubernetesEvents': string
   'cv.clusterType': string
+  'cv.connectorValidation.inProgress': string
+  'cv.connectorValidation.successful': string
   'cv.continuous': string
   'cv.copyURL': string
   'cv.currentProductionRisk': string

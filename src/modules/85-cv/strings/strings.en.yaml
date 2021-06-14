@@ -52,6 +52,9 @@ throughput: Throughput
 responseTime: Response Time
 query: Query
 addNew: + Add New
+connectorValidation:
+  inProgress: Validating selected connector
+  successful: Connector validation successful
 serviceDashboardPage:
   fiveMinutes: 5 Minutes
   fifteenMinutes: 15 Minutes

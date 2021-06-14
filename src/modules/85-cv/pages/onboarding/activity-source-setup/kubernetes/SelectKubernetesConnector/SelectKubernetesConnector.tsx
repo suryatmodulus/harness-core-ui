@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import { Formik, FormikForm, Container, Text } from '@wings-software/uicore'
 import { object as yupObject } from 'yup'
 import {
@@ -9,7 +9,7 @@ import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPrevious
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import { useStrings } from 'framework/strings'
-import ValidateKubernetesConnector from './ValidateKubernetesConnector'
+import { ValidateKubernetesConnector } from './components'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import { buildKubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import css from './SelectKubernetesConnector.module.scss'
@@ -33,21 +33,24 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
   const { getString } = useStrings()
   const [submitValue, setSubmitValue] = useState<KubernetesActivitySourceInfo | null>(null)
 
-  const validateAndSubmit = (values: React.SetStateAction<KubernetesActivitySourceInfo | null>): void => {
-    if (submitValue) {
-      // for triggering refetch in ValidateKubernetesConnector
-      refetchConnectorValidation.current.call()
-    } else {
-      setSubmitValue(values)
-    }
-  }
+  const validateAndSubmit = useCallback(
+    (values: React.SetStateAction<KubernetesActivitySourceInfo | null>) => {
+      if (submitValue) {
+        // for triggering refetch in ValidateKubernetesConnector
+        refetchConnectorValidation.current.call()
+      } else {
+        setSubmitValue(values)
+      }
+    },
+    [submitValue]
+  )
 
   return (
     <Formik
       initialValues={data || buildKubernetesActivitySourceInfo()}
       validationSchema={ValidationSchema}
       formName="cvSelectk8"
-      onSubmit={values => validateAndSubmit(values)}
+      onSubmit={validateAndSubmit}
     >
       {formikProps => (
         <FormikForm id="onBoardingForm">

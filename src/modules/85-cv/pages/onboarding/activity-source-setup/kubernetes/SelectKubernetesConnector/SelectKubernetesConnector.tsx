@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Formik, FormikForm, Container, Text } from '@wings-software/uicore'
 import { object as yupObject } from 'yup'
 import {
@@ -26,10 +26,14 @@ const ValidationSchema = yupObject().shape({
 })
 
 export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps): JSX.Element {
+  const refetchConnectorValidation = useRef({
+    call: () => null
+  })
   const { onPrevious, onSubmit, data, isEditMode } = props
   const { getString } = useStrings()
   const [submitValue, setSubmitValue] = useState<KubernetesActivitySourceInfo | null>(null)
   const [loading, setLoading] = useState(false)
+  // const [refetch, setRefetch] = useState(false)
 
   return (
     <Formik
@@ -37,6 +41,12 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
       validationSchema={ValidationSchema}
       formName="cvSelectk8"
       onSubmit={values => {
+        if (loading) {
+          // for triggering refetch in ValidateKubernetesConnector
+          refetchConnectorValidation.current.call()
+        } else {
+          setSubmitValue(values)
+        }
         setSubmitValue(values)
         setLoading(true)
       }}
@@ -73,7 +83,13 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
                 )
               }}
             />
-            {loading && <ValidateKubernetesConnector values={submitValue} onSuccess={onSubmit} />}
+            {loading && (
+              <ValidateKubernetesConnector
+                values={submitValue}
+                onSuccess={onSubmit}
+                callRefetch={refetchConnectorValidation}
+              />
+            )}
           </Container>
           <SubmitAndPreviousButtons onPreviousClick={onPrevious} />
         </FormikForm>

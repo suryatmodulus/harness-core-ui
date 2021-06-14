@@ -57,9 +57,10 @@ function LoaderAndLabel(status: string, message: string): JSX.Element {
 
 export default function ValidateConnector(props: {
   values: KubernetesActivitySourceInfo | null
+  callRefetch?: { current: { call: () => void } }
   onSuccess: (values: KubernetesActivitySourceInfo) => void
 }): JSX.Element | null {
-  const { values, onSuccess } = props
+  const { values, onSuccess, callRefetch } = props
   const { connectorRef } = values || {}
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { data, loading, error, refetch } = useValidateConnector({
@@ -67,32 +68,18 @@ export default function ValidateConnector(props: {
       accountId,
       projectIdentifier,
       orgIdentifier,
-      connectorIdentifier: 'dasdasdada', //connectorRef?.value.toString() || '',
+      connectorIdentifier: connectorRef?.value.toString() || '',
       tracingId: `${connectorRef?.value.toString()}:testConnection`,
       dataSourceType: 'KUBERNETES'
     }
   })
+  if (callRefetch) callRefetch.current.call = refetch
 
   useEffect(() => {
     if (!loading && !error) {
       values && onSuccess({ ...values })
     }
   }, [data, loading, error, refetch])
-
-  // useEffect(() => {
-  //   if (!loading && error) {
-  // refetch({
-  //   queryParams: {
-  //     accountId,
-  //     projectIdentifier,
-  //     orgIdentifier,
-  //     connectorIdentifier: 'dasdasdada', //connectorRef?.value.toString() || '',
-  //     tracingId: `${connectorRef?.value.toString()}:testConnection`,
-  //     dataSourceType: 'KUBERNETES'
-  //   }
-  // })
-  //   }
-  // }, [data, loading, error, refetch])
 
   if (!loading) {
     if (error) {

@@ -4,13 +4,18 @@ declare const styles: {
   readonly status: string
   readonly failed: string
   readonly aborted: string
-  readonly error: string
+  readonly discontinuing: string
+  readonly errored: string
   readonly rejected: string
   readonly expired: string
   readonly approvalrejected: string
+  readonly ignorefailed: string
   readonly success: string
   readonly running: string
-  readonly waiting: string
+  readonly asyncwaiting: string
+  readonly taskwaiting: string
+  readonly timedwaiting: string
+  readonly resourcewaiting: string
   readonly approvalwaiting: string
   readonly interventionwaiting: string
   readonly pausing: string

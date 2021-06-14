@@ -67,7 +67,7 @@ validation:
   valueMustBeANumber: Value must be number
   formatMustBeAlphanumeric: Identifier can only contain alphanumerics, _ and $
   identifierIsRequired: Identifier is required
-  urlIsRequired: Url is a required field
+  urlIsRequired: URL is a required field
   email:
     required: Email is required
     format: Please input valid email address
@@ -103,7 +103,7 @@ purpose:
     subtitle: Deploy your services with blazingly fast pipelines.
     continuous: Continuous Delivery
     description:
-      'Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
+      'Define pipelines that enable you to improve your deployment times, manage your integrations, and view your services all in one place.
       <br><br>You can access this module via your free trial.
       Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
     supportedStack: Supported Stack
@@ -124,10 +124,8 @@ purpose:
     subtitle: Commit, build, and test your code at a whole new level.
     continuous: Continuous Integration
     description:
-      'Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
-      <br><br>You can access this module via your free trial. Benefits include:
-      Your software delivery pipeline can now include build stages
-      Test intelligence - faster and more reliable build processes'
+      'Build, test, and push your code using container-native pipelines with hundreds of standardized extensions. 
+      <br><br>You can access this module via your free trial. '
 
   ce:
     optimizationCard:
@@ -142,11 +140,11 @@ purpose:
       <br><br>You can access this module via your free trial. Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
   cf:
     features: Features
-    subtitle: Decouple release from deployment and rollout features safely and quickly.
+    subtitle: Decouple feature release from deployment and roll out features safely and quickly.
     description: '{{$.common.purpose.cf.subtitle}}'
     continuous: Continuous Features
-trialInProgress: Trial in-progress
-trialInProgressDescription: Your Harness journey begins with the creation of a Project. A Project lets you map users, resources into an end to end deployment pipeline workflow. Get started by creating your first Project below.
+trialInProgress: Trial in progress
+trialInProgressDescription: A Project contains your pipelines, resources, and team members. Get started by creating your first Project.
 letsGetYouStarted: Let’s get you started
 accessKey: Access Key
 secretKey: Secret Key
@@ -173,7 +171,7 @@ gitSync:
   syncStartSuccess: 'Sync started for branch {{branch}}'
   syncing:
     header: Sync in progress
-    message: Sync is happening in the background, you can check on the status in the branch dropdown. This may take a few minutes to complete.
+    message: Sync is happening in the background. You can check on the status in the branch dropdown. This may take a few minutes to complete.
   unSynced:
     header: Sync the branch
     message1: 'Branch {{branch}} is currently not Synced.'
@@ -217,8 +215,8 @@ git:
   commitMessage: Commit message
   branchSelectHeader: Select Branch to Commit
   existingBranchCommitLabel: Commit to an existing branch
-  newBranchCommitLabel: Commit to a new branch for this commit
-  startPRLabel: Start a pull request to merge to
+  newBranchCommitLabel: Commit to a new branch
+  startPRLabel: Start a pull request to merge
   validation:
     filePath: '{{$.common.git.filePath}} is required'
     commitMessage: '{{$.common.git.commitMessage}} is required'
@@ -237,20 +235,20 @@ references: 'References'
 labelTestConnection: 'Test Connection'
 path: 'Path'
 enableGitSyncPipeline:
-  Git Experience allows you to store the pipeline and other harness configurations in the git alongside with your
-  code. With this, Git will act as the single source of truth for all your code and configurations.
+  Git Experience allows you to store Harness projects, pipelines, and resources in Git alongside your
+  code. Git acts as the single source of truth for all your Harness work.
 saveAndClose: Save and Close
 pendingInvitation: Pending Invitation
 capsAll: ALL
 blank: ''
 totalLines: 'Total lines'
 newLines: 'New lines'
-unsavedChanges: You may have unsaved changes
+unsavedChanges: You might have unsaved changes
 newVersion: There is a new version of this branch
 confictOccured: '{{name}} has committed since you started editing.'
-resolveConflict: Resolve the conflicts before Saving.
+resolveConflict: Resolve conflicts before saving.
 seeWhatChanged: See What Changed
-changesUnsaved: You may have unsaved changes.
+changesUnsaved: You might have unsaved changes.
 savedSuccessfully: Saved Successfully
 submittingRequest: Submitting request and pushing changes to Git
 submittingRequestToGitViaDelegate: Submitting request and pushing changes to Git from Delegate
@@ -314,7 +312,7 @@ artifactTag: tag
 clientId: Client ID
 filters:
   saveNewFilter: Save New Filter
-  noMatchingFilterData: No Results found matching the Filter criteria
+  noMatchingFilterData: No results found matching the filter criteria
   clearFilters: Clear Filters
 in: in
 moreRefineSearch: '+{{number}} more (refine search)'

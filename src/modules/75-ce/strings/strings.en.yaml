@@ -357,3 +357,4 @@ recommendation:
     memoryLabel: 'MEMORY'
     memoryLabelRegular: 'Memory'
     memoryUsagePlaceholder: 'Memory usage(GBs)'
+uploadCertiHeader: Upload a new certificate for the Application Load Balancer

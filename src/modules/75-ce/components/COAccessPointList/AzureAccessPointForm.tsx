@@ -2,7 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import { isEmpty as _isEmpty } from 'lodash-es'
-import { Button, Container, Formik, FormikForm, FormInput, Icon, Layout, SelectOption } from '@wings-software/uicore'
+import {
+  Button,
+  Color,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
+  Icon,
+  Layout,
+  SelectOption,
+  Text,
+  useModalHook
+} from '@wings-software/uicore'
+import { Dialog } from '@blueprintjs/core'
 import {
   AccessPoint,
   useAllRegions,
@@ -12,6 +25,7 @@ import {
   useAllPublicIps,
   useAllCertificates
 } from 'services/lw'
+import CertificateUpload from './CertificateUploadScreen'
 import css from '../COGatewayAccess/COGatewayAccess.module.scss'
 
 export interface AzureApFormVal {
@@ -256,6 +270,35 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     }
   }, [selectedRegion, selectedResourceGroup, selectedVpc])
 
+  const [openUploadCertiModal, closeUploadCertiModal] = useModalHook(() => {
+    return (
+      <Dialog
+        onClose={closeUploadCertiModal}
+        isOpen={true}
+        style={{
+          width: 650,
+          padding: 40,
+          position: 'relative',
+          minHeight: 300
+        }}
+      >
+        <CertificateUpload
+          onSubmit={_certificateDetails => {
+            // console.log(_certificateDetails)
+          }}
+        />
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={closeUploadCertiModal}
+          style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}
+          data-testid={'close-certi-upload-modal'}
+        />
+      </Dialog>
+    )
+  })
+
   const isFormValid = (validStatus: boolean) => {
     return (
       validStatus ||
@@ -316,17 +359,25 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
               />
             </Layout.Horizontal>
             <Layout.Horizontal className={css.formFieldRow}>
-              <FormInput.Select
-                label={'Certificate'}
-                placeholder={'Select certificate'}
-                name={'certificate'}
-                items={certificatesOptions}
-                disabled={
-                  !_isEmpty(values.certificate)
-                    ? false
-                    : certificatesLoading || !selectedRegion || !selectedResourceGroup
-                }
-              />
+              <div>
+                <FormInput.Select
+                  label={'Certificate'}
+                  placeholder={'Select certificate'}
+                  name={'certificate'}
+                  selectProps={{
+                    allowCreatingNewItems: true
+                  }}
+                  items={certificatesOptions}
+                  disabled={
+                    !_isEmpty(values.certificate)
+                      ? false
+                      : certificatesLoading || !selectedRegion || !selectedResourceGroup
+                  }
+                />
+                <Text color={Color.PRIMARY_7} onClick={openUploadCertiModal}>
+                  Upload a certificate
+                </Text>
+              </div>
               <FormInput.Select
                 label={'Virtual Network*'}
                 placeholder={'Select virtual network'}

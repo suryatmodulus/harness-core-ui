@@ -1841,6 +1841,7 @@ export interface StringsMap {
   'ce.recommendation.recommendationChart.memoryUsagePlaceholder': string
   'ce.recommendation.recommendationChart.noOfSamples': string
   'ce.recommendation.sideNavText': string
+  'ce.uploadCertiHeader': string
   'cf.addPrerequisites.addPrerequisitesDesc': string
   'cf.addPrerequisites.addPrerequisitesHeading': string
   'cf.addPrerequisites.editPrerequisitesHeading': string

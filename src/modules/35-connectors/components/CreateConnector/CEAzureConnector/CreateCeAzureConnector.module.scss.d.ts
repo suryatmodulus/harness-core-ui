@@ -17,6 +17,8 @@ declare const styles: {
   readonly grid: string
   readonly submitBtn: string
   readonly commandsContainer: string
+  readonly command: string
+  readonly connectorExistBox: string
   readonly main: string
   readonly editOpen: string
   readonly extension: string

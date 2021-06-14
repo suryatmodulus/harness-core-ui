@@ -14,21 +14,32 @@ import {
   Icon
 } from '@wings-software/uicore'
 import { Popover, Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
-// import * as Yup from 'yup'
+import * as Yup from 'yup'
 import cx from 'classnames'
-import type { ConnectorInfoDTO } from 'services/cd-ng' //ConnectorConfigDTO
+import type { ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import { DialogExtensionContext } from '../../ModalExtension'
 import css from '../../CreateCeAzureConnector.module.scss'
 
 interface BillingForm {
-  storageAccount: string
+  storageAccountName: string
   subscriptionId: string
-  storageContainer: string
-  storageDir: string
+  containerName: string
+  directoryName: string
+  reportName: string
 }
 
-const BillingExport: React.FC<StepProps<ConnectorInfoDTO>> = props => {
-  const billingExportExists = false
+export const storageAccountNameTest = (value: string) => {
+  const regex = /^[a-z0-9]*$/
+  const regexTest = regex.test(value)
+  const lengthTest = value && value.length >= 3 && value.length <= 24
+  return !!(lengthTest && regexTest)
+}
+
+const BillingExport: React.FC<StepProps<ConnectorConfigDTO> & StepProps<ConnectorInfoDTO>> = props => {
+  const billingExport = props.prevStepData?.billingExportSpec
+  const tenantId = props.prevStepData?.tenantId
+  const subscriptionId = props.prevStepData?.subscriptionId
+
   return (
     <Layout.Vertical className={css.stepContainer}>
       <Heading level={2} className={css.header}>
@@ -38,7 +49,11 @@ const BillingExport: React.FC<StepProps<ConnectorInfoDTO>> = props => {
         Billing export is used to get insights into your cloud infrastructure and Azure services such as Storage
         account, Virtual machines, Containers etc.
       </Text>
-      {billingExportExists ? <Show /> : <Create {...props} />}
+      {billingExport ? (
+        <Show {...(billingExport || {})} tenantId={tenantId} subscriptionId={subscriptionId} {...props} />
+      ) : (
+        <Create {...props} />
+      )}
     </Layout.Vertical>
   )
 }
@@ -88,12 +103,12 @@ const TextInputWithToolTip = ({ name, label }: { name: string; label: string }) 
   return <FormInput.Text name={name} label={renderLabel()} />
 }
 
-const Create: React.FC<StepProps<ConnectorInfoDTO>> = props => {
-  const { prevStepData, previousStep } = props
+const Create: React.FC<StepProps<ConnectorInfoDTO> & StepProps<ConnectorConfigDTO>> = props => {
+  const { prevStepData, previousStep, nextStep } = props
+  const billingExport = prevStepData?.billingExportSpec
 
   const handleSubmit = (formData: BillingForm) => {
-    // FIX this!
-    return { ...formData }
+    nextStep?.({ ...prevStepData, ...formData })
   }
 
   return (
@@ -130,29 +145,37 @@ const Create: React.FC<StepProps<ConnectorInfoDTO>> = props => {
             handleSubmit(formData)
           }}
           formName="connectorOverviewForm"
-          // validationSchema={Yup.object().shape({
-          //   name: NameSchema(),
-          //   identifier: IdentifierSchema()
-          // })}
+          validationSchema={Yup.object().shape({
+            storageAccountName: Yup.string()
+              .required('Storage account name is required')
+              .test(
+                'storageAccountName',
+                'It must be 3 to 24 characters long, and can contain only lowercase letters and numbers.',
+                storageAccountNameTest
+              ),
+            directoryName: Yup.string().required('Directory name is required')
+          })}
           initialValues={{
-            storageAccount: props.prevStepData?.spec?.storageAccount || '',
-            subscriptionId: props.prevStepData?.spec?.subscriptionId || '',
-            storageContainer: props.prevStepData?.spec?.storageContainer || '',
-            storageDir: props.prevStepData?.spec?.storageDir || ''
+            storageAccountName: billingExport?.storageAccountName || '',
+            subscriptionId: billingExport?.subscriptionId || '',
+            containerName: billingExport?.containerName || '',
+            directoryName: billingExport?.directoryName || '',
+            reportName: billingExport?.reportName || ''
           }}
         >
           {() => {
             return (
               <FormikForm style={{ padding: '10px 0 25px' }}>
-                <Container style={{ minHeight: 300 }}>
+                <Container style={{ minHeight: 385 }}>
                   <Container className={cx(css.main, css.dataFields)}>
-                    <TextInputWithToolTip name="storageAccount" label={'Storage Account Name'} />
+                    <TextInputWithToolTip name="storageAccountName" label={'Storage Account Name'} />
                     <TextInputWithToolTip name="subscriptionId" label={'Storage Account Subscription ID'} />
-                    <TextInputWithToolTip name="storageContainer" label={'Storage Container'} />
-                    <TextInputWithToolTip name="storageDir" label={'Storage Directory'} />
+                    <TextInputWithToolTip name="containerName" label={'Storage Container'} />
+                    <TextInputWithToolTip name="directoryName" label={'Storage Directory'} />
+                    <TextInputWithToolTip name="reportName" label={'Report Name'} />
                   </Container>
                 </Container>
-                <Layout.Horizontal spacing="medium" className={css.continueAndPreviousBtns}>
+                <Layout.Horizontal spacing="medium">
                   <Button text="Previous" icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
                   <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={false}>
                     Continue
@@ -167,31 +190,36 @@ const Create: React.FC<StepProps<ConnectorInfoDTO>> = props => {
   )
 }
 
-const MockData = [
-  {
-    label: 'Tenant ID',
-    value: 'jfgoknklsl072977647515'
-  },
-  {
-    label: 'Storage account name',
-    value: 'storage-account-name'
-  },
-  {
-    label: 'Storage account Subrscription ID',
-    value: 'azure-subscription-name'
-  },
-  {
-    label: 'Storage Container',
-    value: 'prod-setup-205416'
-  },
-  {
-    label: 'Storage Directory',
-    value: 'billing-prod-all-projects'
-  }
-]
+interface BillingInfo {
+  [key: string]: string
+}
+const BILLING_INFO_LABELS: BillingInfo = {
+  tenantId: 'Tenant ID',
+  containerName: 'Storage Container',
+  directoryName: 'Storage Directory',
+  storageAccountName: 'Storage Account Name',
+  subscriptionId: 'Storage Account Subscription ID',
+  reportName: 'Report Name'
+}
 
-const Show: React.FC<StepProps<ConnectorInfoDTO>> = props => {
+interface D {
+  label: string
+  value: string
+}
+
+// Fix this: find a better way
+type ShowBillingExportProps = StepProps<ConnectorInfoDTO> & StepProps<ConnectorConfigDTO> & ConnectorConfigDTO
+
+const Show: React.FC<ShowBillingExportProps> = props => {
   const { prevStepData, previousStep, nextStep } = props
+
+  const Data: D[] = []
+  Object.keys(props).forEach(k => {
+    if (k in BILLING_INFO_LABELS) {
+      Data.push({ label: BILLING_INFO_LABELS[k] || k, value: props[k] })
+    }
+  })
+
   return (
     <Container>
       <Text
@@ -205,7 +233,7 @@ const Show: React.FC<StepProps<ConnectorInfoDTO>> = props => {
         A Billing Export exists for this account. You may proceed to the next step.
       </Text>
       <Container className={css.billingExportCtn}>
-        {MockData.map((data, idx) => {
+        {Data.map((data, idx) => {
           return (
             <div key={idx} className={css.billingCredentials}>
               <span>{data.label}</span>
@@ -215,7 +243,11 @@ const Show: React.FC<StepProps<ConnectorInfoDTO>> = props => {
         })}
       </Container>
       <Layout.Horizontal spacing="medium" className={css.continueAndPreviousBtns}>
-        <Button text="Previous" icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
+        <Button
+          text="Previous"
+          icon="chevron-left"
+          onClick={() => previousStep?.({ ...prevStepData, billingExportSpec: null })}
+        />
         <Button text="Continue" rightIcon="chevron-right" onClick={() => nextStep?.(prevStepData)} intent="primary" />
       </Layout.Horizontal>
     </Container>

@@ -1677,6 +1677,13 @@ export interface ResponsePageConnectorResponse {
   correlationId?: string
 }
 
+export interface CcmConnectorFilter {
+  featuresEnabled?: ('CUR' | 'VISIBILITY' | 'OPTIMIZATION' | 'BILLING')[]
+  awsAccountId?: string
+  azureTenantId?: string
+  azureSubscriptionId?: string
+}
+
 export type ConnectorFilterProperties = FilterProperties & {
   connectorNames?: string[]
   connectorIdentifiers?: string[]
@@ -1721,6 +1728,7 @@ export type ConnectorFilterProperties = FilterProperties & {
   )[]
   connectivityStatuses?: ('SUCCESS' | 'FAILURE' | 'PARTIAL' | 'UNKNOWN')[]
   inheritingCredentialsFromDelegate?: boolean
+  ccmConnectorFilter?: CcmConnectorFilter
 }
 
 export interface ConnectorCatalogueItem {

@@ -17,8 +17,8 @@ import type { ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import css from '../../CreateCeAzureConnector.module.scss'
 
 interface CloudFeatures {
-  costVisibility: boolean
-  costOptimization: boolean
+  VISIBILITY: boolean
+  OPTIMIZATION: boolean
 }
 
 interface ICard {
@@ -28,7 +28,7 @@ interface ICard {
   title: string
 }
 
-const MockCards: ICard[] = [
+const FeatureCards: ICard[] = [
   {
     icon: 'ce-visibility',
     desc:
@@ -45,12 +45,13 @@ const MockCards: ICard[] = [
   }
 ]
 
-const ChooseRequirements: React.FC<StepProps<ConnectorInfoDTO>> = props => {
+const ChooseRequirements: React.FC<StepProps<ConnectorInfoDTO> & StepProps<ConnectorConfigDTO>> = props => {
   const { previousStep, prevStepData, nextStep } = props
   const [cardsSelected, setCardsSelected] = useState<ICard[]>([])
 
-  const handleSubmit = (formData: ConnectorConfigDTO) => {
-    nextStep?.({ ...(prevStepData as ConnectorInfoDTO), ...formData })
+  const handleSubmit = () => {
+    const featuresEnabled = cardsSelected.map(c => c.value)
+    nextStep?.({ ...(prevStepData as ConnectorInfoDTO), featuresEnabled })
   }
 
   const handleCardSelection = (item: ICard) => {
@@ -81,10 +82,10 @@ const ChooseRequirements: React.FC<StepProps<ConnectorInfoDTO>> = props => {
         </Heading>
         <Formik<CloudFeatures>
           initialValues={{
-            costVisibility: false,
-            costOptimization: false
+            VISIBILITY: false,
+            OPTIMIZATION: false
           }}
-          onSubmit={formData => handleSubmit(formData)}
+          onSubmit={handleSubmit}
         >
           {() => (
             <FormikForm>
@@ -94,7 +95,7 @@ const ChooseRequirements: React.FC<StepProps<ConnectorInfoDTO>> = props => {
                 }}
               />
               <CardSelect
-                data={MockCards}
+                data={FeatureCards}
                 selected={cardsSelected}
                 multi={true}
                 className={css.grid}

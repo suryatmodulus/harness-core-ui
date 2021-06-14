@@ -47,7 +47,7 @@
     }
 
     .billingExportCtn {
-      width: 500px;
+      width: 550px;
       min-height: 300px;
     }
 
@@ -129,12 +129,29 @@
   .commandsContainer {
     background: var(--primary-1) !important;
     padding: var(--spacing-large) !important;
+
+    .command {
+      display: grid;
+      grid-template-columns: 1fr 20px;
+      align-items: center;
+    }
+
     pre {
       white-space: pre-wrap;
       color: var(--grey-800);
-      margin-top: var(--spacing-xsmall);
+      margin: var(--spacing-xsmall) 0 0 0;
+      padding-right: var(--spacing-medium);
     }
   }
+}
+
+.connectorExistBox {
+  margin-top: var(--spacing-xlarge);
+  border-left: 4px solid var(--red-700);
+  padding: var(--spacing-large);
+  background: var(--red-50);
+  color: var(--grey-1000);
+  border-radius: 5px;
 }
 
 .main {

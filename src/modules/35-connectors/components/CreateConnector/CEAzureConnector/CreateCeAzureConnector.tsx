@@ -10,15 +10,15 @@ import { useStrings } from 'framework/strings'
 // import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 // import AzureBillingInfo from './AzureBillingInfo'
 // import CreateServicePrincipal from './CreateServicePrincipal'
+// import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 // Below is the new one:
-import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import Overview from './Steps/Overview/AzureConnectorOverview'
 import Billing from './Steps/Billing/AzureConnectorBilling'
 import ModalExtension from './ModalExtension'
 import AzureConnectorBillingExtension from './Steps/Billing/AzureConnectorBillingExtension'
 import ChooseRequirements from './Steps/CreateServicePrincipal/ChooseRequirements'
 import CreateServicePrincipal from './Steps/CreateServicePrincipal/CreateServicePrincipal'
-// import VerifyConnection from './Steps/VerifyConnection/VerifyConnection'
+import VerifyConnection from './Steps/VerifyConnection/VerifyConnection'
 import css from './CreateCeAzureConnector.module.scss'
 
 const CreateCeAzureConnector: React.FC<CreateConnectorModalProps> = props => {
@@ -38,17 +38,10 @@ const CreateCeAzureConnector: React.FC<CreateConnectorModalProps> = props => {
           connectorInfo={props.connectorInfo}
           gitDetails={props.gitDetails}
         />
-        <Billing name={'Azure Billing Export'} />
-        <ChooseRequirements name={'Choose Requirements'} />
-        <CreateServicePrincipal name={'Create Service Principal'} />
-        <VerifyOutOfClusterDelegate
-          name={getString('connectors.verifyConnection')}
-          onClose={props.onClose}
-          isStep
-          isLastStep
-          type={Connectors.CE_AZURE}
-          connectorInfo={props.connectorInfo}
-        />
+        <Billing name="Azure Billing Export" />
+        <ChooseRequirements name="Choose Requirements" />
+        <CreateServicePrincipal name="Create Service Principal" />
+        <VerifyConnection name="Test Connection" onClose={props.onClose} />
       </StepWizard>
     </ModalExtension>
   )

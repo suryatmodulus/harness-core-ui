@@ -1,0 +1,86 @@
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router'
+import {
+  Button,
+  Layout,
+  StepProps,
+  StepsProgress,
+  Intent,
+  Heading,
+  ModalErrorHandler,
+  ModalErrorHandlerBinding
+} from '@wings-software/uicore'
+import type { ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
+import { useGetTestConnectionResult } from 'services/cd-ng'
+import css from '../../CreateCeAzureConnector.module.scss'
+
+enum Status {
+  PROCESS = 'PROCESS',
+  DONE = 'DONE',
+  ERROR = 'ERROR'
+}
+
+export interface TestConnectionProps extends ConnectorConfigDTO {
+  onClose?: () => void
+}
+
+const TestConnection: React.FC<StepProps<ConnectorInfoDTO> & TestConnectionProps> = props => {
+  const { prevStepData } = props
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+  const [currentStatus, setCurrentStatus] = useState<Status>(Status.ERROR)
+  const [currentIntent, setCurrentIntent] = useState<Intent>(Intent.NONE)
+  const [currentStep, setCurrentStep] = useState<number>(1)
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+
+  const steps: string[] = ['Validating Azure authentication and permissions', 'Verifying Azure billing export setup']
+
+  const { mutate: testConnection } = useGetTestConnectionResult({
+    identifier: prevStepData?.identifier || '',
+    queryParams: { accountIdentifier: accountId },
+    requestOptions: {
+      headers: { 'content-type': 'application/json' }
+    }
+  })
+
+  const verifyOptimizationPermissions = async (): Promise<void> => {
+    try {
+      setCurrentStatus(Status.PROCESS)
+      const result = await testConnection()
+      if (result.data?.status === 'SUCCESS') {
+        setCurrentIntent(Intent.SUCCESS)
+        setCurrentStatus(Status.DONE)
+        setCurrentStep(2)
+      } else {
+        throw new Error("Couldn't verify the connection")
+      }
+    } catch (e) {
+      modalErrorHandler?.showDanger(e.data?.errorSummary || e.message)
+      setCurrentStatus(Status.ERROR)
+      setCurrentIntent(Intent.DANGER)
+    }
+  }
+  useEffect(() => {
+    verifyOptimizationPermissions()
+  }, [])
+
+  return (
+    <Layout.Vertical className={css.stepContainer}>
+      <ModalErrorHandler bind={setModalErrorHandler} />
+      <Heading level={2} className={css.header}>
+        Test Connection
+      </Heading>
+      <StepsProgress steps={steps} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
+      <Button
+        intent="primary"
+        text={'Finish'}
+        rightIcon="chevron-right"
+        className={css.continueAndPreviousBtns}
+        onClick={() => props.onClose?.()}
+      />
+    </Layout.Vertical>
+  )
+}
+
+export default TestConnection

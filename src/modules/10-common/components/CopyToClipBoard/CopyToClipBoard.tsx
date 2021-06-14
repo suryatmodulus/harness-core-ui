@@ -9,6 +9,7 @@ import css from './CopyToClipBoard.module.scss'
 interface CopyToClipboardProps {
   content: string
   showFeedback?: boolean
+  iconSize?: number
 }
 
 const CopyToClipboard: React.FC<CopyToClipboardProps> = props => {
@@ -40,8 +41,8 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = props => {
       >
         <div>
           <Icon
-            name="copy"
-            size={20}
+            name="copy-alt"
+            size={props.iconSize ?? 20}
             onClick={async (event: React.MouseEvent<HTMLHeadingElement, globalThis.MouseEvent>) => {
               event.preventDefault()
               event.stopPropagation()

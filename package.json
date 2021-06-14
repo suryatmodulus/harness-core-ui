@@ -42,6 +42,7 @@
     "postservices:rbac": "prettier --write src/services/rbac/index.tsx",
     "services:ci": "restful-react import --config restful-react.config.js ci",
     "services:lw": "restful-react import --config restful-react.config.js lw",
+    "services:ccm": "restful-react import --config restful-react.config.js ccm",
     "postservices:ci": "prettier --write src/services/ci/index.tsx",
     "services:cv": "restful-react import --config restful-react.config.js cv",
     "postservices": "prettier --write src/services/**/*.tsx",

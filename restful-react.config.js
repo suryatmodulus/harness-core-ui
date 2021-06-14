@@ -124,5 +124,14 @@ module.exports = {
     customProps: {
       base: `{getConfig("lw/api")}`
     }
+  },
+  ccm: {
+    output: 'src/services/ce/index.tsx',
+    file: 'src/services/ce/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config";`,
+    customProps: {
+      base: `{getConfig("ccm/api")}`
+    }
   }
 }

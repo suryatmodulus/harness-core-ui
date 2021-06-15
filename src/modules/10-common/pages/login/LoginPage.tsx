@@ -53,8 +53,6 @@ const LoginPage: React.FC = () => {
     }
   }, [errorCode])
 
-  // TODO: add coverage once the correct API is integrated
-  /* istanbul ignore next */
   const handleLogin = async (data: LoginForm): Promise<void> => {
     try {
       setLoading(true)

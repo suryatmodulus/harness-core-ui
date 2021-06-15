@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState, useCallback } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import type { FormikActions } from 'formik'
-import { get, isEqual } from 'lodash-es'
+import { cloneDeep, get, isEqual } from 'lodash-es'
 import {
   Layout,
   Container,
@@ -117,6 +117,23 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       }
     }
   })
+  const initialValues = useMemo(
+    () =>
+      cloneDeep({
+        state: flagData.envProperties?.state as string,
+        onVariation: flagData.envProperties?.defaultServe.variation
+          ? flagData.envProperties?.defaultServe.variation
+          : flagData.envProperties?.defaultServe.distribution
+          ? 'percentage'
+          : flagData.defaultOnVariation,
+        offVariation: flagData.envProperties?.offVariation as string,
+        defaultServe: flagData.envProperties?.defaultServe as Serve,
+        customRules: flagData.envProperties?.rules ?? [],
+        variationMap: cloneDeep(flagData.envProperties?.variationMap ?? [])
+      }),
+    []
+  )
+
   const noEnvironmentExists = !envsLoading && !envsError && environments?.length === 0
 
   const onCancelEditHandler = (): void => {
@@ -124,181 +141,172 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     patch.feature.reset()
   }
 
-  const initialValues: Values = {
-    state: flagData.envProperties?.state as string,
-    onVariation: flagData.envProperties?.defaultServe.variation
-      ? flagData.envProperties?.defaultServe.variation
-      : flagData.envProperties?.defaultServe.distribution
-      ? 'percentage'
-      : flagData.defaultOnVariation,
-    offVariation: flagData.envProperties?.offVariation as string,
-    defaultServe: flagData.envProperties?.defaultServe as Serve,
-    customRules: flagData.envProperties?.rules ?? [],
-    variationMap: flagData.envProperties?.variationMap ?? []
-  }
-
-  const onSaveChanges = (values: Values, formikActions: FormikActions<Values>): void => {
-    if (values.state !== initialValues.state) {
-      patch.feature.addInstruction(patch.creators.setFeatureFlagState(values?.state as FeatureState))
-    }
-    if (!isEqual(values.offVariation, initialValues.offVariation)) {
-      patch.feature.addInstruction(patch.creators.updateOffVariation(values.offVariation as string))
-    }
-    if (!isEqual(values.onVariation, initialValues.onVariation)) {
-      if (values.onVariation !== 'percentage') {
-        patch.feature.addInstruction(patch.creators.updateDefaultServeByVariation(values.onVariation as string))
+  const onSaveChanges = useCallback(
+    (values: Values, formikActions: FormikActions<Values>): void => {
+      if (values.state !== initialValues.state) {
+        patch.feature.addInstruction(patch.creators.setFeatureFlagState(values?.state as FeatureState))
       }
-    }
-    if (!isEqual(values.defaultServe, initialValues.defaultServe) && values.onVariation === 'percentage') {
-      patch.feature.addInstruction(
-        patch.creators.updateDefaultServeByBucket(
-          values.defaultServe.distribution?.bucketBy || '',
-          values.defaultServe.distribution?.variations || []
-        )
-      )
-    }
-    if (!isEqual(values.customRules, initialValues.customRules)) {
-      const toClauseData = (c: Clause): ClauseData => {
-        if (c.op === extraOperatorReference.customRules.matchSegment.value) {
-          return {
-            op: c.op,
-            values: c.values
-          }
-        } else {
-          return {
-            attribute: c.attribute as string,
-            op: c.op,
-            values: c.values
-          }
+      if (!isEqual(values.offVariation, initialValues.offVariation)) {
+        patch.feature.addInstruction(patch.creators.updateOffVariation(values.offVariation as string))
+      }
+      if (!isEqual(values.onVariation, initialValues.onVariation)) {
+        if (values.onVariation !== 'percentage') {
+          patch.feature.addInstruction(patch.creators.updateDefaultServeByVariation(values.onVariation as string))
         }
       }
-
-      patch.feature.addAllInstructions(
-        initialValues.customRules
-          .filter(rule => !values.customRules.find(r => r.ruleId === rule.ruleId))
-          .map(r => patch.creators.removeRule(r.ruleId))
-      )
-
-      patch.feature.addAllInstructions(
-        values.customRules
-          .filter(rule =>
-            initialValues.customRules.find(
-              oldRule => oldRule.ruleId === rule.ruleId && oldRule.serve.variation !== rule.serve.variation
-            )
+      if (!isEqual(values.defaultServe, initialValues.defaultServe) && values.onVariation === 'percentage') {
+        patch.feature.addInstruction(
+          patch.creators.updateDefaultServeByBucket(
+            values.defaultServe.distribution?.bucketBy || '',
+            values.defaultServe.distribution?.variations || []
           )
-          .map(rule => {
-            const variation =
-              (rule.serve.distribution as { bucketBy: string; variations: WeightedVariation[] }) ?? rule.serve.variation
-            return patch.creators.updateRuleVariation(rule.ruleId, variation)
-          })
-      )
-
-      const newRuleIds: string[] = []
-      values.customRules = values.customRules.map(rule => {
-        if (!rule.ruleId) {
-          const newId = uuid()
-          newRuleIds.push(newId)
-          rule.ruleId = newId
+        )
+      }
+      if (!isEqual(values.customRules, initialValues.customRules)) {
+        const toClauseData = (c: Clause): ClauseData => {
+          if (c.op === extraOperatorReference.customRules.matchSegment.value) {
+            return {
+              op: c.op,
+              values: c.values
+            }
+          } else {
+            return {
+              attribute: c.attribute as string,
+              op: c.op,
+              values: c.values
+            }
+          }
         }
-        return rule
-      })
-      const isNewRule = (id: string) => newRuleIds.includes(id)
 
-      patch.feature.addAllInstructions(
-        values.customRules
-          .filter(rule => isNewRule(rule.ruleId))
-          .map(rule =>
-            patch.creators.addRule({
-              uuid: rule.ruleId,
-              priority: rule.priority,
-              serve: rule.serve,
-              clauses: rule.clauses.map(toClauseData)
+        patch.feature.addAllInstructions(
+          initialValues.customRules
+            .filter(rule => !values.customRules.find(r => r.ruleId === rule.ruleId))
+            .map(r => patch.creators.removeRule(r.ruleId))
+        )
+
+        patch.feature.addAllInstructions(
+          values.customRules
+            .filter(rule =>
+              initialValues.customRules.find(
+                oldRule => oldRule.ruleId === rule.ruleId && oldRule.serve.variation !== rule.serve.variation
+              )
+            )
+            .map(rule => {
+              const variation =
+                (rule.serve.distribution as { bucketBy: string; variations: WeightedVariation[] }) ??
+                rule.serve.variation
+              return patch.creators.updateRuleVariation(rule.ruleId, variation)
             })
-          )
-      )
-
-      values.customRules
-        .filter(rule => !isNewRule(rule.ruleId))
-        .map(rule => [initialValues.customRules.find(r => r.ruleId === rule.ruleId), rule])
-        .filter(([initial, current]) => !isEqual(initial, current))
-        .map(([initial, current]) => {
-          current?.clauses
-            .filter(c => !c.id)
-            .forEach(c => patch.feature.addInstruction(patch.creators.addClause(current.ruleId, toClauseData(c))))
-
-          initial?.clauses
-            .filter(c => !current?.clauses.find(cl => cl.id === c.id))
-            .forEach(c => patch.feature.addInstruction(patch.creators.removeClause(initial.ruleId, c.id)))
-
-          initial?.clauses
-            .reduce((acc: any, prev) => {
-              const currentValue = current?.clauses.find(c => c.id === prev.id)
-              if (currentValue && !isEqual(prev, currentValue)) {
-                return [...acc, [prev, currentValue]]
-              }
-              return acc
-            }, [])
-            .forEach(([c, updated]: [Clause, Clause]) =>
-              patch.feature.addInstruction(patch.creators.updateClause(initial.ruleId, c.id, toClauseData(updated)))
-            )
-        })
-    }
-
-    // TODO: this whole complication needs to be refactored
-    const normalize = (variationMap: VariationMap[]) =>
-      (variationMap || []).map(item => {
-        if (item.targets?.length) {
-          item.targets = (item.targets?.map(target => target?.identifier || target) as unknown) as TargetMap[]
-        }
-        return item
-      })
-    const normalizedInitialVariationMap = normalize(initialValues.variationMap)
-    const normalizedVariationMap = normalize(values.variationMap)
-
-    if (!isEqual(normalizedVariationMap, normalizedInitialVariationMap)) {
-      const initial = fromVariationMapToObj(normalizedInitialVariationMap)
-      const updated = fromVariationMapToObj(normalizedVariationMap)
-
-      const variations = Array.from(new Set(Object.keys(initial).concat(Object.keys(updated))))
-      variations.forEach((variation: string) => {
-        const [added, removed] = getDiff<string, string>(
-          initial[variation]?.targets || [],
-          updated[variation]?.targets || []
         )
-        if (added.length > 0) {
-          patch.feature.addInstruction(patch.creators.addTargetsToVariationTargetMap(variation, added))
-        }
-        if (removed.length > 0) {
-          patch.feature.addInstruction(patch.creators.removeTargetsToVariationTargetMap(variation, removed))
-        }
-      })
-    }
 
-    const prevOrder = initialValues.customRules.map(x => x.ruleId)
-    const newOrder = values.customRules.map(x => x.ruleId)
-    if (!isEqual(prevOrder, newOrder)) {
-      patch.feature.addInstruction(patch.creators.reorderRules(newOrder))
-    }
+        const newRuleIds: string[] = []
+        values.customRules = values.customRules.map(rule => {
+          if (!rule.ruleId) {
+            const newId = uuid()
+            newRuleIds.push(newId)
+            rule.ruleId = newId
+          }
+          return rule
+        })
+        const isNewRule = (id: string) => newRuleIds.includes(id)
 
-    patch.feature
-      .onPatchAvailable(data => {
-        patchFeature(data)
-          .then(() => {
-            setEditing(false)
-            return refetchFlag()
+        patch.feature.addAllInstructions(
+          values.customRules
+            .filter(rule => isNewRule(rule.ruleId))
+            .map(rule =>
+              patch.creators.addRule({
+                uuid: rule.ruleId,
+                priority: rule.priority,
+                serve: rule.serve,
+                clauses: rule.clauses.map(toClauseData)
+              })
+            )
+        )
+
+        values.customRules
+          .filter(rule => !isNewRule(rule.ruleId))
+          .map(rule => [initialValues.customRules.find(r => r.ruleId === rule.ruleId), rule])
+          .filter(([initial, current]) => !isEqual(initial, current))
+          .map(([initial, current]) => {
+            current?.clauses
+              .filter(c => !c.id)
+              .forEach(c => patch.feature.addInstruction(patch.creators.addClause(current.ruleId, toClauseData(c))))
+
+            initial?.clauses
+              .filter(c => !current?.clauses.find(cl => cl.id === c.id))
+              .forEach(c => patch.feature.addInstruction(patch.creators.removeClause(initial.ruleId, c.id)))
+
+            initial?.clauses
+              .reduce((acc: any, prev) => {
+                const currentValue = current?.clauses.find(c => c.id === prev.id)
+                if (currentValue && !isEqual(prev, currentValue)) {
+                  return [...acc, [prev, currentValue]]
+                }
+                return acc
+              }, [])
+              .forEach(([c, updated]: [Clause, Clause]) =>
+                patch.feature.addInstruction(patch.creators.updateClause(initial.ruleId, c.id, toClauseData(updated)))
+              )
           })
-          .then(() => {
-            formikActions.resetForm()
-          })
-          .catch(err => {
-            showError(get(err, 'data.message', err?.message), undefined, 'cf.patch.feature.error')
-          })
-          .finally(() => {
-            patch.feature.reset()
-          })
-      })
-      .onEmptyPatch(() => setEditing(false))
-  }
+      }
+
+      // TODO: this whole complication needs to be refactored
+      const normalize = (variationMap: VariationMap[]) =>
+        (variationMap || []).map(item => {
+          if (item.targets?.length) {
+            item.targets = (item.targets?.map(target => target?.identifier || target) as unknown) as TargetMap[]
+          }
+          return item
+        })
+      const normalizedInitialVariationMap = normalize(initialValues.variationMap)
+      const normalizedVariationMap = normalize(values.variationMap)
+
+      if (!isEqual(normalizedVariationMap, normalizedInitialVariationMap)) {
+        const initial = fromVariationMapToObj(normalizedInitialVariationMap)
+        const updated = fromVariationMapToObj(normalizedVariationMap)
+
+        const variations = Array.from(new Set(Object.keys(initial).concat(Object.keys(updated))))
+        variations.forEach((variation: string) => {
+          const [added, removed] = getDiff<string, string>(
+            initial[variation]?.targets || [],
+            updated[variation]?.targets || []
+          )
+          if (added.length > 0) {
+            patch.feature.addInstruction(patch.creators.addTargetsToVariationTargetMap(variation, added))
+          }
+          if (removed.length > 0) {
+            patch.feature.addInstruction(patch.creators.removeTargetsToVariationTargetMap(variation, removed))
+          }
+        })
+      }
+
+      const prevOrder = initialValues.customRules.map(x => x.ruleId)
+      const newOrder = values.customRules.map(x => x.ruleId)
+      if (!isEqual(prevOrder, newOrder)) {
+        patch.feature.addInstruction(patch.creators.reorderRules(newOrder))
+      }
+
+      patch.feature
+        .onPatchAvailable(data => {
+          patchFeature(data)
+            .then(() => {
+              setEditing(false)
+              return refetchFlag()
+            })
+            .then(() => {
+              formikActions.resetForm()
+            })
+            .catch(err => {
+              showError(get(err, 'data.message', err?.message), 0)
+            })
+            .finally(() => {
+              patch.feature.reset()
+            })
+        })
+        .onEmptyPatch(() => setEditing(false))
+    },
+    [initialValues, patchFeature, refetchFlag, showError]
+  )
 
   type RuleErrors = { [K: number]: { [P: number]: 'required' } }
   const validateRules = (rules: ServingRule[]): [RuleErrors, boolean] => {
@@ -443,7 +451,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       validateOnChange={false}
       validateOnBlur={false}
       formName="flagActivation"
-      initialValues={initialValues}
+      initialValues={cloneDeep(initialValues)}
       validate={validateForm}
       onSubmit={onSaveChanges}
     >

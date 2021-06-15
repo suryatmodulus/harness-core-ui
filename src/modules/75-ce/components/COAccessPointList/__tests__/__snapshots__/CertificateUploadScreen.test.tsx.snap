@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Certificate Upload Screen render upload component along with other fields 1`] = `
+<div>
+  <div>
+    <h2
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+      level="2"
+    >
+      ce.uploadCertiHeader
+    </h2>
+    <div
+      class="fileInputContainer"
+    >
+      <div
+        class="inputInfo"
+      >
+        <img
+          src="test-file-stub"
+        />
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          Drag and drop your file here or Browse
+        </p>
+      </div>
+      <input
+        accept=".pfx"
+        type="file"
+      />
+    </div>
+    <div
+      class="OverlaySpinner--overlaySpinner"
+    >
+      <form
+        class="FormikForm--main uploadForm"
+      >
+        <div>
+          <div
+            class="bp3-form-group"
+            data-id="name-0"
+          >
+            <label
+              class="bp3-label"
+              for="name"
+            >
+              Name
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="name"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group"
+            data-id="password-1"
+          >
+            <label
+              class="bp3-label"
+              for="password"
+            >
+              Password
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="password"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Done
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;

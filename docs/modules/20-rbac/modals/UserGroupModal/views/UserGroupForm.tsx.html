@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.13% </span>
+                <span class="strong">72.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/61</span>
+                <span class='fraction'>43/59</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.33% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/12</span>
+                <span class='fraction'>6/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">81.13% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/55</span>
+                <span class='fraction'>43/53</span>
             </div>
         
             
@@ -243,28 +243,8 @@
 <a name='L184'></a><a href='#L184'>184</a>
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
-<a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a>
-<a name='L189'></a><a href='#L189'>189</a>
-<a name='L190'></a><a href='#L190'>190</a>
-<a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a>
-<a name='L193'></a><a href='#L193'>193</a>
-<a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a>
-<a name='L199'></a><a href='#L199'>199</a>
-<a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a>
-<a name='L205'></a><a href='#L205'>205</a>
-<a name='L206'></a><a href='#L206'>206</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -283,8 +263,8 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -341,6 +321,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -431,25 +412,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">78x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -479,19 +441,18 @@ import {
   ModalErrorHandlerBinding,
   Text,
   MultiSelectOption,
-  FormInput,
-  Avatar
+  FormInput
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
-import { Menu } from '@blueprintjs/core'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { UserGroupDTO, usePostUserGroup, usePutUserGroup, useGetUsers } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useMutateAsGet } from '@common/hooks'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { UserItem, UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
 import css from '@rbac/modals/UserGroupModal/useUserGroupModal.module.scss'
 &nbsp;
 interface UserGroupModalData {
@@ -543,11 +504,12 @@ const UserGroupForm: React.FC&lt;UserGroupModalData&gt; = props =&gt; {
     return getString('rbac.userGroupPage.newUserGroup')
   }
 &nbsp;
-  const users: MultiSelectOption[] =
+  const users: UserItem[] =
     userList<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(value =&gt; {
       return {
         label: value.name || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-        value: value.uuid
+        value: value.uuid,
+        email: value.email
       }
     }) || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
 &nbsp;
@@ -634,27 +596,8 @@ const UserGroupForm: React.FC&lt;UserGroupModalData&gt; = props =&gt; {
                         onQueryChange: <span class="fstat-no" title="function not covered" >(q</span>uery: string) =&gt; {
 <span class="cstat-no" title="statement not covered" >                          setSearch(query)</span>
                         },
-                        // eslint-disable-next-line react/display-name
-                        tagRenderer: <span class="fstat-no" title="function not covered" >item </span>=&gt; (
-<span class="cstat-no" title="statement not covered" >                          &lt;Layout.Horizontal key={item.label.toString()} spacing="small"&gt;</span>
-                            &lt;Avatar name={item.label} size="xsmall" hoverCard={false} /&gt;
-                            &lt;Text&gt;{item.label}&lt;/Text&gt;
-                          &lt;/Layout.Horizontal&gt;
-                        ),
-                        // eslint-disable-next-line react/display-name
-                        itemRender: (item, { handleClick }) =&gt; (
-                          &lt;div key={item.label.toString()}&gt;
-                            &lt;Menu.Item
-                              text={
-                                &lt;Layout.Horizontal spacing="small"&gt;
-                                  &lt;Avatar name={item.label} size="small" hoverCard={false} /&gt;
-                                  &lt;Text&gt;{item.label}&lt;/Text&gt;
-                                &lt;/Layout.Horizontal&gt;
-                              }
-                              onClick={handleClick}
-                            /&gt;
-                          &lt;/div&gt;
-                        )
+                        tagRenderer: UserTagRenderer,
+                        itemRender: UserItemRenderer
                       }}
                     /&gt;
                   )}
@@ -679,7 +622,7 @@ export default UserGroupForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 15 2021 11:06:18 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 15 2021 11:16:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

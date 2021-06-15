@@ -2,6 +2,7 @@ import React from 'react'
 import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import { Formik, FormikForm, Button } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
+import { act } from 'react-dom/test-utils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import { useStrings } from 'framework/strings'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -34,8 +35,10 @@ const fillTimeSelect = async ({
     if (!hourSelect) {
       throw Error('No input')
     }
-    fireEvent.click(hourSelect)
-    await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(12))
+    await act(async () => {
+      fireEvent.click(hourSelect)
+      await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(12))
+    })
 
     const hourOptions = document.querySelectorAll('[class*="bp3-menu"] li')
     fireEvent.click(hourOptions[hoursIndex])
@@ -49,9 +52,11 @@ const fillTimeSelect = async ({
     if (!minutesSelect) {
       throw Error('No input')
     }
-    fireEvent.click(minutesSelect)
+    await act(async () => {
+      fireEvent.click(minutesSelect)
 
-    await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(60))
+      await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(60))
+    })
     const minutesOptions = document.querySelectorAll('[class*="bp3-menu"] li')
     fireEvent.click(minutesOptions[minutesIndex])
   }
@@ -64,9 +69,11 @@ const fillTimeSelect = async ({
     if (!amPmSelect) {
       throw Error('No ampm input')
     }
-    fireEvent.click(amPmSelect)
+    await act(async () => {
+      fireEvent.click(amPmSelect)
 
-    await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(2))
+      await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(2))
+    })
     const amPmOptions = document.querySelectorAll('[class*="bp3-menu"] li')
     fireEvent.click(amPmOptions[amPmIndex])
   }
@@ -142,31 +149,37 @@ describe('SchedulePanel Triggers tests', () => {
       if (!hourlyTab) {
         throw Error('No hourly tab')
       }
-      fireEvent.click(hourlyTab)
+      await act(async () => {
+        fireEvent.click(hourlyTab)
 
-      await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.minutesAfterTheHour'))
-      )
-      const firstSelect = document.querySelector('[data-name="toothpick"] [icon="caret-down"] svg')
+        await waitFor(() =>
+          queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.minutesAfterTheHour'))
+        )
+      })
+      await act(async () => {
+        const firstSelect = document.querySelector('[data-name="toothpick"] [icon="caret-down"] svg')
 
-      if (!firstSelect) {
-        throw Error('No input')
-      }
-      fireEvent.click(firstSelect)
-      await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(7))
+        if (!firstSelect) {
+          throw Error('No input')
+        }
+        fireEvent.click(firstSelect)
+        await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(7))
+      })
+      await act(async () => {
+        const options = document.querySelectorAll('[class*="bp3-menu"] li')
+        fireEvent.click(options[3])
+        await waitFor(() => expect(queryByText(container, '0 0/4 * * *')).not.toBeNull())
+      })
+      await act(async () => {
+        const secondSelect = document.querySelectorAll('[data-name="toothpick"] [icon="caret-down"] svg')[1]
 
-      const options = document.querySelectorAll('[class*="bp3-menu"] li')
-      fireEvent.click(options[3])
-      await waitFor(() => expect(queryByText(container, '0 0/4 * * *')).not.toBeNull())
+        if (!secondSelect) {
+          throw Error('No input')
+        }
+        fireEvent.click(secondSelect)
 
-      const secondSelect = document.querySelectorAll('[data-name="toothpick"] [icon="caret-down"] svg')[1]
-
-      if (!secondSelect) {
-        throw Error('No input')
-      }
-      fireEvent.click(secondSelect)
-
-      await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(60))
+        await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(60))
+      })
       const secondOptions = document.querySelectorAll('[class*="bp3-menu"] li')
       fireEvent.click(secondOptions[3])
 
@@ -188,11 +201,13 @@ describe('SchedulePanel Triggers tests', () => {
       if (!dailyTab) {
         throw Error('No Daily tab')
       }
-      fireEvent.click(dailyTab)
+      await act(async () => {
+        fireEvent.click(dailyTab)
 
-      await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.runDailyAt'))
-      )
+        await waitFor(() =>
+          queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.runDailyAt'))
+        )
+      })
       const hourSelect = document.querySelectorAll(
         '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
       )[0]
@@ -200,13 +215,16 @@ describe('SchedulePanel Triggers tests', () => {
       if (!hourSelect) {
         throw Error('No input')
       }
-      fireEvent.click(hourSelect)
-      await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(12))
+      await act(async () => {
+        fireEvent.click(hourSelect)
+        await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(12))
+      })
 
-      const hourOptions = document.querySelectorAll('[class*="bp3-menu"] li')
-      fireEvent.click(hourOptions[11])
-      await waitFor(() => expect(queryByText(container, '0 0 * * *')).not.toBeNull())
-
+      await act(async () => {
+        const hourOptions = document.querySelectorAll('[class*="bp3-menu"] li')
+        fireEvent.click(hourOptions[11])
+        await waitFor(() => expect(queryByText(container, '0 0 * * *')).not.toBeNull())
+      })
       const minutesSelect = document.querySelectorAll(
         '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
       )[1]
@@ -214,13 +232,16 @@ describe('SchedulePanel Triggers tests', () => {
       if (!minutesSelect) {
         throw Error('No input')
       }
-      fireEvent.click(minutesSelect)
+      await act(async () => {
+        fireEvent.click(minutesSelect)
 
-      await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(60))
-      const minutesOptions = document.querySelectorAll('[class*="bp3-menu"] li')
-      fireEvent.click(minutesOptions[3])
-      await waitFor(() => expect(queryByText(container, '3 0 * * *')).not.toBeNull())
-
+        await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(60))
+      })
+      await act(async () => {
+        const minutesOptions = document.querySelectorAll('[class*="bp3-menu"] li')
+        fireEvent.click(minutesOptions[3])
+        await waitFor(() => expect(queryByText(container, '3 0 * * *')).not.toBeNull())
+      })
       const amPmSelect = document.querySelectorAll(
         '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
       )[2]
@@ -228,9 +249,11 @@ describe('SchedulePanel Triggers tests', () => {
       if (!amPmSelect) {
         throw Error('No ampm input')
       }
-      fireEvent.click(amPmSelect)
+      await act(async () => {
+        fireEvent.click(amPmSelect)
 
-      await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(2))
+        await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(2))
+      })
       const amPmOptions = document.querySelectorAll('[class*="bp3-menu"] li')
       fireEvent.click(amPmOptions[1])
       // tests pm adds 12 hours

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/10</span>
+                <span class='fraction'>9/11</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.78% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/9</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
@@ -121,10 +121,15 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,11 +164,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,6 +197,7 @@
 import { Container, TextInput, Heading, Layout, Text, Color } from '@wings-software/uicore'
 import { String, useStrings } from 'framework/strings'
 import type { FeatureFlagRequestRequestBody } from 'services/cf'
+import { CreateAFlagInfoView } from './CreateAFlagInfoView'
 &nbsp;
 export interface CreateAFlagViewProps {
   setFlagName: React.Dispatch&lt;React.SetStateAction&lt;string&gt;&gt;
@@ -201,51 +210,54 @@ export const CreateAFlagView: React.FC&lt;CreateAFlagViewProps&gt; = ({ flagInfo
   const { getString } = useStrings()
 &nbsp;
   return (
-    &lt;Container padding="xlarge"&gt;
-      &lt;Heading
-        level={2}
-        style={{
-          fontWeight: 600,
-          fontSize: '20px',
-          lineHeight: '28px',
-          color: '#22222A'
-        }}
-        padding={{ bottom: 'xxlarge' }}
-      &gt;
-        {getString('cf.onboarding.letsStart')}
-      &lt;/Heading&gt;
-      &lt;Layout.Vertical width={400} spacing="xsmall"&gt;
-        &lt;Text color={Color.BLACK} font={{ weight: 'semi-bold' }}&gt;
-          {getString('cf.onboarding.inputLabel')}
-        &lt;/Text&gt;
-        &lt;TextInput
-          value={flagInfo.name}
-          autoFocus
-          disabled={isCreated}
-          onChange={e =&gt; {
-            setFlagName((e.currentTarget as HTMLInputElement).value.trim())
+    &lt;Container height="100%"&gt;
+      &lt;Container padding="xlarge" width="calc(100% - 765px)" height="calc(100vh - 140px)" style={{ overflow: 'auto' }}&gt;
+        &lt;Heading
+          level={2}
+          style={{
+            fontWeight: 600,
+            fontSize: '20px',
+            lineHeight: '28px',
+            color: '#22222A'
           }}
-          onKeyUp={<span class="fstat-no" title="function not covered" >event </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            if (event.keyCode === 13) {</span>
-<span class="cstat-no" title="statement not covered" >              goNext()</span>
-            }
-          }}
-        /&gt;
-      &lt;/Layout.Vertical&gt;
-      {isCreated &amp;&amp; (
-        &lt;Text
-          color={Color.BLACK}
-          rightIcon="tick"
-          margin={{ top: 'xxlarge' }}
-          rightIconProps={{ color: Color.GREEN_500 }}
+          padding={{ bottom: 'xxlarge' }}
         &gt;
-          &lt;String
-            stringID="cf.onboarding.successLabel"
-            vars={{ name: flagInfo.name, identifier: flagInfo.identifier }}
-            useRichText
+          {getString('cf.onboarding.letsStart')}
+        &lt;/Heading&gt;
+        &lt;Layout.Vertical width={400} spacing="xsmall"&gt;
+          &lt;Text color={Color.BLACK} font={{ weight: 'semi-bold' }}&gt;
+            {getString('cf.onboarding.inputLabel')}
+          &lt;/Text&gt;
+          &lt;TextInput
+            value={flagInfo.name}
+            autoFocus
+            disabled={isCreated}
+            onChange={e =&gt; {
+              setFlagName((e.currentTarget as HTMLInputElement).value.trim())
+            }}
+            onKeyUp={<span class="fstat-no" title="function not covered" >event </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >              if (event.keyCode === 13) {</span>
+<span class="cstat-no" title="statement not covered" >                goNext()</span>
+              }
+            }}
           /&gt;
-        &lt;/Text&gt;
-      )}
+        &lt;/Layout.Vertical&gt;
+        {isCreated &amp;&amp; (
+          &lt;Text
+            color={Color.BLACK}
+            rightIcon="tick"
+            margin={{ top: 'xxlarge' }}
+            rightIconProps={{ color: Color.GREEN_500 }}
+          &gt;
+            &lt;String
+              stringID="cf.onboarding.successLabel"
+              vars={{ name: flagInfo.name, identifier: flagInfo.identifier }}
+              useRichText
+            /&gt;
+          &lt;/Text&gt;
+        )}
+      &lt;/Container&gt;
+      &lt;CreateAFlagInfoView /&gt;
     &lt;/Container&gt;
   )
 }
@@ -256,7 +268,7 @@ export const CreateAFlagView: React.FC&lt;CreateAFlagViewProps&gt; = ({ flagInfo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 15 2021 15:45:49 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 15 2021 17:07:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -144,7 +144,10 @@ $node-width: 40px;
     --icon-color: var(--green-500);
   }
 
-  &.running {
+  &.running,
+  &.asyncwaiting,
+  &.taskwaiting,
+  &.timedwaiting {
     --stage-bg: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
     --icon-color: var(--white);
     --stage-border: #0063f7;
@@ -154,9 +157,12 @@ $node-width: 40px;
   }
 
   &.failed,
+  &.ignorefailed,
+  &.errored,
   &.expired,
   &.aborted,
   &.suspended,
+  &.discontinuing,
   &.approvalrejected {
     --stage-bg: linear-gradient(147.14deg, #ff8800 6.95%, #e63535 93.05%);
     --icon-color: var(--white);

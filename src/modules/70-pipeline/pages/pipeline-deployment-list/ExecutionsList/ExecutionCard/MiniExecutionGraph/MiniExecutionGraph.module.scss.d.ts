@@ -15,10 +15,16 @@ declare const styles: {
   readonly icon: string
   readonly success: string
   readonly running: string
+  readonly asyncwaiting: string
+  readonly taskwaiting: string
+  readonly timedwaiting: string
   readonly failed: string
+  readonly ignorefailed: string
+  readonly errored: string
   readonly expired: string
   readonly aborted: string
   readonly suspended: string
+  readonly discontinuing: string
   readonly approvalrejected: string
   readonly notstarted: string
   readonly waiting: string

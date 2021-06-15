@@ -187,6 +187,12 @@ export const getStatusProps = (
   const secondaryIconProps: Omit<IconProps, 'name'> = { size: 16 }
   /* istanbul ignore else */ if (status) {
     switch (status) {
+      case ExecutionStatusEnum.IgnoreFailed:
+        secondaryIcon = 'warning-outline'
+        secondaryIconProps.size = 18
+        secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-red)'
+        secondaryIconStyle.animation = `${css.fadeIn} 1s`
+        break
       case ExecutionStatusEnum.Failed:
         secondaryIcon = 'execution-warning'
         secondaryIconProps.size = 20
@@ -229,12 +235,6 @@ export const getStatusProps = (
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
         break
-      // case ExecutionStatusEnum.ROLLBACK:
-      //   secondaryIcon = 'execution-rollback'
-      //   secondaryIconProps.size = 20
-      //   secondaryIconStyle.animation = `${css.fadeIn} 1s`
-      //   secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
-      //   break
       default:
         break
     }

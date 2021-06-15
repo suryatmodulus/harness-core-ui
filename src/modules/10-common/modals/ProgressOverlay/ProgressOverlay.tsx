@@ -50,7 +50,7 @@ export const ProgressOverlay: React.FC<ProgressOverlay> = ({
         iconRender = <Icon name="circle-cross" size={18} color={Color.RED_450} title={capitalize('FAILURE')} />
         break
       case 'ABORTED':
-        iconRender = <Icon name="main-warning" size={18} color={Color.YELLOW_450} title={capitalize('ABORTED')} />
+        iconRender = <Icon name="warning-sign" size={18} color={Color.YELLOW_450} title={capitalize('ABORTED')} />
         break
       default:
     }

@@ -706,25 +706,7 @@
 <a name='L647'></a><a href='#L647'>647</a>
 <a name='L648'></a><a href='#L648'>648</a>
 <a name='L649'></a><a href='#L649'>649</a>
-<a name='L650'></a><a href='#L650'>650</a>
-<a name='L651'></a><a href='#L651'>651</a>
-<a name='L652'></a><a href='#L652'>652</a>
-<a name='L653'></a><a href='#L653'>653</a>
-<a name='L654'></a><a href='#L654'>654</a>
-<a name='L655'></a><a href='#L655'>655</a>
-<a name='L656'></a><a href='#L656'>656</a>
-<a name='L657'></a><a href='#L657'>657</a>
-<a name='L658'></a><a href='#L658'>658</a>
-<a name='L659'></a><a href='#L659'>659</a>
-<a name='L660'></a><a href='#L660'>660</a>
-<a name='L661'></a><a href='#L661'>661</a>
-<a name='L662'></a><a href='#L662'>662</a>
-<a name='L663'></a><a href='#L663'>663</a>
-<a name='L664'></a><a href='#L664'>664</a>
-<a name='L665'></a><a href='#L665'>665</a>
-<a name='L666'></a><a href='#L666'>666</a>
-<a name='L667'></a><a href='#L667'>667</a>
-<a name='L668'></a><a href='#L668'>668</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L650'></a><a href='#L650'>650</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -1312,26 +1294,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1968,21 +1932,8 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
                   {pipeline?.name}
                 &lt;/Text&gt;
                 {!isEmpty(pipeline?.tags) &amp;&amp; pipeline.tags &amp;&amp; &lt;TagsPopover tags={pipeline.tags} /&gt;}
-                {isYaml ? null : (
-                  &lt;RbacButton
-                    minimal
-                    icon="Edit"
-                    withoutBoxShadow
-                    iconProps={{ size: 12 }}
-                    onClick={showModal}
-                    permission={{
-                      resource: {
-                        resourceType: ResourceType.PIPELINE,
-                        resourceIdentifier: pipeline?.identifier
-                      },
-                      permission: PermissionIdentifier.EDIT_PIPELINE
-                    }}
-                  /&gt;
+                {isYaml || isReadonly ? null : (
+                  &lt;Button minimal icon="Edit" withoutBoxShadow iconProps={{ size: 12 }} onClick={showModal} /&gt;
                 )}
               &lt;/div&gt;
 &nbsp;
@@ -1999,23 +1950,18 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
           &lt;/div&gt;
           &lt;div&gt;
             &lt;div className={css.savePublishContainer}&gt;
-              {isUpdated &amp;&amp; &lt;div className={css.tagRender}&gt;{getString('unsavedChanges')}&lt;/div&gt;}
+              {isReadonly &amp;&amp; (
+                &lt;div className={css.readonlyAccessTag}&gt;
+                  &lt;Icon name="eye-open" size={16} /&gt;
+                  &lt;div className={css.readonlyAccessText}&gt;{getString('common.readonlyPermissions')}&lt;/div&gt;
+                &lt;/div&gt;
+              )}
+              {isUpdated &amp;&amp; !isReadonly &amp;&amp; &lt;div className={css.tagRender}&gt;{getString('unsavedChanges')}&lt;/div&gt;}
               &lt;div&gt;
-                &lt;RbacButton
-                  intent="primary"
-                  text={getString('save')}
-                  onClick={saveAndPublish}
-                  icon="send-data"
-                  disabled={isReadonly}
-                  permission={{
-                    resource: {
-                      resourceType: ResourceType.PIPELINE,
-                      resourceIdentifier: pipeline?.identifier
-                    },
-                    permission: PermissionIdentifier.EDIT_PIPELINE
-                  }}
-                /&gt;
-                {pipelineIdentifier !== DefaultNewPipelineId &amp;&amp; (
+                {!isReadonly &amp;&amp; (
+                  &lt;Button intent="primary" text={getString('save')} onClick={saveAndPublish} icon="send-data" /&gt;
+                )}
+                {pipelineIdentifier !== DefaultNewPipelineId &amp;&amp; !isReadonly &amp;&amp; (
                   &lt;Button
                     disabled={!isUpdated}
                     onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >fetchPipeline({ forceFetch: true, forceUpdate: true })}</span>
@@ -2065,7 +2011,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 15 2021 11:40:08 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 15 2021 15:45:49 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

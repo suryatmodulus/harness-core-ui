@@ -3,7 +3,6 @@ import { render, act } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { setFieldValue, InputTypes, clickSubmit } from '@common/utils/JestFormHelper'
 import routes from '@common/RouteDefinitions'
-import AppStorage from 'framework/utils/AppStorage'
 import LoginPage from './LoginPage'
 
 const localGlobal = global as Record<string, any>
@@ -37,6 +36,6 @@ describe('Login Page', () => {
         clickSubmit(container!)
       })
 
-      expect(AppStorage.has('token')).toBeFalsy()
+      expect(container).toMatchSnapshot()
     })
 })

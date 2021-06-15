@@ -126,7 +126,7 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
         fe_ip_id: val.ip,
         size: val.sku,
         subnet_id: val.subnet,
-        certificate_id: val.certificate
+        ...(val.newCertificate ? { certificate: val.newCertificate } : { certificate_id: val.certificate })
       }
     })
   }
@@ -145,7 +145,7 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
         fe_ip_id: values.ip,
         size: values.sku,
         subnet_id: values.subnet,
-        certificate_id: values.certificate
+        ...(values.newCertificate ? { certificate: values.newCertificate } : { certificate_id: values.certificate })
       }
     }))
     moveBackward()

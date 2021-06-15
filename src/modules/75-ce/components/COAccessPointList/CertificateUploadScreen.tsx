@@ -7,7 +7,7 @@ import { useToaster } from '@common/exports'
 import uploadFileImage from './images/file-multiple-outline.svg'
 import css from './CertificateUploadScreen.module.scss'
 
-interface CertificateData {
+export interface CertificateData {
   name: string
   password: string
   content: string

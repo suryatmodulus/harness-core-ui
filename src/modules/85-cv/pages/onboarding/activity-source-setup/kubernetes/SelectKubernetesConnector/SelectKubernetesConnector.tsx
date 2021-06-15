@@ -1,6 +1,7 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Formik, FormikForm, Container, Text } from '@wings-software/uicore'
 import { object as yupObject } from 'yup'
+import { useParams } from 'react-router-dom'
 import {
   ConnectorSelection,
   SelectOrCreateConnectorFieldNames
@@ -9,7 +10,9 @@ import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPrevious
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import { useStrings } from 'framework/strings'
-import { ValidateKubernetesConnector } from './components'
+import { useValidateConnector } from 'services/cv'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { ValidateConnector } from './components'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import { buildKubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import css from './SelectKubernetesConnector.module.scss'
@@ -26,31 +29,44 @@ const ValidationSchema = yupObject().shape({
 })
 
 export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps): JSX.Element {
-  const refetchConnectorValidation = useRef({
-    call: () => null
-  })
   const { onPrevious, onSubmit, data, isEditMode } = props
   const { getString } = useStrings()
-  const [submitValue, setSubmitValue] = useState<KubernetesActivitySourceInfo | null>(null)
+  const [showValidation, setShowValidation] = useState(false)
+  const [submitValues, setsubmitValues] = useState<KubernetesActivitySourceInfo | null>(null)
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { loading: validationInProgress, error, refetch } = useValidateConnector({ lazy: true })
 
-  const validateAndSubmit = useCallback(
-    (values: React.SetStateAction<KubernetesActivitySourceInfo | null>) => {
-      if (submitValue) {
-        // for triggering refetch in ValidateKubernetesConnector
-        refetchConnectorValidation.current.call()
-      } else {
-        setSubmitValue(values)
-      }
+  const validateConnector = useCallback(
+    async (formikData: KubernetesActivitySourceInfo): Promise<KubernetesActivitySourceInfo> => {
+      setShowValidation(true)
+      await refetch({
+        queryParams: {
+          accountId,
+          projectIdentifier,
+          orgIdentifier,
+          connectorIdentifier: formikData?.connectorRef?.value.toString() || '',
+          tracingId: `${formikData?.connectorRef?.value.toString()}:testConnection`,
+          dataSourceType: 'KUBERNETES'
+        }
+      })
+      setsubmitValues(formikData)
+      return formikData
     },
-    [submitValue]
+    [submitValues]
   )
+
+  useEffect(() => {
+    if (!error && showValidation && !validationInProgress && submitValues) {
+      onSubmit(submitValues)
+    }
+  }, [submitValues])
 
   return (
     <Formik
       initialValues={data || buildKubernetesActivitySourceInfo()}
       validationSchema={ValidationSchema}
       formName="cvSelectk8"
-      onSubmit={validateAndSubmit}
+      onSubmit={validateConnector}
     >
       {formikProps => (
         <FormikForm id="onBoardingForm">
@@ -84,13 +100,7 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
                 )
               }}
             />
-            {!!submitValue && (
-              <ValidateKubernetesConnector
-                values={submitValue}
-                onSuccess={onSubmit}
-                callRefetch={refetchConnectorValidation}
-              />
-            )}
+            {showValidation && <ValidateConnector progress={validationInProgress} error={error} />}
           </Container>
           <SubmitAndPreviousButtons onPreviousClick={onPrevious} />
         </FormikForm>

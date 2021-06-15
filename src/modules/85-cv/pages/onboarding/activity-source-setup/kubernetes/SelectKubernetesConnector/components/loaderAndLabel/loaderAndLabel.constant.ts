@@ -1,8 +1,14 @@
 import { Color } from '@wings-software/uicore'
-import type { StatusMap } from './ValidateKubernetesConnector.types'
+import type { StatusMap } from './loaderAndLabel.types'
+
+export enum Status {
+  Error = 'error',
+  Progress = 'inProgress',
+  Success = 'success'
+}
 
 export const STATUSMAP: StatusMap = {
-  error: {
+  [Status.Error]: {
     style: {
       icon: Color.RED_500,
       label: Color.RED_600
@@ -10,7 +16,7 @@ export const STATUSMAP: StatusMap = {
     icon: 'error',
     testId: 'connectorError'
   },
-  success: {
+  [Status.Success]: {
     style: {
       icon: Color.GREEN_500,
       label: Color.GREEN_600
@@ -18,7 +24,7 @@ export const STATUSMAP: StatusMap = {
     icon: 'tick',
     testId: 'connectorSuccess'
   },
-  progress: {
+  [Status.Progress]: {
     style: {
       icon: Color.YELLOW_500,
       label: Color.GREY_600

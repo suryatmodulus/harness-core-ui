@@ -1,3 +1,5 @@
-import ValidateKubernetesConnector from './ValidateKubernetesConnector'
+import LoaderAndLabel from './loaderAndLabel/loaderAndLabel'
+import ValidateConnector from './validateConnector'
+import { Status as validationStatus } from './loaderAndLabel/loaderAndLabel.constant'
 
-export { ValidateKubernetesConnector }
+export { ValidateConnector, LoaderAndLabel, validationStatus }

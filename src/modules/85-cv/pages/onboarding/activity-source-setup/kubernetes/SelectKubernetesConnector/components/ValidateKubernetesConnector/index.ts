@@ -1,2 +1,0 @@
-import ValidateKubernetesConnector from './ValidateKubernetesConnector'
-export default ValidateKubernetesConnector

@@ -4,6 +4,7 @@ import { Container, FormInput } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { useValidateConnector } from 'services/cv'
+import * as cvService from 'services/cv'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { SelectKubernetesConnector } from '../SelectKubernetesConnector'
 
@@ -26,23 +27,19 @@ jest.mock('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
   }
 }))
 
-jest.mock('services/cv', () => ({
-  useValidateConnector: jest
-    .fn()
-    .mockReturnValueOnce({
-      data: {},
-      loading: false,
-      error: null
-    })
-    .mockReturnValue({
-      data: {},
-      loading: true,
-      error: { status: 'error' }
-    })
-}))
-
 describe('Unit tests for SelectActivitySource', () => {
+  // eslint-disable-next-line jest/no-disabled-tests
   test('Ensure validation works', async () => {
+    jest.spyOn(cvService, 'useValidateConnector').mockImplementation((): any => {
+      return {
+        refetch: jest.fn(),
+        error: null,
+        loading: false,
+        absolutePath: '',
+        cancel: jest.fn(),
+        response: null
+      }
+    })
     const onSubmitMockFunc = jest.fn()
     const { container } = render(
       <TestWrapper
@@ -73,19 +70,6 @@ describe('Unit tests for SelectActivitySource', () => {
     }
 
     fireEvent.click(submitButton)
-
-    await waitFor(() =>
-      expect(useValidateConnector).toHaveBeenCalledWith({
-        queryParams: {
-          accountId: '1234_accountId',
-          connectorIdentifier: 'account.1234_ident',
-          dataSourceType: 'KUBERNETES',
-          orgIdentifier: '1234_ORG',
-          projectIdentifier: '1234_project',
-          tracingId: 'account.1234_ident:testConnection'
-        }
-      })
-    )
 
     await waitFor(() =>
       expect(onSubmitMockFunc).toHaveBeenCalledWith({
@@ -104,8 +88,15 @@ describe('Unit tests for SelectActivitySource', () => {
   })
 
   test('Ensure connector validation fails', async () => {
+    jest.spyOn(cvService, 'useValidateConnector').mockImplementation((): any => {
+      return {
+        refetch: jest.fn(),
+        error: { message: 'error' },
+        loading: false
+      }
+    })
     const onSubmitMockFunc = jest.fn()
-    const { container } = render(
+    const { container, getByTestId } = render(
       <TestWrapper
         path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}
         pathParams={{
@@ -126,7 +117,6 @@ describe('Unit tests for SelectActivitySource', () => {
     }
 
     fireEvent.click(mockInputButton)
-    await waitFor(() => undefined)
 
     const submitButton = container.querySelector('button[type="submit"]')
     if (!submitButton) {
@@ -135,20 +125,9 @@ describe('Unit tests for SelectActivitySource', () => {
 
     fireEvent.click(submitButton)
 
-    expect(container.querySelector('p[test-id="connectorError"]')).toBeNull()
+    await waitFor(() => expect(getByTestId('connectorError')).not.toBeNull())
 
-    await waitFor(() =>
-      expect(useValidateConnector).toHaveBeenCalledWith({
-        queryParams: {
-          accountId: '1234_accountId',
-          connectorIdentifier: 'account.1234_ident',
-          dataSourceType: 'KUBERNETES',
-          orgIdentifier: '1234_ORG',
-          projectIdentifier: '1234_project',
-          tracingId: 'account.1234_ident:testConnection'
-        }
-      })
-    )
+    await waitFor(() => expect(useValidateConnector).toHaveBeenLastCalledWith({ lazy: true }))
 
     await waitFor(() => expect(onSubmitMockFunc).not.toHaveBeenCalled())
   })

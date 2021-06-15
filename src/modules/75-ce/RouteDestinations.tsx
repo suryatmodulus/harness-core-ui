@@ -22,6 +22,7 @@ import CETrialHomePage from './pages/home/CETrialHomePage'
 
 import RecommendationList from './pages/recommendationList/RecommendationList'
 import RecommendationDetailsPage from './pages/recommendationDetails/RecommendationDetailsPage'
+import PerspectiveDetailsPage from './pages/perspective-details/PerspectiveDetailsPage'
 
 const RedirectToCEHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -113,6 +114,18 @@ export default (
 
     <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEBudgets({ ...accountPathProps })} exact>
       <Budgets />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CESideNavProps}
+      path={routes.toPerspectiveDetails({
+        ...accountPathProps,
+        perspectiveId: ':perspectiveId',
+        perspectiveName: ':perspectiveName'
+      })}
+      exact
+    >
+      <PerspectiveDetailsPage />
     </RouteWithLayout>
 
     <RouteWithLayout

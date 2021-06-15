@@ -1013,6 +1013,10 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, recommendation }: ProjectPathProps & { recommendation: string }) =>
       `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations/${recommendation}/details`
   ),
+  toPerspectiveDetails: withAccountId(
+    ({ perspectiveId, perspectiveName }: AccountPathProps & { perspectiveId: string; perspectiveName: string }) =>
+      `/ce/perspective/${perspectiveId}/name/${perspectiveName}`
+  ),
   toCEBudgets: withAccountId(() => '/ce/budgets'),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/home/dashboards'),

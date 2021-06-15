@@ -279,7 +279,7 @@ describe('SchedulePanel Triggers tests', () => {
     })
 
     // eslint-disable-next-line jest/no-disabled-tests
-    test.skip('Monthly selection updates expression breakdown and expression', async () => {
+    test('Monthly selection updates expression breakdown and expression', async () => {
       const { container } = render(
         <WrapperComponent
           initialValues={getTriggerConfigInitialValues({
@@ -335,7 +335,7 @@ describe('SchedulePanel Triggers tests', () => {
     })
 
     // eslint-disable-next-line jest/no-disabled-tests
-    test.skip('Yearly selection updates expression breakdown and expression', async () => {
+    test('Yearly selection updates expression breakdown and expression', async () => {
       const { container } = render(
         <WrapperComponent
           initialValues={getTriggerConfigInitialValues({

@@ -68,7 +68,6 @@ import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { getFormattedErrors, mergeTemplateWithInputSetData } from './RunPipelineHelper'
 import css from './RunPipelineModal.module.scss'
-
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & GitQueryParams> {
   inputSetSelected?: InputSetSelectorProps['value']
@@ -104,6 +103,7 @@ interface SaveAsInputSetProps {
   branch?: string
   isGitSyncEnabled?: boolean
   setFormErrors: Dispatch<SetStateAction<FormikErrors<InputSetDTO>>>
+  getInputSetsList: () => void
 }
 
 const SaveAsInputSet = ({
@@ -120,7 +120,8 @@ const SaveAsInputSet = ({
   repoIdentifier,
   branch,
   isGitSyncEnabled = false,
-  setFormErrors
+  setFormErrors,
+  getInputSetsList
 }: SaveAsInputSetProps): JSX.Element | null => {
   const { getString } = useStrings()
 
@@ -166,7 +167,10 @@ const SaveAsInputSet = ({
   }
 
   const createUpdateInputSetWithGitDetails = (gitDetails: SaveToGitFormInterface): Promise<UseSaveSuccessResponse> => {
-    return createUpdateInputSet(savedInputSetObj, gitDetails)
+    return createUpdateInputSet(savedInputSetObj, gitDetails).then(resp => {
+      getInputSetsList()
+      return resp
+    })
   }
 
   const { openSaveToGitDialog } = useSaveToGitDialog({
@@ -193,7 +197,9 @@ const SaveAsInputSet = ({
             payload: omit(inputSetObj, 'repo', 'branch')
           })
         } else {
-          createUpdateInputSet(omit(inputSetObj, 'repo', 'branch'))
+          createUpdateInputSet(omit(inputSetObj, 'repo', 'branch')).then(() => {
+            getInputSetsList()
+          })
         }
       }
     },
@@ -321,6 +327,10 @@ function RunPipelineFormBasic({
   const [triggerValidation, setTriggerValidation] = useState(false)
   const [runClicked, setRunClicked] = useState(false)
 
+  React.useEffect(() => {
+    getInputSetsList()
+  }, [])
+
   const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
     queryParams: {
       accountIdentifier: accountId,
@@ -351,8 +361,9 @@ function RunPipelineFormBasic({
 
   useEffect(() => {
     if (inputSetYAML) {
+      const parsedYAML = parse(inputSetYAML)
       setExistingProvide('provide')
-      setCurrentPipeline(parse(inputSetYAML))
+      setCurrentPipeline(parsedYAML)
     }
   }, [inputSetYAML])
 
@@ -392,7 +403,11 @@ function RunPipelineFormBasic({
     }
   })
 
-  const { data: inputSetResponse, loading: inputSetLoading } = useGetInputSetsListForPipeline({
+  const {
+    refetch: getInputSetsList,
+    data: inputSetResponse,
+    loading: inputSetLoading
+  } = useGetInputSetsListForPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -400,7 +415,8 @@ function RunPipelineFormBasic({
       pipelineIdentifier,
       repoIdentifier,
       branch
-    }
+    },
+    lazy: true
   })
 
   const inputSets = inputSetResponse?.data?.content
@@ -469,7 +485,7 @@ function RunPipelineFormBasic({
           }
         }
         fetchData()
-      } else if (!selectedInputSets?.length) {
+      } else if (!selectedInputSets?.length && !inputSetYAML?.length) {
         setCurrentPipeline(parsedTemplate)
       }
     }
@@ -993,6 +1009,7 @@ function RunPipelineFormBasic({
                     branch={branch}
                     isGitSyncEnabled={isGitSyncEnabled}
                     setFormErrors={setFormErrors}
+                    getInputSetsList={getInputSetsList}
                   />
                 </Layout.Horizontal>
               )}

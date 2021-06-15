@@ -1,5 +1,6 @@
 import produce from 'immer'
 import { set } from 'lodash-es'
+import { sanitizeHTML } from '@common/utils/StringUtils'
 import type { Action, ActionType, State, LogSectionData } from './types'
 
 export function updateSectionData(state: State, action: Action<ActionType.UpdateSectionData>): State {
@@ -12,7 +13,7 @@ export function updateSectionData(state: State, action: Action<ActionType.Update
         try {
           const { level, time, out } = JSON.parse(line) as Record<string, string>
 
-          accumulator.push({ text: { level, time, out } })
+          accumulator.push({ text: { level: sanitizeHTML(level), time, out: sanitizeHTML(out) } })
         } catch (e) {
           //
         }

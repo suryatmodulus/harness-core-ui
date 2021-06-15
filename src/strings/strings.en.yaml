@@ -827,7 +827,6 @@ delegate:
     applyYAMLTitle: ' Apply YAML and verify connection'
     description1: 'Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster.'
     description2: 'Run the following command to apply the Harness delegate to your Kubernetes Cluster'
-    checkDelegateInstalled: Checking if the delegate is installed. It might take several minutes for the installation.
     heartbeatReceived: Heartbeat received
     delegateInitialized: Delegate initialized
     delegateInstalled: Delegate Installed Successfully

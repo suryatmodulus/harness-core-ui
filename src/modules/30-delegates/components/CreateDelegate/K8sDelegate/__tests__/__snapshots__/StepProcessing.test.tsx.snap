@@ -72,7 +72,7 @@ exports[`Create StepProcessing Component render data 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-small"
       >
-        delegate.successVerification.checkDelegateInstalled
+        delegates.checkDelegateInstalled
       </p>
     </div>
     <div

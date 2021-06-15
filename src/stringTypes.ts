@@ -504,6 +504,7 @@ export interface StringsMap {
   'authSettings.usePublicOAuth': string
   'authSettings.whitelistedDomainsDisabled': string
   'authSettings.yourAccountWillBeLockedOut': string
+  'delegates.checkDelegateInstalled': string
   'delegates.delegateInstances': string
   'delegates.delegateNameRegexIssue': string
   'delegates.delegateNamespaceRequired': string
@@ -526,6 +527,7 @@ export interface StringsMap {
   'delegates.newDelegateConfigWizard.specEnvNotPossible': string
   'delegates.newDelegateConfigWizard.specifyEnvs': string
   'delegates.newDelegateConfigWizard.successMessage': string
+  'delegates.openTroubleshooter': string
   'delegates.permissionRequired': string
   'delegates.replicaText': string
   'delegates.searchDelegateName': string
@@ -3806,10 +3808,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.successVerification.applyYAMLTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.successVerification.checkDelegateInstalled': string
   /**
    * @deprecated migrate this string to module level file
    */

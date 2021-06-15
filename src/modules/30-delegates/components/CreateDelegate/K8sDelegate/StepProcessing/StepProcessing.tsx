@@ -70,7 +70,7 @@ const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
     <Layout.Vertical spacing="xxlarge">
       <Layout.Horizontal padding="large">
         <Icon size={16} name="steps-spinner" style={{ marginRight: '12px' }} />
-        <Text font="small">{getString('delegate.successVerification.checkDelegateInstalled')}</Text>
+        <Text font="small">{getString('delegates.checkDelegateInstalled')}</Text>
       </Layout.Horizontal>
       <Layout.Vertical padding="large">
         <Layout.Horizontal spacing="medium" className={css.checkItemsWrapper}>

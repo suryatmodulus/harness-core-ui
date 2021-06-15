@@ -1,5 +1,180 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Create Step Verification Script Delegate Click Back button 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main verificationBody"
+  >
+    <div
+      class="Layout--vertical StyledProps--main panelLeft"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main titleYamlVerification"
+          level="2"
+        >
+          delegate.successVerification.applyYAMLTitle
+        </h2>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main descriptionVerificationWrapper"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-normal"
+          style="--text-line-clamp: 2; width: 600px;"
+        >
+          delegate.successVerification.description1
+        </p>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
+          style="--text-line-clamp: 2; width: 600px;"
+        >
+          delegate.successVerification.description2
+        </p>
+      </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main verificationFieldWrapper"
+      >
+        <div
+          class="StyledProps--font StyledProps--main verificationField StyledProps--intent-primary StyledProps--padding-small StyledProps--font-align-center StyledProps--flex"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-small"
+            style="margin-right: 24px;"
+          >
+            delegate.verifyDelegateYamlCmnd
+          </p>
+          <span
+            class="bp3-popover-wrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <div
+                class=""
+                tabindex="0"
+              >
+                <span
+                  class="bp3-icon StyledProps--main copyIcon"
+                  data-icon="copy"
+                >
+                  <svg
+                    height="20"
+                    viewBox="0 0 14 16"
+                    width="20"
+                  >
+                    <g
+                      fill="#22272D"
+                      stroke="#22272D"
+                      stroke-width="0.25"
+                    >
+                      <path
+                        d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                      />
+                      <path
+                        d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                      />
+                    </g>
+                  </svg>
+                </span>
+              </div>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal"
+          style="--text-line-clamp: 2; width: 600px;"
+        >
+          delegates.checkDelegateInstalled
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="Layout--horizontal StyledProps--main StyledProps--padding-xxxlarge"
+  >
+    <button
+      class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--margin-right-small Button--with-current-color"
+      disabled=""
+      id="stepReviewScriptBackButton"
+      tabindex="-1"
+      type="button"
+    >
+      <div
+        class="bp3-spinner bp3-button-spinner"
+      >
+        <div
+          class="bp3-spinner-animation"
+        >
+          <svg
+            height="20"
+            stroke-width="16.00"
+            viewBox="-3.00 -3.00 106.00 106.00"
+            width="20"
+          >
+            <path
+              class="bp3-spinner-track"
+              d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+            />
+            <path
+              class="bp3-spinner-head"
+              d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+              pathLength="280"
+              stroke-dasharray="280 280"
+              stroke-dashoffset="210"
+            />
+          </svg>
+        </div>
+      </div>
+      <span
+        class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+        icon="chevron-left"
+      >
+        <svg
+          data-icon="chevron-left"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+        >
+          <desc>
+            chevron-left
+          </desc>
+          <path
+            d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+      <span
+        class="bp3-button-text"
+      >
+        back
+      </span>
+    </button>
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--padding-small Button--with-current-color"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        done
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
 exports[`Create Step Verification Script Delegate Click Verify button 1`] = `
 <div>
   <div
@@ -344,7 +519,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-normal"
-          style="--text-line-clamp: 2; width: 407px;"
+          style="--text-line-clamp: 2; width: 600px;"
         >
           delegate.successVerification.description1
         </p>
@@ -354,7 +529,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
-          style="--text-line-clamp: 2; width: 407px;"
+          style="--text-line-clamp: 2; width: 600px;"
         >
           delegate.successVerification.description2
         </p>
@@ -408,24 +583,17 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
             </span>
           </span>
         </div>
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--padding-small Button--with-current-color"
-          type="button"
-        >
-          <span
-            class="bp3-button-text"
-          >
-            verify
-          </span>
-        </button>
       </div>
-    </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
-      <hr
-        class="verticalLine"
-      />
+      <div
+        class="Layout--horizontal StyledProps--main"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal"
+          style="--text-line-clamp: 2; width: 600px;"
+        >
+          delegates.checkDelegateInstalled
+        </p>
+      </div>
     </div>
   </div>
   <div
@@ -526,7 +694,7 @@ exports[`Create Step Verification Script Delegate Click back button 2`] = `
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-normal"
-          style="--text-line-clamp: 2; width: 407px;"
+          style="--text-line-clamp: 2; width: 600px;"
         >
           delegate.successVerification.description1
         </p>
@@ -536,7 +704,7 @@ exports[`Create Step Verification Script Delegate Click back button 2`] = `
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
-          style="--text-line-clamp: 2; width: 407px;"
+          style="--text-line-clamp: 2; width: 600px;"
         >
           delegate.successVerification.description2
         </p>
@@ -590,24 +758,17 @@ exports[`Create Step Verification Script Delegate Click back button 2`] = `
             </span>
           </span>
         </div>
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--padding-small Button--with-current-color"
-          type="button"
-        >
-          <span
-            class="bp3-button-text"
-          >
-            verify
-          </span>
-        </button>
       </div>
-    </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
-      <hr
-        class="verticalLine"
-      />
+      <div
+        class="Layout--horizontal StyledProps--main"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal"
+          style="--text-line-clamp: 2; width: 600px;"
+        >
+          delegates.checkDelegateInstalled
+        </p>
+      </div>
     </div>
   </div>
   <div
@@ -680,7 +841,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-normal"
-          style="--text-line-clamp: 2; width: 407px;"
+          style="--text-line-clamp: 2; width: 600px;"
         >
           delegate.successVerification.description1
         </p>
@@ -690,7 +851,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
-          style="--text-line-clamp: 2; width: 407px;"
+          style="--text-line-clamp: 2; width: 600px;"
         >
           delegate.successVerification.description2
         </p>
@@ -744,24 +905,17 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
             </span>
           </span>
         </div>
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--padding-small Button--with-current-color"
-          type="button"
-        >
-          <span
-            class="bp3-button-text"
-          >
-            verify
-          </span>
-        </button>
       </div>
-    </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
-      <hr
-        class="verticalLine"
-      />
+      <div
+        class="Layout--horizontal StyledProps--main"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal"
+          style="--text-line-clamp: 2; width: 600px;"
+        >
+          delegates.checkDelegateInstalled
+        </p>
+      </div>
     </div>
   </div>
   <div

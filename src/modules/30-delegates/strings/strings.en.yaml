@@ -27,3 +27,5 @@ delegateSizeUpTo: 'Run upto {{count}} parallel deployments/builds'
 lastUpdated: 'LAST UPDATED'
 usedBy: 'USED BY'
 delegateNameRegexIssue: 'Delegate name should be lowercase and can include only dash(-) between letters.'
+checkDelegateInstalled: Checking if the delegate is installed. It might take several minutes for the installation.
+openTroubleshooter: 'Open Troubleshooter'

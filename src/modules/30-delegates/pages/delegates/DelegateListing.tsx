@@ -13,7 +13,7 @@ import {
   FlexExpander,
   ExpandingSearchInput
 } from '@wings-software/uicore'
-import { Menu, Classes, Position } from '@blueprintjs/core'
+import { Menu, MenuItem, Classes, Position, Dialog } from '@blueprintjs/core'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { PageError } from '@common/components/Page/PageError'
 import { useStrings } from 'framework/strings'
@@ -26,6 +26,7 @@ import {
   DelegateInsightsBarDetails
 } from 'services/portal'
 import { useConfirmationDialog } from '@common/exports'
+import DelegateInstallationError from '@delegates/components/CreateDelegate/K8sDelegate/DelegateInstallationError/DelegateInstallationError'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
@@ -162,6 +163,7 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
   const groupId = row.original.groupId
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [troubleshoterOpen, setOpenTroubleshoter] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId } = useParams<Record<string, string>>()
   const { mutate: deleteDelegate } = useDeleteDelegateGroup({
@@ -194,6 +196,13 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
 
   return (
     <Layout.Horizontal style={{ justifyContent: 'flex-end' }}>
+      <Dialog
+        isOpen={troubleshoterOpen}
+        style={{ width: '680px', height: '100%' }}
+        onClose={() => setOpenTroubleshoter(false)}
+      >
+        <DelegateInstallationError />
+      </Dialog>
       <Popover
         isOpen={menuOpen}
         onInteraction={nextOpenState => {
@@ -211,6 +220,16 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
           }}
         />
         <Menu style={{ minWidth: 'unset' }}>
+          {row.original.lastHeartBeat === 0 ? (
+            <MenuItem
+              text={getString('delegates.openTroubleshooter')}
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation()
+                setOpenTroubleshoter(true)
+              }}
+              icon="book"
+            />
+          ) : null}
           <RbacMenuItem
             permission={{
               resourceScope: {
@@ -323,7 +342,7 @@ export const DelegateListing: React.FC = () => {
       },
       {
         Header: getString('delegate.LastHeartBeat').toUpperCase(),
-        accessor: (row: DelegateGroupDetails) => moment(row.lastHeartBeat).fromNow(),
+        accessor: (row: DelegateGroupDetails) => (row.lastHeartBeat ? moment(row.lastHeartBeat).fromNow() : '/'),
         id: 'lastHeartBeat',
         width: DELEGATE_INSIGHTS_ENABLED ? 'calc(15% - 10px)' : 'calc(20% - 10px)'
       },

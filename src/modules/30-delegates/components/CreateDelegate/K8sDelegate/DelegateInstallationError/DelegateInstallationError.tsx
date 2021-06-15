@@ -9,7 +9,13 @@ import css from './DelegateInstallationError.module.scss'
 const DelegateInstallationError: React.FC<StepProps<null>> = () => {
   const { getString } = useStrings()
   return (
-    <Layout.Vertical padding="large">
+    <Layout.Vertical
+      padding="large"
+      onClick={e => {
+        e.stopPropagation()
+        e.preventDefault()
+      }}
+    >
       <Layout.Horizontal spacing="small">
         <Icon name="warning-sign" size={16} className={css.notInstalled} />
         <Text>{getString('delegate.delegateNotInstalled.title')}</Text>

@@ -32,7 +32,7 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
   const { onPrevious, onSubmit, data, isEditMode } = props
   const { getString } = useStrings()
   const [showValidation, setShowValidation] = useState(false)
-  const [submitValues, setsubmitValues] = useState<KubernetesActivitySourceInfo | null>(null)
+  const [formData, setformData] = useState<KubernetesActivitySourceInfo | null>(null)
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { loading: validationInProgress, error, refetch } = useValidateConnector({ lazy: true })
 
@@ -49,17 +49,17 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
           dataSourceType: 'KUBERNETES'
         }
       })
-      setsubmitValues(formikData)
+      setformData(formikData)
       return formikData
     },
-    [submitValues]
+    [formData]
   )
 
   useEffect(() => {
-    if (!error && showValidation && !validationInProgress && submitValues) {
-      onSubmit(submitValues)
+    if (!error && showValidation && !validationInProgress && formData) {
+      onSubmit(formData)
     }
-  }, [submitValues])
+  }, [formData])
 
   return (
     <Formik

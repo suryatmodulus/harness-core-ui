@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.24% </span>
+                <span class="strong">56.25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>43/68</span>
+                <span class='fraction'>36/64</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
@@ -77,7 +77,14 @@
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">386x</span>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">386x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">386x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -94,10 +101,15 @@
 <span class="cline-any cline-yes">386x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">219x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">219x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">219x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export function shouldShowError(e: any): boolean {
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { isEmpty } from 'lodash-es'
+&nbsp;
+export function shouldShowError(e: any): boolean {
   const hideMessagesForStatusCodes = [502, 503]
   <span class="missing-if-branch" title="if path not taken" >I</span>if (
     e<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>essage === 'Failed to fetch: The user aborted a request.' ||
@@ -113,9 +125,12 @@
 /* TODO Don't see proper types for this new errors format, replace Record&lt;string, any&gt; with more stricter type when available */
 export function getErrorInfoFromErrorObject(error: Record&lt;string, any&gt;): string {
   /* TODO @vardan extend this to N errors instead of first error */
-  return error<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?.message </span>|| error<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?.errors<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.[0]<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.error</span>
-    ? <span class="branch-0 cbranch-no" title="branch not covered" >`${error?.data.errors[0].fieldId} ${error?.data.errors[0]?.error}`</span>
-    : error<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>essage || ''
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (error<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?.message)</span> {
+<span class="cstat-no" title="statement not covered" >    return error.data.message</span>
+  } else <span class="missing-if-branch" title="if path not taken" >I</span>if (!isEmpty(error<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?.errors)</span>) {
+<span class="cstat-no" title="statement not covered" >    return `${error?.data.errors[0]?.fieldId} ${error?.data.errors[0]?.error}`</span>
+  }
+  return error<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>essage || ''
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -124,7 +139,7 @@ export function getErrorInfoFromErrorObject(error: Record&lt;string, any&gt;): s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 15 2021 10:33:22 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 15 2021 10:34:38 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

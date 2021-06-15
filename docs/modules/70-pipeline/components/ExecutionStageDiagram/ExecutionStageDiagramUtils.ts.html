@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.62% </span>
+                <span class="strong">63.4% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>168/260</span>
+                <span class='fraction'>168/265</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.51% </span>
+                <span class="strong">48.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>130/268</span>
+                <span class='fraction'>130/269</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.45% </span>
+                <span class="strong">62.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>151/238</span>
+                <span class='fraction'>151/243</span>
             </div>
         
             
@@ -697,6 +697,12 @@
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -738,12 +744,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1146,13 +1146,19 @@ export const getStatusProps = (
   const secondaryIconProps: Omit&lt;IconProps, 'name'&gt; = { size: 16 }
   /* istanbul ignore else */ if (status) {
     switch (status) {
+<span class="branch-0 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.IgnoreFailed:</span>
+<span class="cstat-no" title="statement not covered" >        secondaryIcon = 'warning-outline'</span>
+<span class="cstat-no" title="statement not covered" >        secondaryIconProps.size = 18</span>
+<span class="cstat-no" title="statement not covered" >        secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-red)'</span>
+<span class="cstat-no" title="statement not covered" >        secondaryIconStyle.animation = `${css.fadeIn} 1s`</span>
+<span class="cstat-no" title="statement not covered" >        break</span>
       case ExecutionStatusEnum.Failed:
         secondaryIcon = 'execution-warning'
         secondaryIconProps.size = 20
         secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-red)'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         break
-<span class="branch-1 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.ResourceWaiting:</span>
+<span class="branch-2 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.ResourceWaiting:</span>
 <span class="cstat-no" title="statement not covered" >        secondaryIcon = 'execution-warning'</span>
 <span class="cstat-no" title="statement not covered" >        secondaryIconProps.size = 20</span>
 <span class="cstat-no" title="statement not covered" >        secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'</span>
@@ -1177,7 +1183,7 @@ export const getStatusProps = (
         secondaryIconStyle.borderRadius = '50%'
         secondaryIconStyle.height = 'fit-content'
         break
-<span class="branch-8 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.Expired:</span>
+<span class="branch-9 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.Expired:</span>
 <span class="cstat-no" title="statement not covered" >        secondaryIcon = 'execution-abort'</span>
 <span class="cstat-no" title="statement not covered" >        secondaryIconStyle.animation = `${css.fadeIn} 1s`</span>
 <span class="cstat-no" title="statement not covered" >        secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-grey2)'</span>
@@ -1188,12 +1194,6 @@ export const getStatusProps = (
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
         break
-      // case ExecutionStatusEnum.ROLLBACK:
-      //   secondaryIcon = 'execution-rollback'
-      //   secondaryIconProps.size = 20
-      //   secondaryIconStyle.animation = `${css.fadeIn} 1s`
-      //   secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
-      //   break
       default:
         break
     }
@@ -1414,7 +1414,7 @@ export const getConditionalExecutionFlag = (when: NodeRunInfo): boolean =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 15 2021 05:08:31 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 15 2021 05:37:05 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

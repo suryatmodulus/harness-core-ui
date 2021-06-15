@@ -1,7 +1,8 @@
 import React from 'react'
 import type { GetDataError } from 'restful-react'
 import { useStrings } from 'framework/strings'
-import { LoaderAndLabel, validationStatus } from './index'
+import LoaderAndLabel from './loaderAndLabel/loaderAndLabel'
+import { Status as validationStatus } from './loaderAndLabel/loaderAndLabel.constant'
 
 export default function ValidateConnector(props: {
   progress: boolean

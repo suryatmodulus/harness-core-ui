@@ -9,12 +9,13 @@ import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { String, useStrings } from 'framework/strings'
-import type { ModuleName } from 'framework/types/ModuleName'
+import { ModuleName } from 'framework/types/ModuleName'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import { getModuleIcon } from '@projects-orgs/utils/utils'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectListView.module.scss'
 
@@ -63,13 +64,42 @@ const RenderColumnOrganization: Renderer<CellProps<ProjectAggregateDTO>> = ({ ro
 }
 
 const RenderColumnModules: Renderer<CellProps<ProjectAggregateDTO>> = ({ row }) => {
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const data = row.original
+
+  const shouldShowModules = data.projectResponse.project.modules?.length
+
+  function getModuleIcons(project: Project): React.ReactElement[] {
+    const modules = project.modules
+    const icons = []
+
+    if (CDNG_ENABLED && modules?.includes(ModuleName.CD)) {
+      icons.push(<Icon name={getModuleIcon(ModuleName.CD)} size={20} key={ModuleName.CD} />)
+    }
+
+    if (CING_ENABLED && modules?.includes(ModuleName.CI)) {
+      icons.push(<Icon name={getModuleIcon(ModuleName.CI)} size={20} key={ModuleName.CI} />)
+    }
+
+    if (CFNG_ENABLED && modules?.includes(ModuleName.CF)) {
+      icons.push(<Icon name={getModuleIcon(ModuleName.CF)} size={20} key={ModuleName.CF} />)
+    }
+
+    if (CENG_ENABLED && modules?.includes(ModuleName.CE)) {
+      icons.push(<Icon name={getModuleIcon(ModuleName.CE)} size={20} key={ModuleName.CE} />)
+    }
+
+    if (CVNG_ENABLED && modules?.includes(ModuleName.CV)) {
+      icons.push(<Icon name={getModuleIcon(ModuleName.CV)} size={20} key={ModuleName.CV} />)
+    }
+
+    return icons
+  }
+
   return (
     <Layout.Horizontal spacing="medium">
-      {data.projectResponse.project.modules?.length ? (
-        data.projectResponse.project.modules.map(module => (
-          <Icon name={getModuleIcon(module as ModuleName)} size={20} key={module} />
-        ))
+      {shouldShowModules ? (
+        getModuleIcons(data.projectResponse.project)
       ) : (
         <Text color={Color.GREY_350} font={{ size: 'small' }}>
           <String stringID="moduleRenderer.start" />

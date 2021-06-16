@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/10</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/8</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -85,11 +85,7 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -97,8 +93,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -119,8 +113,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { isEmpty } from 'lodash-es'
-import React from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import css from './ExecutionMetadataSection.module.scss'
 &nbsp;
 export interface ExecutionMetadataSectionProps {
@@ -128,8 +121,6 @@ export interface ExecutionMetadataSectionProps {
   entries: { label?: string; value: JSX.Element }[]
   delimiter?: boolean
 }
-&nbsp;
-export const isEmptyValue = <span class="fstat-no" title="function not covered" >(e</span>ntryValue: JSX.Element): boolean =&gt; <span class="cstat-no" title="statement not covered" >!!isEmpty(entryValue.props?.children?.[0])</span>
 &nbsp;
 export default function <span class="fstat-no" title="function not covered" >ExecutionMetadataSection(</span>props: ExecutionMetadataSectionProps): React.ReactElement {
   const { title, entries, delimiter = <span class="branch-0 cbranch-no" title="branch not covered" >false </span>} = <span class="cstat-no" title="statement not covered" >props</span>
@@ -143,7 +134,7 @@ export default function <span class="fstat-no" title="function not covered" >Exe
       {entries.map(<span class="fstat-no" title="function not covered" >(e</span>ntry, idx) =&gt; (
 <span class="cstat-no" title="statement not covered" >        &lt;div className={css.entry} key={idx}&gt;</span>
           {entry.label ? &lt;span className={css.label}&gt;{entry.label}&lt;/span&gt; : null}
-          {isEmptyValue(entry.value) ? null : &lt;span className={css.value}&gt;{entry.value}&lt;/span&gt;}
+          {&lt;span className={css.value}&gt;{entry.value}&lt;/span&gt;}
         &lt;/div&gt;
       ))}
       {delimiter ? &lt;div className={css.delimiter}&gt;&lt;/div&gt; : null}
@@ -157,7 +148,7 @@ export default function <span class="fstat-no" title="function not covered" >Exe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 13:03:04 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 13:06:38 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

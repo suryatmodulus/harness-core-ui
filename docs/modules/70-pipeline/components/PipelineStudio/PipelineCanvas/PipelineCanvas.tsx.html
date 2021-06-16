@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">17% </span>
+                <span class="strong">16.92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>34/200</span>
+                <span class='fraction'>34/201</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/314</span>
+                <span class='fraction'>0/322</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.67% </span>
+                <span class="strong">16.58% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/198</span>
+                <span class='fraction'>33/199</span>
             </div>
         
             
@@ -706,7 +706,16 @@
 <a name='L647'></a><a href='#L647'>647</a>
 <a name='L648'></a><a href='#L648'>648</a>
 <a name='L649'></a><a href='#L649'>649</a>
-<a name='L650'></a><a href='#L650'>650</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L650'></a><a href='#L650'>650</a>
+<a name='L651'></a><a href='#L651'>651</a>
+<a name='L652'></a><a href='#L652'>652</a>
+<a name='L653'></a><a href='#L653'>653</a>
+<a name='L654'></a><a href='#L654'>654</a>
+<a name='L655'></a><a href='#L655'>655</a>
+<a name='L656'></a><a href='#L656'>656</a>
+<a name='L657'></a><a href='#L657'>657</a>
+<a name='L658'></a><a href='#L658'>658</a>
+<a name='L659'></a><a href='#L659'>659</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -766,6 +775,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -965,6 +979,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1404,6 +1422,11 @@ interface OtherModalProps {
   initialValues?: NgPipeline
   onClose?: () =&gt; void
 }
+&nbsp;
+interface SavePipelineObj {
+  pipeline: PipelineInfoConfig | NgPipeline
+}
+&nbsp;
 export interface PipelineCanvasProps {
   toPipelineStudio: PathFn&lt;PipelineType&lt;PipelinePathProps&gt; &amp; PipelineStudioQueryParams&gt;
   toPipelineDetail: PathFn&lt;PipelineType&lt;PipelinePathProps&gt;&gt;
@@ -1511,7 +1534,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
   })
 &nbsp;
   const saveAndPublishPipeline = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(</span>
-    latestPipeline: NgPipeline,
+    latestPipeline: SavePipelineObj,
     updatedGitDetails?: SaveToGitFormInterface,
     lastObject?: { lastObjectId?: string }
   ): Promise&lt;UseSaveSuccessResponse&gt; =&gt; {
@@ -1525,10 +1548,10 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
         ...(lastObject ?? {}),
         ...(updatedGitDetails &amp;&amp; updatedGitDetails.isNewBranch ? { baseBranch: branch } : {})
       },
-      omit(latestPipeline, 'repo', 'branch'),
+      omit(latestPipeline.pipeline, 'repo', 'branch'),
       pipelineIdentifier !== DefaultNewPipelineId
     )
-    const newPipelineId = <span class="cstat-no" title="statement not covered" >latestPipeline?.identifier</span>
+    const newPipelineId = <span class="cstat-no" title="statement not covered" >latestPipeline?.pipeline?.identifier</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (response &amp;&amp; response.status === 'SUCCESS') {</span>
 <span class="cstat-no" title="statement not covered" >      if (pipelineIdentifier === DefaultNewPipelineId) {</span>
@@ -1566,10 +1589,10 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
 &nbsp;
   const saveAngPublishWithGitInfo = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(</span>
     updatedGitDetails: SaveToGitFormInterface,
-    payload?: PipelineInfoConfig,
+    payload?: SavePipelineObj,
     objectId?: string
   ): Promise&lt;UseSaveSuccessResponse&gt; =&gt; {
-    let latestPipeline: PipelineInfoConfig = <span class="cstat-no" title="statement not covered" >payload || pipeline</span>
+    let latestPipeline: PipelineInfoConfig = <span class="cstat-no" title="statement not covered" >payload?.pipeline || pipeline</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (isYaml &amp;&amp; yamlHandler) {</span>
 <span class="cstat-no" title="statement not covered" >      try {</span>
@@ -1580,7 +1603,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
     }
 &nbsp;
     const response = <span class="cstat-no" title="statement not covered" >await saveAndPublishPipeline(</span>
-      latestPipeline,
+      { pipeline: latestPipeline },
       omit(updatedGitDetails, 'name', 'identifier'),
       pipelineIdentifier !== DefaultNewPipelineId ? { lastObjectId: objectId } : {}
     )
@@ -1590,10 +1613,10 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
     }
   }
 &nbsp;
-  const { openSaveToGitDialog } = <span class="cstat-no" title="statement not covered" >useSaveToGitDialog&lt;PipelineInfoConfig&gt;({</span>
+  const { openSaveToGitDialog } = <span class="cstat-no" title="statement not covered" >useSaveToGitDialog&lt;SavePipelineObj&gt;({</span>
     onSuccess: <span class="fstat-no" title="function not covered" >(</span>
       gitData: SaveToGitFormInterface,
-      payload?: PipelineInfoConfig,
+      payload?: SavePipelineObj,
       objectId?: string
     ): Promise&lt;UseSaveSuccessResponse&gt; =&gt;
 <span class="cstat-no" title="statement not covered" >      saveAngPublishWithGitInfo(gitData, payload, objectId || gitDetails?.objectId || '')</span>
@@ -1615,6 +1638,10 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
       }
     }
 &nbsp;
+    // Did this because local version in git diff editor does not start with pipeline as root object
+    // which gives false information on UI
+    const pipelineObj: SavePipelineObj = <span class="cstat-no" title="statement not covered" >{ pipeline: latestPipeline }</span>
+&nbsp;
     // if Git sync enabled then display modal
 <span class="cstat-no" title="statement not covered" >    if (isGitSyncEnabled) {</span>
 <span class="cstat-no" title="statement not covered" >      openSaveToGitDialog({</span>
@@ -1625,10 +1652,10 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
           identifier: latestPipeline.identifier,
           gitDetails: gitDetails ?? {}
         },
-        payload: latestPipeline
+        payload: pipelineObj
       })
     } else {
-<span class="cstat-no" title="statement not covered" >      await saveAndPublishPipeline(latestPipeline)</span>
+<span class="cstat-no" title="statement not covered" >      await saveAndPublishPipeline(pipelineObj)</span>
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -2011,7 +2038,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 07:47:06 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 07:50:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

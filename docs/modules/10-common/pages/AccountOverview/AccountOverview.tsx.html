@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/10-common/pages/AccountSettings/AdminPage.tsx</title>
+    <title>Code coverage report for modules/10-common/pages/AccountOverview/AccountOverview.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">modules/10-common/pages/AccountSettings</a> AdminPage.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">modules/10-common/pages/AccountOverview</a> AccountOverview.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.31% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/13</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>7/10</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.31% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/13</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -84,18 +84,7 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -103,26 +92,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,43 +111,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Container } from '@wings-software/uicore'
-import React from 'react'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
-import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
-import i18n from './AdminPage.i18n'
-import css from './AdminPage.module.scss'
+import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import AccountDetails from '@common/pages/AccountOverview/views/AccountDetails'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import SubscribedModules from '@common/pages/AccountOverview/views/SubscribedModules'
 &nbsp;
-const AdminPage: React.FC = () =&gt; {
-  const { currentUserInfo: user } = useAppStore()
-  const bodyClassName = user.emailVerified ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: css.hasBanner
+const AccountOverview: React.FC = () =&gt; {
+  const { getString } = useStrings()
+  const { accountId } = useParams&lt;AccountPathProps&gt;()
+  const { currentUserInfo } = useAppStore()
+  const { accounts } = currentUserInfo
+  const createdFromNG = <span class="branch-1 cbranch-no" title="branch not covered" >accounts?.find(<span class="fstat-no" title="function not covered" >account </span>=&gt; <span class="cstat-no" title="statement not covered" >account.uuid === accountId)<span class="branch-1 cbranch-no" title="branch not covered" ></span>?</span>.createdFromNG</span>
   return (
     &lt;&gt;
-      &lt;EmailVerificationBanner /&gt;
-      &lt;Page.Header
-        title={i18n.title}
-        toolbar={
-          &lt;Container&gt;
-            &lt;Button text={i18n.addUser} /&gt;
-          &lt;/Container&gt;
-        }
-      /&gt;
-      &lt;Page.Body className={bodyClassName}&gt;
-        &lt;Page.NoDataCard
-          icon="user"
-          message={i18n.noData}
-          buttonText={i18n.addUser}
-          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >            alert('TBD')</span>
-          }}
-        /&gt;
+      &lt;Page.Header title={getString('common.accountOverview')} /&gt;
+      &lt;Page.Body&gt;
+        &lt;AccountDetails /&gt;
+        {createdFromNG &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;SubscribedModules /&gt;}</span>
       &lt;/Page.Body&gt;
     &lt;/&gt;
   )
 }
 &nbsp;
-export default AdminPage
+export default AccountOverview
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -175,7 +145,7 @@ export default AdminPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 21:12:29 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 21:14:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

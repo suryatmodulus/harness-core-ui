@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/35-user-profile/modals/SwitchAccount/SwitchAccount.tsx</title>
+    <title>Code coverage report for modules/10-common/modals/SwitchAccount/SwitchAccount.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">modules/35-user-profile/modals/SwitchAccount</a> SwitchAccount.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">modules/10-common/modals/SwitchAccount</a> SwitchAccount.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -213,42 +213,42 @@
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
 <a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L157'></a><a href='#L157'>157</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -368,7 +368,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo, useState, useEffect } from 'react'
 import { Container, Text, Button } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
@@ -442,8 +442,8 @@ const SwitchAccount: React.FC&lt;SwitchAccountProps&gt; = ({ searchString = <spa
     const { openDialog } = useConfirmationDialog({
       cancelButtonText: getString('cancel'),
       confirmButtonText: getString('continue'),
-      titleText: getString('userProfile.changeDefaultAccountTitle'),
-      contentText: getString('userProfile.changeDefaultAccountMessage', { name: account.accountName }),
+      titleText: getString('common.changeDefaultAccountTitle'),
+      contentText: getString('common.changeDefaultAccountMessage', { name: account.accountName }),
       onCloseDialog: <span class="fstat-no" title="function not covered" >isConfirmed </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >        if (isConfirmed) {</span>
 <span class="cstat-no" title="statement not covered" >          handleSetDefault()</span>
@@ -457,7 +457,7 @@ const SwitchAccount: React.FC&lt;SwitchAccountProps&gt; = ({ searchString = <spa
     ) : (
       &lt;Button
         small
-        text={getString('userProfile.setAsDefault')}
+        text={getString('common.setAsDefault')}
         onClick={openDialog}
         data-test-id={`set-default-account-${account.accountName}`}
       /&gt;
@@ -480,28 +480,28 @@ const SwitchAccount: React.FC&lt;SwitchAccountProps&gt; = ({ searchString = <spa
   const columns: Column&lt;Account&gt;[] = useMemo(
     () =&gt; [
       {
-        Header: getString('userProfile.headerAccountName'),
+        Header: getString('common.headerAccountName'),
         accessor: row =&gt; row.accountName,
         id: 'name',
         width: '30%',
         Cell: RenderColumnAccountName
       },
       {
-        Header: getString('userProfile.headerCompanyName'),
+        Header: getString('common.headerCompanyName'),
         accessor: row =&gt; row.companyName,
         id: 'companyName',
         width: '30%',
         Cell: RenderColumnCompanyName
       },
       {
-        Header: getString('userProfile.headerAccountEdition'),
+        Header: getString('common.headerAccountEdition'),
         accessor: row =&gt; row.licenseInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ccountType,
         id: 'accountType',
         width: '20%',
         Cell: RenderColumnAccountEdition
       },
       {
-        Header: getString('userProfile.headerDefaultAccount'),
+        Header: getString('common.headerDefaultAccount'),
         accessor: row =&gt; row.defaults,
         id: 'defaultAccount',
         width: '20%',
@@ -532,7 +532,7 @@ export default SwitchAccount
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 21:12:29 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 21:14:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

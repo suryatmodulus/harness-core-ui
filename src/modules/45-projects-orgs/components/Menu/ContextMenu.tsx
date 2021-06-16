@@ -11,6 +11,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { PermissionRequest } from '@rbac/hooks/usePermission'
 
 interface ContextMenuProps {
@@ -27,6 +28,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const { project, editProject, collaborators, setMenuOpen, openDialog } = props
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
 
   const permissionRequest: Optional<PermissionRequest, 'permission'> = {
     resourceScope: {
@@ -118,7 +120,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
 
   return (
     <Menu style={{ minWidth: 'unset' }}>
-      {project.modules?.includes(ModuleName.CD) ? (
+      {CDNG_ENABLED && project.modules?.includes(ModuleName.CD) ? (
         <Menu.Item
           text={
             <Layout.Horizontal spacing="xsmall">
@@ -129,7 +131,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           onClick={handleCD}
         />
       ) : null}
-      {project.modules?.includes(ModuleName.CV) ? (
+      {CVNG_ENABLED && project.modules?.includes(ModuleName.CV) ? (
         <Menu.Item
           text={
             <Layout.Horizontal spacing="xsmall">
@@ -140,7 +142,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           onClick={handleCV}
         />
       ) : null}
-      {project.modules?.includes(ModuleName.CI) ? (
+      {CING_ENABLED && project.modules?.includes(ModuleName.CI) ? (
         <Menu.Item
           text={
             <Layout.Horizontal spacing="xsmall">
@@ -151,7 +153,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           onClick={handleCI}
         />
       ) : null}
-      {project.modules?.includes(ModuleName.CF) ? (
+      {CFNG_ENABLED && project.modules?.includes(ModuleName.CF) ? (
         <Menu.Item
           text={
             <Layout.Horizontal spacing="xsmall">
@@ -162,7 +164,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           onClick={handleCF}
         />
       ) : null}
-      {project.modules?.includes(ModuleName.CE) ? (
+      {CENG_ENABLED && project.modules?.includes(ModuleName.CE) ? (
         <Menu.Item
           text={
             <Layout.Horizontal spacing="xsmall">

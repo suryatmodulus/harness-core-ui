@@ -20,8 +20,8 @@ import css from './SegmentDetailPage.module.scss'
 export const fullSizeContentStyle: React.CSSProperties = {
   position: 'fixed',
   top: '135px',
-  left: '270px',
-  width: 'calc(100% - 270px)',
+  left: '290px',
+  width: 'calc(100% - 290px)',
   height: 'calc(100% - 135px)'
 }
 

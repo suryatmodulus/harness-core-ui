@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Text, Heading, Color, Layout } from '@wings-software/uicore'
+import React, { useEffect, useMemo, useState, useRef } from 'react'
+import { Container, Text, Heading, Color, Layout, Icon } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import { Classes, Switch } from '@blueprintjs/core'
 import { String, useStrings } from 'framework/strings'
 import type { PlatformEntry } from '@cf/components/LanguageSelection/LanguageSelection'
 import routes from '@common/RouteDefinitions'
-import type { ApiKey, FeatureFlagRequestRequestBody } from 'services/cf'
+import { ApiKey, FeatureFlagRequestRequestBody, useGetAllFeatures } from 'services/cf'
 import { useToggleFeatureFlag } from '@cf/hooks/useToggleFeatureFlag'
 import { TestFlagInfoView } from './TestFlagInfoView'
+
+const POLLING_INTERVAL_IN_MS = 3000
 
 export interface TestYourFlagViewProps {
   flagInfo: FeatureFlagRequestRequestBody
@@ -29,9 +31,24 @@ export const TestYourFlagView: React.FC<TestYourFlagViewProps> = props => {
     environmentIdentifier: props.environmentIdentifier as string,
     flagIdentifier: flagInfo.identifier
   })
+  const queryParams = useMemo(
+    () => ({
+      account: accountId,
+      accountIdentifier: accountId,
+      org: orgIdentifier,
+      project: projectIdentifier as string,
+      environment: props.environmentIdentifier,
+      identifier: flagInfo.identifier,
+      metrics: true
+    }),
+    [projectIdentifier, props.environmentIdentifier, accountId, orgIdentifier, flagInfo.identifier]
+  )
+  const { data, loading, refetch } = useGetAllFeatures({
+    lazy: true,
+    queryParams
+  })
   const [checked, setChecked] = useState(false)
-  // const [language, setLanguage] = useState<PlatformEntry | undefined>(props.language)
-  // const [apiKey, setApiKey] = useState<ApiKey | undefined>(props.apiKey)
+  const timeoutIdRef = useRef<number>()
 
   let link = routes.toCFFeatureFlagsDetail({
     orgIdentifier: orgIdentifier as string,
@@ -41,12 +58,34 @@ export const TestYourFlagView: React.FC<TestYourFlagViewProps> = props => {
   })
   link = location.hash.startsWith('#/account/') ? '/#' + link : link
 
-  // TODO: Backend is not ready, simulate testing done by timeout
   useEffect(() => {
-    setTimeout(() => {
-      props.setTestDone(true)
-    }, 15000)
-  }, [])
+    if (!props.testDone) {
+      const pollingFn = (): void => {
+        if (!loading) {
+          refetch().finally(() => {
+            clearTimeout(timeoutIdRef.current)
+            timeoutIdRef.current = window.setTimeout(pollingFn, POLLING_INTERVAL_IN_MS)
+          })
+        } else {
+          clearTimeout(timeoutIdRef.current)
+          timeoutIdRef.current = window.setTimeout(pollingFn, POLLING_INTERVAL_IN_MS)
+        }
+      }
+      clearTimeout(timeoutIdRef.current)
+      timeoutIdRef.current = window.setTimeout(pollingFn, POLLING_INTERVAL_IN_MS)
+
+      return () => clearTimeout(timeoutIdRef.current)
+    }
+  }, [loading, refetch, props.testDone])
+
+  useEffect(() => {
+    if (!props.testDone && data) {
+      if (data.features?.[0].status?.status === 'active') {
+        clearTimeout(timeoutIdRef.current)
+        props.setTestDone(true)
+      }
+    }
+  }, [props.testDone, data, props])
 
   return (
     <Container height="100%">
@@ -66,13 +105,13 @@ export const TestYourFlagView: React.FC<TestYourFlagViewProps> = props => {
         <Text style={{ color: '#22222A' }}>{getString('cf.onboarding.toggleLabel')}</Text>
         <Container
           margin={{ top: 'xlarge', bottom: 'xlarge' }}
-          padding={{ top: 'xlarge', left: 'large', bottom: 'xlarge' }}
+          padding={{ top: 'xlarge' }}
           style={{
             border: '1px solid #D9DAE5',
             borderRadius: '8px'
           }}
         >
-          <Layout.Horizontal style={{ alignItems: 'center' }}>
+          <Layout.Horizontal padding={{ left: 'small', bottom: 'large' }}>
             <Switch
               onChange={() => {
                 if (checked) {
@@ -88,12 +127,30 @@ export const TestYourFlagView: React.FC<TestYourFlagViewProps> = props => {
               checked={checked}
             />
             <Container padding={{ left: 'large' }}>
-              <Text style={{ fontWeight: 600, fontSize: '13px', lineHeight: '20px', color: '#0B0B0D' }}>
+              <Text
+                style={{
+                  fontWeight: 600,
+                  fontSize: '13px',
+                  lineHeight: '20px',
+                  color: '#0B0B0D',
+                  alignSelf: 'baseline'
+                }}
+              >
                 {flagInfo.name}
               </Text>
-              <Text>ID: {flagInfo.identifier}</Text>
             </Container>
           </Layout.Horizontal>
+          {!props.testDone && (
+            <Layout.Horizontal
+              padding={{ top: 'large', left: 'large', bottom: 'large' }}
+              style={{ alignItems: 'center', background: '#F3F3FA', borderTop: '1px solid #D9DAE5' }}
+            >
+              <Icon name="steps-spinner" size={24} color={Color.BLUE_500} />
+              <Text padding={{ left: 'medium' }} style={{ fontSize: '14px' }}>
+                {getString('cf.onboarding.listeningToEvent')}
+              </Text>
+            </Layout.Horizontal>
+          )}
         </Container>
         {props.testDone && (
           <>
@@ -125,9 +182,11 @@ export const TestYourFlagView: React.FC<TestYourFlagViewProps> = props => {
           height={150}
         >
           <Text font={{ mono: true }} color={Color.WHITE}>
-            {getString('cf.onboarding.waitForConnect', {
-              message: props.testDone ? getString('cf.onboarding.connected') : ''
-            })}
+            <pre style={{ margin: 0 }}>
+              {getString('cf.onboarding.waitForConnect', {
+                message: props.testDone ? getString('cf.onboarding.connected') : ''
+              })}
+            </pre>
           </Text>
         </Container>
         <Text width={300} margin={{ top: 'large' }}>

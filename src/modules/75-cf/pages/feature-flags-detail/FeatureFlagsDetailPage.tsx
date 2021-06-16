@@ -38,8 +38,8 @@ const FeatureFlagsDetailPage: React.FC = () => {
         style={{
           position: 'fixed',
           top: 0,
-          left: '270px',
-          width: 'calc(100% - 270px)',
+          left: '290px',
+          width: 'calc(100% - 290px)',
           height: 'calc(100% - 144px)',
           zIndex: 1
         }}

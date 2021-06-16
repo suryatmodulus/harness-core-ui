@@ -2051,6 +2051,8 @@ export interface StringsMap {
   'cf.onboarding.keyDescriptionServer': string
   'cf.onboarding.letsStart': string
   'cf.onboarding.listenToEvent': string
+  'cf.onboarding.listeningToEvent': string
+  'cf.onboarding.otherTypes': string
   'cf.onboarding.readme.android': string
   'cf.onboarding.readme.dotnet': string
   'cf.onboarding.readme.golang': string
@@ -2065,6 +2067,8 @@ export interface StringsMap {
   'cf.onboarding.setUpApp': string
   'cf.onboarding.setUpYourCode': string
   'cf.onboarding.setupLabel': string
+  'cf.onboarding.simpliestFlag': string
+  'cf.onboarding.simpliestFlagDescription': string
   'cf.onboarding.subTitle': string
   'cf.onboarding.successLabel': string
   'cf.onboarding.testYourFlag': string

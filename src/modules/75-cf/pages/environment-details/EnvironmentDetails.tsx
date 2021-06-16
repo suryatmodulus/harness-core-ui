@@ -39,8 +39,8 @@ const EnvironmentDetails: React.FC = () => {
           style={{
             position: 'fixed',
             top: '144px',
-            left: '270px',
-            width: 'calc(100% - 270px)',
+            left: '290px',
+            width: 'calc(100% - 290px)',
             height: 'calc(100% - 144px)'
           }}
         >

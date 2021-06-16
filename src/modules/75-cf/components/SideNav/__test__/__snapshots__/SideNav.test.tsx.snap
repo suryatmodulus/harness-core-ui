@@ -108,6 +108,16 @@ exports[`Sidenav render 1`] = `
         environments
       </p>
     </a>
+    <a
+      class="link onboarding"
+      href="/account/dummy/cf/orgs/dummy/projects/dummy/onboarding"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        cf.shared.getStarted
+      </p>
+    </a>
     <div
       class="Layout--vertical StyledProps--main main"
     >

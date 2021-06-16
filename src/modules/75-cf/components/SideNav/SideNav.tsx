@@ -18,7 +18,6 @@ export default function CFSideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = params
   const history = useHistory()
   const { updateAppStore } = useAppStore()
-  const isDev = localStorage.ENABLED_FF_EXPERIMENTS
   const { withActiveEnvironment } = useActiveEnvironment()
 
   return (
@@ -47,13 +46,11 @@ export default function CFSideNav(): React.ReactElement {
             to={withActiveEnvironment(routes.toCFTargetManagement(params))}
           />
           <SidebarLink label={getString('environments')} to={withActiveEnvironment(routes.toCFEnvironments(params))} />
-          {isDev && (
-            <SidebarLink
-              className={css.onboarding}
-              label={getString('cf.shared.getStarted')}
-              to={withActiveEnvironment(routes.toCFOnboarding(params))}
-            />
-          )}
+          <SidebarLink
+            className={css.onboarding}
+            label={getString('cf.shared.getStarted')}
+            to={withActiveEnvironment(routes.toCFOnboarding(params))}
+          />
           <ProjectSetupMenu module="cf" />
         </React.Fragment>
       ) : null}

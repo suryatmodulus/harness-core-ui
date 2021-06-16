@@ -34,6 +34,7 @@ export interface PlatformEntry {
   icon: string
   type: PlatformEntryType
   readmeStringId: StringKeys
+  disabled?: boolean
 }
 
 export const SupportPlatforms: Array<PlatformEntry> = [
@@ -43,7 +44,8 @@ export const SupportPlatforms: Array<PlatformEntry> = [
     name: 'NodeJS',
     icon: nodejs,
     type: PlatformEntryType.SERVER,
-    readmeStringId: 'cf.onboarding.readme.javascript'
+    readmeStringId: 'cf.onboarding.readme.javascript',
+    disabled: true
   },
   {
     name: 'Java',
@@ -61,7 +63,8 @@ export const SupportPlatforms: Array<PlatformEntry> = [
     name: '.NET',
     icon: dotnet,
     type: PlatformEntryType.SERVER,
-    readmeStringId: 'cf.onboarding.readme.dotnet'
+    readmeStringId: 'cf.onboarding.readme.dotnet',
+    disabled: true
   },
   {
     name: 'JavaScript',
@@ -93,7 +96,7 @@ export const LanguageSelection: React.FC<LanguageSelectionProps> = ({ selected, 
 
   return (
     <ul className={css.list}>
-      {SupportPlatforms.map(entry => {
+      {SupportPlatforms.filter(entry => !entry.disabled).map(entry => {
         const { name, icon } = entry
         return (
           <li key={name} className={css.item}>

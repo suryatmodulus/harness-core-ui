@@ -27,7 +27,7 @@ export const OnboardingPage = () => {
           style={{
             fontWeight: 400,
             fontSize: '16px',
-            lineHeight: '30px',
+            lineHeight: '40px',
             color: '#4F5162'
           }}
         >
@@ -35,8 +35,8 @@ export const OnboardingPage = () => {
         </Text>
       </Heading>
       <Container margin={{ top: 'xxxlarge' }}>
-        <Container style={{ display: 'grid', justifyContent: 'center', padding: '100px 0' }}>
-          <img src={theBasicsImage} />
+        <Container style={{ display: 'grid', justifyContent: 'center', padding: '60px 0' }}>
+          <img src={theBasicsImage} width={1154} height={425} title={getString('featureFlagsText')} />
         </Container>
       </Container>
 
@@ -44,8 +44,14 @@ export const OnboardingPage = () => {
         <Heading level={2} className={css.h2}>
           {getString('cf.onboarding.upAndRunning')}
         </Heading>
-        <Container style={{ display: 'grid', justifyContent: 'center', padding: '100px 0 70px' }}>
-          <img src={upAndRunningImage} style={{ transform: 'scale(1.1)' }} />
+        <Container style={{ display: 'grid', justifyContent: 'center', padding: '60px 0 70px' }}>
+          <img
+            src={upAndRunningImage}
+            style={{ transform: 'scale(1.15)' }}
+            width={1162}
+            height={125}
+            title={getString('featureFlagsText')}
+          />
         </Container>
       </Container>
 

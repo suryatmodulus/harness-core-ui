@@ -13,7 +13,7 @@ exports[`OnboardingPage OnboardingPage should be rendered properly 1`] = `
       cf.onboarding.title
       <p
         class="StyledProps--font StyledProps--main"
-        style="font-weight: 400; font-size: 16px; line-height: 30px; color: rgb(79, 81, 98);"
+        style="font-weight: 400; font-size: 16px; line-height: 40px; color: rgb(79, 81, 98);"
       >
         cf.onboarding.subTitle
       </p>
@@ -23,10 +23,13 @@ exports[`OnboardingPage OnboardingPage should be rendered properly 1`] = `
     >
       <div
         class="StyledProps--font StyledProps--main"
-        style="display: grid; justify-content: center; padding: 100px 0px;"
+        style="display: grid; justify-content: center; padding: 60px 0px;"
       >
         <img
+          height="425"
           src="test-file-stub"
+          title="featureFlagsText"
+          width="1154"
         />
       </div>
     </div>
@@ -41,11 +44,14 @@ exports[`OnboardingPage OnboardingPage should be rendered properly 1`] = `
       </h2>
       <div
         class="StyledProps--font StyledProps--main"
-        style="display: grid; justify-content: center; padding: 100px 0px 70px;"
+        style="display: grid; justify-content: center; padding: 60px 0px 70px;"
       >
         <img
+          height="125"
           src="test-file-stub"
-          style="transform: scale(1.1);"
+          style="transform: scale(1.15);"
+          title="featureFlagsText"
+          width="1162"
         />
       </div>
     </div>

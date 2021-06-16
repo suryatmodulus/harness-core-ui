@@ -504,22 +504,40 @@
 <a name='L445'></a><a href='#L445'>445</a>
 <a name='L446'></a><a href='#L446'>446</a>
 <a name='L447'></a><a href='#L447'>447</a>
-<a name='L448'></a><a href='#L448'>448</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L448'></a><a href='#L448'>448</a>
+<a name='L449'></a><a href='#L449'>449</a>
+<a name='L450'></a><a href='#L450'>450</a>
+<a name='L451'></a><a href='#L451'>451</a>
+<a name='L452'></a><a href='#L452'>452</a>
+<a name='L453'></a><a href='#L453'>453</a>
+<a name='L454'></a><a href='#L454'>454</a>
+<a name='L455'></a><a href='#L455'>455</a>
+<a name='L456'></a><a href='#L456'>456</a>
+<a name='L457'></a><a href='#L457'>457</a>
+<a name='L458'></a><a href='#L458'>458</a>
+<a name='L459'></a><a href='#L459'>459</a>
+<a name='L460'></a><a href='#L460'>460</a>
+<a name='L461'></a><a href='#L461'>461</a>
+<a name='L462'></a><a href='#L462'>462</a>
+<a name='L463'></a><a href='#L463'>463</a>
+<a name='L464'></a><a href='#L464'>464</a>
+<a name='L465'></a><a href='#L465'>465</a>
+<a name='L466'></a><a href='#L466'>466</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -842,9 +860,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -956,7 +992,6 @@ import { Label, FormInput, getMultiTypeFromValue, MultiTypeInputType, Icon, Layo
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
-import List from '@common/components/List/List'
 import type {
   DeploymentStageConfig,
   ServiceSpec,
@@ -967,7 +1002,8 @@ import type {
   PipelineInfrastructure,
   Infrastructure
 } from 'services/cd-ng'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
+import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 &nbsp;
@@ -1258,9 +1294,14 @@ export const StageInputSetFormInternal: React.FC&lt;StageInputSetFormProps&gt; =
 &nbsp;
           &lt;div className={css.nestedAccordions}&gt;
             {(deploymentStageTemplate.infrastructure as any)<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.namespace </span>&amp;&amp; (
-              /* istanbul ignore next */ &lt;FormInput.Text
-                label={&lt;String stringID="pipelineSteps.build.infraSpecifications.namespace" /&gt;}
+              /* istanbul ignore next */ &lt;FormInput.MultiTextInput
+                label={getString('pipelineSteps.build.infraSpecifications.namespace')}
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.namespace`}
+                multiTextInputProps={{
+                  expressions,
+                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                }}
+                disabled={readonly}
               /&gt;
             )}
             {deploymentStageTemplate.infrastructure<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentRef &amp;&amp; (
@@ -1352,10 +1393,23 @@ export const StageInputSetFormInternal: React.FC&lt;StageInputSetFormProps&gt; =
           id={`Stage.${stageIdentifier}.SharedPaths`}
           className={cx(css.accordionSummary)}
         &gt;
-          &lt;div className={css.inputheader}&gt;{getString('pipelineSteps.build.stageSpecifications.sharedPaths')}&lt;/div&gt;
-&nbsp;
           &lt;div className={css.nestedAccordions}&gt;
-            &lt;List name={`${isEmpty(path) ? '' : `${path}.`}sharedPaths`} /&gt;
+            &lt;MultiTypeListInputSet
+              name={`${isEmpty(path) ? '' : `${path}.`}sharedPaths`}
+              multiTextInputProps={{
+                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                expressions
+              }}
+              multiTypeFieldSelectorProps={{
+                label: (
+                  &lt;div className={css.inputheader} style={{ padding: 0 }}&gt;
+                    {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
+                  &lt;/div&gt;
+                ),
+                allowedTypes: [MultiTypeInputType.FIXED]
+              }}
+              disabled={readonly}
+            /&gt;
           &lt;/div&gt;
         &lt;/div&gt;
       )}
@@ -1405,7 +1459,7 @@ export const StageInputSetForm = connect(StageInputSetFormInternal)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 13:11:35 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 13:36:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

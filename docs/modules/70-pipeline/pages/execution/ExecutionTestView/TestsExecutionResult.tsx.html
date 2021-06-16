@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">47.37% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/19</span>
+                <span class='fraction'>9/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/16</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/16</span>
+                <span class='fraction'>8/16</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -169,17 +169,15 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3782x</span>
-<span class="cline-any cline-yes">3782x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,7 +232,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3782x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,16 +264,16 @@ interface TestsExecutionResultProps {
 &nbsp;
 const NUMBER_OF_ITEMS_TO_FILL_THE_SPACE = 330
 &nbsp;
-export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = ({ totalTests, tests }) =&gt; {
-  const { getString } = useStrings()
+export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = <span class="fstat-no" title="function not covered" >({</span> totalTests, tests }) =&gt; {
+  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
 &nbsp;
-  const failedTests = tests.filter(({ status }) =&gt; status === TestStatus.FAILED || status === TestStatus.ERROR).length
-  const skippedTests = tests<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilter(({ status }) =&gt; status === TestStatus.SKIPPED).length
-  const passedTests = totalTests - failedTests - skippedTests
+  const failedTests = <span class="cstat-no" title="statement not covered" >tests.filter(<span class="fstat-no" title="function not covered" >({</span> status }) =&gt; <span class="cstat-no" title="statement not covered" >status === TestStatus.FAILED || status === TestStatus.ERROR)</span>.length</span>
+  const skippedTests = <span class="cstat-no" title="statement not covered" >tests?.filter(<span class="fstat-no" title="function not covered" >({</span> status }) =&gt; <span class="cstat-no" title="statement not covered" >status === TestStatus.SKIPPED)</span>.length</span>
+  const passedTests = <span class="cstat-no" title="statement not covered" >totalTests - failedTests - skippedTests</span>
 &nbsp;
-  const amountOfEmptyItemsToRender = NUMBER_OF_ITEMS_TO_FILL_THE_SPACE - totalTests
+  const amountOfEmptyItemsToRender = <span class="cstat-no" title="statement not covered" >NUMBER_OF_ITEMS_TO_FILL_THE_SPACE - totalTests</span>
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div className={cx(css.widgetWrapper, css.executionResult)}&gt;
       &lt;Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}&gt;
         &lt;Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}&gt;
@@ -294,7 +294,7 @@ export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = (
             {getString('pipeline.testsReports.totalWithColon')} {totalTests} |{' '}
             {getString('pipeline.testsReports.failedWithColon')} {failedTests} |{' '}
             {getString('pipeline.testsReports.successWithColon')} {passedTests}{' '}
-            {skippedTests ? <span class="branch-0 cbranch-no" title="branch not covered" >`| ${getString('pipeline.testsReports.skippedWithColon')} ${skippedTests}` </span>: null}
+            {skippedTests ? `| ${getString('pipeline.testsReports.skippedWithColon')} ${skippedTests}` : null}
           &lt;/Text&gt;
           &lt;Container flex&gt;
             &lt;Text
@@ -316,7 +316,7 @@ export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = (
               {getString('passed')}
             &lt;/Text&gt;
             {skippedTests ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;Text</span>
+              &lt;Text
                 font={{ weight: 'semi-bold' }}
                 icon="stop"
                 iconProps={{ size: 16, color: Color.GREY_300 }}
@@ -329,14 +329,14 @@ export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = (
         &lt;/Container&gt;
         &lt;Container className={css.graphContainer}&gt;
           &lt;ul className={css.graph}&gt;
-            {tests<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((test, index) =&gt; (
-              &lt;li key={(test.name as string) + index} data-status={test.status}&gt;
+            {tests?.map(<span class="fstat-no" title="function not covered" >(t</span>est, index) =&gt; (
+<span class="cstat-no" title="statement not covered" >              &lt;li key={(test.name as string) + index} data-status={test.status}&gt;</span>
                 &lt;Text inline /*tooltip={test.name} TODO: Performance issue, disable for now */&gt;&amp;nbsp;&lt;/Text&gt;
               &lt;/li&gt;
             ))}
             {amountOfEmptyItemsToRender &gt; -1 &amp;&amp;
               // eslint-disable-next-line prefer-spread
-<span class="branch-1 cbranch-no" title="branch not covered" >              Array.apply(null, Array(amountOfEmptyItemsToRender)).map(<span class="fstat-no" title="function not covered" >(_</span>item, index) =&gt; (</span>
+              Array.apply(null, Array(amountOfEmptyItemsToRender)).map(<span class="fstat-no" title="function not covered" >(_</span>item, index) =&gt; (
 <span class="cstat-no" title="statement not covered" >                &lt;li data-status={'empty'} key={index} /&gt;</span>
               ))}
           &lt;/ul&gt;
@@ -352,7 +352,7 @@ export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 09:57:16 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 11:14:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.91% </span>
+                <span class="strong">68.29% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/44</span>
+                <span class='fraction'>28/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.27% </span>
+                <span class="strong">69.23% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>26/37</span>
+                <span class='fraction'>18/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.69% </span>
+                <span class="strong">8.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/13</span>
+                <span class='fraction'>1/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.12% </span>
+                <span class="strong">67.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/43</span>
+                <span class='fraction'>27/40</span>
             </div>
         
             
@@ -236,7 +236,12 @@
 <a name='L177'></a><a href='#L177'>177</a>
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -247,7 +252,12 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -369,8 +379,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -425,8 +435,13 @@ import { getErrorMessage } from '@cf/utils/CFUtils'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import { useStrings } from 'framework/strings'
 import { useAddTargetsToExcludeList, useAddTargetsToIncludeList } from '@cf/utils/SegmentUtils'
-import { GetTargetSegmentsQueryParams, Segment, Target, TargetDetailSegment, useGetTargetSegments } from 'services/cf'
-import { ItemBriefInfo } from '@cf/components/ItemBriefInfo/ItemBriefInfo'
+import {
+  GetTargetSegmentsQueryParams,
+  Segment,
+  Target,
+  /* TargetDetailSegment, */ useGetTargetSegments
+} from 'services/cf'
+// import { ItemBriefInfo } from '@cf/components/ItemBriefInfo/ItemBriefInfo'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { IncludeSegmentRow } from './IncludeSegmentRow'
 import { ExcludeSegmentRow } from './ExcludeSegmentRow'
@@ -534,7 +549,7 @@ export const TabSegments: React.FC&lt;{ target?: Target | null }&gt; = ({ target
       &lt;/Container&gt;
 &nbsp;
       {/* AUTOMATICALLY ADDED THROUGH CONDITIONS */}
-      &lt;Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}&gt;
+      {/* &lt;Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}&gt;
         &lt;Layout.Horizontal style={{ alignItems: 'center' }}&gt;
           &lt;Text
             style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}
@@ -545,15 +560,15 @@ export const TabSegments: React.FC&lt;{ target?: Target | null }&gt; = ({ target
           &lt;FlexExpander /&gt;
         &lt;/Layout.Horizontal&gt;
 &nbsp;
-        {(!!<span class="branch-1 cbranch-no" title="branch not covered" >data?.ruleSegments<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.length </span>&amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;Layout.Vertical spacing="small"&gt;</span>
-            {data.ruleSegments.map(<span class="fstat-no" title="function not covered" >segment </span>=&gt; {
-              const { identifier, name, description } = <span class="cstat-no" title="statement not covered" >segment as TargetDetailSegment &amp; { description: string }</span>
-<span class="cstat-no" title="statement not covered" >              return &lt;ItemBriefInfo key={identifier} name={name as string} description={description} /&gt;</span>
+        {(!!data?.ruleSegments?.length &amp;&amp; (
+          &lt;Layout.Vertical spacing="small"&gt;
+            {data.ruleSegments.map(segment =&gt; {
+              const { identifier, name, description } = segment as TargetDetailSegment &amp; { description: string }
+              return &lt;ItemBriefInfo key={identifier} name={name as string} description={description} /&gt;
             })}
           &lt;/Layout.Vertical&gt;
         )) || &lt;NoDataFoundRow message={getString('cf.targetDetail.noSegmentMatched')} /&gt;}
-      &lt;/Container&gt;
+      &lt;/Container&gt; */}
 &nbsp;
       {/* EXCLUSION LIST */}
       &lt;Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}&gt;
@@ -601,7 +616,7 @@ export const TabSegments: React.FC&lt;{ target?: Target | null }&gt; = ({ target
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 14:36:50 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 21:12:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

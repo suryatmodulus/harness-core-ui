@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.21% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>53/96</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">27.27% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>18/66</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">17.86% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>5/28</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
                 <span class="strong">56.38% </span>
-                <span class="quiet">Lines</span>
+                <span class="quiet">Statements</span>
                 <span class='fraction'>53/94</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">22.39% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>15/67</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">19.23% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>5/26</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">57.61% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>53/92</span>
             </div>
         
             
@@ -461,7 +461,8 @@
 <a name='L402'></a><a href='#L402'>402</a>
 <a name='L403'></a><a href='#L403'>403</a>
 <a name='L404'></a><a href='#L404'>404</a>
-<a name='L405'></a><a href='#L405'>405</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L405'></a><a href='#L405'>405</a>
+<a name='L406'></a><a href='#L406'>406</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -674,8 +675,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -797,6 +798,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1074,14 +1076,14 @@ const FlagActivationDetails: React.FC&lt;FlagActivationDetailsProps&gt; = props 
 &nbsp;
                 &lt;FormInput.TextArea name="description" label={getString('description')} /&gt;
 &nbsp;
-                &lt;FormInput.TagInput
+                {/* &lt;FormInput.TagInput
                   name="tags"
                   label={getString('tagsLabel')}
                   items={[]}
-                  labelFor={<span class="fstat-no" title="function not covered" >nameTag </span>=&gt; <span class="cstat-no" title="statement not covered" >nameTag as string}</span>
-                  itemFromNewTag={<span class="fstat-no" title="function not covered" >newTag </span>=&gt; <span class="cstat-no" title="statement not covered" >newTag}</span>
+                  labelFor={nameTag =&gt; nameTag as string}
+                  itemFromNewTag={newTag =&gt; newTag}
                   tagInputProps={{ showAddTagButton: true, allowNewTag: true }}
-                /&gt;
+                /&gt; */}
 &nbsp;
                 &lt;Layout.Horizontal padding={{ top: 'medium', bottom: 'medium' }}&gt;
                   &lt;FormInput.CheckBox
@@ -1241,8 +1243,9 @@ const FlagActivationDetails: React.FC&lt;FlagActivationDetailsProps&gt; = props 
 &nbsp;
         &lt;IdentifierText identifier={featureFlag.identifier} allowCopy /&gt;
 &nbsp;
-        {!!featureFlag.tags<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;Container className={css.tagsFlagActivationDetails}&gt;</span>
+        {/* Disable tags for now (backend does not support them) */}
+        {false &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!!featureFlag.tags?.length &amp;&amp; (</span>
+<span class="branch-2 cbranch-no" title="branch not covered" >          &lt;Container className={css.tagsFlagActivationDetails}&gt;</span>
             &lt;TagsViewer
               tags={featureFlag.tags?.map(<span class="fstat-no" title="function not covered" >({</span> value }) =&gt; <span class="cstat-no" title="statement not covered" >value as string)</span>}
               style={{ backgroundColor: '#D9DAE6', fontSize: '12px', lineHeight: '16px', color: '#22222A' }}
@@ -1276,7 +1279,7 @@ export default FlagActivationDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 14:36:50 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 21:12:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

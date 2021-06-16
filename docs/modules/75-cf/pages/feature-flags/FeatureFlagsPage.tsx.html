@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85% </span>
+                <span class="strong">85.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>119/140</span>
+                <span class='fraction'>115/135</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.95% </span>
+                <span class="strong">68.13% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>131/190</span>
+                <span class='fraction'>109/160</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.27% </span>
+                <span class="strong">70.59% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>26/37</span>
+                <span class='fraction'>24/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.61% </span>
+                <span class="strong">85.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>119/139</span>
+                <span class='fraction'>115/134</span>
             </div>
         
             
@@ -672,7 +672,9 @@
 <a name='L613'></a><a href='#L613'>613</a>
 <a name='L614'></a><a href='#L614'>614</a>
 <a name='L615'></a><a href='#L615'>615</a>
-<a name='L616'></a><a href='#L616'>616</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L616'></a><a href='#L616'>616</a>
+<a name='L617'></a><a href='#L617'>617</a>
+<a name='L618'></a><a href='#L618'>618</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -686,7 +688,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -912,7 +914,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -974,8 +978,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1167,7 +1171,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1295,13 +1299,13 @@ import {
   Container,
   FlexExpander,
   Heading,
-  Icon,
+  // Icon,
   Layout,
   Pagination,
   Text,
   Utils
 } from '@wings-software/uicore'
-import ReactTimeago from 'react-timeago'
+// import ReactTimeago from 'react-timeago'
 import { noop } from 'lodash-es'
 import { Classes, Position, Switch } from '@blueprintjs/core'
 import type { Cell, CellProps, Column, Renderer } from 'react-table'
@@ -1443,7 +1447,7 @@ const RenderColumnFlag: React.FC&lt;RenderColumnFlagProps&gt; = ({ cell: { row, 
 &nbsp;
   const onResize = (): void =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (ref.current) {
-      setFlagNameTextSize((ref.current.closest('div[role="cell"]') as HTMLDivElement)<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>ffsetWidth - 174)
+      setFlagNameTextSize((ref.current.closest('div[role="cell"]') as HTMLDivElement)<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>ffsetWidth - 100)
     }
   }
 &nbsp;
@@ -1512,22 +1516,24 @@ const RenderColumnFlag: React.FC&lt;RenderColumnFlagProps&gt; = ({ cell: { row, 
                 fontSize: '12px',
                 lineHeight: '24px'
               }}
+              width={flagNameTextSize}
+              lineClamp={1}
             &gt;
               {data.description}
             &lt;/Text&gt;
           )}
         &lt;/Layout.Vertical&gt;
-        &lt;Text
+        {/* &lt;Text
           width="100px"
           flex
           icon="main-tags"
           style={{ justifyContent: 'center' }}
           tooltip={
-            data<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ags<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;&gt;</span>
+            data?.tags?.length ? (
+              &lt;&gt;
                 &lt;Text&gt;{getString('tagsLabel').toUpperCase()}&lt;/Text&gt;
-                {data.tags.map(<span class="fstat-no" title="function not covered" >(e</span>lem, i) =&gt; (
-<span class="cstat-no" title="statement not covered" >                  &lt;Text key={`${elem.value}-${i}`}&gt;{elem.value}&lt;/Text&gt;</span>
+                {data.tags.map((elem, i) =&gt; (
+                  &lt;Text key={`${elem.value}-${i}`}&gt;{elem.value}&lt;/Text&gt;
                 ))}
               &lt;/&gt;
             ) : undefined
@@ -1537,8 +1543,8 @@ const RenderColumnFlag: React.FC&lt;RenderColumnFlagProps&gt; = ({ cell: { row, 
             position: Position.RIGHT
           }}
         &gt;
-          {data<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ags<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength || 0}
-        &lt;/Text&gt;
+          {data?.tags?.length || 0}
+        &lt;/Text&gt; */}
       &lt;/Layout.Horizontal&gt;
     &lt;/Container&gt;
   )
@@ -1589,14 +1595,14 @@ const RenderColumnDetails: Renderer&lt;CellProps&lt;Feature&gt;&gt; = ({ row }) 
   )
 }
 &nbsp;
-const RenderColumnLastUpdated: Renderer&lt;CellProps&lt;Feature&gt;&gt; = ({ row }) =&gt; {
-  return row.original<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>odifiedAt ? (
-    &lt;Layout.Horizontal spacing="small"&gt;
-      &lt;Icon name="activity" /&gt;
-      &lt;ReactTimeago date={row.original<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>odifiedAt} /&gt;
-    &lt;/Layout.Horizontal&gt;
-  ) : <span class="branch-1 cbranch-no" title="branch not covered" >null</span>
-}
+// const RenderColumnLastUpdated: Renderer&lt;CellProps&lt;Feature&gt;&gt; = ({ row }) =&gt; {
+//   return row.original?.modifiedAt ? (
+//     &lt;Layout.Horizontal spacing="small"&gt;
+//       &lt;Icon name="activity" /&gt;
+//       &lt;ReactTimeago date={row.original?.modifiedAt} /&gt;
+//     &lt;/Layout.Horizontal&gt;
+//   ) : null
+// }
 &nbsp;
 interface ColumnMenuProps {
   cell: Cell&lt;Feature&gt;
@@ -1726,7 +1732,7 @@ const FeatureFlagsPage: React.FC = () =&gt; {
       {
         Header: getString('featureFlagsText').toUpperCase(),
         accessor: row =&gt; row.name,
-        width: '35%',
+        width: '40%',
         activeEnvironment,
         Cell: function WrapperRenderColumnFlag(cell: Cell&lt;Feature&gt;) {
           return (
@@ -1775,17 +1781,17 @@ const FeatureFlagsPage: React.FC = () =&gt; {
       {
         Header: getString('cf.featureFlags.results').toUpperCase(),
         accessor: row =&gt; row.results,
-        width: '11%',
+        width: '16%',
         Cell: function ResultCell(cell: Cell&lt;Feature&gt;) {
           return &lt;FlagResult feature={cell.row.original} /&gt;
         }
       },
-      {
-        Header: getString('lastUpdated').toUpperCase(),
-        accessor: row =&gt; row.modifiedAt,
-        width: '10%',
-        Cell: RenderColumnLastUpdated
-      },
+      // {
+      //   Header: getString('lastUpdated').toUpperCase(),
+      //   accessor: row =&gt; row.modifiedAt,
+      //   width: '10%',
+      //   Cell: RenderColumnLastUpdated
+      // },
       {
         Header: '',
         id: 'version',
@@ -1909,7 +1915,7 @@ export default FeatureFlagsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 14:36:50 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 21:12:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

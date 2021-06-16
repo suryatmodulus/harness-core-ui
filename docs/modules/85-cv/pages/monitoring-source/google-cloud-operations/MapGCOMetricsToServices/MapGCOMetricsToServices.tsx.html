@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.98% </span>
+                <span class="strong">85.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>181/213</span>
+                <span class='fraction'>184/216</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.8% </span>
+                <span class="strong">70.93% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>177/250</span>
+                <span class='fraction'>183/258</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.95% </span>
+                <span class="strong">79.49% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>30/38</span>
+                <span class='fraction'>31/39</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.6% </span>
+                <span class="strong">86.79% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>181/209</span>
+                <span class='fraction'>184/212</span>
             </div>
         
             
@@ -682,7 +682,16 @@
 <a name='L623'></a><a href='#L623'>623</a>
 <a name='L624'></a><a href='#L624'>624</a>
 <a name='L625'></a><a href='#L625'>625</a>
-<a name='L626'></a><a href='#L626'>626</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L626'></a><a href='#L626'>626</a>
+<a name='L627'></a><a href='#L627'>627</a>
+<a name='L628'></a><a href='#L628'>628</a>
+<a name='L629'></a><a href='#L629'>629</a>
+<a name='L630'></a><a href='#L630'>630</a>
+<a name='L631'></a><a href='#L631'>631</a>
+<a name='L632'></a><a href='#L632'>632</a>
+<a name='L633'></a><a href='#L633'>633</a>
+<a name='L634'></a><a href='#L634'>634</a>
+<a name='L635'></a><a href='#L635'>635</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -695,6 +704,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -1095,11 +1106,16 @@
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
@@ -1113,6 +1129,8 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -1307,7 +1325,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { FormEvent, useCallback, useEffect, useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import {
   Color,
   Container,
@@ -1318,8 +1336,10 @@ import {
   Link,
   SelectOption,
   Text,
-  Icon
+  Icon,
+  Utils
 } from '@wings-software/uicore'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { debounce, isNumber } from 'lodash-es'
 import HighchartsReact from 'highcharts-react-official'
@@ -1668,7 +1688,7 @@ function ValidationChart(props: ValidationChartProps): JSX.Element {
 &nbsp;
   if (!queryValue?.length) {
     return (
-      &lt;Container className={css.chartContainer}&gt;
+      &lt;Container className={cx(css.chartContainer, css.noDataContainer)}&gt;
         &lt;NoDataCard
           icon="main-notes"
           message={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.enterQueryForValidation')}
@@ -1679,7 +1699,7 @@ function ValidationChart(props: ValidationChartProps): JSX.Element {
 &nbsp;
   if (!sampleData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>eries?.length) {
     return (
-      &lt;Container className={css.chartContainer}&gt;
+      &lt;Container className={cx(css.chartContainer, css.noDataContainer)}&gt;
         &lt;NoDataCard
           icon="warning-sign"
           message={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.noDataForQuery')}
@@ -1719,13 +1739,18 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
   const { projectIdentifier, orgIdentifier, accountId } = useParams&lt;ProjectPathProps&gt;()
   const [error, setError] = useState&lt;string | undefined&gt;()
   const [loading, setLoading] = useState&lt;boolean&gt;(false)
-  const { mutate, cancel } = useGetStackdriverSampleData({
-    queryParams: {
+  const queryParams = useMemo(
+    () =&gt; ({
       orgIdentifier,
       projectIdentifier,
       accountId,
+      tracingId: Utils.randomId(),
       connectorIdentifier: data.connectorRef<span class="branch-1 cbranch-no" title="branch not covered" >?.value as string</span>
-    }
+    }),
+    [data<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-1 cbranch-no" title="branch not covered" >?.value,</span> projectIdentifier, orgIdentifier, accountId]
+  )
+  const { mutate, cancel } = useGetStackdriverSampleData({
+    queryParams
   })
   const [isQueryExpanded, setIsQueryExpanded] = useState(false)
   const [sampleData, setSampleData] = useState&lt;Highcharts.Options | undefined&gt;()
@@ -1737,7 +1762,9 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
         if (updatedQueryValue?.length) {
           setLoading(true)
           setError(undefined)
-          const response = await mutate(JSON.parse(updatedQueryValue))
+          const response = await mutate(JSON.parse(updatedQueryValue), {
+            queryParams: { ...queryParams, tracingId: Utils.randomId() }
+          })
           <span class="missing-if-branch" title="else path not taken" >E</span>if (response<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata) {
             setError(undefined)
             setSampleData(transformSampleDataIntoHighchartOptions(response<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>)
@@ -1939,7 +1966,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 21:14:47 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 22:38:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

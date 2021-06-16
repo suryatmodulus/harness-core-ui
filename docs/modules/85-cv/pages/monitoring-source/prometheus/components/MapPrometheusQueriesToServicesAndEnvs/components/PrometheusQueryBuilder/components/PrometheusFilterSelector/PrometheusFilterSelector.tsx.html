@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94% </span>
+                <span class="strong">94.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>47/50</span>
+                <span class='fraction'>49/52</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">88.24% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>14/16</span>
+                <span class='fraction'>15/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.92% </span>
+                <span class="strong">96.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>47/49</span>
+                <span class='fraction'>49/51</span>
             </div>
         
             
@@ -247,7 +247,12 @@
 <a name='L188'></a><a href='#L188'>188</a>
 <a name='L189'></a><a href='#L189'>189</a>
 <a name='L190'></a><a href='#L190'>190</a>
-<a name='L191'></a><a href='#L191'>191</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -297,12 +302,17 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -437,8 +447,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useRef, useState } from 'react'
-import { Container, FormInput, MultiSelectOption, Popover, Text } from '@wings-software/uicore'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { Container, FormInput, MultiSelectOption, Popover, Text, Utils } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import { ITagInputProps, PopoverInteractionKind, PopoverPosition } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -486,14 +496,19 @@ function ValuePopover(props: ValuePopoverProps): JSX.Element {
   const [itemsToRender, setItemsToRender] = useState&lt;string[]&gt;([])
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId } = useParams&lt;ProjectPathProps&gt;()
-  const { error, data, loading, refetch } = useGetLabeValues({
-    queryParams: {
+  const queryParams = useMemo(
+    () =&gt; ({
       projectIdentifier,
       orgIdentifier,
       accountId,
       connectorIdentifier,
-      labelName: prometheusLabel
-    }
+      labelName: prometheusLabel,
+      tracingId: Utils.randomId()
+    }),
+    [prometheusLabel]
+  )
+  const { error, data, loading, refetch } = useGetLabeValues({
+    queryParams
   })
 &nbsp;
   useEffect(() =&gt; {
@@ -507,7 +522,7 @@ function ValuePopover(props: ValuePopoverProps): JSX.Element {
           message={getErrorMessage(error)}
           onClick={e =&gt; {
             e.stopPropagation()
-            refetch()
+            refetch({ queryParams: { ...queryParams, tracingId: Utils.randomId() } })
           }}
           className={css.popoverError}
         /&gt;
@@ -634,7 +649,7 @@ export function PrometheusFilterSelector(props: PrometheusFilterSelectorProps): 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 21:14:47 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 22:38:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../../prettify.js"></script>

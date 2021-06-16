@@ -23,6 +23,8 @@ export interface TestExecutionEntryProps {
   expanded?: boolean
   status?: 'failed'
   onExpand: () => void
+  stageId: string
+  stepId: string
 }
 
 export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
@@ -31,7 +33,9 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   executionSummary,
   expanded,
   status,
-  onExpand
+  onExpand,
+  stageId,
+  stepId
 }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier } = useParams<{
@@ -53,8 +57,11 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     sort: 'status',
     order: 'ASC',
     pageIndex,
-    pageSize: PAGE_SIZE
+    pageSize: PAGE_SIZE,
+    stageId,
+    stepId
   } as unknown) as TestCaseSummaryQueryParams
+
   const { data, error, loading, refetch } = useTestCaseSummary({
     queryParams,
     lazy: true,

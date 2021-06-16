@@ -31,10 +31,12 @@ import css from './BuildTests.module.scss'
 const PAGE_SIZE = 20
 
 interface TestsExecutionProps {
+  stageId: string
+  stepId: string
   serviceToken: string
 }
 
-export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) => {
+export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId, serviceToken }) => {
   const context = useExecutionContext()
   const callgraphEnabled = useFeatureFlag('TI_CALLGRAPH') || localStorage.TI_CALLGRAPH_ENABLED
   const { getString } = useStrings()
@@ -73,9 +75,13 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
       pageIndex,
       sort: sortBy,
       pageSize: PAGE_SIZE,
-      order: 'DESC' as const
+      order: 'DESC' as const,
+      stageId,
+      stepId
     }),
     [
+      stageId,
+      stepId,
       accountId,
       orgIdentifier,
       projectIdentifier,
@@ -228,6 +234,8 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
                     serviceToken={serviceToken}
                     status={showFailedTestsOnly ? 'failed' : undefined}
                     expanded={index === expandedIndex ? true : undefined}
+                    stageId={stageId}
+                    stepId={stepId}
                     onExpand={() => {
                       setExpandedIndex(expandedIndex !== index ? index : undefined)
                     }}

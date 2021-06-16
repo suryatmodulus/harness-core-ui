@@ -4,6 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps } from 'restful-react'
 
 import { getConfig } from '../config'
+export const SPEC_VERSION = '1.0.0'
 export interface Error {
   /**
    * Details about the error encountered
@@ -11,87 +12,61 @@ export interface Error {
   error_msg?: string
 }
 
-export interface TestReportSummary {
-  total_tests?: number
-  duration_ms?: number
-  tests?: TestCaseSummary[]
-}
-
-export interface TestCaseSummary {
-  name?: string
-  status?: TestCaseStatus
+export interface ResponseMetadata {
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
 }
 
 export interface Result {
-  status?: TestCaseStatus
-  /**
-   * Message corresponding to the test case status
-   */
-  message?: string
-  /**
-   * Type corresponding to the test case status
-   */
-  type?: string
   /**
    * Description corresponding to the test case status
    */
   desc?: string
-}
-
-export interface SelectionOverview {
-  total_tests?: number
-  skipped_tests?: number
-  time_saved_ms?: number
-  selected_tests?: SelectionDetails
+  /**
+   * Message corresponding to the test case status
+   */
+  message?: string
+  status?: TestCaseStatus
+  /**
+   * Type corresponding to the test case status
+   */
+  type?: string
 }
 
 export interface SelectionDetails {
   new_tests?: number
-  updated_tests?: number
   source_code_changes?: number
+  updated_tests?: number
 }
 
-export interface TestSuite {
-  name?: string
-  duration_ms?: number
-  total_tests?: number
-  failed_tests?: number
+export interface SelectionOverview {
+  selected_tests?: SelectionDetails
   skipped_tests?: number
-  passed_tests?: number
-  fail_pct?: number
+  time_saved_ms?: number
+  total_tests?: number
 }
 
-export interface ResponseMetadata {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-}
-
-export interface TestSuites {
-  data?: ResponseMetadata
-  content?: TestSuite[]
-}
-
-export interface TestCases {
-  data?: ResponseMetadata
-  content?: TestCase[]
+export interface StepInfo {
+  stage?: string
+  step?: string
 }
 
 export interface TestCase {
-  name?: string
-  suite_name?: string
   class_name?: string
   duration_ms?: number
+  name?: string
   result?: Result
-  /**
-   * (Truncated) stdout while running the test
-   */
-  stdout?: string
   /**
    * (Truncated) stderr while running the test
    */
   stderr?: string
+  /**
+   * (Truncated) stdout while running the test
+   */
+  stdout?: string
+  suite_name?: string
 }
 
 /**
@@ -99,7 +74,38 @@ export interface TestCase {
  */
 export type TestCaseStatus = 'passed' | 'skipped' | 'error' | 'failed'
 
-export interface TestOverviewQueryParams {
+export interface TestCaseSummary {
+  name?: string
+  status?: TestCaseStatus
+}
+
+export interface TestCases {
+  content?: TestCase[]
+  data?: ResponseMetadata
+}
+
+export interface TestReportSummary {
+  duration_ms?: number
+  tests?: TestCaseSummary[]
+  total_tests?: number
+}
+
+export interface TestSuite {
+  duration_ms?: number
+  fail_pct?: number
+  failed_tests?: number
+  name?: string
+  passed_tests?: number
+  skipped_tests?: number
+  total_tests?: number
+}
+
+export interface TestSuites {
+  content?: TestSuite[]
+  data?: ResponseMetadata
+}
+
+export interface ReportsInfoQueryParams {
   /**
    * Account ID
    */
@@ -122,33 +128,30 @@ export interface TestOverviewQueryParams {
   buildId: string
 }
 
-export type TestOverviewProps = Omit<GetProps<SelectionOverview, Error, TestOverviewQueryParams, void>, 'path'>
+export type ReportsInfoProps = Omit<GetProps<StepInfo[], Error, ReportsInfoQueryParams, void>, 'path'>
 
 /**
- * Get overview of selected tests
+ * Get information about steps with reports configured
  *
- * Get overview of selected tests.
+ * Get information about test reports
  */
-export const TestOverview = (props: TestOverviewProps) => (
-  <Get<SelectionOverview, Error, TestOverviewQueryParams, void>
-    path="/tests/overview"
+export const ReportsInfo = (props: ReportsInfoProps) => (
+  <Get<StepInfo[], Error, ReportsInfoQueryParams, void>
+    path={`/reports/info`}
     base={getConfig('ti-service')}
     {...props}
   />
 )
 
-export type UseTestOverviewProps = Omit<UseGetProps<SelectionOverview, Error, TestOverviewQueryParams, void>, 'path'>
+export type UseReportsInfoProps = Omit<UseGetProps<StepInfo[], Error, ReportsInfoQueryParams, void>, 'path'>
 
 /**
- * Get overview of selected tests
+ * Get information about steps with reports configured
  *
- * Get overview of selected tests.
+ * Get information about test reports
  */
-export const useTestOverview = (props: UseTestOverviewProps) =>
-  useGet<SelectionOverview, Error, TestOverviewQueryParams, void>(`/tests/overview`, {
-    base: getConfig('ti-service'),
-    ...props
-  })
+export const useReportsInfo = (props: UseReportsInfoProps) =>
+  useGet<StepInfo[], Error, ReportsInfoQueryParams, void>(`/reports/info`, { base: getConfig('ti-service'), ...props })
 
 export interface ReportSummaryQueryParams {
   /**
@@ -175,6 +178,14 @@ export interface ReportSummaryQueryParams {
    * Report type
    */
   report: 'junit'
+  /**
+   * Step ID
+   */
+  stepId: string
+  /**
+   * Stage ID
+   */
+  stageId: string
 }
 
 export type ReportSummaryProps = Omit<GetProps<TestReportSummary, Error, ReportSummaryQueryParams, void>, 'path'>
@@ -186,7 +197,7 @@ export type ReportSummaryProps = Omit<GetProps<TestReportSummary, Error, ReportS
  */
 export const ReportSummary = (props: ReportSummaryProps) => (
   <Get<TestReportSummary, Error, ReportSummaryQueryParams, void>
-    path="/reports/summary"
+    path={`/reports/summary`}
     base={getConfig('ti-service')}
     {...props}
   />
@@ -204,105 +215,6 @@ export const useReportSummary = (props: UseReportSummaryProps) =>
     base: getConfig('ti-service'),
     ...props
   })
-
-export interface TestSuiteSummaryQueryParams {
-  /**
-   * Account ID corresponding to report
-   */
-  accountId: string
-  /**
-   * Org ID corresponding to report
-   */
-  orgId: string
-  /**
-   * Project ID corresponding to report
-   */
-  projectId: string
-  /**
-   * Pipeline ID corresponding to report
-   */
-  pipelineId: string
-  /**
-   * Build ID corresponding to report
-   */
-  buildId: string
-  /**
-   * Report type
-   */
-  report: 'junit'
-  /**
-   * Max number of elements in response
-   */
-  pageSize?: number
-  /**
-   * Index of the page whose responses need to be returned
-   */
-  pageIndex?: number
-  /**
-   * Filter by status
-   */
-  status?: 'failed'
-  /**
-   * Attribute to sort on
-   */
-  sort?: 'suite_name' | 'duration_ms' | 'total_tests' | 'skipped_tests' | 'passed_tests' | 'failed_tests' | 'fail_pct'
-  /**
-   * Display results in ascending or descending order
-   */
-  order?: 'ASC' | 'DESC'
-}
-
-export type TestSuiteSummaryProps = Omit<GetProps<TestSuites, Error, TestSuiteSummaryQueryParams, void>, 'path'>
-
-/**
- * Get test suites
- *
- * Get information about test suites
- */
-export const TestSuiteSummary = (props: TestSuiteSummaryProps) => (
-  <Get<TestSuites, Error, TestSuiteSummaryQueryParams, void>
-    path="/reports/test_suites"
-    base={getConfig('ti-service')}
-    {...props}
-  />
-)
-
-export type UseTestSuiteSummaryProps = Omit<UseGetProps<TestSuites, Error, TestSuiteSummaryQueryParams, void>, 'path'>
-
-/**
- * Get test suites
- *
- * Get information about test suites
- */
-export const useTestSuiteSummary = (props: UseTestSuiteSummaryProps) =>
-  useGet<TestSuites, Error, TestSuiteSummaryQueryParams, void>(`/reports/test_suites`, {
-    base: getConfig('ti-service'),
-    ...props
-  })
-
-export interface GetTokenQueryParams {
-  /**
-   * Account ID to generate token for
-   */
-  accountId: string
-}
-
-export type GetTokenProps = Omit<GetProps<string, Error, GetTokenQueryParams, void>, 'path'>
-
-/**
- * Get an account level token
- */
-export const GetToken = (props: GetTokenProps) => (
-  <Get<string, Error, GetTokenQueryParams, void> path="/token" base={getConfig('ti-service')} {...props} />
-)
-
-export type UseGetTokenProps = Omit<UseGetProps<string, Error, GetTokenQueryParams, void>, 'path'>
-
-/**
- * Get an account level token
- */
-export const useGetToken = (props: UseGetTokenProps) =>
-  useGet<string, Error, GetTokenQueryParams, void>(`/token`, { base: getConfig('ti-service'), ...props })
 
 export interface TestCaseSummaryQueryParams {
   /**
@@ -325,6 +237,14 @@ export interface TestCaseSummaryQueryParams {
    * Build ID corresponding to report
    */
   buildId: string
+  /**
+   * Step ID
+   */
+  stepId: string
+  /**
+   * Stage ID
+   */
+  stageId: string
   /**
    * Report type
    */
@@ -364,7 +284,7 @@ export type TestCaseSummaryProps = Omit<GetProps<TestCases, Error, TestCaseSumma
  */
 export const TestCaseSummary = (props: TestCaseSummaryProps) => (
   <Get<TestCases, Error, TestCaseSummaryQueryParams, void>
-    path="/reports/test_cases"
+    path={`/reports/test_cases`}
     base={getConfig('ti-service')}
     {...props}
   />
@@ -382,3 +302,213 @@ export const useTestCaseSummary = (props: UseTestCaseSummaryProps) =>
     base: getConfig('ti-service'),
     ...props
   })
+
+export interface TestSuiteSummaryQueryParams {
+  /**
+   * Account ID corresponding to report
+   */
+  accountId: string
+  /**
+   * Org ID corresponding to report
+   */
+  orgId: string
+  /**
+   * Project ID corresponding to report
+   */
+  projectId: string
+  /**
+   * Pipeline ID corresponding to report
+   */
+  pipelineId: string
+  /**
+   * Build ID corresponding to report
+   */
+  buildId: string
+  /**
+   * Step ID
+   */
+  stepId: string
+  /**
+   * Stage ID
+   */
+  stageId: string
+  /**
+   * Report type
+   */
+  report: 'junit'
+  /**
+   * Max number of elements in response
+   */
+  pageSize?: number
+  /**
+   * Index of the page whose responses need to be returned
+   */
+  pageIndex?: number
+  /**
+   * Filter by status
+   */
+  status?: 'failed'
+  /**
+   * Attribute to sort on
+   */
+  sort?: 'suite_name' | 'duration_ms' | 'total_tests' | 'skipped_tests' | 'passed_tests' | 'failed_tests' | 'fail_pct'
+  /**
+   * Display results in ascending or descending order
+   */
+  order?: 'ASC' | 'DESC'
+}
+
+export type TestSuiteSummaryProps = Omit<GetProps<TestSuites, Error, TestSuiteSummaryQueryParams, void>, 'path'>
+
+/**
+ * Get test suites
+ *
+ * Get information about test suites
+ */
+export const TestSuiteSummary = (props: TestSuiteSummaryProps) => (
+  <Get<TestSuites, Error, TestSuiteSummaryQueryParams, void>
+    path={`/reports/test_suites`}
+    base={getConfig('ti-service')}
+    {...props}
+  />
+)
+
+export type UseTestSuiteSummaryProps = Omit<UseGetProps<TestSuites, Error, TestSuiteSummaryQueryParams, void>, 'path'>
+
+/**
+ * Get test suites
+ *
+ * Get information about test suites
+ */
+export const useTestSuiteSummary = (props: UseTestSuiteSummaryProps) =>
+  useGet<TestSuites, Error, TestSuiteSummaryQueryParams, void>(`/reports/test_suites`, {
+    base: getConfig('ti-service'),
+    ...props
+  })
+
+export interface TestInfoQueryParams {
+  /**
+   * Account ID
+   */
+  accountId: string
+  /**
+   * Org ID
+   */
+  orgId: string
+  /**
+   * Project ID
+   */
+  projectId: string
+  /**
+   * Pipeline ID
+   */
+  pipelineId: string
+  /**
+   * Build ID
+   */
+  buildId: string
+}
+
+export type TestInfoProps = Omit<GetProps<StepInfo[], Error, TestInfoQueryParams, void>, 'path'>
+
+/**
+ * Get information about test intelligence steps
+ *
+ * Get information about TI steps
+ */
+export const TestInfo = (props: TestInfoProps) => (
+  <Get<StepInfo[], Error, TestInfoQueryParams, void> path={`/tests/info`} base={getConfig('ti-service')} {...props} />
+)
+
+export type UseTestInfoProps = Omit<UseGetProps<StepInfo[], Error, TestInfoQueryParams, void>, 'path'>
+
+/**
+ * Get information about test intelligence steps
+ *
+ * Get information about TI steps
+ */
+export const useTestInfo = (props: UseTestInfoProps) =>
+  useGet<StepInfo[], Error, TestInfoQueryParams, void>(`/tests/info`, { base: getConfig('ti-service'), ...props })
+
+export interface TestOverviewQueryParams {
+  /**
+   * Account ID
+   */
+  accountId: string
+  /**
+   * Org ID
+   */
+  orgId: string
+  /**
+   * Project ID
+   */
+  projectId: string
+  /**
+   * Pipeline ID
+   */
+  pipelineId: string
+  /**
+   * Build ID
+   */
+  buildId: string
+  /**
+   * Step ID
+   */
+  stepId: string
+  /**
+   * Stage ID
+   */
+  stageId: string
+}
+
+export type TestOverviewProps = Omit<GetProps<SelectionOverview, Error, TestOverviewQueryParams, void>, 'path'>
+
+/**
+ * Get overview of selected tests
+ *
+ * Get overview of selected tests.
+ */
+export const TestOverview = (props: TestOverviewProps) => (
+  <Get<SelectionOverview, Error, TestOverviewQueryParams, void>
+    path={`/tests/overview`}
+    base={getConfig('ti-service')}
+    {...props}
+  />
+)
+
+export type UseTestOverviewProps = Omit<UseGetProps<SelectionOverview, Error, TestOverviewQueryParams, void>, 'path'>
+
+/**
+ * Get overview of selected tests
+ *
+ * Get overview of selected tests.
+ */
+export const useTestOverview = (props: UseTestOverviewProps) =>
+  useGet<SelectionOverview, Error, TestOverviewQueryParams, void>(`/tests/overview`, {
+    base: getConfig('ti-service'),
+    ...props
+  })
+
+export interface GetTokenQueryParams {
+  /**
+   * Account ID to generate token for
+   */
+  accountId: string
+}
+
+export type GetTokenProps = Omit<GetProps<string, Error, GetTokenQueryParams, void>, 'path'>
+
+/**
+ * Get an account level token
+ */
+export const GetToken = (props: GetTokenProps) => (
+  <Get<string, Error, GetTokenQueryParams, void> path={`/token`} base={getConfig('ti-service')} {...props} />
+)
+
+export type UseGetTokenProps = Omit<UseGetProps<string, Error, GetTokenQueryParams, void>, 'path'>
+
+/**
+ * Get an account level token
+ */
+export const useGetToken = (props: UseGetTokenProps) =>
+  useGet<string, Error, GetTokenQueryParams, void>(`/token`, { base: getConfig('ti-service'), ...props })

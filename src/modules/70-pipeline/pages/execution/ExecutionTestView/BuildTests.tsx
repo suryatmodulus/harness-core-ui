@@ -1,9 +1,10 @@
-import { Layout } from '@wings-software/uicore'
-import React, { useEffect, useMemo } from 'react'
+import { Layout, Select, Text, Container, SelectOption } from '@wings-software/uicore'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { get } from 'lodash-es'
+import { get, uniqWith, isEqual } from 'lodash-es'
+import { useStrings } from 'framework/strings'
 import { PageError } from '@common/components/Page/PageError'
-import { useReportSummary, useGetToken, useTestOverview } from 'services/ti-service'
+import { useReportSummary, useGetToken, useTestOverview, useReportsInfo, useTestInfo } from 'services/ti-service'
 import { PageSpinner } from '@common/components'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { BuildLoadingState } from './BuildLoadingState'
@@ -27,11 +28,15 @@ enum UI {
 
 const BuildTests: React.FC = () => {
   const context = useExecutionContext()
+
+  const { getString } = useStrings()
+
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
   }>()
+
   const {
     data: serviceToken,
     loading: serviceTokenLoading,
@@ -41,7 +46,14 @@ const BuildTests: React.FC = () => {
     queryParams: { accountId }
   })
 
-  const queryParams = useMemo(
+  const [selectItems, setSelectItems] = useState<SelectOption[]>([])
+  const [selectValue, setSelectValue] = useState<SelectOption>()
+
+  const [stageId, stepId] = (selectValue?.value as string)?.split('/') || []
+
+  const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
+
+  const infoQueryParams = useMemo(
     () => ({
       accountId,
       orgId: orgIdentifier,
@@ -57,6 +69,94 @@ const BuildTests: React.FC = () => {
       context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence
     ]
   )
+
+  const {
+    data: reportInfoData,
+    error: reportInfoError,
+    loading: reportInfoLoading,
+    refetch: fetchReportInfo
+  } = useReportsInfo({
+    queryParams: infoQueryParams,
+    lazy: true,
+    requestOptions: {
+      headers: {
+        'X-Harness-Token': serviceToken || ''
+      }
+    },
+    debounce: 500
+  })
+
+  const { data: testInfoData, error: testInfoError, loading: testInfoLoading, refetch: fetchTestInfo } = useTestInfo({
+    queryParams: infoQueryParams,
+    lazy: true,
+    requestOptions: {
+      headers: {
+        'X-Harness-Token': serviceToken || ''
+      }
+    },
+    debounce: 500
+  })
+
+  useEffect(() => {
+    if (status && serviceToken && !stageId && !stepId) {
+      if (
+        (!isExecutionComplete(status) && !reportInfoLoading) ||
+        (!reportInfoData && !reportInfoError && !reportInfoLoading)
+      ) {
+        fetchReportInfo()
+      }
+      if ((!isExecutionComplete(status) && !testInfoLoading) || (!testInfoData && !testInfoError && !testInfoLoading)) {
+        fetchTestInfo()
+      }
+    }
+  }, [
+    stageId,
+    stepId,
+    status,
+    serviceToken,
+    reportInfoData,
+    reportInfoError,
+    reportInfoLoading,
+    testInfoData,
+    testInfoError,
+    testInfoLoading,
+    fetchReportInfo,
+    fetchTestInfo
+  ])
+
+  useEffect(() => {
+    if (reportInfoData && testInfoData) {
+      const uniqItems = uniqWith([...reportInfoData, ...testInfoData], isEqual)
+      const readySelectItems = uniqItems.map(({ stage, step }) => ({
+        label: `Step: ${step} (Stage: ${stage})`,
+        value: `${stage}/${step}`
+      }))
+      setSelectItems(readySelectItems as SelectOption[])
+      setSelectValue(readySelectItems[0] as SelectOption)
+    }
+  }, [reportInfoData, testInfoData])
+
+  const queryParams = useMemo(
+    () => ({
+      accountId,
+      orgId: orgIdentifier,
+      projectId: projectIdentifier,
+      pipelineId: context?.pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier || '',
+      buildId: String(context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || ''),
+      stageId,
+      stepId
+    }),
+    [
+      accountId,
+      orgIdentifier,
+      projectIdentifier,
+      context?.pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier,
+      context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence,
+      stageId,
+      stepId
+    ]
+  )
+
   const {
     data: reportSummaryData,
     error: reportSummaryError,
@@ -89,8 +189,6 @@ const BuildTests: React.FC = () => {
     debounce: 500
   })
 
-  const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
-
   const reportSummaryHasTests = (reportSummaryData?.total_tests || 0) > 0
   const testOverviewHasTests = (testOverviewData?.total_tests || 0) > 0
 
@@ -104,8 +202,9 @@ const BuildTests: React.FC = () => {
       : isExecutionComplete(status)
       ? UI.ZeroState
       : UI.LoadingState
+
   useEffect(() => {
-    if (status && serviceToken) {
+    if (status && serviceToken && stageId && stepId) {
       if (
         (!isExecutionComplete(status) && !reportSummaryLoading) ||
         (!reportSummaryData && !reportSummaryError && !reportSummaryLoading)
@@ -120,6 +219,8 @@ const BuildTests: React.FC = () => {
       }
     }
   }, [
+    stageId,
+    stepId,
     status,
     serviceToken,
     reportSummaryData,
@@ -131,6 +232,13 @@ const BuildTests: React.FC = () => {
     fetchReportSummary,
     fetchTestOverview
   ])
+
+  useEffect(() => {
+    if (status && serviceToken && stageId && stepId) {
+      fetchReportSummary()
+      fetchTestOverview()
+    }
+  }, [stageId, stepId, status, serviceToken])
 
   const testsCountDiff = useMemo(() => {
     const newTests = testOverviewData?.selected_tests?.new_tests
@@ -169,6 +277,24 @@ const BuildTests: React.FC = () => {
     )
   }
 
+  const header = (
+    <Container
+      flex
+      padding={{ bottom: 'small' }}
+      margin={{ bottom: 'medium' }}
+      style={{ borderBottom: '1px solid #D9DAE6' }}
+    >
+      <Text font={{ size: 'medium', weight: 'semi-bold' }} style={{ color: '#22222A' }}>
+        {getString('pipeline.testsReports.testExecutions')}
+      </Text>
+      {selectItems && selectValue && (
+        <div style={{ width: 'auto' }}>
+          <Select value={selectValue} items={selectItems} onChange={value => setSelectValue(value as any)} />
+        </div>
+      )}
+    </Container>
+  )
+
   let ui = null
   switch (uiType) {
     case UI.LoadingState:
@@ -180,6 +306,7 @@ const BuildTests: React.FC = () => {
     case UI.TIAndReports:
       ui = (
         <>
+          {header}
           <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
             {typeof testOverviewData?.total_tests !== 'undefined' &&
               typeof testOverviewData?.skipped_tests !== 'undefined' &&
@@ -208,50 +335,60 @@ const BuildTests: React.FC = () => {
           </Layout.Horizontal>
           <Layout.Horizontal spacing="large">
             {/* <TestsCoverage /> */}
-            {serviceToken && <TestsExecution serviceToken={serviceToken} />}
+            {stageId && stepId && serviceToken && (
+              <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
+            )}
           </Layout.Horizontal>
         </>
       )
       break
     case UI.TI:
       ui = (
-        <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
-          {typeof testOverviewData?.total_tests !== 'undefined' &&
-            typeof testOverviewData?.skipped_tests !== 'undefined' &&
-            typeof testOverviewData?.time_saved_ms !== 'undefined' && (
-              <TestsOverview
-                totalTests={testOverviewData.total_tests}
-                skippedTests={testOverviewData.skipped_tests}
-                timeSavedMS={testOverviewData.time_saved_ms}
-                testsCountDiff={testsCountDiff}
-              />
-            )}
-          {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&
-            typeof testOverviewData?.selected_tests?.new_tests !== 'undefined' &&
-            typeof testOverviewData?.selected_tests?.updated_tests !== 'undefined' && (
-              <TestsSelectionBreakdown
-                sourceCodeChanges={testOverviewData.selected_tests.source_code_changes}
-                newTests={testOverviewData.selected_tests.new_tests}
-                updatedTests={testOverviewData.selected_tests.updated_tests}
-              />
-            )}
-        </Layout.Horizontal>
+        <>
+          {header}
+          <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
+            {typeof testOverviewData?.total_tests !== 'undefined' &&
+              typeof testOverviewData?.skipped_tests !== 'undefined' &&
+              typeof testOverviewData?.time_saved_ms !== 'undefined' && (
+                <TestsOverview
+                  totalTests={testOverviewData.total_tests}
+                  skippedTests={testOverviewData.skipped_tests}
+                  timeSavedMS={testOverviewData.time_saved_ms}
+                  testsCountDiff={testsCountDiff}
+                />
+              )}
+            {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&
+              typeof testOverviewData?.selected_tests?.new_tests !== 'undefined' &&
+              typeof testOverviewData?.selected_tests?.updated_tests !== 'undefined' && (
+                <TestsSelectionBreakdown
+                  sourceCodeChanges={testOverviewData.selected_tests.source_code_changes}
+                  newTests={testOverviewData.selected_tests.new_tests}
+                  updatedTests={testOverviewData.selected_tests.updated_tests}
+                />
+              )}
+          </Layout.Horizontal>
+        </>
       )
       break
     case UI.Reports:
       ui = (
-        <Layout.Horizontal spacing="large">
-          {typeof reportSummaryData?.total_tests !== 'undefined' &&
-            typeof reportSummaryData?.duration_ms !== 'undefined' &&
-            typeof reportSummaryData?.tests !== 'undefined' && (
-              <TestsReportOverview
-                totalTests={reportSummaryData.total_tests}
-                durationMS={reportSummaryData.duration_ms}
-                tests={reportSummaryData.tests}
-              />
+        <>
+          {header}
+          <Layout.Horizontal spacing="large">
+            {typeof reportSummaryData?.total_tests !== 'undefined' &&
+              typeof reportSummaryData?.duration_ms !== 'undefined' &&
+              typeof reportSummaryData?.tests !== 'undefined' && (
+                <TestsReportOverview
+                  totalTests={reportSummaryData.total_tests}
+                  durationMS={reportSummaryData.duration_ms}
+                  tests={reportSummaryData.tests}
+                />
+              )}
+            {stageId && stepId && serviceToken && (
+              <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
             )}
-          {serviceToken && <TestsExecution serviceToken={serviceToken} />}
-        </Layout.Horizontal>
+          </Layout.Horizontal>
+        </>
       )
       break
   }

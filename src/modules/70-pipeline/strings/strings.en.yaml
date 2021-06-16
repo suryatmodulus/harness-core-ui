@@ -491,6 +491,7 @@ testsReports:
   className: CLASS NAME
   result: RESULT
   testCasesExecution: Tests Execution
+  testExecutions: Test Executions
   testCasesExecutionInfo: Shows a list of executed tests and result. In case of error, hover the test to see additional information
   noFailedTestsFound: No failed tests found
   showOnlyFailedTests: Show only failed tests

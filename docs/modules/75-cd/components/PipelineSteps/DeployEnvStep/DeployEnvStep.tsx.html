@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.16% </span>
+                <span class="strong">85.54% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>137/159</span>
+                <span class='fraction'>142/166</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.59% </span>
+                <span class="strong">62.32% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>169/270</span>
+                <span class='fraction'>172/276</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.36% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>133/154</span>
+                <span class='fraction'>138/161</span>
             </div>
         
             
@@ -626,7 +626,13 @@
 <a name='L567'></a><a href='#L567'>567</a>
 <a name='L568'></a><a href='#L568'>568</a>
 <a name='L569'></a><a href='#L569'>569</a>
-<a name='L570'></a><a href='#L570'>570</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L570'></a><a href='#L570'>570</a>
+<a name='L571'></a><a href='#L571'>571</a>
+<a name='L572'></a><a href='#L572'>572</a>
+<a name='L573'></a><a href='#L573'>573</a>
+<a name='L574'></a><a href='#L574'>574</a>
+<a name='L575'></a><a href='#L575'>575</a>
+<a name='L576'></a><a href='#L576'>576</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -944,6 +950,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -959,9 +974,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1513,6 +1525,15 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
                 : <span class="branch-1 cbranch-no" title="branch not covered" >values.environmentRef</span>
             onUpdate<span class="branch-0 cbranch-no" title="branch not covered" >?.({</span> ...omit(values, 'environment'), environmentRef })
           }
+          const errors: { [key: string]: string } = {}
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof values.environmentRef === 'object') {
+            if (isEmpty((values.environmentRef as SelectOption).value as string)) {
+              errors.environmentRef = getString('pipelineSteps.environmentTab.environmentIsRequired')
+            }
+          } else <span class="cstat-no" title="statement not covered" >if (isEmpty(values.environmentRef)) {</span>
+<span class="cstat-no" title="statement not covered" >            errors.environmentRef = getString('pipelineSteps.environmentTab.environmentIsRequired')</span>
+          }
+          return errors
         }}
         initialValues={{
           ...initialValues,
@@ -1532,9 +1553,6 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
             : {})
         }}
         enableReinitialize
-        validationSchema={Yup.object().shape({
-          environmentRef: Yup.string().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
-        })}
       &gt;
         {formik =&gt; {
           window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.INFRASTRUCTURE }))
@@ -1771,7 +1789,7 @@ export class DeployEnvironmentStep extends Step&lt;DeployEnvData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 13:36:00 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 14:36:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

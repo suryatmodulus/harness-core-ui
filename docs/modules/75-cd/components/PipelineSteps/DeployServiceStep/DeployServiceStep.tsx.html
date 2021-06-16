@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.16% </span>
+                <span class="strong">84.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>132/155</span>
+                <span class='fraction'>137/162</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.79% </span>
+                <span class="strong">66.42% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>175/262</span>
+                <span class='fraction'>178/268</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.33% </span>
+                <span class="strong">84.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>128/150</span>
+                <span class='fraction'>133/157</span>
             </div>
         
             
@@ -565,7 +565,13 @@
 <a name='L506'></a><a href='#L506'>506</a>
 <a name='L507'></a><a href='#L507'>507</a>
 <a name='L508'></a><a href='#L508'>508</a>
-<a name='L509'></a><a href='#L509'>509</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L509'></a><a href='#L509'>509</a>
+<a name='L510'></a><a href='#L510'>510</a>
+<a name='L511'></a><a href='#L511'>511</a>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -831,6 +837,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -845,9 +860,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1339,6 +1351,15 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
                 : <span class="branch-1 cbranch-no" title="branch not covered" >values.serviceRef</span>
             onUpdate<span class="branch-0 cbranch-no" title="branch not covered" >?.({</span> ...omit(values, 'service'), serviceRef })
           }
+          const errors: { [key: string]: string } = {}
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof values.serviceRef === 'object') {
+            if (isEmpty((values.serviceRef as SelectOption).value as string)) {
+              errors.serviceRef = getString('pipelineSteps.serviceTab.serviceIsRequired')
+            }
+          } else <span class="cstat-no" title="statement not covered" >if (isEmpty(values.serviceRef)) {</span>
+<span class="cstat-no" title="statement not covered" >            errors.serviceRef = getString('pipelineSteps.serviceTab.serviceIsRequired')</span>
+          }
+          return errors
         }}
         initialValues={{
           ...initialValues,
@@ -1357,9 +1378,6 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
             : {})
         }}
         enableReinitialize
-        validationSchema={Yup.object().shape({
-          serviceRef: Yup.string().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
-        })}
       &gt;
         {formik =&gt; {
           window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.SERVICE }))
@@ -1588,7 +1606,7 @@ export class DeployServiceStep extends Step&lt;DeployServiceData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 13:36:00 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 14:36:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -39,6 +39,7 @@ export interface RoleOption extends SelectOption {
   managed: boolean
   managedRoleAssignment: boolean
   assignmentIdentifier?: string
+  disabled?: boolean
 }
 
 export interface ResourceGroupOption extends SelectOption {

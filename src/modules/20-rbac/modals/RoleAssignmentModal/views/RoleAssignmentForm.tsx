@@ -1,8 +1,11 @@
 import React, { useState, useMemo, useRef } from 'react'
-import { Container, Layout, Text, FieldArray, Select, SelectOption } from '@wings-software/uicore'
+import { Container, Layout, Text, FieldArray, SelectOption, Button } from '@wings-software/uicore'
+import { Select as BPSelect } from '@blueprintjs/select'
+import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
 import { produce } from 'immer'
+import cx from 'classnames'
 import { useDeleteRoleAssignment, useGetRoleList } from 'services/rbac'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -23,12 +26,101 @@ interface RoleAssignmentFormProps {
   formik: FormikProps<UserRoleAssignmentValues | UserGroupRoleAssignmentValues>
 }
 
+const Select = BPSelect.ofType<SelectOption>()
+
+interface CustromSelectProps {
+  handleQueryChange: (query: string) => void
+  filteredItems: RoleOption[] | SelectOption[]
+  handleChange: (value: any) => void
+  value: any
+  setDefaultRoleRows?: (value: React.SetStateAction<Set<number>>) => void
+  defaultRoleRows?: Set<number>
+  index?: number
+  managed?: boolean
+}
+
+const CustomSelect = (props: CustromSelectProps) => {
+  const {
+    handleQueryChange,
+    filteredItems,
+    handleChange,
+    setDefaultRoleRows,
+    defaultRoleRows,
+    index,
+    value,
+    managed
+  } = props
+  const { getString } = useStrings()
+  let placeholder = setDefaultRoleRows
+    ? getString('rbac.usersPage.selectRole')
+    : getString('rbac.usersPage.selectResourceGroup')
+  if (!filteredItems.length) {
+    placeholder = getString('noSearchResultsFoundPeriod')
+  }
+  return (
+    <Select
+      onQueryChange={handleQueryChange}
+      resetOnClose
+      items={filteredItems}
+      itemListRenderer={({ items, itemsParentRef, renderItem }) => {
+        const renderedItems = items.map(renderItem).filter(item => item !== null)
+        return (
+          <Menu className={css.menuHeight} ulRef={itemsParentRef}>
+            {renderedItems}
+          </Menu>
+        )
+      }}
+      itemRenderer={(item, { handleClick }) => (
+        <div key={item.label}>
+          <Menu.Item
+            disabled={(item as RoleOption).disabled}
+            text={<Text lineClamp={1}>{item.label}</Text>}
+            onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
+          />
+        </div>
+      )}
+      onItemSelect={onItem => {
+        handleChange(onItem)
+        if (setDefaultRoleRows) {
+          const selectedItem = onItem as RoleOption
+          if (selectedItem.managed)
+            setDefaultRoleRows(
+              produce(defaultRoleRows!, (draft: any) => {
+                draft.add(index)
+              })
+            )
+          else
+            setDefaultRoleRows(
+              produce(defaultRoleRows!, (draft: any) => {
+                draft.delete(index)
+              })
+            )
+        }
+      }}
+      popoverProps={{ minimal: true }}
+    >
+      <Button
+        inline
+        minimal
+        intent="primary"
+        rightIcon="chevron-down"
+        className={cx(css.toEnd, css.roleButton)}
+        disabled={managed || !!(value as RoleOption).assignmentIdentifier || !filteredItems.length}
+      >
+        <Text lineClamp={1}>{value.label ? value.label : placeholder}</Text>
+      </Button>
+    </Select>
+  )
+}
+
 const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmentsText, formik }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const defaultResourceGroup = useRef<SelectOption>()
   const [defaultRoleRows, setDefaultRoleRows] = useState<Set<number>>(new Set())
+  const [filteredRoles, setFilteredRoles] = useState<RoleOption[]>([])
+  const [filteredGroups, setFilteredGroups] = useState<RoleOption[]>([])
 
   const { mutate: deleteRoleAssignment } = useDeleteRoleAssignment({
     queryParams: {
@@ -37,11 +129,11 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
       projectIdentifier
     }
   })
-  const { data: roleList } = useGetRoleList({
+  const { data: roleList, loading: rolesLoading } = useGetRoleList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
-  const { data: resourceGroupList } = useGetResourceGroupList({
+  const { data: resourceGroupList, loading: groupsLoading } = useGetResourceGroupList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
@@ -57,6 +149,12 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
       }) || [],
     [roleList]
   )
+
+  React.useEffect(() => {
+    if (!rolesLoading && roles) {
+      setFilteredRoles(roles)
+    }
+  }, [rolesLoading, roles])
 
   const resourceGroups: SelectOption[] = useMemo(
     () =>
@@ -74,6 +172,12 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
     [resourceGroupList]
   )
 
+  React.useEffect(() => {
+    if (!groupsLoading && resourceGroups) {
+      setFilteredGroups(resourceGroups as RoleOption[])
+    }
+  }, [groupsLoading, resourceGroups])
+
   const handleRoleAssignmentDelete = async (identifier: string): Promise<void> => {
     try {
       const deleted = await deleteRoleAssignment(identifier, {
@@ -84,6 +188,26 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
     } catch (err) {
       /* istanbul ignore next */
       showError(err.data?.message || err.message)
+    }
+  }
+
+  const handleQueryChange = (
+    query: string,
+    items: RoleOption[],
+    setter: (value: React.SetStateAction<RoleOption[]>) => void
+  ) => {
+    const copyArray = [...items]
+    const filtered = copyArray.filter(el => el.label.toLowerCase().includes(query))
+    if (!filtered.length) {
+      setter([
+        {
+          label: getString('noSearchResultsFoundPeriod'),
+          value: '',
+          disabled: true
+        } as RoleOption
+      ])
+    } else {
+      setter(filtered)
     }
   }
 
@@ -114,29 +238,14 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
             // eslint-disable-next-line react/display-name
             renderer: (value, _index, handleChange, error) => (
               <Layout.Vertical flex={{ alignItems: 'end' }} spacing="xsmall">
-                <Select
-                  items={roles}
+                <CustomSelect
+                  handleQueryChange={query => handleQueryChange(query, roles, setFilteredRoles)}
+                  filteredItems={filteredRoles}
+                  handleChange={handleChange}
+                  setDefaultRoleRows={setDefaultRoleRows}
+                  defaultRoleRows={defaultRoleRows}
+                  index={_index}
                   value={value}
-                  inputProps={{
-                    placeholder: getString('rbac.usersPage.selectRole')
-                  }}
-                  disabled={(value as RoleOption).assignmentIdentifier ? true : false}
-                  onChange={props => {
-                    handleChange(props)
-                    const selectedItem = props as RoleOption
-                    if (selectedItem.managed)
-                      setDefaultRoleRows(
-                        produce(defaultRoleRows, draft => {
-                          draft.add(_index)
-                        })
-                      )
-                    else
-                      setDefaultRoleRows(
-                        produce(defaultRoleRows, draft => {
-                          draft.delete(_index)
-                        })
-                      )
-                  }}
                 />
                 {errorCheck('assignments', formik) && error ? (
                   <Text intent="danger" font="xsmall">
@@ -152,17 +261,16 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
             defaultValue: defaultResourceGroup.current,
             // eslint-disable-next-line react/display-name
             renderer: (value, _index, handleChange, error) => {
-              const managed = defaultRoleRows.has(_index)
               return (
                 <Layout.Vertical flex={{ alignItems: 'end' }} spacing="xsmall">
-                  <Select
-                    items={resourceGroups}
+                  <CustomSelect
+                    handleQueryChange={query =>
+                      handleQueryChange(query, resourceGroups as RoleOption[], setFilteredGroups)
+                    }
+                    filteredItems={filteredGroups}
+                    handleChange={handleChange}
                     value={value}
-                    disabled={managed || (value as RoleOption).assignmentIdentifier ? true : false}
-                    inputProps={{
-                      placeholder: getString('rbac.usersPage.selectResourceGroup')
-                    }}
-                    onChange={handleChange}
+                    managed={defaultRoleRows.has(_index)}
                   />
                   {errorCheck('assignments', formik) && error ? (
                     <Text intent="danger" font="xsmall">

@@ -19,3 +19,20 @@
   height: 400px;
   overflow: scroll;
 }
+
+.toEnd {
+  justify-content: space-between !important;
+}
+.roleButton {
+  width: 185px !important;
+  padding: var(--spacing-none) var(--spacing-small) !important;
+  color: var(--grey-600) !important;
+  p {
+    color: var(--grey-600) !important;
+  }
+}
+.menuHeight {
+  max-height: 400px;
+  overflow: scroll;
+  overflow-x: hidden;
+}

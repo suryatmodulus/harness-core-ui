@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>50/50</span>
+                <span class='fraction'>52/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.75% </span>
+                <span class="strong">82.02% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>63/79</span>
+                <span class='fraction'>73/89</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>50/50</span>
+                <span class='fraction'>52/52</span>
             </div>
         
             
@@ -275,7 +275,9 @@
 <a name='L216'></a><a href='#L216'>216</a>
 <a name='L217'></a><a href='#L217'>217</a>
 <a name='L218'></a><a href='#L218'>218</a>
-<a name='L219'></a><a href='#L219'>219</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -288,6 +290,7 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -300,6 +303,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">65x</span>
@@ -506,6 +510,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { PermissionRequest } from '@rbac/hooks/usePermission'
 &nbsp;
 interface ContextMenuProps {
@@ -522,6 +527,7 @@ const ContextMenu: React.FC&lt;ContextMenuProps&gt; = props =&gt; {
   const { accountId } = useParams&lt;AccountPathProps&gt;()
   const { getString } = useStrings()
   const { project, editProject, collaborators, setMenuOpen, openDialog } = props
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
 &nbsp;
   const permissionRequest: Optional&lt;PermissionRequest, 'permission'&gt; = {
     resourceScope: {
@@ -613,7 +619,7 @@ const ContextMenu: React.FC&lt;ContextMenuProps&gt; = props =&gt; {
 &nbsp;
   return (
     &lt;Menu style={{ minWidth: 'unset' }}&gt;
-      {project.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(ModuleName.CD) ? (
+      {CDNG_ENABLED &amp;&amp; project.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(ModuleName.CD) ? (
         &lt;Menu.Item
           text={
             &lt;Layout.Horizontal spacing="xsmall"&gt;
@@ -624,7 +630,7 @@ const ContextMenu: React.FC&lt;ContextMenuProps&gt; = props =&gt; {
           onClick={handleCD}
         /&gt;
       ) : null}
-      {project.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(ModuleName.CV) ? (
+      {CVNG_ENABLED &amp;&amp; project.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(ModuleName.CV) ? (
         &lt;Menu.Item
           text={
             &lt;Layout.Horizontal spacing="xsmall"&gt;
@@ -635,7 +641,7 @@ const ContextMenu: React.FC&lt;ContextMenuProps&gt; = props =&gt; {
           onClick={handleCV}
         /&gt;
       ) : null}
-      {project.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(ModuleName.CI) ? (
+      {CING_ENABLED &amp;&amp; project.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(ModuleName.CI) ? (
         &lt;Menu.Item
           text={
             &lt;Layout.Horizontal spacing="xsmall"&gt;
@@ -646,7 +652,7 @@ const ContextMenu: React.FC&lt;ContextMenuProps&gt; = props =&gt; {
           onClick={handleCI}
         /&gt;
       ) : null}
-      {project.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(ModuleName.CF) ? (
+      {CFNG_ENABLED &amp;&amp; project.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(ModuleName.CF) ? (
         &lt;Menu.Item
           text={
             &lt;Layout.Horizontal spacing="xsmall"&gt;
@@ -657,7 +663,7 @@ const ContextMenu: React.FC&lt;ContextMenuProps&gt; = props =&gt; {
           onClick={handleCF}
         /&gt;
       ) : null}
-      {project.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(ModuleName.CE) ? (
+      {CENG_ENABLED &amp;&amp; project.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(ModuleName.CE) ? (
         &lt;Menu.Item
           text={
             &lt;Layout.Horizontal spacing="xsmall"&gt;
@@ -718,7 +724,7 @@ export default ContextMenu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 07:55:36 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 08:08:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

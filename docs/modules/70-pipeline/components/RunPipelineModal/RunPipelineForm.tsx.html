@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45% </span>
+                <span class="strong">44.59% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>99/220</span>
+                <span class='fraction'>99/222</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20.77% </span>
+                <span class="strong">20.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>102/491</span>
+                <span class='fraction'>102/493</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.95% </span>
+                <span class="strong">44.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>98/218</span>
+                <span class='fraction'>98/220</span>
             </div>
         
             
@@ -1085,7 +1085,11 @@
 <a name='L1026'></a><a href='#L1026'>1026</a>
 <a name='L1027'></a><a href='#L1027'>1027</a>
 <a name='L1028'></a><a href='#L1028'>1028</a>
-<a name='L1029'></a><a href='#L1029'>1029</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L1029'></a><a href='#L1029'>1029</a>
+<a name='L1030'></a><a href='#L1030'>1030</a>
+<a name='L1031'></a><a href='#L1031'>1031</a>
+<a name='L1032'></a><a href='#L1032'>1032</a>
+<a name='L1033'></a><a href='#L1033'>1033</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1638,29 +1642,33 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2660,6 +2668,9 @@ function RunPipelineFormBasic({
 &nbsp;
   const handleRunPipeline = React.useCallback(
 <span class="fstat-no" title="function not covered" >    async </span>(valuesPipeline?: NgPipeline, forceSkipFlightCheck = <span class="branch-0 cbranch-no" title="branch not covered" >false)</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >      if (Object.keys(formErrors).length) {</span>
+<span class="cstat-no" title="statement not covered" >        return</span>
+      }
 <span class="cstat-no" title="statement not covered" >      valuesPipelineRef.current = valuesPipeline</span>
 <span class="cstat-no" title="statement not covered" >      if (!skipPreFlightCheck &amp;&amp; !forceSkipFlightCheck) {</span>
         // Not skipping pre-flight check - open the new modal
@@ -2703,7 +2714,8 @@ function RunPipelineFormBasic({
       projectIdentifier,
       onClose,
       accountId,
-      skipPreFlightCheck
+      skipPreFlightCheck,
+      formErrors
     ]
   )
 &nbsp;
@@ -2851,7 +2863,7 @@ function RunPipelineFormBasic({
 <span class="cstat-no" title="statement not covered" >                          callback(nextMode)</span>
                         }}
                         disableYaml={!template?.data?.inputSetTemplateYaml}
-                      &gt;&lt;/VisualYamlToggle&gt;
+                      /&gt;
                     &lt;/div&gt;
                   &lt;/div&gt;
                   &lt;ErrorsStrip formErrors={formErrors} /&gt;
@@ -2989,7 +3001,7 @@ function RunPipelineFormBasic({
                       schema={{}}
                       invocationMap={factory.getInvocationMap()}
                       height="55vh"
-                      width="32vw"
+                      width="100%"
                       showSnippetSection={false}
                       isEditModeSupported={canEdit}
                     /&gt;
@@ -3148,7 +3160,7 @@ export const RunPipelineForm: React.FC&lt;RunPipelineFormProps &amp; InputSetGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 12:48:52 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 16 2021 13:03:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -11,7 +11,12 @@ export const TargetSettings: React.FC<{ target?: Target | undefined | null }> = 
   const { getString } = useStrings()
 
   return (
-    <Container width={480} height="100%" style={{ background: '#F8FAFB', overflow: 'auto', minWidth: '480px' }}>
+    <Container
+      width={480}
+      height="100%"
+      style={{ background: '#F8FAFB', overflow: 'auto', minWidth: '480px' }}
+      className={css.targetSettings}
+    >
       <DetailHeading style={{ paddingBottom: 0 }}>{getString('cf.targetDetail.targetSetting')}</DetailHeading>
       <Container className={css.tabContainer}>
         <Tabs id="targetSettings">

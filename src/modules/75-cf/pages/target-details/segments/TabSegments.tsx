@@ -8,8 +8,13 @@ import { getErrorMessage } from '@cf/utils/CFUtils'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import { useStrings } from 'framework/strings'
 import { useAddTargetsToExcludeList, useAddTargetsToIncludeList } from '@cf/utils/SegmentUtils'
-import { GetTargetSegmentsQueryParams, Segment, Target, TargetDetailSegment, useGetTargetSegments } from 'services/cf'
-import { ItemBriefInfo } from '@cf/components/ItemBriefInfo/ItemBriefInfo'
+import {
+  GetTargetSegmentsQueryParams,
+  Segment,
+  Target,
+  /* TargetDetailSegment, */ useGetTargetSegments
+} from 'services/cf'
+// import { ItemBriefInfo } from '@cf/components/ItemBriefInfo/ItemBriefInfo'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { IncludeSegmentRow } from './IncludeSegmentRow'
 import { ExcludeSegmentRow } from './ExcludeSegmentRow'
@@ -117,7 +122,7 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
       </Container>
 
       {/* AUTOMATICALLY ADDED THROUGH CONDITIONS */}
-      <Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}>
+      {/* <Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}>
         <Layout.Horizontal style={{ alignItems: 'center' }}>
           <Text
             style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}
@@ -136,7 +141,7 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
             })}
           </Layout.Vertical>
         )) || <NoDataFoundRow message={getString('cf.targetDetail.noSegmentMatched')} />}
-      </Container>
+      </Container> */}
 
       {/* EXCLUSION LIST */}
       <Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}>

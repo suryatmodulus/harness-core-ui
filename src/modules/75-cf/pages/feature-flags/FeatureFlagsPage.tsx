@@ -6,13 +6,13 @@ import {
   Container,
   FlexExpander,
   Heading,
-  Icon,
+  // Icon,
   Layout,
   Pagination,
   Text,
   Utils
 } from '@wings-software/uicore'
-import ReactTimeago from 'react-timeago'
+// import ReactTimeago from 'react-timeago'
 import { noop } from 'lodash-es'
 import { Classes, Position, Switch } from '@blueprintjs/core'
 import type { Cell, CellProps, Column, Renderer } from 'react-table'
@@ -154,7 +154,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
 
   const onResize = (): void => {
     if (ref.current) {
-      setFlagNameTextSize((ref.current.closest('div[role="cell"]') as HTMLDivElement)?.offsetWidth - 174)
+      setFlagNameTextSize((ref.current.closest('div[role="cell"]') as HTMLDivElement)?.offsetWidth - 100)
     }
   }
 
@@ -223,12 +223,14 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
                 fontSize: '12px',
                 lineHeight: '24px'
               }}
+              width={flagNameTextSize}
+              lineClamp={1}
             >
               {data.description}
             </Text>
           )}
         </Layout.Vertical>
-        <Text
+        {/* <Text
           width="100px"
           flex
           icon="main-tags"
@@ -249,7 +251,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
           }}
         >
           {data?.tags?.length || 0}
-        </Text>
+        </Text> */}
       </Layout.Horizontal>
     </Container>
   )
@@ -300,14 +302,14 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   )
 }
 
-const RenderColumnLastUpdated: Renderer<CellProps<Feature>> = ({ row }) => {
-  return row.original?.modifiedAt ? (
-    <Layout.Horizontal spacing="small">
-      <Icon name="activity" />
-      <ReactTimeago date={row.original?.modifiedAt} />
-    </Layout.Horizontal>
-  ) : null
-}
+// const RenderColumnLastUpdated: Renderer<CellProps<Feature>> = ({ row }) => {
+//   return row.original?.modifiedAt ? (
+//     <Layout.Horizontal spacing="small">
+//       <Icon name="activity" />
+//       <ReactTimeago date={row.original?.modifiedAt} />
+//     </Layout.Horizontal>
+//   ) : null
+// }
 
 interface ColumnMenuProps {
   cell: Cell<Feature>
@@ -437,7 +439,7 @@ const FeatureFlagsPage: React.FC = () => {
       {
         Header: getString('featureFlagsText').toUpperCase(),
         accessor: row => row.name,
-        width: '35%',
+        width: '40%',
         activeEnvironment,
         Cell: function WrapperRenderColumnFlag(cell: Cell<Feature>) {
           return (
@@ -486,17 +488,17 @@ const FeatureFlagsPage: React.FC = () => {
       {
         Header: getString('cf.featureFlags.results').toUpperCase(),
         accessor: row => row.results,
-        width: '11%',
+        width: '16%',
         Cell: function ResultCell(cell: Cell<Feature>) {
           return <FlagResult feature={cell.row.original} />
         }
       },
-      {
-        Header: getString('lastUpdated').toUpperCase(),
-        accessor: row => row.modifiedAt,
-        width: '10%',
-        Cell: RenderColumnLastUpdated
-      },
+      // {
+      //   Header: getString('lastUpdated').toUpperCase(),
+      //   accessor: row => row.modifiedAt,
+      //   width: '10%',
+      //   Cell: RenderColumnLastUpdated
+      // },
       {
         Header: '',
         id: 'version',

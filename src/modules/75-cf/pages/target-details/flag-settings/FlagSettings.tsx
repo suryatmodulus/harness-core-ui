@@ -87,7 +87,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
     return (
       <Container
         padding={{ left: 'xsmall', right: 'xsmall' }}
-        style={{ position: 'sticky', top: '78px', background: '#fcfdfd', zIndex: 2 }}
+        style={{ position: 'sticky', top: '82px', background: '#fcfdfd', zIndex: 2 }}
       >
         <Layout.Horizontal padding={{ top: 'xsmall', right: 'xxxlarge', bottom: 'xsmall', left: 'xxxlarge' }}>
           <Text

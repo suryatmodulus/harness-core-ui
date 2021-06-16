@@ -26,3 +26,21 @@
     padding-left: var(--spacing-xlarge);
   }
 }
+
+.targetSettings {
+  > h3 {
+    position: sticky;
+    top: 0;
+    background-color: var(--white) !important;
+  }
+
+  > div {
+    :global {
+      .bp3-tab-list {
+        position: sticky;
+        top: 50px;
+        background-color: var(--white);
+      }
+    }
+  }
+}

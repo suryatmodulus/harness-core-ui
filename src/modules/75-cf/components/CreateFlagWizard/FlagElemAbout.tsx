@@ -35,7 +35,7 @@ type AboutFormProps = FormikProps<any> & FlagElemAboutProps & { isEdit: boolean 
 const AboutForm: React.FC<AboutFormProps> = props => {
   const { getString } = useStrings()
   const [descOpened, setDescOpened] = useState<boolean>(Boolean(props.values.description.length))
-  const [tagsOpened, setTagsOpened] = useState<boolean>(Boolean(props.values.tags.length))
+  // const [tagsOpened, setTagsOpened] = useState<boolean>(Boolean(props.values.tags.length))
   return (
     <Form>
       <Container className={css.aboutFlagContainer}>
@@ -65,7 +65,7 @@ const AboutForm: React.FC<AboutFormProps> = props => {
                 <FormInput.TextArea name="description" />
               </Collapse>
             </div>
-            <div className={css.optionalCollapse}>
+            {/* <div className={css.optionalCollapse}>
               <Collapse
                 {...collapseProps}
                 onToggleOpen={setTagsOpened}
@@ -85,7 +85,7 @@ const AboutForm: React.FC<AboutFormProps> = props => {
                   }}
                 />
               </Collapse>
-            </div>
+            </div> */}
           </Container>
           <Container margin={{ top: 'xlarge' }}>
             <Layout.Horizontal>

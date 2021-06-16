@@ -37,10 +37,8 @@ export interface PlatformEntry {
   disabled?: boolean
 }
 
-export const SupportPlatforms: Array<PlatformEntry> = [
+export const SupportPlatforms = [
   {
-    // Currently is the same as JavaScript but may be change to
-    // a server side language later on
     name: 'NodeJS',
     icon: nodejs,
     type: PlatformEntryType.SERVER,
@@ -84,7 +82,7 @@ export const SupportPlatforms: Array<PlatformEntry> = [
     type: PlatformEntryType.CLIENT,
     readmeStringId: 'cf.onboarding.readme.ios'
   }
-]
+].sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)) as Array<PlatformEntry>
 
 export interface LanguageSelectionProps {
   selected: PlatformEntry | undefined

@@ -164,7 +164,7 @@ featureFlags:
   flagWillTurnOff: Turn flag off for this environment upon save
   targeting: Targeting
   activity: '{{ $.activity }}'
-  results: Results
+  results: Results (Last 7 Days)
   makeSure: Make sure your code is deployed
   rules:
     editRules: Edit Rules
@@ -432,54 +432,93 @@ onboarding:
       readmore: Read more...
   readme:
     java: |
-      # 1. <a href="https://search.maven.org/artifact/io.harness/ff-java-server-sdk">Download our SDK</a> and add the CF Client SDK to your project
+      # Setup
 
-      ```
+      Add the following snippet to your project's `pom.xml` file:
+
+      ```xml
       <dependency>
         <groupId>io.harness.cf</groupId>
         <artifactId>cf-client-sdk-java</artifactId>
-        <version>0.0.3</version>
+        <version>1.0.0-SNAPSHOT</version>
       </dependency>
       ```
 
-      # 2. Import the CF Cient SDK
+      After dependency has been added, the SDK elements, primarily CfClient should be accessible in the main application.
 
-      ```
-      import com.CfClient.*;
-      ```
+      # Initialization
 
-      # 3. Authorize your application to connect to our CF client with the SDK key of your environment
+      `CfClient` is a base class that provides all features of SDK.
 
-      The CfClient SDK downloads and stores the latest values automatically every 60 seconds.
+      ```java
+      /**
+      * Put the API Key here from your environment
+      */
+      String apiKey = "YOUR_API_KEY";
 
-      ```
-      // Please replace this value with the SDK Key of
-      // your 'Development' environment
-      CfClient cfClient = new CfClient("{{apiKey}}"");
-      ```
+      CfClient cfClient = new CfClient(apiKey, Config.builder().build());
 
-      # 4. Place this sample code we generated of your feature flag into your code.
-
-      ```
-      public class HelloWorld {
-        public static void main(String[] args) throws Exception {
-          String apiKey = "{{apiKey}}";
-          CfClient cfClient = new CfClient(apiKey);
-
-          Target target = Target.builder().name("User1").identifier("user1@example.com").build();
-
-          while (true) {
-            Thread.sleep(2000);
-            boolean result = cfClient.boolVariation("toggle", target, false);
-            System.out.println("Boolean variation is "+ result);
-          }
-        }
-      }
+      /**
+      * Define you target on which you would like to evaluate
+      * the featureFlag
+      */
+      Target target = Target.builder()
+                          .name("User1")
+                          .attributes(new HashMap<String, Object>())
+                          .identifier("user1@example.com")
+                          .build();
       ```
 
-      Once you’re done, run your application so that we can verify that we are able to receive analytic events for your feature.
+      `target` represents the desired target for which we want features to be evaluated.
+      `"YOUR_API_KEY"` is an authentication key, needed for access to Harness services.
+
+      Your Harness SDK is now initialized. Congratulations!
+
+      # Public API Methods
+
+      The Public API exposes a few methods that you can utilize:
+
+      ```
+      public boolean boolVariation(String key, Target target, boolean defaultValue)
+
+      public String stringVariation(String key, Target target, String defaultValue)
+
+      public double numberVariation(String key, Target target, int defaultValue)
+
+      public JsonObject jsonVariation(String key, Target target, JsonObject defaultValue)
+
+      public void destroy()
+      ```
+
+      # Fetch evaluation's value
+
+      It is possible to fetch a value for a given evaluation. Evaluation is performed based on a different type. In case there is no evaluation with provided id, the default value is returned.
+
+      Use the appropriate method to fetch the desired Evaluation of a certain type.
+
+      # Bool variation
+
+      ```java
+      boolean result = cfClient.boolVariation("sample_boolean_flag", target, false);
+      ```
+
+      # Number variation
+
+      ```java
+      boolean result = cfClient.numberVariation("sample_number_flag", target, 0);
+
+      ```
+
+      # String variation
+
+      ```java
+      boolean result = cfClient.stringVariation("sample_string_flag", target, "");
+      ```
+
     javascript: |
-      # Install our <a href="https://github.com/drone/ff-javascript-client-sdk">SDK</a> into your project
+      # Install
+
+      You can use npm or yarn to install <a href="https://www.npmjs.com/package/@harnessio/ff-javascript-client-sdk">ff-javascript-client-sdk</a> into your project:
 
       ```
       npm i @harnessio/ff-javascript-client-sdk
@@ -581,7 +620,34 @@ onboarding:
       ```
       cf.close();
       ```
+
+      # Import directly from unpkg
+
+      In case you want to import this library directly (without having to use npm or yarn):
+
+      ```html
+      <script type="module">
+        import { initialize, Event } from 'https://unpkg.com/@harnessio/ff-javascript-client-sdk@1.3.7/dist/sdk.client.js'
+      </script>
+      ```
+
+      If you need to support old browsers which don't support ES Module:
+
+      ```html
+      <script src="https://unpkg.com/@harnessio/ff-javascript-client-sdk@1.3.7/dist/sdk.client.js"></script>
+      <script>
+        var initialize = HarnessFFSDK.initialize
+        var Event = HarnessFFSDK.Event
+      </script>
+      ```
+
+      Remember to change the version 1.3.7 in the unpkg url accordingly.
+
     golang: |
+      # Supported GO versions
+
+      This version of FFM has been tested with GO 1.14
+
       # Install
 
       ```
@@ -606,7 +672,11 @@ onboarding:
       Build()
       ```
 
-      Evaluating Feature Flag `showFeature, err := client.BoolVariation(featureFlagKey, target, false)`
+      Evaluating Feature Flag:
+
+      ```
+      showFeature, err := client.BoolVariation(featureFlagKey, target, false)
+      ```
     android: |
       # Setup
 
@@ -624,7 +694,7 @@ onboarding:
 
       After this step, the SDK elements, primarily `CfClient` should be accessible in main application.
 
-      # **_Initialization_**
+      # Initialization
 
       `CfClient` is base class that provides all features of SDK. This is singleton and it is acessed with `CfClient.getInstance()`.
 
@@ -647,7 +717,7 @@ onboarding:
 
       **Your Harness SDK is now initialized. Congratulations!!!**
 
-      # **_Public API Methods_** ###
+      # Public API Methods
 
       The Public API exposes a few methods that you can utilize:
 
@@ -669,34 +739,34 @@ onboarding:
       public void destroy()
       ```
 
-      ## Fetch evaluation's value
+      # Fetch evaluation's value
 
       It is possible to fetch a value for a given evaluation. Evaluation is performed based on different type. In case there is no evaluation with provided id, the default value is returned.
 
       Use appropriate method to fetch the desired Evaluation of a certain type.
 
-      ### <u>_boolEvaluation(String evaluationId, boolean defaultValue)_</u>
+      # boolEvaluation(String evaluationId, boolean defaultValue)
 
       ```Kotlin
       //get boolean evaluation
       val evaluation: Boolean = CfClient.getInstance().boolVariation("demo_evaluation", false)
       ```
 
-      ### <u>_numberEvaluation(String evaluationId, double defaultValue)_</u>
+      # numberEvaluation(String evaluationId, double defaultValue)
 
       ```Kotlin
       //get number evaluation
       val numberEvaluation: Double = CfClient.getInstance().numberVariation("demo_number_evaluation", 0)
       ```
 
-      ### <u>_stringEvaluation(String evaluationId, String defaultValue)_</u>
+      # stringEvaluation(String evaluationId, String defaultValue)
 
       ```Kotlin
       //get String evaluation
       val stringEvaluation: String = CfClient.getInstance().stringVariation("demo_string_evaluation", "demo_value")
       ```
 
-      ## _Register for events_
+      # Register for events
 
       This method provides a way to register a listener for different events that might be triggered by SDK, indicating specific change in SDK itself.
 
@@ -735,18 +805,36 @@ onboarding:
       To avoid unexpected behaviour, when listener is not needed anymore, a caller should call
       `CfClient.getInstance().unregisterEventsListener(eventsListener)`. This way the sdk will remove desired listener from internal list.
 
-      ## _Shutting down the SDK_
+      # Shutting down the SDK
 
       To avoid potential memory leak, when SDK is no longer needed (when the app is closed, for example), a caller should call this method
 
       ```Kotlin
       CfClient.getInstance().destroy()
       ```
+
+      # Using SDK in unit tests
+
+      To be able to use the SDK in unit tests it is required to set SDKs logging to the console output:
+
+      ```Kotlin
+      CfLog.testModeOn()
+      ```
+
+      `testModeOn` will turn on the use of the system output logging strategy.
+      On the other hand, to turn on the usage of the Android <a href="https://developer.android.com/reference/android/util/Log">log class</a> use:
+
+      ```Kotlin
+      CfLog.runtimeModeOn()
+      ```
+
+      Standard Android logging is the default logging strategy so turning on runtime mode is not required.
     ios: |
-      # _Installing the `ff-ios-client-sdk`_
+      # Installing the `ff-ios-client-sdk`
+
       Installing ff-ios-client-sdk is possible with `Swift Package Manager (SPM), CocoaPods and Carthage`
 
-      ## <u>_Swift Package Manager (SPM)_</u>
+      # Swift Package Manager (SPM)
 
       The [Swift Package Manager](https://swift.org/package-manager/) is a dependency manager integrated into the `swift` compiler and `Xcode`.
 
@@ -756,13 +844,13 @@ onboarding:
 
       ```Swift
       dependencies: [
-          .package(url: "https://github.com/drone/ff-ios-client-sdk.git", .upToNextMinor(from: "0.0.5"))
+          .package(url: "https://github.com/drone/ff-ios-client-sdk.git", .upToNextMinor(from: "1.0.0"))
       ]
       ```
 
-      ## <u>_CocoaPods_</u>
+      # CocoaPods
 
-      The [CocoaPods](https://cocoapods.org//) CocoaPods is a dependency manager for Swift and Objective-C Cocoa projects. It has over 81 thousand libraries and is used in over 3 million apps. CocoaPods can help you scale your projects elegantly.
+      [CocoaPods](https://cocoapods.org//) is a dependency manager for Swift and Objective-C Cocoa projects. It has over 81 thousand libraries and is used in over 3 million apps. CocoaPods can help you scale your projects elegantly.
 
       CocoaPods is built with Ruby and it will be installable with the default Ruby available on macOS. You can use a Ruby Version manager, however we recommend that you use the standard Ruby available on macOS unless you know what you're doing.
 
@@ -772,7 +860,7 @@ onboarding:
       $ sudo gem install cocoapods
       ```
 
-      Once cocoapods are installed, from your root project folder, create a `Podfile`, which will be located in your project's root folder, by entering the next command in your terminal:
+      Once Cocoapods is installed, from your root project folder, create a `Podfile`, which will be located in your project's root folder, by entering the next command in your terminal:
 
       ```Swift
       $ pod init
@@ -797,12 +885,12 @@ onboarding:
 
       NOTE: A new `.xcworkspace` will be created and you should use that, instead of your `.xcodeproj` from now on in order to utilize the imported Pods.
 
-      ## <u>_Carthage_</u>
+      # Carthage
 
-      Carthage is intended to be the simplest way to add frameworks to your Cocoa application.
-      Carthage builds your dependencies and provides you with binary frameworks, but you retain full control over your project structure and setup. Carthage does not automatically modify your project files or your build settings.
+      Carthage is intended to be the simplest way to add frameworks to your Cocoa application. Carthage builds your dependencies and provides you with binary frameworks, but you retain full control over your project structure and setup. Carthage does not automatically modify your project files or your build settings.
 
       In order to integrate `ff-ios-client-sdk` into your app, there are a few steps to follow.
+
       Navigate to the root folder of your project and create a `Cartfile`. This is the file where you would input all of your dependencies that you plan to use with Carthage. You can create it by entering
 
       ```Swift
@@ -839,10 +927,10 @@ onboarding:
       ```Swift
       $ swift package generate-xcodeproj
       ```
-      ...or, you can enter it all on the same line.
+      or you can enter it all on the same line.
 
       ```Swift
-      //From your project's root folder
+      // From your project's root folder
       $ cd Carthage/Checkouts/ff-ios-client-sdk && swift package generate-xcodeproj
       ```
 
@@ -852,15 +940,15 @@ onboarding:
       $ carthage build --use-xcframeworks --platform iOS
       ```
 
-      This command will build the project and place it in the `Build` folder next to `Checkouts`.
-      On your application targets’ `General` settings tab, in the `Frameworks, Libraries, and Embedded Content` section, drag and drop the `.xcframework` file from the `Carthage/Build` folder. In the `"Embed"` section, select `"Embed & Sign"`.
+      This command will build the project and place it in the `Build` folder next to `Checkouts`. On your application targets’ `General` settings tab, in the `Frameworks, Libraries, and Embedded Content` section, drag and drop the `.xcframework` file from the `Carthage/Build` folder. In the `"Embed"` section, select `"Embed & Sign"`.
 
       Only thing left to do is:
 
       ```Swift
       import ff_ios_client_sdk
       ```
-      ...wherever you need to use `ff-ios-client-sdk`
+
+      wherever you need to use `ff-ios-client-sdk`
 
       When a new version of `ff-ios-client-sdk` is available and you wish to update this dependency, run
 
@@ -869,24 +957,25 @@ onboarding:
       ```
       And your embedded library will be updated.
 
-      # _Using the `ff-ios-client-sdk`_
+      # Using the `ff-ios-client-sdk`
 
       In order to use `ff-ios-client-sdk` in your application, there are a few steps that you would need to take.
 
-      ## **_Initialization_**
+      # Initialization
 
       1. Setup your configuration by calling `CfConfiguration`'s static method `builder()` and pass-in your prefered configuration settings through possible chaining methods. The chaining needs to be ended with `build()` method. (See the `build()`'s description for possible chaining methods and their default values.)
+
       2. Setup your target by calling `CfTarget`'s static method `builder()` and pass-in your prefered target settings through possible chaining methods. The chaining needs to be ended with `build()` method. (See the `build()`'s description for possible chaining methods and their default values). Target's `identifier` is mandatory and represents the `Account` from which you wish to receive evaluations.
 
-      2. Call `CfClient.sharedInstance.initialize(apiKey:configuration:target:cache:onCompletion:)` and pass in your Harness CF `apiKey`, previously created configuration object, target and an optional cache object adopting `StorageRepositoryProtocol`.
+      3. Call `CfClient.sharedInstance.initialize(apiKey:configuration:target:cache:onCompletion:)` and pass in your Harness CF `apiKey`, previously created configuration object, target and an optional cache object adopting `StorageRepositoryProtocol`.
 
-          If `cache` object is omitted, internal built-in cache will be used. You can also omitt `onCompletion` parameter if you don't need initialization/authorization information.
+      If `cache` object is omitted, internal built-in cache will be used. You can also omitt `onCompletion` parameter if you don't need initialization/authorization information.
 
       **Your `ff-ios-client-sdk` is now initialized. Congratulations!!!**
 
       Upon successful initialization and authorization, the completion block of `CfClient.sharedInstance.initialize(apiKey:configuration:target:cache:onCompletion:)` will deliver `Swift.Result<Void, CFError>` object. You can then switch through it's `.success(Void)` and `.failure(CFError)` cases and decide on further steps depending on a result.
 
-      ### <u>_initialize(apiKey:configuration:cache:onCompletion:)_</u>
+      # initialize(apiKey:configuration:cache:onCompletion:)
 
       ```Swift
       let configuration = CfConfiguration.builder().setStreamEnabled(true).build()
@@ -901,10 +990,9 @@ onboarding:
       }
       ```
 
-      ## **_Implementation_**
+      ## Implementation
 
-      The Public API exposes few methods that you can utilize:
-      Please note that all of the below methods are called on `CfClient.sharedInstance`
+      The Public API exposes few methods that you can utilize. Please note that all of the below methods are called on `CfClient.sharedInstance`
 
       ```
       public func initialize(apiKey:configuration:target:cache:onCompletion:)` -> Called first as described above in the **_initialization_** section. `(Mandatory)
@@ -924,8 +1012,7 @@ onboarding:
       public func jsonVariation(evaluationId:defaultValue:completion:)
       ```
 
-
-      ### <u>_registerEventsListener(events:onCompletion:)_</u>
+      # registerEventsListener(events:onCompletion:)
 
       `events` is an array of events that you would like to subscribe to. It defaults to `*`, which means ALL events.
       In order to be notified of the SSE events sent from the server, you need to call `CfClient.sharedInstance.registerEventsListener()` method
@@ -958,13 +1045,13 @@ onboarding:
       }
       ```
 
-      ## _Fetching from cache methods_
+      ## Fetching from cache methods
 
       The following methods can be used to fetch an Evaluation from cache, by it's known key. Completion handler delivers `Evaluation` result. If `defaultValue` is specified, it will be returned if key does not exist. If `defaultValue` is omitted, `nil` will be delivered in the completion block. Fetching is done for specified target identifier during initialize() call.
 
       Use appropriate method to fetch the desired Evaluation of a certain type.
 
-      ### <u>_stringVariation(forKey:defaultValue:completion:)_</u>
+      # stringVariation(forKey:defaultValue:completion:)
 
       ```Swift
       CfClient.sharedInstance.stringVariation("your_evaluation_id", defaultValue: String?) { (evaluation) in
@@ -972,7 +1059,7 @@ onboarding:
       }
       ```
 
-      ### <u>_boolVariation(forKey:defaultValue:completion:)_</u>
+      # boolVariation(forKey:defaultValue:completion:)
 
       ```Swift
       CfClient.sharedInstance.boolVariation("your_evaluation_id", defaultValue: Bool?) { (evaluation) in
@@ -980,7 +1067,7 @@ onboarding:
       }
       ```
 
-      ### <u>_numberVariation(forKey:defaultValue:completion:)_</u>
+      # numberVariation(forKey:defaultValue:completion:)
 
       ```Swift
       CfClient.sharedInstance.numberVariation("your_evaluation_id", defaultValue: Int?) { (evaluation) in
@@ -988,7 +1075,7 @@ onboarding:
       }
       ```
 
-      ### <u>_jsonVariation(forKey:defaultValue:completion:)_</u>
+      # jsonVariation(forKey:defaultValue:completion:)
 
       ```Swift
       CfClient.sharedInstance.jsonVariation("your_evaluation_id", defaultValue: [String:ValueType]?) { (evaluation) in
@@ -1003,7 +1090,7 @@ onboarding:
       ValueType.int(Int)
       ValueType.object([String:ValueType])
 
-      ## _Shutting down the SDK_
+      ## Shutting down the SDK
 
       To avoid potential memory leak, when SDK is no longer needed (when the app is closed, for example), a caller should call this method.
       Also, you need to call this method when changing accounts through `CfTarget` object, in order to re-initialize and fetch Evaluations for the right account.

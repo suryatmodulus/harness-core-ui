@@ -97,7 +97,7 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
                       <FormInput.TextArea name="description" />
                     </Collapse>
                   </div>
-                  <div className={css.collapse}>
+                  {/* <div className={css.collapse}>
                     <Collapse {...collapseProps} heading={getString('tagsLabel')}>
                       <FormInput.TagInput
                         name="tags"
@@ -112,7 +112,7 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
                         }}
                       />
                     </Collapse>
-                  </div>
+                  </div> */}
                   <div style={{ paddingTop: 'var(--spacing-xxxlarge)' }}>
                     <Layout.Horizontal spacing="small" style={{ justifyContent: 'flex-start', alignItems: 'center' }}>
                       <Button text={getString('create')} onClick={handleSubmit} intent="primary" />

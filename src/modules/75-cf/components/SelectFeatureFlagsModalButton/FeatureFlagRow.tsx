@@ -65,7 +65,7 @@ export const FeatureFlagRow: React.FC<FeatureRowProps> = ({ feature, checked, di
         disabled={disabled}
         name={feature.name}
         description={feature.description as string}
-        style={{ boxShadow: 'none', flexGrow: 1, paddingLeft: 'var(--spacing-xsmall)' }}
+        style={{ boxShadow: 'none', flexGrow: 1, paddingLeft: 'var(--spacing-xsmall)', maxWidth: '370px' }}
         padding="none"
       />
       <Container width={175}>

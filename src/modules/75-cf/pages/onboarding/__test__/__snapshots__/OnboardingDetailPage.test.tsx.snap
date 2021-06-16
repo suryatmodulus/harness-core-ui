@@ -556,7 +556,7 @@ exports[`OnboardingDetailPage SetUpYourApplicationView 1`] = `
                     class="button selected"
                   >
                     <img
-                      alt="Java"
+                      alt="Android"
                       height="35"
                       src="test-file-stub"
                       width="35"
@@ -566,7 +566,7 @@ exports[`OnboardingDetailPage SetUpYourApplicationView 1`] = `
                     class="StyledProps--font StyledProps--main StyledProps--inline"
                     style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
                   >
-                    Java
+                    Android
                   </span>
                 </div>
               </li>
@@ -604,54 +604,6 @@ exports[`OnboardingDetailPage SetUpYourApplicationView 1`] = `
                     class="button"
                   >
                     <img
-                      alt="JavaScript"
-                      height="35"
-                      src="test-file-stub"
-                      width="35"
-                    />
-                  </button>
-                  <span
-                    class="StyledProps--font StyledProps--main StyledProps--inline"
-                    style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
-                  >
-                    JavaScript
-                  </span>
-                </div>
-              </li>
-              <li
-                class="item"
-              >
-                <div
-                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                >
-                  <button
-                    class="button"
-                  >
-                    <img
-                      alt="Android"
-                      height="35"
-                      src="test-file-stub"
-                      width="35"
-                    />
-                  </button>
-                  <span
-                    class="StyledProps--font StyledProps--main StyledProps--inline"
-                    style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
-                  >
-                    Android
-                  </span>
-                </div>
-              </li>
-              <li
-                class="item"
-              >
-                <div
-                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                >
-                  <button
-                    class="button"
-                  >
-                    <img
                       alt="iOS"
                       height="35"
                       src="test-file-stub"
@@ -663,6 +615,54 @@ exports[`OnboardingDetailPage SetUpYourApplicationView 1`] = `
                     style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
                   >
                     iOS
+                  </span>
+                </div>
+              </li>
+              <li
+                class="item"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <button
+                    class="button"
+                  >
+                    <img
+                      alt="Java"
+                      height="35"
+                      src="test-file-stub"
+                      width="35"
+                    />
+                  </button>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline"
+                    style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
+                  >
+                    Java
+                  </span>
+                </div>
+              </li>
+              <li
+                class="item"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <button
+                    class="button"
+                  >
+                    <img
+                      alt="JavaScript"
+                      height="35"
+                      src="test-file-stub"
+                      width="35"
+                    />
+                  </button>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline"
+                    style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
+                  >
+                    JavaScript
                   </span>
                 </div>
               </li>
@@ -741,7 +741,7 @@ exports[`OnboardingDetailPage SetUpYourApplicationView 1`] = `
                 style="color: rgb(51, 51, 51); line-height: 18px;"
               >
                 <span>
-                  cf.onboarding.readme.java
+                  cf.onboarding.readme.android
                 </span>
               </p>
             </div>

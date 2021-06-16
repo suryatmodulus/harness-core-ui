@@ -207,14 +207,14 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
                 <FormInput.TextArea name="description" label={getString('description')} />
 
-                <FormInput.TagInput
+                {/* <FormInput.TagInput
                   name="tags"
                   label={getString('tagsLabel')}
                   items={[]}
                   labelFor={nameTag => nameTag as string}
                   itemFromNewTag={newTag => newTag}
                   tagInputProps={{ showAddTagButton: true, allowNewTag: true }}
-                />
+                /> */}
 
                 <Layout.Horizontal padding={{ top: 'medium', bottom: 'medium' }}>
                   <FormInput.CheckBox
@@ -374,7 +374,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
         <IdentifierText identifier={featureFlag.identifier} allowCopy />
 
-        {!!featureFlag.tags?.length && (
+        {/* Disable tags for now (backend does not support them) */}
+        {false && !!featureFlag.tags?.length && (
           <Container className={css.tagsFlagActivationDetails}>
             <TagsViewer
               tags={featureFlag.tags?.map(({ value }) => value as string)}

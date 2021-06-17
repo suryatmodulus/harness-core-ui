@@ -367,11 +367,8 @@
 <a name='L308'></a><a href='#L308'>308</a>
 <a name='L309'></a><a href='#L309'>309</a>
 <a name='L310'></a><a href='#L310'>310</a>
-<a name='L311'></a><a href='#L311'>311</a>
-<a name='L312'></a><a href='#L312'>312</a>
-<a name='L313'></a><a href='#L313'>313</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L311'></a><a href='#L311'>311</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -653,7 +650,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -662,8 +658,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -692,7 +688,6 @@ import {
   Card,
   CardSelectType,
   CardSelect,
-  Layout,
   Accordion,
   HarnessDocTooltip
 } from '@wings-software/uicore'
@@ -952,37 +947,36 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({
                     Stage Variables
                     &lt;HarnessDocTooltip tooltipId="overviewStageVariables" useStandAlone={true} /&gt;
                   &lt;/div&gt;
-                  &lt;Layout.Horizontal&gt;
-                    &lt;div className={css.stageSection}&gt;
-                      &lt;div className={cx(css.stageDetails)}&gt;
-                        {context ? (
-                          &lt;StepWidget&lt;CustomVariablesData, CustomVariableEditableExtraProps&gt;
-                            factory={stepsFactory}
-                            initialValues={{
-                              variables: allNGVariables,
-                              canAddVariable: true
-                            }}
-                            readonly={isReadonly}
-                            type={StepType.CustomVariable}
-                            stepViewType={StepViewType.StageVariable}
-                            onUpdate={<span class="fstat-no" title="function not covered" >({</span> variables }: CustomVariablesData) =&gt; {
-<span class="cstat-no" title="statement not covered" >                              onChange?.({ ...data?.stage, variables } as StageElementConfig)</span>
-                            }}
-                            customStepProps={{
-                              yamlProperties:
-                                getStageFromPipeline(
-<span class="branch-1 cbranch-no" title="branch not covered" >                                  data?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.identifier,</span>
-                                  variablesPipeline
-                                )<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.variables<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.map<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.(</span>
-<span class="fstat-no" title="function not covered" >                                  (v</span>ariable: AllNGVariables) =&gt; <span class="cstat-no" title="statement not covered" >metadataMap[variable.value || '']?.yamlProperties || {}</span>
-                                ) || [],
-                              enableValidation: true
-                            }}
-                          /&gt;
-                        ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
-                      &lt;/div&gt;
+                  &lt;div className={css.stageSection}&gt;
+                    &lt;div className={cx(css.stageDetails)}&gt;
+                      {context ? (
+                        &lt;StepWidget&lt;CustomVariablesData, CustomVariableEditableExtraProps&gt;
+                          factory={stepsFactory}
+                          initialValues={{
+                            variables: allNGVariables,
+                            canAddVariable: true
+                          }}
+                          readonly={isReadonly}
+                          type={StepType.CustomVariable}
+                          stepViewType={StepViewType.StageVariable}
+                          onUpdate={<span class="fstat-no" title="function not covered" >({</span> variables }: CustomVariablesData) =&gt; {
+<span class="cstat-no" title="statement not covered" >                            onChange?.({ ...data?.stage, variables } as StageElementConfig)</span>
+                          }}
+                          customStepProps={{
+                            tabName: DeployTabs.OVERVIEW,
+                            yamlProperties:
+                              getStageFromPipeline(
+<span class="branch-1 cbranch-no" title="branch not covered" >                                data?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.identifier,</span>
+                                variablesPipeline
+                              )<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.variables<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.map<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.(</span>
+<span class="fstat-no" title="function not covered" >                                (v</span>ariable: AllNGVariables) =&gt; <span class="cstat-no" title="statement not covered" >metadataMap[variable.value || '']?.yamlProperties || {}</span>
+                              ) || [],
+                            enableValidation: true
+                          }}
+                        /&gt;
+                      ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
                     &lt;/div&gt;
-                  &lt;/Layout.Horizontal&gt;
+                  &lt;/div&gt;
                 &lt;/Card&gt;
               }
             /&gt;
@@ -1000,7 +994,7 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 04:56:47 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 05:05:05 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

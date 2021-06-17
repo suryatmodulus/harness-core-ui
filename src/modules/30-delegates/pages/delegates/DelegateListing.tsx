@@ -342,7 +342,7 @@ export const DelegateListing: React.FC = () => {
       },
       {
         Header: getString('delegate.LastHeartBeat').toUpperCase(),
-        accessor: (row: DelegateGroupDetails) => (row.lastHeartBeat ? moment(row.lastHeartBeat).fromNow() : '/'),
+        accessor: (row: DelegateGroupDetails) => (row.lastHeartBeat ? moment(row.lastHeartBeat).fromNow() : 'N/A'),
         id: 'lastHeartBeat',
         width: DELEGATE_INSIGHTS_ENABLED ? 'calc(15% - 10px)' : 'calc(20% - 10px)'
       },

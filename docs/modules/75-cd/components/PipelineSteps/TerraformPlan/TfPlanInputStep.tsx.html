@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.56% </span>
+                <span class="strong">63.83% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>85/114</span>
+                <span class='fraction'>60/94</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -118,22 +118,16 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,17 +135,11 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -193,15 +181,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 &nbsp;
-import { getMultiTypeFromValue, MultiTypeInputType, FormInput, FormikForm, Text, Button } from '@wings-software/uicore'
+import { getMultiTypeFromValue, MultiTypeInputType, FormInput, FormikForm, Text } from '@wings-software/uicore'
 &nbsp;
 import { isEmpty } from 'lodash-es'
-import Map from '@common/components/Map/Map'
 import List from '@common/components/List/List'
 &nbsp;
 import { useStrings } from 'framework/strings'
 &nbsp;
-import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 &nbsp;
 import type { TerraformPlanProps } from '../Common/Terraform/TerraformInterfaces'
 import ConfigInputs from './InputSteps/TfConfigSection'
@@ -210,47 +198,41 @@ import TfVarFiles from './InputSteps/TfPlanVarFiles'
 export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactElement {
   const { getString } = useStrings()
   const { inputSetData, readonly } = props
+  const { expressions } = useVariablesExpression()
+&nbsp;
   return (
     &lt;FormikForm&gt;
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rovisionerIdentifier) === MultiTypeInputType.RUNTIME &amp;&amp; (
-        &lt;FormInput.Text
+        &lt;FormInput.MultiTextInput
           name={`${isEmpty(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) ? '' : `${inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath}.`}spec.provisionerIdentifier`}
           label={getString('pipelineSteps.provisionerIdentifier')}
           disabled={readonly}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         /&gt;
       )}
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
-        &lt;DurationInputFieldForInputSet
+        &lt;FormMultiTypeDurationField
           label={getString('pipelineSteps.timeoutLabel')}
           name={`${isEmpty(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${inputSetData?.path}.`}</span>timeout`}
           disabled={readonly}
+          multiTypeDurationProps={{
+            enableConfigureOptions: false,
+            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+            expressions,
+            disabled: readonly
+          }}
         /&gt;
       )}
       &lt;ConfigInputs {...props} /&gt;
       {inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>arFiles<span class="branch-1 cbranch-no" title="branch not covered" >?.length </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;TfVarFiles {...props} /&gt;}</span>
-      {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets as string) === MultiTypeInputType.RUNTIME &amp;&amp; (
-        &lt;List
-          name={`${isEmpty(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) ? '' : `${inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath}.`}spec.targets`}
-          label={&lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;{getString('pipeline.targets.title')}&lt;/Text&gt;}
-          disabled={readonly}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        /&gt;
-      )}
-      {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables as string) ===
+      {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets as string) ===
         MultiTypeInputType.RUNTIME &amp;&amp; (
-        &lt;Map
-          name={`${isEmpty(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) ? '' : `${inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath}.`}spec.environmentVariables`}
-          label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
-              {getString('environmentVariables')}
-              &lt;Button
-                icon="question"
-                minimal
-                tooltip={getString('environmentVariablesInfo')}
-                iconProps={{ size: 14 }}
-              /&gt;
-            &lt;/Text&gt;
-          }
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;List</span>
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.targets`}
+          label={&lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;{getString('pipeline.targets.title')}&lt;/Text&gt;}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         /&gt;
@@ -265,7 +247,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 02:19:12 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 04:43:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

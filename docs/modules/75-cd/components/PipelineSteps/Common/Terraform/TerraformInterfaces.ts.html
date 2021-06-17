@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">88.24% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>60/66</span>
+                <span class='fraction'>60/68</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.29% </span>
+                <span class="strong">54.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>492/874</span>
+                <span class='fraction'>492/900</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.63% </span>
+                <span class="strong">87.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>58/64</span>
+                <span class='fraction'>58/66</span>
             </div>
         
             
@@ -536,7 +536,8 @@
 <a name='L477'></a><a href='#L477'>477</a>
 <a name='L478'></a><a href='#L478'>478</a>
 <a name='L479'></a><a href='#L479'>479</a>
-<a name='L480'></a><a href='#L480'>480</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L480'></a><a href='#L480'>480</a>
+<a name='L481'></a><a href='#L481'>481</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -562,7 +563,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -641,13 +642,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -811,8 +812,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -913,7 +913,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -960,6 +960,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1068,7 +1070,7 @@ export interface TerraformPlanProps {
   configTypes?: SelectOption[]
   isNewStep?: boolean
   inputSetData?: {
-    template?: TFPlanFormData
+    template?: TerraformPlanData
     path?: string
   }
   path?: string
@@ -1205,13 +1207,12 @@ export interface TerraformData extends StepElementConfig {
 export interface TerraformPlanData extends StepElementConfig {
   spec?: {
     provisionerIdentifier?: string
-    configuration?: {
+    configuration?: TFDataSpec &amp; {
       command?: 'Apply' | 'Destroy'
       secretManagerRef?: string
-    } &amp; TFDataSpec
+    }
   }
 }
-&nbsp;
 export interface TFDataSpec {
   workspace?: string
   backendConfig?: TerraformBackendConfig
@@ -1439,6 +1440,8 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData =&gt; {
 &nbsp;
   <span class="missing-if-branch" title="else path not taken" >E</span>if (targetMap.length) {
     configObject['targets'] = targetMap
+  } else <span class="cstat-no" title="statement not covered" >if (getMultiTypeFromValue(values?.spec?.configuration?.targets) === MultiTypeInputType.RUNTIME) {</span>
+<span class="cstat-no" title="statement not covered" >    configObject['targets'] = values?.spec?.configuration?.targets</span>
   }
 &nbsp;
   <span class="missing-if-branch" title="else path not taken" >E</span>if (values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>arFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength) {
@@ -1501,7 +1504,7 @@ export interface InlineVar {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 02:19:12 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 04:43:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

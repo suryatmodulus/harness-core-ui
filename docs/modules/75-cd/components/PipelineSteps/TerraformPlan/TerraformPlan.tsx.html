@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.74% </span>
+                <span class="strong">69.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>71/95</span>
+                <span class='fraction'>66/95</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50.5% </span>
+                <span class="strong">48.84% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>153/303</span>
+                <span class='fraction'>148/303</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.17% </span>
+                <span class="strong">47.83% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/23</span>
+                <span class='fraction'>11/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.74% </span>
+                <span class="strong">69.47% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>71/95</span>
+                <span class='fraction'>66/95</span>
             </div>
         
             
@@ -1006,8 +1006,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1024,10 +1024,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1064,10 +1064,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1522,13 +1522,13 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Plan'
-  validateInputSet(
+<span class="fstat-no" title="function not covered" >  validateInputSet(</span>
     data: TFPlanFormData,
     template?: TFPlanFormData,
     getString?: (key: StringKeys, vars?: Record&lt;string, any&gt;) =&gt; string
   ): FormikErrors&lt;TFPlanFormData&gt; {
-    const errors = {} as any
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imeout) === MultiTypeInputType.RUNTIME) {
+    const errors = <span class="cstat-no" title="statement not covered" >{} as any</span>
+<span class="cstat-no" title="statement not covered" >    if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {</span>
       const timeout = <span class="cstat-no" title="statement not covered" >Yup.object().shape({</span>
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
       })
@@ -1545,10 +1545,10 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
       }
     }
     /* istanbul ignore else */
-    if (isEmpty(errors.spec)) {
-      delete errors.spec
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (isEmpty(errors.spec)) {</span>
+<span class="cstat-no" title="statement not covered" >      delete errors.spec</span>
     }
-    return errors
+<span class="cstat-no" title="statement not covered" >    return errors</span>
   }
 &nbsp;
   private getInitialValues(data: TFPlanFormData): TerraformPlanData {
@@ -1627,7 +1627,7 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 02:19:12 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 04:43:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

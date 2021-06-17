@@ -13,6 +13,7 @@ stepFourName: 'Artifact Location'
 name: Connector Name
 updating: 'Updating connector {{name}}'
 creating: 'Creating connector {{name}}'
+deleting: 'Deleting connector {{name}}'
 successfullCreate: 'Connector {{name}} created successfully'
 successfullUpdate: 'Connector {{name}} updated successfully'
 connectorNotFound: Connector not found.

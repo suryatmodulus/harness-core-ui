@@ -19,6 +19,7 @@ import {
   EntityGitDetails
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
+import { PageSpinner } from '@common/components'
 import { useConfirmationDialog } from '@common/exports'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
@@ -473,12 +474,14 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
         {gitDetails?.objectId && (
           <>
             <Text>{getString('common.git.commitMessage')}</Text>
-            <TextArea
-              value={commitMsg}
-              onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-                setCommitMsg(event.target.value)
-              }}
-            />
+            <Container padding={{ top: 'medium' }}>
+              <TextArea
+                value={commitMsg}
+                onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  setCommitMsg(event.target.value)
+                }}
+              />
+            </Container>
           </>
         )}
       </div>
@@ -492,7 +495,9 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
     cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
+        ;(column as any).setIsDeleting(true)
         try {
+          ;(column as any).setConnectorBeingDeleted(data.connector?.name)
           const deleted = await deleteConnector(data.connector?.identifier || '', {
             headers: { 'content-type': 'application/json' }
           })
@@ -502,6 +507,7 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
         } catch (err) {
           showError(err?.data?.message || err?.message)
         }
+        ;(column as any).setIsDeleting(false)
       }
     }
   })
@@ -560,6 +566,8 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
   const listData: ConnectorResponse[] = useMemo(() => data?.content || [], [data?.content])
+  const [isDeleting, setIsDeleting] = useState<boolean>()
+  const [connectorBeingDeleted, setConnectorBeingDeleted] = useState<string>()
   const columns: CustomColumn<ConnectorResponse>[] = useMemo(
     () => [
       {
@@ -612,7 +620,9 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
         Cell: RenderColumnMenu,
         openConnectorModal: props.openConnectorModal,
         reload: reload,
-        disableSortBy: true
+        disableSortBy: true,
+        setIsDeleting,
+        setConnectorBeingDeleted
       }
     ],
     [props.openConnectorModal, reload, isGitSyncEnabled]
@@ -623,24 +633,27 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
   }
 
   return (
-    <Table<ConnectorResponse>
-      className={css.table}
-      columns={columns}
-      data={listData}
-      onRowClick={connector => {
-        const url = routes.toConnectorDetails({ ...params, connectorId: connector.connector?.identifier })
-        const gitInfo: EntityGitDetails = connector.gitDetails ?? {}
-        const urlForGit = `${url}?repoIdentifier=${gitInfo.repoIdentifier}&branch=${gitInfo.branch}`
-        history.push(gitInfo?.objectId ? urlForGit : url)
-      }}
-      pagination={{
-        itemCount: data?.totalItems || 0,
-        pageSize: data?.pageSize || 10,
-        pageCount: data?.totalPages || -1,
-        pageIndex: data?.pageIndex || 0,
-        gotoPage
-      }}
-    />
+    <>
+      {isDeleting ? <PageSpinner message={getString('connectors.deleting', { name: connectorBeingDeleted })} /> : null}
+      <Table<ConnectorResponse>
+        className={css.table}
+        columns={columns}
+        data={listData}
+        onRowClick={connector => {
+          const url = routes.toConnectorDetails({ ...params, connectorId: connector.connector?.identifier })
+          const gitInfo: EntityGitDetails = connector.gitDetails ?? {}
+          const urlForGit = `${url}?repoIdentifier=${gitInfo.repoIdentifier}&branch=${gitInfo.branch}`
+          history.push(gitInfo?.objectId ? urlForGit : url)
+        }}
+        pagination={{
+          itemCount: data?.totalItems || 0,
+          pageSize: data?.pageSize || 10,
+          pageCount: data?.totalPages || -1,
+          pageIndex: data?.pageIndex || 0,
+          gotoPage
+        }}
+      />
+    </>
   )
 }
 

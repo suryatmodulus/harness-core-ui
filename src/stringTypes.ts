@@ -775,6 +775,7 @@ export interface StringsMap {
   'connectors.delegate.noDelegates': string
   'connectors.delegate.noMatchingDelegate': string
   'connectors.delegate.testDelegateConnectivity': string
+  'connectors.deleting': string
   'connectors.docker.dockerHub': string
   'connectors.docker.dockerProvideType': string
   'connectors.docker.dockerRegistryURL': string

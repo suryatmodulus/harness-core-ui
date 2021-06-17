@@ -21,17 +21,31 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
+import { PROVIDER_TYPES } from '@ce/constants'
 // import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
 import DeleteAccessPoint from '../COAccessPointDelete/DeleteAccessPoint'
 import { getRelativeTime } from '../COGatewayList/Utils'
 // import LoadBalancerDnsConfig from '../COGatewayAccess/LoadBalancerDnsConfig'
 import useCreateAccessPointDialog from './COCreateAccessPointDialog'
+import TextWithToolTip, { textWithToolTipStatus } from '../TextWithTooltip/TextWithToolTip'
 import css from './COAcessPointList.module.scss'
 
 function NameCell(tableProps: CellProps<AccessPoint>): JSX.Element {
+  const hasError: boolean = tableProps.row.original.status === 'errored'
   return (
     <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 600 }}>
-      {tableProps.value}
+      <span style={{ marginRight: 7 }}>{tableProps.value}</span>
+      {hasError && (
+        <TextWithToolTip
+          status={textWithToolTipStatus.ERROR}
+          messageText={'Error'}
+          errors={
+            tableProps.row.original.type === PROVIDER_TYPES.AZURE
+              ? [{ error: tableProps.row.original.metadata?.error }]
+              : []
+          }
+        />
+      )}
     </Text>
   )
 }

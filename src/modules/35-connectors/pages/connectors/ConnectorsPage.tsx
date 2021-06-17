@@ -289,12 +289,12 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   }, [isFetchingConnectorStats])
 
   const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: () => {
-      const __params = { ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams), searchTerm }
+    onSuccess: async () => {
+      const _params = { ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams), searchTerm }
       Promise.all([
-        refetchConnectorList(__params, appliedFilter?.filterProperties),
+        refetchConnectorList(_params, appliedFilter?.filterProperties),
         fetchConnectorStats({
-          queryParams: __params
+          queryParams: _params
         })
       ])
     },

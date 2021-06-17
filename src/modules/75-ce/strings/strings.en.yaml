@@ -142,6 +142,7 @@ co:
     newAppGateway: 'New Application Gateway'
     dnsProvider: 'DNS Provider'
     asssociatedRules: 'Associated Rules'
+    status: 'status'
     lastActivity: 'last activity'
     mapDomain: 'Map the domain'
     error: 'Could not create access point'

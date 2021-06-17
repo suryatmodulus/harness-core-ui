@@ -1764,6 +1764,7 @@ export interface StringsMap {
   'ce.co.accessPoint.select.route53zone': string
   'ce.co.accessPoint.select.securityGroups': string
   'ce.co.accessPoint.select.vpc': string
+  'ce.co.accessPoint.status': string
   'ce.co.accessPoint.success': string
   'ce.co.accessPoint.validation.connector': string
   'ce.co.accessPoint.validation.name': string

@@ -20,12 +20,14 @@ import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { PROVIDER_TYPES } from '@ce/constants'
 import { useStrings } from 'framework/strings'
 // import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
 import DeleteAccessPoint from '../COAccessPointDelete/DeleteAccessPoint'
 import { getRelativeTime } from '../COGatewayList/Utils'
 // import LoadBalancerDnsConfig from '../COGatewayAccess/LoadBalancerDnsConfig'
 import useCreateAccessPointDialog from './COCreateAccessPointDialog'
+import TextWithToolTip, { textWithToolTipStatus } from '../TextWithTooltip/TextWithToolTip'
 import css from './COAcessPointList.module.scss'
 
 function NameCell(tableProps: CellProps<AccessPoint>): JSX.Element {
@@ -204,6 +206,16 @@ const COLoadBalancerList: React.FC = () => {
   //   )
   // }
 
+  const StatusCell = ({ row }: CellProps<AccessPoint>) => {
+    return (
+      <TextWithToolTip
+        messageText={row.original.status}
+        errors={row.original.type === PROVIDER_TYPES.AZURE ? [{ error: row.original.metadata?.error }] : []}
+        status={row.original.status === 'errored' ? textWithToolTipStatus.ERROR : textWithToolTipStatus.SUCCESS}
+      />
+    )
+  }
+
   const { data, error, loading, refetch } = useAllAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -315,7 +327,7 @@ const COLoadBalancerList: React.FC = () => {
                     {
                       accessor: 'id',
                       Header: getString('ce.co.accessPoint.dnsProvider').toUpperCase(),
-                      width: '15%',
+                      width: '10%',
                       Cell: DNSCell,
                       disableSortBy: true
                     },
@@ -328,8 +340,14 @@ const COLoadBalancerList: React.FC = () => {
                     {
                       accessor: 'status',
                       Header: getString('ce.co.accessPoint.lastActivity').toUpperCase(),
-                      width: '20%',
+                      width: '15%',
                       Cell: ActivityCell
+                    },
+                    {
+                      accessor: row => row.status,
+                      Header: getString('ce.co.accessPoint.status').toUpperCase(),
+                      Cell: StatusCell,
+                      width: '15%'
                     }
                     // {
                     //   id: 'menu',

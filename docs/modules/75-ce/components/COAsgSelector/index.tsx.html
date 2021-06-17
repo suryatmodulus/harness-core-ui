@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">48.65% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/32</span>
+                <span class='fraction'>18/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.77% </span>
+                <span class="strong">26.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/26</span>
+                <span class='fraction'>8/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">9.09% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/9</span>
+                <span class='fraction'>1/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">48.65% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/32</span>
+                <span class='fraction'>18/37</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -212,7 +212,24 @@
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -222,6 +239,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -280,6 +298,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -387,6 +421,7 @@ interface COAsgSelectorprops {
   gatewayDetails: GatewayDetails
   onAsgAddSuccess?: (updatedGatewayDetails: GatewayDetails) =&gt; void
   loading: boolean
+  refresh?: () =&gt; void
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >TableCell(</span>tableProps: CellProps&lt;ASGMinimal&gt;): JSX.Element {
@@ -434,6 +469,15 @@ const COAsgSelector: React.FC&lt;COAsgSelectorprops&gt; = props =&gt; {
 <span class="cstat-no" title="statement not covered" >    props.onAsgAddSuccess?.(updatedGatewayDetails)</span>
   }
 &nbsp;
+  const refreshPageParams = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >    setPageIndex(0)</span>
+  }
+&nbsp;
+  const handleRefresh = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >    refreshPageParams()</span>
+<span class="cstat-no" title="statement not covered" >    props.refresh?.()</span>
+  }
+&nbsp;
   return (
     &lt;Container&gt;
       &lt;Layout.Vertical spacing="large"&gt;
@@ -452,16 +496,23 @@ const COAsgSelector: React.FC&lt;COAsgSelectorprops&gt; = props =&gt; {
             justifyContent: 'space-between'
           }}
         &gt;
-          &lt;Button
-            onClick={addAsg}
-            disabled={!isAsgSelected}
-            style={{
-              backgroundColor: isAsgSelected ? '#0278D5' : <span class="branch-1 cbranch-no" title="branch not covered" >'inherit',</span>
-              color: isAsgSelected ? '#F3F3FA' : <span class="branch-1 cbranch-no" title="branch not covered" >'inherit'</span>
-            }}
-          &gt;
-            {'Add selected'}
-          &lt;/Button&gt;
+          &lt;Layout.Horizontal flex={{ alignItems: 'center' }}&gt;
+            &lt;Button
+              onClick={addAsg}
+              disabled={!isAsgSelected}
+              style={{
+                backgroundColor: isAsgSelected ? '#0278D5' : <span class="branch-1 cbranch-no" title="branch not covered" >'inherit',</span>
+                color: isAsgSelected ? '#F3F3FA' : <span class="branch-1 cbranch-no" title="branch not covered" >'inherit',</span>
+                marginRight: 20
+              }}
+            &gt;
+              {'Add selected'}
+            &lt;/Button&gt;
+            &lt;div onClick={handleRefresh}&gt;
+              &lt;Icon name="refresh" color="primary7" size={14} /&gt;
+              &lt;span style={{ color: 'var(--primary-7)', margin: '0 5px', cursor: 'pointer' }}&gt;Refresh&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/Layout.Horizontal&gt;
           &lt;ExpandingSearchInput onChange={<span class="fstat-no" title="function not covered" >(t</span>ext: string) =&gt; <span class="cstat-no" title="statement not covered" >props.search(text)}</span> /&gt;
         &lt;/Layout.Horizontal&gt;
         &lt;Container&gt;
@@ -529,7 +580,7 @@ export default COAsgSelector
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 08:16:19 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 08:36:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

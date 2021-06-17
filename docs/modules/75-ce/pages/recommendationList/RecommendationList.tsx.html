@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.62% </span>
+                <span class="strong">97.56% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>41/42</span>
+                <span class='fraction'>40/41</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.62% </span>
+                <span class="strong">97.56% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/42</span>
+                <span class='fraction'>40/41</span>
             </div>
         
             
@@ -222,13 +222,13 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -337,10 +337,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -381,18 +381,18 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Card, Text, Layout, Container, Color } from '@wings-software/uicore'
-import { useHistory, useLocation, useParams } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
+import { useQuery } from 'urql'
 &nbsp;
 import { useStrings } from 'framework/strings'
 import FETCH_ALL_RECOMMENDATIONS from 'queries/ce/fetch_all_recommendations.gql'
 import type { RecommendationsQuery, RecommendationItemDto } from 'services/ce/services'
 &nbsp;
-import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
+// import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import formatCost from '@ce/utils/formatCost'
-import { getGraphQLAPIConfig } from '@ce/constants'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 &nbsp;
 interface RecommendationListProps {
@@ -496,24 +496,24 @@ const RecommendationsList: React.FC&lt;RecommendationListProps&gt; = ({ data }) 
 }
 &nbsp;
 const RecommendationList: React.FC = () =&gt; {
-  const { accountId } = useParams&lt;{ accountId: string }&gt;()
-&nbsp;
-  const { data, initLoading } = useGraphQLQuery&lt;{ data: RecommendationsQuery }&gt;({
-    ...getGraphQLAPIConfig(accountId),
-    body: { query: FETCH_ALL_RECOMMENDATIONS }
+  const [result] = useQuery&lt;RecommendationsQuery&gt;({
+    query: FETCH_ALL_RECOMMENDATIONS,
+    requestPolicy: 'network-only'
   })
+&nbsp;
+  const { data, fetching } = result
 &nbsp;
   const { getString } = useStrings()
 &nbsp;
-  const totalMonthlyCost = data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.recommendationStats<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalMonthlyCost || <span class="branch-1 cbranch-no" title="branch not covered" >0</span>
-  const totalSavings = data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.recommendationStats<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalMonthlySaving || <span class="branch-1 cbranch-no" title="branch not covered" >0</span>
+  const totalMonthlyCost = data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ecommendationStats<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalMonthlyCost || <span class="branch-1 cbranch-no" title="branch not covered" >0</span>
+  const totalSavings = data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ecommendationStats<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalMonthlySaving || <span class="branch-1 cbranch-no" title="branch not covered" >0</span>
 &nbsp;
-  const recommendationItems = data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.recommendations<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>tems || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
+  const recommendationItems = data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ecommendations<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>tems || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
 &nbsp;
   return (
     &lt;&gt;
       &lt;Page.Header title="Recommendations"&gt;&lt;/Page.Header&gt;
-      &lt;Page.Body loading={initLoading}&gt;
+      &lt;Page.Body loading={fetching}&gt;
         &lt;Container padding="xlarge" background={Color.WHITE} height="100%"&gt;
           {recommendationItems.length ? (
             &lt;Layout.Vertical spacing="large"&gt;
@@ -547,7 +547,7 @@ export default RecommendationList
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 16 2021 22:38:29 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 02:19:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

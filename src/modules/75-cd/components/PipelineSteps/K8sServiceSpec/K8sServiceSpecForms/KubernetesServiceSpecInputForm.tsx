@@ -830,6 +830,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                       disabled={readonly}
                       style={{ marginBottom: 'var(--spacing-small)' }}
+                      expressions={expressions}
                     />
                   )}
                   {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (

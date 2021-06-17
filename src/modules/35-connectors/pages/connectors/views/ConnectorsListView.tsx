@@ -474,14 +474,12 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
         {gitDetails?.objectId && (
           <>
             <Text>{getString('common.git.commitMessage')}</Text>
-            <Container padding={{ top: 'medium' }}>
-              <TextArea
-                value={commitMsg}
-                onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-                  setCommitMsg(event.target.value)
-                }}
-              />
-            </Container>
+            <TextArea
+              value={commitMsg}
+              onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                setCommitMsg(event.target.value)
+              }}
+            />
           </>
         )}
       </div>

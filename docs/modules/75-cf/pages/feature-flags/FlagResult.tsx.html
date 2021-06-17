@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.71% </span>
+                <span class="strong">58.06% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/28</span>
+                <span class='fraction'>18/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">29.09% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/39</span>
+                <span class='fraction'>16/55</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.57% </span>
+                <span class="strong">65.38% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/23</span>
+                <span class='fraction'>17/26</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -222,7 +222,15 @@
 <a name='L163'></a><a href='#L163'>163</a>
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -243,8 +251,11 @@
 <span class="cline-any cline-yes">52x</span>
 <span class="cline-any cline-yes">52x</span>
 <span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -315,8 +326,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -408,6 +424,7 @@ export const FlagResult: React.FC&lt;FlagResultProps&gt; = ({ feature, style, ..
   const metricsCount = results<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(<span class="fstat-no" title="function not covered" >({</span> count }) =&gt; <span class="cstat-no" title="statement not covered" >count)</span>.reduce(<span class="fstat-no" title="function not covered" >(s</span>um = <span class="branch-0 cbranch-no" title="branch not covered" >0,</span> count = <span class="branch-0 cbranch-no" title="branch not covered" >0)</span> =&gt; <span class="cstat-no" title="statement not covered" >sum + count,</span> 0) || 0
   const singleVariationDistribution = results<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength === 1
   const tooltip = metricsCount ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;FlagResultTooltip feature={feature} /&gt; </span>: undefined
+  const hasMoreThanTwoResults = (results<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength as number) &gt; 2
 &nbsp;
   return (
     &lt;Container style={{ display: 'inline-block', ...style }} {...props}&gt;
@@ -429,7 +446,7 @@ export const FlagResult: React.FC&lt;FlagResultProps&gt; = ({ feature, style, ..
 <span class="branch-2 cbranch-no" title="branch not covered" >            &lt;&gt;</span>
               &lt;span
                 style={{
-                  width: 54,
+                  width: hasMoreThanTwoResults ? 54 : 71,
                   height: 12,
                   display: 'inline-block',
                   backgroundColor: '#6739B7',
@@ -446,15 +463,17 @@ export const FlagResult: React.FC&lt;FlagResultProps&gt; = ({ feature, style, ..
                   margin: '0 1px'
                 }}
               /&gt;
-              &lt;span
-                style={{
-                  width: 17,
-                  height: 12,
-                  display: 'inline-block',
-                  backgroundColor: '#D1C3E9',
-                  borderRadius: '3px'
-                }}
-              /&gt;
+              {hasMoreThanTwoResults &amp;&amp; (
+                &lt;span
+                  style={{
+                    width: 17,
+                    height: 12,
+                    display: 'inline-block',
+                    backgroundColor: '#D1C3E9',
+                    borderRadius: '3px'
+                  }}
+                /&gt;
+              )}
             &lt;/&gt;
           )}
         &lt;/span&gt;
@@ -479,10 +498,12 @@ export const FlagResult: React.FC&lt;FlagResultProps&gt; = ({ feature, style, ..
 const FlagResultTooltip: React.FC&lt;FlagResultProps&gt; = <span class="fstat-no" title="function not covered" >({</span> feature }) =&gt; {
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
   const results = <span class="cstat-no" title="statement not covered" >feature.results</span>
+  const len = <span class="cstat-no" title="statement not covered" >results?.length || 1</span>
   const metricsCount = <span class="cstat-no" title="statement not covered" >results?.map(<span class="fstat-no" title="function not covered" >({</span> count }) =&gt; <span class="cstat-no" title="statement not covered" >count)</span>.reduce(<span class="fstat-no" title="function not covered" >(s</span>um = <span class="branch-0 cbranch-no" title="branch not covered" >0,</span> count = <span class="branch-0 cbranch-no" title="branch not covered" >0)</span> =&gt; <span class="cstat-no" title="statement not covered" >sum + count,</span> 0) || 0</span>
+  const height = <span class="cstat-no" title="statement not covered" >len &gt; 2 ? 204 : 126 + len * 26</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Container padding="xlarge" style={{ overflow: 'auto', width: 325, height: 187 }} onClick={Utils.stopEvent}&gt;
+    &lt;Container padding="xlarge" style={{ overflow: 'auto', width: 325, height }} onClick={Utils.stopEvent}&gt;
       &lt;Heading
         level={3}
         color={Color.WHITE}
@@ -497,6 +518,9 @@ const FlagResultTooltip: React.FC&lt;FlagResultProps&gt; = <span class="fstat-no
           color={Color.WHITE}
         &gt;
           ({new Intl.NumberFormat().format(metricsCount)})
+        &lt;/Text&gt;
+        &lt;Text color={Color.WHITE} font={{ size: 'xsmall' }} padding={{ top: 'xsmall' }}&gt;
+          {getString('cf.featureFlags.metrics.last7Days')}
         &lt;/Text&gt;
       &lt;/Heading&gt;
       &lt;Container&gt;
@@ -559,7 +583,7 @@ const FlagResultTooltip: React.FC&lt;FlagResultProps&gt; = <span class="fstat-no
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 12:20:06 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 22:01:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

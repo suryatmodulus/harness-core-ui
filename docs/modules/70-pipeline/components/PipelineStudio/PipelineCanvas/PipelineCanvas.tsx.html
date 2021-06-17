@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">17% </span>
+                <span class="strong">16.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>34/200</span>
+                <span class='fraction'>34/203</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/318</span>
+                <span class='fraction'>0/320</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.67% </span>
+                <span class="strong">16.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/198</span>
+                <span class='fraction'>33/201</span>
             </div>
         
             
@@ -711,7 +711,10 @@
 <a name='L652'></a><a href='#L652'>652</a>
 <a name='L653'></a><a href='#L653'>653</a>
 <a name='L654'></a><a href='#L654'>654</a>
-<a name='L655'></a><a href='#L655'>655</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L655'></a><a href='#L655'>655</a>
+<a name='L656'></a><a href='#L656'>656</a>
+<a name='L657'></a><a href='#L657'>657</a>
+<a name='L658'></a><a href='#L658'>658</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -1140,21 +1143,24 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1780,26 +1786,28 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
     [hideModal, pipeline, updatePipeline]
   )
 &nbsp;
-  function <span class="fstat-no" title="function not covered" >handleViewChange(</span>newView: SelectedView): void {
-<span class="cstat-no" title="statement not covered" >    if (newView === view) <span class="cstat-no" title="statement not covered" >return</span></span>
+  function <span class="fstat-no" title="function not covered" >handleViewChange(</span>newView: SelectedView): boolean {
+<span class="cstat-no" title="statement not covered" >    if (newView === view) <span class="cstat-no" title="statement not covered" >return false</span></span>
 <span class="cstat-no" title="statement not covered" >    if (newView === SelectedView.VISUAL &amp;&amp; yamlHandler) {</span>
 <span class="cstat-no" title="statement not covered" >      try {</span>
         const parsedYaml = <span class="cstat-no" title="statement not covered" >parse(yamlHandler.getLatestYaml())</span>
 <span class="cstat-no" title="statement not covered" >        if (!parsedYaml) {</span>
 <span class="cstat-no" title="statement not covered" >          clear()</span>
 <span class="cstat-no" title="statement not covered" >          showError(getString('invalidYamlText'))</span>
-<span class="cstat-no" title="statement not covered" >          return</span>
+<span class="cstat-no" title="statement not covered" >          return false</span>
         }
 <span class="cstat-no" title="statement not covered" >        if (yamlHandler.getYAMLValidationErrorMap()?.size &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >          clear()</span>
 <span class="cstat-no" title="statement not covered" >          setYamlError(true)</span>
 <span class="cstat-no" title="statement not covered" >          showError(getString('invalidYamlText'))</span>
-<span class="cstat-no" title="statement not covered" >          return</span>
+<span class="cstat-no" title="statement not covered" >          return false</span>
         }
 <span class="cstat-no" title="statement not covered" >        updatePipeline(parsedYaml.pipeline)</span>
       } catch (e) {
+<span class="cstat-no" title="statement not covered" >        clear()</span>
 <span class="cstat-no" title="statement not covered" >        setYamlError(true)</span>
 <span class="cstat-no" title="statement not covered" >        showError(e.message || getString('invalidYamlText'))</span>
-<span class="cstat-no" title="statement not covered" >        return</span>
+<span class="cstat-no" title="statement not covered" >        return false</span>
       }
     }
 <span class="cstat-no" title="statement not covered" >    setView(newView)</span>
@@ -1810,6 +1818,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
       drawerData: { type: DrawerTypes.AddStep }
     })
 <span class="cstat-no" title="statement not covered" >    setSelectedStageId(undefined)</span>
+<span class="cstat-no" title="statement not covered" >    return true</span>
   }
 &nbsp;
   const runPipeline = <span class="cstat-no" title="statement not covered" >useRunPipelineModal({</span>
@@ -1958,8 +1967,8 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             &lt;VisualYamlToggle
               initialSelectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
               beforeOnChange={<span class="fstat-no" title="function not covered" >(n</span>extMode, callback) =&gt; {
-<span class="cstat-no" title="statement not covered" >                handleViewChange(nextMode)</span>
-<span class="cstat-no" title="statement not covered" >                callback(nextMode)</span>
+                const shoudSwitchcMode = <span class="cstat-no" title="statement not covered" >handleViewChange(nextMode)</span>
+<span class="cstat-no" title="statement not covered" >                shoudSwitchcMode &amp;&amp; callback(nextMode)</span>
               }}
             &gt;&lt;/VisualYamlToggle&gt;
           &lt;/div&gt;
@@ -2026,7 +2035,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 12:20:06 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 22:01:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

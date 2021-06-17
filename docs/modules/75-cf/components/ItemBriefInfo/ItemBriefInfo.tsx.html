@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -117,7 +117,24 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -142,8 +159,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,10 +207,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Avatar, Container, Layout, Text } from '@wings-software/uicore'
-import { OptionsMenuButton } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { DISABLE_AVATAR_PROPS } from '@cf/utils/CFUtils'
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import css from './ItemBriefInfo.module.scss'
 &nbsp;
 interface ItemBriefInfoProps extends ItemContainerProps {
@@ -202,6 +233,7 @@ export const ItemBriefInfo: React.FC&lt;ItemBriefInfoProps&gt; = ({
   ...props
 }) =&gt; {
   const { getString } = useStrings()
+  const { activeEnvironment } = useActiveEnvironment()
 &nbsp;
   return (
     &lt;ItemContainer style={{ paddingRight: 'var(--spacing-xsmall)' }} {...props}&gt;
@@ -229,8 +261,18 @@ export const ItemBriefInfo: React.FC&lt;ItemBriefInfoProps&gt; = ({
           &lt;Text style={{ color: disabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--grey-350)' </span>: '#22222ac7', fontSize: '12px' }}&gt;{description}&lt;/Text&gt;
         &lt;/Container&gt;
         {onRemoveClick &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;OptionsMenuButton</span>
-            items={[{ text: getString('cf.targetDetail.removeSegment'), icon: 'cross', onClick: onRemoveClick }]}
+<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;RbacOptionsMenuButton</span>
+            items={[
+              {
+                text: getString('cf.targetDetail.removeSegment'),
+                icon: 'cross',
+                onClick: onRemoveClick,
+                permission: {
+                  resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+                  permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
+                }
+              }
+            ]}
           /&gt;
         )}
       &lt;/Layout.Horizontal&gt;
@@ -244,7 +286,7 @@ export const ItemBriefInfo: React.FC&lt;ItemBriefInfoProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 12:20:06 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 22:01:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

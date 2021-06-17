@@ -462,7 +462,34 @@
 <a name='L403'></a><a href='#L403'>403</a>
 <a name='L404'></a><a href='#L404'>404</a>
 <a name='L405'></a><a href='#L405'>405</a>
-<a name='L406'></a><a href='#L406'>406</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a>
+<a name='L408'></a><a href='#L408'>408</a>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a>
+<a name='L412'></a><a href='#L412'>412</a>
+<a name='L413'></a><a href='#L413'>413</a>
+<a name='L414'></a><a href='#L414'>414</a>
+<a name='L415'></a><a href='#L415'>415</a>
+<a name='L416'></a><a href='#L416'>416</a>
+<a name='L417'></a><a href='#L417'>417</a>
+<a name='L418'></a><a href='#L418'>418</a>
+<a name='L419'></a><a href='#L419'>419</a>
+<a name='L420'></a><a href='#L420'>420</a>
+<a name='L421'></a><a href='#L421'>421</a>
+<a name='L422'></a><a href='#L422'>422</a>
+<a name='L423'></a><a href='#L423'>423</a>
+<a name='L424'></a><a href='#L424'>424</a>
+<a name='L425'></a><a href='#L425'>425</a>
+<a name='L426'></a><a href='#L426'>426</a>
+<a name='L427'></a><a href='#L427'>427</a>
+<a name='L428'></a><a href='#L428'>428</a>
+<a name='L429'></a><a href='#L429'>429</a>
+<a name='L430'></a><a href='#L430'>430</a>
+<a name='L431'></a><a href='#L431'>431</a>
+<a name='L432'></a><a href='#L432'>432</a>
+<a name='L433'></a><a href='#L433'>433</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -842,6 +869,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -899,11 +953,11 @@ import {
   Variation
 } from 'services/cf'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
-import FeatureFlagDetailOptions from '@cf/components/FeatureFlagDetailOptions/FeatureFlagDetailOptions'
 import { useConfirmAction, useQueryParams } from '@common/hooks'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
@@ -1136,7 +1190,7 @@ const FlagActivationDetails: React.FC&lt;FlagActivationDetailsProps&gt; = props 
           dangerouslySetInnerHTML={{
             __html: getString('cf.featureFlags.archiveFlagMessage', { name: featureFlag.name })
           }}
-        &gt;&lt;/span&gt;
+        /&gt;
       &lt;/Text&gt;
     ),
     intent: Intent.DANGER,
@@ -1166,7 +1220,7 @@ const FlagActivationDetails: React.FC&lt;FlagActivationDetailsProps&gt; = props 
           dangerouslySetInnerHTML={{
             __html: getString('cf.featureFlags.deleteFlagMessage', { name: featureFlag.name })
           }}
-        &gt;&lt;/span&gt;
+        /&gt;
       &lt;/Text&gt;
     ),
     intent: Intent.DANGER,
@@ -1210,11 +1264,38 @@ const FlagActivationDetails: React.FC&lt;FlagActivationDetailsProps&gt; = props 
         &lt;/Link&gt;
         &lt;span style={{ display: 'inline-block', paddingLeft: 'var(--spacing-xsmall)' }}&gt;/&lt;/span&gt;
         &lt;FlexExpander /&gt;
-        &lt;FeatureFlagDetailOptions
-          onEdit={openEditDetailsModal}
-          onArchive={archiveFlag}
-          onDelete={deleteFlag}
-          archived={featureFlag.archived}
+        &lt;RbacOptionsMenuButton
+          items={[
+            {
+              icon: 'edit',
+              text: getString('edit'),
+              onClick: openEditDetailsModal,
+              disabled: featureFlag.archived,
+              permission: {
+                resource: { resourceType: ResourceType.FEATUREFLAG },
+                permission: PermissionIdentifier.EDIT_FF_FEATUREFLAG
+              }
+            },
+            {
+              icon: 'archive',
+              text: getString('archive'),
+              onClick: archiveFlag,
+              // Disable for now per https://harness.atlassian.net/browse/FFM-772
+              disabled: true,
+              title: getString('cf.featureNotReady')
+            },
+            '-',
+            {
+              icon: 'trash',
+              text: getString('delete'),
+              onClick: deleteFlag,
+              disabled: featureFlag.archived,
+              permission: {
+                resource: { resourceType: ResourceType.FEATUREFLAG },
+                permission: PermissionIdentifier.DELETE_FF_FEATUREFLAG
+              }
+            }
+          ]}
         /&gt;
       &lt;/Layout.Horizontal&gt;
 &nbsp;
@@ -1279,7 +1360,7 @@ export default FlagActivationDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 12:20:06 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 22:01:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

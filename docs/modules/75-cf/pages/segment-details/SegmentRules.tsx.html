@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.92% </span>
+                <span class="strong">36.27% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>66/189</span>
+                <span class='fraction'>70/193</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.59% </span>
+                <span class="strong">38.1% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>60/164</span>
+                <span class='fraction'>64/168</span>
             </div>
         
             
@@ -711,7 +711,22 @@
 <a name='L652'></a><a href='#L652'>652</a>
 <a name='L653'></a><a href='#L653'>653</a>
 <a name='L654'></a><a href='#L654'>654</a>
-<a name='L655'></a><a href='#L655'>655</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L655'></a><a href='#L655'>655</a>
+<a name='L656'></a><a href='#L656'>656</a>
+<a name='L657'></a><a href='#L657'>657</a>
+<a name='L658'></a><a href='#L658'>658</a>
+<a name='L659'></a><a href='#L659'>659</a>
+<a name='L660'></a><a href='#L660'>660</a>
+<a name='L661'></a><a href='#L661'>661</a>
+<a name='L662'></a><a href='#L662'>662</a>
+<a name='L663'></a><a href='#L663'>663</a>
+<a name='L664'></a><a href='#L664'>664</a>
+<a name='L665'></a><a href='#L665'>665</a>
+<a name='L666'></a><a href='#L666'>666</a>
+<a name='L667'></a><a href='#L667'>667</a>
+<a name='L668'></a><a href='#L668'>668</a>
+<a name='L669'></a><a href='#L669'>669</a>
+<a name='L670'></a><a href='#L670'>670</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -745,6 +760,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1015,6 +1033,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1048,6 +1068,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1401,6 +1431,9 @@ import {
 } from 'services/cf'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import patch, { getDiff } from '../../utils/instructions'
 import css from './SegmentDetailsPage.module.scss'
 &nbsp;
@@ -1670,6 +1703,8 @@ const RulesTab: React.FC&lt;RulesTabProps&gt; = ({
     )
   }, [tempExcluded, availableTargets])
 &nbsp;
+  const { activeEnvironment } = useActiveEnvironment()
+&nbsp;
   const [includedAvatars, excludedAvatars] = [included, excluded].map(x =&gt; x.map(toAvatar))
 &nbsp;
   const handleClauseChange = <span class="fstat-no" title="function not covered" >(i</span>dx: number) =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> kind, payload }: ClauseMutation) =&gt; {</span>
@@ -1704,7 +1739,17 @@ const RulesTab: React.FC&lt;RulesTabProps&gt; = ({
   return (
     &lt;Layout.Vertical spacing="medium" padding="large"&gt;
       &lt;Layout.Horizontal style={{ alignItems: 'center', justifyContent: 'flex-end' }}&gt;
-        {!editing &amp;&amp; &lt;Button text="Edit Rules" icon="edit" onClick={onEdit} /&gt;}
+        {!editing &amp;&amp; (
+          &lt;RbacButton
+            text={getString('cf.featureFlags.rules.editRules')}
+            icon="edit"
+            onClick={onEdit}
+            permission={{
+              resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+              permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
+            }}
+          /&gt;
+        )}
       &lt;/Layout.Horizontal&gt;
       &lt;Card style={{ width: '100%', padding: 'var(--spacing-medium)' }}&gt;
         &lt;Layout.Vertical spacing="small"&gt;
@@ -2026,7 +2071,7 @@ export const SegmentRules: React.FC&lt;{ segment: Segment; onUpdate: () =&gt; vo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 12:20:06 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 22:01:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

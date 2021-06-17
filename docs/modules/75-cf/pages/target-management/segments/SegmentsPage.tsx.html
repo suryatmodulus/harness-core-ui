@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.15% </span>
+                <span class="strong">84.52% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>69/82</span>
+                <span class='fraction'>71/84</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.95% </span>
+                <span class="strong">84.34% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>68/81</span>
+                <span class='fraction'>70/83</span>
             </div>
         
             
@@ -357,7 +357,17 @@
 <a name='L298'></a><a href='#L298'>298</a>
 <a name='L299'></a><a href='#L299'>299</a>
 <a name='L300'></a><a href='#L300'>300</a>
-<a name='L301'></a><a href='#L301'>301</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -379,10 +389,12 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -589,6 +601,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -678,7 +698,6 @@ import { useConfirmAction } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
-import { OptionsMenuButton } from '@common/components'
 import {
   makeStackedCircleShortName,
   StackedCircleContainer
@@ -688,6 +707,9 @@ import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
 import { Segment, useDeleteSegment, useGetAllSegments } from 'services/cf'
 import TargetManagementHeader from '@cf/components/TargetManagementHeader/TargetManagementHeader'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import { NoSegmentsView } from './NoSegmentsView'
 import { NewSegmentButton } from './NewSegmentButton'
 &nbsp;
@@ -864,19 +886,27 @@ export const SegmentsPage: React.FC = () =&gt; {
                   e.stopPropagation()
                 }}
               &gt;
-                &lt;OptionsMenuButton
+                &lt;RbacOptionsMenuButton
                   items={[
                     {
                       icon: 'edit',
                       text: getString('edit'),
                       onClick: () =&gt; {
                         gotoSegmentDetailPage(cell.row.original.identifier as string)
+                      },
+                      permission: {
+                        resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+                        permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
                       }
                     },
                     {
-                      icon: 'cross',
+                      icon: 'trash',
                       text: getString('delete'),
-                      onClick: deleteSegmentConfirm
+                      onClick: deleteSegmentConfirm,
+                      permission: {
+                        resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+                        permission: PermissionIdentifier.DELETE_FF_TARGETGROUP
+                      }
                     }
                   ]}
                 /&gt;
@@ -964,7 +994,7 @@ export const SegmentsPage: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 12:20:06 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 22:01:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

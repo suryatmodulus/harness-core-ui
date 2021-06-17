@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.03% </span>
+                <span class="strong">63.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/79</span>
+                <span class='fraction'>53/83</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.03% </span>
+                <span class="strong">63.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/79</span>
+                <span class='fraction'>53/83</span>
             </div>
         
             
@@ -361,7 +361,26 @@
 <a name='L302'></a><a href='#L302'>302</a>
 <a name='L303'></a><a href='#L303'>303</a>
 <a name='L304'></a><a href='#L304'>304</a>
-<a name='L305'></a><a href='#L305'>305</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -380,6 +399,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -532,6 +554,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -667,7 +705,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Container, Layout, SimpleTagInput, Text, TextInput, useToggle } from '@wings-software/uicore'
+import { Container, Layout, SimpleTagInput, Text, TextInput, useToggle } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import {
   SectionContainer,
@@ -690,6 +728,9 @@ import { fullSizeContentStyle } from '@delegates/constants'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useToaster } from '@common/exports'
 import DelegateConfigScope from '@delegates/components/DelegateConfigScope'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { DelegateTab } from './utils/DelegateHelper'
 import { DetailPageTemplate } from '../../components/DetailPageTemplate/DetailPageTemplate'
 import css from './DelegateConfigurationDetailPage.module.scss'
@@ -835,6 +876,19 @@ export default function DelegateProfileDetails(): JSX.Element {
     )
   }
 &nbsp;
+  const permissionRequestEditConfiguration = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    permission: PermissionIdentifier.UPDATE_DELEGATE_CONFIGURATION,
+    resource: {
+      resourceType: ResourceType.DELEGATECONFIGURATION,
+      resourceIdentifier: delegateConfigId
+    }
+  }
+&nbsp;
   return (
     &lt;&gt;
       {showSpinner &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PageSpinner /&gt;}</span>
@@ -845,9 +899,12 @@ export default function DelegateProfileDetails(): JSX.Element {
           subTittle={profile<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>escription}
           tags={profile<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electors}
           headerExtras={
-            &lt;Button
+            &lt;RbacButton
               icon={editMode ? 'floppy-disk' : 'edit'}
               text={editMode ? getString('save') : getString('edit')}
+              permission={permissionRequestEditConfiguration}
+              id="editDelegateConfigurationBtn"
+              data-test="editDelegateConfigurationButton"
               style={{
                 position: 'absolute',
                 top: '50px',
@@ -976,7 +1033,7 @@ export default function DelegateProfileDetails(): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 12:20:06 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 22:01:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

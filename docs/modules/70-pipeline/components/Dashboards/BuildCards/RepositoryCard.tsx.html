@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.73% </span>
+                <span class="strong">74.36% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>29/55</span>
+                <span class='fraction'>29/39</span>
             </div>
         
             
@@ -268,21 +268,7 @@
 <a name='L209'></a><a href='#L209'>209</a>
 <a name='L210'></a><a href='#L210'>210</a>
 <a name='L211'></a><a href='#L211'>211</a>
-<a name='L212'></a><a href='#L212'>212</a>
-<a name='L213'></a><a href='#L213'>213</a>
-<a name='L214'></a><a href='#L214'>214</a>
-<a name='L215'></a><a href='#L215'>215</a>
-<a name='L216'></a><a href='#L216'>216</a>
-<a name='L217'></a><a href='#L217'>217</a>
-<a name='L218'></a><a href='#L218'>218</a>
-<a name='L219'></a><a href='#L219'>219</a>
-<a name='L220'></a><a href='#L220'>220</a>
-<a name='L221'></a><a href='#L221'>221</a>
-<a name='L222'></a><a href='#L222'>222</a>
-<a name='L223'></a><a href='#L223'>223</a>
-<a name='L224'></a><a href='#L224'>224</a>
-<a name='L225'></a><a href='#L225'>225</a>
-<a name='L226'></a><a href='#L226'>226</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L212'></a><a href='#L212'>212</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -307,7 +293,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,23 +404,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -514,13 +486,14 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import merge from 'lodash-es/merge'
 import type { RepositoryBuildInfo } from 'services/ci'
-import { diffStartAndEndTime, roundNumber } from '../shared'
+import { diffStartAndEndTime, roundNumber, mapCardStatus } from '../shared'
 import styles from './BuildCards.module.scss'
 &nbsp;
 export interface RepositoryCardProps {
   title: React.ReactNode
   message?: string
   username?: string
+  avatarUrl?: string
   startTime?: number
   endTime?: number
   count: number
@@ -536,6 +509,7 @@ export default function RepositoryCard({
   title,
   message,
   username,
+  avatarUrl,
   startTime,
   endTime,
   count,
@@ -614,7 +588,7 @@ export default function RepositoryCard({
       &lt;/Container&gt;
       &lt;Container className={styles.cardFooter}&gt;
         &lt;Container className={styles.avatarWrapper}&gt;
-          {username &amp;&amp; &lt;Avatar name={username} size="small" /&gt;}
+          {username &amp;&amp; &lt;Avatar name={username} src={avatarUrl} size="small" /&gt;}
           &lt;Text font={{ size: 'small' }} color={Color.BLACK} lineClamp={2}&gt;
             {message}
           &lt;/Text&gt;
@@ -637,29 +611,13 @@ export default function RepositoryCard({
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >mapStatusToColor(</span>status?: string) {
-<span class="cstat-no" title="statement not covered" >  switch (status) {</span>
+<span class="cstat-no" title="statement not covered" >  switch (mapCardStatus(status)) {</span>
     case 'SUCCESS':
 <span class="cstat-no" title="statement not covered" >      return 'var(--ci-color-green-400)'</span>
     case 'FAILED':
-    case 'ABORTED':
-    case 'EXPIRED':
-    case 'SUSPENDED':
-    case 'SKIPPED':
-    case 'APPROVAL_REJECTED':
 <span class="cstat-no" title="statement not covered" >      return 'var(--ci-color-red-400)'</span>
-    case 'RUNNING':
-    case 'INTERVENTION_WAITING':
-    case 'RESOURCE_WAITING':
-    case 'ASYNC_WAITING':
-    case 'TASK_WAITING':
-    case 'TIMED_WAITING':
-    case 'DISCONTINUING':
-    case 'APPROVAL_WAITING':
-    case 'NOT_STARTED':
-    case 'QUEUED':
-    case 'PAUSED':
-    case 'WAITING':
-    case 'PAUSING':
+    case 'ACTIVE':
+    case 'PENDING':
     default:
 <span class="cstat-no" title="statement not covered" >      return 'var(--ci-color-orange-500)'</span>
   }
@@ -739,7 +697,7 @@ const defaultChartOptions: Highcharts.Options = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 17 2021 12:20:06 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 17 2021 22:01:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

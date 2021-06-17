@@ -288,18 +288,16 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     setIsFetchingStats(isFetchingConnectorStats)
   }, [isFetchingConnectorStats])
 
-  const refetchAllConnectorsWithStats = async (): Promise<void> => {
-    const __params = { ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams), searchTerm }
-    Promise.all([
-      refetchConnectorList(__params, appliedFilter?.filterProperties),
-      fetchConnectorStats({
-        queryParams: __params
-      })
-    ])
-  }
-
   const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: refetchAllConnectorsWithStats,
+    onSuccess: () => {
+      const __params = { ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams), searchTerm }
+      Promise.all([
+        refetchConnectorList(__params, appliedFilter?.filterProperties),
+        fetchConnectorStats({
+          queryParams: __params
+        })
+      ])
+    },
     onClose: noop
   })
 
@@ -663,7 +661,18 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           ) : connectors?.content?.length ? (
             <ConnectorsListView
               data={connectors}
-              reload={refetchAllConnectorsWithStats}
+              reload={async () => {
+                const __params = {
+                  ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams),
+                  searchTerm
+                }
+                Promise.all([
+                  refetchConnectorList(__params, appliedFilter?.filterProperties),
+                  fetchConnectorStats({
+                    queryParams: __params
+                  })
+                ])
+              }}
               openConnectorModal={openConnectorModal}
               gotoPage={pageNumber => setPage(pageNumber)}
             />

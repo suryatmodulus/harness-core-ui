@@ -446,11 +446,11 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
     }
   }, [initialValues.connectorRef])
 
-  const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
-    <div key={item.label.toString()}>
-      <Menu.Item text={item.label} disabled={loadingClusterNames} onClick={handleClick} />
-    </div>
-  ))
+  // const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
+  //   <div key={item.label.toString()}>
+  //     <Menu.Item text={item.label} disabled={loadingClusterNames} onClick={handleClick} />
+  //   </div>
+  // ))
 
   return (
     <Layout.Vertical padding="medium" spacing="small">
@@ -508,12 +508,6 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
             selectItems={clusterOptions}
             label={getString('common.cluster')}
             multiTypeInputProps={{
-              selectProps: {
-                items: clusterOptions,
-                itemRenderer: itemRenderer,
-                allowCreatingNewItems: true,
-                addClearBtn: !(loadingClusterNames || readonly)
-              },
               expressions,
               allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
             }}

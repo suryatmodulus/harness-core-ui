@@ -1102,6 +1102,8 @@ export interface BillingExportSpec {
   storageAccountName: string
   containerName: string
   directoryName: string
+  subscriptionId: string
+  reportName: string
 }
 
 export interface BitbucketApiAccess {
@@ -1163,7 +1165,7 @@ export type CEAwsConnector = ConnectorConfigDTO & {
 }
 
 export type CEAzureConnector = ConnectorConfigDTO & {
-  featuresEnabled?: ('BILLING' | 'OPTIMIZATION')[]
+  featuresEnabled?: ('VISIBILITY' | 'BILLING' | 'OPTIMIZATION')[]
   tenantId: string
   subscriptionId: string
   billingExportSpec?: BillingExportSpec
@@ -1189,6 +1191,30 @@ export interface ConnectorConnectivityDetails {
   lastTestedAt?: number
   lastConnectedAt?: number
 }
+
+// {"connector":
+//     {
+//   "name": "hiteshazure11",
+//   "description": "",
+//   "identifier": "hiteshazur11",
+//   "orgIdentifier": "",
+//   "projectIdentifier": "",
+//   "tags": {},
+//   "type": "CEAzure",
+//   "spec": {
+//       "featuresEnabled" : ["BILLING", "OPTIMIZATION"],
+//       "tenantId": "b129b2bb-5f33-4d22-bce0-730f6474e903",
+//       "subscriptionId": "2d6a917-99fa-4b1b-9b2e-a3d624e9dcf1",
+//       "billingExportSpec": {
+//          "storageAccountName": "name",
+//         "reportName": "reportName",
+//       "containerName": "containerName",
+//       "directoryName": "directoryName",
+//       "subscriptionId": "subsId"
+//       }
+//   }
+// }
+// }
 
 export interface ConnectorInfoDTO {
   name: string

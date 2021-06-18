@@ -11,13 +11,14 @@ declare const styles: {
   readonly subHeader: string
   readonly info: string
   readonly launchTemplateSection: string
-  readonly launchTemplateBtn: string
   readonly infobox: string
   readonly mtbxxlarge: string
   readonly grid: string
   readonly submitBtn: string
   readonly commandsContainer: string
   readonly command: string
+  readonly launchTemplateBtn: string
+  readonly createNewExportBtn: string
   readonly connectorExistBox: string
   readonly main: string
   readonly editOpen: string
@@ -26,5 +27,6 @@ declare const styles: {
   readonly popoverContent: string
   readonly btnCtn: string
   readonly instructionBtn: string
+  readonly existingBeTable: string
 }
 export default styles

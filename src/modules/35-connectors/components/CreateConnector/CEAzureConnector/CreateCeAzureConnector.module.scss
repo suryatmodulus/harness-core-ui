@@ -92,12 +92,6 @@
     width: 65%;
   }
 
-  .launchTemplateBtn {
-    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16) !important;
-    border-radius: 8px;
-    border: 1px solid #0278d5 !important;
-  }
-
   .infobox {
     padding: var(--spacing-medium) var(--spacing-large) !important;
     background-color: var(--primary-1) !important;
@@ -143,10 +137,22 @@
       padding-right: var(--spacing-medium);
     }
   }
+
+  .launchTemplateBtn,
+  .createNewExportBtn {
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16) !important;
+    border-radius: 8px;
+    border: 1px solid #0278d5 !important;
+  }
+
+  .createNewExportBtn {
+    margin-top: var(--spacing-large) !important;
+    width: 250px;
+  }
 }
 
 .connectorExistBox {
-  margin-top: var(--spacing-xlarge);
+  margin: var(--spacing-xlarge) 0 var(--spacing-medium) 0;
   border-left: 4px solid var(--red-700);
   padding: var(--spacing-large);
   background: var(--red-50);
@@ -215,7 +221,7 @@
   ol {
     padding-left: 15px !important;
     font-size: small;
-    color: var(--grey-1000);
+    color: var(--grey-700);
     margin-top: var(--spacing-xsmall);
 
     li {
@@ -245,4 +251,37 @@
       padding: 0 !important;
     }
   }
+}
+
+.existingBeTable {
+  overflow: auto;
+  max-height: 250px;
+  line-height: 20px !important;
+  width: 100%;
+  border: thin solid var(--grey-100);
+
+  table {
+    width: 1100px;
+  }
+
+  thead {
+    background: var(--grey-100);
+    font-size: var(--font-size-small) !important;
+  }
+
+  tr {
+    font-size: var(--font-size-small) !important;
+  }
+
+  // &::-webkit-scrollbar {
+  //   width: 5px !important;
+  // }
+
+  // &::-webkit-scrollbar-track {
+  //   background-color: rgba(121, 139, 236, 0.2);
+  // }
+
+  // &::-webkit-scrollbar-thumb {
+  //   background-color: rgba(170, 223, 249, 0.2);
+  // }
 }

@@ -10,6 +10,7 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import { useGetTestConnectionResult } from 'services/cd-ng'
 import css from '../../CreateCeAzureConnector.module.scss'
@@ -34,7 +35,11 @@ const TestConnection: React.FC<StepProps<ConnectorInfoDTO> & TestConnectionProps
   const [currentStep, setCurrentStep] = useState<number>(1)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
 
-  const steps: string[] = ['Validating Azure authentication and permissions', 'Verifying Azure billing export setup']
+  const { getString } = useStrings()
+  const steps: string[] = [
+    getString('connectors.ceAzure.testConnection.validatePermission'),
+    getString('connectors.ceAzure.testConnection.verifyExport')
+  ]
 
   const { mutate: testConnection } = useGetTestConnectionResult({
     identifier: prevStepData?.identifier || '',
@@ -69,7 +74,7 @@ const TestConnection: React.FC<StepProps<ConnectorInfoDTO> & TestConnectionProps
     <Layout.Vertical className={css.stepContainer}>
       <ModalErrorHandler bind={setModalErrorHandler} />
       <Heading level={2} className={css.header}>
-        Test Connection
+        {getString('connectors.ceAzure.testConnection.heading')}
       </Heading>
       <StepsProgress steps={steps} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
       <Button

@@ -604,6 +604,37 @@ export interface StringsMap {
   'connectors.cdng.verificationSensitivityLabel.high': string
   'connectors.cdng.verificationSensitivityLabel.low': string
   'connectors.cdng.verificationSensitivityLabel.medium': string
+  'connectors.ceAzure.billing.containerName': string
+  'connectors.ceAzure.billing.directoryName': string
+  'connectors.ceAzure.billing.heading': string
+  'connectors.ceAzure.billing.instruction': string
+  'connectors.ceAzure.billing.launchAzureConsole': string
+  'connectors.ceAzure.billing.login': string
+  'connectors.ceAzure.billing.reportName': string
+  'connectors.ceAzure.billing.storageAccountName': string
+  'connectors.ceAzure.billing.storageAccountNameRegexError': string
+  'connectors.ceAzure.billing.subHeading': string
+  'connectors.ceAzure.billing.subscriptionId': string
+  'connectors.ceAzure.billing.tooltipBtn': string
+  'connectors.ceAzure.billing.tooltipInstruction': string
+  'connectors.ceAzure.chooseRequirements.featureDesc': string
+  'connectors.ceAzure.chooseRequirements.heading': string
+  'connectors.ceAzure.chooseRequirements.subHeading': string
+  'connectors.ceAzure.chooseRequirements.subText': string
+  'connectors.ceAzure.existingExports.createNewExportBtn': string
+  'connectors.ceAzure.existingExports.instruction': string
+  'connectors.ceAzure.guidPlaceholder': string
+  'connectors.ceAzure.guidRegexError': string
+  'connectors.ceAzure.overview.alreadyExist': string
+  'connectors.ceAzure.overview.heading': string
+  'connectors.ceAzure.overview.subscriptionId': string
+  'connectors.ceAzure.overview.tenantId': string
+  'connectors.ceAzure.overview.trySuggestion': string
+  'connectors.ceAzure.servicePrincipal.heading': string
+  'connectors.ceAzure.servicePrincipal.subHeading': string
+  'connectors.ceAzure.testConnection.heading': string
+  'connectors.ceAzure.testConnection.validatePermission': string
+  'connectors.ceAzure.testConnection.verifyExport': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string
   'connectors.connectAndSave': string

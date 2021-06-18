@@ -13,7 +13,8 @@ import {
   Text,
   Container
 } from '@wings-software/uicore'
-import type { ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
+import { useStrings } from 'framework/strings'
+import type { CEAzureDTO } from '../Overview/AzureConnectorOverview'
 import css from '../../CreateCeAzureConnector.module.scss'
 
 interface CloudFeatures {
@@ -24,7 +25,7 @@ interface CloudFeatures {
 interface ICard {
   icon: IconName
   desc: string
-  value: string
+  value: 'VISIBILITY' | 'BILLING' | 'OPTIMIZATION'
   title: string
 }
 
@@ -45,13 +46,30 @@ const FeatureCards: ICard[] = [
   }
 ]
 
-const ChooseRequirements: React.FC<StepProps<ConnectorInfoDTO> & StepProps<ConnectorConfigDTO>> = props => {
+const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
+  const { getString } = useStrings()
   const { previousStep, prevStepData, nextStep } = props
-  const [cardsSelected, setCardsSelected] = useState<ICard[]>([])
+  const featuresEnabled = prevStepData?.spec?.featuresEnabled || []
+
+  const initialSelectedCards = []
+  for (const fe of featuresEnabled) {
+    const card = FeatureCards.find(c => c.value === fe)
+    if (card) initialSelectedCards.push(card)
+  }
+
+  const [cardsSelected, setCardsSelected] = useState<ICard[]>(initialSelectedCards)
 
   const handleSubmit = () => {
-    const featuresEnabled = cardsSelected.map(c => c.value)
-    nextStep?.({ ...(prevStepData as ConnectorInfoDTO), featuresEnabled })
+    const features = cardsSelected.map(c => c.value)
+    if (prevStepData?.spec?.featuresEnabled?.includes('BILLING')) {
+      features.push('BILLING')
+    }
+
+    if (prevStepData) {
+      prevStepData.spec = { ...prevStepData.spec, features }
+    }
+
+    nextStep?.(prevStepData)
   }
 
   const handleCardSelection = (item: ICard) => {
@@ -68,17 +86,13 @@ const ChooseRequirements: React.FC<StepProps<ConnectorInfoDTO> & StepProps<Conne
   return (
     <Layout.Vertical className={css.stepContainer}>
       <Heading level={2} className={css.header}>
-        Create Cross Account Role - <span>Choose Permissions</span>
+        {getString('connectors.ceAzure.chooseRequirements.heading')} -{' '}
+        <span>{getString('connectors.ceAzure.chooseRequirements.subText')}</span>
       </Heading>
-      <Text className={css.infobox}>
-        Harness uses Multitenant app to sync billing export data from source storage account to Harness. Create a
-        service principal for this app in your Azure account and assign read permissions on that particular storage
-        account.
-      </Text>
+      <Text className={css.infobox}>{getString('connectors.ceAzure.chooseRequirements.subHeading')}</Text>
       <Container>
         <Heading level={3} className={css.mtbxxlarge}>
-          Select the Cloud Cost Management features you would like to use on the Azure account. Each requires specific
-          permissions to the cross account role <i>(optional)</i>
+          {getString('connectors.ceAzure.chooseRequirements.featureDesc')} <i>(optional)</i>
         </Heading>
         <Formik<CloudFeatures>
           initialValues={{
@@ -105,7 +119,7 @@ const ChooseRequirements: React.FC<StepProps<ConnectorInfoDTO> & StepProps<Conne
               ></CardSelect>
               <Layout.Horizontal spacing="medium" className={css.continueAndPreviousBtns}>
                 <Button text="Previous" icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-                <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={false}>
+                <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={cardsSelected.length < 1}>
                   Continue
                 </Button>
               </Layout.Horizontal>

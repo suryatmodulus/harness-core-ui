@@ -13,34 +13,30 @@ import {
   Text
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
-import { isEmpty, pick, get } from 'lodash-es'
+import { isEmpty, pick, get, omit } from 'lodash-es'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import {
-  ConnectorConfigDTO,
   ConnectorInfoDTO,
   ResponseBoolean,
   EntityGitDetails,
   GetConnectorListV2QueryParams,
   useGetConnectorListV2,
   ConnectorFilterProperties,
-  ConnectorResponse
+  ConnectorResponse,
+  CEAzureConnector
 } from 'services/cd-ng'
 import { String, useStrings } from 'framework/strings'
 
-// Added by akash.bhardwaj@harness.io
 import { Description, Tags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
-
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { getHeadingIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import css from '../../CreateCeAzureConnector.module.scss'
 
 export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'> & GitContextProps
-
-const guid = (value: string) => {
+export const guidRegex = (value: string) => {
   const regex = /^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$/
   return regex.test(value)
 }
@@ -50,13 +46,18 @@ interface OverviewForm extends DetailsForm {
   subscriptionId: string
 }
 
-interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
+export interface CEAzureDTO extends ConnectorInfoDTO {
+  spec: CEAzureConnector
+  existingBillingExports?: CEAzureConnector[]
+  hasBilling?: boolean
+  isEditMode?: boolean
+}
+
+interface OverviewProps {
   type: ConnectorInfoDTO['type']
   name: string
-  setFormData?: (formData: ConnectorConfigDTO) => void
-  formData?: ConnectorConfigDTO
   isEditMode?: boolean
-  connectorInfo?: ConnectorInfoDTO | void
+  connectorInfo?: CEAzureDTO
   gitDetails?: EntityGitDetails
   mock?: ResponseBoolean
 }
@@ -67,17 +68,16 @@ type Params = {
   orgIdentifier: string
 }
 
-const Overview: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
-  const { prevStepData, nextStep } = props
+const Overview: React.FC<StepProps<CEAzureDTO> & OverviewProps> = props => {
+  const [loading, setLoading] = useState(false)
+  const [isUniqueConnector, setIsUniqueConnector] = useState(true)
+  const [existingConnectorDetails, setExistingConnectorDetails] = useState<ConnectorResponse | undefined>()
+  // const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+
   const { accountId } = useParams<Params>()
   const { isGitSyncEnabled } = useAppStore()
-  // const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const [loading, setLoading] = useState(false)
-  const isEdit = props.isEditMode || prevStepData?.isEdit
   const { getString } = useStrings()
-
-  const [isUniqueConnector, setIsUniqueConnector] = useState(true)
-  const [existingConnectorDetails, setExistingConnectorDetails] = useState<ConnectorResponse | undefined>(undefined)
+  const { prevStepData, nextStep, isEditMode } = props
 
   const defaultQueryParams: GetConnectorListV2QueryParams = {
     pageIndex: 0,
@@ -86,16 +86,9 @@ const Overview: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepPro
     getDistinctFromBranches: false
   }
 
-  const filterParams: ConnectorFilterProperties = {
-    types: ['CEAzure'],
-    filterType: 'Connector'
-  }
-
-  const { mutate } = useGetConnectorListV2({
-    queryParams: defaultQueryParams
-  })
-
-  const fetchConnectors = async (formData: ConnectorConfigDTO) => {
+  const { mutate } = useGetConnectorListV2({ queryParams: defaultQueryParams })
+  const filterParams: ConnectorFilterProperties = { types: ['CEAzure'], filterType: 'Connector' }
+  const fetchConnectors = async (formData: OverviewForm) => {
     return mutate({
       ...filterParams,
       ccmConnectorFilter: {
@@ -104,8 +97,7 @@ const Overview: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepPro
       }
     })
   }
-
-  const fetchBillingExport = async (formData: ConnectorConfigDTO) => {
+  const fetchConnectorsWithBillingExports = async (formData: OverviewForm) => {
     const { status, data } = await mutate({
       ...filterParams,
       ccmConnectorFilter: {
@@ -114,44 +106,64 @@ const Overview: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepPro
       }
     })
 
-    return { status, spec: data?.content?.[0]?.connector?.spec }
+    return { status, connectorsWithBillingExports: data?.content }
   }
 
-  const handleSubmit = async (formData: ConnectorConfigDTO): Promise<void> => {
-    if (isEdit) {
-      nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData })
+  const handleSubmit = async (formData: OverviewForm): Promise<void> => {
+    setLoading(true)
+
+    const hasBilling = !!props.connectorInfo?.spec?.featuresEnabled?.includes('BILLING')
+    const nextStepData: CEAzureDTO = {
+      ...props.connectorInfo,
+      ...omit(formData, ['tenantId', 'subscriptionId']),
+      type: props.type,
+      spec: {
+        ...props.connectorInfo?.spec,
+        ...prevStepData?.spec,
+        ...pick(formData, ['tenantId', 'subscriptionId'])
+      },
+      hasBilling,
+      isEditMode
+    }
+
+    // if billing is already enabled,
+    // the user is in Edit mode
+    if (hasBilling) {
+      nextStep?.(nextStepData)
       return
     }
 
-    setLoading(true)
-    const billingExport = fetchBillingExport(formData)
+    // Flow:
+    //
+    // Make a call and check if a connector already exists for
+    // this tenantId and subscriptionId combination.
+    //    - If yes, throw an error and suggest user to edit the
+    //      exitising connector
+    //    - If no, check if a connector with BILLING feature exists for
+    //      this tenantId.
+    //        - If yes, move onto the next step and show all the connectors
+    //          which have BILLING enabled
+    //        - If no, move onto the next step and allow user to create a
+    //          new billing export
     const connectors = await fetchConnectors(formData)
-
     if ('SUCCESS' === connectors.status) {
       const hasExistingConnector = !!connectors?.data?.pageItemCount
-      if (hasExistingConnector) {
+      if (hasExistingConnector && !isEditMode) {
         setIsUniqueConnector(false)
         setExistingConnectorDetails(connectors?.data?.content?.[0])
         setLoading(false)
         return
       }
 
-      const { status, spec } = await billingExport
+      const { status, connectorsWithBillingExports: cons = [] } = await fetchConnectorsWithBillingExports(formData)
       if ('SUCCESS' === status) {
-        const hasBillingFeatureEnabled = !!spec?.featuresEnabled.find((f: string) => f === 'BILLING')
-        if (hasBillingFeatureEnabled) {
-          nextStep?.({
-            ...props.connectorInfo,
-            ...prevStepData,
-            ...formData,
-            billingExportSpec: spec?.billingExportSpec,
-            tenantId: spec?.tenantId,
-            subscriptionId: spec?.subscriptionId
-          })
+        if (cons.length > 0) {
+          nextStepData.existingBillingExports = cons.map(c => c.connector?.spec as CEAzureConnector)
+          nextStep?.(nextStepData)
           return
         }
 
-        nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData })
+        nextStep?.(nextStepData)
       }
       setLoading(false)
     }
@@ -161,28 +173,28 @@ const Overview: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepPro
   }
 
   const getInitialValues = () => {
-    if (isEdit) {
+    if (isEditMode) {
       return {
         tenantId: get(props.connectorInfo, 'spec.tenantId'),
         subscriptionId: get(props.connectorInfo, 'spec.subscriptionId'),
         ...pick(props.connectorInfo, ['name', 'identifier', 'description', 'tags'])
       }
-    } else {
-      return {
-        name: '',
-        description: '',
-        identifier: '',
-        subscriptionId: '',
-        tenantId: '',
-        tags: {}
-      }
+    }
+
+    return {
+      name: '',
+      description: '',
+      identifier: '',
+      subscriptionId: '',
+      tenantId: '',
+      tags: {}
     }
   }
 
   return (
     <Layout.Vertical className={css.stepContainer}>
       <Heading level={2} className={css.header}>
-        {getString(getHeadingIdByType(props.type))}
+        {getString('connectors.ceAzure.overview.heading')}
       </Heading>
       {/* <ModalErrorHandler bind={setModalErrorHandler} /> */}
       <Formik<OverviewForm>
@@ -195,15 +207,14 @@ const Overview: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepPro
           identifier: IdentifierSchema(),
           tenantId: Yup.string()
             .required('Tenant ID is required')
-            .test('tenantId', 'It has to match GUID pattern. Example: "123e4567-e89b-12d3-a456-9AC7CBDCEE52"', guid),
+            .test('tenantId', getString('connectors.ceAzure.guidRegexError'), guidRegex),
           subscriptionId: Yup.string()
             .required('Subscription ID is required')
-            .test('tenantId', 'It has to match GUID pattern. Example: "123e4567-e89b-12d3-a456-9AC7CBDCEE52"', guid)
+            .test('subscriptionId', getString('connectors.ceAzure.guidRegexError'), guidRegex)
         })}
         initialValues={{
           ...(getInitialValues() as OverviewForm),
-          ...prevStepData,
-          ...props.formData
+          ...prevStepData
         }}
       >
         {formikProps => {
@@ -212,12 +223,20 @@ const Overview: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepPro
               <Container style={{ minHeight: 550 }}>
                 <Container className={cx(css.main, css.dataFields)}>
                   <FormInput.InputWithIdentifier
-                    inputLabel="Connector name"
+                    inputLabel={getString('connectors.name')}
                     idLabel="Connector_name"
-                    {...{ inputName: 'name', isIdentifierEditable: !isEdit }}
+                    {...{ inputName: 'name', isIdentifierEditable: !isEditMode }}
                   />
-                  <FormInput.Text name={'tenantId'} label={'Specify Azure Tenant ID'} />
-                  <FormInput.Text name={'subscriptionId'} label={'Specify Azure Subscription ID'} />
+                  <FormInput.Text
+                    name={'tenantId'}
+                    label={getString('connectors.ceAzure.overview.tenantId')}
+                    placeholder={getString('connectors.ceAzure.guidPlaceholder')}
+                  />
+                  <FormInput.Text
+                    name={'subscriptionId'}
+                    label={getString('connectors.ceAzure.overview.subscriptionId')}
+                    placeholder={getString('connectors.ceAzure.guidPlaceholder')}
+                  />
                   <Description descriptionProps={{}} hasValue={!!formikProps?.values.description} />
                   <Tags tagsProps={{}} isOptional={true} hasValue={!isEmpty(formikProps?.values.tags)} />
                 </Container>
@@ -230,7 +249,6 @@ const Overview: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepPro
                     />
                   </GitSyncStoreProvider>
                 )}
-
                 {!isUniqueConnector && <ExistingConnectorMessage {...existingConnectorDetails} />}
               </Container>
               <Layout.Horizontal>
@@ -247,8 +265,16 @@ const Overview: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepPro
 }
 
 const ExistingConnectorMessage = (props: ConnectorResponse) => {
+  const { getString } = useStrings()
   const accountId = props.connector?.spec?.tenantId
+  const featuresEnabled = [...(props.connector?.spec?.featuresEnabled || [])]
   const name = props.connector?.name
+
+  let featureText = featuresEnabled.join(' and ')
+  if (featuresEnabled.length > 2) {
+    featuresEnabled.push(`and ${featuresEnabled.pop()}`)
+    featureText = featuresEnabled.join(', ')
+  }
 
   return (
     <div className={css.connectorExistBox}>
@@ -259,12 +285,12 @@ const ExistingConnectorMessage = (props: ConnectorResponse) => {
           iconProps={{ size: 18, color: 'red700', padding: { right: 'small' } }}
           color="red700"
         >
-          Connector already exists for the cloud account
+          {getString('connectors.ceAzure.overview.alreadyExist')}
         </Text>
         <Container>
           <Text inline font={'small'} icon="info" iconProps={{ size: 16, padding: { right: 'small' } }} color="grey700">
             The cloud account {accountId} already has a connector “{name}” linked to it. The connector has permissions
-            for Cost Visibility.
+            for {featureText}.
           </Text>
         </Container>
         <Container>
@@ -275,7 +301,7 @@ const ExistingConnectorMessage = (props: ConnectorResponse) => {
             iconProps={{ size: 16, padding: { right: 'small' } }}
             color="grey700"
           >
-            Try these suggestions
+            {getString('connectors.ceAzure.overview.trySuggestion')}
           </Text>
           <Text padding={{ left: 'xlarge' }} color="grey700" font={'small'}>
             Edit the connector <a href="#">{name}</a> if required.
@@ -288,5 +314,10 @@ const ExistingConnectorMessage = (props: ConnectorResponse) => {
 
 export default Overview
 
+// ALL three features enabled
 // TenantId:  b229b2bb-5f33-4d22-bce0-730f6474e906
 // Sub: 20d6a917-99fa-4b1b-9b2e-a3d624e9dcf0
+
+// ["OPTIMIZATION", "BILLING"]
+// TenantId: b229b2bb-5f33-4d22-bce1-730f6474e906
+// SubId: b229b2bb-5f33-4d22-bce2-730f6474e906

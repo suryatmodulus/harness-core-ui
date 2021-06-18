@@ -12,7 +12,7 @@ import { useStrings } from 'framework/strings'
 // import CreateServicePrincipal from './CreateServicePrincipal'
 // import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 // Below is the new one:
-import Overview from './Steps/Overview/AzureConnectorOverview'
+import Overview, { CEAzureDTO } from './Steps/Overview/AzureConnectorOverview'
 import Billing from './Steps/Billing/AzureConnectorBilling'
 import ModalExtension from './ModalExtension'
 import AzureConnectorBillingExtension from './Steps/Billing/AzureConnectorBillingExtension'
@@ -35,7 +35,7 @@ const CreateCeAzureConnector: React.FC<CreateConnectorModalProps> = props => {
           type={Connectors.CE_AZURE}
           name={getString('overview')}
           isEditMode={props.isEditMode}
-          connectorInfo={props.connectorInfo}
+          connectorInfo={props.connectorInfo as CEAzureDTO}
           gitDetails={props.gitDetails}
         />
         <Billing name="Azure Billing Export" />

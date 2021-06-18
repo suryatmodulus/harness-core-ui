@@ -275,3 +275,41 @@ delegate:
   matchingDelegates: matching delegates
   noDelegates: You have no delegates
   noMatchingDelegate: No eligible delegates found. Install a new delegate or continue to save.
+ceAzure:
+  guidPlaceholder: 'xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+  guidRegexError: 'It has to match GUID pattern. Example: "123e4567-e89b-12d3-a456-9AC7CBDCEE52"'
+  overview:
+    heading: '{{ $.overview }}'
+    tenantId: Specify Azure Tenant ID
+    subscriptionId: Specify Azure Subscription ID
+    alreadyExist: Connector already exists for the cloud account
+    trySuggestion: '{{ $.common.errorHandler.tryTheseSuggestions }}'
+  billing:
+    heading: Azure Billing Export
+    subHeading: Billing export is used to get insights into your cloud infrastructure and Azure services such as Storage account, Virtual machines, Containers etc.
+    instruction: Please follow the instructions to provide access to the Billing export for the specified tenant ID
+    login: and login to your master account
+    launchAzureConsole: Launch Azure Billing Exports
+    tooltipInstruction: Provided in the delivery options when the template is opened in the Azure console
+    tooltipBtn: Show instructions
+    storageAccountName: Storage Account Name
+    storageAccountNameRegexError: It must be 3 to 24 characters long, and can contain only lowercase letters and numbers.
+    subscriptionId: Storage Account Subscription ID
+    containerName: Storage Container
+    directoryName: Storage Directory
+    reportName: Report Name
+  existingExports:
+    instruction: 'A billing report already exists for this Azure account. Click on “continue” to use this billing export for the connector. If not, you can choose to create a new billing export.'
+    createNewExportBtn: '+ Create new Billing export'
+  chooseRequirements:
+    heading: Create Cross Account Role
+    subText: Choose Permissions
+    subHeading: Harness uses Multitenant app to sync billing export data from source storage account to Harness. Create a service principal for this app in your Azure account and assign read permissions on that particular storage account.
+    featureDesc: Select the Cloud Cost Management features you would like to use on the Azure account. Each requires specific permissions to the cross account role
+  servicePrincipal:
+    heading: Create Service Principal
+    subHeading: You can Create a Service Principal and assign permissions by running the following commands in the Command line
+  testConnection:
+    heading: '{{ $.common.labelTestConnection }}'
+    validatePermission: Validating Azure authentication and permissions
+    verifyExport: Verifying Azure billing export setup

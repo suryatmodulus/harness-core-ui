@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">65.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/69</span>
+                <span class='fraction'>45/69</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.14% </span>
+                <span class="strong">37.23% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>59/147</span>
+                <span class='fraction'>51/137</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.18% </span>
+                <span class="strong">64.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/68</span>
+                <span class='fraction'>44/68</span>
             </div>
         
             
@@ -292,9 +292,7 @@
 <a name='L233'></a><a href='#L233'>233</a>
 <a name='L234'></a><a href='#L234'>234</a>
 <a name='L235'></a><a href='#L235'>235</a>
-<a name='L236'></a><a href='#L236'>236</a>
-<a name='L237'></a><a href='#L237'>237</a>
-<a name='L238'></a><a href='#L238'>238</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">249x</span>
+<a name='L236'></a><a href='#L236'>236</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">249x</span>
 <span class="cline-any cline-yes">249x</span>
 <span class="cline-any cline-yes">249x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -363,10 +361,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -387,7 +385,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -441,18 +439,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -572,7 +568,7 @@ export interface GetDurationValidationSchemaProps {
   maximumErrorMessage?: string
 }
 &nbsp;
-export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProps = {}): Yup.ObjectSchema {
+export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProps = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span>: Yup.ObjectSchema {
   const { maximum } = props
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (maximum &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >typeof maximum !== 'number')</span> {
@@ -581,7 +577,7 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
   return Yup.object({
     type: Yup.string().test({
       test(val: InstanceTypes): boolean | Yup.ValidationError {
-        const { maximumErrorMessage, minimumErrorMessage, required = false, requiredErrorMessage } = props
+        const { maximumErrorMessage, minimumErrorMessage, required = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span> requiredErrorMessage } = props
         let type: InstanceTypes | undefined = val
         <span class="missing-if-branch" title="if path not taken" >I</span>if (isNil(val)) {
 <span class="cstat-no" title="statement not covered" >          if (!isNil(this.parent?.spec?.count)) {</span>
@@ -595,12 +591,12 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
           <span class="missing-if-branch" title="if path not taken" >I</span>if (getMultiTypeFromValue((value as unknown) as string) !== MultiTypeInputType.FIXED) {
 <span class="cstat-no" title="statement not covered" >            return true</span>
           }
-          <span class="missing-if-branch" title="if path not taken" >I</span>if (required &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isNil(value))</span> {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (required &amp;&amp; isNil(value)) {
 <span class="cstat-no" title="statement not covered" >            return this.createError({</span>
-              message: requiredErrorMessage || `Instance is an required field"`
+              message: requiredErrorMessage || `Instance is an required field`
             })
-          } else if (value &lt; 1) {
-            return this.createError({
+          } else <span class="missing-if-branch" title="if path not taken" >I</span>if (value &lt; 1) {
+<span class="cstat-no" title="statement not covered" >            return this.createError({</span>
               message: minimumErrorMessage || `Instances must be greater than or equal to 1`
             })
           } else <span class="missing-if-branch" title="if path not taken" >I</span>if (maximum &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >value &gt; maximum)</span> {
@@ -610,9 +606,9 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
           }
         } else <span class="missing-if-branch" title="else path not taken" >E</span>if (type === InstanceTypes.Percentage) {
           const value = this.parent<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ercentage
-          <span class="missing-if-branch" title="if path not taken" >I</span>if (required &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isNil(value))</span> {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (required &amp;&amp; isNil(value)) {
 <span class="cstat-no" title="statement not covered" >            return this.createError({</span>
-              message: requiredErrorMessage || `Instance is a required field"`
+              message: requiredErrorMessage || `Instance is a required field`
             })
           } else <span class="missing-if-branch" title="if path not taken" >I</span>if (value &lt; 1) {
 <span class="cstat-no" title="statement not covered" >            return this.createError({</span>
@@ -678,18 +674,16 @@ export const InstanceDropdownField: React.FC&lt;InstanceDropdownFieldProps&gt; =
           min: 1
         }}
         onChange={<span class="fstat-no" title="function not covered" >(v</span>al, _valType, typeInput) =&gt; {
-<span class="cstat-no" title="statement not covered" >          if (typeInput === MultiTypeInputType.FIXED &amp;&amp; typeof val === 'string') {</span>
-<span class="cstat-no" title="statement not covered" >            if (isPercentageType &amp;&amp; val) {</span>
-<span class="cstat-no" title="statement not covered" >              onChange?.({ ...value, spec: { percentage: parseFloat(val) } })</span>
-            } else {
-<span class="cstat-no" title="statement not covered" >              onChange?.({ ...value, spec: { count: parseFloat(val) } })</span>
-            }
+          let finalValue: string | number | undefined
+<span class="cstat-no" title="statement not covered" >          if (typeInput === MultiTypeInputType.FIXED) {</span>
+<span class="cstat-no" title="statement not covered" >            finalValue = val &amp;&amp; typeof val === 'string' ? parseFloat(val) : undefined</span>
+          } else <span class="cstat-no" title="statement not covered" >if (val) {</span>
+<span class="cstat-no" title="statement not covered" >            finalValue = val as string</span>
+          }
+<span class="cstat-no" title="statement not covered" >          if (isPercentageType) {</span>
+<span class="cstat-no" title="statement not covered" >            onChange?.({ ...value, spec: { percentage: finalValue } })</span>
           } else {
-<span class="cstat-no" title="statement not covered" >            if (isPercentageType &amp;&amp; val) {</span>
-<span class="cstat-no" title="statement not covered" >              onChange?.({ ...value, spec: { percentage: (val as unknown) as number } })</span>
-            } else {
-<span class="cstat-no" title="statement not covered" >              onChange?.({ ...value, spec: { count: (val as unknown) as number } })</span>
-            }
+<span class="cstat-no" title="statement not covered" >            onChange?.({ ...value, spec: { count: finalValue } })</span>
           }
         }}
         expressions={expressions}
@@ -706,7 +700,7 @@ export const InstanceDropdownField: React.FC&lt;InstanceDropdownFieldProps&gt; =
             &lt;MenuItem
               text={getString('instanceFieldOptions.percentageText')}
               onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                onChange?.({ spec: { percentage: undefined }, type: InstanceTypes.Percentage })</span>
+<span class="cstat-no" title="statement not covered" >                onChange?.({ spec: { percentage: 100 }, type: InstanceTypes.Percentage })</span>
               }}
               data-name="percentage"
               disabled={readonly}
@@ -714,7 +708,7 @@ export const InstanceDropdownField: React.FC&lt;InstanceDropdownFieldProps&gt; =
             &lt;MenuItem
               text={getString('instanceFieldOptions.instanceText')}
               onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                onChange?.({ spec: { count: undefined }, type: InstanceTypes.Instances })</span>
+<span class="cstat-no" title="statement not covered" >                onChange?.({ spec: { count: 1 }, type: InstanceTypes.Instances })</span>
               }}
               data-name="instances"
               disabled={readonly}
@@ -741,8 +735,8 @@ const FormInstanceDropdownField: React.FC&lt;FormInstanceDropdownFieldProps&gt; 
   const hasError = errorCheck(`${name}.type`, formik)
 &nbsp;
   const {
-    intent = hasError ? Intent.DANGER : Intent.NONE,
-    helperText = hasError ? get(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>rrors, `${name}.type`) : null,
+    intent = hasError ? <span class="branch-0 cbranch-no" title="branch not covered" >Intent.DANGER </span>: Intent.NONE,
+    helperText = hasError ? <span class="branch-0 cbranch-no" title="branch not covered" >get(formik?.errors, `${name}.type`) </span>: null,
     disabled,
     ...rest
   } = restProps
@@ -775,7 +769,7 @@ export const FormInstanceDropdown = connect(FormInstanceDropdownField)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 18 2021 10:12:11 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 18 2021 11:19:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

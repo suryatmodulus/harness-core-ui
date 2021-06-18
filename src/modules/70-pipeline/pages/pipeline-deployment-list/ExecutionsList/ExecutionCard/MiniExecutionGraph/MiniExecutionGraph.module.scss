@@ -139,6 +139,7 @@ $node-width: 40px;
     color: var(--icon-color) !important;
   }
 
+  &.ignorefailed,
   &.success {
     --stage-border: var(--green-500);
     --icon-color: var(--green-500);
@@ -157,7 +158,6 @@ $node-width: 40px;
   }
 
   &.failed,
-  &.ignorefailed,
   &.errored,
   &.expired,
   &.aborted,

@@ -13,7 +13,7 @@ import {
 } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
 import { Duration } from '@common/exports'
-import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
+import { isApprovalWaiting } from '@pipeline/utils/approvalUtils'
 import { StepDetails } from '../../Common/StepDetails/StepDetails'
 import { HarnessApprover } from './HarnessApprover'
 import css from '../ApprovalStepDetails.module.scss'
@@ -36,7 +36,7 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
   const action = React.useRef<HarnessApprovalActivityRequest['action']>('APPROVE')
   const isCurrentUserAuthorized = !!authData?.data?.authorized
   const currentUserUnAuthorizedReason = authData?.data?.reason
-  const isWaitingAll = isWaiting && isExecutionWaiting(approvalData.status)
+  const isWaitingAll = isWaiting && isApprovalWaiting(approvalData.status)
 
   async function handleSubmit(data: HarnessApprovalActivityRequest): Promise<void> {
     const newState = await submitApproval({ ...data, action: action.current })
@@ -99,7 +99,7 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
             ))}
           </React.Fragment>
         ) : null}
-        {isWaiting && isExecutionWaiting(approvalData.status) && isCurrentUserAuthorized ? (
+        {isWaitingAll && isCurrentUserAuthorized ? (
           <Formik<HarnessApprovalActivityRequest>
             initialValues={{
               approverInputs: (approvalData.details.approverInputs || []).map(({ name, defaultValue }) => ({
@@ -155,7 +155,7 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
             }}
           </Formik>
         ) : null}
-        {isWaiting && isExecutionWaiting(approvalData.status) && !isCurrentUserAuthorized ? (
+        {isWaitingAll && !isCurrentUserAuthorized ? (
           <Layout.Vertical padding={{ top: 'medium', bottom: 'medium', left: 'large', right: 'large' }}>
             <Text color={Color.ORANGE_700} font={{ align: 'center' }}>
               {currentUserUnAuthorizedReason

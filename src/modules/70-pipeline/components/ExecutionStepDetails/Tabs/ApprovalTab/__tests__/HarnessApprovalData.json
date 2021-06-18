@@ -1,7 +1,7 @@
 {
   "id": "tHlafNQNR3WAFDzBbhBFMA",
   "type": "HarnessApproval",
-  "status": "ApprovalWaiting",
+  "status": "WAITING",
   "includePipelineExecutionHistory": true,
   "deadline": 1615979161158,
   "details": {

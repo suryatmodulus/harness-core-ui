@@ -13,13 +13,13 @@ declare const styles: {
   readonly errorMsg: string
   readonly stage: string
   readonly icon: string
+  readonly ignorefailed: string
   readonly success: string
   readonly running: string
   readonly asyncwaiting: string
   readonly taskwaiting: string
   readonly timedwaiting: string
   readonly failed: string
-  readonly ignorefailed: string
   readonly errored: string
   readonly expired: string
   readonly aborted: string

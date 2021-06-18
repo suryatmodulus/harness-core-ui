@@ -9,8 +9,8 @@ declare const styles: {
   readonly rejected: string
   readonly expired: string
   readonly approvalrejected: string
-  readonly ignorefailed: string
   readonly success: string
+  readonly ignorefailed: string
   readonly running: string
   readonly asyncwaiting: string
   readonly taskwaiting: string

@@ -9,8 +9,9 @@ export type ExecutionStatus = Exclude<
 /**
  * Statues are to be grouped as follows:
  * Running -> Running, AsyncWaiting, TaskWaiting, TimedWaiting
- * Failed -> Failed, Errored, IgnoreFailed
- * Aborted -> Discontinuing, Aborted
+ * Failed -> Failed, Errored
+ * Aborted -> Discontinuing, Aborted,
+ * Success -> Success, IgnoreFailed
  */
 
 export const ExecutionStatusEnum: Readonly<Record<ExecutionStatus, ExecutionStatus>> = {
@@ -57,9 +58,7 @@ export function isExecutionRunning(status?: string): boolean {
 
 export function isExecutionFailed(status?: string): boolean {
   const st = changeCase(status)
-  return (
-    st === ExecutionStatusEnum.Failed || st === ExecutionStatusEnum.Errored || st === ExecutionStatusEnum.IgnoreFailed
-  )
+  return st === ExecutionStatusEnum.Failed || st === ExecutionStatusEnum.Errored
 }
 
 export function isExecutionExpired(status?: string): boolean {
@@ -102,7 +101,8 @@ export function isExecutionNotStarted(status?: string): boolean {
 }
 
 export function isExecutionSuccess(status?: string): boolean {
-  return changeCase(status) === ExecutionStatusEnum.Success
+  const st = changeCase(status)
+  return st === ExecutionStatusEnum.Success || st === ExecutionStatusEnum.IgnoreFailed
 }
 
 export function isExecutionSuspended(status?: string): boolean {

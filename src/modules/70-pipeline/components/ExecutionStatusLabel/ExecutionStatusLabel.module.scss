@@ -20,12 +20,12 @@
   &.errored,
   &.rejected,
   &.expired,
-  &.approvalrejected,
-  &.ignorefailed {
+  &.approvalrejected {
     --execution-status-color: var(--red-500);
   }
 
-  &.success {
+  &.success,
+  &.ignorefailed {
     --execution-status-color: var(--green-500);
   }
 

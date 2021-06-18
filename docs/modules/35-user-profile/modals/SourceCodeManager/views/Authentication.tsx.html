@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">37.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/10</span>
+                <span class='fraction'>6/16</span>
             </div>
         
             
@@ -114,7 +114,19 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -130,9 +142,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,17 +223,25 @@ const Authentication: React.FC&lt;AuthenticationData&gt; = ({ formikProps, authO
           &lt;FormInput.Select name="authType" items={authOptions} disabled={false} className={css.authTypeSelect} /&gt;
         &lt;/Layout.Horizontal&gt;
         {formikProps.values.authType === AuthTypes.USERNAME_PASSWORD ? (
-          &lt;&gt;
-            &lt;TextReference name="username" label={getString('username')} type={ValueType.TEXT} /&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;&gt;</span>
+            &lt;TextReference
+              name="username"
+              label={getString('username')}
+              type={formikProps.values.username ? formikProps.values.username.type : ValueType.TEXT}
+            /&gt;
             &lt;SecretInput name="password" label={getString('password')} /&gt;
           &lt;/&gt;
-        ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
+        ) : null}
         {formikProps.values.authType === AuthTypes.USERNAME_TOKEN ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;&gt;</span>
-            &lt;TextReference name="username" label={getString('username')} type={ValueType.TEXT} /&gt;
+          &lt;&gt;
+            &lt;TextReference
+              name="username"
+              label={getString('username')}
+              type={formikProps.values.username ? <span class="branch-0 cbranch-no" title="branch not covered" >formikProps.values.username.type </span>: ValueType.TEXT}
+            /&gt;
             &lt;SecretInput name="accessToken" label={getString('personalAccessToken')} /&gt;
           &lt;/&gt;
-        ) : null}
+        ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
         {formikProps.values.authType === AuthTypes.SSH_KEY ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >          &lt;SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} /&gt;</span>
         ) : null}
@@ -218,7 +250,11 @@ const Authentication: React.FC&lt;AuthenticationData&gt; = ({ formikProps, authO
         ) : null}
         {formikProps.values.authType === AuthTypes.AWSCredentials ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >          &lt;&gt;</span>
-            &lt;TextReference name="accessKey" label={getString('common.accessKey')} type={ValueType.TEXT} /&gt;
+            &lt;TextReference
+              name="accessKey"
+              label={getString('common.accessKey')}
+              type={formikProps.values.authType || ValueType.TEXT}
+            /&gt;
             &lt;SecretInput name="secretKey" label={getString('common.secretKey')} /&gt;
           &lt;/&gt;
         ) : null}
@@ -235,7 +271,7 @@ export default Authentication
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 18 2021 12:46:39 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 18 2021 15:40:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

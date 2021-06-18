@@ -108,36 +108,19 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -145,6 +128,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -154,21 +146,43 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import cx from 'classnames'
 import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
-import cx from 'classnames'
+import type { SourceCodeManagerDTO } from 'services/cd-ng'
 import SourceCodeManagerForm from './views/SourceCodeManagerForm'
 import css from './useSourceCodeManager.module.scss'
 &nbsp;
 export interface UseSourceCodeModalProps {
   onSuccess: () =&gt; void
   onCloseModal?: () =&gt; void
+  initialValues?: SourceCodeManagerDTO
 }
 &nbsp;
 export interface UseSourceCodeModalReturn {
@@ -176,34 +190,38 @@ export interface UseSourceCodeModalReturn {
   closeSourceCodeModal: () =&gt; void
 }
 &nbsp;
-export const useSourceCodeModal = ({ onSuccess }: UseSourceCodeModalProps): UseSourceCodeModalReturn =&gt; {
-  const [showModal, hideModal] = useModalHook(() =&gt; (
-    &lt;Dialog
-      isOpen={true}
-      onClose={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >        hideModal()</span>
-      }}
-      className={cx(css.dialog, Classes.DIALOG)}
-    &gt;
-      &lt;SourceCodeManagerForm
-        onSubmit={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >          onSuccess()</span>
+export const useSourceCodeModal = ({ onSuccess, initialValues }: UseSourceCodeModalProps): UseSourceCodeModalReturn =&gt; {
+  const [showModal, hideModal] = useModalHook(
+    () =&gt; (
+      &lt;Dialog
+        isOpen={true}
+        onClose={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >          hideModal()</span>
         }}
-        onClose={hideModal}
-      /&gt;
+        className={cx(css.dialog, Classes.DIALOG)}
+      &gt;
+        &lt;SourceCodeManagerForm
+          initialValues={initialValues}
+          onSubmit={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >            onSuccess()</span>
+<span class="cstat-no" title="statement not covered" >            hideModal()</span>
+          }}
+          onClose={hideModal}
+        /&gt;
 &nbsp;
-      &lt;Button
-        minimal
-        icon="cross"
-        iconProps={{ size: 18 }}
-        onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >          hideModal()</span>
-        }}
-        className={css.crossIcon}
-      /&gt;
-    &lt;/Dialog&gt;
-  ))
+        &lt;Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >            hideModal()</span>
+          }}
+          className={css.crossIcon}
+        /&gt;
+      &lt;/Dialog&gt;
+    ),
+    [onSuccess, initialValues]
+  )
 &nbsp;
   return {
     openSourceCodeModal: showModal,
@@ -217,7 +235,7 @@ export const useSourceCodeModal = ({ onSuccess }: UseSourceCodeModalProps): UseS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 18 2021 12:46:39 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 18 2021 15:40:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

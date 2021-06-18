@@ -38,10 +38,10 @@ const CreateCeAzureConnector: React.FC<CreateConnectorModalProps> = props => {
           connectorInfo={props.connectorInfo as CEAzureDTO}
           gitDetails={props.gitDetails}
         />
-        <Billing name="Azure Billing Export" />
-        <ChooseRequirements name="Choose Requirements" />
-        <CreateServicePrincipal name="Create Service Principal" />
-        <VerifyConnection name="Test Connection" onClose={props.onClose} />
+        <Billing name={getString('connectors.ceAzure.billing.heading')} />
+        <ChooseRequirements name={getString('connectors.ceAzure.chooseRequirements.wizardTitle')} />
+        <CreateServicePrincipal name={getString('connectors.ceAzure.servicePrincipal.heading')} />
+        <VerifyConnection name={getString('connectors.ceAzure.testConnection.heading')} onClose={props.onClose} />
       </StepWizard>
     </ModalExtension>
   )

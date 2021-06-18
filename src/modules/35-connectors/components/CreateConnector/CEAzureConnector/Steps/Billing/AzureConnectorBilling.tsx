@@ -16,7 +16,7 @@ import * as Yup from 'yup'
 import cx from 'classnames'
 import { Popover, Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import type { BillingExportSpec } from 'services/cd-ng'
+import type { BillingExportSpec, CEAzureConnector } from 'services/cd-ng'
 import ShowExistingBillingExports from './AzureExistingBillingExports'
 import { CEAzureDTO, guidRegex } from '../Overview/AzureConnectorOverview'
 import { DialogExtensionContext } from '../../ModalExtension'
@@ -38,21 +38,22 @@ const BillingExport: React.FC<StepProps<CEAzureDTO>> = props => {
   )
 
   const handleSubmit = (formData: BillingExportSpec) => {
-    if (prevStepData) {
-      prevStepData.spec = {
-        ...prevStepData.spec,
+    const nextStepData: CEAzureDTO = {
+      ...((prevStepData || {}) as CEAzureDTO),
+      spec: {
+        ...((prevStepData?.spec || {}) as CEAzureConnector),
         billingExportSpec: { ...formData }
-      }
-
-      if (showBillingExportForm) {
-        const features = prevStepData.spec.featuresEnabled || []
-        if (!features.includes('BILLING')) {
-          prevStepData.spec.featuresEnabled = features.concat('BILLING')
-        }
       }
     }
 
-    nextStep?.(prevStepData)
+    if (showBillingExportForm) {
+      const features = [...(prevStepData!.spec?.featuresEnabled || [])]
+      if (!features.includes('BILLING')) {
+        nextStepData.spec.featuresEnabled = features.concat('BILLING')
+      }
+    }
+
+    nextStep?.(nextStepData)
   }
 
   const renderForm = () => {

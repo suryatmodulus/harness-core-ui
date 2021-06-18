@@ -621,6 +621,7 @@ export interface StringsMap {
   'connectors.ceAzure.chooseRequirements.heading': string
   'connectors.ceAzure.chooseRequirements.subHeading': string
   'connectors.ceAzure.chooseRequirements.subText': string
+  'connectors.ceAzure.chooseRequirements.wizardTitle': string
   'connectors.ceAzure.existingExports.createNewExportBtn': string
   'connectors.ceAzure.existingExports.instruction': string
   'connectors.ceAzure.guidPlaceholder': string

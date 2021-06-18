@@ -302,6 +302,7 @@ ceAzure:
     instruction: 'A billing report already exists for this Azure account. Click on “continue” to use this billing export for the connector. If not, you can choose to create a new billing export.'
     createNewExportBtn: '+ Create new Billing export'
   chooseRequirements:
+    wizardTitle: Choose Requirements
     heading: Create Cross Account Role
     subText: Choose Permissions
     subHeading: Harness uses Multitenant app to sync billing export data from source storage account to Harness. Create a service principal for this app in your Azure account and assign read permissions on that particular storage account.

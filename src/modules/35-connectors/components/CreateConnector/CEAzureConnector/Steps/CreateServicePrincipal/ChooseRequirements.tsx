@@ -14,6 +14,7 @@ import {
   Container
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import type { CEAzureConnector } from 'services/cd-ng'
 import type { CEAzureDTO } from '../Overview/AzureConnectorOverview'
 import css from '../../CreateCeAzureConnector.module.scss'
 
@@ -65,11 +66,15 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
       features.push('BILLING')
     }
 
-    if (prevStepData) {
-      prevStepData.spec = { ...prevStepData.spec, features }
+    const nextStepData: CEAzureDTO = {
+      ...((prevStepData || {}) as CEAzureDTO),
+      spec: {
+        ...((prevStepData?.spec || {}) as CEAzureConnector),
+        featuresEnabled: features
+      }
     }
 
-    nextStep?.(prevStepData)
+    nextStep?.(nextStepData)
   }
 
   const handleCardSelection = (item: ICard) => {

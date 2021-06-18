@@ -53,13 +53,13 @@ const TestConnection: React.FC<StepProps<ConnectorInfoDTO> & TestConnectionProps
     try {
       setCurrentStatus(Status.PROCESS)
       const result = await testConnection()
-      if (result.data?.status === 'SUCCESS') {
-        setCurrentIntent(Intent.SUCCESS)
-        setCurrentStatus(Status.DONE)
-        setCurrentStep(2)
-      } else {
+      if (result.data?.status !== 'SUCCESS') {
         throw new Error("Couldn't verify the connection")
       }
+
+      setCurrentIntent(Intent.SUCCESS)
+      setCurrentStatus(Status.DONE)
+      setCurrentStep(2)
     } catch (e) {
       modalErrorHandler?.showDanger(e.data?.errorSummary || e.message)
       setCurrentStatus(Status.ERROR)

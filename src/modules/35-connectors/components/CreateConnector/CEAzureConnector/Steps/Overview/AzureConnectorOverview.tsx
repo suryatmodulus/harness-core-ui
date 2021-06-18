@@ -4,12 +4,12 @@ import {
   Button,
   Formik,
   StepProps,
-  // ModalErrorHandlerBinding,
-  // ModalErrorHandler,
+  ModalErrorHandlerBinding,
+  ModalErrorHandler,
   FormikForm,
   Container,
-  Heading, // Added by akash.bhardwaj@harness.io
-  FormInput, // Added by akash.bhardwaj@harness.io
+  Heading,
+  FormInput,
   Text
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
@@ -17,6 +17,7 @@ import { isEmpty, pick, get, omit } from 'lodash-es'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import {
+  Failure,
   ConnectorInfoDTO,
   ResponseBoolean,
   EntityGitDetails,
@@ -27,7 +28,6 @@ import {
   CEAzureConnector
 } from 'services/cd-ng'
 import { String, useStrings } from 'framework/strings'
-
 import { Description, Tags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -72,7 +72,7 @@ const Overview: React.FC<StepProps<CEAzureDTO> & OverviewProps> = props => {
   const [loading, setLoading] = useState(false)
   const [isUniqueConnector, setIsUniqueConnector] = useState(true)
   const [existingConnectorDetails, setExistingConnectorDetails] = useState<ConnectorResponse | undefined>()
-  // const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
 
   const { accountId } = useParams<Params>()
   const { isGitSyncEnabled } = useAppStore()
@@ -98,15 +98,13 @@ const Overview: React.FC<StepProps<CEAzureDTO> & OverviewProps> = props => {
     })
   }
   const fetchConnectorsWithBillingExports = async (formData: OverviewForm) => {
-    const { status, data } = await mutate({
+    return mutate({
       ...filterParams,
       ccmConnectorFilter: {
         featuresEnabled: ['BILLING'],
         azureTenantId: formData.tenantId
       }
     })
-
-    return { status, connectorsWithBillingExports: data?.content }
   }
 
   const handleSubmit = async (formData: OverviewForm): Promise<void> => {
@@ -145,8 +143,12 @@ const Overview: React.FC<StepProps<CEAzureDTO> & OverviewProps> = props => {
     //          which have BILLING enabled
     //        - If no, move onto the next step and allow user to create a
     //          new billing export
-    const connectors = await fetchConnectors(formData)
-    if ('SUCCESS' === connectors.status) {
+    try {
+      const connectors = await fetchConnectors(formData)
+      if ('SUCCESS' !== connectors.status) {
+        throw connectors as Failure
+      }
+
       const hasExistingConnector = !!connectors?.data?.pageItemCount
       if (hasExistingConnector && !isEditMode) {
         setIsUniqueConnector(false)
@@ -155,21 +157,18 @@ const Overview: React.FC<StepProps<CEAzureDTO> & OverviewProps> = props => {
         return
       }
 
-      const { status, connectorsWithBillingExports: cons = [] } = await fetchConnectorsWithBillingExports(formData)
-      if ('SUCCESS' === status) {
-        if (cons.length > 0) {
-          nextStepData.existingBillingExports = cons.map(c => c.connector?.spec as CEAzureConnector)
-          nextStep?.(nextStepData)
-          return
-        }
-
-        nextStep?.(nextStepData)
+      const response = await fetchConnectorsWithBillingExports(formData)
+      if ('SUCCESS' !== response.status) {
+        throw response as Failure
       }
-      setLoading(false)
-    }
 
-    // TODO: handle error cases here
-    setLoading(false)
+      const cons = response.data?.content || []
+      nextStepData.existingBillingExports = cons.map(c => c.connector?.spec as CEAzureConnector)
+      nextStep?.(nextStepData)
+    } catch (e) {
+      setLoading(false)
+      modalErrorHandler?.showDanger(e.message)
+    }
   }
 
   const getInitialValues = () => {
@@ -196,7 +195,7 @@ const Overview: React.FC<StepProps<CEAzureDTO> & OverviewProps> = props => {
       <Heading level={2} className={css.header}>
         {getString('connectors.ceAzure.overview.heading')}
       </Heading>
-      {/* <ModalErrorHandler bind={setModalErrorHandler} /> */}
+      <ModalErrorHandler bind={setModalErrorHandler} />
       <Formik<OverviewForm>
         onSubmit={formData => {
           handleSubmit(formData)

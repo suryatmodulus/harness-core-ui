@@ -1579,7 +1579,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
     } else {
 <span class="cstat-no" title="statement not covered" >      clear()</span>
 <span class="cstat-no" title="statement not covered" >      setSchemaErrorView(true)</span>
-<span class="cstat-no" title="statement not covered" >      showError(response?.message || getString('errorWhileSaving'))</span>
+<span class="cstat-no" title="statement not covered" >      showError(response?.message || getString('errorWhileSaving'), undefined, 'pipeline.save.pipeline.error')</span>
 <span class="cstat-no" title="statement not covered" >      throw response</span>
     }
 <span class="cstat-no" title="statement not covered" >    return { status: response?.status }</span>
@@ -1596,7 +1596,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
 <span class="cstat-no" title="statement not covered" >      try {</span>
 <span class="cstat-no" title="statement not covered" >        latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline</span>
       } /* istanbul ignore next */ catch (err) {
-<span class="cstat-no" title="statement not covered" >        showError(err.message || err)</span>
+<span class="cstat-no" title="statement not covered" >        showError(err.message || err, undefined, 'pipeline.save.gitinfo.error')</span>
       }
     }
 &nbsp;
@@ -1632,7 +1632,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
 <span class="cstat-no" title="statement not covered" >      try {</span>
 <span class="cstat-no" title="statement not covered" >        latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline</span>
       } /* istanbul ignore next */ catch (err) {
-<span class="cstat-no" title="statement not covered" >        showError(err.message || err)</span>
+<span class="cstat-no" title="statement not covered" >        showError(err.message || err, undefined, 'pipeline.save.pipeline.error')</span>
       }
     }
 &nbsp;
@@ -1793,20 +1793,20 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
         const parsedYaml = <span class="cstat-no" title="statement not covered" >parse(yamlHandler.getLatestYaml())</span>
 <span class="cstat-no" title="statement not covered" >        if (!parsedYaml) {</span>
 <span class="cstat-no" title="statement not covered" >          clear()</span>
-<span class="cstat-no" title="statement not covered" >          showError(getString('invalidYamlText'))</span>
+<span class="cstat-no" title="statement not covered" >          showError(getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')</span>
 <span class="cstat-no" title="statement not covered" >          return false</span>
         }
 <span class="cstat-no" title="statement not covered" >        if (yamlHandler.getYAMLValidationErrorMap()?.size &gt; 0) {</span>
 <span class="cstat-no" title="statement not covered" >          clear()</span>
 <span class="cstat-no" title="statement not covered" >          setYamlError(true)</span>
-<span class="cstat-no" title="statement not covered" >          showError(getString('invalidYamlText'))</span>
+<span class="cstat-no" title="statement not covered" >          showError(getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')</span>
 <span class="cstat-no" title="statement not covered" >          return false</span>
         }
 <span class="cstat-no" title="statement not covered" >        updatePipeline(parsedYaml.pipeline)</span>
       } catch (e) {
 <span class="cstat-no" title="statement not covered" >        clear()</span>
 <span class="cstat-no" title="statement not covered" >        setYamlError(true)</span>
-<span class="cstat-no" title="statement not covered" >        showError(e.message || getString('invalidYamlText'))</span>
+<span class="cstat-no" title="statement not covered" >        showError(e.message || getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')</span>
 <span class="cstat-no" title="statement not covered" >        return false</span>
       }
     }
@@ -1914,7 +1914,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
                 const parsedYaml = <span class="cstat-no" title="statement not covered" >parse(yamlHandler.getLatestYaml())</span>
 <span class="cstat-no" title="statement not covered" >                if (!parsedYaml) {</span>
 <span class="cstat-no" title="statement not covered" >                  clear()</span>
-<span class="cstat-no" title="statement not covered" >                  showError(getString('invalidYamlText'))</span>
+<span class="cstat-no" title="statement not covered" >                  showError(getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')</span>
 <span class="cstat-no" title="statement not covered" >                  return true</span>
                 }
                 // TODO: only apply for CI as its schema is implemented
@@ -2035,7 +2035,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 18 2021 06:51:43 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 18 2021 09:13:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

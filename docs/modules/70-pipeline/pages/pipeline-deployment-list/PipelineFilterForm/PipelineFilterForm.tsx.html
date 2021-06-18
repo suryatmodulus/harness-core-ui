@@ -288,7 +288,17 @@
 <a name='L229'></a><a href='#L229'>229</a>
 <a name='L230'></a><a href='#L230'>230</a>
 <a name='L231'></a><a href='#L231'>231</a>
-<a name='L232'></a><a href='#L232'>232</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -402,6 +412,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -463,9 +474,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -572,13 +592,13 @@ export default function PipelineFilterForm&lt;
               name={'sourceBranch'}
               label={getString('pipeline.triggers.conditionsPanel.sourceBranch')}
               key={'sourceBranch'}
-              placeholder={getString('enterNamePlaceholder')}
+              placeholder={getString('pipeline.triggers.conditionsPanel.sourceBranchPlaceholder')}
             /&gt;
             &lt;FormInput.Text
               name={'targetBranch'}
               label={getString('pipeline.triggers.conditionsPanel.targetBranch')}
               key={'targetBranch'}
-              placeholder={getString('enterNamePlaceholder')}
+              placeholder={getString('pipeline.triggers.conditionsPanel.targetBranchPlaceholder')}
             /&gt;
           &lt;/div&gt;
         )
@@ -590,7 +610,7 @@ export default function PipelineFilterForm&lt;
               name={'branch'}
               label={getString('pipelineSteps.deploy.inputSet.branch')}
               key={'branch'}
-              placeholder={getString('enterNamePlaceholder')}
+              placeholder={getString('pipeline.manifestType.branchPlaceholder')}
             /&gt;
           &lt;/div&gt;
         )
@@ -621,7 +641,7 @@ export default function PipelineFilterForm&lt;
               name={'repositoryName'}
               label={getString('pipelineSteps.build.create.repositoryNameLabel')}
               key={'repositoryName'}
-              placeholder={getString('enterNamePlaceholder')}
+              placeholder={getString('pipeline.manifestType.repoNamePlaceholder')}
             /&gt;
           ) : null}
           &lt;FormInput.Select
@@ -631,6 +651,7 @@ export default function PipelineFilterForm&lt;
             items={buildTypeOptions}
             name="buildType"
             label={getString('filters.executions.buildType')}
+            placeholder={getString('pipeline.filters.builtTypePlaceholder')}
             key="buildType"
             value={
               buildType ? <span class="branch-0 cbranch-no" title="branch not covered" >buildTypeOptions.find(<span class="fstat-no" title="function not covered" >(o</span>ption: SelectOption) =&gt; <span class="cstat-no" title="statement not covered" >option.value === buildType)</span> </span>: NO_SELECTION
@@ -656,6 +677,7 @@ export default function PipelineFilterForm&lt;
           items={[deploymentTypeLabel] || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
           name="deploymentType"
           label={getString('deploymentTypeText')}
+          placeholder={getString('pipeline.filters.deploymentTypePlaceholder')}
           key="deploymentType"
           multiSelectProps={{
             allowCreatingNewItems: false
@@ -677,6 +699,7 @@ export default function PipelineFilterForm&lt;
           name="services"
           label={getString('services')}
           key="services"
+          placeholder={getString('pipeline.filters.servicePlaceholder')}
           multiSelectProps={{
             allowCreatingNewItems: false
           }}
@@ -685,6 +708,7 @@ export default function PipelineFilterForm&lt;
           items={environments || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
           name="environments"
           label={getString('environments')}
+          placeholder={getString('pipeline.filters.environmentPlaceholder')}
           key="environments"
           multiSelectProps={{
             allowCreatingNewItems: false
@@ -702,11 +726,16 @@ export default function PipelineFilterForm&lt;
           name={isPipeSetupType ? <span class="branch-0 cbranch-no" title="branch not covered" >'name' </span>: 'pipelineName'}
           label={isPipeSetupType ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('name') </span>: getString('filters.executions.pipelineName')}
           key={isPipeSetupType ? <span class="branch-0 cbranch-no" title="branch not covered" >'name' </span>: 'pipelineName'}
-          placeholder={getString('enterNamePlaceholder')}
+          placeholder={getString('pipeline.filters.pipelineNamePlaceholder')}
         /&gt;
         {isPipeSetupType ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >          &lt;&gt;</span>
-            &lt;FormInput.Text name={'description'} label={getString('description')} key={'description'} /&gt;
+            &lt;FormInput.Text
+              name={'description'}
+              label={getString('description')}
+              placeholder={getString('pipeline.enterDescription')}
+              key={'description'}
+            /&gt;
             &lt;FormInput.KVTagInput name="pipelineTags" label={getString('tagsLabel')} key="pipelineTags" /&gt;
           &lt;/&gt;
         ) : null}
@@ -715,6 +744,7 @@ export default function PipelineFilterForm&lt;
             items={getOptionsForMultiSelect()}
             name="status"
             label={getString('status')}
+            placeholder={getString('pipeline.jiraUpdateStep.selectStatus')}
             key="status"
             multiSelectProps={{
               allowCreatingNewItems: false
@@ -757,7 +787,7 @@ export default function PipelineFilterForm&lt;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 18 2021 06:51:43 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 18 2021 09:13:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

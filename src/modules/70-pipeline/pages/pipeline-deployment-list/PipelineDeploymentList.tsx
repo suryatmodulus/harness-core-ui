@@ -33,7 +33,9 @@ export interface PipelineDeploymentListProps {
 }
 
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
-  const { orgIdentifier, projectIdentifier, accountId, module } = useParams<PipelineType<PipelinePathProps>>()
+  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
+    PipelineType<PipelinePathProps>
+  >()
   const [pollingRequest, setPollingRequest] = React.useState(false)
   const queryParams = useQueryParams<QueryParams>({
     processQueryParams(params: StringQueryParams) {
@@ -60,9 +62,9 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   })
   const { replaceQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
 
-  const { page, filterIdentifier, myDeployments, status, repoIdentifier, branch, pipelineIdentifier } = queryParams
+  const { page, filterIdentifier, myDeployments, status, repoIdentifier, branch } = queryParams
   const hasFilters =
-    [pipelineIdentifier, status, filterIdentifier].some(filter => filter !== undefined) || myDeployments
+    [queryParams.pipelineIdentifier, status, filterIdentifier].some(filter => filter !== undefined) || myDeployments
 
   const isCIModule = module === 'ci'
   const { getString } = useStrings()

@@ -332,7 +332,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                     ? 'deployment-success-legacy'
                     : 'warning-sign'
                 }
-                intent={pipeline.executionSummaryInfo?.lastExecutionStatus === 'Failed' ? Intent.DANGER : Intent.NONE}
+                intent={pipeline.executionSummaryInfo?.lastExecutionStatus !== 'Success' ? Intent.DANGER : Intent.NONE}
                 size={20}
               />
             )}

@@ -267,9 +267,7 @@ describe('Test Pipeline Deployment list', () => {
     })
   })
 
-  // TODO:PMS enable search once with actual API
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Pipeline selection works', async () => {
+  test('Pipeline selection works', async () => {
     const { getByTestId } = render(
       <TestWrapper {...testWrapperProps}>
         <ComponentWrapper />

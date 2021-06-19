@@ -5,6 +5,7 @@ declare const styles: {
   readonly healthAndExecutions: string
   readonly noData: string
   readonly noDeploymentSection: string
+  readonly image: string
   readonly clearFilterText: string
   readonly noDeploymentText: string
   readonly aboutDeployment: string

@@ -27,6 +27,9 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  .image {
+    width: 320px;
+  }
   .clearFilterText {
     color: var(--primary-7);
     text-transform: uppercase;

@@ -7,7 +7,6 @@ import {
   FormikForm,
   FormInput,
   Icon,
-  // ModalErrorHandler,
   Button,
   StepProps,
   Container
@@ -115,17 +114,17 @@ const BillingExport: React.FC<StepProps<CEAzureDTO>> = props => {
     if (!showBillingExportForm) return {}
     return Yup.object().shape({
       storageAccountName: Yup.string()
-        .required('Storage account name is required')
+        .required(getString('connectors.ceAzure.validation.storageAccountName'))
         .test(
           'storageAccountName',
           getString('connectors.ceAzure.billing.storageAccountNameRegexError'),
           storageAccountNameTest
         ),
-      directoryName: Yup.string().required('Directory name is required'),
-      containerName: Yup.string().required('Container name is required'),
-      reportName: Yup.string().required('Report name is required'),
+      directoryName: Yup.string().required(getString('connectors.ceAzure.validation.directoryName')),
+      containerName: Yup.string().required(getString('connectors.ceAzure.validation.containerName')),
+      reportName: Yup.string().required(getString('connectors.ceAzure.validation.containerName')),
       subscriptionId: Yup.string()
-        .required('Subscription ID is required')
+        .required(getString('connectors.ceAzure.validation.subscriptionId'))
         .test('subscriptionId', getString('connectors.ceAzure.guidRegexError'), guidRegex)
     })
   }
@@ -186,9 +185,13 @@ const BillingExport: React.FC<StepProps<CEAzureDTO>> = props => {
               <FormikForm style={{ padding: '10px 0 25px' }}>
                 {showBillingExportForm ? renderForm() : renderBillingExports()}
                 <Layout.Horizontal spacing="medium">
-                  <Button text="Previous" icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
+                  <Button
+                    text={getString('previous')}
+                    icon="chevron-left"
+                    onClick={() => previousStep?.(prevStepData)}
+                  />
                   <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={false}>
-                    Continue
+                    {getString('continue')}
                   </Button>
                 </Layout.Horizontal>
               </FormikForm>

@@ -205,10 +205,10 @@ const Overview: React.FC<StepProps<CEAzureDTO> & OverviewProps> = props => {
           name: NameSchema(),
           identifier: IdentifierSchema(),
           tenantId: Yup.string()
-            .required('Tenant ID is required')
+            .required(getString('connectors.ceAzure.validation.tenantId'))
             .test('tenantId', getString('connectors.ceAzure.guidRegexError'), guidRegex),
           subscriptionId: Yup.string()
-            .required('Subscription ID is required')
+            .required(getString('connectors.ceAzure.validation.subscriptionId'))
             .test('subscriptionId', getString('connectors.ceAzure.guidRegexError'), guidRegex)
         })}
         initialValues={{
@@ -288,8 +288,11 @@ const ExistingConnectorMessage = (props: ConnectorResponse) => {
         </Text>
         <Container>
           <Text inline font={'small'} icon="info" iconProps={{ size: 16, padding: { right: 'small' } }} color="grey700">
-            The cloud account {accountId} already has a connector “{name}” linked to it. The connector has permissions
-            for {featureText}.
+            {getString('connectors.ceAzure.overview.existingConnectorInfo', {
+              accountId,
+              name,
+              featureText
+            })}
           </Text>
         </Container>
         <Container>
@@ -303,7 +306,8 @@ const ExistingConnectorMessage = (props: ConnectorResponse) => {
             {getString('connectors.ceAzure.overview.trySuggestion')}
           </Text>
           <Text padding={{ left: 'xlarge' }} color="grey700" font={'small'}>
-            Edit the connector <a href="#">{name}</a> if required.
+            {getString('connectors.ceAzure.overview.editConnector')} <a href="#">{name}</a>{' '}
+            {getString('connectors.ceAzure.overview.required')}
           </Text>
         </Container>
       </Layout.Vertical>

@@ -79,7 +79,7 @@ const TestConnection: React.FC<StepProps<ConnectorInfoDTO> & TestConnectionProps
       <StepsProgress steps={steps} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
       <Button
         intent="primary"
-        text={'Finish'}
+        text={getString('finish')}
         rightIcon="chevron-right"
         className={css.continueAndPreviousBtns}
         onClick={() => props.onClose?.()}

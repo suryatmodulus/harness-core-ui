@@ -619,15 +619,20 @@ export interface StringsMap {
   'connectors.ceAzure.billing.tooltipInstruction': string
   'connectors.ceAzure.chooseRequirements.featureDesc': string
   'connectors.ceAzure.chooseRequirements.heading': string
+  'connectors.ceAzure.chooseRequirements.optimizationCardDesc': string
   'connectors.ceAzure.chooseRequirements.subHeading': string
   'connectors.ceAzure.chooseRequirements.subText': string
+  'connectors.ceAzure.chooseRequirements.visibilityCardDesc': string
   'connectors.ceAzure.chooseRequirements.wizardTitle': string
   'connectors.ceAzure.existingExports.createNewExportBtn': string
   'connectors.ceAzure.existingExports.instruction': string
   'connectors.ceAzure.guidPlaceholder': string
   'connectors.ceAzure.guidRegexError': string
   'connectors.ceAzure.overview.alreadyExist': string
+  'connectors.ceAzure.overview.editConnector': string
+  'connectors.ceAzure.overview.existingConnectorInfo': string
   'connectors.ceAzure.overview.heading': string
+  'connectors.ceAzure.overview.required': string
   'connectors.ceAzure.overview.subscriptionId': string
   'connectors.ceAzure.overview.tenantId': string
   'connectors.ceAzure.overview.trySuggestion': string
@@ -636,6 +641,12 @@ export interface StringsMap {
   'connectors.ceAzure.testConnection.heading': string
   'connectors.ceAzure.testConnection.validatePermission': string
   'connectors.ceAzure.testConnection.verifyExport': string
+  'connectors.ceAzure.validation.containerName': string
+  'connectors.ceAzure.validation.directoryName': string
+  'connectors.ceAzure.validation.reportName': string
+  'connectors.ceAzure.validation.storageAccountName': string
+  'connectors.ceAzure.validation.subscriptionId': string
+  'connectors.ceAzure.validation.tenantId': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string
   'connectors.connectAndSave': string

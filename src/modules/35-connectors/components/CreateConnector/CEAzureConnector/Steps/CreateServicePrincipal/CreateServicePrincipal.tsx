@@ -154,7 +154,7 @@ const CreateServicePrincipal: React.FC<StepProps<CEAzureDTO>> = (props): JSX.Ele
           disabled={isSaving}
           onClick={() => saveAndContinue()}
         >
-          Continue
+          {getString('continue')}
         </Button>
       </Layout.Horizontal>
     </Layout.Vertical>

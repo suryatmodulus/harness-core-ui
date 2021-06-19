@@ -283,7 +283,10 @@ ceAzure:
     tenantId: Specify Azure Tenant ID
     subscriptionId: Specify Azure Subscription ID
     alreadyExist: Connector already exists for the cloud account
+    existingConnectorInfo: The cloud account {{accountId}} already has a connector “{{name}}” linked to it. The connector has permissions for {{featureText}}.
     trySuggestion: '{{ $.common.errorHandler.tryTheseSuggestions }}'
+    editConnector: Edit the connector
+    required: if required.
   billing:
     heading: Azure Billing Export
     subHeading: Billing export is used to get insights into your cloud infrastructure and Azure services such as Storage account, Virtual machines, Containers etc.
@@ -307,6 +310,8 @@ ceAzure:
     subText: Choose Permissions
     subHeading: Harness uses Multitenant app to sync billing export data from source storage account to Harness. Create a service principal for this app in your Azure account and assign read permissions on that particular storage account.
     featureDesc: Select the Cloud Cost Management features you would like to use on the Azure account. Each requires specific permissions to the cross account role
+    visibilityCardDesc: Cost insights, anomaly detection, service insights, creating budgets perspectives and alerts, utilised/wasted resources in clusters.
+    optimizationCardDesc: Detection of orphaned resources, recommendations to save costs, scaling/tearing down, turning off in non-work hours, reserving instances.
   servicePrincipal:
     heading: Create Service Principal
     subHeading: You can Create a Service Principal and assign permissions by running the following commands in the Command line
@@ -314,3 +319,10 @@ ceAzure:
     heading: '{{ $.common.labelTestConnection }}'
     validatePermission: Validating Azure authentication and permissions
     verifyExport: Verifying Azure billing export setup
+  validation:
+    storageAccountName: Storage account name is required
+    directoryName: Directory name is required
+    containerName: Container name is required
+    reportName: Report name is required
+    subscriptionId: Subscription ID is required
+    tenantId: Tenant ID is required

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import {
   Button,
   Formik,
@@ -30,38 +30,43 @@ interface ICard {
   title: string
 }
 
-const FeatureCards: ICard[] = [
-  {
-    icon: 'ce-visibility',
-    desc:
-      'Cost insights, anomaly detection, service insights, creating budgets perspectives and alerts, utilised/wasted resources in clusters.',
-    value: 'VISIBILITY',
-    title: 'Visibility'
-  },
-  {
-    icon: 'nav-settings',
-    desc:
-      'Detection of orphaned resources, recommendations to save costs, scaling/tearing down, turning off in non-work hours, reserving instances.',
-    value: 'OPTIMIZATION',
-    title: 'Optimization'
-  }
-]
+const useSelectedCards = (featuresEnabled: ICard['value'][]) => {
+  const { getString } = useStrings()
+  const FeatureCards = useRef<ICard[]>([
+    {
+      title: getString('common.ce.visibility'),
+      desc: getString('connectors.ceAzure.chooseRequirements.visibilityCardDesc'),
+      value: 'VISIBILITY',
+      icon: 'ce-visibility'
+    },
+    {
+      title: getString('common.ce.optimization'),
+      desc: getString('connectors.ceAzure.chooseRequirements.optimizationCardDesc'),
+      value: 'OPTIMIZATION',
+      icon: 'nav-settings'
+    }
+  ]).current
+
+  const [selectedCards, setSelectedCards] = useState<ICard[]>(() => {
+    const initialSelectedCards = []
+    for (const fe of featuresEnabled) {
+      const card = FeatureCards.find(c => c.value === fe)
+      if (card) initialSelectedCards.push(card)
+    }
+    return initialSelectedCards
+  })
+
+  return { selectedCards, setSelectedCards, FeatureCards }
+}
 
 const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
   const { getString } = useStrings()
   const { previousStep, prevStepData, nextStep } = props
   const featuresEnabled = prevStepData?.spec?.featuresEnabled || []
-
-  const initialSelectedCards = []
-  for (const fe of featuresEnabled) {
-    const card = FeatureCards.find(c => c.value === fe)
-    if (card) initialSelectedCards.push(card)
-  }
-
-  const [cardsSelected, setCardsSelected] = useState<ICard[]>(initialSelectedCards)
+  const { selectedCards, setSelectedCards, FeatureCards } = useSelectedCards(featuresEnabled)
 
   const handleSubmit = () => {
-    const features = cardsSelected.map(c => c.value)
+    const features = selectedCards.map(c => c.value)
     if (prevStepData?.spec?.featuresEnabled?.includes('BILLING')) {
       features.push('BILLING')
     }
@@ -78,14 +83,14 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
   }
 
   const handleCardSelection = (item: ICard) => {
-    const selectedAr = [...cardsSelected]
-    const index = selectedAr.indexOf(item)
+    const sc = [...selectedCards]
+    const index = sc.indexOf(item)
     if (index > -1) {
-      selectedAr.splice(index, 1)
+      sc.splice(index, 1)
     } else {
-      selectedAr.push(item)
+      sc.push(item)
     }
-    setCardsSelected(selectedAr)
+    setSelectedCards(sc)
   }
 
   return (
@@ -115,17 +120,17 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
               />
               <CardSelect
                 data={FeatureCards}
-                selected={cardsSelected}
+                selected={selectedCards}
                 multi={true}
                 className={css.grid}
                 onChange={handleCardSelection}
                 cornerSelected={true}
-                renderItem={item => <Card item={item} />}
-              ></CardSelect>
+                renderItem={item => <Card {...item} />}
+              />
               <Layout.Horizontal spacing="medium" className={css.continueAndPreviousBtns}>
-                <Button text="Previous" icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-                <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={cardsSelected.length < 1}>
-                  Continue
+                <Button text={getString('previous')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
+                <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={selectedCards.length < 1}>
+                  {getString('continue')}
                 </Button>
               </Layout.Horizontal>
             </FormikForm>
@@ -136,8 +141,8 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
   )
 }
 
-const Card = ({ item }: { item: ICard }) => {
-  const { icon, title, desc } = item
+const Card = (props: ICard) => {
+  const { icon, title, desc } = props
   return (
     <Layout.Vertical spacing="medium">
       <Layout.Horizontal spacing="small">

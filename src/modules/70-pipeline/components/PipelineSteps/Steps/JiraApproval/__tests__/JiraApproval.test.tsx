@@ -145,6 +145,11 @@ describe('Jira Approval tests', () => {
       expect(queryByText('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition')).toBeTruthy()
     )
 
+    fireEvent.click(getByText('add'))
+    await waitFor(() =>
+      expect(queryByText('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition')).toBeNull()
+    )
+
     fireEvent.click(getByText('common.jexlExpression'))
     await waitFor(() => expect(queryByText('pipeline.jiraApprovalStep.validations.expression')).toBeTruthy())
   })

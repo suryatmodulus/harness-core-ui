@@ -175,11 +175,9 @@ export class CustomVariables extends Step<CustomVariablesData> {
       variables: data.variables.map(row => ({
         name: row.name,
         type: row.type,
-        default: !isNil(row.default)
-          ? row.type === 'Number'
-            ? parseFloat((row.default as unknown) as string)
-            : row.default
-          : undefined,
+        ...(!isNil(row.default)
+          ? { default: row.type === 'Number' ? parseFloat((row.default as unknown) as string) : row.default }
+          : {}),
         value:
           row.type === 'Number' &&
           getMultiTypeFromValue((row.value as unknown) as string) === MultiTypeInputType.FIXED &&

@@ -24,21 +24,28 @@ import {
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './ApprovalRejectionCriteria.module.scss'
 
-const RenderValueSelects = (
-  condition: ApprovalRejectionCriteriaCondition,
-  allowedValuesForFields: Record<string, SelectOption[]>,
-  mode: string,
-  i: number,
-  expressions: string[],
+const RenderValueSelects = ({
+  condition,
+  allowedValuesForFields,
+  mode,
+  index,
+  expressions,
+  readonly
+}: {
+  condition: ApprovalRejectionCriteriaCondition
+  allowedValuesForFields: Record<string, SelectOption[]>
+  mode: string
+  index: number
+  expressions: string[]
   readonly?: boolean
-) => {
+}) => {
   const { getString } = useStrings()
   if (condition.operator === 'in' || condition.operator === 'not in') {
     return (
       <FormInput.MultiSelectTypeInput
         label=""
         className={css.multiSelect}
-        name={`spec.${mode}.spec.conditions[${i}].value`}
+        name={`spec.${mode}.spec.conditions[${index}].value`}
         selectItems={allowedValuesForFields[condition.key]}
         placeholder={getString('common.valuePlaceholder')}
         multiSelectTypeInputProps={{
@@ -52,7 +59,7 @@ const RenderValueSelects = (
   return (
     <FormInput.MultiTypeInput
       label=""
-      name={`spec.${mode}.spec.conditions[${i}].value`}
+      name={`spec.${mode}.spec.conditions[${index}].value`}
       selectItems={allowedValuesForFields[condition.key]}
       placeholder={getString('common.valuePlaceholder')}
       multiTypeInputProps={{
@@ -137,7 +144,14 @@ export const Conditions = ({
                       }}
                     />
                     {allowedValuesForFields[condition.key] ? (
-                      RenderValueSelects(condition, allowedValuesForFields, mode, i, expressions, readonly)
+                      <RenderValueSelects
+                        condition={condition}
+                        allowedValuesForFields={allowedValuesForFields}
+                        mode={mode}
+                        index={i}
+                        expressions={expressions}
+                        readonly={readonly}
+                      />
                     ) : (
                       <FormInput.MultiTextInput
                         label=""

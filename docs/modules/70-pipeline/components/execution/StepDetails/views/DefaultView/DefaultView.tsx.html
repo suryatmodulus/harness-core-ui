@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">93.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/27</span>
+                <span class='fraction'>27/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">77.27% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/22</span>
+                <span class='fraction'>17/22</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">93.1% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/27</span>
+                <span class='fraction'>27/29</span>
             </div>
         
             
@@ -133,7 +133,16 @@
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
 <a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,8 +152,17 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -162,8 +180,8 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,8 +237,17 @@ import type { StepDetailProps } from '@pipeline/factories/ExecutionStepDetailsFa
 import { StepDetailsTab } from '@pipeline/components/execution/StepDetails/tabs/StepDetailsTab/StepDetailsTab'
 import { InputOutputTab } from '@pipeline/components/execution/StepDetails/tabs/InputOutputTab/InputOutputTab'
 import { ManualInterventionTab } from '@pipeline/components/execution/StepDetails/tabs/ManualInterventionTab/ManualInterventionTab'
+import { Strategy } from '@pipeline/utils/FailureStrategyUtils'
 &nbsp;
 import css from './DefaultView.module.scss'
+&nbsp;
+const failureStrategies = [
+  // Strategy.Retry,
+  Strategy.Ignore,
+  Strategy.MarkAsSuccess,
+  Strategy.Abort,
+  Strategy.StageRollback
+]
 &nbsp;
 enum StepDetailTab {
   STEP_DETAILS = 'STEP_DETAILS',
@@ -238,10 +265,10 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
   const isManualInterruption = isExecutionWaitingForIntervention(step.status)
 &nbsp;
   React.useEffect(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!manuallySelected.current &amp;&amp; isManualInterruption) {
-<span class="cstat-no" title="statement not covered" >      setActiveTab(StepDetailTab.MANUAL_INTERVENTION)</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!manuallySelected.current) {
+      setActiveTab(isManualInterruption ? <span class="branch-0 cbranch-no" title="branch not covered" >StepDetailTab.MANUAL_INTERVENTION </span>: StepDetailTab.STEP_DETAILS)
     }
-  }, [step, isManualInterruption])
+  }, [step.identifier, isManualInterruption])
 &nbsp;
   return (
     &lt;Tabs
@@ -279,7 +306,7 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
 <span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Tabs.Tab</span>
           id={StepDetailTab.MANUAL_INTERVENTION}
           title={getString('pipeline.failureStrategies.strategiesLabel.ManualIntervention')}
-          panel={&lt;ManualInterventionTab step={step} /&gt;}
+          panel={&lt;ManualInterventionTab step={step} allowedStrategies={failureStrategies} /&gt;}
         /&gt;
       ) : null}
     &lt;/Tabs&gt;
@@ -292,7 +319,7 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jun 19 2021 06:15:17 GMT+0000 (Greenwich Mean Time)
+                at Sat Jun 19 2021 07:38:49 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

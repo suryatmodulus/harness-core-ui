@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.04% </span>
+                <span class="strong">55.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/46</span>
+                <span class='fraction'>29/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.65% </span>
+                <span class="strong">29.88% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>150/474</span>
+                <span class='fraction'>150/502</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.86% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/7</span>
+                <span class='fraction'>3/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.22% </span>
+                <span class="strong">54.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/45</span>
+                <span class='fraction'>28/51</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -522,7 +522,19 @@
 <a name='L463'></a><a href='#L463'>463</a>
 <a name='L464'></a><a href='#L464'>464</a>
 <a name='L465'></a><a href='#L465'>465</a>
-<a name='L466'></a><a href='#L466'>466</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L466'></a><a href='#L466'>466</a>
+<a name='L467'></a><a href='#L467'>467</a>
+<a name='L468'></a><a href='#L468'>468</a>
+<a name='L469'></a><a href='#L469'>469</a>
+<a name='L470'></a><a href='#L470'>470</a>
+<a name='L471'></a><a href='#L471'>471</a>
+<a name='L472'></a><a href='#L472'>472</a>
+<a name='L473'></a><a href='#L473'>473</a>
+<a name='L474'></a><a href='#L474'>474</a>
+<a name='L475'></a><a href='#L475'>475</a>
+<a name='L476'></a><a href='#L476'>476</a>
+<a name='L477'></a><a href='#L477'>477</a>
+<a name='L478'></a><a href='#L478'>478</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -784,6 +796,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -846,6 +864,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1248,6 +1272,12 @@ export const StageInputSetFormInternal: React.FC&lt;StageInputSetFormProps&gt; =
                 path={`${path}.serviceConfig`}
                 readonly={readonly}
                 customStepProps={{ stageIdentifier }}
+                onUpdate={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                  if (deploymentStageInputSet?.serviceConfig) {</span>
+<span class="cstat-no" title="statement not covered" >                    deploymentStageInputSet.serviceConfig.serviceRef = value.serviceRef</span>
+<span class="cstat-no" title="statement not covered" >                    formik?.setValues(set(formik?.values, path, deploymentStageInputSet))</span>
+                  }
+                }}
               /&gt;
             )}
             {(<span class="branch-1 cbranch-no" title="branch not covered" >deploymentStage?.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceDefinition<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.type </span>=== 'Kubernetes' || isPropagating) &amp;&amp; (
@@ -1313,6 +1343,12 @@ export const StageInputSetFormInternal: React.FC&lt;StageInputSetFormProps&gt; =
                 stepViewType={StepViewType.InputSet}
                 path={`${path}.infrastructure`}
                 readonly={readonly}
+                onUpdate={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                  if (deploymentStageInputSet?.infrastructure) {</span>
+<span class="cstat-no" title="statement not covered" >                    deploymentStageInputSet.infrastructure.environmentRef = value.environmentRef</span>
+<span class="cstat-no" title="statement not covered" >                    formik?.setValues(set(formik?.values, path, deploymentStageInputSet))</span>
+                  }
+                }}
               /&gt;
             )}
             {deploymentStageTemplate.infrastructure.infrastructureDefinition &amp;&amp; (
@@ -1459,7 +1495,7 @@ export const StageInputSetForm = connect(StageInputSetFormInternal)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jun 19 2021 07:38:49 GMT+0000 (Greenwich Mean Time)
+                at Sat Jun 19 2021 08:13:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -48,7 +48,7 @@ const InputSetList: React.FC = (): JSX.Element => {
       pageIndex: page,
       pageSize: 10,
       searchTerm: searchParam,
-      ...(!isEmpty(repoIdentifier)
+      ...(!isEmpty(gitFilter.repo)
         ? {
             repoIdentifier: gitFilter.repo,
             branch: gitFilter.branch

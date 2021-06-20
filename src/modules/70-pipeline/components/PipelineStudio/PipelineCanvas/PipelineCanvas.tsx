@@ -184,6 +184,20 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     return true
   }
 
+  const navigateToLocation = (newPipelineId: string, updatedGitDetails?: SaveToGitFormInterface) => {
+    history.replace(
+      toPipelineStudio({
+        projectIdentifier,
+        orgIdentifier,
+        pipelineIdentifier: newPipelineId,
+        accountId,
+        module,
+        repoIdentifier: updatedGitDetails?.repoIdentifier,
+        branch: updatedGitDetails?.branch
+      })
+    )
+  }
+
   const saveAndPublishPipeline = async (
     latestPipeline: NgPipeline,
     updatedGitDetails?: SaveToGitFormInterface,
@@ -210,23 +224,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
         showSuccess(getString('pipelines-studio.publishPipeline'))
 
-        history.replace(
-          toPipelineStudio({
-            projectIdentifier,
-            orgIdentifier,
-            pipelineIdentifier: newPipelineId,
-            accountId,
-            module,
-            repoIdentifier: updatedGitDetails?.repoIdentifier,
-            branch: updatedGitDetails?.branch
-          })
-        )
+        navigateToLocation(newPipelineId, updatedGitDetails)
         // note: without setTimeout does not redirect properly after save
         await fetchPipeline({ forceFetch: true, forceUpdate: true, newPipelineId })
       } else {
         await fetchPipeline({ forceFetch: true, forceUpdate: true })
       }
       if (updatedGitDetails?.isNewBranch) {
+        navigateToLocation(newPipelineId, updatedGitDetails)
         location.reload()
       }
     } else {

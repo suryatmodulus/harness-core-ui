@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.5% </span>
+                <span class="strong">16.27% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>34/206</span>
+                <span class='fraction'>34/209</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.26% </span>
+                <span class="strong">16.02% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/203</span>
+                <span class='fraction'>33/206</span>
             </div>
         
             
@@ -719,7 +719,12 @@
 <a name='L660'></a><a href='#L660'>660</a>
 <a name='L661'></a><a href='#L661'>661</a>
 <a name='L662'></a><a href='#L662'>662</a>
-<a name='L663'></a><a href='#L663'>663</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L663'></a><a href='#L663'>663</a>
+<a name='L664'></a><a href='#L664'>664</a>
+<a name='L665'></a><a href='#L665'>665</a>
+<a name='L666'></a><a href='#L666'>666</a>
+<a name='L667'></a><a href='#L667'>667</a>
+<a name='L668'></a><a href='#L668'>668</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -906,6 +911,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -933,20 +952,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1567,6 +1577,20 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
 <span class="cstat-no" title="statement not covered" >    return true</span>
   }
 &nbsp;
+  const navigateToLocation = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(n</span>ewPipelineId: string, updatedGitDetails?: SaveToGitFormInterface) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    history.replace(</span>
+      toPipelineStudio({
+        projectIdentifier,
+        orgIdentifier,
+        pipelineIdentifier: newPipelineId,
+        accountId,
+        module,
+        repoIdentifier: updatedGitDetails?.repoIdentifier,
+        branch: updatedGitDetails?.branch
+      })
+    )
+  }
+&nbsp;
   const saveAndPublishPipeline = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(</span>
     latestPipeline: NgPipeline,
     updatedGitDetails?: SaveToGitFormInterface,
@@ -1593,23 +1617,14 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        showSuccess(getString('pipelines-studio.publishPipeline'))</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        history.replace(</span>
-          toPipelineStudio({
-            projectIdentifier,
-            orgIdentifier,
-            pipelineIdentifier: newPipelineId,
-            accountId,
-            module,
-            repoIdentifier: updatedGitDetails?.repoIdentifier,
-            branch: updatedGitDetails?.branch
-          })
-        )
+<span class="cstat-no" title="statement not covered" >        navigateToLocation(newPipelineId, updatedGitDetails)</span>
         // note: without setTimeout does not redirect properly after save
 <span class="cstat-no" title="statement not covered" >        await fetchPipeline({ forceFetch: true, forceUpdate: true, newPipelineId })</span>
       } else {
 <span class="cstat-no" title="statement not covered" >        await fetchPipeline({ forceFetch: true, forceUpdate: true })</span>
       }
 <span class="cstat-no" title="statement not covered" >      if (updatedGitDetails?.isNewBranch) {</span>
+<span class="cstat-no" title="statement not covered" >        navigateToLocation(newPipelineId, updatedGitDetails)</span>
 <span class="cstat-no" title="statement not covered" >        location.reload()</span>
       }
     } else {
@@ -2050,7 +2065,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jun 20 2021 05:03:39 GMT+0000 (Greenwich Mean Time)
+                at Sun Jun 20 2021 05:44:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -64,7 +64,7 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
       setRepoSelectOptions(reposAvailable)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadingRepos])
+  }, [loadingRepos, gitDetails?.repoIdentifier, gitDetails?.branch])
 
   const {
     data: branchList,

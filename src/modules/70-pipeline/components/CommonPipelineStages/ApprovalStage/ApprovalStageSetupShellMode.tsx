@@ -16,6 +16,7 @@ import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
 import ApprovalAdvancedSpecifications from './ApprovalStageAdvanced'
 import css from './ApprovalStageSetupShellMode.module.scss'
+import { PageSpinner } from '@common/components'
 
 interface ApprovalStageElementConfig extends StageElementConfig {
   approvalType?: string
@@ -44,6 +45,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
   } = React.useContext(PipelineContext)
 
   const { stage: selectedStage = {} } = getStageFromPipeline(selectedStageId) as StageElementWrapper
+  const [loadGraph, setLoadGraph] = React.useState(false)
 
   React.useEffect(() => {
     if (selectedStepId) {
@@ -101,7 +103,9 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
               delete draft.stage.approvalType
             }
           }).stage as ApprovalStageElementConfig
-        )
+        ).then(() => {
+          setLoadGraph(true)
+        })
       }
     }
   }, [yamlSnippet?.data])
@@ -146,9 +150,15 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
             </span>
           }
           panel={
-            <ApprovalStageExecution>
-              <ActionButtons />
-            </ApprovalStageExecution>
+            <>
+              {loadGraph ? (
+                <ApprovalStageExecution>
+                  <ActionButtons />
+                </ApprovalStageExecution>
+              ) : (
+                <PageSpinner />
+              )}
+            </>
           }
           data-testid={tabHeadings[1]}
         />

@@ -10,6 +10,7 @@ import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/Step
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { PluginStepProps } from './PluginStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -18,11 +19,13 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
 
   const { expressions } = useVariablesExpression()
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
+  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier: repo = '', branch } = useParams<
+    {
+      projectIdentifier: string
+      orgIdentifier: string
+      accountId: string
+    } & GitQueryParams
+  >()
 
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
@@ -56,6 +59,7 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={560}
+          gitScope={{ branch, repo, getDefaultFromOtherRepo: true }}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}
           multiTypeProps={{

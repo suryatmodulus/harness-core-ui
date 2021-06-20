@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import {
   Layout,
@@ -73,10 +73,6 @@ export interface DelegateSelectorProps {
 
 type InitialFormData = { delegateSelectors: Array<string> }
 
-const defaultInitialFormData: InitialFormData = {
-  delegateSelectors: []
-}
-
 const NoMatchingDelegateWarning: React.FC<{ delegatesFound: DelegatesFoundState }> = props => {
   const { getString } = useStrings()
   const { delegatesFound } = props
@@ -119,10 +115,20 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const { mutate: updateConnector, loading: updating } = useUpdateConnector({
     queryParams: { accountIdentifier: accountId }
   })
-  const [initialValues, setInitialValues] = useState<InitialFormData>(defaultInitialFormData)
-  const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
+  const initialDelegateSelectors = (() => {
+    if (!props.isEditMode) {
+      return []
+    }
+    let delegate = (props.connectorInfo as ConnectorInfoDTO & InitialFormData)?.spec?.delegateSelectors || []
+    if (prevStepData?.delegateSelectors) {
+      delegate = prevStepData.delegateSelectors
+    }
+    return delegate
+  })()
+  const initialValues = { delegateSelectors: initialDelegateSelectors }
+  const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>(initialDelegateSelectors)
   const [mode, setMode] = useState<DelegateOptions>(
-    DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType
+    delegateSelectors.length || DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType
       ? DelegateOptions.DelegateOptionsSelective
       : DelegateOptions.DelegateOptionsAny
   )
@@ -188,17 +194,6 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       nextCallback: afterSuccessHandler.bind(null, response)
     }
   }
-
-  useEffect(() => {
-    let delegate = (props.connectorInfo as ConnectorInfoDTO & InitialFormData)?.spec?.delegateSelectors || []
-    if (prevStepData?.delegateSelectors) {
-      delegate = prevStepData.delegateSelectors
-    }
-    if (props.isEditMode) {
-      setInitialValues({ delegateSelectors: delegate })
-      setDelegateSelectors(delegate)
-    }
-  }, [])
 
   const isSaveButtonDisabled =
     (DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType && delegateSelectors.length === 0) ||

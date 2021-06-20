@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SimpleTagInput, Text, Icon, Color } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useStrings } from 'framework/strings'
-import { useGetDelegateSelectorsUpTheHierarchy } from 'services/portal'
+import { useGetDelegateSelectorsUpTheHierarchy, useGetDelegateSelectors } from 'services/portal'
 
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './DelegateSelectors.module.scss'
@@ -32,13 +33,18 @@ export const DelegateSelectors = (
 
   const { getString } = useStrings()
   const { showError } = useToaster()
+  const { NG_CG_TASK_ASSIGNMENT_ISOLATION } = useFeatureFlags()
 
-  const { data: apiData, loading, refetch } = useGetDelegateSelectorsUpTheHierarchy({
-    queryParams: {
-      accountId,
-      orgId: orgIdentifier,
-      projectId: projectIdentifier
-    }
+  const getDelegateSelectors = NG_CG_TASK_ASSIGNMENT_ISOLATION
+    ? useGetDelegateSelectorsUpTheHierarchy
+    : useGetDelegateSelectors
+  const queryParams = NG_CG_TASK_ASSIGNMENT_ISOLATION
+    ? { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
+    : {
+        accountId
+      }
+  const { data: apiData, loading, refetch } = getDelegateSelectors({
+    queryParams
   })
 
   const [data, setData] = useState(apiData)

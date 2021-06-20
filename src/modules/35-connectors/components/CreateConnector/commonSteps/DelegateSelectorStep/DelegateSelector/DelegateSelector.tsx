@@ -7,7 +7,14 @@ import { DelegateSelectors, useToaster } from '@common/components'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
-import { DelegateGroupDetails, useGetDelegatesUpTheHierarchy } from 'services/portal'
+import {
+  DelegateGroupDetails,
+  useGetDelegatesUpTheHierarchy,
+  useGetDelegatesStatusV2,
+  RestResponseDelegateStatus,
+  RestResponseDelegateGroupListing,
+  DelegateInner
+} from 'services/portal'
 import {
   DelegateSelectorTable,
   DelegateSelectorTableProps
@@ -35,6 +42,10 @@ export interface DelegateSelectorProps extends ProjectPathProps {
   setDelegateSelectors: (delegateSelectors: Array<string>) => void
   setDelegatesFound: (delegatesFound: DelegatesFoundState) => void
   delegateSelectorMandatory: boolean
+}
+
+export interface DelegateInnerCustom extends DelegateInner {
+  checked: boolean
 }
 
 export interface DelegateGroupDetailsCustom extends DelegateGroupDetails {
@@ -106,22 +117,52 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { orgIdentifier, projectIdentifier } = props
+  const { CDNG_ENABLED, NG_SHOW_DELEGATE, NG_CG_TASK_ASSIGNMENT_ISOLATION } = useFeatureFlags()
 
   const scope = { projectIdentifier, orgIdentifier }
 
-  const { data: apiData, loading, error, refetch } = useGetDelegatesUpTheHierarchy({
-    queryParams: {
-      accountId,
-      orgId: orgIdentifier,
-      projectId: projectIdentifier
-    }
+  const getDelegates = NG_CG_TASK_ASSIGNMENT_ISOLATION ? useGetDelegatesUpTheHierarchy : useGetDelegatesStatusV2
+  const queryParams = NG_CG_TASK_ASSIGNMENT_ISOLATION
+    ? {
+        accountId,
+        orgId: orgIdentifier,
+        projectId: projectIdentifier
+      }
+    : {
+        accountId
+      }
+
+  const { data: apiData, loading, error, refetch } = getDelegates({
+    queryParams
   })
+
   const [data, setData] = useState(apiData)
-  const { CDNG_ENABLED, NG_SHOW_DELEGATE } = useFeatureFlags()
   const { openDelegateModal } = useCreateDelegateModal({
     onClose: refetch
   })
   const { showError } = useToaster()
+
+  const getParsedData = (): (DelegateInnerCustom | DelegateGroupDetailsCustom)[] => {
+    if (NG_CG_TASK_ASSIGNMENT_ISOLATION) {
+      return ((data as RestResponseDelegateGroupListing)?.resource?.delegateGroupDetails || []).map(
+        delegateGroupDetails => ({
+          ...delegateGroupDetails,
+          checked: shouldDelegateBeChecked(
+            delegateSelectors,
+            Object.keys(delegateGroupDetails?.groupImplicitSelectors || {})
+          )
+        })
+      )
+    } else {
+      return ((data as RestResponseDelegateStatus)?.resource?.delegates || []).map(delegate => ({
+        ...delegate,
+        checked: shouldDelegateBeChecked(delegateSelectors, [
+          ...(delegate.tags || []),
+          ...Object.keys(delegate?.implicitSelectors || {})
+        ])
+      }))
+    }
+  }
 
   // used to set data only if no error occurs
   // previous data should persist in data state even if api fails while polling
@@ -154,13 +195,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
   }, [data, loading, refetch])
 
   useEffect(() => {
-    const parsedData = (data?.resource?.delegateGroupDetails || []).map(delegateGroupDetails => ({
-      ...delegateGroupDetails,
-      checked: shouldDelegateBeChecked(
-        delegateSelectors,
-        Object.keys(delegateGroupDetails?.groupImplicitSelectors || {})
-      )
-    }))
+    const parsedData = getParsedData()
 
     parsedData.sort((parsedDataItemA, parsedDataItemB) => {
       const [checkedA, checkedB] = [parsedDataItemA.checked, parsedDataItemB.checked]
@@ -174,12 +209,6 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
     })
 
     setFormattedData(parsedData)
-    const updatedMode =
-      delegateSelectors.length || delegateSelectorMandatory
-        ? DelegateOptions.DelegateOptionsSelective
-        : DelegateOptions.DelegateOptionsAny
-    setMode(updatedMode)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delegateSelectors, data])
 
   useEffect(() => {
@@ -224,7 +253,9 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         selectedItems={delegateSelectors}
         onChange={selectors => {
           setDelegateSelectors(selectors as Array<string>)
-          setMode(DelegateOptions.DelegateOptionsSelective)
+          if (selectors.length) {
+            setMode(DelegateOptions.DelegateOptionsSelective)
+          }
         }}
         pollingInterval={DELEGATE_POLLING_INTERVAL_IN_MS}
         {...scope}
@@ -292,7 +323,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
           {getString('connectors.delegate.testDelegateConnectivity')}
         </Text>
-        {CDNG_ENABLED && NG_SHOW_DELEGATE ? (
+        {CDNG_ENABLED && NG_SHOW_DELEGATE && NG_CG_TASK_ASSIGNMENT_ISOLATION ? (
           <RbacButton
             icon="plus"
             withoutBoxShadow

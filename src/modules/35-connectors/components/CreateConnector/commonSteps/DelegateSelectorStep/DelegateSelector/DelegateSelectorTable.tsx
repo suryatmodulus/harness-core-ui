@@ -10,21 +10,25 @@ import type { TableProps } from '@common/components/Table/Table'
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import { useStrings } from 'framework/strings'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
-import type { DelegateGroupDetailsCustom } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import type {
+  DelegateInnerCustom,
+  DelegateGroupDetailsCustom
+} from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
 import { useTroubleshootModal } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/TroubleshootModal'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 export interface DelegateSelectorTableProps {
-  data: DelegateGroupDetailsCustom[] | null
+  data: (DelegateGroupDetailsCustom | DelegateInnerCustom)[] | null
   loading: boolean
   error: GetDataError<unknown> | null
   refetch: () => Promise<void>
   showMatchesSelectorColumn?: boolean
 }
 
-const RenderDelegateIcon: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row }) => {
+const RenderDelegateIcon: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateInnerCustom>> = ({ row }) => {
   const { checked } = row.original
   return checked ? (
     <Container flex={{ justifyContent: 'center' }}>
@@ -35,26 +39,43 @@ const RenderDelegateIcon: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ r
   )
 }
 
-const RenderDelegateName: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row }) => {
-  const { delegateType = '', groupHostName, groupName, delegateInstanceDetails, sizeDetails } = row.original
+const RenderDelegateName: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateInnerCustom>> = ({ row }) => {
+  const {
+    delegateType = '',
+    groupHostName,
+    groupName,
+    delegateInstanceDetails,
+    sizeDetails
+  } = row.original as DelegateGroupDetailsCustom
+  const { delegateName } = row.original as DelegateInnerCustom
+  const { name } = row.values
   const { getString } = useStrings()
-  const groupNameSubText = getString('delegates.delegateInstances', {
-    current: delegateInstanceDetails?.length,
-    total: sizeDetails?.replicas
-  })
-  const groupNameText = `${groupName} ${groupNameSubText}`
+  const { NG_CG_TASK_ASSIGNMENT_ISOLATION } = useFeatureFlags()
+  let nameText = ''
+  let subText = ''
+  if (NG_CG_TASK_ASSIGNMENT_ISOLATION) {
+    const groupNameSubText = getString('delegates.delegateInstances', {
+      current: delegateInstanceDetails?.length,
+      total: sizeDetails?.replicas
+    })
+    nameText = `${groupName} ${groupNameSubText}`
+    subText = groupHostName || ''
+  } else {
+    nameText = delegateName || name
+    subText = name
+  }
   return (
     <Layout.Horizontal>
       <Icon name={delegateTypeToIcon(delegateType)} size={24} />
       <Layout.Vertical padding={{ left: 'small' }} width="85%" className={css.delegateNameContainer}>
-        <Tooltip position="top" content={groupNameText}>
+        <Tooltip position="top" content={nameText}>
           <Text color={Color.BLACK} className={css.delegateName}>
-            {groupNameText}
+            {nameText}
           </Text>
         </Tooltip>
-        <Tooltip position="top" content={groupHostName}>
+        <Tooltip position="top" content={subText}>
           <Text color={Color.GREY_400} className={css.delegateName}>
-            {groupHostName}
+            {subText}
           </Text>
         </Tooltip>
       </Layout.Vertical>
@@ -62,9 +83,10 @@ const RenderDelegateName: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ r
   )
 }
 
-const RenderHeartbeat: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row, column }) => {
+const RenderHeartbeat: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateInnerCustom>> = ({ row, column }) => {
   const { activelyConnected, lastHeartBeat } = row.original
   const { getString } = useStrings()
+  const { NG_CG_TASK_ASSIGNMENT_ISOLATION } = useFeatureFlags()
   const { onClick } = (column as unknown) as { onClick: () => void }
   if (!lastHeartBeat) {
     return (
@@ -82,31 +104,56 @@ const RenderHeartbeat: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row,
       </Layout.Vertical>
     )
   }
-  const color: Color = activelyConnected ? Color.GREEN_600 : Color.GREY_400
-  return (
-    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-      <Icon name="full-circle" size={10} color={color} margin={{ right: 'small' }} />
-      <ReactTimeago date={lastHeartBeat} live />
-    </Layout.Horizontal>
-  )
+  if (NG_CG_TASK_ASSIGNMENT_ISOLATION) {
+    const color: Color = activelyConnected ? Color.GREEN_600 : Color.GREY_400
+    return (
+      <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+        <Icon name="full-circle" size={10} color={color} margin={{ right: 'small' }} />
+        <ReactTimeago date={lastHeartBeat} live />
+      </Layout.Horizontal>
+    )
+  } else {
+    const { status, connections = [] } = row.original as DelegateInnerCustom
+    const isApprovalRequired = status === 'WAITING_FOR_APPROVAL'
+    const isConnected = connections?.length > 0
+    return (
+      <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+        <Icon
+          name="full-circle"
+          size={10}
+          color={isApprovalRequired ? Color.YELLOW_500 : isConnected ? Color.GREEN_600 : Color.GREY_400}
+          margin={{ right: 'small' }}
+        />
+        <ReactTimeago date={lastHeartBeat} live />
+      </Layout.Horizontal>
+    )
+  }
 }
 
-const RenderTags: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row }) => {
-  const { groupImplicitSelectors } = row.original
-  return <TagsViewer tags={Object.keys(groupImplicitSelectors || {})} />
+const RenderTags: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateInnerCustom>> = ({ row }) => {
+  let delegateTags = []
+  const { NG_CG_TASK_ASSIGNMENT_ISOLATION } = useFeatureFlags()
+  if (NG_CG_TASK_ASSIGNMENT_ISOLATION) {
+    delegateTags = Object.keys((row.original as DelegateGroupDetailsCustom).groupImplicitSelectors || {})
+  } else {
+    const { tags, implicitSelectors } = row.original as DelegateInnerCustom
+    delegateTags = [...(tags || []), ...Object.keys(implicitSelectors || {})]
+  }
+  return <TagsViewer tags={delegateTags} />
 }
 
 export const DelegateSelectorTable: React.FC<DelegateSelectorTableProps> = props => {
   const { data, error, loading, refetch, showMatchesSelectorColumn = true } = props
   const { getString } = useStrings()
   const { showModal } = useTroubleshootModal()
-  const columns: TableProps<DelegateGroupDetailsCustom>['columns'] = useMemo(
+  const columns: TableProps<DelegateGroupDetailsCustom | DelegateInnerCustom>['columns'] = useMemo(
     () => {
       const cols = [
         {
           Header: getString('delegate.DelegateName').toLocaleUpperCase(),
           id: 'name',
           width: '35%',
+          accessor: (row: DelegateInnerCustom) => row.delegateName || row.hostName,
           Cell: RenderDelegateName
         },
         {

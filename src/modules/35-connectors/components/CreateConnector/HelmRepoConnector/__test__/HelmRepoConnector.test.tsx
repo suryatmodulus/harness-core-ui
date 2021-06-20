@@ -15,7 +15,9 @@ jest.mock('services/portal', () => ({
     return []
   }),
   useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn()),
-  useGetDelegatesUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useGetDelegatesUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegatesStatusV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 jest.mock('services/cd-ng', () => ({
   validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse)),

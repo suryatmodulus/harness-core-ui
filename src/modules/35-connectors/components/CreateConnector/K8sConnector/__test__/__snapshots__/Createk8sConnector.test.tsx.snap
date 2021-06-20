@@ -4027,7 +4027,6 @@ exports[`should render form for edit authtype clientKey 2`] = `
                       class="bp3-control bp3-radio radio"
                     >
                       <input
-                        checked=""
                         color="grey800"
                         type="radio"
                         value="DelegateOptions.DelegateOptionsAny"
@@ -4045,6 +4044,7 @@ exports[`should render form for edit authtype clientKey 2`] = `
                       class="bp3-control bp3-radio radio"
                     >
                       <input
+                        checked=""
                         color="grey800"
                         type="radio"
                         value="DelegateOptions.DelegateOptionsSelective"

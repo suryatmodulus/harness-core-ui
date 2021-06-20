@@ -10,6 +10,7 @@ import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeTe
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { DockerHubStepProps } from './DockerHubStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -18,11 +19,13 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
 
   const { expressions } = useVariablesExpression()
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
+  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier, branch } = useParams<
+    {
+      projectIdentifier: string
+      orgIdentifier: string
+      accountId: string
+    } & GitQueryParams
+  >()
 
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
@@ -44,6 +47,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={560}
+          gitScope={{ branch, repo: repoIdentifier || '', getDefaultFromOtherRepo: true }}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}
           multiTypeProps={{

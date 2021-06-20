@@ -445,6 +445,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             scope: scope
                           })
                         }}
+                        gitScope={gitScope}
                       />
                       <Text margin={{ bottom: 'xsmall' }}>
                         {getString('pipelineSteps.build.infraSpecifications.namespace')}

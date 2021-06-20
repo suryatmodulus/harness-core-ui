@@ -10,6 +10,7 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { SaveCacheGCSStepProps } from './SaveCacheGCSStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -18,11 +19,13 @@ export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({ temp
 
   const { expressions } = useVariablesExpression()
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
+  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier: repo = '', branch } = useParams<
+    {
+      projectIdentifier: string
+      orgIdentifier: string
+      accountId: string
+    } & GitQueryParams
+  >()
 
   const archiveFormatOptions = [
     { label: 'tar', value: 'tar' },
@@ -49,6 +52,7 @@ export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({ temp
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={560}
+          gitScope={{ branch, repo, getDefaultFromOtherRepo: true }}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}
           multiTypeProps={{

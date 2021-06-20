@@ -77,6 +77,16 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
     debounce: 500
   })
 
+  React.useEffect(() => {
+    const isSelectedBranchExist = !!branchSelectOptions.filter(item => item.value === selectedGitBranch)[0]
+    if (!isSelectedBranchExist) {
+      branchSelectOptions.push({
+        label: selectedGitBranch,
+        value: selectedGitBranch
+      })
+    }
+  }, [branchSelectOptions, selectedGitBranch])
+
   useEffect(() => {
     setSelectedGitRepo(defaultValue.repo)
     setSelectedGitBranch(defaultValue.branch || '')

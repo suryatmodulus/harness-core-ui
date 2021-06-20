@@ -52,6 +52,14 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
   const [searchTerm, setSearchTerm] = React.useState<string>('')
 
   React.useEffect(() => {
+    const isSelectedBranchExist = !!branchSelectOptions.filter(item => item.value === defaultBranchSelect.value)[0]
+    if (!isSelectedBranchExist) {
+      branchSelectOptions.push(defaultBranchSelect)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [branchSelectOptions, defaultBranchSelect.value])
+
+  React.useEffect(() => {
     if (gitSyncRepos?.length && !loadingRepos) {
       const reposAvailable = gitSyncRepos?.map((gitRepo: GitSyncConfig) => {
         return {
@@ -109,6 +117,15 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
           })
         }
       })
+      if (!isEmpty(defaultBranch)) {
+        const isSelectedBranchExist = !!syncedBranchOption.filter(item => item.value === defaultBranch)[0]
+        if (!isSelectedBranchExist) {
+          syncedBranchOption.push({
+            label: defaultBranch,
+            value: defaultBranch
+          })
+        }
+      }
 
       setBranchSelectOptions(syncedBranchOption)
     }

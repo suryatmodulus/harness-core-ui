@@ -9,10 +9,6 @@
     }
   }
 
-  // if the content of the StepWizard is more than
-  // the height of the 'stepDetails' section, which is 640px here,
-  // in that case make it scrollable instead of making the
-  // whole the StepWizard bigger.
   [class*='StepWizard--stepDetails'] {
     overflow-y: auto;
   }
@@ -276,16 +272,4 @@
   tr {
     font-size: var(--font-size-small) !important;
   }
-
-  // &::-webkit-scrollbar {
-  //   width: 5px !important;
-  // }
-
-  // &::-webkit-scrollbar-track {
-  //   background-color: rgba(121, 139, 236, 0.2);
-  // }
-
-  // &::-webkit-scrollbar-thumb {
-  //   background-color: rgba(170, 223, 249, 0.2);
-  // }
 }

@@ -56,7 +56,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
           })}
         />
       )
-      await waitFor(() => queryByText(document.body, 'pipeline.triggers.conditions'))
+      await waitFor(() => queryByText(container, 'pipeline.operator.placeholder'))
       expect(container).toMatchSnapshot()
     })
 
@@ -64,7 +64,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       const { container } = render(
         <WrapperComponent initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM' })} />
       )
-      await waitFor(() => queryByText(document.body, 'pipeline.triggers.conditions'))
+      await waitFor(() => queryByText(container, 'pipeline.triggers.conditionsPanel.jexlConditionPlaceholder'))
       expect(container).toMatchSnapshot()
     })
   })

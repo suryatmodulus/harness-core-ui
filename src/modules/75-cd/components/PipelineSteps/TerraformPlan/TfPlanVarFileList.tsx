@@ -160,7 +160,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   return (
     <Layout.Vertical>
       <Label style={{ color: Color.GREY_900 }} className={css.tfVarLabel}>
-        {getString('cd.terraformVarFiles')}
+        {getString('optionalField', { name: getString('cd.terraformVarFiles') })}
       </Label>
       <div className={cx(stepCss.formGroup, css.tfVarMargin)}>
         <FieldArray

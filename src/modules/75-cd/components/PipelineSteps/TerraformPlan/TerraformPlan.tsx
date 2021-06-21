@@ -251,6 +251,7 @@ function TerraformPlanWidget(
                             name="spec.configuration.workspace"
                             label={getString('pipelineSteps.workspace')}
                             multiTextInputProps={{ expressions }}
+                            isOptional={true}
                           />
                           {getMultiTypeFromValue(formik.values.spec?.configuration?.workspace) ===
                             MultiTypeInputType.RUNTIME && (
@@ -275,7 +276,12 @@ function TerraformPlanWidget(
                         >
                           <MultiTypeFieldSelector
                             name="spec.configuration.backendConfig.spec.content"
-                            label={<Text style={{ color: 'rgb(11, 11, 13)' }}>{getString('cd.backEndConfig')}</Text>}
+                            label={
+                              <Text style={{ color: 'rgb(11, 11, 13)' }}>
+                                {' '}
+                                {getString('optionalField', { name: getString('cd.backEndConfig') })}
+                              </Text>
+                            }
                             defaultValueToReset=""
                             allowedTypes={[
                               MultiTypeInputType.EXPRESSION,
@@ -322,7 +328,7 @@ function TerraformPlanWidget(
                             multiTypeFieldSelectorProps={{
                               label: (
                                 <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
-                                  {getString('pipeline.targets.title')}
+                                  {getString('optionalField', { name: getString('pipeline.targets.title') })}
                                 </Text>
                               )
                             }}
@@ -336,7 +342,7 @@ function TerraformPlanWidget(
                             multiTypeFieldSelectorProps={{
                               label: (
                                 <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
-                                  {getString('environmentVariables')}
+                                  {getString('optionalField', { name: getString('environmentVariables') })}
                                   <Button
                                     icon="question"
                                     minimal

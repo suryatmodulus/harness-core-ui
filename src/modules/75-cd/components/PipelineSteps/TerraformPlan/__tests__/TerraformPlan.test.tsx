@@ -440,7 +440,7 @@ describe('Test TerraformPlan', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('renders more than one var file', () => {
+  test('renders more than one var file', async () => {
     const { container, getByText } = render(
       <TestStepWidget
         initialValues={{
@@ -477,8 +477,6 @@ describe('Test TerraformPlan', () => {
       />
     )
     fireEvent.click(getByText('common.optionalConfig'))
-    fireEvent.click(getByText('cd.terraformVarFiles'))
-
     expect(container).toMatchSnapshot()
   })
 
@@ -519,7 +517,6 @@ describe('Test TerraformPlan', () => {
       />
     )
     fireEvent.click(getByText('common.optionalConfig'))
-    fireEvent.click(getByText('cd.terraformVarFiles'))
     fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
     expect(container).toMatchSnapshot()
   })

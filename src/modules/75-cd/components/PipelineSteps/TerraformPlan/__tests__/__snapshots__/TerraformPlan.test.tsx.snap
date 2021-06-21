@@ -492,7 +492,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
                     class="bp3-label"
                     for="spec.configuration.workspace"
                   >
-                    pipelineSteps.workspace
+                    pipelineSteps.workspace (optional)
                      
                     <span
                       class="bp3-text-muted"
@@ -552,7 +552,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
                 <label
                   class="Label--main tfVarLabel"
                 >
-                  cd.terraformVarFiles
+                  optionalField
                 </label>
                 <div
                   class="formGroup tfVarMargin"
@@ -796,7 +796,8 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
                         class="StyledProps--font StyledProps--main"
                         style="color: rgb(11, 11, 13);"
                       >
-                        cd.backEndConfig
+                         
+                        optionalField
                       </p>
                       <div
                         class="bp3-popover-wrapper typeSelectorWrapper"
@@ -899,7 +900,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
                           class="StyledProps--font StyledProps--main"
                           style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                         >
-                          pipeline.targets.title
+                          optionalField
                         </p>
                         <div
                           class="bp3-popover-wrapper typeSelectorWrapper"
@@ -1065,7 +1066,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
                           class="StyledProps--font StyledProps--main"
                           style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                         >
-                          environmentVariables
+                          optionalField
                           <span
                             class="bp3-popover-wrapper"
                           >
@@ -1782,7 +1783,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                     class="bp3-label"
                     for="spec.configuration.workspace"
                   >
-                    pipelineSteps.workspace
+                    pipelineSteps.workspace (optional)
                      
                     <span
                       class="bp3-text-muted"
@@ -1842,7 +1843,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                 <label
                   class="Label--main tfVarLabel"
                 >
-                  cd.terraformVarFiles
+                  optionalField
                 </label>
                 <div
                   class="formGroup tfVarMargin"
@@ -2086,7 +2087,8 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                         class="StyledProps--font StyledProps--main"
                         style="color: rgb(11, 11, 13);"
                       >
-                        cd.backEndConfig
+                         
+                        optionalField
                       </p>
                       <div
                         class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2189,7 +2191,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                           class="StyledProps--font StyledProps--main"
                           style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                         >
-                          pipeline.targets.title
+                          optionalField
                         </p>
                         <div
                           class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2355,7 +2357,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                           class="StyledProps--font StyledProps--main"
                           style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                         >
-                          environmentVariables
+                          optionalField
                           <span
                             class="bp3-popover-wrapper"
                           >

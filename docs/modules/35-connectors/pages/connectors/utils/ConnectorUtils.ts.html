@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">65.41% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>208/312</span>
+                <span class='fraction'>208/318</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.17% </span>
+                <span class="strong">50.96% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>745/1456</span>
+                <span class='fraction'>745/1462</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.94% </span>
+                <span class="strong">60.58% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>166/268</span>
+                <span class='fraction'>166/274</span>
             </div>
         
             
@@ -1415,7 +1415,19 @@
 <a name='L1356'></a><a href='#L1356'>1356</a>
 <a name='L1357'></a><a href='#L1357'>1357</a>
 <a name='L1358'></a><a href='#L1358'>1358</a>
-<a name='L1359'></a><a href='#L1359'>1359</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
+<a name='L1359'></a><a href='#L1359'>1359</a>
+<a name='L1360'></a><a href='#L1360'>1360</a>
+<a name='L1361'></a><a href='#L1361'>1361</a>
+<a name='L1362'></a><a href='#L1362'>1362</a>
+<a name='L1363'></a><a href='#L1363'>1363</a>
+<a name='L1364'></a><a href='#L1364'>1364</a>
+<a name='L1365'></a><a href='#L1365'>1365</a>
+<a name='L1366'></a><a href='#L1366'>1366</a>
+<a name='L1367'></a><a href='#L1367'>1367</a>
+<a name='L1368'></a><a href='#L1368'>1368</a>
+<a name='L1369'></a><a href='#L1369'>1369</a>
+<a name='L1370'></a><a href='#L1370'>1370</a>
+<a name='L1371'></a><a href='#L1371'>1371</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2536,6 +2548,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">118x</span>
@@ -2546,6 +2562,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3891,7 +3915,11 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
 <span class="cstat-no" title="statement not covered" >      return 'azure-key-vault'</span>
 <span class="branch-25 cbranch-no" title="branch not covered" >    case Connectors.DYNATRACE:</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-dynatrace'</span>
-<span class="branch-26 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-26 cbranch-no" title="branch not covered" >    case Connectors.CE_KUBERNETES:</span>
+<span class="cstat-no" title="statement not covered" >      return 'service-kubernetes'</span>
+<span class="branch-27 cbranch-no" title="branch not covered" >    case Connectors.CE_GCP:</span>
+<span class="cstat-no" title="statement not covered" >      return 'service-gcp'</span>
+<span class="branch-28 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return 'cog'</span>
   }
 }
@@ -3946,7 +3974,15 @@ export const getConnectorDisplayName = (type: string) =&gt; {
 <span class="cstat-no" title="statement not covered" >      return 'Azure Key Vault'</span>
 <span class="branch-23 cbranch-no" title="branch not covered" >    case Connectors.DYNATRACE:</span>
 <span class="cstat-no" title="statement not covered" >      return 'Dynatrace'</span>
-<span class="branch-24 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-24 cbranch-no" title="branch not covered" >    case Connectors.CEAWS:</span>
+<span class="cstat-no" title="statement not covered" >      return 'AWS'</span>
+<span class="branch-25 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
+<span class="cstat-no" title="statement not covered" >      return 'Azure'</span>
+<span class="branch-26 cbranch-no" title="branch not covered" >    case Connectors.CE_KUBERNETES:</span>
+<span class="cstat-no" title="statement not covered" >      return 'Kubernetes'</span>
+<span class="branch-27 cbranch-no" title="branch not covered" >    case Connectors.CE_GCP:</span>
+<span class="cstat-no" title="statement not covered" >      return 'GCP'</span>
+<span class="branch-28 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return ''</span>
   }
 }
@@ -4138,7 +4174,7 @@ export const removeErrorCode = (errors: ErrorDetail[] = <span class="branch-0 cb
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 11:20:36 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 12:06:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

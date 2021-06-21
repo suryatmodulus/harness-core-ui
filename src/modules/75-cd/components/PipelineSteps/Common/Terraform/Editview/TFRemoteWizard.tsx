@@ -41,42 +41,42 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
   const { getString } = useStrings()
   const initialValues = isEditMode
     ? {
-        varFile: {
-          identifier: prevStepData?.varFile?.identifier,
-          type: TerraformStoreTypes.Remote,
-          spec: {
-            store: {
-              spec: {
-                gitFetchType: prevStepData?.varFile?.spec?.store?.spec?.gitFetchType,
-                branch: prevStepData?.varFile?.spec?.store?.spec?.branch,
-                commitId: prevStepData?.varFile?.spec?.store?.spec?.commitId,
-                paths:
-                  getMultiTypeFromValue(prevStepData?.varFile?.spec?.store?.spec?.paths) === MultiTypeInputType.RUNTIME
-                    ? prevStepData?.varFile?.spec?.store?.spec?.paths
-                    : (prevStepData?.varFile?.spec?.store?.spec?.paths || []).map((item: string) => ({
-                        path: item,
-                        id: uuid()
-                      }))
-              }
+      varFile: {
+        identifier: prevStepData?.varFile?.identifier,
+        type: TerraformStoreTypes.Remote,
+        spec: {
+          store: {
+            spec: {
+              gitFetchType: prevStepData?.varFile?.spec?.store?.spec?.gitFetchType,
+              branch: prevStepData?.varFile?.spec?.store?.spec?.branch,
+              commitId: prevStepData?.varFile?.spec?.store?.spec?.commitId,
+              paths:
+                getMultiTypeFromValue(prevStepData?.varFile?.spec?.store?.spec?.paths) === MultiTypeInputType.RUNTIME
+                  ? prevStepData?.varFile?.spec?.store?.spec?.paths
+                  : (prevStepData?.varFile?.spec?.store?.spec?.paths || []).map((item: string) => ({
+                    path: item,
+                    id: uuid()
+                  }))
             }
           }
         }
       }
+    }
     : {
-        varFile: {
-          type: TerraformStoreTypes.Remote,
-          spec: {
-            store: {
-              spec: {
-                gitFetchType: '',
-                branch: '',
-                commitId: '',
-                paths: []
-              }
+      varFile: {
+        type: TerraformStoreTypes.Remote,
+        spec: {
+          store: {
+            spec: {
+              gitFetchType: '',
+              branch: '',
+              commitId: '',
+              paths: []
             }
           }
         }
       }
+    }
 
   const { expressions } = useVariablesExpression()
 
@@ -120,45 +120,6 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
       if (data) {
         const index = parseInt(data, 10)
         /* istanbul ignore next */
-        arrayHelpers.swap(index, droppedIndex)
-      }
-      event.currentTarget.classList.remove(css.dragOver)
-    },
-    []
-  )
-
-  const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
-    event.dataTransfer.setData('data', index.toString())
-    event.currentTarget.classList.add(css.dragging)
-  }, [])
-
-  const onDragEnd = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.currentTarget.classList.remove(css.dragging)
-  }, [])
-
-  const onDragLeave = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.currentTarget.classList.remove(css.dragOver)
-  }, [])
-
-  const onDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    /* istanbul ignore else */
-    if (event.preventDefault) {
-      event.preventDefault()
-    }
-    event.currentTarget.classList.add(css.dragOver)
-    event.dataTransfer.dropEffect = 'move'
-  }, [])
-
-  const onDrop = React.useCallback(
-    (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
-      /* istanbul ignore else */
-      if (event.preventDefault) {
-        event.preventDefault()
-      }
-      const data = event.dataTransfer.getData('data')
-      /* istanbul ignore else */
-      if (data) {
-        const index = parseInt(data, 10)
         arrayHelpers.swap(index, droppedIndex)
       }
       event.currentTarget.classList.remove(css.dragOver)
@@ -265,18 +226,18 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                     />
                     {getMultiTypeFromValue(formik.values?.varFile?.spec?.store?.spec?.branch) ===
                       MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
-                        value={formik.values?.varFile?.spec?.store?.spec?.branch as string}
-                        type="String"
-                        variableName="varFile.spec.store.spec.branch"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => formik.setFieldValue('varFile.spec.store.spec.branch', value)}
-                        isReadonly={isReadonly}
-                      />
-                    )}
+                        <ConfigureOptions
+                          style={{ alignSelf: 'center' }}
+                          value={formik.values?.varFile?.spec?.store?.spec?.branch as string}
+                          type="String"
+                          variableName="varFile.spec.store.spec.branch"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          onChange={value => formik.setFieldValue('varFile.spec.store.spec.branch', value)}
+                          isReadonly={isReadonly}
+                        />
+                      )}
                   </div>
                 )}
 
@@ -290,18 +251,18 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                     />
                     {getMultiTypeFromValue(formik.values?.varFile?.spec?.store?.spec?.commitId) ===
                       MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
-                        value={formik.values?.varFile?.spec?.store?.spec?.commitId as string}
-                        type="String"
-                        variableName="varFile.spec.store.spec.commitId"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => formik.setFieldValue('varFile.spec.store.spec.commitId', value)}
-                        isReadonly={isReadonly}
-                      />
-                    )}
+                        <ConfigureOptions
+                          style={{ alignSelf: 'center' }}
+                          value={formik.values?.varFile?.spec?.store?.spec?.commitId as string}
+                          type="String"
+                          variableName="varFile.spec.store.spec.commitId"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          onChange={value => formik.setFieldValue('varFile.spec.store.spec.commitId', value)}
+                          isReadonly={isReadonly}
+                        />
+                      )}
                   </div>
                 )}
                 <div className={cx(stepCss.formGroup)}>

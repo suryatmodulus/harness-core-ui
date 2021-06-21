@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.83% </span>
+                <span class="strong">77.97% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/48</span>
+                <span class='fraction'>46/59</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.17% </span>
+                <span class="strong">44.44% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>36/69</span>
+                <span class='fraction'>36/81</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>6/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.83% </span>
+                <span class="strong">77.97% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/48</span>
+                <span class='fraction'>46/59</span>
             </div>
         
             
@@ -312,8 +312,7 @@
 <a name='L253'></a><a href='#L253'>253</a>
 <a name='L254'></a><a href='#L254'>254</a>
 <a name='L255'></a><a href='#L255'>255</a>
-<a name='L256'></a><a href='#L256'>256</a>
-<a name='L257'></a><a href='#L257'>257</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L256'></a><a href='#L256'>256</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -330,7 +329,6 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -536,28 +534,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
@@ -576,7 +574,7 @@ import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sCanaryDeleteStepInfo, StepElementConfig } from 'services/cd-ng'
@@ -586,7 +584,6 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
@@ -785,35 +782,35 @@ export class K8sCanaryDeleteStep extends PipelineStep&lt;K8sCanaryDeleteStepData
   protected stepName = 'K8s Canary Delete'
 &nbsp;
   protected stepIcon: IconName = 'delete'
-  /* istanbul ignore next */
-  validateInputSet(
-    data: K8sCanaryDeleteStepData,
-    template: K8sCanaryDeleteStepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors&lt;K8sCanaryDeleteStepData&gt; {
+&nbsp;
+<span class="fstat-no" title="function not covered" >  validateInputSet(</span>{
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps&lt;K8sCanaryDeleteStepData&gt;): FormikErrors&lt;K8sCanaryDeleteStepData&gt; {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const errors = { spec: {} } as any
-    if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
-      const timeout = Yup.object().shape({
+    const errors = <span class="cstat-no" title="statement not covered" >{ spec: {} } as any</span>
+<span class="cstat-no" title="statement not covered" >    if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {</span>
+      const timeout = <span class="cstat-no" title="statement not covered" >Yup.object().shape({</span>
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
       })
 &nbsp;
-      try {
-        timeout.validateSync(data)
+<span class="cstat-no" title="statement not covered" >      try {</span>
+<span class="cstat-no" title="statement not covered" >        timeout.validateSync(data)</span>
       } catch (e) {
         /* istanbul ignore else */
-        if (e instanceof Yup.ValidationError) {
-          const err = yupToFormErrors(e)
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (e instanceof Yup.ValidationError) {</span>
+          const err = <span class="cstat-no" title="statement not covered" >yupToFormErrors(e)</span>
 &nbsp;
-          Object.assign(errors, err)
+<span class="cstat-no" title="statement not covered" >          Object.assign(errors, err)</span>
         }
       }
     }
     /* istanbul ignore else */
-    if (isEmpty(errors.spec)) {
-      delete errors.spec
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (isEmpty(errors.spec)) {</span>
+<span class="cstat-no" title="statement not covered" >      delete errors.spec</span>
     }
-    return errors
+<span class="cstat-no" title="statement not covered" >    return errors</span>
   }
 &nbsp;
   protected defaultValues: K8sCanaryDeleteStepData = {
@@ -832,7 +829,7 @@ export class K8sCanaryDeleteStep extends PipelineStep&lt;K8sCanaryDeleteStepData
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 12:06:42 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 12:40:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

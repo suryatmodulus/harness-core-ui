@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -267,7 +267,11 @@
 <a name='L208'></a><a href='#L208'>208</a>
 <a name='L209'></a><a href='#L209'>209</a>
 <a name='L210'></a><a href='#L210'>210</a>
-<a name='L211'></a><a href='#L211'>211</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
@@ -419,6 +423,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -628,65 +636,69 @@ export const editViewValidateFieldsConfig = [
   }
 ]
 &nbsp;
-export const inputSetViewValidateFieldsConfig = [
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.awsConnectorLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.region',
-    type: ValidationFieldTypes.Text,
-    label: 'regionLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.account',
-    type: ValidationFieldTypes.Text,
-    label: 'common.accountId',
-    isRequired: true
-  },
-  {
-    name: 'spec.imageName',
-    type: ValidationFieldTypes.Text,
-    label: 'imageNameLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.tags',
-    type: ValidationFieldTypes.List,
-    isRequired: true
-  },
-  {
-    name: 'spec.labels',
-    type: ValidationFieldTypes.Map
-  },
-  {
-    name: 'spec.buildArgs',
-    type: ValidationFieldTypes.Map
-  },
-  {
-    name: 'spec.optimize',
-    type: ValidationFieldTypes.Boolean
-  },
-  {
-    name: 'spec.remoteCacheImage',
-    type: ValidationFieldTypes.Text
-  },
-  {
-    name: 'spec.resources.limits.memory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.resources.limits.cpu',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
+export function getInputSetViewValidateFieldsConfig(
+  isRequired = <span class="branch-0 cbranch-no" title="branch not covered" >true</span>
+): Array&lt;{ name: string; type: ValidationFieldTypes; label?: string; isRequired?: boolean }&gt; {
+  return [
+    {
+      name: 'spec.connectorRef',
+      type: ValidationFieldTypes.Text,
+      label: 'pipelineSteps.awsConnectorLabel',
+      isRequired
+    },
+    {
+      name: 'spec.region',
+      type: ValidationFieldTypes.Text,
+      label: 'regionLabel',
+      isRequired
+    },
+    {
+      name: 'spec.account',
+      type: ValidationFieldTypes.Text,
+      label: 'common.accountId',
+      isRequired
+    },
+    {
+      name: 'spec.imageName',
+      type: ValidationFieldTypes.Text,
+      label: 'imageNameLabel',
+      isRequired
+    },
+    {
+      name: 'spec.tags',
+      type: ValidationFieldTypes.List,
+      isRequired
+    },
+    {
+      name: 'spec.labels',
+      type: ValidationFieldTypes.Map
+    },
+    {
+      name: 'spec.buildArgs',
+      type: ValidationFieldTypes.Map
+    },
+    {
+      name: 'spec.optimize',
+      type: ValidationFieldTypes.Boolean
+    },
+    {
+      name: 'spec.remoteCacheImage',
+      type: ValidationFieldTypes.Text
+    },
+    {
+      name: 'spec.resources.limits.memory',
+      type: ValidationFieldTypes.LimitMemory
+    },
+    {
+      name: 'spec.resources.limits.cpu',
+      type: ValidationFieldTypes.LimitCPU
+    },
+    {
+      name: 'timeout',
+      type: ValidationFieldTypes.Timeout
+    }
+  ]
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -694,7 +706,7 @@ export const inputSetViewValidateFieldsConfig = [
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 12:06:42 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 12:40:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -257,7 +257,11 @@
 <a name='L198'></a><a href='#L198'>198</a>
 <a name='L199'></a><a href='#L199'>199</a>
 <a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
@@ -408,6 +412,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -607,56 +615,60 @@ export const editViewValidateFieldsConfig = [
   }
 ]
 &nbsp;
-export const inputSetViewValidateFieldsConfig = [
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.connectorLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.image',
-    type: ValidationFieldTypes.Text,
-    label: 'imageLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.args',
-    type: ValidationFieldTypes.Text,
-    label: 'argsLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.packages',
-    type: ValidationFieldTypes.Text,
-    label: 'packagesLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.reports.spec.paths',
-    type: ValidationFieldTypes.List
-  },
-  {
-    name: 'spec.envVariables',
-    type: ValidationFieldTypes.Map
-  },
-  {
-    name: 'spec.outputVariables',
-    type: ValidationFieldTypes.OutputVariables
-  },
-  {
-    name: 'spec.resources.limits.memory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.resources.limits.cpu',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
+export function getInputSetViewValidateFieldsConfig(
+  isRequired = <span class="branch-0 cbranch-no" title="branch not covered" >true</span>
+): Array&lt;{ name: string; type: ValidationFieldTypes; label?: string; isRequired?: boolean }&gt; {
+  return [
+    {
+      name: 'spec.connectorRef',
+      type: ValidationFieldTypes.Text,
+      label: 'pipelineSteps.connectorLabel',
+      isRequired
+    },
+    {
+      name: 'spec.image',
+      type: ValidationFieldTypes.Text,
+      label: 'imageLabel',
+      isRequired
+    },
+    {
+      name: 'spec.args',
+      type: ValidationFieldTypes.Text,
+      label: 'argsLabel',
+      isRequired
+    },
+    {
+      name: 'spec.packages',
+      type: ValidationFieldTypes.Text,
+      label: 'packagesLabel',
+      isRequired
+    },
+    {
+      name: 'spec.reports.spec.paths',
+      type: ValidationFieldTypes.List
+    },
+    {
+      name: 'spec.envVariables',
+      type: ValidationFieldTypes.Map
+    },
+    {
+      name: 'spec.outputVariables',
+      type: ValidationFieldTypes.OutputVariables
+    },
+    {
+      name: 'spec.resources.limits.memory',
+      type: ValidationFieldTypes.LimitMemory
+    },
+    {
+      name: 'spec.resources.limits.cpu',
+      type: ValidationFieldTypes.LimitCPU
+    },
+    {
+      name: 'timeout',
+      type: ValidationFieldTypes.Timeout
+    }
+  ]
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -664,7 +676,7 @@ export const inputSetViewValidateFieldsConfig = [
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 12:06:42 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 12:40:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

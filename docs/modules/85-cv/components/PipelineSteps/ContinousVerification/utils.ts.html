@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.09% </span>
+                <span class="strong">65.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/47</span>
+                <span class='fraction'>32/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.03% </span>
+                <span class="strong">28.57% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/58</span>
+                <span class='fraction'>18/63</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.39% </span>
+                <span class="strong">64.58% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/46</span>
+                <span class='fraction'>31/48</span>
             </div>
         
             
@@ -201,7 +201,17 @@
 <a name='L142'></a><a href='#L142'>142</a>
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -233,6 +243,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -241,25 +272,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -376,15 +396,17 @@ export function checkIfRunTimeInput(field: string | SelectOption | undefined): b
  * @param data
  * @param errors
  * @param getString
+ * @param isRequired
  */
 export function <span class="fstat-no" title="function not covered" >validateField(</span>
   fieldValue: string,
   fieldKey: string,
   data: ContinousVerificationData,
   errors: any,
-  getString: UseStringsReturn['getString']
+  getString: UseStringsReturn['getString'],
+  isRequired = <span class="branch-0 cbranch-no" title="branch not covered" >true</span>
 ): void {
-<span class="cstat-no" title="statement not covered" >  if (checkIfRunTimeInput(fieldValue) &amp;&amp; isEmpty(data?.spec?.spec &amp;&amp; data?.spec?.spec[fieldKey])) {</span>
+<span class="cstat-no" title="statement not covered" >  if (checkIfRunTimeInput(fieldValue) &amp;&amp; isRequired &amp;&amp; isEmpty(data?.spec?.spec &amp;&amp; data?.spec?.spec[fieldKey])) {</span>
 <span class="cstat-no" title="statement not covered" >    set(errors, `spec.spec.${fieldKey}`, getString('fieldRequired', { field: fieldKey }))</span>
   }
 }
@@ -397,15 +419,23 @@ export function <span class="fstat-no" title="function not covered" >validateFie
  * @param errors
  */
 export function <span class="fstat-no" title="function not covered" >validateTimeout(</span>
-  template: ContinousVerificationData,
   getString: UseStringsReturn['getString'],
   data: ContinousVerificationData,
-  errors: any
+  errors: any,
+  template?: ContinousVerificationData,
+  isRequired = <span class="branch-0 cbranch-no" title="branch not covered" >true</span>
 ): void {
 <span class="cstat-no" title="statement not covered" >  if (checkIfRunTimeInput(template?.timeout)) {</span>
-    const timeout = <span class="cstat-no" title="statement not covered" >Yup.object().shape({</span>
-      timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
-    })
+    let timeout: Yup.ObjectSchema
+<span class="cstat-no" title="statement not covered" >    if (isRequired) {</span>
+<span class="cstat-no" title="statement not covered" >      timeout = Yup.object().shape({</span>
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+      })
+    } else {
+<span class="cstat-no" title="statement not covered" >      timeout = Yup.object().shape({</span>
+        timeout: getDurationValidationSchema({ minimum: '10s' })
+      })
+    }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    try {</span>
 <span class="cstat-no" title="statement not covered" >      timeout.validateSync(data)</span>
@@ -496,7 +526,7 @@ export function setFieldData(validspec: spec | undefined, field: string, fieldOp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 12:06:42 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 12:40:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

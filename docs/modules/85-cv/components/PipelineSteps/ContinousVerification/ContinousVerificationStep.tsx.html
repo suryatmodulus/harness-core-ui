@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.86% </span>
+                <span class="strong">61.54% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/37</span>
+                <span class='fraction'>24/39</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.52% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>34/66</span>
+                <span class='fraction'>34/68</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.86% </span>
+                <span class="strong">61.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/37</span>
+                <span class='fraction'>24/39</span>
             </div>
         
             
@@ -165,7 +165,9 @@
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -173,7 +175,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -237,8 +238,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -246,6 +245,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,13 +280,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import type { IconName, SelectOption } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 &nbsp;
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 &nbsp;
-import type { UseStringsReturn } from 'framework/strings'
 import type { ContinousVerificationData, ContinousVerificationVariableStepProps, spec } from './types'
 import { ContinousVerificationWidgetWithRef } from './components/ContinousVerificationWidget/ContinousVerificationWidget'
 import { ContinousVerificationInputSetStep } from './components/ContinousVerificationInputSetStep/ContinousVerificationInputSetStep'
@@ -340,20 +343,23 @@ export class ContinousVerificationStep extends PipelineStep&lt;ContinousVerifica
     )
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  validateInputSet(</span>
-    data: ContinousVerificationData,
-    template: ContinousVerificationData,
-    getString: UseStringsReturn['getString']
-  ): FormikErrors&lt;ContinousVerificationData&gt; {
+<span class="fstat-no" title="function not covered" >  validateInputSet(</span>{
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps&lt;ContinousVerificationData&gt;): FormikErrors&lt;ContinousVerificationData&gt; {
     const errors: FormikErrors&lt;ContinousVerificationData&gt; = <span class="cstat-no" title="statement not covered" >{}</span>
     const { sensitivity, duration, baseline, trafficsplit, deploymentTag } = <span class="cstat-no" title="statement not covered" >(template?.spec?.spec as spec) || {}</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    validateField(sensitivity as string, 'sensitivity', data, errors, getString)</span>
-<span class="cstat-no" title="statement not covered" >    validateField(duration as string, 'duration', data, errors, getString)</span>
-<span class="cstat-no" title="statement not covered" >    validateField(baseline as string, 'baseline', data, errors, getString)</span>
-<span class="cstat-no" title="statement not covered" >    validateField(trafficsplit as string, 'trafficsplit', data, errors, getString)</span>
-<span class="cstat-no" title="statement not covered" >    validateField(deploymentTag as string, 'deploymentTag', data, errors, getString)</span>
-<span class="cstat-no" title="statement not covered" >    validateTimeout(template, getString, data, errors)</span>
+    const isRequired = <span class="cstat-no" title="statement not covered" >viewType === StepViewType.DeploymentForm</span>
+<span class="cstat-no" title="statement not covered" >    if (getString) {</span>
+<span class="cstat-no" title="statement not covered" >      validateField(sensitivity as string, 'sensitivity', data, errors, getString, isRequired)</span>
+<span class="cstat-no" title="statement not covered" >      validateField(duration as string, 'duration', data, errors, getString, isRequired)</span>
+<span class="cstat-no" title="statement not covered" >      validateField(baseline as string, 'baseline', data, errors, getString, isRequired)</span>
+<span class="cstat-no" title="statement not covered" >      validateField(trafficsplit as string, 'trafficsplit', data, errors, getString, isRequired)</span>
+<span class="cstat-no" title="statement not covered" >      validateField(deploymentTag as string, 'deploymentTag', data, errors, getString, isRequired)</span>
+<span class="cstat-no" title="statement not covered" >      validateTimeout(getString, data, errors, template, isRequired)</span>
+    }
 <span class="cstat-no" title="statement not covered" >    return errors</span>
   }
 &nbsp;
@@ -388,7 +394,7 @@ export class ContinousVerificationStep extends PipelineStep&lt;ContinousVerifica
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 12:06:42 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 12:40:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

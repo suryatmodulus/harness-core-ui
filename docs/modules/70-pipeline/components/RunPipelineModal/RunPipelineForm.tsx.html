@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.48% </span>
+                <span class="strong">43.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>100/230</span>
+                <span class='fraction'>101/230</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.42% </span>
+                <span class="strong">43.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>99/228</span>
+                <span class='fraction'>100/228</span>
             </div>
         
             
@@ -1111,7 +1111,9 @@
 <a name='L1052'></a><a href='#L1052'>1052</a>
 <a name='L1053'></a><a href='#L1053'>1053</a>
 <a name='L1054'></a><a href='#L1054'>1054</a>
-<a name='L1055'></a><a href='#L1055'>1055</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L1055'></a><a href='#L1055'>1055</a>
+<a name='L1056'></a><a href='#L1056'>1056</a>
+<a name='L1057'></a><a href='#L1057'>1057</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1178,6 +1180,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1774,6 +1777,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1847,10 +1851,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -2234,6 +2238,7 @@ import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYaml
 import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { getFormattedErrors, mergeTemplateWithInputSetData } from './RunPipelineHelper'
+import { StepViewType } from '../AbstractSteps/Step'
 import css from './RunPipelineModal.module.scss'
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
 export interface RunPipelineFormProps extends PipelineType&lt;PipelinePathProps &amp; GitQueryParams&gt; {
@@ -2822,12 +2827,13 @@ function RunPipelineFormBasic({
 <span class="branch-4 cbranch-no" title="branch not covered" >      pipeline </span>&amp;&amp;
 <span class="branch-5 cbranch-no" title="branch not covered" >      runClicked</span>
     ) {
-<span class="cstat-no" title="statement not covered" >      errors = validatePipeline(</span>
-        { ...clearRuntimeInput(currentPipeline.pipeline) },
-        parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
-        currentPipeline.pipeline,
-        getString
-      ) as any
+<span class="cstat-no" title="statement not covered" >      errors = validatePipeline({</span>
+        pipeline: { ...clearRuntimeInput(currentPipeline.pipeline) },
+        template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
+        originalPipeline: currentPipeline.pipeline,
+        getString,
+        viewType: StepViewType.DeploymentForm
+      }) as any
 <span class="cstat-no" title="statement not covered" >      setFormErrors(errors)</span>
       // triggerValidation should be true every time 'currentPipeline' changes
       // and it needs to be set as false here so that we do not trigger it indefinitely
@@ -2891,20 +2897,20 @@ function RunPipelineFormBasic({
 &nbsp;
 <span class="cstat-no" title="statement not covered" >          setCurrentPipeline({ ...currentPipeline, pipeline: values as NgPipeline })</span>
 &nbsp;
-          function <span class="fstat-no" title="function not covered" >validateErrors(</span>) {
-            const promise: Promise&lt;FormikErrors&lt;InputSetDTO&gt;&gt; = <span class="cstat-no" title="statement not covered" >new Promise(<span class="fstat-no" title="function not covered" >resolve </span>=&gt; {</span>
+          function <span class="fstat-no" title="function not covered" >validateErrors(</span>): Promise&lt;FormikErrors&lt;InputSetDTO&gt;&gt; {
+<span class="cstat-no" title="statement not covered" >            return new Promise(<span class="fstat-no" title="function not covered" >resolve </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >              setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
                 const validatedErrors =
-                  (<span class="cstat-no" title="statement not covered" >validatePipeline(</span>
-                    values as NgPipeline,
-                    parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
-                    pipeline,
-                    getString
-                  ) as any) || formErrors
+                  (<span class="cstat-no" title="statement not covered" >validatePipeline({</span>
+                    pipeline: values as NgPipeline,
+                    template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
+                    originalPipeline: pipeline,
+                    getString,
+                    viewType: StepViewType.DeploymentForm
+                  }) as any) || formErrors
 <span class="cstat-no" title="statement not covered" >                resolve(validatedErrors)</span>
               }, 300)
             })
-<span class="cstat-no" title="statement not covered" >            return promise</span>
           }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >          errors = await validateErrors()</span>
@@ -3226,7 +3232,7 @@ export const RunPipelineForm: React.FC&lt;RunPipelineFormProps &amp; InputSetGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 12:06:42 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 12:40:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

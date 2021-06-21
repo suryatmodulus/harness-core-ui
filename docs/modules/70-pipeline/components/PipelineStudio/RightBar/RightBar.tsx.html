@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.57% </span>
+                <span class="strong">60.14% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>84/141</span>
+                <span class='fraction'>86/143</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.99% </span>
+                <span class="strong">44.91% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>256/569</span>
+                <span class='fraction'>256/570</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.7% </span>
+                <span class="strong">59.29% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>81/138</span>
+                <span class='fraction'>83/140</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -696,7 +696,11 @@
 <a name='L637'></a><a href='#L637'>637</a>
 <a name='L638'></a><a href='#L638'>638</a>
 <a name='L639'></a><a href='#L639'>639</a>
-<a name='L640'></a><a href='#L640'>640</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L640'></a><a href='#L640'>640</a>
+<a name='L641'></a><a href='#L641'>641</a>
+<a name='L642'></a><a href='#L642'>642</a>
+<a name='L643'></a><a href='#L643'>643</a>
+<a name='L644'></a><a href='#L644'>644</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -740,6 +744,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -792,6 +797,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -828,6 +834,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -1379,6 +1387,7 @@ import {
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import {
@@ -1439,6 +1448,7 @@ export const RightBar = (): JSX.Element =&gt; {
         drawerData: { type }
       }
     },
+    view,
     updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
@@ -1467,6 +1477,8 @@ export const RightBar = (): JSX.Element =&gt; {
     memoryLimit: codebase<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esources<span class="branch-1 cbranch-no" title="branch not covered" >?.limits<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.memory,</span>
     cpuLimit: codebase<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esources<span class="branch-1 cbranch-no" title="branch not covered" >?.limits<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.cpu</span>
   }
+&nbsp;
+  const isYaml = view === SelectedView.YAML
 &nbsp;
   const connectorId = getIdentifierFromValue((codebase<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef as string) || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>
   const initialScope = getScopeFromValue((codebase<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef as string) || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>
@@ -1665,8 +1677,8 @@ export const RightBar = (): JSX.Element =&gt; {
           &lt;EnableGitExperience /&gt;
         &lt;/Popover&gt;
       )}
-      {isCodebaseEnabled &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;Button</span>
+      {isCodebaseEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isYaml </span>&amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >        &lt;Button</span>
           className={cx(css.iconButton)}
           text={getString('codebase')}
           font={{ weight: 'semi-bold', size: 'xsmall' }}
@@ -1981,7 +1993,7 @@ export const RightBar = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 09:10:15 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 10:02:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

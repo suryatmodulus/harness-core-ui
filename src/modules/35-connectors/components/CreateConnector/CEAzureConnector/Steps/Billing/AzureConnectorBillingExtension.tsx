@@ -70,9 +70,19 @@ const AzureConnectorBillingExtension: React.FC = () => {
       <Container color="grey1000" font="normal">
         <dl>
           <dt>Useful links:</dt>
-          <dd>- Watch help video</dd>
-          <dd>- Harness Documentation</dd>
-          <dd>- Creating a Billing Export</dd>
+          <dd>
+            <a>- Watch help video</a> <i> (coming soon)</i>
+          </dd>
+          <dd>
+            <a href="https://docs.harness.io/article/7idbmchsim-set-up-cost-visibility-for-azure#set-up-cost-visibility-for-azure">
+              - Harness Documentation
+            </a>
+          </dd>
+          <dd>
+            <a href="https://docs.harness.io/article/7idbmchsim-set-up-cost-visibility-for-azure#step_2_enable_billing_export_for_azure_subscription">
+              - Creating a Billing Export
+            </a>
+          </dd>
         </dl>
       </Container>
     </Container>

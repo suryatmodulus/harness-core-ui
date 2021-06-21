@@ -1,9 +1,9 @@
 import React, { createContext, ReactElement, useState } from 'react'
 import { Icon } from '@wings-software/uicore'
-import Extention from './Steps/Billing/AzureConnectorBillingExtension'
+import Extension from './Steps/Billing/AzureConnectorBillingExtension'
 import css from './CreateCeAzureConnector.module.scss'
 
-export type ExtensionWindow = 'CrossAccountEx' | 'CostUsageEx'
+export type ExtensionWindow = 'CrossAccountEx' | 'CostUsageEx' | 'BillingExport'
 interface ChildrenProps {
   triggerExtension: (exWindow: ExtensionWindow) => void
   closeExtension: () => void
@@ -29,7 +29,9 @@ const SelectExtention: React.FC<SelectExtentionProps> = props => {
     case 'CrossAccountEx':
       return null
     case 'CostUsageEx':
-      return <Extention />
+      return null
+    case 'BillingExport':
+      return <Extension />
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import {
   Heading,
   Layout,
@@ -30,6 +30,7 @@ const storageAccountNameTest = (value: string) => {
 
 const BillingExport: React.FC<StepProps<CEAzureDTO>> = props => {
   const { getString } = useStrings()
+  const { triggerExtension } = useContext(DialogExtensionContext)
   const { prevStepData, previousStep, nextStep } = props
   const billingExportSpec = prevStepData?.spec.billingExportSpec
   const [showBillingExportForm, setShowBillingExportForm] = useState(
@@ -90,6 +91,10 @@ const BillingExport: React.FC<StepProps<CEAzureDTO>> = props => {
       </Container>
     )
   }
+
+  useEffect(() => {
+    if (showBillingExportForm) triggerExtension('BillingExport')
+  }, [showBillingExportForm])
 
   const renderBillingExports = () => {
     return (
@@ -225,7 +230,7 @@ const LabelWithToolTip = ({ label }: { label: string }) => {
                 font={'xsmall'}
                 minimal
                 text={getString('connectors.ceAzure.billing.tooltipBtn')}
-                onClick={() => triggerExtension('CostUsageEx')}
+                onClick={() => triggerExtension('BillingExport')}
               />
             </div>
           </div>

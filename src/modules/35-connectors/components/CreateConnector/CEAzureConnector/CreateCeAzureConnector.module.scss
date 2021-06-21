@@ -222,17 +222,21 @@
     padding-left: 15px !important;
     font-size: small;
     color: var(--grey-700);
-    margin-top: var(--spacing-xsmall);
 
     li {
-      padding: var(--spacing-xsmall) 0 !important;
+      line-height: 22px;
     }
+  }
+  dl dd {
+    margin-left: 15px !important;
+    font-size: small;
+    line-height: 22px;
   }
 
   .closeBtn {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 24px;
+    // right: 120px;
     width: 20px;
     height: 20px;
     cursor: pointer;

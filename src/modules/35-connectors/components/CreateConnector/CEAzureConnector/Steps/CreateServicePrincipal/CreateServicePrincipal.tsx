@@ -64,7 +64,6 @@ const CreateServicePrincipal: React.FC<StepProps<CEAzureDTO>> = (props): JSX.Ele
       }
     } catch (e) {
       modalErrorHandler?.showDanger(e.data?.message || e.message)
-    } finally {
       setIsSaving(false)
     }
   }

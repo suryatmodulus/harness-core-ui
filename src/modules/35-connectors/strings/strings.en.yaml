@@ -278,6 +278,12 @@ delegate:
 ceAzure:
   guidPlaceholder: 'xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
   guidRegexError: 'It has to match GUID pattern. Example: "123e4567-e89b-12d3-a456-9AC7CBDCEE52"'
+  steps:
+    overview: '{{ $.overview }}'
+    billingExports: Azure Billing Exports
+    requirements: Choose Requirements
+    servicePrincipal: Create Service Principal
+    testConnection: '{{ $.common.labelTestConnection }}'
   overview:
     heading: '{{ $.overview }}'
     tenantId: Specify Azure Tenant ID
@@ -288,7 +294,7 @@ ceAzure:
     editConnector: Edit the connector
     required: if required.
   billing:
-    heading: Azure Billing Export
+    heading: '{{ $.connectors.ceAzure.steps.billingExports }}'
     subHeading: Billing export is used to get insights into your cloud infrastructure and Azure services such as Storage account, Virtual machines, Containers etc.
     instruction: Please follow the instructions to provide access to the Billing export for the specified tenant ID
     login: and login to your master account
@@ -305,7 +311,6 @@ ceAzure:
     instruction: 'A billing report already exists for this Azure account. Click on “continue” to use this billing export for the connector. If not, you can choose to create a new billing export.'
     createNewExportBtn: '+ Create new Billing export'
   chooseRequirements:
-    wizardTitle: Choose Requirements
     heading: Create Cross Account Role
     subText: Choose Permissions
     subHeading: Harness uses Multitenant app to sync billing export data from source storage account to Harness. Create a service principal for this app in your Azure account and assign read permissions on that particular storage account.
@@ -313,12 +318,12 @@ ceAzure:
     visibilityCardDesc: Cost insights, anomaly detection, service insights, creating budgets perspectives and alerts, utilised/wasted resources in clusters.
     optimizationCardDesc: Detection of orphaned resources, recommendations to save costs, scaling/tearing down, turning off in non-work hours, reserving instances.
   servicePrincipal:
-    heading: Create Service Principal
+    heading: '{{ $.connectors.ceAzure.steps.servicePrincipal }}'
     subHeading: You can Create a Service Principal and assign permissions by running the following commands in the Command line
   testConnection:
     heading: '{{ $.common.labelTestConnection }}'
     validatePermission: Validating Azure authentication and permissions
-    verifyExport: Verifying Azure billing export setup
+    verifyExport: Verifying Azure Billing Export setup
   validation:
     storageAccountName: Storage account name is required
     directoryName: Directory name is required

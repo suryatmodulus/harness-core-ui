@@ -90,6 +90,7 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
     } else {
       sc.push(item)
     }
+
     setSelectedCards(sc)
   }
 

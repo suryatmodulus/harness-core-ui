@@ -623,7 +623,6 @@ export interface StringsMap {
   'connectors.ceAzure.chooseRequirements.subHeading': string
   'connectors.ceAzure.chooseRequirements.subText': string
   'connectors.ceAzure.chooseRequirements.visibilityCardDesc': string
-  'connectors.ceAzure.chooseRequirements.wizardTitle': string
   'connectors.ceAzure.existingExports.createNewExportBtn': string
   'connectors.ceAzure.existingExports.instruction': string
   'connectors.ceAzure.guidPlaceholder': string
@@ -638,6 +637,11 @@ export interface StringsMap {
   'connectors.ceAzure.overview.trySuggestion': string
   'connectors.ceAzure.servicePrincipal.heading': string
   'connectors.ceAzure.servicePrincipal.subHeading': string
+  'connectors.ceAzure.steps.billingExports': string
+  'connectors.ceAzure.steps.overview': string
+  'connectors.ceAzure.steps.requirements': string
+  'connectors.ceAzure.steps.servicePrincipal': string
+  'connectors.ceAzure.steps.testConnection': string
   'connectors.ceAzure.testConnection.heading': string
   'connectors.ceAzure.testConnection.validatePermission': string
   'connectors.ceAzure.testConnection.verifyExport': string

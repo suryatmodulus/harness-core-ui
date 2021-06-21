@@ -7,7 +7,8 @@ import {
   Formik,
   MultiTypeInputType,
   ExpressionInput,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  FormikForm
 } from '@wings-software/uicore'
 import cx from 'classnames'
 
@@ -73,7 +74,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
         >
           {formikProps => {
             return (
-              <>
+              <FormikForm>
                 <div className={stepCss.formGroup}>
                   <FormInput.Text name="varFile.identifier" label={getString('identifier')} />
                 </div>
@@ -116,11 +117,11 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                 </div>
 
                 <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-                  <Button type="submit" intent={'primary'} data-testid="submit-inlinevar">
+                  <Button type="submit" intent={'primary'}>
                     {getString('submit')}
                   </Button>
                 </Layout.Horizontal>
-              </>
+              </FormikForm>
             )
           }}
         </Formik>

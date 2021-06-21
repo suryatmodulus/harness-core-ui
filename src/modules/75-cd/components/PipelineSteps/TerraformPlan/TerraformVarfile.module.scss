@@ -48,5 +48,9 @@
 }
 
 .addMarginTop {
-  margin-top: var(--spacing-small);
+  margin-top: var(--spacing-small) !important;
+}
+
+.addLargeMarginTop {
+  margin-top: var(--spacing-medium) !important;
 }

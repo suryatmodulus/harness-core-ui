@@ -204,9 +204,9 @@ function TerraformPlanWidget(
                   category={'SECRET_MANAGER'}
                   width={
                     getMultiTypeFromValue(formik.values?.spec?.configuration?.secretManagerRef) ===
-                    MultiTypeInputType.RUNTIME
+                      MultiTypeInputType.RUNTIME
                       ? 260
-                      : 300
+                      : 280
                   }
                   name="spec.configuration.secretManagerRef"
                   placeholder={getString('select')}
@@ -218,25 +218,29 @@ function TerraformPlanWidget(
                   gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 />
               </div>
-
-              <Layout.Vertical className={cx(css.addMarginBottom, css.addMarginTop)}>
-                <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
-                  {getString('cd.configurationFile')}
-                </Label>
-                <div className={cx(css.configFile, css.addMarginBottom)}>
-                  <div className={css.configField}>
-                    {!formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath && (
-                      <Text className={css.configPlaceHolder}>{getString('cd.configFilePlaceHolder')}</Text>
-                    )}
-                    {formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath && (
-                      <Text font="normal" lineClamp={1} width={200}>
-                        /{formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath}
-                      </Text>
-                    )}
-                    <Icon name="edit" onClick={() => setShowModal(true)} />
+              <div className={cx(stepCss.formGroup)}>
+                <Layout.Vertical className={cx(css.addMarginBottom, css.addMarginTop)}>
+                  <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
+                    {getString('cd.configurationFile')}
+                  </Label>
+                  <div className={cx(css.configFile, css.addMarginBottom)}>
+                    <Label style={{ color: '#000000' }} className={css.configFileLabel}>
+                      {getString('secret.labelFile')}
+                    </Label>
+                    <div className={css.configField}>
+                      {!formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath && (
+                        <Text className={css.configPlaceHolder}>-{getString('cd.configFilePlaceHolder')}-</Text>
+                      )}
+                      {formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath && (
+                        <Text font="normal" lineClamp={1} width={200}>
+                          /{formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath}
+                        </Text>
+                      )}
+                      <Icon name="edit" onClick={() => setShowModal(true)} />
+                    </div>
                   </div>
-                </div>
-              </Layout.Vertical>
+                </Layout.Vertical>
+              </div>
               <div className={css.addMarginTop}>
                 <Accordion className={stepCss.accordion}>
                   <Accordion.Panel
@@ -253,20 +257,20 @@ function TerraformPlanWidget(
                           />
                           {getMultiTypeFromValue(formik.values.spec?.configuration?.workspace) ===
                             MultiTypeInputType.RUNTIME && (
-                            <ConfigureOptions
-                              value={formik.values?.spec?.configuration?.workspace as string}
-                              type="String"
-                              variableName="spec.configuration.workspace"
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={value => {
-                                /* istanbul ignore else */
-                                formik.setFieldValue('spec.configuration.workspace', value)
-                              }}
-                              isReadonly={readonly}
-                            />
-                          )}
+                              <ConfigureOptions
+                                value={formik.values?.spec?.configuration?.workspace as string}
+                                type="String"
+                                variableName="spec.configuration.workspace"
+                                showRequiredField={false}
+                                showDefaultField={false}
+                                showAdvanced={true}
+                                onChange={value => {
+                                  /* istanbul ignore else */
+                                  formik.setFieldValue('spec.configuration.workspace', value)
+                                }}
+                                isReadonly={readonly}
+                              />
+                            )}
                         </div>
                         <TfVarFileList formik={formik} isReadonly={props.readonly} />
                         <div
@@ -307,17 +311,17 @@ function TerraformPlanWidget(
                           </MultiTypeFieldSelector>
                           {getMultiTypeFromValue(formik.values.spec?.configuration?.backendConfig?.spec?.content) ===
                             MultiTypeInputType.RUNTIME && (
-                            <ConfigureOptions
-                              value={formik.values.spec?.configuration?.backendConfig?.spec?.content as string}
-                              type="String"
-                              variableName="spec.configuration.backendConfig.spec.content"
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={value => setFieldValue('spec.configuration.backendConfig.spec.content', value)}
-                              isReadonly={readonly}
-                            />
-                          )}
+                              <ConfigureOptions
+                                value={formik.values.spec?.configuration?.backendConfig?.spec?.content as string}
+                                type="String"
+                                variableName="spec.configuration.backendConfig.spec.content"
+                                showRequiredField={false}
+                                showDefaultField={false}
+                                showAdvanced={true}
+                                onChange={value => setFieldValue('spec.configuration.backendConfig.spec.content', value)}
+                                isReadonly={readonly}
+                              />
+                            )}
                         </div>
                         <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                           <MultiTypeList
@@ -482,18 +486,18 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
           targets: !isTargetRunTime
             ? Array.isArray(data.spec?.configuration?.targets)
               ? data.spec?.configuration?.targets.map(target => ({
-                  value: target,
-                  id: uuid()
-                }))
+                value: target,
+                id: uuid()
+              }))
               : [{ value: '', id: uuid() }]
             : data?.spec?.configuration?.targets,
           environmentVariables: !isEnvRunTime
             ? Array.isArray(envVars)
               ? envVars.map(variable => ({
-                  key: variable.name,
-                  value: variable?.value,
-                  id: uuid()
-                }))
+                key: variable.name,
+                value: variable?.value,
+                id: uuid()
+              }))
               : [{ key: '', value: '', id: uuid() }]
             : data?.spec?.configuration?.environmentVariables
         }

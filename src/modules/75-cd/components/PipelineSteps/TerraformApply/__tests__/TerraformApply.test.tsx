@@ -301,7 +301,6 @@ describe('Test TerraformApply', () => {
       />
     )
     fireEvent.click(getByText('common.optionalConfig'))
-    fireEvent.click(getByText('cd.backEndConfig'))
     expect(container).toMatchSnapshot()
   })
 

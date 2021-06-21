@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.14% </span>
+                <span class="strong">82.76% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/56</span>
+                <span class='fraction'>48/58</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.45% </span>
+                <span class="strong">69.57% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>31/44</span>
+                <span class='fraction'>32/46</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.02% </span>
+                <span class="strong">83.93% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/53</span>
+                <span class='fraction'>47/56</span>
             </div>
         
             
@@ -192,7 +192,21 @@
 <a name='L133'></a><a href='#L133'>133</a>
 <a name='L134'></a><a href='#L134'>134</a>
 <a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">249x</span>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">249x</span>
+<span class="cline-any cline-yes">249x</span>
 <span class="cline-any cline-yes">249x</span>
 <span class="cline-any cline-yes">249x</span>
 <span class="cline-any cline-yes">249x</span>
@@ -204,6 +218,10 @@
 <span class="cline-any cline-yes">249x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">249x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -219,9 +237,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">249x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -259,9 +278,16 @@
 <span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -329,6 +355,7 @@
 <span class="cline-any cline-yes">249x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import { SimpleTagInput, Text, Icon, Color } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -338,7 +365,11 @@ import { useGetDelegateSelectorsUpTheHierarchy, useGetDelegateSelectors } from '
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './DelegateSelectors.module.scss'
 &nbsp;
-const isValidExpression = (tag: string, showError: any, errorMsg: string) =&gt; {
+const isValidExpression = (
+  tag: string,
+  showError: (message: React.ReactNode, timeout?: number, key?: string) =&gt; void,
+  errorMsg: string
+): boolean =&gt; {
   let validExpression = true
   <span class="missing-if-branch" title="if path not taken" >I</span>if (tag.includes('${')) {
 <span class="cstat-no" title="statement not covered" >    validExpression = tag.includes('${') &amp;&amp; tag.includes('}')</span>
@@ -349,16 +380,17 @@ const isValidExpression = (tag: string, showError: any, errorMsg: string) =&gt; 
   return validExpression
 }
 &nbsp;
-interface DelegateSelectorsProps {
+export interface DelegateSelectorsProps
+  extends Partial&lt;React.ComponentProps&lt;typeof SimpleTagInput&gt;&gt;,
+    Partial&lt;ProjectPathProps&gt; {
   placeholder?: string
   pollingInterval?: number
+  wrapperClassName?: string
 }
 &nbsp;
-export const DelegateSelectors = (
-  props: Partial&lt;React.ComponentProps&lt;typeof SimpleTagInput&gt; &amp; DelegateSelectorsProps &amp; ProjectPathProps&gt;
-): JSX.Element =&gt; {
+export const DelegateSelectors = (props: DelegateSelectorsProps): React.ReactElement | null =&gt; {
   const { accountId } = useParams&lt;AccountPathProps&gt;()
-  const { orgIdentifier, projectIdentifier, pollingInterval = null } = props
+  const { orgIdentifier, projectIdentifier, pollingInterval = null, wrapperClassName, placeholder, ...rest } = props
 &nbsp;
   const { getString } = useStrings()
   const { showError } = useToaster()
@@ -389,17 +421,24 @@ export const DelegateSelectors = (
     if (pollingInterval === null) {
       return
     }
-    let id: NodeJS.Timeout
+    let id: number | null
     <span class="missing-if-branch" title="else path not taken" >E</span>if (!loading) {
-      id = setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch(),</span> pollingInterval)
+      id = window.setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch(),</span> pollingInterval)
     }
-    return () =&gt; clearTimeout(id)
+    return () =&gt; {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (id) {
+        window.clearTimeout(id)
+      }
+    }
   }, [data, loading, refetch, pollingInterval])
 &nbsp;
   return (
-    &lt;div data-name="DelegateSelectors"&gt;
+    &lt;div className={cx(css.wrapper, wrapperClassName)} data-name="DelegateSelectors"&gt;
       {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!data </span>? (
-<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Icon margin="medium" name="spinner" size={15} color={Color.BLUE_500} /&gt;</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;div className={css.loader}&gt;</span>
+          &lt;Icon margin="medium" name="spinner" size={15} color={Color.PRIMARY_8} /&gt;
+          &lt;span&gt;{getString('loading')}&lt;/span&gt;
+        &lt;/div&gt;
       ) : (
         &lt;SimpleTagInput
           fill
@@ -410,7 +449,7 @@ export const DelegateSelectors = (
             className: css.delegatePopover
           }}
           items={data?.resource || []}
-          {...props}
+          {...rest}
           allowNewTag
           getTagProps={(value, _index, _selectedItems, createdItems, items) =&gt; {
             const _value = value as string
@@ -454,7 +493,7 @@ export const DelegateSelectors = (
             }
             return validTag &amp;&amp; validExpression
           }}
-          placeholder={props.placeholder || getString('delegate.Delegate_Selector_placeholder')}
+          placeholder={placeholder || getString('delegate.Delegate_Selector_placeholder')}
         /&gt;
       )}
     &lt;/div&gt;
@@ -469,7 +508,7 @@ export default DelegateSelectors
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 05:49:48 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 06:53:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

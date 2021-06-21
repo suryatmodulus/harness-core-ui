@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.35% </span>
+                <span class="strong">82.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>56/68</span>
+                <span class='fraction'>58/70</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.02% </span>
+                <span class="strong">56.22% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>135/241</span>
+                <span class='fraction'>140/249</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.08% </span>
+                <span class="strong">83.58% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>54/65</span>
+                <span class='fraction'>56/67</span>
             </div>
         
             
@@ -363,7 +363,12 @@
 <a name='L304'></a><a href='#L304'>304</a>
 <a name='L305'></a><a href='#L305'>305</a>
 <a name='L306'></a><a href='#L306'>306</a>
-<a name='L307'></a><a href='#L307'>307</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -400,6 +405,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -422,6 +428,7 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -449,6 +456,9 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -707,6 +717,7 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import { useGitScope } from '@ci/services/CIUtils'
 import css from './EditStageView.module.scss'
 &nbsp;
 export interface EditStageView {
@@ -728,6 +739,7 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({ data, onSubmit, o
   const { getString } = useStrings()
   const [connectionType, setConnectionType] = React.useState('')
   const [connectorUrl, setConnectorUrl] = React.useState('')
+  const gitScope = useGitScope()
 &nbsp;
   const {
     state: { pipeline },
@@ -759,7 +771,10 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({ data, onSubmit, o
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : <span class="branch-1 cbranch-no" title="branch not covered" >undefined,</span>
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : <span class="branch-1 cbranch-no" title="branch not covered" >undefined</span>
+      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : <span class="branch-1 cbranch-no" title="branch not covered" >undefined,</span>
+      ...(<span class="branch-1 cbranch-no" title="branch not covered" >gitScope?.repo </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >gitScope.branch</span>
+        ? <span class="branch-0 cbranch-no" title="branch not covered" >{ repoIdentifier: gitScope.repo, branch: gitScope.branch, getDefaultFromOtherRepo: true }</span>
+        : {})
     },
     lazy: true,
     debounce: 300
@@ -982,7 +997,7 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({ data, onSubmit, o
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 15:54:22 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 16:49:17 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

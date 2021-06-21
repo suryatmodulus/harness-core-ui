@@ -173,7 +173,7 @@ describe('Approval Stage shell view', () => {
   })
   test('Setup shell view tests', async () => {
     const pipelineContextMockValue = getDummyPipelineContextValue()
-    const { container, getByDisplayValue, getByText } = render(
+    const { getByDisplayValue, getByText } = render(
       <TestWrapper>
         <PipelineContext.Provider value={pipelineContextMockValue}>
           <ApprovalStageSetupShellMode />
@@ -200,8 +200,6 @@ describe('Approval Stage shell view', () => {
       fireEvent.click(getByText('next'))
     })
     expect(pipelineContextMockValue.updatePipeline).toBeCalled()
-    const nodeStart = container.querySelector('.nodeStart')
-    expect(nodeStart).toBeTruthy()
 
     // Switch back to first tab
     act(() => {
@@ -246,7 +244,7 @@ describe('Jira Approval Stage shell view', () => {
   })
   test('Setup shell view tests', async () => {
     const pipelineContextMockValue = getDummyPipelineContextValueJiraApproval()
-    const { container, getByDisplayValue, getByText } = render(
+    const { getByDisplayValue, getByText } = render(
       <TestWrapper>
         <PipelineContext.Provider value={pipelineContextMockValue}>
           <ApprovalStageSetupShellMode />
@@ -274,8 +272,6 @@ describe('Jira Approval Stage shell view', () => {
       fireEvent.click(getByText('next'))
     })
     expect(pipelineContextMockValue.updatePipeline).toBeCalled()
-    const nodeStart = container.querySelector('.nodeStart')
-    expect(nodeStart).toBeTruthy()
 
     // Switch back to first tab
     act(() => {

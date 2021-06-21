@@ -2,23 +2,18 @@
   width: 75%;
 }
 
+.jiraFormGroup {
+  // Same width as the connector reference component
+  width: 500px;
+}
+
+.jiraIssueKeyField {
+  width: 530px;
+}
+
 .connector {
   margin-bottom: var(--spacing-medium) !important;
   margin-top: var(--spacing-xsmall) !important;
-
-  :global {
-    .MultiTypeInput--main {
-      width: 420px !important;
-    }
-
-    .bp3-button {
-      width: 392px !important;
-    }
-
-    .bp3-input {
-      width: 392px !important;
-    }
-  }
 }
 
 .deploymentViewMedium {

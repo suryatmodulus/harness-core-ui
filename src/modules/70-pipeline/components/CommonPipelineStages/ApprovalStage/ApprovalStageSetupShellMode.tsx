@@ -3,6 +3,7 @@ import YAML from 'yaml'
 import produce from 'immer'
 import { Button, Color, Icon, Layout, Tab, Tabs } from '@wings-software/uicore'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
 import type {
@@ -43,6 +44,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
     updatePipelineView
   } = React.useContext(PipelineContext)
 
+  const [loadGraph, setLoadGraph] = React.useState(false)
   const { stage: selectedStage = {} } = getStageFromPipeline(selectedStageId) as StageElementWrapper
 
   React.useEffect(() => {
@@ -88,7 +90,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
     // error handling if needed
     if (yamlSnippet?.data) {
       // The last part of condition is important, as we only need to add the YAML snippet the first time in the step.
-      if (selectedStage && selectedStage.stage.spec && !selectedStage.stage.spec.execution) {
+      if (!selectedStage?.stage?.spec?.execution) {
         updateStage(
           produce<StageElementWrapperConfig>(selectedStage, (draft: ApprovalStageElementWrapperConfig) => {
             const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as ApprovalStageElementConfig
@@ -101,7 +103,12 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
               delete draft.stage.approvalType
             }
           }).stage as ApprovalStageElementConfig
-        )
+        ).then(() => {
+          setLoadGraph(true)
+        })
+      } else if (selectedStage?.stage?.spec?.execution) {
+        // We're opening an already added approval stage
+        setLoadGraph(true)
       }
     }
   }, [yamlSnippet?.data])
@@ -146,9 +153,18 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
             </span>
           }
           panel={
-            <ApprovalStageExecution>
-              <ActionButtons />
-            </ApprovalStageExecution>
+            <>
+              {loadGraph ? (
+                <ApprovalStageExecution>
+                  <ActionButtons />
+                </ApprovalStageExecution>
+              ) : (
+                <PageSpinner
+                  className={css.graphLoadingSpinner}
+                  message={getString('pipeline.approvalStage.settingUpStage')}
+                />
+              )}
+            </>
           }
           data-testid={tabHeadings[1]}
         />

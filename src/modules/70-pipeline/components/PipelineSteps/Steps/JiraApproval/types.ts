@@ -81,6 +81,7 @@ export interface ApprovalRejectionCriteriaProps {
     conditions?: ApprovalRejectionCriteriaCondition[] | undefined
   }>
   readonly?: boolean
+  title: string
 }
 
 export interface JiraProjectSelectOption extends SelectOption {

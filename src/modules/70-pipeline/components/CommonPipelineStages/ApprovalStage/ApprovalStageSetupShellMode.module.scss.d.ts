@@ -8,5 +8,6 @@ declare const styles: {
   readonly spacer: string
   readonly failureStrategy: string
   readonly footer: string
+  readonly graphLoadingSpinner: string
 }
 export default styles

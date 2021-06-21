@@ -2,7 +2,16 @@ import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 import { FieldArray } from 'formik'
 import { isEmpty } from 'lodash-es'
-import { Button, FormInput, Layout, MultiTypeInputType, Radio, SelectOption, Text } from '@wings-software/uicore'
+import {
+  Button,
+  FormInput,
+  HarnessDocTooltip,
+  Layout,
+  MultiTypeInputType,
+  Radio,
+  SelectOption,
+  Text
+} from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { JiraFieldNG } from 'services/cd-ng'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
@@ -88,7 +97,7 @@ export const Conditions = ({
     return <div className={css.fetching}>{getString('pipeline.jiraApprovalStep.fetchingFields')}</div>
   }
   return (
-    <div>
+    <div className={css.conditionalContent}>
       <Layout.Horizontal className={css.alignConditions} spacing="xxxlarge">
         <span>{getString('pipeline.jiraApprovalStep.match')}</span>
         <Radio
@@ -112,7 +121,7 @@ export const Conditions = ({
           name={`spec.${mode}.spec.conditions`}
           render={({ push, remove }) => {
             return (
-              <div>
+              <div className={css.criteriaRow}>
                 <div className={css.headers}>
                   <span>{getString('pipeline.jiraApprovalStep.jiraField')}</span>
                   <span>{getString('pipeline.triggers.conditionsPanel.operator')}</span>
@@ -203,25 +212,27 @@ export const Jexl = (props: ApprovalRejectionCriteriaProps) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
-    <FormMultiTypeTextAreaField
-      name={`spec.${props.mode}.spec.expression`}
-      disabled={isApprovalStepFieldDisabled(props.readonly)}
-      label={
-        props.mode === 'approvelCriteria'
-          ? getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')
-          : getString('pipeline.jiraApprovalStep.jexlExpressionLabelRejection')
-      }
-      className={css.jexlExpression}
-      placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
-      multiTypeTextArea={{
-        expressions
-      }}
-    />
+    <div className={css.conditionalContentJexl}>
+      <FormMultiTypeTextAreaField
+        name={`spec.${props.mode}.spec.expression`}
+        disabled={isApprovalStepFieldDisabled(props.readonly)}
+        label={
+          props.mode === 'approvelCriteria'
+            ? getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')
+            : getString('pipeline.jiraApprovalStep.jexlExpressionLabelRejection')
+        }
+        className={css.jexlExpression}
+        placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
+        multiTypeTextArea={{
+          expressions
+        }}
+      />
+    </div>
   )
 }
 
 export const ApprovalRejectionCriteria: React.FC<ApprovalRejectionCriteriaProps> = props => {
-  const { values, onChange } = props
+  const { values, onChange, title } = props
   const [type, setType] = useState<ApprovalRejectionCriteriaType>(values.type)
   const [allowedFieldKeys, setAllowedFieldKeys] = useState<SelectOption[]>([])
   const [allowedValuesForFields, setAllowedValuesForFields] = useState<Record<string, SelectOption[]>>({})
@@ -262,8 +273,14 @@ export const ApprovalRejectionCriteria: React.FC<ApprovalRejectionCriteriaProps>
     })
   }, [type])
 
+  const tooltipId = `jiraApproval${props.mode}`
+
   return (
-    <div>
+    <div className={css.box}>
+      <div className="ng-tooltip-native">
+        <div data-tooltip-id={tooltipId}>{title}</div>
+        <HarnessDocTooltip tooltipId={tooltipId} useStandAlone={true} />
+      </div>
       <div className={css.tabs}>
         <div
           className={cx(css.tab, type === ApprovalRejectionCriteriaType.KeyValues ? css.selectedTab : '')}

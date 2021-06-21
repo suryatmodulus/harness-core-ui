@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-bottom: var(--spacing-large);
+  margin-top: var(--spacing-large);
 }
 
 .tab {
@@ -35,6 +35,14 @@
       max-height: 120px;
       line-height: 35px;
     }
+
+    .bp3-input {
+      height: 75px !important;
+    }
+
+    .MultiTypeInput--btn {
+      height: 30px !important;
+    }
   }
 }
 
@@ -65,4 +73,22 @@
 
 .formikError {
   color: var(--red-600) !important;
+}
+
+.box {
+  margin: var(--spacing-medium) 0;
+}
+
+.conditionalContent {
+  background-color: var(--grey-100);
+  padding: var(--spacing-small) var(--spacing-medium);
+}
+
+.conditionalContentJexl {
+  background-color: var(--grey-100);
+  padding: var(--spacing-large) var(--spacing-medium);
+}
+
+.criteriaRow {
+  width: 520px;
 }

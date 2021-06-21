@@ -10,5 +10,9 @@ declare const styles: {
   readonly multiSelect: string
   readonly fetching: string
   readonly formikError: string
+  readonly box: string
+  readonly conditionalContent: string
+  readonly conditionalContentJexl: string
+  readonly criteriaRow: string
 }
 export default styles

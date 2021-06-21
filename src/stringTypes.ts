@@ -1138,6 +1138,8 @@ export interface StringsMap {
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
   'pipeline.and': string
+  'pipeline.approvalStage.settingUpStage': string
+  'pipeline.approvalStep.addApproverInputs': string
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string
   'pipeline.approvalStep.approvers': string

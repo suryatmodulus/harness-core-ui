@@ -129,7 +129,6 @@ describe('Harness Approval tests', () => {
     await act(() => ref.current?.submitForm())
     expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy()
 
-    fireEvent.click(getByText('pipeline.approvalStep.approvers'))
     await act(() => ref.current?.submitForm())
     await waitFor(() => expect(queryByText('pipeline.approvalStep.validation.userGroups')).toBeTruthy())
   })
@@ -166,26 +165,22 @@ describe('Harness Approval tests', () => {
     expect(queryByDisplayValue('10m')).toBeTruthy()
     expect(queryByDisplayValue('harness approval step')).toBeTruthy()
 
-    // Open first accordion
-    act(() => {
-      fireEvent.click(getByText('pipeline.approvalStep.message'))
-    })
     expect(queryByDisplayValue('Approving pipeline <+pname>')).toBeTruthy()
 
-    // Open second accordion
-    act(() => {
-      fireEvent.click(getByText('pipeline.approvalStep.approvers'))
-    })
     expect(queryByDisplayValue('1')).toBeTruthy()
     expect(queryByText('ug1')).toBeTruthy()
     expect(queryByText('ug2')).toBeTruthy()
 
     // Open third accordion
     act(() => {
-      fireEvent.click(getByText('pipeline.approvalStep.approverInputs'))
+      fireEvent.click(getByText('common.optionalConfig'))
     })
     expect(queryByDisplayValue('somekey')).toBeTruthy()
     expect(queryByDisplayValue('somevalue')).toBeTruthy()
+
+    act(() => {
+      fireEvent.click(getByText('pipeline.approvalStep.addApproverInputs'))
+    })
 
     await act(() => ref.current?.submitForm())
     expect(props.onUpdate).toBeCalledWith({

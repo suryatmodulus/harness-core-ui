@@ -24,6 +24,8 @@ runAPipeline: Run a Pipeline
 regionPlaceholder: Select Region
 repositoryUrlPlaceholder: Enter Repository URL
 lastSevenDays: In Last 7 days
+approvalStage:
+  settingUpStage: Getting stage data
 filters:
   pipelineNamePlaceholder: Enter Pipeline Name
   deploymentTypePlaceholder: Search/Select Deployment Type
@@ -47,6 +49,7 @@ approvalStep:
   fetchUserGroupsFailed: Failed to fetch User Groups
   minimumCount: 'Number of approvers that are required at this step'
   disallowPipelineExecutor: 'Disallow the executor from approving the pipeline'
+  addApproverInputs: Add Approver Inputs
   validation:
     approvalMessage: Approval message is required.
     userGroups: 'Please provide user groups.'
@@ -89,7 +92,7 @@ jiraApprovalStep:
     project: Project is required.
     issueKey: Issue Key is required.
     issueType: Issue Type is required.
-    approvalCriteriaCondition: Atleast one condition is required.
+    approvalCriteriaCondition: At least one condition is required.
     expression: Expression value is required.
 jiraCreateStep:
   fields: Jira Fields

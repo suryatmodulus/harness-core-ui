@@ -105,7 +105,7 @@ describe('Jira Approval tests', () => {
   })
 
   // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Basic functions - edit stage view validations', async () => {
+  test('Basic functions - edit stage view validations', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const props = getJiraApprovalEditModeProps()
     const { container, queryByText, getByText } = render(
@@ -133,17 +133,12 @@ describe('Jira Approval tests', () => {
     await act(() => ref.current?.submitForm())
     expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy()
 
-    fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     await act(() => ref.current?.submitForm())
 
     await waitFor(() => {
       expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy()
-    })
-
-    fireEvent.click(getByText('pipeline.jiraApprovalStep.approvalCriteria'))
-    await waitFor(() =>
       expect(queryByText('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition')).toBeTruthy()
-    )
+    })
 
     fireEvent.click(getByText('add'))
     await waitFor(() =>
@@ -187,15 +182,13 @@ describe('Jira Approval tests', () => {
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira approval step' } })
     expect(queryByDisplayValue('10m')).toBeTruthy()
 
-    fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     expect(queryByDisplayValue('pid1')).toBeTruthy()
     expect(queryByDisplayValue('tdc-2345')).toBeTruthy()
     expect(queryByDisplayValue('itd1')).toBeTruthy()
 
-    fireEvent.click(getByText('pipeline.jiraApprovalStep.approvalCriteria'))
     expect(queryByDisplayValue('somevalue for f1')).toBeTruthy()
 
-    fireEvent.click(getByText('pipeline.jiraApprovalStep.rejectionCriteriaOptional'))
+    fireEvent.click(getByText('common.optionalConfig'))
     expect(queryByDisplayValue("<+status> == 'Blocked'")).toBeTruthy()
 
     await act(() => ref.current?.submitForm())

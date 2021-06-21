@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">60.49% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>48/80</span>
+                <span class='fraction'>49/81</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.29% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/17</span>
+                <span class='fraction'>6/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">60.49% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>48/80</span>
+                <span class='fraction'>49/81</span>
             </div>
         
             
@@ -371,6 +371,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -408,8 +409,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
@@ -495,6 +494,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -673,6 +673,7 @@ import { Layout, Button, Formik, FormikForm, FormInput, Switch, Text, Card, Acco
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { isEqual, debounce, cloneDeep } from 'lodash-es'
 import cx from 'classnames'
+import { produce } from 'immer'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -707,11 +708,9 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
 &nbsp;
   const {
     state: {
-      pipeline,
       selectionState: { selectedStageId }
     },
     getStageFromPipeline,
-    updatePipeline,
     updateStage,
     stepsFactory,
     isReadonly
@@ -767,43 +766,44 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
   const handleValidate = <span class="fstat-no" title="function not covered" >(v</span>alues: any): void =&gt; {
 <span class="cstat-no" title="statement not covered" >    if (stage?.stage) {</span>
       const prevStageData = <span class="cstat-no" title="statement not covered" >cloneDeep(stage.stage)</span>
-      const stageData = <span class="cstat-no" title="statement not covered" >stage.stage</span>
-      const spec = <span class="cstat-no" title="statement not covered" >stage.stage.spec</span>
+      const newStageData = <span class="cstat-no" title="statement not covered" >produce(stage.stage, <span class="fstat-no" title="function not covered" >(s</span>tageData: any) =&gt; {</span>
+        const spec = <span class="cstat-no" title="statement not covered" >stageData.spec</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      stageData.identifier = values.identifier</span>
-<span class="cstat-no" title="statement not covered" >      stageData.name = values.name</span>
+<span class="cstat-no" title="statement not covered" >        stageData.identifier = values.identifier</span>
+<span class="cstat-no" title="statement not covered" >        stageData.name = values.name</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (values.description) {</span>
-<span class="cstat-no" title="statement not covered" >        stageData.description = values.description</span>
-      } else {
-<span class="cstat-no" title="statement not covered" >        delete stageData.description</span>
-      }
+<span class="cstat-no" title="statement not covered" >        if (values.description) {</span>
+<span class="cstat-no" title="statement not covered" >          stageData.description = values.description</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          delete stageData.description</span>
+        }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      spec.cloneCodebase = values.cloneCodebase</span>
+<span class="cstat-no" title="statement not covered" >        spec.cloneCodebase = values.cloneCodebase</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (values.sharedPaths &amp;&amp; values.sharedPaths.length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >        spec.sharedPaths =</span>
-          typeof values.sharedPaths === 'string'
-            ? values.sharedPaths
-            : values.sharedPaths.map(<span class="fstat-no" title="function not covered" >(l</span>istValue: { id: string; value: string }) =&gt; <span class="cstat-no" title="statement not covered" >listValue.value)</span>
-      } else {
-<span class="cstat-no" title="statement not covered" >        delete spec.sharedPaths</span>
-      }
+<span class="cstat-no" title="statement not covered" >        if (values.sharedPaths &amp;&amp; values.sharedPaths.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >          spec.sharedPaths =</span>
+            typeof values.sharedPaths === 'string'
+              ? values.sharedPaths
+              : values.sharedPaths.map(<span class="fstat-no" title="function not covered" >(l</span>istValue: { id: string; value: string }) =&gt; <span class="cstat-no" title="statement not covered" >listValue.value)</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          delete spec.sharedPaths</span>
+        }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (values.variables &amp;&amp; values.variables.length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >        stageData.variables = values.variables</span>
-      } else {
-<span class="cstat-no" title="statement not covered" >        delete stageData.variables</span>
-      }
+<span class="cstat-no" title="statement not covered" >        if (values.variables &amp;&amp; values.variables.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >          stageData.variables = values.variables</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          delete stageData.variables</span>
+        }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (values.skipCondition) {</span>
-<span class="cstat-no" title="statement not covered" >        stageData.skipCondition = values.skipCondition</span>
-      } else {
-<span class="cstat-no" title="statement not covered" >        delete stageData.skipCondition</span>
-      }
+<span class="cstat-no" title="statement not covered" >        if (values.skipCondition) {</span>
+<span class="cstat-no" title="statement not covered" >          stageData.skipCondition = values.skipCondition</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          delete stageData.skipCondition</span>
+        }
+      })
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (!isEqual(prevStageData, stageData)) {</span>
-<span class="cstat-no" title="statement not covered" >        updatePipeline(pipeline)</span>
+<span class="cstat-no" title="statement not covered" >      if (!isEqual(prevStageData, newStageData)) {</span>
+<span class="cstat-no" title="statement not covered" >        updateStage((newStageData as unknown) as StageElementConfig)</span>
       }
     }
   }
@@ -979,7 +979,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 04:09:30 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 05:49:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

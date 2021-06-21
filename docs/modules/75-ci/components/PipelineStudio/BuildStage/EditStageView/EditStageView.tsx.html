@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">82.35% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>55/66</span>
+                <span class='fraction'>56/68</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.96% </span>
+                <span class="strong">56.02% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>135/237</span>
+                <span class='fraction'>135/241</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.78% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/9</span>
+                <span class='fraction'>7/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.13% </span>
+                <span class="strong">83.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/63</span>
+                <span class='fraction'>54/65</span>
             </div>
         
             
@@ -361,7 +361,9 @@
 <a name='L302'></a><a href='#L302'>302</a>
 <a name='L303'></a><a href='#L303'>303</a>
 <a name='L304'></a><a href='#L304'>304</a>
-<a name='L305'></a><a href='#L305'>305</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -380,6 +382,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -505,6 +508,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -684,6 +688,7 @@ import type { IconName } from '@blueprintjs/core'
 import { isEmpty, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { FormikErrors } from 'formik'
+import { produce } from 'immer'
 import type { StageElementWrapper, PipelineInfoConfig } from 'services/cd-ng'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -809,18 +814,19 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({ data, onSubmit, o
     if (data) {
       // TODO: Add Codebase verification
       <span class="missing-if-branch" title="if path not taken" >I</span>if (values.cloneCodebase &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >values.connectorRef)</span> {
-<span class="cstat-no" title="statement not covered" >        set(pipeline, 'properties.ci.codebase', {</span>
-          connectorRef: typeof values.connectorRef === 'string' ? values.connectorRef : values.connectorRef.value,
-          ...(values.repoName &amp;&amp; { repoName: values.repoName }),
-          build: RUNTIME_INPUT_VALUE
+        const pipelineData = <span class="cstat-no" title="statement not covered" >produce(pipeline, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          set(draft, 'properties.ci.codebase', {</span>
+            connectorRef: typeof values.connectorRef === 'string' ? values.connectorRef : values.connectorRef?.value,
+            ...(values.repoName &amp;&amp; { repoName: values.repoName }),
+            build: RUNTIME_INPUT_VALUE
+          })
+&nbsp;
+          // Repo level connectors should not have repoName
+<span class="cstat-no" title="statement not covered" >          if (connectionType === 'Repo' &amp;&amp; (draft as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName) {</span>
+            delete <span class="cstat-no" title="statement not covered" >(draft as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName</span>
+          }
         })
-&nbsp;
-        // Repo level connectors should not have repoName
-<span class="cstat-no" title="statement not covered" >        if (connectionType === 'Repo' &amp;&amp; (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName) {</span>
-          delete <span class="cstat-no" title="statement not covered" >(pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName</span>
-        }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >        updatePipeline(pipeline)</span>
+<span class="cstat-no" title="statement not covered" >        updatePipeline(pipelineData)</span>
       }
 &nbsp;
       data.stage.identifier = values.identifier
@@ -976,7 +982,7 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({ data, onSubmit, o
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 04:09:30 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 05:49:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

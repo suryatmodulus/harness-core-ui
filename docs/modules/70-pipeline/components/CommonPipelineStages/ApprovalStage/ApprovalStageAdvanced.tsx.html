@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.67% </span>
+                <span class="strong">40.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/24</span>
+                <span class='fraction'>11/27</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.67% </span>
+                <span class="strong">40.74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/24</span>
+                <span class='fraction'>11/27</span>
             </div>
         
             
@@ -140,11 +140,16 @@
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -163,7 +168,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -188,6 +192,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,6 +214,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -226,6 +234,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Card, Layout } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
+import { produce } from 'immer'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
@@ -241,12 +250,11 @@ const ApprovalAdvancedSpecifications: React.FC&lt;AdvancedSpecifications&gt; = <
 &nbsp;
   const {
     state: {
-      pipeline,
       selectionState: { selectedStageId }
     },
     isReadonly,
     getStageFromPipeline,
-    updatePipeline
+    updateStage
   } = <span class="cstat-no" title="statement not covered" >React.useContext(PipelineContext)</span>
   const { stage } = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(selectedStageId || '')</span>
 &nbsp;
@@ -268,8 +276,10 @@ const ApprovalAdvancedSpecifications: React.FC&lt;AdvancedSpecifications&gt; = <
                     onUpdate={<span class="fstat-no" title="function not covered" >when </span>=&gt; {
                       const { stage: pipelineStage } = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(selectedStageId || '')</span>
 <span class="cstat-no" title="statement not covered" >                      if (pipelineStage &amp;&amp; pipelineStage.stage) {</span>
-<span class="cstat-no" title="statement not covered" >                        pipelineStage.stage.when = when</span>
-<span class="cstat-no" title="statement not covered" >                        updatePipeline(pipeline)</span>
+                        const stageData = <span class="cstat-no" title="statement not covered" >produce(pipelineStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                          draft.stage.when = when</span>
+                        })
+<span class="cstat-no" title="statement not covered" >                        updateStage(stageData.stage)</span>
                       }
                     }}
                   /&gt;
@@ -290,8 +300,10 @@ const ApprovalAdvancedSpecifications: React.FC&lt;AdvancedSpecifications&gt; = <
                   onUpdate={<span class="fstat-no" title="function not covered" >({</span> failureStrategies }) =&gt; {
                     const { stage: pipelineStage } = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(selectedStageId || '')</span>
 <span class="cstat-no" title="statement not covered" >                    if (pipelineStage &amp;&amp; pipelineStage.stage) {</span>
-<span class="cstat-no" title="statement not covered" >                      pipelineStage.stage.failureStrategies = failureStrategies</span>
-<span class="cstat-no" title="statement not covered" >                      updatePipeline(pipeline)</span>
+                      const stageData = <span class="cstat-no" title="statement not covered" >produce(pipelineStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                        draft.stage.failureStrategies = failureStrategies</span>
+                      })
+<span class="cstat-no" title="statement not covered" >                      updateStage(stageData.stage)</span>
                     }
                   }}
                 /&gt;
@@ -313,7 +325,7 @@ export default ApprovalAdvancedSpecifications
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 04:09:30 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 05:49:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

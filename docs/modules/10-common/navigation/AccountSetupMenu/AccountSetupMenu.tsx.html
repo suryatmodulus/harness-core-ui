@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>10/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -94,7 +94,17 @@
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -103,12 +113,22 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,6 +157,7 @@ import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/strings'
 import { SidebarLink } from '../SideNav/SideNav'
 import NavExpandable from '../NavExpandable/NavExpandable'
@@ -144,7 +165,12 @@ import NavExpandable from '../NavExpandable/NavExpandable'
 const AccountSetupMenu: React.FC = () =&gt; {
   const { getString } = useStrings()
   const { accountId } = useParams&lt;AccountPathProps&gt;()
-  const { NG_RBAC_ENABLED, NG_SIGNUP, NG_SHOW_DELEGATE } = useFeatureFlags()
+  const { currentUserInfo } = useAppStore()
+  const { NG_RBAC_ENABLED, NG_SHOW_DELEGATE } = useFeatureFlags()
+  const { accounts } = currentUserInfo
+&nbsp;
+  const createdFromNG = accounts<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind(account =&gt; account.uuid === accountId)<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>reatedFromNG
+&nbsp;
   return (
     &lt;NavExpandable title={getString('common.accountSetup')} route={routes.toSetup({ accountId })}&gt;
       &lt;Layout.Vertical spacing="small"&gt;
@@ -158,8 +184,12 @@ const AccountSetupMenu: React.FC = () =&gt; {
         {NG_RBAC_ENABLED ? (
           &lt;SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} /&gt;
         ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
-        {NG_SIGNUP &amp;&amp; (
-          &lt;SidebarLink exact label={getString('common.subscriptions')} to={routes.toSubscriptions({ accountId })} /&gt;
+        {createdFromNG &amp;&amp; (
+          &lt;SidebarLink
+            exact
+            label={getString('common.subscriptions.title')}
+            to={routes.toSubscriptions({ accountId })}
+          /&gt;
         )}
         &lt;SidebarLink label={getString('orgsText')} to={routes.toOrganizations({ accountId })} /&gt;
       &lt;/Layout.Vertical&gt;
@@ -175,7 +205,7 @@ export default AccountSetupMenu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 18:58:13 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 20:02:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.44% </span>
+                <span class="strong">67.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>50/72</span>
+                <span class='fraction'>51/76</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.8% </span>
+                <span class="strong">54.95% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>97/177</span>
+                <span class='fraction'>100/182</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.42% </span>
+                <span class="strong">68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>50/71</span>
+                <span class='fraction'>51/75</span>
             </div>
         
             
@@ -281,7 +281,15 @@
 <a name='L222'></a><a href='#L222'>222</a>
 <a name='L223'></a><a href='#L223'>223</a>
 <a name='L224'></a><a href='#L224'>224</a>
-<a name='L225'></a><a href='#L225'>225</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
@@ -387,13 +395,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -405,6 +409,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -415,6 +426,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -438,6 +450,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -609,12 +625,14 @@ export class HarnessApproval extends PipelineStep&lt;HarnessApprovalData&gt; {
   validateInputSet({
     data,
     template,
-    getString
+    getString,
+    viewType
   }: ValidateInputSetProps&lt;HarnessApprovalData&gt;): FormikErrors&lt;HarnessApprovalData&gt; {
     const errors: FormikErrors&lt;HarnessApprovalData&gt; = {}
-&nbsp;
+    const isRequired = viewType === StepViewType.DeploymentForm
     <span class="missing-if-branch" title="else path not taken" >E</span>if (
       typeof template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovalMessage === 'string' &amp;&amp;
+      isRequired &amp;&amp;
       getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovalMessage) === MultiTypeInputType.RUNTIME &amp;&amp;
       isEmpty(data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovalMessage<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>rim())
     ) {
@@ -626,6 +644,7 @@ export class HarnessApproval extends PipelineStep&lt;HarnessApprovalData&gt; {
 &nbsp;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (
       typeof template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovers.userGroups === 'string' &amp;&amp;
+      isRequired &amp;&amp;
       getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovers.userGroups) === MultiTypeInputType.RUNTIME &amp;&amp;
       isEmpty(data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovers.userGroups)
     ) {
@@ -640,6 +659,7 @@ export class HarnessApproval extends PipelineStep&lt;HarnessApprovalData&gt; {
 &nbsp;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (
       typeof template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovers.minimumCount === 'string' &amp;&amp;
+      isRequired &amp;&amp;
       getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovers.minimumCount) === MultiTypeInputType.RUNTIME
     ) {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (!data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovers.minimumCount) {
@@ -662,8 +682,12 @@ export class HarnessApproval extends PipelineStep&lt;HarnessApprovalData&gt; {
     }
 &nbsp;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = <span class="cstat-no" title="statement not covered" >getDurationValidationSchema({ minimum: '10s' })</span>
+<span class="cstat-no" title="statement not covered" >      if (isRequired) {</span>
+<span class="cstat-no" title="statement not covered" >        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))</span>
+      }
       const timeout = <span class="cstat-no" title="statement not covered" >Yup.object().shape({</span>
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      try {</span>
@@ -736,7 +760,7 @@ export class HarnessApproval extends PipelineStep&lt;HarnessApprovalData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 13:06:39 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 14:54:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.67% </span>
+                <span class="strong">92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>66/72</span>
+                <span class='fraction'>69/75</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.55% </span>
+                <span class="strong">91.89% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>65/71</span>
+                <span class='fraction'>68/74</span>
             </div>
         
             
@@ -344,9 +344,25 @@
 <a name='L285'></a><a href='#L285'>285</a>
 <a name='L286'></a><a href='#L286'>286</a>
 <a name='L287'></a><a href='#L287'>287</a>
-<a name='L288'></a><a href='#L288'>288</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -463,8 +479,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -635,8 +661,8 @@
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column } from 'react-table'
 import { get } from 'lodash-es'
-import { Menu, Position } from '@blueprintjs/core'
-import { Button, Container, Layout, Pagination, Text } from '@wings-software/uicore'
+import { Position } from '@blueprintjs/core'
+import { Container, Layout, Pagination, Text } from '@wings-software/uicore'
 import { EnvironmentResponseDTO, useDeleteEnvironmentV2, useGetEnvironmentListForProject } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useToaster } from '@common/exports'
@@ -649,7 +675,10 @@ import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingP
 import EnvironmentDialog from '@cf/components/CreateEnvironmentDialog/EnvironmentDialog'
 import routes from '@common/RouteDefinitions'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
-import { withTableData } from '../../utils/table-utils'
+import { withTableData } from '@cf/utils/table-utils'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './EnvironmentsPage.module.scss'
 &nbsp;
 type EnvData = { environment: EnvironmentResponseDTO }
@@ -722,7 +751,7 @@ const NameCell = withEnvironment(({ environment }) =&gt; {
   )
 })
 &nbsp;
-const ModilfiedByCell = withActions(({ environment, actions }) =&gt; {
+const ModifiedByCell = withActions(({ environment, actions }) =&gt; {
   const { getString } = useEnvStrings()
   const identifier = environment.identifier as string
   const deleteEnvironment = useConfirmAction({
@@ -745,17 +774,27 @@ const ModilfiedByCell = withActions(({ environment, actions }) =&gt; {
           e.stopPropagation()
         }}
       &gt;
-        &lt;Button
-          minimal
-          icon="Options"
-          style={{ marginLeft: 'auto' }}
-          tooltip={
-            &lt;Menu style={{ minWidth: 'unset' }}&gt;
-              &lt;Menu.Item icon="edit" text={getString('edit')} onClick={() =&gt; actions.onEdit<span class="branch-0 cbranch-no" title="branch not covered" >?.(i</span>dentifier)} /&gt;
-              &lt;Menu.Item icon="cross" text={getString('delete')} onClick={deleteEnvironment} /&gt;
-            &lt;/Menu&gt;
-          }
-          tooltipProps={{ isDark: true, interactionKind: 'click', hasBackdrop: true }}
+        &lt;RbacOptionsMenuButton
+          items={[
+            {
+              icon: 'edit',
+              text: getString('edit'),
+              onClick: () =&gt; actions.onEdit<span class="branch-0 cbranch-no" title="branch not covered" >?.(i</span>dentifier),
+              permission: {
+                resource: { resourceType: ResourceType.ENVIRONMENT },
+                permission: PermissionIdentifier.EDIT_ENVIRONMENT
+              }
+            },
+            {
+              icon: 'trash',
+              text: getString('delete'),
+              onClick: deleteEnvironment,
+              permission: {
+                resource: { resourceType: ResourceType.ENVIRONMENT },
+                permission: PermissionIdentifier.DELETE_ENVIRONMENT
+              }
+            }
+          ]}
         /&gt;
       &lt;/Container&gt;
     &lt;/Layout.Horizontal&gt;
@@ -833,7 +872,7 @@ const EnvironmentsPage: React.FC = () =&gt; {
       {
         id: 'modifiedBy',
         width: '10%',
-        Cell: ModilfiedByCell,
+        Cell: ModifiedByCell,
         actions: {
           onEdit: handleEdit,
           onDelete: handleDeleteEnv
@@ -925,7 +964,7 @@ export default EnvironmentsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 13:06:39 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 14:54:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

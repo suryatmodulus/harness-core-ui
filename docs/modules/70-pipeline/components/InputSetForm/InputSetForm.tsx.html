@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.99% </span>
+                <span class="strong">86.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>135/157</span>
+                <span class='fraction'>140/162</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.38% </span>
+                <span class="strong">61.29% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>192/318</span>
+                <span class='fraction'>209/341</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">86.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>132/154</span>
+                <span class='fraction'>136/158</span>
             </div>
         
             
@@ -692,7 +692,19 @@
 <a name='L633'></a><a href='#L633'>633</a>
 <a name='L634'></a><a href='#L634'>634</a>
 <a name='L635'></a><a href='#L635'>635</a>
-<a name='L636'></a><a href='#L636'>636</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L636'></a><a href='#L636'>636</a>
+<a name='L637'></a><a href='#L637'>637</a>
+<a name='L638'></a><a href='#L638'>638</a>
+<a name='L639'></a><a href='#L639'>639</a>
+<a name='L640'></a><a href='#L640'>640</a>
+<a name='L641'></a><a href='#L641'>641</a>
+<a name='L642'></a><a href='#L642'>642</a>
+<a name='L643'></a><a href='#L643'>643</a>
+<a name='L644'></a><a href='#L644'>644</a>
+<a name='L645'></a><a href='#L645'>645</a>
+<a name='L646'></a><a href='#L646'>646</a>
+<a name='L647'></a><a href='#L647'>647</a>
+<a name='L648'></a><a href='#L648'>648</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -730,6 +742,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1078,6 +1091,17 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1369,12 +1393,13 @@ import GitContextForm, { GitContextProps } from '@common/components/GitContextFo
 import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
-import { clearRuntimeInput } from '../PipelineStudio/StepUtil'
+import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
 import { getFormattedErrors } from '../RunPipelineModal/RunPipelineHelper'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import GitPopover from '../GitPopover/GitPopover'
 import { ErrorsStrip } from '../ErrorsStrip/ErrorsStrip'
+import { StepViewType } from '../AbstractSteps/Step'
 import css from './InputSetForm.module.scss'
 export interface InputSetDTO extends Omit&lt;InputSetResponse, 'identifier' | 'pipeline'&gt; {
   pipeline?: NgPipeline
@@ -1709,6 +1734,17 @@ export const InputSetForm: React.FC&lt;InputSetFormProps&gt; = (props): JSX.Elem
             <span class="missing-if-branch" title="if path not taken" >I</span>if (isEmpty(values.identifier)) {
 <span class="cstat-no" title="statement not covered" >              errors.name = getString('common.validation.identifierIsRequired')</span>
             }
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (values.pipeline &amp;&amp; template<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSetTemplateYaml &amp;&amp; pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>amlPipeline) {
+              errors.pipeline = validatePipeline({
+                pipeline: values.pipeline,
+                template: parse(template.data.inputSetTemplateYaml).pipeline,
+                originalPipeline: parse(pipeline.data.yamlPipeline).pipeline,
+                getString,
+                viewType: StepViewType.InputSet
+              }) as any
+&nbsp;
+              <span class="missing-if-branch" title="else path not taken" >E</span>if (isEmpty(errors.pipeline)) delete errors.pipeline
+            }
             setFormErrors(errors)
             return errors
           }}
@@ -1969,7 +2005,7 @@ export const EnhancedInputSetForm: React.FC&lt;InputSetFormProps&gt; = props =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 13:06:39 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 14:54:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

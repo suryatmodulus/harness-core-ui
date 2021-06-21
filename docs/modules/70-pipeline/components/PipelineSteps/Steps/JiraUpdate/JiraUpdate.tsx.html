@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.22% </span>
+                <span class="strong">77.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>37/45</span>
+                <span class='fraction'>38/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.6% </span>
+                <span class="strong">67.78% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>59/86</span>
+                <span class='fraction'>61/90</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.22% </span>
+                <span class="strong">77.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>37/45</span>
+                <span class='fraction'>38/49</span>
             </div>
         
             
@@ -187,7 +187,18 @@
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
@@ -215,6 +226,11 @@
 <span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -230,6 +246,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -241,17 +268,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -358,11 +380,17 @@ export class JiraUpdate extends PipelineStep&lt;JiraUpdateData&gt; {
     }
   }
 &nbsp;
-  validateInputSet({ data, template, getString }: ValidateInputSetProps&lt;JiraUpdateData&gt;): FormikErrors&lt;JiraUpdateData&gt; {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps&lt;JiraUpdateData&gt;): FormikErrors&lt;JiraUpdateData&gt; {
     const errors: FormikErrors&lt;JiraUpdateData&gt; = {}
-&nbsp;
+    const isRequired = viewType === StepViewType.DeploymentForm
     <span class="missing-if-branch" title="else path not taken" >E</span>if (
       typeof template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef === 'string' &amp;&amp;
+      isRequired &amp;&amp;
       getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) === MultiTypeInputType.RUNTIME &amp;&amp;
       isEmpty(data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef)
     ) {
@@ -373,6 +401,7 @@ export class JiraUpdate extends PipelineStep&lt;JiraUpdateData&gt; {
 &nbsp;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (
       getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ssueKey) === MultiTypeInputType.RUNTIME &amp;&amp;
+      isRequired &amp;&amp;
       isEmpty(data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ssueKey<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>rim())
     ) {
       errors.spec = {
@@ -382,8 +411,12 @@ export class JiraUpdate extends PipelineStep&lt;JiraUpdateData&gt; {
     }
 &nbsp;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = <span class="cstat-no" title="statement not covered" >getDurationValidationSchema({ minimum: '10s' })</span>
+<span class="cstat-no" title="statement not covered" >      if (isRequired) {</span>
+<span class="cstat-no" title="statement not covered" >        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))</span>
+      }
       const timeout = <span class="cstat-no" title="statement not covered" >Yup.object().shape({</span>
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      try {</span>
@@ -454,7 +487,7 @@ export class JiraUpdate extends PipelineStep&lt;JiraUpdateData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 13:06:39 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 14:54:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

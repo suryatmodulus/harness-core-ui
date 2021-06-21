@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.76% </span>
+                <span class="strong">90.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>167/184</span>
+                <span class='fraction'>168/185</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.58% </span>
+                <span class="strong">74.72% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>264/354</span>
+                <span class='fraction'>266/356</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.5% </span>
+                <span class="strong">90.56% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>162/179</span>
+                <span class='fraction'>163/180</span>
             </div>
         
             
@@ -839,7 +839,17 @@
 <a name='L780'></a><a href='#L780'>780</a>
 <a name='L781'></a><a href='#L781'>781</a>
 <a name='L782'></a><a href='#L782'>782</a>
-<a name='L783'></a><a href='#L783'>783</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L783'></a><a href='#L783'>783</a>
+<a name='L784'></a><a href='#L784'>784</a>
+<a name='L785'></a><a href='#L785'>785</a>
+<a name='L786'></a><a href='#L786'>786</a>
+<a name='L787'></a><a href='#L787'>787</a>
+<a name='L788'></a><a href='#L788'>788</a>
+<a name='L789'></a><a href='#L789'>789</a>
+<a name='L790'></a><a href='#L790'>790</a>
+<a name='L791'></a><a href='#L791'>791</a>
+<a name='L792'></a><a href='#L792'>792</a>
+<a name='L793'></a><a href='#L793'>793</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1536,11 +1546,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -2316,13 +2336,23 @@ export class GcpInfrastructureSpec extends PipelineStep&lt;GcpInfrastructureSpec
   validateInputSet({
     data,
     template,
-    getString
+    getString,
+    viewType
   }: ValidateInputSetProps&lt;K8sGcpInfrastructure&gt;): FormikErrors&lt;K8sGcpInfrastructure&gt; {
     const errors: Partial&lt;K8sGcpInfrastructureTemplate&gt; = {}
-    if (isEmpty(data.connectorRef) &amp;&amp; getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) === MultiTypeInputType.RUNTIME) {
+    const isRequired = viewType === StepViewType.DeploymentForm
+    if (
+      isEmpty(data.connectorRef) &amp;&amp;
+      isRequired &amp;&amp;
+      getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) === MultiTypeInputType.RUNTIME
+    ) {
       errors.connectorRef = getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>fieldRequired', { field: getString('connector') })
     }
-    if (isEmpty(data.cluster) &amp;&amp; getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>luster) === MultiTypeInputType.RUNTIME) {
+    if (
+      isEmpty(data.cluster) &amp;&amp;
+      isRequired &amp;&amp;
+      getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>luster) === MultiTypeInputType.RUNTIME
+    ) {
       errors.cluster = getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>fieldRequired', { field: getString('common.cluster') })
     }
     /* istanbul ignore else */ if (
@@ -2330,7 +2360,7 @@ export class GcpInfrastructureSpec extends PipelineStep&lt;GcpInfrastructureSpec
       getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>amespace) === MultiTypeInputType.RUNTIME
     ) {
       const namespace = Yup.object().shape({
-        namespace: getNameSpaceSchema(getString)
+        namespace: getNameSpaceSchema(getString, isRequired)
       })
 &nbsp;
       try {
@@ -2349,7 +2379,7 @@ export class GcpInfrastructureSpec extends PipelineStep&lt;GcpInfrastructureSpec
       getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eleaseName) === MultiTypeInputType.RUNTIME
     ) {
       const releaseName = Yup.object().shape({
-        releaseName: getReleaseNameSchema(getString)
+        releaseName: getReleaseNameSchema(getString, isRequired)
       })
 &nbsp;
       try {
@@ -2410,7 +2440,7 @@ export class GcpInfrastructureSpec extends PipelineStep&lt;GcpInfrastructureSpec
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 13:06:39 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 21 2021 14:54:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

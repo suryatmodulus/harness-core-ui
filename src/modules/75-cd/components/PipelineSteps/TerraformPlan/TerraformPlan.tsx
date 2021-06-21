@@ -205,8 +205,8 @@ function TerraformPlanWidget(
                   width={
                     getMultiTypeFromValue(formik.values?.spec?.configuration?.secretManagerRef) ===
                     MultiTypeInputType.RUNTIME
-                      ? 200
-                      : 260
+                      ? 260
+                      : 300
                   }
                   name="spec.configuration.secretManagerRef"
                   placeholder={getString('select')}

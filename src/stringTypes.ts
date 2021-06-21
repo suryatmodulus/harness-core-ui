@@ -1804,6 +1804,7 @@ export interface StringsMap {
   'cd.pipelineSteps.serviceTab.deploymentType': string
   'cd.pipelineSteps.serviceTab.propateStage': string
   'cd.releaseNameValidation': string
+  'cd.remoteVarDetails': string
   'cd.scriptRequired': string
   'cd.secretManagerRequired': string
   'cd.serviceCreated': string

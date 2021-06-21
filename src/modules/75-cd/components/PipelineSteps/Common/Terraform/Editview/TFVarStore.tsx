@@ -72,7 +72,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
   }, [isEditMode])
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.tfVarStore}>
-      <Heading level={2} style={{ color: Color.BLACK, fontSize: 24 }} margin={{ bottom: 'large' }}>
+      <Heading level={2} style={{ color: Color.GREY_800, fontSize: 24 }} margin={{ bottom: 'large' }}>
         {getString('cd.specifyTfVarStore')}
       </Heading>
 
@@ -118,24 +118,13 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
                 <FormMultiTypeConnectorField
                   label={
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('connectors.title.gitConnector')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('connectors.title.gitConnector')}
-                        iconProps={{ size: 14 }}
-                      />
+                      <Text style={{ marginBottom: '5px' }}>{`${selectedType} ${getString('connector')}`}</Text>
                     </Text>
                   }
                   type={TFConnectorMap[selectedType]}
-                  width={
-                    getMultiTypeFromValue(formik.values?.varFile?.store?.spec?.connectorRef) ===
-                    MultiTypeInputType.RUNTIME
-                      ? 200
-                      : 260
-                  }
+                  width={400}
                   name="varFile.spec.store.spec.connectorRef"
-                  placeholder={getString('select')}
+                  placeholder={`${getString('select')} ${selectedType} ${getString('connector')}`}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}

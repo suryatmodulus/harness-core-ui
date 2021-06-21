@@ -21,7 +21,6 @@ import { useStrings } from 'framework/strings'
 import { PageError } from '@common/components/Page/PageError'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { TestSuiteSummaryQueryParams, useTestSuiteSummary } from 'services/ti-service'
-import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { TestsCallgraph } from './TestsCallgraph/TestsCallgraph'
 import { TestsExecutionItem } from './TestsExecutionItem'
@@ -127,12 +126,10 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
   )
 
   useEffect(() => {
-    if (status) {
-      if ((!isExecutionComplete(status) && !loading) || (!executionSummary && !error && !loading)) {
-        fetchExecutionSummary({ queryParams })
-      }
+    if (!executionSummary && !error && !loading) {
+      fetchExecutionSummary({ queryParams })
     }
-  }, [status, executionSummary, error, loading, fetchExecutionSummary, queryParams])
+  }, [executionSummary, error, loading, fetchExecutionSummary, queryParams])
 
   // When build/execution is not resolved from context, render nothing
   if (!status) {

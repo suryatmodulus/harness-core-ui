@@ -45,22 +45,36 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     pipelineIdentifier: string
   }>()
   const [pageIndex, setPageIndex] = useState(0)
-  const queryParams = ({
-    accountId,
-    orgId: orgIdentifier,
-    projectId: projectIdentifier,
-    buildId: buildIdentifier,
-    pipelineId: pipelineIdentifier,
-    report: 'junit' as const,
-    suite_name: executionSummary.name,
-    status,
-    sort: 'status',
-    order: 'ASC',
-    pageIndex,
-    pageSize: PAGE_SIZE,
-    stageId,
-    stepId
-  } as unknown) as TestCaseSummaryQueryParams
+  const queryParams = useMemo(
+    () => ({
+      accountId,
+      orgId: orgIdentifier,
+      projectId: projectIdentifier,
+      buildId: buildIdentifier,
+      pipelineId: pipelineIdentifier,
+      report: 'junit' as const,
+      suite_name: executionSummary.name,
+      status,
+      sort: 'status',
+      order: 'ASC',
+      pageIndex,
+      pageSize: PAGE_SIZE,
+      stageId,
+      stepId
+    }),
+    [
+      accountId,
+      orgIdentifier,
+      projectIdentifier,
+      buildIdentifier,
+      pipelineIdentifier,
+      executionSummary.name,
+      status,
+      pageIndex,
+      stageId,
+      stepId
+    ]
+  ) as TestCaseSummaryQueryParams
 
   const { data, error, loading, refetch } = useTestCaseSummary({
     queryParams,
@@ -175,10 +189,6 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
       }
     }
   }, [expanded, queryParams, refetchData, data])
-
-  useEffect(() => {
-    refetchData(queryParams)
-  }, [status])
 
   return (
     <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium">

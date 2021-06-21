@@ -46,6 +46,9 @@ const BuildTests: React.FC = () => {
     queryParams: { accountId }
   })
 
+  // Added to determine whether the data was fetched once or not WHILE BUILD IN PROGRESS
+  const [isInfoDataFetchedOnce, setIsInfoDataFetchedOnce] = useState(false)
+
   const [selectItems, setSelectItems] = useState<SelectOption[]>([])
   const [selectValue, setSelectValue] = useState<SelectOption>()
 
@@ -98,14 +101,12 @@ const BuildTests: React.FC = () => {
   })
 
   useEffect(() => {
-    if (status && serviceToken && !stageId && !stepId) {
-      if (
-        (!isExecutionComplete(status) && !reportInfoLoading) ||
-        (!reportInfoData && !reportInfoError && !reportInfoLoading)
-      ) {
+    if (status && isExecutionComplete(status) && serviceToken && !stageId && !stepId) {
+      if (!reportInfoData && !reportInfoError && !reportInfoLoading) {
         fetchReportInfo()
       }
-      if ((!isExecutionComplete(status) && !testInfoLoading) || (!testInfoData && !testInfoError && !testInfoLoading)) {
+
+      if (!testInfoData && !testInfoError && !testInfoLoading) {
         fetchTestInfo()
       }
     }
@@ -204,17 +205,12 @@ const BuildTests: React.FC = () => {
       : UI.LoadingState
 
   useEffect(() => {
-    if (status && serviceToken && stageId && stepId) {
-      if (
-        (!isExecutionComplete(status) && !reportSummaryLoading) ||
-        (!reportSummaryData && !reportSummaryError && !reportSummaryLoading)
-      ) {
+    if (status && isExecutionComplete(status) && serviceToken && stageId && stepId) {
+      if (!reportSummaryData && !reportSummaryError && !reportSummaryLoading) {
         fetchReportSummary()
       }
-      if (
-        (!isExecutionComplete(status) && !testOverviewLoading) ||
-        (!testOverviewData && !testOverviewError && !testOverviewLoading)
-      ) {
+
+      if (!testOverviewData && !testOverviewError && !testOverviewLoading) {
         fetchTestOverview()
       }
     }
@@ -234,11 +230,36 @@ const BuildTests: React.FC = () => {
   ])
 
   useEffect(() => {
-    if (status && serviceToken && stageId && stepId) {
+    if (status && !isExecutionComplete(status) && serviceToken && stageId && stepId) {
       fetchReportSummary()
       fetchTestOverview()
     }
-  }, [stageId, stepId, status, serviceToken])
+  }, [stageId, stepId, status, serviceToken, fetchReportSummary, fetchTestOverview])
+
+  useEffect(() => {
+    if (
+      infoQueryParams.pipelineId &&
+      infoQueryParams.buildId &&
+      status &&
+      !isExecutionComplete(status) &&
+      !isInfoDataFetchedOnce &&
+      serviceToken
+    ) {
+      fetchReportInfo()
+      fetchTestInfo()
+      setIsInfoDataFetchedOnce(true)
+    }
+  }, [
+    infoQueryParams.pipelineId,
+    infoQueryParams.buildId,
+    status,
+    isInfoDataFetchedOnce,
+    fetchReportInfo,
+    fetchTestInfo,
+    fetchReportSummary,
+    fetchTestOverview,
+    serviceToken
+  ])
 
   const testsCountDiff = useMemo(() => {
     const newTests = testOverviewData?.selected_tests?.new_tests
@@ -257,21 +278,29 @@ const BuildTests: React.FC = () => {
   if (
     serviceTokenLoading ||
     (!testOverviewData && testOverviewLoading) ||
-    (!reportSummaryData && reportSummaryLoading)
+    (!reportSummaryData && reportSummaryLoading) ||
+    (!reportInfoData && reportInfoLoading) ||
+    (!testInfoData && testInfoLoading)
   ) {
     return <PageSpinner />
   }
 
-  const error = reportSummaryError || serviceTokenError || testOverviewError
+  const error = reportSummaryError || serviceTokenError || testOverviewError || reportSummaryError || testOverviewError
 
   if (error) {
     return (
       <PageError
         message={get(error, 'data.error_msg', error?.message)}
         onClick={() => {
-          fetchReportSummary()
           refetchServiceToken()
-          fetchTestOverview()
+
+          fetchReportInfo()
+          fetchTestInfo()
+
+          if (stageId && stepId) {
+            fetchReportSummary()
+            fetchTestOverview()
+          }
         }}
       />
     )

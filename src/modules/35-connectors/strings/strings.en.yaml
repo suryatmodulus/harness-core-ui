@@ -308,8 +308,8 @@ ceAzure:
     directoryName: Storage Directory
     reportName: Report Name
   existingExports:
-    instruction: 'A billing report already exists for this Azure account. Click on “continue” to use this billing export for the connector. If not, you can choose to create a new billing export.'
-    createNewExportBtn: '+ Create new Billing export'
+    instruction: 'A billing export already exists for this Azure account. Click on "Create new Billing Export" if you wish to create a new billing export.'
+    createNewExportBtn: '+ Create new Billing Export'
   chooseRequirements:
     heading: Create Cross Account Role
     subText: Choose Permissions

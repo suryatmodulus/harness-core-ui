@@ -173,25 +173,7 @@
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a>
-<a name='L120'></a><a href='#L120'>120</a>
-<a name='L121'></a><a href='#L121'>121</a>
-<a name='L122'></a><a href='#L122'>122</a>
-<a name='L123'></a><a href='#L123'>123</a>
-<a name='L124'></a><a href='#L124'>124</a>
-<a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -202,7 +184,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,9 +197,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -309,21 +288,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Color, Layout, Switch, Collapse } from '@wings-software/uicore'
@@ -336,7 +300,6 @@ import PasswordStrength from '@auth-settings/pages/Configuration/AccountAndOAuth
 import PasswordExpire from '@auth-settings/pages/Configuration/AccountAndOAuth/HarnessAccount/PasswordExpire/PasswordExpire'
 import LockoutPolicy from '@auth-settings/pages/Configuration/AccountAndOAuth/HarnessAccount/LockoutPolicy/LockoutPolicy'
 import TwoFactorAuthentication from '@auth-settings/pages/Configuration/AccountAndOAuth/HarnessAccount/TwoFactorAuthentication/TwoFactorAuthentication'
-import type { PermissionRequest } from '@auth-settings/pages/Configuration/Configuration'
 import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
 &nbsp;
 interface Props {
@@ -347,7 +310,6 @@ interface Props {
     message: string
   ) =&gt; Promise&lt;void&gt;
   updatingAuthMechanism: boolean
-  permissionRequest: PermissionRequest
   canEdit: boolean
 }
 &nbsp;
@@ -356,7 +318,6 @@ const HarnessAccount: React.FC&lt;Props&gt; = ({
   refetchAuthSettings,
   submitUserPasswordUpdate,
   updatingAuthMechanism,
-  permissionRequest,
   canEdit
 }) =&gt; {
   const { getString } = useStrings()
@@ -429,24 +390,9 @@ const HarnessAccount: React.FC&lt;Props&gt; = ({
     &gt;
       {loginSettings &amp;&amp; (
         &lt;Layout.Vertical spacing="medium"&gt;
-          &lt;PasswordStrength
-            loginSettings={loginSettings}
-            refetchAuthSettings={refetchAuthSettings}
-            permissionRequest={permissionRequest}
-            canEdit={canEdit}
-          /&gt;
-          &lt;PasswordExpire
-            loginSettings={loginSettings}
-            refetchAuthSettings={refetchAuthSettings}
-            permissionRequest={permissionRequest}
-            canEdit={canEdit}
-          /&gt;
-          &lt;LockoutPolicy
-            loginSettings={loginSettings}
-            refetchAuthSettings={refetchAuthSettings}
-            permissionRequest={permissionRequest}
-            canEdit={canEdit}
-          /&gt;
+          &lt;PasswordStrength loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit={canEdit} /&gt;
+          &lt;PasswordExpire loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit={canEdit} /&gt;
+          &lt;LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit={canEdit} /&gt;
           &lt;TwoFactorAuthentication
             twoFactorEnabled={!!authSettings.twoFactorEnabled}
             onSuccess={refetchAuthSettings}
@@ -466,7 +412,7 @@ export default HarnessAccount
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 09:36:13 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 10:53:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

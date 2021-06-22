@@ -141,28 +141,30 @@
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">184x</span>
-<span class="cline-any cline-yes">184x</span>
-<span class="cline-any cline-yes">184x</span>
-<span class="cline-any cline-yes">184x</span>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">178x</span>
+<span class="cline-any cline-yes">178x</span>
+<span class="cline-any cline-yes">178x</span>
+<span class="cline-any cline-yes">178x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">184x</span>
-<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-yes">178x</span>
+<span class="cline-any cline-yes">178x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">184x</span>
-<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-yes">178x</span>
+<span class="cline-any cline-yes">178x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">184x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">178x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">178x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -224,10 +226,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">178x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Text } from '@wings-software/uicore'
+import { Color, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -286,16 +290,18 @@ const RBACTooltip: React.FC&lt;Props&gt; = ({ permission, resourceType, resource
   }
 &nbsp;
   return (
-    &lt;Container padding="small"&gt;
-      &lt;Text&gt;
+    &lt;Layout.Vertical padding="small" spacing="small"&gt;
+      &lt;Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_800}&gt;
         {`${getString('rbac.youAreNotAuthorizedTo')} `}
         &lt;span className={css.textToLowercase}&gt;{resourceTypeHandler<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ermissionLabels<span class="branch-0 cbranch-no" title="branch not covered" >?.[p</span>ermission] || permission}&lt;/span&gt;
         &lt;span className={css.textToLowercase}&gt;
           {` ${resourceTypeHandler<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>abel &amp;&amp; getString(resourceTypeHandler<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>abel)}.`}
         &lt;/span&gt;
       &lt;/Text&gt;
-      &lt;Text&gt;{getString('rbac.youAreMissingTheFollowingPermission')}&lt;/Text&gt;
-      &lt;Text&gt;
+      &lt;Text font={{ size: 'small' }} color={Color.GREY_800}&gt;
+        {getString('rbac.youAreMissingTheFollowingPermission')}
+      &lt;/Text&gt;
+      &lt;Text font={{ size: 'small' }} color={Color.GREY_800}&gt;
         {'"'}
         {resourceTypeHandler<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ermissionLabels<span class="branch-0 cbranch-no" title="branch not covered" >?.[p</span>ermission] || permission}
         &lt;span className={css.textToLowercase}&gt;
@@ -304,7 +310,7 @@ const RBACTooltip: React.FC&lt;Props&gt; = ({ permission, resourceType, resource
         {'"'}
         &lt;span&gt;{` ${getString('rbac.in')} ${getScopeSuffix()}`}&lt;/span&gt;
       &lt;/Text&gt;
-    &lt;/Container&gt;
+    &lt;/Layout.Vertical&gt;
   )
 }
 &nbsp;
@@ -316,7 +322,7 @@ export default RBACTooltip
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 09:36:13 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 10:53:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

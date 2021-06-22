@@ -181,7 +181,7 @@
 
 .addTfVarFile {
   position: relative;
-  left: 20px;
+  left: -20px;
   top: 5px;
 }
 .dragging {
@@ -243,4 +243,8 @@
     resize: none;
     height: 160px;
   }
+}
+
+.iconMargin {
+  margin-right: var(--spacing-small) !important;
 }

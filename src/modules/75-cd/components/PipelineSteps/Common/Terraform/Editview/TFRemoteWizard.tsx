@@ -1,5 +1,6 @@
 import {
   Button,
+  Color,
   Formik,
   FormInput,
   getMultiTypeFromValue,
@@ -128,7 +129,10 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
   )
 
   return (
-    <Layout.Vertical padding={'huge'} className={css.tfVarStore}>
+    <Layout.Vertical spacing="xxlarge" padding="small" className={css.tfVarStore}>
+      <Text font="large" color={Color.GREY_800}>
+        {getString('cd.varFileDetails')}
+      </Text>
       <Formik
         formName="tfRemoteWizardForm"
         initialValues={initialValues}

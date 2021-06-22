@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.31% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/29</span>
+                <span class='fraction'>24/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.31% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/29</span>
+                <span class='fraction'>24/30</span>
             </div>
         
             
@@ -251,7 +251,14 @@
 <a name='L192'></a><a href='#L192'>192</a>
 <a name='L193'></a><a href='#L193'>193</a>
 <a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -276,6 +283,7 @@
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -398,6 +406,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -469,7 +483,8 @@ interface ModuleListCardProps {
 const ModuleListCard: React.FC&lt;ModuleListCardProps&gt; = ({ module, projectIdentifier, orgIdentifier, accountId }) =&gt; {
   const { getString } = useStrings()
   const history = useHistory()
-&nbsp;
+  // currently hiding chart for CI
+  const enableActivityChart = module !== ModuleName.CI
   const getModuleLinks = (): React.ReactElement =&gt; {
     switch (module) {
       case ModuleName.CD:
@@ -595,7 +610,11 @@ const ModuleListCard: React.FC&lt;ModuleListCardProps&gt; = ({ module, projectId
     &lt;&gt;
       &lt;Card className={css.card}&gt;
         &lt;Layout.Horizontal&gt;
-          &lt;Container width="30%" flex border={{ right: true, color: Color.GREY_300 }}&gt;
+          &lt;Container
+            width="30%"
+            flex
+            border={{ right: true, color: enableActivityChart ? Color.GREY_300 : Color.WHITE }}
+          &gt;
             &lt;Layout.Horizontal flex spacing="large"&gt;
               &lt;Icon name={getModuleIcon(module)} size={70}&gt;&lt;/Icon&gt;
               &lt;div&gt;
@@ -612,22 +631,24 @@ const ModuleListCard: React.FC&lt;ModuleListCardProps&gt; = ({ module, projectId
               &lt;/div&gt;
             &lt;/Layout.Horizontal&gt;
           &lt;/Container&gt;
-          &lt;Container width="40%" border={{ right: true, color: Color.GREY_300 }}&gt;
-            &lt;Layout.Vertical flex={{ align: 'center-center' }}&gt;
-              &lt;Layout.Horizontal flex={{ align: 'center-center' }} spacing="xxlarge"&gt;
-                &lt;SparkChart data={[2, 3, 4, 5, 4, 3, 2]} className={css.activitychart} /&gt;
-                &lt;Text color={Color.GREY_400} font={{ size: 'medium' }}&gt;
-                  {getString('projectsOrgs.placeholder')}
+          &lt;Container width="40%" border={{ right: true, color: enableActivityChart ? Color.GREY_300 : Color.WHITE }}&gt;
+            {enableActivityChart ? (
+              &lt;Layout.Vertical flex={{ align: 'center-center' }}&gt;
+                &lt;Layout.Horizontal flex={{ align: 'center-center' }} spacing="xxlarge"&gt;
+                  &lt;SparkChart data={[2, 3, 4, 5, 4, 3, 2]} className={css.activitychart} /&gt;
+                  &lt;Text color={Color.GREY_400} font={{ size: 'medium' }}&gt;
+                    {getString('projectsOrgs.placeholder')}
+                  &lt;/Text&gt;
+                &lt;/Layout.Horizontal&gt;
+                &lt;Text color={Color.GREY_400} font={{ size: 'xsmall' }}&gt;
+                  {getString(
+                    `projectCard.${module
+                      .toString()
+                      .toLowerCase()}RendererText` as StringKeys /* TODO: fix this by using a map */
+                  ).toUpperCase()}
                 &lt;/Text&gt;
-              &lt;/Layout.Horizontal&gt;
-              &lt;Text color={Color.GREY_400} font={{ size: 'xsmall' }}&gt;
-                {getString(
-                  `projectCard.${module
-                    .toString()
-                    .toLowerCase()}RendererText` as StringKeys /* TODO: fix this by using a map */
-                ).toUpperCase()}
-              &lt;/Text&gt;
-            &lt;/Layout.Vertical&gt;
+              &lt;/Layout.Vertical&gt;
+            ) : null}
           &lt;/Container&gt;
           &lt;Container width="30%" flex={{ align: 'center-center' }}&gt;
             {getModuleLinks()}
@@ -646,7 +667,7 @@ export default ModuleListCard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 00:32:55 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 03:16:05 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

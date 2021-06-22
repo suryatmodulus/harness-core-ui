@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.14% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>69/84</span>
+                <span class='fraction'>72/88</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.08% </span>
+                <span class="strong">52.21% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>141/256</span>
+                <span class='fraction'>142/272</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">58.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/21</span>
+                <span class='fraction'>14/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.5% </span>
+                <span class="strong">82.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>66/80</span>
+                <span class='fraction'>69/84</span>
             </div>
         
             
@@ -459,7 +459,15 @@
 <a name='L400'></a><a href='#L400'>400</a>
 <a name='L401'></a><a href='#L401'>401</a>
 <a name='L402'></a><a href='#L402'>402</a>
-<a name='L403'></a><a href='#L403'>403</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<a name='L403'></a><a href='#L403'>403</a>
+<a name='L404'></a><a href='#L404'>404</a>
+<a name='L405'></a><a href='#L405'>405</a>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a>
+<a name='L408'></a><a href='#L408'>408</a>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -685,6 +693,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -717,6 +731,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -751,6 +766,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1086,6 +1102,12 @@ export const ECRArtifact: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; 
     &lt;/div&gt;
   ))
 &nbsp;
+  const resetTag = (formik: any): void =&gt; {
+    formik.values.tagType === 'value' &amp;&amp;
+<span class="branch-1 cbranch-no" title="branch not covered" >      getMultiTypeFromValue(formik.values.tag?.value) === MultiTypeInputType.FIXED </span>&amp;&amp;
+<span class="branch-2 cbranch-no" title="branch not covered" >      formik.values.tag?.value?.length </span>&amp;&amp;
+<span class="branch-3 cbranch-no" title="branch not covered" >      formik.setFieldValue('tag', '')</span>
+  }
   return (
     &lt;Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}&gt;
       &lt;div className={css.heading}&gt;{getString('pipeline.artifactsSelection.artifactDetails')}&lt;/div&gt;
@@ -1119,6 +1141,7 @@ export const ECRArtifact: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; 
                   name="region"
                   selectItems={regions}
                   multiTypeInputProps={{
+                    onChange: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >resetTag(formik),</span>
                     selectProps: {
                       defaultSelectedItem: formik.values.region,
                       items: regions
@@ -1153,6 +1176,7 @@ export const ECRArtifact: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; 
                   name="imagePath"
                   placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
+                  onChange={() =&gt; resetTag(formik)}
                 /&gt;
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;div className={css.configureOptions}&gt;</span>
@@ -1270,7 +1294,7 @@ export const ECRArtifact: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 03:16:05 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 03:48:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

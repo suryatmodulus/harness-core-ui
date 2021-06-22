@@ -1,0 +1,55 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "typeStats": [
+      {
+        "type": "Gcp",
+        "count": 1
+      },
+      {
+        "type": "Aws",
+        "count": 1
+      },
+      {
+        "type": "Vault",
+        "count": 1
+      },
+      {
+        "type": "Bitbucket",
+        "count": 2
+      },
+      {
+        "type": "Github",
+        "count": 1
+      },
+      {
+        "type": "Artifactory",
+        "count": 3
+      },
+      {
+        "type": "DockerRegistry",
+        "count": 5
+      },
+      {
+        "type": "Gitlab",
+        "count": 2
+      },
+      {
+        "type": "K8sCluster",
+        "count": 14
+      }
+    ],
+    "statusStats": [
+      {
+        "status": "FAILURE",
+        "count": 17
+      },
+      {
+        "status": "SUCCESS",
+        "count": 9
+      }
+    ]
+  },
+  "metaData": null,
+  "correlationId": "3d18d10c-3a2b-4532-b039-de82d27fc89a"
+}

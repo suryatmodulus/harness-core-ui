@@ -8,8 +8,7 @@ import {
   ExpandingSearchInput,
   Container
 } from '@wings-software/uicore'
-import { useParams, useHistory } from 'react-router-dom'
-import type { GetDataError } from 'restful-react'
+import { useParams } from 'react-router-dom'
 import { debounce, noop, pick } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import {
@@ -23,17 +22,14 @@ import {
   FilterDTO,
   usePostFilter,
   useUpdateFilter,
-  PageConnectorResponse,
   useDeleteFilter,
   ResponsePageFilterDTO,
   ResponseConnectorStatistics,
-  GetConnectorListV2QueryParams,
-  Failure
+  GetConnectorListV2QueryParams
 } from 'services/cd-ng'
 import type { ConnectorFilterProperties } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { PageError } from '@common/components/Page/PageError'
-import { Page, useToaster, StringUtils } from '@common/exports'
+import { useToaster, StringUtils } from '@common/exports'
 import { AddDrawer, PageSpinner } from '@common/components'
 import {
   AddDrawerMapInterface,
@@ -41,7 +37,6 @@ import {
   CategoryInterface,
   ItemInterface
 } from '@common/components/AddDrawer/AddDrawer'
-import routes from '@common/RouteDefinitions'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'
@@ -54,19 +49,11 @@ import {
 import { useStrings } from 'framework/strings'
 import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
 import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
-import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { shouldShowError } from '@common/utils/errorUtils'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import RbacButton from '@rbac/components/Button/Button'
-import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
-import ConnectorsListView from './views/ConnectorsListView'
-import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
+
 import {
   createRequestBodyPayload,
   ConnectorFormType,
@@ -77,31 +64,30 @@ import {
   getOptionsForMultiSelect,
   validateForm
 } from './utils/RequestUtils'
-import css from './ConnectorsPage.module.scss'
+import css from './FeatureFlagsFilter.module.scss'
 
-interface ConnectorsListProps {
+interface FeatureFlagsListProps {
   mockData?: UseGetMockData<ResponsePageConnectorResponse>
   catalogueMockData?: UseGetMockData<ResponseConnectorCatalogueResponse>
   statisticsMockData?: UseGetMockData<ResponseConnectorStatistics>
   filtersMockData?: UseGetMockData<ResponsePageFilterDTO>
 }
 
-const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, statisticsMockData, filtersMockData }) => {
+const FeatureFlagsFilter: React.FC<FeatureFlagsListProps> = ({
+  catalogueMockData,
+  statisticsMockData,
+  filtersMockData
+}) => {
   const { getString } = useStrings()
-  const { isGitSyncEnabled } = useAppStore()
-  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
   const [filters, setFilters] = useState<FilterDTO[]>()
   const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
   const { showError } = useToaster()
-  const [connectors, setConnectors] = useState<PageConnectorResponse | undefined>()
-  const [loading, setLoading] = useState<boolean>(false)
-  const [connectorFetchError, setConnectorFetchError] = useState<GetDataError<Failure | Error>>()
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
   const [isFetchingStats, setIsFetchingStats] = useState<boolean>(false)
   const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
-  const [gitFilter, setGitFilter] = useState<GitFilterScope>({ repo: '', branch: '' })
   const [shouldApplyGitFilters, setShouldApplyGitFilters] = useState<boolean>()
   const [queryParamsWithGitContext, setQueryParamsWithGitContext] = useState<GetConnectorListV2QueryParams>({})
   const defaultQueryParams: GetConnectorListV2QueryParams = {
@@ -112,8 +98,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     accountIdentifier: accountId,
     searchTerm: ''
   }
-  const history = useHistory()
-  useDocumentTitle(getString('connectorsLabel'))
 
   const ConnectorCatalogueNames = new Map<ConnectorCatalogueItem['category'], string>()
   // This list will control which categories will be displayed in UI and its order
@@ -134,100 +118,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   ConnectorCatalogueNames.set('SECRET_MANAGER', getString('secretManagers'))
   ConnectorCatalogueNames.set('CLOUD_COST', getString('cloudCostsText'))
 
-  /* #region Connector CRUD section */
-
-  const { mutate: fetchConnectors } = useGetConnectorListV2({
-    queryParams: defaultQueryParams
-  })
-
-  const refetchConnectorList = React.useCallback(
-    async (
-      params?: GetConnectorListV2QueryParams,
-      filter?: ConnectorFilterProperties,
-      needsRefinement = true
-    ): Promise<void> => {
-      setLoading(true)
-      const { connectorNames, connectorIdentifiers, description, types, connectivityStatuses, tags } = filter || {}
-
-      const requestBodyPayload = Object.assign(
-        filter
-          ? {
-              connectorNames: typeof connectorNames === 'string' ? [connectorNames] : connectorNames,
-              connectorIdentifiers:
-                typeof connectorIdentifiers === 'string' ? [connectorIdentifiers] : connectorIdentifiers,
-              description,
-              types: needsRefinement ? types?.map(type => type?.toString()) : types,
-              connectivityStatuses: needsRefinement
-                ? connectivityStatuses?.map(status => status?.toString())
-                : connectivityStatuses,
-              tags
-            }
-          : {},
-        {
-          filterType: 'Connector'
-        }
-      ) as ConnectorFilterProperties
-      const sanitizedFilterRequest = removeNullAndEmpty(requestBodyPayload)
-      try {
-        const { status, data } = await fetchConnectors(sanitizedFilterRequest, { queryParams: params })
-        /* istanbul ignore else */ if (status === 'SUCCESS') {
-          setConnectors(data)
-          setConnectorFetchError(undefined)
-        }
-      } /* istanbul ignore next */ catch (e) {
-        if (shouldShowError(e)) {
-          showError(e.data?.message || e.message)
-        }
-        setConnectorFetchError(e)
-      }
-      setLoading(false)
-    },
-    [fetchConnectors]
-  )
-
-  /* Different ways to trigger filter search */
-
-  /* Initial page load and through page browsing*/
-  useEffect(() => {
-    const updatedQueryParams = {
-      ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams),
-      projectIdentifier,
-      orgIdentifier,
-      searchTerm,
-      pageIndex: page
-    }
-    refetchConnectorList(updatedQueryParams, appliedFilter?.filterProperties)
-  }, [page, projectIdentifier, orgIdentifier])
-
-  /* Through git filter */
-  useEffect(() => {
-    const shouldApply = isGitSyncEnabled && !!gitFilter.repo && !!gitFilter.branch
-    const updatedQueryParams = { ...defaultQueryParams, repoIdentifier: gitFilter.repo, branch: gitFilter.branch }
-    refetchConnectorList(shouldApply ? updatedQueryParams : defaultQueryParams, appliedFilter?.filterProperties)
-    setShouldApplyGitFilters(shouldApply)
-    setQueryParamsWithGitContext(updatedQueryParams)
-  }, [gitFilter])
-
-  const debouncedConnectorSearch = useCallback(
-    debounce((query: string): void => {
-      const updatedQueryParams = {
-        ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams),
-        searchTerm: query,
-        pageIndex: 0
-      }
-      refetchConnectorList(updatedQueryParams, appliedFilter?.filterProperties)
-      if (!query) {
-        setPage(0)
-      }
-    }, 500),
-    [refetchConnectorList, appliedFilter?.filterProperties, shouldApplyGitFilters]
-  )
-
   /* Clearing filter from Connector Filter Panel */
   const reset = (): void => {
-    refetchConnectorList(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams)
-    setAppliedFilter(undefined)
-    setConnectorFetchError(undefined)
+    console.log('RESET')
   }
 
   /* #endregion */
@@ -257,12 +150,12 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
               categoryLabel: ConnectorCatalogueNames.get(item['category']) || '',
               items:
                 item.connectors
-                  ?.sort((a, b) => (getConnectorDisplayName(a) < getConnectorDisplayName(b) ? -1 : 1))
+                  ?.sort((a, b) => (a < b ? -1 : 1)) // TODO: lowerCase(name)
                   .map(entry => {
                     const name = entry.valueOf() || ''
                     return {
-                      itemLabel: getConnectorDisplayName(entry) || name,
-                      iconName: getIconByType(entry),
+                      itemLabel: name || 'FOOBAR1',
+                      iconName: 'edit', // TODO: ICON?
                       value: name
                     }
                   }) || []
@@ -288,24 +181,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     setIsFetchingStats(isFetchingConnectorStats)
   }, [isFetchingConnectorStats])
 
-  const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: async () => {
-      const _params = shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams
-      Promise.all([
-        refetchConnectorList(_params, appliedFilter?.filterProperties),
-        fetchConnectorStats({ queryParams: _params })
-      ])
-    },
-    onClose: noop
-  })
-
-  const rerouteBasedOnContext = (): void => {
-    history.push(routes.toCreateConnectorFromYaml({ accountId, projectIdentifier, orgIdentifier, module }))
-  }
-
   const [openDrawer, hideDrawer] = useModalHook(() => {
     const onSelect = (val: ItemInterface): void => {
-      openConnectorModal(false, val?.value as ConnectorInfoDTO['type'], undefined)
       hideDrawer()
     }
 
@@ -322,11 +199,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     )
   }, [catalogueData])
 
-  /* #endregion */
-
-  /* #region Connector Filter CRUD Section */
-
-  const ConnectorForm = (): React.ReactElement => {
+  const FilterForm = (): React.ReactElement => {
     return (
       <>
         <FormInput.MultiSelect
@@ -458,7 +331,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           searchTerm,
           pageIndex: 0
         }
-        refetchConnectorList(updatedQueryParams, aggregatedFilter, false)
+        // refetchConnectorList(updatedQueryParams, aggregatedFilter, false)
         setAppliedFilter({ ...unsavedFilter, filterProperties: aggregatedFilter || {} })
         setPage(0)
         hideFilterDrawer()
@@ -500,7 +373,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         onDelete={handleDelete}
         onFilterSelect={handleFilterClick}
         isRefreshingFilters={isRefreshingFilters || isFetchingStats}
-        formFields={<ConnectorForm />}
+        formFields={<FilterForm />}
         onValidate={(values: Partial<ConnectorFormType>): FormikErrors<Partial<ConnectorFormType>> => {
           const errors: FormikErrors<{ types?: MultiSelectOption[]; connectivityStatuses?: MultiSelectOption[] }> = {}
           const { typeErrors, connectivityStatusErrors } = validateForm(
@@ -544,11 +417,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       const aggregatedFilter = getAggregatedConnectorFilter(searchTerm, selectedFilter?.filterProperties || {})
       const combinedFilter = Object.assign(selectedFilter, { filterProperties: aggregatedFilter })
       setAppliedFilter(combinedFilter)
-      refetchConnectorList(
-        shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams,
-        aggregatedFilter,
-        false
-      )
+
+      console.log('handle filter selection')
     } else {
       reset()
     }
@@ -562,123 +432,31 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   fieldToLabelMapping.set('tags', getString('tagsLabel'))
   fieldToLabelMapping.set('connectivityStatuses', getString('connectivityStatus'))
 
-  /* #endregion */
-
   return (
-    <>
-      <Page.Header title={getString('connectorsLabel')} />
-      <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
-        <Layout.Horizontal flex className={css.header}>
-          <Layout.Horizontal spacing="small">
-            <RbacButton
-              intent="primary"
-              text={getString('newConnector')}
-              icon="plus"
-              permission={{
-                permission: PermissionIdentifier.UPDATE_CONNECTOR,
-                resource: {
-                  resourceType: ResourceType.CONNECTOR
-                }
-              }}
-              onClick={openDrawer}
-              id="newConnectorBtn"
-              data-test="newConnectorButton"
-              withoutBoxShadow
-            />
-            <RbacButton
-              margin={{ left: 'small' }}
-              text={getString('createViaYaml')}
-              permission={{
-                permission: PermissionIdentifier.UPDATE_CONNECTOR,
-                resource: {
-                  resourceType: ResourceType.CONNECTOR
-                },
-                resourceScope: {
-                  accountIdentifier: accountId,
-                  orgIdentifier,
-                  projectIdentifier
-                }
-              }}
-              onClick={rerouteBasedOnContext}
-              id="newYamlConnectorBtn"
-              data-test="createViaYamlButton"
-              withoutBoxShadow
-            />
-            {isGitSyncEnabled && (
-              <GitSyncStoreProvider>
-                <GitFilters
-                  onChange={filter => {
-                    setGitFilter(filter)
-                    setPage(0)
-                  }}
-                  className={css.gitFilter}
-                />
-              </GitSyncStoreProvider>
-            )}
-          </Layout.Horizontal>
-
-          <Layout.Horizontal margin={{ left: 'small' }}>
-            <Container className={css.expandSearch} margin={{ right: 'small' }} data-name="connectorSeachContainer">
-              <ExpandingSearchInput
-                placeholder={getString('search')}
-                throttle={200}
-                onChange={(query: string) => {
-                  debouncedConnectorSearch(encodeURIComponent(query))
-                  setSearchTerm(query)
-                }}
-              />
-            </Container>
-            <h1>hello</h1>
-            <FilterSelector<FilterDTO>
-              appliedFilter={appliedFilter}
-              filters={filters}
-              onFilterBtnClick={openFilterDrawer}
-              onFilterSelect={handleFilterSelection}
-              fieldToLabelMapping={fieldToLabelMapping}
-              filterWithValidFields={removeNullAndEmpty(
-                pick(flattenObject(appliedFilter?.filterProperties || {}), ...fieldToLabelMapping.keys())
-              )}
-            />
-          </Layout.Horizontal>
-        </Layout.Horizontal>
-        <Page.Body className={css.listBody}>
-          {loading ? (
-            <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
-              <PageSpinner />
-            </div>
-          ) : /* istanbul ignore next */ connectorFetchError && shouldShowError(connectorFetchError) ? (
-            <div style={{ paddingTop: '200px' }}>
-              <PageError
-                message={(connectorFetchError?.data as Error)?.message || connectorFetchError?.message}
-                onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  reset()
-                }}
-              />
-            </div>
-          ) : connectors?.content?.length ? (
-            <ConnectorsListView
-              data={connectors}
-              reload={async () => {
-                const __params = shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams
-                Promise.all([
-                  refetchConnectorList(__params, appliedFilter?.filterProperties),
-                  fetchConnectorStats({
-                    queryParams: __params
-                  })
-                ])
-              }}
-              openConnectorModal={openConnectorModal}
-              gotoPage={pageNumber => setPage(pageNumber)}
-            />
-          ) : (
-            <Page.NoDataCard icon="nav-dashboard" message={getString('noConnectorFound')} />
-          )}
-        </Page.Body>
-      </Layout.Vertical>
-    </>
+    <Layout.Horizontal margin={{ left: 'small' }}>
+      <Container className={css.expandSearch} margin={{ right: 'small' }} data-name="connectorSeachContainer">
+        <ExpandingSearchInput
+          placeholder={getString('search')}
+          throttle={200}
+          onChange={(query: string) => {
+            // debouncedConnectorSearch(encodeURIComponent(query))
+            console.log('SEARCH')
+            setSearchTerm(query)
+          }}
+        />
+      </Container>
+      <FilterSelector<FilterDTO>
+        appliedFilter={appliedFilter}
+        filters={filters}
+        onFilterBtnClick={openFilterDrawer}
+        onFilterSelect={handleFilterSelection}
+        fieldToLabelMapping={fieldToLabelMapping}
+        filterWithValidFields={removeNullAndEmpty(
+          pick(flattenObject(appliedFilter?.filterProperties || {}), ...fieldToLabelMapping.keys())
+        )}
+      />
+    </Layout.Horizontal>
   )
 }
 
-export default ConnectorsPage
+export default FeatureFlagsFilter

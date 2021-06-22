@@ -4,15 +4,14 @@ import {
   Button,
   Color,
   Container,
+  ExpandingSearchInput,
   FlexExpander,
   Heading,
-  // Icon,
   Layout,
   Pagination,
   Text,
   Utils
 } from '@wings-software/uicore'
-// import ReactTimeago from 'react-timeago'
 import { noop } from 'lodash-es'
 import { Classes, Position, Switch } from '@blueprintjs/core'
 import type { Cell, CellProps, Column, Renderer } from 'react-table'
@@ -53,13 +52,13 @@ import {
   useFeatureFlagTypeToStringMapping
 } from '@cf/utils/CFUtils'
 import { FlagTypeVariations } from '@cf/components/CreateFlagDialog/FlagDialogUtils'
-// import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '@cf/components/CreateFlagDialog/FlagDialog'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import imageURL from './flag.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
 import css from './FeatureFlagsPage.module.scss'
+import FeatureFlagsFilter from './FeatureFlagsFilter'
 
 interface RenderColumnFlagProps {
   cell: Cell<Feature>
@@ -68,7 +67,6 @@ interface RenderColumnFlagProps {
 
 const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column }, update }) => {
   const data = row.original
-  // const [environment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
   const [status, setStatus] = useState(isFeatureFlagOn(data))
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId: accountIdentifier } = useParams<Record<string, string>>()
@@ -302,15 +300,6 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   )
 }
 
-// const RenderColumnLastUpdated: Renderer<CellProps<Feature>> = ({ row }) => {
-//   return row.original?.modifiedAt ? (
-//     <Layout.Horizontal spacing="small">
-//       <Icon name="activity" />
-//       <ReactTimeago date={row.original?.modifiedAt} />
-//     </Layout.Horizontal>
-//   ) : null
-// }
-
 interface ColumnMenuProps {
   cell: Cell<Feature>
   environment?: string
@@ -402,8 +391,6 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 }
 
 const FeatureFlagsPage: React.FC = () => {
-  // const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
-  // const [isDrawerOpened, setIsDrawerOpened] = useState(false)
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
   const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
@@ -534,14 +521,6 @@ const FeatureFlagsPage: React.FC = () => {
     [refetch, features, getString, activeEnvironment]
   )
 
-  // const onDrawerOpened = (): void => {
-  //   setIsDrawerOpened(true)
-  // }
-
-  // const onDrawerClose = (): void => {
-  //   setIsDrawerOpened(false)
-  // }
-
   const hasFeatureFlags = features?.features && features?.features?.length > 0
   const emptyFeatureFlags = !loading && features?.features?.length === 0
   const title = getString('featureFlagsText')
@@ -562,19 +541,7 @@ const FeatureFlagsPage: React.FC = () => {
         <Layout.Horizontal>
           <FlagDialog disabled={loading} environment={activeEnvironment} />
           <FlexExpander />
-
-          {/** TODO: Disable search as backend does not support it yet */}
-          {/* <ExpandingSearchInput name="findFlag" placeholder={i18n.searchInputFlag} className={css.ffPageBtnsSearch} /> */}
-
-          {/** TODO: Disable filter as backend does not fully support it yet */}
-          {/* <Button
-            disabled={loading}
-            icon="settings"
-            iconProps={{ size: 20, color: Color.BLUE_500 }}
-            minimal
-            intent="primary"
-            onClick={onDrawerOpened}
-          /> */}
+          <FeatureFlagsFilter />
         </Layout.Horizontal>
       }
       content={

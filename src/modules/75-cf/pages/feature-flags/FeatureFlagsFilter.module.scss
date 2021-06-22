@@ -1,0 +1,108 @@
+.header {
+  padding: var(--spacing-large) !important;
+  border-bottom: 1px solid var(--grey-300);
+  background: var(--white) !important;
+}
+
+.gitFilter {
+  height: 32px;
+  padding-left: var(--spacing-xlarge) !important;
+}
+.listBody {
+  min-height: calc(100vh - 136px);
+  min-width: 900px;
+}
+.listPage {
+  min-width: 900px;
+}
+.view {
+  justify-content: flex-end;
+}
+.tableContainer {
+  height: 100%;
+  > section > div > table {
+    > thead > tr {
+      th {
+        font-size: 10px !important;
+        font-weight: bold;
+        letter-spacing: 0.38px;
+      }
+    }
+    > tbody > tr > td {
+      padding: 10px !important;
+    }
+  }
+}
+
+.listContainer {
+  background-color: var(--grey-100) !important;
+  height: 100%;
+}
+.selectConnector {
+  padding: 0;
+  width: 240px;
+  overflow: auto;
+  > li > a {
+    height: 40px;
+  }
+  > li {
+    &:hover {
+      background-color: var(--primary-7);
+      font-weight: 500;
+      .dropdownLabel {
+        color: var(--white) !important;
+      }
+    }
+  }
+}
+
+.ngFilter {
+  svg {
+    path:last-of-type {
+      fill: var(--black) !important;
+    }
+  }
+  border: 1px solid var(--grey-400) !important;
+}
+
+.fieldCount {
+  display: block;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  background-color: #0a3364;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  right: 1vh;
+}
+
+.summaryPopover {
+  svg {
+    path {
+      fill: var(--black) !important;
+    }
+  }
+}
+
+.loading {
+  margin: auto;
+  height: 100vh;
+}
+
+.expandSearch {
+  width: 200px;
+  display: flex;
+  justify-content: flex-end;
+  :global {
+    input[type='search'] {
+      border: 0;
+    }
+    input[type='search']:focus {
+      border: 1px solid var(--grey-200);
+      border-radius: 5px !important;
+    }
+  }
+}

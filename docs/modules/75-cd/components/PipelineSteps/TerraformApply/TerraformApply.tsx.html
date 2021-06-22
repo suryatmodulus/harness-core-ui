@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.46% </span>
+                <span class="strong">89.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/52</span>
+                <span class='fraction'>33/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.11% </span>
+                <span class="strong">62.16% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>46/90</span>
+                <span class='fraction'>46/74</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.44% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/9</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.46% </span>
+                <span class="strong">89.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/52</span>
+                <span class='fraction'>33/37</span>
             </div>
         
             
@@ -214,7 +214,12 @@
 <a name='L155'></a><a href='#L155'>155</a>
 <a name='L156'></a><a href='#L156'>156</a>
 <a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -266,31 +271,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,38 +426,43 @@ export class TerraformApply extends PipelineStep&lt;TFFormData&gt; {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Apply'
-&nbsp;
-<span class="fstat-no" title="function not covered" >  validateInputSet(</span>{
+  /* istanbul ignore next */
+  validateInputSet({
     data,
     template,
     getString,
     viewType
   }: ValidateInputSetProps&lt;TFFormData&gt;): FormikErrors&lt;TFFormData&gt; {
-    const errors = <span class="cstat-no" title="statement not covered" >{} as any</span>
-    const isRequired = <span class="cstat-no" title="statement not covered" >viewType === StepViewType.DeploymentForm</span>
-<span class="cstat-no" title="statement not covered" >    if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {</span>
-      let timeoutSchema = <span class="cstat-no" title="statement not covered" >getDurationValidationSchema({ minimum: '10s' })</span>
-<span class="cstat-no" title="statement not covered" >      if (isRequired) {</span>
-<span class="cstat-no" title="statement not covered" >        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))</span>
+    /* istanbul ignore next */
+    const errors = {} as any
+    /* istanbul ignore next */
+    const isRequired = viewType === StepViewType.DeploymentForm
+    /* istanbul ignore next */
+    if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      /* istanbul ignore next */
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
       }
-      const timeout = <span class="cstat-no" title="statement not covered" >Yup.object().shape({</span>
+      const timeout = Yup.object().shape({
         timeout: timeoutSchema
       })
+      /* istanbul ignore next */
+      try {
+        timeout.validateSync(data)
+      } /* istanbul ignore next */ catch (e) {
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      try {</span>
-<span class="cstat-no" title="statement not covered" >        timeout.validateSync(data)</span>
-      } catch (e) {
-<span class="cstat-no" title="statement not covered" >        if (e instanceof Yup.ValidationError) {</span>
-          const err = <span class="cstat-no" title="statement not covered" >yupToFormErrors(e)</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >          Object.assign(errors, err)</span>
+          Object.assign(errors, err)
         }
       }
     }
-<span class="cstat-no" title="statement not covered" >    if (isEmpty(errors.spec)) {</span>
-<span class="cstat-no" title="statement not covered" >      delete errors.spec</span>
+    /* istanbul ignore next */
+    if (isEmpty(errors.spec)) {
+      delete errors.spec
     }
-<span class="cstat-no" title="statement not covered" >    return errors</span>
+    return errors
   }
 &nbsp;
   private getInitialValues(data: TFFormData): TerraformData {
@@ -535,7 +550,7 @@ export class TerraformApply extends PipelineStep&lt;TFFormData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 19:46:51 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 22:20:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

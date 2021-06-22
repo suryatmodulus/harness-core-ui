@@ -2245,7 +2245,8 @@
         "metadata": {
           "type": "object",
           "$ref": "#/definitions/ServiceMetadata"
-        }
+        },
+        "status": { "type": "string" }
       }
     },
     "ServiceMetadata": {

@@ -383,6 +383,7 @@ export interface Service {
   org_id: string
   project_id?: string
   routing?: RoutingData
+  status?: string
 }
 
 export interface ServiceDefinitionByIDResponse {

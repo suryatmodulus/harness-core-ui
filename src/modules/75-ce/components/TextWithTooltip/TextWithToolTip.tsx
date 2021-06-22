@@ -48,7 +48,7 @@ const TextWithToolTip: React.FC<TextWithToolTipProps> = props => {
       }
       tooltipProps={{ isDark: true, position: 'bottom' }}
     >
-      {isSuccess ? props.messageText : null}
+      {props.messageText || null}
     </Text>
   )
 }

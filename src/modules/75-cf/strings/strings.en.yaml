@@ -32,7 +32,7 @@ messages:
   segmentUpdated: Target group updated.
   segmentDeleted: Target group deleted.
 rbac:
-  category: '{{$.featureFlagsText}}'
+  category: '{{ $.common.purpose.cf.continuous }}'
   featureflag:
     label: Feature flags
     edit: '{{ $.edit }}'

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.52% </span>
+                <span class="strong">82.95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>71/84</span>
+                <span class='fraction'>73/88</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.39% </span>
+                <span class="strong">85.06% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>76/89</span>
+                <span class='fraction'>74/87</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72% </span>
+                <span class="strong">69.23% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>18/25</span>
+                <span class='fraction'>18/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.34% </span>
+                <span class="strong">82.76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>70/83</span>
+                <span class='fraction'>72/87</span>
             </div>
         
             
@@ -367,7 +367,18 @@
 <a name='L308'></a><a href='#L308'>308</a>
 <a name='L309'></a><a href='#L309'>309</a>
 <a name='L310'></a><a href='#L310'>310</a>
-<a name='L311'></a><a href='#L311'>311</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -422,6 +433,8 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -442,6 +455,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -472,6 +492,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -683,7 +705,7 @@ import moment from 'moment'
 import ReactTimeago from 'react-timeago'
 import { Intent } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
-import { Color, Container, Layout, Pagination, Text } from '@wings-software/uicore'
+import { Color, Container, ExpandingSearchInput, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
 import type { Cell, Column } from 'react-table'
 import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import Table from '@common/components/Table/Table'
@@ -704,7 +726,7 @@ import {
 } from '@cf/components/StackedCircleContainer/StackedCircleContainer'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
-import { Segment, useDeleteSegment, useGetAllSegments } from 'services/cf'
+import { GetAllSegmentsQueryParams, Segment, useDeleteSegment, useGetAllSegments } from 'services/cf'
 import TargetManagementHeader from '@cf/components/TargetManagementHeader/TargetManagementHeader'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -730,6 +752,7 @@ export const SegmentsPage: React.FC = () =&gt; {
   const { projectIdentifier, orgIdentifier, accountId } = useParams&lt;Record&lt;string, string&gt;&gt;()
   const { getString } = useStrings()
   const [pageNumber, setPageNumber] = useState(0)
+  const [searchTerm, setSearchTerm] = useState('')
   const queryParams = useMemo(
     () =&gt; ({
       project: projectIdentifier,
@@ -738,9 +761,10 @@ export const SegmentsPage: React.FC = () =&gt; {
       pageSize: CF_DEFAULT_PAGE_SIZE,
       account: accountId,
       accountIdentifier: accountId,
-      org: orgIdentifier
+      org: orgIdentifier,
+      name: searchTerm
     }),
-    [accountId, orgIdentifier, projectIdentifier, activeEnvironment, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
+    [accountId, orgIdentifier, projectIdentifier, activeEnvironment, pageNumber, searchTerm] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const {
     data: segmentsData,
@@ -752,6 +776,13 @@ export const SegmentsPage: React.FC = () =&gt; {
     lazy: !activeEnvironment
   })
   const history = useHistory()
+  const onSearchInputChanged = useCallback(
+<span class="fstat-no" title="function not covered" >    name </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >      setSearchTerm(name)</span>
+<span class="cstat-no" title="statement not covered" >      refetchSegments({ queryParams: { ...queryParams, name } as GetAllSegmentsQueryParams })</span>
+    },
+    [setSearchTerm, refetchSegments, queryParams]
+  )
   const loading = loadingEnvironments || loadingSegments
   const error = errEnvironments || errSegments
   const noSegmentExists = segmentsData?.segments?.length === 0
@@ -787,6 +818,8 @@ export const SegmentsPage: React.FC = () =&gt; {
       &lt;Text font={{ size: 'small' }} color={Color.GREY_400} style={{ alignSelf: 'center' }}&gt;
         {getString('cf.segments.pageDescription')}
       &lt;/Text&gt;
+      &lt;FlexExpander /&gt;
+      &lt;ExpandingSearchInput name="findFlag" placeholder={getString('search')} onChange={onSearchInputChanged} /&gt;
     &lt;/Layout.Horizontal&gt;
   )
   const { showError, clear } = useToaster()
@@ -962,7 +995,7 @@ export const SegmentsPage: React.FC = () =&gt; {
         &lt;TargetManagementHeader environmentSelect={&lt;EnvironmentSelect /&gt;} hasEnvironments={!!environments?.length} /&gt;
       }
       headerStyle={{ display: 'flex' }}
-      toolbar={!error &amp;&amp; !noEnvironmentExists &amp;&amp; !noSegmentExists &amp;&amp; toolbar}
+      toolbar={!noEnvironmentExists &amp;&amp; toolbar}
       content={((!error || noEnvironmentExists) &amp;&amp; content) || null}
       pagination={
         !noEnvironmentExists &amp;&amp;
@@ -994,7 +1027,7 @@ export const SegmentsPage: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 16:40:18 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 19:46:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

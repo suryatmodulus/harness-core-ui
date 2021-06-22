@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.19% </span>
+                <span class="strong">84.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>115/135</span>
+                <span class='fraction'>117/139</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.13% </span>
+                <span class="strong">67.28% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>109/160</span>
+                <span class='fraction'>109/162</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.59% </span>
+                <span class="strong">68.57% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>24/34</span>
+                <span class='fraction'>24/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.82% </span>
+                <span class="strong">84.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>115/134</span>
+                <span class='fraction'>117/138</span>
             </div>
         
             
@@ -695,9 +695,18 @@
 <a name='L636'></a><a href='#L636'>636</a>
 <a name='L637'></a><a href='#L637'>637</a>
 <a name='L638'></a><a href='#L638'>638</a>
-<a name='L639'></a><a href='#L639'>639</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L639'></a><a href='#L639'>639</a>
+<a name='L640'></a><a href='#L640'>640</a>
+<a name='L641'></a><a href='#L641'>641</a>
+<a name='L642'></a><a href='#L642'>642</a>
+<a name='L643'></a><a href='#L643'>643</a>
+<a name='L644'></a><a href='#L644'>644</a>
+<a name='L645'></a><a href='#L645'>645</a>
+<a name='L646'></a><a href='#L646'>646</a>
+<a name='L647'></a><a href='#L647'>647</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1106,7 +1115,9 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1230,6 +1241,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1251,8 +1269,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1333,12 +1349,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useMemo, useRef, useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import {
   Button,
   Color,
   Container,
+  ExpandingSearchInput,
   FlexExpander,
   Heading,
   // Icon,
@@ -1743,6 +1760,7 @@ const FeatureFlagsPage: React.FC = () =&gt; {
   const history = useHistory()
   const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
   const [pageNumber, setPageNumber] = useState(0)
+  const [searchTerm, setSearchTerm] = useState('')
   const queryParams = useMemo(
     () =&gt; ({
       project: projectIdentifier as string,
@@ -1752,9 +1770,10 @@ const FeatureFlagsPage: React.FC = () =&gt; {
       org: orgIdentifier,
       pageSize: CF_DEFAULT_PAGE_SIZE,
       pageNumber,
-      metrics: true
+      metrics: true,
+      name: searchTerm
     }),
-    [projectIdentifier, activeEnvironment, accountId, orgIdentifier, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
+    [projectIdentifier, activeEnvironment, accountId, orgIdentifier, pageNumber, searchTerm] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const { data, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
     lazy: true,
@@ -1868,6 +1887,13 @@ const FeatureFlagsPage: React.FC = () =&gt; {
     ],
     [refetch, features, getString, activeEnvironment]
   )
+  const onSearchInputChanged = useCallback(
+<span class="fstat-no" title="function not covered" >    name </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >      setSearchTerm(name)</span>
+<span class="cstat-no" title="statement not covered" >      refetch({ queryParams: { ...queryParams, name } })</span>
+    },
+    [setSearchTerm, refetch, queryParams]
+  )
 &nbsp;
   // const onDrawerOpened = (): void =&gt; {
   //   setIsDrawerOpened(true)
@@ -1895,11 +1921,9 @@ const FeatureFlagsPage: React.FC = () =&gt; {
       headerStyle={{ display: 'flex' }}
       toolbar={
         &lt;Layout.Horizontal&gt;
-          &lt;FlagDialog disabled={loading} environment={activeEnvironment} /&gt;
+          &lt;FlagDialog environment={activeEnvironment} /&gt;
           &lt;FlexExpander /&gt;
-&nbsp;
-          {/** TODO: Disable search as backend does not support it yet */}
-          {/* &lt;ExpandingSearchInput name="findFlag" placeholder={i18n.searchInputFlag} className={css.ffPageBtnsSearch} /&gt; */}
+          &lt;ExpandingSearchInput name="findFlag" placeholder={getString('search')} onChange={onSearchInputChanged} /&gt;
 &nbsp;
           {/** TODO: Disable filter as backend does not fully support it yet */}
           {/* &lt;Button
@@ -1939,7 +1963,7 @@ const FeatureFlagsPage: React.FC = () =&gt; {
 &nbsp;
           {!loading &amp;&amp; emptyFeatureFlags &amp;&amp; (
 <span class="branch-2 cbranch-no" title="branch not covered" >            &lt;Container width="100%" height="100%" flex={{ align: 'center-center' }}&gt;</span>
-              &lt;NoData imageURL={imageURL} message={getString('cf.noFlag')}&gt;
+              &lt;NoData imageURL={imageURL} message={getString(searchTerm ? 'cf.noResultMatch' : 'cf.noFlag')}&gt;
                 &lt;FlagDialog environment={activeEnvironment} /&gt;
               &lt;/NoData&gt;
             &lt;/Container&gt;
@@ -1978,7 +2002,7 @@ export default FeatureFlagsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 16:40:18 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 19:46:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

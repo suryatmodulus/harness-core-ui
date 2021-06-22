@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import {
   Button,
   Color,
   Container,
+  ExpandingSearchInput,
   FlexExpander,
   Heading,
   // Icon,
@@ -408,6 +409,7 @@ const FeatureFlagsPage: React.FC = () => {
   const history = useHistory()
   const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
   const [pageNumber, setPageNumber] = useState(0)
+  const [searchTerm, setSearchTerm] = useState('')
   const queryParams = useMemo(
     () => ({
       project: projectIdentifier as string,
@@ -417,9 +419,10 @@ const FeatureFlagsPage: React.FC = () => {
       org: orgIdentifier,
       pageSize: CF_DEFAULT_PAGE_SIZE,
       pageNumber,
-      metrics: true
+      metrics: true,
+      name: searchTerm
     }),
-    [projectIdentifier, activeEnvironment, accountId, orgIdentifier, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
+    [projectIdentifier, activeEnvironment, accountId, orgIdentifier, pageNumber, searchTerm] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const { data, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
     lazy: true,
@@ -533,6 +536,13 @@ const FeatureFlagsPage: React.FC = () => {
     ],
     [refetch, features, getString, activeEnvironment]
   )
+  const onSearchInputChanged = useCallback(
+    name => {
+      setSearchTerm(name)
+      refetch({ queryParams: { ...queryParams, name } })
+    },
+    [setSearchTerm, refetch, queryParams]
+  )
 
   // const onDrawerOpened = (): void => {
   //   setIsDrawerOpened(true)
@@ -560,11 +570,9 @@ const FeatureFlagsPage: React.FC = () => {
       headerStyle={{ display: 'flex' }}
       toolbar={
         <Layout.Horizontal>
-          <FlagDialog disabled={loading} environment={activeEnvironment} />
+          <FlagDialog environment={activeEnvironment} />
           <FlexExpander />
-
-          {/** TODO: Disable search as backend does not support it yet */}
-          {/* <ExpandingSearchInput name="findFlag" placeholder={i18n.searchInputFlag} className={css.ffPageBtnsSearch} /> */}
+          <ExpandingSearchInput name="findFlag" placeholder={getString('search')} onChange={onSearchInputChanged} />
 
           {/** TODO: Disable filter as backend does not fully support it yet */}
           {/* <Button
@@ -604,7 +612,7 @@ const FeatureFlagsPage: React.FC = () => {
 
           {!loading && emptyFeatureFlags && (
             <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
-              <NoData imageURL={imageURL} message={getString('cf.noFlag')}>
+              <NoData imageURL={imageURL} message={getString(searchTerm ? 'cf.noResultMatch' : 'cf.noFlag')}>
                 <FlagDialog environment={activeEnvironment} />
               </NoData>
             </Container>

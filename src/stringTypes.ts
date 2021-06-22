@@ -2163,6 +2163,7 @@ export interface StringsMap {
   'cf.noEnvironment.message': string
   'cf.noEnvironment.title': string
   'cf.noFlag': string
+  'cf.noResultMatch': string
   'cf.noTarget': string
   'cf.noTargetForEnv': string
   'cf.onboarding.allSet': string

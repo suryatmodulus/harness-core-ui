@@ -63,7 +63,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
       pageNumber,
       sortByField,
       sortOrder,
-      queryString
+      name: queryString
     }),
     [
       accountId,

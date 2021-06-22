@@ -104,6 +104,7 @@ boolean: Boolean
 multivariate: Multivariate
 featureNotReady: This feature is not yet ready. Please check back later.
 noFlag: You currently have no flags
+noResultMatch: No results match your search criteria
 noTarget: There are currently no targets
 noTargetForEnv: There are currently no targets for this environment
 homepage:

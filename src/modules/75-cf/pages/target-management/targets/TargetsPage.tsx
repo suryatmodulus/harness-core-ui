@@ -4,7 +4,16 @@ import moment from 'moment'
 import ReactTimeago from 'react-timeago'
 import { Intent } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
-import { Button, Color, Container, Layout, Pagination, Text } from '@wings-software/uicore'
+import {
+  Button,
+  Color,
+  Container,
+  ExpandingSearchInput,
+  FlexExpander,
+  Layout,
+  Pagination,
+  Text
+} from '@wings-software/uicore'
 import type { Cell, Column } from 'react-table'
 import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import Table from '@common/components/Table/Table'
@@ -52,6 +61,7 @@ export const TargetsPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { getString } = useStrings()
   const [pageNumber, setPageNumber] = useState(0)
+  const [searchTerm, setSearchTerm] = useState('')
   const queryParams = useMemo(
     () => ({
       account: accountId,
@@ -60,15 +70,23 @@ export const TargetsPage: React.FC = () => {
       project: projectIdentifier,
       environment: activeEnvironment,
       pageNumber,
-      pageSize: CF_DEFAULT_PAGE_SIZE
+      pageSize: CF_DEFAULT_PAGE_SIZE,
+      targetName: searchTerm
     }),
-    [accountId, orgIdentifier, projectIdentifier, activeEnvironment, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
+    [accountId, orgIdentifier, projectIdentifier, activeEnvironment, pageNumber, searchTerm] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const { data: targetsData, loading: loadingTargets, error: errTargets, refetch: refetchTargets } = useGetAllTargets({
     queryParams,
     lazy: !activeEnvironment
   })
   const history = useHistory()
+  const onSearchInputChanged = useCallback(
+    targetName => {
+      setSearchTerm(targetName)
+      refetchTargets({ queryParams: { ...queryParams, targetName } })
+    },
+    [setSearchTerm, refetchTargets, queryParams]
+  )
   const loading = loadingEnvironments || loadingTargets
   const error = errEnvironments || errTargets
   const noTargetExists = targetsData?.targets?.length === 0
@@ -90,6 +108,8 @@ export const TargetsPage: React.FC = () => {
       <Text font={{ size: 'small' }} color={Color.GREY_400} style={{ alignSelf: 'center' }}>
         {getString('cf.targets.pageDescription')}
       </Text>
+      <FlexExpander />
+      <ExpandingSearchInput name="findFlag" placeholder={getString('search')} onChange={onSearchInputChanged} />
     </Layout.Horizontal>
   )
   const gotoTargetDetailPage = useCallback(
@@ -317,7 +337,7 @@ export const TargetsPage: React.FC = () => {
         <TargetManagementHeader environmentSelect={<EnvironmentSelect />} hasEnvironments={!!environments?.length} />
       }
       headerStyle={{ display: 'flex' }}
-      toolbar={!error && !noEnvironmentExists && !noTargetExists && toolbar}
+      toolbar={!noEnvironmentExists && toolbar}
       content={((!error || noEnvironmentExists) && content) || null}
       pagination={
         !noEnvironmentExists &&

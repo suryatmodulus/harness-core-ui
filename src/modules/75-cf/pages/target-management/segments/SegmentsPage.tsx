@@ -4,7 +4,7 @@ import moment from 'moment'
 import ReactTimeago from 'react-timeago'
 import { Intent } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
-import { Color, Container, Layout, Pagination, Text } from '@wings-software/uicore'
+import { Color, Container, ExpandingSearchInput, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
 import type { Cell, Column } from 'react-table'
 import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import Table from '@common/components/Table/Table'
@@ -25,7 +25,7 @@ import {
 } from '@cf/components/StackedCircleContainer/StackedCircleContainer'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
-import { Segment, useDeleteSegment, useGetAllSegments } from 'services/cf'
+import { GetAllSegmentsQueryParams, Segment, useDeleteSegment, useGetAllSegments } from 'services/cf'
 import TargetManagementHeader from '@cf/components/TargetManagementHeader/TargetManagementHeader'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -51,6 +51,7 @@ export const SegmentsPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { getString } = useStrings()
   const [pageNumber, setPageNumber] = useState(0)
+  const [searchTerm, setSearchTerm] = useState('')
   const queryParams = useMemo(
     () => ({
       project: projectIdentifier,
@@ -59,9 +60,10 @@ export const SegmentsPage: React.FC = () => {
       pageSize: CF_DEFAULT_PAGE_SIZE,
       account: accountId,
       accountIdentifier: accountId,
-      org: orgIdentifier
+      org: orgIdentifier,
+      name: searchTerm
     }),
-    [accountId, orgIdentifier, projectIdentifier, activeEnvironment, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
+    [accountId, orgIdentifier, projectIdentifier, activeEnvironment, pageNumber, searchTerm] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const {
     data: segmentsData,
@@ -73,6 +75,13 @@ export const SegmentsPage: React.FC = () => {
     lazy: !activeEnvironment
   })
   const history = useHistory()
+  const onSearchInputChanged = useCallback(
+    name => {
+      setSearchTerm(name)
+      refetchSegments({ queryParams: { ...queryParams, name } as GetAllSegmentsQueryParams })
+    },
+    [setSearchTerm, refetchSegments, queryParams]
+  )
   const loading = loadingEnvironments || loadingSegments
   const error = errEnvironments || errSegments
   const noSegmentExists = segmentsData?.segments?.length === 0
@@ -108,6 +117,8 @@ export const SegmentsPage: React.FC = () => {
       <Text font={{ size: 'small' }} color={Color.GREY_400} style={{ alignSelf: 'center' }}>
         {getString('cf.segments.pageDescription')}
       </Text>
+      <FlexExpander />
+      <ExpandingSearchInput name="findFlag" placeholder={getString('search')} onChange={onSearchInputChanged} />
     </Layout.Horizontal>
   )
   const { showError, clear } = useToaster()
@@ -283,7 +294,7 @@ export const SegmentsPage: React.FC = () => {
         <TargetManagementHeader environmentSelect={<EnvironmentSelect />} hasEnvironments={!!environments?.length} />
       }
       headerStyle={{ display: 'flex' }}
-      toolbar={!error && !noEnvironmentExists && !noSegmentExists && toolbar}
+      toolbar={!noEnvironmentExists && toolbar}
       content={((!error || noEnvironmentExists) && content) || null}
       pagination={
         !noEnvironmentExists &&

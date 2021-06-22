@@ -63,8 +63,69 @@ exports[`SegmentsPage No data view should be rendered 1`] = `
   >
     <div
       class="StyledProps--font StyledProps--main"
+      data-name="toolbar"
+      style="height: 64px; border-bottom: 0.5px solid #d9dae6; align-items: center; top: 0px; z-index: 1;"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+      >
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            cf.segments.create
+          </span>
+        </button>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400"
+          style="align-self: center;"
+        >
+          cf.segments.pageDescription
+        </p>
+        <span
+          style="flex-grow: 1;"
+        />
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+          data-name="findFlag"
+        >
+          <span
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
+            icon="search"
+          >
+            <svg
+              data-icon="search"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+            >
+              <desc>
+                search
+              </desc>
+              <path
+                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input "
+            dir="auto"
+            placeholder="search"
+            style="padding-right: 0px;"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main"
       data-name="content"
-      style="height: calc(100% - 0px - 0px); overflow: auto;"
+      style="height: calc(100% - 64px - 0px); overflow: auto;"
     >
       <div
         class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
@@ -406,6 +467,41 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
         >
           cf.segments.pageDescription
         </p>
+        <span
+          style="flex-grow: 1;"
+        />
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+          data-name="findFlag"
+        >
+          <span
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
+            icon="search"
+          >
+            <svg
+              data-icon="search"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+            >
+              <desc>
+                search
+              </desc>
+              <path
+                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input "
+            dir="auto"
+            placeholder="search"
+            style="padding-right: 0px;"
+            type="search"
+            value=""
+          />
+        </div>
       </div>
     </div>
     <div

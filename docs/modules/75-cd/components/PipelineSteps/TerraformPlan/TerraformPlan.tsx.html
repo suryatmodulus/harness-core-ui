@@ -590,13 +590,7 @@
 <a name='L531'></a><a href='#L531'>531</a>
 <a name='L532'></a><a href='#L532'>532</a>
 <a name='L533'></a><a href='#L533'>533</a>
-<a name='L534'></a><a href='#L534'>534</a>
-<a name='L535'></a><a href='#L535'>535</a>
-<a name='L536'></a><a href='#L536'>536</a>
-<a name='L537'></a><a href='#L537'>537</a>
-<a name='L538'></a><a href='#L538'>538</a>
-<a name='L539'></a><a href='#L539'>539</a>
-<a name='L540'></a><a href='#L540'>540</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L534'></a><a href='#L534'>534</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -721,6 +715,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -776,7 +772,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -832,8 +827,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -862,10 +855,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -913,8 +903,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1251,10 +1239,12 @@ function TerraformPlanWidget(
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         identifier: IdentifierSchema(),
         spec: Yup.object().shape({
-          provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
+          provisionerIdentifier: Yup.string()
+            .required(getString('pipelineSteps.provisionerIdentifierRequired'))
+            .nullable(),
           configuration: Yup.object().shape({
             command: Yup.string().required(getString('pipelineSteps.commandRequired')),
-            secretManagerRef: Yup.string().required(getString('cd.secretManagerRequired'))
+            secretManagerRef: Yup.string().required(getString('cd.secretManagerRequired')).nullable()
           })
         })
       })}
@@ -1269,7 +1259,7 @@ function TerraformPlanWidget(
                 &lt;FormInput.InputWithIdentifier inputLabel={getString('cd.stepName')} isIdentifierEditable={isNewStep} /&gt;
               &lt;/div&gt;
 &nbsp;
-              &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+              &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
                 &lt;FormMultiTypeDurationField
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
@@ -1300,7 +1290,6 @@ function TerraformPlanWidget(
                   className={css.radioBtns}
                 /&gt;
               &lt;/div&gt;
-              &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
               &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                 &lt;FormInput.MultiTextInput
                   name="spec.provisionerIdentifier"
@@ -1323,7 +1312,6 @@ function TerraformPlanWidget(
                 )}
               &lt;/div&gt;
 &nbsp;
-              &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
               &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                 &lt;FormMultiTypeConnectorField
                   label={
@@ -1355,7 +1343,6 @@ function TerraformPlanWidget(
                 /&gt;
               &lt;/div&gt;
 &nbsp;
-              &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
               &lt;Layout.Vertical className={cx(css.addMarginBottom)}&gt;
                 &lt;Label style={{ color: Color.GREY_900 }} className={css.configLabel}&gt;
                   {getString('cd.configurationFile')}
@@ -1377,7 +1364,6 @@ function TerraformPlanWidget(
                   &lt;/div&gt;
                 &lt;/div&gt;
               &lt;/Layout.Vertical&gt;
-              &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
               &lt;div className={css.addMarginTop}&gt;
                 &lt;Accordion className={stepCss.accordion}&gt;
                   &lt;Accordion.Panel
@@ -1408,9 +1394,7 @@ function TerraformPlanWidget(
                             /&gt;
                           )}
                         &lt;/div&gt;
-                        &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
                         &lt;TfVarFileList formik={formik} isReadonly={props.readonly} /&gt;
-                        &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
                         &lt;div
                           className={cx(stepCss.formGroup, stepCss.alignStart, css.addMarginTop, css.addMarginBottom)}
                         &gt;
@@ -1456,7 +1440,6 @@ function TerraformPlanWidget(
                             /&gt;
                           )}
                         &lt;/div&gt;
-                        &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
                         &lt;div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}&gt;
                           &lt;MultiTypeList
                             name="spec.configuration.targets"
@@ -1471,7 +1454,6 @@ function TerraformPlanWidget(
                             style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
                           /&gt;
                         &lt;/div&gt;
-                        &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
                         &lt;div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}&gt;
                           &lt;MultiTypeMap
                             name="spec.configuration.environmentVariables"
@@ -1681,7 +1663,7 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 20:02:33 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 00:32:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

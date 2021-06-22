@@ -444,14 +444,7 @@
 <a name='L385'></a><a href='#L385'>385</a>
 <a name='L386'></a><a href='#L386'>386</a>
 <a name='L387'></a><a href='#L387'>387</a>
-<a name='L388'></a><a href='#L388'>388</a>
-<a name='L389'></a><a href='#L389'>389</a>
-<a name='L390'></a><a href='#L390'>390</a>
-<a name='L391'></a><a href='#L391'>391</a>
-<a name='L392'></a><a href='#L392'>392</a>
-<a name='L393'></a><a href='#L393'>393</a>
-<a name='L394'></a><a href='#L394'>394</a>
-<a name='L395'></a><a href='#L395'>395</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L388'></a><a href='#L388'>388</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -624,9 +617,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -680,10 +671,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -745,8 +733,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -921,7 +907,7 @@ export default function TerraformEditView(
     identifier: IdentifierSchema(),
     timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
     spec: Yup.object().shape({
-      provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
+      provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')).nullable(),
       configuration: Yup.object().shape({
         type: Yup.string().required(getString('pipelineSteps.configurationTypeRequired'))
       })
@@ -972,7 +958,7 @@ export default function TerraformEditView(
                 &lt;FormInput.InputWithIdentifier inputLabel={getString('cd.stepName')} isIdentifierEditable={isNewStep} /&gt;
               &lt;/div&gt;
 &nbsp;
-              &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+              &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
                 &lt;FormMultiTypeDurationField
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
@@ -1002,7 +988,6 @@ export default function TerraformEditView(
                   placeholder={getString('pipelineSteps.configurationType')}
                 /&gt;
               &lt;/div&gt;
-              &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
 &nbsp;
               &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                 &lt;FormInput.MultiTextInput
@@ -1026,7 +1011,6 @@ export default function TerraformEditView(
                 )}
               &lt;/div&gt;
 &nbsp;
-              &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
               {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype === ConfigurationTypes.Inline &amp;&amp; (
                 &lt;&gt;
                   &lt;Layout.Vertical className={cx(css.addMarginBottom)}&gt;
@@ -1050,7 +1034,6 @@ export default function TerraformEditView(
                       &lt;/div&gt;
                     &lt;/div&gt;
                   &lt;/Layout.Vertical&gt;
-                  &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
                   &lt;div className={css.addMarginTop}&gt;
                     &lt;Accordion className={stepCss.accordion}&gt;
                       &lt;Accordion.Panel
@@ -1082,9 +1065,7 @@ export default function TerraformEditView(
                                 )}
                               &lt;/div&gt;
                             )}
-                            &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
                             &lt;TfVarFileList formik={formik} isReadonly={props.readonly} /&gt;
-                            &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
                             &lt;div
                               className={cx(
                                 stepCss.formGroup,
@@ -1144,7 +1125,6 @@ export default function TerraformEditView(
                                 /&gt;
                               )}
                             &lt;/div&gt;
-                            &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
                             &lt;div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}&gt;
                               &lt;MultiTypeList
                                 multiTextInputProps={{ expressions }}
@@ -1159,7 +1139,6 @@ export default function TerraformEditView(
                                 style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
                               /&gt;
                             &lt;/div&gt;
-                            &lt;div className={cx(css.fieldBorder, css.addMarginBottom)} /&gt;
                             &lt;div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}&gt;
                               &lt;MultiTypeMap
                                 valueMultiTextInputProps={{ expressions }}
@@ -1246,7 +1225,7 @@ export default function TerraformEditView(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 21 2021 20:02:33 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 00:32:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

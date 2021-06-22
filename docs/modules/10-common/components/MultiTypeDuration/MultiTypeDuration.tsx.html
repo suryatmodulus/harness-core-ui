@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.17% </span>
+                <span class="strong">69.84% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>83/120</span>
+                <span class='fraction'>88/126</span>
             </div>
         
             
@@ -342,10 +342,23 @@
 <a name='L283'></a><a href='#L283'>283</a>
 <a name='L284'></a><a href='#L284'>284</a>
 <a name='L285'></a><a href='#L285'>285</a>
-<a name='L286'></a><a href='#L286'>286</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">80x</span>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-yes">80x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -458,6 +471,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-yes">522x</span>
 <span class="cline-any cline-yes">522x</span>
@@ -468,6 +482,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">522x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">522x</span>
@@ -509,6 +524,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">522x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -639,7 +661,9 @@ import {
   parseStringToTime,
   timeToDisplayText,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  DataTooltipInterface,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import * as Yup from 'yup'
@@ -741,6 +765,7 @@ export interface FormMultiTypeDurationProps extends Omit&lt;IFormGroupProps, 'la
   skipErrorsIf?(formik?: FormikContext&lt;unknown&gt;): boolean
   multiTypeDurationProps?: Omit&lt;MultiTypeDurationProps, 'name' | 'onChange' | 'value'&gt;
   onChange?: MultiTypeDurationProps['onChange']
+  tooltipProps?: DataTooltipInterface
 }
 &nbsp;
 export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.ReactElement {
@@ -752,6 +777,7 @@ export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.
     intent = hasError ? Intent.DANGER : Intent.NONE,
     helperText = hasError ? get(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>rrors, name) : null,
     disabled,
+    tooltipProps,
     ...rest
   } = restProps
 &nbsp;
@@ -794,7 +820,14 @@ export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.
   }
 &nbsp;
   return (
-    &lt;FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}&gt;
+    &lt;FormGroup
+      {...rest}
+      labelFor={name}
+      helperText={helperText}
+      intent={intent}
+      disabled={disabled}
+      label={label ? &lt;HarnessDocTooltip tooltipId={<span class="branch-1 cbranch-no" title="branch not covered" >tooltipProps?.dataTooltipId}</span> labelText={label} /&gt; : label}
+    &gt;
       &lt;MultiTypeDuration {...customProps} value={value} onChange={handleChange} disabled={disabled} /&gt;
     &lt;/FormGroup&gt;
   )
@@ -919,7 +952,7 @@ export const DurationInputFieldForInputSet = connect&lt;DurationInputForInputSet
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 13:05:13 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 13:32:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

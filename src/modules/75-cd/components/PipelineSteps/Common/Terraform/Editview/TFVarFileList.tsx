@@ -211,7 +211,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     <Menu className={css.tfMenu}>
                       <MenuItem
                         text={<Text intent="primary">{getString('cd.addInline')} </Text>}
-                        icon={<Icon name="Inline" />}
+                        icon={<Icon name="Inline" className={css.iconMargin} />}
                         onClick={() => {
                           setShowTfModal(true)
                         }}
@@ -219,7 +219,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
 
                       <MenuItem
                         text={<Text intent="primary">{getString('cd.addRemote')}</Text>}
-                        icon={<Icon name="remote" />}
+                        icon={<Icon name="remote" className={css.iconMargin} />}
                         onClick={() => setShowRemoteWizard(true)}
                       />
                     </Menu>

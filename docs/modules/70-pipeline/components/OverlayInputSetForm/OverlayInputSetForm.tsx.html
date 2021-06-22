@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.25% </span>
+                <span class="strong">85.8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>138/160</span>
+                <span class='fraction'>139/162</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.41% </span>
+                <span class="strong">51.04% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>146/284</span>
+                <span class='fraction'>147/288</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.16% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>137/159</span>
+                <span class='fraction'>138/161</span>
             </div>
         
             
@@ -740,7 +740,13 @@
 <a name='L681'></a><a href='#L681'>681</a>
 <a name='L682'></a><a href='#L682'>682</a>
 <a name='L683'></a><a href='#L683'>683</a>
-<a name='L684'></a><a href='#L684'>684</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L684'></a><a href='#L684'>684</a>
+<a name='L685'></a><a href='#L685'>685</a>
+<a name='L686'></a><a href='#L686'>686</a>
+<a name='L687'></a><a href='#L687'>687</a>
+<a name='L688'></a><a href='#L688'>688</a>
+<a name='L689'></a><a href='#L689'>689</a>
+<a name='L690'></a><a href='#L690'>690</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1087,6 +1093,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1095,11 +1103,15 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1770,19 +1782,25 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
       }
       /* istanbul ignore else */
       if (response) {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (response.data<span class="branch-1 cbranch-no" title="branch not covered" >?.errorResponse)</span> {
-<span class="cstat-no" title="statement not covered" >          clear()</span>
-<span class="cstat-no" title="statement not covered" >          showError(getString('inputSets.overlayInputSetSavedError'), undefined, 'pipeline.overlayinputset.error')</span>
-        } else {
-          clear()
-          showSuccess(getString('inputSets.overlayInputSetSaved'))
+        // This is done because when git sync is enabled, errors are displayed in a modal
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (!isGitSyncEnabled) {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (response.data<span class="branch-1 cbranch-no" title="branch not covered" >?.errorResponse)</span> {
+<span class="cstat-no" title="statement not covered" >            clear()</span>
+<span class="cstat-no" title="statement not covered" >            showError(getString('inputSets.overlayInputSetSavedError'), undefined, 'pipeline.overlayinputset.error')</span>
+          } else {
+            clear()
+            showSuccess(getString('inputSets.overlayInputSetSaved'))
+          }
         }
       }
       <span class="missing-if-branch" title="else path not taken" >E</span>if (!isGitSyncEnabled) {
         closeForm()
       }
     } catch (e) {
-<span class="cstat-no" title="statement not covered" >      showError(e?.data?.message || e?.message || getString('commonError'), undefined, 'pipeline.common.error')</span>
+      // This is done because when git sync is enabled, errors are displayed in a modal
+<span class="cstat-no" title="statement not covered" >      if (!isGitSyncEnabled) {</span>
+<span class="cstat-no" title="statement not covered" >        showError(e?.data?.message || e?.message || getString('commonError'), undefined, 'pipeline.common.error')</span>
+      }
 <span class="cstat-no" title="statement not covered" >      throw e</span>
     }
     return {
@@ -2113,7 +2131,7 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 12:08:08 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 13:05:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

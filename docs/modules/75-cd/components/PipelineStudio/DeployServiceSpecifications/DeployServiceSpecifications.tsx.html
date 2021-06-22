@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.06% </span>
+                <span class="strong">46.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>63/143</span>
+                <span class='fraction'>70/151</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.33% </span>
+                <span class="strong">30.42% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>128/422</span>
+                <span class='fraction'>129/424</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.78% </span>
+                <span class="strong">37.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/23</span>
+                <span class='fraction'>9/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.97% </span>
+                <span class="strong">46.31% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>62/141</span>
+                <span class='fraction'>69/149</span>
             </div>
         
             
@@ -549,7 +549,18 @@
 <a name='L490'></a><a href='#L490'>490</a>
 <a name='L491'></a><a href='#L491'>491</a>
 <a name='L492'></a><a href='#L492'>492</a>
-<a name='L493'></a><a href='#L493'>493</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L493'></a><a href='#L493'>493</a>
+<a name='L494'></a><a href='#L494'>494</a>
+<a name='L495'></a><a href='#L495'>495</a>
+<a name='L496'></a><a href='#L496'>496</a>
+<a name='L497'></a><a href='#L497'>497</a>
+<a name='L498'></a><a href='#L498'>498</a>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -573,6 +584,9 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -657,6 +671,14 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1065,6 +1087,9 @@ import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpec
 import PropagateWidget, {
   setupMode
 } from '@cd/components/PipelineStudio/DeployServiceSpecifications/PropagateWidget/PropagateWidget'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import css from './DeployServiceSpecifications.module.scss'
 &nbsp;
 export default function DeployServiceSpecifications(props: React.PropsWithChildren&lt;unknown&gt;): JSX.Element {
@@ -1151,6 +1176,14 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const [parentStage, setParentStage] = React.useState&lt;{
     [key: string]: any
   }&gt;({})
+  const { submitFormsForTab } = React.useContext(StageErrorContext)
+  const { errorMap } = useValidationErrors()
+&nbsp;
+  React.useEffect(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (errorMap.size &gt; 0) {
+<span class="cstat-no" title="statement not covered" >      submitFormsForTab(DeployTabs.SERVICE)</span>
+    }
+  }, [errorMap])
 &nbsp;
   React.useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (stages &amp;&amp; stages.length &gt; 0) {
@@ -1540,7 +1573,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 13:32:26 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 15:15:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

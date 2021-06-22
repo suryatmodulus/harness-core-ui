@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.82% </span>
+                <span class="strong">61.73% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/78</span>
+                <span class='fraction'>50/81</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.01% </span>
+                <span class="strong">23.97% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>26/113</span>
+                <span class='fraction'>29/121</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.41% </span>
+                <span class="strong">26.32% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/17</span>
+                <span class='fraction'>5/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.33% </span>
+                <span class="strong">64.94% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/75</span>
+                <span class='fraction'>50/77</span>
             </div>
         
             
@@ -370,7 +370,14 @@
 <a name='L311'></a><a href='#L311'>311</a>
 <a name='L312'></a><a href='#L312'>312</a>
 <a name='L313'></a><a href='#L313'>313</a>
-<a name='L314'></a><a href='#L314'>314</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -524,6 +531,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -546,6 +555,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -661,6 +671,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -836,7 +850,9 @@ export default function DeployStageSetupShell(): JSX.Element {
           text={getString('done')}
           intent="primary"
           onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >            updatePipelineView({ ...pipelineView, isSplitViewOpen: false })</span>
+<span class="cstat-no" title="statement not covered" >            checkErrorsForTab(selectedTabId).then(<span class="fstat-no" title="function not covered" >_ </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              updatePipelineView({ ...pipelineView, isSplitViewOpen: false })</span>
+            })
           }}
         /&gt;
       ) : (
@@ -859,6 +875,7 @@ export default function DeployStageSetupShell(): JSX.Element {
   const servicesHasWarning = errorKeys.some(<span class="fstat-no" title="function not covered" >key </span>=&gt; <span class="cstat-no" title="statement not covered" >stagePath &amp;&amp; key.startsWith(`${stagePath}.stage.spec.serviceConfig`))</span>
   const infraHasWarning = errorKeys.some(<span class="fstat-no" title="function not covered" >key </span>=&gt; <span class="cstat-no" title="statement not covered" >stagePath &amp;&amp; key.startsWith(`${stagePath}.stage.spec.infrastructure`))</span>
   const executionHasWarning = errorKeys.some(<span class="fstat-no" title="function not covered" >key </span>=&gt; <span class="cstat-no" title="statement not covered" >stagePath &amp;&amp; key.startsWith(`${stagePath}.stage.spec.execution`))</span>
+  const failureHasWarning = errorKeys.some(<span class="fstat-no" title="function not covered" >key </span>=&gt; <span class="cstat-no" title="statement not covered" >stagePath &amp;&amp; key.startsWith(`${stagePath}.stage.failureStrategies`))</span>
 &nbsp;
   return (
     &lt;section ref={layoutRef} key={selectedStageId} className={cx(css.setupShell)}&gt;
@@ -983,8 +1000,12 @@ export default function DeployStageSetupShell(): JSX.Element {
         &lt;Tab
           id={DeployTabs.ADVANCED}
           title={
-            &lt;span className={css.title}&gt;
-              &lt;Icon name="advanced" height={20} size={20} className="hover" /&gt;
+            &lt;span className={css.title} data-warning={failureHasWarning}&gt;
+              &lt;Icon
+                name={failureHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >'warning-sign' </span>: 'advanced'}
+                size={failureHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >16 </span>: 20}
+                className={failureHasWarning ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: 'hover'}
+              /&gt;
               Advanced
             &lt;/span&gt;
           }
@@ -1003,7 +1024,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 13:32:26 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 22 2021 15:15:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

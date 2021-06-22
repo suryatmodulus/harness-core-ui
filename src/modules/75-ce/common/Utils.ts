@@ -42,7 +42,7 @@ export class Utils {
     new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.readAsDataURL(file)
-      reader.onload = () => resolve(reader.result as string)
+      reader.onload = () => resolve((reader.result || '').toString().replace(/^data:(.*,)?/, '') as string)
       reader.onerror = error => reject(error)
     })
 }

@@ -186,6 +186,12 @@
       svg path {
         fill: var(--green-500);
       }
+      > div {
+        margin-top: 10px;
+        span[icon='trash'] {
+          cursor: pointer;
+        }
+      }
     }
     .certiLabel {
       color: var(--grey-500);

@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import {
   Button,
+  Color,
   Container,
   Formik,
   FormikForm,
@@ -11,6 +12,7 @@ import {
   Icon,
   Layout,
   SelectOption,
+  Text,
   useModalHook
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
@@ -391,9 +393,17 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                   + Upload a certificate
                 </span>
                 {newCertificate && (
-                  <span>
-                    <Icon name={'command-artifact-check'} /> {newCertificate?.name}
-                  </span>
+                  <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+                    <Text>
+                      <Icon name={'command-artifact-check'} /> {newCertificate?.name}
+                    </Text>
+                    <Icon
+                      name={'trash'}
+                      color={Color.RED_700}
+                      onClick={() => setNewCertificate(undefined)}
+                      title={'delete'}
+                    />
+                  </Layout.Horizontal>
                 )}
               </div>
             </div>

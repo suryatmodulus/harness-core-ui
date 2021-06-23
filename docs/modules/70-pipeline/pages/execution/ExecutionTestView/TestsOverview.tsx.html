@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.25% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/16</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.33% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/15</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -208,18 +208,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -328,25 +328,25 @@ interface TestsOverviewProps {
 &nbsp;
 const now = Date.now()
 &nbsp;
-export const TestsOverview: React.FC&lt;TestsOverviewProps&gt; = <span class="fstat-no" title="function not covered" >({</span>
+export const TestsOverview: React.FC&lt;TestsOverviewProps&gt; = ({
   totalTests,
   skippedTests,
   timeSavedMS,
   durationMS,
   testsCountDiff
 }) =&gt; {
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+  const { getString } = useStrings()
 &nbsp;
-  const selectedTests = <span class="cstat-no" title="statement not covered" >totalTests - skippedTests</span>
+  const selectedTests = totalTests - skippedTests
 &nbsp;
-  const timeSavedToDisplay: string = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!timeSavedMS) {</span>
-<span class="cstat-no" title="statement not covered" >      return '0'</span>
+  const timeSavedToDisplay: string = useMemo(() =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!timeSavedMS) {
+      return '0'
     }
 <span class="cstat-no" title="statement not covered" >    return timeToDisplayText(timeSavedMS).replace(/(\d+ms)$/, '')</span>
   }, [timeSavedMS])
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className={cx(css.widgetWrapper, css.overview)}&gt;
       &lt;Container
         flex={{ justifyContent: 'flex-start' }}
@@ -373,11 +373,11 @@ export const TestsOverview: React.FC&lt;TestsOverviewProps&gt; = <span class="fs
               {totalTests}
               {testsCountDiff ? (
                 &lt;span className={cx(css.diff, { [css.diffNegative]: testsCountDiff &lt; 0 })}&gt;
-                  &lt;Icon name={testsCountDiff &lt; 0 ? 'arrow-down' : 'arrow-up'} size={11} /&gt;
+                  &lt;Icon name={testsCountDiff &lt; 0 ? <span class="branch-0 cbranch-no" title="branch not covered" >'arrow-down' </span>: 'arrow-up'} size={11} /&gt;
                   &amp;nbsp;
                   {Math.abs(testsCountDiff)}%
                 &lt;/span&gt;
-              ) : null}
+              ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
             &lt;/span&gt;
           &lt;/Text&gt;
           &lt;Text
@@ -445,7 +445,7 @@ export const TestsOverview: React.FC&lt;TestsOverviewProps&gt; = <span class="fs
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 23 2021 13:41:21 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 23 2021 14:18:08 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

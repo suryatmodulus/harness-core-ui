@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/20</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.94% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -167,17 +167,15 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7564x</span>
+<span class="cline-any cline-yes">7564x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -230,7 +228,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7564x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -258,16 +258,16 @@ interface TestsReportOverviewProps {
 &nbsp;
 const now = Date.now()
 &nbsp;
-export const TestsReportOverview: React.FC&lt;TestsReportOverviewProps&gt; = <span class="fstat-no" title="function not covered" >({</span> totalTests, durationMS, tests }) =&gt; {
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+export const TestsReportOverview: React.FC&lt;TestsReportOverviewProps&gt; = ({ totalTests, durationMS, tests }) =&gt; {
+  const { getString } = useStrings()
 &nbsp;
-  const failedTests = <span class="cstat-no" title="statement not covered" >tests.filter(<span class="fstat-no" title="function not covered" >({</span> status }) =&gt; <span class="cstat-no" title="statement not covered" >status === TestStatus.FAILED || status === TestStatus.ERROR)</span>.length</span>
-  const skippedTests = <span class="cstat-no" title="statement not covered" >tests.filter(<span class="fstat-no" title="function not covered" >({</span> status }) =&gt; <span class="cstat-no" title="statement not covered" >status === TestStatus.SKIPPED)</span>.length</span>
-  const passedTests = <span class="cstat-no" title="statement not covered" >totalTests - failedTests - skippedTests</span>
-  const failureRate = <span class="cstat-no" title="statement not covered" >failedTests / (totalTests || 1)</span>
-  const failureRateDisplay = <span class="cstat-no" title="statement not covered" >renderFailureRate(failureRate) + `%`</span>
+  const failedTests = tests.filter(({ status }) =&gt; status === TestStatus.FAILED || status === TestStatus.ERROR).length
+  const skippedTests = tests.filter(({ status }) =&gt; status === TestStatus.SKIPPED).length
+  const passedTests = totalTests - failedTests - skippedTests
+  const failureRate = failedTests / (totalTests || <span class="branch-1 cbranch-no" title="branch not covered" >1)</span>
+  const failureRateDisplay = renderFailureRate(failureRate) + `%`
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Container className={css.leftContainer}&gt;
       &lt;Container
         flex={{ justifyContent: 'flex-start' }}
@@ -321,8 +321,8 @@ export const TestsReportOverview: React.FC&lt;TestsReportOverviewProps&gt; = <sp
         &lt;Container className={css.graphWrapper}&gt;
           &lt;Container className={css.graphContainer}&gt;
             &lt;ul className={css.graph}&gt;
-              {tests.map(<span class="fstat-no" title="function not covered" >(t</span>est, index) =&gt; (
-<span class="cstat-no" title="statement not covered" >                &lt;li key={(test.name as string) + index} data-status={test.status}&gt;</span>
+              {tests.map((test, index) =&gt; (
+                &lt;li key={(test.name as string) + index} data-status={test.status}&gt;
                   &lt;Text inline /*tooltip={test.name} TODO: Performance issue, disable for now */&gt;&amp;nbsp;&lt;/Text&gt;
                 &lt;/li&gt;
               ))}
@@ -340,7 +340,7 @@ export const TestsReportOverview: React.FC&lt;TestsReportOverviewProps&gt; = <sp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 23 2021 13:41:21 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 23 2021 14:18:08 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

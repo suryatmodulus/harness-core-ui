@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">79.37% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>52/65</span>
+                <span class='fraction'>50/63</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.39% </span>
+                <span class="strong">55.62% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>181/321</span>
+                <span class='fraction'>183/329</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.54% </span>
+                <span class="strong">79.37% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>52/63</span>
+                <span class='fraction'>50/63</span>
             </div>
         
             
@@ -472,7 +472,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -501,6 +502,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -552,8 +554,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -777,15 +777,16 @@ const OpenShiftParamWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &am
     const specValues = get(initialValues, 'spec.store.spec', null)
 &nbsp;
     if (specValues) {
-      const pathArray = specValues.paths.map(<span class="fstat-no" title="function not covered" >(p</span>ath: string) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
-        id: uuid('', nameSpace()),
-        value: path
-      }))
-&nbsp;
       const values = {
         ...specValues,
         identifier: initialValues.identifier,
-        paths: pathArray,
+        paths:
+          typeof specValues.paths === 'string'
+            ? <span class="branch-0 cbranch-no" title="branch not covered" >specValues.paths</span>
+            : specValues.paths.map(<span class="fstat-no" title="function not covered" >(p</span>ath: string) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+                id: uuid('', nameSpace()),
+                value: path
+              })),
         repoName: getRepoName()
       }
       return values
@@ -810,7 +811,8 @@ const OpenShiftParamWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &am
             spec: {
               connectorRef: formData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef,
               gitFetchType: formData<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itFetchType,
-              paths: formData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>aths
+              paths:
+                typeof formData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>aths === 'string' ? <span class="branch-0 cbranch-no" title="branch not covered" >formData?.paths </span>: formData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>aths<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(<span class="fstat-no" title="function not covered" >(p</span>ath: any) =&gt; <span class="cstat-no" title="statement not covered" >path.value)</span>
             }
           }
         }
@@ -861,11 +863,9 @@ const OpenShiftParamWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &am
           })
         })}
         onSubmit={formData =&gt; {
-          const paths = formData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>aths<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(<span class="fstat-no" title="function not covered" >(p</span>ath: any) =&gt; <span class="cstat-no" title="statement not covered" >path.value)</span>
           submitFormData({
             ...prevStepData,
             ...formData,
-            paths,
             connectorRef: prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef
               ? getMultiTypeFromValue(prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) === MultiTypeInputType.RUNTIME
                 ? <span class="branch-0 cbranch-no" title="branch not covered" >prevStepData?.connectorRef</span>
@@ -994,7 +994,7 @@ export default OpenShiftParamWithGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 23 2021 13:41:21 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 23 2021 14:18:08 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

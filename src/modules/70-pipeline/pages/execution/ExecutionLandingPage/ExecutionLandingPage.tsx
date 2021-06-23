@@ -243,7 +243,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
     >
       {loading && !data ? <PageSpinner /> : null}
       {error ? (
-        <PageError />
+        <PageError message={(error?.data as any)?.message?.replace('"', '')} />
       ) : (
         <main className={css.main}>
           <div className={css.lhs}>

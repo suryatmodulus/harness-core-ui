@@ -289,10 +289,12 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     let latestPipeline: PipelineInfoConfig = pipeline
 
     if (isYaml && yamlHandler) {
+      if (!parse(yamlHandler.getLatestYaml())) {
+        clear()
+        showError(getString('invalidYamlText'))
+        return
+      }
       try {
-        if (!isValidYaml()) {
-          return
-        }
         latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
       } /* istanbul ignore next */ catch (err) {
         showError(err.message || err, undefined, 'pipeline.save.pipeline.error')

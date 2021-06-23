@@ -493,6 +493,7 @@ dashboards:
 savingInProgress: Saving in progress...
 gitExperience:
   skipNow: SKIP NOW
+  selectRepoBranch: Please select Repository and Branch from the pipeline edit modal
 testsReports:
   callgraphTitle: Test Callgraph
   viewCallgraph: View Callgraph

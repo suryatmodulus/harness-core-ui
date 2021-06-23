@@ -68,7 +68,9 @@ import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { getFormattedErrors, mergeTemplateWithInputSetData } from './RunPipelineHelper'
 import { StepViewType } from '../AbstractSteps/Step'
+import GitPopover from '../GitPopover/GitPopover'
 import css from './RunPipelineModal.module.scss'
+
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & GitQueryParams> {
   inputSetSelected?: InputSetSelectorProps['value']
@@ -763,6 +765,12 @@ function RunPipelineFormBasic({
                     >
                       {getString('runPipeline')}
                     </Heading>
+                    {isGitSyncEnabled && (
+                      <GitPopover
+                        data={pipelineResponse?.data?.gitDetails ?? {}}
+                        iconMargin={{ left: 'small', top: 'xsmall' }}
+                      />
+                    )}
                     <div className={css.optionBtns}>
                       <VisualYamlToggle
                         initialSelectedView={selectedView}
@@ -842,7 +850,7 @@ function RunPipelineFormBasic({
                                       </Text>
                                     </span>
                                   </Layout.Horizontal>
-                                  {isGitSyncEnabled && (
+                                  {isGitSyncEnabled && existingProvide === 'existing' && (
                                     <Layout.Horizontal padding={{ bottom: 'small' }}>
                                       <GitSyncStoreProvider>
                                         <GitFilters

@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button, Icon, Text, Color } from '@wings-software/uicore'
-import { cloneDeep, get, isEmpty, isNil, set } from 'lodash-es'
+import { cloneDeep, get, isEmpty, isNil, set, merge } from 'lodash-es'
 import cx from 'classnames'
 
 import produce from 'immer'
@@ -266,7 +266,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         }
 
         if (item.spec && item.tab !== TabTypes.Advanced) {
-          node.spec = { ...item.spec }
+          merge(node.spec, item.spec)
         }
       })
       if (data?.stepConfig?.node?.identifier) {
@@ -334,7 +334,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         if (item.identifier) serviceDependency.identifier = item.identifier
         if (item.name) serviceDependency.name = item.name
         if (item.description) serviceDependency.description = item.description
-        if (item.spec) serviceDependency.spec = item.spec
+        if (item.spec) merge(serviceDependency.spec, item.spec)
         // Delete values if they were already added and now removed
         if (node.description && !item.description) delete node.description
 

@@ -44,7 +44,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'auto'
     }
   })
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()

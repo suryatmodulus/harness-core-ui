@@ -30,7 +30,7 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
   const shouldShowInputOutput = ((step?.stepType ?? '') as string) !== 'liteEngineTask'
   const isManualInterruption = isExecutionWaitingForIntervention(step.status)
   const failureStrategies = allowedStrategiesAsPerStep(stageType)[StepMode.STEP].filter(
-    st => st !== Strategy.ManualIntervention && st !== Strategy.Retry
+    st => st !== Strategy.ManualIntervention
   )
 
   React.useEffect(() => {

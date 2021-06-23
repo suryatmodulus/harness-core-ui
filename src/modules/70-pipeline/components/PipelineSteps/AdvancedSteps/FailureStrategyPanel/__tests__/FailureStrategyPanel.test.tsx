@@ -36,7 +36,9 @@ describe('<FailureStrategyPanel /> tests', () => {
         data-testid="code-output"
       >
         failureStrategies:
-        - onFailure: {}
+        - onFailure:
+            errors: []
+            action: {}
 
       </pre>
     `)
@@ -152,6 +154,7 @@ describe('<FailureStrategyPanel /> tests', () => {
         - onFailure:
             errors:
               - Authentication
+            action: {}
 
       </pre>
     `)
@@ -184,7 +187,9 @@ describe('<FailureStrategyPanel /> tests', () => {
         data-testid="code-output"
       >
         failureStrategies:
-        - onFailure: {}
+        - onFailure:
+            errors: []
+            action: {}
 
       </pre>
     `)
@@ -204,6 +209,7 @@ describe('<FailureStrategyPanel /> tests', () => {
         - onFailure:
             errors:
               - AllErrors
+            action: {}
 
       </pre>
     `)

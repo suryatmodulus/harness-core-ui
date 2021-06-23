@@ -224,7 +224,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
             </span>
             <input
               data-testid="failure-strategy-manualintervention"
-              name="ManualIntervention"
+              name="failureStrategies[0].onFailure.action.type"
               type="checkbox"
               value="ManualIntervention"
             />
@@ -264,7 +264,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
             </span>
             <input
               data-testid="failure-strategy-stagerollback"
-              name="StageRollback"
+              name="failureStrategies[0].onFailure.action.type"
               type="checkbox"
               value="StageRollback"
             />
@@ -304,7 +304,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
             </span>
             <input
               data-testid="failure-strategy-ignore"
-              name="Ignore"
+              name="failureStrategies[0].onFailure.action.type"
               type="checkbox"
               value="Ignore"
             />
@@ -344,7 +344,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
             </span>
             <input
               data-testid="failure-strategy-retry"
-              name="Retry"
+              name="failureStrategies[0].onFailure.action.type"
               type="checkbox"
               value="Retry"
             />
@@ -384,7 +384,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
             </span>
             <input
               data-testid="failure-strategy-markassuccess"
-              name="MarkAsSuccess"
+              name="failureStrategies[0].onFailure.action.type"
               type="checkbox"
               value="MarkAsSuccess"
             />
@@ -424,7 +424,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
             </span>
             <input
               data-testid="failure-strategy-abort"
-              name="Abort"
+              name="failureStrategies[0].onFailure.action.type"
               type="checkbox"
               value="Abort"
             />

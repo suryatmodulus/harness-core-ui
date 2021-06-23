@@ -122,7 +122,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
               /* istanbul ignore else */
               if (isEmpty(get(errors, `failureStrategies[${selectedStrategyNum}]`))) {
                 uids.current.push(uuid())
-                push({ onFailure: {} })
+                push({ onFailure: { errors: [], action: {} } })
                 setSelectedStrategyNum(strategies.length)
               }
             }

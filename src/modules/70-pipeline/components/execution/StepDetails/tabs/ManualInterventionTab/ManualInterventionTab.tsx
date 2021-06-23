@@ -22,13 +22,13 @@ export interface ManualInterventionTabProps {
 }
 
 export function ManualInterventionTab(props: ManualInterventionTabProps): React.ReactElement {
-  const { allowedStrategies } = props
+  const { allowedStrategies, step } = props
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId } = useParams<
     PipelineType<ExecutionPathProps>
   >()
   const { mutate: handleInterrupt, loading, error } = useHandleManualInterventionInterrupt({
     planExecutionId: executionIdentifier,
-    nodeExecutionId: props.step.uuid || /* istanbul ignore next */ ''
+    nodeExecutionId: step.uuid || /* istanbul ignore next */ ''
   })
   const { showError } = useToaster()
 

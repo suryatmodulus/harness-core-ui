@@ -234,14 +234,14 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
 
             <Message stepsDataLoading={stepsDataLoading} />
 
-            {stepCategories?.map((stepCategory: StepCategory) => {
+            {stepCategories?.map((stepCategory: StepCategory, i) => {
               const categorySteps: JSX.Element[] = []
               /* istanbul ignore else */ if (stepCategory?.stepsData) {
                 stepCategory.stepsData.forEach((stepData: StepData) => {
                   categorySteps.push(
                     <section
                       className={css.step}
-                      key={stepData.name}
+                      key={`${stepData.name}-${i}`}
                       onClick={() => {
                         if (stepData.type !== 'Placeholder') {
                           onSelect({
@@ -285,12 +285,12 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
               }
 
               if (stepCategory?.stepCategories && stepCategory.stepCategories.length > 0) {
-                stepCategory.stepCategories.forEach((subStepData: StepCategory) => {
+                stepCategory.stepCategories.forEach((subStepData: StepCategory, j) => {
                   subStepData?.stepsData?.map((step: StepData) => {
                     categorySteps.push(
                       <section
                         className={css.step}
-                        key={step.name}
+                        key={`${step.name}-${j}`}
                         onClick={() => {
                           /* istanbul ignore else */ if (step.type !== 'Placeholder') {
                             onSelect({
@@ -410,7 +410,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       {category.name}({subCategory.length})
                     </section>
                   )
-                  subCategory.forEach((subCat: StepCategory) =>
+                  subCategory.forEach((subCat: StepCategory, k) =>
                     stepRenderer.push(
                       <section
                         className={cx(
@@ -422,7 +422,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                         onClick={() => {
                           filterSteps(subCat.name || /* istanbul ignore next */ '')
                         }}
-                        key={subCat.name}
+                        key={`${subCat.name}-${k}`}
                       >
                         {subCat.name} ({subCat.stepsData?.length})
                       </section>

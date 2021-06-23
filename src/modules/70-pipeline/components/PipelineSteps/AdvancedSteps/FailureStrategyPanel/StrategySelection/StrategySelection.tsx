@@ -65,7 +65,8 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
         parentStrategy={Strategy.ManualIntervention}
         allowedStrategies={difference(allowedStrategies, [
           Strategy.ManualIntervention,
-          parentStrategy || Strategy.ManualIntervention
+          parentStrategy || Strategy.ManualIntervention,
+          Strategy.Retry
         ])}
         disabled={disabled}
       />
@@ -389,7 +390,7 @@ export function StrategyStepsList(props: StrategyStepsListProps): React.ReactEle
       {allowedStrategies.map(strategy => {
         return (
           <li key={strategy}>
-            <StrategyIcon strategy={strategy} onChange={handleChange} name={strategy} disabled={disabled} />
+            <StrategyIcon strategy={strategy} onChange={handleChange} name={name} disabled={disabled} />
           </li>
         )
       })}

@@ -115,6 +115,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
     const { checked } = e.target
 
     formik.setFieldValue(name, checked ? [ErrorType.AllErrors] : [])
+    formik.setFieldTouched(name, true)
   }
 
   return (

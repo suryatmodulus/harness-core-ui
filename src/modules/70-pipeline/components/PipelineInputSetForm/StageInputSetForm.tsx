@@ -11,7 +11,8 @@ import type {
   ExecutionWrapperConfig,
   ServiceConfig,
   PipelineInfrastructure,
-  Infrastructure
+  Infrastructure,
+  StageOverridesConfig
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
@@ -272,8 +273,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 factory={factory}
                 initialValues={
                   isPropagating && deploymentStageInputSet
-                    ? deploymentStageInputSet?.serviceConfig?.stageOverrides
-                    : deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}
+                    ? (deploymentStage?.serviceConfig?.stageOverrides as StageOverridesConfig)
+                    : deploymentStage?.serviceConfig?.serviceDefinition?.spec || {}
                 }
                 template={
                   isPropagating && deploymentStageTemplate

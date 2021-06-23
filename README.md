@@ -98,6 +98,21 @@ proxy: {
 
 See [src/services/README.md](https://github.com/wings-software/nextgenui/blob/master/src/services/README.md)
 
+### Local development against remote environments
+
+You can configure the application to use remote environments such as `uat.harness.io`, `qa.harness.io` or `qb.harness.io` to allow local UI development without the need to run backend services. To achieve this, two environment variables are available.
+
+| Variable           | Default value                   | Description                                                                  |
+| ------------------ | ------------------------------- | ---------------------------------------------------------------------------- |
+| `BASE_URL`         | `https://qa.harness.io/gateway` | Location of backend services to access                                       |
+| `TARGET_LOCALHOST` | `true`                          | Whether to use local backend services. Set to `false` to use remote services |
+
+These environment variables can be passed in a number of ways including being set in your `.bashrc` or `.zshrc` file, set in a `.env` file in the root of the application (see [`.env.example`](./.env.example)), or passed when starting the dev server as below.
+
+```shell
+$ TARGET_LOCALHOST=false yarn dev
+```
+
 ### Utilities
 
 Run lint checks

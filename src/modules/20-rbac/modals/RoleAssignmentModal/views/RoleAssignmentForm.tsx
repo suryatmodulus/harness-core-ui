@@ -117,6 +117,7 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
                 <Select
                   items={roles}
                   value={value}
+                  popoverClassName={css.selectPopover}
                   inputProps={{
                     placeholder: getString('rbac.usersPage.selectRole')
                   }}
@@ -158,6 +159,7 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
                   <Select
                     items={resourceGroups}
                     value={value}
+                    popoverClassName={css.selectPopover}
                     disabled={managed || (value as RoleOption).assignmentIdentifier ? true : false}
                     inputProps={{
                       placeholder: getString('rbac.usersPage.selectResourceGroup')

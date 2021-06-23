@@ -241,9 +241,13 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     if (_isChecked) {
       setStageOverrideSchema()
     } else {
-      if (stage?.stage?.spec?.serviceConfig?.stageOverrides) {
-        delete stage?.stage?.spec?.serviceConfig?.stageOverrides
-      }
+      const stageData = produce(stage, draft => {
+        if (stage?.stage?.spec?.serviceConfig?.stageOverrides) {
+          delete draft?.stage?.spec?.serviceConfig?.stageOverrides
+        }
+      })
+
+      debounceUpdateStage(stageData.stage)
     }
   }
   React.useEffect(() => {
@@ -392,7 +396,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       {setupModeType === setupMode.PROPAGATE && selectedPropagatedState?.value && (
         <div className={css.useoverrideCheckbox}>
           <Checkbox
-            label="Override artifacts, manifests, service variables for this stage"
+            label={getString('cd.pipelineSteps.serviceTab.overrideChanges')}
             checked={checkedItems.overrideSetCheckbox}
             onChange={handleChange}
           />

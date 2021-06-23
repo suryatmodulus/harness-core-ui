@@ -56,3 +56,4 @@ pipelineSteps:
   serviceTab:
     deploymentType: Deployment type is not selected
     propateStage: Stage is required
+    overrideChanges: Override artifacts, manifests, service variables for this stage

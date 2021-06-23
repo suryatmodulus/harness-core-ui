@@ -11,7 +11,6 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
-import FlagElemTest from './FlagElemTest'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import css from './FlagWizard.module.scss'
 
@@ -108,7 +107,6 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
           isLoadingCreateFeatureFlag={isLoadingCreateFeatureFlag}
         />
       )}
-      <FlagElemTest name={getString('cf.testTheFlag.testFlagHeading')} fromWizard={true} hideModal={hideModal} />
     </StepWizard>
   )
 }

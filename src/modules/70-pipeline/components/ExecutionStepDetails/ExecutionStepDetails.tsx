@@ -67,6 +67,7 @@ export default function ExecutionStepDetails(): React.ReactElement {
 
   React.useEffect(() => {
     if (executionNode?.data) {
+      Object.assign(executionNode.data, { __isInterruptNode: true })
       addNewNodeToMap(executionNode.data.uuid || /* istanbul ignore next */ '', executionNode.data)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
+import { get, isEmpty, pickBy } from 'lodash-es'
 import { Layout, Text } from '@wings-software/uicore'
 
 import routes from '@common/RouteDefinitions'
@@ -79,7 +79,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<ExecutionPathProps>
   >()
-  const [allNodeMap, setAllNodeMap] = React.useState({})
+  const [allNodeMap, setAllNodeMap] = React.useState<Record<string, ExecutionNode>>({})
 
   /* cache token required for retrieving logs */
   const [logsToken, setLogsToken] = React.useState('')
@@ -132,7 +132,11 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
     const nodeMap = { ...data?.data?.executionGraph?.nodeMap }
     // NOTE: add dependencies from "liteEngineTask" (ci stage)
     addServiceDependenciesFromLiteTaskEngine(nodeMap)
-    setAllNodeMap(oldNodeMap => ({ ...oldNodeMap, ...nodeMap }))
+    setAllNodeMap(oldNodeMap => {
+      const interruptHistories = pickBy(oldNodeMap, val => get(val, '__isInterruptNode'))
+
+      return { ...interruptHistories, ...nodeMap }
+    })
   }, [data?.data?.executionGraph?.nodeMap])
 
   // setup polling

@@ -53,6 +53,7 @@ export interface DeployServiceData extends Omit<ServiceConfig, 'serviceRef'> {
 interface NewEditServiceModalProps {
   isEdit: boolean
   isService: boolean
+  formik?: FormikProps<DeployServiceData>
   data: ServiceRequestDTO
   serviceIdentifier?: string
   onCreateOrUpdate(data: ServiceRequestDTO): void
@@ -63,6 +64,7 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
   isEdit,
   data,
   isService,
+  formik,
   onCreateOrUpdate,
   closeModal
 }): JSX.Element => {
@@ -102,14 +104,16 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
           })
           if (response.status === 'SUCCESS') {
             clear()
-            showSuccess(getString('cd.serviceCreated'))
+            showSuccess(getString('cd.serviceUpdated'))
+            formik?.setFieldValue('serviceRef', values.identifier)
             onCreateOrUpdate(values)
           }
         } else {
           const response = await createService([{ ...values, orgIdentifier, projectIdentifier }])
           if (response.status === 'SUCCESS') {
             clear()
-            showSuccess(getString('cd.serviceUpdated'))
+            showSuccess(getString('cd.serviceCreated'))
+            formik?.setFieldValue('serviceRef', values.identifier)
             onCreateOrUpdate(values)
           }
         }
@@ -118,7 +122,7 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onCreateOrUpdate, orgIdentifier, projectIdentifier, isEdit, isService]
+    [onCreateOrUpdate, orgIdentifier, projectIdentifier, isEdit, isService, formik]
   )
 
   if (createLoading || updateLoading) {
@@ -190,6 +194,7 @@ interface DeployServiceState {
   isEdit: boolean
   data?: ServiceRequestDTO
   isService: boolean
+  formik?: FormikProps<DeployServiceData>
 }
 
 function isEditService(data: DeployServiceData): boolean {
@@ -243,6 +248,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
         <NewEditServiceModal
           data={state.data || { name: '', identifier: '', orgIdentifier, projectIdentifier }}
           isEdit={state.isEdit}
+          formik={state.formik}
           isService={state.isService}
           onCreateOrUpdate={values => {
             refetch()
@@ -253,7 +259,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
         />
       </Dialog>
     ),
-    [state.isEdit, state.data]
+    [state]
   )
 
   const onClose = React.useCallback(() => {
@@ -381,18 +387,26 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                       if (values.service?.identifier) {
                         setState({
                           isEdit,
+                          formik,
                           isService: true,
                           data: { ...values.service, projectIdentifier, orgIdentifier } as ServiceRequestDTO
                         })
                       } else {
                         setState({
                           isEdit,
+                          formik,
                           isService: false,
                           data: serviceResponse?.data?.content?.filter(
                             service => service.service?.identifier === values.serviceRef
                           )?.[0]?.service as ServiceRequestDTO
                         })
                       }
+                    } else {
+                      setState({
+                        isEdit: false,
+                        formik,
+                        isService: false
+                      })
                     }
                     showModal()
                   }}
@@ -487,7 +501,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData, in
         />
       </Dialog>
     ),
-    [state.isEdit, state.data]
+    [state]
   )
 
   const onClose = React.useCallback(() => {

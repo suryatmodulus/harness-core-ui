@@ -358,6 +358,23 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     })
   }
 
+  const updateService = React.useCallback(
+    (value: ServiceConfig) => {
+      const stageData = produce(stage, draft => {
+        const serviceObj = get(draft, 'stage.spec.serviceConfig', {})
+        if (value.service) {
+          serviceObj.service = value.service
+          delete serviceObj.serviceRef
+        } else {
+          serviceObj.serviceRef = value.serviceRef
+          delete serviceObj.service
+        }
+      })
+      debounceUpdateStage(stageData.stage)
+    },
+    [debounceUpdateStage, stage, stage?.stage?.spec?.serviceConfig?.serviceDefinition]
+  )
+
   return (
     <>
       <DeployServiceErrors />
@@ -399,19 +416,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                     service: get(stage, 'stage.spec.serviceConfig.service', {}),
                     serviceRef: get(stage, 'stage.spec.serviceConfig.serviceRef', '')
                   }}
-                  onUpdate={(value: ServiceConfig) => {
-                    const stageData = produce(stage, draft => {
-                      const serviceObj = get(draft, 'stage.spec.serviceConfig', {})
-                      if (value.service) {
-                        serviceObj.service = value.service
-                        delete serviceObj.serviceRef
-                      } else {
-                        serviceObj.serviceRef = value.serviceRef
-                        delete serviceObj.service
-                      }
-                    })
-                    debounceUpdateStage(stageData.stage)
-                  }}
+                  onUpdate={data => updateService(data)}
                   factory={factory}
                   stepViewType={StepViewType.Edit}
                 />

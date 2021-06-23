@@ -317,6 +317,23 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     }
   }
 
+  const updateEnvStep = React.useCallback(
+    (value: PipelineInfrastructure) => {
+      const stageData = produce(stage, draft => {
+        const infraObj: PipelineInfrastructure = get(draft, 'stage.spec.infrastructure', {})
+        if (value.environment?.identifier) {
+          infraObj.environment = value.environment
+          delete infraObj.environmentRef
+        } else {
+          infraObj.environmentRef = value.environmentRef
+          delete infraObj.environment
+        }
+      })
+      debounceUpdateStage(stageData?.stage)
+    },
+    [stage, debounceUpdateStage, stage?.stage?.spec?.infrastructure?.infrastructureDefinition]
+  )
+
   return (
     <div className={css.serviceOverrides} key="1">
       <DeployServiceErrors />
@@ -333,19 +350,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                 environment: get(stage, 'stage.spec.infrastructure.environment', {}),
                 environmentRef: get(stage, 'stage.spec.infrastructure.environmentRef', '')
               }}
-              onUpdate={(value: PipelineInfrastructure) => {
-                const stageData = produce(stage, draft => {
-                  const infraObj: PipelineInfrastructure = get(draft, 'stage.spec.infrastructure', {})
-                  if (value.environment?.identifier) {
-                    infraObj.environment = value.environment
-                    delete infraObj.environmentRef
-                  } else {
-                    infraObj.environmentRef = value.environmentRef
-                    delete infraObj.environment
-                  }
-                })
-                debounceUpdateStage(stageData?.stage)
-              }}
+              onUpdate={val => updateEnvStep(val)}
               factory={factory}
               stepViewType={StepViewType.Edit}
             />

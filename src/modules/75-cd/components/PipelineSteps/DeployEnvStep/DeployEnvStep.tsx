@@ -59,6 +59,7 @@ interface NewEditEnvironmentModalProps {
   isEnvironment: boolean
   data: EnvironmentResponseDTO
   envIdentifier?: string
+  formik?: FormikProps<DeployEnvData>
   onCreateOrUpdate(data: EnvironmentResponseDTO): void
   closeModal?: () => void
 }
@@ -67,6 +68,7 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
   isEdit,
   data,
   isEnvironment,
+  formik,
   onCreateOrUpdate,
   closeModal
 }): JSX.Element => {
@@ -102,14 +104,16 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
           })
           if (response.status === 'SUCCESS') {
             clear()
-            showSuccess(getString('cd.environmentCreated'))
+            showSuccess(getString('cd.environmentUpdated'))
+            formik?.setFieldValue('environmentRef', values.identifier)
             onCreateOrUpdate(values)
           }
         } else {
           const response = await createEnvironment({ ...values, orgIdentifier, projectIdentifier })
           if (response.status === 'SUCCESS') {
             clear()
-            showSuccess(getString('cd.environmentUpdated'))
+            showSuccess(getString('cd.environmentCreated'))
+            formik?.setFieldValue('environmentRef', values.identifier)
             onCreateOrUpdate(values)
           }
         }
@@ -230,6 +234,7 @@ interface DeployEnvironmentProps {
 interface DeployEnvironmentState {
   isEdit: boolean
   isEnvironment: boolean
+  formik?: FormikProps<DeployEnvData>
   data?: EnvironmentResponseDTO
 }
 
@@ -283,6 +288,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           data={state.data || { name: '', identifier: '' }}
           isEnvironment={state.isEnvironment}
           isEdit={state.isEdit}
+          formik={state.formik}
           onCreateOrUpdate={values => {
             refetch()
             onUpdate?.({ ...omit(initialValues, 'environment'), environmentRef: values.identifier })
@@ -292,7 +298,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
         />
       </Dialog>
     ),
-    [state.isEdit, state.data]
+    [state]
   )
 
   const onClose = React.useCallback(() => {
@@ -414,18 +420,26 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                       if (values.environment?.identifier) {
                         setState({
                           isEdit,
+                          formik,
                           isEnvironment: true,
                           data: values.environment
                         })
                       } else {
                         setState({
                           isEdit,
+                          formik,
                           isEnvironment: false,
                           data: environmentsResponse?.data?.content?.filter(
                             env => env.environment?.identifier === values.environmentRef
                           )?.[0]?.environment as EnvironmentResponseDTO
                         })
                       }
+                    } else {
+                      setState({
+                        isEdit: false,
+                        isEnvironment: false,
+                        formik
+                      })
                     }
                     showModal()
                   }}
@@ -497,7 +511,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
         />
       </Dialog>
     ),
-    [state.isEdit, state.data]
+    [state]
   )
 
   const onClose = React.useCallback(() => {

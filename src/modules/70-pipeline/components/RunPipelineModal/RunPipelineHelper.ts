@@ -1,8 +1,8 @@
-import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
+import type { NgPipeline, StageElementWrapper, CIProperties } from 'services/cd-ng'
 import type { InputSetErrorResponse } from 'services/pipeline-ng'
 
 interface NgPipelineTemplate {
-  pipeline: NgPipeline
+  pipeline: NgPipeline & { properties?: { ci?: CIProperties } }
 }
 
 export const mergeTemplateWithInputSetData = (
@@ -20,6 +20,12 @@ export const mergeTemplateWithInputSetData = (
   })
   const toBeUpdated = templatePipeline
   toBeUpdated.pipeline.stages = mergedStages
+  if (inputSetPortion.pipeline?.properties?.ci) {
+    if (!toBeUpdated.pipeline.properties) {
+      toBeUpdated.pipeline.properties = {}
+    }
+    toBeUpdated.pipeline.properties.ci = inputSetPortion.pipeline.properties.ci
+  }
   return toBeUpdated
 }
 

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.45% </span>
+                <span class="strong">95.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/22</span>
+                <span class='fraction'>23/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.22% </span>
+                <span class="strong">77.27% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/18</span>
+                <span class='fraction'>17/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>6/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.24% </span>
+                <span class="strong">95.65% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/21</span>
+                <span class='fraction'>22/23</span>
             </div>
         
             
@@ -182,7 +182,23 @@
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">29x</span>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">29x</span>
 <span class="cline-any cline-yes">29x</span>
 <span class="cline-any cline-yes">29x</span>
 <span class="cline-any cline-yes">29x</span>
@@ -234,11 +250,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">167x</span>
-<span class="cline-any cline-yes">167x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">167x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">167x</span>
+<span class="cline-any cline-yes">301x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">167x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">167x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,7 +284,7 @@
 <span class="cline-any cline-yes">134x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">263x</span>
+<span class="cline-any cline-yes">264x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -281,6 +312,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -359,59 +391,75 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement =&g
     disabled,
     ...restProps
   } = props
-  const value = get(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues, name, '') as MultiTypeListType
 &nbsp;
   const { getString } = useStrings()
 &nbsp;
+  const getDefaultResetValue = () =&gt; {
+    return [{ id: uuid('', nameSpace()), value: '' }]
+  }
+&nbsp;
+  const value = get(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues, name, getDefaultResetValue()) as MultiTypeListType
+&nbsp;
   return (
     &lt;div className={cx(css.group, css.withoutSpacing)} {...restProps}&gt;
-      &lt;MultiTypeFieldSelector
-        name={name}
-        defaultValueToReset={[{ id: uuid('', nameSpace()), value: '' }]}
-        style={{ flexGrow: 1, marginBottom: 0 }}
-        {...multiTypeFieldSelectorProps}
-        disableTypeSelection={multiTypeFieldSelectorProps.disableTypeSelection || disabled}
-      &gt;
-        &lt;FieldArray
+      {typeof value === 'string' &amp;&amp; getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME ? (
+        &lt;FormInput.MultiTextInput
+          style={{ flexGrow: 1, marginBottom: 0 }}
           name={name}
-          render={({ push, remove }) =&gt; (
-            &lt;Card style={{ width: '100%' }}&gt;
-              {Array.isArray(value) &amp;&amp;
-                value.map(({ id }, index: number) =&gt; (
-                  &lt;div className={cx(css.group, css.withoutAligning)} key={id}&gt;
-                    &lt;FormInput.MultiTextInput
-                      label=""
-                      name={`${name}[${index}].value`}
-                      placeholder={placeholder}
-                      multiTextInputProps={{
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                        ...multiTextInputProps
-                      }}
-                      style={{ flexGrow: 1 }}
-                      disabled={disabled}
-                    /&gt;
-                    &lt;Button
-                      icon="main-trash"
-                      iconProps={{ size: 20 }}
-                      minimal
-                      onClick={() =&gt; remove(index)}
-                      data-testid={`remove-${name}-[${index}]`}
-                      disabled={disabled}
-                    /&gt;
-                  &lt;/div&gt;
-                ))}
-              &lt;Button
-                intent="primary"
-                minimal
-                text={getString('plusAdd')}
-                data-testid={`add-${name}`}
-                onClick={() =&gt; push({ id: uuid('', nameSpace()), value: '' })}
-                disabled={disabled}
-              /&gt;
-            &lt;/Card&gt;
-          )}
+          multiTextInputProps={{
+            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+          }}
+          {...multiTypeFieldSelectorProps}
         /&gt;
-      &lt;/MultiTypeFieldSelector&gt;
+      ) : (
+        &lt;MultiTypeFieldSelector
+          name={name}
+          defaultValueToReset={getDefaultResetValue()}
+          style={{ flexGrow: 1, marginBottom: 0 }}
+          {...multiTypeFieldSelectorProps}
+          disableTypeSelection={multiTypeFieldSelectorProps.disableTypeSelection || disabled}
+        &gt;
+          &lt;FieldArray
+            name={name}
+            render={({ push, remove }) =&gt; (
+              &lt;Card style={{ width: '100%' }}&gt;
+                {Array.isArray(value) &amp;&amp;
+                  value.map(({ id }, index: number) =&gt; (
+                    &lt;div className={cx(css.group, css.withoutAligning)} key={id}&gt;
+                      &lt;FormInput.MultiTextInput
+                        label=""
+                        name={`${name}[${index}].value`}
+                        placeholder={placeholder}
+                        multiTextInputProps={{
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          ...multiTextInputProps
+                        }}
+                        style={{ flexGrow: 1 }}
+                        disabled={disabled}
+                      /&gt;
+                      &lt;Button
+                        icon="main-trash"
+                        iconProps={{ size: 20 }}
+                        minimal
+                        onClick={() =&gt; remove(index)}
+                        data-testid={`remove-${name}-[${index}]`}
+                        disabled={disabled}
+                      /&gt;
+                    &lt;/div&gt;
+                  ))}
+                &lt;Button
+                  intent="primary"
+                  minimal
+                  text={getString('plusAdd')}
+                  data-testid={`add-${name}`}
+                  onClick={() =&gt; push({ id: uuid('', nameSpace()), value: '' })}
+                  disabled={disabled}
+                /&gt;
+              &lt;/Card&gt;
+            )}
+          /&gt;
+        &lt;/MultiTypeFieldSelector&gt;
+      )}
       {enableConfigureOptions &amp;&amp;
         typeof value === 'string' &amp;&amp;
         getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME &amp;&amp; (
@@ -439,7 +487,7 @@ export default connect(MultiTypeList)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 23 2021 11:35:15 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 23 2021 12:16:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -95,7 +95,7 @@ export default function TerraformInputStep(props: TerraformProps): React.ReactEl
               )}
               {getMultiTypeFromValue(remoteVarFile?.spec?.store?.spec?.commitId) === MultiTypeInputType.RUNTIME && (
                 <FormInput.MultiTextInput
-                  name={`${path}.configuration?.spec?.varFiles[${index}].varFile.store.spec.  `}
+                  name={`${path}.configuration?.spec?.varFiles[${index}].varFile.store.spec.commitId`}
                   label={getString('pipeline.manifestType.commitId')}
                   multiTextInputProps={{
                     expressions,

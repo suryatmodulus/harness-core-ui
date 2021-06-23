@@ -32,6 +32,7 @@ exports[`Test ToolTip ToolTip Icon hover opens ToolTip 1`] = `
             />
           </svg>
         </span>
+        Mock Message Text
       </span>
     </span>
   </span>
@@ -70,6 +71,7 @@ exports[`Test ToolTip ToolTip Icon renders succesfully 1`] = `
             />
           </svg>
         </span>
+        Mock Message Text
       </span>
     </span>
   </span>

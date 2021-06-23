@@ -25,7 +25,7 @@ interface COGatewayDetailsProps {
 const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const history = useHistory()
   const { getString } = useStrings()
-  const { showError } = useToaster()
+  const { showError, showSuccess } = useToaster()
   const [selectedTabId, setSelectedTabId] = useState<string>(props.activeTab ?? ASRuleTabs.CONFIGURATION)
   const [validConfig, setValidConfig] = useState<boolean>(false)
   const [validAccessSetup, setValidAccessSetup] = useState<boolean>(false)
@@ -115,6 +115,11 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       }
       const result = await saveGateway({ service: gateway, deps: props.gatewayDetails.deps, apply_now: false }) // eslint-disable-line
       if (result.response) {
+        // Rule creation is halted until the access point creation takes place successfully.
+        // Informing the user regarding the same
+        if (props.gatewayDetails.accessPointData?.status === 'submitted') {
+          showSuccess('Rule will take effect once the load balancer creation is successful!!')
+        }
         history.push(
           routes.toCECORules({
             orgIdentifier: orgIdentifier as string,

@@ -313,7 +313,7 @@ const COLoadBalancerList: React.FC = () => {
                       Cell: CheckBoxCell
                     },
                     {
-                      accessor: 'host_name',
+                      accessor: 'name',
                       Header: getString('name').toUpperCase(),
                       width: '20%',
                       Cell: NameCell
@@ -332,7 +332,7 @@ const COLoadBalancerList: React.FC = () => {
                       disableSortBy: true
                     },
                     {
-                      accessor: 'name',
+                      accessor: 'host_name',
                       Header: getString('ce.co.accessPoint.asssociatedRules').toUpperCase(),
                       width: '15%',
                       Cell: RulesCell

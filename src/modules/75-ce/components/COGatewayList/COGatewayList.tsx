@@ -404,15 +404,17 @@ const COGatewayList: React.FC = () => {
             ) : (
               <Menu.Item icon="disable" text="Disable" onClick={handleToggleRuleClick} />
             )}
-            <Menu.Item
-              icon="edit"
-              text="Edit"
-              onClick={() => handleServiceEdit(row.original)}
-              // onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-              //   e.stopPropagation()
-              //   alert('you are editing')
-              // }}
-            />
+            {row.original.status !== 'submitted' && (
+              <Menu.Item
+                icon="edit"
+                text="Edit"
+                onClick={() => handleServiceEdit(row.original)}
+                // onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+                //   e.stopPropagation()
+                //   alert('you are editing')
+                // }}
+              />
+            )}
             <Menu.Item icon="trash" text="Delete" onClick={handleDeleteRuleClick} />
           </Menu>
         </Popover>

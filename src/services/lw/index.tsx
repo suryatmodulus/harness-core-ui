@@ -48,7 +48,7 @@ export interface AccessPoint {
   project_id?: string
   region?: string
   security_groups?: string[]
-  status?: string
+  status?: 'created' | 'submitted' | 'errored'
   subnets?: string[]
   type?: string
   vpc?: string

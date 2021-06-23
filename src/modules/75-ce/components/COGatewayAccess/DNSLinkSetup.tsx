@@ -32,6 +32,7 @@ import {
 } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
+import { useToaster } from '@common/exports'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
 import { cleanupForHostName } from '../COGatewayList/Utils'
@@ -61,6 +62,7 @@ interface DNSLinkSetupProps {
 const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
+  const { showError } = useToaster()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const isAzureProvider = Utils.isProviderAzure(props.gatewayDetails.provider)
   const isEditFlow = window.location.href.includes('edit')
@@ -253,6 +255,12 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     </Dialog>
   ))
 
+  const clearAPData = () => {
+    setSelectedApCore({ label: '', value: '' })
+    updateLoadBalancerDetails()
+    setSelectedLoadBalancer(undefined)
+  }
+
   const [openLoadBalancerModal, hideLoadBalancerModal] = useModalHook(() => {
     return (
       <Dialog onClose={hideLoadBalancerModal} {...modalPropsLight}>
@@ -266,9 +274,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             cloudAccountId={props.gatewayDetails.cloudAccount.id}
             onClose={_clearStatus => {
               if (_clearStatus && !isCreateMode) {
-                setSelectedApCore({ label: '', value: '' })
-                updateLoadBalancerDetails('', '')
-                setSelectedLoadBalancer(undefined)
+                clearAPData()
               }
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
@@ -296,9 +302,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             createMode={isCreateMode}
             onClose={_clearStatus => {
               if (_clearStatus && !isCreateMode) {
-                setSelectedApCore({ label: '', value: '' })
-                updateLoadBalancerDetails('', '')
-                setSelectedLoadBalancer(undefined)
+                clearAPData()
               }
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
@@ -322,8 +326,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
   useEffect(() => {
     if (!accessPoint || !accessPoint.id) return
-    const updatedGatewayDetails = { ...props.gatewayDetails }
-    updatedGatewayDetails.accessPointID = accessPoint.id
+    const updatedGatewayDetails = {
+      ...props.gatewayDetails,
+      accessPointID: accessPoint.id,
+      accessPointData: accessPoint
+    }
     props.setGatewayDetails(updatedGatewayDetails)
     setGeneratedHostName(generateHostName(accessPoint.host_name as string))
   }, [accessPoint])
@@ -367,10 +374,13 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     }
   }
 
-  const updateLoadBalancerDetails = (accessPointId: string, hostname: string) => {
-    const updatedGatewayDetails = { ...props.gatewayDetails }
-    updatedGatewayDetails.accessPointID = accessPointId
-    updatedGatewayDetails.hostName = generateHostName(hostname)
+  const updateLoadBalancerDetails = (_accessPointDetails?: AccessPoint) => {
+    const updatedGatewayDetails = {
+      ...props.gatewayDetails,
+      accessPointID: _accessPointDetails?.id || '',
+      accessPointData: _accessPointDetails,
+      hostName: generateHostName(_accessPointDetails?.host_name || '')
+    }
     props.setGatewayDetails(updatedGatewayDetails)
     setGeneratedHostName(updatedGatewayDetails.hostName || getString('ce.co.dnsSetup.autoURL'))
   }
@@ -421,7 +431,14 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       if (!linkedAccessPoint) {
         linkedAccessPoint = accessPoint
       }
-      updateLoadBalancerDetails(linkedAccessPoint?.id as string, linkedAccessPoint?.host_name as string)
+
+      // Use only those Access Points which are not in errored state.
+      if (linkedAccessPoint?.status === 'errored') {
+        showError('Access point in error state can not be selected')
+        clearAPData()
+      } else {
+        updateLoadBalancerDetails(linkedAccessPoint)
+      }
     } else {
       openLoadBalancerModal()
     }

@@ -50,59 +50,75 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
     disabled,
     ...restProps
   } = props
-  const value = get(formik?.values, name, '') as MultiTypeListType
 
   const { getString } = useStrings()
 
+  const getDefaultResetValue = () => {
+    return [{ id: uuid('', nameSpace()), value: '' }]
+  }
+
+  const value = get(formik?.values, name, getDefaultResetValue()) as MultiTypeListType
+
   return (
     <div className={cx(css.group, css.withoutSpacing)} {...restProps}>
-      <MultiTypeFieldSelector
-        name={name}
-        defaultValueToReset={[{ id: uuid('', nameSpace()), value: '' }]}
-        style={{ flexGrow: 1, marginBottom: 0 }}
-        {...multiTypeFieldSelectorProps}
-        disableTypeSelection={multiTypeFieldSelectorProps.disableTypeSelection || disabled}
-      >
-        <FieldArray
+      {typeof value === 'string' && getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME ? (
+        <FormInput.MultiTextInput
+          style={{ flexGrow: 1, marginBottom: 0 }}
           name={name}
-          render={({ push, remove }) => (
-            <Card style={{ width: '100%' }}>
-              {Array.isArray(value) &&
-                value.map(({ id }, index: number) => (
-                  <div className={cx(css.group, css.withoutAligning)} key={id}>
-                    <FormInput.MultiTextInput
-                      label=""
-                      name={`${name}[${index}].value`}
-                      placeholder={placeholder}
-                      multiTextInputProps={{
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                        ...multiTextInputProps
-                      }}
-                      style={{ flexGrow: 1 }}
-                      disabled={disabled}
-                    />
-                    <Button
-                      icon="main-trash"
-                      iconProps={{ size: 20 }}
-                      minimal
-                      onClick={() => remove(index)}
-                      data-testid={`remove-${name}-[${index}]`}
-                      disabled={disabled}
-                    />
-                  </div>
-                ))}
-              <Button
-                intent="primary"
-                minimal
-                text={getString('plusAdd')}
-                data-testid={`add-${name}`}
-                onClick={() => push({ id: uuid('', nameSpace()), value: '' })}
-                disabled={disabled}
-              />
-            </Card>
-          )}
+          multiTextInputProps={{
+            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+          }}
+          {...multiTypeFieldSelectorProps}
         />
-      </MultiTypeFieldSelector>
+      ) : (
+        <MultiTypeFieldSelector
+          name={name}
+          defaultValueToReset={getDefaultResetValue()}
+          style={{ flexGrow: 1, marginBottom: 0 }}
+          {...multiTypeFieldSelectorProps}
+          disableTypeSelection={multiTypeFieldSelectorProps.disableTypeSelection || disabled}
+        >
+          <FieldArray
+            name={name}
+            render={({ push, remove }) => (
+              <Card style={{ width: '100%' }}>
+                {Array.isArray(value) &&
+                  value.map(({ id }, index: number) => (
+                    <div className={cx(css.group, css.withoutAligning)} key={id}>
+                      <FormInput.MultiTextInput
+                        label=""
+                        name={`${name}[${index}].value`}
+                        placeholder={placeholder}
+                        multiTextInputProps={{
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          ...multiTextInputProps
+                        }}
+                        style={{ flexGrow: 1 }}
+                        disabled={disabled}
+                      />
+                      <Button
+                        icon="main-trash"
+                        iconProps={{ size: 20 }}
+                        minimal
+                        onClick={() => remove(index)}
+                        data-testid={`remove-${name}-[${index}]`}
+                        disabled={disabled}
+                      />
+                    </div>
+                  ))}
+                <Button
+                  intent="primary"
+                  minimal
+                  text={getString('plusAdd')}
+                  data-testid={`add-${name}`}
+                  onClick={() => push({ id: uuid('', nameSpace()), value: '' })}
+                  disabled={disabled}
+                />
+              </Card>
+            )}
+          />
+        </MultiTypeFieldSelector>
+      )}
       {enableConfigureOptions &&
         typeof value === 'string' &&
         getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (

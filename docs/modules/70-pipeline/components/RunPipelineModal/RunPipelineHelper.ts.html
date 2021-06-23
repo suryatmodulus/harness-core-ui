@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.55% </span>
+                <span class="strong">92.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/22</span>
+                <span class='fraction'>24/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15% </span>
+                <span class="strong">65.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/20</span>
+                <span class='fraction'>21/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.63% </span>
+                <span class="strong">91.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/19</span>
+                <span class='fraction'>21/23</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -96,33 +96,45 @@
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -135,29 +147,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { NgPipeline, StageElementWrapper, CIProperties } from 'services/cd-ng'
 import type { InputSetErrorResponse } from 'services/pipeline-ng'
 &nbsp;
 interface NgPipelineTemplate {
-  pipeline: NgPipeline
+  pipeline: NgPipeline &amp; { properties?: { ci?: CIProperties } }
 }
 &nbsp;
-export const mergeTemplateWithInputSetData = <span class="fstat-no" title="function not covered" >(</span>
+export const mergeTemplateWithInputSetData = (
   templatePipeline: NgPipelineTemplate,
   inputSetPortion: NgPipelineTemplate
 ): NgPipelineTemplate =&gt; {
   // Replace all the matching stages in parsedTemplate with the stages received in input set portion
-  const mergedStages = <span class="cstat-no" title="statement not covered" >templatePipeline.pipeline.stages?.map(<span class="fstat-no" title="function not covered" >(s</span>tage: StageElementWrapper) =&gt; {</span>
-    const stageId = <span class="cstat-no" title="statement not covered" >stage.stage?.identifier</span>
-    const matchedStageInInputSet = <span class="cstat-no" title="statement not covered" >inputSetPortion.pipeline.stages?.find(<span class="fstat-no" title="function not covered" >stg </span>=&gt; <span class="cstat-no" title="statement not covered" >stg.stage.identifier === stageId)</span></span>
-<span class="cstat-no" title="statement not covered" >    if (matchedStageInInputSet) {</span>
-<span class="cstat-no" title="statement not covered" >      return matchedStageInInputSet</span>
+  const mergedStages = templatePipeline.pipeline.stages<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((stage: StageElementWrapper) =&gt; {
+    const stageId = stage.stage<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
+    const matchedStageInInputSet = inputSetPortion.pipeline.stages<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind(stg =&gt; stg.stage.identifier === stageId)
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (matchedStageInInputSet) {
+      return matchedStageInInputSet
     }
 <span class="cstat-no" title="statement not covered" >    return stage</span>
   })
-  const toBeUpdated = <span class="cstat-no" title="statement not covered" >templatePipeline</span>
-<span class="cstat-no" title="statement not covered" >  toBeUpdated.pipeline.stages = mergedStages</span>
-<span class="cstat-no" title="statement not covered" >  return toBeUpdated</span>
+  const toBeUpdated = templatePipeline
+  toBeUpdated.pipeline.stages = mergedStages
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (inputSetPortion.pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>roperties<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>i) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!toBeUpdated.pipeline.properties) {
+<span class="cstat-no" title="statement not covered" >      toBeUpdated.pipeline.properties = {}</span>
+    }
+    toBeUpdated.pipeline.properties.ci = inputSetPortion.pipeline.properties.ci
+  }
+  return toBeUpdated
 }
 &nbsp;
 // Used in Input Set form and save as input set call in run pipeline
@@ -181,7 +199,7 @@ export const getFormattedErrors = (apiErrorMap?: { [key: string]: InputSetErrorR
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 23 2021 09:48:19 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 23 2021 10:53:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

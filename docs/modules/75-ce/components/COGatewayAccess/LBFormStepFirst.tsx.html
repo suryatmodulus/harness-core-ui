@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.21% </span>
+                <span class="strong">77.08% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/47</span>
+                <span class='fraction'>37/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.91% </span>
+                <span class="strong">53.29% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>67/110</span>
+                <span class='fraction'>81/152</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.55% </span>
+                <span class="strong">72.73% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/11</span>
+                <span class='fraction'>8/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.33% </span>
+                <span class="strong">78.26% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/45</span>
+                <span class='fraction'>36/46</span>
             </div>
         
             
@@ -293,7 +293,17 @@
 <a name='L234'></a><a href='#L234'>234</a>
 <a name='L235'></a><a href='#L235'>235</a>
 <a name='L236'></a><a href='#L236'>236</a>
-<a name='L237'></a><a href='#L237'>237</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -313,6 +323,11 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -393,8 +408,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -404,6 +419,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -413,6 +430,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -550,21 +570,26 @@ import { AccessPoint, useAllHostedZones } from 'services/lw'
 import helpTextIcon from './images/OthersHelpText.svg'
 import css from './COGatewayAccess.module.scss'
 &nbsp;
-interface LBFormStepFirstProps {
-  loadBalancer?: AccessPoint
-  handleSubmit?: (formValues: FormVal) =&gt; void
-  cloudAccountId: string | undefined
-  createMode?: boolean
-  handleCancel?: () =&gt; void
-  handleCloudConnectorChange?: (connectorId: string) =&gt; void
-  isSaving?: boolean
-}
-&nbsp;
 export interface FormVal {
   hostedZoneId: string
   dnsProvider: string
   customDomainPrefix: string
   lbName: string
+}
+&nbsp;
+export interface SubmitFormVal extends FormVal {
+  hostedZoneName?: string
+}
+&nbsp;
+interface LBFormStepFirstProps {
+  loadBalancer?: AccessPoint
+  handleSubmit?: (formValues: SubmitFormVal) =&gt; void
+  cloudAccountId: string | undefined
+  createMode?: boolean
+  handleCancel?: () =&gt; void
+  handleCloudConnectorChange?: (connectorId: string) =&gt; void
+  isSaving?: boolean
+  hostedZone?: string
 }
 &nbsp;
 const LBFormStepFirst: React.FC&lt;LBFormStepFirstProps&gt; = props =&gt; {
@@ -628,10 +653,10 @@ const LBFormStepFirst: React.FC&lt;LBFormStepFirstProps&gt; = props =&gt; {
     setRoute53HostedZones(loadedhostedZones)
   }, [hostedZones, hostedZonesLoading, hostedZonesLoading])
 &nbsp;
-  const getHostedZoneName = <span class="fstat-no" title="function not covered" >(h</span>zId: string) =&gt; {
-    const zone = <span class="cstat-no" title="statement not covered" >route53HostedZones.find(<span class="fstat-no" title="function not covered" >_item </span>=&gt; <span class="cstat-no" title="statement not covered" >_item.value === hzId)</span></span>
-<span class="cstat-no" title="statement not covered" >    return zone</span>
-      ? `.${zone.label
+  const getHostedZoneName = (hzId: string) =&gt; {
+    const zone = route53HostedZones.find(_item =&gt; _item.value === hzId)
+    return zone
+      ? <span class="branch-0 cbranch-no" title="branch not covered" >`.${zone.label</span>
           .split('.')
           .filter(<span class="fstat-no" title="function not covered" >_i </span>=&gt; <span class="cstat-no" title="statement not covered" >_i)</span>
           .join('.')}`
@@ -639,10 +664,12 @@ const LBFormStepFirst: React.FC&lt;LBFormStepFirstProps&gt; = props =&gt; {
   }
 &nbsp;
   const onSubmit = (values: FormVal) =&gt; {
+    const hostedZoneName = getHostedZoneName(values.hostedZoneId)
     const updatedValues = {
       ...values,
       ...(values.dnsProvider === 'route53' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
-        customDomainPrefix: values.customDomainPrefix + getHostedZoneName(values.hostedZoneId)
+        customDomainPrefix: values.customDomainPrefix + hostedZoneName,
+        hostedZoneName
       })
     }
     handleSubmit<span class="branch-0 cbranch-no" title="branch not covered" >?.(u</span>pdatedValues)
@@ -653,7 +680,10 @@ const LBFormStepFirst: React.FC&lt;LBFormStepFirstProps&gt; = props =&gt; {
       initialValues={{
         hostedZoneId: loadBalancer<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etadata<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ns<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>oute53<span class="branch-1 cbranch-no" title="branch not covered" >?.hosted_zone_id as string,</span>
         dnsProvider: !showOthersInfo ? <span class="branch-0 cbranch-no" title="branch not covered" >'route53' </span>: 'others',
-        customDomainPrefix: '',
+        customDomainPrefix:
+          props.hostedZone &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >loadBalancer?.metadata?.dns?.others</span>
+            ? <span class="branch-0 cbranch-no" title="branch not covered" >loadBalancer?.metadata?.dns?.others.replace(`.${props.hostedZone}`, '')</span>
+            : loadBalancer<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etadata<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ns<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>thers || '',
         lbName: loadBalancer<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || ''
       }}
       formName="lbFormFirst"
@@ -772,7 +802,7 @@ export default LBFormStepFirst
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 23 2021 07:57:36 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 23 2021 09:03:18 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

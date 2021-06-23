@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.08% </span>
+                <span class="strong">81.58% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>60/74</span>
+                <span class='fraction'>62/76</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">83.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>60/72</span>
+                <span class='fraction'>62/74</span>
             </div>
         
             
@@ -240,7 +240,10 @@
 <a name='L181'></a><a href='#L181'>181</a>
 <a name='L182'></a><a href='#L182'>182</a>
 <a name='L183'></a><a href='#L183'>183</a>
-<a name='L184'></a><a href='#L184'>184</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -264,6 +267,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
@@ -323,6 +327,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -400,6 +405,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -429,7 +435,7 @@ import { Heading } from '@wings-software/uicore'
 import { AccessPoint, useCreateAccessPoint, useGetAccessPoint } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
-import LBFormStepFirst, { FormVal } from './LBFormStepFirst'
+import LBFormStepFirst, { SubmitFormVal } from './LBFormStepFirst'
 import LBFormStepSecond, { FormValue } from './LBFormStepSecond'
 import css from './COGatewayAccess.module.scss'
 &nbsp;
@@ -456,6 +462,7 @@ const LoadBalancerDnsConfig: React.FC&lt;LoadBalancerDnsConfigProps&gt; = props 
   const [lbCreationInProgress, setLbCreationInProgress] = useState&lt;boolean&gt;(false)
   const [loadBalancerId, setLoadBalancerId] = useState&lt;string&gt;()
   const [currCloudAccountId, setCurrCloudAccountId] = useState&lt;string | undefined&gt;(cloudAccountId)
+  const [hostedZoneName, setHostedZoneName] = useState&lt;string&gt;()
 &nbsp;
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;{
     orgIdentifier: string
@@ -488,7 +495,7 @@ const LoadBalancerDnsConfig: React.FC&lt;LoadBalancerDnsConfigProps&gt; = props 
 <span class="cstat-no" title="statement not covered" >    setCurrentStep(currentStep - 1)</span>
   }
 &nbsp;
-  const handleFirstScreenSubmit = (values: FormVal) =&gt; {
+  const handleFirstScreenSubmit = (values: SubmitFormVal) =&gt; {
     const updatedLb = { ...newLoadBalancer }
     <span class="missing-if-branch" title="else path not taken" >E</span>if (!updatedLb.cloud_account_id) {
       updatedLb.cloud_account_id = currCloudAccountId // eslint-disable-line
@@ -505,6 +512,7 @@ const LoadBalancerDnsConfig: React.FC&lt;LoadBalancerDnsConfigProps&gt; = props 
           : { others: values.customDomainPrefix })
       }
     }
+    setHostedZoneName(values.hostedZoneName)
     setNewLoadBalancer(updatedLb)
     // if (!createMode) {
     //   saveLb(updatedLb)
@@ -588,6 +596,7 @@ const LoadBalancerDnsConfig: React.FC&lt;LoadBalancerDnsConfigProps&gt; = props 
             loadBalancer={newLoadBalancer}
             handleCloudConnectorChange={setCurrCloudAccountId}
             isSaving={lbCreationInProgress}
+            hostedZone={hostedZoneName}
           /&gt;
         )}
         {currentStep === FormStep.SECOND &amp;&amp; (
@@ -613,7 +622,7 @@ export default LoadBalancerDnsConfig
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 23 2021 07:57:36 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 23 2021 09:03:18 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

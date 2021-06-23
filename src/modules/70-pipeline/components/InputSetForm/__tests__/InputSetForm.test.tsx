@@ -72,7 +72,7 @@ jest.mock('services/pipeline-ng', () => ({
   useUpdateOverlayInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: successResponse })),
   useCreateOverlayInputSetForPipeline: jest.fn(() => ({})),
   useGetInputSetsListForPipeline: jest.fn(() => GetInputSetsResponse),
-  useGetYamlSchema: jest.fn(() => ({}))
+  useGetSchemaYaml: jest.fn(() => ({}))
 }))
 
 const TEST_INPUT_SET_PATH = routes.toInputSetList({

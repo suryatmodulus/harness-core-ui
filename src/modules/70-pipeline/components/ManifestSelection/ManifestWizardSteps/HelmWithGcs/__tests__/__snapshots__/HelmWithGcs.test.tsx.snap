@@ -73,7 +73,7 @@ exports[`helm with http tests expand advanced section 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="helmWithGcs_bucketName"
                   >
-                    pipeline.manifestType.bucketName (optional)
+                    pipeline.manifestType.bucketName
                   </span>
                    
                   <span
@@ -93,7 +93,7 @@ exports[`helm with http tests expand advanced section 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="bucketName"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.bucketNamePlaceholder"
                         type="text"
                         value=""
                       />
@@ -917,7 +917,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="helmWithGcs_bucketName"
                   >
-                    pipeline.manifestType.bucketName (optional)
+                    pipeline.manifestType.bucketName
                   </span>
                    
                   <span
@@ -937,7 +937,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="bucketName"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.bucketNamePlaceholder"
                         type="text"
                         value=""
                       />
@@ -1438,7 +1438,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="helmWithGcs_bucketName"
                   >
-                    pipeline.manifestType.bucketName (optional)
+                    pipeline.manifestType.bucketName
                   </span>
                    
                   <span
@@ -1458,7 +1458,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="bucketName"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.bucketNamePlaceholder"
                         type="text"
                         value=""
                       />
@@ -1959,7 +1959,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="helmWithGcs_bucketName"
                   >
-                    pipeline.manifestType.bucketName (optional)
+                    pipeline.manifestType.bucketName
                   </span>
                    
                   <span
@@ -1979,7 +1979,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="bucketName"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.bucketNamePlaceholder"
                         type="text"
                         value=""
                       />

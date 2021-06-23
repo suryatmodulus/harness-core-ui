@@ -160,10 +160,12 @@ manifestType:
   chartPathRequired: Chart Path is required
   kustomizePathRequired: Kustomize Path is required
   pathRequired: File Path is required
+  bucketNameRequired: Bucket Name is required
   path: '{{$.common.path}}'
   osTemplatePath: Template File Path
   osTemplatePathPlaceHolder: Enter Template File Path
   osTemplatePathRequired: Template File Path is required
+  bucketNamePlaceholder: Enter Bucket Name
   pathPlaceholder: Enter File Path
   bucketName: Bucket Name
   gitFetchTypeLabel: Git Fetch Type

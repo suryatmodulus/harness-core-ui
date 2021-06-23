@@ -1438,6 +1438,8 @@ export interface StringsMap {
   'pipeline.manifestType.bitBucketLabel': string
   'pipeline.manifestType.branchPlaceholder': string
   'pipeline.manifestType.bucketName': string
+  'pipeline.manifestType.bucketNamePlaceholder': string
+  'pipeline.manifestType.bucketNameRequired': string
   'pipeline.manifestType.chartPathRequired': string
   'pipeline.manifestType.commandFlagRequired': string
   'pipeline.manifestType.commitId': string

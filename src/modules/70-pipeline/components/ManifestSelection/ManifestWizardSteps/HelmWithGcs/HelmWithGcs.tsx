@@ -134,6 +134,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
           ),
           chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
+          bucketName: Yup.string().trim().required(getString('pipeline.manifestType.bucketNameRequired')),
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
@@ -176,10 +177,9 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                 >
                   <FormInput.MultiTextInput
                     label={getString('pipeline.manifestType.bucketName')}
-                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                     name="bucketName"
                     multiTextInputProps={{ expressions }}
-                    isOptional={true}
                   />
                   {getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions

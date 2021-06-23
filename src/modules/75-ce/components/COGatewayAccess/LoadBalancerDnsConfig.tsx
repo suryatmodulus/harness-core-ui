@@ -4,7 +4,7 @@ import { Heading } from '@wings-software/uicore'
 import { AccessPoint, useCreateAccessPoint, useGetAccessPoint } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
-import LBFormStepFirst, { FormVal } from './LBFormStepFirst'
+import LBFormStepFirst, { SubmitFormVal } from './LBFormStepFirst'
 import LBFormStepSecond, { FormValue } from './LBFormStepSecond'
 import css from './COGatewayAccess.module.scss'
 
@@ -31,6 +31,7 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
   const [lbCreationInProgress, setLbCreationInProgress] = useState<boolean>(false)
   const [loadBalancerId, setLoadBalancerId] = useState<string>()
   const [currCloudAccountId, setCurrCloudAccountId] = useState<string | undefined>(cloudAccountId)
+  const [hostedZoneName, setHostedZoneName] = useState<string>()
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     orgIdentifier: string
@@ -63,7 +64,7 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
     setCurrentStep(currentStep - 1)
   }
 
-  const handleFirstScreenSubmit = (values: FormVal) => {
+  const handleFirstScreenSubmit = (values: SubmitFormVal) => {
     const updatedLb = { ...newLoadBalancer }
     if (!updatedLb.cloud_account_id) {
       updatedLb.cloud_account_id = currCloudAccountId // eslint-disable-line
@@ -80,6 +81,7 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
           : { others: values.customDomainPrefix })
       }
     }
+    setHostedZoneName(values.hostedZoneName)
     setNewLoadBalancer(updatedLb)
     // if (!createMode) {
     //   saveLb(updatedLb)
@@ -163,6 +165,7 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
             loadBalancer={newLoadBalancer}
             handleCloudConnectorChange={setCurrCloudAccountId}
             isSaving={lbCreationInProgress}
+            hostedZone={hostedZoneName}
           />
         )}
         {currentStep === FormStep.SECOND && (

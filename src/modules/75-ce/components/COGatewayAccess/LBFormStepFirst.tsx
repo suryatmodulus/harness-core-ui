@@ -19,21 +19,26 @@ import { AccessPoint, useAllHostedZones } from 'services/lw'
 import helpTextIcon from './images/OthersHelpText.svg'
 import css from './COGatewayAccess.module.scss'
 
-interface LBFormStepFirstProps {
-  loadBalancer?: AccessPoint
-  handleSubmit?: (formValues: FormVal) => void
-  cloudAccountId: string | undefined
-  createMode?: boolean
-  handleCancel?: () => void
-  handleCloudConnectorChange?: (connectorId: string) => void
-  isSaving?: boolean
-}
-
 export interface FormVal {
   hostedZoneId: string
   dnsProvider: string
   customDomainPrefix: string
   lbName: string
+}
+
+export interface SubmitFormVal extends FormVal {
+  hostedZoneName?: string
+}
+
+interface LBFormStepFirstProps {
+  loadBalancer?: AccessPoint
+  handleSubmit?: (formValues: SubmitFormVal) => void
+  cloudAccountId: string | undefined
+  createMode?: boolean
+  handleCancel?: () => void
+  handleCloudConnectorChange?: (connectorId: string) => void
+  isSaving?: boolean
+  hostedZone?: string
 }
 
 const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
@@ -108,10 +113,12 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
   }
 
   const onSubmit = (values: FormVal) => {
+    const hostedZoneName = getHostedZoneName(values.hostedZoneId)
     const updatedValues = {
       ...values,
       ...(values.dnsProvider === 'route53' && {
-        customDomainPrefix: values.customDomainPrefix + getHostedZoneName(values.hostedZoneId)
+        customDomainPrefix: values.customDomainPrefix + hostedZoneName,
+        hostedZoneName
       })
     }
     handleSubmit?.(updatedValues)
@@ -122,7 +129,10 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
       initialValues={{
         hostedZoneId: loadBalancer?.metadata?.dns?.route53?.hosted_zone_id as string,
         dnsProvider: !showOthersInfo ? 'route53' : 'others',
-        customDomainPrefix: '',
+        customDomainPrefix:
+          props.hostedZone && loadBalancer?.metadata?.dns?.others
+            ? loadBalancer?.metadata?.dns?.others.replace(`.${props.hostedZone}`, '')
+            : loadBalancer?.metadata?.dns?.others || '',
         lbName: loadBalancer?.name || ''
       }}
       formName="lbFormFirst"

@@ -1,5 +1,6 @@
 createNewConnector: Create New Connector
 confirmDeleteTitle: Delete Connector
+editConnector: Edit the connector
 confirmDelete: Are you sure you want to delete the Connector
 testInProgress: Test in progress
 artifactRepository: ' Artifact {{ $.repository }}'
@@ -40,6 +41,13 @@ unableToCreateConnector: Unable to create connector
 unableToUpdateConnector: Unable to update connector
 encryptedAPIKeyLabel: Encrypted API Key
 encryptedAPIKeyValidation: Encrypted API Key is required.
+tenantId: Tenant ID
+tenantIdRequired: Tenant ID is required
+reportNameRequired: Report name is required
+connectorAlreadyExist: Connector already exists for the cloud account
+loginToMasterAccount: and login to your master account
+roleARN: Create Cross Account Role
+ifReq: if required.
 selectConnector: Select connector
 apiKey: API Key
 title:
@@ -312,13 +320,13 @@ ceK8:
   selectConnectorLabel: 'Reference an existing connector'
 azureKeyVault:
   labels:
-    tenantId: Tenant ID
+    tenantId: '{{ $.connectors.tenantId }}'
     subscription: Subscription
     vaultName: Vault Name
     fetchVault: Fetch Vault
   validation:
     clientId: Client ID is required
-    tenantId: Tenant ID is required
+    tenantId: '{{ $.connectors.tenantIdRequired }}'
     subscription: Subscription is required
     vaultName: Vault Name is required
 ceAws:
@@ -326,18 +334,18 @@ ceAws:
     overview: '{{ $.overview }}'
     cur: 'Cost and Usage Report'
     req: 'Choose requirements'
-    roleARN: 'Create Cross Account Role'
+    roleARN: '{{ $.connectors.roleARN }}'
     test: '{{ $.common.labelTestConnection }}'
   overview:
     heading: '{{ $.overview }}'
     awsAccountId: 'Specify the AWS account ID'
-    alreadyExist: 'Connector already exists for the cloud account'
+    alreadyExist: '{{ $.connectors.connectorAlreadyExist }}'
     alreadyExistInfo:
       'The cloud account {{awsAccountID}} already has a connector “{{existingConnectorName}}” configured for
       Cost Visibility.'
     trySuggestion: '{{ $.common.errorHandler.tryTheseSuggestions }}'
-    editConnector: 'Edit the connector'
-    ifReq: 'if required.'
+    editConnector: '{{ $.connectors.editConnector }}'
+    ifReq: '{{ $.connectors.ifReq }}'
     validation:
       numeric: 'AWS Account ID must be numeric'
       positive: 'AWS Account ID must be a positive number'
@@ -347,12 +355,12 @@ ceAws:
     subheading: 'Cost and Usage Report provides detailed billing data across AWS accounts to help you analyze your spend.'
     followInstruction: 'Please follow the instructions to provide access to the Cost and Usage Report for the specified account ID'
     launchTemplate: 'Launch Template In AWS console'
-    login: 'and login to your master account'
+    login: '{{ $.connectors.loginToMasterAccount }}'
     createNew: '+ Create new Cost and Usage report'
     reportName: 'Cost and Usage Report Name'
     bucketName: 'Cost and Usage S3 bucket Name'
     validation:
-      reportRequired: 'Report name is required'
+      reportRequired: '{{ $.connectors.reportNameRequired }}'
       bucketRequired: 'Bucket name is required'
   curExising:
     subHeading:
@@ -386,3 +394,86 @@ ceAws:
     step1: 'Validating AWS Cloud Provider authentication'
     step2: 'Verifying the CUR report and S3 bucket name '
     step3: 'Validating the Cross-account role ARN '
+ceAzure:
+  guidPlaceholder: 'xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+  guidRegexError: 'It has to match GUID pattern. Example: "123e4567-e89b-12d3-a456-9AC7CBDCEE52"'
+  steps:
+    overview: '{{ $.overview }}'
+    billingExports: Azure Billing Exports
+    requirements: Choose Requirements
+    servicePrincipal: Create Service Principal
+    testConnection: '{{ $.common.labelTestConnection }}'
+  overview:
+    heading: '{{ $.overview }}'
+    tenantId: Specify Azure Tenant ID
+    subscriptionId: Specify Azure Subscription ID
+    alreadyExist: '{{ $.connectors.connectorAlreadyExist }}'
+    existingConnectorInfo: The cloud account {{accountId}} already has a connector “{{name}}” linked to it. The connector has permissions for {{featureText}}.
+    trySuggestion: '{{ $.common.errorHandler.tryTheseSuggestions }}'
+    editConnector: '{{ $.connectors.editConnector }}'
+    required: '{{ $.connectors.ifReq }}'
+  billing:
+    heading: '{{ $.connectors.ceAzure.steps.billingExports }}'
+    subHeading: Billing export is used to get insights into your cloud infrastructure and Azure services such as Storage account, Virtual machines, Containers etc.
+    instruction: Please follow the instructions to provide access to the Billing export for the specified tenant ID
+    login: '{{ $.connectors.loginToMasterAccount }}'
+    launchAzureConsole: Launch Azure Billing Exports
+    tooltipInstruction: Provided in the delivery options when the template is opened in the Azure console
+    tooltipBtn: Show instructions
+    storageAccountName: Storage Account Name
+    storageAccountNameRegexError: It must be 3 to 24 characters long, and can contain only lowercase letters and numbers.
+    subscriptionId: Storage Account Subscription ID
+    containerName: Storage Container
+    directoryName: Storage Directory
+    reportName: Report Name
+    extension:
+      createBillingExportGuide: How to Create a Billing Export?
+      step0: After logging into Azure billing export
+      step1: Click on Add to create a new Export.
+      step2: In Export Details, provide Name
+      step3: For Export type, select "Daily export of month-to-date costs
+      step4: Leave the Start date as Today
+      step5: For the Storage, select Use existing or Create new.
+      step6: If use existing
+      step7: Select the Subscription where your storage account is present
+      step8: Select the Storage account
+      step9: If create new
+      step10: Select the Subscription where you want to create the storage account
+      step11: Select Resource group name for this storage account
+      step12: Provide the Storage account name
+      step13: Provide the Location
+      step14: Provide the Container name
+      step15: Provide the Directory name
+      step16: Review your export details and click on Create.
+      step17: Your new export appears in the list of exports
+      links: 'Useful links:'
+      video: Watch help video
+      docs: Harness Documentation
+      createExport: Creating a Billing Export
+      soon: coming soon
+  existingExports:
+    instruction: 'A billing export already exists for this Azure account. Click on "Create new Billing Export" if you wish to create a new billing export.'
+    createNewExportBtn: '+ Create new Billing Export'
+    subscriptionId: Subscription ID
+    tenantId: '{{ $.connectors.tenantId }}'
+  chooseRequirements:
+    heading: '{{ $.connectors.roleARN }}'
+    subText: Choose Permissions
+    subHeading: Harness uses Multitenant app to sync billing export data from source storage account to Harness. Create a service principal for this app in your Azure account and assign read permissions on that particular storage account.
+    featureDesc: Select the Cloud Cost Management features you would like to use on the Azure account. Each requires specific permissions to the cross account role
+    visibilityCardDesc: Cost insights, anomaly detection, service insights, creating budgets perspectives and alerts, utilised/wasted resources in clusters.
+    optimizationCardDesc: Detection of orphaned resources, recommendations to save costs, scaling/tearing down, turning off in non-work hours, reserving instances.
+  servicePrincipal:
+    heading: '{{ $.connectors.ceAzure.steps.servicePrincipal }}'
+    subHeading: Create service principal and assign permissions by running the following commands in bash terminal or in Azure cloud shell
+  testConnection:
+    heading: '{{ $.common.labelTestConnection }}'
+    validatePermission: '{{ $.connectors.testConnectionStep.validationText.azure }}'
+    verifyExport: Verifying Azure Billing Export setup
+  validation:
+    storageAccountName: Storage account name is required
+    directoryName: Directory name is required
+    containerName: Container name is required
+    reportName: '{{ $.connectors.reportNameRequired }}'
+    subscriptionId: Subscription ID is required
+    tenantId: '{{ $.connectors.tenantIdRequired }}'

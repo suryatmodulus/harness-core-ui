@@ -12,8 +12,8 @@
 .copyIcon {
   cursor: pointer;
   margin-right: var(--spacing-xsmall) !important;
-  svg g {
+  svg {
     fill: var(--primary-7);
-    stroke: var(--primary-7);
+    color: var(--primary-7);
   }
 }

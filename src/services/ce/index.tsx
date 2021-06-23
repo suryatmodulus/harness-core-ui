@@ -15,6 +15,11 @@ export interface AwsTemplateURLResponse {
   status?: string
 }
 
+export interface AzureStaticAPIResponse {
+  status?: string
+  data?: string
+}
+
 export interface DownloadYamlQueryParams {
   accountId: string
   connectorIdentifier: string
@@ -86,6 +91,34 @@ export type UseAwsUrlTemplateProps = Omit<
  */
 export const useAwsUrlTemplate = (props: UseAwsUrlTemplateProps) =>
   useGet<AwsTemplateURLResponse, unknown, AwsUrlTemplateQueryParams, void>(`connector/awsaccountconnectiondetail`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
+export type AzureStaticAPIProps = Omit<GetProps<AzureStaticAPIResponse, unknown, void, void>, 'path'>
+
+/**
+ * Azure Static API for connector
+ *
+ * Azure Static API for connector
+ */
+export const AzureStaticAPI = (props: AzureStaticAPIProps) => (
+  <Get<AzureStaticAPIResponse, unknown, void, void>
+    path={`/connector/azureappclientid`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseAzureStaticAPIProps = Omit<UseGetProps<AzureStaticAPIResponse, unknown, void, void>, 'path'>
+
+/**
+ * Azure Static API for connector
+ *
+ * Azure Static API for connector
+ */
+export const useAzureStaticAPI = (props: UseAzureStaticAPIProps) =>
+  useGet<AzureStaticAPIResponse, unknown, void, void>(`/connector/azureappclientid`, {
     base: getConfig('ccm/api'),
     ...props
   })

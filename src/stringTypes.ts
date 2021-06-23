@@ -782,11 +782,85 @@ export interface StringsMap {
   'connectors.ceAws.testConnection.step1': string
   'connectors.ceAws.testConnection.step2': string
   'connectors.ceAws.testConnection.step3': string
+  'connectors.ceAzure.billing.containerName': string
+  'connectors.ceAzure.billing.directoryName': string
+  'connectors.ceAzure.billing.extension.createBillingExportGuide': string
+  'connectors.ceAzure.billing.extension.createExport': string
+  'connectors.ceAzure.billing.extension.docs': string
+  'connectors.ceAzure.billing.extension.links': string
+  'connectors.ceAzure.billing.extension.soon': string
+  'connectors.ceAzure.billing.extension.step0': string
+  'connectors.ceAzure.billing.extension.step1': string
+  'connectors.ceAzure.billing.extension.step10': string
+  'connectors.ceAzure.billing.extension.step11': string
+  'connectors.ceAzure.billing.extension.step12': string
+  'connectors.ceAzure.billing.extension.step13': string
+  'connectors.ceAzure.billing.extension.step14': string
+  'connectors.ceAzure.billing.extension.step15': string
+  'connectors.ceAzure.billing.extension.step16': string
+  'connectors.ceAzure.billing.extension.step17': string
+  'connectors.ceAzure.billing.extension.step2': string
+  'connectors.ceAzure.billing.extension.step3': string
+  'connectors.ceAzure.billing.extension.step4': string
+  'connectors.ceAzure.billing.extension.step5': string
+  'connectors.ceAzure.billing.extension.step6': string
+  'connectors.ceAzure.billing.extension.step7': string
+  'connectors.ceAzure.billing.extension.step8': string
+  'connectors.ceAzure.billing.extension.step9': string
+  'connectors.ceAzure.billing.extension.video': string
+  'connectors.ceAzure.billing.heading': string
+  'connectors.ceAzure.billing.instruction': string
+  'connectors.ceAzure.billing.launchAzureConsole': string
+  'connectors.ceAzure.billing.login': string
+  'connectors.ceAzure.billing.reportName': string
+  'connectors.ceAzure.billing.storageAccountName': string
+  'connectors.ceAzure.billing.storageAccountNameRegexError': string
+  'connectors.ceAzure.billing.subHeading': string
+  'connectors.ceAzure.billing.subscriptionId': string
+  'connectors.ceAzure.billing.tooltipBtn': string
+  'connectors.ceAzure.billing.tooltipInstruction': string
+  'connectors.ceAzure.chooseRequirements.featureDesc': string
+  'connectors.ceAzure.chooseRequirements.heading': string
+  'connectors.ceAzure.chooseRequirements.optimizationCardDesc': string
+  'connectors.ceAzure.chooseRequirements.subHeading': string
+  'connectors.ceAzure.chooseRequirements.subText': string
+  'connectors.ceAzure.chooseRequirements.visibilityCardDesc': string
+  'connectors.ceAzure.existingExports.createNewExportBtn': string
+  'connectors.ceAzure.existingExports.instruction': string
+  'connectors.ceAzure.existingExports.subscriptionId': string
+  'connectors.ceAzure.existingExports.tenantId': string
+  'connectors.ceAzure.guidPlaceholder': string
+  'connectors.ceAzure.guidRegexError': string
+  'connectors.ceAzure.overview.alreadyExist': string
+  'connectors.ceAzure.overview.editConnector': string
+  'connectors.ceAzure.overview.existingConnectorInfo': string
+  'connectors.ceAzure.overview.heading': string
+  'connectors.ceAzure.overview.required': string
+  'connectors.ceAzure.overview.subscriptionId': string
+  'connectors.ceAzure.overview.tenantId': string
+  'connectors.ceAzure.overview.trySuggestion': string
+  'connectors.ceAzure.servicePrincipal.heading': string
+  'connectors.ceAzure.servicePrincipal.subHeading': string
+  'connectors.ceAzure.steps.billingExports': string
+  'connectors.ceAzure.steps.overview': string
+  'connectors.ceAzure.steps.requirements': string
+  'connectors.ceAzure.steps.servicePrincipal': string
+  'connectors.ceAzure.steps.testConnection': string
+  'connectors.ceAzure.testConnection.heading': string
+  'connectors.ceAzure.testConnection.validatePermission': string
+  'connectors.ceAzure.testConnection.verifyExport': string
+  'connectors.ceAzure.validation.containerName': string
+  'connectors.ceAzure.validation.directoryName': string
+  'connectors.ceAzure.validation.reportName': string
+  'connectors.ceAzure.validation.storageAccountName': string
+  'connectors.ceAzure.validation.subscriptionId': string
+  'connectors.ceAzure.validation.tenantId': string
   'connectors.ceK8.infoText': string
   'connectors.ceK8.selectConnectorLabel': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string
   'connectors.connectAndSave': string
+  'connectors.connectorAlreadyExist': string
   'connectors.connectorDetails': string
   'connectors.connectorDetailsHeader': string
   'connectors.connectorNotFound': string
@@ -822,6 +896,7 @@ export interface StringsMap {
   'connectors.dynatrace.urlValidation': string
   'connectors.dynatraceConnectorDetails': string
   'connectors.dynatraceLabel': string
+  'connectors.editConnector': string
   'connectors.encryptedAPIKeyLabel': string
   'connectors.encryptedAPIKeyValidation': string
   'connectors.gcrConnectorDetails': string
@@ -840,6 +915,7 @@ export interface StringsMap {
   'connectors.hashicorpVaultDetails': string
   'connectors.helmRepo.helmRepoUrl': string
   'connectors.httpHelm.httpHelmRepoUrl': string
+  'connectors.ifReq': string
   'connectors.jira.jiraUrl': string
   'connectors.k8.OIDCClientId': string
   'connectors.k8.OIDCIssuerUrl': string
@@ -862,6 +938,7 @@ export interface StringsMap {
   'connectors.k8.serviceAccountKey': string
   'connectors.k8.serviceAccountToken': string
   'connectors.k8.skipDefaultValidation': string
+  'connectors.loginToMasterAccount': string
   'connectors.name': string
   'connectors.name_labels.AWS': string
   'connectors.name_labels.AppDynamics': string
@@ -892,6 +969,8 @@ export interface StringsMap {
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string
   'connectors.prometheusLabel': string
+  'connectors.reportNameRequired': string
+  'connectors.roleARN': string
   'connectors.scopeError': string
   'connectors.secretManagerDetails': string
   'connectors.selectConnector': string
@@ -913,6 +992,8 @@ export interface StringsMap {
   'connectors.sumologic.encryptedAccessKeyValidation': string
   'connectors.sumologic.urlLabel': string
   'connectors.sumologic.urlValidation': string
+  'connectors.tenantId': string
+  'connectors.tenantIdRequired': string
   'connectors.testConnectionStep.errorDetails': string
   'connectors.testConnectionStep.executingOn': string
   'connectors.testConnectionStep.installNewDelegate': string

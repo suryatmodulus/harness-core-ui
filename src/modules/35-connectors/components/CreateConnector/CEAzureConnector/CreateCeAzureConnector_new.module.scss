@@ -1,0 +1,275 @@
+.azureConnector {
+  height: 100%;
+  width: 100%;
+  :global {
+    span[data-icon='service-azure'] {
+      svg > g {
+        fill: white;
+      }
+    }
+  }
+
+  [class*='StepWizard--stepDetails'] {
+    overflow-y: auto;
+  }
+
+  // FormInput.InputWithIdentifier has a default margin-bottom
+  // that is coming from the UI Core. This extra margin puts extra
+  // spacing in the design implementation, which is unnecessary.
+  // This code overrides it!
+  [class*='TextInput--main'] {
+    margin-bottom: 0 !important;
+  }
+
+  .dataFields {
+    [class*='InputWithIdentifier--txtIdContainer'] > p {
+      font-size: var(--font-size-small) !important;
+      color: var(--grey-800);
+    }
+  }
+
+  .stepContainer {
+    height: 100%;
+    position: relative;
+    padding: var(--spacing-medium) !important;
+    :global {
+      .OverlaySpinner--overlaySpinner {
+        height: 100%;
+      }
+    }
+
+    [class*='OverlaySpinner--overlaySpinner'] {
+      position: initial;
+    }
+
+    .billingExportCtn {
+      width: 550px;
+      min-height: 300px;
+    }
+
+    .billingCredentials {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: var(--spacing-medium) var(--spacing-xlarge);
+      color: var(--grey-600);
+      font-size: var(--font-size-small);
+      &:nth-child(odd) {
+        background-color: var(--primary-1);
+      }
+    }
+
+    .continueAndPreviousBtns {
+      position: absolute;
+      bottom: var(--spacing-medium);
+    }
+  }
+
+  .header {
+    color: #22222a !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    margin-bottom: var(--spacing-large) !important;
+
+    span {
+      font-weight: lighter;
+      color: var(--grey-700);
+    }
+  }
+
+  .subHeader,
+  .info,
+  .dataFields,
+  .launchTemplateSection {
+    margin-bottom: var(--spacing-large) !important;
+  }
+
+  .dataFields,
+  .launchTemplateSection {
+    width: 65%;
+  }
+
+  .infobox {
+    padding: var(--spacing-medium) var(--spacing-large) !important;
+    background-color: var(--primary-1) !important;
+    color: var(--grey-800) !important;
+    line-height: var(--spacing-large) !important;
+    // margin-bottom: var(--spacing-xxlarge) 0 !important;
+  }
+
+  .mtbxxlarge {
+    margin: var(--spacing-xxlarge) 0 var(--spacing-large) 0 !important;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--spacing-large);
+    [class*='bp3-card'] {
+      box-shadow: 0px 2px 4px rgba(40, 41, 61, 0.04), 0px 8px 16px rgba(96, 97, 112, 0.16) !important;
+    }
+  }
+
+  .submitBtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-width: 150px;
+  }
+
+  .commandsContainer {
+    background: var(--primary-1) !important;
+    padding: var(--spacing-large) !important;
+
+    .command {
+      display: grid;
+      grid-template-columns: 1fr 20px;
+      align-items: center;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      color: var(--grey-800);
+      margin: var(--spacing-xsmall) 0 0 0;
+      padding-right: var(--spacing-medium);
+    }
+  }
+
+  .launchTemplateBtn,
+  .createNewExportBtn {
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16) !important;
+    border-radius: 8px;
+    border: 1px solid #0278d5 !important;
+  }
+
+  .createNewExportBtn {
+    margin-top: var(--spacing-large) !important;
+    width: 250px;
+  }
+}
+
+.connectorExistBox {
+  margin: var(--spacing-xlarge) 0 var(--spacing-medium) 0;
+  border-left: 4px solid var(--red-700);
+  padding: var(--spacing-large);
+  background: var(--red-50);
+  color: var(--grey-1000);
+  border-radius: 5px;
+}
+
+.main {
+  max-width: 785px;
+  margin-bottom: var(--spacing-medium) !important;
+
+  div[class*='collapse'] {
+    margin-left: 0;
+  }
+
+  & div[class*='Collapse'] {
+    border-top: none;
+    padding: 0;
+
+    // spacing for adjacent collapsible
+    + div[class*='Collapse'][class*='main'] {
+      margin-top: var(--spacing-medium);
+    }
+
+    div[class*='CollapseHeader'] {
+      padding-top: 0 !important;
+    }
+
+    span[data-icon='main-chevron-down'] {
+      color: var(--primary-7);
+    }
+  }
+
+  textarea {
+    min-height: 50px;
+    resize: vertical;
+  }
+
+  .editOpen {
+    cursor: pointer;
+    margin-left: 8px !important;
+    position: relative;
+    top: -2px;
+
+    &:hover {
+      color: var(--primary-7) !important;
+    }
+  }
+}
+
+.extension {
+  width: 500px;
+  position: relative;
+  background: #fefefe;
+  box-shadow: 0px 2px 4px rgba(40, 41, 61, 0.04), 0px 8px 16px rgba(96, 97, 112, 0.16);
+  border-radius: 4px;
+  padding: 75px 25px 15px;
+  overflow-y: auto;
+  position: relative;
+
+  .header {
+    margin-bottom: var(--spacing-large) !important;
+  }
+
+  ul,
+  ol {
+    padding-left: 15px !important;
+    font-size: small;
+    color: var(--grey-700);
+
+    li {
+      line-height: 22px;
+    }
+  }
+  dl dd {
+    margin-left: 15px !important;
+    font-size: small;
+    line-height: 22px;
+  }
+
+  .closeBtn {
+    position: absolute;
+    top: 24px;
+    // right: 120px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+}
+
+.popoverContent {
+  width: 300px;
+  font-size: var(--font-size-xsmall);
+  padding: var(--spacing-small) var(--spacing-large);
+
+  .btnCtn {
+    text-align: right;
+    .instructionBtn {
+      color: var(--primary-4) !important;
+      padding: 0 !important;
+    }
+  }
+}
+
+.existingBeTable {
+  overflow: auto;
+  max-height: 250px;
+  line-height: 20px !important;
+  width: 100%;
+  border: thin solid var(--grey-100);
+
+  table {
+    width: 1100px;
+  }
+
+  thead {
+    background: var(--grey-100);
+    font-size: var(--font-size-small) !important;
+  }
+
+  tr {
+    font-size: var(--font-size-small) !important;
+  }
+}

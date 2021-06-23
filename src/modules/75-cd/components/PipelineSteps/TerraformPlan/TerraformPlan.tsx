@@ -362,10 +362,11 @@ function TerraformPlanWidget(
             {showModal && (
               <Dialog
                 onClose={() => setShowModal(false)}
-                className={cx(Classes.DIALOG)}
+                className={cx(Classes.DIALOG, 'padded-dialog')}
                 {...modalProps}
                 title={getString('pipelineSteps.configFiles')}
                 isCloseButtonShown
+                style={{ width: '650px' }}
               >
                 <ConfigForm
                   onClick={data => {

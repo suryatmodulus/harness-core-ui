@@ -10,7 +10,8 @@ import {
   MultiTypeInputType,
   Text,
   Button,
-  SelectOption
+  SelectOption,
+  Container
 } from '@wings-software/uicore'
 
 import cx from 'classnames'
@@ -46,7 +47,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
   ]
 
   return (
-    <Layout.Vertical padding={'huge'}>
+    <Layout.Vertical>
       <Formik<ConfigFileData>
         formName="configForm"
         onSubmit={props.onClick}
@@ -84,166 +85,163 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
             ?.connectorRef as Connector
 
           return (
-            <Form>
-              <FormMultiTypeConnectorField
-                label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('connectors.title.gitConnector')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('connectors.title.gitConnector')}
-                      iconProps={{ size: 14 }}
-                    />
-                  </Text>
-                }
-                type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
-                width={
-                  getMultiTypeFromValue(
-                    formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-                  ) === MultiTypeInputType.RUNTIME
-                    ? 260
-                    : 300
-                }
-                name="spec.configuration.spec.configFiles.store.spec.connectorRef"
-                placeholder={getString('select')}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier}
-                orgIdentifier={orgIdentifier}
-                style={{ marginBottom: 10 }}
-                multiTypeProps={{ expressions }}
-              />
-
-              {(connectorValue?.connector?.spec?.connectionType === 'Account' ||
-                connectorValue?.connector?.spec?.type === 'Account') && (
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.MultiTextInput
-                    label={getString('pipelineSteps.repoName')}
-                    name="spec.configuration.spec.configFiles.store.spec.repoName"
-                    placeholder={getString('pipelineSteps.repoName')}
-                    multiTextInputProps={{ expressions }}
-                  />
-                  {getMultiTypeFromValue(
-                    formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.repoName
-                  ) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
-                      value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.repoName as string}
-                      type="String"
-                      variableName="configuration.spec.configFiles.store.spec.repoName"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value =>
-                        formik.setFieldValue('configuration.spec.configFiles.store.spec.repoName', value)
-                      }
-                      isReadonly={props.isReadonly}
-                    />
-                  )}
-                </div>
-              )}
-
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormInput.Select
-                  items={gitFetchTypes}
-                  name="spec.configuration.spec.configFiles.store.spec.gitFetchType"
-                  label={getString('pipeline.manifestType.gitFetchTypeLabel')}
-                  placeholder={getString('pipeline.manifestType.gitFetchTypeLabel')}
+            <Layout.Vertical>
+              <Form>
+                <FormMultiTypeConnectorField
+                  label={
+                    <Text style={{ display: 'flex', alignItems: 'center' }}>
+                      {getString('connectors.title.gitConnector')}
+                      <Button
+                        icon="question"
+                        minimal
+                        tooltip={getString('connectors.title.gitConnector')}
+                        iconProps={{ size: 14 }}
+                      />
+                    </Text>
+                  }
+                  type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
+                  width={260}
+                  name="spec.configuration.spec.configFiles.store.spec.connectorRef"
+                  placeholder={getString('select')}
+                  accountIdentifier={accountId}
+                  projectIdentifier={projectIdentifier}
+                  orgIdentifier={orgIdentifier}
+                  style={{ marginBottom: 10 }}
+                  multiTypeProps={{ expressions }}
                 />
-              </div>
 
-              {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.gitFetchType ===
-                gitFetchTypes[0].value && (
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.MultiTextInput
-                    label={getString('pipelineSteps.deploy.inputSet.branch')}
-                    placeholder={getString('pipeline.manifestType.branchPlaceholder')}
-                    name="spec.configuration.spec.configFiles.store.spec.branch"
-                    multiTextInputProps={{ expressions }}
-                  />
-                  {getMultiTypeFromValue(formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch) ===
-                    MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
-                      value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch as string}
-                      type="String"
-                      variableName="configuration.spec.configFiles.store.spec.branch"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value =>
-                        formik.setFieldValue('configuration.spec.configFiles.store.spec.branch', value)
-                      }
-                      isReadonly={props.isReadonly}
+                {(connectorValue?.connector?.spec?.connectionType === 'Account' ||
+                  connectorValue?.connector?.spec?.type === 'Account') && (
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.MultiTextInput
+                      label={getString('pipelineSteps.repoName')}
+                      name="spec.configuration.spec.configFiles.store.spec.repoName"
+                      placeholder={getString('pipelineSteps.repoName')}
+                      multiTextInputProps={{ expressions }}
                     />
-                  )}
-                </div>
-              )}
-
-              {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.gitFetchType ===
-                gitFetchTypes[1].value && (
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.MultiTextInput
-                    label={getString('pipeline.manifestType.commitId')}
-                    placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-                    name="spec.configuration.spec.configFiles.store.spec.commitId"
-                    multiTextInputProps={{ expressions }}
-                  />
-                  {getMultiTypeFromValue(
-                    formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId
-                  ) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
-                      value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId as string}
-                      type="String"
-                      variableName="spec.configuration.spec.configFiles.store.spec.commitId"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value =>
-                        formik.setFieldValue('spec.configuration.spec.configFiles.spec.store.spec.commitId', value)
-                      }
-                      isReadonly={props.isReadonly}
-                    />
-                  )}
-                </div>
-              )}
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormInput.MultiTextInput
-                  label={getString('cd.folderPath')}
-                  placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-                  name="spec.configuration.spec.configFiles.store.spec.folderPath"
-                  multiTextInputProps={{ expressions }}
-                />
-                {getMultiTypeFromValue(
-                  formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath
-                ) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    style={{ alignSelf: 'center' }}
-                    value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath as string}
-                    type="String"
-                    variableName="formik.values.spec?.configuration?.spec?.store.spec?.folderPath"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value =>
-                      formik.setFieldValue('formik.values.spec?.configuration?.spec?.store.spec?.folderPath', value)
-                    }
-                    isReadonly={props.isReadonly}
-                  />
+                    {getMultiTypeFromValue(
+                      formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.repoName
+                    ) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.repoName as string}
+                        type="String"
+                        variableName="configuration.spec.configFiles.store.spec.repoName"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value =>
+                          formik.setFieldValue('configuration.spec.configFiles.store.spec.repoName', value)
+                        }
+                        isReadonly={props.isReadonly}
+                      />
+                    )}
+                  </div>
                 )}
-              </div>
 
-              <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-                <Button
-                  text={getString('submit')}
-                  intent="primary"
-                  type="submit"
-                  disabled={!formik?.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef}
-                />
-                <Button text={getString('cancel')} onClick={props.onHide} />
-              </Layout.Horizontal>
-            </Form>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <FormInput.Select
+                    items={gitFetchTypes}
+                    name="spec.configuration.spec.configFiles.store.spec.gitFetchType"
+                    label={getString('pipeline.manifestType.gitFetchTypeLabel')}
+                    placeholder={getString('pipeline.manifestType.gitFetchTypeLabel')}
+                  />
+                </div>
+
+                {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.gitFetchType ===
+                  gitFetchTypes[0].value && (
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.MultiTextInput
+                      label={getString('pipelineSteps.deploy.inputSet.branch')}
+                      placeholder={getString('pipeline.manifestType.branchPlaceholder')}
+                      name="spec.configuration.spec.configFiles.store.spec.branch"
+                      multiTextInputProps={{ expressions }}
+                    />
+                    {getMultiTypeFromValue(
+                      formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch
+                    ) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch as string}
+                        type="String"
+                        variableName="configuration.spec.configFiles.store.spec.branch"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value =>
+                          formik.setFieldValue('configuration.spec.configFiles.store.spec.branch', value)
+                        }
+                        isReadonly={props.isReadonly}
+                      />
+                    )}
+                  </div>
+                )}
+
+                {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.gitFetchType ===
+                  gitFetchTypes[1].value && (
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.MultiTextInput
+                      label={getString('pipeline.manifestType.commitId')}
+                      placeholder={getString('pipeline.manifestType.commitPlaceholder')}
+                      name="spec.configuration.spec.configFiles.store.spec.commitId"
+                      multiTextInputProps={{ expressions }}
+                    />
+                    {getMultiTypeFromValue(
+                      formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId
+                    ) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId as string}
+                        type="String"
+                        variableName="spec.configuration.spec.configFiles.store.spec.commitId"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value =>
+                          formik.setFieldValue('spec.configuration.spec.configFiles.spec.store.spec.commitId', value)
+                        }
+                        isReadonly={props.isReadonly}
+                      />
+                    )}
+                  </div>
+                )}
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <FormInput.MultiTextInput
+                    label={getString('cd.folderPath')}
+                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                    name="spec.configuration.spec.configFiles.store.spec.folderPath"
+                    multiTextInputProps={{ expressions }}
+                  />
+                  {getMultiTypeFromValue(
+                    formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath
+                  ) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      style={{ alignSelf: 'center' }}
+                      value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath as string}
+                      type="String"
+                      variableName="formik.values.spec?.configuration?.spec?.store.spec?.folderPath"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value =>
+                        formik.setFieldValue('formik.values.spec?.configuration?.spec?.store.spec?.folderPath', value)
+                      }
+                      isReadonly={props.isReadonly}
+                    />
+                  )}
+                </div>
+
+                <Container padding={{ top: 'xlarge' }}>
+                  <Button
+                    text={getString('submit')}
+                    intent="primary"
+                    type="submit"
+                    disabled={!formik?.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef}
+                  />
+                  <Button text={getString('cancel')} onClick={props.onHide} />
+                </Container>
+              </Form>
+            </Layout.Vertical>
           )
         }}
       </Formik>

@@ -3,154 +3,299 @@
 exports[`TF Config Form tests edit view loads correctly 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-huge"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
-        <div
-          style="margin-bottom: 10px;"
-        >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <form>
           <div
-            class="StyledProps--font StyledProps--main"
-            style="margin-bottom: 5px;"
+            style="margin-bottom: 10px;"
           >
-            <p
+            <div
               class="StyledProps--font StyledProps--main"
+              style="margin-bottom: 5px;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
+              >
+                connector
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      tabindex="0"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
+                      >
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
+                        >
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </p>
+            </div>
+            <div
               style="display: flex; align-items: center;"
             >
-              connector
-              <span
-                class="bp3-popover-wrapper"
+              <div
+                class="bp3-form-group"
+                style="margin-bottom: 0px;"
               >
-                <span
-                  class="bp3-popover-target"
+                <div
+                  class="bp3-form-content"
                 >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
+                  <div
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                    style="width: 260px;"
                   >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
+                      style="width: 232px;"
+                      type="button"
                     >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
+                      <span
+                        class="bp3-button-text"
                       >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
+                        >
+                          <span
+                            class="bp3-popover-wrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
+                                tabindex="0"
+                              >
+                                Git5
+                              </p>
+                            </span>
+                          </span>
+                          <div
+                            class="rightStatus"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                              data-testid="crf-status"
+                              icon="full-circle"
+                            >
+                              <svg
+                                data-icon="full-circle"
+                                height="6"
+                                viewBox="0 0 16 16"
+                                width="6"
+                              >
+                                <desc>
+                                  full-circle
+                                </desc>
+                                <path
+                                  d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="Tag--main"
+                            >
+                              <span
+                                class="bp3-tag bp3-minimal tag"
+                              >
+                                <span
+                                  class="bp3-text-overflow-ellipsis bp3-fill"
+                                >
+                                  project
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </span>
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                    <span
+                      class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <button
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main"
+                            data-icon="fixed-input"
+                          >
+                            <svg
+                              height="12"
+                              viewBox="0 0 9 9"
+                              width="12"
+                            >
+                              <path
+                                d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
                     </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
-            style="display: flex; align-items: center;"
+            class="formGroup md"
           >
             <div
               class="bp3-form-group"
-              style="margin-bottom: 0px;"
             >
+              <label
+                class="bp3-label"
+                for="spec.configuration.configFiles.store.spec.gitFetchType"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.gitFetchType"
+                >
+                  pipeline.manifestType.gitFetchTypeLabel
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-popover-wrapper Select--main bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="spec.configuration.configFiles.store.spec.gitFetchType"
+                        placeholder="pipeline.manifestType.gitFetchTypeLabel"
+                        style="padding-right: 0px;"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        class="bp3-input-action"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                          icon="caret-down"
+                        >
+                          <svg
+                            data-icon="caret-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              caret-down
+                            </desc>
+                            <path
+                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="formGroup md"
+          >
+            <div
+              class="bp3-form-group"
+            >
+              <label
+                class="bp3-label"
+                for="spec.configuration.configFiles.store.spec.folderPath"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.folderPath"
+                >
+                  cd.folderPath
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
               <div
                 class="bp3-form-content"
               >
                 <div
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                  style="width: 300px;"
                 >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
-                    data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
-                    style="width: 272px;"
-                    type="button"
+                  <div
+                    class="bp3-input-group MultiTypeInput--input"
                   >
-                    <span
-                      class="bp3-button-text"
-                    >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
-                      >
-                        <span
-                          class="bp3-popover-wrapper"
-                        >
-                          <span
-                            class="bp3-popover-target"
-                          >
-                            <p
-                              class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
-                              tabindex="0"
-                            >
-                              Git5
-                            </p>
-                          </span>
-                        </span>
-                        <div
-                          class="rightStatus"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
-                            data-testid="crf-status"
-                            icon="full-circle"
-                          >
-                            <svg
-                              data-icon="full-circle"
-                              height="6"
-                              viewBox="0 0 16 16"
-                              width="6"
-                            >
-                              <desc>
-                                full-circle
-                              </desc>
-                              <path
-                                d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                          <span
-                            class="Tag--main"
-                          >
-                            <span
-                              class="bp3-tag bp3-minimal tag"
-                            >
-                              <span
-                                class="bp3-text-overflow-ellipsis bp3-fill"
-                              >
-                                project
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </span>
-                    <span
-                      class="bp3-icon bp3-icon-caret-down StyledProps--main"
-                      icon="caret-down"
-                    >
-                      <svg
-                        data-icon="caret-down"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
-                      >
-                        <desc>
-                          caret-down
-                        </desc>
-                        <path
-                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </button>
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.configuration.configFiles.store.spec.folderPath"
+                      placeholder="pipeline.manifestType.pathPlaceholder"
+                      type="text"
+                      value="test-folder"
+                    />
+                  </div>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"
                   >
@@ -182,173 +327,32 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="formGroup md"
-        >
           <div
-            class="bp3-form-group"
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
           >
-            <label
-              class="bp3-label"
-              for="spec.configuration.configFiles.store.spec.gitFetchType"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              type="submit"
             >
               <span
-                class="Tooltip--acenter"
-                data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.gitFetchType"
+                class="bp3-button-text"
               >
-                pipeline.manifestType.gitFetchTypeLabel
+                submit
               </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-popover-wrapper Select--main bp3-fill"
-              >
-                <div
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="bp3-input-group"
-                  >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="spec.configuration.configFiles.store.spec.gitFetchType"
-                      placeholder="pipeline.manifestType.gitFetchTypeLabel"
-                      style="padding-right: 0px;"
-                      type="text"
-                      value=""
-                    />
-                    <span
-                      class="bp3-input-action"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                        icon="caret-down"
-                      >
-                        <svg
-                          data-icon="caret-down"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
-                        >
-                          <desc>
-                            caret-down
-                          </desc>
-                          <path
-                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="formGroup md"
-        >
-          <div
-            class="bp3-form-group"
-          >
-            <label
-              class="bp3-label"
-              for="spec.configuration.configFiles.store.spec.folderPath"
+            </button>
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
               <span
-                class="Tooltip--acenter"
-                data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.folderPath"
+                class="bp3-button-text"
               >
-                cd.folderPath
+                cancel
               </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-              >
-                <div
-                  class="bp3-input-group MultiTypeInput--input"
-                >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="spec.configuration.configFiles.store.spec.folderPath"
-                    placeholder="pipeline.manifestType.pathPlaceholder"
-                    type="text"
-                    value="test-folder"
-                  />
-                </div>
-                <span
-                  class="bp3-popover-wrapper MultiTypeInput--wrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="fixed-input"
-                      >
-                        <svg
-                          height="12"
-                          viewBox="0 0 9 9"
-                          width="12"
-                        >
-                          <path
-                            d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
-              </div>
-            </div>
+            </button>
           </div>
-        </div>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
-        >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              submit
-            </span>
-          </button>
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              cancel
-            </span>
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>
@@ -357,154 +361,299 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
 exports[`TF Config Form tests initial render 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-huge"
+    class="Layout--vertical StyledProps--main"
   >
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
-        <div
-          style="margin-bottom: 10px;"
-        >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <form>
           <div
-            class="StyledProps--font StyledProps--main"
-            style="margin-bottom: 5px;"
+            style="margin-bottom: 10px;"
           >
-            <p
+            <div
               class="StyledProps--font StyledProps--main"
+              style="margin-bottom: 5px;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
+              >
+                connector
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      tabindex="0"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="question"
+                      >
+                        <svg
+                          height="14"
+                          viewBox="0 0 14 14"
+                          width="14"
+                        >
+                          <path
+                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                            fill="#9AA5B5"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </p>
+            </div>
+            <div
               style="display: flex; align-items: center;"
             >
-              connector
-              <span
-                class="bp3-popover-wrapper"
+              <div
+                class="bp3-form-group"
+                style="margin-bottom: 0px;"
               >
-                <span
-                  class="bp3-popover-target"
+                <div
+                  class="bp3-form-content"
                 >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
+                  <div
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                    style="width: 260px;"
                   >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
+                      style="width: 232px;"
+                      type="button"
                     >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
+                      <span
+                        class="bp3-button-text"
                       >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
+                        >
+                          <span
+                            class="bp3-popover-wrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
+                                tabindex="0"
+                              >
+                                Git5
+                              </p>
+                            </span>
+                          </span>
+                          <div
+                            class="rightStatus"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                              data-testid="crf-status"
+                              icon="full-circle"
+                            >
+                              <svg
+                                data-icon="full-circle"
+                                height="6"
+                                viewBox="0 0 16 16"
+                                width="6"
+                              >
+                                <desc>
+                                  full-circle
+                                </desc>
+                                <path
+                                  d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="Tag--main"
+                            >
+                              <span
+                                class="bp3-tag bp3-minimal tag"
+                              >
+                                <span
+                                  class="bp3-text-overflow-ellipsis bp3-fill"
+                                >
+                                  project
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </span>
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                    <span
+                      class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <button
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main"
+                            data-icon="fixed-input"
+                          >
+                            <svg
+                              height="12"
+                              viewBox="0 0 9 9"
+                              width="12"
+                            >
+                              <path
+                                d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
                     </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
-            style="display: flex; align-items: center;"
+            class="formGroup md"
           >
             <div
               class="bp3-form-group"
-              style="margin-bottom: 0px;"
             >
+              <label
+                class="bp3-label"
+                for="spec.configuration.configFiles.store.spec.gitFetchType"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.gitFetchType"
+                >
+                  pipeline.manifestType.gitFetchTypeLabel
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-popover-wrapper Select--main bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="spec.configuration.configFiles.store.spec.gitFetchType"
+                        placeholder="pipeline.manifestType.gitFetchTypeLabel"
+                        style="padding-right: 0px;"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        class="bp3-input-action"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                          icon="caret-down"
+                        >
+                          <svg
+                            data-icon="caret-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              caret-down
+                            </desc>
+                            <path
+                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="formGroup md"
+          >
+            <div
+              class="bp3-form-group"
+            >
+              <label
+                class="bp3-label"
+                for="spec.configuration.configFiles.store.spec.folderPath"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.folderPath"
+                >
+                  cd.folderPath
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
               <div
                 class="bp3-form-content"
               >
                 <div
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                  style="width: 300px;"
                 >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
-                    data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
-                    style="width: 272px;"
-                    type="button"
+                  <div
+                    class="bp3-input-group MultiTypeInput--input"
                   >
-                    <span
-                      class="bp3-button-text"
-                    >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
-                      >
-                        <span
-                          class="bp3-popover-wrapper"
-                        >
-                          <span
-                            class="bp3-popover-target"
-                          >
-                            <p
-                              class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
-                              tabindex="0"
-                            >
-                              Git5
-                            </p>
-                          </span>
-                        </span>
-                        <div
-                          class="rightStatus"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
-                            data-testid="crf-status"
-                            icon="full-circle"
-                          >
-                            <svg
-                              data-icon="full-circle"
-                              height="6"
-                              viewBox="0 0 16 16"
-                              width="6"
-                            >
-                              <desc>
-                                full-circle
-                              </desc>
-                              <path
-                                d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                          <span
-                            class="Tag--main"
-                          >
-                            <span
-                              class="bp3-tag bp3-minimal tag"
-                            >
-                              <span
-                                class="bp3-text-overflow-ellipsis bp3-fill"
-                              >
-                                project
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </span>
-                    <span
-                      class="bp3-icon bp3-icon-caret-down StyledProps--main"
-                      icon="caret-down"
-                    >
-                      <svg
-                        data-icon="caret-down"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
-                      >
-                        <desc>
-                          caret-down
-                        </desc>
-                        <path
-                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </button>
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.configuration.configFiles.store.spec.folderPath"
+                      placeholder="pipeline.manifestType.pathPlaceholder"
+                      type="text"
+                      value=""
+                    />
+                  </div>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"
                   >
@@ -536,173 +685,32 @@ exports[`TF Config Form tests initial render 1`] = `
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="formGroup md"
-        >
           <div
-            class="bp3-form-group"
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
           >
-            <label
-              class="bp3-label"
-              for="spec.configuration.configFiles.store.spec.gitFetchType"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              type="submit"
             >
               <span
-                class="Tooltip--acenter"
-                data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.gitFetchType"
+                class="bp3-button-text"
               >
-                pipeline.manifestType.gitFetchTypeLabel
+                submit
               </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-popover-wrapper Select--main bp3-fill"
-              >
-                <div
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="bp3-input-group"
-                  >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="spec.configuration.configFiles.store.spec.gitFetchType"
-                      placeholder="pipeline.manifestType.gitFetchTypeLabel"
-                      style="padding-right: 0px;"
-                      type="text"
-                      value=""
-                    />
-                    <span
-                      class="bp3-input-action"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                        icon="caret-down"
-                      >
-                        <svg
-                          data-icon="caret-down"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
-                        >
-                          <desc>
-                            caret-down
-                          </desc>
-                          <path
-                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="formGroup md"
-        >
-          <div
-            class="bp3-form-group"
-          >
-            <label
-              class="bp3-label"
-              for="spec.configuration.configFiles.store.spec.folderPath"
+            </button>
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
               <span
-                class="Tooltip--acenter"
-                data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.folderPath"
+                class="bp3-button-text"
               >
-                cd.folderPath
+                cancel
               </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-              >
-                <div
-                  class="bp3-input-group MultiTypeInput--input"
-                >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="spec.configuration.configFiles.store.spec.folderPath"
-                    placeholder="pipeline.manifestType.pathPlaceholder"
-                    type="text"
-                    value=""
-                  />
-                </div>
-                <span
-                  class="bp3-popover-wrapper MultiTypeInput--wrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="fixed-input"
-                      >
-                        <svg
-                          height="12"
-                          viewBox="0 0 9 9"
-                          width="12"
-                        >
-                          <path
-                            d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
-              </div>
-            </div>
+            </button>
           </div>
-        </div>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
-        >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            type="submit"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              submit
-            </span>
-          </button>
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              cancel
-            </span>
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>

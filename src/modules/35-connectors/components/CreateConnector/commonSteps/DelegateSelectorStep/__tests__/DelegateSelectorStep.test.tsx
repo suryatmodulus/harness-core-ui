@@ -13,7 +13,7 @@ import {
   requestBody,
   gitConfigs,
   sourceCodeManagers
-} from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/__tests__/DelegateSelector.mock'
+} from '@connectors/mocks/mock'
 import type { ConnectorRequestBody } from 'services/cd-ng'
 import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
 

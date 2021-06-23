@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
-import { noop, omit, pick } from 'lodash-es'
+import { isEmpty, noop, omit, pick } from 'lodash-es'
 import * as Yup from 'yup'
 import { Container, Button, Layout, useModalHook, Formik, FormikForm, Color, Text, Icon } from '@wings-software/uicore'
 import { parse } from 'yaml'
@@ -119,75 +119,76 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   }, [])
 
   const [showModal, hideModal] = useModalHook(() => {
+    const initialValues = { identifier: '', name: '', description: '', tags: {}, repo: '', branch: '' }
     return (
-      <Dialog style={{ width: 600, paddingBottom: 0 }} isOpen={true} className={Classes.DIALOG}>
+      <Dialog
+        style={{ width: 600, paddingBottom: 0, background: 'var(--form-bg)' }}
+        isOpen={true}
+        className={Classes.DIALOG}
+      >
         <Container className={css.container}>
-          {/* <Button icon="cross" minimal className={css.closeModal} onClick={hideModal} /> */}
+          <Button icon="cross" minimal className={css.closeModal} onClick={hideModal} />
           <Text padding="large" font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
             {getString('connectors.createFromYaml')}
           </Text>
           <Container padding="xsmall" className={css.layout}>
             <div>
               <Formik
-                formName="createConnectorsFormYamlPageForm"
-                initialValues={{
-                  identifier: '',
-                  name: '',
-                  description: '',
-                  tags: {},
-                  repo: '',
-                  branch: ''
-                }}
+                initialValues={initialValues}
+                formName="connector-create-from-yaml"
                 validationSchema={Yup.object().shape({
                   name: NameSchema({ requiredErrorMsg: getString('validation.connectorName') }),
                   identifier: IdentifierSchema(),
-                  repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
-                  branch: Yup.string().trim().required(getString('common.git.validation.branchRequired'))
+                  ...(isGitSyncEnabled
+                    ? {
+                        repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
+                        branch: Yup.string().trim().required(getString('common.git.validation.branchRequired'))
+                      }
+                    : {})
                 })}
-                enableReinitialize={true}
                 onSubmit={values => {
                   setRegisteredWithGit(true)
                   setGitResourceDetails(prevState => ({
                     ...prevState,
                     name: values.name,
-                    gitDetails: { branch: values.branch, repoIdentifier: values.repo } as EntityGitDetails
+                    identifier: values.identifier,
+                    gitDetails:
+                      values.repo && values.repo.trim().length > 0
+                        ? { repoIdentifier: values.repo, branch: values.branch }
+                        : undefined
                   }))
-                  try {
-                    setEditorContent({
-                      connector: { ...omit(values, 'repo', 'branch'), projectIdentifier, orgIdentifier }
-                    })
-                    setHasConnectorChanged(true)
-                    hideModal()
-                  } catch (e) {
-                    showError(e)
+                  const connectorPayload = {
+                    connector: { ...omit(values, 'repo', 'branch'), projectIdentifier, orgIdentifier }
                   }
+                  isEmpty(editorContent)
+                    ? setEditorContent(connectorPayload)
+                    : setEditorContent(prevState => ({
+                        ...prevState,
+                        ...connectorPayload
+                      }))
+                  setHasConnectorChanged(true)
+                  hideModal()
                 }}
               >
                 {formikProps => (
                   <FormikForm>
-                    <div className={css.formInput}>
-                      <NameIdDescriptionTags
+                    <NameIdDescriptionTags
+                      formikProps={formikProps}
+                      identifierProps={{
+                        isIdentifierEditable: true
+                      }}
+                    />
+                    <GitSyncStoreProvider>
+                      <GitContextForm
                         formikProps={formikProps}
-                        identifierProps={{
-                          inputLabel: getString('connectors.name'),
-                          isIdentifierEditable: true
-                        }}
+                        gitDetails={{ ...pick(initialValues, ['repo', 'branch']), getDefaultFromOtherRepo: false }}
                       />
-                    </div>
-                    {isGitSyncEnabled ? (
-                      <GitSyncStoreProvider>
-                        <GitContextForm
-                          formikProps={formikProps}
-                          gitDetails={{
-                            ...pick(formikProps.initialValues, ['repo', 'branch']),
-                            getDefaultFromOtherRepo: false
-                          }}
-                        />
-                      </GitSyncStoreProvider>
-                    ) : null}
-                    <Layout.Horizontal spacing="small" padding={{ top: 'small' }}>
-                      <Button intent="primary" className={css.startBtn} type="submit" text={getString('start')} />
-                    </Layout.Horizontal>
+                    </GitSyncStoreProvider>
+                    <Container padding={{ top: 'xlarge' }}>
+                      <Button intent="primary" type="submit" text={getString('save')} />
+                      &nbsp; &nbsp;
+                      <Button text={getString('cancel')} onClick={hideModal} />
+                    </Container>
                   </FormikForm>
                 )}
               </Formik>

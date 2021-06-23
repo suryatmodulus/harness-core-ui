@@ -252,20 +252,20 @@ function TerraformPlanWidget(
                           />
                           {getMultiTypeFromValue(formik.values.spec?.configuration?.workspace) ===
                             MultiTypeInputType.RUNTIME && (
-                              <ConfigureOptions
-                                value={formik.values?.spec?.configuration?.workspace as string}
-                                type="String"
-                                variableName="spec.configuration.workspace"
-                                showRequiredField={false}
-                                showDefaultField={false}
-                                showAdvanced={true}
-                                onChange={value => {
-                                  /* istanbul ignore else */
-                                  formik.setFieldValue('spec.configuration.workspace', value)
-                                }}
-                                isReadonly={readonly}
-                              />
-                            )}
+                            <ConfigureOptions
+                              value={formik.values?.spec?.configuration?.workspace as string}
+                              type="String"
+                              variableName="spec.configuration.workspace"
+                              showRequiredField={false}
+                              showDefaultField={false}
+                              showAdvanced={true}
+                              onChange={value => {
+                                /* istanbul ignore else */
+                                formik.setFieldValue('spec.configuration.workspace', value)
+                              }}
+                              isReadonly={readonly}
+                            />
+                          )}
                         </div>
                         <TfVarFileList formik={formik} isReadonly={props.readonly} />
                         <div
@@ -306,17 +306,17 @@ function TerraformPlanWidget(
                           </MultiTypeFieldSelector>
                           {getMultiTypeFromValue(formik.values.spec?.configuration?.backendConfig?.spec?.content) ===
                             MultiTypeInputType.RUNTIME && (
-                              <ConfigureOptions
-                                value={formik.values.spec?.configuration?.backendConfig?.spec?.content as string}
-                                type="String"
-                                variableName="spec.configuration.backendConfig.spec.content"
-                                showRequiredField={false}
-                                showDefaultField={false}
-                                showAdvanced={true}
-                                onChange={value => setFieldValue('spec.configuration.backendConfig.spec.content', value)}
-                                isReadonly={readonly}
-                              />
-                            )}
+                            <ConfigureOptions
+                              value={formik.values.spec?.configuration?.backendConfig?.spec?.content as string}
+                              type="String"
+                              variableName="spec.configuration.backendConfig.spec.content"
+                              showRequiredField={false}
+                              showDefaultField={false}
+                              showAdvanced={true}
+                              onChange={value => setFieldValue('spec.configuration.backendConfig.spec.content', value)}
+                              isReadonly={readonly}
+                            />
+                          )}
                         </div>
                         <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                           <MultiTypeList
@@ -481,18 +481,18 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
           targets: !isTargetRunTime
             ? Array.isArray(data.spec?.configuration?.targets)
               ? data.spec?.configuration?.targets.map(target => ({
-                value: target,
-                id: uuid()
-              }))
+                  value: target,
+                  id: uuid()
+                }))
               : [{ value: '', id: uuid() }]
             : data?.spec?.configuration?.targets,
           environmentVariables: !isEnvRunTime
             ? Array.isArray(envVars)
               ? envVars.map(variable => ({
-                key: variable.name,
-                value: variable?.value,
-                id: uuid()
-              }))
+                  key: variable.name,
+                  value: variable?.value,
+                  id: uuid()
+                }))
               : [{ key: '', value: '', id: uuid() }]
             : data?.spec?.configuration?.environmentVariables
         }

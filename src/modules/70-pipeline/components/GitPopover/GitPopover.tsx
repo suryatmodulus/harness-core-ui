@@ -47,6 +47,17 @@ export default function GitPopover(props: GitPopoverProps): React.ReactElement |
             </Text>
           </Layout.Horizontal>
         </Layout.Vertical>
+        <Layout.Vertical spacing="large">
+          <Text font={{ size: 'small' }} color={Color.GREY_400}>
+            {getString('secret.labelFile')}
+          </Text>
+          <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+            <Icon name="service-github" size={14} color={Color.GREY_700} />
+            <Text font={{ size: 'small' }} lineClamp={1} style={{ maxWidth: 300 }} color={Color.GREY_800}>
+              {data.rootFolder}/{data.filePath}
+            </Text>
+          </Layout.Horizontal>
+        </Layout.Vertical>
       </Layout.Vertical>
     </Popover>
   )

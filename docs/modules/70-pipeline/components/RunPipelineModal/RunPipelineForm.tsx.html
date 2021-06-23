@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.91% </span>
+                <span class="strong">44.16% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>101/230</span>
+                <span class='fraction'>102/231</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">19.61% </span>
+                <span class="strong">19.06% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>101/515</span>
+                <span class='fraction'>101/530</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.86% </span>
+                <span class="strong">44.1% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>100/228</span>
+                <span class='fraction'>101/229</span>
             </div>
         
             
@@ -1114,7 +1114,15 @@
 <a name='L1055'></a><a href='#L1055'>1055</a>
 <a name='L1056'></a><a href='#L1056'>1056</a>
 <a name='L1057'></a><a href='#L1057'>1057</a>
-<a name='L1058'></a><a href='#L1058'>1058</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L1058'></a><a href='#L1058'>1058</a>
+<a name='L1059'></a><a href='#L1059'>1059</a>
+<a name='L1060'></a><a href='#L1060'>1060</a>
+<a name='L1061'></a><a href='#L1061'>1061</a>
+<a name='L1062'></a><a href='#L1062'>1062</a>
+<a name='L1063'></a><a href='#L1063'>1063</a>
+<a name='L1064'></a><a href='#L1064'>1064</a>
+<a name='L1065'></a><a href='#L1065'>1065</a>
+<a name='L1066'></a><a href='#L1066'>1066</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1185,6 +1193,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1867,6 +1877,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2241,7 +2257,9 @@ import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { getFormattedErrors, mergeTemplateWithInputSetData } from './RunPipelineHelper'
 import { StepViewType } from '../AbstractSteps/Step'
+import GitPopover from '../GitPopover/GitPopover'
 import css from './RunPipelineModal.module.scss'
+&nbsp;
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
 export interface RunPipelineFormProps extends PipelineType&lt;PipelinePathProps &amp; GitQueryParams&gt; {
   inputSetSelected?: InputSetSelectorProps['value']
@@ -2936,6 +2954,12 @@ function RunPipelineFormBasic({
                     &gt;
                       {getString('runPipeline')}
                     &lt;/Heading&gt;
+                    {isGitSyncEnabled &amp;&amp; (
+                      &lt;GitPopover
+                        data={pipelineResponse?.data?.gitDetails ?? {}}
+                        iconMargin={{ left: 'small', top: 'xsmall' }}
+                      /&gt;
+                    )}
                     &lt;div className={css.optionBtns}&gt;
                       &lt;VisualYamlToggle
                         initialSelectedView={selectedView}
@@ -3015,7 +3039,7 @@ function RunPipelineFormBasic({
                                       &lt;/Text&gt;
                                     &lt;/span&gt;
                                   &lt;/Layout.Horizontal&gt;
-                                  {isGitSyncEnabled &amp;&amp; (
+                                  {isGitSyncEnabled &amp;&amp; existingProvide === 'existing' &amp;&amp; (
                                     &lt;Layout.Horizontal padding={{ bottom: 'small' }}&gt;
                                       &lt;GitSyncStoreProvider&gt;
                                         &lt;GitFilters
@@ -3235,7 +3259,7 @@ export const RunPipelineForm: React.FC&lt;RunPipelineFormProps &amp; InputSetGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 23 2021 13:01:00 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 23 2021 13:41:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

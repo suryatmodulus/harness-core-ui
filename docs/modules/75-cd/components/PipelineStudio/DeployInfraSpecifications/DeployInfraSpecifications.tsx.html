@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.47% </span>
+                <span class="strong">14.29% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/152</span>
+                <span class='fraction'>22/154</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/269</span>
+                <span class='fraction'>0/285</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/27</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.47% </span>
+                <span class="strong">14.29% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/152</span>
+                <span class='fraction'>22/154</span>
             </div>
         
             
@@ -465,7 +465,12 @@
 <a name='L406'></a><a href='#L406'>406</a>
 <a name='L407'></a><a href='#L407'>407</a>
 <a name='L408'></a><a href='#L408'>408</a>
-<a name='L409'></a><a href='#L409'>409</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a>
+<a name='L412'></a><a href='#L412'>412</a>
+<a name='L413'></a><a href='#L413'>413</a>
+<a name='L414'></a><a href='#L414'>414</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -786,6 +791,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -802,17 +823,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1192,6 +1202,23 @@ export default function <span class="fstat-no" title="function not covered" >Dep
     }
   }
 &nbsp;
+  const updateEnvStep = <span class="cstat-no" title="statement not covered" >React.useCallback(</span>
+<span class="fstat-no" title="function not covered" >    (v</span>alue: PipelineInfrastructure) =&gt; {
+      const stageData = <span class="cstat-no" title="statement not covered" >produce(stage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
+        const infraObj: PipelineInfrastructure = <span class="cstat-no" title="statement not covered" >get(draft, 'stage.spec.infrastructure', {})</span>
+<span class="cstat-no" title="statement not covered" >        if (value.environment?.identifier) {</span>
+<span class="cstat-no" title="statement not covered" >          infraObj.environment = value.environment</span>
+<span class="cstat-no" title="statement not covered" >          delete infraObj.environmentRef</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          infraObj.environmentRef = value.environmentRef</span>
+<span class="cstat-no" title="statement not covered" >          delete infraObj.environment</span>
+        }
+      })
+<span class="cstat-no" title="statement not covered" >      debounceUpdateStage(stageData?.stage)</span>
+    },
+    [stage, debounceUpdateStage, stage?.stage?.spec?.infrastructure?.infrastructureDefinition]
+  )
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div className={css.serviceOverrides} key="1"&gt;
       &lt;DeployServiceErrors /&gt;
@@ -1208,19 +1235,7 @@ export default function <span class="fstat-no" title="function not covered" >Dep
                 environment: get(stage, 'stage.spec.infrastructure.environment', {}),
                 environmentRef: get(stage, 'stage.spec.infrastructure.environmentRef', '')
               }}
-              onUpdate={<span class="fstat-no" title="function not covered" >(v</span>alue: PipelineInfrastructure) =&gt; {
-                const stageData = <span class="cstat-no" title="statement not covered" >produce(stage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
-                  const infraObj: PipelineInfrastructure = <span class="cstat-no" title="statement not covered" >get(draft, 'stage.spec.infrastructure', {})</span>
-<span class="cstat-no" title="statement not covered" >                  if (value.environment?.identifier) {</span>
-<span class="cstat-no" title="statement not covered" >                    infraObj.environment = value.environment</span>
-<span class="cstat-no" title="statement not covered" >                    delete infraObj.environmentRef</span>
-                  } else {
-<span class="cstat-no" title="statement not covered" >                    infraObj.environmentRef = value.environmentRef</span>
-<span class="cstat-no" title="statement not covered" >                    delete infraObj.environment</span>
-                  }
-                })
-<span class="cstat-no" title="statement not covered" >                debounceUpdateStage(stageData?.stage)</span>
-              }}
+              onUpdate={<span class="fstat-no" title="function not covered" >val </span>=&gt; <span class="cstat-no" title="statement not covered" >updateEnvStep(val)}</span>
               factory={factory}
               stepViewType={StepViewType.Edit}
             /&gt;
@@ -1288,7 +1303,7 @@ export default function <span class="fstat-no" title="function not covered" >Dep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 22:20:09 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 23 2021 07:29:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.29% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/28</span>
+                <span class='fraction'>27/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">64.96% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>270/405</span>
+                <span class='fraction'>241/371</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.29% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/28</span>
+                <span class='fraction'>27/30</span>
             </div>
         
             
@@ -224,8 +224,9 @@
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
 <a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a>
-<a name='L169'></a><a href='#L169'>169</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<a name='L168'></a><a href='#L168'>168</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
@@ -245,6 +246,7 @@
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -303,10 +305,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -394,6 +392,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import cx from 'classnames'
+&nbsp;
 import { useParams } from 'react-router-dom'
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -413,6 +413,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { Connector, TerraformProps } from '../TerraformInterfaces'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
 export default function ConfigSection(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
@@ -474,89 +475,85 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
     &lt;&gt;
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.workspace) ===
         MultiTypeInputType.RUNTIME &amp;&amp; (
-        &lt;FormInput.MultiTextInput
-          name={`${path}.spec.configuration.spec.workspace`}
-          label={getString('pipelineSteps.workspace')}
-          disabled={readonly}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-        /&gt;
+        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+          &lt;FormInput.MultiTextInput
+            name={`${path}.spec.configuration.spec.workspace`}
+            label={getString('pipelineSteps.workspace')}
+            disabled={readonly}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+          /&gt;
+        &lt;/div&gt;
       )}
       {getMultiTypeFromValue(
         inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.connectorRef
       ) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;ConnectorReferenceField</span>
-          accountIdentifier={accountId}
-          selected={connectorSelected}
-          projectIdentifier={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          width={400}
-          type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
-          name={`${path}.configuration.spec.configFiles.store.spec.connectorRef`}
-          label={getString('connectors.title.gitConnector')}
-          placeholder={getString('select')}
-          disabled={readonly || loading}
-          gitScope={gitScope}
-        /&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;</span>
+          &lt;ConnectorReferenceField
+            accountIdentifier={accountId}
+            selected={connectorSelected}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
+            width={400}
+            type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
+            name={`${path}.configuration.spec.configFiles.store.spec.connectorRef`}
+            label={getString('connectors.title.gitConnector')}
+            placeholder={getString('select')}
+            disabled={readonly || loading}
+            gitScope={gitScope}
+          /&gt;
+        &lt;/div&gt;
       )}
 &nbsp;
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.branch) ===
         MultiTypeInputType.RUNTIME &amp;&amp; (
-        &lt;FormInput.MultiTextInput
-          label={''}
-          name={`${path}.configuration.spec.configFiles.store.spec.branch`}
-          placeholder={getString('pipeline.manifestType.branchPlaceholder')}
-          disabled={readonly}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-        /&gt;
+        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+          &lt;FormInput.MultiTextInput
+            label={''}
+            name={`${path}.configuration.spec.configFiles.store.spec.branch`}
+            placeholder={getString('pipeline.manifestType.branchPlaceholder')}
+            disabled={readonly}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+          /&gt;
+        &lt;/div&gt;
       )}
 &nbsp;
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.commitId) ===
         MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;FormInput.MultiTextInput</span>
-          label=""
-          name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
-          placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-          disabled={readonly}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-        /&gt;
-      )}
-&nbsp;
-      {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.commitId) ===
-        MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;FormInput.MultiTextInput</span>
-          label=""
-          name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
-          placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-          disabled={readonly}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-        /&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;</span>
+          &lt;FormInput.MultiTextInput
+            label=""
+            name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
+            placeholder={getString('pipeline.manifestType.commitPlaceholder')}
+            disabled={readonly}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+          /&gt;
+        &lt;/div&gt;
       )}
 &nbsp;
       {getMultiTypeFromValue(
         inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.folderPath
       ) === MultiTypeInputType.RUNTIME &amp;&amp; (
-        &lt;FormInput.MultiTextInput
-          label=""
-          name={`${path}.configuration.spec.configFiles.store.spec.folderPath`}
-          placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-          disabled={readonly}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-        /&gt;
+        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+          &lt;FormInput.MultiTextInput
+            label=""
+            name={`${path}.configuration.spec.configFiles.store.spec.folderPath`}
+            placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+            disabled={readonly}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+          /&gt;
+        &lt;/div&gt;
       )}
     &lt;/&gt;
   )
@@ -568,7 +565,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 22 2021 22:20:09 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 23 2021 07:29:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

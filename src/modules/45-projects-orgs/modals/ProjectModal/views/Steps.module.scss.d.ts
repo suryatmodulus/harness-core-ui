@@ -6,7 +6,6 @@ declare const styles: {
   readonly customselect: string
   readonly radioSelectPurpose: string
   readonly halfWidth: string
-  readonly collapseDiv: string
   readonly button: string
   readonly preview: string
   readonly desc: string

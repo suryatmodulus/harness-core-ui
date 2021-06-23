@@ -116,7 +116,7 @@ exports[`About Project test create project  1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-xsmall"
               >
                 <div
                   class="bp3-form-group"
@@ -253,107 +253,69 @@ exports[`About Project test create project  1`] = `
                 </div>
               </div>
               <div
-                class="Collapse--main collapseDiv"
+                class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                  class="StyledProps--font StyledProps--main"
                 >
-                  <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                  <label
+                    class="Label--main"
+                    style="font-size: 13px; font-weight: normal;"
                   >
+                    optionalField
                     <span
-                      class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                      icon="small-plus"
+                      class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                      data-name="edit"
+                      data-testid="description-edit"
+                      icon="edit"
                     >
                       <svg
-                        data-icon="small-plus"
-                        height="10"
+                        data-icon="edit"
+                        height="12"
                         viewBox="0 0 16 16"
-                        width="10"
+                        width="12"
                       >
                         <desc>
-                          small-plus
+                          edit
                         </desc>
                         <path
-                          d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
                           fill-rule="evenodd"
                         />
                       </svg>
                     </span>
-                    <p
-                      class="StyledProps--font StyledProps--main CollapseHeader--title"
-                    >
-                      description
-                    </p>
-                  </div>
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                  />
+                  </label>
                 </div>
                 <div
-                  class="Collapse--collapse"
+                  class="StyledProps--font StyledProps--main"
                 >
-                  <div
-                    class="bp3-collapse collapse"
+                  <label
+                    class="Label--main"
+                    style="font-size: 13px; font-weight: normal;"
                   >
-                    <div
-                      aria-hidden="false"
-                      class="bp3-collapse-body"
-                      style="transform: translateY(-undefinedpx);"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                class="Collapse--main collapseDiv"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
-                >
-                  <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
-                  >
+                    optionalField
                     <span
-                      class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                      icon="small-plus"
+                      class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                      data-name="edit"
+                      data-testid="tags-edit"
+                      icon="edit"
                     >
                       <svg
-                        data-icon="small-plus"
-                        height="10"
+                        data-icon="edit"
+                        height="12"
                         viewBox="0 0 16 16"
-                        width="10"
+                        width="12"
                       >
                         <desc>
-                          small-plus
+                          edit
                         </desc>
                         <path
-                          d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
                           fill-rule="evenodd"
                         />
                       </svg>
                     </span>
-                    <p
-                      class="StyledProps--font StyledProps--main CollapseHeader--title"
-                    >
-                      tagsLabel
-                    </p>
-                  </div>
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                  />
-                </div>
-                <div
-                  class="Collapse--collapse"
-                >
-                  <div
-                    class="bp3-collapse collapse"
-                  >
-                    <div
-                      aria-hidden="false"
-                      class="bp3-collapse-body"
-                      style="transform: translateY(-undefinedpx);"
-                    />
-                  </div>
+                  </label>
                 </div>
               </div>
             </div>
@@ -808,7 +770,7 @@ exports[`About Project test create project  2`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-xsmall"
               >
                 <div
                   class="bp3-form-group"
@@ -945,149 +907,65 @@ exports[`About Project test create project  2`] = `
                 </div>
               </div>
               <div
-                class="Collapse--main collapseDiv"
+                class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                  class="StyledProps--font StyledProps--main"
+                  style="margin-bottom: 0px;"
                 >
-                  <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                  <label
+                    class="Label--main"
+                    style="font-size: 13px; font-weight: normal;"
                   >
+                    optionalField
+                  </label>
+                  <div
+                    class="bp3-form-group"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <textarea
+                        autocomplete="off"
+                        class="bp3-input bp3-fill"
+                        maxlength="1024"
+                        name="description"
+                      >
+                         This is new description
+                      </textarea>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main"
+                >
+                  <label
+                    class="Label--main"
+                    style="font-size: 13px; font-weight: normal;"
+                  >
+                    optionalField
                     <span
-                      class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                      icon="small-minus"
+                      class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                      data-name="edit"
+                      data-testid="tags-edit"
+                      icon="edit"
                     >
                       <svg
-                        data-icon="small-minus"
-                        height="10"
+                        data-icon="edit"
+                        height="12"
                         viewBox="0 0 16 16"
-                        width="10"
+                        width="12"
                       >
                         <desc>
-                          small-minus
+                          edit
                         </desc>
                         <path
-                          d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
                           fill-rule="evenodd"
                         />
                       </svg>
                     </span>
-                    <p
-                      class="StyledProps--font StyledProps--main CollapseHeader--title"
-                    >
-                      description
-                    </p>
-                  </div>
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                  />
-                </div>
-                <div
-                  class="Collapse--collapse"
-                >
-                  <div
-                    class="bp3-collapse collapse"
-                    style="height: 0px;"
-                  >
-                    <div
-                      aria-hidden="false"
-                      class="bp3-collapse-body"
-                      style="transform: translateY(0);"
-                    >
-                      <div
-                        class="bp3-form-group desc"
-                      >
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <textarea
-                            autocomplete="off"
-                            class="bp3-input bp3-fill"
-                            maxlength="1024"
-                            name="description"
-                          >
-                             This is new description
-                          </textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="Collapse--main collapseDiv"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
-                >
-                  <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
-                  >
-                    <span
-                      class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                      icon="small-minus"
-                    >
-                      <svg
-                        data-icon="small-minus"
-                        height="10"
-                        viewBox="0 0 16 16"
-                        width="10"
-                      >
-                        <desc>
-                          small-minus
-                        </desc>
-                        <path
-                          d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                    <p
-                      class="StyledProps--font StyledProps--main CollapseHeader--title"
-                    >
-                      tagsLabel
-                    </p>
-                  </div>
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                  />
-                </div>
-                <div
-                  class="Collapse--collapse"
-                >
-                  <div
-                    class="bp3-collapse collapse"
-                    style="height: 0px;"
-                  >
-                    <div
-                      aria-hidden="false"
-                      class="bp3-collapse-body"
-                      style="transform: translateY(0);"
-                    >
-                      <div
-                        class="bp3-form-group"
-                      >
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <div
-                            class="bp3-input bp3-tag-input"
-                          >
-                            <div
-                              class="bp3-tag-input-values"
-                            >
-                              <input
-                                class="bp3-input-ghost"
-                                data-mentions="kv-tag-input-tags}"
-                                placeholder="Type and press enter to create a tag"
-                                value=""
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </label>
                 </div>
               </div>
             </div>
@@ -1527,7 +1405,7 @@ exports[`About Project test edit project  1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-xsmall"
               >
                 <div
                   class="bp3-form-group"
@@ -1665,126 +1543,66 @@ exports[`About Project test edit project  1`] = `
                 </div>
               </div>
               <div
-                class="Collapse--main collapseDiv"
+                class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                  class="StyledProps--font StyledProps--main"
+                  style="margin-bottom: 0px;"
                 >
-                  <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                  <label
+                    class="Label--main"
+                    style="font-size: 13px; font-weight: normal;"
                   >
-                    <span
-                      class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                      icon="small-minus"
-                    >
-                      <svg
-                        data-icon="small-minus"
-                        height="10"
-                        viewBox="0 0 16 16"
-                        width="10"
-                      >
-                        <desc>
-                          small-minus
-                        </desc>
-                        <path
-                          d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                    <p
-                      class="StyledProps--font StyledProps--main CollapseHeader--title"
-                    >
-                      description
-                    </p>
-                  </div>
+                    optionalField
+                  </label>
                   <div
-                    class="StyledProps--font StyledProps--main"
-                  />
-                </div>
-                <div
-                  class="Collapse--collapse"
-                >
-                  <div
-                    class="bp3-collapse collapse"
-                    style="height: auto; overflow-y: visible; transition: none;"
+                    class="bp3-form-group"
+                    data-id="description-3"
                   >
                     <div
-                      aria-hidden="false"
-                      class="bp3-collapse-body"
-                      style="transform: translateY(0); transition: none;"
+                      class="bp3-form-content"
                     >
-                      <div
-                        class="bp3-form-group desc"
-                        data-id="description-3"
+                      <textarea
+                        autocomplete="off"
+                        class="bp3-input bp3-fill"
+                        maxlength="1024"
+                        name="description"
                       >
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <textarea
-                            autocomplete="off"
-                            class="bp3-input bp3-fill"
-                            maxlength="1024"
-                            name="description"
-                          >
-                            refetch returns new data
-                          </textarea>
-                        </div>
-                      </div>
+                        refetch returns new data
+                      </textarea>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="Collapse--main collapseDiv"
-              >
                 <div
-                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                  class="StyledProps--font StyledProps--main"
                 >
-                  <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                  <label
+                    class="Label--main"
+                    style="font-size: 13px; font-weight: normal;"
                   >
+                    optionalField
                     <span
-                      class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                      icon="small-plus"
+                      class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                      data-name="edit"
+                      data-testid="tags-edit"
+                      icon="edit"
                     >
                       <svg
-                        data-icon="small-plus"
-                        height="10"
+                        data-icon="edit"
+                        height="12"
                         viewBox="0 0 16 16"
-                        width="10"
+                        width="12"
                       >
                         <desc>
-                          small-plus
+                          edit
                         </desc>
                         <path
-                          d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
                           fill-rule="evenodd"
                         />
                       </svg>
                     </span>
-                    <p
-                      class="StyledProps--font StyledProps--main CollapseHeader--title"
-                    >
-                      tagsLabel
-                    </p>
-                  </div>
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                  />
-                </div>
-                <div
-                  class="Collapse--collapse"
-                >
-                  <div
-                    class="bp3-collapse collapse"
-                  >
-                    <div
-                      aria-hidden="false"
-                      class="bp3-collapse-body"
-                      style="transform: translateY(-undefinedpx);"
-                    />
-                  </div>
+                  </label>
                 </div>
               </div>
             </div>
@@ -1907,7 +1725,7 @@ exports[`About Project test edit project  2`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-xsmall"
               >
                 <div
                   class="bp3-form-group"
@@ -2045,126 +1863,66 @@ exports[`About Project test edit project  2`] = `
                 </div>
               </div>
               <div
-                class="Collapse--main collapseDiv"
+                class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                  class="StyledProps--font StyledProps--main"
+                  style="margin-bottom: 0px;"
                 >
-                  <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                  <label
+                    class="Label--main"
+                    style="font-size: 13px; font-weight: normal;"
                   >
-                    <span
-                      class="bp3-icon bp3-icon-small-minus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                      icon="small-minus"
-                    >
-                      <svg
-                        data-icon="small-minus"
-                        height="10"
-                        viewBox="0 0 16 16"
-                        width="10"
-                      >
-                        <desc>
-                          small-minus
-                        </desc>
-                        <path
-                          d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                    <p
-                      class="StyledProps--font StyledProps--main CollapseHeader--title"
-                    >
-                      description
-                    </p>
-                  </div>
+                    optionalField
+                  </label>
                   <div
-                    class="StyledProps--font StyledProps--main"
-                  />
-                </div>
-                <div
-                  class="Collapse--collapse"
-                >
-                  <div
-                    class="bp3-collapse collapse"
-                    style="height: auto; overflow-y: visible; transition: none;"
+                    class="bp3-form-group"
+                    data-id="description-3"
                   >
                     <div
-                      aria-hidden="false"
-                      class="bp3-collapse-body"
-                      style="transform: translateY(0); transition: none;"
+                      class="bp3-form-content"
                     >
-                      <div
-                        class="bp3-form-group desc"
-                        data-id="description-3"
+                      <textarea
+                        autocomplete="off"
+                        class="bp3-input bp3-fill"
+                        maxlength="1024"
+                        name="description"
                       >
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <textarea
-                            autocomplete="off"
-                            class="bp3-input bp3-fill"
-                            maxlength="1024"
-                            name="description"
-                          >
-                            refetch returns new data
-                          </textarea>
-                        </div>
-                      </div>
+                        refetch returns new data
+                      </textarea>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="Collapse--main collapseDiv"
-              >
                 <div
-                  class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                  class="StyledProps--font StyledProps--main"
                 >
-                  <div
-                    class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                  <label
+                    class="Label--main"
+                    style="font-size: 13px; font-weight: normal;"
                   >
+                    optionalField
                     <span
-                      class="bp3-icon bp3-icon-small-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
-                      icon="small-plus"
+                      class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                      data-name="edit"
+                      data-testid="tags-edit"
+                      icon="edit"
                     >
                       <svg
-                        data-icon="small-plus"
-                        height="10"
+                        data-icon="edit"
+                        height="12"
                         viewBox="0 0 16 16"
-                        width="10"
+                        width="12"
                       >
                         <desc>
-                          small-plus
+                          edit
                         </desc>
                         <path
-                          d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                          d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
                           fill-rule="evenodd"
                         />
                       </svg>
                     </span>
-                    <p
-                      class="StyledProps--font StyledProps--main CollapseHeader--title"
-                    >
-                      tagsLabel
-                    </p>
-                  </div>
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                  />
-                </div>
-                <div
-                  class="Collapse--collapse"
-                >
-                  <div
-                    class="bp3-collapse collapse"
-                  >
-                    <div
-                      aria-hidden="false"
-                      class="bp3-collapse-body"
-                      style="transform: translateY(-undefinedpx);"
-                    />
-                  </div>
+                  </label>
                 </div>
               </div>
             </div>

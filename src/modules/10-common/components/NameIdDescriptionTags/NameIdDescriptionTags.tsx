@@ -178,3 +178,13 @@ export function NameIdDescription(props: NameIdDescriptionProps): JSX.Element {
     </Container>
   )
 }
+
+export function DescriptionTags(props: Omit<NameIdDescriptionTagsProps, 'identifierProps'>): JSX.Element {
+  const { className, descriptionProps, tagsProps, formikProps } = props
+  return (
+    <Container className={cx(css.main, className)}>
+      <Description descriptionProps={descriptionProps} hasValue={!!formikProps?.values.description} />
+      <Tags tagsProps={tagsProps} isOptional={tagsProps?.isOption} hasValue={!isEmpty(formikProps?.values.tags)} />
+    </Container>
+  )
+}

@@ -7,8 +7,6 @@ import {
   Text,
   Layout,
   StepProps,
-  Collapse,
-  IconName,
   SelectOption,
   Container,
   Color,
@@ -16,6 +14,7 @@ import {
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import { DescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import type { Project } from 'services/cd-ng'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
@@ -41,13 +40,6 @@ interface AboutPageData extends Project {
   preview?: boolean
 }
 
-const collapseProps = {
-  collapsedIcon: 'small-plus' as IconName,
-  expandedIcon: 'small-minus' as IconName,
-  isRemovable: false,
-  className: 'collapse'
-}
-
 const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
   const {
     data: projectData,
@@ -63,10 +55,6 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
     displayProjectCardPreview = true
   } = props
   const { getString } = useStrings()
-  const descriptionCollapseProps = Object.assign({}, collapseProps, {
-    heading: getString('description')
-  })
-  const tagCollapseProps = Object.assign({}, collapseProps, { heading: getString('tagsLabel') })
 
   return (
     <Formik
@@ -104,7 +92,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                   </Layout.Horizontal>
                   <ModalErrorHandler bind={setModalErrorHandler} />
                   <FormInput.InputWithIdentifier isIdentifierEditable={enableEdit} />
-                  <Layout.Horizontal spacing="small">
+                  <Layout.Horizontal spacing="small" margin={{ bottom: 'xsmall' }}>
                     <FormInput.ColorPicker label={getString('color')} name="color" height={38} />
                     <FormInput.Select
                       label={getString('orgLabel')}
@@ -113,20 +101,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                       disabled={disableSelect}
                     />
                   </Layout.Horizontal>
-                  <Collapse
-                    isOpen={formikProps.values.description === '' ? false : true}
-                    {...descriptionCollapseProps}
-                    collapseClassName={css.collapseDiv}
-                  >
-                    <FormInput.TextArea name="description" className={css.desc} />
-                  </Collapse>
-                  <Collapse
-                    isOpen={formikProps.values.tags && Object.keys(formikProps.values.tags).length ? true : false}
-                    {...tagCollapseProps}
-                    collapseClassName={css.collapseDiv}
-                  >
-                    <FormInput.KVTagInput name="tags" />
-                  </Collapse>
+                  <DescriptionTags formikProps={formikProps} />
                 </Container>
                 <Layout.Horizontal>
                   <Button intent="primary" text={getString('saveAndContinue')} type="submit" disabled={disableSubmit} />

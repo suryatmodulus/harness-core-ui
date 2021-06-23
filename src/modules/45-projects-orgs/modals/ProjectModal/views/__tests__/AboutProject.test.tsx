@@ -132,7 +132,7 @@ describe('About Project test', () => {
     expect(container).toMatchSnapshot()
 
     setFieldValue({ type: InputTypes.TEXTFIELD, container: container, fieldId: 'name', value: 'dummy name' })
-    fireEvent.click(container.querySelectorAll('[icon="small-plus"]')[0]!)
+    fireEvent.click(container.querySelectorAll('[icon="edit"]')[1]!)
 
     setFieldValue({
       type: InputTypes.TEXTAREA,
@@ -140,7 +140,6 @@ describe('About Project test', () => {
       fieldId: 'description',
       value: ' This is new description'
     })
-    fireEvent.click(container.querySelectorAll('[icon="small-plus"]')[0]!)
     clickSubmit(container)
     expect(container).toMatchSnapshot()
   }),

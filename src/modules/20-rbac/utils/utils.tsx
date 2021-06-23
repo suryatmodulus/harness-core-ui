@@ -34,7 +34,7 @@ export const UserItemRenderer: ItemRenderer<UserItem> = (item, { handleClick }) 
     key={item.value.toString()}
     text={
       <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-        <Avatar name={item.label} size="small" hoverCard={false} />
+        <Avatar name={item.label} email={item.email || item.value.toString()} size="small" hoverCard={false} />
         <Layout.Vertical padding={{ left: 'small' }}>
           <Text color={Color.BLACK}>{item.label}</Text>
           <Text color={Color.GREY_700}>{item.email || item.value}</Text>

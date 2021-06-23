@@ -58,7 +58,7 @@ const UserProfilePage: React.FC = () => {
                 <Button icon="edit" data-testid="editUserProfile" minimal onClick={() => openUserProfile(user)} />
               </Layout.Horizontal>
               <Layout.Vertical spacing="medium">
-                <Avatar email={user.email} size="large" hoverCard={false} className={css.avatar} />
+                <Avatar name={user.name} email={user.email} size="large" hoverCard={false} className={css.avatar} />
                 <Text
                   color={Color.BLACK}
                   font={{ size: 'large', weight: 'semi-bold' }}

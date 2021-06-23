@@ -277,7 +277,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                     // eslint-disable-next-line react/display-name
                     tagRenderer: item => (
                       <Layout.Horizontal key={item.label.toString()} flex spacing="small">
-                        <Avatar email={item.value.toString()} size="xsmall" hoverCard={false} />
+                        <Avatar name={item.label} email={item.value.toString()} size="xsmall" hoverCard={false} />
                         <Text color={isEmail(item.value.toString().toLowerCase()) ? Color.BLACK : Color.RED_500}>
                           {item.label}
                         </Text>

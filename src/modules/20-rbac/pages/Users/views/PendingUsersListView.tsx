@@ -31,7 +31,7 @@ const RenderColumnUser: Renderer<CellProps<Invite>> = ({ row }) => {
       flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
       padding={{ right: 'small' }}
     >
-      <Avatar email={data.email} hoverCard={false} />
+      <Avatar name={data.name} email={data.email} hoverCard={false} />
       <Text lineClamp={1}>{data.name || data.email.split('@')[0]}</Text>
     </Layout.Horizontal>
   )

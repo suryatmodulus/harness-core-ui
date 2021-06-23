@@ -19,7 +19,7 @@ const RenderColumnUser: Renderer<CellProps<UserInfo>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-      <Avatar email={data.email} hoverCard={false} />
+      <Avatar name={data.name} email={data.email} hoverCard={false} />
       <Text>{data.name}</Text>
     </Layout.Horizontal>
   )

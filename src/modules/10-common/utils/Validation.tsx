@@ -21,16 +21,24 @@ export function NameSchema(config?: { requiredErrorMsg?: string }): Yup.Schema<s
   return NameSchemaWithoutHook(getString, config)
 }
 
+export function IdentifierSchemaWithOutName(
+  getString: UseStringsReturn['getString'],
+  config?: { requiredErrorMsg?: string; regexErrorMsg?: string }
+): Yup.Schema<string | undefined> {
+  return Yup.string()
+    .trim()
+    .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('validation.identifierRequired'))
+    .matches(regexIdentifier, config?.regexErrorMsg ? config?.regexErrorMsg : getString('validation.validIdRegex'))
+    .notOneOf(illegalIdentifiers)
+}
+
 export function IdentifierSchemaWithoutHook(
   getString: UseStringsReturn['getString'],
   config?: { requiredErrorMsg?: string; regexErrorMsg?: string }
 ): Yup.Schema<string | undefined> {
   return Yup.string().when('name', {
     is: val => val?.length,
-    then: Yup.string()
-      .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('validation.identifierRequired'))
-      .matches(regexIdentifier, config?.regexErrorMsg ? config?.regexErrorMsg : getString('validation.validIdRegex'))
-      .notOneOf(illegalIdentifiers)
+    then: IdentifierSchemaWithOutName(getString, config)
   })
 }
 

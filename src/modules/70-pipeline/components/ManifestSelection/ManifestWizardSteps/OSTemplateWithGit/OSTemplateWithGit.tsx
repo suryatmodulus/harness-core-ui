@@ -164,7 +164,11 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
         initialValues={getInitialValues()}
         formName="osTemplateWithGit"
         validationSchema={Yup.object().shape({
-          ...ManifestIdentifierValidation(manifestIdsList, initialValues?.identifier, getString('validation.commitId')),
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues?.identifier,
+            getString('pipeline.uniqueIdentifier')
+          ),
           path: Yup.string().trim().required(getString('pipeline.manifestType.osTemplatePathRequired')),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',

@@ -1,10 +1,9 @@
 import type { Schema } from 'yup'
 import type { IconName } from '@wings-software/uicore'
-import { IdentifierSchema } from '@common/utils/Validation'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
-import type { StringKeys } from 'framework/strings'
-
+import { StringKeys, useStrings } from 'framework/strings'
+import { IdentifierSchemaWithOutName } from '@common/utils/Validation'
 import type { HelmVersionOptions, ManifestStores, ManifestTypes } from './ManifestInterface'
 
 export const ManifestDataType: { [key: string]: ManifestTypes } = {
@@ -109,12 +108,14 @@ export const ManifestIdentifierValidation = (
   id: string | undefined,
   validationMsg: string
 ): { identifier: Schema<unknown> } => {
+  const { getString } = useStrings()
+
   if (!id) {
     return {
-      identifier: IdentifierSchema().notOneOf(manifestIdentifiers, validationMsg)
+      identifier: IdentifierSchemaWithOutName(getString).notOneOf(manifestIdentifiers, validationMsg)
     }
   }
   return {
-    identifier: IdentifierSchema()
+    identifier: IdentifierSchemaWithOutName(getString)
   }
 }

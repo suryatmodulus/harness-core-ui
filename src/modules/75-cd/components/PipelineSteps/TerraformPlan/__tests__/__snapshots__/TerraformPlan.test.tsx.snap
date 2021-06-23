@@ -1682,7 +1682,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 2`]
     </div>
   </div>
   <div
-    class="Layout--vertical StyledProps--main addMarginBottom"
+    class="Layout--vertical StyledProps--main addMarginBottom addMarginTop"
   >
     <label
       class="Label--main configLabel"
@@ -1692,21 +1692,13 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 2`]
     <div
       class="configFile addMarginBottom"
     >
-      <label
-        class="Label--main configFileLabel"
-        style="color: rgb(0, 0, 0);"
-      >
-        secret.labelFile
-      </label>
       <div
         class="configField"
       >
         <p
           class="StyledProps--font StyledProps--main configPlaceHolder"
         >
-          -
           cd.configFilePlaceHolder
-          -
         </p>
         <span
           class="bp3-icon bp3-icon-edit StyledProps--main"

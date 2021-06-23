@@ -31,7 +31,7 @@ import {
   getScopeFromDTO,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { IdentifierSchemaWithoutHook, NameSchemaWithoutHook } from '@common/utils/Validation'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
@@ -119,8 +119,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const validationSchema = () =>
     Yup.lazy((values: Values): any =>
       Yup.object().shape({
-        name: NameSchema({ requiredErrorMsg: getString('fieldRequired', { field: getString('stageNameLabel') }) }),
-        identifier: IdentifierSchema(),
+        name: NameSchemaWithoutHook(getString, {
+          requiredErrorMsg: getString('fieldRequired', { field: getString('stageNameLabel') })
+        }),
+        identifier: IdentifierSchemaWithoutHook(getString),
         ...(!codebase &&
           values.cloneCodebase && {
             connectorRef: Yup.mixed().required(getString('fieldRequired', { field: getString('connector') })),

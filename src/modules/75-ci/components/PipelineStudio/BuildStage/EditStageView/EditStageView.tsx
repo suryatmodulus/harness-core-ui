@@ -35,6 +35,7 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import { useGitScope } from '@ci/services/CIUtils'
 import css from './EditStageView.module.scss'
 
 export interface EditStageView {
@@ -56,6 +57,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const { getString } = useStrings()
   const [connectionType, setConnectionType] = React.useState('')
   const [connectorUrl, setConnectorUrl] = React.useState('')
+  const gitScope = useGitScope()
 
   const {
     state: { pipeline },
@@ -87,7 +89,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
+      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined,
+      ...(gitScope?.repo && gitScope.branch
+        ? { repoIdentifier: gitScope.repo, branch: gitScope.branch, getDefaultFromOtherRepo: true }
+        : {})
     },
     lazy: true,
     debounce: 300

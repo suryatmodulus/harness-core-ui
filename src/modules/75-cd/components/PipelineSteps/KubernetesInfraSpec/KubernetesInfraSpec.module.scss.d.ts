@@ -7,5 +7,6 @@ declare const styles: {
   readonly containerPadding: string
   readonly connectorMargin: string
   readonly formRow: string
+  readonly connectorRef: string
 }
 export default styles

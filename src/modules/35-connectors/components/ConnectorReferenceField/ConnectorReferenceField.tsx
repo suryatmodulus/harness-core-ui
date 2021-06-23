@@ -11,6 +11,7 @@ import {
   MultiTypeInputType
 } from '@wings-software/uicore'
 import cx from 'classnames'
+import { isEmpty } from 'lodash-es'
 import {
   Failure,
   ConnectorInfoDTO,
@@ -450,7 +451,14 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     queryParams: {
       accountIdentifier,
       orgIdentifier: scopeFromSelected === Scope.ORG || scopeFromSelected === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: scopeFromSelected === Scope.PROJECT ? projectIdentifier : undefined
+      projectIdentifier: scopeFromSelected === Scope.PROJECT ? projectIdentifier : undefined,
+      ...(!isEmpty(gitScope?.repo) && !isEmpty(gitScope?.branch)
+        ? {
+            branch: gitScope?.branch,
+            repoIdentifier: gitScope?.repo,
+            getDefaultFromOtherRepo: true
+          }
+        : {})
     },
     lazy: true
   })

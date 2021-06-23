@@ -38,7 +38,8 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
+      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined,
+      ...(repoIdentifier && branch ? { repoIdentifier, branch, getDefaultFromOtherRepo: true } : {})
     },
     lazy: true,
     debounce: 300

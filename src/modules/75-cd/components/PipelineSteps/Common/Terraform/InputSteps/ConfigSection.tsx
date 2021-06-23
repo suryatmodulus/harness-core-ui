@@ -15,6 +15,8 @@ import {
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { Connector, TerraformProps } from '../TerraformInterfaces'
 
 export default function ConfigSection(props: TerraformProps): React.ReactElement {
@@ -28,6 +30,8 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
     accountId: string
   }>()
 
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
   const connectorValue = initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as Connector
   const connectorRef = getIdentifierFromValue(connectorValue?.value || '')
   const initialScope = getScopeFromValue(connectorValue?.value || '')
@@ -37,7 +41,8 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
+      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined,
+      ...(repoIdentifier && branch ? { repoIdentifier, branch, getDefaultFromOtherRepo: true } : {})
     },
     lazy: true,
     debounce: 300

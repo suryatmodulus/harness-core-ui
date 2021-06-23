@@ -139,7 +139,10 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
+      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined,
+      ...(gitScope?.repo && gitScope.branch
+        ? { repoIdentifier: gitScope.repo, branch: gitScope.branch, getDefaultFromOtherRepo: true }
+        : {})
     },
     lazy: true,
     debounce: 300

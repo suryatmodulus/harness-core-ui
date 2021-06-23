@@ -1,10 +1,18 @@
 import { Layout, Select, Text, Container, SelectOption } from '@wings-software/uicore'
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { get, uniqWith, isEqual } from 'lodash-es'
+import { get, uniqWith, isEqual, isNull } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { PageError } from '@common/components/Page/PageError'
-import { useReportSummary, useGetToken, useTestOverview, useReportsInfo, useTestInfo } from 'services/ti-service'
+import {
+  useReportSummary,
+  useGetToken,
+  useTestOverview,
+  useReportsInfo,
+  useTestInfo,
+  TestReportSummary,
+  SelectionOverview
+} from 'services/ti-service'
 import { PageSpinner } from '@common/components'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { BuildLoadingState } from './BuildLoadingState'
@@ -26,7 +34,12 @@ enum UI {
   LoadingState
 }
 
-const BuildTests: React.FC = () => {
+interface BuildTestsProps {
+  reportSummaryMock?: TestReportSummary
+  testOverviewMock?: SelectionOverview
+}
+
+const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverviewMock }) => {
   const context = useExecutionContext()
 
   const { getString } = useStrings()
@@ -171,7 +184,10 @@ const BuildTests: React.FC = () => {
         'X-Harness-Token': serviceToken || ''
       }
     },
-    debounce: 500
+    debounce: 500,
+    mock: {
+      data: reportSummaryMock
+    }
   })
 
   const {
@@ -187,7 +203,10 @@ const BuildTests: React.FC = () => {
         'X-Harness-Token': serviceToken || ''
       }
     },
-    debounce: 500
+    debounce: 500,
+    mock: {
+      data: testOverviewMock
+    }
   })
 
   const reportSummaryHasTests = (reportSummaryData?.total_tests || 0) > 0
@@ -200,9 +219,9 @@ const BuildTests: React.FC = () => {
       ? UI.TI
       : reportSummaryHasTests && !testOverviewHasTests
       ? UI.Reports
-      : isExecutionComplete(status)
-      ? UI.ZeroState
-      : UI.LoadingState
+      : reportInfoLoading || testInfoLoading
+      ? UI.LoadingState
+      : UI.ZeroState
 
   useEffect(() => {
     if (status && isExecutionComplete(status) && serviceToken && stageId && stepId) {
@@ -275,17 +294,7 @@ const BuildTests: React.FC = () => {
     return null
   }
 
-  if (
-    serviceTokenLoading ||
-    (!testOverviewData && testOverviewLoading) ||
-    (!reportSummaryData && reportSummaryLoading) ||
-    (!reportInfoData && reportInfoLoading) ||
-    (!testInfoData && testInfoLoading)
-  ) {
-    return <PageSpinner />
-  }
-
-  const error = reportSummaryError || serviceTokenError || testOverviewError || reportSummaryError || testOverviewError
+  const error = reportSummaryError || serviceTokenError || testOverviewError || reportInfoError || testInfoError
 
   if (error) {
     return (
@@ -294,16 +303,47 @@ const BuildTests: React.FC = () => {
         onClick={() => {
           refetchServiceToken()
 
-          fetchReportInfo()
-          fetchTestInfo()
+          if (serviceToken) {
+            fetchReportInfo()
+            fetchTestInfo()
 
-          if (stageId && stepId) {
-            fetchReportSummary()
-            fetchTestOverview()
+            if (stageId && stepId) {
+              fetchReportSummary()
+              fetchTestOverview()
+            }
           }
         }}
       />
     )
+  }
+
+  if (isExecutionComplete(status)) {
+    if (
+      isNull(serviceToken) ||
+      serviceTokenLoading ||
+      (isNull(testOverviewData) && isNull(reportSummaryData)) ||
+      testOverviewLoading ||
+      reportSummaryLoading ||
+      isNull(reportInfoData) ||
+      reportInfoLoading ||
+      isNull(testInfoData) ||
+      testInfoLoading
+    ) {
+      return <PageSpinner />
+    }
+  } else {
+    if (
+      isNull(serviceToken) ||
+      serviceTokenLoading ||
+      (isNull(testOverviewData) && testOverviewLoading) ||
+      (isNull(testOverviewData) && reportSummaryLoading) ||
+      isNull(reportInfoData) ||
+      reportInfoLoading ||
+      isNull(testInfoData) ||
+      testInfoLoading
+    ) {
+      return <PageSpinner />
+    }
   }
 
   const header = (
@@ -420,9 +460,12 @@ const BuildTests: React.FC = () => {
         </>
       )
       break
+    default:
+      ui = <BuildZeroState />
+      break
   }
 
-  return <div className={css.mainContainer}>{(serviceToken && ui) || <BuildLoadingState />}</div>
+  return <div className={css.mainContainer}>{ui}</div>
 }
 
 export default BuildTests

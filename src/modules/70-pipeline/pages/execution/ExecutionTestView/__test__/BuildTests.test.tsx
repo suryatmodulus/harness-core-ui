@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import type { TestReportSummary, SelectionOverview } from 'services/ti-service'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { TestWrapper } from '@common/utils/testUtils'
 import ReportsSummaryMock from './mock/reports-summary.json'
@@ -7,48 +8,21 @@ import OverviewMock from './mock/overview.json'
 import TestSuiteMock from './mock/reports-test-suites.json'
 import TestCaseMock from './mock/reports-test-cases.json'
 import BuildsMock from './mock/builds.json'
-import TotalTestsZero from './mock/total-tests-zero.json'
+import TotalTestsZeroMock from './mock/total-tests-zero.json'
+import InfoMock from './mock/info.json'
 import BuildTests from '../BuildTests'
 
 jest.mock('services/ti-service', () => ({
-  useReportsInfo: () => ({ data: [{ stage: '0', step: '0' }], refetch: jest.fn() }),
-  useTestInfo: () => ({ data: [{ stage: '0', step: '0' }], refetch: jest.fn() }),
-  useReportSummary: jest
-    .fn()
-    .mockReturnValueOnce({
-      data: ReportsSummaryMock,
-      refetch: jest.fn()
-    })
-    .mockReturnValueOnce({
-      data: TotalTestsZero,
-      refetch: jest.fn()
-    })
-    .mockReturnValueOnce({
-      data: ReportsSummaryMock,
-      refetch: jest.fn()
-    })
-    .mockReturnValueOnce({
-      data: TotalTestsZero,
-      refetch: jest.fn()
-    }),
-  useTestOverview: jest
-    .fn()
-    .mockReturnValueOnce({
-      data: OverviewMock,
-      refetch: jest.fn()
-    })
-    .mockReturnValueOnce({
-      data: OverviewMock,
-      refetch: jest.fn()
-    })
-    .mockReturnValueOnce({
-      data: TotalTestsZero,
-      refetch: jest.fn()
-    })
-    .mockReturnValueOnce({
-      data: TotalTestsZero,
-      refetch: jest.fn()
-    }),
+  useReportsInfo: () => ({ data: InfoMock, refetch: jest.fn() }),
+  useTestInfo: () => ({ data: InfoMock, refetch: jest.fn() }),
+  useReportSummary: ({ mock: { data } }: { mock: { data: TestReportSummary } }) => ({
+    data,
+    refetch: jest.fn()
+  }),
+  useTestOverview: ({ mock: { data } }: { mock: { data: SelectionOverview } }) => ({
+    data,
+    refetch: jest.fn()
+  }),
   useTestSuiteSummary: () => ({
     data: TestSuiteMock,
     refetch: jest.fn()
@@ -70,8 +44,11 @@ jest.mock('@pipeline/context/ExecutionContext', () => ({
   })
 }))
 
-// eslint-disable-next-line jest/no-disabled-tests
-xdescribe('BuildTests snapshot test', () => {
+describe('BuildTests snapshot test', () => {
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   test('should render TI+Reports UI', async () => {
     const { container } = render(
       <TestWrapper
@@ -84,7 +61,7 @@ xdescribe('BuildTests snapshot test', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <BuildTests />
+        <BuildTests reportSummaryMock={ReportsSummaryMock as TestReportSummary} testOverviewMock={OverviewMock} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -102,7 +79,7 @@ xdescribe('BuildTests snapshot test', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <BuildTests />
+        <BuildTests reportSummaryMock={TotalTestsZeroMock as TestReportSummary} testOverviewMock={OverviewMock} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -120,7 +97,7 @@ xdescribe('BuildTests snapshot test', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <BuildTests />
+        <BuildTests reportSummaryMock={ReportsSummaryMock as TestReportSummary} testOverviewMock={TotalTestsZeroMock} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -138,7 +115,7 @@ xdescribe('BuildTests snapshot test', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <BuildTests />
+        <BuildTests reportSummaryMock={TotalTestsZeroMock as TestReportSummary} testOverviewMock={TotalTestsZeroMock} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

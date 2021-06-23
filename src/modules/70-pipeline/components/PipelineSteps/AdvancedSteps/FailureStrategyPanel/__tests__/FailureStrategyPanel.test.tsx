@@ -1,22 +1,16 @@
 import React from 'react'
 import { act, fireEvent, queryAllByAttribute, render, waitFor } from '@testing-library/react'
+import { times } from 'lodash-es'
 
-import { StageType } from '@pipeline/utils/stageHelpers'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import { ErrorType, Strategy } from '@pipeline/utils/FailureStrategyUtils'
 import { Basic } from '../FailureStrategyPanel.stories'
 
 describe('<FailureStrategyPanel /> tests', () => {
-  test('initial render with no data', () => {
-    const { container } = render(<Basic data={{ failureStrategies: [] }} mode={Modes.STEP} />)
-    expect(container).toMatchSnapshot()
-  })
-
-  test('initial render with no data with CI domain', () => {
-    const { container } = render(
-      <Basic data={{ failureStrategies: [] }} mode={Modes.STEP} stageType={StageType.BUILD} />
-    )
-    expect(container).toMatchSnapshot()
+  test('initial render with no data', async () => {
+    const { findByTestId } = render(<Basic data={{ failureStrategies: [] }} mode={Modes.STEP} />)
+    const panel = await findByTestId('failure-strategy-panel')
+    expect(panel).toMatchSnapshot()
   })
 
   test('adding a new strategy works', async () => {
@@ -140,9 +134,11 @@ describe('<FailureStrategyPanel /> tests', () => {
 
     const opt1 = await findByText(authErrorTxt, { selector: menuItemSelector })
 
-    fireEvent.click(opt1)
-
-    fireEvent.focus(getErrorTypeField()[0])
+    await act(() => {
+      fireEvent.click(opt1)
+      fireEvent.focus(getErrorTypeField()[0])
+      return Promise.resolve()
+    })
 
     await expect(() => findByText(authErrorTxt, { selector: menuItemSelector })).rejects.toThrow()
 
@@ -193,7 +189,10 @@ describe('<FailureStrategyPanel /> tests', () => {
       </pre>
     `)
 
-    fireEvent.click(errorTypeFields[1], { target: { value: 'any' } })
+    await act(() => {
+      fireEvent.click(errorTypeFields[1], { target: { value: 'any' } })
+      return Promise.resolve()
+    })
 
     const code2 = await findByTestId('code-output')
 
@@ -248,7 +247,10 @@ describe('<FailureStrategyPanel /> tests', () => {
     `)
     const removeTags = queryAllByAttribute('class', container, 'bp3-tag-remove')
 
-    fireEvent.click(removeTags[removeTags.length - 1])
+    await act(() => {
+      fireEvent.click(removeTags[removeTags.length - 1])
+      return Promise.resolve()
+    })
 
     const code2 = await findByTestId('code-output')
 
@@ -300,5 +302,80 @@ describe('<FailureStrategyPanel /> tests', () => {
 
     expect(add.classList.contains('bp3-disabled')).toBe(true)
     expect(add.hasAttribute('disabled')).toBe(true)
+  })
+
+  test('correct tab is opened, in error state on submit', async () => {
+    const { findByTestId } = render(
+      <Basic
+        data={{
+          failureStrategies: [
+            {
+              onFailure: {
+                errors: [ErrorType.AllErrors],
+                action: {
+                  type: Strategy.Abort
+                }
+              }
+            },
+            {
+              onFailure: {
+                errors: [ErrorType.AllErrors]
+              } as any // For testing
+            },
+            {
+              onFailure: {
+                errors: [ErrorType.AllErrors],
+                action: {
+                  type: Strategy.Abort
+                }
+              }
+            }
+          ]
+        }}
+        mode={Modes.STEP}
+      />
+    )
+
+    const submit = await findByTestId('test-submit')
+
+    await act(() => {
+      fireEvent.click(submit)
+      return Promise.resolve()
+    })
+
+    const err = await findByTestId('failure-strategy-step-1')
+
+    expect(err.dataset.selected).toBe('true')
+  })
+
+  test('on adding a new strategy, switch to latest tab', async () => {
+    const NUM = 5
+    const { findByTestId } = render(
+      <Basic
+        data={{
+          failureStrategies: times(NUM, () => ({
+            onFailure: {
+              errors: [ErrorType.AllErrors],
+              action: {
+                type: Strategy.Abort
+              }
+            }
+          }))
+        }}
+        mode={Modes.STEP}
+      />
+    )
+
+    await waitFor(() => findByTestId('failure-strategy-step-0'))
+
+    const add = await findByTestId('add-failure-strategy')
+
+    await act(() => {
+      fireEvent.click(add)
+      return Promise.resolve()
+    })
+
+    const panel = await findByTestId(`failure-strategy-step-${NUM}`)
+    expect(panel.dataset.selected).toBe('true')
   })
 })

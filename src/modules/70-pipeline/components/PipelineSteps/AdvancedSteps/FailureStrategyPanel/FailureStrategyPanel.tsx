@@ -54,12 +54,15 @@ export interface FailureStrategyPanelProps {
 
 export default function FailureStrategyPanel(props: FailureStrategyPanelProps): React.ReactElement {
   const {
-    formikProps: { values: formValues, submitForm, errors },
+    formikProps: { values: formValues, submitForm, errors, isSubmitting },
     mode,
     isReadonly,
     stageType = StageType.DEPLOY
   } = props
-  const [selectedStrategyNum, setSelectedStrategyNum] = React.useState(0)
+  const tabWithErrors =
+    (Array.isArray(errors?.failureStrategies) && errors?.failureStrategies.findIndex(err => !isEmpty(err))) ||
+    /* istanbul ignore next */ 0
+  const [selectedStrategyNum, setSelectedStrategyNum] = React.useState(Math.max(tabWithErrors, 0))
   const hasFailureStrategies = Array.isArray(formValues.failureStrategies) && formValues.failureStrategies.length > 0
 
   const { getString } = useStrings()
@@ -93,12 +96,25 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
     }
   }, [formValues.failureStrategies, selectedStrategyNum])
 
+  // open errored tab
+  React.useEffect(() => {
+    if (isSubmitting && Array.isArray(errors?.failureStrategies)) {
+      const tabNum = errors.failureStrategies.findIndex(err => !isEmpty(err))
+
+      if (tabNum > -1) {
+        setSelectedStrategyNum(tabNum)
+      }
+    }
+  }, [isSubmitting, errors])
+
   return (
     <div data-testid="failure-strategy-panel" className={css.main}>
       <String className={css.helpText} stringID="pipeline.failureStrategies.helpText" />
       <div className={css.header}>
         <FieldArray name="failureStrategies">
           {({ push, remove }) => {
+            const strategies = formValues.failureStrategies || /* istanbul ignore next */ []
+
             async function handleAdd(): Promise<void> {
               await submitForm()
 
@@ -107,7 +123,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
               if (isEmpty(get(errors, `failureStrategies[${selectedStrategyNum}]`))) {
                 uids.current.push(uuid())
                 push({ onFailure: {} })
-                setSelectedStrategyNum(n => n + 1)
+                setSelectedStrategyNum(strategies.length)
               }
             }
 
@@ -121,7 +137,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                 <div className={css.tabs}>
                   {hasFailureStrategies ? (
                     <ul className={css.stepList}>
-                      {(formValues.failureStrategies || /* istanbul ignore next */ []).map((_, i) => {
+                      {strategies.map((_, i) => {
                         // generated uuid if they are not present
                         if (!uids.current[i]) {
                           uids.current[i] = uuid()

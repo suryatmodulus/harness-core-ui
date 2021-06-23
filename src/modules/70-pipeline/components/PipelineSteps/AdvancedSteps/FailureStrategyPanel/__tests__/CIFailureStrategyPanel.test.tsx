@@ -8,6 +8,14 @@ import { errorTypesForStages } from '../StrategySelection/StrategyConfig'
 import { Basic } from '../FailureStrategyPanel.stories'
 
 describe('CI <FailureStrategyPanel /> tests', () => {
+  test('initial render with no data with CI domain', async () => {
+    const { findByTestId } = render(
+      <Basic data={{ failureStrategies: [] }} mode={Modes.STEP} stageType={StageType.BUILD} />
+    )
+    const panel = await findByTestId('failure-strategy-panel')
+    expect(panel).toMatchSnapshot()
+  })
+
   test('adding all error types disable Add button and prevents new strategy addition', async () => {
     const { findByTestId } = render(
       <Basic

@@ -214,7 +214,7 @@ const commonPlugins = [
 
 const devOnlyPlugins = [
   new webpack.WatchIgnorePlugin({
-    paths: [/node_modules/, /\.d\.ts$/, /stringTypes\.ts/]
+    paths: [/node_modules(?!\/@wings-software)/, /\.d\.ts$/, /stringTypes\.ts/]
   }),
   new ForkTsCheckerWebpackPlugin()
   // new BundleAnalyzerPlugin()

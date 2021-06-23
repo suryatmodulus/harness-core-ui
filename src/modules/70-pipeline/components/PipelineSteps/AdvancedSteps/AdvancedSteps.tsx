@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react'
 import type { FormikProps } from 'formik'
-import { Formik, FormikForm, Accordion } from '@wings-software/uicore'
+import { Formik, FormikForm, Accordion, AccordionHandle } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import { isEmpty } from 'lodash-es'
 
 import { useStrings } from 'framework/strings'
 import {
@@ -47,6 +48,8 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
   const { getString } = useStrings()
   const stepType = isStepGroup ? StepType.StepGroup : step.type
   const initialValues = useMemo(() => getInitialValues(step), [step])
+  const accordionRef = React.useRef<AccordionHandle>({} as AccordionHandle)
+
   return (
     <Formik
       initialValues={initialValues}
@@ -60,10 +63,27 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
     >
       {(formikProps: FormikProps<Values>) => {
         setFormikRef(formikRef, formikProps)
+
+        if (formikProps.isSubmitting) {
+          if (!isEmpty(formikProps.errors?.failureStrategies) && accordionRef.current) {
+            accordionRef.current.open(AdvancedPanels.FailureStrategy)
+          }
+
+          if (!isEmpty(formikProps.errors?.when) && accordionRef.current) {
+            accordionRef.current.open(AdvancedPanels.ConditionalExecution)
+          }
+
+          if (!isEmpty(formikProps.errors?.delegateSelectors) && accordionRef.current) {
+            accordionRef.current.open(AdvancedPanels.DelegateSelectors)
+          }
+        }
+
         return (
           <FormikForm className={css.form}>
             <div>
               <Accordion
+                ref={accordionRef}
+                allowMultiOpen
                 activeId={
                   hiddenPanels.indexOf(AdvancedPanels.DelegateSelectors) === -1 &&
                   stepsFactory.getStep(stepType)?.hasDelegateSelectionVisible

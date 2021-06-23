@@ -2,7 +2,7 @@ import React from 'react'
 import type { Meta, Story } from '@storybook/react'
 import { Formik } from 'formik'
 import yaml from 'yaml'
-import { Card, H3 } from '@blueprintjs/core'
+import { Button, Card, H3 } from '@blueprintjs/core'
 import { identity } from 'lodash-es'
 import * as Yup from 'yup'
 
@@ -46,6 +46,9 @@ export const Basic: Story<BasicArgs> = args => {
                   stageType={args.stageType || StageType.DEPLOY}
                   isReadonly={false}
                 />
+                <Button data-testid="test-submit" onClick={() => formik.submitForm()}>
+                  Submit
+                </Button>
               </Card>
               <Card>
                 <pre data-testid="code-output">{yaml.stringify(formik.values)}</pre>

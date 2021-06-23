@@ -218,7 +218,7 @@ git:
   addUserCredentialLabel: Update in user profile
   saveResourceLabel: 'Save {{resource}} to Git'
   selectRepoLabel: Repository name
-  filePath: File path
+  filePath: File Path
   commitMessage: Commit message
   branchSelectHeader: Select Branch to Commit
   existingBranchCommitLabel: Commit to an existing branch

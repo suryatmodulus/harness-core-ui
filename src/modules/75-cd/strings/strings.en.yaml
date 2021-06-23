@@ -16,7 +16,6 @@ steps:
   kubernetesGcpStep:
     stepName: Specify your GCP Connector
 folderPath: Folder Path
-filePath: File Path
 filePathPlaceholder: 'Enter path within manifest folder'
 scriptRequired: Script is a required field
 stepName: Step Name

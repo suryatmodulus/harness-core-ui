@@ -208,7 +208,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
             <div
               class="formLabel"
             >
-              cd.filePath
+              common.git.filePath
             </div>
              
             <span
@@ -705,7 +705,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
             <div
               class="formLabel"
             >
-              cd.filePath
+              common.git.filePath
             </div>
              
             <span

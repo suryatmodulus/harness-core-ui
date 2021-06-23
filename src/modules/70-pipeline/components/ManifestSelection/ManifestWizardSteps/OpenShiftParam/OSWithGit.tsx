@@ -98,15 +98,16 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
     const specValues = get(initialValues, 'spec.store.spec', null)
 
     if (specValues) {
-      const pathArray = specValues.paths.map((path: string) => ({
-        id: uuid('', nameSpace()),
-        value: path
-      }))
-
       const values = {
         ...specValues,
         identifier: initialValues.identifier,
-        paths: pathArray,
+        paths:
+          typeof specValues.paths === 'string'
+            ? specValues.paths
+            : specValues.paths.map((path: string) => ({
+                id: uuid('', nameSpace()),
+                value: path
+              })),
         repoName: getRepoName()
       }
       return values
@@ -131,7 +132,8 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              paths: formData?.paths
+              paths:
+                typeof formData?.paths === 'string' ? formData?.paths : formData?.paths?.map((path: any) => path.value)
             }
           }
         }
@@ -182,11 +184,9 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
           })
         })}
         onSubmit={formData => {
-          const paths = formData?.paths?.map((path: any) => path.value)
           submitFormData({
             ...prevStepData,
             ...formData,
-            paths,
             connectorRef: prevStepData?.connectorRef
               ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME
                 ? prevStepData?.connectorRef

@@ -135,7 +135,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                   <MultiTypeFieldSelector
                     defaultValueToReset={defaultValueToReset}
                     name={'spec.filePaths'}
-                    label={getString('cd.filePath')}
+                    label={getString('common.git.filePath')}
                     disableTypeSelection
                   >
                     <FieldArray

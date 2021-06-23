@@ -1713,7 +1713,6 @@ export interface StringsMap {
   'cd.dashboard.subHeading': string
   'cd.environmentCreated': string
   'cd.environmentUpdated': string
-  'cd.filePath': string
   'cd.filePathPlaceholder': string
   'cd.filePathRequired': string
   'cd.folderPath': string

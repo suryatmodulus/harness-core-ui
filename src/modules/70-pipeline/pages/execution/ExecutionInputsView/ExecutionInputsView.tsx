@@ -7,6 +7,7 @@ import { PageSpinner } from '@common/components'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import type { ResponseJsonNode } from 'services/cd-ng'
 
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import css from './ExecutionInputsView.module.scss'
 
 interface ExecutionInputsViewInterface {
@@ -17,6 +18,8 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
   const { projectIdentifier, orgIdentifier, pipelineIdentifier, accountId, module, executionIdentifier } = useParams<
     PipelineType<ExecutionPathProps>
   >()
+
+  const { pipelineExecutionDetail } = useExecutionContext()
 
   const { data, loading } = useGetInputsetYaml({
     planExecutionId: executionIdentifier,
@@ -62,6 +65,8 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
         module={module}
         inputSetYAML={inputSetYaml || ''}
         executionView
+        branch={pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.branch}
+        repoIdentifier={pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoIdentifier}
         mockData={props.mockData}
       />
     </div>

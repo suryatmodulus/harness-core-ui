@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react'
-import ReactTimeago from 'react-timeago'
 import type { Column, Renderer, CellProps } from 'react-table'
-import { Text, Color, Layout } from '@wings-software/uicore'
+import { Text, Color, Layout, Icon } from '@wings-software/uicore'
 
 import Table from '@common/components/Table/Table'
 import type { EntitySetupUsageDTO, ResponsePageEntitySetupUsageDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import ResourceDetailFactory from '@common/factories/ResourceDetailFactory'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './EntityUsageList.module.scss'
 
 interface EntityUsageListProps {
@@ -49,41 +49,70 @@ const RenderColumnDetail: Renderer<CellProps<EntitySetupUsageDTO>> = ({ row }) =
   else return null
 }
 
-const RenderColumnActivity: Renderer<CellProps<EntitySetupUsageDTO>> = ({ row }) => {
+// Todo: Enable once BE starts maintaining lastActivity
+// const RenderColumnActivity: Renderer<CellProps<EntitySetupUsageDTO>> = ({ row }) => {
+//   const data = row.original
+//   return (
+//     <Layout.Horizontal spacing="small">
+//       {data.createdAt ? <ReactTimeago date={data.createdAt} /> : null}
+//     </Layout.Horizontal>
+//   )
+// }
+
+export const RenderGitDetails: Renderer<CellProps<EntitySetupUsageDTO>> = ({ row }) => {
   const data = row.original
-  return (
+
+  return data.referredByEntity.entityRef?.branch && data.referredByEntity.entityRef?.repoIdentifier ? (
     <Layout.Horizontal spacing="small">
-      {data.createdAt ? <ReactTimeago date={data.createdAt} /> : null}
+      <Icon inline name="repository" color={Color.GREY_600}></Icon>
+      <Text className={css.gitText} margin={{ right: 'medium' }}>
+        {data.referredByEntity.entityRef?.repoIdentifier}
+      </Text>
+
+      <Icon inline name="git-new-branch" size={14} color={Color.GREY_600}></Icon>
+      <Text className={css.gitText}>{data.referredByEntity.entityRef?.branch}</Text>
     </Layout.Horizontal>
-  )
+  ) : null
 }
 
 const EntityUsageList: React.FC<EntityUsageListProps> = ({ entityData, gotoPage }) => {
   const data: EntitySetupUsageDTO[] = entityData?.data?.content || []
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
   const columns: Column<EntitySetupUsageDTO>[] = useMemo(
     () => [
       {
         Header: getString('entity'),
         accessor: 'referredByEntity',
-        width: '33%',
+        width: isGitSyncEnabled ? '30%' : '50%',
         Cell: RenderColumnEntity
+      },
+      {
+        Header: getString('common.gitSync.repoDetails').toUpperCase(),
+        accessor: row => row.referredByEntity?.entityRef?.repoIdentifier,
+        width: '50%',
+        Cell: RenderGitDetails
       },
       {
         Header: getString('details'),
         accessor: 'detail',
-        width: '33%',
+        width: isGitSyncEnabled ? '20%' : '50%',
         Cell: RenderColumnDetail
-      },
-      {
-        Header: getString('lastActivity'),
-        accessor: 'createdAt',
-        width: '34%',
-        Cell: RenderColumnActivity
       }
+      // {
+      //   Header: getString('lastActivity'),
+      //   accessor: 'createdAt',
+      //   width: '34%',
+      //   Cell: RenderColumnActivity
+      // }
     ],
-    [data]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [data, isGitSyncEnabled]
   )
+
+  if (!isGitSyncEnabled) {
+    columns.splice(1, 1)
+  }
 
   return (
     <Table<EntitySetupUsageDTO>

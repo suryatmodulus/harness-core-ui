@@ -43,6 +43,7 @@ const EntityUsage: React.FC<EntityUsageProps> = props => {
   return (
     <>
       <PageHeader
+        className={css.secondHeader}
         size="standard"
         title={getString('common.references')}
         toolbar={

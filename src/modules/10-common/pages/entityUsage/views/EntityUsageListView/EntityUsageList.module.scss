@@ -2,10 +2,11 @@
   padding: var(--spacing-large) var(--spacing-xxlarge);
   padding-bottom: 0;
 
-  .name {
+  .gitText {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 150px;
   }
 }
 .overflow {

@@ -22,7 +22,7 @@ import type { ProjectPathProps, ConnectorPathProps, PipelineType } from '@common
 import { PageError } from '@common/components/Page/PageError'
 import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
-import ReferencedBy from './ReferencedBy/ReferencedBy'
+import EntitySetupUsage from '@common/pages/entityUsage/EntityUsage'
 import ConnectorView from './ConnectorView'
 import { getIconByType } from './utils/ConnectorUtils'
 import css from './ConnectorDetailsPage.module.scss'
@@ -257,16 +257,8 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
         <NoDataCard message={getString('connectors.connectorNotFound')} icon="question" />
       )
     }
-    if (activeCategory === 1 && data) {
-      return (
-        <ReferencedBy
-          accountId={accountId}
-          projectIdentifier={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          entityType={'Connectors'}
-          entityIdentifier={data?.connector?.identifier}
-        />
-      )
+    if (activeCategory === 1 && data?.connector?.identifier) {
+      return <EntitySetupUsage entityType={'Connectors'} entityIdentifier={data?.connector?.identifier} />
     }
     if (activeCategory === 2 && data) {
       return <ActivityHistory referredEntityType="Connectors" entityIdentifier={data?.connector?.identifier || ''} />

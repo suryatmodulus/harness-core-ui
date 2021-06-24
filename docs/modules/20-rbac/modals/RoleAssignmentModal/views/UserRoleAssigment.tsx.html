@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/50</span>
+                <span class='fraction'>32/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.65% </span>
+                <span class="strong">46.03% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>29/68</span>
+                <span class='fraction'>29/63</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.31% </span>
+                <span class="strong">68.09% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/49</span>
+                <span class='fraction'>32/47</span>
             </div>
         
             
@@ -289,7 +289,10 @@
 <a name='L230'></a><a href='#L230'>230</a>
 <a name='L231'></a><a href='#L231'>231</a>
 <a name='L232'></a><a href='#L232'>232</a>
-<a name='L233'></a><a href='#L233'>233</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -308,6 +311,7 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -440,8 +444,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -544,11 +550,12 @@ import {
   useGetCurrentGenUsers,
   useSendInvite,
   CreateInvite,
-  RoleAssignmentMetadataDTO
+  RoleAssignmentMetadataDTO,
+  ResponseListInviteOperationResponse
 } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailSchema } from '@common/utils/Validation'
-import { UserItemRenderer } from '@rbac/utils/utils'
+import { UserItemRenderer, handleInvitationResponse } from '@rbac/utils/utils'
 import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
 &nbsp;
 interface UserRoleAssignmentData {
@@ -671,14 +678,16 @@ const UserRoleAssignment: React.FC&lt;UserRoleAssignmentData&gt; = props =&gt; {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      try {</span>
         const response = <span class="cstat-no" title="statement not covered" >await sendInvitation(dataToSubmit)</span>
-        /* istanbul ignore else */ <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span>if (response.data?.[0] === 'USER_INVITED_SUCCESSFULLY') {</span>
-<span class="cstat-no" title="statement not covered" >          showSuccess(getString('rbac.usersPage.invitationSuccess'))</span>
-<span class="cstat-no" title="statement not covered" >          onSubmit?.()</span>
-        } /* istanbul ignore next */ else
-          modalErrorHandler?.showDanger(response.data?.[0] || getString('rbac.usersPage.invitationError'))
+<span class="cstat-no" title="statement not covered" >        handleInvitationResponse({</span>
+          responseType: response.data?.[0] as Pick&lt;ResponseListInviteOperationResponse, 'data'&gt;,
+          getString,
+          showSuccess,
+          modalErrorHandler,
+          onSubmit
+        })
       } catch (e) {
         /* istanbul ignore next */
-        modalErrorHandler?.showDanger(e.data.message)
+        modalErrorHandler?.showDanger(e.data?.message || e.message)
       }
     } else {
       /* istanbul ignore next */
@@ -760,7 +769,7 @@ export default UserRoleAssignment
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 09:01:06 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 10:07:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

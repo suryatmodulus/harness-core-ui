@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.45% </span>
+                <span class="strong">95.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/22</span>
+                <span class='fraction'>23/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.41% </span>
+                <span class="strong">75.76% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/29</span>
+                <span class='fraction'>25/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>6/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.24% </span>
+                <span class="strong">95.65% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/21</span>
+                <span class='fraction'>22/23</span>
             </div>
         
             
@@ -209,7 +209,23 @@
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
@@ -264,11 +280,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-yes">242x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">136x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -283,7 +314,7 @@
 <span class="cline-any cline-yes">106x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">210x</span>
+<span class="cline-any cline-yes">211x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -335,6 +366,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,83 +448,99 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement =&gt;
     appearance = 'default',
     ...restProps
   } = props
-  const value = get(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues, name, '') as MultiTypeMapValue
+&nbsp;
+  const getDefaultResetValue = () =&gt; {
+    return [{ id: uuid('', nameSpace()), key: '', value: '' }]
+  }
+&nbsp;
+  const value = get(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues, name, getDefaultResetValue()) as MultiTypeMapValue
 &nbsp;
   const { getString } = useStrings()
 &nbsp;
   return (
     &lt;div className={cx(css.group, css.withoutSpacing, appearance === 'minimal' ? <span class="branch-0 cbranch-no" title="branch not covered" >css.minimalCard </span>: '')} {...restProps}&gt;
-      &lt;MultiTypeFieldSelector
-        name={name}
-        defaultValueToReset={[{ id: uuid('', nameSpace()), key: '', value: '' }]}
-        style={{ flexGrow: 1, marginBottom: 0 }}
-        {...multiTypeFieldSelectorProps}
-        disableTypeSelection={multiTypeFieldSelectorProps.disableTypeSelection || disabled}
-      &gt;
-        &lt;FieldArray
+      {typeof value === 'string' &amp;&amp; getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME ? (
+        &lt;FormInput.MultiTextInput
+          style={{ flexGrow: 1, marginBottom: 0 }}
           name={name}
-          render={({ push, remove }) =&gt; (
-            &lt;Card style={{ width: '100%', ...cardStyle }}&gt;
-              {Array.isArray(value) &amp;&amp;
-                value.map(({ id }, index: number) =&gt; (
-                  &lt;div className={cx(css.group, css.withoutAligning)} key={id}&gt;
-                    &lt;div style={{ flexGrow: 1 }}&gt;
-                      {index === 0 &amp;&amp; (
-                        &lt;Text
-                          margin={{ bottom: 'xsmall' }}
-                          font={{ size: appearance === 'minimal' ? <span class="branch-0 cbranch-no" title="branch not covered" >'small' </span>: undefined }}
-                        &gt;
-                          {getString('keyLabel')}
-                        &lt;/Text&gt;
-                      )}
-                      &lt;FormInput.Text name={`${name}[${index}].key`} style={{ margin: 0 }} disabled={disabled} /&gt;
-                    &lt;/div&gt;
+          multiTextInputProps={{
+            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+          }}
+          {...multiTypeFieldSelectorProps}
+        /&gt;
+      ) : (
+        &lt;MultiTypeFieldSelector
+          name={name}
+          defaultValueToReset={getDefaultResetValue()}
+          style={{ flexGrow: 1, marginBottom: 0 }}
+          {...multiTypeFieldSelectorProps}
+          disableTypeSelection={multiTypeFieldSelectorProps.disableTypeSelection || disabled}
+        &gt;
+          &lt;FieldArray
+            name={name}
+            render={({ push, remove }) =&gt; (
+              &lt;Card style={{ width: '100%', ...cardStyle }}&gt;
+                {Array.isArray(value) &amp;&amp;
+                  value.map(({ id }, index: number) =&gt; (
+                    &lt;div className={cx(css.group, css.withoutAligning)} key={id}&gt;
+                      &lt;div style={{ flexGrow: 1 }}&gt;
+                        {index === 0 &amp;&amp; (
+                          &lt;Text
+                            margin={{ bottom: 'xsmall' }}
+                            font={{ size: appearance === 'minimal' ? <span class="branch-0 cbranch-no" title="branch not covered" >'small' </span>: undefined }}
+                          &gt;
+                            {getString('keyLabel')}
+                          &lt;/Text&gt;
+                        )}
+                        &lt;FormInput.Text name={`${name}[${index}].key`} style={{ margin: 0 }} disabled={disabled} /&gt;
+                      &lt;/div&gt;
 &nbsp;
-                    &lt;div style={{ flexGrow: 1 }}&gt;
-                      {index === 0 &amp;&amp; (
-                        &lt;Text
-                          font={{ size: appearance === 'minimal' ? <span class="branch-0 cbranch-no" title="branch not covered" >'small' </span>: undefined }}
-                          margin={{ bottom: 'xsmall' }}
-                        &gt;
-                          {getString('valueLabel')}
-                        &lt;/Text&gt;
-                      )}
-                      &lt;div className={cx(css.group, css.withoutAligning, css.withoutSpacing)}&gt;
-                        &lt;FormInput.MultiTextInput
-                          label=""
-                          name={`${name}[${index}].value`}
-                          multiTextInputProps={{
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                            ...valueMultiTextInputProps
-                          }}
-                          style={{ flexGrow: 1 }}
-                          disabled={disabled}
-                        /&gt;
-                        &lt;Button
-                          icon="main-trash"
-                          iconProps={{ size: 20 }}
-                          minimal
-                          data-testid={`remove-${name}-[${index}]`}
-                          onClick={() =&gt; remove(index)}
-                          disabled={disabled}
-                        /&gt;
+                      &lt;div style={{ flexGrow: 1 }}&gt;
+                        {index === 0 &amp;&amp; (
+                          &lt;Text
+                            font={{ size: appearance === 'minimal' ? <span class="branch-0 cbranch-no" title="branch not covered" >'small' </span>: undefined }}
+                            margin={{ bottom: 'xsmall' }}
+                          &gt;
+                            {getString('valueLabel')}
+                          &lt;/Text&gt;
+                        )}
+                        &lt;div className={cx(css.group, css.withoutAligning, css.withoutSpacing)}&gt;
+                          &lt;FormInput.MultiTextInput
+                            label=""
+                            name={`${name}[${index}].value`}
+                            multiTextInputProps={{
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                              ...valueMultiTextInputProps
+                            }}
+                            style={{ flexGrow: 1 }}
+                            disabled={disabled}
+                          /&gt;
+                          &lt;Button
+                            icon="main-trash"
+                            iconProps={{ size: 20 }}
+                            minimal
+                            data-testid={`remove-${name}-[${index}]`}
+                            onClick={() =&gt; remove(index)}
+                            disabled={disabled}
+                          /&gt;
+                        &lt;/div&gt;
                       &lt;/div&gt;
                     &lt;/div&gt;
-                  &lt;/div&gt;
-                ))}
+                  ))}
 &nbsp;
-              &lt;Button
-                intent="primary"
-                minimal
-                text={getString('plusAdd')}
-                data-testid={`add-${name}`}
-                onClick={() =&gt; push({ id: uuid('', nameSpace()), key: '', value: '' })}
-                disabled={disabled}
-              /&gt;
-            &lt;/Card&gt;
-          )}
-        /&gt;
-      &lt;/MultiTypeFieldSelector&gt;
+                &lt;Button
+                  intent="primary"
+                  minimal
+                  text={getString('plusAdd')}
+                  data-testid={`add-${name}`}
+                  onClick={() =&gt; push({ id: uuid('', nameSpace()), key: '', value: '' })}
+                  disabled={disabled}
+                /&gt;
+              &lt;/Card&gt;
+            )}
+          /&gt;
+        &lt;/MultiTypeFieldSelector&gt;
+      )}
       {enableConfigureOptions &amp;&amp;
         typeof value === 'string' &amp;&amp;
         getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME &amp;&amp; (
@@ -520,7 +568,7 @@ export default connect(MultiTypeMap)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 09:01:06 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 10:07:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -35,8 +35,8 @@ interface TargetListProps {
 
 const TargetList: React.FC<TargetListProps> = ({ targets, onAdd, onRemove, onChange }) => {
   const { getString } = useStrings()
-  const handleChange = (idx: number, attr: keyof TargetData, pattern: string) => (e: any) => {
-    if (e.target.value.match(pattern) != null) {
+  const handleChange = (idx: number, attr: keyof TargetData, pattern: RegExp) => (e: any) => {
+    if (e.target.value.match(pattern)) {
       onChange(idx, { ...targets[idx], [attr]: e.target.value })
     }
   }

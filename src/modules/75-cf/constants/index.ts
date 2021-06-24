@@ -97,5 +97,5 @@ export const CFSideNavProps: SidebarContext = {
   icon: 'cf-main'
 }
 
-export const CFTargetNameRegex = '^[A-Za-z0-9 .@_-]*$'
-export const CFTargetIdentifierRegex = '^[A-Za-z0-9.@_]*$'
+export const CFTargetNameRegex = /^[A-Za-z0-9 .@_-]*$/
+export const CFTargetIdentifierRegex = /^[A-Za-z0-9.@_]*$/

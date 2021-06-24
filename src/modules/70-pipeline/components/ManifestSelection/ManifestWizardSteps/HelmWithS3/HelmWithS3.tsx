@@ -27,7 +27,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { CommandFlags, HelmWithS3DataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
-import { helmVersions, ManifestIdentifierValidation } from '../../Manifesthelper'
+import { helmVersions, ManifestDataType, ManifestIdentifierValidation } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
@@ -122,7 +122,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
-        type: 'HelmChart',
+        type: ManifestDataType.HelmChart,
         spec: {
           store: {
             type: formData?.store,

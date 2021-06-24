@@ -29,6 +29,7 @@ import {
   gitFetchTypeList,
   GitFetchTypes,
   GitRepoName,
+  ManifestDataType,
   ManifestIdentifierValidation,
   ManifestStoreMap
 } from '../../Manifesthelper'
@@ -132,7 +133,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
-        type: 'Kustomize',
+        type: ManifestDataType.Kustomize,
         spec: {
           store: {
             type: formData?.store,

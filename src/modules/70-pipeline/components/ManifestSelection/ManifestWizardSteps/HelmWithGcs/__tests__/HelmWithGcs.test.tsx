@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, queryByAttribute, fireEvent, act, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { ManifestConfig } from 'services/cd-ng'
+import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import HelmWithGcs from '../HelmWithGcs'
 
 const props = {
@@ -15,7 +15,7 @@ describe('helm with http tests', () => {
     const initialValues = {
       identifier: '',
       spec: {},
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       helmVersion: 'V2',
       chartName: '',
       chartVersion: '',
@@ -36,7 +36,7 @@ describe('helm with http tests', () => {
     const initialValues = {
       identifier: '',
       spec: {},
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       helmVersion: 'V2',
       chartName: '',
       chartVersion: '',
@@ -60,7 +60,7 @@ describe('helm with http tests', () => {
       identifier: '',
       helmVersion: 'V2',
       spec: {},
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,
@@ -88,7 +88,7 @@ describe('helm with http tests', () => {
       identifier: 'id3',
       helmVersion: 'V2',
       spec: {},
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,
@@ -116,7 +116,7 @@ describe('helm with http tests', () => {
       identifier: '',
       helmVersion: 'V2',
       spec: {},
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,

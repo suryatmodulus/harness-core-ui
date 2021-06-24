@@ -30,6 +30,7 @@ import {
   GitFetchTypes,
   GitRepoName,
   helmVersions,
+  ManifestDataType,
   ManifestIdentifierValidation,
   ManifestStoreMap
 } from '../../Manifesthelper'
@@ -135,7 +136,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
-        type: 'HelmChart',
+        type: ManifestDataType.HelmChart,
         spec: {
           store: {
             type: formData?.store,

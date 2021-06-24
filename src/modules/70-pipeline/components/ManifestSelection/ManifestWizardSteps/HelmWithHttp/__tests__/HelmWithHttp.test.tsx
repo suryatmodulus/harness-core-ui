@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, act, queryByAttribute, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { ManifestConfig } from 'services/cd-ng'
+import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import HelmWithHttp from '../HelmWithHttp'
 
 const props = {
@@ -15,7 +15,7 @@ describe('helm with http tests', () => {
   test(`renders without crashing`, () => {
     const initialValues = {
       identifier: 'test',
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       spec: {
         helmVersion: 'test',
         chartName: 'test',
@@ -33,7 +33,7 @@ describe('helm with http tests', () => {
   test('expand advanced section', () => {
     const initialValues = {
       identifier: 'test',
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       spec: {
         helmVersion: 'test',
         chartName: 'test',
@@ -53,7 +53,7 @@ describe('helm with http tests', () => {
   test(`renders correctly in edit mode with connectorref`, () => {
     const initialValues = {
       identifier: 'test',
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       spec: {
         store: {
           type: 'Http',
@@ -78,7 +78,7 @@ describe('helm with http tests', () => {
   test('submits with the right payload', async () => {
     const initialValues = {
       identifier: 'test',
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       spec: {
         store: {
           type: 'Http',

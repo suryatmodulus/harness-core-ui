@@ -128,7 +128,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
-        type: ManifestDataType.OpenshiftParam,
+        type: ManifestDataType.OpenshiftTemplate,
         spec: {
           store: {
             type: formData?.store,

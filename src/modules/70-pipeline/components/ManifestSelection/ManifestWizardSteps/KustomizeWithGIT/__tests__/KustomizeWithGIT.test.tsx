@@ -1,7 +1,7 @@
 import React from 'react'
 import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { ManifestConfig } from 'services/cd-ng'
+import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import KustomizeWithGIT from '../KustomizeWithGIT'
 
 const props = {
@@ -15,7 +15,7 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
     const initialValues = {
       identifier: '',
       spec: {},
-      type: 'Kustomize' as ManifestConfig['type'],
+      type: ManifestDataType.Kustomize,
       branch: undefined,
       commitId: undefined,
       gitFetchType: 'Branch',
@@ -36,7 +36,7 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
     const initialValues = {
       identifier: '',
       spec: {},
-      type: 'Kustomize' as ManifestConfig['type'],
+      type: ManifestDataType.Kustomize,
       branch: undefined,
       commitId: undefined,
       gitFetchType: 'Branch',
@@ -60,7 +60,7 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
       identifier: 'id2',
       branch: 'master',
       spec: {},
-      type: 'Kustomize' as ManifestConfig['type'],
+      type: ManifestDataType.Kustomize,
       gitFetchType: 'Branch',
       folderPath: '',
       skipResourceVersioning: false,
@@ -81,7 +81,7 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
       identifier: 'id12',
       commitId: 'awsd123sd',
       spec: {},
-      type: 'Kustomize' as ManifestConfig['type'],
+      type: ManifestDataType.Kustomize,
       gitFetchType: 'Commit',
       folderPath: './temp',
       skipResourceVersioning: true,
@@ -102,7 +102,7 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
       identifier: '',
       branch: undefined,
       spec: {},
-      type: 'Kustomize' as ManifestConfig['type'],
+      type: ManifestDataType.Kustomize,
       gitFetchType: '',
       folderPath: '',
       skipResourceVersioning: true,

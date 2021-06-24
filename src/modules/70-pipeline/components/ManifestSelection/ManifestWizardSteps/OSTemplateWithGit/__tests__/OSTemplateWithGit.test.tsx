@@ -16,7 +16,7 @@ describe('Open shift template with git tests', () => {
       identifier: '',
       branch: '',
       spec: {},
-      type: ManifestDataType.OpenshiftParam,
+      type: ManifestDataType.OpenshiftTemplate,
       commitId: '',
       gitFetchType: 'Branch',
       paths: [],
@@ -36,7 +36,7 @@ describe('Open shift template with git tests', () => {
       identifier: '',
       branch: '',
       spec: {},
-      type: ManifestDataType.OpenshiftParam,
+      type: ManifestDataType.OpenshiftTemplate,
       commitId: '',
       gitFetchType: 'Branch',
       paths: [],
@@ -58,7 +58,7 @@ describe('Open shift template with git tests', () => {
       identifier: 'test',
       commitId: 'test-commit',
       spec: {},
-      type: ManifestDataType.OpenshiftParam,
+      type: ManifestDataType.OpenshiftTemplate,
       gitFetchType: 'Commit',
       paths: ['test'],
       skipResourceVersioning: false,
@@ -78,7 +78,7 @@ describe('Open shift template with git tests', () => {
       branch: undefined,
       commitId: undefined,
       spec: {},
-      type: ManifestDataType.OpenshiftParam,
+      type: ManifestDataType.OpenshiftTemplate,
       gitFetchType: 'Branch',
       paths: [],
       skipResourceVersioning: false,
@@ -115,7 +115,7 @@ describe('Open shift template with git tests', () => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
-          type: 'OpenshiftParam',
+          type: 'OpenshiftTemplate',
           spec: {
             store: {
               spec: {

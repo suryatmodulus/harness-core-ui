@@ -175,7 +175,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
-        type: 'K8sManifest',
+        type: ManifestDataType.K8sManifest,
         spec: {
           store: {
             type: formData?.store,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, queryByAttribute, fireEvent, act, wait } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { ManifestConfig } from 'services/cd-ng'
+import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import HelmWithS3 from '../HelmWithS3'
 
 const props = {
@@ -25,7 +25,7 @@ describe('helm with http tests', () => {
     const initialValues = {
       identifier: 'test',
       spec: {},
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       bucketName: 'test-bucket',
       region: { name: '', value: '' },
       folderPath: 'testfolder',
@@ -47,7 +47,7 @@ describe('helm with http tests', () => {
       identifier: 'test',
       bucketName: 'test-bucket',
       spec: {},
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       region: { name: '', value: '' },
       folderPath: 'testfolder',
       helmVersion: 'V2',
@@ -68,7 +68,7 @@ describe('helm with http tests', () => {
   test('load form correctly in edit mode and fill region', () => {
     const initialValues = {
       identifier: 'test',
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       spec: {
         store: {
           type: 'S3',
@@ -98,7 +98,7 @@ describe('helm with http tests', () => {
       identifier: '',
       bucketName: '',
       spec: {},
-      type: 'HelmChart' as ManifestConfig['type'],
+      type: ManifestDataType.HelmChart,
       region: { label: '', value: '' },
       folderPath: '',
       helmVersion: '',

@@ -4,7 +4,7 @@ import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 
 import { Scope } from '@common/interfaces/SecretsInterface'
-import type { ManifestConfig } from 'services/cd-ng'
+import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import ManifestDetails from '../ManifestDetails'
 
 const props = {
@@ -18,7 +18,7 @@ const initialValues = {
   identifier: '',
   branch: undefined,
   spec: {},
-  type: 'K8sManifest' as ManifestConfig['type'],
+  type: ManifestDataType.K8sManifest,
   commitId: undefined,
   gitFetchType: 'Branch',
   folderPath: '',
@@ -123,7 +123,7 @@ describe('Manifest Details tests', () => {
       expressions: [],
       initialValues: {
         identifier: 'testidentifier',
-        type: 'K8sManifest' as ManifestConfig['type'],
+        type: ManifestDataType.K8sManifest,
         spec: {
           store: {
             spec: {
@@ -160,7 +160,7 @@ describe('Manifest Details tests', () => {
       expressions: [],
       initialValues: {
         identifier: 'testidentifier',
-        type: 'K8sManifest' as ManifestConfig['type'],
+        type: ManifestDataType.K8sManifest,
         spec: {
           store: {
             spec: {
@@ -196,7 +196,7 @@ describe('Manifest Details tests', () => {
       manifestIdsList: [],
       initialValues: {
         identifier: 'testidentifier',
-        type: 'K8sManifest' as ManifestConfig['type'],
+        type: ManifestDataType.K8sManifest,
         spec: {
           store: {
             spec: {
@@ -233,7 +233,7 @@ describe('Manifest Details tests', () => {
       expressions: [],
       initialValues: {
         identifier: 'testidentifier',
-        type: 'K8sManifest' as ManifestConfig['type'],
+        type: ManifestDataType.K8sManifest,
         spec: {
           store: {
             spec: {
@@ -288,7 +288,7 @@ describe('Manifest Details tests', () => {
       manifestIdsList: [],
       initialValues: {
         identifier: 'testidentifier',
-        type: 'K8sManifest' as ManifestConfig['type'],
+        type: ManifestDataType.K8sManifest,
         spec: {
           store: {
             spec: {

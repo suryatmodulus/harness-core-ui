@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.83% </span>
+                <span class="strong">78.05% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>158/203</span>
+                <span class='fraction'>160/205</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.72% </span>
+                <span class="strong">56.3% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>228/395</span>
+                <span class='fraction'>228/405</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.55% </span>
+                <span class="strong">77.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>152/196</span>
+                <span class='fraction'>154/198</span>
             </div>
         
             
@@ -723,7 +723,16 @@
 <a name='L664'></a><a href='#L664'>664</a>
 <a name='L665'></a><a href='#L665'>665</a>
 <a name='L666'></a><a href='#L666'>666</a>
-<a name='L667'></a><a href='#L667'>667</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L667'></a><a href='#L667'>667</a>
+<a name='L668'></a><a href='#L668'>668</a>
+<a name='L669'></a><a href='#L669'>669</a>
+<a name='L670'></a><a href='#L670'>670</a>
+<a name='L671'></a><a href='#L671'>671</a>
+<a name='L672'></a><a href='#L672'>672</a>
+<a name='L673'></a><a href='#L673'>673</a>
+<a name='L674'></a><a href='#L674'>674</a>
+<a name='L675'></a><a href='#L675'>675</a>
+<a name='L676'></a><a href='#L676'>676</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -742,7 +751,7 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1149,6 +1158,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1220,6 +1233,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1289,6 +1305,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1408,7 +1426,7 @@ import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import type { FormikErrors, FormikProps } from 'formik'
+import { connect, FormikErrors, FormikProps } from 'formik'
 import {
   ServiceConfig,
   useCreateServicesV2,
@@ -1814,7 +1832,11 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
   )
 }
 &nbsp;
-const DeployServiceInputStep: React.FC&lt;DeployServiceProps&gt; = ({ inputSetData, initialValues, onUpdate }) =&gt; {
+const DeployServiceInputStep: React.FC&lt;DeployServiceProps &amp; { formik?: any }&gt; = ({
+  inputSetData,
+  initialValues,
+  formik
+}) =&gt; {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;
     PipelineType&lt;{
@@ -1885,7 +1907,10 @@ const DeployServiceInputStep: React.FC&lt;DeployServiceProps&gt; = ({ inputSetDa
           isService={state.isService}
           onCreateOrUpdate={<span class="fstat-no" title="function not covered" >values </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >            refetch()</span>
-<span class="cstat-no" title="statement not covered" >            onUpdate?.({ ...omit(initialValues, 'service'), serviceRef: values.identifier })</span>
+<span class="cstat-no" title="statement not covered" >            formik?.setFieldValue(</span>
+              `${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}serviceRef`,
+              values.identifier
+            )
 <span class="cstat-no" title="statement not covered" >            onClose.call(null)</span>
           }}
           closeModal={onClose}
@@ -1955,6 +1980,8 @@ const DeployServiceInputStep: React.FC&lt;DeployServiceProps&gt; = ({ inputSetDa
     &lt;/&gt;
   )
 }
+&nbsp;
+const DeployServiceInputStepFormik = connect(DeployServiceInputStep)
 const ServiceRegex = /^.+stage\.spec\.serviceConfig\.serviceRef$/
 export class DeployServiceStep extends Step&lt;DeployServiceData&gt; {
   lastFetched: number
@@ -2013,7 +2040,7 @@ export class DeployServiceStep extends Step&lt;DeployServiceData&gt; {
     const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        &lt;DeployServiceInputStep
+        &lt;DeployServiceInputStepFormik
           initialValues={initialValues}
           readonly={readonly}
           onUpdate={onUpdate}
@@ -2062,7 +2089,7 @@ export class DeployServiceStep extends Step&lt;DeployServiceData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 14:35:19 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 15:23:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/33</span>
+                <span class='fraction'>34/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.65% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>22/23</span>
+                <span class='fraction'>35/49</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/33</span>
+                <span class='fraction'>34/34</span>
             </div>
         
             
@@ -175,9 +175,7 @@
 <a name='L116'></a><a href='#L116'>116</a>
 <a name='L117'></a><a href='#L117'>117</a>
 <a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a>
-<a name='L120'></a><a href='#L120'>120</a>
-<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L119'></a><a href='#L119'>119</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -222,9 +220,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -305,7 +301,7 @@ import { Card, Container, Text, Icon, Avatar, Color } from '@wings-software/uico
 import { useToaster } from '@common/exports'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { getShortCommitId, getTimeAgo } from '@ci/services/CIUtils'
-import type { CIBuildCommit } from 'services/ci'
+import type { CIBuildCommit, CIBuildResponseDTO } from 'services/ci'
 import { useStrings } from 'framework/strings'
 import css from './BuildCommits.module.scss'
 &nbsp;
@@ -337,14 +333,12 @@ const BuildCommits: React.FC = () =&gt; {
       : showError(getString('ci.clipboardCopyFail'), undefined, 'ci.copy.commit.error')
   }
   const commitsGroupedByTimestamp: CommitsGroupedByTimestamp[] = []
-  const buildCommits = get(
+  const ciData = get(
     context,
-    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO.branch.commits'
-  )
-  const commitAuthor = get(
-    context,
-    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO.author'
-  )
+    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO'
+  ) as CIBuildResponseDTO
+  const buildCommits = ciData<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommits<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? ciData.branch.commits : <span class="branch-1 cbranch-no" title="branch not covered" >ciData?.pullRequest?.commits</span>
+  const commitAuthor = ciData<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>uthor
   buildCommits<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>orEach((commit: CIBuildCommit) =&gt; {
     const index = commitsGroupedByTimestamp.findIndex(({ timeStamp: timestamp2 }) =&gt;
       moment(commit.timeStamp).isSame(timestamp2, 'day')
@@ -370,7 +364,7 @@ const BuildCommits: React.FC = () =&gt; {
             const [title, description] = message.split('\n\n')
             // we should use only first part of a name
             // in order to show a single letter
-            const firstName = (ownerName || commitAuthor.name)?.split(' ')[0]
+            const firstName = (ownerName || commitAuthor!.name)?.split(' ')[0]
             return (
               &lt;Card className={css.commit} key={id}&gt;
                 &lt;div&gt;
@@ -389,11 +383,11 @@ const BuildCommits: React.FC = () =&gt; {
                     name={firstName}
                     size={'xsmall'}
                     backgroundColor={AVATAR_COLORS[index % AVATAR_COLORS.length]}
-                    src={commitAuthor.avatar}
+                    src={commitAuthor!.avatar}
                     hoverCard={false}
                   /&gt;
                   &lt;Text className={css.committed} font="xsmall" margin={{ right: 'xlarge' }}&gt;
-                    {ownerId || commitAuthor.id} {getString('ci.committed')} {getTimeAgo(commitTimestamp)}
+                    {ownerId || commitAuthor!.id} {getString('ci.committed')} {getTimeAgo(commitTimestamp)}
                   &lt;/Text&gt;
                   &lt;button className={css.hash} onClick={() =&gt; copy2Clipboard(id)}&gt;
                     &lt;Text
@@ -424,7 +418,7 @@ export default BuildCommits
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 14:35:19 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 15:23:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

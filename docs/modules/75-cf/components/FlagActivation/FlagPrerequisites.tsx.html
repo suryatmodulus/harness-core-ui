@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.71% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/107</span>
+                <span class='fraction'>36/108</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.79% </span>
+                <span class="strong">36.46% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/95</span>
+                <span class='fraction'>35/96</span>
             </div>
         
             
@@ -410,11 +410,7 @@
 <a name='L351'></a><a href='#L351'>351</a>
 <a name='L352'></a><a href='#L352'>352</a>
 <a name='L353'></a><a href='#L353'>353</a>
-<a name='L354'></a><a href='#L354'>354</a>
-<a name='L355'></a><a href='#L355'>355</a>
-<a name='L356'></a><a href='#L356'>356</a>
-<a name='L357'></a><a href='#L357'>357</a>
-<a name='L358'></a><a href='#L358'>358</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L354'></a><a href='#L354'>354</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -438,6 +434,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -727,11 +724,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -788,13 +780,14 @@ import {
 import { FieldArray } from 'formik'
 import cx from 'classnames'
 import type { IconName } from '@blueprintjs/core'
-import { Dialog, Menu } from '@blueprintjs/core'
+import { Dialog } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import {
   Feature,
   PatchFeatureQueryParams,
@@ -912,14 +905,14 @@ export const FlagPrerequisites: React.FC&lt;FlagPrerequisitesProps&gt; = props =
       const initialPrerequisites = <span class="cstat-no" title="statement not covered" >featureFlag.prerequisites || []</span>
       const removedPrerequisites = <span class="cstat-no" title="statement not covered" >initialPrerequisites.filter(<span class="fstat-no" title="function not covered" >pr </span>=&gt; <span class="cstat-no" title="statement not covered" >!prerequisites.find(<span class="fstat-no" title="function not covered" >p </span>=&gt; <span class="cstat-no" title="statement not covered" >pr.feature === p.feature)</span>)</span></span>
       const newPrerequisites = <span class="cstat-no" title="statement not covered" >prerequisites.filter(<span class="fstat-no" title="function not covered" >p </span>=&gt; <span class="cstat-no" title="statement not covered" >!initialPrerequisites.find(<span class="fstat-no" title="function not covered" >pr </span>=&gt; <span class="cstat-no" title="statement not covered" >pr.feature === p.feature)</span>)</span></span>
-      const updatedPrequisites = <span class="cstat-no" title="statement not covered" >prerequisites.filter(<span class="fstat-no" title="function not covered" >p </span>=&gt;</span>
+      const updatedPrerequisites = <span class="cstat-no" title="statement not covered" >prerequisites.filter(<span class="fstat-no" title="function not covered" >p </span>=&gt;</span>
 <span class="cstat-no" title="statement not covered" >        initialPrerequisites.find(<span class="fstat-no" title="function not covered" >pr </span>=&gt; <span class="cstat-no" title="statement not covered" >pr.feature === p.feature &amp;&amp; !isEqual(pr.variations, p.variations))</span></span>
       )
 &nbsp;
       const instructions = <span class="cstat-no" title="statement not covered" >[</span>
         ...removedPrerequisites.map(<span class="fstat-no" title="function not covered" >p </span>=&gt; <span class="cstat-no" title="statement not covered" >patch.creators.removePrerequisite(p.feature))</span>,
         ...newPrerequisites.map(patch.creators.addPrerequisite),
-        ...updatedPrequisites.map(patch.creators.updatePrequisite)
+        ...updatedPrerequisites.map(patch.creators.updatePrequisite)
       ]
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      patch.feature.addAllInstructions(instructions)</span>
@@ -1086,28 +1079,23 @@ export const FlagPrerequisites: React.FC&lt;FlagPrerequisitesProps&gt; = props =
 <span class="cstat-no" title="statement not covered" >              &lt;Layout.Horizontal key={i} flex padding="medium"&gt;</span>
                 &lt;Text&gt;{elem.feature}&lt;/Text&gt;
                 &lt;Text&gt;{elem.variations[0]}&lt;/Text&gt;
-                &lt;RbacButton
-                  minimal
-                  icon="Options"
-                  style={{ marginLeft: 'auto' }}
-                  tooltip={
-                    &lt;Menu style={{ minWidth: 'unset' }}&gt;
-                      &lt;Menu.Item
-                        icon="edit"
-                        text={getString('edit')}
-                        onClick={handlePrerequisiteInteraction('edit', elem)}
-                        disabled={featureFlag.archived}
-                      /&gt;
-                      &lt;Menu.Item
-                        icon="cross"
-                        text={getString('delete')}
-                        onClick={handlePrerequisiteInteraction('delete', elem)}
-                        disabled={featureFlag.archived}
-                      /&gt;
-                    &lt;/Menu&gt;
-                  }
-                  tooltipProps={{ isDark: true, interactionKind: 'click' }}
-                  permission={rbacPermission}
+                &lt;RbacOptionsMenuButton
+                  items={[
+                    {
+                      icon: 'edit',
+                      text: getString('edit'),
+                      onClick: handlePrerequisiteInteraction('edit', elem),
+                      disabled: featureFlag.archived,
+                      permission: rbacPermission
+                    },
+                    {
+                      icon: 'cross',
+                      text: getString('delete'),
+                      onClick: handlePrerequisiteInteraction('delete', elem),
+                      disabled: featureFlag.archived,
+                      permission: rbacPermission
+                    }
+                  ]}
                 /&gt;
               &lt;/Layout.Horizontal&gt;
             ))}
@@ -1135,7 +1123,7 @@ export const FlagPrerequisites: React.FC&lt;FlagPrerequisitesProps&gt; = props =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 14:35:19 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 15:23:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, FormInput, MultiTypeInputType, getMultiTypeFromValue, SelectOption } from '@wings-software/uicore'
 import cx from 'classnames'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, get } from 'lodash-es'
 import { connect } from 'formik'
 import { String } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
@@ -49,7 +49,7 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
 
   React.useEffect(() => {
     if (!executionId) {
-      const providedValues = formik.values
+      const providedValues = get(formik.values, basePath)
       let updatedVariables: AllNGVariables[] = cloneDeep(initialValues.variables) || []
       updatedVariables = updatedVariables.map((variable: AllNGVariables, index: number) => {
         const { default: defaultValue = '', ...restVar } = variable

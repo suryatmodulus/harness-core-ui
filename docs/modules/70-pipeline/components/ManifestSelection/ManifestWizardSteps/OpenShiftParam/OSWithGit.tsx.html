@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.62% </span>
+                <span class="strong">54.62% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>183/329</span>
+                <span class='fraction'>195/357</span>
             </div>
         
             
@@ -367,7 +367,8 @@
 <a name='L308'></a><a href='#L308'>308</a>
 <a name='L309'></a><a href='#L309'>309</a>
 <a name='L310'></a><a href='#L310'>310</a>
-<a name='L311'></a><a href='#L311'>311</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -493,6 +494,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -752,20 +754,20 @@ const OpenShiftParamWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &am
     <span class="missing-if-branch" title="if path not taken" >I</span>if (getMultiTypeFromValue(prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) === MultiTypeInputType.RUNTIME) {
 <span class="cstat-no" title="statement not covered" >      repoName = prevStepData?.connectorRef</span>
     } else if (prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) {
-      const connectorScope = getScopeFromValue(initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.store.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef)</span>
+      const connectorScope = getScopeFromValue(initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef)</span>
       <span class="missing-if-branch" title="if path not taken" >I</span>if (connectorScope === Scope.ACCOUNT) {
 <span class="cstat-no" title="statement not covered" >        if (</span>
-          initialValues?.spec?.store.spec?.connectorRef ===
+          initialValues?.spec?.store?.spec?.connectorRef ===
           `account.${prevStepData?.connectorRef?.connector?.identifier}`
         ) {
-<span class="cstat-no" title="statement not covered" >          repoName = initialValues?.spec?.store.spec.repoName</span>
+<span class="cstat-no" title="statement not covered" >          repoName = initialValues?.spec?.store?.spec?.repoName</span>
         } else {
 <span class="cstat-no" title="statement not covered" >          repoName = ''</span>
         }
       } else {
         repoName =
-          prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector?.identifier === initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.store.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef</span>
-            ? initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.store.spec.repoName</span>
+          prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector?.identifier === initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef</span>
+            ? initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.repoName</span>
             : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
       }
       return repoName
@@ -805,6 +807,7 @@ const OpenShiftParamWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &am
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
+        type: 'OpenshiftParam',
         spec: {
           store: {
             type: formData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore,
@@ -994,7 +997,7 @@ export default OpenShiftParamWithGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 10:07:40 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 12:33:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

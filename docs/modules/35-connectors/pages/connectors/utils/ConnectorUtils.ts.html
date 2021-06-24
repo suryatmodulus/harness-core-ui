@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.15% </span>
+                <span class="strong">51.21% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>755/1476</span>
+                <span class='fraction'>760/1484</span>
             </div>
         
             
@@ -1430,7 +1430,11 @@
 <a name='L1371'></a><a href='#L1371'>1371</a>
 <a name='L1372'></a><a href='#L1372'>1372</a>
 <a name='L1373'></a><a href='#L1373'>1373</a>
-<a name='L1374'></a><a href='#L1374'>1374</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
+<a name='L1374'></a><a href='#L1374'>1374</a>
+<a name='L1375'></a><a href='#L1375'>1375</a>
+<a name='L1376'></a><a href='#L1376'>1376</a>
+<a name='L1377'></a><a href='#L1377'>1377</a>
+<a name='L1378'></a><a href='#L1378'>1378</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1618,6 +1622,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1662,6 +1667,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1681,6 +1687,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2213,6 +2220,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2977,6 +2985,7 @@ export const buildGithubPayload = (formData: FormData) =&gt; {
       ...(formData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>elegateSelectors ? { delegateSelectors: formData.delegateSelectors } : <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
       type: formData.urlType,
       url: formData.url,
+      ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
       authentication: {
         type: formData.connectionType,
         spec:
@@ -3021,6 +3030,7 @@ export const buildGitlabPayload = (formData: FormData) =&gt; {
       ...(formData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>elegateSelectors ? { delegateSelectors: formData.delegateSelectors } : <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
       type: formData.urlType,
       url: formData.url,
+      ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
       authentication: {
         type: formData.connectionType,
         spec:
@@ -3065,6 +3075,7 @@ export const buildBitbucketPayload = (formData: FormData) =&gt; {
       ...(formData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>elegateSelectors ? { delegateSelectors: formData.delegateSelectors } : <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
       type: formData.urlType,
       url: formData.url,
+      ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>,
       authentication: {
         type: formData.connectionType,
         spec:
@@ -3598,6 +3609,7 @@ export const buildGitPayload = (formData: FormData) =&gt; {
       connectionType: formData.urlType,
       url: formData.url,
       type: formData.connectionType,
+      ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : {}),
       spec:
         formData.connectionType === GitConnectionType.SSH
           ? { sshKeyRef: formData.sshKey.referenceString }
@@ -4183,7 +4195,7 @@ export const removeErrorCode = (errors: ErrorDetail[] = <span class="branch-0 cb
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 10:07:40 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 12:33:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.69% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/52</span>
+                <span class='fraction'>44/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.31% </span>
+                <span class="strong">55.4% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>151/273</span>
+                <span class='fraction'>159/287</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.94% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>9/17</span>
+                <span class='fraction'>9/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84% </span>
+                <span class="strong">79.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/50</span>
+                <span class='fraction'>43/54</span>
             </div>
         
             
@@ -453,7 +453,21 @@
 <a name='L394'></a><a href='#L394'>394</a>
 <a name='L395'></a><a href='#L395'>395</a>
 <a name='L396'></a><a href='#L396'>396</a>
-<a name='L397'></a><a href='#L397'>397</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<a name='L397'></a><a href='#L397'>397</a>
+<a name='L398'></a><a href='#L398'>398</a>
+<a name='L399'></a><a href='#L399'>399</a>
+<a name='L400'></a><a href='#L400'>400</a>
+<a name='L401'></a><a href='#L401'>401</a>
+<a name='L402'></a><a href='#L402'>402</a>
+<a name='L403'></a><a href='#L403'>403</a>
+<a name='L404'></a><a href='#L404'>404</a>
+<a name='L405'></a><a href='#L405'>405</a>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a>
+<a name='L408'></a><a href='#L408'>408</a>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
@@ -536,6 +550,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
@@ -575,6 +590,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -815,6 +831,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -849,7 +877,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -911,7 +939,7 @@ const HelmWithS3: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWith
   isReadonly = false
 }) =&gt; {
   const { getString } = useStrings()
-  const [regions, setRegions] = React.useState&lt;SelectOption[]&gt;([])
+  const [regions, setRegions] = useState&lt;SelectOption[]&gt;([])
 &nbsp;
   /* Code related to region */
   const { accountId } = useParams&lt;AccountPathProps&gt;()
@@ -932,7 +960,8 @@ const HelmWithS3: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWith
   }, [regionData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource])
   /* Code related to region */
 &nbsp;
-  const isActiveAdvancedStep: boolean = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.skipResourceVersioning || initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.commandFlags
+  const isActiveAdvancedStep: boolean = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipResourceVersioning || initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags
+  const [selectedHelmVersion, setHelmVersion] = React.useState(initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>elmVersion ?? 'V2')
 &nbsp;
   const getInitialValues = (): HelmWithS3DataType =&gt; {
     const specValues = get(initialValues, 'spec.store.spec', null)
@@ -973,6 +1002,7 @@ const HelmWithS3: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWith
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
+        type: 'HelmChart',
         spec: {
           store: {
             type: formData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore,
@@ -1206,7 +1236,19 @@ const HelmWithS3: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWith
                 &lt;/div&gt;
 &nbsp;
                 &lt;div className={helmcss.halfWidth}&gt;
-                  &lt;FormInput.Select name="helmVersion" label={getString('helmVersion')} items={helmVersions} /&gt;
+                  &lt;FormInput.Select
+                    name="helmVersion"
+                    label={getString('helmVersion')}
+                    items={helmVersions}
+                    onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                      if (value !== selectedHelmVersion) {</span>
+<span class="cstat-no" title="statement not covered" >                        formik.setFieldValue('commandFlags', [</span>
+                          { commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }
+                        ] as any)
+<span class="cstat-no" title="statement not covered" >                        setHelmVersion(value)</span>
+                      }
+                    }}
+                  /&gt;
                 &lt;/div&gt;
               &lt;/Layout.Horizontal&gt;
 &nbsp;
@@ -1252,7 +1294,7 @@ export default HelmWithS3
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 10:07:40 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 12:33:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

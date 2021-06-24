@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.38% </span>
+                <span class="strong">52.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>213/399</span>
+                <span class='fraction'>225/427</span>
             </div>
         
             
@@ -435,7 +435,8 @@
 <a name='L376'></a><a href='#L376'>376</a>
 <a name='L377'></a><a href='#L377'>377</a>
 <a name='L378'></a><a href='#L378'>378</a>
-<a name='L379'></a><a href='#L379'>379</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -570,6 +571,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -874,7 +876,7 @@ const HelmWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
 }) =&gt; {
   const { getString } = useStrings()
 &nbsp;
-  const isActiveAdvancedStep: boolean = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.skipResourceVersioning </span>|| initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.commandFlags</span>
+  const isActiveAdvancedStep: boolean = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipResourceVersioning || initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
   const connectionType =
     prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo ||
@@ -892,20 +894,20 @@ const HelmWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
   const getRepoName = (): string =&gt; {
     let repoName = ''
     if (prevStepData?.connectorRef) {
-      const connectorScope = getScopeFromValue(initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.store.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef)</span>
+      const connectorScope = getScopeFromValue(initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef)</span>
       <span class="missing-if-branch" title="if path not taken" >I</span>if (connectorScope === Scope.ACCOUNT) {
 <span class="cstat-no" title="statement not covered" >        if (</span>
-          initialValues?.spec?.store.spec?.connectorRef ===
+          initialValues?.spec?.store?.spec?.connectorRef ===
           `account.${prevStepData?.connectorRef?.connector?.identifier}`
         ) {
-<span class="cstat-no" title="statement not covered" >          repoName = initialValues?.spec?.store.spec.repoName</span>
+<span class="cstat-no" title="statement not covered" >          repoName = initialValues?.spec?.store?.spec?.repoName</span>
         } else {
 <span class="cstat-no" title="statement not covered" >          repoName = ''</span>
         }
       } else {
         repoName =
-          prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.store.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef</span>
-            ? initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.store.spec.repoName</span>
+          prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef</span>
+            ? initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.repoName</span>
             : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
       }
 &nbsp;
@@ -950,6 +952,7 @@ const HelmWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
+        type: 'HelmChart',
         spec: {
           store: {
             type: formData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore,
@@ -1198,7 +1201,7 @@ export default HelmWithGIT
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 10:07:40 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 12:33:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

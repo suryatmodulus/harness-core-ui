@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.35% </span>
+                <span class="strong">69.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>301/434</span>
+                <span class='fraction'>318/458</span>
             </div>
         
             
@@ -597,7 +597,8 @@
 <a name='L538'></a><a href='#L538'>538</a>
 <a name='L539'></a><a href='#L539'>539</a>
 <a name='L540'></a><a href='#L540'>540</a>
-<a name='L541'></a><a href='#L541'>541</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<a name='L541'></a><a href='#L541'>541</a>
+<a name='L542'></a><a href='#L542'>542</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -772,6 +773,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1241,7 +1243,7 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
   )
 &nbsp;
   const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
-  const isActiveAdvancedStep: boolean = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.skipResourceVersioning
+  const isActiveAdvancedStep: boolean = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipResourceVersioning
 &nbsp;
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
   const connectionType =
@@ -1262,20 +1264,20 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
     if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
       repoName = prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef
     } else if (prevStepData?.connectorRef) {
-      const connectorScope = getScopeFromValue(initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.store.spec?.connectorRef)
+      const connectorScope = getScopeFromValue(initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore?.spec?.connectorRef)
       if (connectorScope === Scope.ACCOUNT) {
         <span class="missing-if-branch" title="else path not taken" >E</span>if (
           initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef ===
           `account.${prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier}`
         ) {
-          repoName = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore.spec.repoName
+          repoName = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>epoName
         } else {
 <span class="cstat-no" title="statement not covered" >          repoName = ''</span>
         }
       } else {
         repoName =
-          prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector?.identifier === initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.store.spec?.connectorRef
-            ? initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.store.spec.repoName</span>
+          prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector?.identifier === initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore?.spec?.connectorRef
+            ? initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.repoName</span>
             : ''
       }
       return repoName
@@ -1314,6 +1316,7 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
+        type: 'K8sManifest',
         spec: {
           store: {
             type: formData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore,
@@ -1684,7 +1687,7 @@ export default ManifestDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 10:07:40 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 12:33:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

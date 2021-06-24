@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">79.07% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>68/85</span>
+                <span class='fraction'>68/86</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.96% </span>
+                <span class="strong">49.25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>164/335</span>
+                <span class='fraction'>165/335</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">79.07% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>68/85</span>
+                <span class='fraction'>68/86</span>
             </div>
         
             
@@ -598,10 +598,7 @@
 <a name='L539'></a><a href='#L539'>539</a>
 <a name='L540'></a><a href='#L540'>540</a>
 <a name='L541'></a><a href='#L541'>541</a>
-<a name='L542'></a><a href='#L542'>542</a>
-<a name='L543'></a><a href='#L543'>543</a>
-<a name='L544'></a><a href='#L544'>544</a>
-<a name='L545'></a><a href='#L545'>545</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L542'></a><a href='#L542'>542</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -658,7 +655,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -983,18 +979,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1020,6 +1007,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1167,7 +1161,7 @@ import { v4 as uuid } from 'uuid'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 &nbsp;
-import { isEmpty } from 'lodash-es'
+import { cloneDeep, isEmpty, set } from 'lodash-es'
 import { yupToFormErrors, FormikErrors, FormikProps, Formik } from 'formik'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
@@ -1204,9 +1198,8 @@ import type { StringNGVariable } from 'services/cd-ng'
 import {
   CommandTypes,
   onSubmitTFPlanData,
-  TerraformPlanData,
   TerraformPlanProps,
-  TerraformVariableStepProps,
+  TerraformPlanVariableStepProps,
   TFPlanFormData
 } from '../Common/Terraform/TerraformInterfaces'
 import TfVarFileList from './TfPlanVarFileList'
@@ -1372,10 +1365,10 @@ function TerraformPlanWidget(
                 &lt;/Label&gt;
                 &lt;div className={cx(css.configFile, css.addMarginBottom)}&gt;
                   &lt;div className={css.configField}&gt;
-                    {!formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles?.store?.spec?.folderPath &amp;&amp; (
+                    {!formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore?.spec?.folderPath &amp;&amp; (
                       &lt;Text className={css.configPlaceHolder}&gt;{getString('cd.configFilePlaceHolder')}&lt;/Text&gt;
                     )}
-                    {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles?.store?.spec?.folderPath &amp;&amp; (
+                    {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore?.spec?.folderPath &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                      &lt;Text font="normal" lineClamp={1} width={200}&gt;</span>
                         /{formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath}
                       &lt;/Text&gt;
@@ -1527,18 +1520,9 @@ function TerraformPlanWidget(
                     } else <span class="cstat-no" title="statement not covered" >if (configObject?.store.spec.gitFetchType === 'Commit') {</span>
 <span class="cstat-no" title="statement not covered" >                      delete configObject.store.spec.branch</span>
                     }
-                    const valObj = <span class="cstat-no" title="statement not covered" >{</span>
-                      ...formik.values,
-                      spec: {
-                        ...formik.values?.spec,
-                        configuration: {
-                          ...formik.values?.spec?.configuration,
 &nbsp;
-                          configFiles: { ...configObject }
-                        }
-                      }
-                    }
-&nbsp;
+                    const valObj = <span class="cstat-no" title="statement not covered" >cloneDeep(formik.values)</span>
+<span class="cstat-no" title="statement not covered" >                    set(valObj, 'spec.configuration.configFiles', { ...configObject })</span>
 <span class="cstat-no" title="statement not covered" >                    formik.setValues(valObj)</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >                    setShowModal(false)</span>
@@ -1566,7 +1550,14 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
   protected defaultValues: TFPlanFormData = {
     identifier: '',
     timeout: '10m',
+    name: '',
+    type: StepType.TerraformPlan,
     spec: {
+      configuration: {
+        command: 'Apply',
+        configFiles: {},
+        secretManagerRef: ''
+      },
       provisionerIdentifier: ''
     }
   }
@@ -1612,24 +1603,24 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
     return errors
   }
 &nbsp;
-  private getInitialValues(data: TFPlanFormData): TerraformPlanData {
-    const envVars = data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration?.environmentVariables as StringNGVariable[]
+  private getInitialValues(data: TFPlanFormData): TFPlanFormData {
+    const envVars = data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables as StringNGVariable[]
     const isEnvRunTime =
-      getMultiTypeFromValue(data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration?.environmentVariables as any) === MultiTypeInputType.RUNTIME
+      getMultiTypeFromValue(data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables as any) === MultiTypeInputType.RUNTIME
     const isTargetRunTime =
-      getMultiTypeFromValue(data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration?.targets as any) === MultiTypeInputType.RUNTIME
+      getMultiTypeFromValue(data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets as any) === MultiTypeInputType.RUNTIME
     return {
       ...data,
       spec: {
         ...data.spec,
         configuration: {
           ...data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration,
-&nbsp;
-          configFiles: data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration?.configFiles,
-          command: data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration?.command,
+          secretManagerRef: data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration.secretManagerRef || '',
+          configFiles: data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles || <span class="branch-1 cbranch-no" title="branch not covered" >{},</span>
+          command: data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommand || <span class="branch-1 cbranch-no" title="branch not covered" >'Apply',</span>
           targets: !isTargetRunTime
-            ? Array.isArray(data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration?.targets)
-              ? data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets.map(target =&gt; ({
+            ? Array.isArray(data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets)
+              ? (data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets as string[]).map((target: string) =&gt; ({
                   value: target,
                   id: uuid()
                 }))
@@ -1638,7 +1629,7 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
           environmentVariables: !isEnvRunTime
             ? Array.isArray(envVars)
               ? envVars.map(variable =&gt; ({
-                  key: variable.name,
+                  key: variable.name || '',
                   value: variable<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue,
                   id: uuid()
                 }))
@@ -1653,7 +1644,7 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
     return onSubmitTFPlanData(data)
   }
 &nbsp;
-  renderStep(props: StepProps&lt;TFPlanFormData, unknown&gt;): JSX.Element {
+  renderStep(props: StepProps&lt;TFPlanFormData, TerraformPlanVariableStepProps&gt;): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps, formikRef, isNewStep } = props
 &nbsp;
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
@@ -1670,7 +1661,7 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
     } else if (stepViewType === StepViewType.InputVariable) {
       return (
         &lt;TerraformVariableStep
-          {...(customStepProps as TerraformVariableStepProps)}
+          {...(customStepProps as TerraformPlanVariableStepProps)}
           initialValues={this.getInitialValues(initialValues)}
           onUpdate={<span class="fstat-no" title="function not covered" >(d</span>ata: any) =&gt; <span class="cstat-no" title="statement not covered" >onUpdate?.(this.processFormData(data))}</span>
         /&gt;
@@ -1696,7 +1687,7 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 10:07:40 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 12:33:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

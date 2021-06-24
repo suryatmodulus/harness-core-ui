@@ -7752,6 +7752,77 @@ export const createVariablesPromise = (
     signal
   )
 
+export interface GetYamlSchemaQueryParams {
+  entityType:
+    | 'Projects'
+    | 'Pipelines'
+    | 'PipelineSteps'
+    | 'Connectors'
+    | 'Secrets'
+    | 'Service'
+    | 'Environment'
+    | 'InputSets'
+    | 'CvConfig'
+    | 'Delegates'
+    | 'DelegateConfigurations'
+    | 'CvVerificationJob'
+    | 'IntegrationStage'
+    | 'IntegrationSteps'
+    | 'CvKubernetesActivitySource'
+    | 'DeploymentSteps'
+    | 'DeploymentStage'
+    | 'ApprovalStage'
+    | 'FeatureFlagStage'
+    | 'Triggers'
+  projectIdentifier?: string
+  orgIdentifier?: string
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+}
+
+export type GetYamlSchemaProps = Omit<
+  GetProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Yaml Schema
+ */
+export const GetYamlSchema = (props: GetYamlSchemaProps) => (
+  <Get<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>
+    path={`/pipelines/yaml-schema`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetYamlSchemaProps = Omit<
+  UseGetProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Yaml Schema
+ */
+export const useGetYamlSchema = (props: UseGetYamlSchemaProps) =>
+  useGet<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>(`/pipelines/yaml-schema`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get Yaml Schema
+ */
+export const getYamlSchemaPromise = (
+  props: GetUsingFetchProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>(
+    getConfig('pipeline/api'),
+    `/pipelines/yaml-schema`,
+    props,
+    signal
+  )
+
 export interface SoftDeletePipelineQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -9152,7 +9223,6 @@ export interface GetSchemaYamlQueryParams {
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
   identifier?: string
-  accountIdentifier?: string
 }
 
 export type GetSchemaYamlProps = Omit<

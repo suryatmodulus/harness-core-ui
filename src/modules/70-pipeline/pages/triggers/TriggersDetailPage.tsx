@@ -8,7 +8,7 @@ import {
   NGTriggerConfigV2,
   useGetTriggerDetails,
   useUpdateTrigger,
-  useGetSchemaYaml,
+  useGetYamlSchema,
   useGetPipelineSummary
 } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
@@ -120,12 +120,11 @@ export default function TriggersDetailPage(): JSX.Element {
     )
   }
 
-  const { loading, data: pipelineSchema } = useGetSchemaYaml({
+  const { loading, data: pipelineSchema } = useGetYamlSchema({
     queryParams: {
       entityType: 'Triggers',
       projectIdentifier,
       orgIdentifier,
-      accountIdentifier: accountId,
       scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
     }
   })

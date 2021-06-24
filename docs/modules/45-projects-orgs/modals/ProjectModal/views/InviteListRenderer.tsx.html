@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.44% </span>
+                <span class="strong">88.37% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>38/45</span>
+                <span class='fraction'>38/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.38% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/32</span>
+                <span class='fraction'>12/20</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.72% </span>
+                <span class="strong">87.8% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/43</span>
+                <span class='fraction'>36/41</span>
             </div>
         
             
@@ -237,7 +237,9 @@
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
 <a name='L180'></a><a href='#L180'>180</a>
-<a name='L181'></a><a href='#L181'>181</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -285,7 +287,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -295,7 +298,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">81x</span>
@@ -462,20 +466,22 @@ const InviteListRenderer: React.FC&lt;InviteListProps&gt; = props =&gt; {
     }
     try {
       const updated = await updateInvite(dataToSubmit, { pathParams: { inviteId: user.id } })
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (updated) reload()
+      /* istanbul ignore else */ if (updated) reload()
       showSuccess(getString('projectsOrgs.projectInviteSuccess'))
     } catch (err) {
-<span class="cstat-no" title="statement not covered" >      showError(err.data?.message || err.message)</span>
+      /* istanbul ignore next */
+      showError(err.data?.message || err.message)
     }
   }
 &nbsp;
   const handleDelete = async (): Promise&lt;void&gt; =&gt; {
     try {
       const deleted = await deleteInvite(user.id, { headers: { 'content-type': 'application/json' } })
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (deleted) reload()
+      /* istanbul ignore else */ if (deleted) reload()
       showSuccess(getString('projectsOrgs.projectDeleteSuccess'))
     } catch (err) {
-<span class="cstat-no" title="statement not covered" >      showError(err.data?.message || err.message)</span>
+      /* istanbul ignore next */
+      showError(err.data?.message || err.message)
     }
   }
   return (
@@ -483,7 +489,7 @@ const InviteListRenderer: React.FC&lt;InviteListProps&gt; = props =&gt; {
       {user<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nviteType == InviteType.ADMIN_INITIATED ? (
         &lt;Layout.Horizontal&gt;
           &lt;Layout.Horizontal spacing="medium" className={cx(css.align, css.pendingUser)} width="60%"&gt;
-            &lt;Avatar name={user.name} email={user.email} size="normal" /&gt;
+            &lt;Avatar name={user.name || <span class="branch-1 cbranch-no" title="branch not covered" >user.email}</span> email={user.email} size="normal" /&gt;
             &lt;Layout.Vertical padding={{ left: 'small' }}&gt;
               &lt;Layout.Horizontal spacing="small"&gt;
                 &lt;Text font={{ weight: 'bold' }} color={Color.BLACK} className={css.name} lineClamp={1}&gt;
@@ -604,7 +610,7 @@ export default InviteListRenderer
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 13:49:14 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 14:35:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

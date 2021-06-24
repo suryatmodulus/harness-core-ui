@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">82.46% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/55</span>
+                <span class='fraction'>47/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.4% </span>
+                <span class="strong">62.7% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>151/242</span>
+                <span class='fraction'>158/252</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">82.46% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/55</span>
+                <span class='fraction'>47/57</span>
             </div>
         
             
@@ -257,12 +257,31 @@
 <a name='L198'></a><a href='#L198'>198</a>
 <a name='L199'></a><a href='#L199'>199</a>
 <a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -344,6 +363,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -430,6 +450,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -467,7 +493,13 @@ import {
   processLayoutNodeMap,
   ProcessLayoutNodeMapResponse
 } from '@pipeline/utils/executionUtils'
-import { ExecutionStatus, isExecutionNotStarted, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
+import {
+  ExecutionStatus,
+  isExecutionIgnoreFailed,
+  isExecutionNotStarted,
+  isExecutionSkipped
+} from '@pipeline/utils/statusHelpers'
+import { useStrings } from 'framework/strings'
 import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
@@ -545,6 +577,7 @@ export interface ExecutionGraphProps {
 &nbsp;
 export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactElement {
   const { executionIdentifier } = useParams&lt;ExecutionPathProps&gt;()
+  const { getString } = useStrings()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState&lt;
     DynamicPopoverHandlerBinding&lt;unknown&gt; | undefined
   &gt;()
@@ -617,10 +650,16 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
 &nbsp;
   return (
     &lt;div className={css.main}&gt;
+      {isExecutionIgnoreFailed(pipelineExecutionDetail<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineExecutionSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus) ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Layout.Horizontal spacing="medium" background={Color.GREY_200} className={css.executionError}&gt;</span>
+          &lt;Icon name="warning-sign" intent={Intent.WARNING} /&gt;
+          &lt;Text lineClamp={1}&gt;{getString('pipeline.execution.ignoreFailedWarningText')}&lt;/Text&gt;
+        &lt;/Layout.Horizontal&gt;
+      ) : null}
       {!isEmpty(pipelineExecutionDetail<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineExecutionSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutionErrorInfo?.message) ? (
         &lt;Layout.Horizontal spacing="medium" background={Color.RED_100} className={css.executionError}&gt;
           &lt;Icon name="warning-sign" intent={Intent.DANGER} /&gt;
-          &lt;Text intent="danger" font={{ weight: 'semi-bold' }} lineClamp={1}&gt;
+          &lt;Text color={Color.GREY_900} lineClamp={1}&gt;
             {pipelineExecutionDetail<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineExecutionSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutionErrorInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>essage}
           &lt;/Text&gt;
         &lt;/Layout.Horizontal&gt;
@@ -664,7 +703,7 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 16:04:06 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 17:34:43 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

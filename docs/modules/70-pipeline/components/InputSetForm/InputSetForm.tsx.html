@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.37% </span>
+                <span class="strong">88.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>140/164</span>
+                <span class='fraction'>136/154</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.58% </span>
+                <span class="strong">60.9% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>209/345</span>
+                <span class='fraction'>204/335</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85% </span>
+                <span class="strong">88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>136/160</span>
+                <span class='fraction'>132/150</span>
             </div>
         
             
@@ -697,18 +697,8 @@
 <a name='L638'></a><a href='#L638'>638</a>
 <a name='L639'></a><a href='#L639'>639</a>
 <a name='L640'></a><a href='#L640'>640</a>
-<a name='L641'></a><a href='#L641'>641</a>
-<a name='L642'></a><a href='#L642'>642</a>
-<a name='L643'></a><a href='#L643'>643</a>
-<a name='L644'></a><a href='#L644'>644</a>
-<a name='L645'></a><a href='#L645'>645</a>
-<a name='L646'></a><a href='#L646'>646</a>
-<a name='L647'></a><a href='#L647'>647</a>
-<a name='L648'></a><a href='#L648'>648</a>
-<a name='L649'></a><a href='#L649'>649</a>
-<a name='L650'></a><a href='#L650'>650</a>
-<a name='L651'></a><a href='#L651'>651</a>
-<a name='L652'></a><a href='#L652'>652</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L641'></a><a href='#L641'>641</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -746,6 +736,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1088,13 +1079,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1217,17 +1206,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1360,6 +1338,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import * as Yup from 'yup'
 import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import { Button, Container, Formik, FormikForm, Layout, Text, NestedAccordionProvider } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
@@ -1399,6 +1378,7 @@ import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveT
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
@@ -1738,14 +1718,12 @@ export const InputSetForm: React.FC&lt;InputSetFormProps&gt; = (props): JSX.Elem
           initialValues={{ ...omit(inputSet, 'gitDetails'), repo: repoIdentifier || '', branch: branch || '' }}
           enableReinitialize={true}
           formName="inputSetForm"
+          validationSchema={Yup.object().shape({
+            name: NameSchema(),
+            identifier: IdentifierSchema()
+          })}
           validate={values =&gt; {
             const errors: FormikErrors&lt;InputSetDTO&gt; = {}
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (isEmpty(values.name)) {
-<span class="cstat-no" title="statement not covered" >              errors.name = getString('inputSets.nameIsRequired')</span>
-            }
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (isEmpty(values.identifier)) {
-<span class="cstat-no" title="statement not covered" >              errors.name = getString('common.validation.identifierIsRequired')</span>
-            }
             <span class="missing-if-branch" title="else path not taken" >E</span>if (values.pipeline &amp;&amp; template<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSetTemplateYaml &amp;&amp; pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>amlPipeline) {
               errors.pipeline = validatePipeline({
                 pipeline: values.pipeline,
@@ -1868,17 +1846,6 @@ export const InputSetForm: React.FC&lt;InputSetFormProps&gt; = (props): JSX.Elem
                         onClick={() =&gt; {
                           const latestYaml = yamlHandler<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>etLatestYaml() || /* istanbul ignore next */ ''
                           const inputSetDto: InputSetDTO = parse(latestYaml)<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSet
-                          const errors: FormikErrors&lt;InputSetDTO&gt; = {}
-                          <span class="missing-if-branch" title="if path not taken" >I</span>if (isEmpty(inputSetDto.name)) {
-<span class="cstat-no" title="statement not covered" >                            errors.name = getString('inputSets.nameIsRequired')</span>
-                          }
-                          <span class="missing-if-branch" title="if path not taken" >I</span>if (isEmpty(inputSetDto.identifier)) {
-<span class="cstat-no" title="statement not covered" >                            errors.identifier = getString('common.validation.identifierIsRequired')</span>
-                          }
-                          <span class="missing-if-branch" title="if path not taken" >I</span>if (Object.keys(errors).length) {
-<span class="cstat-no" title="statement not covered" >                            setFormErrors(errors)</span>
-<span class="cstat-no" title="statement not covered" >                            return</span>
-                          }
                           handleSubmit(inputSetDto, {
                             repoIdentifier: formikProps.values.repo,
                             branch: formikProps.values.branch
@@ -2017,7 +1984,7 @@ export const EnhancedInputSetForm: React.FC&lt;InputSetFormProps&gt; = props =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 15:23:04 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 16:04:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

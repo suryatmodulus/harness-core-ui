@@ -40,6 +40,7 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
             </Text>
           }
           type={'Gcp'}
+          setRefValue
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

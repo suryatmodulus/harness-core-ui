@@ -43,6 +43,7 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
             </Text>
           }
           type={'Aws'}
+          setRefValue
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

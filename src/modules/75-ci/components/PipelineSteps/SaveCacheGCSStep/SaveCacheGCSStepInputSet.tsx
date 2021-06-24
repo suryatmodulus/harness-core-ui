@@ -48,6 +48,7 @@ export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({ temp
             </Text>
           }
           type={'Gcp'}
+          setRefValue
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

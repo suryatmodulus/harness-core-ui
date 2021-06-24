@@ -47,6 +47,7 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
             </Text>
           }
           type={'Gcp'}
+          setRefValue
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

@@ -47,6 +47,7 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
             </Text>
           }
           type={'Aws'}
+          setRefValue
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

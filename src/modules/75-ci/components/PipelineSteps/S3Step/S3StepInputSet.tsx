@@ -40,6 +40,7 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
             </Text>
           }
           type={'Aws'}
+          setRefValue
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

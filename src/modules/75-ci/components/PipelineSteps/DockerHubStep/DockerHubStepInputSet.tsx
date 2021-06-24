@@ -43,6 +43,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
             </Text>
           }
           type={'DockerRegistry'}
+          setRefValue
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

@@ -62,6 +62,7 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={560}
+          setRefValue
           gitScope={{ branch, repo, getDefaultFromOtherRepo: true }}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}

@@ -48,6 +48,7 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
             </Text>
           }
           type={'Aws'}
+          setRefValue
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

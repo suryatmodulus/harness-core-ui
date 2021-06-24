@@ -55,6 +55,7 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
             </Text>
           }
           type={['Gcp', 'Aws', 'DockerRegistry']}
+          setRefValue
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

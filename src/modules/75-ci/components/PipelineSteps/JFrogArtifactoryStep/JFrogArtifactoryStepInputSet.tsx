@@ -43,6 +43,7 @@ export const JFrogArtifactoryStepInputSet: React.FC<JFrogArtifactoryStepProps> =
         <FormMultiTypeConnectorField
           label={<Text>{getString('pipelineSteps.connectorLabel')}</Text>}
           type={'Artifactory'}
+          setRefValue
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

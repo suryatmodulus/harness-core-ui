@@ -65,6 +65,7 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
             </Text>
           }
           type={['Gcp', 'Aws', 'DockerRegistry']}
+          setRefValue
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

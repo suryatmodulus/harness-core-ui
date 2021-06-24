@@ -669,11 +669,7 @@ const routes = {
   ),
 
   /********************************************************************************************************************/
-  toCI: (params: Partial<ProjectPathProps>): string =>
-    params.orgIdentifier && params.projectIdentifier
-      ? routes.toCIProject(params as ProjectPathProps)
-      : routes.toCIDashboard(params as AccountPathProps),
-  toCIDashboard: withAccountId(() => `/ci`),
+  toCI: withAccountId(() => `/ci`),
   toCIHome: withAccountId(() => `/ci/home`),
   toCIProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>

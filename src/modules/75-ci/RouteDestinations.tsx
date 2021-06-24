@@ -93,11 +93,6 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
   return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module })} />
 }
 
-const RedirectToCIHome = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps>()
-  return <Redirect to={routes.toCIHome(params)} />
-}
-
 const RedirectToCIProject = (): React.ReactElement => {
   const { accountId } = useParams<ProjectPathProps>()
   const { selectedProject } = useAppStore()
@@ -198,13 +193,12 @@ const licenseRedirectData: LicenseRedirectProps = {
 
 export default (
   <>
-    <RouteWithLayout licenseRedirectData={licenseRedirectData} path={routes.toCI({ ...accountPathProps })} exact>
-      <RedirectToCIHome />
-    </RouteWithLayout>
-
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
-      path={routes.toCIProject({ ...accountPathProps, ...projectPathProps })}
+      path={[
+        routes.toCI({ ...accountPathProps, ...projectPathProps }),
+        routes.toCIProject({ ...accountPathProps, ...projectPathProps })
+      ]}
       exact
     >
       <RedirectToCIProject />

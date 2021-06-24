@@ -54,7 +54,8 @@ export default function GitPopover(props: GitPopoverProps): React.ReactElement |
           <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
             <Icon name="service-github" size={14} color={Color.GREY_700} />
             <Text font={{ size: 'small' }} lineClamp={1} style={{ maxWidth: 300 }} color={Color.GREY_800}>
-              {data.rootFolder}{data.filePath}
+              {data.rootFolder}
+              {data.filePath}
             </Text>
           </Layout.Horizontal>
         </Layout.Vertical>

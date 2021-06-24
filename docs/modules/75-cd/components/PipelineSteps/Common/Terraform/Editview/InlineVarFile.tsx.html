@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">94.12% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/22</span>
+                <span class='fraction'>16/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/34</span>
+                <span class='fraction'>17/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/6</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">94.12% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/22</span>
+                <span class='fraction'>16/17</span>
             </div>
         
             
@@ -189,9 +189,12 @@
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -243,15 +246,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,11 +279,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -330,7 +334,8 @@ import {
   Formik,
   MultiTypeInputType,
   ExpressionInput,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  FormikForm
 } from '@wings-software/uicore'
 import cx from 'classnames'
 &nbsp;
@@ -374,16 +379,16 @@ const InlineVarFile = (props: InlineVarFileProps) =&gt; {
           formName="inlineVarFileForm"
           initialValues={selectedVar}
           onSubmit={<span class="fstat-no" title="function not covered" >(v</span>alues: any) =&gt; {
-            /* istanbul ignore else */
-<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="if path not taken" >I</span>if (!isEditMode) {</span>
-              /* istanbul ignore else */
-<span class="cstat-no" title="statement not covered" >              arrayHelpers &amp;&amp; arrayHelpers.push(values)</span>
+            /* istanbul ignore next */
+            if (!isEditMode) {
+              /* istanbul ignore next */
+              arrayHelpers &amp;&amp; arrayHelpers.push(values)
             } else {
-              /* istanbul ignore else */
+              /* istanbul ignore next */
               arrayHelpers &amp;&amp; arrayHelpers.replace(selectedVarIndex, values)
             }
-            /* istanbul ignore else */
-<span class="cstat-no" title="statement not covered" >            onSubmit()</span>
+            /* istanbul ignore next */
+            onSubmit()
           }}
           validationSchema={Yup.object().shape({
             varFile: Yup.object().shape({
@@ -396,7 +401,7 @@ const InlineVarFile = (props: InlineVarFileProps) =&gt; {
         &gt;
           {formikProps =&gt; {
             return (
-              &lt;&gt;
+              &lt;FormikForm&gt;
                 &lt;div className={stepCss.formGroup}&gt;
                   &lt;FormInput.Text name="varFile.identifier" label={getString('identifier')} /&gt;
                 &lt;/div&gt;
@@ -408,11 +413,12 @@ const InlineVarFile = (props: InlineVarFileProps) =&gt; {
                     allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
                     formik={formikProps}
                     expressionRender={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                      return (</span>
+                      /* istanbul ignore next */
+                      return (
                         &lt;ExpressionInput
                           value={formikProps.values?.varFile?.spec?.content}
                           name="varFile.spec.content"
-                          onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; <span class="cstat-no" title="statement not covered" >formikProps.setFieldValue('varFile.spec.content', value)}</span>
+                          onChange={value =&gt; formikProps.setFieldValue('varFile.spec.content', value)}
                         /&gt;
                       )
                     }}
@@ -443,7 +449,7 @@ const InlineVarFile = (props: InlineVarFileProps) =&gt; {
                     {getString('submit')}
                   &lt;/Button&gt;
                 &lt;/Layout.Horizontal&gt;
-              &lt;/&gt;
+              &lt;/FormikForm&gt;
             )
           }}
         &lt;/Formik&gt;
@@ -460,7 +466,7 @@ export default InlineVarFile
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 00:42:38 GMT+0000 (Greenwich Mean Time)
+                at Thu Jun 24 2021 05:24:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

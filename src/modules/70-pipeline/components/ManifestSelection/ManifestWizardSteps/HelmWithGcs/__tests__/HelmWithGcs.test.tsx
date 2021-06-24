@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, queryByAttribute, fireEvent, act, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import type { ManifestConfig } from 'services/cd-ng'
 import HelmWithGcs from '../HelmWithGcs'
 
 const props = {
@@ -13,6 +14,8 @@ describe('helm with http tests', () => {
   test(`renders without crashing`, () => {
     const initialValues = {
       identifier: '',
+      spec: {},
+      type: 'HelmChart' as ManifestConfig['type'],
       helmVersion: 'V2',
       chartName: '',
       chartVersion: '',
@@ -32,6 +35,8 @@ describe('helm with http tests', () => {
   test('expand advanced section', () => {
     const initialValues = {
       identifier: '',
+      spec: {},
+      type: 'HelmChart' as ManifestConfig['type'],
       helmVersion: 'V2',
       chartName: '',
       chartVersion: '',
@@ -54,6 +59,8 @@ describe('helm with http tests', () => {
     const initialValues = {
       identifier: '',
       helmVersion: 'V2',
+      spec: {},
+      type: 'HelmChart' as ManifestConfig['type'],
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,
@@ -80,6 +87,8 @@ describe('helm with http tests', () => {
     const initialValues = {
       identifier: 'id3',
       helmVersion: 'V2',
+      spec: {},
+      type: 'HelmChart' as ManifestConfig['type'],
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,
@@ -106,6 +115,8 @@ describe('helm with http tests', () => {
     const initialValues = {
       identifier: '',
       helmVersion: 'V2',
+      spec: {},
+      type: 'HelmChart' as ManifestConfig['type'],
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,
@@ -138,6 +149,7 @@ describe('helm with http tests', () => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
+          type: 'HelmChart',
           spec: {
             store: {
               spec: {

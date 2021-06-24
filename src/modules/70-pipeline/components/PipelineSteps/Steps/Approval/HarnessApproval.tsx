@@ -39,6 +39,8 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
   // initialValues on mount
   protected defaultValues: HarnessApprovalData = {
     identifier: '',
+    name: '',
+    type: StepType.HarnessApproval,
     timeout: '1d',
     spec: {
       approvalMessage: 'Please review the following information and approve the pipeline progression',

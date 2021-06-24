@@ -20,7 +20,7 @@ import { v4 as uuid } from 'uuid'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 
-import { isEmpty } from 'lodash-es'
+import { cloneDeep, isEmpty, set } from 'lodash-es'
 import { yupToFormErrors, FormikErrors, FormikProps, Formik } from 'formik'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
@@ -57,9 +57,8 @@ import type { StringNGVariable } from 'services/cd-ng'
 import {
   CommandTypes,
   onSubmitTFPlanData,
-  TerraformPlanData,
   TerraformPlanProps,
-  TerraformVariableStepProps,
+  TerraformPlanVariableStepProps,
   TFPlanFormData
 } from '../Common/Terraform/TerraformInterfaces'
 import TfVarFileList from './TfPlanVarFileList'
@@ -379,18 +378,9 @@ function TerraformPlanWidget(
                     } else if (configObject?.store.spec.gitFetchType === 'Commit') {
                       delete configObject.store.spec.branch
                     }
-                    const valObj = {
-                      ...formik.values,
-                      spec: {
-                        ...formik.values?.spec,
-                        configuration: {
-                          ...formik.values?.spec?.configuration,
 
-                          configFiles: { ...configObject }
-                        }
-                      }
-                    }
-
+                    const valObj = cloneDeep(formik.values)
+                    set(valObj, 'spec.configuration.configFiles', { ...configObject })
                     formik.setValues(valObj)
 
                     setShowModal(false)
@@ -418,7 +408,14 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
   protected defaultValues: TFPlanFormData = {
     identifier: '',
     timeout: '10m',
+    name: '',
+    type: StepType.TerraformPlan,
     spec: {
+      configuration: {
+        command: 'Apply',
+        configFiles: {},
+        secretManagerRef: ''
+      },
       provisionerIdentifier: ''
     }
   }
@@ -464,7 +461,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
     return errors
   }
 
-  private getInitialValues(data: TFPlanFormData): TerraformPlanData {
+  private getInitialValues(data: TFPlanFormData): TFPlanFormData {
     const envVars = data.spec?.configuration?.environmentVariables as StringNGVariable[]
     const isEnvRunTime =
       getMultiTypeFromValue(data.spec?.configuration?.environmentVariables as any) === MultiTypeInputType.RUNTIME
@@ -476,12 +473,12 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
         ...data.spec,
         configuration: {
           ...data.spec?.configuration,
-
-          configFiles: data.spec?.configuration?.configFiles,
-          command: data.spec?.configuration?.command,
+          secretManagerRef: data.spec?.configuration.secretManagerRef || '',
+          configFiles: data.spec?.configuration?.configFiles || {},
+          command: data.spec?.configuration?.command || 'Apply',
           targets: !isTargetRunTime
             ? Array.isArray(data.spec?.configuration?.targets)
-              ? data.spec?.configuration?.targets.map(target => ({
+              ? (data.spec?.configuration?.targets as string[]).map((target: string) => ({
                   value: target,
                   id: uuid()
                 }))
@@ -490,7 +487,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
           environmentVariables: !isEnvRunTime
             ? Array.isArray(envVars)
               ? envVars.map(variable => ({
-                  key: variable.name,
+                  key: variable.name || '',
                   value: variable?.value,
                   id: uuid()
                 }))
@@ -505,7 +502,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
     return onSubmitTFPlanData(data)
   }
 
-  renderStep(props: StepProps<TFPlanFormData, unknown>): JSX.Element {
+  renderStep(props: StepProps<TFPlanFormData, TerraformPlanVariableStepProps>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps, formikRef, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
@@ -522,7 +519,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
     } else if (stepViewType === StepViewType.InputVariable) {
       return (
         <TerraformVariableStep
-          {...(customStepProps as TerraformVariableStepProps)}
+          {...(customStepProps as TerraformPlanVariableStepProps)}
           initialValues={this.getInitialValues(initialValues)}
           onUpdate={(data: any) => onUpdate?.(this.processFormData(data))}
         />

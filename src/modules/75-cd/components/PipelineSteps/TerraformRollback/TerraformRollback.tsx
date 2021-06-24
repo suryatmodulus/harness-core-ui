@@ -188,6 +188,8 @@ export class TerraformRollback extends PipelineStep<TFRollbackData> {
   protected type = StepType.TerraformRollback
   protected defaultValues: TFRollbackData = {
     identifier: '',
+    name: '',
+    type: StepType.TerraformRollback,
     timeout: '10m',
     spec: {
       provisionerIdentifier: '',

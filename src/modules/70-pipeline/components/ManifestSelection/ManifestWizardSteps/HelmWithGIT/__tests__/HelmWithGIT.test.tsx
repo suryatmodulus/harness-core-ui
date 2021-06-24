@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, fireEvent, act, queryByAttribute, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import type { ManifestConfig } from 'services/cd-ng'
 import HelmWithGIT from '../HelmWithGIT'
 
 const props = {
@@ -14,6 +15,8 @@ describe('helm with GIT tests', () => {
     const initialValues = {
       identifier: '',
       gitFetchType: 'Branch',
+      spec: {},
+      type: 'HelmChart' as ManifestConfig['type'],
       branch: '',
       folderPath: '',
       helmVersion: '',
@@ -34,6 +37,8 @@ describe('helm with GIT tests', () => {
     const initialValues = {
       identifier: '',
       gitFetchType: 'Branch',
+      spec: {},
+      type: 'HelmChart' as ManifestConfig['type'],
       branch: 'master',
       folderPath: './',
       helmVersion: 'V2',
@@ -55,6 +60,8 @@ describe('helm with GIT tests', () => {
       identifier: '',
       gitFetchType: 'Branch',
       branch: 'master',
+      spec: {},
+      type: 'HelmChart' as ManifestConfig['type'],
       folderPath: './',
       helmVersion: 'V2',
       repoName: 'reponame',
@@ -77,6 +84,8 @@ describe('helm with GIT tests', () => {
       identifier: 'identifier',
       gitFetchType: 'Commit',
       commitId: 'sgdnkkjhhsfafaa',
+      spec: {},
+      type: 'HelmChart' as ManifestConfig['type'],
       folderPath: './',
       helmVersion: 'V2',
       repoName: 'reponame',
@@ -98,6 +107,8 @@ describe('helm with GIT tests', () => {
       branch: '',
       gitFetchType: '',
       folderPath: './',
+      spec: {},
+      type: 'HelmChart' as ManifestConfig['type'],
       helmVersion: '',
       skipResourceVersioning: false,
       repoName: ''
@@ -133,6 +144,7 @@ describe('helm with GIT tests', () => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
+          type: 'HelmChart',
           spec: {
             store: {
               spec: {

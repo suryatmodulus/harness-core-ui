@@ -7,6 +7,7 @@ describe('Jira Create process form data tests', () => {
       name: 'jiraCreate',
       identifier: 'jcr',
       timeout: '10m',
+      type: 'JiraCreate',
       spec: {
         connectorRef: { label: 'conn', value: 'conn' },
         projectKey: { label: 'pid', value: 'pid', key: 'pid' },
@@ -54,6 +55,7 @@ describe('Jira Create process form data tests', () => {
       name: 'jiraCreate',
       identifier: 'jcr',
       timeout: '10m',
+      type: 'JiraCreate',
       spec: {
         connectorRef: 'conn',
         projectKey: 'pid',
@@ -89,6 +91,7 @@ describe('Jira Create process form data tests', () => {
       name: 'jiraCreate',
       identifier: 'jcr',
       timeout: '10m',
+      type: 'JiraCreate',
       spec: {
         connectorRef: '<+input>',
         projectKey: '<+expression>',
@@ -119,6 +122,7 @@ describe('Jira Create process form data tests', () => {
       name: 'jiraCreate',
       identifier: 'jcr',
       timeout: '10m',
+      type: 'JiraCreate',
       spec: {
         connectorRef: '<+input>',
         projectKey: '<+expression>',

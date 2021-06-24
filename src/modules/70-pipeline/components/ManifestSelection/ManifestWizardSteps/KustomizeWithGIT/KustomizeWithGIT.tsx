@@ -80,20 +80,20 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        const connectorScope = getScopeFromValue(initialValues?.spec?.store.spec?.connectorRef)
+        const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
         if (connectorScope === Scope.ACCOUNT) {
           if (
             initialValues?.spec?.store.spec?.connectorRef ===
             `account.${prevStepData?.connectorRef?.connector?.identifier}`
           ) {
-            repoName = initialValues?.spec?.store.spec.repoName
+            repoName = initialValues?.spec?.store?.spec?.repoName
           } else {
             repoName = ''
           }
         } else {
           repoName =
-            prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
-              ? initialValues?.spec?.store.spec.repoName
+            prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store?.spec?.connectorRef
+              ? initialValues?.spec?.store?.spec?.repoName
               : ''
         }
       }
@@ -132,6 +132,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
+        type: 'Kustomize',
         spec: {
           store: {
             type: formData?.store,

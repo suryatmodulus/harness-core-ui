@@ -255,6 +255,7 @@ export class K8sCanaryDeleteStep extends PipelineStep<K8sCanaryDeleteStepData> {
     name: '',
     identifier: '',
     timeout: '10m',
+    type: StepType.K8sCanaryDelete,
     spec: {
       skipDryRun: false
     }

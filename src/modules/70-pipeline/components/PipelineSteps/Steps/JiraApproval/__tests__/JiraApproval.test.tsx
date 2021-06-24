@@ -195,6 +195,7 @@ describe('Jira Approval tests', () => {
     expect(props.onUpdate).toBeCalledWith({
       identifier: 'jira_approval_step',
       timeout: '10m',
+      type: 'JiraApproval',
       spec: {
         connectorRef: 'cid1',
         projectKey: 'pid1',

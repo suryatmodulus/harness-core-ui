@@ -271,6 +271,8 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
 
   protected defaultValues: K8RolloutDeployData = {
     identifier: '',
+    name: '',
+    type: StepType.K8sRollingDeploy,
     timeout: '10m',
     spec: {
       skipDryRun: false

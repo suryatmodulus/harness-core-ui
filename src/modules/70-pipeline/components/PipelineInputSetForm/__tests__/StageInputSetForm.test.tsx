@@ -26,6 +26,7 @@ const props = {
           step: {
             identifier: 'test',
             name: 'test',
+            type: 'test',
             description: 'ts',
             timeout: '10m'
           }

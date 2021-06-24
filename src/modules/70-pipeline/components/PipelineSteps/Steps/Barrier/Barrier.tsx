@@ -343,6 +343,8 @@ export class BarrierStep extends PipelineStep<BarrierData> {
 
   protected defaultValues: BarrierData = {
     identifier: '',
-    timeout: '10m'
+    timeout: '10m',
+    name: '',
+    type: StepType.Barrier
   }
 }

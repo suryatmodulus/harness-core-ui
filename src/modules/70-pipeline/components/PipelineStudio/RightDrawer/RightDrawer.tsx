@@ -6,7 +6,7 @@ import cx from 'classnames'
 
 import produce from 'immer'
 import { useStrings, UseStringsReturn } from 'framework/strings'
-import type { ExecutionElementConfig, ExecutionWrapper } from 'services/cd-ng'
+import type { ExecutionElementConfig, ExecutionWrapper, StepElementConfig } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
@@ -216,7 +216,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         })
       } else if (stepWithinStage.step?.identifier === processingNodeIdentifier) {
         // Else simply find the matching step ad update the node
-        stepWithinStage.step = processedNode
+        stepWithinStage.step = processedNode as StepElementConfig
       }
     })
     if (execution?.rollbackSteps) {

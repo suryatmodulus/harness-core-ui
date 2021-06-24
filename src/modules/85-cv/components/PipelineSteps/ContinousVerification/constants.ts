@@ -1,5 +1,7 @@
 import type { SelectOption } from '@wings-software/uicore'
 import { ErrorType, Strategy } from '@pipeline/utils/FailureStrategyUtils'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { ContinousVerificationData } from './types'
 
 export enum JobTypes {
   BLUE_GREEN = 'Bluegreen',
@@ -40,7 +42,9 @@ export const VerificationSensitivityOptions: SelectOption[] = [
 
 export const baseLineOptions: SelectOption[] = [{ label: 'Last Successful job run', value: 'LAST' }]
 
-export const cvDefaultValues = {
+export const cvDefaultValues: ContinousVerificationData = {
+  name: '',
+  type: StepType.Verify,
   identifier: '',
   timeout: '2h',
   spec: {

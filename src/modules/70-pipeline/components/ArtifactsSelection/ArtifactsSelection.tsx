@@ -392,7 +392,7 @@ export default function ArtifactsSelection({
     } else {
       delete artifacts.primary
     }
-    primaryArtifact.spec = undefined
+    primaryArtifact.spec = {}
     setSelectedArtifact(ENABLED_ARTIFACT_TYPES.DockerRegistry)
     updatePipeline(pipeline)
   }

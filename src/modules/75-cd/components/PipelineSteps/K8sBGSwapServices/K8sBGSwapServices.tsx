@@ -246,6 +246,7 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
   protected defaultValues: K8sBGSwapServicesData = {
     name: '',
     identifier: '',
+    type: StepType.K8sBGSwapServices,
     timeout: '10m',
     spec: {
       skipDryRun: false

@@ -2,12 +2,7 @@ import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicor
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type {
-  ListType,
-  MultiTypeListType,
-  MultiTypeMapType,
-  SelectOption
-} from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { ListType, SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 
 import type {
   InlineTerraformVarFileSpec,
@@ -20,6 +15,7 @@ import type {
   TerraformPlanExecutionData,
   TerraformPlanStepInfo,
   TerraformRollbackStepInfo,
+  TerraformStepConfiguration,
   TerraformVarFileWrapper
 } from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
@@ -28,14 +24,14 @@ export const TerraformStoreTypes = {
   Inline: 'Inline',
   Remote: 'Remote'
 }
-export interface TerraformProps {
-  initialValues: TerraformData
-  onUpdate?: (data: TerraformData) => void
+export interface TerraformProps<T = TerraformData> {
+  initialValues: T
+  onUpdate?: (data: T) => void
   stepViewType?: StepViewType
   configTypes?: SelectOption[]
   isNewStep?: boolean
   inputSetData?: {
-    template?: TerraformData
+    template?: T
     path?: string
   }
   readonly?: boolean
@@ -51,7 +47,7 @@ export interface TerraformPlanProps {
   configTypes?: SelectOption[]
   isNewStep?: boolean
   inputSetData?: {
-    template?: TerraformPlanData
+    template?: TFPlanFormData
     path?: string
   }
   path?: string
@@ -86,24 +82,24 @@ export interface RemoteVar {
 
 export interface TerraformPlanVariableStepProps {
   initialValues: TFPlanFormData
-  originalData: TFPlanFormData
-  stageIdentifier: string
+  originalData?: TFPlanFormData
+  stageIdentifier?: string
   onUpdate?(data: TFPlanFormData): void
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
-  variablesData: TFPlanFormData
+  variablesData?: TFPlanFormData
 }
 
 export interface TerraformVariableStepProps {
   initialValues: TerraformData
-  originalData: TerraformData
-  stageIdentifier: string
+  originalData?: TerraformData
+  stageIdentifier?: string
   onUpdate?(data: TerraformData): void
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
-  variablesData: TerraformData
+  variablesData?: TerraformData
   stepType?: string
 }
 
-export const ConfigurationTypes = {
+export const ConfigurationTypes: Record<TerraformStepConfiguration['type'], TerraformStepConfiguration['type']> = {
   Inline: 'Inline',
   InheritFromPlan: 'InheritFromPlan',
   InheritFromApply: 'InheritFromApply'
@@ -186,14 +182,9 @@ export interface TerraformData extends StepElementConfig {
 }
 
 export interface TerraformPlanData extends StepElementConfig {
-  spec?: {
-    provisionerIdentifier?: string
-    configuration?: TFDataSpec & {
-      command?: 'Apply' | 'Destroy'
-      secretManagerRef?: string
-    }
-  }
+  spec?: TerraformPlanStepInfo
 }
+
 export interface TFDataSpec {
   workspace?: string
   backendConfig?: TerraformBackendConfig
@@ -228,36 +219,17 @@ export interface TFRollbackData extends StepElementConfig {
 }
 
 export interface TFPlanFormData extends StepElementConfig {
-  spec?: TerraformPlanStepInfo
+  spec?: Omit<TerraformPlanStepInfo, 'configuration'> & {
+    configuration: Omit<TerraformPlanExecutionData, 'environmentVariables' | 'targets'> & {
+      targets?: Array<{ id: string; value: string }> | string[] | string
+      environmentVariables?: Array<{ key: string; id: string; value: string }> | string
+    }
+  }
 }
 
 export interface TerraformFormData extends StepElementConfig {
   delegateSelectors: string[]
-  spec?: {
-    provisionerIdentifier?: string
-    configuration?: {
-      type?: string
-      spec?: {
-        workspace?: string
-        configFiles?: {
-          store?: {
-            type?: string
-            spec?: {
-              gitFetchType?: string
-              branch?: string
-              commitId?: string
-              folderPath?: string
-              connectorRef?: string
-            }
-          }
-        }
-        varFiles?: VarFileArray[]
-        backendConfig?: BackendConfig
-        targets?: MultiTypeListType
-        environmentVariables?: MultiTypeMapType
-      }
-    }
-  }
+  spec?: TerraformPlanStepInfo
 }
 
 export interface TfVar {
@@ -302,7 +274,8 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
     const connectorValue = values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as any
 
     const configObject: TerraformExecutionData = {
-      workspace: values?.spec?.configuration?.spec?.workspace
+      workspace: values?.spec?.configuration?.spec?.workspace,
+      configFiles: {}
     }
     if (values?.spec?.configuration?.spec?.backendConfig?.spec?.content) {
       configObject['backendConfig'] = {
@@ -404,7 +377,9 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
 
   const configObject: TerraformPlanExecutionData = {
     command: values?.spec?.configuration?.command,
-    workspace: values?.spec?.configuration?.workspace
+    workspace: values?.spec?.configuration?.workspace,
+    configFiles: {},
+    secretManagerRef: ''
   }
   if (values?.spec?.configuration?.backendConfig?.spec?.content) {
     configObject['backendConfig'] = {

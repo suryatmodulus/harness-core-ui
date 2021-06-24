@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, fireEvent, act, queryByAttribute, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import OpenShiftTemplateWithGit from '../OSTemplateWithGit'
 
 const props = {
@@ -14,6 +15,8 @@ describe('Open shift template with git tests', () => {
     const initialValues = {
       identifier: '',
       branch: '',
+      spec: {},
+      type: ManifestDataType.OpenshiftParam,
       commitId: '',
       gitFetchType: 'Branch',
       paths: [],
@@ -32,6 +35,8 @@ describe('Open shift template with git tests', () => {
     const initialValues = {
       identifier: '',
       branch: '',
+      spec: {},
+      type: ManifestDataType.OpenshiftParam,
       commitId: '',
       gitFetchType: 'Branch',
       paths: [],
@@ -52,6 +57,8 @@ describe('Open shift template with git tests', () => {
     const initialValues = {
       identifier: 'test',
       commitId: 'test-commit',
+      spec: {},
+      type: ManifestDataType.OpenshiftParam,
       gitFetchType: 'Commit',
       paths: ['test'],
       skipResourceVersioning: false,
@@ -70,6 +77,8 @@ describe('Open shift template with git tests', () => {
       identifier: '',
       branch: undefined,
       commitId: undefined,
+      spec: {},
+      type: ManifestDataType.OpenshiftParam,
       gitFetchType: 'Branch',
       paths: [],
       skipResourceVersioning: false,
@@ -106,6 +115,7 @@ describe('Open shift template with git tests', () => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
+          type: 'OpenshiftParam',
           spec: {
             store: {
               spec: {

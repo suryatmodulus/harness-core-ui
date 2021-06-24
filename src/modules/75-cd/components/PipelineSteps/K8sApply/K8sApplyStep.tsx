@@ -409,6 +409,8 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
   protected defaultValues: K8sApplyData = {
     identifier: '',
     timeout: '10m',
+    name: '',
+    type: StepType.K8sApply,
     spec: {
       filePaths: [],
       skipDryRun: false,

@@ -2,12 +2,12 @@ import React from 'react'
 import { Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
-import type { TerraformPlanData, TerraformPlanVariableStepProps } from '../Common/Terraform/TerraformInterfaces'
+import type { TFPlanFormData, TerraformPlanVariableStepProps } from '../Common/Terraform/TerraformInterfaces'
 import { ConfigVariables } from './Variableview/TfPlanConfigSection'
 import css from '@cd/components/PipelineSteps/Common/Terraform/TerraformStep.module.scss'
 
 export function TerraformVariableStep(props: TerraformPlanVariableStepProps): React.ReactElement {
-  const { variablesData = {} as TerraformPlanData, metadataMap, initialValues } = props
+  const { variablesData = {} as TFPlanFormData, metadataMap, initialValues } = props
 
   const { getString } = useStrings()
   return (

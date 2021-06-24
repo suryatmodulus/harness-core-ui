@@ -3833,7 +3833,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
                   placeholder="pipelineSteps.configurationType"
                   style="padding-right: 0px;"
                   type="text"
-                  value=""
+                  value="inline"
                 />
                 <span
                   class="bp3-input-action"
@@ -3929,6 +3929,84 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
                 </button>
               </span>
             </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Layout--vertical StyledProps--main addMarginBottom"
+    >
+      <label
+        class="Label--main configLabel"
+      >
+        cd.configurationFile
+      </label>
+      <div
+        class="configFile addMarginBottom"
+      >
+        <div
+          class="configField"
+        >
+          <p
+            class="StyledProps--font StyledProps--main configPlaceHolder"
+          >
+            cd.configFilePlaceHolder
+          </p>
+          <span
+            class="bp3-icon bp3-icon-edit StyledProps--main"
+            data-name="config-edit"
+            icon="edit"
+          >
+            <svg
+              data-icon="edit"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                edit
+              </desc>
+              <path
+                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="addMarginTop"
+    >
+      <div
+        class="Accordion--accordion accordion"
+      >
+        <div
+          class="Accordion--panel"
+          data-open="false"
+          data-testid="step-1-panel"
+        >
+          <div
+            class="Accordion--summary"
+            data-testid="step-1-summary"
+          >
+            <div
+              class="Accordion--chevron"
+            />
+            <div
+              class="Accordion--label"
+            >
+              common.optionalConfig
+            </div>
+          </div>
+          <div
+            class="bp3-collapse Accordion--collapse"
+          >
+            <div
+              aria-hidden="false"
+              class="bp3-collapse-body"
+              style="transform: translateY(-undefinedpx);"
+            />
           </div>
         </div>
       </div>

@@ -605,6 +605,8 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
   protected defaultValues: K8sDeleteFormData = {
     identifier: '',
     timeout: '10m',
+    name: '',
+    type: StepType.K8sDelete,
     spec: {
       deleteResources: {
         type: '',

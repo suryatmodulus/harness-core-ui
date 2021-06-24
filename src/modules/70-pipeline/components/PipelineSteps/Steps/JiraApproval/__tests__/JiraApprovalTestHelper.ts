@@ -15,6 +15,9 @@ import { getDefaultCriterias } from '../helper'
 export const getJiraApprovalEditModeProps = (): JiraApprovalStepModeProps => ({
   initialValues: {
     timeout: '5s',
+    name: '',
+    type: StepType.JiraApproval,
+    identifier: '',
     spec: {
       connectorRef: '',
       projectKey: '',
@@ -30,6 +33,9 @@ export const getJiraApprovalEditModeProps = (): JiraApprovalStepModeProps => ({
 export const getJiraApprovalEditModePropsWithValues = (): JiraApprovalStepModeProps => ({
   initialValues: {
     timeout: '10m',
+    name: '',
+    type: StepType.JiraApproval,
+    identifier: '',
     spec: {
       connectorRef: 'c1d1',
       projectKey: 'pid1',
@@ -67,6 +73,9 @@ export const getJiraApprovalEditModePropsWithValues = (): JiraApprovalStepModePr
 export const getJiraApprovalDeploymentModeProps = (): JiraApprovalDeploymentModeProps => ({
   stepViewType: StepViewType.InputSet,
   initialValues: {
+    name: '',
+    type: StepType.JiraApproval,
+    identifier: '',
     spec: {
       connectorRef: '',
       projectKey: '',
@@ -79,6 +88,9 @@ export const getJiraApprovalDeploymentModeProps = (): JiraApprovalDeploymentMode
   inputSetData: {
     path: '/ab/',
     template: {
+      name: '',
+      type: StepType.JiraApproval,
+      identifier: '',
       spec: {
         connectorRef: RUNTIME_INPUT_VALUE,
         projectKey: RUNTIME_INPUT_VALUE,

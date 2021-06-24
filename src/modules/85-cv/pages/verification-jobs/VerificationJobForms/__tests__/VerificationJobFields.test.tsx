@@ -64,6 +64,9 @@ describe('Monitoring Sources component', () => {
           formName="wrapperComponentTestForm"
           initialValues={{
             failureStrategies: [],
+            type: 'Verify',
+            name: '',
+            identifier: '',
             spec: {
               verificationJobRef: 'string',
               type: 'string',
@@ -145,6 +148,9 @@ describe('Monitoring Sources component with no monitoring source', () => {
           formName="wrapperComponentTestForm"
           initialValues={{
             failureStrategies: [],
+            type: 'Verify',
+            name: '',
+            identifier: '',
             spec: {
               verificationJobRef: 'string',
               type: 'string',

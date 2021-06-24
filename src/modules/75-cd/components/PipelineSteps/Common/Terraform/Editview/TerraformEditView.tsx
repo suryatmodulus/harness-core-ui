@@ -16,6 +16,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
+import { cloneDeep, set } from 'lodash-es'
 
 import type { FormikProps } from 'formik'
 
@@ -353,19 +354,8 @@ export default function TerraformEditView(
                           } else if (configObject?.store.spec.gitFetchType === 'Commit') {
                             delete configObject.store.spec.branch
                           }
-                          const valObj = {
-                            ...formik.values,
-                            spec: {
-                              ...formik.values?.spec,
-                              configuration: {
-                                ...formik.values?.spec?.configuration,
-                                spec: {
-                                  ...formik.values?.spec?.configuration?.spec,
-                                  configFiles: { ...configObject }
-                                }
-                              }
-                            }
-                          }
+                          const valObj = cloneDeep(formik.values)
+                          set(valObj, 'spec.configuration.spec.configFiles', { ...configObject })
 
                           formik.setValues(valObj)
 

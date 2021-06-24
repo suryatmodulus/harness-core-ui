@@ -28,6 +28,8 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
   protected defaultValues: JiraApprovalData = {
     identifier: '',
     timeout: '1d',
+    name: '',
+    type: StepType.JiraApproval,
     spec: {
       connectorRef: '',
       projectKey: '',

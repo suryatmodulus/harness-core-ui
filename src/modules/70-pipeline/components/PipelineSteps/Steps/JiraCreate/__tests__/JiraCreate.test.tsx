@@ -230,6 +230,7 @@ describe('Jira Create tests', () => {
     expect(props.onUpdate).toBeCalledWith({
       identifier: 'jira_createe_step',
       timeout: '1d',
+      type: 'JiraCreate',
       spec: {
         connectorRef: 'cid1',
         projectKey: 'pid1',

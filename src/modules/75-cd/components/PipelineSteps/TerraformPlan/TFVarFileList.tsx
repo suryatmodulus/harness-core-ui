@@ -18,8 +18,8 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const { formik } = props
   const { getString } = useStrings()
 
-  const remoteRender = (varFile: TerraformVarFileWrapper) => {
-    const remoteVarFile = varFile?.varFile as RemoteTerraformVarFileSpec
+  const remoteRender = (varFile: TerraformVarFileWrapper): React.ReactElement => {
+    const remoteVarFile = (varFile?.varFile as unknown) as RemoteTerraformVarFileSpec
     return (
       <>
         <Text className={css.branch}>{remoteVarFile.store?.spec?.branch}</Text>
@@ -34,8 +34,8 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     )
   }
 
-  const inlineRender = (varFile: TerraformVarFileWrapper) => {
-    const inlineVar = varFile?.varFile as InlineTerraformVarFileSpec
+  const inlineRender = (varFile: TerraformVarFileWrapper): React.ReactElement => {
+    const inlineVar = (varFile?.varFile as unknown) as InlineTerraformVarFileSpec
     return (
       <Layout.Horizontal className={css.path}>
         {inlineVar?.type === getString('inline') && <Icon name="Inline" />}

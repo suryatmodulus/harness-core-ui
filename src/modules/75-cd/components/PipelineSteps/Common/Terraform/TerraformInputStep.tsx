@@ -5,16 +5,19 @@ import Map from '@common/components/Map/Map'
 import List from '@common/components/List/List'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { TerraformProps, TerraformStoreTypes } from './TerraformInterfaces'
+import { TerraformData, TerraformProps, TerraformStoreTypes } from './TerraformInterfaces'
 import ConfigInputs from './InputSteps/ConfigSection'
 
-export default function TerraformInputStep(props: TerraformProps): React.ReactElement {
+export default function TerraformInputStep<T extends TerraformData = TerraformData>(
+  props: TerraformProps<T>
+): React.ReactElement {
   const { getString } = useStrings()
   const { inputSetData, readonly, path } = props
   const { expressions } = useVariablesExpression()
   return (
     <FormikForm>
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue((inputSetData?.template as TerraformData)?.spec?.provisionerIdentifier) ===
+        MultiTypeInputType.RUNTIME && (
         <FormInput.MultiTextInput
           name={`${path}.spec.provisionerIdentifier`}
           label={getString('pipelineSteps.provisionerIdentifier')}

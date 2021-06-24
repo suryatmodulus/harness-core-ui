@@ -10,7 +10,7 @@ import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
 import type { TerraformVarFileWrapper } from 'services/cd-ng'
 
-import { RemoteVar, TerraformPlanData, TerraformStoreTypes } from '../Common/Terraform/TerraformInterfaces'
+import { RemoteVar, TFPlanFormData, TerraformStoreTypes } from '../Common/Terraform/TerraformInterfaces'
 import { TFRemoteWizard } from '../Common/Terraform/Editview/TFRemoteWizard'
 import { TFVarStore } from '../Common/Terraform/Editview/TFVarStore'
 
@@ -22,7 +22,7 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 // import TFRemoteWizard from './TFRemoteWizard'
 
 interface TfVarFileProps {
-  formik: FormikProps<TerraformPlanData>
+  formik: FormikProps<TFPlanFormData>
   isReadonly?: boolean
 }
 
@@ -30,11 +30,15 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const { formik, isReadonly = false } = props
   const inlineInitValues: TerraformVarFileWrapper = {
     varFile: {
+      identifier: '',
+      spec: {},
       type: TerraformStoreTypes.Inline
     }
   }
   const remoteInitialValues: TerraformVarFileWrapper = {
     varFile: {
+      identifier: '',
+      spec: {},
       type: TerraformStoreTypes.Remote
     }
   }

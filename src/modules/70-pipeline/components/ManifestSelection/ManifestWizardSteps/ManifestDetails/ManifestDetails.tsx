@@ -123,20 +123,20 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
     if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
       repoName = prevStepData?.connectorRef
     } else if (prevStepData?.connectorRef) {
-      const connectorScope = getScopeFromValue(initialValues?.spec?.store.spec?.connectorRef)
+      const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
       if (connectorScope === Scope.ACCOUNT) {
         if (
           initialValues?.spec?.store.spec?.connectorRef ===
           `account.${prevStepData?.connectorRef?.connector?.identifier}`
         ) {
-          repoName = initialValues?.spec?.store.spec.repoName
+          repoName = initialValues?.spec?.store?.spec?.repoName
         } else {
           repoName = ''
         }
       } else {
         repoName =
-          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
-            ? initialValues?.spec?.store.spec.repoName
+          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store?.spec?.connectorRef
+            ? initialValues?.spec?.store?.spec?.repoName
             : ''
       }
       return repoName
@@ -175,6 +175,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
+        type: 'K8sManifest',
         spec: {
           store: {
             type: formData?.store,

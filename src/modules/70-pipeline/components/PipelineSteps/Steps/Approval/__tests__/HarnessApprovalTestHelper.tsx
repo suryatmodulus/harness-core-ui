@@ -24,6 +24,7 @@ export const getHarnessApprovalEditModeProps = () => ({
 export const getHarnessApprovalEditModePropsWithValues = (): HarnessApprovalStepModeProps => ({
   initialValues: {
     timeout: '10m',
+    type: 'HarnessApproval',
     name: 'harness approval step',
     identifier: 'hhaass',
     spec: {

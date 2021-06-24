@@ -77,20 +77,20 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   const getRepoName = (): string => {
     let repoName = ''
     if (prevStepData?.connectorRef) {
-      const connectorScope = getScopeFromValue(initialValues?.spec?.store.spec?.connectorRef)
+      const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
       if (connectorScope === Scope.ACCOUNT) {
         if (
-          initialValues?.spec?.store.spec?.connectorRef ===
+          initialValues?.spec?.store?.spec?.connectorRef ===
           `account.${prevStepData?.connectorRef?.connector?.identifier}`
         ) {
-          repoName = initialValues?.spec?.store.spec.repoName
+          repoName = initialValues?.spec?.store?.spec?.repoName
         } else {
           repoName = ''
         }
       } else {
         repoName =
-          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
-            ? initialValues?.spec?.store.spec.repoName
+          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store?.spec?.connectorRef
+            ? initialValues?.spec?.store?.spec?.repoName
             : ''
       }
 
@@ -135,6 +135,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
+        type: 'HelmChart',
         spec: {
           store: {
             type: formData?.store,

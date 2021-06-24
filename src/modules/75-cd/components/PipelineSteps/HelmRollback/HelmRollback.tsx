@@ -231,6 +231,7 @@ export class HelmRollback extends PipelineStep<StepElementConfig> {
     name: '',
     identifier: '',
     timeout: '10m',
+    type: StepType.HelmRollback,
     spec: {
       skipDryRun: false
     }

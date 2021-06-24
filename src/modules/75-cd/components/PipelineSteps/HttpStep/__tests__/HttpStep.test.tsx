@@ -113,6 +113,7 @@ describe('Http Step', () => {
       identifier: 'My_Http_Step',
       name: 'My Http Step',
       timeout: '10s',
+      type: 'Http',
       spec: {
         headers: [
           {

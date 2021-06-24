@@ -253,6 +253,8 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
 
   protected defaultValues: K8sRollingRollbackData = {
     identifier: '',
+    name: '',
+    type: StepType.K8sRollingRollback,
     timeout: '10m',
     spec: {
       skipDryRun: false

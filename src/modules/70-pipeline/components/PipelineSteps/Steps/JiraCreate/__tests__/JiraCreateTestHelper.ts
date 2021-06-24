@@ -13,6 +13,9 @@ import type { JiraCreateDeploymentModeProps, JiraCreateStepModeProps } from '../
 
 export const getJiraCreateEditModeProps = (): JiraCreateStepModeProps => ({
   initialValues: {
+    name: '',
+    identifier: '',
+    type: 'JiraCreate',
     timeout: '5s',
     spec: {
       connectorRef: '',
@@ -26,6 +29,9 @@ export const getJiraCreateEditModeProps = (): JiraCreateStepModeProps => ({
 
 export const getJiraCreateEditModePropsWithValues = (): JiraCreateStepModeProps => ({
   initialValues: {
+    name: '',
+    identifier: '',
+    type: 'JiraCreate',
     timeout: '1d',
     spec: {
       connectorRef: 'c1d1',
@@ -46,6 +52,9 @@ export const getJiraCreateEditModePropsWithValues = (): JiraCreateStepModeProps 
 export const getJiraCreateDeploymentModeProps = (): JiraCreateDeploymentModeProps => ({
   stepViewType: StepViewType.InputSet,
   initialValues: {
+    name: '',
+    identifier: '',
+    type: 'JiraCreate',
     spec: {
       connectorRef: '',
       projectKey: '',
@@ -65,6 +74,9 @@ export const getJiraCreateDeploymentModeProps = (): JiraCreateDeploymentModeProp
   inputSetData: {
     path: '/ab/',
     template: {
+      name: '',
+      identifier: '',
+      type: 'JiraCreate',
       spec: {
         connectorRef: RUNTIME_INPUT_VALUE,
         projectKey: RUNTIME_INPUT_VALUE,

@@ -14,6 +14,9 @@ import type { JiraUpdateDeploymentModeProps, JiraUpdateStepModeProps } from '../
 
 export const getJiraUpdateEditModeProps = (): JiraUpdateStepModeProps => ({
   initialValues: {
+    name: '',
+    type: 'JiraUpdate',
+    identifier: '',
     timeout: '5s',
     spec: {
       connectorRef: '',
@@ -31,6 +34,9 @@ export const getJiraUpdateEditModeProps = (): JiraUpdateStepModeProps => ({
 export const getJiraUpdateEditModePropsWithValues = (): JiraUpdateStepModeProps => ({
   initialValues: {
     timeout: '1d',
+    name: '',
+    type: 'JiraUpdate',
+    identifier: '',
     spec: {
       connectorRef: 'c1d1',
       issueKey: '<+issueKey>',
@@ -51,6 +57,9 @@ export const getJiraUpdateEditModePropsWithValues = (): JiraUpdateStepModeProps 
 export const getJiraUpdateDeploymentModeProps = (): JiraUpdateDeploymentModeProps => ({
   stepViewType: StepViewType.InputSet,
   initialValues: {
+    name: '',
+    type: 'JiraUpdate',
+    identifier: '',
     spec: {
       connectorRef: '',
       issueKey: '',
@@ -64,6 +73,9 @@ export const getJiraUpdateDeploymentModeProps = (): JiraUpdateDeploymentModeProp
   inputSetData: {
     path: '/ab/',
     template: {
+      name: '',
+      type: 'JiraUpdate',
+      identifier: '',
       spec: {
         connectorRef: RUNTIME_INPUT_VALUE,
         issueKey: RUNTIME_INPUT_VALUE,

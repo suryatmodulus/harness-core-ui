@@ -1,6 +1,7 @@
 import React from 'react'
 import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import type { ManifestConfig } from 'services/cd-ng'
 import KustomizeWithGIT from '../KustomizeWithGIT'
 
 const props = {
@@ -13,6 +14,8 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
   test(`renders without crashing`, () => {
     const initialValues = {
       identifier: '',
+      spec: {},
+      type: 'Kustomize' as ManifestConfig['type'],
       branch: undefined,
       commitId: undefined,
       gitFetchType: 'Branch',
@@ -32,6 +35,8 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
   test('expand advanced section', () => {
     const initialValues = {
       identifier: '',
+      spec: {},
+      type: 'Kustomize' as ManifestConfig['type'],
       branch: undefined,
       commitId: undefined,
       gitFetchType: 'Branch',
@@ -54,6 +59,8 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
     const initialValues = {
       identifier: 'id2',
       branch: 'master',
+      spec: {},
+      type: 'Kustomize' as ManifestConfig['type'],
       gitFetchType: 'Branch',
       folderPath: '',
       skipResourceVersioning: false,
@@ -73,6 +80,8 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
     const initialValues = {
       identifier: 'id12',
       commitId: 'awsd123sd',
+      spec: {},
+      type: 'Kustomize' as ManifestConfig['type'],
       gitFetchType: 'Commit',
       folderPath: './temp',
       skipResourceVersioning: true,
@@ -92,6 +101,8 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
     const initialValues = {
       identifier: '',
       branch: undefined,
+      spec: {},
+      type: 'Kustomize' as ManifestConfig['type'],
       gitFetchType: '',
       folderPath: '',
       skipResourceVersioning: true,
@@ -130,6 +141,7 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
+          type: 'Kustomize',
           spec: {
             store: {
               spec: {

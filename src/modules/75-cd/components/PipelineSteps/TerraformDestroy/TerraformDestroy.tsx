@@ -36,8 +36,13 @@ export class TerraformDestroy extends PipelineStep<TFDestroyData> {
   protected defaultValues: TFDestroyData = {
     identifier: '',
     timeout: '10m',
+    name: '',
+    type: StepType.TerraformDestroy,
     spec: {
-      provisionerIdentifier: ''
+      provisionerIdentifier: '',
+      configuration: {
+        type: 'InheritFromApply'
+      }
     }
   }
   protected stepIcon: IconName = 'terraform-apply-new'
@@ -111,7 +116,7 @@ export class TerraformDestroy extends PipelineStep<TFDestroyData> {
     return onSubmitTerraformData(data)
   }
 
-  renderStep(props: StepProps<TFDestroyData, unknown>): JSX.Element {
+  renderStep(props: StepProps<TFDestroyData, TerraformVariableStepProps>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {

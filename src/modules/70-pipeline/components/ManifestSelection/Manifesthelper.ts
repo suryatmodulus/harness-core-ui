@@ -7,7 +7,7 @@ import type { StringKeys } from 'framework/strings'
 
 import type { HelmVersionOptions, ManifestStores, ManifestTypes } from './ManifestInterface'
 
-export const ManifestDataType: { [key: string]: ManifestTypes } = {
+export const ManifestDataType: Record<ManifestTypes, ManifestTypes> = {
   K8sManifest: 'K8sManifest',
   Values: 'Values',
   HelmChart: 'HelmChart',

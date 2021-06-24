@@ -17,6 +17,7 @@ import { StepViewType, ValidateInputSetProps } from '@pipeline/components/Abstra
 import TerraformInputStep from '../Common/Terraform/TerraformInputStep'
 import { TerraformVariableStep } from '../Common/Terraform/TerraformVariableView'
 import {
+  ConfigurationTypes,
   onSubmitTerraformData,
   TerraformData,
   TerraformVariableStepProps,
@@ -37,7 +38,10 @@ export class TerraformApply extends PipelineStep<TFFormData> {
   protected defaultValues: TFFormData = {
     identifier: '',
     timeout: '10m',
+    name: '',
+    type: StepType.TerraformApply,
     spec: {
+      configuration: { type: ConfigurationTypes.Inline },
       provisionerIdentifier: ''
     }
   }

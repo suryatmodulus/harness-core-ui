@@ -231,6 +231,7 @@ describe('Jira Update tests', () => {
     expect(props.onUpdate).toBeCalledWith({
       identifier: 'jira_update_step',
       timeout: '1d',
+      type: 'JiraUpdate',
       spec: {
         connectorRef: 'cid1',
         issueKey: '<+issueKey>',

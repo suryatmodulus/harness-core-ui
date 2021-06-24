@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, fireEvent, act, queryByAttribute, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import OpenShiftParamWithGit from '../OSWithGit'
 
 const props = {
@@ -9,7 +10,8 @@ const props = {
   manifestIdsList: [],
   initialValues: {
     identifier: 'test',
-
+    spec: {},
+    type: ManifestDataType.OpenshiftParam,
     branch: 'master',
     commitId: 'test-commit',
     gitFetchType: 'Branch',
@@ -64,11 +66,11 @@ describe('Open shift params with git tests', () => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
+          type: 'OpenshiftParam',
           spec: {
             store: {
               spec: {
                 branch: 'testBranch',
-                commitId: undefined,
                 connectorRef: undefined,
                 gitFetchType: 'Branch',
                 paths: [],
@@ -89,6 +91,7 @@ describe('Open shift params with git tests', () => {
       expressions: [],
       initialValues: {
         identifier: 'testidentifier',
+        type: ManifestDataType.OpenshiftParam,
         spec: {
           store: {
             spec: {

@@ -231,6 +231,7 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
     name: '',
     identifier: '',
     timeout: '10m',
+    type: StepType.HelmDeploy,
     spec: {
       skipDryRun: false
     }

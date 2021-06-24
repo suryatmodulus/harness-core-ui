@@ -28,11 +28,15 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const { formik, isReadonly = false } = props
   const inlineInitValues: TerraformVarFileWrapper = {
     varFile: {
+      spec: {},
+      identifier: '',
       type: TerraformStoreTypes.Inline
     }
   }
   const remoteInitialValues: TerraformVarFileWrapper = {
     varFile: {
+      spec: {},
+      identifier: '',
       type: TerraformStoreTypes.Remote
     }
   }
@@ -44,7 +48,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const [showRemoteWizard, setShowRemoteWizard] = React.useState(false)
   const { getString } = useStrings()
 
-  const remoteRender = (varFile: TerraformVarFileWrapper, index: number) => {
+  const remoteRender = (varFile: TerraformVarFileWrapper, index: number): React.ReactElement => {
     const remoteVar = varFile?.varFile as any
     return (
       <div className={css.configField}>
@@ -65,7 +69,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     )
   }
 
-  const inlineRender = (varFile: TerraformVarFileWrapper, index: number) => {
+  const inlineRender = (varFile: TerraformVarFileWrapper, index: number): React.ReactElement => {
     const inlineVar = varFile?.varFile as any
     return (
       <div className={css.configField}>

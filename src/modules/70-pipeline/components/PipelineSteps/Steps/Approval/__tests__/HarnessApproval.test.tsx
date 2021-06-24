@@ -186,6 +186,7 @@ describe('Harness Approval tests', () => {
     expect(props.onUpdate).toBeCalledWith({
       identifier: 'hhaass',
       timeout: '10m',
+      type: 'HarnessApproval',
       spec: {
         approvalMessage: 'Approving pipeline <+pname>',
         includePipelineExecutionHistory: true,

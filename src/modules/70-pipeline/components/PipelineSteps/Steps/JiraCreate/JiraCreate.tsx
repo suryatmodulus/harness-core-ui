@@ -28,6 +28,8 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
   protected defaultValues: JiraCreateData = {
     identifier: '',
     timeout: '1d',
+    name: '',
+    type: StepType.JiraCreate,
     spec: {
       connectorRef: '',
       projectKey: '',

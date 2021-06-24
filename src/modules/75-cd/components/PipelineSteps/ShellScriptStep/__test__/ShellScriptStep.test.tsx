@@ -268,6 +268,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'SSH',
       name: 'SSH',
       timeout: '10m',
+      type: 'ShellScript',
       spec: {
         shell: 'Bash',
         onDelegate: true,
@@ -364,6 +365,7 @@ describe('Test Shell Script Step', () => {
       identifier: 'SSH',
       name: 'SSH',
       timeout: '10m',
+      type: 'ShellScript',
       spec: {
         shell: 'Bash',
         onDelegate: false,

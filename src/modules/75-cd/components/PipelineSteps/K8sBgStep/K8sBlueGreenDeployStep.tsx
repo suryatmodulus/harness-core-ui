@@ -256,6 +256,8 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
   protected defaultValues: K8sBGDeployData = {
     identifier: '',
     timeout: '10m',
+    name: '',
+    type: StepType.K8sBlueGreenDeploy,
     spec: {
       skipDryRun: false
     }

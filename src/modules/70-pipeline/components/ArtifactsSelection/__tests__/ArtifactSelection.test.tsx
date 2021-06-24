@@ -124,6 +124,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
+        spec: {},
         type: 'DockerRegistry' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
@@ -150,6 +151,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
+        spec: {},
         type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
@@ -225,6 +227,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
+        spec: {},
         type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
@@ -258,6 +261,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
+        spec: {},
         type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],

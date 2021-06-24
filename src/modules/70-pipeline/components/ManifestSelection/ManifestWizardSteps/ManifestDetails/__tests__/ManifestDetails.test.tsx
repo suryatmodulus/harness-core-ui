@@ -4,6 +4,7 @@ import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 
 import { Scope } from '@common/interfaces/SecretsInterface'
+import type { ManifestConfig } from 'services/cd-ng'
 import ManifestDetails from '../ManifestDetails'
 
 const props = {
@@ -16,6 +17,8 @@ const props = {
 const initialValues = {
   identifier: '',
   branch: undefined,
+  spec: {},
+  type: 'K8sManifest' as ManifestConfig['type'],
   commitId: undefined,
   gitFetchType: 'Branch',
   folderPath: '',
@@ -95,11 +98,11 @@ describe('Manifest Details tests', () => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
+          type: 'K8sManifest',
           spec: {
             store: {
               spec: {
                 branch: 'testBranch',
-                commitId: undefined,
                 connectorRef: undefined,
                 gitFetchType: 'Branch',
                 paths: ['test-path'],
@@ -120,6 +123,7 @@ describe('Manifest Details tests', () => {
       expressions: [],
       initialValues: {
         identifier: 'testidentifier',
+        type: 'K8sManifest' as ManifestConfig['type'],
         spec: {
           store: {
             spec: {
@@ -156,6 +160,7 @@ describe('Manifest Details tests', () => {
       expressions: [],
       initialValues: {
         identifier: 'testidentifier',
+        type: 'K8sManifest' as ManifestConfig['type'],
         spec: {
           store: {
             spec: {
@@ -191,6 +196,7 @@ describe('Manifest Details tests', () => {
       manifestIdsList: [],
       initialValues: {
         identifier: 'testidentifier',
+        type: 'K8sManifest' as ManifestConfig['type'],
         spec: {
           store: {
             spec: {
@@ -227,6 +233,7 @@ describe('Manifest Details tests', () => {
       expressions: [],
       initialValues: {
         identifier: 'testidentifier',
+        type: 'K8sManifest' as ManifestConfig['type'],
         spec: {
           store: {
             spec: {
@@ -281,6 +288,7 @@ describe('Manifest Details tests', () => {
       manifestIdsList: [],
       initialValues: {
         identifier: 'testidentifier',
+        type: 'K8sManifest' as ManifestConfig['type'],
         spec: {
           store: {
             spec: {
@@ -355,11 +363,11 @@ describe('Manifest Details tests', () => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
+          type: 'K8sManifest',
           spec: {
             store: {
               spec: {
                 branch: 'testBranch',
-                commitId: undefined,
                 connectorRef: undefined,
                 gitFetchType: 'Branch',
                 paths: ['test-path'],

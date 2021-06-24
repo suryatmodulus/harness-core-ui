@@ -137,6 +137,8 @@ export class HttpStep extends PipelineStep<HttpStepData> {
 
   protected defaultValues: HttpStepData = {
     identifier: '',
+    name: '',
+    type: StepType.HTTP,
     timeout: '10s',
     spec: {
       url: '',

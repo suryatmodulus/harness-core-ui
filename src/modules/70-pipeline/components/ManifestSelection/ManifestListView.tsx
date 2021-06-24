@@ -224,13 +224,7 @@ const ManifestListView = ({
   }
 
   const handleSubmit = (manifestObj: ManifestConfigWrapper): void => {
-    manifestObj = {
-      ...manifestObj,
-      manifest: {
-        ...manifestObj.manifest,
-        type: selectedManifest
-      }
-    }
+    set(manifestObj, 'manifest.type', selectedManifest)
 
     if (isPropagating) {
       if (listOfManifests?.length > 0) {

@@ -28,6 +28,8 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
   protected defaultValues: JiraUpdateData = {
     identifier: '',
     timeout: '1d',
+    name: '',
+    type: StepType.JiraUpdate,
     spec: {
       connectorRef: '',
       issueKey: '',

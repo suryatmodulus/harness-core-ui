@@ -404,6 +404,8 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
   protected defaultValues: K8sScaleData = {
     identifier: '',
     timeout: '10m',
+    name: '',
+    type: StepType.K8sScale,
     spec: {
       workload: '',
       skipSteadyStateCheck: false,

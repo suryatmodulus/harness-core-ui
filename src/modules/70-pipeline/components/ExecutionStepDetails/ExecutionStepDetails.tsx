@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '@wings-software/uicore'
 import { Popover, Menu, Spinner } from '@blueprintjs/core'
 import cx from 'classnames'
-import { has, reverse } from 'lodash-es'
+import { has } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
@@ -48,7 +48,7 @@ export default function ExecutionStepDetails(): React.ReactElement {
   const originalStep = allNodeMap?.[selectedStepId] || /* istanbul ignore next */ {}
   const selectedStep = (retryStep ? allNodeMap[retryStep] : originalStep) || /* istanbul ignore next */ {}
   const stepDetails = factory.getStepDetails(selectedStep.stepType as StepType)
-  const interruptHistories = reverse([...(originalStep.interruptHistories || [])]).filter(
+  const interruptHistories = (originalStep.interruptHistories || []).filter(
     ({ interruptConfig }) => interruptConfig.retryInterruptConfig
   )
   const selectedStage = pipelineStagesMap.get(selectedStageId)

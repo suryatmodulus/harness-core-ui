@@ -18,7 +18,7 @@ import {
   useCreateOverlayInputSetForPipeline,
   useUpdateOverlayInputSetForPipeline,
   ResponseOverlayInputSetResponse,
-  useGetYamlSchema,
+  useGetSchemaYaml,
   EntityGitDetails
 } from 'services/pipeline-ng'
 
@@ -486,11 +486,12 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     }
   )
 
-  const { loading, data: pipelineSchema } = useGetYamlSchema({
+  const { loading, data: pipelineSchema } = useGetSchemaYaml({
     queryParams: {
       entityType: 'Pipelines',
       projectIdentifier,
       orgIdentifier,
+      accountIdentifier: accountId,
       scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
     }
   })

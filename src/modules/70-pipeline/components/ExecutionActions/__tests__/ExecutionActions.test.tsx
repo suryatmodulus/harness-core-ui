@@ -4,7 +4,7 @@ import { render, fireEvent, findByText, act, RenderResult, waitFor } from '@test
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { useHandleInterrupt } from 'services/pipeline-ng'
+import { HandleInterruptQueryParams, useHandleInterrupt } from 'services/pipeline-ng'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 
 import ExecutionActions from '../ExecutionActions'
@@ -72,10 +72,10 @@ describe('<ExecutionActions /> tests', () => {
     expect(document.body.querySelector('.bp3-menu')).toMatchSnapshot('Menu')
   })
 
-  test.each<[ExecutionStatus, string, string]>([
+  test.each<[ExecutionStatus, string, HandleInterruptQueryParams['interruptType']]>([
     ['Paused', 'play', 'Resume'],
     ['Running', 'pause', 'Pause'],
-    ['Running', 'stop', 'Abort']
+    ['Running', 'stop', 'AbortAll']
   ])('Interrupt "%s" status  with action "%s"', async (executionStatus, icon, interruptType) => {
     const mutate = jest.fn()
     ;(useHandleInterrupt as jest.Mock).mockImplementation(() => ({

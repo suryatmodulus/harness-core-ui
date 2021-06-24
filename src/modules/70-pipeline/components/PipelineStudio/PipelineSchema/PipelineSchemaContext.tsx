@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { ResponseJsonNode, useGetYamlSchema } from 'services/pipeline-ng'
+import { ResponseJsonNode, useGetSchemaYaml } from 'services/pipeline-ng'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useToaster } from '@common/exports'
@@ -22,11 +22,12 @@ export function PipelineSchemaContextProvider(props: React.PropsWithChildren<unk
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
   const { showError } = useToaster()
-  const { data: pipelineSchema, error } = useGetYamlSchema({
+  const { data: pipelineSchema, error } = useGetSchemaYaml({
     queryParams: {
       entityType: 'Pipelines',
       projectIdentifier: projectIdentifier,
       orgIdentifier: orgIdentifier,
+      accountIdentifier: accountId,
       scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
     }
   })

@@ -99,7 +99,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             orgIdentifier,
             accountIdentifier: accountId,
             projectIdentifier,
-            interruptType: 'Abort'
+            interruptType: 'AbortAll'
           }
         })
         showSuccess(getString('pipeline.execution.stageActionMessages.abortedMessage', { stageName }))
@@ -109,7 +109,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
             orgIdentifier,
             accountIdentifier: accountId,
             projectIdentifier,
-            interruptType: 'Abort'
+            interruptType: 'AbortAll'
           }
         })
         showSuccess(getString('pipeline.execution.pipelineActionMessages.abortedMessage'))

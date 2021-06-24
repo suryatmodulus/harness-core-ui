@@ -17,7 +17,7 @@ jest.mock('services/pipeline-ng', () => ({
   useGetPipelineSummary: jest.fn(() => PipelineResponse),
   useGetTriggerDetails: jest.fn(() => GetTriggerDetailsResponse),
   useUpdateTrigger: jest.fn().mockImplementation(() => ({ mutate: mockUpdateTrigger })),
-  useGetYamlSchema: jest.fn(() => ({}))
+  useGetSchemaYaml: jest.fn(() => ({}))
 }))
 const TEST_PATH = routes.toTriggersDetailPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })
 

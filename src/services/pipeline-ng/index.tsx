@@ -125,6 +125,7 @@ export type AuditFilterProperties = FilterProperties & {
     | 'UPDATE'
     | 'RESTORE'
     | 'DELETE'
+    | 'UPSERT'
     | 'INVITE'
     | 'RESEND_INVITE'
     | 'REVOKE_INVITE'
@@ -885,6 +886,7 @@ export interface Error {
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1429,6 +1431,7 @@ export interface Failure {
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -2623,6 +2626,10 @@ export interface ParserUser {
   [key: string]: any
 }
 
+export interface ParserYamlOutputProperties {
+  [key: string]: any
+}
+
 export interface ParserYamlProperties {
   [key: string]: any
 }
@@ -3762,6 +3769,7 @@ export interface ResponseMessage {
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -4544,6 +4552,7 @@ export interface VariableMergeServiceResponse {
 }
 
 export interface VariableResponseMapValue {
+  yamlOutputProperties?: YamlOutputProperties
   yamlProperties?: YamlProperties
 }
 
@@ -4576,6 +4585,23 @@ export type WebhookTriggerConfigV2 = NGTriggerSpecV2 & {
 
 export interface WebhookTriggerSpecV2 {
   [key: string]: any
+}
+
+export interface YamlOutputProperties {
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+  defaultInstanceForType?: YamlOutputProperties
+  descriptorForType?: Descriptor
+  fqn?: string
+  fqnBytes?: ByteString
+  initializationErrorString?: string
+  initialized?: boolean
+  localName?: string
+  localNameBytes?: ByteString
+  parserForType?: ParserYamlOutputProperties
+  serializedSize?: number
+  unknownFields?: UnknownFieldSet
 }
 
 export interface YamlProperties {
@@ -4637,7 +4663,16 @@ export type KeyValueCriteriaSpec = CriteriaSpecDTO & {
 export interface PipelineExecutionInterrupt {
   id?: string
   planExecutionId?: string
-  type?: 'Abort' | 'Pause' | 'Resume' | 'Ignore' | 'StageRollback' | 'StepGroupRollback' | 'MarkAsSuccess' | 'Retry'
+  type?:
+    | 'AbortAll'
+    | 'Abort'
+    | 'Pause'
+    | 'Resume'
+    | 'Ignore'
+    | 'StageRollback'
+    | 'StepGroupRollback'
+    | 'MarkAsSuccess'
+    | 'Retry'
 }
 
 export type FilterDTORequestBody = FilterDTO
@@ -6349,6 +6384,7 @@ export interface HandleInterruptQueryParams {
   orgIdentifier: string
   projectIdentifier: string
   interruptType:
+    | 'AbortAll'
     | 'Abort'
     | 'Pause'
     | 'Resume'
@@ -6432,6 +6468,7 @@ export interface HandleStageInterruptQueryParams {
   orgIdentifier: string
   projectIdentifier: string
   interruptType:
+    | 'AbortAll'
     | 'Abort'
     | 'Pause'
     | 'Resume'
@@ -6542,6 +6579,7 @@ export interface HandleManualInterventionInterruptQueryParams {
   orgIdentifier: string
   projectIdentifier: string
   interruptType:
+    | 'AbortAll'
     | 'Abort'
     | 'Pause'
     | 'Resume'
@@ -7710,77 +7748,6 @@ export const createVariablesPromise = (
     'POST',
     getConfig('pipeline/api'),
     `/pipelines/variables`,
-    props,
-    signal
-  )
-
-export interface GetYamlSchemaQueryParams {
-  entityType:
-    | 'Projects'
-    | 'Pipelines'
-    | 'PipelineSteps'
-    | 'Connectors'
-    | 'Secrets'
-    | 'Service'
-    | 'Environment'
-    | 'InputSets'
-    | 'CvConfig'
-    | 'Delegates'
-    | 'DelegateConfigurations'
-    | 'CvVerificationJob'
-    | 'IntegrationStage'
-    | 'IntegrationSteps'
-    | 'CvKubernetesActivitySource'
-    | 'DeploymentSteps'
-    | 'DeploymentStage'
-    | 'ApprovalStage'
-    | 'FeatureFlagStage'
-    | 'Triggers'
-  projectIdentifier?: string
-  orgIdentifier?: string
-  scope?: 'account' | 'org' | 'project' | 'unknown'
-}
-
-export type GetYamlSchemaProps = Omit<
-  GetProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
-  'path'
->
-
-/**
- * Get Yaml Schema
- */
-export const GetYamlSchema = (props: GetYamlSchemaProps) => (
-  <Get<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>
-    path={`/pipelines/yaml-schema`}
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseGetYamlSchemaProps = Omit<
-  UseGetProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
-  'path'
->
-
-/**
- * Get Yaml Schema
- */
-export const useGetYamlSchema = (props: UseGetYamlSchemaProps) =>
-  useGet<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>(`/pipelines/yaml-schema`, {
-    base: getConfig('pipeline/api'),
-    ...props
-  })
-
-/**
- * Get Yaml Schema
- */
-export const getYamlSchemaPromise = (
-  props: GetUsingFetchProps<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseJsonNode, Failure | Error, GetYamlSchemaQueryParams, void>(
-    getConfig('pipeline/api'),
-    `/pipelines/yaml-schema`,
     props,
     signal
   )
@@ -9185,6 +9152,7 @@ export interface GetSchemaYamlQueryParams {
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
   identifier?: string
+  accountIdentifier?: string
 }
 
 export type GetSchemaYamlProps = Omit<
@@ -9227,6 +9195,52 @@ export const getSchemaYamlPromise = (
   getUsingFetch<ResponseJsonNode, Failure | Error, GetSchemaYamlQueryParams, void>(
     getConfig('pipeline/api'),
     `/yaml-schema`,
+    props,
+    signal
+  )
+
+export type InvalidateYamlSchemaCacheProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, void, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Invalidate yaml schema cache
+ */
+export const InvalidateYamlSchemaCache = (props: InvalidateYamlSchemaCacheProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, void, void, void>
+    verb="POST"
+    path={`/yaml-schema/invalidate-cache`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseInvalidateYamlSchemaCacheProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, void, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Invalidate yaml schema cache
+ */
+export const useInvalidateYamlSchemaCache = (props: UseInvalidateYamlSchemaCacheProps) =>
+  useMutate<ResponseBoolean, Failure | Error, void, void, void>('POST', `/yaml-schema/invalidate-cache`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Invalidate yaml schema cache
+ */
+export const invalidateYamlSchemaCachePromise = (
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, void, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, void, void, void>(
+    'POST',
+    getConfig('pipeline/api'),
+    `/yaml-schema/invalidate-cache`,
     props,
     signal
   )

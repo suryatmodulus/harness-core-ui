@@ -60,15 +60,17 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
 
   const { accounts } = currentUserInfo
 
+  const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
+
   // Automatically set the license state to active for users that have not been created via NG
   // This will prevent existing users from experiencing issues accessing the product
   // When license information is migrated we can remove this 'createdFromNG' check
-  const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
+  const shouldLicensesBeDisabled = __DEV__ || !createdFromNG
 
   const [state, setState] = useState<Omit<LicenseStoreContextProps, 'updateLicenseStore' | 'strings'>>({
     licenseInformation: {},
-    CI_LICENSE_STATE: createdFromNG ? LICENSE_STATE_VALUES.NOT_STARTED : LICENSE_STATE_VALUES.ACTIVE,
-    FF_LICENSE_STATE: createdFromNG ? LICENSE_STATE_VALUES.NOT_STARTED : LICENSE_STATE_VALUES.ACTIVE
+    CI_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : LICENSE_STATE_VALUES.NOT_STARTED,
+    FF_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : LICENSE_STATE_VALUES.NOT_STARTED
   })
   const [isFirstRender, setIsFirstRender] = useState(true)
 
@@ -78,20 +80,36 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
     }
   })
 
-  function getLicenseStatusMapping(status: ModuleLicenseDTO['status']): LICENSE_STATE_VALUES {
-    if (!status) {
-      return LICENSE_STATE_VALUES.NOT_STARTED
+  // Use this function when the license remodel goes in
+  // function getLicenseStatusMapping(status: ModuleLicenseDTO['status']): LICENSE_STATE_VALUES {
+  //   if (!status) {
+  //     return LICENSE_STATE_VALUES.NOT_STARTED
+  //   }
+
+  //   switch (status) {
+  //     case 'ACTIVE':
+  //       return LICENSE_STATE_VALUES.ACTIVE
+  //     case 'EXPIRED':
+  //       return LICENSE_STATE_VALUES.EXPIRED
+  //     case 'DELETED':
+  //     default:
+  //       return LICENSE_STATE_VALUES.NOT_STARTED
+  //   }
+  // }
+
+  function getLicenseState(expiryTime?: number): LICENSE_STATE_VALUES {
+    if (!expiryTime) {
+      return LICENSE_STATE_VALUES.ACTIVE
     }
 
-    switch (status) {
-      case 'ACTIVE':
-        return LICENSE_STATE_VALUES.ACTIVE
-      case 'EXPIRED':
-        return LICENSE_STATE_VALUES.EXPIRED
-      case 'DELETED':
-      default:
-        return LICENSE_STATE_VALUES.NOT_STARTED
+    const days = Math.round(moment(expiryTime).diff(moment.now(), 'days', true))
+    const isExpired = days < 0
+
+    if (shouldLicensesBeDisabled) {
+      return LICENSE_STATE_VALUES.ACTIVE
     }
+
+    return isExpired ? LICENSE_STATE_VALUES.EXPIRED : LICENSE_STATE_VALUES.ACTIVE
   }
 
   useEffect(() => {
@@ -101,22 +119,23 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
   useEffect(() => {
     const licenses = data?.data?.moduleLicenses
 
-    // Only update the store if the user has been crated via NG
-    if (licenses && createdFromNG) {
+    // Only update the store if the user has been created via NG
+    if (licenses) {
       const CIModuleLicenseData = licenses['CI']
       const FFModuleLicenseData = licenses['CF']
 
-      const updatedCILicenseState: LICENSE_STATE_VALUES = getLicenseStatusMapping(CIModuleLicenseData?.status)
-      const updatedFFLicenseState: LICENSE_STATE_VALUES = getLicenseStatusMapping(FFModuleLicenseData?.status)
+      const updatedCILicenseState: LICENSE_STATE_VALUES = getLicenseState(CIModuleLicenseData?.expiryTime)
+      const updatedFFLicenseState: LICENSE_STATE_VALUES = getLicenseState(FFModuleLicenseData?.expiryTime)
 
       setState(prevState => ({
         ...prevState,
         licenseInformation: licenses,
-        CI_LICENSE_STATE: updatedCILicenseState,
-        FF_LICENSE_STATE: updatedFFLicenseState
+        CI_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedCILicenseState,
+        FF_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedFFLicenseState
       }))
     }
-  }, [data?.data?.moduleLicenses, createdFromNG])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.data?.moduleLicenses, shouldLicensesBeDisabled])
 
   useEffect(() => {
     const INTERVAL_ID = setInterval(() => {
@@ -133,11 +152,18 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
   function updateLicenseStore(
     updateData: Partial<Pick<LicenseStoreContextProps, 'licenseInformation' | 'CI_LICENSE_STATE' | 'FF_LICENSE_STATE'>>
   ): void {
+    const CIModuleLicenseData = updateData.licenseInformation?.['CI']
+    const FFModuleLicenseData = updateData.licenseInformation?.['CF']
+
     setState(prevState => ({
       ...prevState,
       licenseInformation: updateData.licenseInformation || prevState.licenseInformation,
-      CI_LICENSE_STATE: updateData.CI_LICENSE_STATE || prevState.CI_LICENSE_STATE,
-      FF_LICENSE_STATE: updateData.FF_LICENSE_STATE || prevState.FF_LICENSE_STATE
+      CI_LICENSE_STATE: CIModuleLicenseData?.expiryTime
+        ? getLicenseState(CIModuleLicenseData.expiryTime)
+        : prevState.CI_LICENSE_STATE,
+      FF_LICENSE_STATE: FFModuleLicenseData?.expiryTime
+        ? getLicenseState(FFModuleLicenseData.expiryTime)
+        : prevState.FF_LICENSE_STATE
     }))
   }
 
@@ -166,23 +192,15 @@ export function handleUpdateLicenseStore(
     | Partial<Pick<LicenseStoreContextProps, 'licenseInformation' | 'CI_LICENSE_STATE' | 'FF_LICENSE_STATE'>>
     | undefined
 
-  const days = Math.round(moment(data.expiryTime).diff(moment.now(), 'days', true))
-  const isExpired = days < 0
-  const licenseState = isExpired ? LICENSE_STATE_VALUES.EXPIRED : LICENSE_STATE_VALUES.ACTIVE
-
   if (module.toUpperCase() === ModuleName.CI) {
     newLicenseInformation[ModuleName.CI] = data
-
     licenseStoreData = {
-      licenseInformation: newLicenseInformation,
-      CI_LICENSE_STATE: licenseState
+      licenseInformation: newLicenseInformation
     }
   } else if (module.toUpperCase() === ModuleName.CF) {
     newLicenseInformation[ModuleName.CF] = data
-
     licenseStoreData = {
-      licenseInformation: newLicenseInformation,
-      FF_LICENSE_STATE: licenseState
+      licenseInformation: newLicenseInformation
     }
   }
 

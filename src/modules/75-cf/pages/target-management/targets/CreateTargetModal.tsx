@@ -18,6 +18,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { Target } from 'services/cf'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import { CFTargetNameRegex, CFTargetIdentifierRegex } from '@cf/constants'
 import uploadImageUrl from './upload.svg'
 import css from './TargetsPage.module.scss'
 
@@ -34,9 +35,12 @@ interface TargetListProps {
 
 const TargetList: React.FC<TargetListProps> = ({ targets, onAdd, onRemove, onChange }) => {
   const { getString } = useStrings()
-  const handleChange = (idx: number, attr: keyof TargetData) => (e: any) => {
-    onChange(idx, { ...targets[idx], [attr]: e.target.value })
+  const handleChange = (idx: number, attr: keyof TargetData, pattern: string) => (e: any) => {
+    if (e.target.value.match(pattern) != null) {
+      onChange(idx, { ...targets[idx], [attr]: e.target.value })
+    }
   }
+
   const fieldWidth = 285
 
   return (
@@ -58,13 +62,13 @@ const TargetList: React.FC<TargetListProps> = ({ targets, onAdd, onRemove, onCha
             <TextInput
               placeholder={getString('cf.targets.enterName')}
               value={target.name}
-              onChange={handleChange(idx, 'name')}
+              onChange={handleChange(idx, 'name', CFTargetNameRegex)}
               style={{ width: `${fieldWidth}px` }}
             />
             <TextInput
               placeholder={getString('cf.targets.enterValue')}
               value={target.identifier}
-              onChange={handleChange(idx, 'identifier')}
+              onChange={handleChange(idx, 'identifier', CFTargetIdentifierRegex)}
               style={{ width: `${fieldWidth}px` }}
             />
             {lastItem && idx !== 0 && (

@@ -688,7 +688,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
                       <label
                         class="bp3-label"
                       >
-                        password
+                        connectors.apiKey
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"

@@ -19,7 +19,7 @@ import { useParams } from 'react-router-dom'
 import { Dialog, FormGroup, Intent } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import type { FormikErrors, FormikProps } from 'formik'
+import { connect, FormikErrors, FormikProps } from 'formik'
 import {
   PipelineInfrastructure,
   EnvironmentResponseDTO,
@@ -458,7 +458,11 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   )
 }
 
-const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSetData, initialValues, onUpdate }) => {
+const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: any }> = ({
+  inputSetData,
+  initialValues,
+  formik
+}) => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -504,7 +508,10 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
           isEdit={state.isEdit}
           onCreateOrUpdate={values => {
             refetch()
-            onUpdate?.({ ...omit(initialValues, 'environment'), environmentRef: values.identifier })
+            formik?.setFieldValue(
+              `${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}environmentRef`,
+              values.identifier
+            )
             onClose.call(null)
           }}
           closeModal={onClose}
@@ -601,7 +608,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
     </>
   )
 }
-
+const DeployEnvironmentInputStepFormik = connect(DeployEnvironmentInputStep)
 const EnvironmentRegex = /^.+stage\.spec\.infrastructure\.environmentRef$/
 export class DeployEnvironmentStep extends Step<DeployEnvData> {
   lastFetched: number
@@ -660,7 +667,7 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
     const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <DeployEnvironmentInputStep
+        <DeployEnvironmentInputStepFormik
           initialValues={initialValues}
           readonly={readonly}
           onUpdate={onUpdate}

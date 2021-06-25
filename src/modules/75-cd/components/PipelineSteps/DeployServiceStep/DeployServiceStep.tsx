@@ -17,7 +17,7 @@ import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import type { FormikErrors, FormikProps } from 'formik'
+import { connect, FormikErrors, FormikProps } from 'formik'
 import {
   ServiceConfig,
   useCreateServicesV2,
@@ -423,7 +423,11 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   )
 }
 
-const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData, initialValues, onUpdate }) => {
+const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = ({
+  inputSetData,
+  initialValues,
+  formik
+}) => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -494,7 +498,10 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData, in
           isService={state.isService}
           onCreateOrUpdate={values => {
             refetch()
-            onUpdate?.({ ...omit(initialValues, 'service'), serviceRef: values.identifier })
+            formik?.setFieldValue(
+              `${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}serviceRef`,
+              values.identifier
+            )
             onClose.call(null)
           }}
           closeModal={onClose}
@@ -564,6 +571,8 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData, in
     </>
   )
 }
+
+const DeployServiceInputStepFormik = connect(DeployServiceInputStep)
 const ServiceRegex = /^.+stage\.spec\.serviceConfig\.serviceRef$/
 export class DeployServiceStep extends Step<DeployServiceData> {
   lastFetched: number
@@ -622,7 +631,7 @@ export class DeployServiceStep extends Step<DeployServiceData> {
     const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <DeployServiceInputStep
+        <DeployServiceInputStepFormik
           initialValues={initialValues}
           readonly={readonly}
           onUpdate={onUpdate}

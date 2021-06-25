@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import { Button, Container, Formik, FormikForm, Layout, Text, NestedAccordionProvider } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
@@ -38,6 +39,7 @@ import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveT
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
@@ -377,14 +379,12 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           initialValues={{ ...omit(inputSet, 'gitDetails'), repo: repoIdentifier || '', branch: branch || '' }}
           enableReinitialize={true}
           formName="inputSetForm"
+          validationSchema={Yup.object().shape({
+            name: NameSchema(),
+            identifier: IdentifierSchema()
+          })}
           validate={values => {
             const errors: FormikErrors<InputSetDTO> = {}
-            if (isEmpty(values.name)) {
-              errors.name = getString('inputSets.nameIsRequired')
-            }
-            if (isEmpty(values.identifier)) {
-              errors.name = getString('common.validation.identifierIsRequired')
-            }
             if (values.pipeline && template?.data?.inputSetTemplateYaml && pipeline?.data?.yamlPipeline) {
               errors.pipeline = validatePipeline({
                 pipeline: values.pipeline,
@@ -507,17 +507,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                         onClick={() => {
                           const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
                           const inputSetDto: InputSetDTO = parse(latestYaml)?.inputSet
-                          const errors: FormikErrors<InputSetDTO> = {}
-                          if (isEmpty(inputSetDto.name)) {
-                            errors.name = getString('inputSets.nameIsRequired')
-                          }
-                          if (isEmpty(inputSetDto.identifier)) {
-                            errors.identifier = getString('common.validation.identifierIsRequired')
-                          }
-                          if (Object.keys(errors).length) {
-                            setFormErrors(errors)
-                            return
-                          }
                           handleSubmit(inputSetDto, {
                             repoIdentifier: formikProps.values.repo,
                             branch: formikProps.values.branch

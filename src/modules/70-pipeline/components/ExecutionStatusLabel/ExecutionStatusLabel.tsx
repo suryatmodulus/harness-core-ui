@@ -23,7 +23,7 @@ export const stringsMap: Record<ExecutionStatus, StringKeys> = {
   ResourceWaiting: 'pipeline.executionStatus.Waiting',
   Skipped: 'pipeline.executionStatus.Skipped',
   Success: 'pipeline.executionStatus.Success',
-  IgnoreFailed: 'pipeline.executionStatus.Failed',
+  IgnoreFailed: 'pipeline.executionStatus.Success',
   Suspended: 'pipeline.executionStatus.Suspended',
   Pausing: 'pipeline.executionStatus.Pausing',
   ApprovalRejected: 'pipeline.executionStatus.ApprovalRejected',

@@ -1,5 +1,6 @@
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import isEmpty from 'lodash/isEmpty'
 import type { UseStringsReturn } from 'framework/strings'
 
 const namespaceRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/
@@ -10,7 +11,7 @@ export function getNameSpaceSchema(
   isRequired = true
 ): Yup.StringSchema<string | undefined> {
   const namespaceSchema = Yup.string().test('namespace', getString('cd.namespaceValidation'), function (value) {
-    if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
+    if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED || isEmpty(value)) {
       return true
     }
     return namespaceRegex.test(value)
@@ -25,7 +26,7 @@ export function getReleaseNameSchema(
   isRequired = true
 ): Yup.StringSchema<string | undefined> {
   const releaseNameSchema = Yup.string().test('releaseName', getString('cd.releaseNameValidation'), function (value) {
-    if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
+    if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED || isEmpty(value)) {
       return true
     }
     return releaseNameRegex.test(value)

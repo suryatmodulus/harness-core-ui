@@ -463,7 +463,7 @@ function RunPipelineFormBasic({
               const inputSetPortion = parse(data.data.pipelineYaml) as {
                 pipeline: NgPipeline
               }
-              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion, pipeline)
               setCurrentPipeline(toBeUpdated)
             }
           } catch (e) {
@@ -489,7 +489,7 @@ function RunPipelineFormBasic({
               const inputSetPortion = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
                 pipeline: NgPipeline
               }
-              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion, pipeline)
               setCurrentPipeline(toBeUpdated)
             }
           }
@@ -693,10 +693,10 @@ function RunPipelineFormBasic({
         />
       )
     }
-    if (pipeline && template?.data?.inputSetTemplateYaml) {
+    if (currentPipeline?.pipeline && pipeline && template?.data?.inputSetTemplateYaml) {
       return (
         <PipelineInputSetForm
-          originalPipeline={pipeline}
+          originalPipeline={{ ...pipeline }}
           template={parse(template.data.inputSetTemplateYaml).pipeline}
           readonly={executionView}
           path=""
@@ -745,7 +745,9 @@ function RunPipelineFormBasic({
 
           errors = await validateErrors()
 
-          if (typeof errors !== undefined) setFormErrors(errors)
+          if (typeof errors !== undefined && runClicked) {
+            setFormErrors(errors)
+          }
           return errors
         }}
       >

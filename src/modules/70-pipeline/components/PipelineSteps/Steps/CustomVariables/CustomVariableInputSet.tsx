@@ -1,7 +1,9 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Text, FormInput, MultiTypeInputType, getMultiTypeFromValue, SelectOption } from '@wings-software/uicore'
 import cx from 'classnames'
-
+import { cloneDeep, get } from 'lodash-es'
+import { connect } from 'formik'
 import { String } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -9,6 +11,7 @@ import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiT
 import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { useQueryParams } from '@common/hooks'
 import { VariableType } from './CustomVariableUtils'
 import css from './CustomVariables.module.scss'
 
@@ -31,9 +34,10 @@ export interface CustomVariableInputSetProps extends CustomVariableInputSetExtra
   onUpdate?: (data: CustomVariablesData) => void
   stepViewType?: StepViewType
   inputSetData?: InputSetData<CustomVariablesData>
+  formik?: any
 }
 
-export function CustomVariableInputSet(props: CustomVariableInputSetProps): React.ReactElement {
+function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.ReactElement {
   const {
     initialValues,
     template,
@@ -41,10 +45,28 @@ export function CustomVariableInputSet(props: CustomVariableInputSetProps): Reac
     path,
     variableNamePrefix = '',
     domId,
-    inputSetData
+    inputSetData,
+    formik
   } = props
   const basePath = path?.length ? `${path}.` : ''
   const { expressions } = useVariablesExpression()
+
+  const { executionId } = useQueryParams<Record<string, string>>()
+  const { executionIdentifier, triggerIdentifier } = useParams<Record<string, string>>()
+
+  React.useEffect(() => {
+    if (!executionIdentifier && !executionId && triggerIdentifier === 'new') {
+      const providedValues = get(formik.values, basePath)
+      let updatedVariables: AllNGVariables[] = cloneDeep(initialValues.variables) || []
+      updatedVariables = updatedVariables.map((variable: AllNGVariables, index: number) => {
+        const { default: defaultValue = '', ...restVar } = variable
+        restVar.value = providedValues?.variables?.[index]?.value || defaultValue
+        return restVar
+      })
+      formik.setFieldValue(`${basePath}variables`, updatedVariables)
+    }
+  }, [])
+
   return (
     <div className={cx(css.customVariablesInputSets, 'customVariables')} id={domId}>
       {stepViewType === StepViewType.StageVariable && initialValues.variables.length > 0 && (
@@ -121,3 +143,5 @@ export function CustomVariableInputSet(props: CustomVariableInputSetProps): Reac
     </div>
   )
 }
+const CustomVariableInputSet = connect(CustomVariableInputSetBasic)
+export { CustomVariableInputSet }

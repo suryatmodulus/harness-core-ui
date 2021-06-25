@@ -432,7 +432,11 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
   }: ValidateInputSetProps<K8SDirectInfrastructure>): FormikErrors<K8SDirectInfrastructure> {
     const isRequired = viewType === StepViewType.DeploymentForm
     const errors: Partial<K8SDirectInfrastructureTemplate> = {}
-    if (isEmpty(data.connectorRef) && getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME) {
+    if (
+      isEmpty(data.connectorRef) &&
+      isRequired &&
+      getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME
+    ) {
       errors.connectorRef = getString?.('fieldRequired', { field: getString('connector') })
     }
     if (getString && getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME) {

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.59% </span>
+                <span class="strong">79.8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>156/196</span>
+                <span class='fraction'>158/198</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.39% </span>
+                <span class="strong">54.59% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>223/410</span>
+                <span class='fraction'>226/414</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.47% </span>
+                <span class="strong">79.79% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>151/190</span>
+                <span class='fraction'>154/193</span>
             </div>
         
             
@@ -768,7 +768,16 @@
 <a name='L709'></a><a href='#L709'>709</a>
 <a name='L710'></a><a href='#L710'>710</a>
 <a name='L711'></a><a href='#L711'>711</a>
-<a name='L712'></a><a href='#L712'>712</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L712'></a><a href='#L712'>712</a>
+<a name='L713'></a><a href='#L713'>713</a>
+<a name='L714'></a><a href='#L714'>714</a>
+<a name='L715'></a><a href='#L715'>715</a>
+<a name='L716'></a><a href='#L716'>716</a>
+<a name='L717'></a><a href='#L717'>717</a>
+<a name='L718'></a><a href='#L718'>718</a>
+<a name='L719'></a><a href='#L719'>719</a>
+<a name='L720'></a><a href='#L720'>720</a>
+<a name='L721'></a><a href='#L721'>721</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1078,7 +1087,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1089,6 +1103,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1167,6 +1182,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1744,7 +1762,7 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
   &gt;()
 &nbsp;
   const { showError } = useToaster()
-  const { data: environmentsResponse, error, refetch } = useGetEnvironmentList({
+  const { data: environmentsResponse, loading, error, refetch } = useGetEnvironmentList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 &nbsp;
@@ -1788,11 +1806,16 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
   }, [hideModal])
 &nbsp;
   React.useEffect(() =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (environmentsResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength) {
-      const envList = environmentsResponse.data.content.map(env =&gt; ({
-        label: env.environment<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || <span class="branch-1 cbranch-no" title="branch not covered" >env.environment?.identifier </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >'',</span>
-        value: env.environment<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
-      }))
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!loading) {
+      const envList: SelectOption[] = []
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (environmentsResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength) {
+        environmentsResponse.data.content.forEach(env =&gt; {
+          envList.push({
+            label: env.environment<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || <span class="branch-1 cbranch-no" title="branch not covered" >env.environment?.identifier </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >'',</span>
+            value: env.environment<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+          })
+        })
+      }
       const identifier = initialValues.environment?.identifier
       const isExist = envList.filter(env =&gt; env.value === identifier).length &gt; 0
       if (initialValues.environment &amp;&amp; identifier &amp;&amp; !isExist) {
@@ -1802,6 +1825,7 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
       setEnvironments(envList)
     }
   }, [
+    loading,
     environmentsResponse,
     environmentsResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength,
     initialValues.environment,
@@ -1876,8 +1900,11 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
                 placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
                 multiTypeInputProps={{
                   width: 300,
-                  onChange: () =&gt; {
-                    if (values.environment?.identifier) {
+                  onChange: val =&gt; {
+                    if (
+                      values.environment?.identifier &amp;&amp;
+                      (val as SelectOption).value !== values.environment.identifier
+                    ) {
                       setEnvironments(environments.filter(env =&gt; env.value !== values.environment<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier))
                       setFieldValue('environment', undefined)
                     }
@@ -2197,7 +2224,7 @@ export class DeployEnvironmentStep extends Step&lt;DeployEnvData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 25 2021 05:41:48 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 25 2021 07:21:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

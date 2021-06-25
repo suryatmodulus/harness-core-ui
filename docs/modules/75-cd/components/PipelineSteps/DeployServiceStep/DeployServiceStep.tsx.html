@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.05% </span>
+                <span class="strong">78.26% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>160/205</span>
+                <span class='fraction'>162/207</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.3% </span>
+                <span class="strong">56.48% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>228/405</span>
+                <span class='fraction'>231/409</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.78% </span>
+                <span class="strong">78.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>154/198</span>
+                <span class='fraction'>157/201</span>
             </div>
         
             
@@ -732,7 +732,12 @@
 <a name='L673'></a><a href='#L673'>673</a>
 <a name='L674'></a><a href='#L674'>674</a>
 <a name='L675'></a><a href='#L675'>675</a>
-<a name='L676'></a><a href='#L676'>676</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L676'></a><a href='#L676'>676</a>
+<a name='L677'></a><a href='#L677'>677</a>
+<a name='L678'></a><a href='#L678'>678</a>
+<a name='L679'></a><a href='#L679'>679</a>
+<a name='L680'></a><a href='#L680'>680</a>
+<a name='L681'></a><a href='#L681'>681</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1013,7 +1018,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">35x</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1634,7 +1644,7 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
   &gt;()
 &nbsp;
   const { showError } = useToaster()
-  const { data: serviceResponse, error, refetch } = useGetServiceList({
+  const { data: serviceResponse, error, refetch, loading } = useGetServiceList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 &nbsp;
@@ -1687,11 +1697,16 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
   }, [initialValues.service, initialValues.service?.identifier, services])
 &nbsp;
   React.useEffect(() =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (serviceResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength) {
-      const serviceList = serviceResponse.data.content.map(service =&gt; ({
-        label: service.service<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-        value: service.service<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
-      }))
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!loading) {
+      const serviceList: SelectOption[] = []
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (serviceResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength) {
+        serviceResponse.data.content.forEach(service =&gt; {
+          serviceList.push({
+            label: service.service<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+            value: service.service<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+          })
+        })
+      }
       const identifier = initialValues.service?.identifier
       const isExist = serviceList.filter(service =&gt; service.value === identifier).length &gt; 0
       if (initialValues.service &amp;&amp; identifier &amp;&amp; !isExist) {
@@ -1700,7 +1715,7 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
       }
       setService(serviceList)
     }
-  }, [initialValues.service, serviceResponse, serviceResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength])
+  }, [loading, initialValues.service, serviceResponse, serviceResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength])
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" >error?.message)</span> {
 <span class="cstat-no" title="statement not covered" >    showError(error.message, undefined, 'cd.svc.list.error')</span>
@@ -1772,8 +1787,8 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
                 multiTypeInputProps={{
                   width: 300,
                   expressions,
-                  onChange: () =&gt; {
-                    if (values.service?.identifier) {
+                  onChange: val =&gt; {
+                    if (values.service?.identifier &amp;&amp; (val as SelectOption).value !== values.service.identifier) {
                       setService(services.filter(service =&gt; service.value !== values.service<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier))
                       setFieldValue('service', undefined)
                     }
@@ -2089,7 +2104,7 @@ export class DeployServiceStep extends Step&lt;DeployServiceData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 25 2021 05:41:48 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 25 2021 07:21:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

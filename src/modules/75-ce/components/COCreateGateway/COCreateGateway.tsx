@@ -105,6 +105,7 @@ export const CECODashboardPage: React.FC = () => {
           previousTab={previousTab}
           gatewayDetails={gatewayDetails}
           setGatewayDetails={setGatewayDetails}
+          isEditFlow={false}
         />
       )}
     </Container>

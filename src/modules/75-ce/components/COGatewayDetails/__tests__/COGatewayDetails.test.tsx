@@ -179,6 +179,7 @@ describe('Test GatewayDetails', () => {
           gatewayDetails={initialGatewayDetails}
           setGatewayDetails={jest.fn()}
           previousTab={jest.fn()}
+          isEditFlow={false}
         />
       </TestWrapper>
     )
@@ -192,6 +193,7 @@ describe('Test GatewayDetails', () => {
           gatewayDetails={initialGatewayDetails}
           setGatewayDetails={jest.fn()}
           previousTab={jest.fn()}
+          isEditFlow={false}
         />
       </TestWrapper>
     )
@@ -210,6 +212,7 @@ describe('Test GatewayDetails', () => {
           gatewayDetails={initialGatewayDetails}
           setGatewayDetails={jest.fn()}
           previousTab={jest.fn()}
+          isEditFlow={false}
         />
       </TestWrapper>
     )
@@ -237,6 +240,7 @@ describe('Test GatewayDetails', () => {
           setGatewayDetails={jest.fn()}
           previousTab={jest.fn()}
           activeTab={ASRuleTabs.REVIEW}
+          isEditFlow={false}
         />
       </TestWrapper>
     )

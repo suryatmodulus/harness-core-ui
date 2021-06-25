@@ -32,6 +32,7 @@ import {
 } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
+import { useGatewayContext } from '@ce/context/GatewayContext'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
 import { cleanupForHostName } from '../COGatewayList/Utils'
@@ -63,7 +64,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const { trackEvent } = useTelemetry()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const isAzureProvider = Utils.isProviderAzure(props.gatewayDetails.provider)
-  const isEditFlow = window.location.href.includes('edit')
+  const { isEditFlow } = useGatewayContext()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string

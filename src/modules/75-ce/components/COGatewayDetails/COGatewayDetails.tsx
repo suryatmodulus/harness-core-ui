@@ -14,6 +14,7 @@ import { useSaveService, Service, useAttachTags, RoutingData } from 'services/lw
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { Utils } from '@ce/common/Utils'
 import { ASRuleTabs } from '@ce/constants'
+import { GatewayContextProvider } from '@ce/context/GatewayContext'
 import css from './COGatewayDetails.module.scss'
 
 interface COGatewayDetailsProps {
@@ -21,6 +22,7 @@ interface COGatewayDetailsProps {
   gatewayDetails: GatewayDetails
   setGatewayDetails: (gwDetails: GatewayDetails) => void
   activeTab?: ASRuleTabs
+  isEditFlow: boolean
 }
 const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const history = useHistory()
@@ -191,70 +193,72 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
           }
         ]}
       />
-      <Container className={css.detailsTab}>
-        <Tabs id="tabsId1" selectedTabId={selectedTabId} onChange={selectTab}>
-          <Tab
-            id="configuration"
-            disabled
-            title={
-              <Layout.Horizontal>
-                {validConfig ? (
-                  <Icon name="tick-circle" className={css.greenSymbol} size={16} />
-                ) : (
-                  <Icon name="symbol-circle" className={css.symbol} size={16} />
-                )}
-                <Text className={css.tabTitle}>1. {getString('configuration')}</Text>
-              </Layout.Horizontal>
-            }
-            panel={
-              <COGatewayConfig
-                gatewayDetails={props.gatewayDetails}
-                setGatewayDetails={props.setGatewayDetails}
-                valid={validConfig}
-                setValidity={setValidConfig}
-                activeStepDetails={activeConfigStep}
-              />
-            }
-          />
-          <Tab
-            id="setupAccess"
-            disabled
-            title={
-              <Layout.Horizontal>
-                {validAccessSetup ? (
-                  <Icon name="tick-circle" className={css.greenSymbol} size={16} />
-                ) : (
-                  <Icon name="symbol-circle" className={css.symbol} size={16} />
-                )}
-                <Text className={css.tabTitle}>2. {getString('ce.co.autoStoppingRule.setupAccess.pageName')}</Text>
-              </Layout.Horizontal>
-            }
-            panel={
-              <COGatewayAccess
-                valid={validAccessSetup}
-                setValidity={setValidAccessSetup}
-                gatewayDetails={props.gatewayDetails}
-                setGatewayDetails={props.setGatewayDetails}
-              />
-            }
-          />
-          <Tab
-            id="review"
-            disabled
-            title={
-              <Layout.Horizontal>
-                {validConfig && validAccessSetup ? (
-                  <Icon name="tick-circle" className={css.greenSymbol} size={16} />
-                ) : (
-                  <Icon name="symbol-circle" className={css.symbol} size={16} />
-                )}
-                <Text className={css.tabTitle}>3. {getString('review')}</Text>
-              </Layout.Horizontal>
-            }
-            panel={<COGatewayReview gatewayDetails={props.gatewayDetails} onEdit={handleReviewDetailsEdit} />}
-          />
-        </Tabs>
-      </Container>
+      <GatewayContextProvider isEditFlow={props.isEditFlow}>
+        <Container className={css.detailsTab}>
+          <Tabs id="tabsId1" selectedTabId={selectedTabId} onChange={selectTab}>
+            <Tab
+              id="configuration"
+              disabled
+              title={
+                <Layout.Horizontal>
+                  {validConfig ? (
+                    <Icon name="tick-circle" className={css.greenSymbol} size={16} />
+                  ) : (
+                    <Icon name="symbol-circle" className={css.symbol} size={16} />
+                  )}
+                  <Text className={css.tabTitle}>1. {getString('configuration')}</Text>
+                </Layout.Horizontal>
+              }
+              panel={
+                <COGatewayConfig
+                  gatewayDetails={props.gatewayDetails}
+                  setGatewayDetails={props.setGatewayDetails}
+                  valid={validConfig}
+                  setValidity={setValidConfig}
+                  activeStepDetails={activeConfigStep}
+                />
+              }
+            />
+            <Tab
+              id="setupAccess"
+              disabled
+              title={
+                <Layout.Horizontal>
+                  {validAccessSetup ? (
+                    <Icon name="tick-circle" className={css.greenSymbol} size={16} />
+                  ) : (
+                    <Icon name="symbol-circle" className={css.symbol} size={16} />
+                  )}
+                  <Text className={css.tabTitle}>2. {getString('ce.co.autoStoppingRule.setupAccess.pageName')}</Text>
+                </Layout.Horizontal>
+              }
+              panel={
+                <COGatewayAccess
+                  valid={validAccessSetup}
+                  setValidity={setValidAccessSetup}
+                  gatewayDetails={props.gatewayDetails}
+                  setGatewayDetails={props.setGatewayDetails}
+                />
+              }
+            />
+            <Tab
+              id="review"
+              disabled
+              title={
+                <Layout.Horizontal>
+                  {validConfig && validAccessSetup ? (
+                    <Icon name="tick-circle" className={css.greenSymbol} size={16} />
+                  ) : (
+                    <Icon name="symbol-circle" className={css.symbol} size={16} />
+                  )}
+                  <Text className={css.tabTitle}>3. {getString('review')}</Text>
+                </Layout.Horizontal>
+              }
+              panel={<COGatewayReview gatewayDetails={props.gatewayDetails} onEdit={handleReviewDetailsEdit} />}
+            />
+          </Tabs>
+        </Container>
+      </GatewayContextProvider>
       <Layout.Horizontal className={css.footer} spacing="medium">
         <Button
           text="Previous"

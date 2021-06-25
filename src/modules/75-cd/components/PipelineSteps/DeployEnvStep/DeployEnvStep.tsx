@@ -263,7 +263,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   >()
 
   const { showError } = useToaster()
-  const { data: environmentsResponse, error, refetch } = useGetEnvironmentList({
+  const { data: environmentsResponse, loading, error, refetch } = useGetEnvironmentList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
@@ -307,11 +307,16 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   }, [hideModal])
 
   React.useEffect(() => {
-    if (environmentsResponse?.data?.content?.length) {
-      const envList = environmentsResponse.data.content.map(env => ({
-        label: env.environment?.name || env.environment?.identifier || '',
-        value: env.environment?.identifier || ''
-      }))
+    if (!loading) {
+      const envList: SelectOption[] = []
+      if (environmentsResponse?.data?.content?.length) {
+        environmentsResponse.data.content.forEach(env => {
+          envList.push({
+            label: env.environment?.name || env.environment?.identifier || '',
+            value: env.environment?.identifier || ''
+          })
+        })
+      }
       const identifier = initialValues.environment?.identifier
       const isExist = envList.filter(env => env.value === identifier).length > 0
       if (initialValues.environment && identifier && !isExist) {
@@ -321,6 +326,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
       setEnvironments(envList)
     }
   }, [
+    loading,
     environmentsResponse,
     environmentsResponse?.data?.content?.length,
     initialValues.environment,
@@ -395,8 +401,11 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                 placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
                 multiTypeInputProps={{
                   width: 300,
-                  onChange: () => {
-                    if (values.environment?.identifier) {
+                  onChange: val => {
+                    if (
+                      values.environment?.identifier &&
+                      (val as SelectOption).value !== values.environment.identifier
+                    ) {
                       setEnvironments(environments.filter(env => env.value !== values.environment?.identifier))
                       setFieldValue('environment', undefined)
                     }

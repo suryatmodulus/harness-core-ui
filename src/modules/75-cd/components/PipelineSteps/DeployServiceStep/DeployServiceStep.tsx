@@ -225,7 +225,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   >()
 
   const { showError } = useToaster()
-  const { data: serviceResponse, error, refetch } = useGetServiceList({
+  const { data: serviceResponse, error, refetch, loading } = useGetServiceList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
@@ -278,11 +278,16 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   }, [initialValues.service, initialValues.service?.identifier, services])
 
   React.useEffect(() => {
-    if (serviceResponse?.data?.content?.length) {
-      const serviceList = serviceResponse.data.content.map(service => ({
-        label: service.service?.name || '',
-        value: service.service?.identifier || ''
-      }))
+    if (!loading) {
+      const serviceList: SelectOption[] = []
+      if (serviceResponse?.data?.content?.length) {
+        serviceResponse.data.content.forEach(service => {
+          serviceList.push({
+            label: service.service?.name || '',
+            value: service.service?.identifier || ''
+          })
+        })
+      }
       const identifier = initialValues.service?.identifier
       const isExist = serviceList.filter(service => service.value === identifier).length > 0
       if (initialValues.service && identifier && !isExist) {
@@ -291,7 +296,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
       }
       setService(serviceList)
     }
-  }, [initialValues.service, serviceResponse, serviceResponse?.data?.content?.length])
+  }, [loading, initialValues.service, serviceResponse, serviceResponse?.data?.content?.length])
 
   if (error?.message) {
     showError(error.message, undefined, 'cd.svc.list.error')
@@ -363,8 +368,8 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 multiTypeInputProps={{
                   width: 300,
                   expressions,
-                  onChange: () => {
-                    if (values.service?.identifier) {
+                  onChange: val => {
+                    if (values.service?.identifier && (val as SelectOption).value !== values.service.identifier) {
                       setService(services.filter(service => service.value !== values.service?.identifier))
                       setFieldValue('service', undefined)
                     }

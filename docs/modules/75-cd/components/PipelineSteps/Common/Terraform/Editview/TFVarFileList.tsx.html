@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">65.38% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/63</span>
+                <span class='fraction'>34/52</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/20</span>
+                <span class='fraction'>6/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">65.38% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/63</span>
+                <span class='fraction'>34/52</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -364,7 +364,10 @@
 <a name='L305'></a><a href='#L305'>305</a>
 <a name='L306'></a><a href='#L306'>306</a>
 <a name='L307'></a><a href='#L307'>307</a>
-<a name='L308'></a><a href='#L308'>308</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -425,7 +428,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -446,7 +450,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -512,16 +517,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -552,7 +557,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -732,7 +738,8 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
         &lt;Icon
           name="edit"
           onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >            setShowRemoteWizard(true)</span>
+            /* istanbul ignore next */
+            setShowRemoteWizard(true)
 <span class="cstat-no" title="statement not covered" >            setSelectedVar(varFile)</span>
 <span class="cstat-no" title="statement not covered" >            setSelectedVarIndex(index)</span>
 <span class="cstat-no" title="statement not covered" >            setIsEditMode(true)</span>
@@ -753,7 +760,8 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
         &lt;Icon
           name="edit"
           onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >            setShowTfModal(true)</span>
+            /* istanbul ignore next */
+            setShowTfModal(true)
 <span class="cstat-no" title="statement not covered" >            setIsEditMode(true)</span>
 <span class="cstat-no" title="statement not covered" >            setSelectedVarIndex(index)</span>
 <span class="cstat-no" title="statement not covered" >            setSelectedVar(varFile)</span>
@@ -775,7 +783,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
 &nbsp;
   const getTitle = <span class="fstat-no" title="function not covered" >() =</span>&gt; (
 <span class="cstat-no" title="statement not covered" >    &lt;Layout.Vertical flex style={{ justifyContent: 'center', alignItems: 'center' }}&gt;</span>
-      &lt;Icon name="remote" /&gt;
+      &lt;Icon name="remotefile" className={css.remoteIcon} size={50} /&gt;
       &lt;Text color={Color.WHITE}&gt;{getString('pipelineSteps.remoteFile')}&lt;/Text&gt;
     &lt;/Layout.Vertical&gt;
   )
@@ -818,17 +826,17 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     },
     []
   )
-&nbsp;
-  const onCloseOfRemoteWizard = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >    setShowRemoteWizard(false)</span>
-<span class="cstat-no" title="statement not covered" >    setIsEditMode(false)</span>
-<span class="cstat-no" title="statement not covered" >    setSelectedVar(remoteInitialValues)</span>
+  /* istanbul ignore next */
+  const onCloseOfRemoteWizard = () =&gt; {
+    setShowRemoteWizard(false)
+    setIsEditMode(false)
+    setSelectedVar(remoteInitialValues)
   }
-&nbsp;
-  const onCloseOfInlineVarForm = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >    setShowTfModal(false)</span>
-<span class="cstat-no" title="statement not covered" >    setIsEditMode(false)</span>
-<span class="cstat-no" title="statement not covered" >    setSelectedVar(inlineInitValues)</span>
+  /* istanbul ignore next */
+  const onCloseOfInlineVarForm = () =&gt; {
+    setShowTfModal(false)
+    setIsEditMode(false)
+    setSelectedVar(inlineInitValues)
   }
   return (
     &lt;Layout.Vertical&gt;
@@ -859,7 +867,8 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                         onDragOver={onDragOver}
                         onDragLeave={onDragLeave}
                         onDragStart={<span class="fstat-no" title="function not covered" >event </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                          onDragStart(event, i)</span>
+                          /* istanbul ignore next */
+                          onDragStart(event, i)
                         }}
                         onDrop={<span class="fstat-no" title="function not covered" >event </span>=&gt; <span class="cstat-no" title="statement not covered" >onDrop(event, arrayHelpers, i)}</span>
                       &gt;
@@ -887,7 +896,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     &lt;Menu className={css.tfMenu}&gt;
                       &lt;MenuItem
                         text={&lt;Text intent="primary"&gt;{getString('cd.addInline')} &lt;/Text&gt;}
-                        icon={&lt;Icon name="Inline" /&gt;}
+                        icon={&lt;Icon name="Inline" className={css.iconMargin} /&gt;}
                         onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                          setShowTfModal(true)</span>
                         }}
@@ -895,7 +904,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
 &nbsp;
                       &lt;MenuItem
                         text={&lt;Text intent="primary"&gt;{getString('cd.addRemote')}&lt;/Text&gt;}
-                        icon={&lt;Icon name="remote" /&gt;}
+                        icon={&lt;Icon name="Inline" className={css.iconMargin} /&gt;}
                         onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setShowRemoteWizard(true)}</span>
                       /&gt;
                     &lt;/Menu&gt;
@@ -985,7 +994,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 23:10:05 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 25 2021 05:41:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

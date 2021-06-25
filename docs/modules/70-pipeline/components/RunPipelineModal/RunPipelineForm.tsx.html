@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.21% </span>
+                <span class="strong">44.16% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>103/233</span>
+                <span class='fraction'>102/231</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.51% </span>
+                <span class="strong">18.81% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>102/551</span>
+                <span class='fraction'>101/537</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.97% </span>
+                <span class="strong">43.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>102/232</span>
+                <span class='fraction'>101/230</span>
             </div>
         
             
@@ -1124,25 +1124,7 @@
 <a name='L1065'></a><a href='#L1065'>1065</a>
 <a name='L1066'></a><a href='#L1066'>1066</a>
 <a name='L1067'></a><a href='#L1067'>1067</a>
-<a name='L1068'></a><a href='#L1068'>1068</a>
-<a name='L1069'></a><a href='#L1069'>1069</a>
-<a name='L1070'></a><a href='#L1070'>1070</a>
-<a name='L1071'></a><a href='#L1071'>1071</a>
-<a name='L1072'></a><a href='#L1072'>1072</a>
-<a name='L1073'></a><a href='#L1073'>1073</a>
-<a name='L1074'></a><a href='#L1074'>1074</a>
-<a name='L1075'></a><a href='#L1075'>1075</a>
-<a name='L1076'></a><a href='#L1076'>1076</a>
-<a name='L1077'></a><a href='#L1077'>1077</a>
-<a name='L1078'></a><a href='#L1078'>1078</a>
-<a name='L1079'></a><a href='#L1079'>1079</a>
-<a name='L1080'></a><a href='#L1080'>1080</a>
-<a name='L1081'></a><a href='#L1081'>1081</a>
-<a name='L1082'></a><a href='#L1082'>1082</a>
-<a name='L1083'></a><a href='#L1083'>1083</a>
-<a name='L1084'></a><a href='#L1084'>1084</a>
-<a name='L1085'></a><a href='#L1085'>1085</a>
-<a name='L1086'></a><a href='#L1086'>1086</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L1068'></a><a href='#L1068'>1068</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1470,8 +1452,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1842,22 +1822,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2555,8 +2519,6 @@ function RunPipelineFormBasic({
   const [currentPipeline, setCurrentPipeline] = React.useState&lt;{ pipeline?: NgPipeline } | undefined&gt;(
     inputSetYAML ? <span class="branch-0 cbranch-no" title="branch not covered" >parse(inputSetYAML) </span>: undefined
   )
-  // Set executionPipelineParsed one time and use it to display the variables in execution view
-  const executionPipelineParsed = inputSetYAML ? <span class="branch-0 cbranch-no" title="branch not covered" >parse(inputSetYAML) </span>: undefined
   const [gitFilter, setGitFilter] = React.useState&lt;GitFilterScope | null&gt;({
     repo: inputSetRepoIdentifier || '',
     branch: inputSetBranch || '',
@@ -2927,25 +2889,9 @@ function RunPipelineFormBasic({
       )
     }
 <span class="cstat-no" title="statement not covered" >    if (currentPipeline?.pipeline &amp;&amp; pipeline &amp;&amp; template?.data?.inputSetTemplateYaml) {</span>
-      /*
-      Fix for CDNG-10221
-      If one or more input sets are selected, supply the variables from currentPipeline
-      We're updating currentPipeline with variables inside mergeTemplateWithInputSetData function
-      */
-      /*
-      If input sets are not selected, supply the variables from 'pipeline' which is the original pipeline object.
-      This will populate the variables with default values instead of ""
-&nbsp;
-      If we're in the executionView, always supply from executionPipelineParsed which we set once on mount of this modal
-      */
-      const variables = <span class="cstat-no" title="statement not covered" >executionView</span>
-        ? executionPipelineParsed?.pipeline?.variables
-        : isEmpty(selectedInputSets)
-        ? pipeline.variables
-        : currentPipeline.pipeline.variables
 <span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;PipelineInputSetForm
-          originalPipeline={{ ...pipeline, variables }}
+          originalPipeline={{ ...pipeline }}
           template={parse(template.data.inputSetTemplateYaml).pipeline}
           readonly={executionView}
           path=""
@@ -3319,7 +3265,7 @@ export const RunPipelineForm: React.FC&lt;RunPipelineFormProps &amp; InputSetGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 23:10:05 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 25 2021 05:41:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

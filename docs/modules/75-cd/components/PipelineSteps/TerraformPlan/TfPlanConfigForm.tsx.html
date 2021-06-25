@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.17% </span>
+                <span class="strong">82.61% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/24</span>
+                <span class='fraction'>19/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.04% </span>
+                <span class="strong">56.27% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>144/327</span>
+                <span class='fraction'>184/327</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.17% </span>
+                <span class="strong">82.61% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/24</span>
+                <span class='fraction'>19/23</span>
             </div>
         
             
@@ -336,24 +336,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -381,8 +375,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -577,11 +577,6 @@ interface ConfigFormProps {
   isReadonly?: boolean
 }
 &nbsp;
-const gitFetchTypes: SelectOption[] = [
-  { label: 'Latest from branch', value: 'Branch' },
-  { label: 'Specific Commit ID', value: 'Commit' }
-]
-&nbsp;
 export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -590,12 +585,17 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
     orgIdentifier: string
     accountId: string
   }&gt;()
+  const gitFetchTypes: SelectOption[] = [
+    { label: getString('gitFetchTypes.fromBranch'), value: getString('pipelineSteps.deploy.inputSet.branch') },
+    { label: getString('gitFetchTypes.fromCommit'), value: getString('pipelineSteps.commitIdValue') }
+  ]
   return (
     &lt;Layout.Vertical&gt;
       &lt;Formik&lt;TFPlanConfig&gt;
         formName="tfPlanConfigForm"
         onSubmit={<span class="fstat-no" title="function not covered" >(v</span>alues: any) =&gt; {
-<span class="cstat-no" title="statement not covered" >          props.onClick(values)</span>
+          /*istanbul ignore next*/
+          props.onClick(values)
         }}
         initialValues={props.data}
         validationSchema={Yup.object().shape({
@@ -687,16 +687,16 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
 &nbsp;
                 {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configuration?.configFiles?.store?.spec?.gitFetchType ===
                   gitFetchTypes[0].value &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;</span>
+                  &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                     &lt;FormInput.MultiTextInput
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                       name="spec.configuration.configFiles.store.spec.branch"
                       multiTextInputProps={{ expressions }}
                     /&gt;
-                    {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.branch) ===
+                    {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch) ===
                       MultiTypeInputType.RUNTIME &amp;&amp; (
-                      &lt;ConfigureOptions
+<span class="branch-1 cbranch-no" title="branch not covered" >                      &lt;ConfigureOptions</span>
                         style={{ alignSelf: 'center' }}
                         value={formik.values?.spec?.configuration?.configFiles?.store?.spec?.branch as string}
                         type="String"
@@ -713,16 +713,16 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
 &nbsp;
                 {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configuration?.configFiles?.store?.spec?.gitFetchType ===
                   gitFetchTypes[1].value &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;</span>
+                  &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                     &lt;FormInput.MultiTextInput
                       label={getString('pipeline.manifestType.commitId')}
                       placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                       name="spec.configuration.configFiles.store.spec.commitId"
                       multiTextInputProps={{ expressions }}
                     /&gt;
-                    {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.commitId) ===
+                    {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommitId) ===
                       MultiTypeInputType.RUNTIME &amp;&amp; (
-                      &lt;ConfigureOptions
+<span class="branch-1 cbranch-no" title="branch not covered" >                      &lt;ConfigureOptions</span>
                         style={{ alignSelf: 'center' }}
                         value={formik.values?.spec?.configuration?.configFiles?.store?.spec?.commitId as string}
                         type="String"
@@ -790,7 +790,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 24 2021 23:10:05 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 25 2021 05:41:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

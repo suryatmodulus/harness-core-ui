@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.36% </span>
+                <span class="strong">88.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/22</span>
+                <span class='fraction'>24/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.36% </span>
+                <span class="strong">88.89% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/22</span>
+                <span class='fraction'>24/27</span>
             </div>
         
             
@@ -107,7 +107,14 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -116,11 +123,15 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -137,6 +148,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,20 +174,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 &nbsp;
 import { useHistory, useParams } from 'react-router-dom'
+import cx from 'classnames'
 import { Button, Heading, Color, Layout } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { Page } from '@common/components/Page/Page'
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import getStarted from './images/getStarted.png'
+import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
+import getStarted from './images/getStarted.svg'
 import css from './GetStartedProject.module.scss'
 &nbsp;
 const GetStartedProject: React.FC = () =&gt; {
   const { accountId } = useParams&lt;AccountPathProps&gt;()
   const history = useHistory()
   const { getString } = useStrings()
+  const { currentUserInfo: user } = useAppStore()
   useDocumentTitle(getString('getStarted'))
 &nbsp;
   const { openProjectModal, closeProjectModal } = useProjectModal({
@@ -186,10 +204,13 @@ const GetStartedProject: React.FC = () =&gt; {
     }
   })
 &nbsp;
+  const className = user.emailVerified === undefined || <span class="branch-1 cbranch-no" title="branch not covered" >user.emailVerified </span>? '' : <span class="branch-1 cbranch-no" title="branch not covered" >css.hasBanner</span>
+&nbsp;
   return (
     &lt;&gt;
+      &lt;EmailVerificationBanner /&gt;
       &lt;Page.Header title={getString('getStarted')} /&gt;
-      &lt;div className={css.getStartedMainContainer}&gt;
+      &lt;Page.Body className={cx(css.getStartedMainContainer, className)}&gt;
         &lt;Layout.Vertical spacing="xxxlarge" flex&gt;
           &lt;Layout.Vertical spacing="medium" flex&gt;
             &lt;img src={getStarted} className={css.image} /&gt;
@@ -202,7 +223,7 @@ const GetStartedProject: React.FC = () =&gt; {
           &lt;/Layout.Vertical&gt;
           &lt;Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() =&gt; openProjectModal()} /&gt;
         &lt;/Layout.Vertical&gt;
-      &lt;/div&gt;
+      &lt;/Page.Body&gt;
     &lt;/&gt;
   )
 }
@@ -214,7 +235,7 @@ export default GetStartedProject
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 25 2021 15:45:31 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 25 2021 16:52:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

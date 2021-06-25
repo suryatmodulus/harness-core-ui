@@ -27,7 +27,7 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   bgImageUrl,
   subTitle,
   documentText,
-  documentURL = 'https://ngdocs.harness.io/',
+  documentURL = 'https://ngdocs.harness.io/category/exgoemqhji-ccm',
   trialBannerProps
 }) => {
   const { accountId } = useParams<{
@@ -43,7 +43,9 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
             <Heading font={{ weight: 'bold', size: 'large' }} color={'var(--primary-10)'}>
               {title}
             </Heading>
-            <Text color={'var(--grey-500)'}>{subTitle}</Text>
+            <Text color={'var(--grey-500)'} style={{ width: '50%' }}>
+              {subTitle}
+            </Text>
             <ExternalLink
               className={css.link}
               color={'var(--primary-6)'}

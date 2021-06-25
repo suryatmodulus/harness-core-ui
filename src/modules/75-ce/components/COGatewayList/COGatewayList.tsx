@@ -515,7 +515,10 @@ const COGatewayList: React.FC = () => {
             {/* <img src={landingPageSVG} alt="" width="300px"></img> */}
             <AnimatedGraphicContainer imgList={landingPageGraphicsImages} />
             <Text font="normal" style={{ lineHeight: '24px', textAlign: 'center', width: '760px', marginTop: '20px' }}>
-              <String stringID="ce.co.landingPageText" useRichText={true} /> <Link href="/">Learn more</Link>
+              <String stringID="ce.co.landingPageText" useRichText={true} />{' '}
+              <Link href="https://ngdocs.harness.io/article/wzr5tz0ero-auto-stopping-rules" target="_blank">
+                Learn more
+              </Link>
             </Text>
             <Button
               intent="primary"

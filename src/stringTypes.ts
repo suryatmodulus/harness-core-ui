@@ -237,6 +237,7 @@ export interface StringsMap {
   'common.purpose.cd.newGen.title': string
   'common.purpose.cd.subtitle': string
   'common.purpose.cd.supportedStack': string
+  'common.purpose.ce.ccm': string
   'common.purpose.ce.continuous': string
   'common.purpose.ce.description': string
   'common.purpose.ce.descriptionOnly': string

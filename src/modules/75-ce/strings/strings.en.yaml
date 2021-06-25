@@ -1,6 +1,6 @@
-continuous: '{{$.common.purpose.ce.continuous}}'
+continuous: '{{$.common.purpose.ce.ccm}}'
 homepage:
-  slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
+  slogan: 'Get granular cloud cost visibility, enable powerful cost optimization through intelligent automation, and set vital budgets and forecasts for cost governance. Take your cloud cost management to the next level with Harness.'
 co:
   cloudProviders:
     aws: aws
@@ -239,7 +239,7 @@ co:
     name: '{{$.ce.co.gatewayReview.nameYourGateway}}'
     addSchedule: '+ add schedule'
     scheduleDescription: 'Set an automated schedule for uptime or downtime of all the resources that match your filter criteria.'
-learnMore: Learn more about Continuous Efficiency
+learnMore: Learn more about Cloud Cost Management
 ceTrialHomePage:
   startTrial:
     description: Take your software build processes to the next level using our Harness Continuous Efficiency.

@@ -143,6 +143,7 @@ purpose:
     efficiency: Efficiency
     subtitle: Spot and quickly debug inefficiencies and optimize them to reduce costs.
     continuous: Continuous Efficiency
+    ccm: Cloud Cost Management
     descriptionOnly: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc'
     description: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc
       <br><br>You can access this module via your free trial. Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'

@@ -609,8 +609,8 @@ export default (
 
     <RouteWithLayout
       sidebarProps={CISideNavProps}
-      path={[routes.toRoleDetails({ ...projectPathProps, ...rolePathProps })]}
       exact
+      path={[routes.toRoleDetails({ ...projectPathProps, ...pipelineModuleParams, ...rolePathProps })]}
     >
       <RoleDetails />
     </RouteWithLayout>

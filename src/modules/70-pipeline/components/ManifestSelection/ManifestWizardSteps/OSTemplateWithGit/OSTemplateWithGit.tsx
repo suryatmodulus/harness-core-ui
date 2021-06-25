@@ -135,7 +135,8 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              paths: [formData?.path]
+              paths:
+                getMultiTypeFromValue(formData?.path) === MultiTypeInputType.RUNTIME ? formData?.path : [formData?.path]
             }
           },
           skipResourceVersioning: formData?.skipResourceVersioning

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.06% </span>
+                <span class="strong">93.15% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>67/72</span>
+                <span class='fraction'>68/73</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.15% </span>
+                <span class="strong">48.78% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/39</span>
+                <span class='fraction'>20/41</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.96% </span>
+                <span class="strong">93.06% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>66/71</span>
+                <span class='fraction'>67/72</span>
             </div>
         
             
@@ -316,7 +316,13 @@
 <a name='L257'></a><a href='#L257'>257</a>
 <a name='L258'></a><a href='#L258'>258</a>
 <a name='L259'></a><a href='#L259'>259</a>
-<a name='L260'></a><a href='#L260'>260</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -519,10 +525,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -587,7 +599,7 @@ import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import { Versions } from '@common/constants/Utils'
+import { Experiences } from '@common/constants/Utils'
 import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '../../components/ModuleInfoCards/ModuleInfoCards'
 import css from './PurposePage.module.scss'
 &nbsp;
@@ -658,7 +670,7 @@ const PurposeList: React.FC = () =&gt; {
 &nbsp;
   const CFNG_OPTIONS: PurposeType = {
     enabled: CFNG_ENABLED,
-    title: getString('common.purpose.cf.features'),
+    title: getString('common.purpose.cf.flags'),
     icon: 'cf-main',
     description: getString('common.purpose.cf.subtitle'),
     module: 'cf'
@@ -682,7 +694,7 @@ const PurposeList: React.FC = () =&gt; {
   const getModuleLink = (module: Module): React.ReactElement =&gt; {
     async function <span class="fstat-no" title="function not covered" >handleUpdateDefaultExperience(</span>): Promise&lt;void&gt; {
 <span class="cstat-no" title="statement not covered" >      await updateDefaultExperience({</span>
-        defaultExperience: !selectedInfoCard || selectedInfoCard?.isNgRoute ? Versions.NG : Versions.CG
+        defaultExperience: !selectedInfoCard || selectedInfoCard?.isNgRoute ? Experiences.NG : Experiences.CG
       })
     }
 &nbsp;
@@ -777,30 +789,36 @@ const PurposeList: React.FC = () =&gt; {
       &lt;Layout.Horizontal padding={{ top: 'large' }}&gt;
         &lt;Container width="40%"&gt;
           &lt;div style={{ borderRight: 'inset', marginLeft: -15 }}&gt;
-            {getOptions().map(option =&gt; (
-              &lt;Card
-                key={option.title}
-                className={cx(css.card, selected === option.module ? css.selected : '')}
-                onClick={() =&gt; handleModuleSelection(option.module)}
-              &gt;
-                &lt;Layout.Horizontal spacing="small"&gt;
-                  &lt;Icon name={option.icon} size={25} /&gt;
-                  &lt;div&gt;
-                    &lt;Text font="xsmall"&gt;{getString('common.purpose.continuous')}&lt;/Text&gt;
-                    &lt;Text font={{ size: 'medium' }} padding={{ bottom: 'large' }} color={Color.BLACK}&gt;
-                      {option.title}
-                    &lt;/Text&gt;
-                  &lt;/div&gt;
-                &lt;/Layout.Horizontal&gt;
-                &lt;Text font="small" padding={{ bottom: 'small' }} style={{ minHeight: 70 }}&gt;
-                  {option.description}
-                &lt;/Text&gt;
+            {getOptions().map(option =&gt; {
+              const cardTitle =
+                option.module === 'cf'
+                  ? getString('common.purpose.cf.feature').toUpperCase()
+                  : getString('common.purpose.continuous')
+              return (
+                &lt;Card
+                  key={option.title}
+                  className={cx(css.card, selected === option.module ? css.selected : '')}
+                  onClick={() =&gt; handleModuleSelection(option.module)}
+                &gt;
+                  &lt;Layout.Horizontal spacing="small"&gt;
+                    &lt;Icon name={option.icon} size={25} /&gt;
+                    &lt;div&gt;
+                      &lt;Text font="xsmall"&gt;{cardTitle}&lt;/Text&gt;
+                      &lt;Text font={{ size: 'medium' }} padding={{ bottom: 'large' }} color={Color.BLACK}&gt;
+                        {option.title}
+                      &lt;/Text&gt;
+                    &lt;/div&gt;
+                  &lt;/Layout.Horizontal&gt;
+                  &lt;Text font="small" padding={{ bottom: 'small' }} style={{ minHeight: 70 }}&gt;
+                    {option.description}
+                  &lt;/Text&gt;
 &nbsp;
-                &lt;Text font="small" style={{ marginTop: 10 }}&gt;
-                  {getString('common.purpose.setup')}
-                &lt;/Text&gt;
-              &lt;/Card&gt;
-            ))}
+                  &lt;Text font="small" style={{ marginTop: 10 }}&gt;
+                    {getString('common.purpose.setup')}
+                  &lt;/Text&gt;
+                &lt;/Card&gt;
+              )
+            })}
           &lt;/div&gt;
         &lt;/Container&gt;
         &lt;Container width={700} padding={{ left: 'huge', top: 'medium' }}&gt;
@@ -841,7 +859,7 @@ export const PurposePage: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 25 2021 21:08:32 GMT+0000 (Greenwich Mean Time)
+                at Fri Jun 25 2021 22:22:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

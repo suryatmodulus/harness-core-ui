@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.21% </span>
+                <span class="strong">85.96% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>50/58</span>
+                <span class='fraction'>49/57</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">87.27% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/56</span>
+                <span class='fraction'>48/55</span>
             </div>
         
             
@@ -212,15 +212,12 @@
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -241,14 +238,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -261,6 +251,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -330,6 +321,7 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -380,9 +372,10 @@ import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
-import { useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
+import { useGetLicensesAndSummary } from 'services/cd-ng'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { useQueryParams } from '@common/hooks'
@@ -398,16 +391,9 @@ const CEHomePage: React.FC = () =&gt; {
   const { getString } = useStrings()
   const { currentUserInfo, selectedProject, updateAppStore } = useAppStore()
 &nbsp;
-  const { accountId } = useParams&lt;{
-    accountId: string
-  }&gt;()
+  const { accountId } = useParams&lt;AccountPathProps&gt;()
 &nbsp;
   const { trial } = useQueryParams&lt;{ trial?: boolean }&gt;()
-&nbsp;
-  const getModuleLicenseQueryParams = {
-    accountIdentifier: accountId,
-    moduleType: ModuleName.CE as any
-  }
 &nbsp;
   const { accounts } = currentUserInfo
   const createdFromNG = accounts<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind(account =&gt; account.uuid === accountId)<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>reatedFromNG
@@ -419,8 +405,9 @@ const CEHomePage: React.FC = () =&gt; {
     debounce: 300
   })
 &nbsp;
-  const { data, error, refetch, loading } = useGetModuleLicenseByAccountAndModuleType({
-    queryParams: getModuleLicenseQueryParams
+  const { data, error, refetch, loading } = useGetLicensesAndSummary({
+    queryParams: { moduleType: ModuleName.CE as any },
+    accountIdentifier: accountId
   })
 &nbsp;
   useEffect(() =&gt; {
@@ -489,9 +476,10 @@ const CEHomePage: React.FC = () =&gt; {
   const history = useHistory()
 &nbsp;
   const trialBannerProps = {
-    expiryTime: data?.data?.expiryTime,
+    expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
-    module: ModuleName.CE
+    module: ModuleName.CE,
+    refetch
   }
 &nbsp;
   if (loading || getProjectListLoading) {
@@ -541,7 +529,7 @@ export default CEHomePage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 25 2021 23:13:25 GMT+0000 (Greenwich Mean Time)
+                at Sat Jun 26 2021 00:06:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

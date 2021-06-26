@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.18% </span>
+                <span class="strong">93.26% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>82/88</span>
+                <span class='fraction'>83/89</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.74% </span>
+                <span class="strong">82.26% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>94/115</span>
+                <span class='fraction'>102/124</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.19% </span>
+                <span class="strong">94.25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>81/86</span>
+                <span class='fraction'>82/87</span>
             </div>
         
             
@@ -371,7 +371,11 @@
 <a name='L312'></a><a href='#L312'>312</a>
 <a name='L313'></a><a href='#L313'>313</a>
 <a name='L314'></a><a href='#L314'>314</a>
-<a name='L315'></a><a href='#L315'>315</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -511,10 +515,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -643,6 +650,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -701,8 +709,8 @@ import type { StringsMap } from 'stringTypes'
 import { ModuleName } from 'framework/types/ModuleName'
 import {
   useGetAccountNG,
-  useGetModuleLicenseByAccountAndModuleType,
-  GetModuleLicenseByAccountAndModuleTypeQueryParams
+  useGetModuleLicensesByAccountAndModuleType,
+  GetModuleLicensesByAccountAndModuleTypeQueryParams
 } from 'services/cd-ng'
 &nbsp;
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
@@ -816,9 +824,8 @@ const SubscriptionsPage: React.FC = () =&gt; {
     refetch: refetchGetAccount
   } = useGetAccountNG({ accountIdentifier: accountId })
 &nbsp;
-  const getModuleLicenseQueryParams: GetModuleLicenseByAccountAndModuleTypeQueryParams = {
-    accountIdentifier: accountId,
-    moduleType: selectedModuleCard.module as GetModuleLicenseByAccountAndModuleTypeQueryParams['moduleType']
+  const getModuleLicenseQueryParams: GetModuleLicensesByAccountAndModuleTypeQueryParams = {
+    moduleType: selectedModuleCard.module as GetModuleLicensesByAccountAndModuleTypeQueryParams['moduleType']
   }
 &nbsp;
   const {
@@ -826,16 +833,20 @@ const SubscriptionsPage: React.FC = () =&gt; {
     error: licenseError,
     loading: isGetLicenseLoading,
     refetch: refetchGetLicense
-  } = useGetModuleLicenseByAccountAndModuleType({
-    queryParams: getModuleLicenseQueryParams
+  } = useGetModuleLicensesByAccountAndModuleType({
+    queryParams: getModuleLicenseQueryParams,
+    accountIdentifier: accountId
   })
+&nbsp;
+  const latestModuleLicense =
+    licenseData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata &amp;&amp; licenseData.data.length &gt; 0 ? licenseData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.[l</span>icenseData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength - 1] : undefined
 &nbsp;
   useEffect(() =&gt; {
     handleUpdateLicenseStore(
       { ...licenseInformation },
       updateLicenseStore,
       selectedModuleCard.module.toString() as Module,
-      licenseData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata
+      latestModuleLicense
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [licenseData])
@@ -880,7 +891,7 @@ const SubscriptionsPage: React.FC = () =&gt; {
     return cards
   }
 &nbsp;
-  const expiryTime = licenseData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.expiryTime
+  const expiryTime = latestModuleLicense?.expiryTime
   const time = moment(expiryTime)
   const days = Math.round(time.diff(moment.now(), 'days', true))
   const expiryDate = time.format('DD MMM YYYY')
@@ -895,7 +906,7 @@ const SubscriptionsPage: React.FC = () =&gt; {
   }
 &nbsp;
   function getBanner(): React.ReactElement | null {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!isExpired &amp;&amp; licenseData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>icenseType !== 'TRIAL' &amp;&amp; expiredDays &gt; 14) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!isExpired &amp;&amp; latestModuleLicense<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>icenseType !== 'TRIAL' &amp;&amp; expiredDays &gt; 14) {
 <span class="cstat-no" title="statement not covered" >      return null</span>
     }
 &nbsp;
@@ -960,8 +971,9 @@ const SubscriptionsPage: React.FC = () =&gt; {
           &lt;SubscriptionOverview
             accountName={accountData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame}
             module={selectedModuleCard.module}
-            licenseData={licenseData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata}
+            licenseData={latestModuleLicense}
             trialInformation={trialInformation}
+            refetchGetLicense={refetchGetLicense}
           /&gt;
         )
     }
@@ -974,7 +986,7 @@ const SubscriptionsPage: React.FC = () =&gt; {
       &lt;/Container&gt;
     ) : (
       &lt;React.Fragment&gt;
-        {licenseData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata &amp;&amp; getBanner()}
+        {licenseData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata &amp;&amp; licenseData.data.length &gt; 0 &amp;&amp; getBanner()}
         &lt;Layout.Horizontal className={css.subscriptionTabButtons} spacing="medium"&gt;
           {getSubscriptionTabButtons()}
         &lt;/Layout.Horizontal&gt;
@@ -1006,7 +1018,7 @@ export default SubscriptionsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jun 25 2021 23:13:25 GMT+0000 (Greenwich Mean Time)
+                at Sat Jun 26 2021 00:06:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

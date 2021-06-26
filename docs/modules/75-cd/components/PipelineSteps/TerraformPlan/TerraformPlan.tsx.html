@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">49.25% </span>
+                <span class="strong">47.04% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>165/335</span>
+                <span class='fraction'>151/321</span>
             </div>
         
             
@@ -598,7 +598,9 @@
 <a name='L539'></a><a href='#L539'>539</a>
 <a name='L540'></a><a href='#L540'>540</a>
 <a name='L541'></a><a href='#L541'>541</a>
-<a name='L542'></a><a href='#L542'>542</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L542'></a><a href='#L542'>542</a>
+<a name='L543'></a><a href='#L543'>543</a>
+<a name='L544'></a><a href='#L544'>544</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -827,11 +829,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1007,6 +1004,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1342,12 +1346,7 @@ function TerraformPlanWidget(
                     &lt;/Text&gt;
                   }
                   category={'SECRET_MANAGER'}
-                  width={
-                    getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ecretManagerRef) ===
-                    MultiTypeInputType.RUNTIME
-                      ? <span class="branch-0 cbranch-no" title="branch not covered" >200</span>
-                      : 260
-                  }
+                  width={280}
                   name="spec.configuration.secretManagerRef"
                   placeholder={getString('select')}
                   accountIdentifier={accountId}
@@ -1365,10 +1364,10 @@ function TerraformPlanWidget(
                 &lt;/Label&gt;
                 &lt;div className={cx(css.configFile, css.addMarginBottom)}&gt;
                   &lt;div className={css.configField}&gt;
-                    {!formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore?.spec?.folderPath &amp;&amp; (
+                    {!formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>olderPath &amp;&amp; (
                       &lt;Text className={css.configPlaceHolder}&gt;{getString('cd.configFilePlaceHolder')}&lt;/Text&gt;
                     )}
-                    {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore?.spec?.folderPath &amp;&amp; (
+                    {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>olderPath &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                      &lt;Text font="normal" lineClamp={1} width={200}&gt;</span>
                         /{formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath}
                       &lt;/Text&gt;
@@ -1555,7 +1554,14 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
     spec: {
       configuration: {
         command: 'Apply',
-        configFiles: {},
+        configFiles: {
+          store: {
+            type: 'Git',
+            spec: {
+              gitFetchType: 'Branch'
+            }
+          }
+        },
         secretManagerRef: ''
       },
       provisionerIdentifier: ''
@@ -1687,7 +1693,7 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jun 26 2021 02:16:42 GMT+0000 (Greenwich Mean Time)
+                at Sat Jun 26 2021 07:35:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

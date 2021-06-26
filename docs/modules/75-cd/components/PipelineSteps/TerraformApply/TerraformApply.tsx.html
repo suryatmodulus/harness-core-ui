@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.11% </span>
+                <span class="strong">55.41% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>43/74</span>
+                <span class='fraction'>41/74</span>
             </div>
         
             
@@ -223,7 +223,19 @@
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -261,6 +273,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -432,7 +456,19 @@ export class TerraformApply extends PipelineStep&lt;TFFormData&gt; {
     name: '',
     type: StepType.TerraformApply,
     spec: {
-      configuration: { type: ConfigurationTypes.Inline },
+      configuration: {
+        type: ConfigurationTypes.Inline,
+        spec: {
+          configFiles: {
+            store: {
+              type: 'Git',
+              spec: {
+                gitFetchType: 'Branch'
+              }
+            }
+          }
+        }
+      },
       provisionerIdentifier: ''
     }
   }
@@ -478,7 +514,7 @@ export class TerraformApply extends PipelineStep&lt;TFFormData&gt; {
   }
 &nbsp;
   private getInitialValues(data: TFFormData): TerraformData {
-    const envVars = data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.environmentVariables as StringNGVariable[]
+    const envVars = data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables as StringNGVariable[]
     const formData = {
       ...data,
       spec: {
@@ -487,7 +523,7 @@ export class TerraformApply extends PipelineStep&lt;TFFormData&gt; {
           ...data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration,
           spec: {
             ...data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec,
-            targets: Array.isArray(data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.targets)
+            targets: Array.isArray(data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets)
               ? <span class="branch-0 cbranch-no" title="branch not covered" >data.spec?.configuration?.spec?.targets.map(<span class="fstat-no" title="function not covered" >target </span>=&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
                   value: target,
                   id: uuid()
@@ -562,7 +598,7 @@ export class TerraformApply extends PipelineStep&lt;TFFormData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jun 26 2021 02:16:42 GMT+0000 (Greenwich Mean Time)
+                at Sat Jun 26 2021 07:35:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

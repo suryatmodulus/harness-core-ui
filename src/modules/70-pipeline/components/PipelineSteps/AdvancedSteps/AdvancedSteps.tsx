@@ -28,7 +28,7 @@ export interface AdvancedStepsProps extends StepCommandsProps {
 export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: StepFormikFowardRef): React.ReactElement {
   function getInitialValues(step: ExecutionWrapper): Values {
     return {
-      failureStrategies: step.failureStrategies,
+      failureStrategies: step.failureStrategies || [],
       delegateSelectors: step.spec?.delegateSelectors || [],
       when: step.when
     }

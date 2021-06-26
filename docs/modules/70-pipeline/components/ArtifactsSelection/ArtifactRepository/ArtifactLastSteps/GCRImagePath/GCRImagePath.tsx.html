@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">80.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>72/88</span>
+                <span class='fraction'>73/91</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">49.19% </span>
+                <span class="strong">44.04% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>122/248</span>
+                <span class='fraction'>122/277</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.35% </span>
+                <span class="strong">80.68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>70/85</span>
+                <span class='fraction'>71/88</span>
             </div>
         
             
@@ -451,7 +451,16 @@
 <a name='L392'></a><a href='#L392'>392</a>
 <a name='L393'></a><a href='#L393'>393</a>
 <a name='L394'></a><a href='#L394'>394</a>
-<a name='L395'></a><a href='#L395'>395</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<a name='L395'></a><a href='#L395'>395</a>
+<a name='L396'></a><a href='#L396'>396</a>
+<a name='L397'></a><a href='#L397'>397</a>
+<a name='L398'></a><a href='#L398'>398</a>
+<a name='L399'></a><a href='#L399'>399</a>
+<a name='L400'></a><a href='#L400'>400</a>
+<a name='L401'></a><a href='#L401'>401</a>
+<a name='L402'></a><a href='#L402'>402</a>
+<a name='L403'></a><a href='#L403'>403</a>
+<a name='L404'></a><a href='#L404'>404</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -475,6 +484,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
@@ -784,7 +794,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -870,6 +888,7 @@ import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import { EXPRESSION_STRING } from '@pipeline/utils/constants'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../GCRArtifact.module.scss'
@@ -1178,7 +1197,15 @@ export const GCRImagePath: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp;
                         itemRenderer: itemRenderer,
                         allowCreatingNewItems: true
                       },
-                      onFocus: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >fetchTags(formik.values.imagePath, formik.values?.registryHostname)</span>
+                      onFocus: <span class="fstat-no" title="function not covered" >(e</span>: any) =&gt; {
+<span class="cstat-no" title="statement not covered" >                        if (</span>
+                          e?.target?.type !== 'text' ||
+                          (e?.target?.type === 'text' &amp;&amp; e?.target?.placeholder === EXPRESSION_STRING)
+                        ) {
+<span class="cstat-no" title="statement not covered" >                          return</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        fetchTags(formik.values.imagePath, formik.values?.registryHostname)</span>
+                      }
                     }}
                     label={getString('tagLabel')}
                     name="tag"
@@ -1246,7 +1273,7 @@ export const GCRImagePath: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jun 26 2021 07:35:50 GMT+0000 (Greenwich Mean Time)
+                at Sat Jun 26 2021 08:56:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

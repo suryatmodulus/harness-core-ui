@@ -54,8 +54,7 @@ jest.mock('services/cd-ng', () => ({
     })
 }))
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('BuildInfraSpecifications snapshot test', () => {
+describe('BuildInfraSpecifications snapshot test', () => {
   test('initializes ok', async () => {
     const { container } = render(
       <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
@@ -64,7 +63,8 @@ describe.skip('BuildInfraSpecifications snapshot test', () => {
     )
     expect(container).toMatchSnapshot()
   })
-  test('able to select a connector', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('able to select a connector', async () => {
     const { container } = render(
       <TestWrapper pathParams={{ accountId: 'dummy' }}>
         <BuildInfraSpecifications />

@@ -171,7 +171,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
         }
       } else {
         return {
-          connectorRef: '',
+          connectorRef: undefined,
           namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace,
           annotations: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.annotations),
           labels: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.labels)
@@ -179,7 +179,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       }
     } else {
       return {
-        connectorRef: '',
+        connectorRef: undefined,
         namespace: '',
         annotations: '',
         labels: ''
@@ -207,7 +207,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           draft.stage.spec.infrastructure = {
             type: 'KubernetesDirect',
             spec: {
-              connectorRef: values.connectorRef.value,
+              // Avoid accidental overrides for connectorRef
+              connectorRef: values?.connectorRef?.value ?? draft.stage.spec.infrastructure?.spec?.connectorRef,
               namespace: values.namespace,
               annotations: getMapValues(values.annotations),
               labels: !isEmpty(filteredLabels) ? filteredLabels : undefined

@@ -525,7 +525,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -534,6 +533,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -785,51 +785,51 @@ const PurposeList: React.FC = () =&gt; {
   }
 &nbsp;
   return (
-    &lt;Layout.Vertical spacing="large"&gt;
-      &lt;Layout.Horizontal padding={{ top: 'large' }}&gt;
-        &lt;Container width="40%"&gt;
-          &lt;div style={{ borderRight: 'inset', marginLeft: -15 }}&gt;
-            {getOptions().map(option =&gt; {
-              const cardTitle =
-                option.module === 'cf'
-                  ? getString('common.purpose.cf.feature').toUpperCase()
-                  : getString('common.purpose.continuous')
-              return (
-                &lt;Card
-                  key={option.title}
-                  className={cx(css.card, selected === option.module ? css.selected : '')}
-                  onClick={() =&gt; handleModuleSelection(option.module)}
-                &gt;
-                  &lt;Layout.Horizontal spacing="small"&gt;
-                    &lt;Icon name={option.icon} size={25} /&gt;
-                    &lt;div&gt;
-                      &lt;Text font="xsmall"&gt;{cardTitle}&lt;/Text&gt;
-                      &lt;Text font={{ size: 'medium' }} padding={{ bottom: 'large' }} color={Color.BLACK}&gt;
-                        {option.title}
-                      &lt;/Text&gt;
-                    &lt;/div&gt;
-                  &lt;/Layout.Horizontal&gt;
-                  &lt;Text font="small" padding={{ bottom: 'small' }} style={{ minHeight: 70 }}&gt;
-                    {option.description}
-                  &lt;/Text&gt;
+    &lt;div className={css.purposeListGrid}&gt;
+      &lt;Container&gt;
+        &lt;div style={{ borderRight: 'inset', marginLeft: -15 }}&gt;
+          {getOptions().map(option =&gt; {
+            const cardTitle =
+              option.module === 'cf'
+                ? getString('common.purpose.cf.feature').toUpperCase()
+                : getString('common.purpose.continuous')
+            return (
+              &lt;Card
+                key={option.title}
+                className={cx(css.card, selected === option.module ? css.selected : '')}
+                onClick={() =&gt; handleModuleSelection(option.module)}
+              &gt;
+                &lt;Layout.Horizontal spacing="small"&gt;
+                  &lt;Icon name={option.icon} size={25} /&gt;
+                  &lt;div&gt;
+                    &lt;Text font="xsmall" margin={{ bottom: '0' }}&gt;
+                      {cardTitle}
+                    &lt;/Text&gt;
+                    &lt;Text font={{ size: 'medium' }} padding={{ bottom: 'large' }} color={Color.BLACK}&gt;
+                      {option.title}
+                    &lt;/Text&gt;
+                  &lt;/div&gt;
+                &lt;/Layout.Horizontal&gt;
+                &lt;Text font="small" padding={{ bottom: 'small' }} style={{ minHeight: 70 }}&gt;
+                  {option.description}
+                &lt;/Text&gt;
 &nbsp;
-                  &lt;Text font="small" style={{ marginTop: 10 }}&gt;
-                    {getString('common.purpose.setup')}
-                  &lt;/Text&gt;
-                &lt;/Card&gt;
-              )
-            })}
-          &lt;/div&gt;
-        &lt;/Container&gt;
-        &lt;Container width={700} padding={{ left: 'huge', top: 'medium' }}&gt;
-          {selected ? (
-            getModuleInfo(selected)
-          ) : (
-            &lt;Text font={{ size: 'medium', weight: 'semi-bold' }}&gt;{getString('common.purpose.selectAModule')}&lt;/Text&gt;
-          )}
-        &lt;/Container&gt;
-      &lt;/Layout.Horizontal&gt;
-    &lt;/Layout.Vertical&gt;
+                &lt;Text font="small" style={{ marginTop: 10 }}&gt;
+                  {getString('common.purpose.setup')}
+                &lt;/Text&gt;
+              &lt;/Card&gt;
+            )
+          })}
+        &lt;/div&gt;
+      &lt;/Container&gt;
+      &lt;Container padding={{ left: 'huge', top: 'medium' }}&gt;
+        {selected ? (
+          getModuleInfo(selected)
+        ) : (
+          &lt;Text font={{ size: 'medium', weight: 'semi-bold' }}&gt;{getString('common.purpose.selectAModule')}&lt;/Text&gt;
+        )}
+      &lt;/Container&gt;
+    &lt;/div&gt;
   )
 }
 &nbsp;
@@ -841,8 +841,8 @@ export const PurposePage: React.FC = () =&gt; {
   useTelemetry({ pageName: PageNames.Purpose, category: Category.SIGNUP })
 &nbsp;
   return (
-    &lt;Container margin={{ left: 'xxxlarge' }} flex={{ alignItems: 'start' }}&gt;
-      &lt;Layout.Vertical padding={'xxlarge'}&gt;
+    &lt;Container className={css.purposePageContainer} padding="xxxlarge" flex={{ alignItems: 'start' }} height="100%"&gt;
+      &lt;Layout.Vertical padding="xxlarge" spacing="large" width="100%" height="100%"&gt;
         &lt;HarnessLogo height={30} style={{ alignSelf: 'start' }} /&gt;
         &lt;Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ top: 'xxlarge' }}&gt;
           {getString('common.purpose.welcome')}
@@ -859,7 +859,7 @@ export const PurposePage: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jun 26 2021 09:58:07 GMT+0000 (Greenwich Mean Time)
+                at Sun Jun 27 2021 21:54:36 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

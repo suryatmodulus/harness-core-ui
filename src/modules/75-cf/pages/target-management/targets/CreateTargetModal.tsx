@@ -143,12 +143,12 @@ const FileUpload: React.FC<{ onChange: (targets: TargetData[]) => void }> = ({ o
     _createdItems,
     _items
   ) => {
-    setTargets(
-      selectedItems.map(arg => {
-        const { label, value } = arg as { label: string; value: string }
-        return { name: value, identifier: label }
-      })
-    )
+    const updatedTargets = selectedItems.map(arg => {
+      const { label, value } = arg as { label: string; value: string }
+      return { name: value, identifier: label }
+    })
+    setTargets(updatedTargets)
+    onChange(updatedTargets)
   }
 
   return (

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.22% </span>
+                <span class="strong">11.95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/221</span>
+                <span class='fraction'>27/226</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/721</span>
+                <span class='fraction'>0/725</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.75% </span>
+                <span class="strong">12.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/204</span>
+                <span class='fraction'>26/209</span>
             </div>
         
             
@@ -665,7 +665,21 @@
 <a name='L606'></a><a href='#L606'>606</a>
 <a name='L607'></a><a href='#L607'>607</a>
 <a name='L608'></a><a href='#L608'>608</a>
-<a name='L609'></a><a href='#L609'>609</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L609'></a><a href='#L609'>609</a>
+<a name='L610'></a><a href='#L610'>610</a>
+<a name='L611'></a><a href='#L611'>611</a>
+<a name='L612'></a><a href='#L612'>612</a>
+<a name='L613'></a><a href='#L613'>613</a>
+<a name='L614'></a><a href='#L614'>614</a>
+<a name='L615'></a><a href='#L615'>615</a>
+<a name='L616'></a><a href='#L616'>616</a>
+<a name='L617'></a><a href='#L617'>617</a>
+<a name='L618'></a><a href='#L618'>618</a>
+<a name='L619'></a><a href='#L619'>619</a>
+<a name='L620'></a><a href='#L620'>620</a>
+<a name='L621'></a><a href='#L621'>621</a>
+<a name='L622'></a><a href='#L622'>622</a>
+<a name='L623'></a><a href='#L623'>623</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -910,9 +924,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -934,10 +945,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1265,6 +1282,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1272,11 +1290,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { SyntheticEvent } from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button, Icon, Text, Color } from '@wings-software/uicore'
-import { cloneDeep, get, isEmpty, isNil, set, merge } from 'lodash-es'
+import { cloneDeep, get, isEmpty, isNil, set, isArray, mergeWith } from 'lodash-es'
 import cx from 'classnames'
 &nbsp;
 import produce from 'immer'
@@ -1514,10 +1542,7 @@ export const RightDrawer: React.FC = <span class="fstat-no" title="function not 
 <span class="cstat-no" title="statement not covered" >          node.failureStrategies = item.failureStrategies</span>
         }
 <span class="cstat-no" title="statement not covered" >        if (item.delegateSelectors &amp;&amp; item.tab === TabTypes.Advanced) {</span>
-<span class="cstat-no" title="statement not covered" >          node.spec = {</span>
-            ...(node.spec ? node.spec : {}),
-            delegateSelectors: item.delegateSelectors
-          }
+<span class="cstat-no" title="statement not covered" >          set(node, 'spec.delegateSelectors', item.delegateSelectors)</span>
         }
 &nbsp;
         // Delete values if they were already added and now removed
@@ -1535,7 +1560,7 @@ export const RightDrawer: React.FC = <span class="fstat-no" title="function not 
         }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        if (item.spec &amp;&amp; item.tab !== TabTypes.Advanced) {</span>
-<span class="cstat-no" title="statement not covered" >          merge(node.spec, item.spec)</span>
+<span class="cstat-no" title="statement not covered" >          mergeNodeSpec(node.spec, item.spec)</span>
         }
       })
 <span class="cstat-no" title="statement not covered" >      if (data?.stepConfig?.node?.identifier) {</span>
@@ -1544,8 +1569,14 @@ export const RightDrawer: React.FC = <span class="fstat-no" title="function not 
           const stageData = <span class="cstat-no" title="statement not covered" >produce(selectedStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >            updateStepWithinStage(draft.stage.spec.execution, processingNodeIdentifier, processNode)</span>
           })
+          // update view data before updating pipeline because its async
+<span class="cstat-no" title="statement not covered" >          updatePipelineView(</span>
+            produce(pipelineView, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >              set(draft, 'drawerData.data.stepConfig.node', processNode)</span>
+            })
+          )
 <span class="cstat-no" title="statement not covered" >          await updateStage(stageData.stage)</span>
-<span class="cstat-no" title="statement not covered" >          data.stepConfig.node = processNode</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >          data?.stepConfig?.onUpdate?.(processNode)</span>
         } else <span class="cstat-no" title="statement not covered" >if (</span>
           drawerType === DrawerTypes.ProvisionerStepConfig &amp;&amp;
@@ -1605,7 +1636,7 @@ export const RightDrawer: React.FC = <span class="fstat-no" title="function not 
 <span class="cstat-no" title="statement not covered" >        if (item.identifier) <span class="cstat-no" title="statement not covered" >serviceDependency.identifier = item.identifier</span></span>
 <span class="cstat-no" title="statement not covered" >        if (item.name) <span class="cstat-no" title="statement not covered" >serviceDependency.name = item.name</span></span>
 <span class="cstat-no" title="statement not covered" >        if (item.description) <span class="cstat-no" title="statement not covered" >serviceDependency.description = item.description</span></span>
-<span class="cstat-no" title="statement not covered" >        if (item.spec) <span class="cstat-no" title="statement not covered" >merge(serviceDependency.spec, item.spec)</span></span>
+<span class="cstat-no" title="statement not covered" >        if (item.spec) <span class="cstat-no" title="statement not covered" >mergeNodeSpec(serviceDependency.spec, item.spec)</span></span>
         // Delete values if they were already added and now removed
 <span class="cstat-no" title="statement not covered" >        if (node.description &amp;&amp; !item.description) <span class="cstat-no" title="statement not covered" >delete node.description</span></span>
 &nbsp;
@@ -1881,6 +1912,17 @@ export const RightDrawer: React.FC = <span class="fstat-no" title="function not 
     &lt;/Drawer&gt;
   )
 }
+&nbsp;
+function <span class="fstat-no" title="function not covered" >mergeNodeSpecCustomizer(</span>oldVal: any, newVal: any): any {
+<span class="cstat-no" title="statement not covered" >  if (isArray(oldVal) || isArray(newVal)) {</span>
+<span class="cstat-no" title="statement not covered" >    return isArray(newVal) ? newVal.slice(0) : undefined</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return undefined</span>
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >mergeNodeSpec(</span>oldNodeSpec: any, newNodeSpec: any): any {
+<span class="cstat-no" title="statement not covered" >  return mergeWith(oldNodeSpec, newNodeSpec, mergeNodeSpecCustomizer)</span>
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -1888,7 +1930,7 @@ export const RightDrawer: React.FC = <span class="fstat-no" title="function not 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 28 2021 10:07:26 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 28 2021 11:11:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

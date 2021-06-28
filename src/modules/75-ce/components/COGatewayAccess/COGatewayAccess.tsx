@@ -31,8 +31,6 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const [selectedHelpTextSections, setSelectedHelpTextSections] = useState<string[]>([])
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
   const selectTab = (tabId: string) => {
-    console.log({ tabId })
-    console.log({ selectedTabId })
     setSelectedTabId(tabId)
   }
 

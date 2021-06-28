@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.1% </span>
+                <span class="strong">87.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/31</span>
+                <span class='fraction'>29/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.01% </span>
+                <span class="strong">48.98% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>101/187</span>
+                <span class='fraction'>96/196</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.67% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/30</span>
+                <span class='fraction'>28/32</span>
             </div>
         
             
@@ -223,7 +223,13 @@
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -322,9 +328,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">52x</span>
-<span class="cline-any cline-yes">52x</span>
-<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -391,9 +403,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Layout, getMultiTypeFromValue, MultiTypeInputType, Text, Icon, Color, IconName } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
+import { isEmpty, get } from 'lodash-es'
 import cx from 'classnames'
-import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
+import type { DeploymentStageConfig, NgPipeline, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 &nbsp;
@@ -413,7 +425,7 @@ import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/Pi
 import css from './PipelineInputSetForm.module.scss'
 &nbsp;
 export interface PipelineInputSetFormProps {
-  originalPipeline: PipelineInfoConfig
+  originalPipeline: NgPipeline
   template: PipelineInfoConfig
   path?: string
   readonly?: boolean
@@ -490,16 +502,21 @@ function StageForm({
 export const PipelineInputSetForm: React.FC&lt;PipelineInputSetFormProps&gt; = props =&gt; {
   const { originalPipeline, template, path = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> readonly } = props
   const { getString } = useStrings()
+&nbsp;
+  const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tages<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ome(stage =&gt;
+    get(stage, 'stage.spec.cloneCodebase')
+  )
+&nbsp;
   return (
     &lt;PipelineVariablesContextProvider pipeline={originalPipeline}&gt;
       &lt;Layout.Vertical spacing="medium" padding="xlarge" className={css.container}&gt;
-        {(originalPipeline as any)<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ariables?.length &gt; 0 &amp;&amp; (
+        {(template as any)<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ariables?.length &gt; 0 &amp;&amp; (
           &lt;&gt;
             &lt;div className={css.subheading}&gt;{getString('customVariables.pipelineVariablesTitle')}&lt;/div&gt;
             &lt;StepWidget&lt;CustomVariablesData, CustomVariableInputSetExtraProps&gt;
               factory={(factory as unknown) as AbstractStepFactory}
               initialValues={{
-                variables: (originalPipeline.variables || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span> as AllNGVariables[],
+                variables: (originalPipeline.variables || []) as AllNGVariables[],
                 canAddVariable: true
               }}
               readonly={readonly}
@@ -512,13 +529,14 @@ export const PipelineInputSetForm: React.FC&lt;PipelineInputSetFormProps&gt; = p
             /&gt;
           &lt;/&gt;
         )}
-        {getMultiTypeFromValue((template<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>roperties<span class="branch-1 cbranch-no" title="branch not covered" >?.ci<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.codebase<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.build as unknown) as string)</span> ===
-          MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;&gt;</span>
-            &lt;div className={css.subheading}&gt;{getString('ciCodebase')}&lt;/div&gt;
-            &lt;CICodebaseInputSetForm path={path} readonly={readonly} /&gt;
-          &lt;/&gt;
-        )}
+        {isCloneCodebaseEnabledAtLeastAtOneStage &amp;&amp;
+<span class="branch-1 cbranch-no" title="branch not covered" >          getMultiTypeFromValue((template?.properties?.ci?.codebase?.build as unknown) as string) ===</span>
+            MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >            &lt;&gt;</span>
+              &lt;div className={css.subheading}&gt;{getString('ciCodebase')}&lt;/div&gt;
+              &lt;CICodebaseInputSetForm path={path} readonly={readonly} /&gt;
+            &lt;/&gt;
+          )}
         &lt;&gt;
           {template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tages?.map((stageObj, index) =&gt; {
             const pathPrefix = !isEmpty(path) ? `${path}.` : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
@@ -562,7 +580,7 @@ export const PipelineInputSetForm: React.FC&lt;PipelineInputSetFormProps&gt; = p
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 28 2021 13:35:01 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 28 2021 15:56:43 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

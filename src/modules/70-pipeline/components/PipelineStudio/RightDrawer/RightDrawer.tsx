@@ -411,7 +411,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       ) : null}
       {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
-          key={`step-form-${data.stepConfig.node.identifier}`}
           step={data.stepConfig.node}
           isReadonly={isReadonly}
           ref={formikRef}

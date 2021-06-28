@@ -19,10 +19,10 @@ fi
 for KEY in ${KEYS}
 do
     echo Updating JIRA: $KEY
-    curl \
-       -X PUT \
-       --data "{ \"fields\" : { \"${FIELD_ID}\" : \"${VERSION}00\" }}" \
-       -H "Content-Type: application/json" \
-       https://harness.atlassian.net/rest/api/2/issue/${KEY} \
-       --user $JIRA_USERNAME:$JIRA_PASSWORD
+    # curl \
+    #    -X PUT \
+    #    --data "{ \"fields\" : { \"${FIELD_ID}\" : \"${VERSION}00\" }}" \
+    #    -H "Content-Type: application/json" \
+    #    https://harness.atlassian.net/rest/api/2/issue/${KEY} \
+    #    --user $JIRA_USERNAME:$JIRA_PASSWORD
 done

@@ -6,6 +6,7 @@ import { Project, useGetProject, useGetCurrentUserInfo, UserInfo, isGitSyncEnabl
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useToaster } from '@common/exports'
 
 export type FeatureFlagMap = Record<string, boolean>
 
@@ -45,12 +46,14 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     isGitSyncEnabled: false
   })
 
+  const { showError } = useToaster()
+
   const { data: featureFlags, loading: featureFlagsLoading } = useGetFeatureFlags({
     accountId,
     pathParams: { accountId }
   })
 
-  const { refetch, data: project } = useGetProject({
+  const { refetch, data: project, error: errorFetchingProjectDetails } = useGetProject({
     identifier: projectIdentifier,
     queryParams: {
       accountIdentifier: accountId,
@@ -60,6 +63,13 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
   })
 
   const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({})
+
+  useEffect(() => {
+    const toasterMessage = (errorFetchingProjectDetails?.data as any)?.message || errorFetchingProjectDetails?.message
+    if (toasterMessage) {
+      showError(toasterMessage)
+    }
+  }, [errorFetchingProjectDetails])
 
   // update feature flags in context
   useEffect(() => {

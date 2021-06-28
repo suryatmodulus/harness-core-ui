@@ -187,11 +187,9 @@ co:
   ipAddressSetup:
     'This is just placeholder text. You can customize the domain name for your AutoStopping Rule. Domain name
     should be entered without prefixing the scheme.'
-  sshSetup: 'This is just placeholder text. You can customize the domain name for your AutoStopping Rule.
-    Domain name should be entered without prefixing the scheme. A Rule can have multiple URLs. You can enter comma
-    separated values into Custom domain field to support multiple URLs.'
+  sshSetup: 'Please download the matching harness client from the drop down below for your machine'
   gatewayAccess:
-    subtitle: 'Now that you have configured the Rule, choose how you would like to access the resources managed by this rule.'
+    subtitle: 'Now that you have configured the Rule, configure how you would access the resources managed by this rule.'
     accessDescription: 'Select how you would like to access the resources managed by this Rule'
     dnsLink: 'DNS Link'
     dnsLinkHeader: 'A DNS Link lets you access the resources managed by this Rule using a URL'

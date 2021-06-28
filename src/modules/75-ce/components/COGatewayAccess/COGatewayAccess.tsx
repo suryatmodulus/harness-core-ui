@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Heading, Container, Layout, Checkbox, Icon, Tabs, Tab, Button } from '@wings-software/uicore'
+import { Heading, Container, Layout, Tabs, Tab, Button } from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import { Drawer } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -7,7 +7,7 @@ import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import DNSLinkSetup from './DNSLinkSetup'
 import SSHSetup from './SSHSetup'
 import IPSetup from './IPAddressSetup'
-import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/models'
+import type { GatewayDetails } from '../COCreateGateway/models'
 // import COFixedDrawer from './COFixedDrawer'
 import css from './COGatewayAccess.module.scss'
 
@@ -19,22 +19,20 @@ interface COGatewayAccessProps {
 }
 const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const { getString } = useStrings()
-  const [accessDetails, setAccessDetails] = useState<ConnectionMetadata>(
-    props.gatewayDetails.metadata.access_details // eslint-disable-line
-      ? (props.gatewayDetails.metadata.access_details as ConnectionMetadata) // eslint-disable-line
-      : {
-          dnsLink: { selected: false },
-          ssh: { selected: false },
-          rdp: { selected: false },
-          backgroundTasks: { selected: false },
-          ipaddress: { selected: false }
-        }
-  )
-  const [selectedTabId, setSelectedTabId] = useState<string>('')
+  const accessDetails = {
+    dnsLink: { selected: true },
+    ssh: { selected: true },
+    rdp: { selected: false },
+    backgroundTasks: { selected: false },
+    ipaddress: { selected: false }
+  }
+  const [selectedTabId, setSelectedTabId] = useState<string>('dns')
   const [selectedHelpText, setSelectedHelpText] = useState<string>('')
   const [selectedHelpTextSections, setSelectedHelpTextSections] = useState<string[]>([])
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
   const selectTab = (tabId: string) => {
+    console.log({ tabId })
+    console.log({ selectedTabId })
     setSelectedTabId(tabId)
   }
 
@@ -72,27 +70,27 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
 
     props.gatewayDetails.metadata.access_details = accessDetails // eslint-disable-line
     props.setGatewayDetails(props.gatewayDetails)
-    if (accessDetails.dnsLink.selected) {
-      setSelectedTabId('dns')
-      return
-    }
-    if (accessDetails.ssh.selected) {
-      setSelectedTabId('ssh')
-      return
-    }
-    if (accessDetails.ipaddress.selected) {
-      setSelectedTabId('ip')
-      return
-    }
-    if (accessDetails.rdp.selected) {
-      setSelectedTabId('rdp')
-      return
-    }
-    if (accessDetails.backgroundTasks.selected) {
-      setSelectedTabId('bg')
-      return
-    }
-    setSelectedTabId('')
+    // if (accessDetails.dnsLink.selected) {
+    //   setSelectedTabId('dns')
+    //   return
+    // }
+    // if (accessDetails.ssh.selected) {
+    //   setSelectedTabId('ssh')
+    //   return
+    // }
+    // if (accessDetails.ipaddress.selected) {
+    //   setSelectedTabId('ip')
+    //   return
+    // }
+    // if (accessDetails.rdp.selected) {
+    //   setSelectedTabId('rdp')
+    //   return
+    // }
+    // if (accessDetails.backgroundTasks.selected) {
+    //   setSelectedTabId('bg')
+    //   return
+    // }
+    // setSelectedTabId('')
   }, [
     accessDetails,
     props.gatewayDetails.customDomains,
@@ -160,15 +158,15 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
             {getString('ce.co.gatewayAccess.subtitle')}
           </Heading>
         </Layout.Vertical>
-        <Layout.Vertical spacing="small" padding="medium">
-          <Layout.Horizontal spacing="small">
+        {/* <Layout.Vertical spacing="small" padding="medium"> */}
+        {/* <Layout.Horizontal spacing="small">
             <Heading level={3} font={{ weight: 'light' }} className={css.setupAccessSubHeading}>
               {getString('ce.co.gatewayAccess.accessDescription')}
             </Heading>
             <Icon name="info" style={{ cursor: 'pointer' }} onClick={() => setDrawerOpen(true)}></Icon>
           </Layout.Horizontal>
-          <Layout.Horizontal spacing="xxxlarge">
-            <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-small)' }}>
+          <Layout.Horizontal spacing="xxxlarge"> */}
+        {/* <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-small)' }}>
               <Checkbox
                 id="DNSLink"
                 label="DNS Link"
@@ -189,8 +187,8 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 className={css.checkbox}
                 defaultChecked={accessDetails.ssh.selected}
               />
-            </Layout.Vertical>
-            {/* <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
+            </Layout.Vertical> */}
+        {/* <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
               <Checkbox
                 label="Background Tasks"
                 className={css.checkbox}
@@ -210,8 +208,8 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 }}
               />
             </Layout.Vertical> */}
-          </Layout.Horizontal>
-        </Layout.Vertical>
+        {/* </Layout.Horizontal> */}
+        {/* </Layout.Vertical> */}
         <Container className={css.setupTab}>
           <Tabs id="setupTabs" selectedTabId={selectedTabId} onChange={selectTab}>
             {accessDetails.dnsLink.selected ? (

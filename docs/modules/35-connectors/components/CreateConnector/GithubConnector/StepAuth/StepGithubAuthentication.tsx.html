@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.1% </span>
+                <span class="strong">93.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>54/58</span>
+                <span class='fraction'>55/59</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.1% </span>
+                <span class="strong">93.22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>54/58</span>
+                <span class='fraction'>55/59</span>
             </div>
         
             
@@ -375,7 +375,17 @@
 <a name='L316'></a><a href='#L316'>316</a>
 <a name='L317'></a><a href='#L317'>317</a>
 <a name='L318'></a><a href='#L318'>318</a>
-<a name='L319'></a><a href='#L319'>319</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">88x</span>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a>
+<a name='L325'></a><a href='#L325'>325</a>
+<a name='L326'></a><a href='#L326'>326</a>
+<a name='L327'></a><a href='#L327'>327</a>
+<a name='L328'></a><a href='#L328'>328</a>
+<a name='L329'></a><a href='#L329'>329</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">88x</span>
 <span class="cline-any cline-yes">88x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -391,6 +401,10 @@
 <span class="cline-any cline-yes">88x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">88x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -645,6 +659,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -692,6 +711,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">88x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
 import {
@@ -708,7 +728,11 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-import { setupGithubFormData, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import {
+  setupGithubFormData,
+  GitConnectionType,
+  saveCurrentStepData
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 &nbsp;
@@ -958,53 +982,59 @@ const StepGithubAuthentication: React.FC&lt;
         })}
         onSubmit={handleSubmit}
       &gt;
-        {formikProps =&gt; (
-          &lt;Form&gt;
-            &lt;Container className={css.stepFormWrapper}&gt;
-              {formikProps.values.connectionType === GitConnectionType.SSH ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                &lt;Container width={'52%'}&gt;</span>
-                  &lt;Text font={{ weight: 'bold' }} className={css.authTitle}&gt;
-                    {getString('authentication')}
-                  &lt;/Text&gt;
-                  &lt;SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} /&gt;
-                &lt;/Container&gt;
-              ) : (
-                &lt;Container width={'52%'}&gt;
-                  &lt;Container className={css.authHeaderRow}&gt;
-                    &lt;Text className={css.authTitle} inline&gt;
+        {formikProps =&gt; {
+          saveCurrentStepData&lt;ConnectorInfoDTO&gt;(
+            props.getCurrentStepData,
+            (formikProps.values as unknown) as ConnectorInfoDTO
+          )
+          return (
+            &lt;Form&gt;
+              &lt;Container className={css.stepFormWrapper}&gt;
+                {formikProps.values.connectionType === GitConnectionType.SSH ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >                  &lt;Container width={'52%'}&gt;</span>
+                    &lt;Text font={{ weight: 'bold' }} className={css.authTitle}&gt;
                       {getString('authentication')}
                     &lt;/Text&gt;
-                    &lt;FormInput.Select
-                      name="authType"
-                      items={authOptions}
-                      disabled={false}
-                      className={commonStyles.authTypeSelect}
-                    /&gt;
+                    &lt;SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} /&gt;
                   &lt;/Container&gt;
+                ) : (
+                  &lt;Container width={'52%'}&gt;
+                    &lt;Container className={css.authHeaderRow}&gt;
+                      &lt;Text className={css.authTitle} inline&gt;
+                        {getString('authentication')}
+                      &lt;/Text&gt;
+                      &lt;FormInput.Select
+                        name="authType"
+                        items={authOptions}
+                        disabled={false}
+                        className={commonStyles.authTypeSelect}
+                      /&gt;
+                    &lt;/Container&gt;
 &nbsp;
-                  &lt;RenderGithubAuthForm {...formikProps} /&gt;
-                &lt;/Container&gt;
-              )}
+                    &lt;RenderGithubAuthForm {...formikProps} /&gt;
+                  &lt;/Container&gt;
+                )}
 &nbsp;
-              &lt;FormInput.CheckBox
-                name="enableAPIAccess"
-                label={getString('common.git.enableAPIAccess')}
-                padding={{ left: 'xxlarge' }}
-              /&gt;
-              {formikProps.values.enableAPIAccess ? &lt;RenderAPIAccessFormWrapper {...formikProps} /&gt; : null}
-            &lt;/Container&gt;
+                &lt;FormInput.CheckBox
+                  name="enableAPIAccess"
+                  label={getString('common.git.enableAPIAccess')}
+                  padding={{ left: 'xxlarge' }}
+                /&gt;
+                {formikProps.values.enableAPIAccess ? &lt;RenderAPIAccessFormWrapper {...formikProps} /&gt; : null}
+              &lt;/Container&gt;
 &nbsp;
-            &lt;Layout.Horizontal padding={{ top: 'small' }} spacing="medium"&gt;
-              &lt;Button
-                text={getString('back')}
-                icon="chevron-left"
-                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >props?.previousStep?.(props?.prevStepData)}</span>
-                data-name="githubBackButton"
-              /&gt;
-              &lt;Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" /&gt;
-            &lt;/Layout.Horizontal&gt;
-          &lt;/Form&gt;
-        )}
+              &lt;Layout.Horizontal padding={{ top: 'small' }} spacing="medium"&gt;
+                &lt;Button
+                  text={getString('back')}
+                  icon="chevron-left"
+                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >props?.previousStep?.(props?.prevStepData)}</span>
+                  data-name="githubBackButton"
+                /&gt;
+                &lt;Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" /&gt;
+              &lt;/Layout.Horizontal&gt;
+            &lt;/Form&gt;
+          )
+        }}
       &lt;/Formik&gt;
     &lt;/Layout.Vertical&gt;
   )
@@ -1018,7 +1048,7 @@ export default StepGithubAuthentication
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 28 2021 11:11:41 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 28 2021 11:58:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

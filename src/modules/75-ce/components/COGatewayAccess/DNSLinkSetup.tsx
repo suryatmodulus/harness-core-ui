@@ -11,7 +11,6 @@ import {
   SelectOption,
   Container,
   Select,
-  Checkbox,
   Button,
   Icon
 } from '@wings-software/uicore'
@@ -34,7 +33,7 @@ import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useGatewayContext } from '@ce/context/GatewayContext'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
-import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
+import type { CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
 import { cleanupForHostName } from '../COGatewayList/Utils'
 import { Utils } from '../../common/Utils'
 import LoadBalancerDnsConfig from './LoadBalancerDnsConfig'
@@ -70,7 +69,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     orgIdentifier: string
     projectIdentifier: string
   }>()
-  const accessDetails = props.gatewayDetails.metadata.access_details as ConnectionMetadata // eslint-disable-line
   const customDomainProviderDetails = props.gatewayDetails.metadata.custom_domain_providers as CustomDomainDetails // eslint-disable-line
   const { data: hostedZones, loading: hostedZonesLoading, refetch: loadHostedZones } = useAllHostedZones({
     org_id: orgIdentifier, // eslint-disable-line
@@ -442,7 +440,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         initialValues={{
           usingCustomDomain: props.gatewayDetails.customDomains?.length ? 'yes' : 'no',
           customURL: props.gatewayDetails.customDomains?.join(','),
-          publicallyAccessible: (accessDetails.dnsLink.public as string) || 'yes',
           dnsProvider: customDomainProviderDetails
             ? customDomainProviderDetails.route53
               ? 'route53'
@@ -576,20 +573,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                     disabled={formik.values.usingCustomDomain != 'yes'}
                   />
                 </Layout.Horizontal>
-                <Checkbox
-                  name="publicallyAccessible"
-                  label={'This url is publicly accessible'}
-                  onChange={() => {
-                    const cbVal = Utils.booleanToString(formik.values.publicallyAccessible !== 'yes')
-                    formik.setFieldValue('publicallyAccessible', cbVal)
-                    accessDetails.dnsLink.public = cbVal
-                    const updatedGatewayDetails = { ...props.gatewayDetails }
-                    updatedGatewayDetails.metadata.access_details = accessDetails // eslint-disable-line
-                    props.setGatewayDetails(updatedGatewayDetails)
-                  }}
-                  checked={formik.values.publicallyAccessible === 'yes'}
-                  className={css.publicAccessibleCheckboxContainer}
-                />
               </Container>
 
               {formik.values.customURL && isAwsProvider && (

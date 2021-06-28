@@ -201,19 +201,6 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
                   </div>
                 </div>
               </div>
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox publicAccessibleCheckboxContainer StyledProps--main"
-              >
-                <input
-                  checked=""
-                  name="publicallyAccessible"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                This url is publicly accessible
-              </label>
             </div>
             
           </div>
@@ -425,19 +412,6 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                   </div>
                 </div>
               </div>
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox publicAccessibleCheckboxContainer StyledProps--main"
-              >
-                <input
-                  checked=""
-                  name="publicallyAccessible"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                This url is publicly accessible
-              </label>
             </div>
             
           </div>
@@ -649,19 +623,6 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                   </div>
                 </div>
               </div>
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox publicAccessibleCheckboxContainer StyledProps--main"
-              >
-                <input
-                  checked=""
-                  name="publicallyAccessible"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                This url is publicly accessible
-              </label>
             </div>
             
           </div>
@@ -873,19 +834,6 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                   </div>
                 </div>
               </div>
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox publicAccessibleCheckboxContainer StyledProps--main"
-              >
-                <input
-                  checked=""
-                  name="publicallyAccessible"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                This url is publicly accessible
-              </label>
             </div>
             
           </div>

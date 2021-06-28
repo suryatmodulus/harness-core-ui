@@ -160,16 +160,28 @@
 <a name='L101'></a><a href='#L101'>101</a>
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">114x</span>
-<span class="cline-any cline-yes">114x</span>
-<span class="cline-any cline-yes">114x</span>
-<span class="cline-any cline-yes">114x</span>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">116x</span>
+<span class="cline-any cline-yes">116x</span>
+<span class="cline-any cline-yes">116x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">114x</span>
-<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">116x</span>
+<span class="cline-any cline-yes">116x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">116x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -256,16 +268,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">116x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Container, Layout, Icon, Color, Text, StepProps } from '@wings-software/uicore'
-import { Link } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 &nbsp;
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
@@ -273,6 +278,16 @@ import css from '../K8sDelegate/CreateK8sDelegate.module.scss'
 &nbsp;
 const CommonProblems: React.FC&lt;StepProps&lt;null&gt;&gt; = () =&gt; {
   const { getString } = useStrings()
+  const troubleshootLink = (
+    &lt;a
+      href="https://ngdocs.harness.io/"
+      target="_blank"
+      rel="noreferrer"
+      style={{ textAlign: 'end', fontSize: '13px' }}
+    &gt;
+      {getString('delegates.delegateNotInstalled.tabs.commonProblems.troubleshoot')}
+    &lt;/a&gt;
+  )
   return (
     &lt;&gt;
       &lt;Layout.Vertical width={630} style={{ padding: '0px var(--spacing-large)' }}&gt;
@@ -287,16 +302,14 @@ const CommonProblems: React.FC&lt;StepProps&lt;null&gt;&gt; = () =&gt; {
         &gt;
           &lt;Icon name="support-troubleshoot" size={18} /&gt;
           &lt;Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }} style={{ lineHeight: '22px' }}&gt;
-            {getString('delegate.delegateNotInstalled.tabs.commonProblems.hereIsWhatYouCanDo')}
+            {getString('delegates.delegateNotInstalled.tabs.commonProblems.hereIsWhatYouCanDo')}
           &lt;/Text&gt;
         &lt;/Layout.Horizontal&gt;
         &lt;Layout.Vertical width={511} style={{ padding: 'var(--spacing-medium) 0px' }}&gt;
           &lt;Text color={Color.BLACK} font={{ weight: 'bold' }}&gt;
-            {getString('delegate.delegateNotInstalled.statusOfCluster')}
+            {getString('delegates.delegateNotInstalled.statusOfCluster')}
           &lt;/Text&gt;
-          &lt;Link to="" href="/" style={{ textAlign: 'end', fontSize: '13px' }}&gt;
-            {getString('delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot')}
-          &lt;/Link&gt;
+          {troubleshootLink}
           &lt;Container
             intent="primary"
             padding="small"
@@ -306,17 +319,15 @@ const CommonProblems: React.FC&lt;StepProps&lt;null&gt;&gt; = () =&gt; {
             flex
             className={css.verificationField}
           &gt;
-            &lt;Text style={{ marginRight: '24px' }}&gt;{getString('delegate.delegateNotInstalled.podCommand')}&lt;/Text&gt;
-            &lt;CopyToClipboard content={getString('delegate.delegateNotInstalled.podCommand')} /&gt;
+            &lt;Text style={{ marginRight: '24px' }}&gt;{getString('delegates.delegateNotInstalled.podCommand')}&lt;/Text&gt;
+            &lt;CopyToClipboard content={getString('delegates.delegateNotInstalled.podCommand')} /&gt;
           &lt;/Container&gt;
         &lt;/Layout.Vertical&gt;
         &lt;Layout.Vertical width={511} style={{ padding: 'var(--spacing-small) 0px' }}&gt;
           &lt;Text color={Color.BLACK} font={{ weight: 'bold' }}&gt;
-            {getString('delegate.delegateNotInstalled.tabs.commonProblems.checkTheDelegateLogs')}
+            {getString('delegates.delegateNotInstalled.tabs.commonProblems.checkTheDelegateLogs')}
           &lt;/Text&gt;
-          &lt;Link to="" href="/" style={{ textAlign: 'end', fontSize: '13px' }}&gt;
-            {getString('delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot')}
-          &lt;/Link&gt;
+          {troubleshootLink}
           &lt;Container
             intent="primary"
             padding="small"
@@ -326,22 +337,20 @@ const CommonProblems: React.FC&lt;StepProps&lt;null&gt;&gt; = () =&gt; {
             flex
             className={css.verificationField}
           &gt;
-            &lt;Text style={{ marginRight: '24px' }}&gt;{getString('delegate.delegateNotInstalled.verifyField2')}&lt;/Text&gt;
-            &lt;CopyToClipboard content={getString('delegate.delegateNotInstalled.verifyField2')} /&gt;
+            &lt;Text style={{ marginRight: '24px' }}&gt;{getString('delegates.delegateNotInstalled.verifyField2')}&lt;/Text&gt;
+            &lt;CopyToClipboard content={getString('delegates.delegateNotInstalled.verifyField2')} /&gt;
           &lt;/Container&gt;
         &lt;/Layout.Vertical&gt;
         &lt;Layout.Horizontal width={511} style={{ padding: 'var(--spacing-small) 0px' }}&gt;
           &lt;Text lineClamp={3} font="normal" color={Color.GREY_700} style={{ lineHeight: '24px' }}&gt;
-            {getString('delegate.delegateNotInstalled.tabs.commonProblems.description1')}
+            {getString('delegates.delegateNotInstalled.tabs.commonProblems.description1')}
           &lt;/Text&gt;
         &lt;/Layout.Horizontal&gt;
         &lt;Layout.Vertical width={511} style={{ padding: 'var(--spacing-small) 0px' }}&gt;
           &lt;Text color={Color.BLACK} font={{ weight: 'bold' }}&gt;
-            {getString('delegate.delegateNotInstalled.tabs.commonProblems.description2')}
+            {getString('delegates.delegateNotInstalled.tabs.commonProblems.description2')}
           &lt;/Text&gt;
-          &lt;Link to="" href="/" style={{ textAlign: 'end', fontSize: '13px' }}&gt;
-            {getString('delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot')}
-          &lt;/Link&gt;
+          {troubleshootLink}
           &lt;Container
             intent="primary"
             padding="small"
@@ -351,13 +360,13 @@ const CommonProblems: React.FC&lt;StepProps&lt;null&gt;&gt; = () =&gt; {
             flex
             className={css.verificationField}
           &gt;
-            &lt;Text style={{ marginRight: '24px' }}&gt;{getString('delegate.delegateNotInstalled.verifyField3')}&lt;/Text&gt;
-            &lt;CopyToClipboard content={getString('delegate.delegateNotInstalled.verifyField3')} /&gt;
+            &lt;Text style={{ marginRight: '24px' }}&gt;{getString('delegates.delegateNotInstalled.verifyField3')}&lt;/Text&gt;
+            &lt;CopyToClipboard content={getString('delegates.delegateNotInstalled.verifyField3')} /&gt;
           &lt;/Container&gt;
         &lt;/Layout.Vertical&gt;
         &lt;Layout.Horizontal width={511} style={{ padding: 'var(--spacing-small) 0px' }}&gt;
           &lt;Text lineClamp={2} font="normal" color={Color.GREY_700} style={{ lineHeight: '24px' }}&gt;
-            {getString('delegate.delegateNotInstalled.tabs.commonProblems.checkEndPoint')}
+            {getString('delegates.delegateNotInstalled.tabs.commonProblems.checkEndPoint')}
           &lt;/Text&gt;
         &lt;/Layout.Horizontal&gt;
       &lt;/Layout.Vertical&gt;
@@ -373,7 +382,7 @@ export default CommonProblems
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 28 2021 06:10:30 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 28 2021 08:16:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

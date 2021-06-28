@@ -1,5 +1,6 @@
 # ------ from Commit List => extract JIRA Tickets
 # [(CCM|CD|CE|DOC|ER|HAR|LE|PL|SEC|SWAT|UI|DX)-[0-9]+]
+echo 'testing swaraj'
 KEYS=`git log --pretty=oneline --abbrev-commit | awk "1;/Branching to release\/{exit}" | grep -o -iE '(CCM|CE|CD|CDC|CDP|CE|CI|CV|DOC|ER|HAR|LE|PL|SEC|SWAT|UI|DX|DEL|CDNG)-[0-9]+' | sort | uniq`
 echo --- List of JIRA ---
 echo $KEYS

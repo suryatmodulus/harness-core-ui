@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.15% </span>
+                <span class="strong">93.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>68/73</span>
+                <span class='fraction'>74/79</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.78% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/41</span>
+                <span class='fraction'>21/42</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.06% </span>
+                <span class="strong">93.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>67/72</span>
+                <span class='fraction'>73/78</span>
             </div>
         
             
@@ -322,7 +322,16 @@
 <a name='L263'></a><a href='#L263'>263</a>
 <a name='L264'></a><a href='#L264'>264</a>
 <a name='L265'></a><a href='#L265'>265</a>
-<a name='L266'></a><a href='#L266'>266</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -526,6 +535,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
@@ -638,7 +656,7 @@ const PurposeList: React.FC = () =&gt; {
   const { trackEvent } = useTelemetry()
 &nbsp;
   const CDNG_OPTIONS: PurposeType = {
-    enabled: true,
+    enabled: true, // Continous delivery is enabled in CG
     title: getString('common.purpose.cd.delivery'),
     icon: 'cd-main',
     description: getString('common.purpose.cd.subtitle'),
@@ -662,7 +680,7 @@ const PurposeList: React.FC = () =&gt; {
 &nbsp;
   const CENG_OPTIONS: PurposeType = {
     enabled: true, // Continous efficiency is enabled in CG
-    title: getString('common.purpose.ce.efficiency'),
+    title: getString('common.purpose.ce.management'),
     icon: 'ce-main',
     description: getString('common.purpose.ce.subtitle'),
     module: 'ce'
@@ -789,10 +807,19 @@ const PurposeList: React.FC = () =&gt; {
       &lt;Container&gt;
         &lt;div style={{ borderRight: 'inset', marginLeft: -15 }}&gt;
           {getOptions().map(option =&gt; {
-            const cardTitle =
-              option.module === 'cf'
-                ? getString('common.purpose.cf.feature').toUpperCase()
-                : getString('common.purpose.continuous')
+            let cardTitle
+            switch (option.module) {
+              case 'cf':
+                cardTitle = getString('common.purpose.cf.feature').toUpperCase()
+                break
+              case 'ce':
+                cardTitle = getString('common.purpose.ce.cloudCost').toUpperCase()
+                break
+              default:
+                cardTitle = getString('common.purpose.continuous')
+                break
+            }
+&nbsp;
             return (
               &lt;Card
                 key={option.title}
@@ -800,7 +827,7 @@ const PurposeList: React.FC = () =&gt; {
                 onClick={() =&gt; handleModuleSelection(option.module)}
               &gt;
                 &lt;Layout.Horizontal spacing="small"&gt;
-                  &lt;Icon name={option.icon} size={25} /&gt;
+                  &lt;Icon name={option.icon} size={25} className={css.icon} /&gt;
                   &lt;div&gt;
                     &lt;Text font="xsmall" margin={{ bottom: '0' }}&gt;
                       {cardTitle}
@@ -859,7 +886,7 @@ export const PurposePage: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 28 2021 18:41:06 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 28 2021 21:34:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

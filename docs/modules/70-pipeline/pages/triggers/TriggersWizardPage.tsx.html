@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.59% </span>
+                <span class="strong">74.35% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>229/307</span>
+                <span class='fraction'>229/308</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.56% </span>
+                <span class="strong">55.91% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>466/870</span>
+                <span class='fraction'>497/889</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.25% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>228/303</span>
+                <span class='fraction'>228/304</span>
             </div>
         
             
@@ -1195,7 +1195,10 @@
 <a name='L1136'></a><a href='#L1136'>1136</a>
 <a name='L1137'></a><a href='#L1137'>1137</a>
 <a name='L1138'></a><a href='#L1138'>1138</a>
-<a name='L1139'></a><a href='#L1139'>1139</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L1139'></a><a href='#L1139'>1139</a>
+<a name='L1140'></a><a href='#L1140'>1140</a>
+<a name='L1141'></a><a href='#L1141'>1141</a>
+<a name='L1142'></a><a href='#L1142'>1142</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1516,8 +1519,7 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1746,10 +1748,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2060,10 +2063,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">70x</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2648,11 +2654,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
           value: sourceBranchValue || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
         })
       }
-      if (
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (
         ((changedFilesOperator &amp;&amp; changedFilesValue<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>rim()) ||
           (<span class="branch-2 cbranch-no" title="branch not covered" >persistIncomplete </span>&amp;&amp; (<span class="branch-3 cbranch-no" title="branch not covered" >changedFilesOperator </span>|| <span class="branch-4 cbranch-no" title="branch not covered" >changedFilesValue?.trim())</span>)) &amp;&amp;
         !payloadConditions.some(pc =&gt; pc.key === PayloadConditionTypes.CHANGED_FILES) &amp;&amp;
-        event !== eventTypes.PUSH &amp;&amp;
         event !== eventTypes.TAG
       ) {
         payloadConditions.unshift({
@@ -2878,20 +2883,21 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
 &nbsp;
         // connectorRef in Visual UI is an object (with the label), but in YAML is a string
         <span class="missing-if-branch" title="else path not taken" >E</span>if (triggerValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef &amp;&amp; typeof triggerValues.connectorRef === 'string') {
-          const connectorRefWithLabel: ConnectorRefInterface = {
+          const connectorRefWithBlankLabel: ConnectorRefInterface = {
             value: triggerValues.connectorRef,
             identifier: triggerValues.connectorRef
           }
 &nbsp;
           <span class="missing-if-branch" title="if path not taken" >I</span>if (triggerYaml &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >connectorData?.data?.connector?.name)</span> {
-            // add back in label from connectorData
             const { connector } = <span class="cstat-no" title="statement not covered" >connectorData.data</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            connectorRefWithLabel.connector = connector</span>
-<span class="cstat-no" title="statement not covered" >            connectorRefWithLabel.label = connector.name</span>
+<span class="cstat-no" title="statement not covered" >            connectorRefWithBlankLabel.connector = connector</span>
+<span class="cstat-no" title="statement not covered" >            connectorRefWithBlankLabel.connector.identifier = triggerValues.connectorRef</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            connectorRefWithBlankLabel.label = '' /</span>/ will fetch details on useEffect
           }
 &nbsp;
-          triggerValues.connectorRef = connectorRefWithLabel
+          triggerValues.connectorRef = connectorRefWithBlankLabel
 &nbsp;
           const connectorParams: GetConnectorQueryParams = {
             accountIdentifier: accountId
@@ -3192,7 +3198,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
 &nbsp;
   const { data: connectorData, refetch: getConnectorDetails } = useGetConnector({
     identifier: getIdentifierFromValue(
-      onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef?.identifier || initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-1 cbranch-no" title="branch not covered" >?.identifier </span>|| ''
+      wizardKey &lt; 1 // wizardKey &gt;1 means we've reset initialValues cause of Yaml Switching (onEdit or new) and should use those formik values instead
+        ? onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef?.identifier || ''
+        : initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-1 cbranch-no" title="branch not covered" >?.identifier </span>|| ''
     ),
     queryParams: connectorScopeParams,
     lazy: true
@@ -3204,7 +3212,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
     } else if (
       initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef?.value &amp;&amp;
       (!initialValues.connectorRef.label ||
-        initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier !== connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier)
+        (connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier &amp;&amp;
+          !initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier)))
     ) {
       // need to get label due to switching from yaml to visual
       getConnectorDetails()
@@ -3212,7 +3221,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
   }, [onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef?.identifier, connectorScopeParams, initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef])
 &nbsp;
   useEffect(() =&gt; {
-    if (connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame &amp;&amp; onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef?.identifier) {
+    if (connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame &amp;&amp; onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef?.identifier &amp;&amp; wizardKey &lt; 1) {
       // Assigns label on Visual mode for onEdit
       const { connector, status } = connectorData.data
       const connectorRef: ConnectorRefInterface = {
@@ -3224,7 +3233,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier) {
         setOnEditInitialValues({ ...onEditInitialValues, connectorRef })
       }
-    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (wizardKey &gt; 0 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >connectorData?.data?.connector?.name </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >initialValues?.connectorRef?.identifier)</span> {
+    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame &amp;&amp; initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-1 cbranch-no" title="branch not covered" >?.identifier)</span> {
       // means we switched from yaml to visual and need to get the label
       const { connector, status } = <span class="cstat-no" title="statement not covered" >connectorData.data</span>
       const connectorRef: ConnectorRefInterface = <span class="cstat-no" title="statement not covered" >{</span>
@@ -3478,7 +3487,7 @@ export default TriggersWizardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 28 2021 18:41:06 GMT+0000 (Greenwich Mean Time)
+                at Mon Jun 28 2021 21:34:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

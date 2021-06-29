@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.47% </span>
+                <span class="strong">73.08% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/47</span>
+                <span class='fraction'>38/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.7% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>40/67</span>
+                <span class='fraction'>42/70</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/44</span>
+                <span class='fraction'>35/49</span>
             </div>
         
             
@@ -247,7 +247,19 @@
 <a name='L188'></a><a href='#L188'>188</a>
 <a name='L189'></a><a href='#L189'>189</a>
 <a name='L190'></a><a href='#L190'>190</a>
-<a name='L191'></a><a href='#L191'>191</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">254x</span>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">254x</span>
 <span class="cline-any cline-yes">254x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">254x</span>
@@ -265,6 +277,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">254x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -285,6 +300,9 @@
 <span class="cline-any cline-yes">777x</span>
 <span class="cline-any cline-yes">777x</span>
 <span class="cline-any cline-yes">777x</span>
+<span class="cline-any cline-yes">777x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">254x</span>
@@ -309,6 +327,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -398,6 +417,8 @@
 <span class="cline-any cline-yes">254x</span>
 <span class="cline-any cline-yes">733x</span>
 <span class="cline-any cline-yes">733x</span>
+<span class="cline-any cline-yes">733x</span>
+<span class="cline-any cline-yes">733x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -420,6 +441,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">254x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -441,7 +465,7 @@
 import { Container, FormInput, Icon, Label, Color } from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import { isEmpty } from 'lodash-es'
-import type { ITagInputProps } from '@blueprintjs/core'
+import type { IInputGroupProps, ITagInputProps } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
@@ -458,6 +482,7 @@ import css from './NameIdDescriptionTags.module.scss'
 &nbsp;
 export interface NameIdDescriptionTagsProps {
   identifierProps?: Omit&lt;InputWithIdentifierProps, 'formik'&gt;
+  inputGroupProps?: IInputGroupProps
   descriptionProps?: DescriptionProps
   tagsProps?: Partial&lt;ITagInputProps&gt; &amp; {
     isOption?: boolean
@@ -468,13 +493,18 @@ export interface NameIdDescriptionTagsProps {
 &nbsp;
 interface NameIdProps {
   nameLabel?: string // Strong default preference for "Name" vs. Contextual Name (e.g. "Service Name") unless approved otherwise
+  namePlaceholder?: string
   identifierProps?: Omit&lt;InputWithIdentifierProps, 'formik'&gt;
+  inputGroupProps?: IInputGroupProps
 }
 &nbsp;
 export const NameId = (props: NameIdProps): JSX.Element =&gt; {
   const { getString } = useStrings()
-  const { identifierProps, nameLabel = getString('name') } = props
-  return &lt;FormInput.InputWithIdentifier inputLabel={nameLabel} {...identifierProps} /&gt;
+  const { identifierProps, nameLabel = getString('name'), inputGroupProps = {} } = props
+  const newInputGroupProps = { placeholder: getString('common.namePlaceholder'), ...inputGroupProps }
+  return (
+    &lt;FormInput.InputWithIdentifier inputLabel={nameLabel} inputGroupProps={newInputGroupProps} {...identifierProps} /&gt;
+  )
 }
 &nbsp;
 export const Description = (props: DescriptionComponentProps): JSX.Element =&gt; {
@@ -509,6 +539,7 @@ export const Description = (props: DescriptionComponentProps): JSX.Element =&gt;
           disabled={disabled}
           autoFocus={isDescriptionFocus}
           name="description"
+          placeholder={getString('common.descriptionPlaceholder')}
           {...restDescriptionProps}
         /&gt;
       )}
@@ -586,10 +617,12 @@ function <span class="fstat-no" title="function not covered" >TagsDeprecated(</s
 }
 &nbsp;
 export function NameIdDescriptionTags(props: NameIdDescriptionTagsProps): JSX.Element {
-  const { className, identifierProps, descriptionProps, tagsProps, formikProps } = props
+  const { getString } = useStrings()
+  const { className, identifierProps, descriptionProps, tagsProps, formikProps, inputGroupProps = {} } = props
+  const newInputGroupProps = { placeholder: getString('common.namePlaceholder'), ...inputGroupProps }
   return (
     &lt;Container className={cx(css.main, className)}&gt;
-      &lt;NameId identifierProps={identifierProps} /&gt;
+      &lt;NameId identifierProps={identifierProps} inputGroupProps={newInputGroupProps} /&gt;
       &lt;Description descriptionProps={descriptionProps} hasValue={!!formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues.description} /&gt;
       &lt;Tags tagsProps={tagsProps} isOptional={tagsProps?.isOption} hasValue={!isEmpty(formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues.tags)} /&gt;
     &lt;/Container&gt;
@@ -609,10 +642,13 @@ export function <span class="fstat-no" title="function not covered" >NameIdDescr
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >NameIdDescription(</span>props: NameIdDescriptionProps): JSX.Element {
-  const { className, identifierProps, descriptionProps, formikProps } = <span class="cstat-no" title="statement not covered" >props</span>
+  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+  const { className, identifierProps, descriptionProps, formikProps, inputGroupProps = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = <span class="cstat-no" title="statement not covered" >props</span>
+  const newInputGroupProps = <span class="cstat-no" title="statement not covered" >{ placeholder: getString('common.namePlaceholder'), ...inputGroupProps }</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Container className={cx(css.main, className)}&gt;
-      &lt;NameId identifierProps={identifierProps} /&gt;
+      &lt;NameId identifierProps={identifierProps} inputGroupProps={newInputGroupProps} /&gt;
       &lt;Description descriptionProps={descriptionProps} hasValue={!!formikProps?.values.description} /&gt;
     &lt;/Container&gt;
   )
@@ -634,7 +670,7 @@ export function DescriptionTags(props: Omit&lt;NameIdDescriptionTagsProps, 'iden
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 28 2021 21:34:52 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 29 2021 00:35:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

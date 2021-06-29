@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.35% </span>
+                <span class="strong">73.87% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>229/308</span>
+                <span class='fraction'>229/310</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">79.17% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>36/44</span>
+                <span class='fraction'>38/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">74.51% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>228/304</span>
+                <span class='fraction'>228/306</span>
             </div>
         
             
@@ -1198,7 +1198,12 @@
 <a name='L1139'></a><a href='#L1139'>1139</a>
 <a name='L1140'></a><a href='#L1140'>1140</a>
 <a name='L1141'></a><a href='#L1141'>1141</a>
-<a name='L1142'></a><a href='#L1142'>1142</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L1142'></a><a href='#L1142'>1142</a>
+<a name='L1143'></a><a href='#L1143'>1143</a>
+<a name='L1144'></a><a href='#L1144'>1144</a>
+<a name='L1145'></a><a href='#L1145'>1145</a>
+<a name='L1146'></a><a href='#L1146'>1146</a>
+<a name='L1147'></a><a href='#L1147'>1147</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1247,6 +1252,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1566,12 +1572,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -1616,8 +1622,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2393,6 +2403,7 @@ import {
   ciCodebaseBuild,
   getConnectorName,
   getConnectorValue,
+  isRowFilled,
   CUSTOM
 } from './utils/TriggersWizardPageUtils'
 import {
@@ -2706,13 +2717,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
         inputYaml: stringifyPipelineRuntimeInput
       }
       <span class="missing-if-branch" title="else path not taken" >E</span>if (triggerYaml.source<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec) {
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (!isEmpty(payloadConditions)) {
-          triggerYaml.source.spec.spec.spec.payloadConditions = payloadConditions
-        }
+        triggerYaml.source.spec.spec.spec.payloadConditions = persistIncomplete
+          ? <span class="branch-0 cbranch-no" title="branch not covered" >payloadConditions</span>
+          : payloadConditions.filter(payloadCondition =&gt; isRowFilled(payloadCondition))
 &nbsp;
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (!isEmpty(headerConditions)) {
-          triggerYaml.source.spec.spec.spec.headerConditions = headerConditions
-        }
+        triggerYaml.source.spec.spec.spec.headerConditions = persistIncomplete
+          ? <span class="branch-0 cbranch-no" title="branch not covered" >headerConditions</span>
+          : headerConditions.filter(headerCondition =&gt; isRowFilled(headerCondition))
 &nbsp;
         <span class="missing-if-branch" title="else path not taken" >E</span>if (jexlCondition) {
           triggerYaml.source.spec.spec.spec.jexlCondition = jexlCondition
@@ -2754,12 +2765,16 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
 <span class="cstat-no" title="statement not covered" >        triggerYaml.source.spec.spec = { authToken: { type: 'inline', spec: { value: secureToken } } }</span>
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (!isEmpty(payloadConditions) &amp;&amp; triggerYaml.source?.spec) {</span>
-<span class="cstat-no" title="statement not covered" >        triggerYaml.source.spec.spec.payloadConditions = payloadConditions</span>
+<span class="cstat-no" title="statement not covered" >      if (triggerYaml.source?.spec) {</span>
+<span class="cstat-no" title="statement not covered" >        triggerYaml.source.spec.spec.payloadConditions = persistIncomplete</span>
+          ? payloadConditions
+          : payloadConditions.filter(<span class="fstat-no" title="function not covered" >payloadCondition </span>=&gt; <span class="cstat-no" title="statement not covered" >isRowFilled(payloadCondition))</span>
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (!isEmpty(headerConditions) &amp;&amp; triggerYaml.source?.spec) {</span>
-<span class="cstat-no" title="statement not covered" >        triggerYaml.source.spec.spec.headerConditions = headerConditions</span>
+<span class="cstat-no" title="statement not covered" >      if (triggerYaml.source?.spec) {</span>
+<span class="cstat-no" title="statement not covered" >        triggerYaml.source.spec.spec.headerConditions = persistIncomplete</span>
+          ? headerConditions
+          : headerConditions.filter(<span class="fstat-no" title="function not covered" >headerCondition </span>=&gt; <span class="cstat-no" title="statement not covered" >isRowFilled(headerCondition))</span>
       }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      if (jexlCondition &amp;&amp; triggerYaml.source?.spec) {</span>
@@ -3487,7 +3502,7 @@ export default TriggersWizardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 28 2021 21:34:52 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 29 2021 00:35:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

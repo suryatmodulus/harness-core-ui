@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Color, CardSelect, Container, Text, Layout, Icon } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
@@ -18,36 +18,43 @@ interface Delegates4WaysProps {
 const Delegates4Ways: React.FC<Delegates4WaysProps> = props => {
   const { onSelect, selectedCard } = props
   const { getString } = useStrings()
-  const selectCardData: CardData[] = [
-    {
-      text: getString('delegate.cardData.docker.text'),
-      value: getString('delegate.cardData.docker.value'),
-      icon: getString('delegate.cardData.docker.icon'),
-      name: getString('delegate.cardData.docker.name'),
-      type: DelegateTypes.DOCKER
-    },
-    {
-      text: getString('delegate.cardData.kubernetes.text'),
-      value: getString('delegate.cardData.kubernetes.value'),
-      icon: getString('delegate.cardData.kubernetes.icon'),
-      name: getString('kubernetesText'),
-      type: DelegateTypes.KUBERNETES_CLUSTER
-    },
-    {
-      text: getString('delegate.cardData.amazonECS.text'),
-      value: getString('delegate.cardData.amazonECS.value'),
-      icon: getString('delegate.cardData.amazonECS.icon'),
-      name: getString('delegate.cardData.amazonECS.name'),
-      type: DelegateTypes.ECS
-    },
-    {
-      text: getString('delegate.cardData.linux.text'),
-      value: getString('delegate.cardData.linux.value'),
-      icon: getString('delegate.cardData.linux.icon'),
-      name: getString('delegate.cardData.linux.name'),
-      type: DelegateTypes.LINUX
-    }
-  ]
+  const selectCardData: CardData[] = useMemo(
+    () => [
+      {
+        text: getString('delegate.cardData.docker.text'),
+        value: getString('delegate.cardData.docker.value'),
+        icon: getString('delegate.cardData.docker.icon'),
+        name: getString('delegate.cardData.docker.name'),
+        type: DelegateTypes.DOCKER
+      },
+      {
+        text: getString('delegate.cardData.kubernetes.text'),
+        value: getString('delegate.cardData.kubernetes.value'),
+        icon: getString('delegate.cardData.kubernetes.icon'),
+        name: getString('kubernetesText'),
+        type: DelegateTypes.KUBERNETES_CLUSTER
+      },
+      {
+        text: getString('delegate.cardData.amazonECS.text'),
+        value: getString('delegate.cardData.amazonECS.value'),
+        icon: getString('delegate.cardData.amazonECS.icon'),
+        name: getString('delegate.cardData.amazonECS.name'),
+        type: DelegateTypes.ECS
+      },
+      {
+        text: getString('delegate.cardData.linux.text'),
+        value: getString('delegate.cardData.linux.value'),
+        icon: getString('delegate.cardData.linux.icon'),
+        name: getString('delegate.cardData.linux.name'),
+        type: DelegateTypes.LINUX
+      }
+    ],
+    [getString]
+  )
+
+  useEffect(() => {
+    onSelect(selectCardData[1])
+  }, [onSelect, selectCardData])
 
   const getIcon = (type: string) => {
     switch (type) {

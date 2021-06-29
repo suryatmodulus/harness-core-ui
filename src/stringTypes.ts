@@ -339,6 +339,8 @@ export interface StringsMap {
   'common.userGroups': string
   'common.validation.email.format': string
   'common.validation.email.required': string
+  'common.validation.fieldCannotbeLongerThanN': string
+  'common.validation.fieldMustBeAlphanumeric': string
   'common.validation.fileIsRequired': string
   'common.validation.formatMustBeAlphanumeric': string
   'common.validation.groupAttributeIsRequired': string

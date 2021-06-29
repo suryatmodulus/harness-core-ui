@@ -19,6 +19,10 @@ export class EmptyNodeModel extends DefaultNodeModel {
     )
   }
 
+  setOptions(options: DefaultNodeModelOptions): void {
+    this.options = { ...this.getOptions(), ...options }
+  }
+
   serialize(): any {
     return {
       ...super.serialize()

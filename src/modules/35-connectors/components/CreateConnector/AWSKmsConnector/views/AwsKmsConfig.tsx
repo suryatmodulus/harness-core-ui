@@ -218,7 +218,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
         {formik => {
           return (
             <FormikForm>
-              <Container style={{ minHeight: 420 }} margin={{ top: 'medium', bottom: 'xxlarge' }}>
+              <Container style={{ minHeight: 420, maxWidth: 600 }} margin={{ top: 'medium', bottom: 'xxlarge' }}>
                 <FormInput.Select name="credType" label={getString('credType')} items={credTypeOptions} />
                 <AwsKmsAccessKeyForm formik={formik} accountId={accountIdentifier} />
                 {formik.values?.credType === credTypeOptions[2].value && (

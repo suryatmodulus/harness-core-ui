@@ -159,7 +159,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
       {
         Header: getString('pipeline.testsReports.className'),
         accessor: 'class_name',
-        width: 'calc(60% - 150px)',
+        width: 'calc(50% - 65px)',
         Cell: renderColumn('class_name'),
         disableSortBy: (data?.content?.length || 0) === 1
       },

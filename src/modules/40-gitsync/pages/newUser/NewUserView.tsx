@@ -1,17 +1,23 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
-import { Button, Text, Container, Icon, Color } from '@wings-software/uicore'
+import { Text, Container, Icon, Color } from '@wings-software/uicore'
 
 import { noop } from 'lodash-es'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacButton from '@rbac/components/Button/Button'
 import css from './NewUserView.module.scss'
 
 const NewUserView: React.FC = () => {
   const { updateAppStore } = useAppStore()
   const { refreshStore } = useGitSyncStore()
+  const { projectIdentifier } = useParams<ProjectPathProps>()
 
   const { openGitSyncModal } = useCreateGitSyncModal({
     onSuccess: () => {
@@ -31,13 +37,20 @@ const NewUserView: React.FC = () => {
         {getString('enableGitExperience')}
       </Text>
       <Text>{getString('gitExperienceNewUserText')}</Text>
-      <Button
+      <RbacButton
         intent="primary"
         margin="large"
         font={{ size: 'medium' }}
         className={css.gitEnableBtn}
         text={getString('enableGitExperience')}
         onClick={() => openGitSyncModal(true, false, undefined)}
+        permission={{
+          permission: PermissionIdentifier.UPDATE_PROJECT,
+          resource: {
+            resourceType: ResourceType.PROJECT,
+            resourceIdentifier: projectIdentifier
+          }
+        }}
       />
     </Container>
   )

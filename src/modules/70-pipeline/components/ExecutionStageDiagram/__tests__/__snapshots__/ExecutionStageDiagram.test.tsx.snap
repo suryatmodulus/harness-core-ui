@@ -72,7 +72,95 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         </div>
         <div
           class="node css-nlpftr"
-          data-nodeid="11111111-1111-4111-9111-111111111111"
+          data-nodeid="Step-Group-Start"
+          style="top: 50px; left: 1190px;"
+        >
+          <div
+            class="emptyNode"
+          >
+            <div
+              class="port"
+              style="visibility: visible;"
+            >
+              <div
+                class="port portIn"
+              >
+                <div
+                  class="port "
+                  data-name="In"
+                  data-nodeid="Step-Group-Start"
+                >
+                  <button
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
+                      icon="circle"
+                    >
+                      <svg
+                        data-icon="circle"
+                        height="8"
+                        viewBox="0 0 16 16"
+                        width="8"
+                      >
+                        <desc>
+                          circle
+                        </desc>
+                        <path
+                          d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="port"
+              style="visibility: hidden;"
+            >
+              <div
+                class="port portOut"
+              >
+                <div
+                  class="port "
+                  data-name="Out"
+                  data-nodeid="Step-Group-Start"
+                >
+                  <button
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
+                      icon="circle"
+                    >
+                      <svg
+                        data-icon="circle"
+                        height="8"
+                        viewBox="0 0 16 16"
+                        width="8"
+                      >
+                        <desc>
+                          circle
+                        </desc>
+                        <path
+                          d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="node css-nlpftr"
+          data-nodeid="Step-Group-End"
           style="top: 50px; left: 1670px;"
         >
           <div
@@ -88,7 +176,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 <div
                   class="port "
                   data-name="In"
-                  data-nodeid="11111111-1111-4111-9111-111111111111"
+                  data-nodeid="Step-Group-End"
                 >
                   <button
                     class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
@@ -127,7 +215,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 <div
                   class="port "
                   data-name="Out"
-                  data-nodeid="11111111-1111-4111-9111-111111111111"
+                  data-nodeid="Step-Group-End"
                 >
                   <button
                     class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
@@ -344,7 +432,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
           >
             <div
               class="port"
-              style="visibility: visible;"
+              style="visibility: hidden;"
             >
               <div
                 class="port portIn"
@@ -556,7 +644,95 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         </div>
         <div
           class="node css-nlpftr"
-          data-nodeid="11111111-1111-4111-9111-111111111111"
+          data-nodeid="Service-Start"
+          style="top: 50px; left: 910px;"
+        >
+          <div
+            class="emptyNode"
+          >
+            <div
+              class="port"
+              style="visibility: visible;"
+            >
+              <div
+                class="port portIn"
+              >
+                <div
+                  class="port "
+                  data-name="In"
+                  data-nodeid="Service-Start"
+                >
+                  <button
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
+                      icon="circle"
+                    >
+                      <svg
+                        data-icon="circle"
+                        height="8"
+                        viewBox="0 0 16 16"
+                        width="8"
+                      >
+                        <desc>
+                          circle
+                        </desc>
+                        <path
+                          d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="port"
+              style="visibility: hidden;"
+            >
+              <div
+                class="port portOut"
+              >
+                <div
+                  class="port "
+                  data-name="Out"
+                  data-nodeid="Service-Start"
+                >
+                  <button
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-circle StyledProps--main"
+                      icon="circle"
+                    >
+                      <svg
+                        data-icon="circle"
+                        height="8"
+                        viewBox="0 0 16 16"
+                        width="8"
+                      >
+                        <desc>
+                          circle
+                        </desc>
+                        <path
+                          d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="node css-nlpftr"
+          data-nodeid="Service-End"
           style="top: 50px; left: 1950px;"
         >
           <div
@@ -572,7 +748,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 <div
                   class="port "
                   data-name="In"
-                  data-nodeid="11111111-1111-4111-9111-111111111111"
+                  data-nodeid="Service-End"
                 >
                   <button
                     class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
@@ -611,7 +787,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 <div
                   class="port "
                   data-name="Out"
-                  data-nodeid="11111111-1111-4111-9111-111111111111"
+                  data-nodeid="Service-End"
                 >
                   <button
                     class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"

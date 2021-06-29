@@ -11,7 +11,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { Connectors } from '@connectors/constants'
-import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 
 import type { TerraformData, TerraformProps } from '../TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -51,11 +51,12 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
         inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
       ) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
-          <FormConnectorReferenceField
+          <FormMultiTypeConnectorField
             accountIdentifier={accountId}
             selected={get(initialValues, 'spec.configuration.spec.configFiles.store.spec.connectorRef', '')}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
+            multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
             width={400}
             type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
             name={`${path}.spec.configuration.spec.configFiles.store.spec.connectorRef`}

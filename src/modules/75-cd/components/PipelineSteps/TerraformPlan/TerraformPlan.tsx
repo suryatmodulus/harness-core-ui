@@ -8,7 +8,6 @@ import {
   Text,
   Button,
   Icon,
-  ExpressionInput,
   Layout,
   Label,
   Color
@@ -282,12 +281,11 @@ function TerraformPlanWidget(
                             ]}
                             expressionRender={() => {
                               return (
-                                <ExpressionInput
-                                  value={formik.values.spec?.configuration?.backendConfig?.spec?.content || ''}
+                                <TFMonaco
                                   name="spec.configuration.backendConfig.spec.content"
-                                  onChange={value =>
-                                    setFieldValue('spec.configuration.backendConfig.spec.content', value)
-                                  }
+                                  formik={formik}
+                                  expressions={expressions}
+                                  title={getString('cd.backEndConfig')}
                                 />
                               )
                             }}
@@ -296,6 +294,7 @@ function TerraformPlanWidget(
                             <TFMonaco
                               name="spec.configuration.backendConfig.spec.content"
                               formik={formik}
+                              expressions={expressions}
                               title={getString('cd.backEndConfig')}
                             />
                           </MultiTypeFieldSelector>

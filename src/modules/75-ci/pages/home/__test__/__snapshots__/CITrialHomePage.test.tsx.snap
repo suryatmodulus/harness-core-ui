@@ -4,7 +4,7 @@ exports[`CITrialHomePage snapshot test should call button event when click 1`] =
 <div>
   <div
     class="StyledProps--font StyledProps--main body"
-    style="--image-url: url(test-file-stub);"
+    style="background: transparent url(test-file-stub) no-repeat;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -95,7 +95,7 @@ exports[`CITrialHomePage snapshot test should render properly 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main body"
-    style="--image-url: url(test-file-stub);"
+    style="background: transparent url(test-file-stub) no-repeat;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"

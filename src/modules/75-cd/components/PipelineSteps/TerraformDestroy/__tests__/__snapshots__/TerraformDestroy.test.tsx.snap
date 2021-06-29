@@ -558,6 +558,13 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                   </div>
                 </div>
                 <div
+                  class="main"
+                >
+                  <textarea
+                    name="condition"
+                  />
+                </div>
+                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -649,9 +656,13 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                             </svg>
                           </span>
                         </button>
-                        <textarea
-                          name="spec.source.spec.script"
-                        />
+                        <div
+                          class="main"
+                        >
+                          <textarea
+                            name="spec.configuration.spec.backendConfig.spec.content"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1590,6 +1601,13 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                   </div>
                 </div>
                 <div
+                  class="main"
+                >
+                  <textarea
+                    name="condition"
+                  />
+                </div>
+                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -1681,9 +1699,13 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                             </svg>
                           </span>
                         </button>
-                        <textarea
-                          name="spec.source.spec.script"
-                        />
+                        <div
+                          class="main"
+                        >
+                          <textarea
+                            name="spec.configuration.spec.backendConfig.spec.content"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>

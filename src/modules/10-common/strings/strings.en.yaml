@@ -67,6 +67,8 @@ validation:
   fileIsRequired: File is required
   yamlFilePath: 'File path can only contain valid file/folder name (should contain alphanumerics, _ and -) sepaerated by / and should end with .yaml.'
   variableAlreadyExists: Variable with same name already exists
+  fieldCannotbeLongerThanN: '{{ name }} cannot be longer than {{ n }} characters'
+  fieldMustBeAlphanumeric: '{{ name }} can only contain alphanumerics, _ and $'
   groupAttributeIsRequired: Group Attribute is required
   valueMustBeGreaterThanOrEqualToN: Value must be greater than or equal to {{ n }}
   valueMustBeLessThanOrEqualToN: Value must be less than or equal to {{ n }}

@@ -271,7 +271,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   const [state, setState] = React.useState<DeployEnvironmentState>({
     isEdit: false,
     isEnvironment: false,
-    data: { name: '', identifier: '', type: 'PreProduction' }
+    data: { name: '', identifier: '' }
   })
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -486,7 +486,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
   const [state, setState] = React.useState<DeployEnvironmentState>({
     isEdit: false,
     isEnvironment: false,
-    data: { name: '', identifier: '', type: 'PreProduction' }
+    data: { name: '', identifier: '' }
   })
   const { expressions } = useVariablesExpression()
   const { data: environmentsResponse, error, refetch } = useGetEnvironmentList({

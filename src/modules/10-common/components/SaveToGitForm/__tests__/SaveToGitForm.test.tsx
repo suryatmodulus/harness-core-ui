@@ -10,7 +10,8 @@ const fetchBranches = jest.fn(() => Promise.resolve([]))
 jest.mock('services/cd-ng', () => ({
   usePostGitSync: jest.fn().mockImplementation(() => ({ mutate: createGitSynRepo })),
   getListOfBranchesByGitConfigPromise: jest.fn().mockImplementation(() => fetchBranches()),
-  useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => fetchBranches())
+  useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => fetchBranches()),
+  getListOfBranchesWithStatusPromise: jest.fn().mockImplementation(() => Promise.resolve(['master', 'dev']))
 }))
 
 const pathParams = { accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }
@@ -70,6 +71,43 @@ describe('Save to git form', () => {
     act(() => {
       fireEvent.click(newBranchRadioBtn!)
       expect(container).toMatchSnapshot()
+    })
+  })
+
+  test('Test enabling branch selector logic', async () => {
+    const { container } = render(
+      <GitSyncTestWrapper
+        path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync/repos"
+        pathParams={pathParams}
+      >
+        <SaveToGitForm
+          {...pathParams}
+          isEditing={false}
+          resource={{
+            type: 'Connectors',
+            name: 'testConnector',
+            identifier: 'testConnector',
+            gitDetails: {
+              branch: 'feature-branch'
+            }
+          }}
+          onSuccess={noop}
+          onClose={noop}
+        />
+      </GitSyncTestWrapper>
+    )
+    // for same branch, no value should be prepopulated in branch selector
+    const branchSelectorInput = container.querySelector('input[name="targetBranch"]') as HTMLInputElement
+    expect(branchSelectorInput).toBeTruthy()
+    expect(branchSelectorInput.value).toBe('')
+    const newBranchRadioBtn = document.querySelector('[data-test="newBranchRadioBtn"]') as HTMLInputElement
+    await act(async () => {
+      fireEvent.click(newBranchRadioBtn!)
+      expect(newBranchRadioBtn.value).toBe('on')
+      expect(branchSelectorInput.disabled).toBe(true)
+      const createPRCheckbox = container.querySelector('input[name="createPr"]') as HTMLInputElement
+      fireEvent.click(createPRCheckbox!)
+      expect(createPRCheckbox.value).toBe('on')
     })
   })
 })

@@ -683,6 +683,13 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                   </div>
                 </div>
                 <div
+                  class="main"
+                >
+                  <textarea
+                    name="condition"
+                  />
+                </div>
+                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -774,9 +781,13 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                             </svg>
                           </span>
                         </button>
-                        <textarea
-                          name="spec.source.spec.script"
-                        />
+                        <div
+                          class="main"
+                        >
+                          <textarea
+                            name="spec.configuration.spec.backendConfig.spec.content"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>

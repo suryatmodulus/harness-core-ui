@@ -4,10 +4,11 @@ import { Dialog } from '@blueprintjs/core'
 import { Button, Formik, FormikForm, FormInput } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
-import { NameSchema } from '@common/utils/Validation'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
 import { getVaribaleTypeOptions } from './CustomVariableUtils'
+
+const MAX_LENGTH = 64
 
 export interface VariableState {
   variable: AllNGVariables
@@ -51,7 +52,18 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
         initialValues={selectedVariable?.variable}
         enableReinitialize
         validationSchema={Yup.object().shape({
-          name: NameSchema().notOneOf(existingNames, getString('common.validation.variableAlreadyExists'))
+          name: Yup.string()
+            .trim()
+            .required(getString('common.validation.nameIsRequired'))
+            .max(
+              MAX_LENGTH,
+              getString('common.validation.fieldCannotbeLongerThanN', { name: getString('name'), n: MAX_LENGTH })
+            )
+            .matches(
+              /^[a-zA-Z_][0-9a-zA-Z_$]*$/,
+              getString('common.validation.fieldMustBeAlphanumeric', { name: getString('name') })
+            )
+            .notOneOf(existingNames, getString('common.validation.variableAlreadyExists'))
         })}
         onSubmit={data => {
           if (data && selectedVariable) {

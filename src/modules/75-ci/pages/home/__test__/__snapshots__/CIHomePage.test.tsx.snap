@@ -8,7 +8,7 @@ exports[`CIHomePage should move to trial in progress page when query param trial
   >
     <div
       class="StyledProps--font StyledProps--main container"
-      style="--image-url: url(test-file-stub);"
+      style="background: transparent url(test-file-stub) no-repeat;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -71,7 +71,7 @@ exports[`CIHomePage should render HomePageTemplate when return success with data
   >
     <div
       class="StyledProps--font StyledProps--main container"
-      style="--image-url: url(test-file-stub);"
+      style="background: transparent url(test-file-stub) no-repeat;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -132,7 +132,7 @@ exports[`CIHomePage should render the home page template when the current user i
   >
     <div
       class="StyledProps--font StyledProps--main container"
-      style="--image-url: url(test-file-stub);"
+      style="background: transparent url(test-file-stub) no-repeat;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -242,7 +242,7 @@ exports[`CIHomePage should update the license store 1`] = `
   >
     <div
       class="StyledProps--font StyledProps--main container"
-      style="--image-url: url(test-file-stub);"
+      style="background: transparent url(test-file-stub) no-repeat;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"

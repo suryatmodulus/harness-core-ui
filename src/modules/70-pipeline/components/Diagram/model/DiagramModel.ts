@@ -7,7 +7,9 @@ import { isNil } from 'lodash-es'
 import {
   DiagramModel as DiagramModelCore,
   DiagramModelGenerics as DiagramModelGenericsCore,
-  NodeLayerModel
+  NodeLayerModel,
+  PortModel,
+  PortModelGenerics
 } from '@projectstorm/react-diagrams-core'
 import type { Point } from '@projectstorm/geometry'
 import { DefaultLinkModel } from '../link/DefaultLinkModel'
@@ -57,11 +59,23 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
         const links = port.getLinks()
         for (const keyLink in links) {
           const link = links[keyLink]
+          link.getSourcePort().removeLink(link)
+          link.getTargetPort().removeLink(link)
           this.removeLink(link)
         }
       }
 
       this.removeNode(node)
+    }
+  }
+
+  clearLinksForPort(port: PortModel<PortModelGenerics>): void {
+    const links = port.getLinks()
+    for (const keyLink in links) {
+      const link = links[keyLink]
+      link.getSourcePort().removeLink(link)
+      link.getTargetPort().removeLink(link)
+      this.removeLink(link)
     }
   }
 

@@ -21,7 +21,7 @@ import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 
 import type { TerraformPlanProps } from '../Common/Terraform/TerraformInterfaces'
 import ConfigInputs from './InputSteps/TfConfigSection'
@@ -72,13 +72,14 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.secretManagerRef) ===
         MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
-          <FormConnectorReferenceField
+          <FormMultiTypeConnectorField
             label={getString('connectors.title.secretManager')}
             accountIdentifier={accountId}
             selected={get(initialValues, 'spec.configuration.secretManagerRef', '')}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
             width={400}
+            multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
             category={'SECRET_MANAGER'}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.configuration.secretManagerRef`}
             placeholder={getString('select')}
@@ -116,6 +117,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             label={<Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipeline.targets.title')}</Text>}
             disabled={readonly}
             style={{ marginBottom: 'var(--spacing-small)' }}
+            expressions={expressions}
           />
         </div>
       )}

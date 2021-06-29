@@ -14,7 +14,9 @@ import {
   getConditionalExecutionFlag,
   calculateGroupHeaderDepth,
   calculateDepth,
-  containGroup
+  containGroup,
+  getParallelNodesStatusForInLine,
+  getParallelNodesStatusForOutLines
 } from './ExecutionStageDiagramUtils'
 import * as Diagram from '../Diagram'
 import css from './ExecutionStageDiagram.module.scss'
@@ -181,6 +183,10 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     } else if (node.parallel && prevNodes) {
       const { parallel } = node
       /* istanbul ignore else */ if (parallel.length > 0) {
+        // lines calculation
+        const inLineStatus = getParallelNodesStatusForInLine(parallel)
+        const outLinesStatus = getParallelNodesStatusForOutLines(parallel)
+
         let newX = startX
         let newY = startY
         /* istanbul ignore else */ if (!isEmpty(prevNodes)) {
@@ -207,11 +213,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               prevNode,
               false,
               0,
-              getArrowsColor(
-                parallel[0].item?.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted,
-                undefined,
-                verticalStepGroup
-              )
+              getArrowsColor(inLineStatus, undefined, verticalStepGroup)
             )
           })
           prevNodes = [emptyNodeStart]
@@ -242,20 +244,29 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           }
         })
         /* istanbul ignore else */ if (!isEmpty(prevNodesAr)) {
+          const emptyNodeId = `${EmptyNodeSeparator}${
+            parallel[0].item?.identifier || parallel[0].group?.identifier
+          }${EmptyNodeSeparator}-End`
           const emptyNodeEnd =
-            this.getNodeFromId(
-              `${EmptyNodeSeparator}${
-                parallel[0].item?.identifier || parallel[0].group?.identifier
-              }${EmptyNodeSeparator}-End`
-            ) ||
+            this.getNodeFromId(emptyNodeId) ||
             new Diagram.EmptyNodeModel({
-              id: `${EmptyNodeSeparator}${
-                parallel[0].item?.identifier || parallel[0].group?.identifier
-              }${EmptyNodeSeparator}-End`,
+              id: emptyNodeId,
               name: 'Empty',
               showPorts: !verticalStepGroup,
-              hideOutPort: true
+              hideInPort: true,
+              hideOutPort: !outLinesStatus.displayLines
             })
+          // NOTE: this does not work
+          // emptyNodeEnd.setOptions({
+          //   ...emptyNodeEnd.getOptions(),
+          //   ...{ showPorts: !verticalStepGroup, hideInPort: true, hideOutPort: !outLinesStatus.displayLines }
+          // })
+
+          // NOTE: workaround solution to show out port
+          if (outLinesStatus.displayLines) {
+            makeVisibleOutPortOnEmptyNode(emptyNodeId)
+          }
+
           this.addNode(emptyNodeEnd)
           startX += verticalStepGroup ? this.gapX / 2 : this.gapX
           emptyNodeEnd.setPosition(startX, startY)
@@ -266,9 +277,9 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               false,
               0,
               getArrowsColor(
-                parallel[0].item?.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted,
+                outLinesStatus.status,
                 true,
-                verticalStepGroup
+                verticalStepGroup || (!outLinesStatus.displayLines && !showEndNode)
               ),
               { type: 'out', size: LINE_SEGMENT_LENGTH }
             )
@@ -296,6 +307,12 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       /* istanbul ignore else */ if (!groupStage.get(node.group.identifier)?.collapsed) {
         this.clearAllLinksForNodeAndNode(node.group.identifier)
         this.activeNodeLayer.removeModel(node.group.identifier)
+
+        // lines calculation
+        const lastItem = last(node.group?.items)
+        const outLineStatus = getParallelNodesStatusForOutLines(lastItem ? [lastItem] : [])
+
+        // depth calculation
         let depthY = calculateDepth(node, groupStage, 0, SPACE_AFTER_GROUP)
         const headerDepth = calculateGroupHeaderDepth(node.group.items, GROUP_HEADER_DEPTH)
         //NOTE: decrease depth if its a  (1)root group that (3)has group (2)group is not at first level
@@ -308,6 +325,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           new Diagram.StepGroupNodeLayerModel({
             identifier: node.group.identifier,
             id: node.group.identifier
+            //hideOutPort: !outLineStatus.displayLines
           })
         stepGroupLayer.setOptions({
           childrenDistance: this.gapY,
@@ -320,6 +338,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           conditionalExecutionEnabled: getConditionalExecutionFlag(node.group.when!),
           showRollback: false,
           disableCollapseButton: disableCollapseButton
+          //hideOutPort: !outLineStatus.displayLines
         })
 
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
@@ -366,20 +385,27 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
           startX += this.gapX
           stepGroupLayer.endNode.setPosition(startX, startY)
-          showEndNode &&
-            prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-              this.connectedParentToNode(
-                stepGroupLayer.endNode,
-                prevNode,
-                false,
-                0,
-                getArrowsColor(
-                  node.group?.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted,
-                  true,
-                  node.group?.verticalStepGroup
-                )
+
+          // NOTE: this cleanup line that is connected from last node in the group with stepGroupLayer.endNode
+          // this is a solution for overlapping line bug
+          const port = stepGroupLayer.endNode.getPorts()['In']
+          if (port) {
+            this.clearLinksForPort(port)
+          }
+
+          prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
+            this.connectedParentToNode(
+              stepGroupLayer.endNode,
+              prevNode,
+              false,
+              0,
+              getArrowsColor(
+                outLineStatus.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted,
+                true,
+                node.group?.verticalStepGroup || (!outLineStatus.displayLines && !showEndNode)
               )
-            })
+            )
+          })
           prevNodes = [stepGroupLayer.endNode]
           startX = startX - this.gapX / 2 - 20
         }
@@ -572,5 +598,15 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     })
     // Lock the graph back
     this.setLocked(true)
+  }
+}
+
+/**
+ * Workaround solution to make Out port of Empty node visible
+ */
+function makeVisibleOutPortOnEmptyNode(emptyNodeId: string) {
+  const el = document.querySelector('*[data-nodeid="' + emptyNodeId + '"]')
+  if ((el?.firstChild?.childNodes?.[1] as HTMLElement)?.style?.visibility) {
+    ;(el!.firstChild!.childNodes[1]! as HTMLElement)!.style!.visibility = 'visible'
   }
 }

@@ -18,6 +18,7 @@ export interface StepGroupNodeLayerOptions extends LayerModelOptions {
   conditionalExecutionEnabled?: boolean
   rollBackProps?: Omit<RollbackToggleSwitchProps, 'onChange'>
   disableCollapseButton?: boolean
+  hideOutPort?: boolean
 }
 
 export interface StepGroupNodeLayerModelGenerics extends LayerModelGenerics {
@@ -45,14 +46,26 @@ export class StepGroupNodeLayerModel<
       showRollback: true,
       ...options
     })
-    this.startNode = new EmptyNodeModel({ identifier: options.identifier, name: 'Empty', hideOutPort: true })
-    this.endNode = new EmptyNodeModel({ identifier: options.identifier, name: 'Empty', hideInPort: true })
+    this.startNode = new EmptyNodeModel({
+      id: options.identifier + '-Start',
+      identifier: options.identifier + '-Start',
+      name: 'Empty',
+      hideOutPort: true
+    })
+    this.endNode = new EmptyNodeModel({
+      id: options.identifier + '-End',
+      identifier: options.identifier + '-End',
+      name: 'Empty',
+      hideInPort: true,
+      hideOutPort: options.hideOutPort
+    })
     this.addModel(this.startNode)
     this.addModel(this.endNode)
   }
 
   setOptions(options: StepGroupNodeLayerOptions): void {
     this.options = { ...this.options, ...options }
+    this.endNode.setOptions({ ...this.endNode.getOptions(), ...{ hideOutPort: this.options.hideOutPort } })
   }
 
   addModel(model: G['CHILDREN']): void {

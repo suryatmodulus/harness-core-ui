@@ -34558,7 +34558,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     class="cell"
                     colspan="1"
                     role="columnheader"
-                    style="width: calc(60% - 150px);"
+                    style="width: calc(50% - 65px);"
                   >
                     pipeline.testsReports.className
                   </div>
@@ -34631,7 +34631,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -34726,7 +34726,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -34821,7 +34821,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -34916,7 +34916,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -35011,7 +35011,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -35106,7 +35106,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -35201,7 +35201,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -35296,7 +35296,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -35391,7 +35391,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -35486,7 +35486,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -35581,7 +35581,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -35676,7 +35676,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -35771,7 +35771,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -35866,7 +35866,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -35961,7 +35961,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -36056,7 +36056,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -36151,7 +36151,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -36246,7 +36246,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -36341,7 +36341,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -36436,7 +36436,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -73632,7 +73632,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     class="cell"
                     colspan="1"
                     role="columnheader"
-                    style="width: calc(60% - 150px);"
+                    style="width: calc(50% - 65px);"
                   >
                     pipeline.testsReports.className
                   </div>
@@ -73705,7 +73705,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -73800,7 +73800,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -73895,7 +73895,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -73990,7 +73990,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -74085,7 +74085,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -74180,7 +74180,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -74275,7 +74275,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -74370,7 +74370,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -74465,7 +74465,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -74560,7 +74560,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -74655,7 +74655,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -74750,7 +74750,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -74845,7 +74845,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -74940,7 +74940,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -75035,7 +75035,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -75130,7 +75130,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -75225,7 +75225,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -75320,7 +75320,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -75415,7 +75415,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"
@@ -75510,7 +75510,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <div
                       class="cell"
                       role="cell"
-                      style="width: calc(60% - 150px);"
+                      style="width: calc(50% - 65px);"
                     >
                       <div
                         class="StyledProps--font StyledProps--main testCell"

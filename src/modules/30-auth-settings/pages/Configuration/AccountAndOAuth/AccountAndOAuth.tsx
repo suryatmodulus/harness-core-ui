@@ -11,6 +11,7 @@ import { useToaster } from '@common/components'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import HarnessAccount from '@auth-settings/pages/Configuration/AccountAndOAuth/HarnessAccount/HarnessAccount'
 import PublicOAuthProviders from '@auth-settings/pages/Configuration/AccountAndOAuth/OAuthProviders/PublicOAuthProviders'
+import { getForgotPasswordURL } from 'framework/utils/SessionUtils'
 import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
 
 interface Props {
@@ -61,10 +62,12 @@ const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, c
           {getString('common.note')}
         </Text>
         <Text inline color={Color.BLACK} font={{ size: 'normal' }}>
-          : {getString('authSettings.changeLoginToHarnessAccountOrOauthDescription')} {getString('common.link')}
+          : {getString('authSettings.changeLoginToHarnessAccountOrOauthDescription')}{' '}
         </Text>
-        {/*TODO: forgot-password link will be replaced with constant once it's available in RouteDefinitions */}
-        {/* <Link to="/forgot-password">{getString('common.link')}</Link>. */}
+        <a href={getForgotPasswordURL()} target="_blank" rel="noreferrer">
+          {getString('common.link')}
+        </a>
+        .
       </React.Fragment>
     ),
     confirmButtonText: getString('confirm'),

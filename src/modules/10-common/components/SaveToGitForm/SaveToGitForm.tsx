@@ -96,7 +96,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     branch: resource.gitDetails?.branch || '',
     commitMsg: getString('common.gitSync.updateResource', { resource: resource.name }),
     createPr: false,
-    targetBranch: ''
+    targetBranch: resource.gitDetails?.branch || ''
   }
 
   useEffect(() => {
@@ -214,7 +214,11 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
         />
         <FormInput.Select
           name="targetBranch"
-          value={branches?.find((branch: SelectOption) => branch.value === selectedBranch)}
+          value={
+            isNewBranch && isEmpty(selectedBranch)
+              ? { label: defaultInitialFormData.branch, value: defaultInitialFormData.branch }
+              : branches?.find((branch: SelectOption) => branch.value === selectedBranch)
+          }
           items={branches || []}
           disabled={!formikRef.current?.values.createPr}
           data-id="create-pr-branch-select"

@@ -319,10 +319,10 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
         <div id={`Stage.${stageIdentifier}.Service`} className={cx(css.accordionSummary)}>
           <div className={css.inputheader}>{getString('service')}</div>
           <div className={css.nestedAccordions}>
-            {deploymentStage?.serviceConfig?.serviceRef && (
+            {deploymentStageTemplate?.serviceConfig?.serviceRef && (
               /* istanbul ignore next */ <StepWidget<ServiceConfig>
                 factory={factory}
-                initialValues={deploymentStage?.serviceConfig || {}}
+                initialValues={deploymentStageInputSet?.serviceConfig || {}}
                 template={deploymentStageTemplate?.serviceConfig || {}}
                 type={StepType.DeployService}
                 stepViewType={StepViewType.InputSet}

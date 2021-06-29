@@ -1,31 +1,21 @@
 import React from 'react'
-import type { MonacoEditorProps } from 'react-monaco-editor'
 import { Dialog, Classes } from '@blueprintjs/core'
 import { FormikProps, connect } from 'formik'
-import { get } from 'lodash-es'
 import { Button } from '@wings-software/uicore'
-import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 
+import { MonacoTextField } from '@common/components/MonacoTextField/MonacoTextField'
 import css from './TFMonaco.module.scss'
-
-export type ScriptType = 'Bash' | 'PowerShell'
-
-export interface ShellScriptMonacoProps {
-  scriptType: ScriptType
-  name: string
-  disabled?: boolean
-}
 
 export interface TFMonacoProps {
   formik: FormikProps<unknown>
+  expressions?: string[]
   name: string
   title?: string
 }
 
 export function TFBackendConfigMonaco(props: TFMonacoProps): React.ReactElement {
   const [isFullScreen, setFullScreen] = React.useState(false)
-  const value = get(props.formik.values, props.name) || ''
-
+  const { expressions = [] } = props
   const monaco = (
     <div className={css.monacoWrapper}>
       {isFullScreen ? null : (
@@ -38,22 +28,8 @@ export function TFBackendConfigMonaco(props: TFMonacoProps): React.ReactElement 
           type="button"
         />
       )}
-      <MonacoEditor
-        height={isFullScreen ? '70vh' : 300}
-        value={value}
-        language="json"
-        options={
-          {
-            fontFamily: "'Roboto Mono', monospace",
-            fontSize: 13,
-            minimap: {
-              enabled: false
-            },
-            scrollBeyondLastLine: false
-          } as MonacoEditorProps['options']
-        }
-        onChange={txt => props.formik.setFieldValue(props.name, txt)}
-      />
+
+      <MonacoTextField name={props.name} expressions={expressions} height={300} />
     </div>
   )
   return (

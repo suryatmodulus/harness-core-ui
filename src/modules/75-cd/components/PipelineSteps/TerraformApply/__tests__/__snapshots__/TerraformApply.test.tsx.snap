@@ -503,6 +503,13 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                   </div>
                 </div>
                 <div
+                  class="main"
+                >
+                  <textarea
+                    name="condition"
+                  />
+                </div>
+                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -594,11 +601,15 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                             </svg>
                           </span>
                         </button>
-                        <textarea
-                          name="spec.source.spec.script"
+                        <div
+                          class="main"
                         >
-                          test
-                        </textarea>
+                          <textarea
+                            name="spec.configuration.spec.backendConfig.spec.content"
+                          >
+                            test
+                          </textarea>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1978,6 +1989,13 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                   </div>
                 </div>
                 <div
+                  class="main"
+                >
+                  <textarea
+                    name="condition"
+                  />
+                </div>
+                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -2069,9 +2087,13 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                             </svg>
                           </span>
                         </button>
-                        <textarea
-                          name="spec.source.spec.script"
-                        />
+                        <div
+                          class="main"
+                        >
+                          <textarea
+                            name="spec.configuration.spec.backendConfig.spec.content"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>

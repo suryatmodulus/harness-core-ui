@@ -7,9 +7,9 @@ import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-sof
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import { Connectors } from '@connectors/constants'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 
 import type { TerraformPlanProps } from '../../Common/Terraform/TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -43,11 +43,12 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
         MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
-          <FormConnectorReferenceField
+          <FormMultiTypeConnectorField
             accountIdentifier={accountId}
             selected={get(initialValues, 'spec.configuration.configFiles.store.spec.connectorRef', '')}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
+            multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
             width={400}
             type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
             name={`${path}.spec.configuration.configFiles.store.spec.connectorRef`}

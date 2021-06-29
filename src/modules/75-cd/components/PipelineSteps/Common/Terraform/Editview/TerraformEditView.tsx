@@ -8,7 +8,6 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   SelectOption,
-  ExpressionInput,
   Icon,
   Layout,
   Color,
@@ -38,6 +37,8 @@ import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { MonacoTextField } from '@common/components/MonacoTextField/MonacoTextField'
+
 import { TFMonaco } from './TFMonacoEditor'
 
 import TfVarFileList from './TFVarFileList'
@@ -232,6 +233,7 @@ export default function TerraformEditView(
                               </div>
                             )}
                             <TfVarFileList formik={formik} isReadonly={props.readonly} />
+                            <MonacoTextField name="condition" expressions={expressions} />
                             <div
                               className={cx(
                                 stepCss.formGroup,
@@ -256,15 +258,11 @@ export default function TerraformEditView(
                                 skipRenderValueInExpressionLabel
                                 expressionRender={() => {
                                   return (
-                                    <ExpressionInput
-                                      value={
-                                        formik.values.spec?.configuration?.spec?.backendConfig?.spec?.content || ''
-                                      }
+                                    <TFMonaco
                                       name="spec.configuration.spec.backendConfig.spec.content"
-                                      onChange={value => {
-                                        setFieldValue('spec.configuration.spec.backendConfig.type', 'Inline')
-                                        setFieldValue('spec.configuration.spec.backendConfig.spec.content', value)
-                                      }}
+                                      formik={formik}
+                                      expressions={expressions}
+                                      title={getString('cd.backEndConfig')}
                                     />
                                   )
                                 }}
@@ -272,6 +270,7 @@ export default function TerraformEditView(
                                 <TFMonaco
                                   name="spec.configuration.spec.backendConfig.spec.content"
                                   formik={formik}
+                                  expressions={expressions}
                                   title={getString('cd.backEndConfig')}
                                 />
                               </MultiTypeFieldSelector>

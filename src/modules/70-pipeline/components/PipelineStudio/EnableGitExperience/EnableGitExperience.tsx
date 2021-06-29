@@ -1,11 +1,16 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { Button, Container, Icon, Layout } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './EnableGitExperience.module.scss'
 
@@ -14,6 +19,7 @@ export const EnableGitExperience: React.FC = (): JSX.Element => {
   const { updateAppStore } = useAppStore()
   const { refreshStore } = useGitSyncStore()
   const { isReadonly } = React.useContext(PipelineContext)
+  const { projectIdentifier } = useParams<ProjectPathProps>()
 
   const { openGitSyncModal } = useCreateGitSyncModal({
     onSuccess: () => {
@@ -31,7 +37,7 @@ export const EnableGitExperience: React.FC = (): JSX.Element => {
       </div>
       <div className={css.enableGitExpContent}>{getString('common.enableGitSyncPipeline')}</div>
       <Layout.Horizontal border={{ top: true }} padding={{ top: 'medium' }} margin={{ top: 'medium' }}>
-        <Button
+        <RbacButton
           margin={{ right: 'medium' }}
           intent="primary"
           text={getString('enableGitExperience')}
@@ -39,6 +45,13 @@ export const EnableGitExperience: React.FC = (): JSX.Element => {
           data-test-id="enableGitExpBtn"
           onClick={() => openGitSyncModal(true, false, undefined)}
           disabled={isReadonly}
+          permission={{
+            permission: PermissionIdentifier.UPDATE_PROJECT,
+            resource: {
+              resourceType: ResourceType.PROJECT,
+              resourceIdentifier: projectIdentifier
+            }
+          }}
         />
         <Button
           text={getString('pipeline.gitExperience.skipNow')}

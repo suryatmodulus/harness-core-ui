@@ -302,7 +302,9 @@ export default function DelegateProfileDetails(): JSX.Element {
                 </SectionContainer>
               </Layout.Vertical>
               <SectionContainer width={550}>
-                <SectionContainerTitle>{getString('delegate.Init_Script')}</SectionContainerTitle>
+                <SectionContainerTitle data-tooltip-id="delegateConfigurationDetails_script">
+                  {getString('delegate.Init_Script')}
+                </SectionContainerTitle>
 
                 <textarea
                   placeholder={editMode ? getString('delegate.initScriptPlaceholder') : undefined}

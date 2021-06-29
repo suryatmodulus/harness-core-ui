@@ -307,6 +307,7 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
+            data-tooltip-id="delegateConfigurationDetails_script"
             style="color: rgb(34, 39, 45);"
           >
             delegate.Init_Script
@@ -584,6 +585,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
+            data-tooltip-id="delegateConfigurationDetails_script"
             style="color: rgb(34, 39, 45);"
           >
             delegate.Init_Script

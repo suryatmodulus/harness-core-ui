@@ -584,7 +584,10 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
       class="StyledProps--font Text--lineclamp StyledProps--main"
       style="--text-line-clamp: 1;"
     >
-      [object Object]
+      {
+  "name": "",
+  "defaultValue": ""
+}
     </p>
   </div>
 </div>

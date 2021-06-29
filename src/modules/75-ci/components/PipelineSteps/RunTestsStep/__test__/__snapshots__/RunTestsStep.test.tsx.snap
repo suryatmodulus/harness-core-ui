@@ -10179,7 +10179,15 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
       class="StyledProps--font Text--lineclamp StyledProps--main"
       style="--text-line-clamp: 1;"
     >
-      variable1, variable2, variable3, variable4
+      {
+  "name": "variable1"
+}, {
+  "name": "variable2"
+}, {
+  "name": "variable3"
+}, {
+  "name": "variable4"
+}
     </p>
     <div
       class="main"

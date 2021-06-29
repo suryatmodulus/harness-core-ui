@@ -30,7 +30,9 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
         let formattedValue
 
         if (Array.isArray(finalvalue)) {
-          formattedValue = finalvalue.join(', ')
+          formattedValue = finalvalue
+            .map(item => (isPlainObject(item) ? JSON.stringify(item, null, 2) : item))
+            .join(', ')
         } else if (isPlainObject(finalvalue)) {
           formattedValue = JSON.stringify(finalvalue, null, 2)
         } else {

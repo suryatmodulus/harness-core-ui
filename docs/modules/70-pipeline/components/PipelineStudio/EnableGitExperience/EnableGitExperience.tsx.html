@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.48% </span>
+                <span class="strong">92.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/21</span>
+                <span class='fraction'>24/26</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/20</span>
+                <span class='fraction'>23/25</span>
             </div>
         
             
@@ -110,8 +110,26 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -122,6 +140,7 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -163,14 +182,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { Button, Container, Icon, Layout } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './EnableGitExperience.module.scss'
 &nbsp;
@@ -179,6 +210,7 @@ export const EnableGitExperience: React.FC = (): JSX.Element =&gt; {
   const { updateAppStore } = useAppStore()
   const { refreshStore } = useGitSyncStore()
   const { isReadonly } = React.useContext(PipelineContext)
+  const { projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
 &nbsp;
   const { openGitSyncModal } = useCreateGitSyncModal({
     onSuccess: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
@@ -196,7 +228,7 @@ export const EnableGitExperience: React.FC = (): JSX.Element =&gt; {
       &lt;/div&gt;
       &lt;div className={css.enableGitExpContent}&gt;{getString('common.enableGitSyncPipeline')}&lt;/div&gt;
       &lt;Layout.Horizontal border={{ top: true }} padding={{ top: 'medium' }} margin={{ top: 'medium' }}&gt;
-        &lt;Button
+        &lt;RbacButton
           margin={{ right: 'medium' }}
           intent="primary"
           text={getString('enableGitExperience')}
@@ -204,6 +236,13 @@ export const EnableGitExperience: React.FC = (): JSX.Element =&gt; {
           data-test-id="enableGitExpBtn"
           onClick={() =&gt; openGitSyncModal(true, false, undefined)}
           disabled={isReadonly}
+          permission={{
+            permission: PermissionIdentifier.UPDATE_PROJECT,
+            resource: {
+              resourceType: ResourceType.PROJECT,
+              resourceIdentifier: projectIdentifier
+            }
+          }}
         /&gt;
         &lt;Button
           text={getString('pipeline.gitExperience.skipNow')}
@@ -223,7 +262,7 @@ export const EnableGitExperience: React.FC = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 29 2021 06:49:08 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 29 2021 07:02:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

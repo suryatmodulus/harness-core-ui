@@ -338,6 +338,8 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
       {getMultiTypeFromValue(template?.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME && (
         <MultiTypeListInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.outputVariables`}
+          withObjectStructure
+          keyName="name"
           multiTextInputProps={{
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
             expressions

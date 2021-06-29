@@ -14,6 +14,7 @@ export enum Types {
   Text,
   Map,
   List,
+  OutputVariables,
   ArchiveFormat,
   Pull,
   BuildTool,
@@ -92,6 +93,23 @@ export function getInitialValuesInCorrectFormat<T, U>(
           : value?.map((_value: string) => ({
               id: uuid('', nameSpace()),
               value: _value
+            })) || []
+
+      // Adding a default value
+      if (Array.isArray(list) && list.length === 0) {
+        list.push({ id: uuid('', nameSpace()), value: '' })
+      }
+
+      set(values, name, list)
+    }
+
+    if (type === Types.OutputVariables) {
+      const list =
+        typeof value === 'string'
+          ? value
+          : value?.map((_value: { name: string }) => ({
+              id: uuid('', nameSpace()),
+              value: _value.name
             })) || []
 
       // Adding a default value
@@ -207,6 +225,20 @@ export function getFormValuesInCorrectFormat<T, U>(formValues: T, fields: Field[
         typeof value === 'string'
           ? value
           : value?.filter(listValue => !!listValue.value).map(listValue => listValue.value)
+      set(values, name, list)
+    }
+
+    if (type === Types.OutputVariables) {
+      const value = get(formValues, name) as MultiTypeListUIType
+
+      const list =
+        typeof value === 'string'
+          ? value
+          : value
+              ?.filter(listValue => !!listValue.value)
+              .map(listValue => ({
+                name: listValue.value
+              }))
       set(values, name, list)
     }
 

@@ -196,14 +196,16 @@ function generateSchemaForOutputVariables(
       .of(
         yup.lazy(val =>
           getMultiTypeFromValue(val as string) === MultiTypeInputType.FIXED
-            ? yup.string().matches(validIdRegex, getString('validation.validOutputVariableRegex'))
+            ? yup.object().shape({
+                name: yup.string().matches(validIdRegex, getString('validation.validOutputVariableRegex'))
+              })
             : yup.string()
         )
       )
       .test('valuesShouldBeUnique', getString('validation.uniqueValues'), outputVariables => {
         if (!outputVariables) return true
 
-        return uniq(outputVariables).length === outputVariables.length
+        return uniqBy(outputVariables, 'name').length === outputVariables.length
       })
   } else {
     return yup.lazy(value =>

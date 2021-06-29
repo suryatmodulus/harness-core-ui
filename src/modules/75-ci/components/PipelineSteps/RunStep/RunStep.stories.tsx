@@ -71,7 +71,7 @@ RunStep.args = {
         key2: 'value2',
         key3: 'value3'
       },
-      outputVariables: ['variable1', 'variable2', 'variable3', 'variable4'],
+      outputVariables: [{ name: 'variable1' }, { name: 'variable2' }, { name: 'variable3' }, { name: 'variable4' }],
       // TODO: Right now we do not support Image Pull Policy but will do in the future
       // pull: 'always',
       resources: {

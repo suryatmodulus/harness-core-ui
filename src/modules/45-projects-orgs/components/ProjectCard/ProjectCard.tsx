@@ -186,8 +186,8 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
       {CDNG_ENABLED && data.modules?.includes(ModuleName.CD) ? <CDRenderer data={data} isPreview={isPreview} /> : null}
       {CVNG_ENABLED && data.modules?.includes(ModuleName.CV) ? <CVRenderer data={data} isPreview={isPreview} /> : null}
       {CING_ENABLED && data.modules?.includes(ModuleName.CI) ? <CIRenderer data={data} isPreview={isPreview} /> : null}
-      {CENG_ENABLED && data.modules?.includes(ModuleName.CF) ? <CFRenderer data={data} isPreview={isPreview} /> : null}
-      {CFNG_ENABLED && data.modules?.includes(ModuleName.CE) ? <CERenderer data={data} isPreview={isPreview} /> : null}
+      {CFNG_ENABLED && data.modules?.includes(ModuleName.CF) ? <CFRenderer data={data} isPreview={isPreview} /> : null}
+      {CENG_ENABLED && data.modules?.includes(ModuleName.CE) ? <CERenderer data={data} isPreview={isPreview} /> : null}
     </Card>
   )
 }

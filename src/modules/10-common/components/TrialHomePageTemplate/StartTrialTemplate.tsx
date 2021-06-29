@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import React from 'react'
 import { Heading, Layout, Text, Container, Button, Color } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { useToaster } from '@common/components'
@@ -115,7 +115,7 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
   }
 
   return (
-    <Container className={css.body} style={{ '--image-url': `url(${bgImageUrl})` } as CSSProperties}>
+    <Container className={css.body} style={{ background: `transparent url(${bgImageUrl}) no-repeat` }}>
       <Layout.Vertical spacing="medium">
         <Heading font={{ weight: 'bold', size: 'large' }} color={Color.BLACK_100}>
           {title}

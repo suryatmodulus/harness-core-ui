@@ -4,7 +4,7 @@ exports[`CDTrialHomePage snapshot test should pop up start trial modal if there 
 <div>
   <div
     class="StyledProps--font StyledProps--main body"
-    style="--image-url: url(test-file-stub);"
+    style="background: transparent url(test-file-stub) no-repeat;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -52,7 +52,7 @@ exports[`CDTrialHomePage snapshot test should render properly 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main body"
-    style="--image-url: url(test-file-stub);"
+    style="background: transparent url(test-file-stub) no-repeat;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"

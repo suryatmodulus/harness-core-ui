@@ -166,7 +166,7 @@ exports[`CEHomePage snapshot test should move to trial in progress page when que
   >
     <div
       class="StyledProps--font StyledProps--main container"
-      style="--image-url: url(test-file-stub);"
+      style="background: transparent url(test-file-stub) no-repeat;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -229,7 +229,7 @@ exports[`CEHomePage snapshot test should render HomePageTemplate when return suc
   >
     <div
       class="StyledProps--font StyledProps--main container"
-      style="--image-url: url(test-file-stub);"
+      style="background: transparent url(test-file-stub) no-repeat;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -388,7 +388,7 @@ exports[`CEHomePage snapshot test shouldn't show the trial home pagers if the us
   >
     <div
       class="StyledProps--font StyledProps--main container"
-      style="--image-url: url(test-file-stub);"
+      style="background: transparent url(test-file-stub) no-repeat;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"

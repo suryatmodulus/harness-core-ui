@@ -6,5 +6,6 @@ declare const styles: {
   readonly selected: string
   readonly purposePageContainer: string
   readonly purposeListGrid: string
+  readonly continueButton: string
 }
 export default styles

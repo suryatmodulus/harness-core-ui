@@ -112,14 +112,7 @@ const PurposeList: React.FC = () => {
     if (!selectedInfoCard || selectedInfoCard?.isNgRoute) {
       return (
         <Link
-          style={{
-            backgroundColor: 'var(--blue-600)',
-            width: 100,
-            borderRadius: 4,
-            lineHeight: 2.5,
-            textAlign: 'center',
-            color: Color.WHITE
-          }}
+          className={css.continueButton}
           onClick={() => {
             handleUpdateDefaultExperience()
             trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: module })
@@ -132,20 +125,22 @@ const PurposeList: React.FC = () => {
     }
 
     return (
-      <a
-        style={{
-          backgroundColor: 'var(--blue-600)',
-          width: 100,
-          borderRadius: 4,
-          lineHeight: 2.5,
-          textAlign: 'center',
-          color: Color.WHITE
+      <div
+        className={css.continueButton}
+        onClick={async () => {
+          await updateDefaultExperience({
+            defaultExperience: !selectedInfoCard || selectedInfoCard?.isNgRoute ? Experiences.NG : Experiences.CG
+          })
+
+          const route = selectedInfoCard.route?.()
+
+          if (route) {
+            window.location.href = route
+          }
         }}
-        onClick={handleUpdateDefaultExperience}
-        href={selectedInfoCard.route?.()}
       >
         {getString('continue')}
-      </a>
+      </div>
     )
   }
 

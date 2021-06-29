@@ -8,7 +8,7 @@ exports[`TrialInProgressTemplate snapshot test should render trial in progress 1
   >
     <div
       class="StyledProps--font StyledProps--main container"
-      style="--image-url: url();"
+      style="background: transparent url() no-repeat;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"

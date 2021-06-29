@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/18</span>
+                <span class='fraction'>16/19</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/18</span>
+                <span class='fraction'>16/19</span>
             </div>
         
             
@@ -138,7 +138,20 @@
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">65x</span>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,6 +179,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,12 +200,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,6 +265,7 @@ export interface StepGroupNodeLayerOptions extends LayerModelOptions {
   conditionalExecutionEnabled?: boolean
   rollBackProps?: Omit&lt;RollbackToggleSwitchProps, 'onChange'&gt;
   disableCollapseButton?: boolean
+  hideOutPort?: boolean
 }
 &nbsp;
 export interface StepGroupNodeLayerModelGenerics extends LayerModelGenerics {
@@ -266,14 +293,26 @@ export class StepGroupNodeLayerModel&lt;
       showRollback: true,
       ...options
     })
-    this.startNode = new EmptyNodeModel({ identifier: options.identifier, name: 'Empty', hideOutPort: true })
-    this.endNode = new EmptyNodeModel({ identifier: options.identifier, name: 'Empty', hideInPort: true })
+    this.startNode = new EmptyNodeModel({
+      id: options.identifier + '-Start',
+      identifier: options.identifier + '-Start',
+      name: 'Empty',
+      hideOutPort: true
+    })
+    this.endNode = new EmptyNodeModel({
+      id: options.identifier + '-End',
+      identifier: options.identifier + '-End',
+      name: 'Empty',
+      hideInPort: true,
+      hideOutPort: options.hideOutPort
+    })
     this.addModel(this.startNode)
     this.addModel(this.endNode)
   }
 &nbsp;
   setOptions(options: StepGroupNodeLayerOptions): void {
     this.options = { ...this.options, ...options }
+    this.endNode.setOptions({ ...this.endNode.getOptions(), ...{ hideOutPort: this.options.hideOutPort } })
   }
 &nbsp;
   addModel(model: G['CHILDREN']): void {
@@ -307,7 +346,7 @@ export class StepGroupNodeLayerModel&lt;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 29 2021 09:28:06 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 29 2021 12:11:15 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

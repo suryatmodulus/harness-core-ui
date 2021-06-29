@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92% </span>
+                <span class="strong">89.61% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>69/75</span>
+                <span class='fraction'>69/77</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">72.73% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>16/20</span>
+                <span class='fraction'>16/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.89% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>68/74</span>
+                <span class='fraction'>68/76</span>
             </div>
         
             
@@ -357,7 +357,11 @@
 <a name='L298'></a><a href='#L298'>298</a>
 <a name='L299'></a><a href='#L299'>299</a>
 <a name='L300'></a><a href='#L300'>300</a>
-<a name='L301'></a><a href='#L301'>301</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -594,6 +598,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -622,6 +628,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -893,14 +901,16 @@ const EnvironmentsPage: React.FC = () =&gt; {
             &lt;EnvironmentDialog
               disabled={loading}
               onCreate={<span class="fstat-no" title="function not covered" >response </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                history.push(</span>
-                  routes.toCFEnvironmentDetails({
-                    environmentIdentifier: response?.data?.identifier as string,
-                    projectIdentifier,
-                    orgIdentifier,
-                    accountId
-                  })
-                )
+<span class="cstat-no" title="statement not covered" >                setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                  history.push(</span>
+                    routes.toCFEnvironmentDetails({
+                      environmentIdentifier: response?.data?.identifier as string,
+                      projectIdentifier,
+                      orgIdentifier,
+                      accountId
+                    })
+                  )
+                }, 1000)
               }}
             /&gt;
           &lt;/Layout.Horizontal&gt;
@@ -921,14 +931,16 @@ const EnvironmentsPage: React.FC = () =&gt; {
 <span class="branch-1 cbranch-no" title="branch not covered" >            &lt;Container flex={{ align: 'center-center' }} height="100%"&gt;</span>
               &lt;NoEnvironment
                 onCreated={<span class="fstat-no" title="function not covered" >response </span>=&gt;
-<span class="cstat-no" title="statement not covered" >                  history.push(</span>
-                    routes.toCFEnvironmentDetails({
-                      environmentIdentifier: response?.data?.identifier as string,
-                      projectIdentifier,
-                      orgIdentifier,
-                      accountId
-                    })
-                  )
+<span class="cstat-no" title="statement not covered" >                  setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                    history.push(</span>
+                      routes.toCFEnvironmentDetails({
+                        environmentIdentifier: response?.data?.identifier as string,
+                        projectIdentifier,
+                        orgIdentifier,
+                        accountId
+                      })
+                    )
+                  }, 1000)
                 }
               /&gt;
             &lt;/Container&gt;
@@ -964,7 +976,7 @@ export default EnvironmentsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jun 29 2021 18:39:31 GMT+0000 (Greenwich Mean Time)
+                at Tue Jun 29 2021 18:41:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

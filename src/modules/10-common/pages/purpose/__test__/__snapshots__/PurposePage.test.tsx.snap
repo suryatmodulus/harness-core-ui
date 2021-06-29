@@ -437,8 +437,8 @@ exports[`PurposePage should render module description and continue button when s
               common.purpose.ci.description
             </span>
             <a
+              class="continueButton"
               href="/account/undefined/ci/home?source=purpose"
-              style="width: 100px; border-radius: 4px; line-height: 2.5; text-align: center; color: white;"
             >
               continue
             </a>

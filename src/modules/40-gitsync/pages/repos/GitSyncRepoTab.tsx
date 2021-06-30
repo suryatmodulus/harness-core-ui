@@ -31,7 +31,7 @@ import {
 } from 'services/cd-ng'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useStrings } from 'framework/strings'
-import { getCompleteGitPath, getGitConnectorIcon, getRepoPath } from '@gitsync/common/gitSyncUtils'
+import { getCompleteGitPath, getGitConnectorIcon, getRepoPath, getExternalUrl } from '@common/utils/gitSyncUtils'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -40,7 +40,6 @@ import { TestConnectionWidget, TestStatus } from '@common/components/TestConnect
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import { StringUtils } from '@common/exports'
-import { getExternalUrl } from '@gitsync/common/gitSyncUtils'
 import css from './GitSyncRepoTab.module.scss'
 
 enum RepoState {

@@ -88,3 +88,18 @@ export const getExternalUrl = (config: GitSyncConfig, folderPath?: string): stri
       return ''
   }
 }
+
+export const getPullRequestUrl = (config: GitSyncConfig, prNumber?: number): string => {
+  if (!prNumber) {
+    return ''
+  }
+  const { repo, gitConnectorType } = config
+  switch (gitConnectorType) {
+    case Connectors.GITHUB:
+      return `${repo}/pull/${prNumber}`
+    case Connectors.GITLAB:
+    case Connectors.BITBUCKET:
+    default:
+      return ''
+  }
+}

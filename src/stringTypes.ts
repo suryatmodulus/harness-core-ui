@@ -165,6 +165,7 @@ export interface StringsMap {
   'common.gitSync.defaultBranches': string
   'common.gitSync.gitRepositoryDetails': string
   'common.gitSync.harnessFolderLabel': string
+  'common.gitSync.prCreated': string
   'common.gitSync.pushingChangestoBranch': string
   'common.gitSync.repoDetails': string
   'common.gitSync.resourceLabel': string

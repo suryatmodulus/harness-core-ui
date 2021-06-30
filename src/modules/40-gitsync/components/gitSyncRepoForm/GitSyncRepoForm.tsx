@@ -36,7 +36,7 @@ import {
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { shouldShowError } from '@common/utils/errorUtils'
-import { ConnectorCardInterface, getCompleteGitPath, getRepoPath, gitCards } from '@gitsync/common/gitSyncUtils'
+import { ConnectorCardInterface, getCompleteGitPath, getRepoPath, gitCards } from '@common/utils/gitSyncUtils'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
 import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'

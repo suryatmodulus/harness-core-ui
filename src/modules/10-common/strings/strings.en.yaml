@@ -192,6 +192,7 @@ gitSync:
   savingInProgress: Saving in progress
   pushingChangestoBranch: 'Pushing changes to branch {{branch}}'
   creatingPR: 'Creating a Pull Request from {{fromBranch}} to branch {{toBranch}}'
+  prCreated: Pull request created
   unableToCreatePR: Unable to create PR
   settingUpNewBranch: 'Setting up new branch {{branch}}'
 git:

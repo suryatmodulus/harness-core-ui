@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useModalHook, Button } from '@wings-software/uicore'
+import { useModalHook, Button, Text } from '@wings-software/uicore'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import { noop } from 'lodash-es'
@@ -11,9 +11,10 @@ import SaveToGitForm, {
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
-import { EntityGitDetails, ResponseMessage, useCreatePR } from 'services/cd-ng'
+import { getPullRequestUrl } from '@common/utils/gitSyncUtils'
+import { EntityGitDetails, GitSyncConfig, ResponseMessage, useCreatePR } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { ProgressOverlay, StepStatus } from '../ProgressOverlay/ProgressOverlay'
+import { ProgressOverlay, Stage, StepStatus } from '../ProgressOverlay/ProgressOverlay'
 import { useGitDiffEditorDialog } from '../GitDiffEditor/useGitDiffEditorDialog'
 import css from './useSaveToGitDialog.module.scss'
 
@@ -68,6 +69,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   /* Progress dialog states */
+  const [prNumber, setPRNumber] = useState<number>()
   const [prCreateStatus, setPRCreateStatus] = useState<StepStatus>()
   const [prMetaData, setPRMetaData] = useState<
     Pick<SaveToGitFormInterface, 'branch' | 'targetBranch' | 'isNewBranch'>
@@ -90,25 +92,45 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   }
   const fromBranch = prMetaData?.branch || ''
   const toBranch = prMetaData?.targetBranch || ''
-  const setupBranchStage = {
+  const setupBranchStage: Stage = {
     status: createUpdateStatus,
     intermediateLabel: getString('common.gitSync.settingUpNewBranch', {
       branch: fromBranch
     })
   }
-  const pushingChangesToBranch = {
+  const pushingChangesToBranch: Stage = {
     status: createUpdateStatus,
     intermediateLabel: getString('common.gitSync.pushingChangestoBranch', {
       branch: fromBranch
     })
   }
-  const createPRStage = {
+  const createPRStage: Stage = {
     status: prCreateStatus,
     intermediateLabel: getString('common.gitSync.creatingPR', {
       fromBranch,
       toBranch
     }),
     finalLabel: getString('common.gitSync.unableToCreatePR')
+  }
+  const prURLTemplate = getPullRequestUrl(
+    { repo: 'https://github.com/wings-software/nextgenui', gitConnectorType: 'Github' } as GitSyncConfig,
+    prNumber
+  )
+  const prURL = (
+    <a href={prURLTemplate} target="_blank" rel="noopener noreferrer" className={css.noShadow}>
+      <Text title={prURLTemplate} className={css.link}>
+        {prURLTemplate}
+      </Text>
+    </a>
+  ) as React.ReactNode
+  const prCreatedStage: Stage = {
+    status: 'SUCCESS',
+    intermediateLabel: (
+      <>
+        {getString('common.gitSync.prCreated')}
+        <Text padding={{ top: 'xsmall' }}>{prURL}</Text>
+      </>
+    )
   }
 
   // Dialogs
@@ -142,7 +164,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
           preFirstStage={prMetaData?.isNewBranch ? setupBranchStage : undefined}
           firstStage={entityCreateUpdateStage}
           postFirstStage={pushingChangesToBranch}
-          secondStage={createPRStage}
+          secondStage={prCreateStatus === 'SUCCESS' ? prCreatedStage : createPRStage}
           onClose={() => {
             hideCreateUpdateWithPRCreationModal()
             if (createUpdateStatus === 'SUCCESS') {
@@ -214,6 +236,9 @@ export function useSaveToGitDialog<T = Record<string, string>>(
                   }
                 }
               )
+              if (_response.status === 'SUCCESS') {
+                setPRNumber(_response.data?.prNumber)
+              }
               setPRCreateStatus(_response?.status)
             } catch (e) {
               setPRCreateStatus('ERROR')

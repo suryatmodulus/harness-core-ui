@@ -31,7 +31,7 @@ import {
 } from 'services/cd-ng'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useStrings } from 'framework/strings'
-import { getCompleteGitPath, getGitConnectorIcon, getRepoPath, getExternalUrl } from '@common/utils/gitSyncUtils'
+import { getCompleteGitPath, getGitConnectorIcon, getRepoPath, getExternalUrl } from '@gitsync/common/gitSyncUtils'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

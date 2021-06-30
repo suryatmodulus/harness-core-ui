@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button, Icon, Text, Color } from '@wings-software/uicore'
-import { cloneDeep, get, isEmpty, isNil, set, isArray, mergeWith } from 'lodash-es'
+import { cloneDeep, get, isEmpty, isNil, set, isArray, mergeWith, isPlainObject } from 'lodash-es'
 import cx from 'classnames'
 
 import produce from 'immer'
@@ -36,6 +36,7 @@ export const ConfigureStepScreenDrawers: DrawerTypes[] = [
   DrawerTypes.ConfigureService,
   DrawerTypes.ProvisionerStepConfig
 ]
+
 const checkDuplicateStep = (
   formikRef: React.MutableRefObject<StepFormikRef<unknown> | null>,
   data: DrawerData['data'],
@@ -58,6 +59,22 @@ const checkDuplicateStep = (
     }
   }
   return false
+}
+
+function mergeNodeSpecCustomizer(oldVal: any, newVal: any): any {
+  if (isArray(oldVal) || isArray(newVal)) {
+    return isArray(newVal) ? newVal.slice(0) : undefined
+  }
+
+  if (isPlainObject(oldVal) || isPlainObject(newVal)) {
+    return isPlainObject(newVal) ? newVal : undefined
+  }
+
+  return undefined
+}
+
+function mergeNodeSpec(oldNodeSpec: any, newNodeSpec: any): any {
+  return mergeWith(oldNodeSpec, newNodeSpec, mergeNodeSpecCustomizer)
 }
 
 export const RightDrawer: React.FC = (): JSX.Element => {
@@ -608,15 +625,4 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       )}
     </Drawer>
   )
-}
-
-function mergeNodeSpecCustomizer(oldVal: any, newVal: any): any {
-  if (isArray(oldVal) || isArray(newVal)) {
-    return isArray(newVal) ? newVal.slice(0) : undefined
-  }
-  return undefined
-}
-
-function mergeNodeSpec(oldNodeSpec: any, newNodeSpec: any): any {
-  return mergeWith(oldNodeSpec, newNodeSpec, mergeNodeSpecCustomizer)
 }

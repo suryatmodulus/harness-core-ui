@@ -3,7 +3,6 @@ import { Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { useTelemetry } from '@common/hooks/useTelemetry'
-import createConnectorModal from '@ce/components/Connectors/createConnectorModal'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { useStrings } from 'framework/strings'
@@ -25,12 +24,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
   const handleConnectorCreationSuccess = (data: ConnectorInfoDTO | undefined): void => {
     handleConnectorSelection(data as ConnectorInfoDTO)
   }
-  const { openConnectorModal } = createConnectorModal({
-    onSuccess: handleConnectorCreationSuccess
-    // onClose: () => {
-    // }
-  })
-  const { openConnectorModal: openAzureConnectorModal } = useCreateConnectorModal({
+  const { openConnectorModal: openConnectorModal } = useCreateConnectorModal({
     onSuccess: data => {
       handleConnectorCreationSuccess(data?.connector)
     }
@@ -60,10 +54,12 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
     if (props.provider) {
       switch (props.provider) {
         case 'CEAws':
-          openConnectorModal(false, 'CEAws')
+          openConnectorModal(false, Connectors.CEAWS, {
+            connectorInfo: ({ orgIdentifier: '', projectIdentifier: '' } as unknown) as ConnectorInfoDTO
+          })
           break
         case 'CEAzure':
-          openAzureConnectorModal(false, Connectors.CE_AZURE, {
+          openConnectorModal(false, Connectors.CE_AZURE, {
             connectorInfo: ({ orgIdentifier: '', projectIdentifier: '' } as unknown) as ConnectorInfoDTO
           })
           break
@@ -100,9 +96,11 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
       <span
         onClick={() => {
           if (isAwsProvider) {
-            openConnectorModal(false, 'CEAws')
+            openConnectorModal(false, Connectors.CEAWS, {
+              connectorInfo: ({ orgIdentifier: '', projectIdentifier: '' } as unknown) as ConnectorInfoDTO
+            })
           } else {
-            openAzureConnectorModal(false, Connectors.CE_AZURE, {
+            openConnectorModal(false, Connectors.CE_AZURE, {
               connectorInfo: ({ orgIdentifier: '', projectIdentifier: '' } as unknown) as ConnectorInfoDTO
             })
           }
@@ -117,20 +115,6 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
           getString('rbac.account')
         ].join(' ')}
       </span>
-      {localStorage.CENGAWSCONNECTOR && (
-        <div>
-          <span
-            onClick={() => {
-              openAzureConnectorModal(false, Connectors.CEAWS, {
-                connectorInfo: ({ orgIdentifier: '', projectIdentifier: '' } as unknown) as ConnectorInfoDTO
-              })
-            }}
-            style={{ fontSize: '13px', color: '#0278D5', lineHeight: '20px', cursor: 'pointer' }}
-          >
-            Try AWS New Connector
-          </span>
-        </div>
-      )}
     </div>
   )
 }

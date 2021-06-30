@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/14</span>
+                <span class='fraction'>12/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -145,10 +145,17 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -170,7 +177,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,6 +205,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,6 +249,7 @@
 import { Link } from 'react-router-dom'
 import { Container, Layout, Text, IconName, Color, Icon } from '@wings-software/uicore'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
+import { IdentifierText } from '@cf/components/IdentifierText/IdentifierText'
 &nbsp;
 const HEADER_HEIGHT = 145
 const HEADER_HEIGHT_NO_TAGS = 120
@@ -250,8 +263,9 @@ export interface DetailPageTemplateProps {
   breadcrumbs: DetailPageTemplateBreadcrumbLink[]
   title: React.ReactNode
   titleIcon?: IconName | React.ReactNode
-  subTittle?: string
+  subTitle?: string
   tags?: string[] | null | undefined
+  identifier?: string
 &nbsp;
   /** Optional extra components to be added into header (context menu, edit button, etc...)  */
   /** Note: Use absolute position to style it */
@@ -262,8 +276,9 @@ export const DetailPageTemplate: React.FC&lt;DetailPageTemplateProps&gt; = ({
   breadcrumbs,
   title,
   titleIcon,
-  subTittle,
+  subTitle,
   tags,
+  identifier,
   headerExtras,
   children
 }) =&gt; {
@@ -298,10 +313,13 @@ export const DetailPageTemplate: React.FC&lt;DetailPageTemplateProps&gt; = ({
               {typeof titleIcon !== 'string' &amp;&amp; &lt;&gt;{titleIcon}&lt;/&gt;}
             &lt;/Container&gt;
             &lt;Container&gt;
-              &lt;Text style={{ fontSize: '20px', color: 'var(--black)' }}&gt;{title}&lt;/Text&gt;
-              {subTittle &amp;&amp; (
+              &lt;Layout.Horizontal spacing="medium"&gt;
+                &lt;Text style={{ fontSize: '20px', color: 'var(--black)' }}&gt;{title}&lt;/Text&gt;
+                {identifier &amp;&amp; &lt;IdentifierText identifier={identifier} allowCopy style={{ marginBottom: 0 }} /&gt;}
+              &lt;/Layout.Horizontal&gt;
+              {subTitle &amp;&amp; (
                 &lt;Text color={Color.GREY_400} padding={{ top: 'xsmall' }}&gt;
-                  {subTittle}
+                  {subTitle}
                 &lt;/Text&gt;
               )}
             &lt;/Container&gt;
@@ -328,7 +346,7 @@ export const DetailPageTemplate: React.FC&lt;DetailPageTemplateProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 30 2021 14:44:03 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 30 2021 15:40:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

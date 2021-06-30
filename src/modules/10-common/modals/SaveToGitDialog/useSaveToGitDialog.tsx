@@ -11,7 +11,6 @@ import SaveToGitForm, {
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
-import { getPullRequestUrl } from '@common/utils/gitSyncUtils'
 import { EntityGitDetails, GitSyncConfig, ResponseMessage, useCreatePR } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { ProgressOverlay, Stage, StepStatus } from '../ProgressOverlay/ProgressOverlay'
@@ -42,6 +41,19 @@ export interface OpenSaveToGitDialogValue<T> {
 export interface UseSaveToGitDialogReturn<T> {
   openSaveToGitDialog: (args: OpenSaveToGitDialogValue<T>) => void
   hideSaveToGitDialog: () => void
+}
+
+const getPullRequestUrl = (config: GitSyncConfig, prNumber?: number): string => {
+  if (!prNumber) {
+    return ''
+  }
+  const { repo, gitConnectorType } = config
+  switch (gitConnectorType) {
+    case 'Github':
+      return `${repo}/pull/${prNumber}`
+    default:
+      return ''
+  }
 }
 
 export function useSaveToGitDialog<T = Record<string, string>>(

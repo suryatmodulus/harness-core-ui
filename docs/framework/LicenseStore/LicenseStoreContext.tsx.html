@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.28% </span>
+                <span class="strong">40.85% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/72</span>
+                <span class='fraction'>29/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">11.36% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/90</span>
+                <span class='fraction'>10/88</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.03% </span>
+                <span class="strong">42.65% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/69</span>
+                <span class='fraction'>29/68</span>
             </div>
         
             
@@ -271,10 +271,7 @@
 <a name='L212'></a><a href='#L212'>212</a>
 <a name='L213'></a><a href='#L213'>213</a>
 <a name='L214'></a><a href='#L214'>214</a>
-<a name='L215'></a><a href='#L215'>215</a>
-<a name='L216'></a><a href='#L216'>216</a>
-<a name='L217'></a><a href='#L217'>217</a>
-<a name='L218'></a><a href='#L218'>218</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">527x</span>
+<a name='L215'></a><a href='#L215'>215</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">527x</span>
 <span class="cline-any cline-yes">527x</span>
 <span class="cline-any cline-yes">527x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -402,16 +399,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -619,21 +613,18 @@ export function <span class="fstat-no" title="function not covered" >LicenseStor
       }
     })
 &nbsp;
-    // Only update the store if the user has been created via NG
-<span class="cstat-no" title="statement not covered" >    if (Object.keys(licenses).length &gt; 0) {</span>
-      const CIModuleLicenseData = <span class="cstat-no" title="statement not covered" >licenses['CI']</span>
-      const FFModuleLicenseData = <span class="cstat-no" title="statement not covered" >licenses['CF']</span>
+    const CIModuleLicenseData = <span class="cstat-no" title="statement not covered" >licenses['CI']</span>
+    const FFModuleLicenseData = <span class="cstat-no" title="statement not covered" >licenses['CF']</span>
 &nbsp;
-      const updatedCILicenseState: LICENSE_STATE_VALUES = <span class="cstat-no" title="statement not covered" >getLicenseState(CIModuleLicenseData?.expiryTime)</span>
-      const updatedFFLicenseState: LICENSE_STATE_VALUES = <span class="cstat-no" title="statement not covered" >getLicenseState(FFModuleLicenseData?.expiryTime)</span>
+    const updatedCILicenseState: LICENSE_STATE_VALUES = <span class="cstat-no" title="statement not covered" >getLicenseState(CIModuleLicenseData?.expiryTime)</span>
+    const updatedFFLicenseState: LICENSE_STATE_VALUES = <span class="cstat-no" title="statement not covered" >getLicenseState(FFModuleLicenseData?.expiryTime)</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      setState(<span class="fstat-no" title="function not covered" >prevState </span>=&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
-        ...prevState,
-        licenseInformation: licenses,
-        CI_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedCILicenseState,
-        FF_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedFFLicenseState
-      }))
-    }
+<span class="cstat-no" title="statement not covered" >    setState(<span class="fstat-no" title="function not covered" >prevState </span>=&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
+      ...prevState,
+      licenseInformation: licenses,
+      CI_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedCILicenseState,
+      FF_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedFFLicenseState
+    }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.data?.allModuleLicenses, shouldLicensesBeDisabled])
 &nbsp;
@@ -715,7 +706,7 @@ export function handleUpdateLicenseStore(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 30 2021 16:21:36 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 30 2021 20:19:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

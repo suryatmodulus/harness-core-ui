@@ -25,7 +25,7 @@ import {
 } from 'services/cd-ng'
 import { GitAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { String, useStrings } from 'framework/strings'
-import { GitUrlType, GitConnectionType, saveCurrentStepData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Connectors } from '@connectors/constants'
 import css from './ConnectorDetailsStep.module.scss'
@@ -224,10 +224,10 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
           }}
         >
           {(formikProps: FormikProps<DetailsStepInterface>) => {
-            saveCurrentStepData<ConnectorInfoDTO>(
-              props.getCurrentStepData,
-              (formikProps.values as unknown) as ConnectorInfoDTO
-            )
+            // saveCurrentStepData<ConnectorInfoDTO>(
+            //   props.getCurrentStepData,
+            //   (formikProps.values as unknown) as ConnectorInfoDTO
+            // )
             return (
               <FormikForm>
                 <Container style={{ minHeight: 460 }}>

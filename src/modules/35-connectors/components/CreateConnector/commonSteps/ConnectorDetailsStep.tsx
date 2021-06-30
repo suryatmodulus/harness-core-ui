@@ -25,7 +25,6 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitContextForm, { GitContextProps, IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { saveCurrentStepData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { getHeadingIdByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectorDetailsStep.module.scss'
 
@@ -135,10 +134,10 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
           }}
         >
           {formikProps => {
-            saveCurrentStepData<ConnectorInfoDTO>(
-              props.getCurrentStepData,
-              (formikProps.values as unknown) as ConnectorInfoDTO
-            )
+            // saveCurrentStepData<ConnectorInfoDTO>(
+            //   props.getCurrentStepData,
+            //   (formikProps.values as unknown) as ConnectorInfoDTO
+            // )
             return (
               <FormikForm>
                 <Container style={{ minHeight: 460 }}>

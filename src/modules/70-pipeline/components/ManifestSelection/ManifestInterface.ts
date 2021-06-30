@@ -62,7 +62,7 @@ export interface ManifestLastStepProps {
   stepName: string
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
-  selectedManifest: string
+  selectedManifest: ManifestTypes
   manifestIdsList: Array<string>
   isReadonly?: boolean
 }

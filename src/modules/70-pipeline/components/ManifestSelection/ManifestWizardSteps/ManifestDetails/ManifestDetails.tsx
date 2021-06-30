@@ -27,7 +27,7 @@ import { String, useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import type { ManifestDetailDataType } from '../../ManifestInterface'
+import type { ManifestDetailDataType, ManifestTypes } from '../../ManifestInterface'
 import {
   gitFetchTypeList,
   GitFetchTypes,
@@ -43,7 +43,7 @@ interface ManifestDetailsPropType {
   stepName: string
   expressions: string[]
   initialValues: ManifestConfig
-  selectedManifest: string
+  selectedManifest: ManifestTypes
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
   isReadonly?: boolean
@@ -175,7 +175,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
-        type: ManifestDataType.K8sManifest,
+        type: selectedManifest,
         spec: {
           store: {
             type: formData?.store,
@@ -496,7 +496,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                           {getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===
                             MultiTypeInputType.RUNTIME && (
                             <ConfigureOptions
-                              value={formik.values?.skipResourceVersioning ? 'true' : 'false'}
+                              value={(formik.values?.skipResourceVersioning || '') as string}
                               type="String"
                               variableName="skipResourceVersioning"
                               showRequiredField={false}

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.89% </span>
+                <span class="strong">84.34% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>140/163</span>
+                <span class='fraction'>140/166</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50.69% </span>
+                <span class="strong">43.98% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>146/288</span>
+                <span class='fraction'>146/332</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.56% </span>
+                <span class="strong">78.38% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>29/36</span>
+                <span class='fraction'>29/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.8% </span>
+                <span class="strong">84.24% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>139/162</span>
+                <span class='fraction'>139/165</span>
             </div>
         
             
@@ -748,7 +748,22 @@
 <a name='L689'></a><a href='#L689'>689</a>
 <a name='L690'></a><a href='#L690'>690</a>
 <a name='L691'></a><a href='#L691'>691</a>
-<a name='L692'></a><a href='#L692'>692</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L692'></a><a href='#L692'>692</a>
+<a name='L693'></a><a href='#L693'>693</a>
+<a name='L694'></a><a href='#L694'>694</a>
+<a name='L695'></a><a href='#L695'>695</a>
+<a name='L696'></a><a href='#L696'>696</a>
+<a name='L697'></a><a href='#L697'>697</a>
+<a name='L698'></a><a href='#L698'>698</a>
+<a name='L699'></a><a href='#L699'>699</a>
+<a name='L700'></a><a href='#L700'>700</a>
+<a name='L701'></a><a href='#L701'>701</a>
+<a name='L702'></a><a href='#L702'>702</a>
+<a name='L703'></a><a href='#L703'>703</a>
+<a name='L704'></a><a href='#L704'>704</a>
+<a name='L705'></a><a href='#L705'>705</a>
+<a name='L706'></a><a href='#L706'>706</a>
+<a name='L707'></a><a href='#L707'>707</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1103,6 +1118,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1440,7 +1470,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { isNull, isUndefined, omit, omitBy } from 'lodash-es'
+import { isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { Button, Color, Formik, FormikForm, FormInput, Icon, Layout, SelectOption, Text } from '@wings-software/uicore'
@@ -1795,6 +1825,21 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
             clear()
             showSuccess(getString('inputSets.overlayInputSetSaved'))
           }
+        } else {
+<span class="cstat-no" title="statement not covered" >          if (response.data?.errorResponse &amp;&amp; !isEmpty(response?.data?.invalidInputSetReferences)) {</span>
+<span class="cstat-no" title="statement not covered" >            throw {</span>
+              data: {
+                errors: Object.keys(response?.data?.invalidInputSetReferences ?? {}).map(<span class="fstat-no" title="function not covered" >(k</span>ey: string) =&gt; {
+<span class="cstat-no" title="statement not covered" >                  return {</span>
+                    fieldId: key,
+                    error:
+                      response?.data?.invalidInputSetReferences?.[key] ??
+                      getString('inputSets.overlayInputSetSavedError')
+                  }
+                })
+              }
+            }
+          }
         }
       }
       <span class="missing-if-branch" title="else path not taken" >E</span>if (!isGitSyncEnabled) {
@@ -2007,9 +2052,9 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
                                 isEdit
                                   ? { ...overlayInputSetResponse?.data?.gitDetails, getDefaultFromOtherRepo: false }
                                   : {
-                                      repoIdentifier: selectedRepo,
-                                      branch: selectedBranch,
-                                      getDefaultFromOtherRepo: false
+                                      repoIdentifier,
+                                      branch,
+                                      getDefaultFromOtherRepo: true
                                     }
                               }
                               onRepoChange={onRepoChange}
@@ -2137,7 +2182,7 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 30 2021 11:56:48 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 30 2021 12:54:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

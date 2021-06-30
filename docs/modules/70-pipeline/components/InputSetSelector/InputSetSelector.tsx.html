@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.72% </span>
+                <span class="strong">37.69% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>47/128</span>
+                <span class='fraction'>49/130</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.87% </span>
+                <span class="strong">25.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>37/143</span>
+                <span class='fraction'>37/144</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.7% </span>
+                <span class="strong">38.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/122</span>
+                <span class='fraction'>48/124</span>
             </div>
         
             
@@ -531,9 +531,7 @@
 <a name='L472'></a><a href='#L472'>472</a>
 <a name='L473'></a><a href='#L473'>473</a>
 <a name='L474'></a><a href='#L474'>474</a>
-<a name='L475'></a><a href='#L475'>475</a>
-<a name='L476'></a><a href='#L476'>476</a>
-<a name='L477'></a><a href='#L477'>477</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L475'></a><a href='#L475'>475</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -554,10 +552,9 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -733,7 +730,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">37x</span>
@@ -743,7 +739,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1030,7 +1026,7 @@ import { EntityGitDetails, InputSetSummaryResponse, useGetInputSetsListForPipeli
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
-import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { useQueryParams } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import css from './InputSetSelector.module.scss'
 &nbsp;
@@ -1044,7 +1040,6 @@ export interface InputSetSelectorProps {
   pipelineIdentifier: string
   onChange?: (value?: InputSetValue[]) =&gt; void
   width?: number
-  gitFilter?: GitFilterScope
   selectedValueClass?: string
 }
 &nbsp;
@@ -1207,7 +1202,6 @@ export const InputSetSelector: React.FC&lt;InputSetSelectorProps&gt; = ({
   value,
   onChange,
   pipelineIdentifier,
-  gitFilter = {},
   selectedValueClass
 }): JSX.Element =&gt; {
   const [searchParam, setSearchParam] = React.useState('')
@@ -1219,17 +1213,17 @@ export const InputSetSelector: React.FC&lt;InputSetSelectorProps&gt; = ({
     orgIdentifier: string
     accountId: string
   }&gt;()
-&nbsp;
+  const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
   const { data: inputSetResponse, refetch, error } = useGetInputSetsListForPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,
-      ...(!isEmpty(gitFilter.repo)
+      ...(!isEmpty(repoIdentifier) &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isEmpty(branch)</span>
         ? <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-            repoIdentifier: gitFilter.repo,
-            branch: gitFilter.branch,
+            repoIdentifier,
+            branch,
             getDefaultFromOtherRepo: true
           }
         : {})
@@ -1492,7 +1486,7 @@ export const InputSetSelector: React.FC&lt;InputSetSelectorProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 30 2021 11:56:48 GMT+0000 (Greenwich Mean Time)
+                at Wed Jun 30 2021 12:54:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

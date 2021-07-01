@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Text, FormInput, MultiTypeInputType, getMultiTypeFromValue, SelectOption } from '@wings-software/uicore'
 import cx from 'classnames'
-import { cloneDeep, get } from 'lodash-es'
+import { cloneDeep, get, isUndefined } from 'lodash-es'
 import { connect } from 'formik'
 import { String } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
@@ -50,7 +50,10 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
   const { executionIdentifier, triggerIdentifier } = useParams<Record<string, string>>()
 
   React.useEffect(() => {
-    if ((!executionIdentifier && !executionId) || triggerIdentifier === 'new') {
+    if (
+      (isUndefined(executionIdentifier) && isUndefined(executionId) && isUndefined(triggerIdentifier)) ||
+      triggerIdentifier === 'new'
+    ) {
       const providedValues = get(formik.values, basePath)
       let updatedVariables: AllNGVariables[] = cloneDeep(initialValues.variables) || []
       updatedVariables =

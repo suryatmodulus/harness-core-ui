@@ -400,7 +400,7 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
         label=""
         className={column.isTriggerRbacDisabled ? css.disabledOption : ''}
         checked={data.enabled}
-        disabled={updateTriggerLoading}
+        disabled={updateTriggerLoading || column.isTriggerRbacDisabled}
         onChange={async () => {
           if (column.isTriggerRbacDisabled) {
             return

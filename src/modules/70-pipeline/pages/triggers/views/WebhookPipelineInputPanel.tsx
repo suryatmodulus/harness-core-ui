@@ -36,7 +36,12 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     triggerIdentifier: string
   }>()
   const { data: template, loading } = useGetTemplateFromPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier
+    }
   })
   const [selectedInputSets, setSelectedInputSets] = useState<InputSetSelectorProps['value']>(inputSetSelected)
   const { getString } = useStrings()
@@ -80,7 +85,12 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
         const fetchData = async (): Promise<void> => {
           const data = await getInputSetForPipelinePromise({
             inputSetIdentifier: selectedInputSets[0].value as string,
-            queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+            queryParams: {
+              accountIdentifier: accountId,
+              projectIdentifier,
+              orgIdentifier,
+              pipelineIdentifier
+            }
           })
           if (data?.data?.inputSetYaml) {
             if (selectedInputSets[0].type === 'INPUT_SET') {

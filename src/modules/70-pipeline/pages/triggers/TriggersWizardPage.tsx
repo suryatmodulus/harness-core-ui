@@ -184,6 +184,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState<string>('')
   const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: NgPipeline } | undefined>(undefined)
   const [wizardKey, setWizardKey] = useState<number>(0)
+  const [mergedPipelineKey, setMergedPipelineKey] = useState<number>(0)
 
   const [onEditInitialValues, setOnEditInitialValues] = useState<
     | FlatOnEditValuesInterface
@@ -205,12 +206,23 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   // // }, [onEditInitialValues?.triggerType])
 
   useEffect(() => {
-    setCurrentPipeline(
-      merge(clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || '')), currentPipeline || {}) as {
-        pipeline: NgPipeline
-      }
-    )
-  }, [template?.data?.inputSetTemplateYaml])
+    if (onEditInitialValues?.pipeline && template?.data?.inputSetTemplateYaml && mergedPipelineKey < 1) {
+      const newOnEditPipeline = merge(
+        parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
+        onEditInitialValues.pipeline || {}
+      )
+      const newPipeline = clearRuntimeInput(newOnEditPipeline)
+      setOnEditInitialValues({ ...onEditInitialValues, pipeline: (newPipeline as unknown) as NgPipeline })
+      setCurrentPipeline({ pipeline: newPipeline }) // will reset initialValues
+      setMergedPipelineKey(1)
+    } else if (template?.data?.inputSetTemplateYaml) {
+      setCurrentPipeline(
+        merge(clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || '')), currentPipeline || {}) as {
+          pipeline: NgPipeline
+        }
+      )
+    }
+  }, [template?.data?.inputSetTemplateYaml, onEditInitialValues?.pipeline])
 
   useEffect(() => {
     if (triggerResponse?.data?.enabled === false) {
@@ -827,24 +839,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       try {
         const newOriginalPipeline = parse(yamlPipeline)?.pipeline
         if (onEditInitialValues?.identifier) {
-          const newPipeline = !isEmpty(onEditInitialValues?.pipeline)
-            ? onEditInitialValues.pipeline
-            : currentPipeline?.pipeline || {}
-          // accommodate new runtime input variables
-          const newPipelineVariables = [...(newOriginalPipeline?.variables || [])].map(newVariable => {
-            const matchValue = onEditInitialValues?.pipeline?.variables?.find(
-              existingVariable => existingVariable.name === newVariable.name
-            )
-            if (matchValue) {
-              return matchValue
-            } else {
-              return { ...newVariable, value: '' }
-            }
-          })
-
-          if (newPipeline?.variables) {
-            newPipeline.variables = newPipelineVariables
-          }
+          const newPipeline = currentPipeline?.pipeline ? currentPipeline.pipeline : onEditInitialValues.pipeline || {}
           setOnEditInitialValues({
             ...onEditInitialValues,
             originalPipeline: newOriginalPipeline,
@@ -858,7 +853,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
     }
-  }, [pipelineResponse?.data?.yamlPipeline, onEditInitialValues?.identifier, initialValues])
+  }, [pipelineResponse?.data?.yamlPipeline, onEditInitialValues?.identifier, initialValues, currentPipeline])
 
   const { data: connectorData, refetch: getConnectorDetails } = useGetConnector({
     identifier: getIdentifierFromValue(

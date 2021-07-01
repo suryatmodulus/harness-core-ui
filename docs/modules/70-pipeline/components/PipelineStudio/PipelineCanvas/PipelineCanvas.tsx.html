@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.17% </span>
+                <span class="strong">16.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>38/235</span>
+                <span class='fraction'>38/236</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/353</span>
+                <span class='fraction'>0/354</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.95% </span>
+                <span class="strong">15.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>37/232</span>
+                <span class='fraction'>37/233</span>
             </div>
         
             
@@ -767,7 +767,13 @@
 <a name='L708'></a><a href='#L708'>708</a>
 <a name='L709'></a><a href='#L709'>709</a>
 <a name='L710'></a><a href='#L710'>710</a>
-<a name='L711'></a><a href='#L711'>711</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L711'></a><a href='#L711'>711</a>
+<a name='L712'></a><a href='#L712'>712</a>
+<a name='L713'></a><a href='#L713'>713</a>
+<a name='L714'></a><a href='#L714'>714</a>
+<a name='L715'></a><a href='#L715'>715</a>
+<a name='L716'></a><a href='#L716'>716</a>
+<a name='L717'></a><a href='#L717'>717</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -873,6 +879,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1255,6 +1263,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1437,7 +1446,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1577,6 +1589,8 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
   const {
     pipeline,
     isUpdated,
+    pipelineView: { isYamlEditable },
+    pipelineView,
     isLoading,
     isInitialized,
     originalPipeline,
@@ -1960,13 +1974,14 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
 &nbsp;
   function <span class="fstat-no" title="function not covered" >handleViewChange(</span>newView: SelectedView): boolean {
 <span class="cstat-no" title="statement not covered" >    if (newView === view) <span class="cstat-no" title="statement not covered" >return false</span></span>
-<span class="cstat-no" title="statement not covered" >    if (newView === SelectedView.VISUAL &amp;&amp; yamlHandler) {</span>
+<span class="cstat-no" title="statement not covered" >    if (newView === SelectedView.VISUAL &amp;&amp; yamlHandler &amp;&amp; isYamlEditable) {</span>
 <span class="cstat-no" title="statement not covered" >      if (!isValidYaml()) <span class="cstat-no" title="statement not covered" >return false</span></span>
     }
 <span class="cstat-no" title="statement not covered" >    setView(newView)</span>
 <span class="cstat-no" title="statement not covered" >    updatePipelineView({</span>
       splitViewData: {},
       isDrawerOpened: false,
+      isYamlEditable: false,
       isSplitViewOpen: false,
       drawerData: { type: DrawerTypes.AddStep }
     })
@@ -2147,7 +2162,10 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
                 {pipelineIdentifier !== DefaultNewPipelineId &amp;&amp; !isReadonly &amp;&amp; (
                   &lt;Button
                     disabled={!isUpdated}
-                    onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >fetchPipeline({ forceFetch: true, forceUpdate: true })}</span>
+                    onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                      updatePipelineView({ ...pipelineView, isYamlEditable: false })</span>
+<span class="cstat-no" title="statement not covered" >                      fetchPipeline({ forceFetch: true, forceUpdate: true })</span>
+                    }}
                     className={css.discardBtn}
                     text={getString('pipeline.discard')}
                   /&gt;
@@ -2194,7 +2212,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 01 2021 17:33:25 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 01 2021 17:45:02 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

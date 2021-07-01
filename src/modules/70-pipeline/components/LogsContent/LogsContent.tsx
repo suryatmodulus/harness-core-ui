@@ -70,13 +70,21 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex])
 
+  function handleSearchChange(term: string): void {
+    if (term) {
+      actions.search(term)
+    } else {
+      actions.resetSearch()
+    }
+  }
+
   return (
     <div className={cx(css.main, { [css.hasErrorMessage]: !!errorMessage })} data-mode={mode}>
       <div className={css.header}>
         <String tagName="div" stringID={mode === 'console-view' ? 'execution.consoleLogs' : 'execution.stepLogs'} />
         <div className={css.rhs}>
           <ExpandingSearchInput
-            onChange={actions.search}
+            onChange={handleSearchChange}
             showPrevNextButtons
             flip
             className={css.search}

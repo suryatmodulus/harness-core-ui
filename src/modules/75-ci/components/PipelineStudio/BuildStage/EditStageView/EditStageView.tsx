@@ -148,8 +148,9 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const handleSubmit = (values: Values): void => {
     if (data) {
       // TODO: Add Codebase verification
+      let pipelineData: PipelineInfoConfig | undefined = undefined
       if (values.cloneCodebase && values.connectorRef) {
-        const pipelineData = produce(pipeline, draft => {
+        pipelineData = produce(pipeline, draft => {
           set(draft, 'properties.ci.codebase', {
             connectorRef: typeof values.connectorRef === 'string' ? values.connectorRef : values.connectorRef?.value,
             ...(values.repoName && { repoName: values.repoName }),
@@ -161,14 +162,17 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
             delete (draft as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName
           }
         })
-        data.stage.identifier = values.identifier
-        data.stage.name = values.name
+      }
+      data.stage.identifier = values.identifier
+      data.stage.name = values.name
 
-        if (values.description) data.stage.description = values.description
-        if (!data.stage.spec) data.stage.spec = {}
-        data.stage.spec.cloneCodebase = values.cloneCodebase
-
+      if (values.description) data.stage.description = values.description
+      if (!data.stage.spec) data.stage.spec = {}
+      data.stage.spec.cloneCodebase = values.cloneCodebase
+      if (pipelineData) {
         onSubmit?.(data, values.identifier, pipelineData)
+      } else {
+        onSubmit?.(data, values.identifier)
       }
     }
   }

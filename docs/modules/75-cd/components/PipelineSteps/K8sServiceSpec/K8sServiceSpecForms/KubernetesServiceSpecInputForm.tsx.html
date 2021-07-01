@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1553</span>
+                <span class='fraction'>0/1557</span>
             </div>
         
             
@@ -1069,7 +1069,21 @@
 <a name='L1010'></a><a href='#L1010'>1010</a>
 <a name='L1011'></a><a href='#L1011'>1011</a>
 <a name='L1012'></a><a href='#L1012'>1012</a>
-<a name='L1013'></a><a href='#L1013'>1013</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L1013'></a><a href='#L1013'>1013</a>
+<a name='L1014'></a><a href='#L1014'>1014</a>
+<a name='L1015'></a><a href='#L1015'>1015</a>
+<a name='L1016'></a><a href='#L1016'>1016</a>
+<a name='L1017'></a><a href='#L1017'>1017</a>
+<a name='L1018'></a><a href='#L1018'>1018</a>
+<a name='L1019'></a><a href='#L1019'>1019</a>
+<a name='L1020'></a><a href='#L1020'>1020</a>
+<a name='L1021'></a><a href='#L1021'>1021</a>
+<a name='L1022'></a><a href='#L1022'>1022</a>
+<a name='L1023'></a><a href='#L1023'>1023</a>
+<a name='L1024'></a><a href='#L1024'>1024</a>
+<a name='L1025'></a><a href='#L1025'>1025</a>
+<a name='L1026'></a><a href='#L1026'>1026</a>
+<a name='L1027'></a><a href='#L1027'>1027</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -1909,6 +1923,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2935,7 +2963,6 @@ const KubernetesServiceSpecInputFormikForm: React.FC&lt;KubernetesServiceInputFo
                       }}
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       disabled={readonly}
-                      className={css.inputWidth}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
                     /&gt;
                   )}
@@ -3006,6 +3033,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC&lt;KubernetesServiceInputFo
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
                     /&gt;
                   )}
+&nbsp;
                   {getMultiTypeFromValue(chartName) === MultiTypeInputType.RUNTIME &amp;&amp; (
                     &lt;FormInput.MultiTextInput
                       multiTextInputProps={{
@@ -3034,27 +3062,41 @@ const KubernetesServiceSpecInputFormikForm: React.FC&lt;KubernetesServiceInputFo
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      className={css.inputWidth}
                       name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
                       label={getString('skipResourceVersion')}
                       setToFalseWhenEmpty={true}
                     /&gt;
                   )}
-                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &amp;&amp; (
-                    &lt;List
-                      label={
-                        manifestType === ManifestDataType.K8sManifest
-                          ? getString('fileFolderPathText')
-                          : getString('common.git.filePath')
-                      }
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
-                      placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-                      disabled={readonly}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      expressions={expressions}
-                      isNameOfArrayType
-                    /&gt;
-                  )}
+&nbsp;
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &amp;&amp;
+                    manifestType !== ManifestDataType.OpenshiftTemplate &amp;&amp; (
+                      &lt;List
+                        label={
+                          manifestType === ManifestDataType.K8sManifest
+                            ? getString('fileFolderPathText')
+                            : getString('common.git.filePath')
+                        }
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
+                        placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                        disabled={readonly}
+                        style={{ marginBottom: 'var(--spacing-small)' }}
+                        expressions={expressions}
+                        isNameOfArrayType
+                      /&gt;
+                    )}
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &amp;&amp;
+                    manifestType === ManifestDataType.OpenshiftTemplate &amp;&amp; (
+                      &lt;FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        label={getString('pipeline.manifestType.osTemplatePath')}
+                        placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
+                        disabled={readonly}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.path`}
+                      /&gt;
+                    )}
                 &lt;/Layout.Vertical&gt;
               )
             }
@@ -3100,7 +3142,7 @@ export const KubernetesServiceSpecInputForm = connect(KubernetesServiceSpecInput
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 01 2021 05:17:08 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 01 2021 06:11:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

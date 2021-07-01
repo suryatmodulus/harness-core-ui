@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.89% </span>
+                <span class="strong">53.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>219/399</span>
+                <span class='fraction'>229/427</span>
             </div>
         
             
@@ -434,7 +434,21 @@
 <a name='L375'></a><a href='#L375'>375</a>
 <a name='L376'></a><a href='#L376'>376</a>
 <a name='L377'></a><a href='#L377'>377</a>
-<a name='L378'></a><a href='#L378'>378</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a>
+<a name='L389'></a><a href='#L389'>389</a>
+<a name='L390'></a><a href='#L390'>390</a>
+<a name='L391'></a><a href='#L391'>391</a>
+<a name='L392'></a><a href='#L392'>392</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -540,6 +554,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -776,7 +794,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -921,9 +949,13 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
         identifier: initialValues.identifier,
         paths: specValues.paths,
         repoName: getRepoName(),
-        path: specValues.paths[0],
+        path:
+          getMultiTypeFromValue(specValues?.paths) === MultiTypeInputType.RUNTIME
+            ? specValues.paths
+            : specValues.paths[0],
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning
       }
+&nbsp;
 <span class="cstat-no" title="statement not covered" >      return values</span>
     }
     return {
@@ -948,14 +980,14 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
             spec: {
               connectorRef: formData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef,
               gitFetchType: formData<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itFetchType,
-              paths: [formData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath]
+              paths:
+                getMultiTypeFromValue(formData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) === MultiTypeInputType.RUNTIME ? <span class="branch-0 cbranch-no" title="branch not covered" >formData?.path </span>: [formData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath]
             }
           },
           skipResourceVersioning: formData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipResourceVersioning
         }
       }
     }
-&nbsp;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (connectionType === GitRepoName.Account) {
       set(manifestObj, 'manifest.spec.store.spec.repoName', formData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>epoName)
     }
@@ -1143,7 +1175,10 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
                         multiTypeTextbox={{ expressions }}
-                        className={cx(templateCss.checkbox, templateCss.halfWidth)}
+                        className={cx(templateCss.halfWidth, {
+                          [templateCss.checkbox]:
+                            getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipResourceVersioning) === MultiTypeInputType.RUNTIME
+                        })}
                       /&gt;
                       {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipResourceVersioning) === MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                        &lt;ConfigureOptions</span>
@@ -1155,7 +1190,11 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                           showAdvanced={true}
                           onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; <span class="cstat-no" title="statement not covered" >formik.setFieldValue('skipResourceVersioning', value)}</span>
                           style={{ alignSelf: 'center' }}
-                          className={css.addmarginTop}
+                          className={cx(css.addmarginTop, {
+                            [templateCss.skipConfigureBtn]:
+                              getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===
+                              MultiTypeInputType.RUNTIME
+                          })}
                           isReadonly={isReadonly}
                         /&gt;
                       )}
@@ -1166,7 +1205,10 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                             {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
                           &lt;/div&gt;
                         }
-                        className={helmcss.skipversionTooltip}
+                        className={cx(helmcss.skipversionTooltip, {
+                          [templateCss.tooltipPositioning]:
+                            getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipResourceVersioning) === MultiTypeInputType.RUNTIME
+                        })}
                       &gt;
                         &lt;Icon name="info-sign" color={Color.PRIMARY_4} size={16} /&gt;
                       &lt;/Tooltip&gt;
@@ -1195,7 +1237,7 @@ export default OpenShiftTemplateWithGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 01 2021 05:17:08 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 01 2021 06:11:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.52% </span>
+                <span class="strong">16.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/232</span>
+                <span class='fraction'>38/235</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/341</span>
+                <span class='fraction'>0/353</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.28% </span>
+                <span class="strong">15.95% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/229</span>
+                <span class='fraction'>37/232</span>
             </div>
         
             
@@ -765,7 +765,9 @@
 <a name='L706'></a><a href='#L706'>706</a>
 <a name='L707'></a><a href='#L707'>707</a>
 <a name='L708'></a><a href='#L708'>708</a>
-<a name='L709'></a><a href='#L709'>709</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L709'></a><a href='#L709'>709</a>
+<a name='L710'></a><a href='#L710'>710</a>
+<a name='L711'></a><a href='#L711'>711</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -801,6 +803,8 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -874,7 +878,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1511,6 +1515,8 @@ import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlTog
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { validateJSONWithSchema } from '@common/utils/YamlUtils'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { getRepoDetailsByIndentifier } from '@gitsync/common/gitSyncUtils'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -1582,7 +1588,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
 &nbsp;
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
   const { pipelineSchema } = <span class="cstat-no" title="statement not covered" >usePipelineSchema()</span>
-&nbsp;
+  const { gitSyncRepos, loadingRepos } = <span class="cstat-no" title="statement not covered" >useGitSyncStore()</span>
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = <span class="cstat-no" title="statement not covered" >useParams&lt;</span>
     PipelineType&lt;{
       orgIdentifier: string
@@ -2004,10 +2010,10 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
         &lt;Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium" className={css.gitDetails}&gt;
           &lt;Layout.Horizontal spacing="small" className={css.repoDetails}&gt;
             &lt;Icon name="repository" margin={{ left: 'medium' }}&gt;&lt;/Icon&gt;
-            {pipelineIdentifier === DefaultNewPipelineId ? (
-              &lt;Text&gt;{`${gitDetails?.repoIdentifier}`}&lt;/Text&gt;
+            {pipelineIdentifier === DefaultNewPipelineId &amp;&amp; !loadingRepos ? (
+              &lt;Text&gt;{getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name || ''}&lt;/Text&gt;
             ) : (
-              &lt;Text lineClamp={1} width="200px"&gt;{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}&lt;/Text&gt;
+              &lt;Text lineClamp={1} width="200px"&gt;{`${gitDetails?.rootFolder || ''}${gitDetails?.filePath || ''}`}&lt;/Text&gt;
             )}
           &lt;/Layout.Horizontal&gt;
 &nbsp;
@@ -2188,7 +2194,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 01 2021 07:03:55 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 01 2021 07:18:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

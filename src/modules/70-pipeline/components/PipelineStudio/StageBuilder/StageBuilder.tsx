@@ -6,7 +6,7 @@ import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-d
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
+import type { StageElementWrapper, NgPipeline, PipelineInfoConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
 import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
@@ -148,9 +148,9 @@ export const renderPopover = ({
     isParallel,
     showSelectMenu: true,
     getNewStageFromType,
-    onSelectStage: (type, stage) => {
+    onSelectStage: (type, stage, pipelineTemp) => {
       if (stage) {
-        addStage?.(stage, isParallel, event, undefined, true)
+        addStage?.(stage, isParallel, event, undefined, true, pipelineTemp)
       } else {
         addStage?.(getNewStageFromType(type as any), isParallel, event)
       }
@@ -222,7 +222,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     isParallel = false,
     event?: DefaultNodeEvent,
     insertAt?: number,
-    openSetupAfterAdd?: boolean
+    openSetupAfterAdd?: boolean,
+    pipelineTemp?: PipelineInfoConfig
   ): void => {
     if (!pipeline.stages) {
       pipeline.stages = []
@@ -301,7 +302,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
       stageMap.set(newStage.stage.identifier, { isConfigured: true, stage: newStage })
     }
     engine.repaintCanvas()
-    updatePipeline(pipeline).then(() => {
+    updatePipeline({ ...(pipelineTemp || {}), ...pipeline }).then(() => {
       if (openSetupAfterAdd) {
         /*updatePipelineView({
           ...pipelineView,

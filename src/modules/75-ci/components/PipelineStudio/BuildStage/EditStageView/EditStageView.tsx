@@ -41,7 +41,7 @@ import css from './EditStageView.module.scss'
 
 export interface EditStageView {
   data?: StageElementWrapper
-  onSubmit?: (values: StageElementWrapper, identifier: string) => void
+  onSubmit?: (values: StageElementWrapper, identifier: string, pipeline?: PipelineInfoConfig) => void
   onChange?: (values: StageElementWrapper) => void
 }
 
@@ -62,7 +62,6 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
 
   const {
     state: { pipeline },
-    updatePipeline,
     isReadonly
   } = React.useContext(PipelineContext)
 
@@ -162,17 +161,15 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
             delete (draft as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName
           }
         })
-        updatePipeline(pipelineData)
+        data.stage.identifier = values.identifier
+        data.stage.name = values.name
+
+        if (values.description) data.stage.description = values.description
+        if (!data.stage.spec) data.stage.spec = {}
+        data.stage.spec.cloneCodebase = values.cloneCodebase
+
+        onSubmit?.(data, values.identifier, pipelineData)
       }
-
-      data.stage.identifier = values.identifier
-      data.stage.name = values.name
-
-      if (values.description) data.stage.description = values.description
-      if (!data.stage.spec) data.stage.spec = {}
-      data.stage.spec.cloneCodebase = values.cloneCodebase
-
-      onSubmit?.(data, values.identifier)
     }
   }
 

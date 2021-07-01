@@ -156,7 +156,11 @@
 <a name='L97'></a><a href='#L97'>97</a>
 <a name='L98'></a><a href='#L98'>98</a>
 <a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">129x</span>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">129x</span>
 <span class="cline-any cline-yes">129x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">129x</span>
@@ -172,16 +176,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">129x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">129x</span>
-<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">129x</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">129x</span>
@@ -195,16 +201,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,6 +275,7 @@ export interface GitSyncStoreProps {
   readonly gitSyncRepos: GitSyncConfig[]
   readonly codeManagers: SourceCodeManagerDTO[]
   readonly loadingRepos: boolean
+  readonly loadingCodeManagers: boolean
   updateStore(data: Partial&lt;Pick&lt;GitSyncStoreProps, 'gitSyncRepos'&gt;&gt;): void
   refreshStore(): void
 }
@@ -275,6 +284,7 @@ export const GitSyncStoreContext = React.createContext&lt;GitSyncStoreProps&gt;(
   gitSyncRepos: [],
   codeManagers: [],
   loadingRepos: false,
+  loadingCodeManagers: false,
   updateStore: noop,
   refreshStore: noop
 })
@@ -292,19 +302,21 @@ export const GitSyncStoreProvider: React.FC = props =&gt; {
     lazy: true
   })
 &nbsp;
+  const { data: codeManagers, loading: loadingCodeManagers } = useGetSourceCodeManagers({})
+&nbsp;
   const [storeData, setStoreData] = React.useState&lt;Omit&lt;GitSyncStoreProps, 'updateStore' | 'strings'&gt;&gt;({
     gitSyncRepos: [],
     codeManagers: [],
     loadingRepos,
+    loadingCodeManagers,
     refreshStore: refetch
   })
-&nbsp;
-  const { data: codeManagers, loading: loadingCodeManagers } = useGetSourceCodeManagers({})
 &nbsp;
   useEffect(() =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (!loadingCodeManagers) {
       setStoreData(prevStateData =&gt; ({
         ...prevStateData,
+        loadingCodeManagers: false,
         codeManagers: codeManagers<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
       }))
     }
@@ -361,7 +373,7 @@ export const GitSyncStoreProvider: React.FC = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 01 2021 04:26:29 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 01 2021 04:41:08 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

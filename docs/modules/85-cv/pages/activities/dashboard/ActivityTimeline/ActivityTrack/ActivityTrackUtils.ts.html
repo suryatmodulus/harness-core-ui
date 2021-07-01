@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.18% </span>
+                <span class="strong">76.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/34</span>
+                <span class='fraction'>26/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.25% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/16</span>
+                <span class='fraction'>8/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.18% </span>
+                <span class="strong">76.47% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/34</span>
+                <span class='fraction'>26/34</span>
             </div>
         
             
@@ -193,8 +193,8 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -209,7 +209,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -224,21 +224,21 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">47x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -278,7 +278,7 @@ export function findTimeIncrement(
 ): { incrementLabel: 'hours' | 'minutes'; incrementBy: number } {
   return moment(startTime).diff(moment(endTime), 'days') &gt; 0
     ? { incrementLabel: 'hours', incrementBy: Math.round(24 / totalCardsPerIncrement) }
-    : <span class="branch-1 cbranch-no" title="branch not covered" >{ incrementLabel: 'minutes', incrementBy: Math.round(60 / totalCardsPerIncrement) }</span>
+    : { incrementLabel: 'minutes', incrementBy: Math.round(60 / totalCardsPerIncrement) }
 }
 &nbsp;
 export function computeTimelineHeight(
@@ -288,9 +288,9 @@ export function computeTimelineHeight(
   const totalDaysDifference = (startTime - endTime) / (60 * 1000 * 60 * 24)
   let timeDiffScale = 'days'
   let totalTimeDifference = totalDaysDifference
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (totalDaysDifference &lt; 1) {
-<span class="cstat-no" title="statement not covered" >    totalTimeDifference = (startTime - endTime) / (60 * 1000 * 60)</span>
-<span class="cstat-no" title="statement not covered" >    timeDiffScale = 'hours'</span>
+  if (totalDaysDifference &lt; 1) {
+    totalTimeDifference = (startTime - endTime) / (60 * 1000 * 60)
+    timeDiffScale = 'hours'
   }
   return {
     timelineHeight: totalTimeDifference * TIMELINE_INCREMENT_HEIGHT,
@@ -319,22 +319,22 @@ export function placeActivitiesOnTrack(
 &nbsp;
   for (const activity of activities) {
     // filter out activities that don't have start time or that are outside of the timerange of the current time range
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!activity || !activity.startTime || activity.startTime &lt; endTime || activity.startTime &gt; startTime) {
-<span class="cstat-no" title="statement not covered" >      continue</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!activity || !activity.startTime || activity.startTime &lt; endTime || <span class="branch-3 cbranch-no" title="branch not covered" >activity.startTime &gt; startTime)</span> {
+      continue
     }
 &nbsp;
     // if an activity falls under a bucktes time range, assign activity to a bucket
-    let isAddedToBucket = false
-    for (const bucket of activityBuckets) {
-      if (bucket.startTime &gt;= activity.startTime &amp;&amp; bucket.endTime &lt;= activity.startTime) {
-        bucket.activities.push(activity)
-        isAddedToBucket = true
-        break
+    let isAddedToBucket = <span class="cstat-no" title="statement not covered" >false</span>
+<span class="cstat-no" title="statement not covered" >    for (const bucket of activityBuckets) {</span>
+<span class="cstat-no" title="statement not covered" >      if (bucket.startTime &gt;= activity.startTime &amp;&amp; bucket.endTime &lt;= activity.startTime) {</span>
+<span class="cstat-no" title="statement not covered" >        bucket.activities.push(activity)</span>
+<span class="cstat-no" title="statement not covered" >        isAddedToBucket = true</span>
+<span class="cstat-no" title="statement not covered" >        break</span>
       }
     }
 &nbsp;
-    if (!isAddedToBucket) {
-      activityBuckets.push({
+<span class="cstat-no" title="statement not covered" >    if (!isAddedToBucket) {</span>
+<span class="cstat-no" title="statement not covered" >      activityBuckets.push({</span>
         activities: [activity],
         startTime: activity.startTime,
         endTime: moment(activity.startTime).subtract(incrementUnit.incrementBy, incrementUnit.incrementLabel).valueOf(),
@@ -352,7 +352,7 @@ export function placeActivitiesOnTrack(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jun 30 2021 23:02:41 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 01 2021 00:39:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

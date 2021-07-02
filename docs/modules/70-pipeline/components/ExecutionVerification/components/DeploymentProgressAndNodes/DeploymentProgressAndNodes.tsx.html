@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.21% </span>
+                <span class="strong">78.72% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>33/47</span>
+                <span class='fraction'>37/47</span>
             </div>
         
             
@@ -143,31 +143,31 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,8 +185,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -198,7 +198,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,7 +253,7 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
   const [selectedNode, setSelectedNode] = useState&lt;NodeData | undefined&gt;()
   const { getString } = useStrings()
   const deploymentNodesData = useMemo(() =&gt; {
-    if (deploymentSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>dditionalInfo?.type === 'CANARY') {
+    if (deploymentSummary?.additionalInfo?.type === 'CANARY') {
       const {
         primary: before = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span>
         canary: after = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span>
@@ -286,7 +286,7 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
 &nbsp;
   return (
     &lt;Container className={cx(css.main, className)}&gt;
-      &lt;CVProgressBar value={deploymentSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rogressPercentage ?? <span class="branch-1 cbranch-no" title="branch not covered" >0}</span> status={deploymentSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus} /&gt;
+      &lt;CVProgressBar value={deploymentSummary?.progressPercentage ?? 0} status={deploymentSummary?.status} /&gt;
       {deploymentSummary &amp;&amp; (
         &lt;&gt;
           &lt;Text
@@ -322,7 +322,7 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 21:33:38 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 23:21:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.87% </span>
+                <span class="strong">73.95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>229/310</span>
+                <span class='fraction'>230/311</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.51% </span>
+                <span class="strong">74.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>228/306</span>
+                <span class='fraction'>229/307</span>
             </div>
         
             
@@ -1198,7 +1198,8 @@
 <a name='L1139'></a><a href='#L1139'>1139</a>
 <a name='L1140'></a><a href='#L1140'>1140</a>
 <a name='L1141'></a><a href='#L1141'>1141</a>
-<a name='L1142'></a><a href='#L1142'>1142</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L1142'></a><a href='#L1142'>1142</a>
+<a name='L1143'></a><a href='#L1143'>1143</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1243,6 +1244,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -2342,7 +2344,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Layout, SelectOption, Heading, Text, Switch } from '@wings-software/uicore'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import { isEmpty, isUndefined, merge } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { Page, useToaster } from '@common/exports'
@@ -2384,6 +2386,7 @@ import type {
   InvocationMapFunction,
   CompletionItemInterface
 } from '@common/interfaces/YAMLBuilderProps'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { scheduleTabsId, getDefaultExpressionBreakdownValues } from './views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
@@ -2639,7 +2642,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
       autoAbortPreviousExecutions = <span class="branch-0 cbranch-no" title="branch not covered" >false</span>
     } = val
 &nbsp;
-    const stringifyPipelineRuntimeInput = stringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
+    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
 &nbsp;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (formikValueSourceRepo !== GitSourceProviders.CUSTOM.value) {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (
@@ -3050,7 +3053,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
     } = val
 &nbsp;
     // actions will be required thru validation
-    const stringifyPipelineRuntimeInput = stringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
+    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
     return clearNullUndefined({
       name,
       identifier,
@@ -3077,7 +3080,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
   const submitTrigger = async (triggerYaml: NGTriggerConfigV2 | TriggerConfigDTO): Promise&lt;void&gt; =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier) {
       try {
-        const { status, data } = await updateTrigger(stringify({ trigger: clearNullUndefined(triggerYaml) }) as any)
+        const { status, data } = await updateTrigger(yamlStringify({ trigger: clearNullUndefined(triggerYaml) }) as any)
         <span class="missing-if-branch" title="if path not taken" >I</span>if (status === ResponseStatus.SUCCESS) {
 <span class="cstat-no" title="statement not covered" >          showSuccess(getString('pipeline.triggers.toast.successfulUpdate', { name: data?.name }))</span>
 <span class="cstat-no" title="statement not covered" >          history.push(</span>
@@ -3096,7 +3099,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
       // error flow sent to Wizard
     } else {
 <span class="cstat-no" title="statement not covered" >      try {</span>
-        const { status, data } = <span class="cstat-no" title="statement not covered" >await createTrigger(stringify({ trigger: clearNullUndefined(triggerYaml) }) as any)</span>
+        const { status, data } = <span class="cstat-no" title="statement not covered" >await createTrigger(yamlStringify({ trigger: clearNullUndefined(triggerYaml) }) as any)</span>
 <span class="cstat-no" title="statement not covered" >        if (status === ResponseStatus.SUCCESS) {</span>
 <span class="cstat-no" title="statement not covered" >          showSuccess(getString('pipeline.triggers.toast.successfulCreate', { name: data?.name }))</span>
 <span class="cstat-no" title="statement not covered" >          history.push(</span>
@@ -3487,7 +3490,7 @@ export default TriggersWizardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 06:55:15 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 07:39:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

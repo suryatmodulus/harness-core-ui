@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.42% </span>
+                <span class="strong">64.79% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>50/71</span>
+                <span class='fraction'>46/71</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/10</span>
+                <span class='fraction'>7/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.42% </span>
+                <span class="strong">64.79% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>50/71</span>
+                <span class='fraction'>46/71</span>
             </div>
         
             
@@ -219,9 +219,7 @@
 <a name='L160'></a><a href='#L160'>160</a>
 <a name='L161'></a><a href='#L161'>161</a>
 <a name='L162'></a><a href='#L162'>162</a>
-<a name='L163'></a><a href='#L163'>163</a>
-<a name='L164'></a><a href='#L164'>164</a>
-<a name='L165'></a><a href='#L165'>165</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L163'></a><a href='#L163'>163</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -288,15 +286,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -325,11 +323,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -357,13 +353,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -390,7 +386,7 @@
 import * as yamlLanguageService from '@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageService'
 import { isEmpty } from 'lodash-es'
 import { TextDocument, Diagnostic } from 'vscode-languageserver-types'
-import { Options, parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 &nbsp;
 const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
 &nbsp;
@@ -488,12 +484,10 @@ async function validateJSONWithSchema(
   }
 &nbsp;
   try {
-    const yamlEqOfJSON = stringify(jsonObj, {
-      simpleKeys: true
-    } as Options)
-    const lineContents = yamlEqOfJSON.split(/\r?\n/)
-    const validationErrors = await validateYAMLWithSchema(yamlEqOfJSON, getSchemaWithLanguageSettings(schema))
-    validationErrors.map(<span class="fstat-no" title="function not covered" >error </span>=&gt; {
+    const yamlEqOfJSON = yamlStringify(jsonObj)
+    const lineContents = <span class="cstat-no" title="statement not covered" >yamlEqOfJSON.split(/\r?\n/)</span>
+    const validationErrors = <span class="cstat-no" title="statement not covered" >await validateYAMLWithSchema(yamlEqOfJSON, getSchemaWithLanguageSettings(schema))</span>
+<span class="cstat-no" title="statement not covered" >    validationErrors.map(<span class="fstat-no" title="function not covered" >error </span>=&gt; {</span>
       const idx = <span class="cstat-no" title="statement not covered" >error.range.end.line</span>
 <span class="cstat-no" title="statement not covered" >      if (idx &lt;= lineContents.length) {</span>
         const key = <span class="cstat-no" title="statement not covered" >lineContents[idx]?.split(':')?.[0]?.trim()</span>
@@ -526,8 +520,8 @@ const setUpLanguageService = (schema: Record&lt;string, any&gt;) =&gt; {
   return languageService
 }
 &nbsp;
-const getSchemaWithLanguageSettings = (schema: Record&lt;string, any&gt;): Record&lt;string, any&gt; =&gt; {
-  return {
+const getSchemaWithLanguageSettings = <span class="fstat-no" title="function not covered" >(s</span>chema: Record&lt;string, any&gt;): Record&lt;string, any&gt; =&gt; {
+<span class="cstat-no" title="statement not covered" >  return {</span>
     validate: true,
     enableSchemaRequest: true,
     hover: true,
@@ -556,7 +550,7 @@ export {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 06:55:15 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 07:39:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

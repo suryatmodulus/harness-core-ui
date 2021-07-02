@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.34% </span>
+                <span class="strong">84.43% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>140/166</span>
+                <span class='fraction'>141/167</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.24% </span>
+                <span class="strong">84.34% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>139/165</span>
+                <span class='fraction'>140/166</span>
             </div>
         
             
@@ -763,7 +763,14 @@
 <a name='L704'></a><a href='#L704'>704</a>
 <a name='L705'></a><a href='#L705'>705</a>
 <a name='L706'></a><a href='#L706'>706</a>
-<a name='L707'></a><a href='#L707'>707</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L707'></a><a href='#L707'>707</a>
+<a name='L708'></a><a href='#L708'>708</a>
+<a name='L709'></a><a href='#L709'>709</a>
+<a name='L710'></a><a href='#L710'>710</a>
+<a name='L711'></a><a href='#L711'>711</a>
+<a name='L712'></a><a href='#L712'>712</a>
+<a name='L713'></a><a href='#L713'>713</a>
+<a name='L714'></a><a href='#L714'>714</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -803,6 +810,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1086,6 +1094,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1475,7 +1489,7 @@ import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { Button, Color, Formik, FormikForm, FormInput, Icon, Layout, SelectOption, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { NgPipeline } from 'services/cd-ng'
@@ -1514,6 +1528,7 @@ import { useQueryParams } from '@common/hooks'
 import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import css from './OverlayInputSetForm.module.scss'
 &nbsp;
@@ -1791,28 +1806,34 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
     try {
       /* istanbul ignore else */
       if (isEdit) {
-        response = await updateOverlayInputSet(stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any, {
-          pathParams: { inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ '' },
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            pipelineIdentifier,
-            projectIdentifier,
-            ...(gitDetails ? <span class="branch-0 cbranch-no" title="branch not covered" >{ ...gitDetails, lastObjectId: objectId } </span>: {}),
-            ...(gitDetails &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >gitDetails.isNewBranch </span>? <span class="branch-0 cbranch-no" title="branch not covered" >{ baseBranch: initialGitDetails.branch } </span>: {})
+        response = await updateOverlayInputSet(
+          yamlStringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any,
+          {
+            pathParams: { inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ '' },
+            queryParams: {
+              accountIdentifier: accountId,
+              orgIdentifier,
+              pipelineIdentifier,
+              projectIdentifier,
+              ...(gitDetails ? <span class="branch-0 cbranch-no" title="branch not covered" >{ ...gitDetails, lastObjectId: objectId } </span>: {}),
+              ...(gitDetails &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >gitDetails.isNewBranch </span>? <span class="branch-0 cbranch-no" title="branch not covered" >{ baseBranch: initialGitDetails.branch } </span>: {})
+            }
           }
-        })
+        )
       } else {
-        response = await createOverlayInputSet(stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any, {
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            pipelineIdentifier,
-            projectIdentifier,
-            ...(gitDetails ?? {}),
-            ...(gitDetails &amp;&amp; gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
+        response = await createOverlayInputSet(
+          yamlStringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any,
+          {
+            queryParams: {
+              accountIdentifier: accountId,
+              orgIdentifier,
+              pipelineIdentifier,
+              projectIdentifier,
+              ...(gitDetails ?? {}),
+              ...(gitDetails &amp;&amp; gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
+            }
           }
-        })
+        )
       }
       /* istanbul ignore else */
       if (response) {
@@ -2182,7 +2203,7 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 06:55:15 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 07:39:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

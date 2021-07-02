@@ -448,7 +448,23 @@
 <a name='L389'></a><a href='#L389'>389</a>
 <a name='L390'></a><a href='#L390'>390</a>
 <a name='L391'></a><a href='#L391'>391</a>
-<a name='L392'></a><a href='#L392'>392</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L392'></a><a href='#L392'>392</a>
+<a name='L393'></a><a href='#L393'>393</a>
+<a name='L394'></a><a href='#L394'>394</a>
+<a name='L395'></a><a href='#L395'>395</a>
+<a name='L396'></a><a href='#L396'>396</a>
+<a name='L397'></a><a href='#L397'>397</a>
+<a name='L398'></a><a href='#L398'>398</a>
+<a name='L399'></a><a href='#L399'>399</a>
+<a name='L400'></a><a href='#L400'>400</a>
+<a name='L401'></a><a href='#L401'>401</a>
+<a name='L402'></a><a href='#L402'>402</a>
+<a name='L403'></a><a href='#L403'>403</a>
+<a name='L404'></a><a href='#L404'>404</a>
+<a name='L405'></a><a href='#L405'>405</a>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a>
+<a name='L408'></a><a href='#L408'>408</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -529,15 +545,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -556,7 +563,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -920,7 +952,11 @@ const AzureAccessPointForm: React.FC&lt;AzureAccessPointFormProps&gt; = props =&
     }
   })
 &nbsp;
-  const { data: vpcs, loading: vpcsLoading, refetch: vpcsReload } = useAllVPCs({
+  const {
+    data: vpcs,
+    loading: vpcsLoading,
+    refetch: vpcsReload
+  } = useAllVPCs({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -933,7 +969,11 @@ const AzureAccessPointForm: React.FC&lt;AzureAccessPointFormProps&gt; = props =&
     lazy: true
   })
 &nbsp;
-  const { data: subnets, loading: subnetsLoading, refetch: subnetsReload } = useAllSubnets({
+  const {
+    data: subnets,
+    loading: subnetsLoading,
+    refetch: subnetsReload
+  } = useAllSubnets({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -947,7 +987,11 @@ const AzureAccessPointForm: React.FC&lt;AzureAccessPointFormProps&gt; = props =&
     lazy: true
   })
 &nbsp;
-  const { data: publicIps, loading: publicIpsLoading, refetch: publicIpsReload } = useAllPublicIps({
+  const {
+    data: publicIps,
+    loading: publicIpsLoading,
+    refetch: publicIpsReload
+  } = useAllPublicIps({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -961,7 +1005,11 @@ const AzureAccessPointForm: React.FC&lt;AzureAccessPointFormProps&gt; = props =&
     lazy: true
   })
 &nbsp;
-  const { data: certificates, loading: certificatesLoading, refetch: certificatesReload } = useAllCertificates({
+  const {
+    data: certificates,
+    loading: certificatesLoading,
+    refetch: certificatesReload
+  } = useAllCertificates({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -1237,7 +1285,7 @@ export default AzureAccessPointForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 09:09:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 12:41:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

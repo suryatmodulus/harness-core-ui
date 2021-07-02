@@ -466,8 +466,7 @@
 <a name='L407'></a><a href='#L407'>407</a>
 <a name='L408'></a><a href='#L408'>408</a>
 <a name='L409'></a><a href='#L409'>409</a>
-<a name='L410'></a><a href='#L410'>410</a>
-<a name='L411'></a><a href='#L411'>411</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
+<a name='L410'></a><a href='#L410'>410</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
@@ -588,7 +587,6 @@
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1011,280 +1009,279 @@ const RenderUrlInfo: React.FC&lt;StepProps&lt;VerifyOutOfClusterStepProps&gt; &a
   )
 }
 &nbsp;
-const VerifyOutOfClusterDelegate: React.FC&lt;
-  StepProps&lt;VerifyOutOfClusterStepProps&gt; &amp; VerifyOutOfClusterDelegateProps
-&gt; = props =&gt; {
-  const { prevStepData, nextStep, isLastStep = false, connectorInfo } = props
-  const branch = props.isStep ? prevStepData?.branch : props.gitDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.branch</span>
-  const repoIdentifier = props.isStep ? prevStepData?.repo : props.gitDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier</span>
-  const {
-    accountId,
-    projectIdentifier: projectIdentifierFromUrl,
-    orgIdentifier: orgIdentifierFromUrl
-  } = useParams&lt;ProjectPathProps&gt;()
-  const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
-  const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
+const VerifyOutOfClusterDelegate: React.FC&lt;StepProps&lt;VerifyOutOfClusterStepProps&gt; &amp; VerifyOutOfClusterDelegateProps&gt; =
+  props =&gt; {
+    const { prevStepData, nextStep, isLastStep = false, connectorInfo } = props
+    const branch = props.isStep ? prevStepData?.branch : props.gitDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.branch</span>
+    const repoIdentifier = props.isStep ? prevStepData?.repo : props.gitDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier</span>
+    const {
+      accountId,
+      projectIdentifier: projectIdentifierFromUrl,
+      orgIdentifier: orgIdentifierFromUrl
+    } = useParams&lt;ProjectPathProps&gt;()
+    const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
+    const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
 &nbsp;
-  const [viewDetails, setViewDetails] = useState&lt;boolean&gt;(false)
-  const [testConnectionResponse, setTestConnectionResponse] = useState&lt;ResponseConnectorValidationResult&gt;()
-  const [stepDetails, setStepDetails] = useState&lt;StepDetails&gt;({
-    step: 1,
-    intent: Intent.WARNING,
-    status: 'PROCESS'
-  })
+    const [viewDetails, setViewDetails] = useState&lt;boolean&gt;(false)
+    const [testConnectionResponse, setTestConnectionResponse] = useState&lt;ResponseConnectorValidationResult&gt;()
+    const [stepDetails, setStepDetails] = useState&lt;StepDetails&gt;({
+      step: 1,
+      intent: Intent.WARNING,
+      status: 'PROCESS'
+    })
 &nbsp;
-  const { getString } = useStrings()
+    const { getString } = useStrings()
 &nbsp;
-  const getPermissionsLink = <span class="fstat-no" title="function not covered" >(): string =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >    switch (props.type) {</span>
-      case Connectors.KUBERNETES_CLUSTER:
-<span class="cstat-no" title="statement not covered" >        return 'https://ngdocs.harness.io/article/sjjik49xww-kubernetes-cluster-connector-settings-reference'</span>
-      case Connectors.DOCKER:
-<span class="cstat-no" title="statement not covered" >        return 'https://ngdocs.harness.io/article/u9bsd77g5a-docker-registry-connector-settings-reference'</span>
-      case Connectors.AWS:
-<span class="cstat-no" title="statement not covered" >        return 'https://ngdocs.harness.io/article/m5vkql35ca-aws-connector-settings-reference'</span>
-      case Connectors.NEXUS:
-<span class="cstat-no" title="statement not covered" >        return 'https://ngdocs.harness.io/article/faor0dc98d-nexus-connector-settings-reference'</span>
-      case Connectors.ARTIFACTORY:
-<span class="cstat-no" title="statement not covered" >        return 'https://ngdocs.harness.io/article/euueiiai4m-artifactory-connector-settings-reference'</span>
-      case Connectors.GCP:
-      case 'Gcr':
-<span class="cstat-no" title="statement not covered" >        return 'https://ngdocs.harness.io/article/yykfduond6-gcs-connector-settings-reference'</span>
-      case Connectors.GIT:
-<span class="cstat-no" title="statement not covered" >        return 'https://ngdocs.harness.io/category/xyexvcc206-ref-source-repo-provider'</span>
-      case Connectors.GITHUB:
-<span class="cstat-no" title="statement not covered" >        return 'https://ngdocs.harness.io/article/v9sigwjlgo-git-hub-connector-settings-reference'</span>
-      case Connectors.GITLAB:
-<span class="cstat-no" title="statement not covered" >        return 'https://ngdocs.harness.io/article/5abnoghjgo-git-lab-connector-settings-reference'</span>
-      case Connectors.BITBUCKET:
-<span class="cstat-no" title="statement not covered" >        return 'https://ngdocs.harness.io/article/iz5tucdwyu-bitbucket-connector-settings-reference'</span>
-      case Connectors.Jira:
-<span class="cstat-no" title="statement not covered" >        return 'https://ngdocs.harness.io/article/e6s32ec7i7'</span>
-      default:
-<span class="cstat-no" title="statement not covered" >        return ''</span>
-    }
-  }
-&nbsp;
-  const { mutate: reloadTestConnection, loading } = useGetTestConnectionResult({
-    identifier: connectorInfo &amp;&amp; connectorInfo.identifier ? connectorInfo.identifier : prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: orgIdentifier,
-      projectIdentifier: projectIdentifier,
-      branch,
-      repoIdentifier
-    },
-    requestOptions: {
-      headers: {
-        'content-type': 'application/json'
+    const getPermissionsLink = <span class="fstat-no" title="function not covered" >(): string =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >      switch (props.type) {</span>
+        case Connectors.KUBERNETES_CLUSTER:
+<span class="cstat-no" title="statement not covered" >          return 'https://ngdocs.harness.io/article/sjjik49xww-kubernetes-cluster-connector-settings-reference'</span>
+        case Connectors.DOCKER:
+<span class="cstat-no" title="statement not covered" >          return 'https://ngdocs.harness.io/article/u9bsd77g5a-docker-registry-connector-settings-reference'</span>
+        case Connectors.AWS:
+<span class="cstat-no" title="statement not covered" >          return 'https://ngdocs.harness.io/article/m5vkql35ca-aws-connector-settings-reference'</span>
+        case Connectors.NEXUS:
+<span class="cstat-no" title="statement not covered" >          return 'https://ngdocs.harness.io/article/faor0dc98d-nexus-connector-settings-reference'</span>
+        case Connectors.ARTIFACTORY:
+<span class="cstat-no" title="statement not covered" >          return 'https://ngdocs.harness.io/article/euueiiai4m-artifactory-connector-settings-reference'</span>
+        case Connectors.GCP:
+        case 'Gcr':
+<span class="cstat-no" title="statement not covered" >          return 'https://ngdocs.harness.io/article/yykfduond6-gcs-connector-settings-reference'</span>
+        case Connectors.GIT:
+<span class="cstat-no" title="statement not covered" >          return 'https://ngdocs.harness.io/category/xyexvcc206-ref-source-repo-provider'</span>
+        case Connectors.GITHUB:
+<span class="cstat-no" title="statement not covered" >          return 'https://ngdocs.harness.io/article/v9sigwjlgo-git-hub-connector-settings-reference'</span>
+        case Connectors.GITLAB:
+<span class="cstat-no" title="statement not covered" >          return 'https://ngdocs.harness.io/article/5abnoghjgo-git-lab-connector-settings-reference'</span>
+        case Connectors.BITBUCKET:
+<span class="cstat-no" title="statement not covered" >          return 'https://ngdocs.harness.io/article/iz5tucdwyu-bitbucket-connector-settings-reference'</span>
+        case Connectors.Jira:
+<span class="cstat-no" title="statement not covered" >          return 'https://ngdocs.harness.io/article/e6s32ec7i7'</span>
+        default:
+<span class="cstat-no" title="statement not covered" >          return ''</span>
       }
     }
-  })
 &nbsp;
-  const {
-    data: delegate,
-    error: delegateError,
-    refetch: refetchDelegateFromId,
-    loading: loadingDelegate
-  } = useGetDelegateFromId({
-    delegateId: testConnectionResponse?.data<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateId </span>|| '',
-    queryParams: { accountId },
-    lazy: true
-  })
+    const { mutate: reloadTestConnection, loading } = useGetTestConnectionResult({
+      identifier: connectorInfo &amp;&amp; connectorInfo.identifier ? connectorInfo.identifier : prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+      queryParams: {
+        accountIdentifier: accountId,
+        orgIdentifier: orgIdentifier,
+        projectIdentifier: projectIdentifier,
+        branch,
+        repoIdentifier
+      },
+      requestOptions: {
+        headers: {
+          'content-type': 'application/json'
+        }
+      }
+    })
 &nbsp;
-  const renderError = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-    const { responseMessages = <span class="branch-0 cbranch-no" title="branch not covered" >null </span>} = <span class="cstat-no" title="statement not covered" >testConnectionResponse?.data as Error</span>
-    const genericHandler = (
-<span class="cstat-no" title="statement not covered" >      &lt;Layout.Vertical&gt;</span>
-        &lt;Layout.Horizontal className={css.errorResult}&gt;
-          &lt;Text
-            color={Color.GREY_900}
-            lineClamp={1}
-            font={{ size: 'small', weight: 'semi-bold' }}
-            margin={{ top: 'small', bottom: 'small' }}
-          &gt;
-            {testConnectionResponse?.data?.errorSummary}
-          &lt;/Text&gt;
-          {testConnectionResponse?.data?.errors &amp;&amp; (
-            &lt;Button
-              text="View Details"
-              intent="primary"
-              font={{ size: 'small' }}
-              minimal
-              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setViewDetails(!viewDetails)}</span>
-              rightIcon={viewDetails ? 'chevron-up' : 'chevron-down'}
-              iconProps={{ size: 12 }}
-            /&gt;
-          )}
-        &lt;/Layout.Horizontal&gt;
-        {viewDetails ? (
-          &lt;div className={css.errorMsg}&gt;
-            &lt;pre&gt;{JSON.stringify({ errors: removeErrorCode(testConnectionResponse?.data?.errors) }, null, ' ')}&lt;/pre&gt;
-          &lt;/div&gt;
-        ) : null}
-      &lt;/Layout.Vertical&gt;
-    )
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;Layout.Vertical className={css.stepError}&gt;
-        {responseMessages ? (
-          &lt;ErrorHandler responseMessages={responseMessages} className={css.errorHandler} /&gt;
-        ) : (
-          genericHandler
-        )}
-        {/* TODO: when install delegate behaviour is known {testConnectionResponse?.data?.delegateId ? ( */}
-        &lt;Layout.Horizontal spacing="small"&gt;
-          {props.isStep ? (
-            &lt;Button
-              text={getString('editCredentials')}
-              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-                const isTransitionToCredentialsStepSuccessful = <span class="cstat-no" title="statement not covered" >props.gotoStep?.({</span>
-                  stepIdentifier: CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
-                  prevStepData
-                })
-<span class="cstat-no" title="statement not covered" >                if (!isTransitionToCredentialsStepSuccessful) {</span>
-<span class="cstat-no" title="statement not covered" >                  props.previousStep?.({ ...prevStepData })</span>
-                }
-<span class="cstat-no" title="statement not covered" >                props.setIsEditMode?.(true) /</span>/ Remove after all usages
-              }}
-              withoutBoxShadow
-            /&gt;
+    const {
+      data: delegate,
+      error: delegateError,
+      refetch: refetchDelegateFromId,
+      loading: loadingDelegate
+    } = useGetDelegateFromId({
+      delegateId: testConnectionResponse?.data<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateId </span>|| '',
+      queryParams: { accountId },
+      lazy: true
+    })
+&nbsp;
+    const renderError = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
+      const { responseMessages = <span class="branch-0 cbranch-no" title="branch not covered" >null </span>} = <span class="cstat-no" title="statement not covered" >testConnectionResponse?.data as Error</span>
+      const genericHandler = (
+<span class="cstat-no" title="statement not covered" >        &lt;Layout.Vertical&gt;</span>
+          &lt;Layout.Horizontal className={css.errorResult}&gt;
+            &lt;Text
+              color={Color.GREY_900}
+              lineClamp={1}
+              font={{ size: 'small', weight: 'semi-bold' }}
+              margin={{ top: 'small', bottom: 'small' }}
+            &gt;
+              {testConnectionResponse?.data?.errorSummary}
+            &lt;/Text&gt;
+            {testConnectionResponse?.data?.errors &amp;&amp; (
+              &lt;Button
+                text="View Details"
+                intent="primary"
+                font={{ size: 'small' }}
+                minimal
+                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setViewDetails(!viewDetails)}</span>
+                rightIcon={viewDetails ? 'chevron-up' : 'chevron-down'}
+                iconProps={{ size: 12 }}
+              /&gt;
+            )}
+          &lt;/Layout.Horizontal&gt;
+          {viewDetails ? (
+            &lt;div className={css.errorMsg}&gt;
+              &lt;pre&gt;{JSON.stringify({ errors: removeErrorCode(testConnectionResponse?.data?.errors) }, null, ' ')}&lt;/pre&gt;
+            &lt;/div&gt;
           ) : null}
-          &lt;Text
-            onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >window.open(getPermissionsLink(), '_blank')}</span>
-            className={cx(css.veiwPermission, { [css.marginAuto]: props.isStep })}
-            intent="primary"
-          &gt;
-            {getString('connectors.testConnectionStep.viewPermissions')}
-          &lt;/Text&gt;
-        &lt;/Layout.Horizontal&gt;
-        {/* ) : (
+        &lt;/Layout.Vertical&gt;
+      )
+<span class="cstat-no" title="statement not covered" >      return (</span>
+        &lt;Layout.Vertical className={css.stepError}&gt;
+          {responseMessages ? (
+            &lt;ErrorHandler responseMessages={responseMessages} className={css.errorHandler} /&gt;
+          ) : (
+            genericHandler
+          )}
+          {/* TODO: when install delegate behaviour is known {testConnectionResponse?.data?.delegateId ? ( */}
+          &lt;Layout.Horizontal spacing="small"&gt;
+            {props.isStep ? (
+              &lt;Button
+                text={getString('editCredentials')}
+                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+                  const isTransitionToCredentialsStepSuccessful = <span class="cstat-no" title="statement not covered" >props.gotoStep?.({</span>
+                    stepIdentifier: CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+                    prevStepData
+                  })
+<span class="cstat-no" title="statement not covered" >                  if (!isTransitionToCredentialsStepSuccessful) {</span>
+<span class="cstat-no" title="statement not covered" >                    props.previousStep?.({ ...prevStepData })</span>
+                  }
+<span class="cstat-no" title="statement not covered" >                  props.setIsEditMode?.(true) /</span>/ Remove after all usages
+                }}
+                withoutBoxShadow
+              /&gt;
+            ) : null}
+            &lt;Text
+              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >window.open(getPermissionsLink(), '_blank')}</span>
+              className={cx(css.veiwPermission, { [css.marginAuto]: props.isStep })}
+              intent="primary"
+            &gt;
+              {getString('connectors.testConnectionStep.viewPermissions')}
+            &lt;/Text&gt;
+          &lt;/Layout.Horizontal&gt;
+          {/* ) : (
           &lt;Button text={getString('connectors.testConnectionStep.installNewDelegate')} disabled width="160px" /&gt;
         )} */}
-      &lt;/Layout.Vertical&gt;
-    )
-  }
+        &lt;/Layout.Vertical&gt;
+      )
+    }
 &nbsp;
-  const getStepOne = () =&gt; {
-    return (
-      &lt;Layout.Vertical width={'100%'}&gt;
-        &lt;Text color={Color.GREY_600}&gt;{GetTestConnectionValidationTextByType(props.type)}&lt;/Text&gt;
-        {!loading &amp;&amp; testConnectionResponse?.data<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateId </span>? (
-<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;Text padding={{ top: 'xsmall' }} color={Color.GREY_900} font={{ size: 'small' }}&gt;</span>
-            {getString('connectors.testConnectionStep.executingOn')}
-            {loadingDelegate
-              ? getString('loading')
-              : delegateError
-              ? getString('connectors.testConnectionStep.noDelegate')
-              : delegate?.resource?.hostName}
-          &lt;/Text&gt;
-        ) : null}
+    const getStepOne = () =&gt; {
+      return (
+        &lt;Layout.Vertical width={'100%'}&gt;
+          &lt;Text color={Color.GREY_600}&gt;{GetTestConnectionValidationTextByType(props.type)}&lt;/Text&gt;
+          {!loading &amp;&amp; testConnectionResponse?.data<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateId </span>? (
+<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;Text padding={{ top: 'xsmall' }} color={Color.GREY_900} font={{ size: 'small' }}&gt;</span>
+              {getString('connectors.testConnectionStep.executingOn')}
+              {loadingDelegate
+                ? getString('loading')
+                : delegateError
+                ? getString('connectors.testConnectionStep.noDelegate')
+                : delegate?.resource?.hostName}
+            &lt;/Text&gt;
+          ) : null}
 &nbsp;
-        {stepDetails.step === StepIndex.get(STEP.TEST_CONNECTION) ? (
-          stepDetails.status === 'ERROR' ? (
-            testConnectionResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?.errorSummary </span>||
-            testConnectionResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?.errors </span>||
-            (testConnectionResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata as Error)<span class="branch-1 cbranch-no" title="branch not covered" >?.responseMessages </span>? (
-<span class="branch-0 cbranch-no" title="branch not covered" >              renderError()</span>
-            ) : (
-              &lt;Text padding={{ top: 'small' }}&gt;{getString('connectors.testConnectionStep.placeholderError')}&lt;/Text&gt;
-            )
-          ) : null
-        ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
-      &lt;/Layout.Vertical&gt;
-    )
-  }
+          {stepDetails.step === StepIndex.get(STEP.TEST_CONNECTION) ? (
+            stepDetails.status === 'ERROR' ? (
+              testConnectionResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?.errorSummary </span>||
+              testConnectionResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?.errors </span>||
+              (testConnectionResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata as Error)<span class="branch-1 cbranch-no" title="branch not covered" >?.responseMessages </span>? (
+<span class="branch-0 cbranch-no" title="branch not covered" >                renderError()</span>
+              ) : (
+                &lt;Text padding={{ top: 'small' }}&gt;{getString('connectors.testConnectionStep.placeholderError')}&lt;/Text&gt;
+              )
+            ) : null
+          ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
+        &lt;/Layout.Vertical&gt;
+      )
+    }
 &nbsp;
-  const executeEstablishConnection = async (): Promise&lt;void&gt; =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (stepDetails.step === StepIndex.get(STEP.TEST_CONNECTION)) {
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (stepDetails.status === 'PROCESS') {
-        try {
-          const result = await reloadTestConnection()
+    const executeEstablishConnection = async (): Promise&lt;void&gt; =&gt; {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (stepDetails.step === StepIndex.get(STEP.TEST_CONNECTION)) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (stepDetails.status === 'PROCESS') {
+          try {
+            const result = await reloadTestConnection()
 &nbsp;
-<span class="cstat-no" title="statement not covered" >          setTestConnectionResponse(result)</span>
-<span class="cstat-no" title="statement not covered" >          if (result?.data?.status === 'SUCCESS') {</span>
-<span class="cstat-no" title="statement not covered" >            setStepDetails({</span>
-              step: 2,
-              intent: Intent.SUCCESS,
-              status: 'DONE'
-            })
-<span class="cstat-no" title="statement not covered" >            props.completedStep?.(props.stepIndex as number)</span>
-          } else {
-<span class="cstat-no" title="statement not covered" >            setStepDetails({</span>
+<span class="cstat-no" title="statement not covered" >            setTestConnectionResponse(result)</span>
+<span class="cstat-no" title="statement not covered" >            if (result?.data?.status === 'SUCCESS') {</span>
+<span class="cstat-no" title="statement not covered" >              setStepDetails({</span>
+                step: 2,
+                intent: Intent.SUCCESS,
+                status: 'DONE'
+              })
+<span class="cstat-no" title="statement not covered" >              props.completedStep?.(props.stepIndex as number)</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >              setStepDetails({</span>
+                step: 1,
+                intent: Intent.DANGER,
+                status: 'ERROR'
+              })
+            }
+          } catch (err) {
+            setTestConnectionResponse(err)
+            setStepDetails({
               step: 1,
               intent: Intent.DANGER,
               status: 'ERROR'
             })
           }
-        } catch (err) {
-          setTestConnectionResponse(err)
-          setStepDetails({
-            step: 1,
-            intent: Intent.DANGER,
-            status: 'ERROR'
-          })
         }
       }
     }
-  }
-  useEffect(() =&gt; {
-    executeEstablishConnection()
-  }, [])
+    useEffect(() =&gt; {
+      executeEstablishConnection()
+    }, [])
 &nbsp;
-  useEffect(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" >testConnectionResponse?.data<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.delegateId)</span> {
-<span class="cstat-no" title="statement not covered" >      refetchDelegateFromId()</span>
-    }
-  }, [testConnectionResponse?.data<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateId]</span>)
-  return (
-    &lt;Layout.Vertical padding={{ top: 'large', right: 'small', left: 'small', bottom: 'large' }} height={'100%'}&gt;
-      &lt;Layout.Vertical&gt;
-        &lt;Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800}&gt;
-          {getString('connectors.stepThreeName')}
-        &lt;/Text&gt;
-        {prevStepData?.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? <span class="branch-0 cbranch-no" title="branch not covered" >null </span>: (
-          &lt;RenderUrlInfo type={props.type} prevStepData={prevStepData} url={props.url} /&gt;
-        )}
-        &lt;Container className={cx(css.content, { [css.contentMinHeight]: props.isStep })} padding={{ top: 'xxlarge' }}&gt;
-          &lt;StepsProgress
-            steps={[getStepOne()]}
-            intent={stepDetails.intent}
-            current={stepDetails.step}
-            currentStatus={stepDetails.status}
-          /&gt;
+    useEffect(() =&gt; {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" >testConnectionResponse?.data<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.delegateId)</span> {
+<span class="cstat-no" title="statement not covered" >        refetchDelegateFromId()</span>
+      }
+    }, [testConnectionResponse?.data<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateId]</span>)
+    return (
+      &lt;Layout.Vertical padding={{ top: 'large', right: 'small', left: 'small', bottom: 'large' }} height={'100%'}&gt;
+        &lt;Layout.Vertical&gt;
+          &lt;Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800}&gt;
+            {getString('connectors.stepThreeName')}
+          &lt;/Text&gt;
+          {prevStepData?.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? <span class="branch-0 cbranch-no" title="branch not covered" >null </span>: (
+            &lt;RenderUrlInfo type={props.type} prevStepData={prevStepData} url={props.url} /&gt;
+          )}
+          &lt;Container className={cx(css.content, { [css.contentMinHeight]: props.isStep })} padding={{ top: 'xxlarge' }}&gt;
+            &lt;StepsProgress
+              steps={[getStepOne()]}
+              intent={stepDetails.intent}
+              current={stepDetails.step}
+              currentStatus={stepDetails.status}
+            /&gt;
 &nbsp;
-          {stepDetails.status === 'DONE' ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;Text color={Color.GREEN_600} font={{ weight: 'bold' }} padding={{ top: 'large' }}&gt;</span>
-              {getString('connectors.testConnectionStep.verificationSuccessful')}
-            &lt;/Text&gt;
-          ) : null}
-        &lt;/Container&gt;
+            {stepDetails.status === 'DONE' ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;Text color={Color.GREEN_600} font={{ weight: 'bold' }} padding={{ top: 'large' }}&gt;</span>
+                {getString('connectors.testConnectionStep.verificationSuccessful')}
+              &lt;/Text&gt;
+            ) : null}
+          &lt;/Container&gt;
+        &lt;/Layout.Vertical&gt;
+        {props.isStep ? (
+          isLastStep ? (
+            &lt;Layout.Horizontal spacing="large" className={css.btnWrapper}&gt;
+              &lt;Button
+                intent="primary"
+                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                  props.onClose?.()</span>
+                }}
+                text={getString('finish')}
+              /&gt;
+            &lt;/Layout.Horizontal&gt;
+          ) : (
+            &lt;Layout.Horizontal spacing="large" className={css.btnWrapper}&gt;
+              &lt;Button
+                intent="primary"
+                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                  nextStep?.({ ...prevStepData })</span>
+                }}
+                text={getString('continue')}
+              /&gt;
+            &lt;/Layout.Horizontal&gt;
+          )
+        ) : null}
       &lt;/Layout.Vertical&gt;
-      {props.isStep ? (
-        isLastStep ? (
-          &lt;Layout.Horizontal spacing="large" className={css.btnWrapper}&gt;
-            &lt;Button
-              intent="primary"
-              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                props.onClose?.()</span>
-              }}
-              text={getString('finish')}
-            /&gt;
-          &lt;/Layout.Horizontal&gt;
-        ) : (
-          &lt;Layout.Horizontal spacing="large" className={css.btnWrapper}&gt;
-            &lt;Button
-              intent="primary"
-              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                nextStep?.({ ...prevStepData })</span>
-              }}
-              text={getString('continue')}
-            /&gt;
-          &lt;/Layout.Horizontal&gt;
-        )
-      ) : null}
-    &lt;/Layout.Vertical&gt;
-  )
-}
+    )
+  }
 &nbsp;
 export default VerifyOutOfClusterDelegate
 &nbsp;</pre></td></tr></table></pre>
@@ -1294,7 +1291,7 @@ export default VerifyOutOfClusterDelegate
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 09:09:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 12:41:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

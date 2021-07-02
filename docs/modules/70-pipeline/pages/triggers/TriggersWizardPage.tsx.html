@@ -2556,7 +2556,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
         onEditInitialValues.pipeline || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
       )
       const newPipeline = clearRuntimeInput(newOnEditPipeline)
-      setOnEditInitialValues({ ...onEditInitialValues, pipeline: (newPipeline as unknown) as NgPipeline })
+      setOnEditInitialValues({ ...onEditInitialValues, pipeline: newPipeline as unknown as NgPipeline })
       setCurrentPipeline({ pipeline: newPipeline }) // will reset initialValues
       setMergedPipelineKey(1)
     } else <span class="missing-if-branch" title="else path not taken" >E</span>if (template<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSetTemplateYaml) {
@@ -2696,7 +2696,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
       }
 &nbsp;
       // actions will be required thru validation
-      const actionsValues = ((actions as unknown) as SelectOption[])<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(action =&gt; action.value)
+      const actionsValues = (actions as unknown as SelectOption[])<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(action =&gt; action.value)
       const triggerYaml: NGTriggerConfigV2 = {
         name,
         identifier,
@@ -2707,7 +2707,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
         projectIdentifier,
         pipelineIdentifier,
         source: {
-          type: (formikValueTriggerType as unknown) as NGTriggerSourceV2['type'],
+          type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
           spec: {
             type: formikValueSourceRepo, // Github
             spec: {
@@ -2755,7 +2755,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
         projectIdentifier,
         pipelineIdentifier,
         source: {
-          type: (formikValueTriggerType as unknown) as NGTriggerSourceV2['type'],
+          type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
           spec: {
             type: formikValueSourceRepo, // Custom
             spec: {
@@ -2874,7 +2874,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
           tags,
           pipeline: pipelineJson,
           sourceRepo,
-          triggerType: (TriggerTypes.WEBHOOK as unknown) as NGTriggerSourceV2['type'],
+          triggerType: TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
           event,
           autoAbortPreviousExecutions,
           connectorRef,
@@ -2968,7 +2968,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
           tags,
           pipeline: pipelineJson,
           sourceRepo,
-          triggerType: (TriggerTypes.WEBHOOK as unknown) as NGTriggerSourceV2['type'],
+          triggerType: TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
           secureToken: authToken?.spec?.value,
           headerConditions,
           payloadConditions,
@@ -3025,7 +3025,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
         description,
         tags,
         pipeline: pipelineJson,
-        triggerType: (TriggerTypes.SCHEDULE as unknown) as NGTriggerSourceV2['type'],
+        triggerType: TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type'],
         expression,
         ...newExpressionBreakdown,
         selectedScheduleTab: scheduleTabsId.CUSTOM // only show CUSTOM on edit
@@ -3064,7 +3064,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
       projectIdentifier,
       pipelineIdentifier,
       source: {
-        type: (formikValueTriggerType as unknown) as NGTriggerSourceV2['type'],
+        type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
         spec: {
           type: scheduledTypes.CRON,
           spec: {
@@ -3372,7 +3372,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
           initialValues,
           onSubmit: (val: FlatValidWebhookFormikValuesInterface) =&gt; handleWebhookSubmit(val),
           validationSchema: getValidationSchema(
-            (TriggerTypes.WEBHOOK as unknown) as NGTriggerSourceV2['type'],
+            TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
             getString
           ),
           enableReinitialize: true
@@ -3417,7 +3417,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
           initialValues,
           onSubmit: (val: FlatValidScheduleFormikValuesInterface) =&gt; handleScheduleSubmit(val),
           validationSchema: getValidationSchema(
-            (TriggerTypes.SCHEDULE as unknown) as NGTriggerSourceV2['type'],
+            TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type'],
             getString
           ),
           enableReinitialize: true
@@ -3490,7 +3490,7 @@ export default TriggersWizardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 09:09:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 12:41:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

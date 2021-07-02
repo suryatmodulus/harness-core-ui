@@ -704,7 +704,11 @@
 <a name='L645'></a><a href='#L645'>645</a>
 <a name='L646'></a><a href='#L646'>646</a>
 <a name='L647'></a><a href='#L647'>647</a>
-<a name='L648'></a><a href='#L648'>648</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L648'></a><a href='#L648'>648</a>
+<a name='L649'></a><a href='#L649'>649</a>
+<a name='L650'></a><a href='#L650'>650</a>
+<a name='L651'></a><a href='#L651'>651</a>
+<a name='L652'></a><a href='#L652'>652</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -803,7 +807,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">104x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1118,6 +1121,11 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1460,8 +1468,7 @@ const RenderColumnFlag: React.FC&lt;RenderColumnFlagProps&gt; = ({ cell: { row, 
           dangerouslySetInnerHTML={{
             __html: getString(status ? <span class="branch-0 cbranch-no" title="branch not covered" >'cf.featureFlags.turnOffMessage' </span>: 'cf.featureFlags.turnOnMessage', {
               name: data.name,
-              env:
-                ((column as unknown) as { activeEnvironment?: EnvironmentResponseDTO })<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctiveEnvironment<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || ''
+              env: (column as unknown as { activeEnvironment?: EnvironmentResponseDTO })<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctiveEnvironment<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || ''
             })
           }}
         /&gt;
@@ -1685,7 +1692,7 @@ const RenderColumnEdit: React.FC&lt;ColumnMenuProps&gt; = ({ cell: { row, column
       org: orgIdentifier
     } as DeleteFeatureFlagQueryParams
   })
-  const refetch = ((column as unknown) as { refetch: () =&gt; void }).refetch
+  const refetch = (column as unknown as { refetch: () =&gt; void }).refetch
   const deleteFlag = useConfirmAction({
     title: getString('cf.featureFlags.deleteFlag'),
     confirmText: getString('delete'),
@@ -1777,7 +1784,12 @@ const FeatureFlagsPage: React.FC = () =&gt; {
     }),
     [projectIdentifier, activeEnvironment, accountId, orgIdentifier, pageNumber, searchTerm] // eslint-disable-line react-hooks/exhaustive-deps
   )
-  const { data, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
+  const {
+    data,
+    loading: flagsLoading,
+    error: flagsError,
+    refetch
+  } = useGetAllFeatures({
     lazy: true,
     debounce: true,
     queryParams
@@ -1795,7 +1807,7 @@ const FeatureFlagsPage: React.FC = () =&gt; {
       refetch({ queryParams: { ...queryParams, environment: _environment.identifier as string } })
     },
     onEmpty: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >      refetch({ queryParams: { ...queryParams, environment: (undefined as unknown) as string } })</span>
+<span class="cstat-no" title="statement not covered" >      refetch({ queryParams: { ...queryParams, environment: undefined as unknown as string } })</span>
     }
   })
   const [features, setFeatures] = useState&lt;Features | null&gt;()
@@ -1831,9 +1843,9 @@ const FeatureFlagsPage: React.FC = () =&gt; {
                   const feature = <span class="cstat-no" title="statement not covered" >features?.features?.find(<span class="fstat-no" title="function not covered" >f </span>=&gt; <span class="cstat-no" title="statement not covered" >f.identifier === cell.row.original.identifier)</span></span>
 <span class="cstat-no" title="statement not covered" >                  if (feature) {</span>
 <span class="cstat-no" title="statement not covered" >                    if (feature.envProperties) {</span>
-<span class="cstat-no" title="statement not covered" >                      feature.envProperties.state = (status</span>
-                        ? FeatureFlagActivationStatus.ON
-                        : FeatureFlagActivationStatus.OFF) as FeatureState
+<span class="cstat-no" title="statement not covered" >                      feature.envProperties.state = (</span>
+                        status ? FeatureFlagActivationStatus.ON : FeatureFlagActivationStatus.OFF
+                      ) as FeatureState
                     }
 <span class="cstat-no" title="statement not covered" >                    feature.modifiedAt = Date.now()</span>
 <span class="cstat-no" title="statement not covered" >                    setFeatures({ ...features } as Features)</span>
@@ -1858,7 +1870,7 @@ const FeatureFlagsPage: React.FC = () =&gt; {
           return (
             &lt;FlagStatus
               status={cell.row.original.status<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus as FeatureFlagStatus}
-              lastAccess={(cell.row.original.status<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astAccess as unknown) as number}
+              lastAccess={cell.row.original.status<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astAccess as unknown as number}
             /&gt;
           )
         }
@@ -2005,7 +2017,7 @@ export default FeatureFlagsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 09:09:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 12:41:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

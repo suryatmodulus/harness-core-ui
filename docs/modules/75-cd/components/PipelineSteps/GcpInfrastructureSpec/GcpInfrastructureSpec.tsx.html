@@ -847,9 +847,7 @@
 <a name='L788'></a><a href='#L788'>788</a>
 <a name='L789'></a><a href='#L789'>789</a>
 <a name='L790'></a><a href='#L790'>790</a>
-<a name='L791'></a><a href='#L791'>791</a>
-<a name='L792'></a><a href='#L792'>792</a>
-<a name='L793'></a><a href='#L793'>793</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L791'></a><a href='#L791'>791</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -912,7 +910,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
@@ -924,7 +921,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1705,21 +1701,19 @@ type K8sGcpInfrastructureTemplate = { [key in keyof K8sGcpInfrastructure]: strin
 function getValidationSchema(getString: UseStringsReturn['getString']): Yup.ObjectSchema {
   return Yup.object().shape({
     connectorRef: Yup.string().required(getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>fieldRequired', { field: getString('connector') })),
-    cluster: Yup.lazy(
-      (value): Yup.Schema&lt;unknown&gt; =&gt; {
-        /* istanbul ignore else */ <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof value === 'string') {
-<span class="cstat-no" title="statement not covered" >          return Yup.string().required(getString('common.cluster'))</span>
-        }
-        return Yup.object().test({
-          test(valueObj: SelectOption): boolean | Yup.ValidationError {
-            if (isEmpty(valueObj) || isEmpty(valueObj.value)) {
-              return this.createError({ message: getString('fieldRequired', { field: getString('common.cluster') }) })
-            }
-            return true
-          }
-        })
+    cluster: Yup.lazy((value): Yup.Schema&lt;unknown&gt; =&gt; {
+      /* istanbul ignore else */ <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof value === 'string') {
+<span class="cstat-no" title="statement not covered" >        return Yup.string().required(getString('common.cluster'))</span>
       }
-    ),
+      return Yup.object().test({
+        test(valueObj: SelectOption): boolean | Yup.ValidationError {
+          if (isEmpty(valueObj) || isEmpty(valueObj.value)) {
+            return this.createError({ message: getString('fieldRequired', { field: getString('common.cluster') }) })
+          }
+          return true
+        }
+      })
+    }),
 &nbsp;
     namespace: getNameSpaceSchema(getString),
     releaseName: getReleaseNameSchema(getString)
@@ -1879,7 +1873,7 @@ const GcpInfrastructureSpecEditable: React.FC&lt;GcpInfrastructureSpecEditablePr
                   type={'Gcp'}
                   onChange={<span class="fstat-no" title="function not covered" >(v</span>alue: any, _valueType, type) =&gt; {
 <span class="cstat-no" title="statement not covered" >                    if (type === MultiTypeInputType.FIXED &amp;&amp; value.record) {</span>
-                      const { record, scope } = (<span class="cstat-no" title="statement not covered" >value as unknown) as { record: ConnectorReferenceDTO; scope: Scope }</span>
+                      const { record, scope } = <span class="cstat-no" title="statement not covered" >value as unknown as { record: ConnectorReferenceDTO; scope: Scope }</span>
                       const connectorRef =
 <span class="cstat-no" title="statement not covered" >                        scope === Scope.ORG || scope === Scope.ACCOUNT</span>
                           ? `${scope}.${record.identifier}`
@@ -2117,7 +2111,7 @@ const GcpInfrastructureSpecInputForm: React.FC&lt;GcpInfrastructureSpecEditableP
             type={'Gcp'}
             setRefValue
             onChange={<span class="fstat-no" title="function not covered" >(s</span>elected, _typeValue, type) =&gt; {
-              const item = (<span class="cstat-no" title="statement not covered" >selected as unknown) as { record?: ConnectorReferenceDTO; scope: Scope }</span>
+              const item = <span class="cstat-no" title="statement not covered" >selected as unknown as { record?: ConnectorReferenceDTO; scope: Scope }</span>
 <span class="cstat-no" title="statement not covered" >              if (type === MultiTypeInputType.FIXED) {</span>
                 const connectorRefValue =
 <span class="cstat-no" title="statement not covered" >                  item.scope === Scope.ORG || item.scope === Scope.ACCOUNT</span>
@@ -2440,7 +2434,7 @@ export class GcpInfrastructureSpec extends PipelineStep&lt;GcpInfrastructureSpec
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 09:09:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 12:41:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

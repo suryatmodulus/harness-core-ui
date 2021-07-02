@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.19% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>66/74</span>
+                <span class='fraction'>72/80</span>
             </div>
         
             
@@ -550,11 +550,7 @@
 <a name='L491'></a><a href='#L491'>491</a>
 <a name='L492'></a><a href='#L492'>492</a>
 <a name='L493'></a><a href='#L493'>493</a>
-<a name='L494'></a><a href='#L494'>494</a>
-<a name='L495'></a><a href='#L495'>495</a>
-<a name='L496'></a><a href='#L496'>496</a>
-<a name='L497'></a><a href='#L497'>497</a>
-<a name='L498'></a><a href='#L498'>498</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L494'></a><a href='#L494'>494</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -712,9 +708,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">91x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">73x</span>
@@ -722,6 +723,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">31x</span>
@@ -729,6 +732,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -790,12 +795,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -846,20 +846,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -889,7 +882,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1209,29 +1201,38 @@ type UnaryInstructionCreator&lt;A, B extends ParameterType&gt; = (a: A) =&gt; In
 type BinaryInstructionCreator&lt;A, B, C extends ParameterType&gt; = (a: A, b: B) =&gt; Instruction&lt;C&gt;
 type TernaryInstructionCreator&lt;A, B, C, D extends ParameterType&gt; = (a: A, b: B, c: C) =&gt; Instruction&lt;D&gt;
 &nbsp;
-export const shape = &lt;A = any&gt;(...keys: string[]) =&gt; (...values: any[]) =&gt; zipObject(keys, values) as A
+export const shape =
+  &lt;A = any&gt;(...keys: string[]) =&gt;
+  (...values: any[]) =&gt;
+    zipObject(keys, values) as A
 const identity = <span class="fstat-no" title="function not covered" >&lt;T&gt;(a</span>: T) =&gt; <span class="cstat-no" title="statement not covered" >a</span>
-export const unaryInstructionCreator = &lt;A, B extends ParameterType&gt;(
-  kind: PatchKind,
-  parameterBuilder: UnaryParameterBuilder&lt;A, B&gt;
-): UnaryInstructionCreator&lt;A, B&gt; =&gt; (arg: A) =&gt; ({
-  kind,
-  parameters: parameterBuilder(arg)
-})
-export const binaryInstructionCreator = &lt;A, B, C extends ParameterType&gt;(
-  kind: PatchKind,
-  parameterBuilder: BinaryParameterBuilder&lt;A, B, C&gt;
-): BinaryInstructionCreator&lt;A, B, C&gt; =&gt; (a: A, b: B) =&gt; ({
-  kind,
-  parameters: parameterBuilder(a, b)
-})
-export const ternaryInstructionCreator = &lt;A, B, C, D extends ParameterType&gt;(
-  kind: PatchKind,
-  parameterBuilder: TernaryParameterBuilder&lt;A, B, C, D&gt;
-): TernaryInstructionCreator&lt;A, B, C, D&gt; =&gt; (a: A, b: B, c: C) =&gt; ({
-  kind,
-  parameters: parameterBuilder(a, b, c)
-})
+export const unaryInstructionCreator =
+  &lt;A, B extends ParameterType&gt;(
+    kind: PatchKind,
+    parameterBuilder: UnaryParameterBuilder&lt;A, B&gt;
+  ): UnaryInstructionCreator&lt;A, B&gt; =&gt;
+  (arg: A) =&gt; ({
+    kind,
+    parameters: parameterBuilder(arg)
+  })
+export const binaryInstructionCreator =
+  &lt;A, B, C extends ParameterType&gt;(
+    kind: PatchKind,
+    parameterBuilder: BinaryParameterBuilder&lt;A, B, C&gt;
+  ): BinaryInstructionCreator&lt;A, B, C&gt; =&gt;
+  (a: A, b: B) =&gt; ({
+    kind,
+    parameters: parameterBuilder(a, b)
+  })
+export const ternaryInstructionCreator =
+  &lt;A, B, C, D extends ParameterType&gt;(
+    kind: PatchKind,
+    parameterBuilder: TernaryParameterBuilder&lt;A, B, C, D&gt;
+  ): TernaryInstructionCreator&lt;A, B, C, D&gt; =&gt;
+  (a: A, b: B, c: C) =&gt; ({
+    kind,
+    parameters: parameterBuilder(a, b, c)
+  })
 &nbsp;
 const updateName: (name: string) =&gt; Instruction&lt;UpdateNameParams&gt; = unaryInstructionCreator(
   'updateName',
@@ -1286,13 +1287,8 @@ const setFeatureFlagState: (state: 'on' | 'off') =&gt; Instruction&lt;SetStatePa
   'setFeatureFlagState',
   shape&lt;SetStateParams&gt;('state')
 )
-const addTargetsToVariationTargetMap: (
-  variation: string,
-  targets: string[]
-) =&gt; Instruction&lt;TargetToVariationParams&gt; = binaryInstructionCreator(
-  'addTargetsToVariationTargetMap',
-  shape&lt;TargetToVariationParams&gt;('variation', 'targets')
-)
+const addTargetsToVariationTargetMap: (variation: string, targets: string[]) =&gt; Instruction&lt;TargetToVariationParams&gt; =
+  binaryInstructionCreator('addTargetsToVariationTargetMap', shape&lt;TargetToVariationParams&gt;('variation', 'targets'))
 const removeTargetsToVariationTargetMap: (
   variation: string,
   targets: string[]
@@ -1342,21 +1338,14 @@ const removeClause: (ruleID: string, clauseID: string) =&gt; Instruction&lt;Remo
   'removeClause',
   shape('ruleID', 'clauseID')
 )
-const updateClause: (
-  ruleID: string,
-  clauseID: string,
-  clause: ClauseData
-) =&gt; Instruction&lt;UpdateClauseParams&gt; = ternaryInstructionCreator('updateClause', shape('ruleID', 'clauseID', 'clause'))
+const updateClause: (ruleID: string, clauseID: string, clause: ClauseData) =&gt; Instruction&lt;UpdateClauseParams&gt; =
+  ternaryInstructionCreator('updateClause', shape('ruleID', 'clauseID', 'clause'))
 const reorderRules: (rules: string[]) =&gt; Instruction&lt;ReorderRulesParams&gt; = unaryInstructionCreator(
   'reorderRules',
   shape&lt;ReorderRulesParams&gt;('rules')
 )
-const updateDefaultServeByVariation: (
-  variation: string
-) =&gt; Instruction&lt;UpdateDefaultServeParams&gt; = unaryInstructionCreator(
-  'updateDefaultServe',
-  shape&lt;UpdateDefaultServeParams&gt;('variation')
-)
+const updateDefaultServeByVariation: (variation: string) =&gt; Instruction&lt;UpdateDefaultServeParams&gt; =
+  unaryInstructionCreator('updateDefaultServe', shape&lt;UpdateDefaultServeParams&gt;('variation'))
 const updateDefaultServeByBucket: (
   bucketBy: string,
   variations: WeightedVariation[]
@@ -1389,9 +1378,8 @@ const addClauseToSegment: (clause: ClauseData) =&gt; Instruction&lt;AddClauseToS
   'addClause',
   identity
 )
-const updateClauseOnSegment: (
-  clause: UpdateClauseOnSegmentParams
-) =&gt; Instruction&lt;UpdateClauseOnSegmentParams&gt; = unaryInstructionCreator('updateClause', identity)
+const updateClauseOnSegment: (clause: UpdateClauseOnSegmentParams) =&gt; Instruction&lt;UpdateClauseOnSegmentParams&gt; =
+  unaryInstructionCreator('updateClause', identity)
 const removeClauseOnSegment: (clauseID: string) =&gt; Instruction&lt;RemoveClauseOnSegmentParams&gt; = unaryInstructionCreator(
   'removeClause',
   shape&lt;RemoveClauseOnSegmentParams&gt;('clauseID')
@@ -1555,7 +1543,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 09:09:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 12:41:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

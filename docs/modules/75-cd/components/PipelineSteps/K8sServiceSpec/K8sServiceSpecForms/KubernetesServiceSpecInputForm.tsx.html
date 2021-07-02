@@ -1085,7 +1085,11 @@
 <a name='L1026'></a><a href='#L1026'>1026</a>
 <a name='L1027'></a><a href='#L1027'>1027</a>
 <a name='L1028'></a><a href='#L1028'>1028</a>
-<a name='L1029'></a><a href='#L1029'>1029</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L1029'></a><a href='#L1029'>1029</a>
+<a name='L1030'></a><a href='#L1030'>1030</a>
+<a name='L1031'></a><a href='#L1031'>1031</a>
+<a name='L1032'></a><a href='#L1032'>1032</a>
+<a name='L1033'></a><a href='#L1033'>1033</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -1235,26 +1239,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1264,6 +1248,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2243,7 +2251,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC&lt;KubernetesServiceInputFo
     refetch: refetchDockerBuildData,
     error: dockerError
   } = <span class="cstat-no" title="statement not covered" >useMutateAsGet(useGetBuildDetailsForDockerWithYaml, {</span>
-    body: (yamlStringify({ ...yamlData }) as unknown) as void,
+    body: yamlStringify({ ...yamlData }) as unknown as void,
     requestOptions: {
       headers: {
         'content-type': 'application/json'
@@ -2263,55 +2271,59 @@ const KubernetesServiceSpecInputFormikForm: React.FC&lt;KubernetesServiceInputFo
     lazy: true
   })
 &nbsp;
-  const { data: gcrdata, loading: gcrLoading, refetch: refetchGcrBuildData, error: gcrError } = <span class="cstat-no" title="statement not covered" >useMutateAsGet(</span>
-    useGetBuildDetailsForGcrWithYaml,
-    {
-      body: (yamlStringify({ ...yamlData }) as unknown) as void,
-      requestOptions: {
-        headers: {
-          'content-type': 'application/json'
-        }
-      },
-      queryParams: {
-        imagePath: lastQueryData.imagePath || '',
-        connectorRef: lastQueryData.connectorRef || '',
-        pipelineIdentifier,
-        fqnPath: getFqnPath(),
-        registryHostname: lastQueryData.registryHostname || '',
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier,
-        repoIdentifier,
-        branch: branchParam
-      },
-      lazy: true
-    }
-  )
+  const {
+    data: gcrdata,
+    loading: gcrLoading,
+    refetch: refetchGcrBuildData,
+    error: gcrError
+  } = <span class="cstat-no" title="statement not covered" >useMutateAsGet(useGetBuildDetailsForGcrWithYaml, {</span>
+    body: yamlStringify({ ...yamlData }) as unknown as void,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    },
+    queryParams: {
+      imagePath: lastQueryData.imagePath || '',
+      connectorRef: lastQueryData.connectorRef || '',
+      pipelineIdentifier,
+      fqnPath: getFqnPath(),
+      registryHostname: lastQueryData.registryHostname || '',
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch: branchParam
+    },
+    lazy: true
+  })
 &nbsp;
-  const { data: ecrdata, loading: ecrLoading, refetch: refetchEcrBuildData, error: ecrError } = <span class="cstat-no" title="statement not covered" >useMutateAsGet(</span>
-    useGetBuildDetailsForEcrWithYaml,
-    {
-      body: (yamlStringify({ ...yamlData }) as unknown) as void,
-      requestOptions: {
-        headers: {
-          'content-type': 'application/json'
-        }
-      },
-      queryParams: {
-        imagePath: lastQueryData.imagePath || '',
-        connectorRef: lastQueryData.connectorRef || '',
-        pipelineIdentifier,
-        fqnPath: getFqnPath(),
-        region: lastQueryData.region || '',
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier,
-        repoIdentifier,
-        branch: branchParam
-      },
-      lazy: true
-    }
-  )
+  const {
+    data: ecrdata,
+    loading: ecrLoading,
+    refetch: refetchEcrBuildData,
+    error: ecrError
+  } = <span class="cstat-no" title="statement not covered" >useMutateAsGet(useGetBuildDetailsForEcrWithYaml, {</span>
+    body: yamlStringify({ ...yamlData }) as unknown as void,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    },
+    queryParams: {
+      imagePath: lastQueryData.imagePath || '',
+      connectorRef: lastQueryData.connectorRef || '',
+      pipelineIdentifier,
+      fqnPath: getFqnPath(),
+      region: lastQueryData.region || '',
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch: branchParam
+    },
+    lazy: true
+  })
 &nbsp;
   const { data: regionData } = <span class="cstat-no" title="statement not covered" >useListAwsRegions({</span>
     queryParams: {
@@ -2948,7 +2960,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC&lt;KubernetesServiceInputFo
                       orgIdentifier={orgIdentifier}
                       type={ManifestToConnectorMap[type as ManifestStores]}
                       onChange={<span class="fstat-no" title="function not covered" >(s</span>elected, _itemType, multiType) =&gt; {
-                        const item = (<span class="cstat-no" title="statement not covered" >selected as unknown) as { record?: GitConfigDTO; scope: Scope }</span>
+                        const item = <span class="cstat-no" title="statement not covered" >selected as unknown as { record?: GitConfigDTO; scope: Scope }</span>
 <span class="cstat-no" title="statement not covered" >                        if (multiType === MultiTypeInputType.FIXED) {</span>
 <span class="cstat-no" title="statement not covered" >                          if (item.record?.spec?.connectionType === GitRepoName.Repo) {</span>
 <span class="cstat-no" title="statement not covered" >                            setShowRepoName(false)</span>
@@ -3115,7 +3127,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC&lt;KubernetesServiceInputFo
 &nbsp;
           &lt;div className={css.nestedAccordions}&gt;
             &lt;StepWidget&lt;CustomVariablesData, CustomVariableInputSetExtraProps&gt;
-              factory={(factory as unknown) as AbstractStepFactory}
+              factory={factory as unknown as AbstractStepFactory}
               initialValues={{
                 variables: (initialValues.variables || []) as AllNGVariables[],
                 canAddVariable: true
@@ -3148,7 +3160,7 @@ export const KubernetesServiceSpecInputForm = connect(KubernetesServiceSpecInput
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 09:09:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 12:41:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

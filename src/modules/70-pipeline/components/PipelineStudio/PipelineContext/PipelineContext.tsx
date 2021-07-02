@@ -132,9 +132,9 @@ export const savePipeline = (
         requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
       }).then(async (response: unknown) => {
         if (typeof response === 'string') {
-          return JSON.parse(response as unknown as string) as Failure
+          return JSON.parse((response as unknown) as string) as Failure
         } else {
-          return response as unknown as Failure
+          return (response as unknown) as Failure
         }
       })
 }
@@ -396,7 +396,10 @@ interface UpdatePipelineArgs {
   gitDetails: EntityGitDetails
 }
 
-const _updatePipeline = async (args: UpdatePipelineArgs, pipeline: PipelineInfoConfig): Promise<void> => {
+const _updatePipeline = async (
+  args: UpdatePipelineArgs,
+  pipelineArg: PipelineInfoConfig | ((p: PipelineInfoConfig) => PipelineInfoConfig)
+): Promise<void> => {
   const { dispatch, queryParams, identifier, originalPipeline, gitDetails } = args
   const id = getId(
     queryParams.accountIdentifier,
@@ -407,16 +410,22 @@ const _updatePipeline = async (args: UpdatePipelineArgs, pipeline: PipelineInfoC
     gitDetails.branch || ''
   )
   if (IdbPipeline) {
+    let pipeline = pipelineArg
+
+    if (typeof pipelineArg === 'function') {
+      const dbPipeline = await IdbPipeline.get(IdbPipelineStoreName, id)
+      pipeline = pipelineArg(dbPipeline.pipeline)
+    }
     const isUpdated = !isEqual(omit(originalPipeline, 'repo', 'branch'), pipeline)
     const payload: PipelinePayload = {
       [KeyPath]: id,
-      pipeline,
+      pipeline: pipeline as PipelineInfoConfig,
       originalPipeline,
       isUpdated,
       gitDetails
     }
     await IdbPipeline.put(IdbPipelineStoreName, payload)
-    dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated }))
+    dispatch(PipelineContextActions.success({ error: '', pipeline: pipeline as PipelineInfoConfig, isUpdated }))
   }
 }
 
@@ -664,7 +673,7 @@ export const PipelineProvider: React.FC<{
             return { stage: newStage }
           } else if (node.parallel) {
             return {
-              parallel: _updateStages(node.parallel as unknown as StageElementWrapperConfig[])
+              parallel: _updateStages((node.parallel as unknown) as StageElementWrapperConfig[])
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
           }
@@ -673,12 +682,12 @@ export const PipelineProvider: React.FC<{
         })
       }
 
-      return updatePipeline({
-        ...state.pipeline,
-        stages: _updateStages(state.pipeline.stages || [])
-      })
+      return updatePipeline(originalPipeline => ({
+        ...originalPipeline,
+        stages: _updateStages(originalPipeline.stages || [])
+      }))
     },
-    [state.pipeline, updatePipeline]
+    [updatePipeline]
   )
 
   useGlobalEventListener('focus', () => {

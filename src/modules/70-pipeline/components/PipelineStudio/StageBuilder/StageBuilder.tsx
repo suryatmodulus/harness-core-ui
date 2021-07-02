@@ -1,7 +1,7 @@
 import React from 'react'
 import { Intent, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
-import { debounce, isEmpty, isNil } from 'lodash-es'
+import { cloneDeep, debounce, isEmpty, isNil } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
@@ -200,10 +200,11 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       if (deleteId && isConfirmed) {
-        const isRemove = removeNodeFromPipeline(getStageFromPipeline(deleteId), pipeline, stageMap)
-        const isStripped = mayBeStripCIProps(pipeline)
+        const cloned = cloneDeep(pipeline)
+        const isRemove = removeNodeFromPipeline(getStageFromPipeline(deleteId, cloned), cloned, stageMap)
+        const isStripped = mayBeStripCIProps(cloned)
         if (isRemove || isStripped) {
-          updatePipeline(pipeline)
+          updatePipeline(cloned)
           showSuccess(getString('deleteStageSuccess'))
         } else {
           showError(getString('deleteStageFailure'), undefined, 'pipeline.delete.stage.error')
@@ -580,8 +581,10 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
         } else if (dependentStages?.length) {
           let finalDropIndex = -1
           let firstDependentStageIndex
-          const { stageIndex: dependentStageIndex, parallelStageIndex: dependentParallelIndex = -1 } =
-            getStageIndexByIdentifier(pipeline, dependentStages[0])
+          const {
+            stageIndex: dependentStageIndex,
+            parallelStageIndex: dependentParallelIndex = -1
+          } = getStageIndexByIdentifier(pipeline, dependentStages[0])
 
           firstDependentStageIndex = dependentStageIndex
 

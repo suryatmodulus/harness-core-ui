@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">78.16% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>68/85</span>
+                <span class='fraction'>68/87</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">49.83% </span>
+                <span class="strong">46.55% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>151/303</span>
+                <span class='fraction'>155/333</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.38% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>11/21</span>
+                <span class='fraction'>11/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">78.16% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>68/85</span>
+                <span class='fraction'>68/87</span>
             </div>
         
             
@@ -599,7 +599,9 @@
 <a name='L540'></a><a href='#L540'>540</a>
 <a name='L541'></a><a href='#L541'>541</a>
 <a name='L542'></a><a href='#L542'>542</a>
-<a name='L543'></a><a href='#L543'>543</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L543'></a><a href='#L543'>543</a>
+<a name='L544'></a><a href='#L544'>544</a>
+<a name='L545'></a><a href='#L545'>545</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -981,6 +983,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1065,12 +1069,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1112,7 +1116,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1518,7 +1522,9 @@ function TerraformPlanWidget(
                     }
 &nbsp;
                     const valObj = <span class="cstat-no" title="statement not covered" >cloneDeep(formik.values)</span>
+<span class="cstat-no" title="statement not covered" >                    configObject.store.type = configObject?.store?.spec?.connectorRef?.connector?.type || 'Git'</span>
 <span class="cstat-no" title="statement not covered" >                    set(valObj, 'spec.configuration.configFiles', { ...configObject })</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >                    formik.setValues(valObj)</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >                    setShowModal(false)</span>
@@ -1618,8 +1624,8 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
         ...data.spec,
         configuration: {
           ...data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration,
-          secretManagerRef: data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration.secretManagerRef || '',
-          configFiles: data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles || <span class="branch-1 cbranch-no" title="branch not covered" >{},</span>
+          secretManagerRef: data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ecretManagerRef || '',
+          configFiles: data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles || {},
           command: data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommand || <span class="branch-1 cbranch-no" title="branch not covered" >'Apply',</span>
           targets: !isTargetRunTime
             ? Array.isArray(data.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets)
@@ -1653,8 +1659,8 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         &lt;TerraformInputStep
-          initialValues={initialValues}
-          onUpdate={onUpdate}
+          initialValues={this.getInitialValues(initialValues)}
+          onUpdate={<span class="fstat-no" title="function not covered" >data </span>=&gt; <span class="cstat-no" title="statement not covered" >onUpdate?.(this.processFormData(data))}</span>
           stepViewType={stepViewType}
           readonly={inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eadonly}
           inputSetData={inputSetData}
@@ -1690,7 +1696,7 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 00:14:20 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 05:27:05 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

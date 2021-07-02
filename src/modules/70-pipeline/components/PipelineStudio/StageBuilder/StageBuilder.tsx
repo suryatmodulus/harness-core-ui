@@ -581,10 +581,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
         } else if (dependentStages?.length) {
           let finalDropIndex = -1
           let firstDependentStageIndex
-          const {
-            stageIndex: dependentStageIndex,
-            parallelStageIndex: dependentParallelIndex = -1
-          } = getStageIndexByIdentifier(pipeline, dependentStages[0])
+          const { stageIndex: dependentStageIndex, parallelStageIndex: dependentParallelIndex = -1 } =
+            getStageIndexByIdentifier(pipeline, dependentStages[0])
 
           firstDependentStageIndex = dependentStageIndex
 

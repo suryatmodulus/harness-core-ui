@@ -132,9 +132,9 @@ export const savePipeline = (
         requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
       }).then(async (response: unknown) => {
         if (typeof response === 'string') {
-          return JSON.parse((response as unknown) as string) as Failure
+          return JSON.parse(response as unknown as string) as Failure
         } else {
-          return (response as unknown) as Failure
+          return response as unknown as Failure
         }
       })
 }
@@ -673,7 +673,7 @@ export const PipelineProvider: React.FC<{
             return { stage: newStage }
           } else if (node.parallel) {
             return {
-              parallel: _updateStages((node.parallel as unknown) as StageElementWrapperConfig[])
+              parallel: _updateStages(node.parallel as unknown as StageElementWrapperConfig[])
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
           }

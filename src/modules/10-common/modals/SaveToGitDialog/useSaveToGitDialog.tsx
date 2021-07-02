@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { useModalHook, Button, Text } from '@wings-software/uicore'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
-import { noop } from 'lodash-es'
+import { isEmpty, isUndefined, noop } from 'lodash-es'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import SaveToGitForm, {
   GitResourceInterface,
   SaveToGitFormInterface
 } from '@common/components/SaveToGitForm/SaveToGitForm'
-import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { GitSyncStoreProvider, useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import { EntityGitDetails, GitSyncConfig, ResponseMessage, useCreatePR } from 'services/cd-ng'
@@ -44,10 +44,10 @@ export interface UseSaveToGitDialogReturn<T> {
 }
 
 const getPullRequestUrl = (config: GitSyncConfig, prNumber?: number): string => {
-  if (!prNumber) {
+  const { repo, gitConnectorType } = config
+  if (!prNumber || !repo) {
     return ''
   }
-  const { repo, gitConnectorType } = config
   switch (gitConnectorType) {
     case 'Github':
       return `${repo}/pull/${prNumber}`
@@ -91,6 +91,11 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   const [error, setError] = useState<Record<string, any>>({})
   const [createUpdateStatus, setCreateUpdateStatus] = useState<StepStatus>()
   const { mutate: createPullRequest, loading: creatingPR } = useCreatePR({})
+
+  const { gitSyncRepos, loadingRepos, refreshStore } = useGitSyncStore()
+  let prURLTemplate: string = ''
+  let prURL: React.ReactNode
+
   let entity = resource.type || ''
   entity = (entity.endsWith('s') ? entity.substring(0, entity.length - 1) : entity).toLowerCase()
 
@@ -124,17 +129,25 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     }),
     finalLabel: getString('common.gitSync.unableToCreatePR')
   }
-  const prURLTemplate = getPullRequestUrl(
-    { repo: 'https://github.com/wings-software/nextgenui', gitConnectorType: 'Github' } as GitSyncConfig,
-    prNumber
-  )
-  const prURL = (
-    <a href={prURLTemplate} target="_blank" rel="noopener noreferrer" className={css.noShadow}>
-      <Text title={prURLTemplate} className={css.link}>
-        {prURLTemplate}
-      </Text>
-    </a>
-  ) as React.ReactNode
+
+  React.useEffect(() => {
+    if (!isEmpty(gitSyncRepos)) {
+      const matchingRepo = gitSyncRepos.find(
+        (repoConfig: GitSyncConfig) => repoConfig.identifier === resource.gitDetails?.repoIdentifier
+      )
+      if (!isUndefined(matchingRepo)) {
+        prURLTemplate = getPullRequestUrl(matchingRepo, prNumber)
+        prURL = (
+          <a href={prURLTemplate} target="_blank" rel="noopener noreferrer" className={css.noShadow}>
+            <Text title={prURLTemplate} className={css.link}>
+              {prURLTemplate}
+            </Text>
+          </a>
+        ) as React.ReactNode
+      }
+    }
+  }, [loadingRepos, gitSyncRepos])
+
   const prCreatedStage: Stage = {
     status: 'SUCCESS',
     intermediateLabel: (
@@ -176,7 +189,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
           preFirstStage={prMetaData?.isNewBranch ? setupBranchStage : undefined}
           firstStage={entityCreateUpdateStage}
           postFirstStage={pushingChangesToBranch}
-          secondStage={prCreateStatus === 'SUCCESS' ? prCreatedStage : createPRStage}
+          secondStage={!isEmpty(prURLTemplate) && prCreateStatus === 'SUCCESS' ? prCreatedStage : createPRStage}
           onClose={() => {
             hideCreateUpdateWithPRCreationModal()
             if (createUpdateStatus === 'SUCCESS') {
@@ -186,7 +199,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
         />
       </Dialog>
     )
-  }, [creatingPR, createUpdateStatus, error, prCreateStatus, prMetaData])
+  }, [creatingPR, createUpdateStatus, error, prCreateStatus, prMetaData, prURL])
 
   // Modal to show while only creating/updating an entity
   const [showCreateUpdateModal, hideCreateUpdateModal] = useModalHook(() => {
@@ -233,22 +246,24 @@ export function useSaveToGitDialog<T = Record<string, string>>(
         if (response.status === 'SUCCESS') {
           if (data?.createPr) {
             try {
-              const _response = await createPullRequest(
-                {
-                  sourceBranch: data?.branch || '',
-                  targetBranch: data?.targetBranch || '',
-                  title: data?.commitMsg || ''
-                },
-                {
-                  queryParams: {
-                    accountIdentifier: accountId,
-                    orgIdentifier,
-                    projectIdentifier,
-                    yamlGitConfigIdentifier: data?.repoIdentifier || ''
-                  }
-                }
-              )
+              // const _response = await createPullRequest(
+              //   {
+              //     sourceBranch: data?.branch || '',
+              //     targetBranch: data?.targetBranch || '',
+              //     title: data?.commitMsg || ''
+              //   },
+              //   {
+              //     queryParams: {
+              //       accountIdentifier: accountId,
+              //       orgIdentifier,
+              //       projectIdentifier,
+              //       yamlGitConfigIdentifier: data?.repoIdentifier || ''
+              //     }
+              //   }
+              // )
+              const _response = { status: 'SUCCESS' as StepStatus, data: { prNumber: 16 } }
               if (_response.status === 'SUCCESS') {
+                refreshStore()
                 setPRNumber(_response.data?.prNumber)
               }
               setPRCreateStatus(_response?.status)

@@ -111,26 +111,26 @@ export const ProgressOverlay: React.FC<ProgressOverlay> = ({
     (firstStage.status === 'SUCCESS' && secondStage && secondStage.status === 'IN_PROGRESS')
   const opnIsSuccessful = firstStage.status === 'SUCCESS' || (secondStage && secondStage.status === 'SUCCESS')
 
-  React.useEffect(() => {
-    let shouldClose = false
-    let id: NodeJS.Timeout
+  // React.useEffect(() => {
+  //   let shouldClose = false
+  //   let id: NodeJS.Timeout
 
-    /* This logic will wait for first and second stage(if present) to run to completion */
-    if (firstStage.status === 'SUCCESS') {
-      if (!isUndefined(secondStage)) {
-        shouldClose = secondStage.status === 'SUCCESS'
-      } else {
-        shouldClose = true
-      }
-    }
+  //   /* This logic will wait for first and second stage(if present) to run to completion */
+  //   if (firstStage.status === 'SUCCESS') {
+  //     if (!isUndefined(secondStage)) {
+  //       shouldClose = secondStage.status === 'SUCCESS'
+  //     } else {
+  //       shouldClose = true
+  //     }
+  //   }
 
-    if (shouldClose) {
-      id = setTimeout(() => onClose(), !isUndefined(secondStage) ? LONG_DURATION : SHORT_DURATION)
-    }
-    return () => {
-      clearTimeout(id)
-    }
-  }, [firstStage.status, secondStage?.status])
+  //   if (shouldClose) {
+  //     id = setTimeout(() => onClose(), !isUndefined(secondStage) ? LONG_DURATION : SHORT_DURATION)
+  //   }
+  //   return () => {
+  //     clearTimeout(id)
+  //   }
+  // }, [firstStage.status, secondStage?.status])
 
   return (
     <Container className={css.prModal}>

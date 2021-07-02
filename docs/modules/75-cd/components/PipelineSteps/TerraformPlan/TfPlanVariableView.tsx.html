@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.58% </span>
+                <span class="strong">54.95% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>39/53</span>
+                <span class='fraction'>61/111</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -101,7 +101,10 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -134,6 +137,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,33 +165,36 @@ export function TerraformVariableStep(props: TerraformPlanVariableStepProps): Re
   const { getString } = useStrings()
   return (
     &lt;&gt;
-      &lt;Text className={css.stepTitle}&gt;{getString('pipelineSteps.configFiles')}&lt;/Text&gt;
-&nbsp;
       &lt;VariablesListTable
         data={variablesData.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rovisionerIdentifier}
         originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rovisionerIdentifier}
         metadataMap={metadataMap}
       /&gt;
       &lt;ConfigVariables {...props} /&gt;
-      &lt;Text className={css.stepTitle}&gt;{getString('pipelineSteps.backendConfig')}&lt;/Text&gt;
-      &lt;VariablesListTable
-        data={variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ackendConfig}
-        originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ackendConfig<span class="branch-1 cbranch-no" title="branch not covered" >?.spec}</span>
-        metadataMap={metadataMap}
-      /&gt;
-      &lt;Text className={css.stepTitle}&gt;{getString('pipeline.targets.title')}&lt;/Text&gt;
-      &lt;VariablesListTable
-        data={variablesData.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets}
-        originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets}
-        metadataMap={metadataMap}
-      /&gt;
-      &lt;Text className={css.stepTitle}&gt;{getString('environmentVariables')}&lt;/Text&gt;
+      {variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ackendConfig<span class="branch-1 cbranch-no" title="branch not covered" >?.spec </span>&amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;&gt;</span>
+          &lt;Text className={css.stepTitle}&gt;{getString('pipelineSteps.backendConfig')}&lt;/Text&gt;
+          &lt;VariablesListTable
+            data={variablesData?.spec?.configuration?.backendConfig?.spec}
+            originalData={initialValues.spec?.configuration?.backendConfig?.spec}
+            metadataMap={metadataMap}
+          /&gt;
+        &lt;/&gt;
+      )}
 &nbsp;
-      &lt;VariablesListTable
-        data={variablesData.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables}
-        originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables}
-        metadataMap={metadataMap}
-      /&gt;
+      {variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables &amp;&amp; (
+        &lt;Text className={css.stepTitle}&gt;{getString('environmentVariables')}&lt;/Text&gt;
+      )}
+      {((variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables as []) || <span class="branch-1 cbranch-no" title="branch not covered" >[])<span class="branch-0 cbranch-no" title="branch not covered" ></span>?.m</span>ap((envVar, index) =&gt; {
+        return (
+          &lt;VariablesListTable
+            key={envVar}
+            data={variablesData.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables<span class="branch-0 cbranch-no" title="branch not covered" >?.[i</span>ndex]}
+            originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables<span class="branch-0 cbranch-no" title="branch not covered" >?.[i</span>ndex]}
+            metadataMap={metadataMap}
+          /&gt;
+        )
+      })}
     &lt;/&gt;
   )
 }
@@ -196,7 +205,7 @@ export function TerraformVariableStep(props: TerraformPlanVariableStepProps): Re
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 01 2021 23:41:03 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 00:14:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

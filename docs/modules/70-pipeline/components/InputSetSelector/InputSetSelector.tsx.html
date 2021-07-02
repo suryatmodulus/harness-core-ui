@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.69% </span>
+                <span class="strong">38.35% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/130</span>
+                <span class='fraction'>51/133</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.69% </span>
+                <span class="strong">23.57% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>37/144</span>
+                <span class='fraction'>37/157</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.71% </span>
+                <span class="strong">39.37% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>48/124</span>
+                <span class='fraction'>50/127</span>
             </div>
         
             
@@ -535,7 +535,15 @@
 <a name='L476'></a><a href='#L476'>476</a>
 <a name='L477'></a><a href='#L477'>477</a>
 <a name='L478'></a><a href='#L478'>478</a>
-<a name='L479'></a><a href='#L479'>479</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L479'></a><a href='#L479'>479</a>
+<a name='L480'></a><a href='#L480'>480</a>
+<a name='L481'></a><a href='#L481'>481</a>
+<a name='L482'></a><a href='#L482'>482</a>
+<a name='L483'></a><a href='#L483'>483</a>
+<a name='L484'></a><a href='#L484'>484</a>
+<a name='L485'></a><a href='#L485'>485</a>
+<a name='L486'></a><a href='#L486'>486</a>
+<a name='L487'></a><a href='#L487'>487</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -556,6 +564,8 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -711,6 +721,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1035,7 +1051,9 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { useStrings } from 'framework/strings'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import css from './InputSetSelector.module.scss'
 &nbsp;
 interface InputSetValue extends SelectOption {
@@ -1188,17 +1206,23 @@ const RenderValue = React.memo(function RenderValue({
 })
 &nbsp;
 const InputSetGitDetails = <span class="fstat-no" title="function not covered" >({</span> gitDetails }: { gitDetails: GitQueryParams }) =&gt; {
+  const { gitSyncRepos, loadingRepos } = <span class="cstat-no" title="statement not covered" >useGitSyncStore()</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Layout.Vertical margin={{ left: 'xsmall' }} spacing="small"&gt;
+    &lt;Layout.Vertical margin={{ left: 'xsmall' }} spacing="small" className={css.inputSetGitDetails}&gt;
       &lt;Layout.Horizontal spacing="xsmall"&gt;
         &lt;Icon name="repository" size={12}&gt;&lt;/Icon&gt;
-        &lt;Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}&gt;
-          {gitDetails?.repoIdentifier || ''}
+        &lt;Text
+          font={{ size: 'small', weight: 'light' }}
+          color={Color.GREY_450}
+          title={gitDetails?.repoIdentifier}
+          lineClamp={1}
+        &gt;
+          {(!loadingRepos &amp;&amp; getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name) || ''}
         &lt;/Text&gt;
       &lt;/Layout.Horizontal&gt;
       &lt;Layout.Horizontal spacing="xsmall"&gt;
         &lt;Icon size={12} name="git-new-branch"&gt;&lt;/Icon&gt;
-        &lt;Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}&gt;
+        &lt;Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450} title={gitDetails?.branch} lineClamp={1}&gt;
           {gitDetails?.branch || ''}
         &lt;/Text&gt;
       &lt;/Layout.Horizontal&gt;
@@ -1498,7 +1522,7 @@ export const InputSetSelector: React.FC&lt;InputSetSelectorProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 13:25:05 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 15:38:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

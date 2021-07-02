@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.67% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>62/75</span>
+                <span class='fraction'>65/78</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.64% </span>
+                <span class="strong">60.32% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>114/182</span>
+                <span class='fraction'>114/189</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.94% </span>
+                <span class="strong">82.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>59/72</span>
+                <span class='fraction'>62/75</span>
             </div>
         
             
@@ -542,7 +542,12 @@
 <a name='L483'></a><a href='#L483'>483</a>
 <a name='L484'></a><a href='#L484'>484</a>
 <a name='L485'></a><a href='#L485'>485</a>
-<a name='L486'></a><a href='#L486'>486</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L486'></a><a href='#L486'>486</a>
+<a name='L487'></a><a href='#L487'>487</a>
+<a name='L488'></a><a href='#L488'>488</a>
+<a name='L489'></a><a href='#L489'>489</a>
+<a name='L490'></a><a href='#L490'>490</a>
+<a name='L491'></a><a href='#L491'>491</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -552,6 +557,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -771,6 +778,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99x</span>
 <span class="cline-any cline-yes">99x</span>
 <span class="cline-any cline-yes">99x</span>
 <span class="cline-any cline-yes">99x</span>
@@ -804,6 +812,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1039,9 +1049,11 @@ import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRu
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { EntityGitDetails, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { TagsPopover } from '@common/components'
 import routes from '@common/RouteDefinitions'
+import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -1257,6 +1269,7 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
     }&gt;
   &gt;()
   const { isGitSyncEnabled } = useAppStore()
+  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const history = useHistory()
   const goToExecutionPipelineView = <span class="fstat-no" title="function not covered" >(e</span>xecutionId: string | undefined): void =&gt; {
 <span class="cstat-no" title="statement not covered" >    if (executionId &amp;&amp; pipeline.identifier) {</span>
@@ -1377,7 +1390,9 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
                 title={pipeline.gitDetails.repoIdentifier}
                 lineClamp={1}
               &gt;
-                {pipeline.gitDetails.repoIdentifier}
+                {(!loadingRepos &amp;&amp;
+                  getRepoDetailsByIndentifier(pipeline.gitDetails.repoIdentifier, gitSyncRepos)?.name) ||
+                  ''}
               &lt;/Text&gt;
             &lt;/Layout.Horizontal&gt;
             &lt;Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}&gt;
@@ -1519,7 +1534,7 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 02 2021 13:25:05 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 02 2021 15:38:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

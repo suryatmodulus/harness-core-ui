@@ -154,7 +154,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView }> = () => {
           return (
             <FormikForm className={css.formContainer}>
               <Container className={css.innerContainer}>
-                <Layout.Vertical spacing="medium" height="100%" padding="xxlarge">
+                <Layout.Vertical spacing="medium" height="100%" padding={{ left: 'huge', right: 'xxlarge' }}>
                   <Text color="grey800">{getString('ce.perspectives.createPerspective.title')}</Text>
                   <FormInput.Text
                     name="name"

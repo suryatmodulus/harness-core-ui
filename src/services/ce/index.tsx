@@ -16,9 +16,72 @@ export interface AwsTemplateURLResponse {
 }
 
 export interface AzureStaticAPIResponse {
-  status?: string
   data?: string
+  status?: string
 }
+
+export interface GetScheduledReportsQueryParams {
+  viewId?: string
+  reportId?: string
+}
+
+export interface GetScheduledReportsPathParams {
+  accountId: string
+}
+
+export type GetScheduledReportsProps = Omit<
+  GetProps<void, void, GetScheduledReportsQueryParams, GetScheduledReportsPathParams>,
+  'path'
+> &
+  GetScheduledReportsPathParams
+
+export const GetScheduledReports = ({ accountId, ...props }: GetScheduledReportsProps) => (
+  <Get<void, void, GetScheduledReportsQueryParams, GetScheduledReportsPathParams>
+    path={`/ceReportSchedule/${accountId}`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGetScheduledReportsProps = Omit<
+  UseGetProps<void, void, GetScheduledReportsQueryParams, GetScheduledReportsPathParams>,
+  'path'
+> &
+  GetScheduledReportsPathParams
+
+export const useGetScheduledReports = ({ accountId, ...props }: UseGetScheduledReportsProps) =>
+  useGet<void, void, GetScheduledReportsQueryParams, GetScheduledReportsPathParams>(
+    (paramsInPath: GetScheduledReportsPathParams) => `/ceReportSchedule/${paramsInPath.accountId}`,
+    { base: getConfig('ccm/api'), pathParams: { accountId }, ...props }
+  )
+
+export type AzureStaticAPIProps = Omit<GetProps<AzureStaticAPIResponse, unknown, void, void>, 'path'>
+
+/**
+ * Azure Static API for connector
+ *
+ * Azure Static API for connector
+ */
+export const AzureStaticAPI = (props: AzureStaticAPIProps) => (
+  <Get<AzureStaticAPIResponse, unknown, void, void>
+    path={`/connector/azureappclientid`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseAzureStaticAPIProps = Omit<UseGetProps<AzureStaticAPIResponse, unknown, void, void>, 'path'>
+
+/**
+ * Azure Static API for connector
+ *
+ * Azure Static API for connector
+ */
+export const useAzureStaticAPI = (props: UseAzureStaticAPIProps) =>
+  useGet<AzureStaticAPIResponse, unknown, void, void>(`/connector/azureappclientid`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
 
 export interface DownloadYamlQueryParams {
   accountId: string
@@ -91,34 +154,6 @@ export type UseAwsUrlTemplateProps = Omit<
  */
 export const useAwsUrlTemplate = (props: UseAwsUrlTemplateProps) =>
   useGet<AwsTemplateURLResponse, unknown, AwsUrlTemplateQueryParams, void>(`connector/awsaccountconnectiondetail`, {
-    base: getConfig('ccm/api'),
-    ...props
-  })
-
-export type AzureStaticAPIProps = Omit<GetProps<AzureStaticAPIResponse, unknown, void, void>, 'path'>
-
-/**
- * Azure Static API for connector
- *
- * Azure Static API for connector
- */
-export const AzureStaticAPI = (props: AzureStaticAPIProps) => (
-  <Get<AzureStaticAPIResponse, unknown, void, void>
-    path={`/connector/azureappclientid`}
-    base={getConfig('ccm/api')}
-    {...props}
-  />
-)
-
-export type UseAzureStaticAPIProps = Omit<UseGetProps<AzureStaticAPIResponse, unknown, void, void>, 'path'>
-
-/**
- * Azure Static API for connector
- *
- * Azure Static API for connector
- */
-export const useAzureStaticAPI = (props: UseAzureStaticAPIProps) =>
-  useGet<AzureStaticAPIResponse, unknown, void, void>(`/connector/azureappclientid`, {
     base: getConfig('ccm/api'),
     ...props
   })

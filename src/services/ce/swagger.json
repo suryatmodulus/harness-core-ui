@@ -83,6 +83,38 @@
           }
         }
       }
+    },
+    "/ceReportSchedule/{accountId}": {
+      "get": {
+        "tags": ["ceReportSchedule"],
+        "operationId": "getScheduledReports",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "viewId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "reportId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
     }
   },
   "definitions": {

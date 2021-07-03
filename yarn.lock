@@ -5984,6 +5984,11 @@ cron-validator@^1.2.1:
   resolved "https://registry.yarnpkg.com/cron-validator/-/cron-validator-1.2.1.tgz#0f0de2de36d231a6ace0e43ffc6c0564fe6edf1a"
   integrity "sha1-Dw3i3jbSMaas4OQ//GwFZP5u3xo= sha512-RqdpGSokGFICPc8qAkT38aXqZLLanXghQTK2q7a2x2FabSwDd2ARrazd5ElEWAXzToUcMG4cZIwDH+5RM0q1mA=="
 
+cronstrue@^1.114.0:
+  version "1.114.0"
+  resolved "https://registry.yarnpkg.com/cronstrue/-/cronstrue-1.114.0.tgz#0e673fa62ce90181c38e07c6b2d7f9fc753153b8"
+  integrity sha512-j1JuBHTJKKX41NUJVHmWn2ZYHnLipsIoq7bAZVeVzehA9+rmG6v9NgMiMa0KiiFzozihgt4yGNe5aMVc/IoYLg==
+
 cross-fetch@3.0.6:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.0.6.tgz#3a4040bc8941e653e0e9cf17f29ebcd177d3365c"

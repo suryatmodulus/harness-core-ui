@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.77% </span>
+                <span class="strong">96.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/31</span>
+                <span class='fraction'>31/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">73.91% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/22</span>
+                <span class='fraction'>17/23</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.77% </span>
+                <span class="strong">96.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>30/31</span>
+                <span class='fraction'>31/32</span>
             </div>
         
             
@@ -209,13 +209,7 @@
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L153'></a><a href='#L153'>153</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -232,6 +226,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -284,6 +279,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -293,25 +290,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -338,6 +322,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -379,11 +367,11 @@ import { Button, Heading, Layout, Container, Icon } from '@wings-software/uicore
 import { PageHeader } from '@common/components/Page/PageHeader'
 import {
   useFetchPerspectiveTimeSeriesQuery,
-  ViewFieldIdentifier,
   QlceViewTimeGroupType,
   useFetchPerspectiveDetailsSummaryQuery,
   QlceViewFilterInput,
-  QlceViewFilterOperator
+  QlceViewFilterOperator,
+  QlceViewFieldInputInput
 } from 'services/ce/services'
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
 import PerspectiveExplorerGroupBy from '@ce/components/PerspectiveExplorerGroupBy/PerspectiveExplorerGroupBy'
@@ -394,7 +382,8 @@ import {
   getTimeFilters,
   getGroupByFilter,
   getTimeRangeFilter,
-  getFilters
+  getFilters,
+  DEFAULT_GROUP_BY
 } from '@ce/utils/perspectiveUtils'
 import { DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
 import { CCM_CHART_TYPES } from '@ce/constants'
@@ -439,17 +428,14 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
   const [chartType, setChartType] = useState&lt;CCM_CHART_TYPES&gt;(CCM_CHART_TYPES.COLUMN)
   const [aggregation, setAggregation] = useState&lt;QlceViewTimeGroupType&gt;(QlceViewTimeGroupType.Day)
 &nbsp;
+  const [groupBy, setGroupBy] = useState&lt;QlceViewFieldInputInput&gt;(DEFAULT_GROUP_BY)
+&nbsp;
   const [filters, setFilters] = useState&lt;QlceViewFilterInput[]&gt;([])
 &nbsp;
   const setFilterUsingChartClick: (value: string) =&gt; void = <span class="fstat-no" title="function not covered" >value </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >    setFilters([</span>
       {
-        field: {
-          fieldId: 'product',
-          fieldName: 'Product',
-          identifier: ViewFieldIdentifier.Common,
-          identifierName: ViewFieldIdentifier.Common
-        },
+        field: { ...groupBy },
         operator: QlceViewFilterOperator.Equals,
         values: [value]
       }
@@ -469,15 +455,7 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
         ...getFilters(filters)
       ],
       limit: 12,
-      groupBy: [
-        getTimeRangeFilter(aggregation),
-        getGroupByFilter({
-          fieldId: 'product',
-          fieldName: 'Product',
-          identifier: ViewFieldIdentifier.Common,
-          identifierName: ViewFieldIdentifier.Common
-        })
-      ]
+      groupBy: [getTimeRangeFilter(aggregation), getGroupByFilter(groupBy)]
     }
   })
 &nbsp;
@@ -505,26 +483,30 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
       /&gt;
       &lt;PerspectiveSummary data={summaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>erspectiveTrendStats} fetching={summaryFetching} /&gt;
       &lt;Container margin="medium" background="white"&gt;
-        {chartFetching ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;Container className={css.chartLoadingContainer}&gt;</span>
-            &lt;Icon name="spinner" color="blue500" size={30} /&gt;
-          &lt;/Container&gt;
-        ) : (
-          &lt;Container padding="small"&gt;
-            &lt;PerspectiveExplorerGroupBy chartType={chartType} setChartType={setChartType} /&gt;
-            {chartData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>erspectiveTimeSeriesStats &amp;&amp; (
-              &lt;CloudCostInsightChart
-                chartType={chartType}
-                columnSequence={[]}
-                setFilterUsingChartClick={setFilterUsingChartClick}
-                fetching={chartFetching}
-                data={chartData.perspectiveTimeSeriesStats}
-                aggregation={aggregation}
-                xAxisPointCount={chartData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>erspectiveTimeSeriesStats.stats<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength || <span class="branch-1 cbranch-no" title="branch not covered" >DAYS_FOR_TICK_INTERVAL + 1}</span>
-              /&gt;
-            )}
-          &lt;/Container&gt;
-        )}
+        &lt;Container padding="small"&gt;
+          &lt;PerspectiveExplorerGroupBy
+            chartType={chartType}
+            setChartType={setChartType}
+            groupBy={groupBy}
+            setGroupBy={setGroupBy}
+          /&gt;
+          {chartFetching ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;Container className={css.chartLoadingContainer}&gt;</span>
+              &lt;Icon name="spinner" color="blue500" size={30} /&gt;
+            &lt;/Container&gt;
+          ) : null}
+          {!chartFetching &amp;&amp; chartData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>erspectiveTimeSeriesStats &amp;&amp; (
+            &lt;CloudCostInsightChart
+              chartType={chartType}
+              columnSequence={[]}
+              setFilterUsingChartClick={setFilterUsingChartClick}
+              fetching={chartFetching}
+              data={chartData.perspectiveTimeSeriesStats}
+              aggregation={aggregation}
+              xAxisPointCount={chartData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>erspectiveTimeSeriesStats.stats<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength || <span class="branch-1 cbranch-no" title="branch not covered" >DAYS_FOR_TICK_INTERVAL + 1}</span>
+            /&gt;
+          )}
+        &lt;/Container&gt;
       &lt;/Container&gt;
     &lt;/&gt;
   )
@@ -538,7 +520,7 @@ export default PerspectiveDetailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 05 2021 12:54:07 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 05 2021 17:06:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

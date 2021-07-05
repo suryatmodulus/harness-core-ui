@@ -26,6 +26,7 @@ interface ListProps {
   subTitle: string
   grid: ReactNode
   buttonText: string
+  hasData: boolean
   onButtonClick: () => void
 }
 
@@ -51,7 +52,7 @@ const ReportsAndBudgets = () => {
   return (
     <Container className={css.mainContainer}>
       <Container className={css.innerContainer}>
-        <Layout.Vertical spacing="xxlarge" height="100%" padding={{ left: 'huge', right: 'xxlarge' }}>
+        <Layout.Vertical spacing="xxlarge" height="100%" padding={{ left: 'xxlarge', right: 'xxlarge' }}>
           <ScheduledReports />
           <Budgets />
           <FlexExpander />
@@ -79,12 +80,11 @@ const ReportsAndBudgets = () => {
 const ScheduledReports = () => {
   // const { accountId } = useParams<{ accountId: string }>()
   // const { data, loading, response: yeah } = useGetScheduledReports({ accountId })
-
   const response = getScheduledReportsResponse()
   const columns: Column<ReportTableParams>[] = useMemo(
     () => [
       {
-        Header: 'Report Nameyy',
+        Header: 'Report Name',
         accessor: 'name'
       },
       {
@@ -116,7 +116,8 @@ const ScheduledReports = () => {
       }`}
       buttonText="+ create new Report schedule"
       onButtonClick={() => 'TEST'}
-      grid={<Table<ReportTableParams> data={response?.resource} columns={columns} />}
+      hasData={!!reports.length}
+      grid={reports.length ? <Table<ReportTableParams> data={reports} columns={columns} /> : null}
     />
   )
 }
@@ -126,7 +127,7 @@ const Budgets = () => {
   const columns: Column<BudgetTableParams>[] = useMemo(
     () => [
       {
-        Header: 'Budgeted amounttt',
+        Header: 'Budgeted amount',
         accessor: 'budgetAmount'
       },
       {
@@ -152,19 +153,21 @@ const Budgets = () => {
     []
   )
 
+  const budgets = response?.resource || []
   return (
     <List
       title="Budget"
       subTitle="Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented."
       buttonText="+ create new Budget"
       onButtonClick={() => 'TEST'}
-      grid={<Table<BudgetTableParams> columns={columns} data={response?.resource} />}
+      hasData={!!budgets.length}
+      grid={budgets.length ? <Table<BudgetTableParams> columns={columns} data={budgets} /> : null}
     />
   )
 }
 
 const List = (props: ListProps) => {
-  const { title, subTitle, grid, buttonText, onButtonClick } = props
+  const { title, subTitle, grid, buttonText, hasData, onButtonClick } = props
   return (
     <Container>
       <Text color="grey800" style={{ fontSize: 16 }}>
@@ -177,7 +180,7 @@ const List = (props: ListProps) => {
       <Layout.Horizontal
         spacing="small"
         style={{
-          justifyContent: 'center',
+          justifyContent: hasData ? 'flex-end' : 'center',
           alignItems: 'center'
         }}
       >

@@ -569,6 +569,7 @@ export interface StringsMap {
   'authSettings.passwordStrengthUpdated': string
   'authSettings.periodicallyExpirePassword': string
   'authSettings.periodicallyExpirePasswordNote': string
+  'authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth': string
   'authSettings.plusSAMLProvider': string
   'authSettings.publicOAuthLoginDisabled': string
   'authSettings.publicOAuthLoginEnabled': string

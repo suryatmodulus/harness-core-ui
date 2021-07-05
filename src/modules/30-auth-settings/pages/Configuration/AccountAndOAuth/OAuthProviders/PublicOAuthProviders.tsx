@@ -24,6 +24,11 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
   const { getString } = useStrings()
   const { showError, showSuccess, showWarning } = useToaster()
 
+  const samlOrLdapSettings = authSettings.ngAuthSettings?.find(
+    settings =>
+      settings.settingsType === AuthenticationMechanisms.SAML || settings.settingsType === AuthenticationMechanisms.LDAP
+  )
+
   const oauthSettings: OAuthSettings | undefined = authSettings.ngAuthSettings?.find(
     settings => settings.settingsType === AuthenticationMechanisms.OAUTH
   )
@@ -31,7 +36,8 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
   const oauthEnabled =
     !!oauthSettings &&
     (authSettings.authenticationMechanism === AuthenticationMechanisms.USER_PASSWORD ||
-      authSettings.authenticationMechanism === AuthenticationMechanisms.OAUTH)
+      authSettings.authenticationMechanism === AuthenticationMechanisms.OAUTH) &&
+    !samlOrLdapSettings
 
   const { mutate: updateOAuthProviders, loading: updatingOauthProviders } = useUpdateOauthProviders({
     queryParams: {
@@ -87,6 +93,11 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
 
   const toggleOAuthProviders = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
     const enable = e.currentTarget.checked
+
+    if (samlOrLdapSettings) {
+      showWarning(getString('authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth'))
+      return
+    }
 
     if (!oauthEnabled && enable) {
       try {

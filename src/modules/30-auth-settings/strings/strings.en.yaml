@@ -50,6 +50,7 @@ notifyUsersWhenUserLocked: Notify user groups when a user is locked out
 selectUserGroup: Select User Group(s)
 publicOAuthLoginEnabled: Login via public OAuth providers has been enabled
 publicOAuthLoginDisabled: Login via public OAuth providers has been disabled
+pleaseRemoveSAMLOrLDAPToEnableOauth: Please remove SAML/LDAP settings to enable public Oauth providers
 keepAtLeastOneProviderEnabled: Please either keep at least one provider enabled, or entirely disable login via public OAuth
 oauthSettingsHaveBeenUpdated: OAuth settings have been updated
 disableOAuthLogin: Disable login via public OAuth providers

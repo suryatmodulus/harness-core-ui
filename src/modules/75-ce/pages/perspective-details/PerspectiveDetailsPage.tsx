@@ -10,6 +10,7 @@ import {
   QlceViewFilterOperator,
   QlceViewFieldInputInput
 } from 'services/ce/services'
+import PerspectiveGrid from '@ce/components/PerspectiveGrid/PerspectiveGrid'
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
 import PerspectiveExplorerGroupBy from '@ce/components/PerspectiveExplorerGroupBy/PerspectiveExplorerGroupBy'
 import PersepectiveExplorerFilters from '@ce/components/PersepectiveExplorerFilters/PerspectiveExplorerFilters'
@@ -69,6 +70,8 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   const [filters, setFilters] = useState<QlceViewFilterInput[]>([])
 
+  const [columnSequence, setColumnSequence] = useState<string[]>([])
+
   const setFilterUsingChartClick: (value: string) => void = value => {
     setFilters([
       {
@@ -119,7 +122,7 @@ const PerspectiveDetailsPage: React.FC = () => {
         setTimeRange={setTimeRange}
       />
       <PerspectiveSummary data={summaryData?.perspectiveTrendStats} fetching={summaryFetching} />
-      <Container margin="medium" background="white">
+      <Container margin="xlarge" background="white" className={css.chartGridContainer}>
         <Container padding="small">
           <PerspectiveExplorerGroupBy
             chartType={chartType}
@@ -135,7 +138,7 @@ const PerspectiveDetailsPage: React.FC = () => {
           {!chartFetching && chartData?.perspectiveTimeSeriesStats && (
             <CloudCostInsightChart
               chartType={chartType}
-              columnSequence={[]}
+              columnSequence={columnSequence}
               setFilterUsingChartClick={setFilterUsingChartClick}
               fetching={chartFetching}
               data={chartData.perspectiveTimeSeriesStats}
@@ -143,6 +146,11 @@ const PerspectiveDetailsPage: React.FC = () => {
               xAxisPointCount={chartData?.perspectiveTimeSeriesStats.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
             />
           )}
+          <PerspectiveGrid
+            columnSequence={columnSequence}
+            setColumnSequence={colSeq => setColumnSequence(colSeq)}
+            groupBy={groupBy}
+          />
         </Container>
       </Container>
     </>

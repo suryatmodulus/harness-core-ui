@@ -4,6 +4,7 @@ query FetchperspectiveGrid(
   $limit: Int
   $offset: Int
   $aggregateFunction: [QLCEViewAggregationInput]
+  $isClusterOnly: Boolean!
 ) {
   perspectiveGrid(
     aggregateFunction: $aggregateFunction
@@ -11,15 +12,15 @@ query FetchperspectiveGrid(
     groupBy: $groupBy
     limit: $limit
     offset: $offset
-    sortCriteria: [{ sortType: CLUSTER_COST, sortOrder: DESCENDING }]
+    sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
   ) {
     data {
       name
       id
       cost
       costTrend
-      clusterPerspective
-      clusterData {
+      clusterPerspective @include(if: $isClusterOnly)
+      clusterData @include(if: $isClusterOnly) {
         appId
         appName
         avgCpuUtilization
@@ -55,7 +56,6 @@ query FetchperspectiveGrid(
         serviceId
         serviceName
         storageActualIdleCost
-        storageCost
         storageRequest
         storageUnallocatedCost
         storageUtilizationValue

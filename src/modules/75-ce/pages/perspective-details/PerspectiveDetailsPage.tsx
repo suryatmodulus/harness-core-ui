@@ -75,10 +75,10 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   const perspectiveData = perspectiveRes?.resource
 
-  // let isClusterOnly = false
-  // if (perspectiveData?.dataSources?.length === 1 && perspectiveData.dataSources[0] === 'CLUSTER') {
-  //   isClusterOnly = true
-  // }
+  let isClusterOnly = false
+  if (perspectiveData?.dataSources?.length === 1 && perspectiveData.dataSources[0] === 'CLUSTER') {
+    isClusterOnly = true
+  }
 
   const [chartType, setChartType] = useState<CCM_CHART_TYPES>(CCM_CHART_TYPES.COLUMN)
   const [aggregation, setAggregation] = useState<QlceViewTimeGroupType>(QlceViewTimeGroupType.Day)
@@ -128,12 +128,13 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   const [gridResults] = useFetchperspectiveGridQuery({
     variables: {
-      aggregateFunction: AGGREGATE_FUNCTION.CLUSTER,
+      aggregateFunction: isClusterOnly ? AGGREGATE_FUNCTION.CLUSTER : AGGREGATE_FUNCTION.DEFAULT,
       filters: [
         getViewFilterForId(perspectiveId),
         ...getTimeFilters(timeRange.from, timeRange.to),
         ...getFilters(filters)
       ],
+      isClusterOnly: isClusterOnly,
       limit: 100,
       offset: 0,
       groupBy: [getGroupByFilter(groupBy)]

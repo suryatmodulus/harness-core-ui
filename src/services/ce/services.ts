@@ -86,6 +86,7 @@ export const FetchperspectiveGridDocument = gql`
     $limit: Int
     $offset: Int
     $aggregateFunction: [QLCEViewAggregationInput]
+    $isClusterOnly: Boolean!
   ) {
     perspectiveGrid(
       aggregateFunction: $aggregateFunction
@@ -93,15 +94,15 @@ export const FetchperspectiveGridDocument = gql`
       groupBy: $groupBy
       limit: $limit
       offset: $offset
-      sortCriteria: [{ sortType: CLUSTER_COST, sortOrder: DESCENDING }]
+      sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
     ) {
       data {
         name
         id
         cost
         costTrend
-        clusterPerspective
-        clusterData {
+        clusterPerspective @include(if: $isClusterOnly)
+        clusterData @include(if: $isClusterOnly) {
           appId
           appName
           avgCpuUtilization
@@ -137,7 +138,6 @@ export const FetchperspectiveGridDocument = gql`
           serviceId
           serviceName
           storageActualIdleCost
-          storageCost
           storageRequest
           storageUnallocatedCost
           storageUtilizationValue
@@ -400,6 +400,7 @@ export type FetchperspectiveGridQueryVariables = Exact<{
   limit: Maybe<Scalars['Int']>
   offset: Maybe<Scalars['Int']>
   aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>> | Maybe<QlceViewAggregationInput>>
+  isClusterOnly: Scalars['Boolean']
 }>
 
 export type FetchperspectiveGridQuery = {
@@ -414,8 +415,8 @@ export type FetchperspectiveGridQuery = {
           id: Maybe<string>
           cost: Maybe<any>
           costTrend: Maybe<any>
-          clusterPerspective: boolean
-          clusterData: Maybe<{
+          clusterPerspective: Maybe<boolean>
+          clusterData?: Maybe<{
             __typename?: 'ClusterData'
             appId: Maybe<string>
             appName: Maybe<string>
@@ -452,7 +453,6 @@ export type FetchperspectiveGridQuery = {
             serviceId: Maybe<string>
             serviceName: Maybe<string>
             storageActualIdleCost: Maybe<number>
-            storageCost: Maybe<number>
             storageRequest: Maybe<number>
             storageUnallocatedCost: Maybe<number>
             storageUtilizationValue: Maybe<number>

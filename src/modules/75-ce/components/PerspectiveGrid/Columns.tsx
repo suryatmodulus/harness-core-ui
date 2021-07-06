@@ -35,7 +35,7 @@ export const addLegendColorToRow = (data: QlceViewEntityStatsDataPoint[]): GridD
 
 const SUM = QlceViewAggregateOperation.Sum
 const AGGREGATE_FUNCTION_TYPE1 = [
-  { operationType: SUM, columnName: 'billingamount' },
+  { operationType: SUM, columnName: 'cost' },
   { operationType: SUM, columnName: 'cpuBillingAmount' },
   { operationType: SUM, columnName: 'memoryBillingAmount' },
   { operationType: SUM, columnName: 'storageCost' },
@@ -50,9 +50,11 @@ const AGGREGATE_FUNCTION_TYPE1 = [
 ]
 
 const AGGREGATE_FUNCTION_TYPE2 = [
-  { operationType: SUM, columnName: 'billingamount' },
+  { operationType: SUM, columnName: 'cost' },
   { operationType: SUM, columnName: 'actualidlecost' }
 ]
+
+const AGGREGATE_FUNCTION_DEFAULT = [{ operationType: SUM, columnName: 'cost' }]
 
 export const AGGREGATE_FUNCTION = {
   NAMESPACE: AGGREGATE_FUNCTION_TYPE1,
@@ -70,7 +72,8 @@ export const AGGREGATE_FUNCTION = {
   ECS_LAUNCH_TYPE_ID: AGGREGATE_FUNCTION_TYPE2,
   ECS_TASK: AGGREGATE_FUNCTION_TYPE2,
   ECS_TASK_ID: AGGREGATE_FUNCTION_TYPE2,
-  LABELS: AGGREGATE_FUNCTION_TYPE2
+  LABELS: AGGREGATE_FUNCTION_TYPE2,
+  DEFAULT: AGGREGATE_FUNCTION_DEFAULT
 }
 
 // Cell Renderers

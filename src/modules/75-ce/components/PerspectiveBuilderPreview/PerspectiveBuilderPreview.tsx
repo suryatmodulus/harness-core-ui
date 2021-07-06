@@ -54,7 +54,7 @@ const GroupByView: React.FC<GroupByViewProps> = ({ groupBy, setGroupBy, chartTyp
   const [labelResult] = useFetchPerspectiveFiltersValueQuery({
     variables: {
       filters: [
-        {
+        ({
           idFilter: {
             field: {
               fieldId: 'labels.key',
@@ -64,7 +64,7 @@ const GroupByView: React.FC<GroupByViewProps> = ({ groupBy, setGroupBy, chartTyp
             operator: 'IN',
             values: []
           }
-        } as unknown as QlceViewFilterWrapperInput
+        } as unknown) as QlceViewFilterWrapperInput
       ],
       offset: 0,
       limit: 100
@@ -223,7 +223,7 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
 
   const [gridResults] = useFetchperspectiveGridQuery({
     variables: {
-      aggregateFunction: AGGREGATE_FUNCTION.CLUSTER,
+      aggregateFunction: AGGREGATE_FUNCTION.DEFAULT,
       filters: [
         getViewFilterForId(perspectiveId, true),
         ...getTimeFilters(dateRange[0].valueOf(), dateRange[1].valueOf()),
@@ -231,6 +231,7 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
       ],
       limit: 100,
       offset: 0,
+      isClusterOnly: false,
       groupBy: [getGroupByFilter(groupBy)]
     }
   })

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -88,27 +88,25 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -119,29 +117,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
-<span class="cstat-no" title="statement not covered" >import { useParams } from 'react-router-dom'</span>
-<span class="cstat-no" title="statement not covered" >import { Layout } from '@wings-software/uicore'</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import { useParams } from 'react-router-dom'
+import { Layout } from '@wings-software/uicore'
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import routes from '@common/RouteDefinitions'</span>
+import routes from '@common/RouteDefinitions'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-<span class="cstat-no" title="statement not covered" >import { SidebarLink } from '@common/navigation/SideNav/SideNav'</span>
-<span class="cstat-no" title="statement not covered" >import { useStrings } from 'framework/strings'</span>
-<span class="cstat-no" title="statement not covered" >import AccountSetupMenu from '@common/navigation/AccountSetupMenu/AccountSetupMenu'</span>
-<span class="cstat-no" title="statement not covered" >import { useFeatureFlags } from '@common/hooks/useFeatureFlag'</span>
-<span class="cstat-no" title="statement not covered" >import { returnLaunchUrl } from '@common/utils/routeUtils'</span>
-<span class="cstat-no" title="statement not covered" >import { LaunchButton } from '../LaunchButton/LaunchButton'</span>
+import { SidebarLink } from '@common/navigation/SideNav/SideNav'
+import { useStrings } from 'framework/strings'
+import AccountSetupMenu from '@common/navigation/AccountSetupMenu/AccountSetupMenu'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { returnLaunchUrl } from '@common/utils/routeUtils'
+import { LaunchButton } from '../LaunchButton/LaunchButton'
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default function <span class="fstat-no" title="function not covered" >H</span>omeSideNav(</span>): React.ReactElement {
-  const params = <span class="cstat-no" title="statement not covered" >useParams&lt;AccountPathProps&gt;()</span>
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
-  const { NG_DASHBOARDS } = <span class="cstat-no" title="statement not covered" >useFeatureFlags()</span>
+export default function HomeSideNav(): React.ReactElement {
+  const params = useParams&lt;AccountPathProps&gt;()
+  const { getString } = useStrings()
+  const { NG_DASHBOARDS } = useFeatureFlags()
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Layout.Vertical spacing="small" margin={{ top: 'xxxlarge' }}&gt;
       &lt;SidebarLink label={getString('common.welcome')} to={routes.toGetStarted(params)} /&gt;
       &lt;SidebarLink label={getString('projectsText')} to={routes.toProjects(params)} /&gt;
-      {NG_DASHBOARDS &amp;&amp; &lt;SidebarLink label={getString('common.dashboards')} to={routes.toCustomDasboard(params)} /&gt;}
+      {NG_DASHBOARDS &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;SidebarLink label={getString('common.dashboards')} to={routes.toCustomDasboard(params)} /&gt;}</span>
       &lt;AccountSetupMenu /&gt;
       &lt;LaunchButton
         launchButtonText={getString('common.cgLaunchText')}
@@ -157,7 +157,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 05 2021 18:56:47 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 06 2021 08:56:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

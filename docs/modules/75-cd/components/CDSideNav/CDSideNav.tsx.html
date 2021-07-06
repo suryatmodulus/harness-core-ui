@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/24</span>
+                <span class='fraction'>24/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.71% </span>
+                <span class="strong">38.46% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/14</span>
+                <span class='fraction'>5/13</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/24</span>
+                <span class='fraction'>24/28</span>
             </div>
         
             
@@ -120,7 +120,15 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -133,7 +141,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -161,6 +173,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -194,8 +210,11 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useStrings } from 'framework/strings'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMenu'
+import { returnLaunchUrl } from '@common/utils/routeUtils'
+import { LaunchButton } from '@common/components/LaunchButton/LaunchButton'
 &nbsp;
 export default function CDSideNav(): React.ReactElement {
   const params = useParams&lt;PipelinePathProps&gt;()
@@ -205,6 +224,7 @@ export default function CDSideNav(): React.ReactElement {
   const module = 'cd'
   const { updateAppStore } = useAppStore()
   const { SERVICE_DASHBOARD_NG, CD_OVERVIEW_PAGE } = useFeatureFlags()
+  const { getString } = useStrings()
 &nbsp;
   return (
     &lt;Layout.Vertical spacing="small"&gt;
@@ -226,7 +246,7 @@ export default function CDSideNav(): React.ReactElement {
 <span class="cstat-no" title="statement not covered" >            history.push(</span>
               routes.toCDProjectOverview({
                 projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier || '',
+                orgIdentifier: <span class="branch-0 cbranch-no" title="branch not covered" >data.orgIdentifier </span>|| /* istanbul ignore next */ '',
                 accountId,
                 module
               })
@@ -243,6 +263,10 @@ export default function CDSideNav(): React.ReactElement {
           &lt;ProjectSetupMenu module={module} /&gt;
         &lt;/React.Fragment&gt;
       ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
+      &lt;LaunchButton
+        launchButtonText={getString('cd.cdLaunchText')}
+        redirectUrl={returnLaunchUrl(`#/account/${params.accountId}/dashboard`)}
+      /&gt;
     &lt;/Layout.Vertical&gt;
   )
 }
@@ -253,7 +277,7 @@ export default function CDSideNav(): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 05 2021 18:56:47 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 06 2021 08:56:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

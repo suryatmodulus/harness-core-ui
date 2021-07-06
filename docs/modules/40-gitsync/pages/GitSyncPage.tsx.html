@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.65% </span>
+                <span class="strong">95.45% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/23</span>
+                <span class='fraction'>21/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/10</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.45% </span>
+                <span class="strong">95.24% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/22</span>
+                <span class='fraction'>20/21</span>
             </div>
         
             
@@ -134,19 +134,7 @@
 <a name='L75'></a><a href='#L75'>75</a>
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L78'></a><a href='#L78'>78</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -156,7 +144,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -188,18 +175,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,8 +212,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { ReactNode } from 'react'
-import { Layout, Text, Color, Icon } from '@wings-software/uicore'
-import { useParams, Link, NavLink } from 'react-router-dom'
+import { Layout, Text, Color, TabNavigation } from '@wings-software/uicore'
+import { useParams, Link } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -247,7 +223,6 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import NewUserView from './newUser/NewUserView'
-import css from './GitSyncPage.module.scss'
 &nbsp;
 interface GitSyncPageProps {
   children: ReactNode
@@ -263,10 +238,7 @@ export const GitSyncLandingView: React.FC&lt;GitSyncPageProps&gt; = ({ children 
     return (
       &lt;Layout.Vertical padding={{ left: 'small', top: 'large', bottom: 'large' }}&gt;
         &lt;Layout.Horizontal spacing="small" margin={{ bottom: 'small' }}&gt;
-          &lt;Link
-            className={css.breadCrumb}
-            to={`/account/${accountId}/projects/${projectIdentifier}/orgs/${orgIdentifier}/details`}
-          &gt;
+          &lt;Link to={`/account/${accountId}/projects/${projectIdentifier}/orgs/${orgIdentifier}/details`}&gt;
             {selectedProject<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame}
           &lt;/Link&gt;
           &lt;span&gt;/&lt;/span&gt;
@@ -283,30 +255,22 @@ export const GitSyncLandingView: React.FC&lt;GitSyncPageProps&gt; = ({ children 
   return (
     &lt;&gt;
       &lt;Page.Header
-        className={css.header}
-        size={isGitSyncEnabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'xlarge' </span>: 'medium'}
+        size="medium"
         title={renderBreadCrumb}
         toolbar={
           isGitSyncEnabled ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;Layout.Horizontal spacing="large"&gt;</span>
-              &lt;NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toGitSyncReposAdmin({ projectIdentifier, orgIdentifier, accountId, module })}
-              &gt;
-                &lt;Icon margin={{ right: 'small' }} name="repository" /&gt;
-                {getString('repositories')}
-              &lt;/NavLink&gt;
-&nbsp;
-              &lt;NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toGitSyncEntitiesAdmin({ projectIdentifier, orgIdentifier, accountId, module })}
-              &gt;
-                &lt;Icon margin={{ right: 'small' }} name="entity" /&gt;
-                {getString('entities')}
-              &lt;/NavLink&gt;
-            &lt;/Layout.Horizontal&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;TabNavigation</span>
+              links={[
+                {
+                  label: getString('repositories'),
+                  to: routes.toGitSyncReposAdmin({ projectIdentifier, orgIdentifier, accountId, module })
+                },
+                {
+                  label: getString('entities'),
+                  to: routes.toGitSyncEntitiesAdmin({ projectIdentifier, orgIdentifier, accountId, module })
+                }
+              ]}
+            /&gt;
           ) : null
         }
       /&gt;
@@ -331,7 +295,7 @@ export default GitSyncPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 06 2021 16:05:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 06 2021 17:39:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, FormikForm, Container, Text, FormInput, Layout, FlexExpander, Button } from '@wings-software/uicore'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { useUpdatePerspective, CEView } from 'services/ce'
 import {
@@ -11,6 +11,7 @@ import {
   QlceViewTimeGroupType
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
+import type { ViewIdCondition } from 'services/ce/'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 import { PageSpinner } from '@common/components'
 import PerspectiveFilters from '../PerspectiveFilters'
@@ -64,7 +65,12 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
         if (item?.viewConditions && item.viewConditions.length === 0 && apiObject.viewRules) {
           delete apiObject.viewRules[index]
         } else if (item.viewConditions) {
-          item.viewConditions.forEach(x => delete x.viewField.identifierName)
+          item.viewConditions.forEach(x => {
+            const viewFieldObj = x as ViewIdCondition
+            if (viewFieldObj.viewField?.identifierName) {
+              delete viewFieldObj.viewField.identifierName
+            }
+          })
         }
       })
       apiObject.viewRules = apiObject.viewRules.filter(x => x !== null)
@@ -72,11 +78,8 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
       apiObject['viewRules'] = []
     }
 
-    delete apiObject.viewVisualization.groupBy.identifierName
+    await createView(apiObject as CEView)
 
-    const response = await createView(apiObject as CEView)
-
-    const perspectiveName = response.resource?.name || perspectiveId
     props.onNext()
 
     // const { status } = res
@@ -136,7 +139,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
             groupBy: perspectiveData?.viewVisualization?.groupBy || DEFAULT_GROUP_BY,
             chartType: perspectiveData?.viewVisualization?.chartType || ViewChartType.StackedLineChart
           },
-          viewRules: perspectiveData?.viewRules
+          viewRules: perspectiveData?.viewRules || []
         }}
         enableReinitialize={true}
         onSubmit={() => {
@@ -147,7 +150,11 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
           return (
             <FormikForm className={css.formContainer}>
               <Container className={css.innerContainer}>
-                <Layout.Vertical spacing="medium" height="100%" padding={{ left: 'huge', right: 'xxlarge' }}>
+                <Layout.Vertical
+                  spacing="medium"
+                  height="100%"
+                  padding={{ left: 'huge', right: 'xxlarge', bottom: 'xxlarge', top: 'xxlarge' }}
+                >
                   <Text color="grey800">{getString('ce.perspectives.createPerspective.title')}</Text>
                   <FormInput.Text
                     name="name"

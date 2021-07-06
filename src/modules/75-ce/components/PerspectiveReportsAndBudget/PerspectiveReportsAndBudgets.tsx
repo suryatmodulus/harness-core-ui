@@ -50,7 +50,7 @@ interface TableActionsProps {
   onClickDelete: () => void
 }
 
-const ReportsAndBudgets = () => {
+const ReportsAndBudgets = ({ values }) => {
   const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(DEFAULT_GROUP_BY)
   const [chartType, setChartType] = useState<ViewChartType>(ViewChartType.StackedLineChart)
   const history = useHistory()
@@ -85,6 +85,7 @@ const ReportsAndBudgets = () => {
           setChartType={(type: ViewChartType) => {
             setChartType(type)
           }}
+          formValues={values}
         />
       </Container>
     </Container>

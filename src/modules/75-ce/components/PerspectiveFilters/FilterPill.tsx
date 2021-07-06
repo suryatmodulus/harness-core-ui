@@ -54,7 +54,7 @@ export interface PillData {
     identifier: string
     identifierName: string
   }
-  operator: QlceViewFilterOperator
+  viewOperator: QlceViewFilterOperator
   values: Array<string>
 }
 
@@ -86,7 +86,7 @@ const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id
     setProvider({ id: identifier, name: identifierName })
     setService({ id: fieldId, name: fieldName })
     setValues(valuesObject)
-    setOperator(pillData.operator)
+    setOperator(pillData.viewOperator)
   }, [pillData])
 
   return (
@@ -117,7 +117,7 @@ const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id
           onClose={() =>
             onChange(id, {
               values: Object.keys(values).filter(val => values[val]),
-              operator: operator,
+              viewOperator: operator,
               viewField: {
                 fieldId: service?.id || '',
                 fieldName: service?.name || '',

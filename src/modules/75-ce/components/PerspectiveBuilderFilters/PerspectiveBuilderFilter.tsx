@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Icon, Color, Container } from '@wings-software/uicore'
 import {
@@ -49,11 +49,6 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
   pillData,
   id
 }) => {
-  // const [provider, setProvider] = useState<ProviderType | null>()
-  // const [service, setService] = useState<ProviderType | null>()
-  // const [operator, setOperator] = useState<QlceViewFilterOperator>(QlceViewFilterOperator.In)
-  // const [selectedVal, setSelectedVal] = useState<string[]>([])
-
   const provider: ProviderType = {
     id: pillData.viewField.identifier,
     name: pillData.viewField.identifierName

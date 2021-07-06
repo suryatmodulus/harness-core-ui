@@ -75,10 +75,10 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   const perspectiveData = perspectiveRes?.resource
 
-  let isClusterOnly = false
-  if (perspectiveData?.dataSources?.length === 1 && perspectiveData.dataSources[0] === 'CLUSTER') {
-    isClusterOnly = true
-  }
+  // let isClusterOnly = false
+  // if (perspectiveData?.dataSources?.length === 1 && perspectiveData.dataSources[0] === 'CLUSTER') {
+  //   isClusterOnly = true
+  // }
 
   const [chartType, setChartType] = useState<CCM_CHART_TYPES>(CCM_CHART_TYPES.COLUMN)
   const [aggregation, setAggregation] = useState<QlceViewTimeGroupType>(QlceViewTimeGroupType.Day)

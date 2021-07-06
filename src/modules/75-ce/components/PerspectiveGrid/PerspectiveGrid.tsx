@@ -2,7 +2,7 @@ import React, { useMemo, useEffect, useState } from 'react'
 import { Text, Container, Icon } from '@wings-software/uicore'
 import type { Column } from 'react-table'
 import { isEqual } from 'lodash-es'
-import type { QlceViewFieldInputInput, QlceViewEntityStatsDataPoint } from 'services/ce/services'
+import type { QlceViewFieldInputInput, QlceViewEntityStatsDataPoint, Maybe } from 'services/ce/services'
 import ColumnSelector from './ColumnSelector'
 import { addLegendColorToRow, GridData, getGridColumnsByGroupBy, PERSPECTIVE_PREVIEW_COLS } from './Columns'
 import Grid from './Grid'
@@ -15,7 +15,7 @@ interface PerspectiveGridProps {
   showColumnSelector?: boolean
   tempGridColumns?: boolean // TODO: remove after demo
   showPagination?: boolean
-  gridData: QlceViewEntityStatsDataPoint[]
+  gridData: Maybe<QlceViewEntityStatsDataPoint>[]
   gridFetching: boolean
 }
 

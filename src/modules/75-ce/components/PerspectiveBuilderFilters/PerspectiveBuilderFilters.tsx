@@ -2,9 +2,9 @@ import React from 'react'
 import { FieldArray } from 'formik'
 import cx from 'classnames'
 import type { FormikExtended } from '@wings-software/uicore/dist/components/FormikForm/FormikForm'
+import type { CEView } from 'services/ce/'
 import type { QlceViewFieldIdentifierData } from 'services/ce/services'
 
-import type { PerspectiveFormValues } from '../PerspectiveBuilder/PerspectiveBuilder'
 import type { PillData } from '../PerspectiveFilters/FilterPill'
 import PerspectiveBuilderFilter from './PerspectiveBuilderFilter'
 
@@ -12,7 +12,7 @@ import css from './PerspectiveBuilderFilters.module.scss'
 
 interface FiltersProps {
   index: number
-  formikProps: FormikExtended<PerspectiveFormValues>
+  formikProps: FormikExtended<CEView>
   removePill?: (id: number) => void
   showAndOperator?: boolean
   fieldValuesList: QlceViewFieldIdentifierData[]
@@ -25,15 +25,15 @@ const Filters: React.FC<FiltersProps> = ({ index, formikProps, removePill, field
     if (data.viewField.identifier === 'CUSTOM') {
       data.values = []
     }
-    setFieldValue(`viewRules[${index}].conditions[${id}]`, data)
+    setFieldValue(`viewRules[${index}].viewConditions[${id}]`, data)
   }
 
   return (
     <FieldArray
-      name={`viewRules[${index}].conditions`}
+      name={`viewRules[${index}].viewConditions`}
       render={arrayHelpers => {
         const viewRules = formikProps?.values?.viewRules
-        const filters = ((viewRules && viewRules[index].conditions) || []) as unknown as PillData[]
+        const filters = (((viewRules && viewRules[index].viewConditions) || []) as unknown) as PillData[]
         return (
           <section className={cx(css.filterContainer)}>
             {filters.map((data, innerIndex) => {
@@ -50,10 +50,11 @@ const Filters: React.FC<FiltersProps> = ({ index, formikProps, removePill, field
                           identifier: '',
                           identifierName: ''
                         },
-                        operator: 'IN',
+                        viewOperator: 'IN',
                         values: []
                       })
                     }}
+                    key={`filter-pill-${innerIndex}`}
                     id={innerIndex}
                     removePill={() => {
                       if (filters.length === 1) {

@@ -6,6 +6,45 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
+export const FetchAllPerspectivesDocument = gql`
+  query FetchAllPerspectives {
+    perspectives {
+      sampleViews {
+        id
+        name
+        chartType
+        createdAt
+        viewState
+        lastUpdatedAt
+      }
+      customerViews {
+        id
+        name
+        chartType
+        totalCost
+        viewType
+        viewState
+        createdAt
+        lastUpdatedAt
+        timeRange
+        reportScheduledConfigured
+        dataSources
+        groupBy {
+          fieldId
+          fieldName
+          identifier
+          identifierName
+        }
+      }
+    }
+  }
+`
+
+export function useFetchAllPerspectivesQuery(
+  options: Omit<Urql.UseQueryArgs<FetchAllPerspectivesQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchAllPerspectivesQuery>({ query: FetchAllPerspectivesDocument, ...options })
+}
 export const RecommendationsDocument = gql`
   query Recommendations($filters: K8sRecommendationFilterDTOInput) {
     recommendationStatsV2(filter: $filters) {
@@ -45,7 +84,7 @@ export const FetchPerspectiveDetailsSummaryDocument = gql`
     perspectiveTrendStats(
       filters: $filters
       aggregateFunction: [
-        { operationType: SUM, columnName: "billingamount" }
+        { operationType: SUM, columnName: "cost" }
         { operationType: MAX, columnName: "startTime" }
         { operationType: MIN, columnName: "startTime" }
       ]
@@ -80,8 +119,8 @@ export const FetchPerspectiveTimeSeriesDocument = gql`
       groupBy: $groupBy
       limit: $limit
       includeOthers: false
-      aggregateFunction: [{ operationType: SUM, columnName: "billingamount" }]
-      sortCriteria: [{ sortType: CLUSTER_COST, sortOrder: DESCENDING }]
+      aggregateFunction: [{ operationType: SUM, columnName: "cost" }]
+      sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
     ) {
       stats {
         values {
@@ -190,6 +229,53 @@ export const FetchViewFieldsDocument = gql`
 export function useFetchViewFieldsQuery(options: Omit<Urql.UseQueryArgs<FetchViewFieldsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<FetchViewFieldsQuery>({ query: FetchViewFieldsDocument, ...options })
 }
+export type FetchAllPerspectivesQueryVariables = Exact<{ [key: string]: never }>
+
+export type FetchAllPerspectivesQuery = {
+  __typename?: 'Query'
+  perspectives: Maybe<{
+    __typename?: 'PerspectiveData'
+    sampleViews: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'QLCEView'
+          id: Maybe<string>
+          name: Maybe<string>
+          chartType: Maybe<ViewChartType>
+          createdAt: Maybe<any>
+          viewState: Maybe<ViewState>
+          lastUpdatedAt: Maybe<any>
+        }>
+      >
+    >
+    customerViews: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'QLCEView'
+          id: Maybe<string>
+          name: Maybe<string>
+          chartType: Maybe<ViewChartType>
+          totalCost: number
+          viewType: Maybe<ViewType>
+          viewState: Maybe<ViewState>
+          createdAt: Maybe<any>
+          lastUpdatedAt: Maybe<any>
+          timeRange: Maybe<ViewTimeRangeType>
+          reportScheduledConfigured: boolean
+          dataSources: Maybe<Array<Maybe<ViewFieldIdentifier>>>
+          groupBy: Maybe<{
+            __typename?: 'QLCEViewField'
+            fieldId: string
+            fieldName: string
+            identifier: Maybe<ViewFieldIdentifier>
+            identifierName: Maybe<string>
+          }>
+        }>
+      >
+    >
+  }>
+}
+
 export type RecommendationsQueryVariables = Exact<{
   filters: Maybe<K8sRecommendationFilterDtoInput>
 }>

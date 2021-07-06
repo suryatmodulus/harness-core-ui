@@ -2,7 +2,7 @@ query FetchPerspectiveDetailsSummary($filters: [QLCEViewFilterWrapperInput]) {
   perspectiveTrendStats(
     filters: $filters
     aggregateFunction: [
-      { operationType: SUM, columnName: "billingamount" }
+      { operationType: SUM, columnName: "cost" }
       { operationType: MAX, columnName: "startTime" }
       { operationType: MIN, columnName: "startTime" }
     ]

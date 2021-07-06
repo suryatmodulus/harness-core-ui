@@ -70,7 +70,7 @@ const PerspectiveExplorerGroupBy: React.FC<PerspectiveExplorerGroupByProps> = ({
   const [labelResult] = useFetchPerspectiveFiltersValueQuery({
     variables: {
       filters: [
-        {
+        ({
           idFilter: {
             field: {
               fieldId: 'labels.key',
@@ -80,7 +80,7 @@ const PerspectiveExplorerGroupBy: React.FC<PerspectiveExplorerGroupByProps> = ({
             operator: 'IN',
             values: []
           }
-        } as unknown as QlceViewFilterWrapperInput
+        } as unknown) as QlceViewFilterWrapperInput
       ],
       offset: 0,
       limit: 100

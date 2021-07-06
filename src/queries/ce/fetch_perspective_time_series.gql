@@ -8,8 +8,8 @@ query FetchPerspectiveTimeSeries(
     groupBy: $groupBy
     limit: $limit
     includeOthers: false
-    aggregateFunction: [{ operationType: SUM, columnName: "billingamount" }]
-    sortCriteria: [{ sortType: CLUSTER_COST, sortOrder: DESCENDING }]
+    aggregateFunction: [{ operationType: SUM, columnName: "cost" }]
+    sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
   ) {
     stats {
       values {

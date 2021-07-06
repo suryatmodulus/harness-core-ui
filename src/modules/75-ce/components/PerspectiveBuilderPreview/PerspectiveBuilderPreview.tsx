@@ -4,15 +4,29 @@ import { Container, Text, Layout, FlexExpander, Icon } from '@wings-software/uic
 import cx from 'classnames'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
+import type { CEView } from 'services/ce'
 import {
   useFetchViewFieldsQuery,
   QlceViewFilterWrapperInput,
   useFetchPerspectiveFiltersValueQuery,
   QlceViewFieldInputInput,
   ViewFieldIdentifier,
-  ViewChartType
+  ViewChartType,
+  useFetchPerspectiveTimeSeriesQuery,
+  QlceViewTimeGroupType
 } from 'services/ce/services'
-
+import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
+import {
+  normalizeViewRules,
+  getRuleFilters,
+  getGroupByFilter,
+  getTimeRangeFilter,
+  getTimeFilters,
+  getViewFilterForId
+} from '@ce/utils/perspectiveUtils'
+import { CCM_CHART_TYPES } from '@ce/constants'
+import { DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
+import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
 import css from './PerspectiveBuilderPreview.module.scss'
 
 interface GroupByViewProps {
@@ -37,7 +51,7 @@ const GroupByView: React.FC<GroupByViewProps> = ({ groupBy, setGroupBy, chartTyp
   const [labelResult] = useFetchPerspectiveFiltersValueQuery({
     variables: {
       filters: [
-        {
+        ({
           idFilter: {
             field: {
               fieldId: 'labels.key',
@@ -47,7 +61,7 @@ const GroupByView: React.FC<GroupByViewProps> = ({ groupBy, setGroupBy, chartTyp
             operator: 'IN',
             values: []
           }
-        } as unknown as QlceViewFilterWrapperInput
+        } as unknown) as QlceViewFilterWrapperInput
       ],
       offset: 0,
       limit: 100
@@ -174,19 +188,57 @@ interface PerspectiveBuilderPreviewProps {
   setGroupBy: (groupBy: QlceViewFieldInputInput) => void
   chartType: ViewChartType
   setChartType: (type: ViewChartType) => void
+  formValues: CEView
 }
 
 const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
   groupBy,
   setGroupBy,
   chartType,
-  setChartType
+  setChartType,
+  formValues
 }) => {
+  const { perspectiveId } = useParams<{ perspectiveId: string }>()
+
+  const dateRange = DATE_RANGE_SHORTCUTS.LAST_7_DAYS
+  const [chartResult] = useFetchPerspectiveTimeSeriesQuery({
+    variables: {
+      filters: [
+        getViewFilterForId(perspectiveId, true),
+        ...getTimeFilters(dateRange[0].valueOf(), dateRange[1].valueOf()),
+        ...getRuleFilters(normalizeViewRules(formValues.viewRules))
+      ],
+      limit: 12,
+      groupBy: [
+        getTimeRangeFilter(
+          (formValues.viewVisualization?.granularity as QlceViewTimeGroupType) || QlceViewTimeGroupType.Day
+        ),
+        getGroupByFilter(groupBy)
+      ]
+    }
+  })
+
+  const { data: chartData, fetching } = chartResult
+
   const { getString } = useStrings()
   return (
     <Container padding="xxlarge" background="white">
       <Text color="grey900">{getString('ce.perspectives.createPerspective.preview.title')}</Text>
       <GroupByView setGroupBy={setGroupBy} groupBy={groupBy} chartType={chartType} setChartType={setChartType} />
+      {chartData?.perspectiveTimeSeriesStats ? (
+        <CloudCostInsightChart
+          chartType={CCM_CHART_TYPES.COLUMN}
+          columnSequence={[]}
+          setFilterUsingChartClick={() => {}}
+          fetching={fetching}
+          showLegends={false}
+          data={chartData.perspectiveTimeSeriesStats}
+          aggregation={
+            (formValues.viewVisualization?.granularity as QlceViewTimeGroupType) || QlceViewTimeGroupType.Day
+          }
+          xAxisPointCount={chartData?.perspectiveTimeSeriesStats.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
+        />
+      ) : null}
     </Container>
   )
 }

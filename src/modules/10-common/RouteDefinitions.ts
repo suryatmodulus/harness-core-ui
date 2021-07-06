@@ -1055,6 +1055,7 @@ const routes = {
   toCECreatePerspective: withAccountId(
     ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) => `/ce/perspective/${perspectiveId}/create`
   ),
+  toCEPerspectives: withAccountId(() => `/ce/perspectives`),
   toCEBudgets: withAccountId(() => '/ce/budgets'),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/home/dashboards'),

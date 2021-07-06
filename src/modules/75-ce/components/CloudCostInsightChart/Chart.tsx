@@ -18,6 +18,7 @@ interface GetChartProps {
   aggregation: QlceViewTimeGroupType
   xAxisPointCount: number
   setFilterUsingChartClick: (value: string) => void
+  showLegends: boolean
 }
 
 const GetChart: React.FC<GetChartProps> = ({
@@ -27,7 +28,8 @@ const GetChart: React.FC<GetChartProps> = ({
   chartType,
   aggregation,
   xAxisPointCount,
-  setFilterUsingChartClick
+  setFilterUsingChartClick,
+  showLegends
 }) => {
   const [chartObj, setChartObj] = useState<Highcharts.Chart | null>(null)
 
@@ -126,7 +128,11 @@ const GetChart: React.FC<GetChartProps> = ({
           xAxis: xAxisOptions
         }}
       />
-      {chartObj ? <ChartLegend chartRefObj={chartObj as unknown as Highcharts.Chart} /> : <Icon name="spinner" />}
+      {chartObj && showLegends ? (
+        <ChartLegend chartRefObj={(chartObj as unknown) as Highcharts.Chart} />
+      ) : showLegends ? (
+        <Icon name="spinner" />
+      ) : null}
     </article>
   )
 }
@@ -138,6 +144,7 @@ interface CCMChartProps {
   aggregation: QlceViewTimeGroupType
   xAxisPointCount: number
   setFilterUsingChartClick: (value: string) => void
+  showLegends: boolean
 }
 
 const Chart: React.FC<CCMChartProps> = ({
@@ -146,7 +153,8 @@ const Chart: React.FC<CCMChartProps> = ({
   chartType,
   aggregation,
   xAxisPointCount,
-  setFilterUsingChartClick
+  setFilterUsingChartClick,
+  showLegends
 }) => {
   return (
     <>
@@ -161,6 +169,7 @@ const Chart: React.FC<CCMChartProps> = ({
             idx={idx}
             setFilterUsingChartClick={setFilterUsingChartClick}
             onLoad={onLoad}
+            showLegends={showLegends}
           />
         ) : null
       })}

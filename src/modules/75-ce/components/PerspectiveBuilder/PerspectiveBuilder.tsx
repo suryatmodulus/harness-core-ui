@@ -1,13 +1,34 @@
 import React from 'react'
 import { Formik, FormikForm, Container, Text, FormInput, Layout, FlexExpander, Button } from '@wings-software/uicore'
+import { useHistory, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
-import { QlceViewRuleInput, QlceViewFieldInputInput, ViewChartType } from 'services/ce/services'
+import { useUpdatePerspective, CEView } from 'services/ce'
+import {
+  QlceViewRuleInput,
+  QlceViewFieldInputInput,
+  ViewChartType,
+  ViewTimeRangeType,
+  QlceViewTimeGroupType
+} from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
+import routes from '@common/RouteDefinitions'
+import { PageSpinner } from '@common/components'
 import PerspectiveFilters from '../PerspectiveFilters'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
 import ProTipIcon from './images/pro-tip.svg'
 import css from './PerspectiveBuilder.module.scss'
+
+export const CREATE_CALL_OBJECT = {
+  viewVersion: 'v1',
+  viewTimeRange: {
+    viewTimeRangeType: ViewTimeRangeType.Last_7
+  },
+  viewType: 'CUSTOMER',
+  viewVisualization: {
+    granularity: QlceViewTimeGroupType.Day
+  }
+}
 
 export interface PerspectiveFormValues {
   name: string
@@ -18,8 +39,80 @@ export interface PerspectiveFormValues {
   }
 }
 
-const PerspectiveBuilder: React.FC = () => {
+const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView }> = () => {
   const { getString } = useStrings()
+  const history = useHistory()
+
+  const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
+
+  const { mutate: createView, loading } = useUpdatePerspective({
+    queryParams: {
+      accountId: accountId
+    }
+  })
+
+  const makeCreateCall: (value: CEView) => void = async values => {
+    const apiObject = {
+      ...CREATE_CALL_OBJECT,
+      ...values,
+      viewState: 'DRAFT',
+      viewType: 'CUSTOMER',
+      uuid: perspectiveId
+    }
+
+    if (apiObject.viewRules) {
+      apiObject.viewRules.forEach((item, index) => {
+        if (item?.viewConditions && item.viewConditions.length === 0 && apiObject.viewRules) {
+          delete apiObject.viewRules[index]
+        } else if (item.viewConditions) {
+          item.viewConditions.forEach(x => delete x.viewField.identifierName)
+        }
+      })
+      apiObject.viewRules = apiObject.viewRules.filter(x => x !== null)
+    } else {
+      apiObject['viewRules'] = []
+    }
+
+    delete apiObject.viewVisualization.groupBy.identifierName
+
+    const response = await createView(apiObject as CEView)
+
+    const perspectiveName = response.resource?.name || perspectiveId
+
+    history.push(
+      routes.toPerspectiveDetails({
+        accountId,
+        perspectiveId,
+        perspectiveName: perspectiveName
+      })
+    )
+
+    // const { status } = res
+    // if (status === 200) {
+    //   const apiRes = res.response as any
+    // const viewId = apiRes.uuid
+    // const viewName = apiRes.name
+    // const groupBy = apiRes.viewVisualization.groupBy
+    // const timeRange = apiRes.viewTimeRange.viewTimeRangeType
+    // const chartType = apiRes.viewVisualization.chartType
+
+    // router.push({
+    //   pathname: path.toCloudViewsExplorer({
+    //     accountId,
+    //     viewId,
+    //     viewName
+    //   }),
+    //   query: {
+    //     defaultGroupBy: queryString.stringify(groupBy),
+    //     defaultTimeRange: timeRange,
+    //     chartType: chartType
+    //   }
+    // })
+    // } else {
+    // Show Error here
+    // toaster.showError({ message: res.error, timeout: TOASTER_TIMEOUT })
+    // }
+  }
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().trim().required(getString('ce.perspectives.createPerspective.validationErrors.nameError')),
@@ -33,8 +126,7 @@ const PerspectiveBuilder: React.FC = () => {
               fieldName: Yup.string(),
               identifier: Yup.string().required(),
               identifierName: Yup.string().nullable()
-            }),
-            values: Yup.array().min(1, getString('ce.perspectives.createPerspective.validationErrors.ruleError'))
+            })
           })
         )
       })
@@ -43,7 +135,8 @@ const PerspectiveBuilder: React.FC = () => {
 
   return (
     <Container className={css.mainContainer}>
-      <Formik<PerspectiveFormValues>
+      {loading && <PageSpinner />}
+      <Formik<CEView>
         formName="createPerspective"
         initialValues={{
           name: '',
@@ -107,7 +200,11 @@ const PerspectiveBuilder: React.FC = () => {
                     <Button
                       icon="chevron-right"
                       intent="primary"
-                      text={getString('ce.perspectives.createPerspective.prevButton')}
+                      disabled={!!Object.keys(formikProps.errors).length}
+                      text={getString('ce.perspectives.createPerspective.nextButton')}
+                      onClick={() => {
+                        makeCreateCall(formikProps.values)
+                      }}
                     />
                   </Layout.Horizontal>
                 </Layout.Vertical>
@@ -115,8 +212,9 @@ const PerspectiveBuilder: React.FC = () => {
                   setGroupBy={(groupBy: QlceViewFieldInputInput) => {
                     formikProps.setFieldValue('viewVisualization.groupBy', groupBy)
                   }}
-                  groupBy={formikProps.values.viewVisualization.groupBy}
-                  chartType={formikProps.values.viewVisualization.chartType}
+                  formValues={formikProps.values}
+                  groupBy={formikProps?.values?.viewVisualization?.groupBy as any}
+                  chartType={formikProps?.values?.viewVisualization?.chartType as any}
                   setChartType={(type: ViewChartType) => {
                     formikProps.setFieldValue('viewVisualization.chartType', type)
                   }}

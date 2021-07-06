@@ -134,6 +134,7 @@ const PerspectiveDetailsPage: React.FC = () => {
           ) : null}
           {!chartFetching && chartData?.perspectiveTimeSeriesStats && (
             <CloudCostInsightChart
+              showLegends={true}
               chartType={chartType}
               columnSequence={[]}
               setFilterUsingChartClick={setFilterUsingChartClick}

@@ -5,13 +5,13 @@ import { Icon, Text, Button, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { FormikExtended } from '@wings-software/uicore/dist/components/FormikForm/FormikForm'
 import { useStrings } from 'framework/strings'
+import type { CEView } from 'services/ce/'
 import { QlceViewFieldIdentifierData, useFetchViewFieldsQuery, QlceViewFilterWrapperInput } from 'services/ce/services'
 import PerspectiveBuilderFilters from '../PerspectiveBuilderFilters/PerspectiveBuilderFilters'
-import type { PerspectiveFormValues } from '../PerspectiveBuilder/PerspectiveBuilder'
 import css from './PerspectiveFilters.module.scss'
 
 interface PerspectiveFiltersProps {
-  formikProps: FormikExtended<PerspectiveFormValues>
+  formikProps: FormikExtended<CEView>
 }
 
 const PerspectiveFiltersNew: React.FC<PerspectiveFiltersProps> = ({ formikProps }) => {
@@ -102,7 +102,7 @@ const PerspectiveFiltersNew: React.FC<PerspectiveFiltersProps> = ({ formikProps 
                   className={css.addFilters}
                   onClick={() => {
                     arrayHelper.push({
-                      conditions: [
+                      viewConditions: [
                         {
                           type: 'VIEW_ID_CONDITION',
                           viewField: {
@@ -111,7 +111,7 @@ const PerspectiveFiltersNew: React.FC<PerspectiveFiltersProps> = ({ formikProps 
                             identifier: '',
                             identifierName: ''
                           },
-                          operator: 'IN',
+                          viewOperator: 'IN',
                           values: []
                         }
                       ]

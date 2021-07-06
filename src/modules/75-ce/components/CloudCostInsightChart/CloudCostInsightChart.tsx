@@ -16,6 +16,7 @@ interface CloudCostInsightChartProps {
   aggregation: QlceViewTimeGroupType
   xAxisPointCount: number
   setFilterUsingChartClick: (value: string) => void
+  showLegends?: boolean
 }
 
 function getChartList({ data }: { data: PerspectiveTimeSeriesData }): ChartConfigType[][] {
@@ -25,7 +26,7 @@ function getChartList({ data }: { data: PerspectiveTimeSeriesData }): ChartConfi
 }
 
 const CloudCostInsightChart = forwardRef((props: CloudCostInsightChartProps, ref: React.Ref<Highcharts.Chart>) => {
-  const { data, chartType, aggregation, xAxisPointCount, setFilterUsingChartClick } = props
+  const { data, chartType, aggregation, xAxisPointCount, setFilterUsingChartClick, showLegends } = props
 
   const chartListData = useMemo(
     () =>
@@ -51,6 +52,7 @@ const CloudCostInsightChart = forwardRef((props: CloudCostInsightChartProps, ref
         onLoad={setChartRef}
         xAxisPointCount={xAxisPointCount}
         setFilterUsingChartClick={setFilterUsingChartClick}
+        showLegends={showLegends || false}
       />
     </div>
   )

@@ -21,7 +21,7 @@ export interface PillData {
     identifier: string
     identifierName: string
   }
-  operator: QlceViewFilterOperator
+  viewOperator: QlceViewFilterOperator
   values: Array<string>
 }
 
@@ -59,7 +59,7 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
     setProvider({ id: identifier, name: identifierName })
     setService({ id: fieldId, name: fieldName })
     setSelectedVal(pillData.values)
-    setOperator(pillData.operator)
+    setOperator(pillData.viewOperator)
   }, [pillData])
 
   const setProviderAndIdentifier: (providerData: ProviderType, serviceData: ProviderType) => void = (
@@ -84,9 +84,13 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
     setOperator(op)
     const changedData = {
       ...pillData,
-      operator: op
+      viewOperator: op
     }
-    onChange(id, changedData)
+    if (op === QlceViewFilterOperator.Null || op === QlceViewFilterOperator.NotNull) {
+      onChange(id, { ...changedData, values: [''] })
+    } else {
+      onChange(id, changedData)
+    }
   }
 
   const onValueChange: (val: string[]) => void = val => {

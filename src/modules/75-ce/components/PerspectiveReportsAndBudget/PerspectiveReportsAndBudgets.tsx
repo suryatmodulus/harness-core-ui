@@ -1,12 +1,13 @@
 import React, { useMemo, ReactNode, useState } from 'react'
 import cronstrue from 'cronstrue'
 
-// import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
 import { Container, Text, Layout, Button, Icon, FlexExpander } from '@wings-software/uicore'
 import { Popover, Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 // import { useGetScheduledReports } from 'services/ce'
+import routes from '@common/RouteDefinitions'
 import { QlceViewFieldInputInput, ViewChartType } from 'services/ce/services'
 
 import Table from './Table'
@@ -52,6 +53,18 @@ interface TableActionsProps {
 const ReportsAndBudgets = () => {
   const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(DEFAULT_GROUP_BY)
   const [chartType, setChartType] = useState<ViewChartType>(ViewChartType.StackedLineChart)
+  const history = useHistory()
+  const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
+
+  const savePerspective = () => {
+    history.push(
+      routes.toPerspectiveDetails({
+        accountId,
+        perspectiveId,
+        perspectiveName: perspectiveId
+      })
+    )
+  }
 
   return (
     <Container className={css.mainContainer}>
@@ -62,7 +75,7 @@ const ReportsAndBudgets = () => {
           <FlexExpander />
           <Layout.Horizontal padding={{ top: 'medium' }} spacing="large">
             <Button icon="chevron-left" text="Previous" />
-            <Button intent="primary" text="Save Perspective" />
+            <Button intent="primary" text="Save Perspective" onClick={() => savePerspective()} />
           </Layout.Horizontal>
         </Layout.Vertical>
         <PerspectiveBuilderPreview

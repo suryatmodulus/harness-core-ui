@@ -49,7 +49,9 @@ const CreatePerspectivePage: React.FC = () => {
         >
           <Tab
             id={tabHeadings[0]}
-            panel={<PerspectiveBuilder perspectiveData={perspectiveData} />}
+            panel={
+              <PerspectiveBuilder perspectiveData={perspectiveData} onNext={() => setSelectedTabId(tabHeadings[1])} />
+            }
             title={<span className={css.tab}>{tabHeadings[0]}</span>}
             data-testid={tabHeadings[0]}
           />

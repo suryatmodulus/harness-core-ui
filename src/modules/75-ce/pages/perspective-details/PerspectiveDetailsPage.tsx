@@ -185,16 +185,16 @@ const PerspectiveDetailsPage: React.FC = () => {
                 <Icon name="deployment-failed-legacy" size={30} />
               </Container>
             ) : null}
-            {!gridFetching && gridData?.perspectiveGrid?.data && (
-              <PerspectiveGrid
-                gridData={gridData?.perspectiveGrid?.data}
-                gridFetching={gridFetching}
-                columnSequence={columnSequence}
-                setColumnSequence={colSeq => setColumnSequence(colSeq)}
-                groupBy={groupBy}
-              />
-            )}
           </Container>
+          {!gridFetching && gridData?.perspectiveGrid?.data && (
+            <PerspectiveGrid
+              gridData={gridData?.perspectiveGrid?.data}
+              gridFetching={gridFetching}
+              columnSequence={columnSequence}
+              setColumnSequence={colSeq => setColumnSequence(colSeq)}
+              groupBy={groupBy}
+            />
+          )}
         </Container>
       </PageBody>
     </>

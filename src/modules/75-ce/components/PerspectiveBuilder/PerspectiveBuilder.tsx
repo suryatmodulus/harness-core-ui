@@ -153,7 +153,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
                 <Layout.Vertical
                   spacing="medium"
                   height="100%"
-                  padding={{ left: 'huge', right: 'xxlarge', bottom: 'xxlarge', top: 'xxlarge' }}
+                  padding={{ left: 'large', right: 'xxlarge', bottom: 'xxlarge', top: 'xxlarge' }}
                 >
                   <Text color="grey800">{getString('ce.perspectives.createPerspective.title')}</Text>
                   <FormInput.Text

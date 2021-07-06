@@ -10,5 +10,15 @@
 }
 
 .panelClass {
-  margin-top: 0px;
+  margin-top: var(--spacing-xsmall);
+}
+
+.mainContainer {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+
+  .filler {
+    height: 60px;
+    border-bottom: 2px solid var(--grey-200);
+  }
 }

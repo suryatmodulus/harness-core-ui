@@ -43,36 +43,42 @@ const CreatePerspectivePage: React.FC = () => {
       <PageHeader title={<PerspectiveHeader title={perspectiveData?.name || perspectiveId} />} />
       {loading && <PageSpinner />}
       <PageBody>
-        <Tabs
-          id="perspectiveBuilder"
-          onChange={(id: string) => setSelectedTabId(id)}
-          selectedTabId={selectedTabId}
-          data-tabId={selectedTabId}
-        >
-          <Tab
-            id={tabHeadings[0]}
-            panel={
-              <PerspectiveBuilder perspectiveData={perspectiveData} onNext={() => setSelectedTabId(tabHeadings[1])} />
-            }
-            panelClassName={css.panelClass}
-            title={<span className={css.tab}>{tabHeadings[0]}</span>}
-            data-testid={tabHeadings[0]}
-          />
-          <Icon
-            name="chevron-right"
-            height={20}
-            size={20}
-            margin={{ right: 'small', left: 'small' }}
-            color={'grey400'}
-            style={{ alignSelf: 'center' }}
-          />
-          <Tab
-            id={tabHeadings[1]}
-            title={<span className={css.tab}>{tabHeadings[1]}</span>}
-            panel={<ReportsAndBudgets values={perspectiveData} />}
-            data-testid={tabHeadings[1]}
-          />
-        </Tabs>
+        <div className={css.mainContainer}>
+          <div>
+            <div className={css.filler}></div>
+          </div>
+          <Tabs
+            id="perspectiveBuilder"
+            onChange={(id: string) => setSelectedTabId(id)}
+            selectedTabId={selectedTabId}
+            data-tabId={selectedTabId}
+          >
+            <Tab
+              id={tabHeadings[0]}
+              panel={
+                <PerspectiveBuilder perspectiveData={perspectiveData} onNext={() => setSelectedTabId(tabHeadings[1])} />
+              }
+              panelClassName={css.panelClass}
+              title={<span className={css.tab}>{tabHeadings[0]}</span>}
+              data-testid={tabHeadings[0]}
+            />
+            <Icon
+              name="chevron-right"
+              height={20}
+              size={20}
+              margin={{ right: 'small', left: 'small' }}
+              color={'grey400'}
+              style={{ alignSelf: 'center' }}
+            />
+            <Tab
+              id={tabHeadings[1]}
+              panelClassName={css.panelClass}
+              title={<span className={css.tab}>{tabHeadings[1]}</span>}
+              panel={<ReportsAndBudgets values={perspectiveData} />}
+              data-testid={tabHeadings[1]}
+            />
+          </Tabs>
+        </div>
       </PageBody>
     </>
   )

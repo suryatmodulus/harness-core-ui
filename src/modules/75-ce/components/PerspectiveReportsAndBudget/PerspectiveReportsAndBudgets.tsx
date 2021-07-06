@@ -1,4 +1,4 @@
-import React, { useMemo, ReactNode, useState } from 'react'
+import React, { useState, useMemo, ReactNode } from 'react'
 import cronstrue from 'cronstrue'
 
 import { useHistory, useParams } from 'react-router-dom'
@@ -6,22 +6,15 @@ import type { Column, CellProps, Renderer } from 'react-table'
 import { Container, Text, Layout, Button, Icon, FlexExpander } from '@wings-software/uicore'
 import { Popover, Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
-// import { useGetScheduledReports } from 'services/ce'
+import { useGetReportSetting } from 'services/ce'
 import routes from '@common/RouteDefinitions'
 import { QlceViewFieldInputInput, ViewChartType } from 'services/ce/services'
+import type { CEView } from 'services/ce'
 
 import Table from './Table'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
-import { getScheduledReportsResponse, getBudgetsResponse } from './Mock'
+import { getBudgetsResponse } from './Mock'
 import css from './PerspectiveReportsAndBudgets.module.scss'
-
-// TODO: Where to move it? Check with Jenil
-// const DEFAULT_GROUP_BY = {
-//   fieldId: 'product',
-//   fieldName: 'Product',
-//   identifier: ViewFieldIdentifier.Common,
-//   identifierName: 'Common'
-// }
 
 interface ListProps {
   title: string
@@ -29,6 +22,7 @@ interface ListProps {
   grid: ReactNode
   buttonText: string
   hasData: boolean
+  loading: boolean
   onButtonClick: () => void
 }
 
@@ -50,9 +44,19 @@ interface TableActionsProps {
   onClickDelete: () => void
 }
 
-const ReportsAndBudgets = ({ values }) => {
-  const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(DEFAULT_GROUP_BY)
-  const [chartType, setChartType] = useState<ViewChartType>(ViewChartType.StackedLineChart)
+interface ReportsAndBudgetsProps {
+  values: CEView
+}
+
+const ReportsAndBudgets = ({ values }: ReportsAndBudgetsProps) => {
+  const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(() => {
+    return (values?.viewVisualization?.groupBy as QlceViewFieldInputInput) || DEFAULT_GROUP_BY
+  })
+
+  const [chartType, setChartType] = useState<ViewChartType>(() => {
+    return (values?.viewVisualization?.chartType as ViewChartType) || ViewChartType.StackedLineChart
+  })
+
   const history = useHistory()
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
 
@@ -69,7 +73,11 @@ const ReportsAndBudgets = ({ values }) => {
   return (
     <Container className={css.mainContainer}>
       <Container className={css.innerContainer}>
-        <Layout.Vertical spacing="xxlarge" height="100%" padding={{ left: 'xxlarge', right: 'xxlarge' }}>
+        <Layout.Vertical
+          spacing="xxlarge"
+          height="100%"
+          padding={{ left: 'large', right: 'xxlarge', bottom: 'xxlarge', top: 'xxlarge' }}
+        >
           <ScheduledReports />
           <Budgets />
           <FlexExpander />
@@ -79,7 +87,7 @@ const ReportsAndBudgets = ({ values }) => {
           </Layout.Horizontal>
         </Layout.Vertical>
         <PerspectiveBuilderPreview
-          setGroupBy={(groupBy: QlceViewFieldInputInput) => setGroupBy(groupBy)}
+          setGroupBy={(gBy: QlceViewFieldInputInput) => setGroupBy(gBy)}
           groupBy={groupBy}
           chartType={chartType}
           setChartType={(type: ViewChartType) => {
@@ -93,9 +101,21 @@ const ReportsAndBudgets = ({ values }) => {
 }
 
 const ScheduledReports = () => {
-  // const { accountId } = useParams<{ accountId: string }>()
-  // const { data, loading, response: yeah } = useGetScheduledReports({ accountId })
-  const response = getScheduledReportsResponse()
+  const { accountId, perspectiveId } = useParams<{ accountId: string; perspectiveId: string }>()
+  const { data, loading } = useGetReportSetting({ accountId, queryParams: { perspectiveId } })
+
+  const handleCreateNewReport = () => {
+    console.log('Create new report clicked')
+  }
+
+  const handleEdit = (value: ReportTableParams) => {
+    console.log('Edit values: ', value)
+  }
+
+  const handleDelete = (value: ReportTableParams) => {
+    console.log('Delete Values: ', value)
+  }
+
   const columns: Column<ReportTableParams>[] = useMemo(
     () => [
       {
@@ -114,15 +134,18 @@ const ScheduledReports = () => {
       },
       {
         id: 'edit-delete-action-column',
-        Cell: ({ row }: { row: CellProps<ReportTableParams> }) => (
-          <RenderEditDeleteActions onClickEdit={() => row.orginal} onClickDelete={() => row.original} />
+        Cell: ({ row }: CellProps<ReportTableParams>) => (
+          <RenderEditDeleteActions
+            onClickEdit={() => handleEdit(row.original)}
+            onClickDelete={() => handleDelete(row.original)}
+          />
         )
       }
     ],
     []
   )
 
-  const reports = response?.resource || []
+  const reports = data?.resource || []
   return (
     <List
       title="Report Schedules"
@@ -130,9 +153,10 @@ const ScheduledReports = () => {
         !reports.length ? 'You have not created any yet.' : ''
       }`}
       buttonText="+ create new Report schedule"
-      onButtonClick={() => 'TEST'}
+      onButtonClick={() => handleCreateNewReport()}
       hasData={!!reports.length}
-      grid={reports.length ? <Table<ReportTableParams> data={reports} columns={columns} /> : null}
+      loading={loading}
+      grid={<Table<ReportTableParams> data={reports} columns={columns} />}
     />
   )
 }
@@ -160,8 +184,8 @@ const Budgets = () => {
       },
       {
         id: 'edit-delete-action-column',
-        Cell: ({ row }: { row: CellProps<BudgetTableParams> }) => (
-          <RenderEditDeleteActions onClickEdit={() => row.orginal} onClickDelete={() => row.orginal} />
+        Cell: ({ row }: CellProps<BudgetTableParams>) => (
+          <RenderEditDeleteActions onClickEdit={() => row.original} onClickDelete={() => row.original} />
         )
       }
     ],
@@ -176,13 +200,23 @@ const Budgets = () => {
       buttonText="+ create new Budget"
       onButtonClick={() => 'TEST'}
       hasData={!!budgets.length}
-      grid={budgets.length ? <Table<BudgetTableParams> columns={columns} data={budgets} /> : null}
+      loading={false}
+      grid={<Table<BudgetTableParams> columns={columns} data={budgets} />}
     />
   )
 }
 
 const List = (props: ListProps) => {
-  const { title, subTitle, grid, buttonText, hasData, onButtonClick } = props
+  const { title, subTitle, grid, buttonText, hasData, onButtonClick, loading } = props
+
+  const renderLoader = () => {
+    return (
+      <Container className={css.loader}>
+        <Icon name="spinner" color="blue500" size={30} />
+      </Container>
+    )
+  }
+
   return (
     <Container>
       <Text color="grey800" style={{ fontSize: 16 }}>
@@ -191,22 +225,25 @@ const List = (props: ListProps) => {
       <Text padding={{ top: 'large', bottom: 'large' }} color="grey800" font={'small'}>
         {subTitle}
       </Text>
-      {grid}
-      <Layout.Horizontal
-        spacing="small"
-        style={{
-          justifyContent: hasData ? 'flex-end' : 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Button
-          type="submit"
-          withoutBoxShadow={true}
-          className={css.createBtn}
-          text={buttonText}
-          onClick={onButtonClick}
-        />
-      </Layout.Horizontal>
+      {loading && renderLoader()}
+      {!loading && hasData && grid}
+      {!loading && (
+        <Layout.Horizontal
+          spacing="small"
+          style={{
+            justifyContent: hasData ? 'flex-end' : 'center',
+            alignItems: 'center'
+          }}
+        >
+          <Button
+            type="submit"
+            withoutBoxShadow={true}
+            className={css.createBtn}
+            text={buttonText}
+            onClick={onButtonClick}
+          />
+        </Layout.Horizontal>
+      )}
     </Container>
   )
 }

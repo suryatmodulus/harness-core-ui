@@ -139,7 +139,6 @@ const COLUMNS: Record<string, Column> = {
     Header: 'Cost trend',
     accessor: 'costTrend',
     width: 200,
-    sticky: 'left',
     className: 'cost-trend cost-column',
     Cell: RenderPercentageCell
   },
@@ -167,7 +166,7 @@ const COLUMNS: Record<string, Column> = {
   STORAGE_UNALLOCATED_COST: {
     Header: 'Storage unallocated cost',
     accessor: 'storageUnallocatedCost',
-    width: 200,
+    width: 225,
     className: 'storage-unallocated-cost  cost-column',
     Cell: RenderCostCell
   },
@@ -638,24 +637,6 @@ export const ECS_TASK_ID_COLS = [
 ]
 
 export const LABELS_COLS = [COLUMNS.NAME, COLUMNS.COST, COLUMNS.COST_TREND, COLUMNS.IDLE_COST]
-
-export const TEST_COLS = [
-  COLUMNS.NAME,
-  COLUMNS.COST,
-  COLUMNS.COST_TREND,
-  COLUMNS.IDLE_COST,
-  COLUMNS.CPU_IDLE_COST,
-  COLUMNS.CLUSTER_NAME,
-  COLUMNS.CPU_UNALLOCATED_COST,
-  COLUMNS.CPU_BILLING_AMOUNT,
-  COLUMNS.UNALLOCATED_COST,
-  COLUMNS.STORAGE_COST,
-  COLUMNS.STORAGE_ACTUAL_IDLE_COST,
-  COLUMNS.STORAGE_UNALLOCATED_COST,
-  COLUMNS.MEMORY_BILLING_AMOUNT,
-  COLUMNS.MEMORY_IDLE_COST,
-  COLUMNS.MEMORY_UNALLOCATED_COST
-]
 
 // TODO: remove after demo
 export const PERSPECTIVE_PREVIEW_COLS = [COLUMNS.NAME, COLUMNS.COST, COLUMNS.COST_TREND]

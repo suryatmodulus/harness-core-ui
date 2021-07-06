@@ -1,15 +1,16 @@
-import React, { useMemo, ReactNode } from 'react'
+import React, { useMemo, ReactNode, useState } from 'react'
 import cronstrue from 'cronstrue'
 
 // import { useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
 import { Container, Text, Layout, Button, Icon, FlexExpander } from '@wings-software/uicore'
 import { Popover, Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
+import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 // import { useGetScheduledReports } from 'services/ce'
-// import { QlceViewFieldInputInput, ViewChartType, ViewFieldIdentifier } from 'services/ce/services'
+import { QlceViewFieldInputInput, ViewChartType } from 'services/ce/services'
 
 import Table from './Table'
-// import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
+import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
 import { getScheduledReportsResponse, getBudgetsResponse } from './Mock'
 import css from './PerspectiveReportsAndBudgets.module.scss'
 
@@ -49,6 +50,9 @@ interface TableActionsProps {
 }
 
 const ReportsAndBudgets = () => {
+  const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(DEFAULT_GROUP_BY)
+  const [chartType, setChartType] = useState<ViewChartType>(ViewChartType.StackedLineChart)
+
   return (
     <Container className={css.mainContainer}>
       <Container className={css.innerContainer}>
@@ -61,17 +65,14 @@ const ReportsAndBudgets = () => {
             <Button intent="primary" text="Save Perspective" />
           </Layout.Horizontal>
         </Layout.Vertical>
-        {/* <PerspectiveBuilderPreview
-          setGroupBy={(groupBy: QlceViewFieldInputInput) => {
-            // formikProps.setFieldValue('viewVisualization.groupBy', groupBy)
-            console.log('setGroupBy: ', groupBy)
-          }}
-          groupBy={DEFAULT_GROUP_BY}
-          chartType={ViewChartType.StackedLineChart}
+        <PerspectiveBuilderPreview
+          setGroupBy={(groupBy: QlceViewFieldInputInput) => setGroupBy(groupBy)}
+          groupBy={groupBy}
+          chartType={chartType}
           setChartType={(type: ViewChartType) => {
-            console.log('setChartTYpe: ', type)
+            setChartType(type)
           }}
-        /> */}
+        />
       </Container>
     </Container>
   )

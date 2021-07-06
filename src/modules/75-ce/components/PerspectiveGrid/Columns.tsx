@@ -27,8 +27,8 @@ export const addLegendColorToRow = (data: QlceViewEntityStatsDataPoint[]): GridD
     return {
       name,
       legendColor: colors.get(key),
-      ...rest,
-      ...(clusterData as ClusterData)
+      ...(clusterData as ClusterData),
+      ...rest
     }
   })
 }
@@ -85,7 +85,7 @@ const RenderNameCell = ({ row }: CellProps<GridData>): ReactNode => {
 
 export const RenderCostCell = (props: CellProps<GridData>) => <span>{formatCost(+props.value)}</span>
 
-export const RenderPercentageCell = (props: CellProps<GridData>) => <span>{+props.value}%</span>
+export const RenderPercentageCell = (props: CellProps<GridData>) => <span>{props.value}%</span>
 
 export type Column = {
   Header: string
@@ -138,7 +138,7 @@ const COLUMNS: Record<string, Column> = {
     width: 200,
     sticky: 'left',
     className: 'cost-trend cost-column',
-    Cell: RenderCostCell
+    Cell: RenderPercentageCell
   },
   UNALLOCATED_COST: {
     Header: 'Unallocated',
@@ -653,6 +653,9 @@ export const TEST_COLS = [
   COLUMNS.MEMORY_IDLE_COST,
   COLUMNS.MEMORY_UNALLOCATED_COST
 ]
+
+// TODO: remove after demo
+export const PERSPECTIVE_PREVIEW_COLS = [COLUMNS.NAME, COLUMNS.COST, COLUMNS.COST_TREND]
 
 export const GroupByMapping: Record<string, Column[]> = {
   'Cluster Name': CLUSTER_COLS,

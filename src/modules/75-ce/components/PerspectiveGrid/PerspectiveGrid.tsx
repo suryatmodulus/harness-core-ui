@@ -11,14 +11,23 @@ import {
 } from 'services/ce/services'
 import { getViewFilterForId, getTimeFilters, getGroupByFilter } from '@ce/utils/perspectiveUtils'
 import ColumnSelector from './ColumnSelector'
-import { AGGREGATE_FUNCTION, addLegendColorToRow, GridData, getGridColumnsByGroupBy } from './Columns'
+import {
+  AGGREGATE_FUNCTION,
+  addLegendColorToRow,
+  GridData,
+  getGridColumnsByGroupBy,
+  PERSPECTIVE_PREVIEW_COLS
+} from './Columns'
 import Grid from './Grid'
 import css from './PerspectiveGrid.module.scss'
 
 interface PerspectiveGridProps {
-  columnSequence: string[]
+  columnSequence?: string[]
   setColumnSequence?: (cols: string[]) => void
   groupBy: QlceViewFieldInputInput
+  showColumnSelector?: boolean
+  tempGridColumns?: boolean // TODO: remove after demo
+  showPagination?: boolean
 }
 
 interface PerspectiveParams {
@@ -54,13 +63,12 @@ const useFetchGridData = (groupBy: QlceViewFieldInputInput) => {
 }
 
 const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
-  const { columnSequence, setColumnSequence, groupBy } = props
+  const { columnSequence, setColumnSequence, groupBy, showColumnSelector } = props
   const gridColumns = getGridColumnsByGroupBy(groupBy)
   const [selectedColumns, setSelectedColumns] = useState(gridColumns)
 
   const { gridData = [], fetching } = useFetchGridData(groupBy)
 
-  //TODO: fix the limit
   const newColumnSequence = gridData.slice(0, 12).map(row => row['id'])
   if (!isEqual(columnSequence, newColumnSequence) && setColumnSequence) {
     setColumnSequence(newColumnSequence as string[])
@@ -87,15 +95,29 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
   }
 
   return (
-    <Container margin="medium" background="white">
-      <ColumnSelector
-        columns={gridColumns}
-        selectedColumns={selectedColumns}
-        onChange={columns => setSelectedColumns(columns)}
+    <Container background="white">
+      {showColumnSelector && (
+        <ColumnSelector
+          columns={gridColumns}
+          selectedColumns={selectedColumns}
+          onChange={columns => setSelectedColumns(columns)}
+        />
+      )}
+      <Grid<GridData>
+        data={gridData}
+        columns={
+          props.tempGridColumns
+            ? (PERSPECTIVE_PREVIEW_COLS as Column<GridData>[])
+            : (selectedColumns as Column<GridData>[])
+        }
+        showPagination={props.showPagination}
       />
-      <Grid<GridData> data={gridData} columns={selectedColumns as Column<GridData>[]} />
     </Container>
   )
+}
+
+PerspectiveGrid.defaultProps = {
+  showColumnSelector: true
 }
 
 export default PerspectiveGrid

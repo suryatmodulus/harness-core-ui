@@ -8,9 +8,11 @@ import css from './Grid.module.scss'
 interface GridProps<T extends Record<string, unknown>> {
   columns: Column<T>[]
   data: T[]
+  showPagination?: boolean
 }
 
 const Grid = <T extends Record<string, unknown>>(props: GridProps<T>) => {
+  const { showPagination = true } = props
   const defaultColumn = React.useMemo(
     () => ({
       minWidth: 150,
@@ -78,14 +80,16 @@ const Grid = <T extends Record<string, unknown>>(props: GridProps<T>) => {
           })}
         </div>
       </div>
-      <Pagination
-        gotoPage={gotoPage}
-        itemCount={props.data.length || 0}
-        nextPage={nextPage}
-        pageCount={pageCount}
-        pageIndex={pageIndex}
-        pageSize={pageSize}
-      />
+      {showPagination && (
+        <Pagination
+          gotoPage={gotoPage}
+          itemCount={props.data.length || 0}
+          nextPage={nextPage}
+          pageCount={pageCount}
+          pageIndex={pageIndex}
+          pageSize={pageSize}
+        />
+      )}
     </div>
   )
 }

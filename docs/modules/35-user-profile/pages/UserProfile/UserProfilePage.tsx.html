@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.88% </span>
+                <span class="strong">96.97% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/32</span>
+                <span class='fraction'>32/33</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.88% </span>
+                <span class="strong">96.97% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/32</span>
+                <span class='fraction'>32/33</span>
             </div>
         
             
@@ -173,16 +173,8 @@
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a>
-<a name='L120'></a><a href='#L120'>120</a>
-<a name='L121'></a><a href='#L121'>121</a>
-<a name='L122'></a><a href='#L122'>122</a>
-<a name='L123'></a><a href='#L123'>123</a>
-<a name='L124'></a><a href='#L124'>124</a>
-<a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -238,7 +230,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -270,15 +261,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -308,8 +290,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { Text, Layout, Container, Avatar, Color, Button } from '@wings-software/uicore'
+import { Text, Layout, Avatar, Color, Button } from '@wings-software/uicore'
 import { useChangePassword } from '@user-profile/modals/useChangePassword/useChangePassword'
 import { useUserProfile } from '@user-profile/modals/UserProfile/useUserProfile'
 import { useStrings } from 'framework/strings'
@@ -350,7 +333,7 @@ const UserProfilePage: React.FC = () =&gt; {
   const passwordStrengthPolicy = userPasswordSettings<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>oginSettings<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>asswordStrengthPolicy
 &nbsp;
   const { openPasswordModal } = useChangePassword()
-  const className = user.emailVerified === undefined || user.emailVerified ? css.noBanner : css.hasBanner
+  const className = user.emailVerified === undefined || user.emailVerified ? undefined : css.hasBanner
 &nbsp;
   return (
     &lt;&gt;
@@ -358,74 +341,64 @@ const UserProfilePage: React.FC = () =&gt; {
       &lt;Page.Body
         error={<span class="branch-1 cbranch-no" title="branch not covered" >errorWhileFetchingAuthSettings?.message}</span>
         retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetchLoginSettings()}</span>
-        className={className}
+        filled
+        className={cx(className, css.userProfilePage)}
       &gt;
-        &lt;Layout.Horizontal height="inherit"&gt;
-          &lt;Container width="30%" className={css.details}&gt;
-            &lt;Layout.Vertical&gt;
-              &lt;Layout.Horizontal flex={{ justifyContent: 'flex-end' }}&gt;
-                &lt;Button icon="edit" data-testid="editUserProfile" minimal onClick={() =&gt; openUserProfile(user)} /&gt;
-              &lt;/Layout.Horizontal&gt;
-              &lt;Layout.Vertical spacing="medium"&gt;
-                &lt;Avatar
-                  name={user.name || <span class="branch-1 cbranch-no" title="branch not covered" >user.email}</span>
-                  email={user.email}
-                  size="large"
-                  hoverCard={false}
-                  className={css.avatar}
-                /&gt;
-                &lt;Text
-                  color={Color.BLACK}
-                  font={{ size: 'large', weight: 'semi-bold' }}
-                  lineClamp={1}
-                  className={css.overflow}
-                &gt;
-                  {user.name}
-                &lt;/Text&gt;
-              &lt;/Layout.Vertical&gt;
+        &lt;Layout.Vertical className={css.details}&gt;
+          &lt;Layout.Horizontal flex={{ justifyContent: 'flex-end' }}&gt;
+            &lt;Button icon="edit" data-testid="editUserProfile" minimal onClick={() =&gt; openUserProfile(user)} /&gt;
+          &lt;/Layout.Horizontal&gt;
+          &lt;Layout.Vertical spacing="medium"&gt;
+            &lt;Avatar
+              name={user.name || <span class="branch-1 cbranch-no" title="branch not covered" >user.email}</span>
+              email={user.email}
+              size="large"
+              hoverCard={false}
+              className={css.avatar}
+            /&gt;
+            &lt;Text
+              color={Color.BLACK}
+              font={{ size: 'large', weight: 'semi-bold' }}
+              lineClamp={1}
+              className={css.overflow}
+            &gt;
+              {user.name}
+            &lt;/Text&gt;
+          &lt;/Layout.Vertical&gt;
 &nbsp;
-              &lt;Layout.Vertical padding={{ top: 'huge', bottom: 'huge' }} spacing="medium"&gt;
-                &lt;Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }} padding={{ bottom: 'medium' }}&gt;
-                  {getString('userProfile.basicInformation')}
-                &lt;/Text&gt;
-                &lt;Text icon="main-email" iconProps={{ padding: { right: 'medium' } }}&gt;
-                  {user.email}
-                &lt;/Text&gt;
-                &lt;Text icon="lock" iconProps={{ padding: { right: 'medium' } }}&gt;
-                  &lt;Button
-                    minimal
-                    onClick={() =&gt; openPasswordModal(passwordStrengthPolicy)}
-                    font={{ weight: 'semi-bold' }}
-                    className={css.button}
-                    disabled={fetchingAuthSettings}
-                  &gt;
-                    {getString('userProfile.changePassword')}
-                  &lt;/Button&gt;
-                &lt;/Text&gt;
-                &lt;Text icon="people" iconProps={{ padding: { right: 'medium' } }}&gt;
-                  &lt;Button
-                    minimal
-                    onClick={openSwitchAccountModal}
-                    font={{ weight: 'semi-bold' }}
-                    className={css.button}
-                  &gt;
-                    {getString('common.switchAccount')}
-                  &lt;/Button&gt;
-                &lt;/Text&gt;
-              &lt;/Layout.Vertical&gt;
-              &lt;Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex&gt;
-                &lt;TwoFactorAuthentication
-                  twoFactorAuthenticationDisabled={
-                    !!loginSettingsData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>woFactorEnabled || fetchingAuthSettings
-                  }
-                /&gt;
-              &lt;/Layout.Horizontal&gt;
-            &lt;/Layout.Vertical&gt;
-          &lt;/Container&gt;
-          &lt;Container width="70%" className={css.overview}&gt;
-            &lt;UserOverView /&gt;
-          &lt;/Container&gt;
-        &lt;/Layout.Horizontal&gt;
+          &lt;Layout.Vertical padding={{ top: 'huge', bottom: 'huge' }} spacing="medium"&gt;
+            &lt;Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }} padding={{ bottom: 'medium' }}&gt;
+              {getString('userProfile.basicInformation')}
+            &lt;/Text&gt;
+            &lt;Text icon="main-email" iconProps={{ padding: { right: 'medium' } }}&gt;
+              {user.email}
+            &lt;/Text&gt;
+            &lt;Text icon="lock" iconProps={{ padding: { right: 'medium' } }}&gt;
+              &lt;Button
+                minimal
+                onClick={() =&gt; openPasswordModal(passwordStrengthPolicy)}
+                font={{ weight: 'semi-bold' }}
+                className={css.button}
+                disabled={fetchingAuthSettings}
+              &gt;
+                {getString('userProfile.changePassword')}
+              &lt;/Button&gt;
+            &lt;/Text&gt;
+            &lt;Text icon="people" iconProps={{ padding: { right: 'medium' } }}&gt;
+              &lt;Button minimal onClick={openSwitchAccountModal} font={{ weight: 'semi-bold' }} className={css.button}&gt;
+                {getString('common.switchAccount')}
+              &lt;/Button&gt;
+            &lt;/Text&gt;
+          &lt;/Layout.Vertical&gt;
+          &lt;Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex&gt;
+            &lt;TwoFactorAuthentication
+              twoFactorAuthenticationDisabled={!!loginSettingsData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>woFactorEnabled || fetchingAuthSettings}
+            /&gt;
+          &lt;/Layout.Horizontal&gt;
+        &lt;/Layout.Vertical&gt;
+        &lt;div className={css.overview}&gt;
+          &lt;UserOverView /&gt;
+        &lt;/div&gt;
       &lt;/Page.Body&gt;
     &lt;/&gt;
   )
@@ -439,7 +412,7 @@ export default UserProfilePage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 06 2021 11:30:16 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 06 2021 14:32:30 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

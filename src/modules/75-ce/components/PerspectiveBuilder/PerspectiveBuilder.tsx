@@ -12,7 +12,6 @@ import {
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
-import routes from '@common/RouteDefinitions'
 import { PageSpinner } from '@common/components'
 import PerspectiveFilters from '../PerspectiveFilters'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
@@ -39,10 +38,8 @@ export interface PerspectiveFormValues {
   }
 }
 
-const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView }> = () => {
+const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => void }> = props => {
   const { getString } = useStrings()
-  const history = useHistory()
-
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
 
   const { mutate: createView, loading } = useUpdatePerspective({
@@ -78,14 +75,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView }> = () => {
     const response = await createView(apiObject as CEView)
 
     const perspectiveName = response.resource?.name || perspectiveId
-
-    history.push(
-      routes.toPerspectiveDetails({
-        accountId,
-        perspectiveId,
-        perspectiveName: perspectiveName
-      })
-    )
+    props.onNext()
 
     // const { status } = res
     // if (status === 200) {

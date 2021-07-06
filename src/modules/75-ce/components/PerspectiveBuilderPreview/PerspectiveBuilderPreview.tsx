@@ -13,10 +13,11 @@ import {
   ViewFieldIdentifier,
   ViewChartType,
   useFetchPerspectiveTimeSeriesQuery,
-  QlceViewTimeGroupType
+  QlceViewTimeGroupType,
+  useFetchperspectiveGridQuery
 } from 'services/ce/services'
-
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
+import { AGGREGATE_FUNCTION } from '../PerspectiveGrid/Columns'
 import {
   normalizeViewRules,
   getRuleFilters,
@@ -220,6 +221,21 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
     }
   })
 
+  const [gridResults] = useFetchperspectiveGridQuery({
+    variables: {
+      aggregateFunction: AGGREGATE_FUNCTION.CLUSTER,
+      filters: [
+        getViewFilterForId(perspectiveId, true),
+        ...getTimeFilters(dateRange[0].valueOf(), dateRange[1].valueOf()),
+        ...getRuleFilters(normalizeViewRules(formValues.viewRules))
+      ],
+      limit: 100,
+      offset: 0,
+      groupBy: [getGroupByFilter(groupBy)]
+    }
+  })
+
+  const { data: gridData, fetching: gridFetching } = gridResults
   const { data: chartData, fetching } = chartResult
 
   const { getString } = useStrings()
@@ -246,7 +262,16 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
         </Container>
         <Container width={650}>
           <Text color="grey900">Cost Breakdown</Text>
-          <PerspectiveGrid groupBy={groupBy} showColumnSelector={false} tempGridColumns={true} showPagination={false} />
+          {gridData?.perspectiveGrid?.data && (
+            <PerspectiveGrid
+              gridFetching={gridFetching}
+              gridData={gridData?.perspectiveGrid?.data}
+              groupBy={groupBy}
+              showColumnSelector={false}
+              tempGridColumns={true}
+              showPagination={false}
+            />
+          )}
         </Container>
       </Layout.Vertical>
     </Container>

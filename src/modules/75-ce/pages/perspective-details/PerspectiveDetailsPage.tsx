@@ -8,7 +8,8 @@ import {
   useFetchPerspectiveDetailsSummaryQuery,
   QlceViewFilterInput,
   QlceViewFilterOperator,
-  QlceViewFieldInputInput
+  QlceViewFieldInputInput,
+  useFetchperspectiveGridQuery
 } from 'services/ce/services'
 import PerspectiveGrid from '@ce/components/PerspectiveGrid/PerspectiveGrid'
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
@@ -23,6 +24,7 @@ import {
   getFilters,
   DEFAULT_GROUP_BY
 } from '@ce/utils/perspectiveUtils'
+import { AGGREGATE_FUNCTION } from '@ce/components/PerspectiveGrid/Columns'
 import { DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
 import { CCM_CHART_TYPES } from '@ce/constants'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
@@ -99,8 +101,6 @@ const PerspectiveDetailsPage: React.FC = () => {
     }
   })
 
-  const { data: chartData, fetching: chartFetching } = chartResult
-
   const [summaryResult] = useFetchPerspectiveDetailsSummaryQuery({
     variables: {
       filters: [
@@ -111,6 +111,22 @@ const PerspectiveDetailsPage: React.FC = () => {
     }
   })
 
+  const [gridResults] = useFetchperspectiveGridQuery({
+    variables: {
+      aggregateFunction: AGGREGATE_FUNCTION.CLUSTER,
+      filters: [
+        getViewFilterForId(perspectiveId),
+        ...getTimeFilters(timeRange.from, timeRange.to),
+        ...getFilters(filters)
+      ],
+      limit: 100,
+      offset: 0,
+      groupBy: [getGroupByFilter(groupBy)]
+    }
+  })
+
+  const { data: chartData, fetching: chartFetching } = chartResult
+  const { data: gridData, fetching: gridFetching } = gridResults
   const { data: summaryData, fetching: summaryFetching } = summaryResult
 
   return (
@@ -147,11 +163,15 @@ const PerspectiveDetailsPage: React.FC = () => {
               xAxisPointCount={chartData?.perspectiveTimeSeriesStats.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
             />
           )}
-          <PerspectiveGrid
-            columnSequence={columnSequence}
-            setColumnSequence={colSeq => setColumnSequence(colSeq)}
-            groupBy={groupBy}
-          />
+          {!gridFetching && gridData?.perspectiveGrid?.data && (
+            <PerspectiveGrid
+              gridData={gridData?.perspectiveGrid?.data}
+              gridFetching={gridFetching}
+              columnSequence={columnSequence}
+              setColumnSequence={colSeq => setColumnSequence(colSeq)}
+              groupBy={groupBy}
+            />
+          )}
         </Container>
       </Container>
     </>

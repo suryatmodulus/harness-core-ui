@@ -1,23 +1,10 @@
 import React, { useMemo, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import { Text, Container, Icon } from '@wings-software/uicore'
 import type { Column } from 'react-table'
 import { isEqual } from 'lodash-es'
-import { todayInUTC } from '@ce/utils/momentUtils'
-import {
-  QlceViewFieldInputInput,
-  QlceViewEntityStatsDataPoint,
-  useFetchperspectiveGridQuery
-} from 'services/ce/services'
-import { getViewFilterForId, getTimeFilters, getGroupByFilter } from '@ce/utils/perspectiveUtils'
+import type { QlceViewFieldInputInput, QlceViewEntityStatsDataPoint } from 'services/ce/services'
 import ColumnSelector from './ColumnSelector'
-import {
-  AGGREGATE_FUNCTION,
-  addLegendColorToRow,
-  GridData,
-  getGridColumnsByGroupBy,
-  PERSPECTIVE_PREVIEW_COLS
-} from './Columns'
+import { addLegendColorToRow, GridData, getGridColumnsByGroupBy, PERSPECTIVE_PREVIEW_COLS } from './Columns'
 import Grid from './Grid'
 import css from './PerspectiveGrid.module.scss'
 
@@ -28,46 +15,28 @@ interface PerspectiveGridProps {
   showColumnSelector?: boolean
   tempGridColumns?: boolean // TODO: remove after demo
   showPagination?: boolean
-}
-
-interface PerspectiveParams {
-  perspectiveId: string
-  perspectiveName: string
-}
-
-const useFetchGridData = (groupBy: QlceViewFieldInputInput) => {
-  const { perspectiveId } = useParams<PerspectiveParams>()
-  const timeRange = {
-    to: todayInUTC().startOf('day').valueOf(),
-    from: todayInUTC().subtract(30, 'days').startOf('day').valueOf()
-  }
-
-  const [gridResults] = useFetchperspectiveGridQuery({
-    variables: {
-      aggregateFunction: AGGREGATE_FUNCTION.CLUSTER,
-      filters: [getViewFilterForId(perspectiveId), ...getTimeFilters(timeRange.from, timeRange.to)],
-      limit: 100,
-      offset: 0,
-      groupBy: [getGroupByFilter(groupBy)]
-    }
-  })
-
-  const { data, fetching } = gridResults
-  const gridData = useMemo(() => {
-    if (!fetching && data?.perspectiveGrid?.data?.length) {
-      return addLegendColorToRow(data.perspectiveGrid.data as QlceViewEntityStatsDataPoint[])
-    }
-  }, [data, fetching])
-
-  return { gridData, fetching }
+  gridData: QlceViewEntityStatsDataPoint[]
+  gridFetching: boolean
 }
 
 const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
-  const { columnSequence, setColumnSequence, groupBy, showColumnSelector } = props
+  const {
+    columnSequence,
+    setColumnSequence,
+    groupBy,
+    showColumnSelector,
+    gridData: response,
+    gridFetching: fetching
+  } = props
   const gridColumns = getGridColumnsByGroupBy(groupBy)
   const [selectedColumns, setSelectedColumns] = useState(gridColumns)
 
-  const { gridData = [], fetching } = useFetchGridData(groupBy)
+  const gridData = useMemo(() => {
+    if (!fetching && response?.length) {
+      return addLegendColorToRow(response as QlceViewEntityStatsDataPoint[])
+    }
+    return []
+  }, [response, fetching])
 
   const newColumnSequence = gridData.slice(0, 12).map(row => row['id'])
   if (!isEqual(columnSequence, newColumnSequence) && setColumnSequence) {

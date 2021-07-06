@@ -79,6 +79,85 @@ export function useFetchPerspectiveFiltersValueQuery(
 ) {
   return Urql.useQuery<FetchPerspectiveFiltersValueQuery>({ query: FetchPerspectiveFiltersValueDocument, ...options })
 }
+export const FetchperspectiveGridDocument = gql`
+  query FetchperspectiveGrid(
+    $filters: [QLCEViewFilterWrapperInput]
+    $groupBy: [QLCEViewGroupByInput]
+    $limit: Int
+    $offset: Int
+    $aggregateFunction: [QLCEViewAggregationInput]
+  ) {
+    perspectiveGrid(
+      aggregateFunction: $aggregateFunction
+      filters: $filters
+      groupBy: $groupBy
+      limit: $limit
+      offset: $offset
+      sortCriteria: [{ sortType: CLUSTER_COST, sortOrder: DESCENDING }]
+    ) {
+      data {
+        name
+        id
+        cost
+        costTrend
+        clusterPerspective
+        clusterData {
+          appId
+          appName
+          avgCpuUtilization
+          avgMemoryUtilization
+          cloudProvider
+          cloudProviderId
+          cloudServiceName
+          clusterId
+          clusterName
+          clusterType
+          costTrend
+          cpuBillingAmount
+          cpuIdleCost
+          cpuUnallocatedCost
+          efficiencyScore
+          efficiencyScoreTrendPercentage
+          envId
+          envName
+          environment
+          id
+          idleCost
+          launchType
+          maxCpuUtilization
+          maxMemoryUtilization
+          memoryBillingAmount
+          memoryIdleCost
+          memoryUnallocatedCost
+          name
+          namespace
+          networkCost
+          prevBillingAmount
+          region
+          serviceId
+          serviceName
+          storageActualIdleCost
+          storageCost
+          storageRequest
+          storageUnallocatedCost
+          storageUtilizationValue
+          totalCost
+          trendType
+          type
+          unallocatedCost
+          workloadName
+          workloadType
+        }
+      }
+    }
+  }
+`
+
+export function useFetchperspectiveGridQuery(
+  options: Omit<Urql.UseQueryArgs<FetchperspectiveGridQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchperspectiveGridQuery>({ query: FetchperspectiveGridDocument, ...options })
+}
 export const FetchPerspectiveDetailsSummaryDocument = gql`
   query FetchPerspectiveDetailsSummary($filters: [QLCEViewFilterWrapperInput]) {
     perspectiveTrendStats(
@@ -313,6 +392,81 @@ export type FetchPerspectiveFiltersValueQueryVariables = Exact<{
 export type FetchPerspectiveFiltersValueQuery = {
   __typename?: 'Query'
   perspectiveFilters: Maybe<{ __typename?: 'PerspectiveFilterData'; values: Maybe<Array<Maybe<string>>> }>
+}
+
+export type FetchperspectiveGridQueryVariables = Exact<{
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>> | Maybe<QlceViewGroupByInput>>
+  limit: Maybe<Scalars['Int']>
+  offset: Maybe<Scalars['Int']>
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>> | Maybe<QlceViewAggregationInput>>
+}>
+
+export type FetchperspectiveGridQuery = {
+  __typename?: 'Query'
+  perspectiveGrid: Maybe<{
+    __typename?: 'PerspectiveEntityStatsData'
+    data: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'QLCEViewEntityStatsDataPoint'
+          name: Maybe<string>
+          id: Maybe<string>
+          cost: Maybe<any>
+          costTrend: Maybe<any>
+          clusterPerspective: boolean
+          clusterData: Maybe<{
+            __typename?: 'ClusterData'
+            appId: Maybe<string>
+            appName: Maybe<string>
+            avgCpuUtilization: Maybe<number>
+            avgMemoryUtilization: Maybe<number>
+            cloudProvider: Maybe<string>
+            cloudProviderId: Maybe<string>
+            cloudServiceName: Maybe<string>
+            clusterId: Maybe<string>
+            clusterName: Maybe<string>
+            clusterType: Maybe<string>
+            costTrend: Maybe<number>
+            cpuBillingAmount: Maybe<number>
+            cpuIdleCost: Maybe<number>
+            cpuUnallocatedCost: Maybe<number>
+            efficiencyScore: number
+            efficiencyScoreTrendPercentage: number
+            envId: Maybe<string>
+            envName: Maybe<string>
+            environment: Maybe<string>
+            id: Maybe<string>
+            idleCost: Maybe<number>
+            launchType: Maybe<string>
+            maxCpuUtilization: Maybe<number>
+            maxMemoryUtilization: Maybe<number>
+            memoryBillingAmount: Maybe<number>
+            memoryIdleCost: Maybe<number>
+            memoryUnallocatedCost: Maybe<number>
+            name: Maybe<string>
+            namespace: Maybe<string>
+            networkCost: Maybe<number>
+            prevBillingAmount: Maybe<number>
+            region: Maybe<string>
+            serviceId: Maybe<string>
+            serviceName: Maybe<string>
+            storageActualIdleCost: Maybe<number>
+            storageCost: Maybe<number>
+            storageRequest: Maybe<number>
+            storageUnallocatedCost: Maybe<number>
+            storageUtilizationValue: Maybe<number>
+            totalCost: Maybe<number>
+            trendType: Maybe<string>
+            type: Maybe<string>
+            unallocatedCost: Maybe<number>
+            workloadName: Maybe<string>
+            workloadType: Maybe<string>
+          }>
+        }>
+      >
+    >
+  }>
 }
 
 export type FetchPerspectiveDetailsSummaryQueryVariables = Exact<{

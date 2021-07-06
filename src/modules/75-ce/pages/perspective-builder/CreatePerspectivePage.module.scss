@@ -1,0 +1,10 @@
+.tab {
+  :global {
+    span.bp3-icon {
+      margin-right: var(--spacing-small);
+      path {
+        fill: var(--grey-400);
+      }
+    }
+  }
+}

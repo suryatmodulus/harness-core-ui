@@ -43,7 +43,7 @@ interface PerspectiveSummaryProps {
 
 const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({ fetching, data }) => {
   return (
-    <Layout.Horizontal margin="medium">
+    <Layout.Horizontal margin="xlarge">
       <Card elevation={1} interactive={false}>
         <Container className={cx(css.mainCard, { [css.loadingContainer]: fetching })}>
           {fetching ? (

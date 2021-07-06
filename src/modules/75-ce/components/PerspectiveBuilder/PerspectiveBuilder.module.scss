@@ -3,7 +3,7 @@
   height: 100%;
 
   .formContainer {
-    height: 100%;
+    height: calc(100vh - 200px);
     display: flex;
 
     .innerContainer {

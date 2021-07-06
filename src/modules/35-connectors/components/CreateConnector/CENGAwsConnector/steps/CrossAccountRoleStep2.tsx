@@ -17,7 +17,7 @@ import {
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { CrossAccountAccess, useCreateConnector, useUpdateConnector, Failure } from 'services/cd-ng'
-import { useAwsUrlTemplate } from 'services/ce/index'
+import { useAwsaccountconnectiondetail } from 'services/ce/index'
 import { DialogExtensionContext } from '../DialogExtention'
 import type { FeaturesString } from './CrossAccountRoleStep1'
 import type { CEAwsConnectorDTO } from './OverviewStep'
@@ -39,7 +39,7 @@ const CrossAccountRoleStep2: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
   const { mutate: updateConnector } = useUpdateConnector({
     queryParams: { accountIdentifier: accountId }
   })
-  const { data: awsUrlTemplateData, loading: awsUrlTemplateLoading } = useAwsUrlTemplate({
+  const { data: awsUrlTemplateData, loading: awsUrlTemplateLoading } = useAwsaccountconnectiondetail({
     queryParams: { accountIdentifier: accountId }
   })
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()

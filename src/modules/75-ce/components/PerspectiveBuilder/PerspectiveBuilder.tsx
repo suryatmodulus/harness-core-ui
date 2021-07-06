@@ -42,6 +42,8 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
   const { getString } = useStrings()
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
 
+  const { perspectiveData } = props
+
   const { mutate: createView, loading } = useUpdatePerspective({
     queryParams: {
       accountId: accountId
@@ -129,11 +131,12 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
       <Formik<CEView>
         formName="createPerspective"
         initialValues={{
-          name: '',
+          name: perspectiveData?.name,
           viewVisualization: {
-            groupBy: DEFAULT_GROUP_BY,
-            chartType: ViewChartType.StackedLineChart
-          }
+            groupBy: perspectiveData?.viewVisualization?.groupBy || DEFAULT_GROUP_BY,
+            chartType: perspectiveData?.viewVisualization?.chartType || ViewChartType.StackedLineChart
+          },
+          viewRules: perspectiveData?.viewRules
         }}
         enableReinitialize={true}
         onSubmit={() => {

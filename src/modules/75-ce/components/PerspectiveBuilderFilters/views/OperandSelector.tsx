@@ -10,8 +10,6 @@ import css from '../PerspectiveBuilderFilter.module.scss'
 
 interface PopoverContentProps {
   fieldValuesList: QlceViewFieldIdentifierData[]
-  setProvider: React.Dispatch<React.SetStateAction<ProviderType | null | undefined>>
-  setService: React.Dispatch<React.SetStateAction<ProviderType | null | undefined>>
   setProviderAndIdentifier: (providerData: ProviderType, serviceData: ProviderType) => void
 }
 
@@ -94,11 +92,9 @@ const PopoverContent: React.FC<PopoverContentProps> = ({ fieldValuesList, setPro
 }
 
 interface OperandSelectorProps {
-  setProvider: React.Dispatch<React.SetStateAction<ProviderType | null | undefined>>
   fieldValuesList: QlceViewFieldIdentifierData[]
   provider: ProviderType | null | undefined
   service: ProviderType | null | undefined
-  setService: React.Dispatch<React.SetStateAction<ProviderType | null | undefined>>
   setProviderAndIdentifier: (providerData: ProviderType, serviceData: ProviderType) => void
 }
 
@@ -106,8 +102,6 @@ const OperandSelector: React.FC<OperandSelectorProps> = ({
   service,
   provider,
   fieldValuesList,
-  setProvider,
-  setService,
   setProviderAndIdentifier
 }) => {
   return (
@@ -123,17 +117,10 @@ const OperandSelector: React.FC<OperandSelectorProps> = ({
       }}
       fill={true}
       usePortal={true}
-      content={
-        <PopoverContent
-          fieldValuesList={fieldValuesList}
-          setProvider={setProvider}
-          setService={setService}
-          setProviderAndIdentifier={setProviderAndIdentifier}
-        />
-      }
+      content={<PopoverContent fieldValuesList={fieldValuesList} setProviderAndIdentifier={setProviderAndIdentifier} />}
     >
       <div className={css.operandSelectorContainer}>
-        {provider?.name && service?.name ? `${provider.name} > ${service.name}` : 'Choose Operand'}
+        {provider?.id && service?.id ? `${provider.name || provider.id} > ${service.name}` : 'Choose Operand'}
         <Icon name="caret-down" />
       </div>
     </Popover>

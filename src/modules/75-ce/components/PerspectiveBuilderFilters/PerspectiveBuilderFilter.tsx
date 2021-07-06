@@ -49,25 +49,28 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
   pillData,
   id
 }) => {
-  const [provider, setProvider] = useState<ProviderType | null>()
-  const [service, setService] = useState<ProviderType | null>()
-  const [operator, setOperator] = useState<QlceViewFilterOperator>(QlceViewFilterOperator.In)
-  const [selectedVal, setSelectedVal] = useState<string[]>([])
+  // const [provider, setProvider] = useState<ProviderType | null>()
+  // const [service, setService] = useState<ProviderType | null>()
+  // const [operator, setOperator] = useState<QlceViewFilterOperator>(QlceViewFilterOperator.In)
+  // const [selectedVal, setSelectedVal] = useState<string[]>([])
 
-  useEffect(() => {
-    const { fieldName, identifierName, identifier, fieldId } = pillData.viewField
-    setProvider({ id: identifier, name: identifierName })
-    setService({ id: fieldId, name: fieldName })
-    setSelectedVal(pillData.values)
-    setOperator(pillData.viewOperator)
-  }, [pillData])
+  const provider: ProviderType = {
+    id: pillData.viewField.identifier,
+    name: pillData.viewField.identifierName
+  }
+
+  const service: ProviderType = {
+    id: pillData.viewField.fieldId,
+    name: pillData.viewField.fieldName
+  }
+
+  const operator: QlceViewFilterOperator = pillData.viewOperator
+  const selectedVal: string[] = pillData.values
 
   const setProviderAndIdentifier: (providerData: ProviderType, serviceData: ProviderType) => void = (
     providerData,
     serviceData
   ) => {
-    setProvider(providerData)
-    setService(serviceData)
     const changedData = {
       ...pillData,
       viewField: {
@@ -81,7 +84,6 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
   }
 
   const onOperatorChange: (op: QlceViewFilterOperator) => void = op => {
-    setOperator(op)
     const changedData = {
       ...pillData,
       viewOperator: op
@@ -94,7 +96,6 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
   }
 
   const onValueChange: (val: string[]) => void = val => {
-    setSelectedVal(val)
     const changedData = {
       ...pillData,
       values: val
@@ -132,10 +133,8 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
   return (
     <Container className={css.mainContainer}>
       <OperandSelector
-        setProvider={setProvider}
         provider={provider}
         service={service}
-        setService={setService}
         fieldValuesList={fieldValuesList}
         setProviderAndIdentifier={setProviderAndIdentifier}
       />

@@ -10,7 +10,7 @@ import {
   useGetTestConnectionResult,
   useUpdateConnector
 } from 'services/cd-ng'
-import { useAzureStaticAPI } from 'services/ce'
+import { useAzureappclientid } from 'services/ce'
 // CreateAzureConnector will eventually be a default export after we get rid of the old flow
 import { CreateAzureConnector } from '../CreateCeAzureConnector'
 
@@ -30,7 +30,7 @@ const useUpdateConnectorMock = useUpdateConnector as jest.MockedFunction<any>
 const useGetTestConnectionResultMock = useGetTestConnectionResult as jest.MockedFunction<any>
 
 jest.mock('services/ce')
-const useAzureStaticAPIMock = useAzureStaticAPI as jest.MockedFunction<any>
+const useAzureStaticAPIMock = useAzureappclientid as jest.MockedFunction<any>
 
 describe('Create Azure connector Wizard', () => {
   test('should render overview step', () => {

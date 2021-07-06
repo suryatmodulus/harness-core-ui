@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Heading, Layout, Tabs, Tab, Icon } from '@wings-software/uicore'
+import { PageSpinner } from '@common/components'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { useGetPerspective } from 'services/ce/'
@@ -40,6 +41,7 @@ const CreatePerspectivePage: React.FC = () => {
   return (
     <>
       <PageHeader title={<PerspectiveHeader title={perspectiveData?.name || perspectiveId} />} />
+      {loading && <PageSpinner />}
       <PageBody>
         <Tabs
           id="perspectiveBuilder"

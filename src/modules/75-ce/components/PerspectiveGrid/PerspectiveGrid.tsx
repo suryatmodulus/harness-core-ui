@@ -16,7 +16,7 @@ interface PerspectiveGridProps {
   showColumnSelector?: boolean
   tempGridColumns?: boolean // TODO: remove after demo
   showPagination?: boolean
-  gridData: Maybe<QlceViewEntityStatsDataPoint>[]
+  gridData: Maybe<Maybe<QlceViewEntityStatsDataPoint>[]> | undefined
   gridFetching: boolean
 }
 
@@ -29,6 +29,7 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     gridData: response,
     gridFetching: fetching
   } = props
+
   const gridColumns = getGridColumnsByGroupBy(groupBy)
   const [selectedColumns, setSelectedColumns] = useState(gridColumns)
 

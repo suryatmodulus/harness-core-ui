@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Button, Heading, Layout, Container, Icon } from '@wings-software/uicore'
 import { PageHeader } from '@common/components/Page/PageHeader'
@@ -12,7 +12,8 @@ import {
   QlceViewFilterInput,
   QlceViewFilterOperator,
   QlceViewFieldInputInput,
-  useFetchperspectiveGridQuery
+  useFetchperspectiveGridQuery,
+  ViewChartType
 } from 'services/ce/services'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageSpinner } from '@common/components'
@@ -108,12 +109,27 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   const [chartType, setChartType] = useState<CCM_CHART_TYPES>(CCM_CHART_TYPES.COLUMN)
   const [aggregation, setAggregation] = useState<QlceViewTimeGroupType>(QlceViewTimeGroupType.Day)
-
   const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(DEFAULT_GROUP_BY)
-
   const [filters, setFilters] = useState<QlceViewFilterInput[]>([])
-
   const [columnSequence, setColumnSequence] = useState<string[]>([])
+  const [timeRange, setTimeRange] = useState<{ to: number; from: number }>({
+    to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].valueOf(),
+    from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].valueOf()
+  })
+
+  useEffect(() => {
+    if (perspectiveData) {
+      const cType =
+        perspectiveData.viewVisualization?.chartType === ViewChartType.StackedTimeSeries
+          ? CCM_CHART_TYPES.COLUMN
+          : CCM_CHART_TYPES.AREA
+      setChartType(cType)
+      perspectiveData.viewVisualization?.granularity &&
+        setAggregation(perspectiveData.viewVisualization?.granularity as QlceViewTimeGroupType)
+      perspectiveData.viewVisualization?.groupBy &&
+        setGroupBy(perspectiveData.viewVisualization.groupBy as QlceViewFieldInputInput)
+    }
+  }, [perspectiveData])
 
   const setFilterUsingChartClick: (value: string) => void = value => {
     setFilters(prevFilter => [
@@ -125,11 +141,6 @@ const PerspectiveDetailsPage: React.FC = () => {
       }
     ])
   }
-
-  const [timeRange, setTimeRange] = useState<{ to: number; from: number }>({
-    to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].valueOf(),
-    from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].valueOf()
-  })
 
   const [chartResult] = useFetchPerspectiveTimeSeriesQuery({
     variables: {
@@ -215,15 +226,15 @@ const PerspectiveDetailsPage: React.FC = () => {
               </Container>
             ) : null}
           </Container>
-          {!gridFetching && gridData?.perspectiveGrid?.data && (
+          {
             <PerspectiveGrid
-              gridData={gridData?.perspectiveGrid?.data}
+              gridData={gridData?.perspectiveGrid?.data as any}
               gridFetching={gridFetching}
               columnSequence={columnSequence}
               setColumnSequence={colSeq => setColumnSequence(colSeq)}
               groupBy={groupBy}
             />
-          )}
+          }
         </Container>
       </PageBody>
     </>

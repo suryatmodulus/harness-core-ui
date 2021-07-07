@@ -90,7 +90,8 @@ const PerspectiveDetailsPage: React.FC = () => {
   const [columnSequence, setColumnSequence] = useState<string[]>([])
 
   const setFilterUsingChartClick: (value: string) => void = value => {
-    setFilters([
+    setFilters(prevFilter => [
+      ...prevFilter,
       {
         field: { ...groupBy },
         operator: QlceViewFilterOperator.Equals,
@@ -151,6 +152,8 @@ const PerspectiveDetailsPage: React.FC = () => {
       <PageBody>
         {loading && <PageSpinner />}
         <PersepectiveExplorerFilters
+          setFilters={setFilters}
+          filters={filters}
           setAggregation={setAggregation}
           aggregation={aggregation}
           setTimeRange={setTimeRange}

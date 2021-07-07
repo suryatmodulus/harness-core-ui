@@ -5,6 +5,12 @@ declare const styles: {
   readonly providerList: string
   readonly radioValue: string
   readonly valueSelectorContainer: string
+  readonly loadingContainer: string
+  readonly valueListContainer: string
+  readonly checkbox: string
   readonly searchInput: string
+  readonly namesContainer: string
+  readonly labelNames: string
+  readonly spinner: string
 }
 export default styles

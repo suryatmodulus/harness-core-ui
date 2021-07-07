@@ -241,7 +241,7 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
 
   const { getString } = useStrings()
   return (
-    <Container padding="xxlarge" background="white">
+    <Container padding="xxlarge" background="white" className={css.previewMainContainer}>
       <Layout.Vertical spacing="xlarge">
         <Container>
           <Text color="grey900">{getString('ce.perspectives.createPerspective.preview.title')}</Text>

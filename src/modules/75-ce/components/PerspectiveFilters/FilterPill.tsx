@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import { Icon, Layout, Text } from '@wings-software/uicore'
 import { Popover, Position, PopoverInteractionKind } from '@blueprintjs/core'
-import { QlceViewFieldIdentifierData, QlceViewFilterOperator } from 'services/ce/services'
+import { QlceViewFieldIdentifierData, QlceViewFilterOperator, QlceViewFilterInput, Maybe } from 'services/ce/services'
 import ProviderSelector from './views/ProviderSelector'
 import ServiceSelector from './views/ServiceSelector'
 import ValueSelector from './views/ValueSelector'
@@ -41,53 +41,53 @@ const ValueRenderer: React.FC<{ valueList: string[] }> = ({ valueList }) => {
   )
 }
 
+export const isFilterLabelOrTag: (filterType: string, fieldId: string) => boolean = (
+  filterType: string,
+  fieldId: string
+) => {
+  return filterType === 'LABEL' && fieldId === 'labels.key'
+}
+
 export type ProviderType = {
   id: string
   name: string
 }
 
-export interface PillData {
-  type: 'VIEW_ID_CONDITION'
-  viewField: {
-    fieldId: string
-    fieldName: string
-    identifier: string
-    identifierName: string
-  }
-  viewOperator: QlceViewFilterOperator
-  values: Array<string>
-}
-
 interface FilterPillProps {
   id: number
   removePill: () => void
-  onChange: (id: number, data: Omit<PillData, 'type'>) => void
-  pillData: PillData
-  fieldValuesList: QlceViewFieldIdentifierData[]
+  onChange: (id: number, data: QlceViewFilterInput) => void
+  pillData: QlceViewFilterInput
+  fieldValuesList: Maybe<QlceViewFieldIdentifierData>[]
 }
 
 const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id, onChange, pillData }) => {
-  // const { fieldName, identifierName, identifier, fieldId } = pillData.viewField
+  const { fieldName, identifierName, identifier, fieldId } = pillData.field
 
-  const [provider, setProvider] = useState<ProviderType | null>()
-  const [service, setService] = useState<ProviderType | null>()
-  const [values, setValues] = useState<Record<string, boolean>>({})
-  const [operator, setOperator] = useState<QlceViewFilterOperator>(QlceViewFilterOperator.In)
+  const valuesObject: Record<string, boolean> = {}
+  pillData?.values.forEach(val => {
+    valuesObject[val] = true
+  })
+
+  const [provider, setProvider] = useState<ProviderType | null>({ id: identifier, name: identifierName || '' })
+  const [service, setService] = useState<ProviderType | null>({ id: fieldId, name: fieldName })
+  const [values, setValues] = useState<Record<string, boolean>>(valuesObject)
+  const [operator, setOperator] = useState<QlceViewFilterOperator>(pillData.operator)
   const [showError, setShowError] = useState(false)
 
   const valueList = Object.keys(values).filter(val => values[val])
 
-  useEffect(() => {
-    const { fieldName, identifierName, identifier, fieldId } = pillData.viewField
-    const valuesObject: Record<string, boolean> = {}
-    pillData.values.forEach(val => {
-      valuesObject[val] = true
-    })
-    setProvider({ id: identifier, name: identifierName })
-    setService({ id: fieldId, name: fieldName })
-    setValues(valuesObject)
-    setOperator(pillData.viewOperator)
-  }, [pillData])
+  // useEffect(() => {
+  //   const { fieldName, identifierName, identifier, fieldId } = pillData.field
+  //   const valuesObject: Record<string, boolean> = {}
+  //   pillData?.values.forEach(val => {
+  //     valuesObject[val] = true
+  //   })
+  //   setProvider({ id: identifier, name: identifierName || '' })
+  //   setService({ id: fieldId, name: fieldName })
+  //   setValues(valuesObject)
+  //   setOperator(pillData.operator)
+  // }, [pillData])
 
   return (
     <section className={css.filterPillContainer}>
@@ -100,9 +100,13 @@ const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id
           alignItems: 'center'
         }}
       >
-        {provider?.id ? <Text font="small">{provider.name}</Text> : null}
+        {provider?.id ? <Text font="small">{`${provider.name}:`}</Text> : null}
         {service?.id ? <Text font="small">{service.name}</Text> : null}
-        {service?.id && operator ? <Text font="small">{operator}</Text> : null}
+        {service?.id && operator ? (
+          <Text color="primary7" font="small">
+            {operator}
+          </Text>
+        ) : null}
         <Popover
           interactionKind={PopoverInteractionKind.CLICK}
           position={Position.BOTTOM_LEFT}
@@ -117,8 +121,8 @@ const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id
           onClose={() =>
             onChange(id, {
               values: Object.keys(values).filter(val => values[val]),
-              viewOperator: operator,
-              viewField: {
+              operator: operator,
+              field: {
                 fieldId: service?.id || '',
                 fieldName: service?.name || '',
                 identifier: provider?.id || '',
@@ -135,7 +139,16 @@ const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id
           content={
             provider?.id ? (
               service?.id ? (
-                <ValueSelector values={values} setOperator={setOperator} setValues={setValues} operator={operator} />
+                <ValueSelector
+                  service={service}
+                  provider={provider}
+                  setService={setService}
+                  values={values}
+                  setOperator={setOperator}
+                  setValues={setValues}
+                  operator={operator}
+                  isLabelOrTag={isFilterLabelOrTag(provider.id, service.id)}
+                />
               ) : (
                 <ServiceSelector setService={setService} provider={provider} fieldValueList={fieldValuesList} />
               )

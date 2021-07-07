@@ -6,7 +6,8 @@ import {
   useFetchViewFieldsQuery,
   QlceViewFilterWrapperInput,
   useFetchPerspectiveFiltersValueQuery,
-  QlceViewFieldInputInput
+  QlceViewFieldInputInput,
+  QlceViewFilterInput
 } from 'services/ce/services'
 import GroupByView from './GroupByView'
 import css from './PersepectiveExplorerGroupBy.module.scss'
@@ -70,7 +71,7 @@ const PerspectiveExplorerGroupBy: React.FC<PerspectiveExplorerGroupByProps> = ({
   const [labelResult] = useFetchPerspectiveFiltersValueQuery({
     variables: {
       filters: [
-        ({
+        {
           idFilter: {
             field: {
               fieldId: 'labels.key',
@@ -80,7 +81,7 @@ const PerspectiveExplorerGroupBy: React.FC<PerspectiveExplorerGroupByProps> = ({
             operator: 'IN',
             values: []
           }
-        } as unknown) as QlceViewFilterWrapperInput
+        } as unknown as QlceViewFilterWrapperInput
       ],
       offset: 0,
       limit: 100

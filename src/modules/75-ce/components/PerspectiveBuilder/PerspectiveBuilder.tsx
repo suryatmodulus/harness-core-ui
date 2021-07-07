@@ -16,6 +16,7 @@ import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 import { PageSpinner } from '@common/components'
 import PerspectiveFilters from '../PerspectiveFilters'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
+import ExplorerFilters from '../PersepectiveExplorerFilters/ExplorerFilters'
 import ProTipIcon from './images/pro-tip.svg'
 import css from './PerspectiveBuilder.module.scss'
 
@@ -153,6 +154,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
                 <Layout.Vertical
                   spacing="medium"
                   height="100%"
+                  className={css.builderContainer}
                   padding={{ left: 'large', right: 'xxlarge', bottom: 'xxlarge', top: 'xxlarge' }}
                 >
                   <Text color="grey800">{getString('ce.perspectives.createPerspective.title')}</Text>

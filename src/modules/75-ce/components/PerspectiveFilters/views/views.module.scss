@@ -14,7 +14,45 @@
   height: 340px;
   width: 280px;
 
+  &.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .valueListContainer {
+    overflow-y: scroll;
+    height: 254px;
+
+    .checkbox {
+      margin-left: var(--spacing-xsmall);
+    }
+  }
+
   .searchInput {
     margin-bottom: 0px !important;
+  }
+}
+
+.namesContainer {
+  width: 280px;
+  overflow: scroll;
+  white-space: nowrap;
+  max-height: 340px;
+
+  .labelNames {
+    cursor: pointer;
+
+    &:hover {
+      background: var(--primary-1) !important;
+    }
+  }
+
+  &.spinner {
+    margin-top: var(--margin-small);
+    height: 340px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 }

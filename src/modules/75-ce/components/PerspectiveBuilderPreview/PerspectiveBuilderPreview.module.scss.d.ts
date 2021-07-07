@@ -4,5 +4,6 @@ declare const styles: {
   readonly groupByLabel: string
   readonly groupBySelect: string
   readonly groupBySelectLoading: string
+  readonly previewMainContainer: string
 }
 export default styles

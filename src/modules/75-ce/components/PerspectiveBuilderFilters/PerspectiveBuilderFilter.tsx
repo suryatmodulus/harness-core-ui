@@ -112,7 +112,7 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
               identifier: provider?.id,
               identifierName: provider?.name
             },
-            operator: operator,
+            operator: QlceViewFilterOperator.In,
             values: ['']
           }
         } as QlceViewFilterWrapperInput

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, FormikForm, Container, Text, FormInput, Layout, FlexExpander, Button } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
 import { useUpdatePerspective, CEView } from 'services/ce'
 import {
@@ -16,7 +16,6 @@ import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 import { PageSpinner } from '@common/components'
 import PerspectiveFilters from '../PerspectiveFilters'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
-import ExplorerFilters from '../PersepectiveExplorerFilters/ExplorerFilters'
 import ProTipIcon from './images/pro-tip.svg'
 import css from './PerspectiveBuilder.module.scss'
 
@@ -43,6 +42,7 @@ export interface PerspectiveFormValues {
 const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => void }> = props => {
   const { getString } = useStrings()
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
+  const history = useHistory()
 
   const { perspectiveData } = props
 
@@ -108,6 +108,9 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
     // Show Error here
     // toaster.showError({ message: res.error, timeout: TOASTER_TIMEOUT })
     // }
+  }
+  const goBack: () => void = () => {
+    history.goBack()
   }
 
   const validationSchema = Yup.object().shape({
@@ -198,7 +201,11 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
                     }}
                     spacing="large"
                   >
-                    <Button icon="chevron-left" text={getString('ce.perspectives.createPerspective.prevButton')} />
+                    <Button
+                      icon="chevron-left"
+                      text={getString('ce.perspectives.createPerspective.prevButton')}
+                      onClick={goBack}
+                    />
                     <Button
                       icon="chevron-right"
                       intent="primary"

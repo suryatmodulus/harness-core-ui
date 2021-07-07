@@ -283,6 +283,7 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
         intent="primary"
         minimal
         padding="small"
+        className={css.timeRangeButton}
         text={selectedTimeRange.text}
         icon="calendar"
         iconProps={{

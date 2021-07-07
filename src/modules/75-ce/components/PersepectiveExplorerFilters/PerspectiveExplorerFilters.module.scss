@@ -1,3 +1,26 @@
 .aggregationText {
   cursor: pointer;
 }
+
+.mainContainer {
+  display: grid;
+  grid-template-columns: 20px 1fr 135px 1px 90px;
+  grid-gap: var(--spacing-small);
+  align-items: center;
+
+  .timeGranularityButton {
+    padding: var(--spacing-xsmall) !important;
+  }
+}
+
+.aggregationMenuItems {
+  padding: var(--spacing-small);
+  &:hover {
+    background: var(--primary-1) !important;
+    color: var(--black) !important;
+  }
+  &:active {
+    background: var(--primary-7) !important;
+    color: var(--white) !important;
+  }
+}

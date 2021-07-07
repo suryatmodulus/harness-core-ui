@@ -1,10 +1,11 @@
 import React from 'react'
-import { Container, Layout, Text, Button, FlexExpander, Icon } from '@wings-software/uicore'
+import { Container, Text, Button, Icon } from '@wings-software/uicore'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { QlceViewTimeGroupType, QlceViewFilterInput } from 'services/ce/services'
 import PerspectiveTimeRangePicker from '@ce/components/PerspectiveTimeRangePicker/PerspectiveTimeRangePicker'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import ExplorerFilters from './ExplorerFilters'
+import css from './PerspectiveExplorerFilters.module.scss'
 
 const getAggregationText: (getString: UseStringsReturn['getString']) => Record<string, string> = getString => {
   return {
@@ -33,12 +34,16 @@ const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = ({ aggre
       content={
         <Menu>
           <MenuItem
+            active={aggregation === QlceViewTimeGroupType.Day}
+            className={css.aggregationMenuItems}
             onClick={() => {
               setAggregation(QlceViewTimeGroupType.Day)
             }}
             text={aggregationTextMap[QlceViewTimeGroupType.Day]}
           />
           <MenuItem
+            active={aggregation === QlceViewTimeGroupType.Month}
+            className={css.aggregationMenuItems}
             onClick={() => {
               setAggregation(QlceViewTimeGroupType.Month)
             }}
@@ -50,6 +55,7 @@ const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = ({ aggre
       <Button
         intent="primary"
         minimal
+        className={css.timeGranularityButton}
         text={aggregationTextMap[aggregation]}
         iconProps={{
           size: 16
@@ -82,19 +88,13 @@ const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = 
 }) => {
   return (
     <Container background="white" padding="small">
-      <Layout.Horizontal
-        spacing="small"
-        style={{
-          alignItems: 'center'
-        }}
-      >
-        <Icon name="ng-filter" />
+      <Container className={css.mainContainer}>
+        <Icon name="ng-filter" size={20} />
         <ExplorerFilters filters={filters} setFilters={setFilters} />
-        <FlexExpander />
         <PerspectiveTimeRangePicker setTimeRange={setTimeRange} />
         <Text color="primary7">|</Text>
         <TimeGranularityDropDown aggregation={aggregation} setAggregation={setAggregation} />
-      </Layout.Horizontal>
+      </Container>
     </Container>
   )
 }

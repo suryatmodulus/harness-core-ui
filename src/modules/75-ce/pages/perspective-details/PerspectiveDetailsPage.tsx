@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Button, Heading, Layout, Container, Icon } from '@wings-software/uicore'
 import { PageHeader } from '@common/components/Page/PageHeader'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import routes from '@common/RouteDefinitions'
 import { useGetPerspective } from 'services/ce/'
 import {
   useFetchPerspectiveTimeSeriesQuery,
@@ -39,6 +41,18 @@ interface PerspectiveParams {
 }
 
 const PerspectiveHeader: React.FC<{ title: string }> = ({ title }) => {
+  const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
+  const history = useHistory()
+
+  const goToEditPerspective: () => void = () => {
+    history.push(
+      routes.toCECreatePerspective({
+        perspectiveId,
+        accountId
+      })
+    )
+  }
+
   return (
     <Layout.Horizontal
       spacing="medium"
@@ -53,12 +67,24 @@ const PerspectiveHeader: React.FC<{ title: string }> = ({ title }) => {
           flexGrow: 1
         }}
       >
+        <Breadcrumbs
+          links={[
+            {
+              url: routes.toCEPerspectives({ accountId }),
+              label: 'Perspectives'
+            },
+            {
+              label: '',
+              url: '#'
+            }
+          ]}
+        />
         <Heading color="grey800" level={2} style={{ flexGrow: 1 }}>
           {title}
         </Heading>
       </Container>
 
-      <Button text="Edit" icon="edit" intent="primary" />
+      <Button text="Edit" icon="edit" intent="primary" onClick={goToEditPerspective} />
       <Button text="Share" />
     </Layout.Horizontal>
   )
@@ -94,7 +120,7 @@ const PerspectiveDetailsPage: React.FC = () => {
       ...prevFilter,
       {
         field: { ...groupBy },
-        operator: QlceViewFilterOperator.Equals,
+        operator: QlceViewFilterOperator.In,
         values: [value]
       }
     ])

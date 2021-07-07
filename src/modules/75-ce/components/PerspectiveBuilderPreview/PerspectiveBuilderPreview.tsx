@@ -17,7 +17,6 @@ import {
   useFetchperspectiveGridQuery
 } from 'services/ce/services'
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
-import { AGGREGATE_FUNCTION } from '../PerspectiveGrid/Columns'
 import {
   normalizeViewRules,
   getRuleFilters,
@@ -29,6 +28,7 @@ import {
 import { CCM_CHART_TYPES } from '@ce/constants'
 import { DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
+import { AGGREGATE_FUNCTION } from '../PerspectiveGrid/Columns'
 import PerspectiveGrid from '../PerspectiveGrid/PerspectiveGrid'
 import css from './PerspectiveBuilderPreview.module.scss'
 
@@ -54,7 +54,7 @@ const GroupByView: React.FC<GroupByViewProps> = ({ groupBy, setGroupBy, chartTyp
   const [labelResult] = useFetchPerspectiveFiltersValueQuery({
     variables: {
       filters: [
-        ({
+        {
           idFilter: {
             field: {
               fieldId: 'labels.key',
@@ -64,7 +64,7 @@ const GroupByView: React.FC<GroupByViewProps> = ({ groupBy, setGroupBy, chartTyp
             operator: 'IN',
             values: []
           }
-        } as unknown) as QlceViewFilterWrapperInput
+        } as unknown as QlceViewFilterWrapperInput
       ],
       offset: 0,
       limit: 100
@@ -83,16 +83,17 @@ const GroupByView: React.FC<GroupByViewProps> = ({ groupBy, setGroupBy, chartTyp
         {fieldIdentifierData.map(field => {
           if (field) {
             return (
-              <MenuItem key={field.identifier} text={field.identifierName}>
+              <MenuItem className={css.menuItem} key={field.identifier} text={field.identifierName}>
                 {field.values.length
                   ? field.values.map(value => {
                       if (value) {
                         if (value.fieldId === 'label' && labelData?.length) {
                           return (
-                            <MenuItem key={value.fieldId} text={value.fieldName}>
+                            <MenuItem className={css.menuItem} key={value.fieldId} text={value.fieldName}>
                               <div className={css.groupByLabel}>
                                 {labelData.map(label => (
                                   <MenuItem
+                                    className={css.menuItem}
                                     key={label}
                                     text={label}
                                     onClick={() =>
@@ -111,6 +112,7 @@ const GroupByView: React.FC<GroupByViewProps> = ({ groupBy, setGroupBy, chartTyp
                         }
                         return (
                           <MenuItem
+                            className={css.menuItem}
                             key={value.fieldId}
                             text={value.fieldName}
                             onClick={() =>

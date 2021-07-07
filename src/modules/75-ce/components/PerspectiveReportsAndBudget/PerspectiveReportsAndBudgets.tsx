@@ -46,9 +46,10 @@ interface TableActionsProps {
 
 interface ReportsAndBudgetsProps {
   values: CEView
+  onPrevButtonClick: () => void
 }
 
-const ReportsAndBudgets = ({ values }: ReportsAndBudgetsProps) => {
+const ReportsAndBudgets = ({ values, onPrevButtonClick }: ReportsAndBudgetsProps) => {
   const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(() => {
     return (values?.viewVisualization?.groupBy as QlceViewFieldInputInput) || DEFAULT_GROUP_BY
   })
@@ -82,7 +83,7 @@ const ReportsAndBudgets = ({ values }: ReportsAndBudgetsProps) => {
           <Budgets />
           <FlexExpander />
           <Layout.Horizontal padding={{ top: 'medium' }} spacing="large">
-            <Button icon="chevron-left" text="Previous" />
+            <Button icon="chevron-left" text="Previous" onClick={onPrevButtonClick} />
             <Button intent="primary" text="Save Perspective" onClick={() => savePerspective()} />
           </Layout.Horizontal>
         </Layout.Vertical>

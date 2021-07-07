@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import { Heading, Layout, Tabs, Tab, Icon } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components'
 import { PageHeader } from '@common/components/Page/PageHeader'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import routes from '@common/RouteDefinitions'
 import { PageBody } from '@common/components/Page/PageBody'
 import { useGetPerspective } from 'services/ce/'
 
@@ -11,9 +13,23 @@ import ReportsAndBudgets from '../../components/PerspectiveReportsAndBudget/Pers
 import css from './CreatePerspectivePage.module.scss'
 
 const PerspectiveHeader: React.FC<{ title: string }> = ({ title }) => {
+  const { accountId } = useParams<{ perspectiveId: string; accountId: string }>()
+
   return (
     <Layout.Horizontal>
       <Layout.Vertical>
+        <Breadcrumbs
+          links={[
+            {
+              url: routes.toCEPerspectives({ accountId }),
+              label: 'Perspectives'
+            },
+            {
+              label: '',
+              url: '#'
+            }
+          ]}
+        />
         <Heading color="grey800" level={2}>
           {title}
         </Heading>
@@ -71,10 +87,18 @@ const CreatePerspectivePage: React.FC = () => {
               style={{ alignSelf: 'center' }}
             />
             <Tab
+              disabled={selectedTabId === tabHeadings[0]}
               id={tabHeadings[1]}
               panelClassName={css.panelClass}
               title={<span className={css.tab}>{tabHeadings[1]}</span>}
-              panel={<ReportsAndBudgets values={perspectiveData} />}
+              panel={
+                <ReportsAndBudgets
+                  onPrevButtonClick={() => {
+                    setSelectedTabId(tabHeadings[0])
+                  }}
+                  values={perspectiveData}
+                />
+              }
               data-testid={tabHeadings[1]}
             />
           </Tabs>

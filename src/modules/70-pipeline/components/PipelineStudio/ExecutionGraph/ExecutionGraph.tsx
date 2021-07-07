@@ -34,7 +34,8 @@ import {
   getDefaultStepGroupState,
   getDefaultDependencyServiceState,
   updateStepsState,
-  updateDependenciesState
+  updateDependenciesState,
+  applyExistingStates
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
 import {
@@ -185,21 +186,6 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
   const updateStageWithNewData = (stateToApply: ExecutionGraphState) => {
     stageCloneRef.current.stage.spec.execution = stateToApply.stepsData
     stageCloneRef.current.stage.spec.serviceDependencies = stateToApply.dependenciesData
-    const stepsEmpty = isEmpty(stateToApply.stepsData.steps)
-    const rollbackStepsEmpty = isEmpty(stateToApply.stepsData.rollbackSteps)
-    if (stepsEmpty) {
-      delete stageCloneRef.current.stage.spec.execution.steps
-    }
-    if (rollbackStepsEmpty) {
-      delete stageCloneRef.current.stage.spec.execution.rollbackSteps
-    }
-    if (stepsEmpty && rollbackStepsEmpty) {
-      delete stageCloneRef.current.stage.spec.execution
-    }
-    if (isEmpty(stateToApply.dependenciesData)) {
-      delete stageCloneRef.current.stage.spec.serviceDependencies
-    }
-
     updateStage(stageCloneRef.current)
   }
 
@@ -561,7 +547,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     stepsData: state.isRollback ? state.stepsData.rollbackSteps || [] : state.stepsData.steps || [],
     stepStates: state.states,
     hasDependencies,
-    servicesData: state.dependenciesData,
+    servicesData: state.dependenciesData || [],
     factory: stepsFactory,
     listeners: {
       nodeListeners,
@@ -579,35 +565,34 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
   engine.setModel(model)
 
   useEffect(() => {
-    if (stageCloneRef.current) {
-      if (stageCloneRef.current?.stage?.spec?.execution) {
-        const newStateMap = new Map<string, StepState>()
-        getStepsState(stageCloneRef.current.stage.spec.execution, newStateMap)
-        if (hasDependencies && stageCloneRef.current?.stage?.spec?.serviceDependencies) {
-          getDependenciesState(stageCloneRef.current.stage.spec.serviceDependencies, newStateMap)
-          if (originalStage?.stage?.spec?.serviceDependencies) {
-            updateDependenciesState(originalStage.stage.spec.serviceDependencies, newStateMap)
-          }
+    if (stageCloneRef.current?.stage?.spec?.execution) {
+      const newStateMap = new Map<string, StepState>()
+      getStepsState(stageCloneRef.current.stage.spec.execution, newStateMap)
+      applyExistingStates(newStateMap, state.states)
+      if (hasDependencies && stageCloneRef.current?.stage?.spec?.serviceDependencies) {
+        getDependenciesState(stageCloneRef.current.stage.spec.serviceDependencies, newStateMap)
+        applyExistingStates(newStateMap, state.states)
+        if (originalStage?.stage?.spec?.serviceDependencies) {
+          updateDependenciesState(originalStage.stage.spec.serviceDependencies, newStateMap)
         }
-        if (originalStage?.stage?.spec?.execution) {
-          updateStepsState(originalStage.stage.spec.execution, newStateMap)
-        }
-
-        setState(prevState => ({
-          ...prevState,
-          states: newStateMap
-        }))
       }
-    }
-  }, [originalStage, ref])
+      if (originalStage?.stage?.spec?.execution) {
+        updateStepsState(originalStage.stage.spec.execution, newStateMap)
+      }
 
-  useEffect(() => {
-    if (stageCloneRef.current) {
-      const spec = stageCloneRef.current?.stage?.spec
       setState(prevState => ({
         ...prevState,
-        ...(spec?.execution ? { stepsData: spec.execution } : {}),
-        ...(spec?.serviceDependencies ? { dependenciesData: spec.serviceDependencies } : {})
+        states: newStateMap
+      }))
+    }
+  }, [originalStage, stage, ref])
+
+  useEffect(() => {
+    if (stageCloneRef.current?.stage?.spec?.execution) {
+      setState(prevState => ({
+        ...prevState,
+        stepsData: stageCloneRef.current.stage.spec.execution,
+        dependenciesData: stageCloneRef.current.stage.spec.serviceDependencies
       }))
     }
   }, [stage, ref])

@@ -113,6 +113,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
           identifierProps={{
             isIdentifierEditable: !isEdit
           }}
+          dataTooltipPrefixId="WebhookTriggerConfigPanel"
         />
         <Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}>
           {getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')}
@@ -199,6 +200,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                               formikProps.setFieldValue('actions', e)
                             }
                           }}
+                          tooltipProps={{ dataTooltipId: 'WebhookTriggerConfigPanel_actions' }} // not working
                         />
                       </div>
                       <FormInput.CheckBox

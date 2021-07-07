@@ -15,12 +15,14 @@ export interface FormikForNameIdDescriptionTags {
   identifier?: string
   description?: string
   tags?: tagsType
+  dataTooltipPrefixId?: string
 }
 
 export interface DescriptionComponentProps {
   descriptionProps?: DescriptionProps
   hasValue?: boolean
   disabled?: boolean
+  dataTooltipPrefixId?: string
 }
 
 export interface TagsProps {
@@ -31,6 +33,7 @@ export interface TagsComponentProps {
   tagsProps?: Partial<ITagInputProps>
   hasValue?: boolean
   isOptional?: boolean
+  dataTooltipPrefixId?: string
 }
 
 export interface TagsDeprecatedComponentProps {
@@ -51,4 +54,5 @@ export interface NameIdDescriptionProps {
   descriptionProps?: DescriptionProps
   className?: string
   formikProps: Omit<FormikProps<FormikForNameIdDescriptionTags>, 'tags'>
+  dataTooltipPrefixId?: string
 }

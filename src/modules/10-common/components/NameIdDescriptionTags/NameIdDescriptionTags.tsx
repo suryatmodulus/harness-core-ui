@@ -26,6 +26,7 @@ export interface NameIdDescriptionTagsProps {
   }
   formikProps: FormikProps<FormikForNameIdDescriptionTags>
   className?: string
+  dataTooltipPrefixId?: string
 }
 
 interface NameIdProps {
@@ -33,19 +34,32 @@ interface NameIdProps {
   namePlaceholder?: string
   identifierProps?: Omit<InputWithIdentifierProps, 'formik'>
   inputGroupProps?: IInputGroupProps
+  dataTooltipPrefixId?: string
 }
 
 export const NameId = (props: NameIdProps): JSX.Element => {
   const { getString } = useStrings()
-  const { identifierProps, nameLabel = getString('name'), inputGroupProps = {} } = props
-  const newInputGroupProps = { placeholder: getString('common.namePlaceholder'), ...inputGroupProps }
+  const { identifierProps, nameLabel = getString('name'), inputGroupProps = {}, dataTooltipPrefixId } = props
+  const dataTooltipProps = dataTooltipPrefixId ? { tooltipProps: { dataTooltipId: `${dataTooltipPrefixId}_name` } } : {}
+  const newInputGroupProps = {
+    placeholder: getString('common.namePlaceholder'),
+    ...dataTooltipProps,
+    ...inputGroupProps
+  }
   return (
-    <FormInput.InputWithIdentifier inputLabel={nameLabel} inputGroupProps={newInputGroupProps} {...identifierProps} />
+    <FormInput.InputWithIdentifier
+      inputLabel={nameLabel}
+      inputGroupProps={newInputGroupProps}
+      {...identifierProps}
+      // {...dataTooltipProps}
+    />
   )
 }
 
 export const Description = (props: DescriptionComponentProps): JSX.Element => {
-  const { descriptionProps = {}, hasValue, disabled = false } = props
+  const { descriptionProps = {}, hasValue, disabled = false, dataTooltipPrefixId } = props
+  const dataTooltipProps = dataTooltipPrefixId ? { value: { dataTooltipId: `${dataTooltipPrefixId}_description` } } : {}
+
   const { isOptional = true, ...restDescriptionProps } = descriptionProps
   const { getString } = useStrings()
   const [isDescriptionOpen, setDescriptionOpen] = useState<boolean>(hasValue || false)
@@ -78,6 +92,7 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
           name="description"
           placeholder={getString('common.descriptionPlaceholder')}
           {...restDescriptionProps}
+          textArea={dataTooltipProps}
         />
       )}
     </Container>
@@ -85,7 +100,8 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
 }
 
 export const Tags = (props: TagsComponentProps): JSX.Element => {
-  const { tagsProps, hasValue, isOptional = true } = props
+  const { tagsProps, hasValue, isOptional = true, dataTooltipPrefixId } = props
+  const dataTooltipProps = dataTooltipPrefixId ? { tooltipProps: { dataTooltipId: `${dataTooltipPrefixId}_tags` } } : {}
   const { getString } = useStrings()
   const [isTagsOpen, setTagsOpen] = useState<boolean>(hasValue || false)
 
@@ -107,7 +123,7 @@ export const Tags = (props: TagsComponentProps): JSX.Element => {
           />
         )}
       </Label>
-      {isTagsOpen && <FormInput.KVTagInput name="tags" tagsProps={tagsProps} />}
+      {isTagsOpen && <FormInput.KVTagInput name="tags" tagsProps={tagsProps} {...dataTooltipProps} />}
     </Container>
   )
 }
@@ -155,13 +171,34 @@ function TagsDeprecated(props: TagsDeprecatedComponentProps): JSX.Element {
 
 export function NameIdDescriptionTags(props: NameIdDescriptionTagsProps): JSX.Element {
   const { getString } = useStrings()
-  const { className, identifierProps, descriptionProps, tagsProps, formikProps, inputGroupProps = {} } = props
+  const {
+    className,
+    identifierProps,
+    descriptionProps,
+    tagsProps,
+    formikProps,
+    inputGroupProps = {},
+    dataTooltipPrefixId
+  } = props
   const newInputGroupProps = { placeholder: getString('common.namePlaceholder'), ...inputGroupProps }
   return (
     <Container className={cx(css.main, className)}>
-      <NameId identifierProps={identifierProps} inputGroupProps={newInputGroupProps} />
-      <Description descriptionProps={descriptionProps} hasValue={!!formikProps?.values.description} />
-      <Tags tagsProps={tagsProps} isOptional={tagsProps?.isOption} hasValue={!isEmpty(formikProps?.values.tags)} />
+      <NameId
+        identifierProps={identifierProps}
+        inputGroupProps={newInputGroupProps}
+        dataTooltipPrefixId={dataTooltipPrefixId}
+      />
+      <Description
+        descriptionProps={descriptionProps}
+        hasValue={!!formikProps?.values.description}
+        dataTooltipPrefixId={dataTooltipPrefixId}
+      />
+      <Tags
+        tagsProps={tagsProps}
+        isOptional={tagsProps?.isOption}
+        hasValue={!isEmpty(formikProps?.values.tags)}
+        dataTooltipPrefixId={dataTooltipPrefixId}
+      />
     </Container>
   )
 }
@@ -180,23 +217,40 @@ export function NameIdDescriptionTagsDeprecated<T>(props: NameIdDescriptionTagsD
 
 export function NameIdDescription(props: NameIdDescriptionProps): JSX.Element {
   const { getString } = useStrings()
-  const { className, identifierProps, descriptionProps, formikProps, inputGroupProps = {} } = props
+  const { className, identifierProps, descriptionProps, formikProps, inputGroupProps = {}, dataTooltipPrefixId } = props
   const newInputGroupProps = { placeholder: getString('common.namePlaceholder'), ...inputGroupProps }
 
   return (
     <Container className={cx(css.main, className)}>
-      <NameId identifierProps={identifierProps} inputGroupProps={newInputGroupProps} />
-      <Description descriptionProps={descriptionProps} hasValue={!!formikProps?.values.description} />
+      <NameId
+        identifierProps={identifierProps}
+        inputGroupProps={newInputGroupProps}
+        dataTooltipPrefixId={dataTooltipPrefixId}
+      />
+      <Description
+        descriptionProps={descriptionProps}
+        hasValue={!!formikProps?.values.description}
+        dataTooltipPrefixId={dataTooltipPrefixId}
+      />
     </Container>
   )
 }
 
 export function DescriptionTags(props: Omit<NameIdDescriptionTagsProps, 'identifierProps'>): JSX.Element {
-  const { className, descriptionProps, tagsProps, formikProps } = props
+  const { className, descriptionProps, tagsProps, formikProps, dataTooltipPrefixId } = props
   return (
     <Container className={cx(css.main, className)}>
-      <Description descriptionProps={descriptionProps} hasValue={!!formikProps?.values.description} />
-      <Tags tagsProps={tagsProps} isOptional={tagsProps?.isOption} hasValue={!isEmpty(formikProps?.values.tags)} />
+      <Description
+        descriptionProps={descriptionProps}
+        hasValue={!!formikProps?.values.description}
+        dataTooltipPrefixId={dataTooltipPrefixId}
+      />
+      <Tags
+        tagsProps={tagsProps}
+        isOptional={tagsProps?.isOption}
+        hasValue={!isEmpty(formikProps?.values.tags)}
+        dataTooltipPrefixId={dataTooltipPrefixId}
+      />
     </Container>
   )
 }

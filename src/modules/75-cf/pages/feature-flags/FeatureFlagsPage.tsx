@@ -430,7 +430,6 @@ const FeatureFlagsPage: React.FC = () => {
     refetch
   } = useGetAllFeatures({
     lazy: true,
-    debounce: true,
     queryParams
   })
   const {

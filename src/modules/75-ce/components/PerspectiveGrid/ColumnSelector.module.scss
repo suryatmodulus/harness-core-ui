@@ -14,6 +14,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    margin: var(--spacing-small) var(--spacing-medium) 0 0;
 
     & > span {
       padding: 5px;
@@ -24,7 +25,8 @@
     max-height: 250px;
     overflow: auto;
     position: absolute;
-    top: 35px;
+    top: 45px;
+    right: 15px;
     border-radius: 4px;
     z-index: 10000;
     width: 250px;

@@ -80,10 +80,27 @@ export const AGGREGATE_FUNCTION = {
 const RenderNameCell = ({ row }: CellProps<GridData>): ReactNode => {
   const { legendColor, name } = row.original
   return (
-    <span style={{ borderLeft: `4px solid ${legendColor}` }} className={css.nameCell}>
-      {name}
+    <span className={css.nameCell}>
+      <span className={css.squareCtn}>
+        <span style={{ background: legendColor }} className={css.square}></span>
+      </span>
+      <span>{name}</span>
     </span>
   )
+
+  // return (
+  //   <span className={css.nameCell}>
+  //     <span style={{ background: legendColor }} className={css.dot}></span>
+  //     <span>{name}</span>
+  //   </span>
+  // )
+
+  // return (
+  //   <span className={css.nameCellDot}>
+  //     <span style={{ background: legendColor }} className={css.dot}></span>
+  //     <span>{name}</span>
+  //   </span>
+  // )
 }
 
 export const RenderCostCell = (props: CellProps<GridData>) => <span>{formatCost(+props.value)}</span>
@@ -105,7 +122,7 @@ const COLUMNS: Record<string, Column> = {
     accessor: 'name',
     className: 'name',
     width: 250,
-    sticky: 'left',
+    // sticky: 'left',
     Cell: RenderNameCell
   },
   CLUSTER_NAME: {
@@ -131,7 +148,7 @@ const COLUMNS: Record<string, Column> = {
     Header: 'Total cost',
     accessor: 'cost',
     width: 200,
-    sticky: 'left',
+    // sticky: 'left',
     Cell: RenderCostCell
     // className: TOTAL_COST_CLASSNAME
   },

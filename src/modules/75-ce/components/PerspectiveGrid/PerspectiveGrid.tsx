@@ -6,6 +6,7 @@ import type { QlceViewFieldInputInput, QlceViewEntityStatsDataPoint, Maybe } fro
 import ColumnSelector from './ColumnSelector'
 import { addLegendColorToRow, GridData, getGridColumnsByGroupBy, PERSPECTIVE_PREVIEW_COLS } from './Columns'
 import Grid from './Grid'
+import './test.scss' // will find a alternative
 import css from './PerspectiveGrid.module.scss'
 
 interface PerspectiveGridProps {

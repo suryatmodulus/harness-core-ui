@@ -70,9 +70,7 @@ const Grid = <T extends Record<string, unknown>>(props: GridProps<T>) => {
               <div {...row.getRowProps()} className={css.tr} key={idx}>
                 {row.cells.map((cell, id) => (
                   <div {...cell.getCellProps()} className={cx(css.td, (cell.column as any).className)} key={id}>
-                    <Text font="small" color="grey800">
-                      {cell.render('Cell')}
-                    </Text>
+                    <div className={css.cellValue}>{cell.render('Cell')}</div>
                   </div>
                 ))}
               </div>

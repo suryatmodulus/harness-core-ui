@@ -19,6 +19,11 @@ export const allProviders: Provider[] = [
   // }
 ]
 
+export enum PAGE_NAME {
+  PERSPECTIVE_EXPLORER,
+  CREATE_PERSPECTIVE
+}
+
 export enum PROVIDER_TYPES {
   AWS = 'aws',
   AZURE = 'azure',

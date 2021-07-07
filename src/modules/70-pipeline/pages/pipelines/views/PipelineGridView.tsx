@@ -1,7 +1,6 @@
 import { Container, Layout, Pagination } from '@wings-software/uicore'
 import React from 'react'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
-import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PipelineCard } from './PipelineCard/PipelineCard'
 import css from '../PipelinesPage.module.scss'
 
@@ -28,14 +27,12 @@ export const PipelineGridView: React.FC<PipelineGridViewProps> = ({
           gutter={25}
           items={data?.content || []}
           renderItem={(item: PMSPipelineSummaryResponse) => (
-            <GitSyncStoreProvider>
-              <PipelineCard
-                pipeline={item}
-                goToPipelineDetail={goToPipelineDetail}
-                goToPipelineStudio={goToPipelineStudio}
-                refetchPipeline={refetchPipeline}
-              />
-            </GitSyncStoreProvider>
+            <PipelineCard
+              pipeline={item}
+              goToPipelineDetail={goToPipelineDetail}
+              goToPipelineStudio={goToPipelineStudio}
+              refetchPipeline={refetchPipeline}
+            />
           )}
           keyOf={(item: PMSPipelineSummaryResponse) => item.identifier}
         />

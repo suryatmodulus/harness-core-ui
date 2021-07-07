@@ -683,22 +683,26 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
               </Layout.Vertical>
             )}
           </div>
-        ) : view === Views.GRID ? (
-          <PipelineGridView
-            gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
-            data={pipelineList}
-            goToPipelineDetail={goToPipelineDetail}
-            goToPipelineStudio={goToPipeline}
-            refetchPipeline={fetchPipelines}
-          />
         ) : (
-          <PipelineListView
-            gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
-            data={pipelineList}
-            goToPipelineDetail={goToPipelineDetail}
-            goToPipelineStudio={goToPipeline}
-            refetchPipeline={fetchPipelines}
-          />
+          <GitSyncStoreProvider>
+            {view === Views.GRID ? (
+              <PipelineGridView
+                gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
+                data={pipelineList}
+                goToPipelineDetail={goToPipelineDetail}
+                goToPipelineStudio={goToPipeline}
+                refetchPipeline={fetchPipelines}
+              />
+            ) : (
+              <PipelineListView
+                gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
+                data={pipelineList}
+                goToPipelineDetail={goToPipelineDetail}
+                goToPipelineStudio={goToPipeline}
+                refetchPipeline={fetchPipelines}
+              />
+            )}
+          </GitSyncStoreProvider>
         )}
       </Page.Body>
     </>

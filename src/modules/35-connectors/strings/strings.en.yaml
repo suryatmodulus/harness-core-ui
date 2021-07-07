@@ -50,6 +50,7 @@ roleARN: Create Cross Account Role
 ifReq: if required.
 selectConnector: Select Connector
 apiKey: '{{$.common.apikey}}'
+delegateInClusterInfo: 'Use the credentials of a specific Harness Delegate (IAM role, service account, etc)'
 title:
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'
@@ -133,7 +134,7 @@ jira:
   jiraUrl: 'Jira URL'
 k8:
   delegateOutClusterInfo: 'Specify master URL and credentials'
-  delegateInClusterInfo: 'Use the credentials of a specific Harness Delegate (IAM role, service account, etc)'
+  delegateInClusterInfo: '{{ $.connectors.delegateInClusterInfo }}'
   masterUrlLabel: 'Master URL'
   serviceAccountToken: 'Service Account Token'
   serviceAccountKey: 'Service Account Key'
@@ -177,7 +178,7 @@ artifactory:
   artifactoryServerUrl: 'Artifactory Repository URL'
 GCP:
   delegateOutClusterInfo: 'Specify credentials here'
-  delegateInClusterInfo: 'Use the credentials of a specific Harness Delegate (IAM role, service account, etc)'
+  delegateInClusterInfo: '{{ $.connectors.delegateInClusterInfo }}'
 ECR:
   name: ECR
   fullName: ECR Container Registry

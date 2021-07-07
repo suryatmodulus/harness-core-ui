@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">91.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/22</span>
+                <span class='fraction'>21/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/8</span>
+                <span class='fraction'>6/12</span>
             </div>
         
             
@@ -168,7 +168,22 @@
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
 <a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -197,7 +212,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -257,6 +271,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -279,8 +297,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useContext, useMemo } from 'react'
-import { Card, Color, Layout, Text } from '@wings-software/uicore'
+import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import {
@@ -312,12 +342,11 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
   const { timeRange, setTimeRange } = useContext(DeploymentsTimeRangeContext)
   const TIME_RANGE_OPTIONS: Record&lt;TIME_RANGE_ENUMS, string&gt; = useMemo(useTimeRangeOptions, [])
   const getTickerTextComponent = useMemo(
-    () =&gt; (value: number) =&gt;
-      &lt;Text color={value &lt; 0 ? <span class="branch-0 cbranch-no" title="branch not covered" >Color.RED_500 </span>: Color.GREEN_500} font={{ size: 'small' }}&gt;{`${Math.abs(value)}%`}&lt;/Text&gt;,
+    () =&gt; (value: number, color: Color) =&gt; &lt;Text font={{ size: 'xsmall' }} color={color}&gt;{`${Math.abs(value)}%`}&lt;/Text&gt;,
     []
   )
   const customChartOptions: Highcharts.Options = {
-    chart: { height: 185, spacing: [25, 0, 25, 0] },
+    chart: { height: 175, spacing: [25, 0, 25, 0] },
     legend: { padding: 0 },
     xAxis: {
       allowDecimals: false,
@@ -338,25 +367,28 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
   return (
     &lt;Card className={css.card}&gt;
       &lt;Layout.Vertical&gt;
-        &lt;Layout.Horizontal flex={{ distribution: 'space-between' }} margin={{ bottom: 'xsmall' }}&gt;
-          &lt;Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}&gt;
-            {getString('deploymentsText')}
-          &lt;/Text&gt;
+        &lt;Container className={css.timeRange}&gt;
           &lt;TimeRangeSelector mode={timeRange} setMode={setTimeRange} /&gt;
-        &lt;/Layout.Horizontal&gt;
+        &lt;/Container&gt;
+        &lt;Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}&gt;
+          {getString('deploymentsText')}
+        &lt;/Text&gt;
         &lt;Layout.Horizontal flex={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}&gt;
-          &lt;Layout.Horizontal className={css.deploymentsTicker}&gt;
+          &lt;Layout.Horizontal width={240}&gt;
             &lt;Ticker
-              value={getTickerTextComponent(deployments.change)}
+              value={getTickerTextComponent(
+                deployments.change,
+                deployments.change &gt; 0 ? Color.GREEN_600 : <span class="branch-1 cbranch-no" title="branch not covered" >Color.RED_500</span>
+              )}
               decreaseMode={deployments.change &lt; 0}
-              color={deployments.change &gt; 0 ? Color.GREEN_500 : <span class="branch-1 cbranch-no" title="branch not covered" >Color.RED_500}</span>
+              color={deployments.change &gt; 0 ? Color.GREEN_600 : <span class="branch-1 cbranch-no" title="branch not covered" >Color.RED_500}</span>
               verticalAlign={TickerVerticalAlignment.CENTER}
             &gt;
               &lt;Layout.Vertical&gt;
                 &lt;Text color={Color.BLACK} font={{ weight: 'semi-bold' }} className={css.text}&gt;
                   {deployments.value}
                 &lt;/Text&gt;
-                &lt;Text font={{ size: 'small' }}&gt;
+                &lt;Text font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_400}&gt;
                   {getString('dashboards.serviceDashboard.in', {
                     timeRange: TIME_RANGE_OPTIONS[timeRange].toLowerCase()
                   })}
@@ -367,23 +399,36 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
           {[
             { ...failureRate, name: getString('common.failureRate') },
             { ...frequency, name: getString('dashboards.serviceDashboard.frequency') }
-          ].map(item =&gt; (
-            &lt;Layout.Vertical padding={'small'} margin={{ right: 'medium' }} className={css.tickerCard} key={item.name}&gt;
-              &lt;Text font={{ size: 'small' }} margin={{ bottom: 'small' }}&gt;
-                {item.name}
-              &lt;/Text&gt;
-              &lt;Ticker
-                value={getTickerTextComponent(item.change)}
-                decreaseMode={item.change &lt; 0}
-                color={item.change &gt; 0 ? Color.GREEN_500 : <span class="branch-1 cbranch-no" title="branch not covered" >Color.RED_500}</span>
-                tickerContainerStyles={css.tickerContainerStyles}
+          ].map((item, index) =&gt; {
+            const colors = index ? [Color.GREEN_600, Color.RED_500] : [Color.RED_500, Color.GREEN_600]
+            return (
+              &lt;Layout.Vertical
+                padding={'small'}
+                margin={{ right: 'medium' }}
+                className={css.tickerCard}
+                key={item.name}
               &gt;
-                &lt;Text color={Color.BLACK} font={{ weight: 'semi-bold', size: 'medium' }} margin={{ right: 'xsmall' }}&gt;
-                  {item.value}
+                &lt;Text
+                  font={{ size: 'xsmall', weight: 'semi-bold' }}
+                  margin={{ bottom: 'small' }}
+                  color={Color.GREY_600}
+                &gt;
+                  {item.name}
                 &lt;/Text&gt;
-              &lt;/Ticker&gt;
-            &lt;/Layout.Vertical&gt;
-          ))}
+                &lt;Ticker
+                  value={getTickerTextComponent(item.change, item.change &gt; 0 ? colors[0] : <span class="branch-1 cbranch-no" title="branch not covered" >colors[1])</span>}
+                  decreaseMode={item.change &lt; 0}
+                  color={item.change &gt; 0 ? colors[0] : <span class="branch-1 cbranch-no" title="branch not covered" >colors[1]}</span>
+                  tickerContainerStyles={css.tickerContainerStyles}
+                  verticalAlign={TickerVerticalAlignment.CENTER}
+                &gt;
+                  &lt;Text color={Color.BLACK} font={{ weight: 'semi-bold', size: 'medium' }} margin={{ right: 'xsmall' }}&gt;
+                    {item.value}
+                  &lt;/Text&gt;
+                &lt;/Ticker&gt;
+              &lt;/Layout.Vertical&gt;
+            )
+          })}
         &lt;/Layout.Horizontal&gt;
         &lt;TimeSeriesAreaChart seriesData={data} customChartOptions={customChartOptions} /&gt;
       &lt;/Layout.Vertical&gt;
@@ -397,7 +442,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 07 2021 08:44:53 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 07 2021 10:27:59 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.11% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/18</span>
+                <span class='fraction'>12/18</span>
             </div>
         
             
@@ -208,7 +208,21 @@
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -292,9 +306,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -304,7 +328,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -359,11 +383,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useContext, useEffect, useMemo, useState } from 'react'
 import cx from 'classnames'
 import { Card, Color, LabelPosition, Layout, Text, WeightedStack } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { Ticker } from '@common/components/Ticker/Ticker'
+import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import { DeploymentsTimeRangeContext } from '@dashboards/components/Services/common'
 import type { TIME_RANGE_ENUMS } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
 import css from '@dashboards/components/Services/MostActiveServicesWidget/MostActiveServicesWidget.module.scss'
@@ -444,10 +472,20 @@ export const MostActiveServicesWidget: React.FC&lt;MostActiveServicesWidgetProps
   const Tickers = useMemo(() =&gt; {
     return data.map((service, index) =&gt; {
       const { change } = service
-      const color = change &gt; 0 ? Color.RED_500 : <span class="branch-1 cbranch-no" title="branch not covered" >Color.GREEN_500</span>
+      const [color, tickerValueStyle] =
+        change &gt; 0 ? [Color.RED_500, css.tickerValueRed] : [Color.GREEN_600, css.tickerValueGreen]
       return (
         &lt;div className={css.tickerContainer} key={index}&gt;
-          {change ? &lt;Ticker value={`${Math.abs(change)}%`} color={color} /&gt; : <span class="branch-1 cbranch-no" title="branch not covered" >&lt;&gt;&lt;/&gt;}</span>
+          {change ? (
+            &lt;Ticker
+              value={`${Math.abs(change)}%`}
+              color={color}
+              tickerValueStyles={cx(css.tickerValueStyles, tickerValueStyle)}
+              verticalAlign={TickerVerticalAlignment.CENTER}
+            /&gt;
+          ) : (
+<span class="branch-1 cbranch-no" title="branch not covered" >            &lt;&gt;&lt;/&gt;</span>
+          )}
         &lt;/div&gt;
       )
     })
@@ -488,13 +526,17 @@ export const MostActiveServicesWidget: React.FC&lt;MostActiveServicesWidgetProps
         &lt;Layout.Vertical margin={{ bottom: 'xxlarge' }}&gt;
           {EnvironmnentTypeComponent}
           {title &amp;&amp; (
-            &lt;Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}&gt;
+            &lt;Text font={{ weight: 'bold' }} color={Color.GREY_600}&gt;
               {title}
             &lt;/Text&gt;
           )}
         &lt;/Layout.Vertical&gt;
         &lt;Layout.Horizontal margin={{ bottom: 'large' }}&gt;{TypeComponent}&lt;/Layout.Horizontal&gt;
-        &lt;Layout.Horizontal flex={{ distribution: 'space-between' }} height={150} className={css.stackTickerContainer}&gt;
+        &lt;Layout.Horizontal
+          flex={{ distribution: 'space-between', alignItems: 'flex-start' }}
+          height={150}
+          className={css.stackTickerContainer}
+        &gt;
           &lt;div className={css.weightedStackContainer}&gt;
             &lt;WeightedStack
               data={weightedStackData}
@@ -517,7 +559,7 @@ export const MostActiveServicesWidget: React.FC&lt;MostActiveServicesWidgetProps
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 07 2021 08:44:53 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 07 2021 10:27:59 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

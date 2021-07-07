@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.33% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/30</span>
+                <span class='fraction'>16/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.33% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/30</span>
+                <span class='fraction'>16/32</span>
             </div>
         
             
@@ -147,7 +147,9 @@
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -164,8 +166,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,6 +205,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -251,12 +255,12 @@ import type {
 } from '@common/interfaces/RouteInterfaces'
 import { getCDPipelineStages } from '@cd/components/PipelineStudio/CDPipelineStagesUtils'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
 import { getCDTrialDialog, TrialType } from '@cd/modals/CDTrial/useCDTrialModal'
 import type { NgPipeline } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
+import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import css from './CDPipelineStudio.module.scss'
 &nbsp;
 const CDPipelineStudio: React.FC = <span class="fstat-no" title="function not covered" >(): JSX.Element =</span>&gt; {
@@ -293,7 +297,9 @@ const CDPipelineStudio: React.FC = <span class="fstat-no" title="function not co
       })
     )
   }
-  const { selectedProject } = <span class="cstat-no" title="statement not covered" >useAppStore()</span>
+  const { CI_LICENSE_STATE, FF_LICENSE_STATE } = <span class="cstat-no" title="statement not covered" >useLicenseStore()</span>
+  const isCFEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag('CFNG_ENABLED')</span>
+  const isCIEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag('CING_ENABLED')</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
   const isApprovalStageEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag('NG_HARNESS_APPROVAL')</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
@@ -305,9 +311,9 @@ const CDPipelineStudio: React.FC = <span class="fstat-no" title="function not co
 <span class="cstat-no" title="statement not covered" >        getCDPipelineStages(</span>
           args,
           getString,
-          selectedProject?.modules &amp;&amp; selectedProject.modules.indexOf?.('CI') &gt; -1,
+          CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE &amp;&amp; isCIEnabled,
           true,
-          selectedProject?.modules &amp;&amp; selectedProject.modules.indexOf?.('CF') &gt; -1,
+          FF_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE &amp;&amp; isCFEnabled,
           isApprovalStageEnabled
         )
       }
@@ -334,7 +340,7 @@ export default CDPipelineStudio
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 07 2021 14:31:37 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 07 2021 15:37:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

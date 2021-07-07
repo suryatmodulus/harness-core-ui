@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">53.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/25</span>
+                <span class='fraction'>15/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">53.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/25</span>
+                <span class='fraction'>15/28</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -128,7 +128,10 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -156,18 +159,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,11 +217,11 @@ import type {
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { useQueryParams } from '@common/hooks'
+import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { getCFPipelineStages } from '../../components/PipelineStudio/CFPipelineStagesUtils'
 import css from './CFPipelineStudio.module.scss'
 &nbsp;
@@ -224,7 +230,6 @@ const CIPipelineStudio: React.FC = <span class="fstat-no" title="function not co
 <span class="cstat-no" title="statement not covered" >    useParams&lt;PipelineType&lt;PipelinePathProps &amp; AccountPathProps&gt;&gt;()</span>
   const { branch, repoIdentifier } = <span class="cstat-no" title="statement not covered" >useQueryParams&lt;GitQueryParams&gt;()</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
-  const { selectedProject } = <span class="cstat-no" title="statement not covered" >useAppStore()</span>
   const history = <span class="cstat-no" title="statement not covered" >useHistory()</span>
   const handleRunPipeline = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(): void =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    history.push(</span>
@@ -240,6 +245,10 @@ const CIPipelineStudio: React.FC = <span class="fstat-no" title="function not co
     )
   }
   const isApprovalStageEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag('NG_HARNESS_APPROVAL')</span>
+  const isCDEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag('CDNG_ENABLED')</span>
+  const isCFEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag('CFNG_ENABLED')</span>
+  const isCIEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag('CING_ENABLED')</span>
+  const { CI_LICENSE_STATE, FF_LICENSE_STATE } = <span class="cstat-no" title="statement not covered" >useLicenseStore()</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
@@ -249,9 +258,9 @@ const CIPipelineStudio: React.FC = <span class="fstat-no" title="function not co
 <span class="cstat-no" title="statement not covered" >        getCFPipelineStages(</span>
           args,
           getString,
-          selectedProject?.modules &amp;&amp; selectedProject.modules.indexOf?.('CI') &gt; -1,
-          selectedProject?.modules &amp;&amp; selectedProject.modules.indexOf?.('CD') &gt; -1,
-          true,
+          CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE &amp;&amp; isCIEnabled,
+          isCDEnabled,
+          FF_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE &amp;&amp; isCFEnabled,
           isApprovalStageEnabled
         )
       }
@@ -277,7 +286,7 @@ export default CIPipelineStudio
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 07 2021 14:31:37 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 07 2021 15:37:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

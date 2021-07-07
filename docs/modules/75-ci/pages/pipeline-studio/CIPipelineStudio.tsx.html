@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.17% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/29</span>
+                <span class='fraction'>16/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.17% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/29</span>
+                <span class='fraction'>16/32</span>
             </div>
         
             
@@ -141,7 +141,10 @@
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -158,9 +161,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,7 +172,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -193,6 +195,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,19 +246,18 @@ import type {
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
 &nbsp;
 import type { NgPipeline } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
+import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import css from './CIPipelineStudio.module.scss'
 &nbsp;
 const CIPipelineStudio: React.FC = <span class="fstat-no" title="function not covered" >(): JSX.Element =</span>&gt; {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } =
 <span class="cstat-no" title="statement not covered" >    useParams&lt;PipelineType&lt;PipelinePathProps &amp; AccountPathProps&gt;&gt;()</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
-  const { selectedProject } = <span class="cstat-no" title="statement not covered" >useAppStore()</span>
   const history = <span class="cstat-no" title="statement not covered" >useHistory()</span>
 &nbsp;
   const getTrialPipelineCreateForm = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>
@@ -278,6 +283,10 @@ const CIPipelineStudio: React.FC = <span class="fstat-no" title="function not co
     )
   }
   const isApprovalStageEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag('NG_HARNESS_APPROVAL')</span>
+  const isCDEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag('CDNG_ENABLED')</span>
+  const isCFEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag('CFNG_ENABLED')</span>
+  const isCIEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag('CING_ENABLED')</span>
+  const { CI_LICENSE_STATE, FF_LICENSE_STATE } = <span class="cstat-no" title="statement not covered" >useLicenseStore()</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
@@ -287,9 +296,9 @@ const CIPipelineStudio: React.FC = <span class="fstat-no" title="function not co
 <span class="cstat-no" title="statement not covered" >        getCIPipelineStages(</span>
           args,
           getString,
-          true,
-          selectedProject?.modules &amp;&amp; selectedProject.modules.indexOf?.('CD') &gt; -1,
-          selectedProject?.modules &amp;&amp; selectedProject.modules.indexOf?.('CF') &gt; -1,
+          CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE &amp;&amp; isCIEnabled,
+          isCDEnabled,
+          FF_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE &amp;&amp; isCFEnabled,
           isApprovalStageEnabled
         )
       }
@@ -316,7 +325,7 @@ export default CIPipelineStudio
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 07 2021 14:31:37 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 07 2021 15:37:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

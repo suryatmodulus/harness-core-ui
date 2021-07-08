@@ -13,7 +13,8 @@ import {
   QlceViewFilterOperator,
   QlceViewFieldInputInput,
   useFetchperspectiveGridQuery,
-  ViewChartType
+  ViewChartType,
+  ViewTimeRangeType
 } from 'services/ce/services'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageSpinner } from '@common/components'
@@ -117,6 +118,12 @@ const PerspectiveDetailsPage: React.FC = () => {
     from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].valueOf()
   })
 
+  const timeRangeMapper: Record<string, moment.Moment[]> = {
+    [ViewTimeRangeType.Last_7]: DATE_RANGE_SHORTCUTS.LAST_7_DAYS,
+    [ViewTimeRangeType.Last_30]: DATE_RANGE_SHORTCUTS.LAST_30_DAYS,
+    [ViewTimeRangeType.LastMonth]: DATE_RANGE_SHORTCUTS.LAST_MONTH
+  }
+
   useEffect(() => {
     if (perspectiveData) {
       const cType =
@@ -128,6 +135,16 @@ const PerspectiveDetailsPage: React.FC = () => {
         setAggregation(perspectiveData.viewVisualization?.granularity as QlceViewTimeGroupType)
       perspectiveData.viewVisualization?.groupBy &&
         setGroupBy(perspectiveData.viewVisualization.groupBy as QlceViewFieldInputInput)
+
+      const dateRange =
+        (perspectiveData.viewTimeRange?.viewTimeRangeType &&
+          timeRangeMapper[perspectiveData.viewTimeRange?.viewTimeRangeType]) ||
+        DATE_RANGE_SHORTCUTS.LAST_7_DAYS
+
+      setTimeRange({
+        to: dateRange[1].valueOf(),
+        from: dateRange[0].valueOf()
+      })
     }
   }, [perspectiveData])
 

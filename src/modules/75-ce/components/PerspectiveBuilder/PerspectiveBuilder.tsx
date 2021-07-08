@@ -1,5 +1,6 @@
 import React from 'react'
 import { Formik, FormikForm, Container, Text, FormInput, Layout, FlexExpander, Button } from '@wings-software/uicore'
+import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
 import { useUpdatePerspective, CEView } from 'services/ce'
@@ -113,6 +114,27 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
     history.goBack()
   }
 
+  const dateLabelToDisplayText: Record<string, string> = {
+    [ViewTimeRangeType.Last_7]: getString('ce.perspectives.timeRangeConstants.last7Days'),
+    [ViewTimeRangeType.Last_30]: getString('ce.perspectives.timeRangeConstants.last30Days'),
+    [ViewTimeRangeType.LastMonth]: getString('ce.perspectives.timeRangeConstants.lastMonth')
+  }
+
+  const ViewTimeRange = [
+    {
+      value: ViewTimeRangeType.Last_7,
+      label: dateLabelToDisplayText[ViewTimeRangeType.Last_7]
+    },
+    {
+      value: ViewTimeRangeType.Last_30,
+      label: dateLabelToDisplayText[ViewTimeRangeType.Last_30]
+    },
+    {
+      value: ViewTimeRangeType.LastMonth,
+      label: dateLabelToDisplayText[ViewTimeRangeType.LastMonth]
+    }
+  ]
+
   const validationSchema = Yup.object().shape({
     name: Yup.string().trim().required(getString('ce.perspectives.createPerspective.validationErrors.nameError')),
     viewRules: Yup.array().of(
@@ -143,6 +165,9 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
             groupBy: perspectiveData?.viewVisualization?.groupBy || DEFAULT_GROUP_BY,
             chartType: perspectiveData?.viewVisualization?.chartType || ViewChartType.StackedLineChart
           },
+          viewTimeRange: {
+            viewTimeRangeType: perspectiveData?.viewTimeRange?.viewTimeRangeType || ViewTimeRangeType.Last_7
+          },
           viewRules: perspectiveData?.viewRules || []
         }}
         enableReinitialize={true}
@@ -161,15 +186,51 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
                   padding={{ left: 'large', right: 'xxlarge', bottom: 'xxlarge', top: 'xxlarge' }}
                 >
                   <Text color="grey800">{getString('ce.perspectives.createPerspective.title')}</Text>
-                  <FormInput.Text
-                    name="name"
-                    label={getString('ce.perspectives.createPerspective.nameLabel')}
-                    placeholder={getString('ce.perspectives.createPerspective.name')}
-                    tooltipProps={{
-                      dataTooltipId: 'perspectiveNameInput'
-                    }}
-                    className={css.perspectiveNameInput}
-                  />
+                  <Layout.Horizontal>
+                    <FormInput.Text
+                      name="name"
+                      label={getString('ce.perspectives.createPerspective.nameLabel')}
+                      placeholder={getString('ce.perspectives.createPerspective.name')}
+                      tooltipProps={{
+                        dataTooltipId: 'perspectiveNameInput'
+                      }}
+                      className={css.perspectiveNameInput}
+                    />
+                    <FlexExpander />
+                    <Popover
+                      position={Position.BOTTOM_LEFT}
+                      modifiers={{
+                        arrow: { enabled: false },
+                        flip: { enabled: true },
+                        keepTogether: { enabled: true },
+                        preventOverflow: { enabled: true }
+                      }}
+                      content={
+                        <Menu>
+                          {ViewTimeRange.map(timeRange => (
+                            <MenuItem
+                              onClick={() => {
+                                formikProps.setFieldValue('viewTimeRange.viewTimeRangeType', timeRange.value)
+                              }}
+                              text={timeRange.label}
+                              key={timeRange.value}
+                            />
+                          ))}
+                        </Menu>
+                      }
+                    >
+                      <Button
+                        minimal
+                        text={
+                          formikProps.values.viewTimeRange?.viewTimeRangeType
+                            ? dateLabelToDisplayText[formikProps.values.viewTimeRange?.viewTimeRangeType]
+                            : 'Select Time Range'
+                        }
+                        rightIcon="calendar"
+                      />
+                    </Popover>
+                  </Layout.Horizontal>
+
                   <div>
                     <PerspectiveFilters formikProps={formikProps} />
                   </div>

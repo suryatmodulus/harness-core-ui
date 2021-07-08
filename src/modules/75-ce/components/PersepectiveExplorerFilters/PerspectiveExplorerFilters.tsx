@@ -19,7 +19,7 @@ interface TimeGranularityDropDownProps {
   setAggregation: React.Dispatch<React.SetStateAction<QlceViewTimeGroupType>>
 }
 
-const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = ({ aggregation, setAggregation }) => {
+export const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = ({ aggregation, setAggregation }) => {
   const { getString } = useStrings()
   const aggregationTextMap = getAggregationText(getString)
   return (

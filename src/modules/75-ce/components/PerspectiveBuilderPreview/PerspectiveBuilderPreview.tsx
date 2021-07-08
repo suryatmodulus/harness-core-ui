@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Container, Text, Layout, FlexExpander, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
+import type moment from 'moment'
 import { useStrings } from 'framework/strings'
 import type { CEView } from 'services/ce'
 import {
@@ -14,7 +15,8 @@ import {
   ViewChartType,
   useFetchPerspectiveTimeSeriesQuery,
   QlceViewTimeGroupType,
-  useFetchperspectiveGridQuery
+  useFetchperspectiveGridQuery,
+  ViewTimeRangeType
 } from 'services/ce/services'
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
 import {
@@ -205,7 +207,15 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
 }) => {
   const { perspectiveId } = useParams<{ perspectiveId: string }>()
 
-  const dateRange = DATE_RANGE_SHORTCUTS.LAST_7_DAYS
+  const timeRangeMapper: Record<string, moment.Moment[]> = {
+    [ViewTimeRangeType.Last_7]: DATE_RANGE_SHORTCUTS.LAST_7_DAYS,
+    [ViewTimeRangeType.Last_30]: DATE_RANGE_SHORTCUTS.LAST_30_DAYS,
+    [ViewTimeRangeType.LastMonth]: DATE_RANGE_SHORTCUTS.LAST_MONTH
+  }
+
+  const timeRange = formValues.viewTimeRange?.viewTimeRangeType || ViewTimeRangeType.Last_7
+
+  const dateRange = timeRangeMapper[timeRange]
   const [chartResult] = useFetchPerspectiveTimeSeriesQuery({
     variables: {
       filters: [
@@ -250,7 +260,7 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
           <GroupByView setGroupBy={setGroupBy} groupBy={groupBy} chartType={chartType} setChartType={setChartType} />
           {chartData?.perspectiveTimeSeriesStats ? (
             <CloudCostInsightChart
-              chartType={CCM_CHART_TYPES.COLUMN}
+              chartType={chartType === ViewChartType.StackedLineChart ? CCM_CHART_TYPES.AREA : CCM_CHART_TYPES.COLUMN}
               columnSequence={[]}
               setFilterUsingChartClick={() => {}}
               fetching={fetching}

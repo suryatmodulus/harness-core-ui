@@ -591,8 +591,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
               exact: true
             })
+            if (!matchDefault) return true
+
             let localUpdated = isUpdated
-            if (isYaml && yamlHandler) {
+            if (isYaml && yamlHandler && isYamlEditable) {
               try {
                 const parsedYaml = parse(yamlHandler.getLatestYaml())
                 if (!parsedYaml) {

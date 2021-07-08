@@ -5,8 +5,7 @@ import type { FormikExtended } from '@wings-software/uicore/dist/components/Form
 import type { CEView } from 'services/ce/'
 import type { QlceViewFieldIdentifierData } from 'services/ce/services'
 
-import type { PillData } from '../PerspectiveFilters/FilterPill'
-import PerspectiveBuilderFilter from './PerspectiveBuilderFilter'
+import PerspectiveBuilderFilter, { PillData } from './PerspectiveBuilderFilter'
 
 import css from './PerspectiveBuilderFilters.module.scss'
 
@@ -33,7 +32,7 @@ const Filters: React.FC<FiltersProps> = ({ index, formikProps, removePill, field
       name={`viewRules[${index}].viewConditions`}
       render={arrayHelpers => {
         const viewRules = formikProps?.values?.viewRules
-        const filters = (((viewRules && viewRules[index].viewConditions) || []) as unknown) as PillData[]
+        const filters = ((viewRules && viewRules[index].viewConditions) || []) as unknown as PillData[]
         return (
           <section className={cx(css.filterContainer)}>
             {filters.map((data, innerIndex) => {

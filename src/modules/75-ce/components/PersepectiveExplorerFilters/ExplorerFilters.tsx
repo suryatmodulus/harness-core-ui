@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Button } from '@wings-software/uicore'
+import { Container, Button, Icon } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 // import cx from 'classnames'
 import { useFetchViewFieldsQuery, QlceViewFilterWrapperInput, QlceViewFilterInput } from 'services/ce/services'
@@ -19,9 +19,9 @@ const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters }
       filters: [{ viewMetadataFilter: { viewId: perspectiveId, isPreview: false } } as QlceViewFilterWrapperInput]
     }
   })
-  const { data } = result
+  const { data, fetching } = result
 
-  const fieldIdentifierData = data?.perspectiveFields?.fieldIdentifierData || []
+  const fieldIdentifierData = data?.perspectiveFields?.fieldIdentifierData
 
   const onPillDataChange: (id: number, data: QlceViewFilterInput) => void = (id, data) => {
     if (data.field.identifier === 'CUSTOM') {
@@ -37,6 +37,22 @@ const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters }
       return filter
     }) as QlceViewFilterInput[]
     setFilters(newFilters)
+  }
+
+  if (fetching) {
+    return (
+      <Container>
+        <Icon name="spinner" />
+      </Container>
+    )
+  }
+
+  if (!fieldIdentifierData) {
+    return (
+      <Container>
+        <Icon name="deployment-incomplete-legacy" />
+      </Container>
+    )
   }
 
   return (

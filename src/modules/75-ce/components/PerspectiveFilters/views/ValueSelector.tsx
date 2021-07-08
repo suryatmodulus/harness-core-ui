@@ -5,7 +5,6 @@ import { RadioGroup, Radio } from '@blueprintjs/core'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import {
-  QlceViewFieldIdentifierData,
   QlceViewFilterOperator,
   useFetchPerspectiveFiltersValueQuery,
   QlceViewFilterWrapperInput
@@ -84,7 +83,7 @@ const OperatorSelector: React.FC<OperatorSelectorProps> = ({ setOperator, operat
 interface NameSelectorProps {
   fetching: boolean
   nameList: string[]
-  setService: React.Dispatch<React.SetStateAction<ProviderType | null | undefined>>
+  setService: React.Dispatch<React.SetStateAction<ProviderType | null>>
 }
 
 const NameSelector: React.FC<NameSelectorProps> = ({ fetching, nameList, setService }) => {
@@ -124,7 +123,7 @@ interface ValueSelectorProps {
   service: ProviderType
   provider: ProviderType
   isLabelOrTag: boolean
-  setService: React.Dispatch<React.SetStateAction<ProviderType | null | undefined>>
+  setService: React.Dispatch<React.SetStateAction<ProviderType | null>>
 }
 
 const ValueSelector: React.FC<ValueSelectorProps> = ({

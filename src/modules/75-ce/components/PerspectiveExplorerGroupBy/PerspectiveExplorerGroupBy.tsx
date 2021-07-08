@@ -6,8 +6,7 @@ import {
   useFetchViewFieldsQuery,
   QlceViewFilterWrapperInput,
   useFetchPerspectiveFiltersValueQuery,
-  QlceViewFieldInputInput,
-  QlceViewFilterInput
+  QlceViewFieldInputInput
 } from 'services/ce/services'
 import GroupByView from './GroupByView'
 import css from './PersepectiveExplorerGroupBy.module.scss'

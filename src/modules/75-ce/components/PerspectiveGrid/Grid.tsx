@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { useTable, usePagination, Column, useBlockLayout } from 'react-table'
 import { useSticky } from 'react-table-sticky'
-import { Pagination, Text } from '@wings-software/uicore'
+import { Pagination } from '@wings-software/uicore'
 import css from './Grid.module.scss'
 
 interface GridProps<T extends Record<string, unknown>> {

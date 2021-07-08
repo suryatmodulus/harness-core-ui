@@ -268,7 +268,7 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
           {gridData?.perspectiveGrid?.data && (
             <PerspectiveGrid
               gridFetching={gridFetching}
-              gridData={gridData?.perspectiveGrid?.data}
+              gridData={gridData?.perspectiveGrid?.data as any}
               groupBy={groupBy}
               showColumnSelector={false}
               tempGridColumns={true}

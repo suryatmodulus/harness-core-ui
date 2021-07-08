@@ -9,8 +9,8 @@ import css from './views.module.scss'
 
 interface ProviderSelectorProps {
   fieldValueList: QlceViewFieldIdentifierData[]
-  setProvider: React.Dispatch<React.SetStateAction<ProviderType | null | undefined>>
-  setService: React.Dispatch<React.SetStateAction<ProviderType | null | undefined>>
+  setProvider: React.Dispatch<React.SetStateAction<ProviderType | null>>
+  setService: React.Dispatch<React.SetStateAction<ProviderType | null>>
 }
 
 const ProviderSelector: React.FC<ProviderSelectorProps> = ({ fieldValueList, setProvider, setService }) => {

@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import cx from 'classnames'
 import { Icon, Layout, Text } from '@wings-software/uicore'
 import { Popover, Position, PopoverInteractionKind } from '@blueprintjs/core'
-import { QlceViewFieldIdentifierData, QlceViewFilterOperator, QlceViewFilterInput, Maybe } from 'services/ce/services'
+import type {
+  QlceViewFieldIdentifierData,
+  QlceViewFilterOperator,
+  QlceViewFilterInput,
+  Maybe
+} from 'services/ce/services'
 import ProviderSelector from './views/ProviderSelector'
 import ServiceSelector from './views/ServiceSelector'
 import ValueSelector from './views/ValueSelector'
@@ -65,9 +70,12 @@ const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id
   const { fieldName, identifierName, identifier, fieldId } = pillData.field
 
   const valuesObject: Record<string, boolean> = {}
-  pillData?.values.forEach(val => {
-    valuesObject[val] = true
-  })
+  pillData?.values &&
+    pillData?.values.forEach(val => {
+      if (val) {
+        valuesObject[val] = true
+      }
+    })
 
   const [provider, setProvider] = useState<ProviderType | null>({ id: identifier, name: identifierName || '' })
   const [service, setService] = useState<ProviderType | null>({ id: fieldId, name: fieldName })
@@ -76,6 +84,8 @@ const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id
   const [showError, setShowError] = useState(false)
 
   const valueList = Object.keys(values).filter(val => values[val])
+
+  const filteredFieldValuesList = fieldValuesList.filter(fieldValue => fieldValue) as QlceViewFieldIdentifierData[]
 
   // useEffect(() => {
   //   const { fieldName, identifierName, identifier, fieldId } = pillData.field
@@ -125,7 +135,7 @@ const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id
               field: {
                 fieldId: service?.id || '',
                 fieldName: service?.name || '',
-                identifier: provider?.id || '',
+                identifier: provider?.id || ('' as any),
                 identifierName: provider?.name || ''
               }
             })
@@ -150,10 +160,14 @@ const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id
                   isLabelOrTag={isFilterLabelOrTag(provider.id, service.id)}
                 />
               ) : (
-                <ServiceSelector setService={setService} provider={provider} fieldValueList={fieldValuesList} />
+                <ServiceSelector setService={setService} provider={provider} fieldValueList={filteredFieldValuesList} />
               )
             ) : (
-              <ProviderSelector setProvider={setProvider} setService={setService} fieldValueList={fieldValuesList} />
+              <ProviderSelector
+                setProvider={setProvider}
+                setService={setService}
+                fieldValueList={filteredFieldValuesList}
+              />
             )
           }
         >

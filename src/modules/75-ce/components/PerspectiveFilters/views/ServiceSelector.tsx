@@ -8,11 +8,11 @@ import css from './views.module.scss'
 interface ServiceSelectorProps {
   provider: ProviderType
   fieldValueList: QlceViewFieldIdentifierData[]
-  setService: React.Dispatch<React.SetStateAction<ProviderType | null | undefined>>
+  setService: React.Dispatch<React.SetStateAction<ProviderType | null>>
 }
 
 const ServiceSelector: React.FC<ServiceSelectorProps> = ({ provider, fieldValueList, setService }) => {
-  const serviceData = fieldValueList.filter(field => field.identifier === provider.id)[0].values
+  const serviceData = fieldValueList && fieldValueList.filter(field => field.identifier === provider.id)[0].values
 
   return (
     <Container className={css.providerDropDown}>

@@ -18,7 +18,7 @@ import {
 } from '@wings-software/uicore'
 import { Popover, Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
-import { useGetReportSetting, useCreateReportSetting, useDeleteReportSetting } from 'services/ce'
+import { useGetReportSetting, useCreateReportSetting } from 'services/ce'
 import routes from '@common/RouteDefinitions'
 import { QlceViewFieldInputInput, ViewChartType } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
@@ -60,11 +60,11 @@ interface TableActionsProps {
 }
 
 interface ReportsAndBudgetsProps {
-  values: CEView
+  values: CEView | undefined
   onPrevButtonClick: () => void
 }
 
-const ReportsAndBudgets = ({ values, onPrevButtonClick }: ReportsAndBudgetsProps) => {
+const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevButtonClick }) => {
   const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(() => {
     return (values?.viewVisualization?.groupBy as QlceViewFieldInputInput) || DEFAULT_GROUP_BY
   })
@@ -102,22 +102,24 @@ const ReportsAndBudgets = ({ values, onPrevButtonClick }: ReportsAndBudgetsProps
             <Button intent="primary" text="Save Perspective" onClick={() => savePerspective()} />
           </Layout.Horizontal>
         </Layout.Vertical>
-        <PerspectiveBuilderPreview
-          setGroupBy={(gBy: QlceViewFieldInputInput) => setGroupBy(gBy)}
-          groupBy={groupBy}
-          chartType={chartType}
-          setChartType={(type: ViewChartType) => {
-            setChartType(type)
-          }}
-          formValues={values}
-        />
+        {values && (
+          <PerspectiveBuilderPreview
+            setGroupBy={(gBy: QlceViewFieldInputInput) => setGroupBy(gBy)}
+            groupBy={groupBy}
+            chartType={chartType}
+            setChartType={(type: ViewChartType) => {
+              setChartType(type)
+            }}
+            formValues={values}
+          />
+        )}
       </Container>
     </Container>
   )
 }
 
-const ScheduledReports = () => {
-  const [openModal, hideModal] = useCreateReportModal()
+const ScheduledReports: React.FC = () => {
+  const [openModal] = useCreateReportModal()
   const { accountId, perspectiveId } = useParams<{ accountId: string; perspectiveId: string }>()
   const { data, loading } = useGetReportSetting({ accountId, queryParams: { perspectiveId } })
   const { mutate: createReport } = useCreateReportSetting({ accountId })
@@ -138,14 +140,14 @@ const ScheduledReports = () => {
         recipients: ['akash.bhardwaj@harness.io', 'yo@lo.com', 'no@email.com']
       })
 
-      console.log('response of create report: ', response)
+      // console.log('response of create report: ', response)
     } catch (e) {
-      console.log('error in creating report::::: ', e)
+      // console.log('error in creating report::::: ', e)
     }
   }
 
   const handleEdit = (value: ReportTableParams) => {
-    console.log('Edit values: ', value)
+    // console.log('Edit values: ', value)
   }
 
   const handleDelete = (value: ReportTableParams) => {
@@ -355,16 +357,16 @@ interface ReportDetailsForm {
   time: number
 }
 
-const NameSchema = () => {
-  const { getString } = useStrings()
-  return Yup.string()
-    .trim()
-    .required(getString('common.validation.nameIsRequired'))
-    .matches(regexName, getString('common.validation.namePatternIsNotValid'))
-}
+// const NameSchema = () => {
+//   const { getString } = useStrings()
+//   return Yup.string()
+//     .trim()
+//     .required(getString('common.validation.nameIsRequired'))
+//     .matches(regexName, getString('common.validation.namePatternIsNotValid'))
+// }
 
 const useCreateReportModal = () => {
-  const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
+  const { perspectiveId } = useParams<{ perspectiveId: string; accountId: string }>()
   const modalPropsLight: IDialogProps = {
     isOpen: true,
     usePortal: true,
@@ -377,7 +379,7 @@ const useCreateReportModal = () => {
   }
 
   const handleSubmit = (data: ReportDetailsForm) => {
-    console.log('onSubmit: ', data)
+    // console.log('onSubmit: ', data)
   }
 
   const [openModal, hideModal] = useModalHook(() => (
@@ -406,7 +408,7 @@ const useCreateReportModal = () => {
                 time: 9
               }}
             >
-              {formikProps => {
+              {() => {
                 return (
                   <FormikForm>
                     <Container style={{ minHeight: 560 }}>

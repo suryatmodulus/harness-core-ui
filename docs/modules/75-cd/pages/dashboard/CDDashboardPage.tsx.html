@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.88% </span>
+                <span class="strong">88.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/33</span>
+                <span class='fraction'>32/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">72.46% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>48/64</span>
+                <span class='fraction'>50/69</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">88.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/32</span>
+                <span class='fraction'>31/35</span>
             </div>
         
             
@@ -182,7 +182,16 @@
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -219,6 +228,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -227,6 +240,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -318,7 +336,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
 import { useGetWorkloads, useGetDeployments } from 'services/cd-ng'
-import { ActiveStatus, FailedStatus } from '@pipeline/components/Dashboards/shared'
+import { ActiveStatus, FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import DeploymentsHealthCards from './DeploymentsHealthCards'
 import DeploymentExecutionsChart from './DeploymentExecutionsChart'
 import WorkloadCard from './DeploymentCards/WorkloadCard'
@@ -336,7 +354,7 @@ export const CDDashboardPage: React.FC = () =&gt; {
   const history = useHistory()
   const { getString } = useStrings()
 &nbsp;
-  const { data, loading } = useGetDeployments({
+  const { data, loading, error, refetch } = useGetDeployments({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -344,7 +362,11 @@ export const CDDashboardPage: React.FC = () =&gt; {
     }
   })
 &nbsp;
-  const { data: workloadsData, loading: loadingWorkloads } = useGetWorkloads({
+  const {
+    data: workloadsData,
+    loading: loadingWorkloads,
+    error: workloadsError
+  } = useGetWorkloads({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -352,6 +374,11 @@ export const CDDashboardPage: React.FC = () =&gt; {
       ...range
     }
   })
+&nbsp;
+  useErrorHandler(error)
+  useErrorHandler(workloadsError)
+&nbsp;
+  const refetchingDeployments = useRefetchCall(refetch, loading)
 &nbsp;
   return (
     &lt;&gt;
@@ -370,7 +397,7 @@ export const CDDashboardPage: React.FC = () =&gt; {
         /&gt;
         &lt;h2&gt;{getString('overview')}&lt;/h2&gt;
       &lt;/div&gt;
-      &lt;Page.Body className={styles.content} loading={loading || loadingWorkloads}&gt;
+      &lt;Page.Body className={styles.content} loading={(loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!refetchingDeployments)</span> || loadingWorkloads}&gt;
         &lt;Container className={styles.page} padding="large"&gt;
           &lt;DeploymentsHealthCards /&gt;
           &lt;Container className={styles.executionsWrapper}&gt;
@@ -391,7 +418,7 @@ export const CDDashboardPage: React.FC = () =&gt; {
           &lt;/CardRailView&gt;
           &lt;CardRailView
             contentType="FAILED_DEPLOYMENT"
-            isLoading={false}
+            isLoading={loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!refetchingDeployments}</span>
             titleSideContent={false}
             onShowAll={<span class="fstat-no" title="function not covered" >() =</span>&gt;
 <span class="cstat-no" title="statement not covered" >              history.push(</span>
@@ -412,7 +439,7 @@ export const CDDashboardPage: React.FC = () =&gt; {
           &lt;/CardRailView&gt;
           &lt;CardRailView
             contentType="ACTIVE_DEPLOYMENT"
-            isLoading={loading}
+            isLoading={loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!refetchingDeployments}</span>
             titleSideContent={false}
             onShowAll={<span class="fstat-no" title="function not covered" >() =</span>&gt;
 <span class="cstat-no" title="statement not covered" >              history.push(</span>
@@ -439,7 +466,7 @@ export default CDDashboardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 08 2021 09:05:11 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 08 2021 11:30:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

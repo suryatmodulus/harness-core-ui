@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.11% </span>
+                <span class="strong">92.68% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/38</span>
+                <span class='fraction'>38/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.25% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>129/167</span>
+                <span class='fraction'>130/169</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.11% </span>
+                <span class="strong">92.68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/38</span>
+                <span class='fraction'>38/41</span>
             </div>
         
             
@@ -260,7 +260,11 @@
 <a name='L201'></a><a href='#L201'>201</a>
 <a name='L202'></a><a href='#L202'>202</a>
 <a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -299,6 +303,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -474,7 +482,7 @@ import { useGetBuildHealth } from 'services/ci'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { RangeSelectorWithTitle } from '../RangeSelector'
-import { roundNumber, formatDuration } from '../shared'
+import { roundNumber, formatDuration, useErrorHandler, useRefetchCall } from '../shared'
 import styles from './CIDashboardSummaryCards.module.scss'
 &nbsp;
 export interface SummaryCardProps {
@@ -493,7 +501,7 @@ export default function CIDashboardSummaryCards() {
   const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
   const [chartOptions, setChartOptions] = useState&lt;any&gt;(null)
 &nbsp;
-  const { data, loading } = useGetBuildHealth({
+  const { data, loading, error, refetch } = useGetBuildHealth({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -502,6 +510,10 @@ export default function CIDashboardSummaryCards() {
       endTime: range[1]
     }
   })
+&nbsp;
+  useErrorHandler(error)
+  const refetching = useRefetchCall(refetch, loading)
+  const showLoader = loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!refetching</span>
 &nbsp;
   useEffect(() =&gt; {
     const success = data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>uilds<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccess<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ount
@@ -536,7 +548,7 @@ export default function CIDashboardSummaryCards() {
           text={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>uilds<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ount}
           subContent={chartOptions &amp;&amp; &lt;HighchartsReact highcharts={Highcharts} options={chartOptions} /&gt;}
           rate={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>uilds<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ate}
-          isLoading={loading}
+          isLoading={showLoader}
           neutralColor
         /&gt;
         {/* &lt;SummaryCard title={getString('pipeline.dashboards.testCycleTimeSaved')} /&gt; */}
@@ -544,13 +556,13 @@ export default function CIDashboardSummaryCards() {
           title={getString('pipeline.dashboards.successfulBuilds')}
           text={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>uilds<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccess<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ount}
           rate={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>uilds<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccess<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ate}
-          isLoading={loading}
+          isLoading={showLoader}
         /&gt;
         &lt;SummaryCard
           title={getString('pipeline.dashboards.failedBuilds')}
           text={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>uilds<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ailed<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ount}
           rate={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>uilds<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ailed<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ate}
-          isLoading={loading}
+          isLoading={showLoader}
         /&gt;
       &lt;/Container&gt;
     &lt;/Container&gt;
@@ -673,7 +685,7 @@ const defaultChartOptions: Highcharts.Options = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 08 2021 09:05:11 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 08 2021 11:30:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

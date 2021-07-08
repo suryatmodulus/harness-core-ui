@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.12% </span>
+                <span class="strong">94.87% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>39/41</span>
+                <span class='fraction'>37/39</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">73.3% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>140/196</span>
+                <span class='fraction'>129/176</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95% </span>
+                <span class="strong">94.74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>38/40</span>
+                <span class='fraction'>36/38</span>
             </div>
         
             
@@ -232,7 +232,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -241,7 +240,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -255,25 +253,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -369,7 +369,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -379,7 +379,6 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetBuilds, useGetRepositoryBuild } from 'services/ci'
 import { useStrings } from 'framework/strings'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import CIDashboardSummaryCards from '@pipeline/components/Dashboards/CIDashboardSummaryCards/CIDashboardSummaryCards'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
 import FailedBuildCard from '@pipeline/components/Dashboards/BuildCards/FailedBuildCard'
@@ -387,19 +386,18 @@ import ActiveBuildCard from '@pipeline/components/Dashboards/BuildCards/ActiveBu
 import BuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
 import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
 import RangeSelector from '@pipeline/components/Dashboards/RangeSelector'
-import { ActiveStatus, FailedStatus } from '@pipeline/components/Dashboards/shared'
+import { ActiveStatus, FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import styles from './CIDashboardPage.module.scss'
 &nbsp;
 export const CIDashboardPage: React.FC = () =&gt; {
   const { projectIdentifier, orgIdentifier, accountId } = useParams&lt;ProjectPathProps&gt;()
   const history = useHistory()
-  const { showError } = useToaster()
   const { selectedProject } = useAppStore()
   const { getString } = useStrings()
   const project = selectedProject
   const [repositoriesRange, setRepositoriesRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
 &nbsp;
-  const { data, loading, error } = useGetBuilds({
+  const { data, loading, error, refetch } = useGetBuilds({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -410,7 +408,8 @@ export const CIDashboardPage: React.FC = () =&gt; {
   const {
     data: repositoriesData,
     loading: loadingRepositories,
-    error: repoError
+    error: repoError,
+    refetch: refetchRepos
   } = useGetRepositoryBuild({
     queryParams: {
       accountIdentifier: accountId,
@@ -421,13 +420,11 @@ export const CIDashboardPage: React.FC = () =&gt; {
     }
   })
 &nbsp;
-  useEffect(() =&gt; {
-<span class="branch-1 cbranch-no" title="branch not covered" >    error?.message </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >showError(error?.message, undefined, 'ci.get.build.error')</span>
-  }, [<span class="branch-1 cbranch-no" title="branch not covered" >error?.message]</span>)
+  const refetchingBuilds = useRefetchCall(refetch, loading)
+  const refetchingRepos = useRefetchCall(refetchRepos, loadingRepositories)
 &nbsp;
-  useEffect(() =&gt; {
-<span class="branch-1 cbranch-no" title="branch not covered" >    repoError?.message </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >showError(repoError?.message, undefined, 'ci.get.repo.error')</span>
-  }, [<span class="branch-1 cbranch-no" title="branch not covered" >repoError?.message]</span>)
+  useErrorHandler(error, undefined, 'ci.get.build.error')
+  useErrorHandler(repoError, undefined, 'ci.get.repo.error')
 &nbsp;
   return (
     &lt;&gt;
@@ -446,7 +443,10 @@ export const CIDashboardPage: React.FC = () =&gt; {
         /&gt;
         &lt;h2&gt;{getString('overview')}&lt;/h2&gt;
       &lt;/div&gt;
-      &lt;Page.Body className={styles.content} loading={loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >loadingRepositories}</span>&gt;
+      &lt;Page.Body
+        className={styles.content}
+        loading={loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!refetchingBuilds </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >loadingRepositories </span>&amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >!refetchingRepos}</span>
+      &gt;
         &lt;Container className={styles.page} padding="large"&gt;
           &lt;CIDashboardSummaryCards /&gt;
           &lt;Container className={styles.executionsWrapper}&gt;
@@ -454,7 +454,7 @@ export const CIDashboardPage: React.FC = () =&gt; {
           &lt;/Container&gt;
           &lt;CardRailView
             contentType="REPOSITORY"
-            isLoading={loadingRepositories}
+            isLoading={loadingRepositories &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!refetchingRepos}</span>
             titleSideContent={&lt;RangeSelector onRangeSelected={setRepositoriesRange} /&gt;}
           &gt;
             {repositoriesData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>epositoryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((repo, index) =&gt; (
@@ -476,7 +476,7 @@ export const CIDashboardPage: React.FC = () =&gt; {
           &lt;/CardRailView&gt;
           &lt;CardRailView
             contentType="FAILED_BUILD"
-            isLoading={loading}
+            isLoading={loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!refetchingBuilds}</span>
             titleSideContent={
               !!data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ailed<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; &lt;Text font={{ size: 'small' }}&gt;Top {data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ailed<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength}&lt;/Text&gt;
             }
@@ -503,7 +503,7 @@ export const CIDashboardPage: React.FC = () =&gt; {
           &lt;/CardRailView&gt;
           &lt;CardRailView
             contentType="ACTIVE_BUILD"
-            isLoading={loading}
+            isLoading={loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!refetchingBuilds}</span>
             titleSideContent={
               !!data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctive<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; &lt;Text font={{ size: 'small' }}&gt;Top {data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctive<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength}&lt;/Text&gt;
             }
@@ -532,7 +532,7 @@ export default CIDashboardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 08 2021 09:05:11 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 08 2021 11:30:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.56% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/18</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">59.38% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/32</span>
+                <span class='fraction'>19/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.56% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/18</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -149,16 +149,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,14 +165,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -224,14 +224,14 @@ export interface CICodebaseInputSetFormProps {
   formik?: FormikContext&lt;any&gt;
 }
 &nbsp;
-const CICodebaseInputSetFormInternal = <span class="fstat-no" title="function not covered" >({</span> path, readonly, formik }: CICodebaseInputSetFormProps): JSX.Element =&gt; {
-  const type = <span class="cstat-no" title="statement not covered" >get(formik?.values, `${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`, '') as</span>
+const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseInputSetFormProps): JSX.Element =&gt; {
+  const type = get(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues, `${isEmpty(path) ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: `${path}.`}properties.ci.codebase.build.type`, '') as
     | 'branch'
     | 'tag'
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+  const { getString } = useStrings()
   const disableOnWebhookTrigger =
-<span class="cstat-no" title="statement not covered" >    formik?.values?.triggerType === TriggerTypes.WEBHOOK &amp;&amp; formik.values.sourceRepo !== CUSTOM</span>
-  const radioGroupItems = <span class="cstat-no" title="statement not covered" >[</span>
+    formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>riggerType === TriggerTypes.WEBHOOK &amp;&amp; formik.values.sourceRepo !== CUSTOM
+  const radioGroupItems = [
     {
       label: getString('gitBranch'),
       value: 'branch',
@@ -244,17 +244,17 @@ const CICodebaseInputSetFormInternal = <span class="fstat-no" title="function no
     }
   ]
 &nbsp;
-  const { expressions } = <span class="cstat-no" title="statement not covered" >useVariablesExpression()</span>
+  const { expressions } = useVariablesExpression()
 &nbsp;
-  const inputLabels = <span class="cstat-no" title="statement not covered" >{</span>
+  const inputLabels = {
     branch: getString('gitBranch'),
     tag: getString('gitTag')
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className={css.container}&gt;
       &lt;FormInput.RadioGroup
-        name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`}
+        name={`${isEmpty(path) ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: `${path}.`}properties.ci.codebase.build.type`}
         items={radioGroupItems}
         radioGroup={{ inline: true }}
         disabled={disableOnWebhookTrigger}
@@ -266,7 +266,7 @@ const CICodebaseInputSetFormInternal = <span class="fstat-no" title="function no
       {type &amp;&amp; (
         &lt;FormInput.MultiTextInput
           label={inputLabels[type]}
-          name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${type}`}
+          name={`${isEmpty(path) ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: `${path}.`}properties.ci.codebase.build.spec.${type}`}
           multiTextInputProps={{
             expressions,
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
@@ -276,7 +276,7 @@ const CICodebaseInputSetFormInternal = <span class="fstat-no" title="function no
         /&gt;
       )}
       {disableOnWebhookTrigger &amp;&amp; (
-        &lt;Text style={{ marginTop: 'var(--spacing-xsmall)' }} color={Color.GREY_400}&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;Text style={{ marginTop: 'var(--spacing-xsmall)' }} color={Color.GREY_400}&gt;</span>
           {getString('pipeline.triggers.pipelineInputPanel.automaticallyExtractedFromText')}
         &lt;/Text&gt;
       )}
@@ -292,7 +292,7 @@ export const CICodebaseInputSetForm = connect(CICodebaseInputSetFormInternal)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 08 2021 14:11:22 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 08 2021 21:22:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

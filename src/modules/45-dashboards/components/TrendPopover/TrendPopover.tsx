@@ -1,7 +1,8 @@
 import React from 'react'
 import { useMemo } from 'react'
+import cx from 'classnames'
 import { Classes, PopoverInteractionKind, Position } from '@blueprintjs/core'
-import { Button, Color, Layout, Popover, Text } from '@wings-software/uicore'
+import { Color, Icon, Layout, Popover, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { TIME_RANGE_ENUMS, useTimeRangeOptions } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
 import { SparklineChart, SparklineChartProps } from '@common/components/SparklineChart/SparklineChart'
@@ -25,7 +26,7 @@ const Trend: React.FC<TrendPopoverProps> = props => {
         <Text color={Color.GREY_600} font={{ weight: 'semi-bold' }}>
           {title}
         </Text>
-        <Button minimal icon="cross" iconProps={{ size: 16 }} className={Classes.POPOVER_DISMISS} />
+        <Icon name="cross" size={16} className={cx(Classes.POPOVER_DISMISS, css.hover)} />
       </Layout.Horizontal>
       <SparklineChart
         data={data}

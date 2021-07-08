@@ -1,16 +1,24 @@
 import React from 'react'
-import { Text, TextProps } from '@wings-software/uicore'
+import { Icon } from '@wings-software/uicore'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import cx from 'classnames'
+
+import css from './UserLabel.module.scss'
 
 export interface UserLabelProps {
   name: string
   profilePictureUrl?: string // for future use
-  textProps?: TextProps // optional props to pass to the underlying Text component
+  className?: string
+  iconProps?: Omit<IconProps, 'name'>
 }
 
-export const UserLabel: React.FC<UserLabelProps> = ({ name, textProps }) => {
+export function UserLabel(props: UserLabelProps): React.ReactElement {
+  const { name, className, iconProps } = props
+
   return (
-    <Text inline icon="user" {...textProps}>
-      {name}
-    </Text>
+    <div className={cx(css.userLabel, className)}>
+      <Icon name="user" size={18} {...iconProps} />
+      <span>{name}</span>
+    </div>
   )
 }

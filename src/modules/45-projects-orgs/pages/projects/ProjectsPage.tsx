@@ -135,6 +135,7 @@ const ProjectsListPage: React.FC = () => {
       <Layout.Horizontal spacing="large" className={css.header}>
         <Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() => openProjectModal()} />
         <CustomSelect
+          disabled={loading}
           items={organizations}
           filterable={false}
           itemRenderer={(item, { handleClick }) => (
@@ -154,6 +155,7 @@ const ProjectsListPage: React.FC = () => {
             inline
             round
             rightIcon="chevron-down"
+            disabled={loading}
             className={css.orgSelect}
             text={
               <Layout.Horizontal spacing="xsmall">

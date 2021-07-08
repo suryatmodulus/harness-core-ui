@@ -149,6 +149,10 @@ const mockedSecurityGroupResponse = {
   ]
 }
 
+const mockedK8sClusterIdentifier = 'mock-kubernetes-id'
+
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+
 jest.mock('services/lw', () => ({
   useAllResourcesOfAccount: jest.fn().mockImplementation(() => ({
     mutate: jest.fn(() =>
@@ -295,5 +299,31 @@ describe('Auto stopping Rule creation Tests', () => {
       expect(spotInstanceInput.value).toBe('1')
       expect(container).toMatchSnapshot()
     }
+  })
+
+  test('kubernestes config edit', () => {
+    const { container } = render(
+      <TestWrapper pathParams={params}>
+        <COGatewayConfig
+          setGatewayDetails={jest.fn()}
+          setValidity={jest.fn()}
+          valid={false}
+          gatewayDetails={{
+            ...initialGatewayDetails,
+            kind: 'k8s',
+            metadata: {
+              ...initialGatewayDetails.metadata,
+              kubernetes_connector_id: mockedK8sClusterIdentifier
+            },
+            routing: {
+              ...initialGatewayDetails.routing,
+              k8s: { RuleJson: '{"apiVersion":"lightwing.lightwing.io/v1","kind":"AutoStoppingRule"}' }
+            }
+          }}
+        />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
   })
 })

@@ -19,6 +19,7 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
             height="37"
             viewBox="0 0 89 73"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -178,7 +179,7 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -298,6 +299,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
             height="37"
             viewBox="0 0 89 73"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -620,6 +622,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                           <svg
                             height="24"
                             width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <g
                               fill="none"
@@ -678,6 +681,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                           <svg
                             height="24"
                             width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <g
                               fill="none"
@@ -792,6 +796,7 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
             height="37"
             viewBox="0 0 89 73"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"

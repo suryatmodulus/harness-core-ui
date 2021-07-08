@@ -35,7 +35,7 @@ export const TimeRangeSelector: React.FC<{
       className={css.timeRangeSelector}
       content={
         <Menu>
-          {((Object.keys(TIME_RANGE_OPTIONS) as unknown) as TIME_RANGE_ENUMS[]).map(timeRangeOptionKey => {
+          {(Object.keys(TIME_RANGE_OPTIONS) as unknown as TIME_RANGE_ENUMS[]).map(timeRangeOptionKey => {
             return (
               <MenuItem
                 text={TIME_RANGE_OPTIONS[timeRangeOptionKey]}

@@ -130,28 +130,24 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
         pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests
       </div>
       <div
-        class="Layout--horizontal StyledProps--main"
+        class="Layout--vertical StyledProps--main"
       >
         <div
-          class="Layout--vertical StyledProps--main"
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
         >
           <div
-            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
           >
-            <div
-              class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+            <section />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              data-test-id="addManifest"
+              style="cursor: pointer;"
             >
-              <section />
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-                data-test-id="addManifest"
-                style="cursor: pointer;"
-              >
-                <span>
-                  pipelineSteps.serviceTab.manifestList.addManifest
-                </span>
-              </p>
-            </div>
+              <span>
+                pipelineSteps.serviceTab.manifestList.addManifest
+              </span>
+            </p>
           </div>
         </div>
       </div>
@@ -167,43 +163,40 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
         pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts
       </div>
       <div
-        class="Layout--horizontal StyledProps--main"
+        class="Layout--vertical StyledProps--main"
+        style="width: 100%;"
       >
         <div
-          class="Layout--vertical StyledProps--main"
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
         >
           <div
-            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+            class="Layout--vertical StyledProps--main"
           >
-            <div
-              class="Layout--vertical StyledProps--main"
-            >
-              <section />
-            </div>
+            <section />
           </div>
-          <div>
-            <div
-              class="addArtifact"
+        </div>
+        <div>
+          <div
+            class="addArtifact"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-              >
-                <span>
-                  pipelineSteps.serviceTab.artifactList.addPrimary
-                </span>
-              </p>
-            </div>
-            <div
-              class="addArtifact"
+              <span>
+                pipelineSteps.serviceTab.artifactList.addPrimary
+              </span>
+            </p>
+          </div>
+          <div
+            class="addArtifact"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-              >
-                <span>
-                  pipelineSteps.serviceTab.artifactList.addSidecar
-                </span>
-              </p>
-            </div>
+              <span>
+                pipelineSteps.serviceTab.artifactList.addSidecar
+              </span>
+            </p>
           </div>
         </div>
       </div>

@@ -114,9 +114,6 @@ const FlagResultTooltip: React.FC<FlagResultProps> = ({ feature }) => {
         >
           ({new Intl.NumberFormat().format(metricsCount)})
         </Text>
-        <Text color={Color.WHITE} font={{ size: 'xsmall' }} padding={{ top: 'xsmall' }}>
-          {getString('cf.featureFlags.metrics.last7Days')}
-        </Text>
       </Heading>
       <Container>
         <table className={cx(Classes.HTML_TABLE, Classes.HTML_TABLE_CONDENSED, Classes.SMALL, css.tooltipTable)}>

@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import { Button, Container, Formik, FormikForm, Layout, Text, NestedAccordionProvider } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import type { FormikErrors } from 'formik'
 import type { NgPipeline } from 'services/cd-ng'
 import {
@@ -41,6 +41,7 @@ import GitContextForm, { GitContextProps } from '@common/components/GitContextFo
 import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -50,6 +51,7 @@ import GitPopover from '../GitPopover/GitPopover'
 import { ErrorsStrip } from '../ErrorsStrip/ErrorsStrip'
 import { StepViewType } from '../AbstractSteps/Step'
 import css from './InputSetForm.module.scss'
+
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
   pipeline?: NgPipeline
   identifier?: string
@@ -111,7 +113,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const [initialGitDetails, setInitialGitDetails] = React.useState<EntityGitDetails>({ repoIdentifier, branch })
   const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const history = useHistory()
-  const { refetch: refetchTemplate, data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
+  const {
+    refetch: refetchTemplate,
+    data: template,
+    loading: loadingTemplate
+  } = useGetTemplateFromPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -147,7 +153,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const [formErrors, setFormErrors] = React.useState<Record<string, any>>({})
   const { showSuccess, showError } = useToaster()
 
-  const { data: inputSetResponse, refetch, loading: loadingInputSet } = useGetInputSetForPipeline({
+  const {
+    data: inputSetResponse,
+    refetch,
+    loading: loadingInputSet
+  } = useGetInputSetForPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -199,7 +209,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
-  const { data: pipeline, loading: loadingPipeline, refetch: refetchPipeline } = useGetPipeline({
+  const {
+    data: pipeline,
+    loading: loadingPipeline,
+    refetch: refetchPipeline
+  } = useGetPipeline({
     pipelineIdentifier,
     lazy: true,
     queryParams: {
@@ -277,7 +291,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     let response: ResponseInputSetResponse | null = null
     try {
       if (isEdit) {
-        response = await updateInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
+        response = await updateInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
           pathParams: {
             inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ ''
           },
@@ -293,7 +307,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           }
         })
       } else {
-        response = await createInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
+        response = await createInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
           queryParams: {
             accountIdentifier: accountId,
             orgIdentifier,
@@ -349,8 +363,9 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   })
 
   const handleSubmit = React.useCallback(
-    async (inputSetObj: InputSetDTO, gitDetails?: EntityGitDetails) => {
-      setSavedInputSetObj(omit(inputSetObj, 'repo', 'branch'))
+    async (inputSetObjWithGitInfo: InputSetDTO, gitDetails?: EntityGitDetails) => {
+      const inputSetObj = omit(inputSetObjWithGitInfo, 'repo', 'branch')
+      setSavedInputSetObj(inputSetObj)
       setInitialGitDetails(gitDetails as EntityGitDetails)
       if (inputSetObj) {
         if (isGitSyncEnabled) {
@@ -362,10 +377,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
               identifier: inputSetObj.identifier as string,
               gitDetails: isEdit ? inputSetResponse?.data?.gitDetails : gitDetails
             },
-            payload: { inputSet: omit(inputSetObj, 'repo', 'branch') }
+            payload: { inputSet: inputSetObj }
           })
         } else {
-          createUpdateInputSet(omit(inputSetObj, 'repo', 'branch'))
+          createUpdateInputSet(inputSetObj)
         }
       }
     },
@@ -433,8 +448,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                                   formikProps={formikProps}
                                   gitDetails={
                                     isEdit
-                                      ? { ...inputSet.gitDetails, getDefaultFromOtherRepo: false }
-                                      : { repoIdentifier, branch, getDefaultFromOtherRepo: false }
+                                      ? { ...inputSet.gitDetails, getDefaultFromOtherRepo: true }
+                                      : { repoIdentifier, branch, getDefaultFromOtherRepo: true }
                                   }
                                   className={css.gitContextForm}
                                 />
@@ -609,7 +624,7 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                   : getString('inputSets.newInputSetLabel')}
               </Text>
               {isGitSyncEnabled && isEdit && (
-                <GitPopover data={inputSet.gitDetails || {}} iconMargin={{ left: 'small', top: 'xsmall' }} />
+                <GitPopover data={inputSet.gitDetails || {}} iconProps={{ margin: { left: 'small', top: 'xsmall' } }} />
               )}
               <div className={css.optionBtns}>
                 <VisualYamlToggle

@@ -73,6 +73,7 @@ const textColor: { [key: string]: string } = {
 }
 
 function IconCell(tableProps: CellProps<Service>): JSX.Element {
+  const isK8sRule = tableProps.row.original.kind === 'k8s'
   const getIcon = () => {
     return tableProps.value === 'spot'
       ? tableProps.row.original.disabled
@@ -84,7 +85,11 @@ function IconCell(tableProps: CellProps<Service>): JSX.Element {
   }
   return (
     <Layout.Horizontal spacing="medium">
-      <img className={css.fulFilmentIcon} src={getIcon()} alt="" width={'20px'} height={'19px'} aria-hidden />
+      {isK8sRule ? (
+        <Icon name="app-kubernetes" size={21} />
+      ) : (
+        <img className={css.fulFilmentIcon} src={getIcon()} alt="" width={'20px'} height={'19px'} aria-hidden />
+      )}
       <Text lineClamp={3} color={tableProps.row.original.disabled ? textColor.disable : Color.GREY_500}>
         {tableProps.value}
       </Text>
@@ -190,7 +195,12 @@ const COGatewayList: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
   const [tableData, setTableData] = useState<Service[]>([])
 
-  const { data: servicesData, error, loading, refetch: refetchServices } = useGetServices({
+  const {
+    data: servicesData,
+    error,
+    loading,
+    refetch: refetchServices
+  } = useGetServices({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
@@ -278,6 +288,7 @@ const COGatewayList: React.FC = () => {
     )
   }
   function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
+    const isK8sRule = tableProps.row.original.kind === 'k8s'
     const { data, loading: healthLoading } = useHealthOfService({
       org_id: orgIdentifier, // eslint-disable-line
       projectID: projectIdentifier, // eslint-disable-line
@@ -288,13 +299,18 @@ const COGatewayList: React.FC = () => {
       debounce: 300
     })
 
-    const { data: resources, loading: resourcesLoading, error: resourcesError } = useAllServiceResources({
+    const {
+      data: resources,
+      loading: resourcesLoading,
+      error: resourcesError
+    } = useAllServiceResources({
       org_id: orgIdentifier, // eslint-disable-line
       project_id: projectIdentifier, // eslint-disable-line
       service_id: tableProps.row.original.id as number, // eslint-disable-line
-      debounce: 300
+      debounce: 300,
+      lazy: isK8sRule
     })
-    if (resourcesError) {
+    if (!isK8sRule && resourcesError) {
       showError(
         `could not load resources for rule ${tableProps.row.original.name}`,
         undefined,
@@ -314,33 +330,37 @@ const COGatewayList: React.FC = () => {
       <Container style={{ maxWidth: '80%' }}>
         <Layout.Vertical spacing="medium">
           <Layout.Horizontal spacing="xxxsmall">
-            <Text
-              style={{
-                alignSelf: 'center',
-                color: tableProps.row.original.disabled ? textColor.disable : 'inherit',
-                marginRight: 5
-              }}
-            >
-              No. of instances:
-            </Text>
-            {!resourcesLoading && resources?.response ? (
-              <Link
-                href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
-                target="_blank"
-                style={{
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  color: tableProps.row.original.disabled ? textColor.disable : 'inherit',
-                  marginRight: 5
-                }}
-                onClick={e => {
-                  e.stopPropagation()
-                }}
-              >
-                {resources?.response?.length}
-              </Link>
-            ) : (
-              <Icon name="spinner" size={12} color="blue500" style={{ marginRight: 5 }} />
+            {!isK8sRule && (
+              <>
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                    color: tableProps.row.original.disabled ? textColor.disable : 'inherit',
+                    marginRight: 5
+                  }}
+                >
+                  No. of instances:
+                </Text>
+                {!resourcesLoading && resources?.response ? (
+                  <Link
+                    href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
+                    target="_blank"
+                    style={{
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      color: tableProps.row.original.disabled ? textColor.disable : 'inherit',
+                      marginRight: 5
+                    }}
+                    onClick={e => {
+                      e.stopPropagation()
+                    }}
+                  >
+                    {resources?.response?.length}
+                  </Link>
+                ) : (
+                  <Icon name="spinner" size={12} color="blue500" style={{ marginRight: 5 }} />
+                )}
+              </>
             )}
             {!tableProps.row.original.disabled && (
               <>

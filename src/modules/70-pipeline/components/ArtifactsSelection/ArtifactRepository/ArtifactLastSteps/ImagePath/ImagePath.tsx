@@ -74,7 +74,12 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
     })
   })
 
-  const { data, loading, refetch, error: dockerTagError } = useGetBuildDetailsForDocker({
+  const {
+    data,
+    loading,
+    refetch,
+    error: dockerTagError
+  } = useGetBuildDetailsForDocker({
     queryParams: {
       imagePath: lastImagePath,
       connectorRef: prevStepData?.connectorId?.value

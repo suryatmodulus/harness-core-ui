@@ -159,7 +159,7 @@ describe('Create datadog connector Wizard', () => {
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={
-            ({
+            {
               name: 'DataDogConnector101',
               identifier: 'DataDogConnector101',
               description: '',
@@ -175,7 +175,7 @@ describe('Create datadog connector Wizard', () => {
                 apiKeyRef: 'datadog_api_secret',
                 delegateSelectors: []
               }
-            } as unknown) as ConnectorInfoDTO
+            } as unknown as ConnectorInfoDTO
           }
         />
       </TestWrapper>
@@ -241,7 +241,7 @@ describe('Create datadog connector Wizard', () => {
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={
-            ({
+            {
               name: 'DataDogConnector101',
               identifier: 'DataDogConnector101',
               description: '',
@@ -256,7 +256,7 @@ describe('Create datadog connector Wizard', () => {
                 apiKeyRef: 'datadog_api_secret',
                 delegateSelectors: []
               }
-            } as unknown) as ConnectorInfoDTO
+            } as unknown as ConnectorInfoDTO
           }
         />
       </TestWrapper>

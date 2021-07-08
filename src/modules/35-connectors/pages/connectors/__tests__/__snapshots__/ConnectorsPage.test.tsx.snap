@@ -2220,6 +2220,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                           height="25"
                           viewBox="0 0 24 24"
                           width="25"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <mask
                             fill="#fff"
@@ -2352,6 +2353,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                                     height="16"
                                     viewBox="0 0 4 16"
                                     width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
                                       clip-rule="evenodd"
@@ -2419,6 +2421,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                                     height="16"
                                     viewBox="0 0 4 16"
                                     width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
                                       clip-rule="evenodd"
@@ -2756,6 +2759,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                           height="25"
                           viewBox="0 0 24 24"
                           width="25"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <mask
                             fill="#fff"
@@ -2888,6 +2892,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                                     height="16"
                                     viewBox="0 0 4 16"
                                     width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
                                       clip-rule="evenodd"
@@ -2955,6 +2960,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                                     height="16"
                                     viewBox="0 0 4 16"
                                     width="16"
+                                    xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
                                       clip-rule="evenodd"

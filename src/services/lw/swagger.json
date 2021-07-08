@@ -2277,6 +2277,9 @@
           "items": {
             "$ref": "#/definitions/ServiceError"
           }
+        },
+        "kubernetes_connector_id": {
+          "type": "string"
         }
       }
     },
@@ -2814,6 +2817,14 @@
         },
         "lb": {
           "type": "string"
+        },
+        "k8s": {
+          "type": "object",
+          "properties": {
+            "RuleJson": {
+              "type": "string"
+            }
+          }
         }
       }
     },

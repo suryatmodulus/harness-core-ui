@@ -8,7 +8,6 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   SelectOption,
-  ExpressionInput,
   Icon,
   Layout,
   Color,
@@ -256,15 +255,11 @@ export default function TerraformEditView(
                                 skipRenderValueInExpressionLabel
                                 expressionRender={() => {
                                   return (
-                                    <ExpressionInput
-                                      value={
-                                        formik.values.spec?.configuration?.spec?.backendConfig?.spec?.content || ''
-                                      }
+                                    <TFMonaco
                                       name="spec.configuration.spec.backendConfig.spec.content"
-                                      onChange={value => {
-                                        setFieldValue('spec.configuration.spec.backendConfig.type', 'Inline')
-                                        setFieldValue('spec.configuration.spec.backendConfig.spec.content', value)
-                                      }}
+                                      formik={formik}
+                                      expressions={expressions}
+                                      title={getString('cd.backEndConfig')}
                                     />
                                   )
                                 }}
@@ -272,6 +267,7 @@ export default function TerraformEditView(
                                 <TFMonaco
                                   name="spec.configuration.spec.backendConfig.spec.content"
                                   formik={formik}
+                                  expressions={expressions}
                                   title={getString('cd.backEndConfig')}
                                 />
                               </MultiTypeFieldSelector>

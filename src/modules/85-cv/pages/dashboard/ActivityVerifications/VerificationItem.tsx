@@ -10,7 +10,7 @@ import {
   DeploymentPopoverSummary,
   VerificationResult
 } from 'services/cv'
-import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
+import CVProgressBar from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/CVProgressBar/CVProgressBar'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import ActivityType from '../ActivityType/ActivityType'
@@ -27,7 +27,11 @@ export default function VerificationItem({
 }): React.ReactElement {
   const { serviceName, tag, serviceIdentifier } = item
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { data: tooltipData, loading, refetch: loadPopoverSummary } = useGetVerificationsPopoverSummary({
+  const {
+    data: tooltipData,
+    loading,
+    refetch: loadPopoverSummary
+  } = useGetVerificationsPopoverSummary({
     deploymentTag: encodeURIComponent(tag as string),
     lazy: true
   })
@@ -148,7 +152,7 @@ function ItemTooltip(props: {
                     <CVProgressBar status={item.status} value={item.progressPercentage} />
                     <Container className={css.tooltipDateGroup}>
                       <Text color={Color.GREY_400} style={{ fontSize: 12, marginRight: 2 }}>
-                        {getString('cv.startedOn')}:
+                        {getString('pipeline.startedOn')}:
                       </Text>
                       <Text color={Color.GREY_400} style={{ fontSize: 12 }}>
                         {moment(item.startTime).format('MMM D, h:mm:ss a')}

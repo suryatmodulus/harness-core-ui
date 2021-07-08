@@ -15,13 +15,6 @@ declare const styles: {
   readonly serviceCards: string
   readonly bp3Card: string
   readonly disabled: string
-  readonly deploymentTypeError: string
-  readonly deploymentTypeGroups: string
-  readonly deploymentTypeGroup: string
-  readonly connectionType: string
-  readonly changeButton: string
-  readonly squareCardContainer: string
-  readonly squareCard: string
   readonly createStageGrid: string
   readonly editStageGrid: string
   readonly contentSection: string
@@ -33,5 +26,6 @@ declare const styles: {
   readonly error: string
   readonly nopadleft: string
   readonly subheading: string
+  readonly thumbnailSelect: string
 }
 export default styles

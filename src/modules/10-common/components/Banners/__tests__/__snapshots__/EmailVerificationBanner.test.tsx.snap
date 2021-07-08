@@ -24,6 +24,7 @@ exports[`EmailVerificationBanner email verify fails 1`] = `
             height="18"
             viewBox="0 0 14 14"
             width="18"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <circle
               cx="7"
@@ -81,6 +82,7 @@ exports[`EmailVerificationBanner email verify success 1`] = `
           height="18"
           viewBox="0 0 14 14"
           width="18"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <circle
             cx="7"
@@ -130,6 +132,7 @@ exports[`EmailVerificationBanner render 1`] = `
             height="18"
             viewBox="0 0 14 14"
             width="18"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <circle
               cx="7"

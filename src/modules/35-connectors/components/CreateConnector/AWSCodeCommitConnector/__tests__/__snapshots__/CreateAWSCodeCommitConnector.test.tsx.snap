@@ -19,6 +19,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
             height="37"
             viewBox="0 0 12 14"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M1.9 11.8L.3 11V2.9l1.6-.8z"
@@ -195,7 +196,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -242,6 +243,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />

@@ -156,29 +156,38 @@ type UnaryInstructionCreator<A, B extends ParameterType> = (a: A) => Instruction
 type BinaryInstructionCreator<A, B, C extends ParameterType> = (a: A, b: B) => Instruction<C>
 type TernaryInstructionCreator<A, B, C, D extends ParameterType> = (a: A, b: B, c: C) => Instruction<D>
 
-export const shape = <A = any>(...keys: string[]) => (...values: any[]) => zipObject(keys, values) as A
+export const shape =
+  <A = any>(...keys: string[]) =>
+  (...values: any[]) =>
+    zipObject(keys, values) as A
 const identity = <T>(a: T) => a
-export const unaryInstructionCreator = <A, B extends ParameterType>(
-  kind: PatchKind,
-  parameterBuilder: UnaryParameterBuilder<A, B>
-): UnaryInstructionCreator<A, B> => (arg: A) => ({
-  kind,
-  parameters: parameterBuilder(arg)
-})
-export const binaryInstructionCreator = <A, B, C extends ParameterType>(
-  kind: PatchKind,
-  parameterBuilder: BinaryParameterBuilder<A, B, C>
-): BinaryInstructionCreator<A, B, C> => (a: A, b: B) => ({
-  kind,
-  parameters: parameterBuilder(a, b)
-})
-export const ternaryInstructionCreator = <A, B, C, D extends ParameterType>(
-  kind: PatchKind,
-  parameterBuilder: TernaryParameterBuilder<A, B, C, D>
-): TernaryInstructionCreator<A, B, C, D> => (a: A, b: B, c: C) => ({
-  kind,
-  parameters: parameterBuilder(a, b, c)
-})
+export const unaryInstructionCreator =
+  <A, B extends ParameterType>(
+    kind: PatchKind,
+    parameterBuilder: UnaryParameterBuilder<A, B>
+  ): UnaryInstructionCreator<A, B> =>
+  (arg: A) => ({
+    kind,
+    parameters: parameterBuilder(arg)
+  })
+export const binaryInstructionCreator =
+  <A, B, C extends ParameterType>(
+    kind: PatchKind,
+    parameterBuilder: BinaryParameterBuilder<A, B, C>
+  ): BinaryInstructionCreator<A, B, C> =>
+  (a: A, b: B) => ({
+    kind,
+    parameters: parameterBuilder(a, b)
+  })
+export const ternaryInstructionCreator =
+  <A, B, C, D extends ParameterType>(
+    kind: PatchKind,
+    parameterBuilder: TernaryParameterBuilder<A, B, C, D>
+  ): TernaryInstructionCreator<A, B, C, D> =>
+  (a: A, b: B, c: C) => ({
+    kind,
+    parameters: parameterBuilder(a, b, c)
+  })
 
 const updateName: (name: string) => Instruction<UpdateNameParams> = unaryInstructionCreator(
   'updateName',
@@ -233,13 +242,8 @@ const setFeatureFlagState: (state: 'on' | 'off') => Instruction<SetStateParams> 
   'setFeatureFlagState',
   shape<SetStateParams>('state')
 )
-const addTargetsToVariationTargetMap: (
-  variation: string,
-  targets: string[]
-) => Instruction<TargetToVariationParams> = binaryInstructionCreator(
-  'addTargetsToVariationTargetMap',
-  shape<TargetToVariationParams>('variation', 'targets')
-)
+const addTargetsToVariationTargetMap: (variation: string, targets: string[]) => Instruction<TargetToVariationParams> =
+  binaryInstructionCreator('addTargetsToVariationTargetMap', shape<TargetToVariationParams>('variation', 'targets'))
 const removeTargetsToVariationTargetMap: (
   variation: string,
   targets: string[]
@@ -289,21 +293,14 @@ const removeClause: (ruleID: string, clauseID: string) => Instruction<RemoveClau
   'removeClause',
   shape('ruleID', 'clauseID')
 )
-const updateClause: (
-  ruleID: string,
-  clauseID: string,
-  clause: ClauseData
-) => Instruction<UpdateClauseParams> = ternaryInstructionCreator('updateClause', shape('ruleID', 'clauseID', 'clause'))
+const updateClause: (ruleID: string, clauseID: string, clause: ClauseData) => Instruction<UpdateClauseParams> =
+  ternaryInstructionCreator('updateClause', shape('ruleID', 'clauseID', 'clause'))
 const reorderRules: (rules: string[]) => Instruction<ReorderRulesParams> = unaryInstructionCreator(
   'reorderRules',
   shape<ReorderRulesParams>('rules')
 )
-const updateDefaultServeByVariation: (
-  variation: string
-) => Instruction<UpdateDefaultServeParams> = unaryInstructionCreator(
-  'updateDefaultServe',
-  shape<UpdateDefaultServeParams>('variation')
-)
+const updateDefaultServeByVariation: (variation: string) => Instruction<UpdateDefaultServeParams> =
+  unaryInstructionCreator('updateDefaultServe', shape<UpdateDefaultServeParams>('variation'))
 const updateDefaultServeByBucket: (
   bucketBy: string,
   variations: WeightedVariation[]
@@ -336,9 +333,8 @@ const addClauseToSegment: (clause: ClauseData) => Instruction<AddClauseToSegment
   'addClause',
   identity
 )
-const updateClauseOnSegment: (
-  clause: UpdateClauseOnSegmentParams
-) => Instruction<UpdateClauseOnSegmentParams> = unaryInstructionCreator('updateClause', identity)
+const updateClauseOnSegment: (clause: UpdateClauseOnSegmentParams) => Instruction<UpdateClauseOnSegmentParams> =
+  unaryInstructionCreator('updateClause', identity)
 const removeClauseOnSegment: (clauseID: string) => Instruction<RemoveClauseOnSegmentParams> = unaryInstructionCreator(
   'removeClause',
   shape<RemoveClauseOnSegmentParams>('clauseID')

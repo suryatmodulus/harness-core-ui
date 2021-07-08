@@ -2,10 +2,10 @@
   display: flex !important;
   width: 100%;
   height: 280px;
-  padding: var(--spacing-small) var(--spacing-large);
+  padding: var(--spacing-small) var(--spacing-large) !important;
   .separator {
     width: 1px;
     background: var(--grey-200);
-    margin: var(--spacing-small) var(--spacing-large);
+    margin: var(--spacing-small) var(--spacing-xxlarge);
   }
 }

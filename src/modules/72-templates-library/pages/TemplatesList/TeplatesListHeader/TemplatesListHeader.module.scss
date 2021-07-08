@@ -1,0 +1,22 @@
+.main {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  padding: var(--spacing-large) var(--spacing-large);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--grey-200);
+
+  .lhs {
+    display: flex;
+    align-items: center;
+    column-gap: var(--spacing-medium);
+  }
+
+  .rhs {
+    display: flex;
+    align-items: center;
+  }
+}

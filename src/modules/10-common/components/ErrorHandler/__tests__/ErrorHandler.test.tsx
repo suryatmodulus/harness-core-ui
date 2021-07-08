@@ -8,7 +8,7 @@ describe('<ErrorHandler /> tests', () => {
   test('should render ErrorHandler component', async () => {
     const { container } = render(
       <TestWrapper>
-        <ErrorHandler responseMessages={(mockError as unknown) as ErrorHandlerProps['responseMessages']} />
+        <ErrorHandler responseMessages={mockError as unknown as ErrorHandlerProps['responseMessages']} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

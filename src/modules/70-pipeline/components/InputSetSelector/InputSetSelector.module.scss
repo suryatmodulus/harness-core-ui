@@ -140,6 +140,12 @@
   color: var(--black) !important;
 }
 
+.inputSetGitDetails {
+  width: 100px !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden;
+}
+
 .list {
   margin: var(--spacing-small) 0;
   height: 275px;

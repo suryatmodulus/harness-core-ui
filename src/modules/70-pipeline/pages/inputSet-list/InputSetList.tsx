@@ -18,28 +18,24 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
-import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
-import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useQueryParams } from '@common/hooks'
 import { InputSetListView } from './InputSetListView'
 import css from './InputSetList.module.scss'
 
 const InputSetList: React.FC = (): JSX.Element => {
-  const { isGitSyncEnabled } = useAppStore()
   const [searchParam, setSearchParam] = React.useState('')
   const [page, setPage] = React.useState(0)
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const [gitFilter, setGitFilter] = useState<GitFilterScope>({
-    repo: repoIdentifier || '',
-    branch: branch || '',
-    getDefaultFromOtherRepo: true
-  })
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<PipelinePathProps> & { accountId: string }
   >()
 
-  const { data: inputSet, loading, refetch, error } = useGetInputSetsListForPipeline({
+  const {
+    data: inputSet,
+    loading,
+    refetch,
+    error
+  } = useGetInputSetsListForPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -48,10 +44,11 @@ const InputSetList: React.FC = (): JSX.Element => {
       pageIndex: page,
       pageSize: 10,
       searchTerm: searchParam,
-      ...(!isEmpty(gitFilter.repo)
+      ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
         ? {
-            repoIdentifier: gitFilter.repo,
-            branch: gitFilter.branch
+            repoIdentifier,
+            branch,
+            getDefaultFromOtherRepo: true
           }
         : {})
     },
@@ -186,18 +183,6 @@ const InputSetList: React.FC = (): JSX.Element => {
                 }
               />
             </Popover>
-            {isGitSyncEnabled && (
-              <GitSyncStoreProvider>
-                <GitFilters
-                  onChange={filter => {
-                    setGitFilter(filter)
-                    setPage(0)
-                  }}
-                  className={css.gitFilter}
-                  defaultValue={{ repo: repoIdentifier || '', branch: branch, getDefaultFromOtherRepo: true }}
-                />
-              </GitSyncStoreProvider>
-            )}
           </Layout.Horizontal>
         }
         toolbar={

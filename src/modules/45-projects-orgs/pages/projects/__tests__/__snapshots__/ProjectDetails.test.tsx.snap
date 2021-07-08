@@ -26,6 +26,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
               height="11"
               viewBox="0 0 8 14"
               width="11"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
@@ -349,6 +350,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                 height="16"
                 viewBox="0 0 4 16"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   clip-rule="evenodd"
@@ -404,6 +406,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         height="70"
                         viewBox="0 0 26 21"
                         width="70"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"
@@ -657,6 +660,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         height="70"
                         viewBox="0 0 24 24"
                         width="70"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"
@@ -906,6 +910,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         height="70"
                         viewBox="0 0 20 20"
                         width="70"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"
@@ -1040,6 +1045,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         height="70"
                         viewBox="0 0 24 24"
                         width="70"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"
@@ -1289,6 +1295,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         height="70"
                         viewBox="0 0 20 21"
                         width="70"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"
@@ -1553,6 +1560,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               height="11"
               viewBox="0 0 8 14"
               width="11"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
@@ -1805,6 +1813,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                 height="16"
                 viewBox="0 0 4 16"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   clip-rule="evenodd"
@@ -1849,6 +1858,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   height="70"
                   viewBox="0 0 22 22"
                   width="70"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
@@ -1890,6 +1900,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                     height="30"
                     viewBox="0 0 26 21"
                     width="30"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
@@ -1970,6 +1981,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                     height="30"
                     viewBox="0 0 24 24"
                     width="30"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
@@ -2050,6 +2062,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                     height="30"
                     viewBox="0 0 20 20"
                     width="30"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
@@ -2130,6 +2143,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                     height="30"
                     viewBox="0 0 24 24"
                     width="30"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
@@ -2210,6 +2224,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                     height="30"
                     viewBox="0 0 20 21"
                     width="30"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"

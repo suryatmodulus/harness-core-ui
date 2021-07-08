@@ -7,16 +7,17 @@ exports[`ServiceInstancesWidget render 1`] = `
   >
     <div
       class="Layout--vertical StyledProps--main"
+      style="width: 218px;"
     >
       <div
-        class="Layout--horizontal StyledProps--main topSection StyledProps--padding-bottom-small"
+        class="Layout--horizontal StyledProps--main topSection"
       >
         <div
           class="Layout--vertical StyledProps--main"
           style="width: 100%;"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey600"
           >
             services
           </p>
@@ -24,7 +25,7 @@ exports[`ServiceInstancesWidget render 1`] = `
             class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
           >
             <p
-              class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+              class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-weight-bold"
             >
               57
             </p>
@@ -35,7 +36,7 @@ exports[`ServiceInstancesWidget render 1`] = `
                 class="bp3-popover-target"
               >
                 <div
-                  class="sparklineChartContainer"
+                  class="sparklineChartContainer hover"
                 >
                   <div
                     class="title"
@@ -49,45 +50,61 @@ exports[`ServiceInstancesWidget render 1`] = `
         </div>
       </div>
       <div
-        class="Layout--vertical StyledProps--main StyledProps--padding-top-small"
+        class="Layout--vertical StyledProps--main bottomSection"
       >
         <div
-          class="Layout--vertical StyledProps--main StyledProps--margin-bottom-xlarge"
+          class="Layout--vertical StyledProps--main StyledProps--margin-bottom-medium"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-xsmall"
           >
             dashboards.serviceDashboard.serviceInstances
           </p>
-          <p
-            class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
           >
-            130
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-weight-bold"
+            >
+              130
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main"
+              style="height: 65px;"
+            >
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                style="height: 100%;"
+              />
+            </div>
+          </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main"
-          style="height: 46px;"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--margin-right-xlarge"
         >
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-            style="height: 100%;"
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
           >
             <div
-              class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-end StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-right-large"
-              style="height: 100%;"
+              class="circle"
+            />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
-              >
-                dashboards.serviceDashboard.nonProd (120)
-              </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
-              >
-                dashboards.serviceDashboard.prod (20)
-              </p>
-            </div>
+              dashboards.serviceDashboard.nonProd (120)
+            </p>
+          </div>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
+          >
+            <div
+              class="circle"
+            />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500"
+            >
+              dashboards.serviceDashboard.prod (20)
+            </p>
           </div>
         </div>
       </div>

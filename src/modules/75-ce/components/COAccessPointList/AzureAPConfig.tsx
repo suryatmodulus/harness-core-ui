@@ -37,7 +37,11 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
     accountId: string
   }>()
 
-  const { data: accessPointData, refetch, loading: accessPointStatusLoading } = useGetAccessPoint({
+  const {
+    data: accessPointData,
+    refetch,
+    loading: accessPointStatusLoading
+  } = useGetAccessPoint({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     access_point_id: loadBalancerId as string, //eslint-disable-line

@@ -19,7 +19,10 @@ import css from './StepsTree.module.scss'
 
 const IconMap: Record<string, IconName> = {
   ...mapKeys(ExecutionStatusIconMap, (_value, key) => key.toLowerCase()),
-  running: 'spinner'
+  running: 'spinner',
+  asyncwaiting: 'spinner',
+  timedwaiting: 'spinner',
+  taskwaiting: 'spinner'
 }
 
 export interface StepsTreeProps {

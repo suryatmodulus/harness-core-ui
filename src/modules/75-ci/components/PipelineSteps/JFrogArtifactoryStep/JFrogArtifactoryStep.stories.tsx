@@ -1,7 +1,6 @@
 import React from 'react'
 import type { Meta, Story } from '@storybook/react'
 import { Card, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { stringify } from 'yaml'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import {
@@ -9,6 +8,7 @@ import {
   TestStepWidget,
   TestStepWidgetProps
 } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { JFrogArtifactoryStep as JFrogArtifactoryStepComponent } from './JFrogArtifactoryStep'
 
 factory.registerStep(new JFrogArtifactoryStepComponent())
@@ -42,7 +42,7 @@ export const JFrogArtifactoryStep: Story<Omit<TestStepWidgetProps, 'factory'>> =
         <TestStepWidget {...args} onUpdate={setValue} />
       </Card>
       <Card>
-        <pre>{stringify(value)}</pre>
+        <pre>{yamlStringify(value)}</pre>
       </Card>
     </div>
   )

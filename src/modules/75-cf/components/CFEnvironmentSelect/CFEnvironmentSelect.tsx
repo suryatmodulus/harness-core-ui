@@ -1,14 +1,14 @@
-import React from 'react'
-import { Layout, Text } from '@wings-software/uicore'
+import React, { ReactElement } from 'react'
+import { Layout } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import css from './CFEnvironmentSelect.module.scss'
 
-export const CFEnvironmentSelect: React.FC<{ component: JSX.Element }> = ({ component }) => {
+export const CFEnvironmentSelect = ({ component }: { component: ReactElement }): ReactElement => {
   const { getString } = useStrings()
+
   return (
-    <Layout.Horizontal
-      style={{ '--layout-spacing': 'var(--spacing-small)', alignItems: 'baseline' } as React.CSSProperties}
-    >
-      <Text style={{ fontWeight: 700, fontSize: '16px' }}>{getString('environment')}</Text>
+    <Layout.Horizontal spacing="small" className={css.container}>
+      <span className={css.label}>{getString('environment')}</span>
       {component}
     </Layout.Horizontal>
   )

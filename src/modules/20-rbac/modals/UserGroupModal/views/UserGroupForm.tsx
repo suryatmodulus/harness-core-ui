@@ -14,7 +14,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { pick } from 'lodash-es'
+import { pick, cloneDeep } from 'lodash-es'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { UserGroupDTO, usePostUserGroup, usePutUserGroup, useGetUsers } from 'services/cd-ng'
@@ -82,7 +82,8 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
       }
     }) || []
 
-  const handleEdit = async (values: UserGroupFormDTO): Promise<void> => {
+  const handleEdit = async (formData: UserGroupFormDTO): Promise<void> => {
+    const values = cloneDeep(formData)
     const userDetails = values.userList?.map((user: MultiSelectOption) => user.value as string)
     delete values.userList
     const dataToSubmit: UserGroupDTO = values

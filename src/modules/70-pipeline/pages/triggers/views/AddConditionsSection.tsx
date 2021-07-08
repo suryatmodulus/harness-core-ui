@@ -26,6 +26,7 @@ interface AddConditionRowInterface {
   fieldId: string
   index: number
   attributePlaceholder: string
+  operatorPlaceholder: string
   valuePlaceholder: string
   getString: UseStringsReturn['getString']
 }
@@ -35,11 +36,17 @@ const AddConditionRow: React.FC<AddConditionRowInterface> = ({
   index,
   getString,
   attributePlaceholder,
+  operatorPlaceholder,
   valuePlaceholder
 }) => (
   <div className={cx(css.conditionsRow, css.addConditionsRow)}>
     <FormInput.Text placeholder={attributePlaceholder} name={`${fieldId}.${[index]}.key`} label="Attribute" />
-    <FormInput.Select items={mockOperators} name={`${fieldId}.${[index]}.operator`} label="Operator" />
+    <FormInput.Select
+      placeholder={operatorPlaceholder}
+      items={mockOperators}
+      name={`${fieldId}.${[index]}.operator`}
+      label="Operator"
+    />
     <FormInput.Text
       name={`${fieldId}.${[index]}.value`}
       label={getString('pipeline.triggers.conditionsPanel.matchesValue')}
@@ -74,8 +81,11 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
                   getString={getString}
                   fieldId={fieldId}
                   attributePlaceholder={attributePlaceholder}
+                  operatorPlaceholder={getString('pipeline.operatorPlaceholder')}
                   valuePlaceholder={
-                    inNotInArr.includes(formikValues?.[fieldId]?.[index]?.operator) ? inNotInPlaceholder : ''
+                    inNotInArr.includes(formikValues?.[fieldId]?.[index]?.operator)
+                      ? inNotInPlaceholder
+                      : getString('pipeline.triggers.conditionsPanel.matchesValuePlaceholder')
                   }
                 />
                 <Icon

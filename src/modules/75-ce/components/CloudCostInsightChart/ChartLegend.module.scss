@@ -1,0 +1,26 @@
+.legendContainer {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-column-gap: var(--spacing-large);
+  grid-row-gap: var(--spacing-small);
+
+  .legendText {
+    cursor: pointer;
+  }
+
+  .colorBoxContainer {
+    height: 18px;
+    width: 18px;
+    border: 1px solid var(--grey-200);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+
+    .colorBox {
+      height: 12px;
+      width: 12px;
+      border-radius: 2px;
+    }
+  }
+}

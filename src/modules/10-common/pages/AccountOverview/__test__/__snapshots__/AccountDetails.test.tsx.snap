@@ -28,7 +28,7 @@ exports[`AccountDetails should render AccountDetails page with values 1`] = `
         type="button"
       >
         <span
-          class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
+          class="bp3-icon bp3-icon-edit StyledProps--main"
           icon="edit"
         >
           <svg
@@ -45,11 +45,6 @@ exports[`AccountDetails should render AccountDetails page with values 1`] = `
               fill-rule="evenodd"
             />
           </svg>
-        </span>
-        <span
-          class="bp3-button-text"
-        >
-          edit
         </span>
       </button>
       <button

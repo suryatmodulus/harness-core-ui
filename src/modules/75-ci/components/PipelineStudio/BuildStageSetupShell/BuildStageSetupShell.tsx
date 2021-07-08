@@ -1,5 +1,6 @@
 import React from 'react'
-import { cloneDeep, isEqual, set } from 'lodash-es'
+import { cloneDeep, isEmpty, isEqual, set } from 'lodash-es'
+import produce from 'immer'
 import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -118,30 +119,22 @@ export default function BuildStageSetupShell(): JSX.Element {
     }
   }, [selectedTabId])
 
-  React.useEffect(() => {
-    const { stage: data } = cloneDeep(getStageFromPipeline(selectedStageId))
-    if (data) {
-      let shouldUpdate = false
-      if (!data?.stage?.spec?.execution?.steps) {
-        set(data, 'stage.spec.execution.steps', [])
-        shouldUpdate = true
-      }
-      if (!data?.stage?.spec?.serviceDependencies) {
-        set(data, 'stage.spec.serviceDependencies', [])
-        shouldUpdate = true
-      }
-
-      if (shouldUpdate) {
-        updateStage(data.stage)
-      }
-    }
-  }, [pipeline, selectedStageId])
-
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const selectedStage = getStageFromPipeline(selectedStageId).stage
   const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
   const infraHasWarning = !filledUpStages.infra
   const executionHasWarning = !filledUpStages.execution
+
+  // NOTE: set empty arrays, required by ExecutionGraph
+  const selectedStageClone = cloneDeep(selectedStage || {})
+  if (selectedStageClone) {
+    if (!selectedStageClone.stage?.spec?.serviceDependencies) {
+      set(selectedStageClone, 'stage.spec.serviceDependencies', [])
+    }
+    if (!selectedStageClone.stage?.spec?.execution?.steps) {
+      set(selectedStageClone, 'stage.spec.execution.steps', [])
+    }
+  }
 
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
@@ -250,11 +243,22 @@ export default function BuildStageSetupShell(): JSX.Element {
               isReadonly={isReadonly}
               hasDependencies={true}
               stepsFactory={stepsFactory}
-              stage={selectedStage || {}}
+              stage={selectedStageClone}
               originalStage={originalStage}
               ref={executionRef}
               updateStage={(newStageData: StageElementWrapper) => {
-                updateStage(newStageData?.stage)
+                updateStage(
+                  produce(newStageData, draft => {
+                    // cleanup rollbackSteps (note: rollbackSteps does not exist on CI stage at all)
+                    if (draft?.stage?.spec?.execution?.rollbackSteps) {
+                      delete draft.stage.spec.execution.rollbackSteps
+                    }
+                    // delete serviceDependencies if its empty array (as serviceDependencies is optional)
+                    if (draft?.stage?.spec?.serviceDependencies && isEmpty(draft?.stage?.spec?.serviceDependencies)) {
+                      delete draft.stage.spec.serviceDependencies
+                    }
+                  }).stage
+                )
               }}
               // Check and update the correct stage path here
               pathToStage={`${stagePath}.stage.spec.execution`}

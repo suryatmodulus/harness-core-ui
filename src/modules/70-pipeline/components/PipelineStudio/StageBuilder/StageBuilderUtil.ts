@@ -3,7 +3,7 @@ import { Color } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
 import produce from 'immer'
-import type { StageElementWrapper, NgPipeline, PageConnectorResponse } from 'services/cd-ng'
+import type { StageElementWrapper, NgPipeline, PageConnectorResponse, PipelineInfoConfig } from 'services/cd-ng'
 import type * as Diagram from '@pipeline/components/Diagram'
 import {
   getIdentifierFromValue,
@@ -34,7 +34,8 @@ export interface PopoverData {
     isParallel?: boolean,
     event?: Diagram.DefaultNodeEvent,
     insertAt?: number,
-    openSetupAfterAdd?: boolean
+    openSetupAfterAdd?: boolean,
+    pipeline?: PipelineInfoConfig
   ) => void
   onSubmitPrimaryData?: (values: StageElementWrapper, identifier: string) => void
   onClickGroupStage?: (stageId: string, type: StageType) => void

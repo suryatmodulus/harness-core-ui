@@ -72,7 +72,11 @@ const PipelineResourceModal: React.FC<RbacResourceModalProps> = ({
   const [pipelineData, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
   const { getString } = useStrings()
 
-  const { loading, mutate: reloadPipelines, cancel } = useGetPipelineList({
+  const {
+    loading,
+    mutate: reloadPipelines,
+    cancel
+  } = useGetPipelineList({
     queryParams: {
       accountIdentifier,
       projectIdentifier,

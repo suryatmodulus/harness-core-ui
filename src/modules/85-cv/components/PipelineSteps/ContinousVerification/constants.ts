@@ -11,9 +11,9 @@ export enum JobTypes {
 }
 
 export enum SensitivityTypes {
-  HIGH = 'High',
-  MEDIUM = 'Medium',
-  LOW = 'Low'
+  HIGH = 'HIGH',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW'
 }
 
 export enum IdentifierTypes {
@@ -48,15 +48,14 @@ export const cvDefaultValues: ContinousVerificationData = {
   identifier: '',
   timeout: '2h',
   spec: {
-    verificationJobRef: '',
+    monitoredServiceRef: '',
     type: '',
+    healthSources: [],
     spec: {
       sensitivity: '',
       duration: '',
       baseline: '',
       trafficsplit: '',
-      serviceRef: '',
-      envRef: '',
       deploymentTag: ''
     }
   },

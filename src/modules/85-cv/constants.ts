@@ -7,4 +7,12 @@ export const VerificationJobType: { [key: string]: AdditionalInfo['type'] } = {
   HEALTH: 'HEALTH'
 }
 
+export enum HealthSourcesType {
+  AppDynamics = 'AppDynamics',
+  NewRelic = 'NewRelic',
+  Prometheus = 'Prometheus',
+  Stackdriver = 'Stackdriver',
+  StackdriverLog = 'StackdriverLog'
+}
+
 export const appId = '_ia5NKUCSoytYrZJMM15mQ' //t0-jbpLoR7S2BTsNfsk4Iw'

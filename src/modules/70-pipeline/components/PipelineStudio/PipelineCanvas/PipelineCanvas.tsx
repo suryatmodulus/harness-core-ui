@@ -36,6 +36,8 @@ import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlTog
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { validateJSONWithSchema } from '@common/utils/YamlUtils'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -55,6 +57,10 @@ interface SavePipelineObj {
   pipeline: PipelineInfoConfig | NgPipeline
 }
 
+interface PipelineWithGitContextFormProps extends PipelineInfoConfig {
+  repo?: string
+  branch?: string
+}
 export interface PipelineCanvasProps {
   toPipelineStudio: PathFn<PipelineType<PipelinePathProps> & PipelineStudioQueryParams>
   toPipelineDetail: PathFn<PipelineType<PipelinePathProps>>
@@ -92,6 +98,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const {
     pipeline,
     isUpdated,
+    pipelineView: { isYamlEditable },
+    pipelineView,
     isLoading,
     isInitialized,
     originalPipeline,
@@ -103,7 +111,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   const { getString } = useStrings()
   const { pipelineSchema } = usePipelineSchema()
-
+  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
     PipelineType<{
       orgIdentifier: string
@@ -262,7 +270,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
     if (isYaml && yamlHandler) {
       try {
-        latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
+        latestPipeline = payload?.pipeline || (parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline)
       } /* istanbul ignore next */ catch (err) {
         showError(err.message || err, undefined, 'pipeline.save.gitinfo.error')
       }
@@ -451,7 +459,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       pipeline.description = data.description
       pipeline.identifier = data.identifier
       pipeline.tags = data.tags ?? {}
-      updatePipeline(omit(pipeline, 'repo', 'branch'))
+      delete (pipeline as PipelineWithGitContextFormProps).repo
+      delete (pipeline as PipelineWithGitContextFormProps).branch
+      updatePipeline(pipeline)
       if (updatedGitDetails) {
         if (gitDetails?.objectId) {
           updatedGitDetails = { ...gitDetails, ...updatedGitDetails }
@@ -473,13 +483,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   function handleViewChange(newView: SelectedView): boolean {
     if (newView === view) return false
-    if (newView === SelectedView.VISUAL && yamlHandler) {
+    if (newView === SelectedView.VISUAL && yamlHandler && isYamlEditable) {
       if (!isValidYaml()) return false
     }
     setView(newView)
     updatePipelineView({
       splitViewData: {},
       isDrawerOpened: false,
+      isYamlEditable: false,
       isSplitViewOpen: false,
       drawerData: { type: DrawerTypes.AddStep }
     })
@@ -523,10 +534,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium" className={css.gitDetails}>
           <Layout.Horizontal spacing="small" className={css.repoDetails}>
             <Icon name="repository" margin={{ left: 'medium' }}></Icon>
-            {pipelineIdentifier === DefaultNewPipelineId ? (
-              <Text>{`${gitDetails?.repoIdentifier}`}</Text>
+            {pipelineIdentifier === DefaultNewPipelineId && !loadingRepos ? (
+              <Text>{getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name || ''}</Text>
             ) : (
-              <Text lineClamp={1} width="200px">{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
+              <Text lineClamp={1} width="200px">{`${gitDetails?.rootFolder || ''}${gitDetails?.filePath || ''}`}</Text>
             )}
           </Layout.Horizontal>
 
@@ -580,8 +591,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
               exact: true
             })
+
+            if (!matchDefault) return true
+
             let localUpdated = isUpdated
-            if (isYaml && yamlHandler) {
+            if (isYaml && yamlHandler && isYamlEditable) {
               try {
                 const parsedYaml = parse(yamlHandler.getLatestYaml())
                 if (!parsedYaml) {
@@ -660,7 +674,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 {pipelineIdentifier !== DefaultNewPipelineId && !isReadonly && (
                   <Button
                     disabled={!isUpdated}
-                    onClick={() => fetchPipeline({ forceFetch: true, forceUpdate: true })}
+                    onClick={() => {
+                      updatePipelineView({ ...pipelineView, isYamlEditable: false })
+                      fetchPipeline({ forceFetch: true, forceUpdate: true })
+                    }}
                     className={css.discardBtn}
                     text={getString('pipeline.discard')}
                   />

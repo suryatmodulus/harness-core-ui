@@ -111,7 +111,12 @@ const SubscribedModules: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
 
-  const { data: accountLicenses, loading, error, refetch } = useGetAccountLicenses({
+  const {
+    data: accountLicenses,
+    loading,
+    error,
+    refetch
+  } = useGetAccountLicenses({
     queryParams: {
       accountIdentifier: accountId
     }

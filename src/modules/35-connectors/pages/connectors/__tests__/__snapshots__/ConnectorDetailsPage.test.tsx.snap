@@ -26,6 +26,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
               height="11"
               viewBox="0 0 8 14"
               width="11"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
@@ -53,6 +54,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
             height="35"
             viewBox="0 0 14 10"
             width="35"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
@@ -97,7 +99,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           <span
             class="bp3-text-overflow-ellipsis bp3-fill"
           >
-            connection
+            overview
           </span>
         </span>
         <span
@@ -473,6 +475,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
               height="11"
               viewBox="0 0 8 14"
               width="11"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
@@ -496,6 +499,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
               height="11"
               viewBox="0 0 8 14"
               width="11"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
@@ -523,6 +527,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
             height="35"
             viewBox="0 0 14 10"
             width="35"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
@@ -567,7 +572,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           <span
             class="bp3-text-overflow-ellipsis bp3-fill"
           >
-            connection
+            overview
           </span>
         </span>
         <span

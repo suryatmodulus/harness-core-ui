@@ -37,6 +37,7 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
                     height="16"
                     viewBox="0 0 12 12"
                     width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
@@ -261,6 +262,7 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                     height="16"
                     viewBox="0 0 12 12"
                     width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
@@ -485,6 +487,7 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                     height="16"
                     viewBox="0 0 12 12"
                     width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
@@ -709,6 +712,7 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                     height="16"
                     viewBox="0 0 12 12"
                     width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"

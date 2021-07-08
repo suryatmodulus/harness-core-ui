@@ -30,7 +30,12 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
     project: projectIdentifier,
     environment: activeEnvironment
   }
-  const { loading, error, data: flags, refetch: refetchFlags } = useGetSegmentFlags({
+  const {
+    loading,
+    error,
+    data: flags,
+    refetch: refetchFlags
+  } = useGetSegmentFlags({
     identifier: segmentIdentifier,
     queryParams
   })

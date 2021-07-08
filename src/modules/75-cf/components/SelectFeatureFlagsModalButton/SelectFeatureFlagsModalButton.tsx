@@ -78,7 +78,12 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
       }),
       [queryString, sortOrder, sortByField, pageNumber]
     )
-    const { data, loading: loadingSegments, error, refetch } = useGetAllFeatures({
+    const {
+      data,
+      loading: loadingSegments,
+      error,
+      refetch
+    } = useGetAllFeatures({
       queryParams,
       lazy: true
     })

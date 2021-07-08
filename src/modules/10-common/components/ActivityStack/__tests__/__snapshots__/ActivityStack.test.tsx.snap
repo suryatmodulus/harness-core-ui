@@ -28,6 +28,7 @@ exports[`Activity Stack test initializes ok  1`] = `
                   height="16"
                   viewBox="0 0 26 21"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"
@@ -104,6 +105,7 @@ exports[`Activity Stack test initializes ok  1`] = `
                   height="16"
                   viewBox="0 0 24 24"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"
@@ -180,6 +182,7 @@ exports[`Activity Stack test initializes ok  1`] = `
                   height="16"
                   viewBox="0 0 24 24"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"
@@ -256,6 +259,7 @@ exports[`Activity Stack test initializes ok  1`] = `
                   height="16"
                   viewBox="0 0 26 21"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"
@@ -332,6 +336,7 @@ exports[`Activity Stack test initializes ok  1`] = `
                   height="16"
                   viewBox="0 0 20 21"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"
@@ -408,6 +413,7 @@ exports[`Activity Stack test initializes ok  1`] = `
                   height="16"
                   viewBox="0 0 20 20"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"

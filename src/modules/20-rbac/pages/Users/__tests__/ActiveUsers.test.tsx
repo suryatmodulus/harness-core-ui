@@ -71,7 +71,7 @@ describe('UsersPage Test', () => {
     )
     container = renderObj.container
     getAllByText = renderObj.getAllByText
-    await waitFor(() => getAllByText('newUser'))
+    await waitFor(() => getAllByText('rbac.user'))
   })
   test('render data', () => {
     expect(container).toMatchSnapshot()

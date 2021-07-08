@@ -100,7 +100,12 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     typeof selected === 'string' ? getIdentifierFromValue(selected || '') : selectedValue?.connector?.identifier
 
   const [multiType, setMultiType] = React.useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
-  const { data: connectorData, loading, refetch, error } = useGetConnector({
+  const {
+    data: connectorData,
+    loading,
+    refetch,
+    error
+  } = useGetConnector({
     identifier: selectedRef as string,
     queryParams: {
       accountIdentifier,
@@ -283,7 +288,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
         }}
         onChange={(val, valueType, type1) => {
           if (val && type1 === MultiTypeInputType.FIXED) {
-            const { record, scope } = (val as unknown) as { record: ConnectorReferenceDTO; scope: Scope }
+            const { record, scope } = val as unknown as { record: ConnectorReferenceDTO; scope: Scope }
             const value = {
               label: record.name,
               value:

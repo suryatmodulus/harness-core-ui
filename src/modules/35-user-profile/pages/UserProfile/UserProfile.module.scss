@@ -32,6 +32,8 @@
   height: calc(100vh - var(--page-header-height, 64px));
 }
 
-.noBanner {
-  height: 100vh !important;
+.userProfilePage {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 2fr;
 }

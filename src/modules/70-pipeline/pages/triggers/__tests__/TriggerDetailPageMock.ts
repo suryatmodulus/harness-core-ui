@@ -15,11 +15,10 @@ export const GetTriggerResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
       orgIdentifier: 'default',
       projectIdentifier: 'project1',
       targetIdentifier: 'p1',
-      yaml:
-        'trigger:\n  name: ab\n  identifier: b\n  tags: {}\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: aa\n                        releaseName: <+input>\n  source:\n    type: Webhook\n    spec:\n      type: BITBUCKET\n      spec:\n        repoUrl: aaaadsf\n        event: Pull Request\n        actions: []\n',
+      yaml: 'trigger:\n  name: ab\n  identifier: b\n  tags: {}\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: aa\n                        releaseName: <+input>\n  source:\n    type: Webhook\n    spec:\n      type: BITBUCKET\n      spec:\n        repoUrl: aaaadsf\n        event: Pull Request\n        actions: []\n',
       version: 14
     },
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     correlationId: '204d9325-4c5e-4e64-8965-b4a7b0539bdc'
   }
 }
@@ -44,11 +43,10 @@ export const GetTriggerDetailsResponse: UseGetReturnData<ResponseNGTriggerDetail
       webhookDetails: { webhookSourceRepo: 'Github' },
       tags: {},
       executions: [0, 0, 0, 0, 0, 0, 2],
-      yaml:
-        'trigger:\n  name: Trigger__1\n  identifier: Trigger__1\n  target:\n    targetIdentifier: http\n    type: Pipeline\n    spec:\n      runtimeInputYaml:  ""\n  source:\n    type: Webhook\n    spec:\n      type: Github\n      spec:\n        repoUrl: https://github.com/wings-software/triggerNgDemo\n        event: Pull Request\n        actions:\n          - opened\n          - closed\n        payloadConditions:\n          - key: sourceBranch\n            operator: equals\n            value: ng-trigger-demo\n          - key: targetBranch\n            operator: in\n            value: master, main\n          - key: ${eventPayload.pull_request.user.id}\n            operator: equals\n            value: 56320710\n          - key: ${eventPayload.pull_request.head.ref}\n            operator: regex\n            value: ^ng-trigger-demo            ',
+      yaml: 'trigger:\n  name: Trigger__1\n  identifier: Trigger__1\n  target:\n    targetIdentifier: http\n    type: Pipeline\n    spec:\n      runtimeInputYaml:  ""\n  source:\n    type: Webhook\n    spec:\n      type: Github\n      spec:\n        repoUrl: https://github.com/wings-software/triggerNgDemo\n        event: Pull Request\n        actions:\n          - opened\n          - closed\n        payloadConditions:\n          - key: sourceBranch\n            operator: equals\n            value: ng-trigger-demo\n          - key: targetBranch\n            operator: in\n            value: master, main\n          - key: ${eventPayload.pull_request.user.id}\n            operator: equals\n            value: 56320710\n          - key: ${eventPayload.pull_request.head.ref}\n            operator: regex\n            value: ^ng-trigger-demo            ',
       enabled: true
     },
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     correlationId: '204d9325-4c5e-4e64-8965-b4a7b0539bdc'
   }
 }

@@ -135,6 +135,8 @@ const mockAccessPointResourceData = {
   ]
 }
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+
 jest.mock('services/lw', () => ({
   useSaveService: jest.fn().mockImplementation(() => ({
     mutate: jest.fn()

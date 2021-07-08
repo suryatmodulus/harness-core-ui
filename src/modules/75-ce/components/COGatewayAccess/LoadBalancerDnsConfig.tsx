@@ -44,7 +44,11 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
     project_id: projectIdentifier // eslint-disable-line
   })
 
-  const { data: accessPointData, refetch, loading: accessPointStatusLoading } = useGetAccessPoint({
+  const {
+    data: accessPointData,
+    refetch,
+    loading: accessPointStatusLoading
+  } = useGetAccessPoint({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     access_point_id: loadBalancerId as string, //eslint-disable-line

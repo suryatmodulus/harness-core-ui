@@ -16,7 +16,13 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
 
   const { expressions } = useVariablesExpression()
 
-  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier: repo = '', branch } = useParams<
+  const {
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier: repo = '',
+    branch
+  } = useParams<
     {
       projectIdentifier: string
       orgIdentifier: string

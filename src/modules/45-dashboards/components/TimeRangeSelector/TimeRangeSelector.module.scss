@@ -1,17 +1,17 @@
 .timeRangeSelector {
-  width: 100px;
   display: flex;
   justify-content: center;
-  background: var(--grey-200);
+  background: var(--grey-100);
   border-radius: 25px;
   height: 20px;
-  padding: 0 var(--spacing-xsmall);
+  padding: 0 var(--spacing-small);
   .timeRangeButton {
     min-height: 20px !important;
     padding: 0 !important;
     white-space: nowrap !important;
+    color: var(--gray-500) !important;
+    font-weight: bold !important;
     :first-child {
-      max-width: 66px;
       text-overflow: ellipsis;
       overflow: hidden;
     }

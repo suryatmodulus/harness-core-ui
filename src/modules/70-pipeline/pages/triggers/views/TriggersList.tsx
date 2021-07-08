@@ -34,7 +34,12 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()
 
-  const { data: triggerListResponse, error, refetch, loading } = useGetTriggerListForTarget({
+  const {
+    data: triggerListResponse,
+    error,
+    refetch,
+    loading
+  } = useGetTriggerListForTarget({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,

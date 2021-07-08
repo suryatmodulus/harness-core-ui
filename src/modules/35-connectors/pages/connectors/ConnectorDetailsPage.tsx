@@ -38,9 +38,8 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const [selectedBranch, setSelectedBranch] = React.useState<string>('')
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
   const [searchTerm, setSearchTerm] = React.useState<string>('')
-  const { connectorId, accountId, orgIdentifier, projectIdentifier, module } = useParams<
-    PipelineType<ProjectPathProps & ConnectorPathProps>
-  >()
+  const { connectorId, accountId, orgIdentifier, projectIdentifier, module } =
+    useParams<PipelineType<ProjectPathProps & ConnectorPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<EntityGitDetails>()
 
   const { data: orgData } = useGetOrganizationAggregateDTO({
@@ -56,7 +55,12 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     projectIdentifier: projectIdentifier as string
   }
 
-  const { loading, data: connectorData, refetch, error } = useGetConnector({
+  const {
+    loading,
+    data: connectorData,
+    refetch,
+    error
+  } = useGetConnector({
     identifier: connectorId as string,
     queryParams: repoIdentifier && branch ? { ...defaultQueryParam, repoIdentifier, branch } : defaultQueryParam,
     mock: props.mockData
@@ -120,7 +124,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   useDocumentTitle([connectorName || connectorData?.data?.connector?.name || '', getString('connectorsLabel')])
 
   const categories: Categories = {
-    connection: getString('connection'),
+    connection: getString('overview'),
     refrencedBy: getString('refrencedBy'),
     activityHistory: getString('activityHistoryLabel')
   }

@@ -251,7 +251,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       const normalize = (variationMap: VariationMap[]) =>
         (variationMap || []).map(item => {
           if (item.targets?.length) {
-            item.targets = (item.targets?.map(target => target?.identifier || target) as unknown) as TargetMap[]
+            item.targets = item.targets?.map(target => target?.identifier || target) as unknown as TargetMap[]
           }
           return item
         })

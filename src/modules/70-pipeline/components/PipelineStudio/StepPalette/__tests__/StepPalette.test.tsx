@@ -89,7 +89,7 @@ describe('Step Palette tests', () => {
           ],
           stepsData: []
         },
-        metaData: (null as unknown) as undefined,
+        metaData: null as unknown as undefined,
         correlationId: 'someId'
       }
     } as UseGetReturn<any, pipelinesNgService.Failure, any, unknown>)
@@ -116,7 +116,7 @@ describe('Step Palette tests', () => {
           stepCategories: [],
           stepsData: []
         },
-        metaData: (null as unknown) as undefined,
+        metaData: null as unknown as undefined,
         correlationId: 'someId'
       }
     } as UseGetReturn<any, pipelinesNgService.Failure, any, unknown>)
@@ -143,7 +143,7 @@ describe('Step Palette tests', () => {
           stepCategories: [],
           stepsData: []
         },
-        metaData: (null as unknown) as undefined,
+        metaData: null as unknown as undefined,
         correlationId: 'someId'
       }
     } as UseGetReturn<any, pipelinesNgService.Failure, any, unknown>)

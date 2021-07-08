@@ -8,7 +8,8 @@ import {
   rolePathProps,
   resourceGroupPathProps,
   userGroupPathProps,
-  userPathProps
+  userPathProps,
+  serviceAccountProps
 } from '@common/utils/routeUtils'
 
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
@@ -26,6 +27,8 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { HomeSideNavProps } from '@common/RouteDestinations'
+import ServiceAccountsPage from './pages/ServiceAccounts/ServiceAccounts'
+import ServiceAccountDetails from './pages/ServiceAccountDetails/ServiceAccountDetails'
 
 RbacFactory.registerResourceCategory(ResourceCategory.SHARED_RESOURCES, {
   icon: 'support-tour',
@@ -91,6 +94,18 @@ RbacFactory.registerResourceTypeHandler(ResourceType.AUTHSETTING, {
   }
 })
 
+RbacFactory.registerResourceTypeHandler(ResourceType.SERVICEACCOUNT, {
+  icon: 'nav-settings',
+  label: 'rbac.serviceAccounts.label',
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_SERVICEACCOUNT]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.EDIT_SERVICEACCOUNT]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_SERVICEACCOUNT]: <String stringID="rbac.permissionLabels.delete" />,
+    [PermissionIdentifier.MANAGE_SERVICEACCOUNT]: <String stringID="rbac.permissionLabels.manage" />
+  }
+})
+
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId } = useParams<AccountPathProps>()
   return <Redirect to={routes.toUsers({ accountId })} />
@@ -100,6 +115,20 @@ export default (
   <>
     <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toAccessControl({ ...accountPathProps })} exact>
       <RedirectToAccessControlHome />
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toServiceAccounts({ ...accountPathProps })} exact>
+      <AccessControlPage>
+        <ServiceAccountsPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={HomeSideNavProps}
+      path={routes.toServiceAccountDetails({ ...accountPathProps, ...serviceAccountProps })}
+      exact
+    >
+      <ServiceAccountDetails />
     </RouteWithLayout>
 
     <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toUsers({ ...accountPathProps })} exact>

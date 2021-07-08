@@ -89,7 +89,12 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [tagList, setTagList] = React.useState([])
   const [lastQueryData, setLastQueryData] = React.useState({ imagePath: '', registryHostname: '' })
-  const { data, loading, refetch, error: gcrTagError } = useGetBuildDetailsForGcr({
+  const {
+    data,
+    loading,
+    refetch,
+    error: gcrTagError
+  } = useGetBuildDetailsForGcr({
     queryParams: {
       imagePath: lastQueryData.imagePath,
       connectorRef: prevStepData?.connectorId?.value

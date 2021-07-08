@@ -121,9 +121,10 @@ function SelectedLog(props: SelectedLogProps): JSX.Element {
 function RequestMade(props: RequestMadeProps): JSX.Element {
   const { requestTimestamp, requestURL, status, isSelected, onClick } = props
   const { getString } = useStrings()
-  const requestDate = useMemo(() => (requestTimestamp === -1 ? undefined : moment(requestTimestamp)), [
-    requestTimestamp
-  ])
+  const requestDate = useMemo(
+    () => (requestTimestamp === -1 ? undefined : moment(requestTimestamp)),
+    [requestTimestamp]
+  )
   const statusIcon = useMemo(() => {
     if (status === 200) {
       return <Icon name="deployment-success-legacy" className={css.statusIcon} />

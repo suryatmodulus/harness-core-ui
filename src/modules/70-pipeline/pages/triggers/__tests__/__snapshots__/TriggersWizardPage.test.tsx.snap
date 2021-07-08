@@ -292,6 +292,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                   autocomplete="off"
                                   class="bp3-input"
                                   name="name"
+                                  placeholder="common.namePlaceholder"
                                   type="text"
                                   value="All Values"
                                 />
@@ -321,6 +322,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 class="bp3-input bp3-fill"
                                 maxlength="1024"
                                 name="description"
+                                placeholder="common.descriptionPlaceholder"
                               >
                                 desc
                               </textarea>
@@ -658,7 +660,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="event"
-                                    placeholder="Search..."
+                                    placeholder="pipeline.triggers.triggerConfigurationPanel.eventPlaceholder"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value="Issue Comment"
@@ -1246,6 +1248,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                   autocomplete="off"
                                   class="bp3-input"
                                   name="name"
+                                  placeholder="common.namePlaceholder"
                                   type="text"
                                   value="test-github-repo"
                                 />
@@ -1559,7 +1562,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="event"
-                                    placeholder="Search..."
+                                    placeholder="pipeline.triggers.triggerConfigurationPanel.eventPlaceholder"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value="Pull Request"
@@ -2144,6 +2147,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
+                                placeholder="common.namePlaceholder"
                                 type="text"
                                 value="test-cron"
                               />
@@ -2173,6 +2177,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                               class="bp3-input bp3-fill"
                               maxlength="1024"
                               name="description"
+                              placeholder="common.descriptionPlaceholder"
                             >
                               desc
                             </textarea>

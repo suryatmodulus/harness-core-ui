@@ -34,7 +34,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
         <span
           class="bp3-button-text"
         >
-          newUser
+          rbac.user
         </span>
       </button>
     </div>
@@ -283,6 +283,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
                         height="16"
                         viewBox="0 0 4 16"
                         width="16"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"
@@ -426,6 +427,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
                         height="16"
                         viewBox="0 0 4 16"
                         width="16"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"

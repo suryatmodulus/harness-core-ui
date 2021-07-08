@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Color, Container, Heading, Layout, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
@@ -70,7 +70,7 @@ export const TrialInProgressTemplate: React.FC<TrialInProgressTemplateProps> = (
     <>
       <TrialLicenseBanner {...trialBannerProps} setHasBanner={setHasBanner} />
       <Page.Body className={cx(css.body, bannerClassName)}>
-        <Container style={{ '--image-url': `url(${bgImageUrl})` } as CSSProperties} className={css.container}>
+        <Container style={{ background: `transparent url(${bgImageUrl}) no-repeat` }} className={css.container}>
           <Layout.Vertical spacing="medium">
             <Layout.Horizontal spacing="small" className={css.content}>
               <Heading font={{ weight: 'bold', size: 'large' }} color={Color.BLACK_100}>

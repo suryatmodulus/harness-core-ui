@@ -17,7 +17,13 @@ import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ template, path, readonly }) => {
   const { getString } = useStrings()
 
-  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier: repo = '', branch } = useParams<
+  const {
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier: repo = '',
+    branch
+  } = useParams<
     {
       projectIdentifier: string
       orgIdentifier: string

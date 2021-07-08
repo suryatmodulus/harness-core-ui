@@ -37,4 +37,6 @@ export class Utils {
     port: 80,
     timeout: 30
   })
+
+  static getHyphenSpacedString = (str: string) => (str || '').trim().split(' ').join('-')
 }

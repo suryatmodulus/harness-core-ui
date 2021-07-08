@@ -39,7 +39,11 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
     [accountId, projectIdentifier, orgIdentifier, connectorIdentifier]
   )
 
-  const { mutate: queryStackdriver, loading, error } = useGetStackdriverLogSampleData({
+  const {
+    mutate: queryStackdriver,
+    loading,
+    error
+  } = useGetStackdriverLogSampleData({
     queryParams
   })
 

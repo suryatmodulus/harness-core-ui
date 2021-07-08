@@ -107,11 +107,13 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
     allNodes: Object.keys(pipelineExecutionDetail?.pipelineExecutionSummary?.layoutNodeMap || {})
   }
 
-  const { data: barrierInfoData, refetch: fetchBarrierInfo, loading: barrierInfoLoading } = useGetBarriersExecutionInfo(
-    {
-      lazy: true
-    }
-  )
+  const {
+    data: barrierInfoData,
+    refetch: fetchBarrierInfo,
+    loading: barrierInfoLoading
+  } = useGetBarriersExecutionInfo({
+    lazy: true
+  })
 
   React.useEffect(() => {
     if (stageSetupId) {

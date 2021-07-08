@@ -143,16 +143,8 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
   }
 
   renderStep(props: StepProps<DockerHubStepData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (

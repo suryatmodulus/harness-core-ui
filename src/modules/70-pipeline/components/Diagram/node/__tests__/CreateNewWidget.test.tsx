@@ -6,7 +6,7 @@ import { CreateNewWidget } from '../CreateNew/CreateNewWidget'
 import type { CreateNewModel } from '../CreateNew/CreateNewModel'
 
 const getNode = (): CreateNewModel => {
-  return ({
+  return {
     getOptions: () => ({
       name: 'name',
       height: 64,
@@ -16,11 +16,11 @@ const getNode = (): CreateNewModel => {
     getOutPorts: () => [],
     isSelected: () => false,
     setSelected: () => undefined
-  } as unknown) as CreateNewModel
+  } as unknown as CreateNewModel
 }
 
 const getEngine = (): DiagramEngine => {
-  return ({} as unknown) as DiagramEngine
+  return {} as unknown as DiagramEngine
 }
 
 describe('CreateNewWidget snapshot tests', () => {

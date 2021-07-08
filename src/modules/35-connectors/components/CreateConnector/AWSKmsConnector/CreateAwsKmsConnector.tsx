@@ -47,6 +47,7 @@ const CreateAwsKmsConnector: React.FC<CreateAwsKmsConnectorProps> = props => {
         connectorInfo={props.connectorInfo}
         mock={props.mock}
         gitDetails={props.gitDetails}
+        disableGitSync={true}
       />
       <AwsKmsConfig
         name={getString('details')}

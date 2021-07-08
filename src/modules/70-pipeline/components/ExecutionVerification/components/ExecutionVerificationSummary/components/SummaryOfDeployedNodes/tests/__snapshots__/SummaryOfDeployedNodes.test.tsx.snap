@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit tests for SummaryOfDeployedNodes Ensure content is rendered correctly based on input 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
+    >
+      SUMMARY
+    </p>
+    <hr />
+    <div
+      class="StyledProps--font StyledProps--main summaryContainer"
+    >
+      <div
+        class="StyledProps--font StyledProps--main summaryContent"
+      >
+        <div
+          class="StyledProps--font StyledProps--main violations"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--intent-danger StyledProps--font-size-large StyledProps--font-weight-bold"
+          >
+            3
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main outOf StyledProps--color StyledProps--color-black"
+          >
+            PIPELINE.OUTOF
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold"
+          >
+            20
+          </p>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+        >
+          pipeline.verification.metricsInViolation
+        </p>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main summaryContent"
+      >
+        <div
+          class="StyledProps--font StyledProps--main violations"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--intent-danger StyledProps--font-size-large StyledProps--font-weight-bold"
+          >
+            5
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main outOf StyledProps--color StyledProps--color-black"
+          >
+            PIPELINE.OUTOF
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold"
+          >
+            5
+          </p>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+        >
+          pipeline.verification.logClustersInViolation
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,14 +1,28 @@
 $node-height: 25px;
 $node-width: 40px;
+$button-width: 25px;
 
 .main {
-  margin-top: var(--spacing-large);
   overflow: hidden;
-  position: relative;
+  justify-self: end;
+  width: 100%;
+
+  .graphAligner {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+  }
 
   .graphWrapper {
     height: $node-height;
-    margin: var(--spacing-large) var(--spacing-6);
+    overflow: hidden;
+    display: flex;
+    max-width: 100%;
+
+    &.hasButtons {
+      width: calc(100% - #{$button-width});
+      transform: translateX(-#{$button-width / 2});
+    }
   }
 
   .graph {
@@ -25,14 +39,14 @@ $node-width: 40px;
   .scrollLeft,
   .scrollRight {
     position: absolute;
-    top: calc(var(--spacing-large) + 5px);
+    top: 5px;
     background: var(--primary-1) !important;
     color: var(--primary-7) !important;
     border: 1px solid var(--primary-7) !important;
     padding: 0 !important;
     min-width: unset !important;
     min-height: unset !important;
-    width: 25px;
+    width: $button-width;
     border-radius: 5px;
     height: 14px !important;
   }
@@ -47,11 +61,11 @@ $node-width: 40px;
 
   .stepCounts {
     display: flex;
-    column-gap: var(--spacing-small);
+    column-gap: var(--spacing-3);
     z-index: 1;
-    margin-top: var(--spacing-small);
+    margin-top: var(--spacing-5);
     overflow: hidden;
-    padding: 0 var(--spacing-6);
+    justify-content: flex-end;
 
     & :global(.bp3-popover-wrapper),
     & :global(.bp3-popover-target) {
@@ -63,16 +77,19 @@ $node-width: 40px;
   .stepCount {
     display: inline-flex;
     align-items: center;
-    padding: 0 var(--spacing-small) !important;
+    padding: 0 var(--spacing-2) !important;
     font-size: var(--font-size-small) !important;
-    line-height: 1.5 !important;
-    border: 0.4px solid #d9dae6;
+    color: var(--grey-900);
+    font-weight: 500;
+    height: var(--spacing-6);
+    background: var(--grey-100);
+    border-radius: var(--spacing-2);
     border-radius: 4px;
     white-space: nowrap;
 
     & > :global(.bp3-icon),
     & > .running-animation {
-      margin-right: var(--spacing-xsmall);
+      margin-right: var(--spacing-2);
     }
 
     &[data-status='success'] > :global(.bp3-icon) {
@@ -86,11 +103,13 @@ $node-width: 40px;
 
   .errorMsg {
     color: var(--red-500) !important;
+    background: var(--red-100) !important;
     max-width: 280px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: block;
+    line-height: 20px !important;
+    padding: 0 var(--spacing-3) !important;
   }
 
   & :global(.bp3-popover-wrapper),
@@ -101,10 +120,6 @@ $node-width: 40px;
   & :global(.bp3-popover-target),
   & :global(.bp3-popover-target > p) {
     height: 100%;
-  }
-
-  & .ignoreWarning {
-    --intent-color: var(--warning);
   }
 }
 

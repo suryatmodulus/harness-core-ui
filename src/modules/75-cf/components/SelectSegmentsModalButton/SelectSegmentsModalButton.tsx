@@ -71,7 +71,12 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
       }),
       [queryString, sortOrder, sortByField, pageNumber]
     )
-    const { data, loading: loadingSegments, error, refetch } = useGetTargetAvailableSegments({
+    const {
+      data,
+      loading: loadingSegments,
+      error,
+      refetch
+    } = useGetTargetAvailableSegments({
       identifier: targetIdentifier as string,
       queryParams,
       lazy: true

@@ -126,7 +126,7 @@
 .accordionSummary {
   width: 100%;
   background: var(--white);
-  padding-bottom: var(--spacing-medium);
+  margin-top: 0 !important;
 }
 
 .header {
@@ -134,7 +134,6 @@
   font-weight: 600;
 }
 .subheading {
-  padding: var(--spacing-large) 0;
   font-weight: 600;
 }
 
@@ -173,4 +172,22 @@
 
 .connectorMargin {
   margin-bottom: var(--spacing-small) !important;
+}
+
+.layoutVerticalSpacing {
+  margin-top: var(--spacing-main) !important;
+  .vertical-spacing-input {
+    margin-bottom: var(--spacing-small);
+  }
+  :global {
+    .bp3-form-group {
+      margin-bottom: 0;
+    }
+  }
+}
+.listLabel {
+  margin-bottom: var(--spacing-small);
+}
+.width400 {
+  width: 400px;
 }

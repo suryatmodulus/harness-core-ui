@@ -262,16 +262,8 @@ export class BarrierStep extends PipelineStep<BarrierData> {
   }
 
   renderStep(props: StepProps<BarrierData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (

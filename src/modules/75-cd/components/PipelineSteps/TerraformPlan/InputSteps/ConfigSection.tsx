@@ -33,7 +33,11 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
   const connectorRef = getIdentifierFromValue(connectorValue?.value || '')
   const initialScope = getScopeFromValue(connectorValue?.value || '')
 
-  const { data: connector, loading, refetch } = useGetConnector({
+  const {
+    data: connector,
+    loading,
+    refetch
+  } = useGetConnector({
     identifier: connectorRef,
     queryParams: {
       accountIdentifier: accountId,

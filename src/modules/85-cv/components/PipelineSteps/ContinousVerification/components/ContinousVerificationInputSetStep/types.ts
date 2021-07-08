@@ -9,3 +9,8 @@ export interface ContinousVerificationProps {
   template?: ContinousVerificationData
   path?: string
 }
+
+export interface serviceAndEnvData {
+  serviceIdentifierData: string
+  envIdentifierData: string
+}

@@ -31,5 +31,9 @@ declare const styles: {
   readonly width25: string
   readonly serviceSection: string
   readonly connectorMargin: string
+  readonly layoutVerticalSpacing: string
+  readonly verticalSpacingInput: string
+  readonly listLabel: string
+  readonly width400: string
 }
 export default styles

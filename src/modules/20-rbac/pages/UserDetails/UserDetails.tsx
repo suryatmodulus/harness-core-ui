@@ -19,9 +19,8 @@ import css from './UserDetails.module.scss'
 
 const UserDetails: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier, module, userIdentifier } = useParams<
-    PipelineType<ProjectPathProps & UserPathProps>
-  >()
+  const { accountId, orgIdentifier, projectIdentifier, module, userIdentifier } =
+    useParams<PipelineType<ProjectPathProps & UserPathProps>>()
 
   const { data, loading, error, refetch } = useGetAggregatedUser({
     userId: userIdentifier,

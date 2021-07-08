@@ -25,7 +25,7 @@ const CreateGcrConnector: React.FC<CreateConnectorModalProps> = props => {
       title={getString(getConnectorTitleIdByType('Gcr'))}
     >
       <ConnectorDetailsStep
-        type={('Gcr' as unknown) as ConnectorInfoDTO['type']}
+        type={'Gcr' as unknown as ConnectorInfoDTO['type']}
         name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}

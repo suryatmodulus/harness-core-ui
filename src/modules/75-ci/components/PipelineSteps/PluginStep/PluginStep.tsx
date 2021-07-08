@@ -101,16 +101,8 @@ export class PluginStep extends PipelineStep<PluginStepData> {
   }
 
   renderStep(props: StepProps<PluginStepData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (

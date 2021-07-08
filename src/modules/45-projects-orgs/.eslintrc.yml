@@ -5,6 +5,7 @@ rules:
         - lodash.*
         - modules/45-dashboards/*
         - modules/70-pipeline/*
+        - modules/72-templates-library/*
         - modules/75-cd/*
         - modules/75-ce/*
         - modules/75-cf/*
@@ -12,6 +13,7 @@ rules:
         - modules/85-cv/*
         - '@dashboards/*'
         - '@pipeline/*'
+        - '@templates-library/*'
         - '@cd/*'
         - '@ce/*'
         - '@cf/*'
@@ -19,3 +21,8 @@ rules:
         - '@cv/*'
       paths:
         - lodash
+        - name: yaml
+          importNames:
+            - stringify
+          message: Please use yamlStringify from @common/utils/YamlHelperMethods instead
+            of this

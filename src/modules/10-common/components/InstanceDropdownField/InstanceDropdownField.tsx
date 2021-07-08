@@ -59,7 +59,7 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
         }
         if (type === InstanceTypes.Instances) {
           const value = this.parent?.spec?.count
-          if (getMultiTypeFromValue((value as unknown) as string) !== MultiTypeInputType.FIXED) {
+          if (getMultiTypeFromValue(value as unknown as string) !== MultiTypeInputType.FIXED) {
             return true
           }
           if (required && isNil(value)) {
@@ -161,7 +161,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
         allowableTypes={allowableTypes}
         disabled={readonly}
         key={isPercentageType ? 'percent' : 'count'}
-        value={((isPercentageType ? value.spec.percentage : value.spec.count) as unknown) as string}
+        value={(isPercentageType ? value.spec.percentage : value.spec.count) as unknown as string}
       />
 
       <Popover

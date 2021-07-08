@@ -1,11 +1,11 @@
 import React from 'react'
 import type { Meta, Story } from '@storybook/react'
 import { Card } from '@wings-software/uicore'
-import { stringify } from 'yaml'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { StepWidgetProps } from '@pipeline/components/AbstractSteps/StepWidget'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { K8sDeleteStep } from './K8sDeleteStep'
 factory.registerStep(new K8sDeleteStep())
 
@@ -38,7 +38,7 @@ export const K8sDelete: Story<Omit<StepWidgetProps, 'factory'>> = args => {
         <TestStepWidget {...args} onUpdate={setValue} />
       </Card>
       <Card>
-        <pre>{stringify(value)}</pre>
+        <pre>{yamlStringify(value)}</pre>
       </Card>
     </div>
   )

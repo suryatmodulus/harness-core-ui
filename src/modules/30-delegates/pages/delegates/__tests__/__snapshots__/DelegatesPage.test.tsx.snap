@@ -91,7 +91,7 @@ exports[`Delegates Page render data 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  delegate.NEW_DELEGATE
+                  delegate.DelegateName
                 </span>
               </button>
               <span

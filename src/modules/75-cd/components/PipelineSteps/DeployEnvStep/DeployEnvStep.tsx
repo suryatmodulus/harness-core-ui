@@ -263,7 +263,12 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   >()
 
   const { showError } = useToaster()
-  const { data: environmentsResponse, loading, error, refetch } = useGetEnvironmentList({
+  const {
+    data: environmentsResponse,
+    loading,
+    error,
+    refetch
+  } = useGetEnvironmentList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
@@ -271,7 +276,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   const [state, setState] = React.useState<DeployEnvironmentState>({
     isEdit: false,
     isEnvironment: false,
-    data: { name: '', identifier: '', type: 'PreProduction' }
+    data: { name: '', identifier: '' }
   })
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -486,10 +491,14 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
   const [state, setState] = React.useState<DeployEnvironmentState>({
     isEdit: false,
     isEnvironment: false,
-    data: { name: '', identifier: '', type: 'PreProduction' }
+    data: { name: '', identifier: '' }
   })
   const { expressions } = useVariablesExpression()
-  const { data: environmentsResponse, error, refetch } = useGetEnvironmentList({
+  const {
+    data: environmentsResponse,
+    error,
+    refetch
+  } = useGetEnvironmentList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })

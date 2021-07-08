@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Layout, Text, IconName, Color, Icon } from '@wings-software/uicore'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
+import { IdentifierText } from '@cf/components/IdentifierText/IdentifierText'
 
 const HEADER_HEIGHT = 145
 const HEADER_HEIGHT_NO_TAGS = 120
@@ -15,8 +16,9 @@ export interface DetailPageTemplateProps {
   breadcrumbs: DetailPageTemplateBreadcrumbLink[]
   title: React.ReactNode
   titleIcon?: IconName | React.ReactNode
-  subTittle?: string
+  subTitle?: string
   tags?: string[] | null | undefined
+  identifier?: string
 
   /** Optional extra components to be added into header (context menu, edit button, etc...)  */
   /** Note: Use absolute position to style it */
@@ -27,8 +29,9 @@ export const DetailPageTemplate: React.FC<DetailPageTemplateProps> = ({
   breadcrumbs,
   title,
   titleIcon,
-  subTittle,
+  subTitle,
   tags,
+  identifier,
   headerExtras,
   children
 }) => {
@@ -63,10 +66,13 @@ export const DetailPageTemplate: React.FC<DetailPageTemplateProps> = ({
               {typeof titleIcon !== 'string' && <>{titleIcon}</>}
             </Container>
             <Container>
-              <Text style={{ fontSize: '20px', color: 'var(--black)' }}>{title}</Text>
-              {subTittle && (
+              <Layout.Horizontal spacing="medium">
+                <Text style={{ fontSize: '20px', color: 'var(--black)' }}>{title}</Text>
+                {identifier && <IdentifierText identifier={identifier} allowCopy style={{ marginBottom: 0 }} />}
+              </Layout.Horizontal>
+              {subTitle && (
                 <Text color={Color.GREY_400} padding={{ top: 'xsmall' }}>
-                  {subTittle}
+                  {subTitle}
                 </Text>
               )}
             </Container>

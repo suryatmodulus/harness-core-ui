@@ -1,0 +1,18 @@
+.main {
+  display: flex;
+  align-items: center;
+  height: var(--spacing-7);
+  column-gap: var(--spacing-4);
+
+  .icon {
+    color: var(--grey-800) !important;
+    margin-right: var(--spacing-4) !important;
+  }
+
+  .branchName {
+    max-width: 250px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap !important;
+  }
+}

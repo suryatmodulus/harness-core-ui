@@ -126,7 +126,11 @@ const COLoadBalancerList: React.FC = () => {
     )
   }
   function RulesCell(tableProps: CellProps<AccessPoint>): JSX.Element {
-    const { data: details, error: detailsError, loading: detailsLoading } = useAccessPointRules({
+    const {
+      data: details,
+      error: detailsError,
+      loading: detailsLoading
+    } = useAccessPointRules({
       org_id: orgIdentifier, // eslint-disable-line
       project_id: projectIdentifier, // eslint-disable-line
       access_point_id: tableProps.row.original.id as string, // eslint-disable-line

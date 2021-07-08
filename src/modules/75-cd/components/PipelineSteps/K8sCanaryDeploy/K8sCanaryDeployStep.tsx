@@ -224,16 +224,8 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sCanaryDeployData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8CanaryDeployInputStep

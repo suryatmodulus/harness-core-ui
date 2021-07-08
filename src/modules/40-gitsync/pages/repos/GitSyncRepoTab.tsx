@@ -520,14 +520,14 @@ const GitSyncRepoTab: React.FC = () => {
     [gitSyncRepos?.length]
   )
   return (
-    <Container padding="large">
+    <Container>
       <Button
         intent="primary"
         text={getString('addRepository')}
         icon="plus"
         onClick={() => openGitSyncModal(false, false, undefined)}
         id="newRepoBtn"
-        margin={{ left: 'xlarge', bottom: 'small' }}
+        margin={{ left: 'xlarge', bottom: 'small', top: 'large' }}
       />
       <Table<GitSyncConfig> className={css.table} columns={columns} data={gitSyncRepos || []} />
     </Container>

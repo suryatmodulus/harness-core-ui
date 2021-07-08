@@ -9,3 +9,4 @@ You can use the following comments to re-trigger PR Checks
 - Title Check: `retrigger titlecheck`
 - Coverage: `retrigger coverage`
 - Rebase: `trigger rebase`
+- Fix Prettier - `fix prettier`

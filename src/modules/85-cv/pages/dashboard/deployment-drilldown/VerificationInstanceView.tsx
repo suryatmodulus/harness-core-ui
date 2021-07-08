@@ -11,8 +11,8 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { DeploymentProgressAndNodes } from '@cv/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
-import type { NodeData } from '../../services/BlueGreenVerificationChart'
+import { DeploymentProgressAndNodes } from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
+import type { NodeData } from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/BlueGreenVerificationChart/BlueGreenVerificationChart'
 import DeploymentMetricsTab from './DeploymentMetricsTab'
 import DeploymentLogsTab from './DeploymentLogsTab'
 import styles from './DeploymentDrilldownView.module.scss'
@@ -165,8 +165,8 @@ export default function VerificationInstanceView({
       />
       <Container className={styles.filters}>
         <Tabs id="tabs1" onChange={onTabChange} selectedTabId={selectedTab}>
-          <Tab title={getString('cv.analysisScreens.analysisTab.metrics')} id={TabIdentifier.METRICS_TAB} />
-          <Tab title={getString('cv.analysisScreens.analysisTab.logs')} id={TabIdentifier.LOGS_TAB} />
+          <Tab title={getString('pipeline.verification.analysisTab.metrics')} id={TabIdentifier.METRICS_TAB} />
+          <Tab title={getString('pipeline.verification.analysisTab.logs')} id={TabIdentifier.LOGS_TAB} />
         </Tabs>
       </Container>
       {selectedTab === TabIdentifier.METRICS_TAB && (

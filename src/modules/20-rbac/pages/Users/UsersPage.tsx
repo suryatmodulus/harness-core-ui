@@ -46,7 +46,7 @@ const UsersPage: React.FC = () => {
         title={
           <Layout.Horizontal padding={{ left: 'large' }} spacing="small">
             <RbacButton
-              text={getString('newUser')}
+              text={getString('rbac.user')}
               intent="primary"
               icon="plus"
               onClick={() => openRoleAssignmentModal()}

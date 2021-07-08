@@ -1,0 +1,20 @@
+{
+  "identifier": "gitSyncRepoTest",
+  "name": "gitSyncRepoTest",
+  "projectIdentifier": "dummyProject",
+  "orgIdentifier": "default",
+  "gitConnectorRef": "gitSyncTest",
+  "repo": "https://github.com/wings-software/triggerNgDemo",
+  "branch": "master",
+  "gitConnectorType": "Github",
+  "gitSyncFolderConfigDTOs": [
+    {
+      "rootFolder": "src1/.harness/",
+      "isDefault": true
+    },
+    {
+      "rootFolder": "src2/.harness/",
+      "isDefault": false
+    }
+  ]
+}

@@ -2,7 +2,9 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
+  readonly graphAligner: string
   readonly graphWrapper: string
+  readonly hasButtons: string
   readonly graph: string
   readonly stageWrapper: string
   readonly scrollLeft: string
@@ -11,7 +13,6 @@ declare const styles: {
   readonly stepCount: string
   readonly runningAnimation: string
   readonly errorMsg: string
-  readonly ignoreWarning: string
   readonly stage: string
   readonly icon: string
   readonly ignorefailed: string

@@ -12,11 +12,9 @@ import ConfigureSlackNotifications from '../views/ConfigureSlackNotifications/Co
 import ConfigurePagerDutyNotifications from '../views/ConfigurePagerDutyNotifications/ConfigurePagerDutyNotifications'
 
 const testNotificationMock = jest.fn()
-testNotificationMock.mockImplementation(
-  (): Promise<{ status: string }> => {
-    return Promise.resolve({ status: 'SUCCESS' })
-  }
-)
+testNotificationMock.mockImplementation((): Promise<{ status: string }> => {
+  return Promise.resolve({ status: 'SUCCESS' })
+})
 
 jest.mock('services/notifications', () => ({
   useTestNotificationSetting: jest.fn().mockImplementation(() => ({ mutate: testNotificationMock }))

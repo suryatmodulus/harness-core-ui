@@ -1,101 +1,36 @@
 import React from 'react'
 import { act, findByText, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
-import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
+import { useGetMonitoredServiceFromServiceAndEnvironment } from 'services/cv'
 import { ContinousVerificationStep } from '../ContinousVerificationStep'
-
-const jobsData = {
-  data: [
-    {
-      identifier: 'Health Job',
-      jobName: 'Health Job',
-      serviceIdentifier: '<+service.identifier>',
-      serviceName: null,
-      envIdentifier: '<+env.identifier>',
-      envName: null,
-      projectIdentifier: 'Test2',
-      orgIdentifier: 'default',
-      activitySourceIdentifier: 'cd_nextgen_activity_source',
-      dataSources: null,
-      monitoringSources: ['AppDynamics'],
-      verificationJobUrl:
-        '/cv/api/verification-job?accountId=kmpySmUISimoRrJL6NL73w&orgIdentifier=default&projectIdentifier=Test2&identifier=AppDynamics',
-      duration: '5m',
-      type: 'HEALTH',
-      defaultJob: false
-    },
-    {
-      identifier: 'Blue Green',
-      jobName: 'Blue Green',
-      serviceIdentifier: 'testservice',
-      serviceName: null,
-      envIdentifier: 'preprod',
-      envName: null,
-      projectIdentifier: 'Test2',
-      orgIdentifier: 'default',
-      activitySourceIdentifier: 'cd_nextgen_activity_source',
-      dataSources: null,
-      monitoringSources: ['AppDynamics'],
-      verificationJobUrl:
-        '/cv/api/verification-job?accountId=kmpySmUISimoRrJL6NL73w&orgIdentifier=default&projectIdentifier=Test2&identifier=Blue_Green',
-      duration: '<+input>',
-      sensitivity: '<+input>',
-      trafficSplitPercentage: '<+input>',
-      type: 'BLUE_GREEN',
-      defaultJob: false
-    },
-    {
-      identifier: 'Canary',
-      jobName: 'Canary',
-      serviceIdentifier: 'testservice',
-      serviceName: null,
-      envIdentifier: 'preprod',
-      envName: null,
-      projectIdentifier: 'Test2',
-      orgIdentifier: 'default',
-      activitySourceIdentifier: 'cd_nextgen_activity_source',
-      dataSources: null,
-      monitoringSources: ['AppDynamics'],
-      verificationJobUrl:
-        '/cv/api/verification-job?accountId=kmpySmUISimoRrJL6NL73w&orgIdentifier=default&projectIdentifier=Test2&identifier=Canary',
-      duration: '<+input>',
-      sensitivity: 'HIGH',
-      trafficSplitPercentage: null,
-      type: 'CANARY',
-      defaultJob: false
-    },
-    {
-      identifier: 'Test type Job with run time service param',
-      jobName: 'Test type Job with run time service param',
-      serviceIdentifier: '<+input>',
-      serviceName: null,
-      envIdentifier: 'preprod',
-      envName: null,
-      projectIdentifier: 'Test2',
-      orgIdentifier: 'default',
-      activitySourceIdentifier: 'cd_nextgen_activity_source',
-      dataSources: null,
-      monitoringSources: ['AppDynamics'],
-      verificationJobUrl:
-        '/cv/api/verification-job?accountId=kmpySmUISimoRrJL6NL73w&orgIdentifier=default&projectIdentifier=Test2&identifier=Test_type_Job_with_run_time_service_param',
-      duration: '10m',
-      sensitivity: 'MEDIUM',
-      baselineVerificationJobInstanceId: 'LAST',
-      type: 'TEST',
-      defaultJob: false
-    }
-  ]
-}
+import {
+  mockedMonitoredService,
+  mockedMonitoredServiceAndHealthSources,
+  PipelineResponse,
+  verifyStepInitialValues,
+  verifyStepInitialValuesWithRunTimeFields
+} from './ContinousVerificationMocks'
 
 jest.mock('services/cv', () => ({
-  useCDNGVerificationJobs: jest.fn().mockImplementation(() => ({ loading: false, data: jobsData, error: false })),
+  useGetMonitoredServiceFromServiceAndEnvironment: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: mockedMonitoredServiceAndHealthSources, error: false })),
+  useCreateDefaultMonitoredService: jest.fn().mockImplementation(() => ({
+    metaData: {},
+    resource: {},
+    responseMessages: []
+  })),
   useListBaselineExecutions: jest.fn().mockImplementation(() => ({
     metaData: {},
     resource: [],
     responseMessages: []
   }))
+}))
+
+jest.mock('services/pipeline-ng', () => ({
+  useGetPipeline: jest.fn(() => PipelineResponse)
 }))
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -113,25 +48,24 @@ describe('Test ContinousVerificationStep Step', () => {
     const { container } = render(
       <TestStepWidget initialValues={{}} type={StepType.Verify} stepViewType={StepViewType.Edit} />
     )
-
     expect(container).toMatchSnapshot()
   })
 
   test('should render editView when current step is being edited', () => {
     const initialValues = {
+      name: 'CV Step',
       type: 'ContinousVerification',
       identifier: 'ContinousVerification',
-      name: 'CV',
+      timeout: '2h',
       spec: {
-        verificationJobRef: 'Blue Green Job',
-        type: 'BLUE_GREEN',
+        monitoredServiceRef: 'monitored-service',
+        type: 'Rolling',
+        healthSources: [],
         spec: {
           sensitivity: 'Low',
           duration: '15min',
           baseline: 'Last successful job run',
           trafficsplit: '5%',
-          service: 'dockerservice',
-          env: 'preprod',
           deploymentTag: '1.2'
         }
       }
@@ -139,56 +73,20 @@ describe('Test ContinousVerificationStep Step', () => {
     const { container } = render(
       <TestStepWidget initialValues={initialValues} type={StepType.Verify} stepViewType={StepViewType.Edit} />
     )
-
     expect(container).toMatchSnapshot()
   })
 
   test('should render editView when current step is being edited and runtime inputs are passed', () => {
-    const initialValues = {
-      type: 'ContinousVerification',
-      identifier: 'ContinousVerification',
-      name: 'CV',
-      spec: {
-        verificationJobRef: 'Blue Green Job',
-        type: 'BLUE_GREEN',
-        spec: {
-          sensitivity: '<+input>',
-          duration: '<+input>',
-          baseline: '<+input>',
-          trafficsplit: '<+input>',
-          service: 'dockerservice',
-          env: 'preprod',
-          deploymentTag: '1.2'
-        }
-      }
-    }
+    const initialValues = verifyStepInitialValuesWithRunTimeFields
     const { container } = render(
       <TestStepWidget initialValues={initialValues} type={StepType.Verify} stepViewType={StepViewType.Edit} />
     )
-
     expect(container).toMatchSnapshot()
   })
 
   test('renders inputSetView', () => {
     const onUpdate = jest.fn()
-    const initialValues = {
-      type: 'ContinousVerification',
-      identifier: 'ContinousVerification',
-      name: 'CV',
-      spec: {
-        verificationJobRef: 'Blue Green Job',
-        type: 'BLUE_GREEN',
-        spec: {
-          sensitivity: RUNTIME_INPUT_VALUE,
-          duration: RUNTIME_INPUT_VALUE,
-          baseline: RUNTIME_INPUT_VALUE,
-          trafficsplit: RUNTIME_INPUT_VALUE,
-          service: RUNTIME_INPUT_VALUE,
-          env: RUNTIME_INPUT_VALUE,
-          deploymentTag: RUNTIME_INPUT_VALUE
-        }
-      }
-    }
+    const initialValues = verifyStepInitialValuesWithRunTimeFields
     const { container } = render(
       <TestStepWidget
         initialValues={{}}
@@ -196,7 +94,6 @@ describe('Test ContinousVerificationStep Step', () => {
         type={StepType.Verify}
         stepViewType={StepViewType.InputSet}
         onUpdate={onUpdate}
-        path=""
       />
     )
 
@@ -205,49 +102,17 @@ describe('Test ContinousVerificationStep Step', () => {
 
   test('renders empty inputSetView', () => {
     const { container } = render(
-      <TestStepWidget
-        initialValues={{}}
-        template={{}}
-        type={StepType.Verify}
-        stepViewType={StepViewType.InputSet}
-        path=""
-      />
+      <TestStepWidget initialValues={{}} template={{}} type={StepType.Verify} stepViewType={StepViewType.InputSet} />
     )
     expect(container).toMatchSnapshot()
   })
 
-  test('shows different interface when the api call to fetch CV jobs is completed', async () => {
+  test('Verify when Monitored service and HealthSource is present for a given service and environment and selected type is rolling update.', async () => {
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()
     const { container, getByText } = render(
       <TestStepWidget
-        initialValues={{}}
-        type={StepType.Verify}
-        stepViewType={StepViewType.Edit}
-        onUpdate={onUpdate}
-        ref={ref}
-      />
-    )
-    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
-    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'CV Step' } })
-
-    fireEvent.click(getByText('connectors.cdng.defineVerificationJob'))
-    await waitFor(() => {
-      expect(getByText('connectors.cdng.jobName')).toBeTruthy()
-    })
-
-    fireEvent.click(getByText('cv.verificationJobs.configure.tabName'))
-    await waitFor(() => {
-      expect(getByText('connectors.cdng.selectTheJobNameFirst')).toBeTruthy()
-    })
-  })
-
-  test('shows different UI elements under configure job panel with different values when job of type HEALTH is selected', async () => {
-    const onUpdate = jest.fn()
-    const ref = React.createRef<StepFormikRef<unknown>>()
-    const { container, getByText } = render(
-      <TestStepWidget
-        initialValues={{}}
+        initialValues={verifyStepInitialValues}
         type={StepType.Verify}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
@@ -255,186 +120,60 @@ describe('Test ContinousVerificationStep Step', () => {
       />
     )
 
+    // entering the step name
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'CV Step' } })
 
-    fireEvent.click(getByText('connectors.cdng.defineVerificationJob'))
+    // Verify if correct monitoring service is present.
     await waitFor(() => {
-      expect(getByText('connectors.cdng.jobName')).toBeTruthy()
+      expect(getByText('connectors.cdng.monitoredService.label')).toBeTruthy()
+      const monitoredService = container.querySelector('input[name="spec.monitoredServiceRef"]') as HTMLInputElement
+      expect(monitoredService).toBeTruthy()
+      expect(monitoredService.value).toBe(mockedMonitoredServiceAndHealthSources.data.monitoredService.name)
     })
 
-    //clicking on the select jobs dropdown and selecting the job of type HEALTH
-    const defineVJDropdown = container.querySelector('input[name="spec.verificationJobRef"]') as HTMLInputElement
+    // Verify if correct health source is present.
+    await waitFor(() => {
+      expect(getByText('connectors.cdng.healthSources.label')).toBeTruthy()
+      for (const healthSource of mockedMonitoredServiceAndHealthSources.data.monitoredService.sources.healthSources) {
+        expect(getByText(healthSource.name)).toBeTruthy()
+      }
+    })
+
+    //verify if the continous verification type is getting selected correctly.
+    const verificationTypeDropdown = container.querySelector('input[name="spec.type"]') as HTMLInputElement
     const selectCaret = container
-      .querySelector(`[name="spec.verificationJobRef"] + [class*="bp3-input-action"]`)
+      .querySelector(`[name="spec.type"] + [class*="bp3-input-action"]`)
       ?.querySelector('[data-icon="caret-down"]')
     await waitFor(() => {
       fireEvent.click(selectCaret!)
     })
-    const jobToSelect = await findByText(container, 'Health Job')
+    const typeToSelect = await findByText(container, 'Rolling Update')
     act(() => {
-      fireEvent.click(jobToSelect)
+      fireEvent.click(typeToSelect)
     })
-    expect(defineVJDropdown.value).toBe('Health Job')
+    expect(verificationTypeDropdown.value).toBe('Rolling Update')
 
-    // clicking on the configure Verification Job panel and verifying existence of diffferent UI elements and their values.
-    fireEvent.click(getByText('cv.verificationJobs.configure.tabName'))
+    // verify if the correct fields are present for the selected verification type
     await waitFor(() => {
-      const serviceDropdown = container.querySelector('input[name="spec.spec.serviceRef"]') as HTMLInputElement
-      const durationDropdown = container.querySelector('input[name="spec.spec.duration"]') as HTMLInputElement
-      const envDropdown = container.querySelector('input[name="spec.spec.envRef"]') as HTMLInputElement
-      const deploymentTagField = container.querySelector('input[name="spec.spec.deploymentTag"]') as HTMLInputElement
-
-      expect(serviceDropdown).toBeTruthy()
-      expect(serviceDropdown.value).toBe('<+service.identifier>')
-
-      expect(envDropdown).toBeTruthy()
-      expect(envDropdown.value).toBe('<+env.identifier>')
-
-      expect(durationDropdown).toBeTruthy()
-      expect(durationDropdown.value).toBe('5 min')
-
-      expect(deploymentTagField).toBeTruthy()
-      expect(deploymentTagField.value).toBe('<+serviceConfig.artifacts.primary.tag>')
-    })
-  })
-
-  test('shows different UI elements under configure job panel with different values when job of type TEST is selected', async () => {
-    const onUpdate = jest.fn()
-    const ref = React.createRef<StepFormikRef<unknown>>()
-    const { container, getByText } = render(
-      <TestStepWidget
-        initialValues={{}}
-        type={StepType.Verify}
-        stepViewType={StepViewType.Edit}
-        onUpdate={onUpdate}
-        ref={ref}
-      />
-    )
-
-    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
-    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'CV Step' } })
-
-    fireEvent.click(getByText('connectors.cdng.defineVerificationJob'))
-    await waitFor(() => {
-      expect(getByText('connectors.cdng.jobName')).toBeTruthy()
-    })
-
-    //clicking on the select jobs dropdown and selecting the job of type TEST
-    const defineVJDropdown = container.querySelector('input[name="spec.verificationJobRef"]') as HTMLInputElement
-    const selectCaret = container
-      .querySelector(`[name="spec.verificationJobRef"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
-    await waitFor(() => {
-      fireEvent.click(selectCaret!)
-    })
-    const jobToSelect = await findByText(container, 'Test type Job with run time service param')
-    act(() => {
-      fireEvent.click(jobToSelect)
-    })
-    expect(defineVJDropdown.value).toBe('Test type Job with run time service param')
-
-    // clicking on the configure Verification Job panel and verifying existence of diffferent UI elements and their values.
-    fireEvent.click(getByText('cv.verificationJobs.configure.tabName'))
-    await waitFor(() => {
-      const serviceDropdown = container.querySelector('input[name="spec.spec.serviceRef"]') as HTMLInputElement
-      const envDropdown = container.querySelector('input[name="spec.spec.envRef"]') as HTMLInputElement
-      const durationDropdown = container.querySelector('input[name="spec.spec.duration"]') as HTMLInputElement
       const sensitivityDropdown = container.querySelector('input[name="spec.spec.sensitivity"]') as HTMLInputElement
-      const baselineDropdown = container.querySelector('input[name="spec.spec.baseline"]') as HTMLInputElement
-      const deploymentTagField = container.querySelector('input[name="spec.spec.deploymentTag"]') as HTMLInputElement
-
-      expect(serviceDropdown).toBeTruthy()
-      expect(serviceDropdown.value).toBe('<+service.identifier>')
-
-      expect(envDropdown).toBeTruthy()
-      expect(envDropdown.value).toBe('preprod')
-
-      expect(durationDropdown).toBeTruthy()
-      expect(durationDropdown.value).toBe('10 min')
-
-      expect(sensitivityDropdown).toBeTruthy()
-      expect(sensitivityDropdown.value).toBe('connectors.cdng.verificationSensitivityLabel.medium')
-
-      expect(baselineDropdown).toBeTruthy()
-      expect(baselineDropdown.value).toBe('Last Successful job run')
-
-      expect(deploymentTagField).toBeTruthy()
-      expect(deploymentTagField.value).toBe('<+serviceConfig.artifacts.primary.tag>')
-    })
-  })
-
-  test('shows different UI elements under configure job panel with different values when job of type BLUE GREEN is selected', async () => {
-    const onUpdate = jest.fn()
-    const ref = React.createRef<StepFormikRef<unknown>>()
-    const { container, getByText } = render(
-      <TestStepWidget
-        initialValues={{}}
-        type={StepType.Verify}
-        stepViewType={StepViewType.Edit}
-        onUpdate={onUpdate}
-        ref={ref}
-      />
-    )
-
-    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
-    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'CV Step' } })
-
-    fireEvent.click(getByText('connectors.cdng.defineVerificationJob'))
-    await waitFor(() => {
-      expect(getByText('connectors.cdng.jobName')).toBeTruthy()
-    })
-
-    //clicking on the select jobs dropdown and selecting the job of type BLUE GREEN
-    const defineVJDropdown = container.querySelector('input[name="spec.verificationJobRef"]') as HTMLInputElement
-    const selectCaret = container
-      .querySelector(`[name="spec.verificationJobRef"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
-    await waitFor(() => {
-      fireEvent.click(selectCaret!)
-    })
-    const jobToSelect = await findByText(container, 'Blue Green')
-    act(() => {
-      fireEvent.click(jobToSelect)
-    })
-    expect(defineVJDropdown.value).toBe('Blue Green')
-
-    // clicking on the configure Verification Job panel and verifying existence of diffferent UI elements and their values.
-    fireEvent.click(getByText('cv.verificationJobs.configure.tabName'))
-    await waitFor(() => {
-      const serviceDropdown = container.querySelector('input[name="spec.spec.serviceRef"]') as HTMLInputElement
-      const envDropdown = container.querySelector('input[name="spec.spec.envRef"]') as HTMLInputElement
       const durationDropdown = container.querySelector('input[name="spec.spec.duration"]') as HTMLInputElement
-      const sensitivityDropdown = container.querySelector('input[name="spec.spec.sensitivity"]') as HTMLInputElement
       const trafficsplitDropdown = container.querySelector('input[name="spec.spec.trafficsplit"]') as HTMLInputElement
       const deploymentTagField = container.querySelector('input[name="spec.spec.deploymentTag"]') as HTMLInputElement
 
-      expect(serviceDropdown).toBeTruthy()
-      expect(serviceDropdown.value).toBe('testservice')
-
-      expect(envDropdown).toBeTruthy()
-      expect(envDropdown.value).toBe('preprod')
-
-      expect(durationDropdown).toBeTruthy()
-      expect(durationDropdown.value).toBe('')
-
       expect(sensitivityDropdown).toBeTruthy()
-      expect(sensitivityDropdown.value).toBe('')
-
-      expect(trafficsplitDropdown).toBeTruthy()
-      expect(trafficsplitDropdown.value).toBe('')
-
+      expect(durationDropdown).toBeTruthy()
       expect(deploymentTagField).toBeTruthy()
-      expect(deploymentTagField.value).toBe('<+serviceConfig.artifacts.primary.tag>')
+      expect(trafficsplitDropdown).toBeTruthy()
     })
   })
 
-  test('shows different UI elements under configure job panel with different values when job of type CANARY is selected', async () => {
+  test('Verify when Monitored service and HealthSource is present for a given service and environment and selected type is Load Test.', async () => {
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()
     const { container, getByText } = render(
       <TestStepWidget
-        initialValues={{}}
+        initialValues={verifyStepInitialValues}
         type={StepType.Verify}
         stepViewType={StepViewType.Edit}
         onUpdate={onUpdate}
@@ -442,51 +181,147 @@ describe('Test ContinousVerificationStep Step', () => {
       />
     )
 
+    // entering the step name
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'CV Step' } })
 
-    fireEvent.click(getByText('connectors.cdng.defineVerificationJob'))
+    // Verify if correct monitoring service is present.
     await waitFor(() => {
-      expect(getByText('connectors.cdng.jobName')).toBeTruthy()
+      expect(getByText('connectors.cdng.monitoredService.label')).toBeTruthy()
+      const monitoredService = container.querySelector('input[name="spec.monitoredServiceRef"]') as HTMLInputElement
+      expect(monitoredService).toBeTruthy()
+      expect(monitoredService.value).toBe(mockedMonitoredServiceAndHealthSources.data.monitoredService.name)
     })
 
-    //clicking on the select jobs dropdown and selecting the job of type CANARY
-    const defineVJDropdown = container.querySelector('input[name="spec.verificationJobRef"]') as HTMLInputElement
+    // Verify if the correct health sources are present.
+    await waitFor(() => {
+      expect(getByText('connectors.cdng.healthSources.label')).toBeTruthy()
+      for (const healthSource of mockedMonitoredServiceAndHealthSources.data.monitoredService.sources.healthSources) {
+        expect(getByText(healthSource.name)).toBeTruthy()
+      }
+    })
+
+    //verify if the continous verification type is getting selected correctly.
+    const verificationTypeDropdown = container.querySelector('input[name="spec.type"]') as HTMLInputElement
     const selectCaret = container
-      .querySelector(`[name="spec.verificationJobRef"] + [class*="bp3-input-action"]`)
+      .querySelector(`[name="spec.type"] + [class*="bp3-input-action"]`)
       ?.querySelector('[data-icon="caret-down"]')
     await waitFor(() => {
       fireEvent.click(selectCaret!)
     })
-    const jobToSelect = await findByText(container, 'Canary')
+    const typeToSelect = await findByText(container, 'Load Test')
     act(() => {
-      fireEvent.click(jobToSelect)
+      fireEvent.click(typeToSelect)
     })
-    expect(defineVJDropdown.value).toBe('Canary')
+    expect(verificationTypeDropdown.value).toBe('Load Test')
 
-    // clicking on the configure Verification Job panel and verifying existence of diffferent UI elements and their values.
-    fireEvent.click(getByText('cv.verificationJobs.configure.tabName'))
+    // verify if the correct fields are present for the selected verification type
     await waitFor(() => {
-      const serviceDropdown = container.querySelector('input[name="spec.spec.serviceRef"]') as HTMLInputElement
-      const envDropdown = container.querySelector('input[name="spec.spec.envRef"]') as HTMLInputElement
-      const durationDropdown = container.querySelector('input[name="spec.spec.duration"]') as HTMLInputElement
       const sensitivityDropdown = container.querySelector('input[name="spec.spec.sensitivity"]') as HTMLInputElement
+      const durationDropdown = container.querySelector('input[name="spec.spec.duration"]') as HTMLInputElement
+      const baselineDropdown = container.querySelector('input[name="spec.spec.baseline"]') as HTMLInputElement
       const deploymentTagField = container.querySelector('input[name="spec.spec.deploymentTag"]') as HTMLInputElement
 
-      expect(serviceDropdown).toBeTruthy()
-      expect(serviceDropdown.value).toBe('testservice')
-
-      expect(envDropdown).toBeTruthy()
-      expect(envDropdown.value).toBe('preprod')
-
+      expect(sensitivityDropdown).toBeTruthy()
       expect(durationDropdown).toBeTruthy()
-      expect(durationDropdown.value).toBe('')
+      expect(deploymentTagField).toBeTruthy()
+      expect(baselineDropdown).toBeTruthy()
+    })
+  })
+
+  test('Verify when Monitored service is present and HealthSource is not present for a given service and environment ', async () => {
+    ;(useGetMonitoredServiceFromServiceAndEnvironment as jest.Mock).mockImplementation(() => ({
+      loading: false,
+      data: mockedMonitoredService,
+      error: false
+    }))
+    const onUpdate = jest.fn()
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={verifyStepInitialValues}
+        type={StepType.Verify}
+        stepViewType={StepViewType.Edit}
+        onUpdate={onUpdate}
+        ref={ref}
+      />
+    )
+
+    // entering the step name
+    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
+    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'CV Step' } })
+
+    // Verify if correct monitoring service is present.
+    await waitFor(() => {
+      expect(getByText('connectors.cdng.monitoredService.label')).toBeTruthy()
+      const monitoredService = container.querySelector('input[name="spec.monitoredServiceRef"]') as HTMLInputElement
+      expect(monitoredService).toBeTruthy()
+      expect(monitoredService.value).toBe(mockedMonitoredService.data.monitoredService.name)
+    })
+
+    // Verify if no health sources are present.
+    await waitFor(() => {
+      expect(getByText('connectors.cdng.healthSources.label')).toBeTruthy()
+      expect(getByText('connectors.cdng.healthSources.noHealthSourcesDefined')).toBeTruthy()
+    })
+
+    //verify if the continous verification type is getting selected correctly.
+    const verificationTypeDropdown = container.querySelector('input[name="spec.type"]') as HTMLInputElement
+    const selectCaret = container
+      .querySelector(`[name="spec.type"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
+    await waitFor(() => {
+      fireEvent.click(selectCaret!)
+    })
+    const typeToSelect = await findByText(container, 'Load Test')
+    act(() => {
+      fireEvent.click(typeToSelect)
+    })
+    expect(verificationTypeDropdown.value).toBe('Load Test')
+
+    // verify if the correct fields are present for the selected verification type
+    await waitFor(() => {
+      const sensitivityDropdown = container.querySelector('input[name="spec.spec.sensitivity"]') as HTMLInputElement
+      const durationDropdown = container.querySelector('input[name="spec.spec.duration"]') as HTMLInputElement
+      const baselineDropdown = container.querySelector('input[name="spec.spec.baseline"]') as HTMLInputElement
+      const deploymentTagField = container.querySelector('input[name="spec.spec.deploymentTag"]') as HTMLInputElement
 
       expect(sensitivityDropdown).toBeTruthy()
-      expect(sensitivityDropdown.value).toBe('connectors.cdng.verificationSensitivityLabel.high')
-
+      expect(durationDropdown).toBeTruthy()
       expect(deploymentTagField).toBeTruthy()
-      expect(deploymentTagField.value).toBe('<+serviceConfig.artifacts.primary.tag>')
+      expect(baselineDropdown).toBeTruthy()
+    })
+  })
+
+  test('Verify when Monitored service and HealthSource both are not present for a given service and environment ', async () => {
+    ;(useGetMonitoredServiceFromServiceAndEnvironment as jest.Mock).mockImplementation(() => ({
+      loading: false,
+      data: { data: null },
+      error: false
+    }))
+
+    const onUpdate = jest.fn()
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={verifyStepInitialValues}
+        type={StepType.Verify}
+        stepViewType={StepViewType.Edit}
+        onUpdate={onUpdate}
+        ref={ref}
+      />
+    )
+
+    // entering the step name
+    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
+    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'CV Step' } })
+
+    // Verify that no monitoring source is present
+    await waitFor(() => {
+      expect(getByText('connectors.cdng.monitoredService.label')).toBeTruthy()
+      //Verify to see if autocreate Monitored service link is present.
+      const autoCreateMonitoredServiceLink = getByText('connectors.cdng.monitoredService.autoCreateMonitoredService')
+      expect(autoCreateMonitoredServiceLink).toBeTruthy()
     })
   })
 })

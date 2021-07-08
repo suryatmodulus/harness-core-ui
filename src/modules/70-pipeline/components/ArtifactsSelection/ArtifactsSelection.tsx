@@ -446,7 +446,7 @@ export default function ArtifactsSelection({
         return (
           <StepWizard title={getString('connectors.createNewConnector')}>
             <ConnectorDetailsStep
-              type={('Gcr' as unknown) as ConnectorInfoDTO['type']}
+              type={'Gcr' as unknown as ConnectorInfoDTO['type']}
               name={getString('overview')}
               isEditMode={isEditMode}
               gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}

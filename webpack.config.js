@@ -228,6 +228,12 @@ const prodOnlyPlugins = [
   new CircularDependencyPlugin({
     exclude: /node_modules/,
     failOnError: true
+  }),
+  new HTMLWebpackPlugin({
+    template: 'src/versions.html',
+    filename: 'static/versions.html',
+    minify: false,
+    inject: false
   })
 ]
 

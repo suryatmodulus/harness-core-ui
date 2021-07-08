@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit tests for Deployment metrics Ensure file renders correctly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main main"
+  />
+</div>
+`;

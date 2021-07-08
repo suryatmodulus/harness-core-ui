@@ -9,12 +9,14 @@ import useCreateOrSelectSecretModal from '@secrets/modals/CreateOrSelectSecretMo
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
-import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
+import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper, ConnectorInfoDTO } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useStrings } from 'framework/strings'
+import { getReference } from '@secrets/utils/SSHAuthUtils'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import css from './SecretInput.module.scss'
 
 export interface SecretInputProps {
@@ -24,6 +26,13 @@ export interface SecretInputProps {
   type?: SecretResponseWrapper['secret']['type']
   onSuccess?: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
+  /**
+   * Used when opening Create/Select/Update Secret modal from the Create Connector modal context
+   * to be added as a source_category query param to get a filtered list of secrets/connectors from the BE
+   */
+  connectorTypeContext?: ConnectorInfoDTO['type']
+  allowSelection?: boolean
+  privateSecret?: boolean
 }
 
 interface FormikSecretInput extends SecretInputProps {
@@ -33,7 +42,18 @@ interface FormikSecretInput extends SecretInputProps {
 const SecretInput: React.FC<FormikSecretInput> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const { formik, label, name, onSuccess, type = 'SecretText', secretsListMockData, placeholder } = props
+  const {
+    formik,
+    label,
+    name,
+    onSuccess,
+    type = 'SecretText',
+    secretsListMockData,
+    placeholder,
+    connectorTypeContext,
+    allowSelection = true,
+    privateSecret
+  } = props
   const secretReference = formik.values[name]
 
   const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal(
@@ -44,7 +64,8 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
         /* istanbul ignore next */
         onSuccess?.(secret)
       },
-      secretsListMockData
+      secretsListMockData,
+      connectorTypeContext: connectorTypeContext
     },
     [name, onSuccess]
   )
@@ -52,11 +73,13 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
     onSuccess: formData => {
       const secret: SecretReference = {
         ...pick(formData, 'identifier', 'name', 'orgIdentifier', 'projectIdentifier'),
-        referenceString: secretReference['referenceString']
+        referenceString: getReference(getScopeFromDTO(formData), formData.identifier) as string
       }
       formik.setFieldValue(name, secret)
       onSuccess?.(secret)
-    }
+    },
+    connectorTypeContext: connectorTypeContext,
+    privateSecret: privateSecret
   })
 
   const errorCheck = (): boolean =>
@@ -82,7 +105,11 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
             data-testid={name}
             onClick={e => {
               e.preventDefault()
-              openCreateOrSelectSecretModal()
+              if (allowSelection) {
+                openCreateOrSelectSecretModal()
+              } else {
+                openCreateSecretModal(type)
+              }
             }}
           >
             <Icon size={24} height={12} name={'key-main'} />

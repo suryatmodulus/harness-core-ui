@@ -65,6 +65,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                   height="10"
                   viewBox="0 0 9 14"
                   width="10"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M9 7c0-.4-.2-.7-.4-.9L1.8.3C1.6.1 1.4 0 1.1 0 .5 0 0 .5 0 1.2v11.7c0 .6.5 1.1 1.1 1.1.3 0 .5-.1.7-.3l6.8-5.8c.2-.2.4-.5.4-.9z"
@@ -113,6 +114,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                   height="10"
                   viewBox="0 0 14 9"
                   width="10"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M14 1.1c0-.6-.5-1.1-1.2-1.1H1.2C.5 0 0 .5 0 1.1c0 .3.1.5.3.7l5.8 6.8c.2.2.5.4.9.4s.7-.2.9-.4l5.8-6.8c.2-.2.3-.4.3-.7z"
@@ -206,6 +208,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                   height="10"
                   viewBox="0 0 9 14"
                   width="10"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M9 7c0-.4-.2-.7-.4-.9L1.8.3C1.6.1 1.4 0 1.1 0 .5 0 0 .5 0 1.2v11.7c0 .6.5 1.1 1.1 1.1.3 0 .5-.1.7-.3l6.8-5.8c.2-.2.4-.5.4-.9z"
@@ -275,9 +278,9 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             </div>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
-              data-name="cv.startedOn"
+              data-name="pipeline.startedOn"
             >
-              cv.startedOn
+              pipeline.startedOn
               : 
               Nov 9, 2020 8:54 PM
             </p>
@@ -319,7 +322,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                   role="tab"
                   tabindex="0"
                 >
-                  cv.analysisScreens.analysisTab.metrics
+                  pipeline.verification.analysisTab.metrics
                 </div>
                 <div
                   aria-controls="bp3-tab-panel_tabs1_LOGS_TAB"
@@ -332,7 +335,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                   role="tab"
                   tabindex="0"
                 >
-                  cv.analysisScreens.analysisTab.logs
+                  pipeline.verification.analysisTab.logs
                 </div>
               </div>
             </div>

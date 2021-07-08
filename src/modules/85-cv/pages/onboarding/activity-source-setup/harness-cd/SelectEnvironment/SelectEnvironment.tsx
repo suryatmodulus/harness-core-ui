@@ -63,7 +63,12 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
   const [environmentOptions, setEnvironmentOptions] = useState<any>([])
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [validationText, setValidationText] = useState<undefined | string>()
-  const { data, loading, error, refetch: refetchEnvironments } = useGetListEnvironments({
+  const {
+    data,
+    loading,
+    error,
+    refetch: refetchEnvironments
+  } = useGetListEnvironments({
     lazy: true
   })
   const [page, setPage] = useState(0)

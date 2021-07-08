@@ -79,7 +79,11 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     }
   })
 
-  const { data: vpcs, loading: vpcsLoading, refetch: vpcsReload } = useAllVPCs({
+  const {
+    data: vpcs,
+    loading: vpcsLoading,
+    refetch: vpcsReload
+  } = useAllVPCs({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -92,7 +96,11 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     lazy: true
   })
 
-  const { data: subnets, loading: subnetsLoading, refetch: subnetsReload } = useAllSubnets({
+  const {
+    data: subnets,
+    loading: subnetsLoading,
+    refetch: subnetsReload
+  } = useAllSubnets({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -106,7 +114,11 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     lazy: true
   })
 
-  const { data: publicIps, loading: publicIpsLoading, refetch: publicIpsReload } = useAllPublicIps({
+  const {
+    data: publicIps,
+    loading: publicIpsLoading,
+    refetch: publicIpsReload
+  } = useAllPublicIps({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -120,7 +132,11 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     lazy: true
   })
 
-  const { data: certificates, loading: certificatesLoading, refetch: certificatesReload } = useAllCertificates({
+  const {
+    data: certificates,
+    loading: certificatesLoading,
+    refetch: certificatesReload
+  } = useAllCertificates({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line

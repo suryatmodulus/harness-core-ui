@@ -172,16 +172,8 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sRollingRollbackData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8sRollingRollbackInputStep

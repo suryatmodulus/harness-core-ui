@@ -80,9 +80,8 @@ const FormContent = ({
 }: JiraCreateFormContentInterface) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [issueTypeFieldList, setIssueTypeFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
@@ -463,7 +462,7 @@ const FormContent = ({
                   label={getString('description')}
                   className={cx(css.descriptionField)}
                   multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
-                  placeholder={getString('pipeline.enterDescription')}
+                  placeholder={getString('common.descriptionPlaceholder')}
                   disabled={isApprovalStepFieldDisabled(readonly)}
                 />
                 {getMultiTypeFromValue(formik.values.spec.description) === MultiTypeInputType.RUNTIME && (
@@ -581,9 +580,8 @@ const FormContent = ({
 function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormikFowardRef<JiraCreateData>) {
   const { onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,

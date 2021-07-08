@@ -59,7 +59,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main"
                       icon="edit"
-                      style="vertical-align: middle;"
+                      style="vertical-align: middle; cursor: pointer;"
                     >
                       <svg
                         data-icon="edit"
@@ -106,6 +106,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                           autocomplete="off"
                           class="bp3-input"
                           name="name"
+                          placeholder="common.namePlaceholder"
                           type="text"
                           value=""
                         />
@@ -286,7 +287,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main"
                       icon="edit"
-                      style="vertical-align: middle;"
+                      style="vertical-align: middle; cursor: pointer;"
                     >
                       <svg
                         data-icon="edit"
@@ -333,6 +334,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="name"
+                          placeholder="common.namePlaceholder"
                           type="text"
                           value="dummy name"
                         />

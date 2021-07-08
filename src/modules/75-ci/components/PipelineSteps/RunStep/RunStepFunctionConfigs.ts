@@ -40,7 +40,7 @@ export const transformValuesFieldsConfig = [
   },
   {
     name: 'spec.outputVariables',
-    type: TransformValuesTypes.List
+    type: TransformValuesTypes.OutputVariables
   },
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // {

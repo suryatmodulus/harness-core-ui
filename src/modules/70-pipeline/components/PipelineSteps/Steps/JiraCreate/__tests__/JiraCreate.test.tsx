@@ -154,22 +154,16 @@ describe('Jira Create tests', () => {
   test('Open a saved step - edit stage view', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const props = { ...getJiraCreateEditModePropsWithValues() }
-    const {
-      container,
-      getByText,
-      queryByPlaceholderText,
-      getByPlaceholderText,
-      queryByDisplayValue,
-      queryByText
-    } = render(
-      <TestStepWidget
-        initialValues={props.initialValues}
-        type={StepType.JiraCreate}
-        stepViewType={StepViewType.Edit}
-        ref={ref}
-        onUpdate={props.onUpdate}
-      />
-    )
+    const { container, getByText, queryByPlaceholderText, getByPlaceholderText, queryByDisplayValue, queryByText } =
+      render(
+        <TestStepWidget
+          initialValues={props.initialValues}
+          type={StepType.JiraCreate}
+          stepViewType={StepViewType.Edit}
+          ref={ref}
+          onUpdate={props.onUpdate}
+        />
+      )
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira createe step' } })

@@ -424,16 +424,8 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
   renderStep(props: StepProps<any>): JSX.Element {
     /* istanbul ignore next */
 
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       /* istanbul ignore next */

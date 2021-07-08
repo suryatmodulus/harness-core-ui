@@ -49,7 +49,11 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const closeDateRangePicker = useCallback(() => setIsDateRangePickerOpen(false), [])
-  const { data: activityList, loading, refetch: refetchActivities } = useListActivities({
+  const {
+    data: activityList,
+    loading,
+    refetch: refetchActivities
+  } = useListActivities({
     queryParams: {
       referredEntityType: props.referredEntityType,
       accountIdentifier: accountId,

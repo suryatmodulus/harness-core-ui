@@ -7,9 +7,8 @@ import { useGetPipelineExecution } from 'services/pipeline-ng'
 
 export default function PipelineBuildExecutionsChart() {
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
-    PipelineType<ExecutionPathProps>
-  >()
+  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } =
+    useParams<PipelineType<ExecutionPathProps>>()
   const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
 
   const { data, loading } = useGetPipelineExecution({

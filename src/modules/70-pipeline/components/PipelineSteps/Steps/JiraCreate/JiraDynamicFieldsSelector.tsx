@@ -31,9 +31,8 @@ const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
     selectedIssueTypeKey: selectedIssueTypeKeyInit
   } = props
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
@@ -251,9 +250,8 @@ const Content = (props: JiraDynamicFieldsSelectorContentInterface) => {
 }
 
 export const JiraDynamicFieldsSelector = (props: JiraDynamicFieldsSelectorInterface) => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,

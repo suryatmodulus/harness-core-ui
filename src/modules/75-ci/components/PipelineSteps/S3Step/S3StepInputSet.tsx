@@ -16,7 +16,13 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
 
   const { expressions } = useVariablesExpression()
 
-  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier: repo = '', branch } = useParams<
+  const {
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier: repo = '',
+    branch
+  } = useParams<
     {
       projectIdentifier: string
       orgIdentifier: string

@@ -133,6 +133,10 @@ export interface UserPathProps {
   userIdentifier: string
 }
 
+export interface ServiceAccountPathProps {
+  serviceAccountIdentifier: string
+}
+
 export interface ModuleCardPathParams {
   moduleCard?: Module
 }

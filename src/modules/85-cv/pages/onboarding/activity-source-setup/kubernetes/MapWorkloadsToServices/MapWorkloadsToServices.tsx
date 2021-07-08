@@ -156,7 +156,12 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
     filteredWorkload: undefined
   })
 
-  const { data: workloads, error, loading, refetch: refetchWorkloads } = useGetWorkloads({
+  const {
+    data: workloads,
+    error,
+    loading,
+    refetch: refetchWorkloads
+  } = useGetWorkloads({
     queryParams: {
       ...queryParams,
       offset: pageOffset,

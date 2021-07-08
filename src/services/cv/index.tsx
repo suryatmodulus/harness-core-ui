@@ -151,6 +151,14 @@ export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
   username?: string
 }
 
+export type AppDynamicsHealthSourceSpec = HealthSourceSpec & {
+  appdApplicationName: string
+  appdTierName: string
+  connectorRef: string
+  feature: string
+  metricPacks: MetricPackDTO[]
+}
+
 export interface AppDynamicsTier {
   id?: number
   name?: string
@@ -251,7 +259,7 @@ export interface AwsKmsConnectorCredential {
 export type AwsKmsConnectorDTO = ConnectorConfigDTO & {
   credential?: AwsKmsConnectorCredential
   default?: boolean
-  kmsArn?: string
+  kmsArn: string
   region?: string
 }
 
@@ -285,7 +293,7 @@ export type AzureKeyVaultConnectorDTO = ConnectorConfigDTO & {
   azureEnvironmentType?: 'AZURE' | 'AZURE_US_GOVERNMENT'
   clientId: string
   default?: boolean
-  secretKey?: string
+  secretKey: string
   subscription: string
   tenantId: string
   vaultName: string
@@ -1024,6 +1032,7 @@ export interface Error {
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1315,6 +1324,7 @@ export interface Failure {
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -1357,7 +1367,7 @@ export interface GcpCredentialSpec {
 }
 
 export type GcpKmsConnectorDTO = ConnectorConfigDTO & {
-  credentials?: string[]
+  credentials: string
   default?: boolean
   keyName?: string
   keyRing?: string
@@ -1515,6 +1525,17 @@ export type GitlabUsernameToken = GitlabHttpCredentialsSpecDTO & {
   usernameRef?: string
 }
 
+export interface HealthSource {
+  identifier: string
+  name: string
+  spec: HealthSourceSpec
+  type?: 'AppDynamics'
+}
+
+export interface HealthSourceSpec {
+  connectorRef?: string
+}
+
 export interface HeatMapDTO {
   endTime?: number
   riskScore?: number
@@ -1586,6 +1607,7 @@ export type JiraConnector = ConnectorConfigDTO & {
   jiraUrl: string
   passwordRef: string
   username?: string
+  usernameRef?: string
 }
 
 export interface JsonNode {
@@ -1934,6 +1956,32 @@ export interface MetricValidationResponse {
   value?: number
 }
 
+export interface MonitoredServiceDTO {
+  description?: string
+  environmentRef: string
+  identifier: string
+  name: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceRef: string
+  sources?: Sources
+  type: 'Application'
+}
+
+export interface MonitoredServiceListDTO {
+  environmentRef?: string
+  identifier?: string
+  name?: string
+  serviceRef?: string
+  type?: 'Application'
+}
+
+export interface MonitoredServiceResponse {
+  createdAt?: number
+  lastModifiedAt?: number
+  monitoredService: MonitoredServiceDTO
+}
+
 export interface MonitoringSource {
   importedAt?: number
   monitoringSourceIdentifier?: string
@@ -2086,6 +2134,16 @@ export interface PageLogAnalysisClusterDTO {
   totalPages?: number
 }
 
+export interface PageMonitoredServiceListDTO {
+  content?: MonitoredServiceListDTO[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
 export interface PageMonitoringSource {
   content?: MonitoringSource[]
   empty?: boolean
@@ -2147,6 +2205,7 @@ export interface PageVerificationJobDTO {
 }
 
 export interface PartialSchemaDTO {
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
   namespace?: string
   nodeName?: string
   nodeType?: string
@@ -2521,6 +2580,7 @@ export interface ResponseMessage {
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -2539,6 +2599,13 @@ export interface ResponseMessage {
 export interface ResponseMetricPackValidationResponse {
   correlationId?: string
   data?: MetricPackValidationResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseMonitoredServiceResponse {
+  correlationId?: string
+  data?: MonitoredServiceResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2574,6 +2641,13 @@ export interface ResponsePageAppDynamicsTier {
 export interface ResponsePageCVNGLogDTO {
   correlationId?: string
   data?: PageCVNGLogDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePageMonitoredServiceListDTO {
+  correlationId?: string
+  data?: PageMonitoredServiceListDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2983,6 +3057,14 @@ export interface RestResponseMapStringMapStringListTimeSeriesAnomalies {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseMonitoredServiceResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: MonitoredServiceResponse
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseOnboardingResponseDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3175,6 +3257,10 @@ export interface ServiceSummary {
   risk?: number
   serviceIdentifier?: string
   serviceName?: string
+}
+
+export interface Sources {
+  healthSources?: HealthSource[]
 }
 
 export type SplunkConnectorDTO = ConnectorConfigDTO & {
@@ -3496,6 +3582,8 @@ export type CVConfigArrayRequestBody = CVConfig[]
 export type DSConfigRequestBody = DSConfig
 
 export type MetricPackDTOArrayRequestBody = MetricPackDTO[]
+
+export type MonitoredServiceDTORequestBody = MonitoredServiceDTO
 
 export type ServiceGuardTimeSeriesAnalysisDTORequestBody = ServiceGuardTimeSeriesAnalysisDTO
 
@@ -6504,6 +6592,128 @@ export const saveMetricPacksPromise = (
     props,
     signal
   )
+
+export interface CreateDefaultMonitoredServiceQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  environmentIdentifier: string
+  serviceIdentifier: string
+}
+
+export type CreateDefaultMonitoredServiceProps = Omit<
+  MutateProps<RestResponseMonitoredServiceResponse, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * created default monitored service
+ */
+export const CreateDefaultMonitoredService = (props: CreateDefaultMonitoredServiceProps) => (
+  <Mutate<RestResponseMonitoredServiceResponse, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>
+    verb="POST"
+    path={`/monitored-service/create-default`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseCreateDefaultMonitoredServiceProps = Omit<
+  UseMutateProps<RestResponseMonitoredServiceResponse, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * created default monitored service
+ */
+export const useCreateDefaultMonitoredService = (props: UseCreateDefaultMonitoredServiceProps) =>
+  useMutate<RestResponseMonitoredServiceResponse, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>(
+    'POST',
+    `/monitored-service/create-default`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * created default monitored service
+ */
+export const createDefaultMonitoredServicePromise = (
+  props: MutateUsingFetchProps<
+    RestResponseMonitoredServiceResponse,
+    unknown,
+    CreateDefaultMonitoredServiceQueryParams,
+    void,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseMonitoredServiceResponse, unknown, CreateDefaultMonitoredServiceQueryParams, void, void>(
+    'POST',
+    getConfig('cv/api'),
+    `/monitored-service/create-default`,
+    props,
+    signal
+  )
+
+export interface GetMonitoredServiceFromServiceAndEnvironmentQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  environmentIdentifier: string
+}
+
+export type GetMonitoredServiceFromServiceAndEnvironmentProps = Omit<
+  GetProps<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>,
+  'path'
+>
+
+/**
+ * get monitored service data from service and env ref
+ */
+export const GetMonitoredServiceFromServiceAndEnvironment = (
+  props: GetMonitoredServiceFromServiceAndEnvironmentProps
+) => (
+  <Get<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>
+    path={`/monitored-service/service-environment`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceFromServiceAndEnvironmentProps = Omit<
+  UseGetProps<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>,
+  'path'
+>
+
+/**
+ * get monitored service data from service and env ref
+ */
+export const useGetMonitoredServiceFromServiceAndEnvironment = (
+  props: UseGetMonitoredServiceFromServiceAndEnvironmentProps
+) =>
+  useGet<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceFromServiceAndEnvironmentQueryParams, void>(
+    `/monitored-service/service-environment`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get monitored service data from service and env ref
+ */
+export const getMonitoredServiceFromServiceAndEnvironmentPromise = (
+  props: GetUsingFetchProps<
+    ResponseMonitoredServiceResponse,
+    unknown,
+    GetMonitoredServiceFromServiceAndEnvironmentQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseMonitoredServiceResponse,
+    unknown,
+    GetMonitoredServiceFromServiceAndEnvironmentQueryParams,
+    void
+  >(getConfig('cv/api'), `/monitored-service/service-environment`, props, signal)
 
 export interface GetNewRelicApplicationsQueryParams {
   accountId: string

@@ -30,9 +30,10 @@ export const KubernetesActivitySourceFieldNames = {
   CONNECTOR_TYPE: 'connectorType'
 }
 
-function getProductSelections(
-  getString: UseStringsReturn['getString']
-): { category: string; products: CVSelectionCardProps[] } {
+function getProductSelections(getString: UseStringsReturn['getString']): {
+  category: string
+  products: CVSelectionCardProps[]
+} {
   return {
     category: getString('pipelineSteps.deploy.infrastructure.directConnection').toLocaleUpperCase(),
     products: [

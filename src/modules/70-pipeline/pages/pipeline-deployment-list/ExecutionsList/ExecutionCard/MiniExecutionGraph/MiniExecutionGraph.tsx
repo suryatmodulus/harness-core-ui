@@ -4,13 +4,8 @@ import { ResizeSensor } from '@blueprintjs/core'
 import cx from 'classnames'
 import { throttle } from 'lodash-es'
 
-import { useStrings } from 'framework/strings'
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
-import {
-  isExecutionRunning,
-  isExecutionCompletedWithBadState,
-  isExecutionIgnoreFailed
-} from '@pipeline/utils/statusHelpers'
+import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
 import { processLayoutNodeMap, ExecutionStatusIconMap as IconMap } from '@pipeline/utils/executionUtils'
 import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
 
@@ -30,17 +25,17 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
   const {
     successfulStagesCount,
     runningStagesCount,
-    failedStagesCount,
+    failedStagesCount = 0,
     status,
     totalStagesCount,
     executionErrorInfo,
     pipelineIdentifier = '',
     planExecutionId = ''
   } = pipelineExecution
+  const [showButtons, setShowButtons] = React.useState(false)
   const elements = React.useMemo(() => processLayoutNodeMap(pipelineExecution), [pipelineExecution])
   const graphRef = React.useRef<HTMLDivElement | null>(null)
   const wrapperRef = React.useRef<HTMLDivElement | null>(null)
-  const { getString } = useStrings()
 
   React.useLayoutEffect(() => {
     hideShowButtons()
@@ -54,17 +49,13 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
         if (graphRef.current && wrapperRef.current) {
           const graph = graphRef.current.getBoundingClientRect()
           const wrapper = wrapperRef.current.getBoundingClientRect()
-          const leftBtn = wrapperRef.current.parentElement?.querySelector(`.${css.scrollLeft}`) as HTMLButtonElement
-          const rightBtn = wrapperRef.current.parentElement?.querySelector(`.${css.scrollRight}`) as HTMLButtonElement
 
           if (graph.width > wrapper.width) {
             // show buttons
-            leftBtn?.style.removeProperty('display')
-            rightBtn?.style.removeProperty('display')
+            setShowButtons(true)
           } else {
             // hide buttons
-            leftBtn?.style.setProperty('display', 'none')
-            rightBtn?.style.setProperty('display', 'none')
+            setShowButtons(false)
           }
         }
       })
@@ -124,55 +115,63 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
     []
   )
 
+  function killEvent(e: React.SyntheticEvent): void {
+    e.stopPropagation()
+  }
+
   return (
     <ResizeSensor onResize={hideShowButtons}>
       <div className={css.main}>
-        <div ref={wrapperRef} className={css.graphWrapper}>
-          <div ref={graphRef} className={css.graph}>
-            {(elements || []).map(({ stage, parallel }, i) => {
-              if (parallel && Array.isArray(parallel)) {
-                return (
-                  <ParallelStageNode
-                    key={i}
-                    stages={parallel}
-                    {...{ accountId, orgIdentifier, projectIdentifier, module, pipelineIdentifier, planExecutionId }}
-                  />
-                )
-              }
+        <div className={css.graphAligner} onClick={killEvent}>
+          <div ref={wrapperRef} className={cx(css.graphWrapper, { [css.hasButtons]: showButtons })}>
+            <div ref={graphRef} className={css.graph}>
+              {(elements || []).map(({ stage, parallel }, i) => {
+                if (parallel && Array.isArray(parallel)) {
+                  return (
+                    <ParallelStageNode
+                      key={i}
+                      stages={parallel}
+                      {...{ accountId, orgIdentifier, projectIdentifier, module, pipelineIdentifier, planExecutionId }}
+                    />
+                  )
+                }
 
-              if (stage) {
-                return (
-                  <StageNode
-                    key={stage.nodeUuid}
-                    stage={stage}
-                    {...{ accountId, orgIdentifier, projectIdentifier, module, pipelineIdentifier, planExecutionId }}
-                  />
-                )
-              }
+                if (stage) {
+                  return (
+                    <StageNode
+                      key={stage.nodeUuid}
+                      stage={stage}
+                      {...{ accountId, orgIdentifier, projectIdentifier, module, pipelineIdentifier, planExecutionId }}
+                    />
+                  )
+                }
 
-              return null
-            })}
+                return null
+              })}
+            </div>
           </div>
+          {showButtons ? (
+            <React.Fragment>
+              <Button
+                minimal
+                icon="arrow-left"
+                className={css.scrollLeft}
+                iconProps={{ size: 10 }}
+                onClick={handleLeftArrowClick}
+              />
+              <Button
+                minimal
+                icon="arrow-right"
+                className={css.scrollRight}
+                iconProps={{ size: 10 }}
+                onClick={handleRightArrowClick}
+              />
+            </React.Fragment>
+          ) : null}
         </div>
-        <Button
-          minimal
-          icon="arrow-left"
-          className={css.scrollLeft}
-          iconProps={{ size: 10 }}
-          style={{ display: 'none' }}
-          onClick={handleLeftArrowClick}
-        />
-        <Button
-          minimal
-          icon="arrow-right"
-          className={css.scrollRight}
-          iconProps={{ size: 10 }}
-          style={{ display: 'none' }}
-          onClick={handleRightArrowClick}
-        />
         <div className={css.stepCounts}>
           <div className={css.stepCount} data-status="success">
-            <Icon name={IconMap.Success} size={10} />
+            <Icon name={IconMap.Success} size={14} />
             {successfulStagesCount} / {totalStagesCount}
           </div>
           {isExecutionRunning(status) ? (
@@ -180,23 +179,15 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
               <RunningIcon />
               {runningStagesCount}
             </div>
-          ) : isExecutionCompletedWithBadState(status) ? (
+          ) : isExecutionCompletedWithBadState(status) && failedStagesCount > 0 ? (
             <div className={css.stepCount} data-status="failed">
-              <Icon name={IconMap.Failed} size={10} /> {failedStagesCount}
+              <Icon name={IconMap.Failed} size={14} /> {failedStagesCount}
             </div>
           ) : null}
           {isExecutionCompletedWithBadState(status) && executionErrorInfo?.message ? (
             <Text lineClamp={1} className={cx(css.stepCount, css.errorMsg)}>
               {executionErrorInfo.message}
             </Text>
-          ) : null}
-          {isExecutionIgnoreFailed(status) ? (
-            <Text
-              icon="warning-sign"
-              className={css.ignoreWarning}
-              iconProps={{ size: 16 }}
-              tooltip={getString('pipeline.execution.ignoreFailedWarningText')}
-            />
           ) : null}
         </div>
       </div>

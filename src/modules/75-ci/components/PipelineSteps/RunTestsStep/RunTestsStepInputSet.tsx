@@ -21,7 +21,13 @@ import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, path, readonly }) => {
   const { getString } = useStrings()
 
-  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier: repo = '', branch } = useParams<
+  const {
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier: repo = '',
+    branch
+  } = useParams<
     {
       projectIdentifier: string
       orgIdentifier: string
@@ -338,6 +344,8 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
       {getMultiTypeFromValue(template?.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME && (
         <MultiTypeListInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.outputVariables`}
+          withObjectStructure
+          keyName="name"
           multiTextInputProps={{
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
             expressions

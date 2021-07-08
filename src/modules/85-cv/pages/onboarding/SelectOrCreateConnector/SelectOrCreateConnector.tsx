@@ -77,7 +77,12 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
   const { openConnectorModal } = useCreateConnectorModal({ onSuccess })
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { data, loading, error, refetch: fetchConnector } = useGetConnector({
+  const {
+    data,
+    loading,
+    error,
+    refetch: fetchConnector
+  } = useGetConnector({
     identifier: getIdentifierFromValue(value?.value as string) || '',
     queryParams: getQueryParamsBasedOnScope((value?.value as string) || '', {
       projectIdentifier,

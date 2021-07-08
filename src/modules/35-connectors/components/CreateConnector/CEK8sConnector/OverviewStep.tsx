@@ -68,13 +68,14 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
     [accountId]
   )
 
-  const { data: connectorData, loading: connectorsLoading, error: connectorsError } = useMutateAsGet(
-    useGetConnectorListV2,
-    {
-      body: { filterType: 'Connector', types: ['K8sCluster'] },
-      queryParams: defaultQueryParams
-    }
-  )
+  const {
+    data: connectorData,
+    loading: connectorsLoading,
+    error: connectorsError
+  } = useMutateAsGet(useGetConnectorListV2, {
+    body: { filterType: 'Connector', types: ['K8sCluster'] },
+    queryParams: defaultQueryParams
+  })
   if (connectorsError) {
     showError(connectorsError.message)
   }

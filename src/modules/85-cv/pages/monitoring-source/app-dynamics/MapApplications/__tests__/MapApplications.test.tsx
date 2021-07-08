@@ -29,17 +29,18 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 jest.mock('@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate', () => ({
-  ServiceSelectOrCreate: () => (props: any) => (
-    <div
-      className="service-select-mock"
-      onClick={() =>
-        props?.onSelect({
-          label: 'Service 1',
-          value: 'service1'
-        })
-      }
-    />
-  )
+  ServiceSelectOrCreate: () => (props: any) =>
+    (
+      <div
+        className="service-select-mock"
+        onClick={() =>
+          props?.onSelect({
+            label: 'Service 1',
+            value: 'service1'
+          })
+        }
+      />
+    )
 }))
 
 const MockValiidateMetriscQueryParam = {

@@ -39,13 +39,7 @@ const AccountDetails: React.FC = () => {
   ) : (
     <React.Fragment>
       <Text color={Color.GREY_800}>{truncate(accountData?.name)}</Text>
-      <Button
-        minimal
-        intent="primary"
-        icon="edit"
-        text={getString('edit')}
-        onClick={() => setUpdateAccountName(true)}
-      />
+      <Button minimal intent="primary" icon="edit" onClick={() => setUpdateAccountName(true)} />
       <Button minimal intent="primary" text={getString('common.switchAccount')} onClick={openSwitchAccountModal} />
     </React.Fragment>
   )

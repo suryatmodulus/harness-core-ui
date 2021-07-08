@@ -3,9 +3,10 @@ import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 
-import type { UserMetadataDTO, RoleAssignmentMetadataDTO, UserGroupDTO } from 'services/cd-ng'
-import UserRoleAssignment from './views/UserRoleAssigment'
-import UserGroupRoleAssignment from './views/UserGroupRoleAssignment'
+import type { UserMetadataDTO, RoleAssignmentMetadataDTO, UserGroupDTO, ServiceAccountDTO } from 'services/cd-ng'
+import UserRoleAssignment from '@rbac/modals/RoleAssignmentModal/views/UserRoleAssigment'
+import UserGroupRoleAssignment from '@rbac/modals/RoleAssignmentModal/views/UserGroupRoleAssignment'
+import ServiceAccountRoleAssignment from '@rbac/modals/RoleAssignmentModal/views/ServiceAccountRoleAssignment'
 import css from './useRoleAssignmentModal.module.scss'
 
 export interface UseRoleAssignmentModalProps {
@@ -14,13 +15,14 @@ export interface UseRoleAssignmentModalProps {
 
 export enum PrincipalType {
   USER = 'USER',
-  USER_GROUP = 'USER_GROUP'
+  USER_GROUP = 'USER_GROUP',
+  SERVICE = 'SERVICE'
 }
 
 export interface UseRoleAssignmentModalReturn {
   openRoleAssignmentModal: (
     type?: PrincipalType,
-    principalInfo?: UserGroupDTO | UserMetadataDTO,
+    principalInfo?: UserGroupDTO | UserMetadataDTO | ServiceAccountDTO,
     roleBindings?: RoleAssignmentMetadataDTO[]
   ) => void
   closeRoleAssignmentModal: () => void
@@ -28,7 +30,7 @@ export interface UseRoleAssignmentModalReturn {
 
 export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProps): UseRoleAssignmentModalReturn => {
   const [roleBindings, setRoleBindings] = useState<RoleAssignmentMetadataDTO[]>()
-  const [principalInfo, setPrincipalInfo] = useState<UserMetadataDTO | UserGroupDTO>()
+  const [principalInfo, setPrincipalInfo] = useState<UserMetadataDTO | UserGroupDTO | ServiceAccountDTO>()
   const [principal, setPrincipal] = useState<PrincipalType>(PrincipalType.USER)
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -49,7 +51,8 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
               hideModal()
             }}
           />
-        ) : (
+        ) : null}
+        {principal === PrincipalType.USER_GROUP ? (
           <UserGroupRoleAssignment
             roleBindings={roleBindings}
             userGroup={principalInfo as UserGroupDTO}
@@ -58,7 +61,18 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
               hideModal()
             }}
           />
-        )}
+        ) : null}
+
+        {principal === PrincipalType.SERVICE ? (
+          <ServiceAccountRoleAssignment
+            roleBindings={roleBindings}
+            serviceAccount={principalInfo as ServiceAccountDTO}
+            onSubmit={() => {
+              onSuccess()
+              hideModal()
+            }}
+          />
+        ) : null}
 
         <Button
           minimal
@@ -76,7 +90,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
   const open = useCallback(
     (
       _type?: PrincipalType,
-      _principalInfo?: UserGroupDTO | UserMetadataDTO,
+      _principalInfo?: UserGroupDTO | UserMetadataDTO | ServiceAccountDTO,
       _roleBindings?: RoleAssignmentMetadataDTO[]
     ) => {
       if (_type) setPrincipal(_type)
@@ -88,11 +102,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
   )
 
   return {
-    openRoleAssignmentModal: (
-      _type?: PrincipalType,
-      _principalInfo?: UserGroupDTO | UserMetadataDTO,
-      _roleBindings?: RoleAssignmentMetadataDTO[]
-    ) => open(_type, _principalInfo, _roleBindings),
+    openRoleAssignmentModal: open,
     closeRoleAssignmentModal: hideModal
   }
 }

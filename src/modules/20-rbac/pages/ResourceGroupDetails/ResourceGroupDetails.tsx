@@ -30,17 +30,15 @@ import { getResourceSelectorsfromMap, getSelectedResourcesMap } from './utils'
 import css from './ResourceGroupDetails.module.scss'
 
 const ResourceGroupDetails: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier, resourceGroupIdentifier } = useParams<
-    ResourceGroupDetailsPathProps
-  >()
+  const { accountId, projectIdentifier, orgIdentifier, resourceGroupIdentifier } =
+    useParams<ResourceGroupDetailsPathProps>()
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
   const [isUpdated, setIsUpdated] = useState<boolean>(false)
 
   const [selectedResourcesMap, setSelectedResourceMap] = useState<Map<ResourceType, string[] | string>>(new Map())
-  const [resourceCategoryMap, setResourceCategoryMap] = useState<
-    Map<ResourceType | ResourceCategory, ResourceType[] | undefined>
-  >()
+  const [resourceCategoryMap, setResourceCategoryMap] =
+    useState<Map<ResourceType | ResourceCategory, ResourceType[] | undefined>>()
 
   const [canEdit] = usePermission(
     {
@@ -53,7 +51,12 @@ const ResourceGroupDetails: React.FC = () => {
     [resourceGroupIdentifier]
   )
 
-  const { data: resourceGroupDetails, error: errorInGettingResourceGroup, loading, refetch } = useGetResourceGroup({
+  const {
+    data: resourceGroupDetails,
+    error: errorInGettingResourceGroup,
+    loading,
+    refetch
+  } = useGetResourceGroup({
     identifier: resourceGroupIdentifier,
     queryParams: {
       accountIdentifier: accountId,

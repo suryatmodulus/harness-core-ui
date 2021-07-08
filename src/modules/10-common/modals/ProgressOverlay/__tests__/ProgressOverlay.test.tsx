@@ -35,16 +35,24 @@ describe('Test ProgressOverlay overlay component', () => {
     // should show overall progress
     expect(getByText(container, 'common.gitSync.savingInProgress')).toBeTruthy()
     // should show first stage label
-    expect(getByText(container, pushingChangesToGitStage.intermediateLabel)).toBeTruthy()
+    expect(getByText(container, pushingChangesToGitStage.intermediateLabel as string)).toBeTruthy()
     // should show second stage label
-    expect(getByText(container, createConnectorStage.intermediateLabel)).toBeTruthy()
+    expect(getByText(container, createConnectorStage.intermediateLabel as string)).toBeTruthy()
 
     /* finish to completion */
 
+    /* 1st stage was successful but 2nd failed */
+    pushingChangesToGitStage['status'] = 'SUCCESS'
+    createConnectorStage['status'] = 'FAILURE'
+    rerender(<ProgressOverlay {...initialProps} />)
+    if (createConnectorStage.finalLabel) {
+      expect(getByText(container, createConnectorStage.finalLabel)).toBeTruthy()
+    }
+
+    /* failed at 1st stage itself */
     pushingChangesToGitStage['finalLabel'] = 'Unable to push changes to Git'
     pushingChangesToGitStage['status'] = 'FAILURE'
     rerender(<ProgressOverlay {...initialProps} />)
-    // should show overall progress
     expect(getByText(container, pushingChangesToGitStage.finalLabel)).toBeTruthy()
   })
 })

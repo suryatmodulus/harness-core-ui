@@ -1,0 +1,223 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test cases for groupby views should be able to render group by view popover 1`] = `
+<div>
+  <ul
+    class="groupByList"
+  >
+    <li
+      class="groupByListItems bp3-popover-dismiss"
+    >
+      <li
+        class=""
+      >
+        <a
+          class="bp3-menu-item bp3-popover-dismiss"
+        >
+          <div
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            Cluster Name
+          </div>
+        </a>
+      </li>
+    </li>
+    <li
+      class="groupByListItems bp3-popover-dismiss"
+    >
+      <li
+        class=""
+      >
+        <a
+          class="bp3-menu-item bp3-popover-dismiss"
+        >
+          <div
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            Namespace
+          </div>
+        </a>
+      </li>
+    </li>
+    <li
+      class="groupByListItems bp3-popover-dismiss"
+    >
+      <li
+        class=""
+      >
+        <a
+          class="bp3-menu-item bp3-popover-dismiss"
+        >
+          <div
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            Namespace Id
+          </div>
+        </a>
+      </li>
+    </li>
+    <li
+      class="groupByListItems bp3-popover-dismiss"
+    >
+      <li
+        class=""
+      >
+        <a
+          class="bp3-menu-item bp3-popover-dismiss"
+        >
+          <div
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            Workload
+          </div>
+        </a>
+      </li>
+    </li>
+    <li
+      class="groupByListItems bp3-popover-dismiss"
+    >
+      <li
+        class=""
+      >
+        <a
+          class="bp3-menu-item bp3-popover-dismiss"
+        >
+          <div
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            Workload Id
+          </div>
+        </a>
+      </li>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`test cases for groupby views should be able to render label view popover 1`] = `
+<div>
+  <section
+    class="labelDropDownContainer"
+  >
+    <div
+      class="TextInput--main"
+    >
+      <div
+        class="bp3-input-group search"
+      >
+        <input
+          class="bp3-input"
+          placeholder="Search Value"
+          type="text"
+        />
+      </div>
+    </div>
+    <ul
+      class="groupByList"
+    >
+      <li
+        class="groupByListItems bp3-popover-dismiss"
+      >
+        <li
+          class=""
+        >
+          <a
+            class="bp3-menu-item bp3-popover-dismiss"
+          >
+            <div
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              value1
+            </div>
+          </a>
+        </li>
+      </li>
+      <li
+        class="groupByListItems bp3-popover-dismiss"
+      >
+        <li
+          class=""
+        >
+          <a
+            class="bp3-menu-item bp3-popover-dismiss"
+          >
+            <div
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              value2
+            </div>
+          </a>
+        </li>
+      </li>
+      <li
+        class="groupByListItems bp3-popover-dismiss"
+      >
+        <li
+          class=""
+        >
+          <a
+            class="bp3-menu-item bp3-popover-dismiss"
+          >
+            <div
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              value3
+            </div>
+          </a>
+        </li>
+      </li>
+      <li
+        class="groupByListItems bp3-popover-dismiss"
+      >
+        <li
+          class=""
+        >
+          <a
+            class="bp3-menu-item bp3-popover-dismiss"
+          >
+            <div
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              value4
+            </div>
+          </a>
+        </li>
+      </li>
+      <li
+        class="groupByListItems bp3-popover-dismiss"
+      >
+        <li
+          class=""
+        >
+          <a
+            class="bp3-menu-item bp3-popover-dismiss"
+          >
+            <div
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              value5
+            </div>
+          </a>
+        </li>
+      </li>
+      <li
+        class="groupByListItems bp3-popover-dismiss"
+      >
+        <li
+          class=""
+        >
+          <a
+            class="bp3-menu-item bp3-popover-dismiss"
+          >
+            <div
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              value6
+            </div>
+          </a>
+        </li>
+      </li>
+    </ul>
+  </section>
+</div>
+`;

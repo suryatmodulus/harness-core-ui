@@ -30,6 +30,7 @@ exports[`<CopyText /> tests snapshot test 1`] = `
               height="16"
               viewBox="0 0 8 9"
               width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 clip-rule="evenodd"

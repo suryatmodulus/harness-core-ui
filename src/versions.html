@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harness Versions</title>
+    <style>
+      html {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      table {
+        table-layout: fixed;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 0.5rem;
+        border-bottom: 1px solid #999;
+        border-left: 1px solid #999;
+      }
+
+      tr:first-child th,
+      tr:first-child td {
+        border-top: 1px solid #999;
+      }
+
+      th:last-child,
+      td:last-child {
+        border-right: 1px solid #999;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 200px; text-align: left">Service</th>
+          <th style="width: 500px; text-align: left">Version</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </body>
+  <script>
+    try {
+      ;(function () {
+        const BASE_URL = window.location.pathname.replace(/ng\/static\/versions\.html$/, '')
+        const versionAPIs = [
+          {
+            url: 'ng/static/version.json',
+            label: 'NG UI',
+            id: 'ng_ui'
+          },
+          {
+            label: 'NG Manager',
+            url: 'ng/api/version',
+            id: 'ng_manager'
+          },
+          {
+            label: 'CG Manager',
+            url: 'api/version',
+            id: 'cg_manager'
+          },
+          {
+            label: 'PMS',
+            url: 'pipeline/api/version',
+            id: 'pms'
+          },
+          {
+            label: 'Notifications',
+            url: 'notifications/api/version',
+            id: 'notifications'
+          },
+          {
+            label: 'Resource Group',
+            url: 'resourcegroup/api/version',
+            id: 'resource_group'
+          },
+          {
+            label: 'Access Control',
+            url: 'authz/api/version',
+            id: 'access_control'
+          },
+          {
+            label: 'CI',
+            url: 'ci/version',
+            id: 'ci'
+          },
+          {
+            label: 'Test Inteliigence',
+            url: 'ti-service/version',
+            id: 'ti'
+          },
+          {
+            label: 'CV',
+            url: 'cv/api/version',
+            id: 'cv'
+          },
+          {
+            label: 'CF',
+            url: 'cf/version',
+            id: 'cf'
+          },
+          {
+            label: 'Light Wing',
+            url: 'lw/api',
+            id: 'lw'
+          },
+          {
+            label: 'CCM',
+            url: 'ccm/api/version',
+            id: 'ccm'
+          }
+        ]
+        const tbody = document.getElementById('tbody')
+        const fragment = document.createDocumentFragment()
+
+        // create a table
+        versionAPIs.forEach(row => {
+          const tr = document.createElement('tr')
+          const td1 = document.createElement('td')
+          const td2 = document.createElement('td')
+
+          td1.innerHTML = row.label
+          td2.id = row.id
+          td2.innerHTML = 'Loading...'
+
+          tr.appendChild(td1)
+          tr.appendChild(td2)
+          fragment.appendChild(tr)
+        })
+
+        tbody.appendChild(fragment)
+
+        // start making API calls
+        versionAPIs.forEach(row => {
+          const col = document.getElementById(row.id)
+          fetch(BASE_URL + row.url)
+            .then(res => res.json())
+            .then(
+              data => {
+                console.log(data)
+                if (data.version) {
+                  // for NGUI
+                  col.innerHTML = data.version
+                } else if (data.versionInfo) {
+                  // for CF
+                  col.innerHTML = data.versionInfo
+                } else if (data.resource && data.resource.versionInfo) {
+                  col.innerHTML = data.resource.versionInfo.version
+                }
+              },
+              err => {
+                col.innerHTML = 'Something went wrong!'
+              }
+            )
+            .catch(() => {
+              col.innerHTML = 'Something went terribly wrong!'
+            })
+        })
+      })()
+    } catch (e) {}
+  </script>
+</html>

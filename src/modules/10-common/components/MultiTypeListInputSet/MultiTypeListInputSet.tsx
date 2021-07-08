@@ -19,7 +19,7 @@ import MultiTypeFieldSelector, {
 } from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import css from './MultiTypeListInputSet.module.scss'
 
-export type ListType = string[]
+export type ListType = string[] | { [key: string]: string }[]
 export type MultiTypeListType = ListType | string
 
 export type ListUIType = { id: string; value: string }[]
@@ -33,6 +33,8 @@ interface MultiTypeListConfigureOptionsProps
 export interface MultiTypeListProps {
   name: string
   placeholder?: string
+  withObjectStructure?: boolean
+  keyName?: string
   multiTypeFieldSelectorProps: Omit<MultiTypeFieldSelectorProps, 'name' | 'defaultValueToReset' | 'children'>
   multiTextInputProps?: Omit<MultiTextInputProps, 'name'>
   enableConfigureOptions?: boolean
@@ -51,6 +53,8 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
   const {
     name,
     placeholder,
+    withObjectStructure,
+    keyName,
     multiTypeFieldSelectorProps,
     multiTextInputProps = {},
     enableConfigureOptions = true,
@@ -64,10 +68,10 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
 
   const [value, setValue] = React.useState<ListUIType>(() => {
     const initialValue = get(formik?.values, name, '') as ListType
-    const initialValueInCorrectFormat = (initialValue || []).map(item => ({
+    const initialValueInCorrectFormat = (initialValue || []).map((item: string | { [key: string]: string }) => ({
       id: uuid('', nameSpace()),
-      value: item
-    }))
+      value: withObjectStructure && keyName ? ((item as { [key: string]: string })[keyName] as string) : item
+    })) as ListUIType
 
     // Adding a default value
     if (Array.isArray(initialValueInCorrectFormat) && initialValueInCorrectFormat.length === 0) {
@@ -109,10 +113,10 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
     const valueWithoutEmptyItems = value.filter(item => !!item.value)
 
     if (isEmpty(valueWithoutEmptyItems) && initialValue) {
-      const initialValueInCorrectFormat = initialValue.map(v => ({
+      const initialValueInCorrectFormat = initialValue.map((item: string | { [key: string]: string }) => ({
         id: uuid('', nameSpace()),
-        value: v
-      }))
+        value: withObjectStructure && keyName ? (item as { [key: string]: string })[keyName] : item
+      })) as ListUIType
 
       // Adding a default value
       if (Array.isArray(initialValueInCorrectFormat) && !initialValueInCorrectFormat.length) {
@@ -126,7 +130,11 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
   React.useEffect(() => {
     let valueInCorrectFormat: ListType = []
     if (Array.isArray(value)) {
-      valueInCorrectFormat = value.filter(item => !!item.value).map(item => item.value)
+      valueInCorrectFormat = value
+        .filter(item => !!item.value)
+        .map(item => {
+          return withObjectStructure && keyName ? { [keyName]: item.value } : item.value
+        }) as ListType
     }
 
     if (isEmpty(valueInCorrectFormat)) {

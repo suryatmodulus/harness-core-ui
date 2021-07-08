@@ -36,7 +36,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { shouldShowError } from '@common/utils/errorUtils'
-import { getUrlValueByType } from './utils/ConnectorUtils'
+import { getUrlValueByType, isSMConnector } from './utils/ConnectorUtils'
 import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
 import css from './ConnectorView.module.scss'
 
@@ -173,7 +173,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       const response = await updateConnector(connectorJSONEq, {
         queryParams: {
           ...queryParams,
-          lastObjectId: objectId ?? props.response?.gitDetails?.objectId
+          lastObjectId: objectId ?? props.response?.gitDetails?.objectId,
+          baseBranch: props.response?.gitDetails?.branch
         }
       })
       if (response.status === 'SUCCESS' && response?.data?.connector) {
@@ -207,7 +208,11 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     }
   }, [props.response])
 
-  const { data: connectorSchema, loading: isFetchingSchema, refetch } = useGetYamlSchema({
+  const {
+    data: connectorSchema,
+    loading: isFetchingSchema,
+    refetch
+  } = useGetYamlSchema({
     queryParams: {
       entityType: 'Connectors',
       projectIdentifier,
@@ -411,7 +416,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                       intent="primary"
                       text={getString('saveChanges')}
                       onClick={() => {
-                        if (isGitSyncEnabled) {
+                        if (isGitSyncEnabled && !isSMConnector(connector.type)) {
                           openSaveToGitDialog({
                             isEditing: true,
                             resource: {
@@ -441,7 +446,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                       }}
                       margin={{ top: 'large' }}
                       title={isValidYAML ? '' : getString('invalidYaml')}
-                      disabled={!hasConnectorChanged}
+                      disabled={!isGitSyncEnabled && !hasConnectorChanged}
                     />
                     <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
                   </Layout.Horizontal>

@@ -1,12 +1,25 @@
 .card {
-  width: 260px;
   height: 280px;
   margin-right: var(--spacing-xlarge);
-  padding: var(--spacing-xlarge) var(--spacing-large);
+  padding-top: var(--spacing-xlarge) !important;
   .text {
     font-size: 40px !important;
+    min-width: 130px;
   }
   .topSection {
-    border-bottom: 1px solid var(--grey-300);
+    padding-bottom: var(--spacing-7) !important;
+    border-bottom: 1px solid var(--grey-200);
+  }
+  .bottomSection {
+    padding-top: var(--spacing-5) !important;
+  }
+  .hover {
+    cursor: pointer;
+  }
+  .circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: var(--spacing-3);
   }
 }

@@ -38,9 +38,7 @@ export function search(state: State, action: Action<ActionType.Search>): State {
 
                 // store the line numbers of the search results
                 // same line number is stored multiple times for multiple results of search
-                linesWithResults.push(
-                  ...Array.from<number>({ length: matches.length }).fill(prevLinesCount)
-                )
+                linesWithResults.push(...Array.from<number>({ length: matches.length }).fill(prevLinesCount))
               }
             }
           })

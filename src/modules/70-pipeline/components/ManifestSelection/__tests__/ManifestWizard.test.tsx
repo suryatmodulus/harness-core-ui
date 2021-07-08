@@ -39,7 +39,8 @@ describe('ManifestSelection tests', () => {
       connectorRef: 'connectorRef',
       gitFetchType: 'Branch',
       paths: ['temp'],
-      store: 'Git'
+      store: 'Git',
+      selectedManifest: 'K8sManifest'
     }
     const { container } = render(
       <TestWrapper>
@@ -166,7 +167,7 @@ describe('ManifestSelection tests', () => {
       name: 'Manifest Details',
       expressions: [''],
       stepName: 'Manifest Details Step',
-      initialValues: (null as unknown) as ManifestConfig,
+      initialValues: null as unknown as ManifestConfig,
       handleSubmit: jest.fn(),
       selectedManifest: 'K8sManifest',
       manifestIdsList: []

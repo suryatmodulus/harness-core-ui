@@ -53,7 +53,12 @@ const LinkToSSOProviderForm: React.FC<LinkToSSOProviderModalData> = props => {
   const [selectedSso, setSelectedSso] = useState<SelectOption>()
 
   let fetching = false
-  const { data: authDataResponse, loading: authLoading, error, refetch } = useGetAuthenticationSettings({
+  const {
+    data: authDataResponse,
+    loading: authLoading,
+    error,
+    refetch
+  } = useGetAuthenticationSettings({
     queryParams: {
       accountIdentifier: accountId
     }

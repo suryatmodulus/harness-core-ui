@@ -134,6 +134,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
                 class="bp3-input bp3-fill"
                 maxlength="1024"
                 name="description"
+                placeholder="common.descriptionPlaceholder"
               >
                 test
               </textarea>
@@ -405,6 +406,7 @@ exports[`Test DeployService Step should render edit service view (service), then
                 class="bp3-input bp3-fill"
                 maxlength="1024"
                 name="description"
+                placeholder="common.descriptionPlaceholder"
               >
                 test
               </textarea>
@@ -621,7 +623,7 @@ exports[`Test DeployService Step should render service view and save 1`] = `
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main"
               icon="edit"
-              style="vertical-align: middle;"
+              style="vertical-align: middle; cursor: pointer;"
             >
               <svg
                 data-icon="edit"

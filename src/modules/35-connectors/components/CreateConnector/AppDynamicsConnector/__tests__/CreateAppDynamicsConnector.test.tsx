@@ -221,7 +221,7 @@ describe('Unit tests for createAppdConnector', () => {
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={
-            ({
+            {
               name: 'dasdadasdasda',
               identifier: 'dasdadasdasda',
               description: '',
@@ -235,7 +235,7 @@ describe('Unit tests for createAppdConnector', () => {
               authType: AppDynamicsAuthType.API_CLIENT_TOKEN,
               accountName: 'solo-dolo',
               delegateSelectors: []
-            } as unknown) as ConnectorInfoDTO
+            } as unknown as ConnectorInfoDTO
           }
         />
       </TestWrapper>
@@ -305,7 +305,7 @@ describe('Unit tests for createAppdConnector', () => {
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={
-            ({
+            {
               name: 'dasdadasdasda',
               identifier: 'dasdadasdasda',
               description: '',
@@ -321,7 +321,7 @@ describe('Unit tests for createAppdConnector', () => {
                 accountname: 'solo-dolo',
                 delegateSelectors: []
               }
-            } as unknown) as ConnectorInfoDTO
+            } as unknown as ConnectorInfoDTO
           }
         />
       </TestWrapper>

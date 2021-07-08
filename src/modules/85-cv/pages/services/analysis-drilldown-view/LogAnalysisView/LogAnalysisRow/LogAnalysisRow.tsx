@@ -79,9 +79,10 @@ function ColumnHeaderRow(): JSX.Element {
 
 function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
   const { onSelect, rowData, index, isSelected } = props
-  const chartOptions = useMemo(() => getLogAnalysisLineChartOptions(rowData?.messageFrequency || []), [
-    rowData?.messageFrequency
-  ])
+  const chartOptions = useMemo(
+    () => getLogAnalysisLineChartOptions(rowData?.messageFrequency || []),
+    [rowData?.messageFrequency]
+  )
   const { getString } = useStrings()
   const [displayRiskEditModal, setDisplayRiskEditModal] = useState(false)
   const [feedbackGiven, setFeedbackGiven] = useState<{ risk: string; message: string } | undefined>(undefined)

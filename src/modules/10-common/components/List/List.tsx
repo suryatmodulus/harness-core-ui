@@ -19,6 +19,7 @@ export interface ListProps {
   expressions?: string[]
   enableExpressions?: boolean
   isNameOfArrayType?: boolean
+  labelClassName?: string
 }
 
 const generateNewValue: () => { id: string; value: string } = () => ({
@@ -27,7 +28,17 @@ const generateNewValue: () => { id: string; value: string } = () => ({
 })
 
 export const List = (props: ListProps): React.ReactElement => {
-  const { name, label, placeholder, disabled, style, formik, expressions, isNameOfArrayType } = props
+  const {
+    name,
+    label,
+    placeholder,
+    disabled,
+    style,
+    formik,
+    expressions,
+    isNameOfArrayType,
+    labelClassName = ''
+  } = props
   const { getString } = useStrings()
   const [value, setValue] = React.useState<ListUIType>(() => {
     const initialValueInCorrectFormat = [
@@ -50,7 +61,20 @@ export const List = (props: ListProps): React.ReactElement => {
   const hasSubmitted = get(formik, 'submitCount', 0) > 0
 
   const addValue: () => void = () => {
-    setValue(currentValue => currentValue.concat(generateNewValue()))
+    setValue(currentValue => {
+      if (expressions?.length) {
+        const updatedValue = currentValue.map((listItem: { id: string; value: string }, listItemIndex: number) => {
+          const currentItemFormikValue = get(formik?.values, `${name}[${listItemIndex}]`, '')
+          return {
+            ...listItem,
+            value: currentItemFormikValue
+          }
+        })
+
+        return [...updatedValue, generateNewValue()]
+      }
+      return currentValue.concat(generateNewValue())
+    })
   }
 
   const removeValue: (id: string) => () => void = id => () => {
@@ -105,7 +129,7 @@ export const List = (props: ListProps): React.ReactElement => {
 
   return (
     <div style={style}>
-      {label}
+      <div className={labelClassName}>{label}</div>
       <Card style={{ width: '100%' }}>
         {value.map(({ id, value: valueValue }, index: number) => {
           const valueError = get(error, `[${index}].value`)

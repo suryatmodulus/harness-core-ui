@@ -40,7 +40,7 @@ export enum CredTypeValues {
   AssumeRoleSTS = 'AssumeSTSRole'
 }
 export interface AwsKmsConfigFormData {
-  accessKey?: string
+  accessKey?: SecretReference
   secretKey?: SecretReference
   awsArn?: SecretReference
   region?: string | SelectOption

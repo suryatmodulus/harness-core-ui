@@ -251,7 +251,12 @@ export default function ActivityDashboardPage(): JSX.Element {
   const [timelineData, setTimelineData] = useState<ActivityTrackProps[]>(
     generateActivityTracks(timelineStartTime, moment(timelineStartTime).startOf('month').valueOf(), getString)
   )
-  const { loading, error, refetch: refetchActivities, data } = useListActivitiesForDashboard({
+  const {
+    loading,
+    error,
+    refetch: refetchActivities,
+    data
+  } = useListActivitiesForDashboard({
     queryParams: {
       accountId,
       projectIdentifier,

@@ -13,18 +13,25 @@ import {
 } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { noop } from 'lodash-es'
+import { useParams } from 'react-router-dom'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
-import type { GitSyncConfig } from 'services/cd-ng'
-import { useStrings } from 'framework/strings'
+import { GitBranchDTO, GitSyncConfig, useGetListOfBranchesWithStatus } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { branchSyncStatus } from '@common/components/GitContextForm/GitContextForm'
+import { Page } from '@common/exports'
 import EntitiesPreview from './EntitiesPreview'
-import { Products } from './EntityHelper'
 import css from './GitSyncEntityTab.module.scss'
 
-const GitSyncEntityTab: React.FC = () => {
-  const { gitSyncRepos } = useGitSyncStore()
-  const { getString } = useStrings()
-  const [selectedBranch, setSelectedBranch] = useState('')
-  selectedBranch
+interface IEntitiesPreviewWrapper {
+  key?: string
+  repository: GitSyncConfig
+}
+
+const EntitiesPreviewWrapper: React.FC<IEntitiesPreviewWrapper> = prop => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { repository } = prop
+  const [selectedBranch, setSelectedBranch] = useState(repository.branch)
+  const [searchTerm, setSearchTerm] = useState('')
 
   const collapseProps = {
     collapsedIcon: 'main-chevron-right' as IconName,
@@ -36,18 +43,64 @@ const GitSyncEntityTab: React.FC = () => {
     collapseHeaderClassName: css.collapseHeader
   }
 
-  const getCollapseHeading = (gitRepo: GitSyncConfig): JSX.Element => {
-    const branchSelectOptions = [
-      {
-        label: gitRepo.branch || '',
-        value: gitRepo.branch || '',
-        icon: { name: 'git-clone-step' } as IconProps
+  const GetCollapseHeading = (gitRepo: GitSyncConfig): JSX.Element => {
+    const {
+      data: branchList,
+      loading: loadingBranchList,
+      refetch: getListOfBranchesWithStatus
+    } = useGetListOfBranchesWithStatus({
+      lazy: true,
+      debounce: 500
+    })
+
+    const defaultBranchSelect: SelectOption = {
+      label: gitRepo.branch || '',
+      value: gitRepo.branch || '',
+      icon: { name: 'git-new-branch' }
+    }
+
+    const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([defaultBranchSelect])
+
+    React.useEffect(() => {
+      getListOfBranchesWithStatus({
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          yamlGitConfigIdentifier: gitRepo.identifier,
+          page: 0,
+          size: 20,
+          branchSyncStatus: branchSyncStatus.SYNCED,
+          searchTerm
+        },
+        debounce: 300
+      })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchTerm])
+
+    React.useEffect(() => {
+      if (!loadingBranchList && branchList?.data?.branches?.content?.length) {
+        const syncedBranchOption: SelectOption[] = []
+
+        branchList.data.branches.content.forEach((branch: GitBranchDTO) => {
+          if (branch.branchSyncStatus === branchSyncStatus.SYNCED) {
+            syncedBranchOption.push({
+              label: branch.branchName || '',
+              value: branch.branchName || '',
+              icon: { name: 'git-new-branch' }
+            })
+          }
+        })
+
+        setBranchSelectOptions(syncedBranchOption)
       }
-    ]
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loadingBranchList])
 
     return (
       <Layout.Horizontal flex className={css.header}>
-        <Text font={{ size: 'medium', weight: 'semi-bold' }} margin={{ left: 'small' }} color={Color.BLUE_600} inline>
+        <Text font={{ size: 'medium', weight: 'semi-bold' }} margin={{ left: 'small' }} color={Color.PRIMARY_7} inline>
           {gitRepo.name}
         </Text>
 
@@ -58,11 +111,15 @@ const GitSyncEntityTab: React.FC = () => {
           formName="gitSyncEntityForm"
           onSubmit={noop}
         >
-          <FormikForm>
+          <FormikForm
+            onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+              event.stopPropagation()
+            }}
+          >
             <FormInput.Select
               name="branch"
               items={branchSelectOptions}
-              disabled={true}
+              onQueryChange={(query: string) => setSearchTerm(query)}
               onChange={(branch: SelectOption, event) => {
                 setSelectedBranch(branch.value as string)
                 event?.preventDefault()
@@ -76,22 +133,25 @@ const GitSyncEntityTab: React.FC = () => {
   }
 
   return (
-    <Container className={css.bodyContainer}>
-      <Text color={Color.GREY_600} font={{ weight: 'semi-bold', size: 'medium' }} margin="large">
-        {getString('gitsync.entitiesByRepositories')}
-      </Text>
-
-      {gitSyncRepos?.map((gitRepo: GitSyncConfig, index: number) => {
-        // Todo: once BE maintains unique identifier, it can be used as key
-        return (
-          <Container className={css.collapseFeatures} key={(gitRepo?.identifier || '') + index}>
-            <Collapse {...collapseProps} heading={getCollapseHeading(gitRepo)}>
-              <EntitiesPreview selectedProduct={Products.CI} repo={gitRepo} />
-            </Collapse>
-          </Container>
-        )
-      })}
+    <Container className={css.collapseFeatures}>
+      <Collapse {...collapseProps} heading={GetCollapseHeading(repository)}>
+        <EntitiesPreview repo={repository} branch={selectedBranch || ''} />
+      </Collapse>
     </Container>
+  )
+}
+
+const GitSyncEntityTab: React.FC = () => {
+  const { gitSyncRepos } = useGitSyncStore()
+
+  return (
+    <Page.Body>
+      <Container className={css.bodyContainer}>
+        {gitSyncRepos?.map((gitRepo: GitSyncConfig, index: number) => {
+          return <EntitiesPreviewWrapper repository={gitRepo} key={(gitRepo?.identifier || '') + index} />
+        })}
+      </Container>
+    </Page.Body>
   )
 }
 

@@ -217,7 +217,7 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
               onBlur: onSelectEvent,
               onKeyUp: event => {
                 if (event.keyCode === 13) {
-                  onSelectEvent((event as unknown) as InputEventType)
+                  onSelectEvent(event as unknown as InputEventType)
                 }
               }
             }}

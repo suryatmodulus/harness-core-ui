@@ -1,0 +1,19 @@
+.main {
+  margin: var(--spacing-xsmall) var(--spacing-large) !important;
+  height: 100% !important;
+
+  .verifyHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-small) !important;
+  }
+
+  .details {
+    height: 100% !important;
+    width: 100% !important;
+    > div:first-child {
+      height: 45% !important;
+    }
+  }
+}

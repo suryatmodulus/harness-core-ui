@@ -3,54 +3,49 @@
 exports[`CIDashboardPage snapshot test should render properly 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="header"
   >
     <div
-      class="StyledProps--font StyledProps--main"
+      class="breadcrumbs"
     >
-      <div
-        class="breadcrumbs"
-      >
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/undefined/ci/orgs/undefined/projects/undefined/dashboard"
+      <div>
+        <a
+          class="breadcrumb"
+          href="/account/undefined/ci/orgs/undefined/projects/undefined/dashboard"
+        >
+          test
+        </a>
+        <span
+          class="bp3-icon StyledProps--main separator"
+          data-icon="main-chevron-right"
+        >
+          <svg
+            height="11"
+            viewBox="0 0 8 14"
+            width="11"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            test
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-            >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <span
-            class="lastBreadcrumb"
-          >
-            overview
-          </span>
-        </div>
+            <path
+              d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+              fill="#4d5969"
+            />
+          </svg>
+        </span>
       </div>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--margin-top-xsmall"
-      >
-        overview
-      </p>
+      <div>
+        <span
+          class="lastBreadcrumb"
+        >
+          overview
+        </span>
+      </div>
     </div>
+    <h2>
+      overview
+    </h2>
   </div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main pageBody content"
     data-name="page-body"
   >
     <div
@@ -157,6 +152,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                     height="18"
                     viewBox="0 0 16 18"
                     width="18"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
@@ -209,6 +205,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                     height="18"
                     viewBox="0 0 16 18"
                     width="18"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
@@ -750,9 +747,30 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
         <div
           class="StyledProps--font StyledProps--main header"
         >
-          <img
-            src="test-file-stub"
-          />
+          <span
+            class="bp3-icon StyledProps--main pendingBuildIcon"
+            data-icon="ci-pending-build"
+          >
+            <svg
+              fill="none"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                clip-path="url(#ci-pending-build_svg__clip0)"
+                fill="#383946"
+              >
+                <path
+                  d="M10.576 4.4V2.544C10.576 1.36 9.616.4 8.432.4H2.544C1.36.4.4 1.36.4 2.544v5.872c0 1.184.96 2.144 2.144 2.144h1.84c.304 2.816 2.688 5.024 5.584 5.024a5.613 5.613 0 005.616-5.616c.016-2.88-2.192-5.28-5.008-5.568zM1.584 8.416V2.544a.98.98 0 01.976-.976h5.872a.98.98 0 01.976.976v1.84a5.618 5.618 0 00-4.992 4.992H2.544a.943.943 0 01-.96-.96zm8.4 6a4.432 4.432 0 110-8.863 4.432 4.432 0 010 8.863z"
+                />
+                <path
+                  d="M12.016 9.392h-1.44V7.44a.601.601 0 00-.592-.592.601.601 0 00-.592.592v2.544c0 .32.272.592.592.592h2.032c.32 0 .592-.272.592-.592a.601.601 0 00-.592-.592z"
+                />
+              </g>
+            </svg>
+          </span>
           <p
             class="StyledProps--font StyledProps--main title"
           >
@@ -780,6 +798,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                 height="16"
                 viewBox="0 0 24 20"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M18.931 0l-5.068 2.926v2.057l-1.778-1.026-5.067 2.926v2.156l-1.95-1.126L0 10.84v5.852l5.068 2.926 5.068-2.926v-2.156l1.95 1.126 5.068-2.927V10.68l1.777 1.026L24 8.78V2.926L18.931 0zm3.75 3.18l-3.749 2.165-3.75-2.165 3.75-2.165 3.75 2.165zm-8.818 2.818v2.277l-1.777 1.026-3.75-2.164 3.75-2.165 1.777 1.026zm2.412 3.158l-1.09-.63 1.09-.628v1.258zm-1.533-1.388V6.506l1.093.63-1.093.632zm-7.724 2.286v2.079l-1.95 1.125-3.75-2.165 3.75-2.165 1.95 1.126zm2.24 2.96l-1.004-.58 1.003-.58v1.16zm-1.361-1.389v-1.064l.921.532-.921.532zm-7.018.23l3.75 2.165v4.329l-3.75-2.165v-4.33zm8.378 4.329l-3.75 2.165v-4.33l1.868-1.078 1.882 1.087v2.156zm-1.36-6.637v-1.65l3.75 2.165v4.33l-1.51-.872v-2.68l-2.24-1.293zm8.378 2.68l-3.75 2.165v-4.33l1.781-1.028 1.969 1.137v2.056zm-1.533-6.736V3.94l3.75 2.165v4.33l-1.338-.773v-2.78L14.742 5.49zm4.629 4.945v-4.33l3.75-2.165v4.33l-3.75 2.165z"
@@ -818,6 +837,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                     height="10"
                     viewBox="0 0 36 36"
                     width="10"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"

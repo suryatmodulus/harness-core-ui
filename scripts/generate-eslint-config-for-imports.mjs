@@ -25,7 +25,14 @@ for (const { dirName, moduleName } of flattenedLayers) {
             ...restrictedDirs.map(mod => `modules/${mod.dirName}/*`),
             ...restrictedDirs.map(mod => `@${mod.moduleName}/*`)
           ],
-          paths: ['lodash']
+          paths: [
+            'lodash',
+            {
+              name: 'yaml',
+              importNames: ['stringify'],
+              message: 'Please use yamlStringify from @common/utils/YamlHelperMethods instead of this'
+            }
+          ]
         }
       ]
     }

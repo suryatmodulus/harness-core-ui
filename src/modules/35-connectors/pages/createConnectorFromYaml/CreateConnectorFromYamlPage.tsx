@@ -25,6 +25,7 @@ import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { shouldShowError } from '@common/utils/errorUtils'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { isSMConnector } from '../connectors/utils/ConnectorUtils'
 import css from './CreateConnectorFromYamlPage.module.scss'
 
 const CreateConnectorFromYamlPage: React.FC = () => {
@@ -47,11 +48,21 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   })
   const [registeredWithGit, setRegisteredWithGit] = useState<boolean>()
   const [connectorNameBeingCreated, setConnectorNameBeingCreated] = useState<string>()
+  const [isSMCtr, setIsSMCtr] = useState<boolean>(false)
 
   const onConnectorChange = (isEditorDirty: boolean): void => {
-    if (isGitSyncEnabled && !registeredWithGit) {
+    const yamlData = yamlHandler?.getLatestYaml()
+    let connectorJSON
+    try {
+      connectorJSON = parse(yamlData || '') as Connector
+    } catch {
+      // this catch intentionally left empty
+    }
+    const isSMConnectorTemp = !!isSMConnector(connectorJSON?.connector?.type)
+    if (isGitSyncEnabled && !registeredWithGit && !isSMConnectorTemp) {
       showModal()
     }
+    setIsSMCtr(isSMConnectorTemp)
     setHasConnectorChanged(isEditorDirty)
   }
 
@@ -209,20 +220,23 @@ const CreateConnectorFromYamlPage: React.FC = () => {
             <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
               {getString('connectors.createFromYaml')}
             </Text>
-            <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
-              {gitResourceDetails.gitDetails?.repoIdentifier ? (
-                <Layout.Horizontal spacing="small">
-                  <Icon name="repository" margin={{ left: 'large' }}></Icon>
-                  <Text>{gitResourceDetails.gitDetails?.repoIdentifier}</Text>
-                </Layout.Horizontal>
-              ) : null}
-              {gitResourceDetails.gitDetails?.branch ? (
-                <Layout.Horizontal spacing="small">
-                  <Icon name="git-new-branch" margin={{ left: 'large' }}></Icon>
-                  <Text>{gitResourceDetails.gitDetails?.branch}</Text>
-                </Layout.Horizontal>
-              ) : null}
-            </Layout.Horizontal>
+
+            {!isSMCtr ? (
+              <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
+                {gitResourceDetails.gitDetails?.repoIdentifier ? (
+                  <Layout.Horizontal spacing="small">
+                    <Icon name="repository" margin={{ left: 'large' }}></Icon>
+                    <Text>{gitResourceDetails.gitDetails?.repoIdentifier}</Text>
+                  </Layout.Horizontal>
+                ) : null}
+                {gitResourceDetails.gitDetails?.branch ? (
+                  <Layout.Horizontal spacing="small">
+                    <Icon name="git-new-branch" margin={{ left: 'large' }}></Icon>
+                    <Text>{gitResourceDetails.gitDetails?.branch}</Text>
+                  </Layout.Horizontal>
+                ) : null}
+              </Layout.Horizontal>
+            ) : null}
           </Layout.Horizontal>
         }
       />
@@ -255,7 +269,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
                 if (errorMap && errorMap.size > 0) {
                   showError(getString('yamlBuilder.yamlError'))
                 } else {
-                  isGitSyncEnabled
+                  isGitSyncEnabled && !isSMCtr
                     ? openSaveToGitDialog({
                         isEditing: false,
                         resource: gitResourceDetails,

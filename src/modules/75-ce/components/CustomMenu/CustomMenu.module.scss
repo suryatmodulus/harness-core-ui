@@ -1,0 +1,10 @@
+.customMenuContainer {
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--blue-100) !important;
+  }
+  &:active {
+    background-color: var(--blue-100) !important;
+  }
+}

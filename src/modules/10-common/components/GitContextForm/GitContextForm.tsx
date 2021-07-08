@@ -26,7 +26,7 @@ export interface GitContextProps {
   branch: string
 }
 
-const branchSyncStatus: Record<string, GitBranchDTO['branchSyncStatus']> = {
+export const branchSyncStatus: Record<string, GitBranchDTO['branchSyncStatus']> = {
   SYNCED: 'SYNCED',
   SYNCING: 'SYNCING',
   UNSYNCED: 'UNSYNCED'
@@ -158,6 +158,7 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
                 value: gitDetails?.branch || ''
               }
             ])
+            onRepoChange?.({ repoIdentifier: selectedRepo?.identifier, branch: gitDetails?.branch })
           } else {
             // Selecting default branch if user select any other repo
             formikProps.setFieldValue('branch', selectedRepo?.branch)
@@ -168,8 +169,8 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
                   value: selectedRepo?.branch || ''
                 }
               ])
+            onRepoChange?.({ repoIdentifier: selectedRepo?.identifier, branch: selectedRepo?.branch })
           }
-          onRepoChange?.({ repoIdentifier: selectedRepo?.repo, branch: selectedRepo?.branch })
         }}
       />
       <Text color={Color.GREY_300}>{getString('common.gitSync.selectBranchLabel')}</Text>

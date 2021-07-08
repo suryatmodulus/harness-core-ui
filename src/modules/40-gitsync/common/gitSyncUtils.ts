@@ -1,6 +1,6 @@
 import type { IconName } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
-import type { GitSyncConfig, ConnectorInfoDTO } from 'services/cd-ng'
+import type { GitSyncConfig, ConnectorInfoDTO, GitSyncEntityDTO } from 'services/cd-ng'
 
 export const getGitConnectorIcon = (type: GitSyncConfig['gitConnectorType']): IconName => {
   switch (type) {
@@ -86,5 +86,14 @@ export const getExternalUrl = (config: GitSyncConfig, folderPath?: string): stri
     case Connectors.BITBUCKET:
     default:
       return ''
+  }
+}
+
+export const getEntityUrl = (entity: GitSyncEntityDTO): string => {
+  const { repoUrl, folderPath, branch, entityGitPath } = entity
+  if (repoUrl && branch && folderPath && entityGitPath) {
+    return `${repoUrl}/blob/${branch}/${folderPath}${entityGitPath}`
+  } else {
+    return ''
   }
 }

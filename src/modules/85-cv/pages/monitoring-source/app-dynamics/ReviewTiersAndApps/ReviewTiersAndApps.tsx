@@ -61,9 +61,12 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
   const { getString } = useStrings()
   const [tableData, setTableData] = useState<TableData[]>([])
   const history = useHistory()
-  const { accountId, projectIdentifier, orgIdentifier, identifier: indentifierFromParam } = useParams<
-    ProjectPathProps & AccountPathProps & { identifier: string }
-  >()
+  const {
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    identifier: indentifierFromParam
+  } = useParams<ProjectPathProps & AccountPathProps & { identifier: string }>()
   /* 
     isEdit : Boolean
     While creating new AppD, identifier is undefined

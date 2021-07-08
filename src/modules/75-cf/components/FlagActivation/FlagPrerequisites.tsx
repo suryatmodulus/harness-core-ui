@@ -69,7 +69,12 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
     }),
     [searchTerm]
   )
-  const { data: searchedFeatures, loading, error, refetch: fetchFlags } = useGetAllFeatures({
+  const {
+    data: searchedFeatures,
+    loading,
+    error,
+    refetch: fetchFlags
+  } = useGetAllFeatures({
     lazy: true,
     queryParams
   })

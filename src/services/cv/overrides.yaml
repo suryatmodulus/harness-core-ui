@@ -68,6 +68,8 @@ allowpaths:
   - /prometheus/metric-list
   - /prometheus/sample-data
   - /sumologic/endpoints
+  - /monitored-service/create-default
+  - /monitored-service/service-environment
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

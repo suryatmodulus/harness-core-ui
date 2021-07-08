@@ -17,6 +17,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 const refetchAuthSettings = jest.fn()
+const setUpdating = jest.fn()
 
 const disablePasswordSettings = {
   ...loginSettings,
@@ -33,7 +34,12 @@ describe('PasswordStrength', () => {
         path={routes.toAuthenticationSettings({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
       >
-        <PasswordStrength loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
+        <PasswordStrength
+          loginSettings={loginSettings}
+          refetchAuthSettings={refetchAuthSettings}
+          canEdit
+          setUpdating={setUpdating}
+        />
       </TestWrapper>
     )
 
@@ -61,7 +67,12 @@ describe('PasswordStrength', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <PasswordStrength loginSettings={disablePasswordSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <PasswordStrength
+            loginSettings={disablePasswordSettings}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 
@@ -87,7 +98,12 @@ describe('PasswordStrength', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <PasswordStrength loginSettings={disablePasswordSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <PasswordStrength
+            loginSettings={disablePasswordSettings}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 
@@ -122,7 +138,12 @@ describe('PasswordStrength', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <PasswordStrength loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <PasswordStrength
+            loginSettings={loginSettings}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 

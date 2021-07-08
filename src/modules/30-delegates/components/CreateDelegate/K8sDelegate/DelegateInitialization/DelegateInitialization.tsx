@@ -21,7 +21,11 @@ interface DelegateInitProps {
 const DelegateInitialization: React.FC<StepProps<StepK8Data> & DelegateInitProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
-  const { data: initData, loading: initLoading, refetch: verifyInitialization } = useGetDelegatesInitializationDetails({
+  const {
+    data: initData,
+    loading: initLoading,
+    refetch: verifyInitialization
+  } = useGetDelegatesInitializationDetails({
     queryParams: {
       accountId,
       orgId: orgIdentifier,

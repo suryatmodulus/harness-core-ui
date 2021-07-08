@@ -64,7 +64,12 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
     pageOffset: 0,
     filteredNamespace: undefined
   })
-  const { loading, error, data, refetch: refetchNamespaces } = useGetNamespaces({
+  const {
+    loading,
+    error,
+    data,
+    refetch: refetchNamespaces
+  } = useGetNamespaces({
     queryParams: {
       projectIdentifier,
       orgIdentifier,

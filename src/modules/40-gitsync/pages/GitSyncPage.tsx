@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
-import { Layout, Text, Color, Icon } from '@wings-software/uicore'
-import { useParams, Link, NavLink } from 'react-router-dom'
+import { Layout, Text, Color, TabNavigation } from '@wings-software/uicore'
+import { useParams, Link } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -10,7 +10,6 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import NewUserView from './newUser/NewUserView'
-import css from './GitSyncPage.module.scss'
 
 interface GitSyncPageProps {
   children: ReactNode
@@ -26,10 +25,7 @@ export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => 
     return (
       <Layout.Vertical padding={{ left: 'small', top: 'large', bottom: 'large' }}>
         <Layout.Horizontal spacing="small" margin={{ bottom: 'small' }}>
-          <Link
-            className={css.breadCrumb}
-            to={`/account/${accountId}/projects/${projectIdentifier}/orgs/${orgIdentifier}/details`}
-          >
+          <Link to={`/account/${accountId}/projects/${projectIdentifier}/orgs/${orgIdentifier}/details`}>
             {selectedProject?.name}
           </Link>
           <span>/</span>
@@ -46,30 +42,22 @@ export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => 
   return (
     <>
       <Page.Header
-        className={css.header}
-        size={isGitSyncEnabled ? 'xlarge' : 'medium'}
+        size="medium"
         title={renderBreadCrumb}
         toolbar={
           isGitSyncEnabled ? (
-            <Layout.Horizontal spacing="large">
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toGitSyncReposAdmin({ projectIdentifier, orgIdentifier, accountId, module })}
-              >
-                <Icon margin={{ right: 'small' }} name="repository" />
-                {getString('repositories')}
-              </NavLink>
-
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toGitSyncEntitiesAdmin({ projectIdentifier, orgIdentifier, accountId, module })}
-              >
-                <Icon margin={{ right: 'small' }} name="entity" />
-                {getString('entities')}
-              </NavLink>
-            </Layout.Horizontal>
+            <TabNavigation
+              links={[
+                {
+                  label: getString('repositories'),
+                  to: routes.toGitSyncReposAdmin({ projectIdentifier, orgIdentifier, accountId, module })
+                },
+                {
+                  label: getString('entities'),
+                  to: routes.toGitSyncEntitiesAdmin({ projectIdentifier, orgIdentifier, accountId, module })
+                }
+              ]}
+            />
           ) : null
         }
       />

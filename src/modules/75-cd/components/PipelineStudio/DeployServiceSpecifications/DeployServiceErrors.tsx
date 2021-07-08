@@ -37,7 +37,9 @@ export default React.memo(function DeployServiceErrors() {
   )
   useGlobalEventListener('UPDATE_ERRORS_STRIP', event => {
     if (event.detail && !isEmpty(errorsLocal)) {
-      updateForm(event.detail)
+      window.requestAnimationFrame(() => {
+        updateForm(event.detail)
+      })
     }
   })
   return <ErrorsStrip formErrors={errorsLocal} />

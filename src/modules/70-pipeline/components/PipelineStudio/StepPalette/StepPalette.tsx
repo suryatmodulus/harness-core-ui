@@ -53,7 +53,7 @@ const useGetFeatureSteps = (props: UseGetStepsProps) => {
       base: getConfig('ng/api'),
       ...props,
       mock: {
-        data: (featureStageSteps as unknown) as ResponseStepCategory
+        data: featureStageSteps as unknown as ResponseStepCategory
       }
     }
   )
@@ -68,7 +68,7 @@ const useGetBuildSteps = (props: UseGetStepsProps) => {
       ...props,
       mock: {
         loading: false,
-        data: (buildStageStepsWithRunTestsStep as unknown) as ResponseStepCategory
+        data: buildStageStepsWithRunTestsStep as unknown as ResponseStepCategory
       }
     }
   )

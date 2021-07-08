@@ -388,6 +388,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                               height="16"
                               viewBox="0 0 4.233 4.233"
                               width="16"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <g
                                 transform="translate(0 .423) scale(.21167)"
@@ -426,6 +427,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                               height="16"
                               viewBox="0 0 4.233 4.233"
                               width="16"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <g
                                 fill="none"

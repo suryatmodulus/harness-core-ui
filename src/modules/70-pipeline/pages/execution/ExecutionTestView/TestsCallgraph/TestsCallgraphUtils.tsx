@@ -511,44 +511,43 @@ export function handleNodeClick(callback: (id: string) => void): ({ point }: { p
   }
 }
 
-export const buildNode: (
-  queryResults: number[]
-) => (nodeData: CallgraphNodeSimple) => any = queryResults => nodeData => {
-  const hasMatch = queryResults.length && queryResults.includes(nodeData.id)
-  return {
-    id: `${nodeData.id}`,
-    color: hasMatch ? '#F8B500' : nodeData.type === 'Test' ? '#8A36FF' : '#0095F7',
-    name: nodeData.package,
-    marker: {
-      radius: nodeData.type === 'Test' ? TEST_NODE_RADIUS : SOURCE_NODE_RADIUS,
-      symbol: nodeData.type === 'Test' ? 'pentagon' : 'circle',
-      states: {
-        hover: {
-          lineColor: nodeData.type === 'Test' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(239, 251, 255, 0.7)',
-          lineWidth: 1
+export const buildNode: (queryResults: number[]) => (nodeData: CallgraphNodeSimple) => any =
+  queryResults => nodeData => {
+    const hasMatch = queryResults.length && queryResults.includes(nodeData.id)
+    return {
+      id: `${nodeData.id}`,
+      color: hasMatch ? '#F8B500' : nodeData.type === 'Test' ? '#8A36FF' : '#0095F7',
+      name: nodeData.package,
+      marker: {
+        radius: nodeData.type === 'Test' ? TEST_NODE_RADIUS : SOURCE_NODE_RADIUS,
+        symbol: nodeData.type === 'Test' ? 'pentagon' : 'circle',
+        states: {
+          hover: {
+            lineColor: nodeData.type === 'Test' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(239, 251, 255, 0.7)',
+            lineWidth: 1
+          }
         }
-      }
-    },
-    dataLabels: {
-      enabled: true,
-      format: cutNodeLabel(nodeData.type === 'Test' ? nodeData.class : nodeData.method),
-      position: 'center',
-      align: 'center' as Highcharts.AlignValue,
-      verticalAlign: 'middle' as Highcharts.VerticalAlignValue,
-      color: hasMatch ? '#000000' : '#ffffff',
-      style: {
-        fontSize: nodeData.type === 'Test' ? '8px' : '6px',
-        fontWeight: '500',
-        textOverflow: 'ellipsis',
-        textOutline: 'none'
       },
-      x: nodeData.type === 'Test' ? 4 : undefined // align inside penta
-    },
-    custom: {
-      ...nodeData
+      dataLabels: {
+        enabled: true,
+        format: cutNodeLabel(nodeData.type === 'Test' ? nodeData.class : nodeData.method),
+        position: 'center',
+        align: 'center' as Highcharts.AlignValue,
+        verticalAlign: 'middle' as Highcharts.VerticalAlignValue,
+        color: hasMatch ? '#000000' : '#ffffff',
+        style: {
+          fontSize: nodeData.type === 'Test' ? '8px' : '6px',
+          fontWeight: '500',
+          textOverflow: 'ellipsis',
+          textOutline: 'none'
+        },
+        x: nodeData.type === 'Test' ? 4 : undefined // align inside penta
+      },
+      custom: {
+        ...nodeData
+      }
     }
   }
-}
 
 export const buildLink: (node: CallgraphNode) => any = node => {
   return {

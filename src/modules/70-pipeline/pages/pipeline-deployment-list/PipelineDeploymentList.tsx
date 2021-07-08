@@ -33,9 +33,8 @@ export interface PipelineDeploymentListProps {
 }
 
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
-  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
-    PipelineType<PipelinePathProps>
-  >()
+  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } =
+    useParams<PipelineType<PipelinePathProps>>()
   const [pollingRequest, setPollingRequest] = React.useState(false)
   const queryParams = useQueryParams<QueryParams>({
     processQueryParams(params: StringQueryParams) {
@@ -72,7 +71,12 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
 
   useDocumentTitle([getString('pipelines'), getString('executionsText')])
 
-  const { data, loading, refetch: fetchExecutions, error } = useMutateAsGet(useGetListOfExecutions, {
+  const {
+    data,
+    loading,
+    refetch: fetchExecutions,
+    error
+  } = useMutateAsGet(useGetListOfExecutions, {
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -98,7 +102,11 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         }
   })
 
-  const { data: filterData, loading: isFetchingFilters, refetch: refetchFilters } = useGetFilterList({
+  const {
+    data: filterData,
+    loading: isFetchingFilters,
+    refetch: refetchFilters
+  } = useGetFilterList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,

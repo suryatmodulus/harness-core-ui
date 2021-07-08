@@ -446,7 +446,11 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
 
   const scopeFromSelected = typeof selected === 'string' && getScopeFromValue(selected || '')
   const selectedRef = typeof selected === 'string' && getIdentifierFromValue(selected || '')
-  const { data: connectorData, loading, refetch } = useGetConnector({
+  const {
+    data: connectorData,
+    loading,
+    refetch
+  } = useGetConnector({
     identifier: selectedRef as string,
     queryParams: {
       accountIdentifier,

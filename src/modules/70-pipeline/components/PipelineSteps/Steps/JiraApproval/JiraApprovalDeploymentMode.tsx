@@ -24,9 +24,8 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
   const prefix = isEmpty(path) ? '' : `${path}.`
   const readonly = inputSetData?.readonly
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   return (

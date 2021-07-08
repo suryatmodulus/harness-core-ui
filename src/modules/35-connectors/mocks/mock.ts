@@ -1,4 +1,4 @@
-import type { ConnectorInfoDTO, ResponseListSourceCodeManagerDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ResponseListSourceCodeManagerDTO, ResponseGitBranchListDTO } from 'services/cd-ng'
 
 export const defaultProps = {
   name: 'Setup Delegates',
@@ -143,4 +143,27 @@ export const sourceCodeManagers: ResponseListSourceCodeManagerDTO = {
       }
     }
   ]
+}
+
+export const branchStatusMock: ResponseGitBranchListDTO = {
+  status: 'SUCCESS',
+  data: {
+    defaultBranch: { branchName: 'master', branchSyncStatus: 'SYNCED' },
+    branches: {
+      totalPages: 1,
+      totalItems: 2,
+      pageItemCount: 2,
+      pageSize: 10,
+      content: [
+        { branchName: 'gitSync', branchSyncStatus: 'SYNCED' },
+        { branchName: 'master', branchSyncStatus: 'SYNCED' },
+        { branchName: 'branch1', branchSyncStatus: 'SYNCING' },
+        { branchName: 'branch2', branchSyncStatus: 'UNSYNCED' }
+      ],
+      pageIndex: 0,
+      empty: false
+    }
+  },
+  metaData: undefined,
+  correlationId: '23659f77-9c8a-4338-8163-06a65a7e5823'
 }

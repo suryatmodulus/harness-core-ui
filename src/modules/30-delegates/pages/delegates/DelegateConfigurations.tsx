@@ -299,7 +299,7 @@ export default function DelegateConfigurations(): JSX.Element {
       <Layout.Horizontal className={css.header} background={Color.WHITE}>
         <RbacButton
           intent="primary"
-          text={getString('delegate.newConfiguration')}
+          text={getString('delegate.delegateConfiguration')}
           icon="plus"
           permission={permissionRequestNewConfiguration}
           onClick={() => openDelegateConfigModal()}

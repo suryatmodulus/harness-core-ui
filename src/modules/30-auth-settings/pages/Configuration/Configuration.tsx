@@ -27,6 +27,7 @@ const Configuration: React.FC = () => {
   const params = useParams<AccountPathProps>()
   const { accountId } = params
   const { getString } = useStrings()
+  const [updating, setUpdating] = React.useState(false)
 
   const permissionRequest = {
     resourceScope: {
@@ -60,7 +61,8 @@ const Configuration: React.FC = () => {
     <React.Fragment>
       <Page.Header title={`${getString('authentication')}: ${getString('configuration')}`} />
       <Page.Body
-        loading={fetchingAuthSettings}
+        loading={fetchingAuthSettings || updating}
+        loadingMessage={updating ? getString('authSettings.updating') : undefined}
         error={
           (errorWhileFetchingAuthSettings?.data as Error)?.message ||
           errorWhileFetchingAuthSettings?.message ||
@@ -79,17 +81,24 @@ const Configuration: React.FC = () => {
                 />
               </Callout>
             )}
-            <AccountAndOAuth authSettings={data.resource} refetchAuthSettings={refetchAuthSettings} canEdit={canEdit} />
+            <AccountAndOAuth
+              authSettings={data.resource}
+              refetchAuthSettings={refetchAuthSettings}
+              canEdit={canEdit}
+              setUpdating={setUpdating}
+            />
             <SAMLProvider
               authSettings={data.resource}
               refetchAuthSettings={refetchAuthSettings}
               permissionRequest={permissionRequest}
               canEdit={canEdit}
+              setUpdating={setUpdating}
             />
             <RestrictEmailDomains
               whitelistedDomains={data.resource.whitelistedDomains || []}
               refetchAuthSettings={refetchAuthSettings}
               canEdit={canEdit}
+              setUpdating={setUpdating}
             />
           </React.Fragment>
         )}

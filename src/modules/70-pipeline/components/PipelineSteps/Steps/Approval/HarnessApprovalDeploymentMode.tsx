@@ -127,11 +127,14 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
   const readonly = inputSetData?.readonly
   const { getString } = useStrings()
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
 
-  const { data: userGroupsResponse, loading: fetchingUserGroups, error: userGroupsFetchError } = useGetUserGroupList({
+  const {
+    data: userGroupsResponse,
+    loading: fetchingUserGroups,
+    error: userGroupsFetchError
+  } = useGetUserGroupList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,

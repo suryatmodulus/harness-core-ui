@@ -62,21 +62,19 @@ type K8sGcpInfrastructureTemplate = { [key in keyof K8sGcpInfrastructure]: strin
 function getValidationSchema(getString: UseStringsReturn['getString']): Yup.ObjectSchema {
   return Yup.object().shape({
     connectorRef: Yup.string().required(getString?.('fieldRequired', { field: getString('connector') })),
-    cluster: Yup.lazy(
-      (value): Yup.Schema<unknown> => {
-        /* istanbul ignore else */ if (typeof value === 'string') {
-          return Yup.string().required(getString('common.cluster'))
-        }
-        return Yup.object().test({
-          test(valueObj: SelectOption): boolean | Yup.ValidationError {
-            if (isEmpty(valueObj) || isEmpty(valueObj.value)) {
-              return this.createError({ message: getString('fieldRequired', { field: getString('common.cluster') }) })
-            }
-            return true
-          }
-        })
+    cluster: Yup.lazy((value): Yup.Schema<unknown> => {
+      /* istanbul ignore else */ if (typeof value === 'string') {
+        return Yup.string().required(getString('common.cluster'))
       }
-    ),
+      return Yup.object().test({
+        test(valueObj: SelectOption): boolean | Yup.ValidationError {
+          if (isEmpty(valueObj) || isEmpty(valueObj.value)) {
+            return this.createError({ message: getString('fieldRequired', { field: getString('common.cluster') }) })
+          }
+          return true
+        }
+      })
+    }),
 
     namespace: getNameSpaceSchema(getString),
     releaseName: getReleaseNameSchema(getString)
@@ -197,15 +195,16 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
         initialValues={getInitialValues()}
         validate={value => {
           const data: Partial<K8sGcpInfrastructure> = {
-            namespace: value.namespace,
-            releaseName: value.releaseName,
+            namespace: value.namespace === '' ? undefined : value.namespace,
+            releaseName: value.releaseName === '' ? undefined : value.releaseName,
             connectorRef: undefined,
-            cluster: getClusterValue(value.cluster),
+            cluster: getClusterValue(value.cluster) === '' ? undefined : getClusterValue(value.cluster),
             allowSimultaneousDeployments: value.allowSimultaneousDeployments
           }
           /* istanbul ignore else */ if (value.connectorRef) {
             data.connectorRef = (value.connectorRef as any)?.value || /* istanbul ignore next */ value.connectorRef
           }
+
           delayedOnUpdate(data)
         }}
         validationSchema={getValidationSchema(getString)}
@@ -220,7 +219,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                 <FormMultiTypeConnectorField
                   name="connectorRef"
                   label={getString('connector')}
-                  placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
+                  placeholder={getString('connectors.selectConnector')}
                   disabled={readonly}
                   accountIdentifier={accountId}
                   tooltipProps={{
@@ -229,13 +228,14 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   multiTypeProps={{ expressions }}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
+                  className={css.connectorRef}
                   width={450}
                   enableConfigureOptions={false}
                   style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-medium)' }}
                   type={'Gcp'}
                   onChange={(value: any, _valueType, type) => {
                     if (type === MultiTypeInputType.FIXED && value.record) {
-                      const { record, scope } = (value as unknown) as { record: ConnectorReferenceDTO; scope: Scope }
+                      const { record, scope } = value as unknown as { record: ConnectorReferenceDTO; scope: Scope }
                       const connectorRef =
                         scope === Scope.ORG || scope === Scope.ACCOUNT
                           ? `${scope}.${record.identifier}`
@@ -327,7 +327,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   }}
                   className={css.inputWidth}
                   label={getString('common.namespace')}
-                  placeholder={getString('cd.steps.common.namespacePlaceholder')}
+                  placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
                   multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
                   disabled={readonly}
                 />
@@ -467,13 +467,13 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
             name={`${path}.connectorRef`}
             label={getString('connector')}
             enableConfigureOptions={false}
-            placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
+            placeholder={getString('connectors.selectConnector')}
             disabled={readonly}
             multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
             type={'Gcp'}
             setRefValue
             onChange={(selected, _typeValue, type) => {
-              const item = (selected as unknown) as { record?: ConnectorReferenceDTO; scope: Scope }
+              const item = selected as unknown as { record?: ConnectorReferenceDTO; scope: Scope }
               if (type === MultiTypeInputType.FIXED) {
                 const connectorRefValue =
                   item.scope === Scope.ORG || item.scope === Scope.ACCOUNT
@@ -531,7 +531,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
               allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
               expressions
             }}
-            placeholder={getString('cd.steps.common.namespacePlaceholder')}
+            placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
           />
         </div>
       )}

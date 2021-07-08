@@ -24,13 +24,13 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
         label: getString('dashboards.serviceDashboard.nonProd'),
         value: nonProdCount,
         formattedValue: numberFormatter(nonProdCount),
-        color: 'var(--blue-450)'
+        color: 'var(--primary-2)'
       },
       {
         label: getString('dashboards.serviceDashboard.prod'),
         value: prodCount,
         formattedValue: numberFormatter(prodCount),
-        color: 'var(--blue-500)'
+        color: 'var(--primary-7)'
       }
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,34 +38,53 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
   )
   return (
     <Card className={css.card}>
-      <Layout.Vertical>
-        <Layout.Horizontal className={css.topSection} padding={{ bottom: 'small' }}>
+      <Layout.Vertical width={218}>
+        <Layout.Horizontal className={css.topSection}>
           <Layout.Vertical width={'100%'}>
-            <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+            <Text font={{ weight: 'bold' }} color={Color.GREY_600}>
               {getString('services')}
             </Text>
             <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-              <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} className={css.text}>
-                {serviceCount}
+              <Text color={Color.BLACK} font={{ weight: 'bold' }} className={css.text}>
+                {numberFormatter(serviceCount)}
               </Text>
               <TrendPopover data={trendData}>
-                <SparklineChart title={trendTitle} data={trendData} options={{ chart: { width: 80, height: 50 } }} />
+                <SparklineChart
+                  title={trendTitle}
+                  data={trendData}
+                  options={{ chart: { width: 80, height: 50 } }}
+                  sparklineChartContainerStyles={css.hover}
+                />
               </TrendPopover>
             </Layout.Horizontal>
           </Layout.Vertical>
         </Layout.Horizontal>
-        <Layout.Vertical padding={{ top: 'small' }}>
-          <Layout.Vertical margin={{ bottom: 'xlarge' }}>
-            <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+        <Layout.Vertical className={css.bottomSection}>
+          <Layout.Vertical margin={{ bottom: 'medium' }}>
+            <Text font={{ weight: 'bold' }} color={Color.GREY_600} margin={{ bottom: 'xsmall' }}>
               {getString('dashboards.serviceDashboard.serviceInstances')}
             </Text>
-            <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} className={css.text}>
-              {serviceInstancesCount}
-            </Text>
+            <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+              <Text color={Color.BLACK} font={{ weight: 'bold' }} className={css.text}>
+                {numberFormatter(serviceInstancesCount)}
+              </Text>
+              <Container height={65}>
+                <PieChart size={65} items={pieChartData} showLabels={false}></PieChart>
+              </Container>
+            </Layout.Horizontal>
           </Layout.Vertical>
-          <Container height={46}>
-            <PieChart size={46} items={pieChartData}></PieChart>
-          </Container>
+          <Layout.Horizontal flex={{ distribution: 'space-between' }} margin={{ right: 'xlarge' }}>
+            {pieChartData.map(pieChartDataItem => {
+              return (
+                <Layout.Horizontal key={pieChartDataItem.label} flex={{ alignItems: 'center' }}>
+                  <div className={css.circle} style={{ background: pieChartDataItem.color }}></div>
+                  <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_500}>{`${
+                    pieChartDataItem.label
+                  } (${pieChartDataItem.formattedValue ?? pieChartDataItem.value})`}</Text>
+                </Layout.Horizontal>
+              )
+            })}
+          </Layout.Horizontal>
         </Layout.Vertical>
       </Layout.Vertical>
     </Card>

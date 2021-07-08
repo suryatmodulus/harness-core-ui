@@ -199,14 +199,26 @@ export interface AggregateACLRequest {
   searchTerm?: string
 }
 
+export interface ApiKeyAggregateDTO {
+  apiKey: ApiKeyDTO
+  createdAt: number
+  lastModifiedAt: number
+  tokensCount?: number
+}
+
 export interface ApiKeyDTO {
-  accountIdentifier: string
+  accountIdentifier?: string
   apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
   defaultTimeToExpireToken?: number
+  description?: string
   identifier: string
+  name: string
   orgIdentifier?: string
-  parentIdentifier: string
+  parentIdentifier?: string
   projectIdentifier?: string
+  tags?: {
+    [key: string]: string
+  }
 }
 
 export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
@@ -299,6 +311,11 @@ export interface Approvers {
 
 export interface ArtifactConfig {
   [key: string]: any
+}
+
+export interface ArtifactDetails {
+  artifactId?: string
+  tag?: string
 }
 
 export interface ArtifactListConfig {
@@ -443,7 +460,7 @@ export interface AwsKmsConnectorCredential {
 export type AwsKmsConnectorDTO = ConnectorConfigDTO & {
   credential?: AwsKmsConnectorCredential
   default?: boolean
-  kmsArn?: string
+  kmsArn: string
   region?: string
 }
 
@@ -481,7 +498,7 @@ export type AzureKeyVaultConnectorDTO = ConnectorConfigDTO & {
   azureEnvironmentType?: 'AZURE' | 'AZURE_US_GOVERNMENT'
   clientId: string
   default?: boolean
-  secretKey?: string
+  secretKey: string
   subscription: string
   tenantId: string
   vaultName: string
@@ -600,6 +617,11 @@ export interface Build {
   type: 'branch' | 'tag'
 }
 
+export interface BuildIdAndInstanceCount {
+  buildId?: string
+  count?: number
+}
+
 export interface BuildSpec {
   [key: string]: any
 }
@@ -685,6 +707,8 @@ export interface CcmConnectorFilter {
   azureSubscriptionId?: string
   azureTenantId?: string
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
+  gcpProjectId?: string
+  k8sConnectorRef?: string
 }
 
 export interface CeLicenseInfo {
@@ -696,6 +720,7 @@ export interface CodeBase {
   build: Build
   connectorRef: string
   depth?: number
+  prCloneStrategy?: 'MergeCommit' | 'SourceBranch'
   repoName?: string
   resources?: ContainerResource
   sslVerify?: boolean
@@ -1069,6 +1094,8 @@ export type DeploymentStageConfig = StageInfoConfig & {
 export interface DeploymentStatusInfo {
   endTs?: number
   name?: string
+  pipelineIdentifier?: string
+  planExecutionId?: string
   serviceInfoList?: ServiceDeploymentInfo[]
   startTs?: number
   status?: string
@@ -1135,6 +1162,7 @@ export type DynatraceConnectorDTO = ConnectorConfigDTO & {
 export type EcrArtifactConfig = ArtifactConfig & {
   connectorRef: string
   imagePath: string
+  metadata?: string
   region: string
   tag?: string
   tagRegex?: string
@@ -1233,7 +1261,7 @@ export interface EntityReference {
 
 export type EntityReferredByPipelineSetupUsageDetail = SetupUsageDetail & {
   identifier?: string
-  type?: string
+  referenceType?: string
 }
 
 export interface EntitySetupUsageDTO {
@@ -1242,6 +1270,16 @@ export interface EntitySetupUsageDTO {
   detail?: SetupUsageDetail
   referredByEntity: EntityDetail
   referredEntity?: EntityDetail
+}
+
+export interface EnvBuildIdAndInstanceCountInfo {
+  buildIdAndInstanceCountList?: BuildIdAndInstanceCount[]
+  envId?: string
+  envName?: string
+}
+
+export interface EnvBuildIdAndInstanceCountInfoList {
+  envBuildIdAndInstanceCountInfoList?: EnvBuildIdAndInstanceCountInfo[]
 }
 
 export type EnvFilter = Filter & {
@@ -2010,7 +2048,7 @@ export interface GcpCredentialSpec {
 }
 
 export type GcpKmsConnectorDTO = ConnectorConfigDTO & {
-  credentials?: string[]
+  credentials: string
   default?: boolean
   keyName?: string
   keyRing?: string
@@ -2171,9 +2209,14 @@ export type GitLabStore = StoreConfig & {
 }
 
 export interface GitPRCreateRequest {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   sourceBranch: string
   targetBranch: string
   title: string
+  useUserFromToken?: boolean
+  yamlGitConfigRef: string
 }
 
 export type GitSSHAuthenticationDTO = GitAuthenticationDTO & {
@@ -2234,7 +2277,7 @@ export interface GitSyncEntityDTO {
   folderPath?: string
   gitConnectorId?: string
   repoProviderType?: 'github' | 'gitlab' | 'bitbucket' | 'unknown'
-  repositoryName?: string
+  repoUrl?: string
 }
 
 export interface GitSyncEntityListDTO {
@@ -2622,6 +2665,56 @@ export interface InputSetValidator {
   validatorType?: 'ALLOWED_VALUES' | 'REGEX'
 }
 
+export interface InstanceCountDetailsByEnvTypeBase {
+  nonProdInstances?: number
+  prodInstances?: number
+  totalInstances?: number
+}
+
+export interface InstanceDTO {
+  accountIdentifier?: string
+  connectorId?: string
+  createdAt?: number
+  deleted?: boolean
+  deletedAt?: number
+  envId?: string
+  envName?: string
+  envType?: 'PreProduction' | 'Production'
+  infraMappingType?: string
+  infrastructureMappingId?: string
+  instanceInfo?: InstanceInfo
+  instanceKey?: InstanceKey
+  instanceType?:
+    | 'PHYSICAL_HOST_INSTANCE'
+    | 'EC2_CLOUD_INSTANCE'
+    | 'GCP_CLOUD_INSTANCE'
+    | 'ECS_CONTAINER_INSTANCE'
+    | 'KUBERNETES_CONTAINER_INSTANCE'
+    | 'PCF_INSTANCE'
+    | 'AZURE_VMSS_INSTANCE'
+    | 'AZURE_WEB_APP_INSTANCE'
+  lastDeployedAt?: number
+  lastDeployedById?: string
+  lastDeployedByName?: string
+  lastModifiedAt?: number
+  lastPipelineExecutionId?: string
+  lastPipelineExecutionName?: string
+  needRetry?: boolean
+  orgIdentifier?: string
+  primaryArtifact?: ArtifactDetails
+  projectIdentifier?: string
+  serviceId?: string
+  serviceName?: string
+}
+
+export interface InstanceInfo {
+  [key: string]: any
+}
+
+export interface InstanceKey {
+  [key: string]: any
+}
+
 export interface InstanceSelectionBase {
   [key: string]: any
 }
@@ -2631,12 +2724,24 @@ export interface InstanceSelectionWrapper {
   type?: 'Count' | 'Percentage'
 }
 
+export interface InstancesByBuildId {
+  buildId?: string
+  instances?: InstanceDTO[]
+}
+
+export interface InstancesByBuildIdList {
+  instancesByBuildIdList?: InstancesByBuildId[]
+}
+
 export interface Invite {
+  accountIdentifier: string
   approved?: boolean
   email: string
   id: string
   inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
   name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   roleBindings: RoleBinding[]
 }
 
@@ -3341,6 +3446,16 @@ export interface PageActivitySummary {
   totalPages?: number
 }
 
+export interface PageApiKeyAggregateDTO {
+  content?: ApiKeyAggregateDTO[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
 export interface PageConnectorResponse {
   content?: ConnectorResponse[]
   empty?: boolean
@@ -3527,6 +3642,16 @@ export interface PageServiceResponse {
 
 export interface PageServiceResponseDTO {
   content?: ServiceResponseDTO[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
+export interface PageTokenAggregateDTO {
+  content?: TokenAggregateDTO[]
   empty?: boolean
   pageIndex?: number
   pageItemCount?: number
@@ -3878,6 +4003,13 @@ export interface ResponseActivity {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseApiKeyAggregateDTO {
+  correlationId?: string
+  data?: ApiKeyAggregateDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseApiKeyDTO {
   correlationId?: string
   data?: ApiKeyDTO
@@ -3997,6 +4129,13 @@ export interface ResponseEcrResponseDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseEnvBuildIdAndInstanceCountInfoList {
+  correlationId?: string
+  data?: EnvBuildIdAndInstanceCountInfoList
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseEnvironmentResponse {
   correlationId?: string
   data?: EnvironmentResponse
@@ -4102,6 +4241,27 @@ export interface ResponseInputSetTemplateResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseInstanceCountDetailsByEnvTypeBase {
+  correlationId?: string
+  data?: InstanceCountDetailsByEnvTypeBase
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseInstancesByBuildIdList {
+  correlationId?: string
+  data?: InstancesByBuildIdList
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseInvite {
+  correlationId?: string
+  data?: Invite
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseJiraIssueCreateMetadataNG {
   correlationId?: string
   data?: JiraIssueCreateMetadataNG
@@ -4140,6 +4300,13 @@ export interface ResponseListApiKeyDTO {
 export interface ResponseListConnectorResponse {
   correlationId?: string
   data?: ConnectorResponse[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListEnvironmentResponse {
+  correlationId?: string
+  data?: EnvironmentResponse[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4237,6 +4404,13 @@ export interface ResponseListServiceAccountDTO {
 export interface ResponseListServiceDefinitionType {
   correlationId?: string
   data?: 'Kubernetes'[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListServiceResponse {
+  correlationId?: string
+  data?: ServiceResponse[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4643,6 +4817,13 @@ export interface ResponsePageActivitySummary {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponsePageApiKeyAggregateDTO {
+  correlationId?: string
+  data?: PageApiKeyAggregateDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponsePageConnectorResponse {
   correlationId?: string
   data?: PageConnectorResponse
@@ -4769,6 +4950,13 @@ export interface ResponsePageServiceResponseDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponsePageTokenAggregateDTO {
+  correlationId?: string
+  data?: PageTokenAggregateDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponsePageUserAggregate {
   correlationId?: string
   data?: PageUserAggregate
@@ -4863,6 +5051,13 @@ export interface ResponseSecretResponseWrapper {
 export interface ResponseSecretValidationResultDTO {
   correlationId?: string
   data?: SecretValidationResultDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseServiceAccountAggregateDTO {
+  correlationId?: string
+  data?: ServiceAccountAggregateDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5882,7 +6077,7 @@ export interface TerraformVarFileSpec {
 }
 
 export interface TerraformVarFileWrapper {
-  varFile?: TerraformVarFile
+  varFile: TerraformVarFile
 }
 
 export interface Throwable {
@@ -5901,16 +6096,30 @@ export interface TimeValuePairListDTOInteger {
   [key: string]: any
 }
 
+export interface TokenAggregateDTO {
+  createdAt: number
+  expiryAt: number
+  lastModifiedAt: number
+  token: TokenDTO
+}
+
 export interface TokenDTO {
   accountIdentifier: string
   apiKeyIdentifier: string
   apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
-  identifier?: string
+  description?: string
+  email?: string
+  encodedPassword?: string
+  identifier: string
   name: string
   orgIdentifier?: string
   parentIdentifier: string
   projectIdentifier?: string
   scheduledExpireTime?: number
+  tags?: {
+    [key: string]: string
+  }
+  username?: string
   valid?: boolean
   validFrom?: number
   validTo?: number
@@ -6234,9 +6443,9 @@ export type OverlayInputSetConfigRequestBody = OverlayInputSetConfig
 
 export type ProjectRequestRequestBody = ProjectRequest
 
-export type SecretRequestWrapperRequestBody = void
+export type SecretRequestWrapperRequestBody = SecretRequestWrapper
 
-export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
+export type SecretRequestWrapper2RequestBody = void
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -7260,11 +7469,11 @@ export const getProjectAggregateDTOPromise = (
   >(getConfig('ng/api'), `/aggregate/projects/${identifier}`, props, signal)
 
 export interface ListApiKeysQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
-  apiKeyType?: 'USER' | 'SERVICE_ACCOUNT'
-  parentIdentifier?: string
+  apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
+  parentIdentifier: string
   identifiers?: string[]
 }
 
@@ -7358,12 +7567,140 @@ export const createApiKeyPromise = (
     signal
   )
 
-export interface DeleteApiKeyQueryParams {
-  accountIdentifier?: string
+export interface ListAggregatedApiKeysQueryParams {
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
-  apiKeyType?: 'USER' | 'SERVICE_ACCOUNT'
-  parentIdentifier?: string
+  apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
+  parentIdentifier: string
+  identifiers?: string[]
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+  searchTerm?: string
+}
+
+export type ListAggregatedApiKeysProps = Omit<
+  GetProps<ResponsePageApiKeyAggregateDTO, Failure | Error, ListAggregatedApiKeysQueryParams, void>,
+  'path'
+>
+
+/**
+ * List api key
+ */
+export const ListAggregatedApiKeys = (props: ListAggregatedApiKeysProps) => (
+  <Get<ResponsePageApiKeyAggregateDTO, Failure | Error, ListAggregatedApiKeysQueryParams, void>
+    path={`/apikey/aggregate`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListAggregatedApiKeysProps = Omit<
+  UseGetProps<ResponsePageApiKeyAggregateDTO, Failure | Error, ListAggregatedApiKeysQueryParams, void>,
+  'path'
+>
+
+/**
+ * List api key
+ */
+export const useListAggregatedApiKeys = (props: UseListAggregatedApiKeysProps) =>
+  useGet<ResponsePageApiKeyAggregateDTO, Failure | Error, ListAggregatedApiKeysQueryParams, void>(`/apikey/aggregate`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * List api key
+ */
+export const listAggregatedApiKeysPromise = (
+  props: GetUsingFetchProps<ResponsePageApiKeyAggregateDTO, Failure | Error, ListAggregatedApiKeysQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageApiKeyAggregateDTO, Failure | Error, ListAggregatedApiKeysQueryParams, void>(
+    getConfig('ng/api'),
+    `/apikey/aggregate`,
+    props,
+    signal
+  )
+
+export interface GetAggregatedApiKeyQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
+  parentIdentifier: string
+}
+
+export interface GetAggregatedApiKeyPathParams {
+  identifier: string
+}
+
+export type GetAggregatedApiKeyProps = Omit<
+  GetProps<ResponseApiKeyAggregateDTO, Failure | Error, GetAggregatedApiKeyQueryParams, GetAggregatedApiKeyPathParams>,
+  'path'
+> &
+  GetAggregatedApiKeyPathParams
+
+/**
+ * Get api key
+ */
+export const GetAggregatedApiKey = ({ identifier, ...props }: GetAggregatedApiKeyProps) => (
+  <Get<ResponseApiKeyAggregateDTO, Failure | Error, GetAggregatedApiKeyQueryParams, GetAggregatedApiKeyPathParams>
+    path={`/apikey/aggregate/${identifier}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetAggregatedApiKeyProps = Omit<
+  UseGetProps<
+    ResponseApiKeyAggregateDTO,
+    Failure | Error,
+    GetAggregatedApiKeyQueryParams,
+    GetAggregatedApiKeyPathParams
+  >,
+  'path'
+> &
+  GetAggregatedApiKeyPathParams
+
+/**
+ * Get api key
+ */
+export const useGetAggregatedApiKey = ({ identifier, ...props }: UseGetAggregatedApiKeyProps) =>
+  useGet<ResponseApiKeyAggregateDTO, Failure | Error, GetAggregatedApiKeyQueryParams, GetAggregatedApiKeyPathParams>(
+    (paramsInPath: GetAggregatedApiKeyPathParams) => `/apikey/aggregate/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Get api key
+ */
+export const getAggregatedApiKeyPromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseApiKeyAggregateDTO,
+    Failure | Error,
+    GetAggregatedApiKeyQueryParams,
+    GetAggregatedApiKeyPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseApiKeyAggregateDTO,
+    Failure | Error,
+    GetAggregatedApiKeyQueryParams,
+    GetAggregatedApiKeyPathParams
+  >(getConfig('ng/api'), `/apikey/aggregate/${identifier}`, props, signal)
+
+export interface DeleteApiKeyQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
+  parentIdentifier: string
 }
 
 export type DeleteApiKeyProps = Omit<
@@ -9563,6 +9900,14 @@ export interface GetConnectorListQueryParams {
     | 'CODE_REPO'
     | 'MONITORING'
     | 'TICKETING'
+  source_category?:
+    | 'CLOUD_PROVIDER'
+    | 'SECRET_MANAGER'
+    | 'CLOUD_COST'
+    | 'ARTIFACTORY'
+    | 'CODE_REPO'
+    | 'MONITORING'
+    | 'TICKETING'
   branch?: string
   repoIdentifier?: string
   getDefaultFromOtherRepo?: boolean
@@ -10641,6 +10986,209 @@ export const getDeploymentsPromise = (
     props,
     signal
   )
+
+export interface GetEnvBuildInstanceCountQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceId: string
+}
+
+export type GetEnvBuildInstanceCountProps = Omit<
+  GetProps<ResponseEnvBuildIdAndInstanceCountInfoList, Failure | Error, GetEnvBuildInstanceCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get list of unique environment and build ids with instance count
+ */
+export const GetEnvBuildInstanceCount = (props: GetEnvBuildInstanceCountProps) => (
+  <Get<ResponseEnvBuildIdAndInstanceCountInfoList, Failure | Error, GetEnvBuildInstanceCountQueryParams, void>
+    path={`/dashboard/getEnvBuildInstanceCountByService`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetEnvBuildInstanceCountProps = Omit<
+  UseGetProps<ResponseEnvBuildIdAndInstanceCountInfoList, Failure | Error, GetEnvBuildInstanceCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get list of unique environment and build ids with instance count
+ */
+export const useGetEnvBuildInstanceCount = (props: UseGetEnvBuildInstanceCountProps) =>
+  useGet<ResponseEnvBuildIdAndInstanceCountInfoList, Failure | Error, GetEnvBuildInstanceCountQueryParams, void>(
+    `/dashboard/getEnvBuildInstanceCountByService`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get list of unique environment and build ids with instance count
+ */
+export const getEnvBuildInstanceCountPromise = (
+  props: GetUsingFetchProps<
+    ResponseEnvBuildIdAndInstanceCountInfoList,
+    Failure | Error,
+    GetEnvBuildInstanceCountQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseEnvBuildIdAndInstanceCountInfoList, Failure | Error, GetEnvBuildInstanceCountQueryParams, void>(
+    getConfig('ng/api'),
+    `/dashboard/getEnvBuildInstanceCountByService`,
+    props,
+    signal
+  )
+
+export interface GetActiveServiceInstanceCountBreakdownQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceId: string
+}
+
+export type GetActiveServiceInstanceCountBreakdownProps = Omit<
+  GetProps<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get active service instance count breakdown by env type
+ */
+export const GetActiveServiceInstanceCountBreakdown = (props: GetActiveServiceInstanceCountBreakdownProps) => (
+  <Get<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >
+    path={`/dashboard/getInstanceCountDetailsByService`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetActiveServiceInstanceCountBreakdownProps = Omit<
+  UseGetProps<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get active service instance count breakdown by env type
+ */
+export const useGetActiveServiceInstanceCountBreakdown = (props: UseGetActiveServiceInstanceCountBreakdownProps) =>
+  useGet<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >(`/dashboard/getInstanceCountDetailsByService`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get active service instance count breakdown by env type
+ */
+export const getActiveServiceInstanceCountBreakdownPromise = (
+  props: GetUsingFetchProps<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseInstanceCountDetailsByEnvTypeBase,
+    Failure | Error,
+    GetActiveServiceInstanceCountBreakdownQueryParams,
+    void
+  >(getConfig('ng/api'), `/dashboard/getInstanceCountDetailsByService`, props, signal)
+
+export interface GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceId: string
+  envId: string
+  buildIds: string[]
+}
+
+export type GetActiveInstancesByServiceIdEnvIdAndBuildIdsProps = Omit<
+  GetProps<
+    ResponseInstancesByBuildIdList,
+    Failure | Error,
+    GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get list of buildId and instances
+ */
+export const GetActiveInstancesByServiceIdEnvIdAndBuildIds = (
+  props: GetActiveInstancesByServiceIdEnvIdAndBuildIdsProps
+) => (
+  <Get<ResponseInstancesByBuildIdList, Failure | Error, GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams, void>
+    path={`/dashboard/getInstancesByServiceEnvAndBuilds`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetActiveInstancesByServiceIdEnvIdAndBuildIdsProps = Omit<
+  UseGetProps<
+    ResponseInstancesByBuildIdList,
+    Failure | Error,
+    GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get list of buildId and instances
+ */
+export const useGetActiveInstancesByServiceIdEnvIdAndBuildIds = (
+  props: UseGetActiveInstancesByServiceIdEnvIdAndBuildIdsProps
+) =>
+  useGet<
+    ResponseInstancesByBuildIdList,
+    Failure | Error,
+    GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams,
+    void
+  >(`/dashboard/getInstancesByServiceEnvAndBuilds`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get list of buildId and instances
+ */
+export const getActiveInstancesByServiceIdEnvIdAndBuildIdsPromise = (
+  props: GetUsingFetchProps<
+    ResponseInstancesByBuildIdList,
+    Failure | Error,
+    GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseInstancesByBuildIdList,
+    Failure | Error,
+    GetActiveInstancesByServiceIdEnvIdAndBuildIdsQueryParams,
+    void
+  >(getConfig('ng/api'), `/dashboard/getInstancesByServiceEnvAndBuilds`, props, signal)
 
 export interface GetServicesGrowthTrendQueryParams {
   accountIdentifier: string
@@ -12156,6 +12704,66 @@ export const updateEnvironmentV2Promise = (
     EnvironmentRequestDTORequestBody,
     void
   >('PUT', getConfig('ng/api'), `/environmentsV2`, props, signal)
+
+export interface GetEnvironmentAccessListQueryParams {
+  page?: number
+  size?: number
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  searchTerm?: string
+  envIdentifiers?: string[]
+  sort?: string[]
+}
+
+export type GetEnvironmentAccessListProps = Omit<
+  GetProps<ResponseListEnvironmentResponse, Failure | Error, GetEnvironmentAccessListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets environment access list
+ */
+export const GetEnvironmentAccessList = (props: GetEnvironmentAccessListProps) => (
+  <Get<ResponseListEnvironmentResponse, Failure | Error, GetEnvironmentAccessListQueryParams, void>
+    path={`/environmentsV2/list/access`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetEnvironmentAccessListProps = Omit<
+  UseGetProps<ResponseListEnvironmentResponse, Failure | Error, GetEnvironmentAccessListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets environment access list
+ */
+export const useGetEnvironmentAccessList = (props: UseGetEnvironmentAccessListProps) =>
+  useGet<ResponseListEnvironmentResponse, Failure | Error, GetEnvironmentAccessListQueryParams, void>(
+    `/environmentsV2/list/access`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets environment access list
+ */
+export const getEnvironmentAccessListPromise = (
+  props: GetUsingFetchProps<
+    ResponseListEnvironmentResponse,
+    Failure | Error,
+    GetEnvironmentAccessListQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListEnvironmentResponse, Failure | Error, GetEnvironmentAccessListQueryParams, void>(
+    getConfig('ng/api'),
+    `/environmentsV2/list/access`,
+    props,
+    signal
+  )
 
 export interface UpsertEnvironmentV2QueryParams {
   accountIdentifier?: string
@@ -14759,6 +15367,49 @@ export const getPendingUsersAggregatedPromise = (
     signal
   )
 
+export interface GetInviteQueryParams {
+  inviteId?: string
+  jwttoken?: string
+}
+
+export type GetInviteProps = Omit<GetProps<ResponseInvite, Failure | Error, GetInviteQueryParams, void>, 'path'>
+
+/**
+ * Get invite
+ */
+export const GetInvite = (props: GetInviteProps) => (
+  <Get<ResponseInvite, Failure | Error, GetInviteQueryParams, void>
+    path={`/invites/invite`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetInviteProps = Omit<UseGetProps<ResponseInvite, Failure | Error, GetInviteQueryParams, void>, 'path'>
+
+/**
+ * Get invite
+ */
+export const useGetInvite = (props: UseGetInviteProps) =>
+  useGet<ResponseInvite, Failure | Error, GetInviteQueryParams, void>(`/invites/invite`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get invite
+ */
+export const getInvitePromise = (
+  props: GetUsingFetchProps<ResponseInvite, Failure | Error, GetInviteQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseInvite, Failure | Error, GetInviteQueryParams, void>(
+    getConfig('ng/api'),
+    `/invites/invite`,
+    props,
+    signal
+  )
+
 export type DeleteInviteProps = Omit<
   MutateProps<ResponseOptionalInvite, Failure | Error, void, string, void>,
   'path' | 'verb'
@@ -16820,15 +17471,8 @@ export const createRoleAssignmentsPromise = (
     void
   >('POST', getConfig('ng/api'), `/roleassignments/multi/internal`, props, signal)
 
-export interface CreatePRQueryParams {
-  yamlGitConfigIdentifier: string
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
 export type CreatePRProps = Omit<
-  MutateProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  MutateProps<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>,
   'path' | 'verb'
 >
 
@@ -16836,7 +17480,7 @@ export type CreatePRProps = Omit<
  * creates a pull request
  */
 export const CreatePR = (props: CreatePRProps) => (
-  <Mutate<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>
+  <Mutate<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>
     verb="POST"
     path={`/scm/createPR`}
     base={getConfig('ng/api')}
@@ -16845,7 +17489,7 @@ export const CreatePR = (props: CreatePRProps) => (
 )
 
 export type UseCreatePRProps = Omit<
-  UseMutateProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  UseMutateProps<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>,
   'path' | 'verb'
 >
 
@@ -16853,20 +17497,19 @@ export type UseCreatePRProps = Omit<
  * creates a pull request
  */
 export const useCreatePR = (props: UseCreatePRProps) =>
-  useMutate<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
-    'POST',
-    `/scm/createPR`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>('POST', `/scm/createPR`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 /**
  * creates a pull request
  */
 export const createPRPromise = (
-  props: MutateUsingFetchProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  props: MutateUsingFetchProps<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
+  mutateUsingFetch<ResponseCreatePRDTO, Failure | Error, void, GitPRCreateRequest, void>(
     'POST',
     getConfig('ng/api'),
     `/scm/createPR`,
@@ -17165,7 +17808,7 @@ export const getMetadataPromise = (
   >('POST', getConfig('ng/api'), `/secret-managers/meta-data`, props, signal)
 
 export interface ListServiceAccountQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   identifiers?: string[]
@@ -17216,7 +17859,7 @@ export const listServiceAccountPromise = (
   )
 
 export interface CreateServiceAccountQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
 }
@@ -17295,7 +17938,7 @@ export const createServiceAccountPromise = (
   >('POST', getConfig('ng/api'), `/serviceaccount`, props, signal)
 
 export interface ListAggregatedServiceAccountsQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   identifiers?: string[]
@@ -17354,8 +17997,93 @@ export const listAggregatedServiceAccountsPromise = (
     void
   >(getConfig('ng/api'), `/serviceaccount/aggregate`, props, signal)
 
+export interface GetAggregatedServiceAccountQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetAggregatedServiceAccountPathParams {
+  identifier: string
+}
+
+export type GetAggregatedServiceAccountProps = Omit<
+  GetProps<
+    ResponseServiceAccountAggregateDTO,
+    Failure | Error,
+    GetAggregatedServiceAccountQueryParams,
+    GetAggregatedServiceAccountPathParams
+  >,
+  'path'
+> &
+  GetAggregatedServiceAccountPathParams
+
+/**
+ * Get service account
+ */
+export const GetAggregatedServiceAccount = ({ identifier, ...props }: GetAggregatedServiceAccountProps) => (
+  <Get<
+    ResponseServiceAccountAggregateDTO,
+    Failure | Error,
+    GetAggregatedServiceAccountQueryParams,
+    GetAggregatedServiceAccountPathParams
+  >
+    path={`/serviceaccount/aggregate/${identifier}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetAggregatedServiceAccountProps = Omit<
+  UseGetProps<
+    ResponseServiceAccountAggregateDTO,
+    Failure | Error,
+    GetAggregatedServiceAccountQueryParams,
+    GetAggregatedServiceAccountPathParams
+  >,
+  'path'
+> &
+  GetAggregatedServiceAccountPathParams
+
+/**
+ * Get service account
+ */
+export const useGetAggregatedServiceAccount = ({ identifier, ...props }: UseGetAggregatedServiceAccountProps) =>
+  useGet<
+    ResponseServiceAccountAggregateDTO,
+    Failure | Error,
+    GetAggregatedServiceAccountQueryParams,
+    GetAggregatedServiceAccountPathParams
+  >((paramsInPath: GetAggregatedServiceAccountPathParams) => `/serviceaccount/aggregate/${paramsInPath.identifier}`, {
+    base: getConfig('ng/api'),
+    pathParams: { identifier },
+    ...props
+  })
+
+/**
+ * Get service account
+ */
+export const getAggregatedServiceAccountPromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseServiceAccountAggregateDTO,
+    Failure | Error,
+    GetAggregatedServiceAccountQueryParams,
+    GetAggregatedServiceAccountPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseServiceAccountAggregateDTO,
+    Failure | Error,
+    GetAggregatedServiceAccountQueryParams,
+    GetAggregatedServiceAccountPathParams
+  >(getConfig('ng/api'), `/serviceaccount/aggregate/${identifier}`, props, signal)
+
 export interface DeleteServiceAccountQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
 }
@@ -17408,7 +18136,7 @@ export const deleteServiceAccountPromise = (
   )
 
 export interface UpdateServiceAccountQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
 }
@@ -18209,6 +18937,61 @@ export const createServicesV2Promise = (
     void
   >('POST', getConfig('ng/api'), `/servicesV2/batch`, props, signal)
 
+export interface GetServiceAccessListQueryParams {
+  page?: number
+  size?: number
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  searchTerm?: string
+  serviceIdentifiers?: string[]
+  sort?: string[]
+}
+
+export type GetServiceAccessListProps = Omit<
+  GetProps<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Service Access list
+ */
+export const GetServiceAccessList = (props: GetServiceAccessListProps) => (
+  <Get<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>
+    path={`/servicesV2/list/access`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceAccessListProps = Omit<
+  UseGetProps<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Service Access list
+ */
+export const useGetServiceAccessList = (props: UseGetServiceAccessListProps) =>
+  useGet<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>(
+    `/servicesV2/list/access`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets Service Access list
+ */
+export const getServiceAccessListPromise = (
+  props: GetUsingFetchProps<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListServiceResponse, Failure | Error, GetServiceAccessListQueryParams, void>(
+    getConfig('ng/api'),
+    `/servicesV2/list/access`,
+    props,
+    signal
+  )
+
 export interface UpsertServiceV2QueryParams {
   accountIdentifier?: string
 }
@@ -18791,6 +19574,48 @@ export const updateSourceCodeManagersPromise = (
     UpdateSourceCodeManagersPathParams
   >('PUT', getConfig('ng/api'), `/source-code-manager/${identifier}`, props, signal)
 
+export interface GetTokenQueryParams {
+  tokenId?: string
+}
+
+export type GetTokenProps = Omit<GetProps<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>, 'path'>
+
+/**
+ * Get token
+ */
+export const GetToken = (props: GetTokenProps) => (
+  <Get<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>
+    path={`/token`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetTokenProps = Omit<UseGetProps<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>, 'path'>
+
+/**
+ * Get token
+ */
+export const useGetToken = (props: UseGetTokenProps) =>
+  useGet<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>(`/token`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get token
+ */
+export const getTokenPromise = (
+  props: GetUsingFetchProps<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseTokenDTO, Failure | Error, GetTokenQueryParams, void>(
+    getConfig('ng/api'),
+    `/token`,
+    props,
+    signal
+  )
+
 export type CreateTokenProps = Omit<
   MutateProps<ResponseString, Failure | Error, void, TokenDTORequestBody, void>,
   'path' | 'verb'
@@ -18837,8 +19662,72 @@ export const createTokenPromise = (
     signal
   )
 
+export interface ListAggregatedTokensQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
+  parentIdentifier: string
+  apiKeyIdentifier: string
+  identifiers?: string[]
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+  searchTerm?: string
+}
+
+export type ListAggregatedTokensProps = Omit<
+  GetProps<ResponsePageTokenAggregateDTO, Failure | Error, ListAggregatedTokensQueryParams, void>,
+  'path'
+>
+
+/**
+ * List tokens
+ */
+export const ListAggregatedTokens = (props: ListAggregatedTokensProps) => (
+  <Get<ResponsePageTokenAggregateDTO, Failure | Error, ListAggregatedTokensQueryParams, void>
+    path={`/token/aggregate`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListAggregatedTokensProps = Omit<
+  UseGetProps<ResponsePageTokenAggregateDTO, Failure | Error, ListAggregatedTokensQueryParams, void>,
+  'path'
+>
+
+/**
+ * List tokens
+ */
+export const useListAggregatedTokens = (props: UseListAggregatedTokensProps) =>
+  useGet<ResponsePageTokenAggregateDTO, Failure | Error, ListAggregatedTokensQueryParams, void>(`/token/aggregate`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * List tokens
+ */
+export const listAggregatedTokensPromise = (
+  props: GetUsingFetchProps<ResponsePageTokenAggregateDTO, Failure | Error, ListAggregatedTokensQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageTokenAggregateDTO, Failure | Error, ListAggregatedTokensQueryParams, void>(
+    getConfig('ng/api'),
+    `/token/aggregate`,
+    props,
+    signal
+  )
+
 export interface RotateTokenQueryParams {
   rotateTimestamp?: number
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
+  parentIdentifier: string
+  apiKeyIdentifier: string
 }
 
 export interface RotateTokenPathParams {
@@ -18899,13 +19788,25 @@ export const rotateTokenPromise = (
     signal
   )
 
-export type DeleteTokenProps = Omit<MutateProps<ResponseBoolean, Failure | Error, void, string, void>, 'path' | 'verb'>
+export interface DeleteTokenQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  apiKeyType: 'USER' | 'SERVICE_ACCOUNT'
+  parentIdentifier: string
+  apiKeyIdentifier: string
+}
+
+export type DeleteTokenProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>,
+  'path' | 'verb'
+>
 
 /**
  * Delete token
  */
 export const DeleteToken = (props: DeleteTokenProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, void, string, void>
+  <Mutate<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>
     verb="DELETE"
     path={`/token`}
     base={getConfig('ng/api')}
@@ -18914,7 +19815,7 @@ export const DeleteToken = (props: DeleteTokenProps) => (
 )
 
 export type UseDeleteTokenProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, void, string, void>,
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -18922,7 +19823,7 @@ export type UseDeleteTokenProps = Omit<
  * Delete token
  */
 export const useDeleteToken = (props: UseDeleteTokenProps) =>
-  useMutate<ResponseBoolean, Failure | Error, void, string, void>('DELETE', `/token`, {
+  useMutate<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>('DELETE', `/token`, {
     base: getConfig('ng/api'),
     ...props
   })
@@ -18931,10 +19832,10 @@ export const useDeleteToken = (props: UseDeleteTokenProps) =>
  * Delete token
  */
 export const deleteTokenPromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, void, string, void>,
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, void, string, void>(
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteTokenQueryParams, string, void>(
     'DELETE',
     getConfig('ng/api'),
     `/token`,
@@ -20412,6 +21313,14 @@ export interface ListSecretsV2QueryParams {
   type?: 'SecretFile' | 'SecretText' | 'SSHKey'
   searchTerm?: string
   types?: ('SecretFile' | 'SecretText' | 'SSHKey')[]
+  source_category?:
+    | 'CLOUD_PROVIDER'
+    | 'SECRET_MANAGER'
+    | 'CLOUD_COST'
+    | 'ARTIFACTORY'
+    | 'CODE_REPO'
+    | 'MONITORING'
+    | 'TICKETING'
   includeSecretsFromEverySubScope?: boolean
   pageIndex?: number
   pageSize?: number
@@ -20465,6 +21374,7 @@ export interface PostSecretQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  privateSecret?: boolean
 }
 
 export type PostSecretProps = Omit<
@@ -20472,7 +21382,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -20482,7 +21392,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -20495,7 +21405,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -20509,7 +21419,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -20521,7 +21431,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -20530,7 +21440,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -20538,6 +21448,7 @@ export interface PostSecretFileV2QueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  privateSecret?: boolean
 }
 
 export type PostSecretFileV2Props = Omit<
@@ -20839,6 +21750,7 @@ export interface PostSecretViaYamlQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  privateSecret?: boolean
 }
 
 export type PostSecretViaYamlProps = Omit<
@@ -20846,7 +21758,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -20860,7 +21772,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >
     verb="POST"
@@ -20875,7 +21787,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -20889,7 +21801,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -20901,7 +21813,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -20910,7 +21822,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -21045,7 +21957,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -21060,7 +21972,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -21075,7 +21987,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -21090,7 +22002,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -21109,7 +22021,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -21118,7 +22030,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -21137,7 +22049,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -21152,7 +22064,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -21167,7 +22079,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -21182,7 +22094,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -21201,7 +22113,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -21210,7 +22122,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 

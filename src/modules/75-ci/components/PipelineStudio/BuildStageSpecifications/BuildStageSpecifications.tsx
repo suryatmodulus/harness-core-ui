@@ -134,7 +134,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
       })
 
       if (!isEqual(prevStageData, newStageData)) {
-        updateStage((newStageData as unknown) as StageElementConfig)
+        updateStage(newStageData as unknown as StageElementConfig)
       }
     }
   }
@@ -184,7 +184,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                       inputLabel={getString('stageNameLabel')}
                       inputGroupProps={{
                         className: css.fields,
-                        placeholder: getString('pipelineSteps.build.stageSpecifications.stageNamePlaceholder'),
+                        placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder'),
                         disabled: isReadonly
                       }}
                       isIdentifierEditable={false}

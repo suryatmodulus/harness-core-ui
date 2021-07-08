@@ -10,9 +10,11 @@ import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRu
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { EntityGitDetails, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { TagsPopover } from '@common/components'
 import routes from '@common/RouteDefinitions'
+import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -228,6 +230,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
     }>
   >()
   const { isGitSyncEnabled } = useAppStore()
+  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const history = useHistory()
   const goToExecutionPipelineView = (executionId: string | undefined): void => {
     if (executionId && pipeline.identifier) {
@@ -348,7 +351,9 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                 title={pipeline.gitDetails.repoIdentifier}
                 lineClamp={1}
               >
-                {pipeline.gitDetails.repoIdentifier}
+                {(!loadingRepos &&
+                  getRepoDetailsByIndentifier(pipeline.gitDetails.repoIdentifier, gitSyncRepos)?.name) ||
+                  ''}
               </Text>
             </Layout.Horizontal>
             <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>

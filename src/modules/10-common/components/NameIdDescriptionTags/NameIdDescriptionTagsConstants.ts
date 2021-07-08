@@ -1,5 +1,5 @@
 import type { TagInputProps } from '@wings-software/uicore'
-import type { ITagInputProps } from '@blueprintjs/core'
+import type { ITagInputProps, IInputGroupProps } from '@blueprintjs/core'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import type { FormikProps } from 'formik'
 import type { tagsType } from '@common/utils/types'
@@ -47,6 +47,7 @@ export interface NameIdDescriptionTagsDeprecatedProps<T> {
 
 export interface NameIdDescriptionProps {
   identifierProps?: Omit<InputWithIdentifierProps, 'formik'>
+  inputGroupProps?: IInputGroupProps
   descriptionProps?: DescriptionProps
   className?: string
   formikProps: Omit<FormikProps<FormikForNameIdDescriptionTags>, 'tags'>

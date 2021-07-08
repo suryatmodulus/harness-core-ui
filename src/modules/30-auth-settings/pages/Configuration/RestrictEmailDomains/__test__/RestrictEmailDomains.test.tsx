@@ -13,6 +13,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 const refetchAuthSettings = jest.fn()
+const setUpdating = jest.fn()
 const whitelistedDomains = ['harness.io']
 
 describe('RestrictEmailDomains', () => {
@@ -26,6 +27,7 @@ describe('RestrictEmailDomains', () => {
           whitelistedDomains={whitelistedDomains}
           refetchAuthSettings={refetchAuthSettings}
           canEdit
+          setUpdating={setUpdating}
         />
       </TestWrapper>
     )
@@ -58,6 +60,7 @@ describe('RestrictEmailDomains', () => {
             whitelistedDomains={whitelistedDomains}
             refetchAuthSettings={refetchAuthSettings}
             canEdit
+            setUpdating={setUpdating}
           />
         </TestWrapper>
       )

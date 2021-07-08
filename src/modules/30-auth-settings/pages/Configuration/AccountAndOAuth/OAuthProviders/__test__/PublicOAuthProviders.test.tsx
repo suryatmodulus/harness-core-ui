@@ -8,6 +8,7 @@ import { mockResponse, authSettings } from '@auth-settings/pages/Configuration/_
 import PublicOAuthProviders from '../PublicOAuthProviders'
 
 const refetchAuthSettings = jest.fn()
+const setUpdating = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
   useUpdateOauthProviders: jest.fn().mockImplementation(() => {
@@ -45,7 +46,12 @@ describe('PublicOAuthProviders', () => {
         path={routes.toAuthenticationSettings({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
       >
-        <PublicOAuthProviders authSettings={authSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
+        <PublicOAuthProviders
+          authSettings={authSettings}
+          refetchAuthSettings={refetchAuthSettings}
+          canEdit
+          setUpdating={setUpdating}
+        />
       </TestWrapper>
     )
 
@@ -73,7 +79,12 @@ describe('PublicOAuthProviders', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <PublicOAuthProviders authSettings={disabledOauthLogin} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <PublicOAuthProviders
+            authSettings={disabledOauthLogin}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 
@@ -90,7 +101,12 @@ describe('PublicOAuthProviders', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <PublicOAuthProviders authSettings={authSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <PublicOAuthProviders
+            authSettings={authSettings}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 
@@ -112,7 +128,12 @@ describe('PublicOAuthProviders', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <PublicOAuthProviders authSettings={oneOauthEnabled} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <PublicOAuthProviders
+            authSettings={oneOauthEnabled}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 

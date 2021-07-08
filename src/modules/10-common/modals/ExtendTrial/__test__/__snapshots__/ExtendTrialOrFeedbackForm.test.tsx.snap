@@ -1,0 +1,333 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExtendTrialOrFeedbackForm Validation experience is required for ExtendTrialForm 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main extendTrial"
+    >
+      <div>
+        <h1
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--padding-bottom-large"
+        >
+          common.extendTrial.heading
+        </h1>
+        <span
+          class="Tag--main"
+        >
+          <span
+            class="bp3-tag bp3-round tag"
+          >
+            <span
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              common.trialInProgress
+            </span>
+          </span>
+        </span>
+        <p
+          class="StyledProps--font StyledProps--main description StyledProps--padding-top-small StyledProps--padding-bottom-large"
+        >
+          common.extendTrial.description
+        </p>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-large"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--padding-right-small"
+          >
+            common.extendTrial.expiryDate:
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+          >
+            June 30 2021
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-bottom-large"
+        >
+          <div
+            class="bp3-form-group bp3-intent-danger experience"
+            data-id="experience-0"
+          >
+            <label
+              class="bp3-label"
+              for="experience"
+            >
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="extendTrialForm_experience"
+              >
+                common.extendTrial.feedback.ifUseful
+              </span>
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div>
+                <label
+                  class="bp3-control bp3-radio Radio--radio"
+                >
+                  <input
+                    name="experience"
+                    type="radio"
+                    value="10"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  common.extendTrial.feedback.answers.useful
+                </label>
+                <label
+                  class="bp3-control bp3-radio Radio--radio"
+                >
+                  <input
+                    name="experience"
+                    type="radio"
+                    value="5"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  common.extendTrial.feedback.answers.needMore
+                </label>
+                <label
+                  class="bp3-control bp3-radio Radio--radio"
+                >
+                  <input
+                    name="experience"
+                    type="radio"
+                    value="0"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  common.extendTrial.feedback.answers.improve
+                </label>
+              </div>
+              <div
+                class="bp3-form-helper-text"
+              >
+                validation.thisIsARequiredField
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group suggestion"
+            data-id="suggestion-1"
+          >
+            <label
+              class="bp3-label"
+              for="suggestion"
+            >
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="extendTrialForm_suggestion"
+              >
+                common.extendTrial.feedback.suggestion
+              </span>
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <textarea
+                autocomplete="off"
+                class="bp3-input bp3-fill"
+                maxlength="1024"
+                name="suggestion"
+              >
+                random
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+        >
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            type="submit"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              submit
+            </span>
+          </button>
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            type="reset"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              common.extendTrial.doItLater
+            </span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`ExtendTrialOrFeedbackForm Validation experience is required for FeedBackForm 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <h1
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--padding-bottom-large"
+        >
+          Continuous Delivery common.extendTrial.feedback.title
+        </h1>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-bottom-large"
+        >
+          <div
+            class="bp3-form-group bp3-intent-danger experience"
+            data-id="experience-0"
+          >
+            <label
+              class="bp3-label"
+              for="experience"
+            >
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="feedbackForm_experience"
+              >
+                common.extendTrial.feedback.ifUseful
+              </span>
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div>
+                <label
+                  class="bp3-control bp3-radio Radio--radio"
+                >
+                  <input
+                    name="experience"
+                    type="radio"
+                    value="10"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  common.extendTrial.feedback.answers.useful
+                </label>
+                <label
+                  class="bp3-control bp3-radio Radio--radio"
+                >
+                  <input
+                    name="experience"
+                    type="radio"
+                    value="5"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  common.extendTrial.feedback.answers.needMore
+                </label>
+                <label
+                  class="bp3-control bp3-radio Radio--radio"
+                >
+                  <input
+                    name="experience"
+                    type="radio"
+                    value="0"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  common.extendTrial.feedback.answers.improve
+                </label>
+              </div>
+              <div
+                class="bp3-form-helper-text"
+              >
+                validation.thisIsARequiredField
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group suggestion"
+            data-id="suggestion-1"
+          >
+            <label
+              class="bp3-label"
+              for="suggestion"
+            >
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="feedbackForm_suggestion"
+              >
+                common.extendTrial.feedback.suggestion
+              </span>
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <textarea
+                autocomplete="off"
+                class="bp3-input bp3-fill"
+                maxlength="1024"
+                name="suggestion"
+              >
+                random
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+        >
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            type="submit"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              submit
+            </span>
+          </button>
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            type="reset"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              common.extendTrial.doItLater
+            </span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;

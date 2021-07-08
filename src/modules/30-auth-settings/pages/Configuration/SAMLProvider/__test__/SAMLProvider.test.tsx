@@ -27,6 +27,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 const refetchAuthSettings = jest.fn()
+const setUpdating = jest.fn()
 
 const samlSettings = {
   ...authSettings,
@@ -60,6 +61,7 @@ describe('SAML Provider', () => {
           refetchAuthSettings={refetchAuthSettings}
           permissionRequest={permissionRequest}
           canEdit
+          setUpdating={setUpdating}
         />
       </TestWrapper>
     )
@@ -115,6 +117,7 @@ describe('SAML Provider', () => {
             refetchAuthSettings={refetchAuthSettings}
             permissionRequest={permissionRequest}
             canEdit
+            setUpdating={setUpdating}
           />
         </TestWrapper>
       )
@@ -151,6 +154,7 @@ describe('SAML Provider', () => {
             refetchAuthSettings={refetchAuthSettings}
             permissionRequest={permissionRequest}
             canEdit
+            setUpdating={setUpdating}
           />
         </TestWrapper>
       )
@@ -187,6 +191,7 @@ describe('SAML Provider', () => {
             refetchAuthSettings={refetchAuthSettings}
             permissionRequest={permissionRequest}
             canEdit
+            setUpdating={setUpdating}
           />
         </TestWrapper>
       )
@@ -221,6 +226,7 @@ describe('SAML Provider', () => {
             refetchAuthSettings={refetchAuthSettings}
             permissionRequest={permissionRequest}
             canEdit
+            setUpdating={setUpdating}
           />
         </TestWrapper>
       )
@@ -254,6 +260,7 @@ describe('SAML Provider', () => {
             refetchAuthSettings={refetchAuthSettings}
             permissionRequest={permissionRequest}
             canEdit
+            setUpdating={setUpdating}
           />
         </TestWrapper>
       )

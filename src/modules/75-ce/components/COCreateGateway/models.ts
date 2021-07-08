@@ -13,6 +13,9 @@ export interface Routing {
   instance: Instance
   lb: string
   ports: PortConfig[]
+  k8s?: {
+    RuleJson: string
+  }
 }
 
 interface ServiceOpts {

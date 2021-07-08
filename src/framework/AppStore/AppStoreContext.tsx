@@ -6,8 +6,9 @@ import { Project, useGetProject, useGetCurrentUserInfo, UserInfo, isGitSyncEnabl
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { FeatureFlag } from '@common/featureFlags'
 
-export type FeatureFlagMap = Record<string, boolean>
+export type FeatureFlagMap = Partial<Record<FeatureFlag, boolean>>
 
 /**
  * Application Store - essential application-level states which are shareable
@@ -61,13 +62,6 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
 
   const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({})
 
-  React.useEffect(() => {
-    setState(prevState => ({
-      ...prevState,
-      selectedProject: project?.data?.project
-    }))
-  }, [project?.data?.project])
-
   // update feature flags in context
   useEffect(() => {
     // TODO: Handle better if fetching feature flags fails
@@ -80,20 +74,22 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
 
       // don't redirect on local because it goes into infinite loop
       // because there may be no current gen to go to
-      if (!__DEV__ && !featureFlagsMap['NEXT_GEN_ENABLED']) {
-        window.location.href = window.location.pathname.replace(/\/ng\//, '/')
+      if (!__DEV__ && !featureFlagsMap[FeatureFlag.NEXT_GEN_ENABLED]) {
+        const baseUrl = window.location.pathname.replace(/\/ng\//, '/')
+        window.location.href = `${baseUrl}#/account/${accountId}/dashboard`
       }
 
       setState(prevState => ({
         ...prevState,
-        featureFlags: featureFlagsMap
+        featureFlags: featureFlagsMap as FeatureFlagMap
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [featureFlags])
 
-  React.useEffect(() => {
-    if (projectIdentifier && state.featureFlags['GIT_SYNC_NG']) {
+  // update gitSyncEnabled when selectedProject changes
+  useEffect(() => {
+    if (projectIdentifier && state.featureFlags[FeatureFlag.GIT_SYNC_NG]) {
       isGitSyncEnabledPromise({
         queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
       }).then(status => {
@@ -109,13 +105,31 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.selectedProject, state.featureFlags['GIT_SYNC_NG'], projectIdentifier, orgIdentifier])
+  }, [state.selectedProject, state.featureFlags[FeatureFlag.GIT_SYNC_NG], projectIdentifier, orgIdentifier])
 
-  React.useEffect(() => {
+  // set selectedProject when projectDetails are fetched
+  useEffect(() => {
+    setState(prevState => ({
+      ...prevState,
+      selectedProject: project?.data?.project
+    }))
+  }, [project?.data?.project])
+
+  // update selectedProject when projectIdentifier in URL changes
+  useEffect(() => {
     if (projectIdentifier && orgIdentifier) {
       refetch()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectIdentifier, orgIdentifier])
+
+  // clear selectedProject when accountId changes
+  useEffect(() => {
+    setState(prevState => ({
+      ...prevState,
+      selectedProject: undefined
+    }))
+  }, [accountId])
 
   React.useEffect(() => {
     if (userInfo?.data) {

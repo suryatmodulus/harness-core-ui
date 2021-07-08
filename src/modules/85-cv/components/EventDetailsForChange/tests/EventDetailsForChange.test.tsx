@@ -315,7 +315,7 @@ describe('Unit tests for EventDetailsForChange', () => {
     await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(1))
   })
 
-  test('Ensure deployment content is rendered correctly and clicking on the card goes to deployment page', async () => {
+  test('Ensure  deployment content is rendered correctly and clicking on the card goes to deployment page', async () => {
     const refetchMock = jest.fn()
     jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
       data: MockDeploymentResponse,

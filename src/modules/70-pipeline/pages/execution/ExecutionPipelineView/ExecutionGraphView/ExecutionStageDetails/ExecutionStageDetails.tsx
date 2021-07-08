@@ -59,7 +59,11 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
 
   const { executionIdentifier, accountId } = useParams<ExecutionPathProps>()
   const stage = pipelineStagesMap.get(selectedStageId)
-  const { data: barrierInfo, loading: barrierInfoLoading, refetch: refetchBarrierInfo } = useGetBarrierInfo({
+  const {
+    data: barrierInfo,
+    loading: barrierInfoLoading,
+    refetch: refetchBarrierInfo
+  } = useGetBarrierInfo({
     lazy: true
   })
   const {
@@ -162,6 +166,10 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
       </HoverCard>
     )
   }
+
+  // NOTE: check if we show stop node when stage has paused status
+  const showEndNode = !(isExecutionRunning(stage?.status) || isExecutionPaused(stage?.status))
+
   return (
     <div className={css.main}>
       {!isEmpty(selectedStageId) && data.items?.length > 0 && (
@@ -169,7 +177,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           selectedIdentifier={selectedStepId}
           itemClickHandler={e => props.onStepSelect(e.stage.identifier)}
           data={data}
-          showEndNode={!(isExecutionRunning(stage?.status) || isExecutionPaused(stage?.status))}
+          showEndNode={showEndNode}
           disableCollapseButton={isExecutionRunning(stage?.status)}
           isWhiteBackground
           nodeStyle={{

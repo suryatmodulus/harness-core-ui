@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Layout, Text, Switch, Collapse, Color, Button } from '@wings-software/uicore'
@@ -16,9 +16,10 @@ interface Props {
   loginSettings: LoginSettings
   refetchAuthSettings: () => void
   canEdit: boolean
+  setUpdating: Dispatch<SetStateAction<boolean>>
 }
 
-const PasswordStrength: React.FC<Props> = ({ loginSettings, refetchAuthSettings, canEdit }) => {
+const PasswordStrength: React.FC<Props> = ({ loginSettings, refetchAuthSettings, canEdit, setUpdating }) => {
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
@@ -36,6 +37,10 @@ const PasswordStrength: React.FC<Props> = ({ loginSettings, refetchAuthSettings,
       accountIdentifier: accountId
     }
   })
+
+  React.useEffect(() => {
+    setUpdating(updatingLoginSettings)
+  }, [updatingLoginSettings, setUpdating])
 
   const { openDialog: confirmPasswordStrengthSettings } = useConfirmationDialog({
     titleText: getString('authSettings.disablePasswordStrength'),

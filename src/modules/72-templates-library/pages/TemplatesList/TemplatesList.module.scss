@@ -1,0 +1,47 @@
+$header-height: 80px;
+
+.pageheader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: $header-height;
+  background: var(--white);
+  border-bottom: 1px solid var(--grey-200);
+  padding: var(--spacing-medium) var(--spacing-large);
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.pageBody {
+  --page-header-height: 80px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - $header-height);
+  background: var(--grey-50) !important;
+}
+
+.loading {
+  margin: auto;
+  height: 100vh;
+}
+
+.noTemplatesSection {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.topHeaderFields {
+  justify-content: space-between;
+
+  .sortSelector {
+    width: 180px;
+  }
+}

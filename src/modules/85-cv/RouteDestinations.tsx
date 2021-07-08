@@ -17,7 +17,8 @@ import {
   userGroupPathProps,
   userPathProps,
   orgPathProps,
-  modulePathProps
+  modulePathProps,
+  serviceAccountProps
 } from '@common/utils/routeUtils'
 import type { AccountPathProps, ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { MinimalLayout } from '@common/layouts'
@@ -56,6 +57,8 @@ import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 import UsersPage from '@rbac/pages/Users/UsersPage'
+import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
+import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import CVVerificationJobsPage from './pages/admin/verification-jobs/CVVerificationJobsPage'
 import CVMonitoringSourcesPage from './pages/admin/monitoring-sources/CVMonitoringSourcesPage'
 import CVNotificationPage from './pages/admin/notifications/CVNotificationPage'
@@ -416,6 +419,24 @@ export default (
       exact
     >
       <UserGroupDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={routes.toServiceAccounts({ ...projectPathProps, ...cvModuleParams })}
+      exact
+    >
+      <AccessControlPage>
+        <ServiceAccountsPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={routes.toServiceAccountDetails({ ...projectPathProps, ...cvModuleParams, ...serviceAccountProps })}
+      exact
+    >
+      <ServiceAccountDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

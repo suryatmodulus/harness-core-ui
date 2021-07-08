@@ -11,6 +11,7 @@ import {
   Color,
   Tag
 } from '@wings-software/uicore'
+import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
 import css from './useExtendTrialOrFeedbackModal.module.scss'
 
@@ -100,14 +101,17 @@ export const FeedBackForm: React.FC<FeedBackFormProps> = ({ onCloseModal, onSubm
   return (
     <Formik
       initialValues={{
-        experience: '',
+        experience: undefined,
         suggestion: ''
       }}
       onSubmit={onSubmit}
       formName="feedbackForm"
+      validationSchema={Yup.object().shape({
+        experience: Yup.string().trim().required(getString('validation.thisIsARequiredField'))
+      })}
     >
       {formikProps => {
-        const hasInput = formikProps.values.experience.trim() !== '' || formikProps.values.suggestion.trim() !== ''
+        const hasInput = formikProps.values.experience || formikProps.values.suggestion.trim() !== ''
         return (
           <FormikForm>
             <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ bottom: 'large' }}>
@@ -133,15 +137,18 @@ export const ExtendTrialForm: React.FC<ExtendTrialFormProps> = ({
   return (
     <Formik
       initialValues={{
-        experience: '',
+        experience: undefined,
         suggestion: ''
       }}
       onSubmit={onSubmit}
       enableReinitialize={true}
       formName="extendTrialForm"
+      validationSchema={Yup.object().shape({
+        experience: Yup.string().trim().required(getString('validation.thisIsARequiredField'))
+      })}
     >
       {formikProps => {
-        const hasInput = formikProps.values.experience.trim() !== '' || formikProps.values.suggestion.trim() !== ''
+        const hasInput = formikProps.values.experience || formikProps.values.suggestion.trim() !== ''
         return (
           <FormikForm className={css.extendTrial}>
             <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ bottom: 'large' }}>

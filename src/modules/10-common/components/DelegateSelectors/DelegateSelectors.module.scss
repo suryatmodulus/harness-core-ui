@@ -1,5 +1,6 @@
 .wrapper {
   position: relative;
+  flex-shrink: 1 !important;
 
   .loader {
     display: flex;
@@ -21,7 +22,7 @@
   position: relative;
 
   :global(.bp3-input) {
-    display: table;
+    display: block;
     border: 1px solid var(--grey-400);
     border-radius: 4px;
     font-size: var(--font-size-normal);
@@ -46,5 +47,9 @@
     border: 1px solid var(--grey-400);
     border-radius: 0 0 4px 4px;
     padding: 0;
+  }
+
+  & :global(.bp3-input.bp3-tag-input) {
+    max-height: fit-content !important;
   }
 }

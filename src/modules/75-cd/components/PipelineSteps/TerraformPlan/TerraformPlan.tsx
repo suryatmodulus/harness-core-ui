@@ -8,7 +8,6 @@ import {
   Text,
   Button,
   Icon,
-  ExpressionInput,
   Layout,
   Label,
   Color
@@ -282,12 +281,11 @@ function TerraformPlanWidget(
                             ]}
                             expressionRender={() => {
                               return (
-                                <ExpressionInput
-                                  value={formik.values.spec?.configuration?.backendConfig?.spec?.content || ''}
+                                <TFMonaco
                                   name="spec.configuration.backendConfig.spec.content"
-                                  onChange={value =>
-                                    setFieldValue('spec.configuration.backendConfig.spec.content', value)
-                                  }
+                                  formik={formik}
+                                  expressions={expressions}
+                                  title={getString('cd.backEndConfig')}
                                 />
                               )
                             }}
@@ -296,6 +294,7 @@ function TerraformPlanWidget(
                             <TFMonaco
                               name="spec.configuration.backendConfig.spec.content"
                               formik={formik}
+                              expressions={expressions}
                               title={getString('cd.backEndConfig')}
                             />
                           </MultiTypeFieldSelector>
@@ -376,7 +375,9 @@ function TerraformPlanWidget(
                     }
 
                     const valObj = cloneDeep(formik.values)
+                    configObject.store.type = configObject?.store?.spec?.connectorRef?.connector?.type || 'Git'
                     set(valObj, 'spec.configuration.configFiles', { ...configObject })
+
                     formik.setValues(valObj)
 
                     setShowModal(false)
@@ -476,7 +477,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
         ...data.spec,
         configuration: {
           ...data.spec?.configuration,
-          secretManagerRef: data.spec?.configuration.secretManagerRef || '',
+          secretManagerRef: data.spec?.configuration?.secretManagerRef || '',
           configFiles: data.spec?.configuration?.configFiles || {},
           command: data.spec?.configuration?.command || 'Apply',
           targets: !isTargetRunTime
@@ -511,8 +512,8 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <TerraformInputStep
-          initialValues={initialValues}
-          onUpdate={onUpdate}
+          initialValues={this.getInitialValues(initialValues)}
+          onUpdate={data => onUpdate?.(this.processFormData(data))}
           stepViewType={stepViewType}
           readonly={inputSetData?.readonly}
           inputSetData={inputSetData}

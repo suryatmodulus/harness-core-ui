@@ -10,6 +10,7 @@ import { useToaster } from '@common/exports'
 import * as cdng from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as usePermission from '@rbac/hooks/usePermission'
+import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
 import {
   GetGitTriggerEventDetailsResponse,
   GetTriggerResponse,
@@ -47,6 +48,19 @@ const params = {
   module: 'cd'
 }
 
+const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
+const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
+
+jest.spyOn(cdng, 'useGetListOfBranchesWithStatus').mockImplementation((): any => {
+  return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }
+})
+jest.spyOn(cdng, 'useListGitSync').mockImplementation((): any => {
+  return { data: gitConfigs, refetch: getListGitSync, loading: false }
+})
+jest.spyOn(cdng, 'useGetSourceCodeManagers').mockImplementation((): any => {
+  return { data: sourceCodeManagers, refetch: jest.fn(), loading: false }
+})
+
 const mockUpdate = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
 
 const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
@@ -66,6 +80,7 @@ describe('TriggersWizardPage Triggers tests', () => {
   describe('Renders/snapshots', () => {
     test('OnEdit Render - GitHub Show all fields filled', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+
       jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
         return {
           data: GetSchemaYaml as any,
@@ -173,7 +188,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
       jest
         .spyOn(pipelineNg, 'useGetTrigger')
-        .mockReturnValue((GetTriggerScheduleResponse as unknown) as UseGetReturn<any, any, any, any>)
+        .mockReturnValue(GetTriggerScheduleResponse as unknown as UseGetReturn<any, any, any, any>)
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)
@@ -435,7 +450,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
       jest
         .spyOn(pipelineNg, 'useGetTrigger')
-        .mockReturnValue((GetTriggerScheduleResponse as unknown) as UseGetReturn<any, any, any, any>)
+        .mockReturnValue(GetTriggerScheduleResponse as unknown as UseGetReturn<any, any, any, any>)
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)
@@ -512,7 +527,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
       jest
         .spyOn(pipelineNg, 'useGetTrigger')
-        .mockReturnValue((GetTriggerCronResponse as unknown) as UseGetReturn<any, any, any, any>)
+        .mockReturnValue(GetTriggerCronResponse as unknown as UseGetReturn<any, any, any, any>)
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)

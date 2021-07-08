@@ -34,17 +34,8 @@ interface ColumnInterface {
 }
 
 const getColumnValue = (formikValues: any, column: EXP_BREAKDOWN_INPUTS): string | undefined => {
-  const {
-    minutes,
-    hours,
-    amPm,
-    dayOfMonth,
-    month,
-    startMonth,
-    dayOfWeek,
-    selectedScheduleTab,
-    expression
-  } = formikValues
+  const { minutes, hours, amPm, dayOfMonth, month, startMonth, dayOfWeek, selectedScheduleTab, expression } =
+    formikValues
 
   const isCustomTab = selectedScheduleTab === scheduleTabsId.CUSTOM
 

@@ -12,7 +12,7 @@ export function getStageFromPipeline(
         stage = item
         return true
       } else if (item?.parallel) {
-        stage = getStageFromPipeline(stageId, ({ stages: item.parallel } as unknown) as PipelineInfoConfig).stage
+        stage = getStageFromPipeline(stageId, { stages: item.parallel } as unknown as PipelineInfoConfig).stage
         if (stage) {
           parent = item
           return true

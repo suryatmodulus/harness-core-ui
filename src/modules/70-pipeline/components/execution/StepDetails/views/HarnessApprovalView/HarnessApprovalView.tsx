@@ -4,7 +4,7 @@ import { Button, Layout } from '@wings-software/uicore'
 import { get, merge } from 'lodash-es'
 
 import { useStrings } from 'framework/strings'
-import type { StepDetailProps } from '@pipeline/factories/ExecutionStepDetailsFactory/types'
+import type { StepDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 import {
   ResponseApprovalInstanceResponse,
   ResponseHarnessApprovalInstanceAuthorization,
@@ -44,7 +44,12 @@ export function HarnessApprovalView(props: HarnessApprovalViewProps): React.Reac
   // hence we can save one additional call to the server
   const [approvalData, setApprovalData] = React.useState<ApprovalData>(null)
 
-  const { data, refetch, loading: loadingApprovalData, error } = useGetApprovalInstance({
+  const {
+    data,
+    refetch,
+    loading: loadingApprovalData,
+    error
+  } = useGetApprovalInstance({
     approvalInstanceId,
     mock
   })

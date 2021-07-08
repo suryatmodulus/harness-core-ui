@@ -19,7 +19,8 @@ import {
   delegatePathProps,
   delegateConfigProps,
   userPathProps,
-  userGroupPathProps
+  userGroupPathProps,
+  serviceAccountProps
 } from '@common/utils/routeUtils'
 import type {
   PipelinePathProps,
@@ -83,7 +84,23 @@ import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 import BuildTests from '@pipeline/pages/execution/ExecutionTestView/BuildTests'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
+import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
+import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
+import executionFactory from '@pipeline/factories/ExecutionFactory'
+import { StageType } from '@pipeline/utils/stageHelpers'
+
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
+import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
+import { CDExecutionSummary } from './components/CDExecutionSummary/CDExecutionSummary'
+
+executionFactory.registerCardInfo(StageType.DEPLOY, {
+  icon: 'cd-main',
+  component: CDExecutionCardSummary
+})
+
+executionFactory.registerSummary(StageType.DEPLOY, {
+  component: CDExecutionSummary
+})
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
@@ -92,9 +109,8 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
 }
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
-  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<
-    PipelineType<ProjectPathProps & ModulePathParams>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier, module } =
+    useParams<PipelineType<ProjectPathProps & ModulePathParams>>()
 
   return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier, module })} />
 }
@@ -527,6 +543,24 @@ export default (
       exact
     >
       <UserGroupDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      path={routes.toServiceAccounts({ ...projectPathProps, ...pipelineModuleParams })}
+      exact
+    >
+      <AccessControlPage>
+        <ServiceAccountsPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      path={routes.toServiceAccountDetails({ ...projectPathProps, ...pipelineModuleParams, ...serviceAccountProps })}
+      exact
+    >
+      <ServiceAccountDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

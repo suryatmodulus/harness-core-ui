@@ -1,0 +1,21 @@
+.main {
+  .summaryContainer {
+    width: 80% !important;
+    margin: 30px auto !important;
+    display: flex;
+    justify-content: space-between;
+
+    .summaryContent {
+      width: 100% !important;
+      height: 100% !important;
+
+      .violations {
+        display: flex;
+        align-items: baseline;
+        .outOf {
+          margin: 0 var(--spacing-small) !important;
+        }
+      }
+    }
+  }
+}

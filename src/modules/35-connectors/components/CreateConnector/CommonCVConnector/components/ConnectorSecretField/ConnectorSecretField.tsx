@@ -15,14 +15,8 @@ export interface ConnectorSecretFieldProps {
 }
 
 export function ConnectorSecretField(props: ConnectorSecretFieldProps): JSX.Element {
-  const {
-    secretInputProps,
-    secretFieldValue,
-    accountIdentifier,
-    projectIdentifier,
-    orgIdentifier,
-    onSuccessfulFetch
-  } = props
+  const { secretInputProps, secretFieldValue, accountIdentifier, projectIdentifier, orgIdentifier, onSuccessfulFetch } =
+    props
   const { clear, showError } = useToaster()
   const { getString } = useStrings()
   const [loadingSecrets, setLoadingSecrets] = useState(Boolean(secretFieldValue))

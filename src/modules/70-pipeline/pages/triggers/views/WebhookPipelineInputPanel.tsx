@@ -13,6 +13,7 @@ import {
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import { isPipelineWithCiCodebase, ciCodebaseBuild } from '../utils/TriggersWizardPageUtils'
 import css from './WebhookPipelineInputPanel.module.scss'
@@ -36,7 +37,12 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     triggerIdentifier: string
   }>()
   const { data: template, loading } = useGetTemplateFromPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier
+    }
   })
   const [selectedInputSets, setSelectedInputSets] = useState<InputSetSelectorProps['value']>(inputSetSelected)
   const { getString } = useStrings()
@@ -80,7 +86,12 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
         const fetchData = async (): Promise<void> => {
           const data = await getInputSetForPipelinePromise({
             inputSetIdentifier: selectedInputSets[0].value as string,
-            queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+            queryParams: {
+              accountIdentifier: accountId,
+              projectIdentifier,
+              orgIdentifier,
+              pipelineIdentifier
+            }
           })
           if (data?.data?.inputSetYaml) {
             if (selectedInputSets[0].type === 'INPUT_SET') {
@@ -125,14 +136,16 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
           <div className={css.inputSetContent}>
             <div className={css.pipelineInputRow}>
               <Heading level={2}>{getString('pipeline.triggers.pipelineInputLabel')}</Heading>
-              <InputSetSelector
-                pipelineIdentifier={pipelineIdentifier}
-                onChange={value => {
-                  setSelectedInputSets(value)
-                }}
-                value={selectedInputSets}
-                selectedValueClass={css.inputSetSelectedValue}
-              />
+              <GitSyncStoreProvider>
+                <InputSetSelector
+                  pipelineIdentifier={pipelineIdentifier}
+                  onChange={value => {
+                    setSelectedInputSets(value)
+                  }}
+                  value={selectedInputSets}
+                  selectedValueClass={css.inputSetSelectedValue}
+                />
+              </GitSyncStoreProvider>
             </div>
             <PipelineInputSetForm
               originalPipeline={originalPipeline}

@@ -26,7 +26,8 @@ import {
   VaultConnectorDTO,
   useGetConnector,
   useGetSecretV2,
-  ResponseSecretResponseWrapper
+  ResponseSecretResponseWrapper,
+  ListSecretsV2QueryParams
 } from 'services/cd-ng'
 import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
@@ -51,12 +52,14 @@ interface CreateUpdateSecretProps {
   type?: SecretResponseWrapper['secret']['type']
   onChange?: (data: SecretDTOV2) => void
   onSuccess?: (data: SecretFormData) => void
+  connectorTypeContext?: ConnectorInfoDTO['type']
+  privateSecret?: boolean
 }
 
 const LocalFormFieldsSMList = ['Local', 'GcpKms', 'AwsKms']
 const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const { getString } = useStrings()
-  const { onSuccess } = props
+  const { onSuccess, connectorTypeContext, privateSecret } = props
   const propsSecret = props.secret
   const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { showSuccess } = useToaster()
@@ -65,7 +68,12 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const [type, setType] = useState<SecretResponseWrapper['secret']['type']>(secretTypeFromProps || 'SecretText')
   const [secret, setSecret] = useState<SecretDTOV2>()
 
-  const { loading: loadingSecret, data: secretResponse, refetch, error: getSecretError } = useGetSecretV2({
+  const {
+    loading: loadingSecret,
+    data: secretResponse,
+    refetch,
+    error: getSecretError
+  } = useGetSecretV2({
     identifier: propsSecret?.identifier || '',
     queryParams: {
       accountIdentifier,
@@ -89,6 +97,12 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     }
   }, [propsSecret?.identifier])
 
+  const secretManagerTypes: ConnectorInfoDTO['type'][] = ['AwsKms', 'AzureKeyVault', 'Vault']
+  let sourceCategory: ListSecretsV2QueryParams['source_category'] | undefined
+  if (connectorTypeContext && secretManagerTypes.includes(connectorTypeContext)) {
+    sourceCategory = 'SECRET_MANAGER'
+  }
+
   const {
     data: secretManagersApiResponse,
     loading: loadingSecretsManagers,
@@ -98,22 +112,27 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
       accountIdentifier,
       orgIdentifier,
       projectIdentifier,
-      category: 'SECRET_MANAGER'
+      category: 'SECRET_MANAGER',
+      source_category: sourceCategory
     },
     lazy: true
   })
 
-  const { data: connectorDetails, loading: loadingConnectorDetails, refetch: getConnectorDetails } = useGetConnector({
+  const {
+    data: connectorDetails,
+    loading: loadingConnectorDetails,
+    refetch: getConnectorDetails
+  } = useGetConnector({
     identifier:
       (secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier ||
       (secretResponse?.data?.secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier,
     lazy: true
   })
   const { mutate: createSecretText, loading: loadingCreateText } = usePostSecret({
-    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, privateSecret }
   })
   const { mutate: createSecretFile, loading: loadingCreateFile } = usePostSecretFileV2({
-    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, privateSecret }
   })
   const { mutate: updateSecretText, loading: loadingUpdateText } = usePutSecret({
     identifier: secret?.identifier as string,

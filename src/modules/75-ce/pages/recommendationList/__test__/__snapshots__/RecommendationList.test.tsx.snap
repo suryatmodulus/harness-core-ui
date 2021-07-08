@@ -50,6 +50,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                     height="28"
                     viewBox="0 0 34 31"
                     width="28"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <ellipse
                       fill="#EFF2F4"
@@ -317,6 +318,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                           height="16"
                           viewBox="0 0 24 24"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <mask
                             fill="#fff"
@@ -422,6 +424,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                           height="28"
                           viewBox="0 0 34 31"
                           width="28"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <ellipse
                             fill="#EFF2F4"
@@ -702,6 +705,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                           height="28"
                           viewBox="0 0 34 31"
                           width="28"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <ellipse
                             fill="#EFF2F4"
@@ -982,6 +986,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                           height="28"
                           viewBox="0 0 34 31"
                           width="28"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <ellipse
                             fill="#EFF2F4"
@@ -1262,6 +1267,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                           height="28"
                           viewBox="0 0 34 31"
                           width="28"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <ellipse
                             fill="#EFF2F4"
@@ -1542,6 +1548,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                           height="28"
                           viewBox="0 0 34 31"
                           width="28"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <ellipse
                             fill="#EFF2F4"

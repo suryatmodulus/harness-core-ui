@@ -227,7 +227,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
         />
 
         {options.skipCondition && (
-          <div className={css.сonditional}>
+          <div className={css.conditional}>
             <Link
               tooltip={`Skip condition:\n${options.skipCondition}`}
               tooltipProps={{
@@ -240,7 +240,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
           </div>
         )}
         {options.conditionalExecutionEnabled && (
-          <div className={css.сonditional}>
+          <div className={css.conditional}>
             <Text
               tooltip={getString('pipeline.conditionalExecution.title')}
               tooltipProps={{

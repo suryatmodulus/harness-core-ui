@@ -21,6 +21,7 @@ jest.mock('services/cd-ng', () => ({
 
 const refetchAuthSettings = jest.fn()
 const submitUserPasswordUpdate = jest.fn()
+const setUpdating = jest.fn()
 const updatingAuthMechanism = false
 
 const disabledUserPasswordLogin = {
@@ -48,6 +49,7 @@ describe('HarnessAccount', () => {
           submitUserPasswordUpdate={submitUserPasswordUpdate}
           updatingAuthMechanism={updatingAuthMechanism}
           canEdit
+          setUpdating={setUpdating}
         />
       </TestWrapper>
     )
@@ -82,6 +84,7 @@ describe('HarnessAccount', () => {
             submitUserPasswordUpdate={submitUserPasswordUpdate}
             updatingAuthMechanism={updatingAuthMechanism}
             canEdit
+            setUpdating={setUpdating}
           />
         </TestWrapper>
       )
@@ -105,6 +108,7 @@ describe('HarnessAccount', () => {
             submitUserPasswordUpdate={submitUserPasswordUpdate}
             updatingAuthMechanism={updatingAuthMechanism}
             canEdit
+            setUpdating={setUpdating}
           />
         </TestWrapper>
       )

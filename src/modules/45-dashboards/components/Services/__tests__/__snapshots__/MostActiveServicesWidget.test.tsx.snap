@@ -31,7 +31,7 @@ exports[`MostActiveServicesWidget render 1`] = `
           </p>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey600"
         >
           Most active services
         </p>
@@ -59,7 +59,7 @@ exports[`MostActiveServicesWidget render 1`] = `
         </div>
       </div>
       <div
-        class="Layout--horizontal StyledProps--main stackTickerContainer StyledProps--flex StyledProps--flex-distribution-space-between"
+        class="Layout--horizontal StyledProps--main stackTickerContainer StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--flex-alignItems-flex-start"
         style="height: 150px;"
       >
         <div
@@ -194,6 +194,131 @@ exports[`MostActiveServicesWidget render 1`] = `
                   </div>
                 </div>
               </div>
+              <div
+                class="WeightedStack--stack stack"
+              >
+                <div
+                  class="progress-bar progressBar"
+                >
+                  <div
+                    class="progress-track"
+                  >
+                    <div
+                      class="progress-fill"
+                      style="width: 21.73913043478261%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel label StyledProps--padding-left-small StyledProps--padding-right-small"
+                      >
+                        Login
+                         (
+                        5
+                        )
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="WeightedStack--stack stack"
+              >
+                <div
+                  class="progress-bar progressBar"
+                >
+                  <div
+                    class="progress-track"
+                  >
+                    <div
+                      class="progress-fill"
+                      style="width: 17.391304347826086%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel label StyledProps--padding-left-small StyledProps--padding-right-small"
+                      >
+                        Backend
+                         (
+                        4
+                        )
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="WeightedStack--stack stack"
+              >
+                <div
+                  class="progress-bar progressBar"
+                >
+                  <div
+                    class="progress-track"
+                  >
+                    <div
+                      class="progress-fill"
+                      style="width: 13.043478260869565%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel label StyledProps--padding-left-small StyledProps--padding-right-small"
+                      >
+                        Portal
+                         (
+                        3
+                        )
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="WeightedStack--stack stack"
+              >
+                <div
+                  class="progress-bar progressBar"
+                >
+                  <div
+                    class="progress-track"
+                  >
+                    <div
+                      class="progress-fill"
+                      style="width: 8.695652173913043%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel label StyledProps--padding-left-small StyledProps--padding-right-small"
+                      >
+                        Test
+                         (
+                        2
+                        )
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="WeightedStack--stack stack"
+              >
+                <div
+                  class="progress-bar progressBar"
+                >
+                  <div
+                    class="progress-track"
+                  >
+                    <div
+                      class="progress-fill"
+                      style="width: 4.3478260869565215%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel label StyledProps--padding-left-small StyledProps--padding-right-small"
+                      >
+                        Others
+                         (
+                        1
+                        )
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -207,7 +332,7 @@ exports[`MostActiveServicesWidget render 1`] = `
               class="tickerContainer"
             >
               <div
-                class="ticker"
+                class="ticker tickerCenterAlign"
               >
                 <div
                   class="iconContainer"
@@ -220,6 +345,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                       height="6"
                       viewBox="0 0 14 9"
                       width="6"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -229,7 +355,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                   </span>
                 </div>
                 <div
-                  class="tickerValue"
+                  class="tickerValue tickerValueStyles tickerValueRed"
                 >
                   5%
                 </div>
@@ -243,7 +369,7 @@ exports[`MostActiveServicesWidget render 1`] = `
               class="tickerContainer"
             >
               <div
-                class="ticker"
+                class="ticker tickerCenterAlign"
               >
                 <div
                   class="iconContainer"
@@ -256,6 +382,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                       height="6"
                       viewBox="0 0 14 9"
                       width="6"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -265,7 +392,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                   </span>
                 </div>
                 <div
-                  class="tickerValue"
+                  class="tickerValue tickerValueStyles tickerValueRed"
                 >
                   5%
                 </div>
@@ -279,7 +406,7 @@ exports[`MostActiveServicesWidget render 1`] = `
               class="tickerContainer"
             >
               <div
-                class="ticker"
+                class="ticker tickerCenterAlign"
               >
                 <div
                   class="iconContainer"
@@ -292,6 +419,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                       height="6"
                       viewBox="0 0 14 9"
                       width="6"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -301,7 +429,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                   </span>
                 </div>
                 <div
-                  class="tickerValue"
+                  class="tickerValue tickerValueStyles tickerValueRed"
                 >
                   5%
                 </div>
@@ -315,7 +443,7 @@ exports[`MostActiveServicesWidget render 1`] = `
               class="tickerContainer"
             >
               <div
-                class="ticker"
+                class="ticker tickerCenterAlign"
               >
                 <div
                   class="iconContainer"
@@ -328,6 +456,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                       height="6"
                       viewBox="0 0 14 9"
                       width="6"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -337,7 +466,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                   </span>
                 </div>
                 <div
-                  class="tickerValue"
+                  class="tickerValue tickerValueStyles tickerValueRed"
                 >
                   5%
                 </div>
@@ -351,7 +480,7 @@ exports[`MostActiveServicesWidget render 1`] = `
               class="tickerContainer"
             >
               <div
-                class="ticker"
+                class="ticker tickerCenterAlign"
               >
                 <div
                   class="iconContainer"
@@ -364,6 +493,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                       height="6"
                       viewBox="0 0 14 9"
                       width="6"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -373,7 +503,192 @@ exports[`MostActiveServicesWidget render 1`] = `
                   </span>
                 </div>
                 <div
-                  class="tickerValue"
+                  class="tickerValue tickerValueStyles tickerValueRed"
+                >
+                  5%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tickerContainer"
+          >
+            <div
+              class="tickerContainer"
+            >
+              <div
+                class="ticker tickerCenterAlign"
+              >
+                <div
+                  class="iconContainer"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+                    data-icon="main-caret-up"
+                  >
+                    <svg
+                      height="6"
+                      viewBox="0 0 14 9"
+                      width="6"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  class="tickerValue tickerValueStyles tickerValueGreen"
+                >
+                  5%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tickerContainer"
+          >
+            <div
+              class="tickerContainer"
+            >
+              <div
+                class="ticker tickerCenterAlign"
+              >
+                <div
+                  class="iconContainer"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                    data-icon="main-caret-up"
+                  >
+                    <svg
+                      height="6"
+                      viewBox="0 0 14 9"
+                      width="6"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  class="tickerValue tickerValueStyles tickerValueRed"
+                >
+                  5%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tickerContainer"
+          >
+            <div
+              class="tickerContainer"
+            >
+              <div
+                class="ticker tickerCenterAlign"
+              >
+                <div
+                  class="iconContainer"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+                    data-icon="main-caret-up"
+                  >
+                    <svg
+                      height="6"
+                      viewBox="0 0 14 9"
+                      width="6"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  class="tickerValue tickerValueStyles tickerValueGreen"
+                >
+                  5%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tickerContainer"
+          >
+            <div
+              class="tickerContainer"
+            >
+              <div
+                class="ticker tickerCenterAlign"
+              >
+                <div
+                  class="iconContainer"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                    data-icon="main-caret-up"
+                  >
+                    <svg
+                      height="6"
+                      viewBox="0 0 14 9"
+                      width="6"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  class="tickerValue tickerValueStyles tickerValueRed"
+                >
+                  5%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tickerContainer"
+          >
+            <div
+              class="tickerContainer"
+            >
+              <div
+                class="ticker tickerCenterAlign"
+              >
+                <div
+                  class="iconContainer"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                    data-icon="main-caret-up"
+                  >
+                    <svg
+                      height="6"
+                      viewBox="0 0 14 9"
+                      width="6"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  class="tickerValue tickerValueStyles tickerValueRed"
                 >
                   5%
                 </div>

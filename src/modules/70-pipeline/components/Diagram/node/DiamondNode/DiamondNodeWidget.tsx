@@ -58,8 +58,8 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
           onClickNode(e, props.node)
         }
       }}
-      onMouseEnter={event => onMouseEnterNode((event as unknown) as MouseEvent, props.node)}
-      onMouseLeave={event => onMouseLeaveNode((event as unknown) as MouseEvent, props.node)}
+      onMouseEnter={event => onMouseEnterNode(event as unknown as MouseEvent, props.node)}
+      onMouseLeave={event => onMouseLeaveNode(event as unknown as MouseEvent, props.node)}
     >
       <div
         draggable={options.draggable}
@@ -118,7 +118,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
             />
           )}
           {options.skipCondition && (
-            <div className={css.сonditional}>
+            <div className={css.conditional}>
               <Text
                 tooltip={`Skip condition:\n${options.skipCondition}`}
                 tooltipProps={{
@@ -130,7 +130,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
             </div>
           )}
           {options.conditionalExecutionEnabled && (
-            <div className={css.сonditional}>
+            <div className={css.conditional}>
               <Text
                 tooltip={getString('pipeline.conditionalExecution.title')}
                 tooltipProps={{

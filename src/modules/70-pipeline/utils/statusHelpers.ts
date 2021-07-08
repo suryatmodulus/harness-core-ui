@@ -155,3 +155,17 @@ export function isExecutionRunningLike(status?: string): boolean {
     isExecutionRunning(status) || isExecutionPaused(status) || isExecutionPausing(status) || isExecutionWaiting(status)
   )
 }
+
+export const isExecutionFinishedAnyhow = (status?: string): boolean => {
+  return (
+    isExecutionFailed(status) ||
+    isExecutionAborted(status) ||
+    isExecutionExpired(status) ||
+    isExecutionSuspended(status) ||
+    isExecutionApprovalRejected(status) ||
+    isExecutionSuccess(status) ||
+    isExecutionComplete(status) ||
+    isExecutionSkipped(status) ||
+    isExecutionCompletedWithBadState(status)
+  )
+}

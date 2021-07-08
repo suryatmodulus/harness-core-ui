@@ -40,7 +40,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
     style: {
       width: 'auto',
       minWidth: 1175,
-      minHeight: localStorage.getItem('NEW_AZURE_CONNECTOR_FLOW') ? 700 : 640, // temporary, will remove it once new flow integration starts
+      minHeight: 640,
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',

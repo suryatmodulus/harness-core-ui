@@ -27,6 +27,12 @@
             "in": "query",
             "required": true,
             "type": "string"
+          },
+          {
+            "in": "body",
+            "required": true,
+            "name": "apiToken",
+            "type": "string"
           }
         ],
         "tags": ["YAMLDownload"],

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Radio, Container, Color, Layout, Collapse, Text } from '@wings-software/uicore'
@@ -11,15 +11,17 @@ import { useToaster } from '@common/components'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import HarnessAccount from '@auth-settings/pages/Configuration/AccountAndOAuth/HarnessAccount/HarnessAccount'
 import PublicOAuthProviders from '@auth-settings/pages/Configuration/AccountAndOAuth/OAuthProviders/PublicOAuthProviders'
+import { getForgotPasswordURL } from 'framework/utils/SessionUtils'
 import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
 
 interface Props {
   authSettings: AuthenticationSettingsResponse
   refetchAuthSettings: () => void
   canEdit: boolean
+  setUpdating: Dispatch<SetStateAction<boolean>>
 }
 
-const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, canEdit }) => {
+const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, canEdit, setUpdating }) => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess, showError } = useToaster()
@@ -28,6 +30,10 @@ const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, c
     /* istanbul ignore next */ authSettings.authenticationMechanism === AuthenticationMechanisms.OAUTH
 
   const { mutate: updateAuthMechanism, loading: updatingAuthMechanism } = useUpdateAuthMechanism({})
+
+  React.useEffect(() => {
+    setUpdating(updatingAuthMechanism)
+  }, [updatingAuthMechanism, setUpdating])
 
   const submitUserPasswordUpdate = async (
     authenticationMechanism: keyof typeof AuthenticationMechanisms,
@@ -61,10 +67,12 @@ const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, c
           {getString('common.note')}
         </Text>
         <Text inline color={Color.BLACK} font={{ size: 'normal' }}>
-          : {getString('authSettings.changeLoginToHarnessAccountOrOauthDescription')} {getString('common.link')}
+          : {getString('authSettings.changeLoginToHarnessAccountOrOauthDescription')}{' '}
         </Text>
-        {/*TODO: forgot-password link will be replaced with constant once it's available in RouteDefinitions */}
-        {/* <Link to="/forgot-password">{getString('common.link')}</Link>. */}
+        <a href={getForgotPasswordURL()} target="_blank" rel="noreferrer">
+          {getString('common.link')}
+        </a>
+        .
       </React.Fragment>
     ),
     confirmButtonText: getString('confirm'),
@@ -107,11 +115,13 @@ const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, c
             submitUserPasswordUpdate={submitUserPasswordUpdate}
             updatingAuthMechanism={updatingAuthMechanism}
             canEdit={canEdit}
+            setUpdating={setUpdating}
           />
           <PublicOAuthProviders
             authSettings={authSettings}
             refetchAuthSettings={refetchAuthSettings}
             canEdit={canEdit}
+            setUpdating={setUpdating}
           />
           <Container height={10} />
         </Layout.Vertical>

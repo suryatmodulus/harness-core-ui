@@ -154,6 +154,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 key={event}
                 label={getString('pipeline.triggers.triggerConfigurationPanel.event')}
                 name="event"
+                placeholder={getString('pipeline.triggers.triggerConfigurationPanel.eventPlaceholder')}
                 items={eventOptions}
                 onChange={e => {
                   const additionalValues: any = {}

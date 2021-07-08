@@ -12,33 +12,36 @@ export function TerraformVariableStep(props: TerraformPlanVariableStepProps): Re
   const { getString } = useStrings()
   return (
     <>
-      <Text className={css.stepTitle}>{getString('pipelineSteps.configFiles')}</Text>
-
       <VariablesListTable
         data={variablesData.spec?.provisionerIdentifier}
         originalData={initialValues.spec?.provisionerIdentifier}
         metadataMap={metadataMap}
       />
       <ConfigVariables {...props} />
-      <Text className={css.stepTitle}>{getString('pipelineSteps.backendConfig')}</Text>
-      <VariablesListTable
-        data={variablesData?.spec?.configuration?.backendConfig}
-        originalData={initialValues.spec?.backendConfig?.spec}
-        metadataMap={metadataMap}
-      />
-      <Text className={css.stepTitle}>{getString('pipeline.targets.title')}</Text>
-      <VariablesListTable
-        data={variablesData.spec?.configuration?.targets}
-        originalData={initialValues.spec?.targets}
-        metadataMap={metadataMap}
-      />
-      <Text className={css.stepTitle}>{getString('environmentVariables')}</Text>
+      {variablesData?.spec?.configuration?.backendConfig?.spec && (
+        <>
+          <Text className={css.stepTitle}>{getString('pipelineSteps.backendConfig')}</Text>
+          <VariablesListTable
+            data={variablesData?.spec?.configuration?.backendConfig?.spec}
+            originalData={initialValues.spec?.configuration?.backendConfig?.spec}
+            metadataMap={metadataMap}
+          />
+        </>
+      )}
 
-      <VariablesListTable
-        data={variablesData.spec?.configuration?.environmentVariables}
-        originalData={initialValues.spec?.environmentVariables}
-        metadataMap={metadataMap}
-      />
+      {variablesData?.spec?.configuration?.environmentVariables && (
+        <Text className={css.stepTitle}>{getString('environmentVariables')}</Text>
+      )}
+      {((variablesData?.spec?.configuration?.environmentVariables as []) || [])?.map((envVar, index) => {
+        return (
+          <VariablesListTable
+            key={envVar}
+            data={variablesData.spec?.configuration?.environmentVariables?.[index]}
+            originalData={initialValues.spec?.configuration?.environmentVariables?.[index]}
+            metadataMap={metadataMap}
+          />
+        )
+      })}
     </>
   )
 }

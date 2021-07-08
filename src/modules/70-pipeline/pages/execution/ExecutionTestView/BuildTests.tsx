@@ -102,7 +102,12 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
     debounce: 500
   })
 
-  const { data: testInfoData, error: testInfoError, loading: testInfoLoading, refetch: fetchTestInfo } = useTestInfo({
+  const {
+    data: testInfoData,
+    error: testInfoError,
+    loading: testInfoLoading,
+    refetch: fetchTestInfo
+  } = useTestInfo({
     queryParams: infoQueryParams,
     lazy: true,
     requestOptions: {

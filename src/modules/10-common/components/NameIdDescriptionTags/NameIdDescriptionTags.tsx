@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container, FormInput, Icon, Label, Color } from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import { isEmpty } from 'lodash-es'
-import type { ITagInputProps } from '@blueprintjs/core'
+import type { IInputGroupProps, ITagInputProps } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
@@ -19,6 +19,7 @@ import css from './NameIdDescriptionTags.module.scss'
 
 export interface NameIdDescriptionTagsProps {
   identifierProps?: Omit<InputWithIdentifierProps, 'formik'>
+  inputGroupProps?: IInputGroupProps
   descriptionProps?: DescriptionProps
   tagsProps?: Partial<ITagInputProps> & {
     isOption?: boolean
@@ -29,13 +30,18 @@ export interface NameIdDescriptionTagsProps {
 
 interface NameIdProps {
   nameLabel?: string // Strong default preference for "Name" vs. Contextual Name (e.g. "Service Name") unless approved otherwise
+  namePlaceholder?: string
   identifierProps?: Omit<InputWithIdentifierProps, 'formik'>
+  inputGroupProps?: IInputGroupProps
 }
 
 export const NameId = (props: NameIdProps): JSX.Element => {
   const { getString } = useStrings()
-  const { identifierProps, nameLabel = getString('name') } = props
-  return <FormInput.InputWithIdentifier inputLabel={nameLabel} {...identifierProps} />
+  const { identifierProps, nameLabel = getString('name'), inputGroupProps = {} } = props
+  const newInputGroupProps = { placeholder: getString('common.namePlaceholder'), ...inputGroupProps }
+  return (
+    <FormInput.InputWithIdentifier inputLabel={nameLabel} inputGroupProps={newInputGroupProps} {...identifierProps} />
+  )
 }
 
 export const Description = (props: DescriptionComponentProps): JSX.Element => {
@@ -70,6 +76,7 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
           disabled={disabled}
           autoFocus={isDescriptionFocus}
           name="description"
+          placeholder={getString('common.descriptionPlaceholder')}
           {...restDescriptionProps}
         />
       )}
@@ -147,10 +154,12 @@ function TagsDeprecated(props: TagsDeprecatedComponentProps): JSX.Element {
 }
 
 export function NameIdDescriptionTags(props: NameIdDescriptionTagsProps): JSX.Element {
-  const { className, identifierProps, descriptionProps, tagsProps, formikProps } = props
+  const { getString } = useStrings()
+  const { className, identifierProps, descriptionProps, tagsProps, formikProps, inputGroupProps = {} } = props
+  const newInputGroupProps = { placeholder: getString('common.namePlaceholder'), ...inputGroupProps }
   return (
     <Container className={cx(css.main, className)}>
-      <NameId identifierProps={identifierProps} />
+      <NameId identifierProps={identifierProps} inputGroupProps={newInputGroupProps} />
       <Description descriptionProps={descriptionProps} hasValue={!!formikProps?.values.description} />
       <Tags tagsProps={tagsProps} isOptional={tagsProps?.isOption} hasValue={!isEmpty(formikProps?.values.tags)} />
     </Container>
@@ -170,10 +179,13 @@ export function NameIdDescriptionTagsDeprecated<T>(props: NameIdDescriptionTagsD
 }
 
 export function NameIdDescription(props: NameIdDescriptionProps): JSX.Element {
-  const { className, identifierProps, descriptionProps, formikProps } = props
+  const { getString } = useStrings()
+  const { className, identifierProps, descriptionProps, formikProps, inputGroupProps = {} } = props
+  const newInputGroupProps = { placeholder: getString('common.namePlaceholder'), ...inputGroupProps }
+
   return (
     <Container className={cx(css.main, className)}>
-      <NameId identifierProps={identifierProps} />
+      <NameId identifierProps={identifierProps} inputGroupProps={newInputGroupProps} />
       <Description descriptionProps={descriptionProps} hasValue={!!formikProps?.values.description} />
     </Container>
   )

@@ -7,7 +7,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { PrometheusRiskProfile } from '../PrometheusRiskProfile'
 
 const MockLabels = ['label1', 'label2', 'label3']
-const MockResponse = ({
+const MockResponse = {
   loading: false,
   error: '',
   data: {
@@ -106,7 +106,7 @@ const MockResponse = ({
   absolutePath: '',
   response: {},
   refetch: jest.fn()
-} as unknown) as ReturnType<typeof useGetMetricPacks>
+} as unknown as ReturnType<typeof useGetMetricPacks>
 
 describe('Unit tests for PrometheusRiskProfile', () => {
   test('Ensure that api result is rendered correctly', async () => {
@@ -114,7 +114,7 @@ describe('Unit tests for PrometheusRiskProfile', () => {
       <TestWrapper>
         <PrometheusRiskProfile
           metricPackResponse={MockResponse}
-          labelNamesResponse={({ data: MockLabels } as unknown) as ReturnType<typeof useGetLabelNames>}
+          labelNamesResponse={{ data: MockLabels } as unknown as ReturnType<typeof useGetLabelNames>}
         />
       </TestWrapper>
     )
@@ -130,8 +130,8 @@ describe('Unit tests for PrometheusRiskProfile', () => {
     const { container } = render(
       <TestWrapper>
         <PrometheusRiskProfile
-          metricPackResponse={({ loading: true } as unknown) as ReturnType<typeof useGetMetricPacks>}
-          labelNamesResponse={({ data: MockLabels } as unknown) as ReturnType<typeof useGetLabelNames>}
+          metricPackResponse={{ loading: true } as unknown as ReturnType<typeof useGetMetricPacks>}
+          labelNamesResponse={{ data: MockLabels } as unknown as ReturnType<typeof useGetLabelNames>}
         />
       </TestWrapper>
     )
@@ -150,9 +150,9 @@ describe('Unit tests for PrometheusRiskProfile', () => {
       <TestWrapper>
         <PrometheusRiskProfile
           metricPackResponse={
-            ({ error: { data: { detailedMessage: 'someError' } } } as unknown) as ReturnType<typeof useGetMetricPacks>
+            { error: { data: { detailedMessage: 'someError' } } } as unknown as ReturnType<typeof useGetMetricPacks>
           }
-          labelNamesResponse={({ data: MockLabels } as unknown) as ReturnType<typeof useGetLabelNames>}
+          labelNamesResponse={{ data: MockLabels } as unknown as ReturnType<typeof useGetLabelNames>}
         />
       </TestWrapper>
     )

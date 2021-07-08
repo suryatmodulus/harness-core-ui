@@ -65,7 +65,11 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
     }
   }, [accountId])
 
-  const { data: refreshTokenResponse, refetch: refreshToken, loading: refreshingToken } = useRefreshToken({
+  const {
+    data: refreshTokenResponse,
+    refetch: refreshToken,
+    loading: refreshingToken
+  } = useRefreshToken({
     lazy: true,
     requestOptions: getRequestOptions()
   })

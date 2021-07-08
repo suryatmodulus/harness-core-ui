@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Layout, SelectOption, Heading, Text, Switch } from '@wings-software/uicore'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import { isEmpty, isUndefined, merge } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { Page, useToaster } from '@common/exports'
@@ -43,6 +43,7 @@ import type {
   InvocationMapFunction,
   CompletionItemInterface
 } from '@common/interfaces/YAMLBuilderProps'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { scheduleTabsId, getDefaultExpressionBreakdownValues } from './views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
@@ -52,6 +53,7 @@ import {
   ciCodebaseBuild,
   getConnectorName,
   getConnectorValue,
+  isRowFilled,
   CUSTOM
 } from './utils/TriggersWizardPageUtils'
 import {
@@ -183,6 +185,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState<string>('')
   const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: NgPipeline } | undefined>(undefined)
   const [wizardKey, setWizardKey] = useState<number>(0)
+  const [mergedPipelineKey, setMergedPipelineKey] = useState<number>(0)
 
   const [onEditInitialValues, setOnEditInitialValues] = useState<
     | FlatOnEditValuesInterface
@@ -204,12 +207,23 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   // // }, [onEditInitialValues?.triggerType])
 
   useEffect(() => {
-    setCurrentPipeline(
-      merge(clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || '')), currentPipeline || {}) as {
-        pipeline: NgPipeline
-      }
-    )
-  }, [template?.data?.inputSetTemplateYaml])
+    if (onEditInitialValues?.pipeline && template?.data?.inputSetTemplateYaml && mergedPipelineKey < 1) {
+      const newOnEditPipeline = merge(
+        parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
+        onEditInitialValues.pipeline || {}
+      )
+      const newPipeline = clearRuntimeInput(newOnEditPipeline)
+      setOnEditInitialValues({ ...onEditInitialValues, pipeline: newPipeline as unknown as NgPipeline })
+      setCurrentPipeline({ pipeline: newPipeline }) // will reset initialValues
+      setMergedPipelineKey(1)
+    } else if (template?.data?.inputSetTemplateYaml) {
+      setCurrentPipeline(
+        merge(clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || '')), currentPipeline || {}) as {
+          pipeline: NgPipeline
+        }
+      )
+    }
+  }, [template?.data?.inputSetTemplateYaml, onEditInitialValues?.pipeline])
 
   useEffect(() => {
     if (triggerResponse?.data?.enabled === false) {
@@ -285,7 +299,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       autoAbortPreviousExecutions = false
     } = val
 
-    const stringifyPipelineRuntimeInput = stringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
+    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
 
     if (formikValueSourceRepo !== GitSourceProviders.CUSTOM.value) {
       if (
@@ -317,7 +331,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         ((changedFilesOperator && changedFilesValue?.trim()) ||
           (persistIncomplete && (changedFilesOperator || changedFilesValue?.trim()))) &&
         !payloadConditions.some(pc => pc.key === PayloadConditionTypes.CHANGED_FILES) &&
-        event !== eventTypes.PUSH &&
         event !== eventTypes.TAG
       ) {
         payloadConditions.unshift({
@@ -340,7 +353,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       }
 
       // actions will be required thru validation
-      const actionsValues = ((actions as unknown) as SelectOption[])?.map(action => action.value)
+      const actionsValues = (actions as unknown as SelectOption[])?.map(action => action.value)
       const triggerYaml: NGTriggerConfigV2 = {
         name,
         identifier,
@@ -351,7 +364,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         projectIdentifier,
         pipelineIdentifier,
         source: {
-          type: (formikValueTriggerType as unknown) as NGTriggerSourceV2['type'],
+          type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
           spec: {
             type: formikValueSourceRepo, // Github
             spec: {
@@ -366,13 +379,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         inputYaml: stringifyPipelineRuntimeInput
       }
       if (triggerYaml.source?.spec?.spec) {
-        if (!isEmpty(payloadConditions)) {
-          triggerYaml.source.spec.spec.spec.payloadConditions = payloadConditions
-        }
+        triggerYaml.source.spec.spec.spec.payloadConditions = persistIncomplete
+          ? payloadConditions
+          : payloadConditions.filter(payloadCondition => isRowFilled(payloadCondition))
 
-        if (!isEmpty(headerConditions)) {
-          triggerYaml.source.spec.spec.spec.headerConditions = headerConditions
-        }
+        triggerYaml.source.spec.spec.spec.headerConditions = persistIncomplete
+          ? headerConditions
+          : headerConditions.filter(headerCondition => isRowFilled(headerCondition))
 
         if (jexlCondition) {
           triggerYaml.source.spec.spec.spec.jexlCondition = jexlCondition
@@ -399,7 +412,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         projectIdentifier,
         pipelineIdentifier,
         source: {
-          type: (formikValueTriggerType as unknown) as NGTriggerSourceV2['type'],
+          type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
           spec: {
             type: formikValueSourceRepo, // Custom
             spec: {
@@ -414,12 +427,16 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         triggerYaml.source.spec.spec = { authToken: { type: 'inline', spec: { value: secureToken } } }
       }
 
-      if (!isEmpty(payloadConditions) && triggerYaml.source?.spec) {
-        triggerYaml.source.spec.spec.payloadConditions = payloadConditions
+      if (triggerYaml.source?.spec) {
+        triggerYaml.source.spec.spec.payloadConditions = persistIncomplete
+          ? payloadConditions
+          : payloadConditions.filter(payloadCondition => isRowFilled(payloadCondition))
       }
 
-      if (!isEmpty(headerConditions) && triggerYaml.source?.spec) {
-        triggerYaml.source.spec.spec.headerConditions = headerConditions
+      if (triggerYaml.source?.spec) {
+        triggerYaml.source.spec.spec.headerConditions = persistIncomplete
+          ? headerConditions
+          : headerConditions.filter(headerCondition => isRowFilled(headerCondition))
       }
 
       if (jexlCondition && triggerYaml.source?.spec) {
@@ -514,7 +531,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           tags,
           pipeline: pipelineJson,
           sourceRepo,
-          triggerType: (TriggerTypes.WEBHOOK as unknown) as NGTriggerSourceV2['type'],
+          triggerType: TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
           event,
           autoAbortPreviousExecutions,
           connectorRef,
@@ -543,20 +560,21 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
         // connectorRef in Visual UI is an object (with the label), but in YAML is a string
         if (triggerValues?.connectorRef && typeof triggerValues.connectorRef === 'string') {
-          const connectorRefWithLabel: ConnectorRefInterface = {
+          const connectorRefWithBlankLabel: ConnectorRefInterface = {
             value: triggerValues.connectorRef,
             identifier: triggerValues.connectorRef
           }
 
           if (triggerYaml && connectorData?.data?.connector?.name) {
-            // add back in label from connectorData
             const { connector } = connectorData.data
 
-            connectorRefWithLabel.connector = connector
-            connectorRefWithLabel.label = connector.name
+            connectorRefWithBlankLabel.connector = connector
+            connectorRefWithBlankLabel.connector.identifier = triggerValues.connectorRef
+
+            connectorRefWithBlankLabel.label = '' // will fetch details on useEffect
           }
 
-          triggerValues.connectorRef = connectorRefWithLabel
+          triggerValues.connectorRef = connectorRefWithBlankLabel
 
           const connectorParams: GetConnectorQueryParams = {
             accountIdentifier: accountId
@@ -607,7 +625,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           tags,
           pipeline: pipelineJson,
           sourceRepo,
-          triggerType: (TriggerTypes.WEBHOOK as unknown) as NGTriggerSourceV2['type'],
+          triggerType: TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
           secureToken: authToken?.spec?.value,
           headerConditions,
           payloadConditions,
@@ -664,7 +682,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         description,
         tags,
         pipeline: pipelineJson,
-        triggerType: (TriggerTypes.SCHEDULE as unknown) as NGTriggerSourceV2['type'],
+        triggerType: TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type'],
         expression,
         ...newExpressionBreakdown,
         selectedScheduleTab: scheduleTabsId.CUSTOM // only show CUSTOM on edit
@@ -692,7 +710,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     } = val
 
     // actions will be required thru validation
-    const stringifyPipelineRuntimeInput = stringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
+    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
     return clearNullUndefined({
       name,
       identifier,
@@ -703,7 +721,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       projectIdentifier,
       pipelineIdentifier,
       source: {
-        type: (formikValueTriggerType as unknown) as NGTriggerSourceV2['type'],
+        type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
         spec: {
           type: scheduledTypes.CRON,
           spec: {
@@ -719,7 +737,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const submitTrigger = async (triggerYaml: NGTriggerConfigV2 | TriggerConfigDTO): Promise<void> => {
     if (onEditInitialValues?.identifier) {
       try {
-        const { status, data } = await updateTrigger(stringify({ trigger: clearNullUndefined(triggerYaml) }) as any)
+        const { status, data } = await updateTrigger(yamlStringify({ trigger: clearNullUndefined(triggerYaml) }) as any)
         if (status === ResponseStatus.SUCCESS) {
           showSuccess(getString('pipeline.triggers.toast.successfulUpdate', { name: data?.name }))
           history.push(
@@ -738,7 +756,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       // error flow sent to Wizard
     } else {
       try {
-        const { status, data } = await createTrigger(stringify({ trigger: clearNullUndefined(triggerYaml) }) as any)
+        const { status, data } = await createTrigger(yamlStringify({ trigger: clearNullUndefined(triggerYaml) }) as any)
         if (status === ResponseStatus.SUCCESS) {
           showSuccess(getString('pipeline.triggers.toast.successfulCreate', { name: data?.name }))
           history.push(
@@ -822,24 +840,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       try {
         const newOriginalPipeline = parse(yamlPipeline)?.pipeline
         if (onEditInitialValues?.identifier) {
-          const newPipeline = !isEmpty(onEditInitialValues?.pipeline)
-            ? onEditInitialValues.pipeline
-            : currentPipeline?.pipeline || {}
-          // accommodate new runtime input variables
-          const newPipelineVariables = [...(newOriginalPipeline?.variables || [])].map(newVariable => {
-            const matchValue = onEditInitialValues?.pipeline?.variables?.find(
-              existingVariable => existingVariable.name === newVariable.name
-            )
-            if (matchValue) {
-              return matchValue
-            } else {
-              return { ...newVariable, value: '' }
-            }
-          })
-
-          if (newPipeline?.variables) {
-            newPipeline.variables = newPipelineVariables
-          }
+          const newPipeline = currentPipeline?.pipeline ? currentPipeline.pipeline : onEditInitialValues.pipeline || {}
           setOnEditInitialValues({
             ...onEditInitialValues,
             originalPipeline: newOriginalPipeline,
@@ -853,11 +854,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
     }
-  }, [pipelineResponse?.data?.yamlPipeline, onEditInitialValues?.identifier, initialValues])
+  }, [pipelineResponse?.data?.yamlPipeline, onEditInitialValues?.identifier, initialValues, currentPipeline])
 
   const { data: connectorData, refetch: getConnectorDetails } = useGetConnector({
     identifier: getIdentifierFromValue(
-      onEditInitialValues?.connectorRef?.identifier || initialValues?.connectorRef?.identifier || ''
+      wizardKey < 1 // wizardKey >1 means we've reset initialValues cause of Yaml Switching (onEdit or new) and should use those formik values instead
+        ? onEditInitialValues?.connectorRef?.identifier || ''
+        : initialValues?.connectorRef?.identifier || ''
     ),
     queryParams: connectorScopeParams,
     lazy: true
@@ -869,7 +872,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     } else if (
       initialValues?.connectorRef?.value &&
       (!initialValues.connectorRef.label ||
-        initialValues?.connectorRef?.identifier !== connectorData?.data?.connector?.identifier)
+        (connectorData?.data?.connector?.identifier &&
+          !initialValues?.connectorRef?.identifier?.includes(connectorData?.data?.connector?.identifier)))
     ) {
       // need to get label due to switching from yaml to visual
       getConnectorDetails()
@@ -877,7 +881,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   }, [onEditInitialValues?.connectorRef?.identifier, connectorScopeParams, initialValues?.connectorRef])
 
   useEffect(() => {
-    if (connectorData?.data?.connector?.name && onEditInitialValues?.connectorRef?.identifier) {
+    if (connectorData?.data?.connector?.name && onEditInitialValues?.connectorRef?.identifier && wizardKey < 1) {
       // Assigns label on Visual mode for onEdit
       const { connector, status } = connectorData.data
       const connectorRef: ConnectorRefInterface = {
@@ -889,7 +893,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       if (onEditInitialValues?.connectorRef?.identifier) {
         setOnEditInitialValues({ ...onEditInitialValues, connectorRef })
       }
-    } else if (wizardKey > 0 && connectorData?.data?.connector?.name && initialValues?.connectorRef?.identifier) {
+    } else if (connectorData?.data?.connector?.name && initialValues?.connectorRef?.identifier) {
       // means we switched from yaml to visual and need to get the label
       const { connector, status } = connectorData.data
       const connectorRef: ConnectorRefInterface = {
@@ -1025,7 +1029,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           initialValues,
           onSubmit: (val: FlatValidWebhookFormikValuesInterface) => handleWebhookSubmit(val),
           validationSchema: getValidationSchema(
-            (TriggerTypes.WEBHOOK as unknown) as NGTriggerSourceV2['type'],
+            TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
             getString
           ),
           enableReinitialize: true
@@ -1070,7 +1074,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           initialValues,
           onSubmit: (val: FlatValidScheduleFormikValuesInterface) => handleScheduleSubmit(val),
           validationSchema: getValidationSchema(
-            (TriggerTypes.SCHEDULE as unknown) as NGTriggerSourceV2['type'],
+            TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type'],
             getString
           ),
           enableReinitialize: true

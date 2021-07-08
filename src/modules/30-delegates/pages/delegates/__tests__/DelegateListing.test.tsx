@@ -51,7 +51,7 @@ describe('Feature flag enabled', () => {
         <DelegatesListing />
       </TestWrapper>
     )
-    fireEvent.click(getByText('delegate.NEW_DELEGATE'))
+    fireEvent.click(getByText('delegate.DelegateName'))
     await waitFor(() => {
       expect(document.body.querySelector('.bp3-dialog')).toBeDefined()
     })

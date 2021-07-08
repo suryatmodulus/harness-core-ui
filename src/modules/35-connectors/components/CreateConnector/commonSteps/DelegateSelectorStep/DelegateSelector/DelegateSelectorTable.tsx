@@ -87,7 +87,7 @@ const RenderHeartbeat: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateI
   const { activelyConnected, lastHeartBeat } = row.original
   const { getString } = useStrings()
   const { NG_CG_TASK_ASSIGNMENT_ISOLATION } = useFeatureFlags()
-  const { onClick } = (column as unknown) as { onClick: () => void }
+  const { onClick } = column as unknown as { onClick: () => void }
   if (!lastHeartBeat) {
     return (
       <Layout.Vertical>

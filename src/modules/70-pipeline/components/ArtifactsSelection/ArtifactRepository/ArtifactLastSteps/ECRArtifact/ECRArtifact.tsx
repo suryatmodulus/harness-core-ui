@@ -82,7 +82,12 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     region: ''
   })
 
-  const { data: ecrBuildData, loading, refetch, error: ecrTagError } = useGetBuildDetailsForEcr({
+  const {
+    data: ecrBuildData,
+    loading,
+    refetch,
+    error: ecrTagError
+  } = useGetBuildDetailsForEcr({
     queryParams: {
       imagePath: lastQueryData.imagePath,
       connectorRef: prevStepData?.connectorId?.value

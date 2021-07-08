@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
-import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
+import CVProgressBar from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/CVProgressBar/CVProgressBar'
 import type { ActivityVerificationSummary } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import css from './ActivityProgressIndicator.module.scss'
@@ -77,7 +77,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
       <CVProgressBar status={aggregatedStatus} value={progressValue} />
       <Container flex>
         {startTime !== undefined && startTime !== null && (
-          <Text color={Color.GREY_400} style={SMALL_FONT_SIZE}>{`${getString('cv.startedOn')} ${new Date(
+          <Text color={Color.GREY_400} style={SMALL_FONT_SIZE}>{`${getString('pipeline.startedOn')} ${new Date(
             startTime
           ).toLocaleString()}`}</Text>
         )}

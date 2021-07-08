@@ -44,12 +44,11 @@ const GitRepositoryName: React.FC<GitRepositoryNameProps> = ({
           />
         )}
       </div>
-      {getMultiTypeFromValue(fieldValue) === MultiTypeInputType.FIXED && (
-        <div className={helmcss.halfWidth}>
-          <String stringID="common.git.gitAccountUrl" className={css.accountUrl} />:
-          <span className={css.repoNameUrl}>{`${accountUrl}`}</span>
-        </div>
-      )}
+
+      <div className={helmcss.halfWidth}>
+        <String stringID="common.git.gitAccountUrl" className={css.accountUrl} />:
+        <span className={css.repoNameUrl}>{`${accountUrl}`}</span>
+      </div>
     </div>
   )
 }

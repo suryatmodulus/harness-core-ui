@@ -4,7 +4,7 @@ import { useStrings } from 'framework/strings'
 
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { manifestTypeIcons, manifestTypeLabels } from '../Manifesthelper'
-import type { ManifestTypes } from '../ManifestInterface'
+import type { ManifestStepInitData, ManifestTypes } from '../ManifestInterface'
 import css from './ManifestWizardSteps.module.scss'
 
 interface ManifestPropType {
@@ -12,6 +12,7 @@ interface ManifestPropType {
   manifestTypes: Array<ManifestTypes>
   selectedManifest: ManifestTypes
   stepName: string
+  initialValues: ManifestStepInitData
 }
 
 export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & ManifestPropType> = ({
@@ -20,7 +21,8 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
   changeManifestType,
   stepName,
   prevStepData,
-  nextStep
+  nextStep,
+  initialValues
 }) => {
   const [selectedManifestType, setselectedManifestType] = React.useState(selectedManifest)
 
@@ -61,7 +63,11 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
           rightIcon="chevron-right"
           onClick={() => {
             changeManifestType(selectedManifestType)
-            nextStep?.({ ...prevStepData })
+            if (initialValues.selectedManifest !== selectedManifestType) {
+              nextStep?.({ ...prevStepData, store: '' })
+            } else {
+              nextStep?.({ ...prevStepData })
+            }
           }}
           className={css.saveBtn}
         />

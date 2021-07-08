@@ -5,5 +5,6 @@ declare const styles: {
   readonly runPipelineErrorDesc: string
   readonly runPipelineErrorLine: string
   readonly runPipelineErrorPopover: string
+  readonly sticky: string
 }
 export default styles

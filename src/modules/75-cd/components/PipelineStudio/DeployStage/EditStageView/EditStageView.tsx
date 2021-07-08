@@ -5,16 +5,15 @@ import {
   Formik,
   FormikForm,
   Button,
-  Icon,
   Card,
-  CardSelectType,
-  CardSelect,
   Accordion,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  ThumbnailSelect,
+  Color
 } from '@wings-software/uicore'
+import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import cx from 'classnames'
 import * as Yup from 'yup'
-import type { IconName } from '@blueprintjs/core'
 import produce from 'immer'
 import { omit, set } from 'lodash-es'
 import type { FormikProps } from 'formik'
@@ -64,27 +63,27 @@ export const EditStageView: React.FC<EditStageView> = ({
     }
   } = React.useContext(PipelineContext)
   const { getString } = useStrings()
-  const newStageData = [
+  const newStageData: Item[] = [
     {
-      text: getString('service'),
+      label: getString('service'),
       value: 'service',
       icon: 'service',
       disabled: false
     },
     {
-      text: getString('multipleService'),
+      label: getString('multipleService'),
       value: 'multiple-service',
       icon: 'multi-service',
       disabled: true
     },
     {
-      text: getString('functions'),
+      label: getString('functions'),
       value: 'functions',
       icon: 'functions',
       disabled: true
     },
     {
-      text: getString('otherWorkloads'),
+      label: getString('otherWorkloads'),
       value: 'other-workloads',
       icon: 'other-workload',
       disabled: true
@@ -110,6 +109,20 @@ export const EditStageView: React.FC<EditStageView> = ({
     return () => unSubscribeForm({ tab: DeployTabs.OVERVIEW, form: formikRef })
   }, [])
 
+  const whatToDeploy = (
+    <>
+      <Text color={Color.BLACK_100} font={{ size: 'normal' }} tooltipProps={{ dataTooltipId: 'whatToDeploy' }}>
+        {getString('whatToDeploy')}
+      </Text>
+      <ThumbnailSelect
+        name="serviceType"
+        items={newStageData}
+        className={css.stageTypeThumbnail}
+        isReadonly={isReadonly}
+      />
+    </>
+  )
+
   return (
     <>
       <DeployServiceErrors />
@@ -131,7 +144,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                 name: data?.stage.name,
                 description: data?.stage.description,
                 tags: data?.stage?.tags || {},
-                serviceType: newStageData[0]
+                serviceType: newStageData[0].value
               }}
               formName="cdEditStage"
               onSubmit={values => {
@@ -200,53 +213,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                       />
                     )}
 
-                    <Card className={cx(css.sectionCard, css.shadow)}>
-                      <div
-                        className={cx(css.tabSubHeading, 'ng-tooltip-native')}
-                        id="whatToDeploy"
-                        data-tooltip-id="whatToDeploy"
-                      >
-                        {getString('whatToDeploy')}
-                        <HarnessDocTooltip tooltipId="whatToDeploy" useStandAlone={true} />
-                      </div>
-                      <CardSelect
-                        type={CardSelectType.Any} // TODO: Remove this by publishing uikit with exported CardSelectType
-                        selected={formikProps.values.serviceType}
-                        onChange={item => formikProps.setFieldValue('serviceType', item)}
-                        renderItem={(item, selected) => (
-                          <div
-                            key={item.text}
-                            className={css.squareCardContainer}
-                            onClick={e => {
-                              if (item.disabled) {
-                                e.stopPropagation()
-                              }
-                            }}
-                          >
-                            <Card
-                              selected={selected}
-                              cornerSelected={selected}
-                              interactive={!item.disabled}
-                              disabled={item.disabled || isReadonly}
-                              className={css.squareCard}
-                            >
-                              <Icon name={item.icon as IconName} size={26} height={26} />
-                            </Card>
-                            <Text
-                              style={{
-                                fontSize: '12px',
-                                color: selected ? 'var(--grey-900)' : 'var(--grey-350)',
-                                textAlign: 'center'
-                              }}
-                            >
-                              {item.text}
-                            </Text>
-                          </div>
-                        )}
-                        data={newStageData}
-                        className={css.grid}
-                      />
-                    </Card>
+                    {!context ? whatToDeploy : <Card className={cx(css.sectionCard, css.shadow)}>{whatToDeploy}</Card>}
 
                     {!context && (
                       <div className={css.btnSetup}>

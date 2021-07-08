@@ -84,12 +84,20 @@ const AzureConnectorBillingExtension: React.FC = () => {
             <i> {getString('connectors.ceAzure.billing.extension.soon')}</i>
           </dd>
           <dd>
-            <a href="https://docs.harness.io/article/7idbmchsim-set-up-cost-visibility-for-azure#set-up-cost-visibility-for-azure">
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://docs.harness.io/article/7idbmchsim-set-up-cost-visibility-for-azure#set-up-cost-visibility-for-azure"
+            >
               - {getString('connectors.ceAzure.billing.extension.docs')}
             </a>
           </dd>
           <dd>
-            <a href="https://docs.harness.io/article/7idbmchsim-set-up-cost-visibility-for-azure#step_2_enable_billing_export_for_azure_subscription">
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://docs.harness.io/article/7idbmchsim-set-up-cost-visibility-for-azure#step_2_enable_billing_export_for_azure_subscription"
+            >
               - {getString('connectors.ceAzure.billing.extension.createExport')}
             </a>
           </dd>

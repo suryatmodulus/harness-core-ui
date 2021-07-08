@@ -31,7 +31,6 @@
   .lastColumn {
     justify-content: end;
     display: grid;
-    padding: 0 var(--spacing-large);
   }
 
   .actionGrid {
@@ -70,7 +69,8 @@
 
 .manifestList {
   display: grid;
-  grid-template-columns: 200px 200px 300px 1fr 100px;
+  grid-template-columns: 200px 200px 300px minmax(10px, 1fr) 100px;
+
   &.list-header {
     border-bottom: solid 1px #d9dae5;
     padding-bottom: var(--spacing-medium);

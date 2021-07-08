@@ -8,7 +8,7 @@ import { getScopeFromDTO } from '@common/components/EntityReference/EntityRefere
 import SecretReference from '@secrets/components/SecretReference/SecretReference'
 import { getReference } from '@secrets/utils/SSHAuthUtils'
 import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
-import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
+import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper, ConnectorInfoDTO } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import css from './CreateOrSelectSecret.module.scss'
@@ -22,18 +22,24 @@ export interface SecretReference {
 }
 
 export interface CreateOrSelectSecretProps {
-  type: SecretResponseWrapper['secret']['type']
+  type?: SecretResponseWrapper['secret']['type']
   onSuccess: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
+  connectorTypeContext?: ConnectorInfoDTO['type']
 }
 
-const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({ type, onSuccess, secretsListMockData }) => {
+const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({
+  type,
+  onSuccess,
+  secretsListMockData,
+  connectorTypeContext
+}) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   return (
     <section className={css.main}>
       <Tabs id={'CreateOrSelect'}>
-        {type === 'SecretFile' || type === 'SecretText' ? (
+        {type !== 'SSHKey' ? (
           <Tab
             id={'create'}
             title={<Text padding={'medium'}>{getString('secrets.titleCreate')}</Text>}
@@ -46,6 +52,7 @@ const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({ type, onSuc
                     referenceString: getReference(getScopeFromDTO(data), data.identifier) as string
                   })
                 }}
+                connectorTypeContext={connectorTypeContext}
               />
             }
           />
@@ -66,6 +73,7 @@ const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({ type, onSuc
               orgIdentifier={orgIdentifier}
               projectIdentifier={projectIdentifier}
               mock={secretsListMockData}
+              connectorTypeContext={connectorTypeContext}
             />
           }
         />

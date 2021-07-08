@@ -7,7 +7,7 @@ jest.mock('@pipeline/components/PipelineSteps/PipelineStepFactory', () => ({}))
 describe('ExecutionUtils tests', () => {
   describe('getRunningStep tests', () => {
     test('gives current running step from stage graph', () => {
-      const result = utils.getActiveStep((stageGraph as unknown) as any)
+      const result = utils.getActiveStep(stageGraph as unknown as any)
 
       expect(result).toBe('WOLUCzOCQDWyjJyOLN_9TQ')
     })

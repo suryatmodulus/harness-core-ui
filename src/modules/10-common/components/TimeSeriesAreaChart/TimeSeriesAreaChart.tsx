@@ -74,9 +74,9 @@ export const TimeSeriesAreaChart: React.FC<TimeSeriesAreaChartProps> = ({
   seriesData = []
 }) => {
   const defaultChartOptions = React.useMemo(() => getDefaultChartOptions(seriesData), [seriesData])
-  const finalChartOptions = React.useMemo(() => merge(defaultChartOptions, customChartOptions), [
-    defaultChartOptions,
-    customChartOptions
-  ])
+  const finalChartOptions = React.useMemo(
+    () => merge(defaultChartOptions, customChartOptions),
+    [defaultChartOptions, customChartOptions]
+  )
   return <HighchartsReact highcharts={Highcharts} options={finalChartOptions} />
 }

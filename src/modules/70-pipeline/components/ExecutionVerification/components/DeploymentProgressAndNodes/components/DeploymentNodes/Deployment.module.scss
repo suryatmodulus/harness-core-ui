@@ -1,0 +1,11 @@
+.main {
+  position: relative;
+  height: 100% !important;
+  width: 100% !important;
+
+  .nodeHealth {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 3px;
+  }
+}

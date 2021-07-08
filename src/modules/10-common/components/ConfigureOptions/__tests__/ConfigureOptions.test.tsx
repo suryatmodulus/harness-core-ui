@@ -52,8 +52,114 @@ describe('Test ConfigureOptions', () => {
     )
     const btn = container.querySelector('#configureOptions')
     fireEvent.click(btn as Element)
-    await waitFor(() => getByTextBody(document.body, 'configureOptions.notValidExpression'))
-    expect(getByTextBody(document.body, 'configureOptions.notValidExpression')).toBeTruthy()
+    await waitFor(() => getByTextBody(document.body, 'common.configureOptions.notValidExpression'))
+    expect(getByTextBody(document.body, 'common.configureOptions.notValidExpression')).toBeTruthy()
+  })
+
+  test('test invalid default for regular expression error', async () => {
+    const { container } = render(
+      <TestWrapper>
+        <ConfigureOptions {...getProps(`${RUNTIME_INPUT_VALUE}.regex(^a$)`, 'test', 'var-test', false, 'abc', true)} />
+      </TestWrapper>
+    )
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
+    const dialog = findDialogContainer() as HTMLElement
+    await waitFor(() => getByTextBody(dialog, 'var-test'))
+    const submitBtn = getByTextBody(dialog, 'submit')
+    fireEvent.click(submitBtn)
+    await waitFor(() => getByTextBody(document.body, 'common.configureOptions.validationErrors.defaultRegExValid'))
+    expect(getByTextBody(document.body, 'common.configureOptions.validationErrors.defaultRegExValid')).toBeTruthy()
+  })
+
+  test('test valid default for regular expression error', async () => {
+    onChange.mockReset()
+    const { container } = render(
+      <TestWrapper>
+        <ConfigureOptions {...getProps(`${RUNTIME_INPUT_VALUE}.regex(^abc$)`, 'test', 'var-test', true, 'abc')} />
+      </TestWrapper>
+    )
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
+    const dialog = findDialogContainer() as HTMLElement
+    await waitFor(() => getByTextBody(dialog, 'var-test'))
+    const submitBtn = getByTextBody(dialog, 'submit')
+    fireEvent.click(submitBtn)
+    await waitFor(() => expect(onChange).toBeCalledTimes(1))
+    expect(onChange).toBeCalledWith(`${RUNTIME_INPUT_VALUE}.regex(^abc$)`, 'abc', true)
+  })
+
+  test('test empty default for regular expression error', async () => {
+    onChange.mockReset()
+    const { container } = render(
+      <TestWrapper>
+        <ConfigureOptions {...getProps(`${RUNTIME_INPUT_VALUE}.regex(^abc$)`, 'test', 'var-test', true, '')} />
+      </TestWrapper>
+    )
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
+    const dialog = findDialogContainer() as HTMLElement
+    await waitFor(() => getByTextBody(dialog, 'var-test'))
+    const submitBtn = getByTextBody(dialog, 'submit')
+    fireEvent.click(submitBtn)
+    await waitFor(() => expect(onChange).toBeCalledTimes(1))
+    expect(onChange).toBeCalledWith(`${RUNTIME_INPUT_VALUE}.regex(^abc$)`, '', true)
+  })
+
+  test('test invalid default for allowed values error', async () => {
+    const { container } = render(
+      <TestWrapper>
+        <ConfigureOptions
+          {...getProps(`${RUNTIME_INPUT_VALUE}.allowedValues(abc,xyz)`, 'test', 'var-test', false, 'klm', true)}
+        />
+      </TestWrapper>
+    )
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
+    const dialog = findDialogContainer() as HTMLElement
+    await waitFor(() => getByTextBody(dialog, 'var-test'))
+    const submitBtn = getByTextBody(dialog, 'submit')
+    fireEvent.click(submitBtn)
+    await waitFor(() => getByTextBody(document.body, 'common.configureOptions.validationErrors.defaultAllowedValid'))
+    expect(getByTextBody(document.body, 'common.configureOptions.validationErrors.defaultAllowedValid')).toBeTruthy()
+  })
+
+  test('test valid default for allowed values error', async () => {
+    onChange.mockReset()
+    const { container } = render(
+      <TestWrapper>
+        <ConfigureOptions
+          {...getProps(`${RUNTIME_INPUT_VALUE}.allowedValues(abc,xyz)`, 'test', 'var-test', true, 'abc')}
+        />
+      </TestWrapper>
+    )
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
+    const dialog = findDialogContainer() as HTMLElement
+    await waitFor(() => getByTextBody(dialog, 'var-test'))
+    const submitBtn = getByTextBody(dialog, 'submit')
+    fireEvent.click(submitBtn)
+    await waitFor(() => expect(onChange).toBeCalledTimes(1))
+    expect(onChange).toBeCalledWith(`${RUNTIME_INPUT_VALUE}.allowedValues(abc,xyz)`, 'abc', true)
+  })
+
+  test('test empty default for allowed values error', async () => {
+    onChange.mockReset()
+    const { container } = render(
+      <TestWrapper>
+        <ConfigureOptions
+          {...getProps(`${RUNTIME_INPUT_VALUE}.allowedValues(abc,xyz)`, 'test', 'var-test', true, '')}
+        />
+      </TestWrapper>
+    )
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
+    const dialog = findDialogContainer() as HTMLElement
+    await waitFor(() => getByTextBody(dialog, 'var-test'))
+    const submitBtn = getByTextBody(dialog, 'submit')
+    fireEvent.click(submitBtn)
+    await waitFor(() => expect(onChange).toBeCalledTimes(1))
+    expect(onChange).toBeCalledWith(`${RUNTIME_INPUT_VALUE}.allowedValues(abc,xyz)`, '', true)
   })
 
   test('test regex expression', async () => {

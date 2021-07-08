@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { pick } from 'lodash-es'
 import * as Yup from 'yup'
 import {
@@ -19,14 +19,16 @@ import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Connectors } from '@connectors/constants'
 import { shouldShowError } from '@common/utils/errorUtils'
+import { PageSpinner } from '@common/components'
 import { setupAzureKeyVaultFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { StepSecretManagerProps, CreateAzureKeyVaultConnectorProps } from '../CreateAzureKeyVaultConnector'
 import AzureKeyVaultFormFields from './AzureKeyVaultFormFields'
 import css from '../CreateAzureKeyVaultConnector.module.scss'
 
 export interface AzureKeyVaultFormData {
   clientId?: string
-  secretKey?: string
+  secretKey?: SecretReference
   tenantId?: string
   vaultName?: string
   subscription?: string
@@ -50,6 +52,7 @@ const AzureKeyVaultForm: React.FC<StepProps<StepSecretManagerProps> & CreateAzur
   }
 
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
+  const [loadingFormData, setLoadingFormData] = useState(isEditMode)
 
   const { mutate: CreateAzureKeyVault, loading: createLoading } = useCreateConnector({
     queryParams: { accountIdentifier: accountId }
@@ -58,11 +61,14 @@ const AzureKeyVaultForm: React.FC<StepProps<StepSecretManagerProps> & CreateAzur
     queryParams: { accountIdentifier: accountId }
   })
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isEditMode && connectorInfo) {
-      setInitialValues(setupAzureKeyVaultFormData(connectorInfo))
+      setupAzureKeyVaultFormData(connectorInfo, accountId).then(data => {
+        setInitialValues(data as AzureKeyVaultFormData)
+        setLoadingFormData(false)
+      })
     }
-  }, [isEditMode])
+  }, [isEditMode, connectorInfo])
 
   const handleSubmit = async (formData: AzureKeyVaultFormData): Promise<void> => {
     modalErrorHandler?.hide()
@@ -74,7 +80,8 @@ const AzureKeyVaultForm: React.FC<StepProps<StepSecretManagerProps> & CreateAzur
           ...pick(prevStepData, ['name', 'identifier', 'description', 'tags']),
           type: Connectors.AZURE_KEY_VAULT,
           spec: {
-            ...pick(formData, ['clientId', 'secretKey', 'tenantId', 'default', 'subscription', 'vaultName'])
+            ...pick(formData, ['clientId', 'tenantId', 'default', 'subscription', 'vaultName']),
+            secretKey: formData.secretKey?.referenceString
           } as AzureKeyVaultConnectorDTO
         }
       }
@@ -134,6 +141,7 @@ const AzureKeyVaultForm: React.FC<StepProps<StepSecretManagerProps> & CreateAzur
                   modalErrorHandler={modalErrorHandler}
                   connectorInfo={connectorInfo}
                   mock={props.mock}
+                  loadingFormData={loadingFormData}
                 />
               </Container>
               <Layout.Horizontal spacing="medium">
@@ -143,13 +151,14 @@ const AzureKeyVaultForm: React.FC<StepProps<StepSecretManagerProps> & CreateAzur
                   intent="primary"
                   rightIcon="chevron-right"
                   text={getString('saveAndContinue')}
-                  disabled={createLoading || updateLoading}
+                  disabled={createLoading || updateLoading || loadingFormData}
                 />
               </Layout.Horizontal>
             </FormikForm>
           )
         }}
       </Formik>
+      {loadingFormData ? <PageSpinner /> : null}
     </Container>
   )
 }

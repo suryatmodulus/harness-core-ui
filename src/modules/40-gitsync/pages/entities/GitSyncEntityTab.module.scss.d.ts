@@ -6,7 +6,6 @@ declare const styles: {
   readonly collapseHeader: string
   readonly header: string
   readonly bp3Icon: string
-  readonly entityTypeContainer: string
   readonly table: string
 }
 export default styles

@@ -8,6 +8,6 @@ declare const styles: {
   readonly button: string
   readonly overflow: string
   readonly hasBanner: string
-  readonly noBanner: string
+  readonly userProfilePage: string
 }
 export default styles

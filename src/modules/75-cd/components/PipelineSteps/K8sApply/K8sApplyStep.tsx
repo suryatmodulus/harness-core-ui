@@ -92,6 +92,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
   const { initialValues, onUpdate, isNewStep = true, isDisabled } = props
   const { getString } = useStrings()
   const defaultValueToReset = ['']
+
   const { expressions } = useVariablesExpression()
 
   return (
@@ -99,7 +100,15 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
       <Formik<K8sApplyFormData>
         enableReinitialize={true}
         onSubmit={(values: K8sApplyFormData) => {
-          onUpdate?.(values)
+          const formData = {
+            ...values,
+            spec: {
+              skipDryRun: values?.spec?.skipDryRun || false,
+              skipSteadyStateCheck: values?.spec?.skipSteadyStateCheck || false,
+              filePaths: values?.spec?.filePaths
+            }
+          }
+          onUpdate?.(formData)
         }}
         formName="k8Apply"
         initialValues={initialValues}
@@ -195,7 +204,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                     <ConfigureOptions
                       value={values.timeout as string}
                       type="String"
-                      variableName="step.timeout"
+                      variableName="timeout"
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
@@ -211,14 +220,44 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                     name="spec.skipDryRun"
                     label={getString('pipelineSteps.skipDryRun')}
                     disabled={isDisabled}
+                    multiTypeTextbox={{ expressions }}
                   />
+                  {getMultiTypeFromValue(values.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={(values.spec.skipDryRun || '') as string}
+                      type="String"
+                      variableName="spec.skipDryRun"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        setFieldValue('spec.skipDryRun', value)
+                      }}
+                      isReadonly={isDisabled}
+                    />
+                  )}
                 </div>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeCheckboxField
                     name="spec.skipSteadyStateCheck"
                     disabled={isDisabled}
                     label={getString('pipelineSteps.skipSteadyStateCheck')}
+                    multiTypeTextbox={{ expressions }}
                   />
+                  {getMultiTypeFromValue(values.spec?.skipSteadyStateCheck) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={(values.spec.skipSteadyStateCheck || '') as string}
+                      type="String"
+                      variableName="spec.skipSteadyStateCheck"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        setFieldValue('spec.skipSteadyStateCheck', value)
+                      }}
+                      isReadonly={isDisabled}
+                    />
+                  )}
                 </div>
               </Layout.Vertical>
             </>
@@ -301,16 +340,8 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sApplyData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8sApplyInputStep

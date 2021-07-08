@@ -11,6 +11,8 @@ import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useStrings } from 'framework/strings'
+import { returnLaunchUrl } from '@common/utils/routeUtils'
+import { LaunchButton } from '@common/components/LaunchButton/LaunchButton'
 
 export default function CESideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()
@@ -43,7 +45,7 @@ export default function CESideNav(): React.ReactElement {
             history.push(
               routes.toCECORules({
                 projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier || '',
+                orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
                 accountId
               })
             )
@@ -68,6 +70,10 @@ export default function CESideNav(): React.ReactElement {
           ) : null}
         </React.Fragment>
       ) : null}
+      <LaunchButton
+        launchButtonText={getString('common.ce.visibilityLaunchButton')}
+        redirectUrl={returnLaunchUrl(`#/account/${accountId}/continuous-efficiency/overview`)}
+      />
     </Layout.Vertical>
   )
 }

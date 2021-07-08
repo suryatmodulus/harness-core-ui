@@ -13,8 +13,7 @@ export const GetTriggerScheduleResponse = {
       orgIdentifier: 'default',
       projectIdentifier: 'project1',
       targetIdentifier: 'pipeline1',
-      yaml:
-        'trigger:\n    name: test-cron\n    identifier: testcron\n    enabled: true\n    description: desc\n    tags:\n        tag1: value1\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: pipeline1\n    source:\n        type: Scheduled\n        spec:\n            type: Cron\n            spec:\n                expression: 0/5 * * * *\n    inputYaml: |\n        pipeline:\n            identifier: pipeline1\n            stages:\n                - stage:\n                      identifier: stage1\n                      type: Deployment\n                      spec:\n                          infrastructure:\n                              environmentRef: ""\n                              infrastructureDefinition:\n                                  type: KubernetesDirect\n                                  spec:\n                                      namespace: ""\n',
+      yaml: 'trigger:\n    name: test-cron\n    identifier: testcron\n    enabled: true\n    description: desc\n    tags:\n        tag1: value1\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: pipeline1\n    source:\n        type: Scheduled\n        spec:\n            type: Cron\n            spec:\n                expression: 0/5 * * * *\n    inputYaml: |\n        pipeline:\n            identifier: pipeline1\n            stages:\n                - stage:\n                      identifier: stage1\n                      type: Deployment\n                      spec:\n                          infrastructure:\n                              environmentRef: ""\n                              infrastructureDefinition:\n                                  type: KubernetesDirect\n                                  spec:\n                                      namespace: ""\n',
       version: 2,
       enabled: true
     },
@@ -38,8 +37,7 @@ export const GetTriggerCronResponse = {
       orgIdentifier: 'default',
       projectIdentifier: 'project1',
       targetIdentifier: 'noinputspipeline1',
-      yaml:
-        'trigger:\n    name: All Values Cron\n    identifier: All_Values_Cron\n    enabled: true\n    description: desc\n    tags:\n        tag1: ""\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: noinputspipeline1\n    source:\n        type: Scheduled\n        spec:\n            type: Cron\n            spec:\n                expression: 4 3 * * *\n    inputYaml: ""\n',
+      yaml: 'trigger:\n    name: All Values Cron\n    identifier: All_Values_Cron\n    enabled: true\n    description: desc\n    tags:\n        tag1: ""\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: noinputspipeline1\n    source:\n        type: Scheduled\n        spec:\n            type: Cron\n            spec:\n                expression: 4 3 * * *\n    inputYaml: ""\n',
       version: 0,
       enabled: true
     },
@@ -53,7 +51,7 @@ export const updateCronTrigger =
 
 // also removed orgIdentifier, projectIdentifier, pipelineIdentifier as useParams is empty and cannot be mocked
 export const updateCronTriggerReplaceOnlyTwoSpace =
-  'trigger:\n  name: All Values Cron\n  identifier: All_Values_Cron\n  enabled: true\n  description: desc\n  tags:\n    tag1: ""\n  source:\n    type: Scheduled\n    spec:\n      type: Cron\n      spec:\n        expression: 4 3 * * MON\n  inputYaml: |\n    pipeline:\n      identifier: noinputspipeline1\n      variables:\n        - name: newVar\n          type: String\n          value: ""\n        - name: otherVariable\n          type: String\n          value: ""\n'
+  'trigger:\n  name: All Values Cron\n  identifier: All_Values_Cron\n  enabled: true\n  description: desc\n  tags:\n    tag1: ""\n  source:\n    type: Scheduled\n    spec:\n      type: Cron\n      spec:\n        expression: 4 3 * * MON\n  inputYaml: |\n    pipeline:\n      identifier: noinputspipeline1\n      variables:\n        - name: newVar\n          type: String\n          value: ""\n'
 
 export const updateTriggerScheduleResponseYaml =
   'trigger:\n    name: test-schedule\n    identifier: testschedule\n    enabled: true\n    description: desc\n    tags:\n        tag1: ""\n    target:\n        targetIdentifier: pipeline1\n        type: Pipeline\n        spec:\n            runtimeInputYaml: |\n                pipeline:\n                    identifier: pipeline1\n                    stages:\n                        - stage:\n                              identifier: s1\n                              type: Deployment\n                              spec:\n                                  serviceConfig:\n                                      serviceDefinition:\n                                          type: Kubernetes\n                                          spec:\n                                              artifacts:\n                                                  primary:\n                                                      type: Ecr\n                                                      spec:\n                                                          tag: ""\n                                      serviceRef: ""\n                                  infrastructure:\n                                      environmentRef: ""\n    source:\n        type: Scheduled\n        spec:\n            type: Cron\n            spec:\n                expression: 4 3 * * MON\n'

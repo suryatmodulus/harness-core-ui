@@ -310,17 +310,19 @@ const RulesTab: React.FC<RulesTabProps> = ({
 
   const [includedAvatars, excludedAvatars] = [included, excluded].map(x => x.map(toAvatar))
 
-  const handleClauseChange = (idx: number) => ({ kind, payload }: ClauseMutation) => {
-    if (errors?.[idx]) {
-      errors[idx] = {}
-      setErrors(errors)
+  const handleClauseChange =
+    (idx: number) =>
+    ({ kind, payload }: ClauseMutation) => {
+      if (errors?.[idx]) {
+        errors[idx] = {}
+        setErrors(errors)
+      }
+      rules[idx] = {
+        ...rules[idx],
+        [kind]: payload
+      }
+      onChangeRules([...rules])
     }
-    rules[idx] = {
-      ...rules[idx],
-      [kind]: payload
-    }
-    onChangeRules([...rules])
-  }
 
   const handleNewClause = () => {
     onChangeRules([

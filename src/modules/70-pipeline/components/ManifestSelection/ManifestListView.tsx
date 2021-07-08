@@ -155,6 +155,9 @@ const ManifestListView = ({
 
   const getLastStepInitialData = (): ManifestConfig => {
     const initValues = get(listOfManifests[manifestIndex], 'manifest', null)
+    if (initValues?.type && initValues?.type !== selectedManifest) {
+      return null as unknown as ManifestConfig
+    }
     return initValues
   }
 
@@ -165,13 +168,15 @@ const ManifestListView = ({
       const values = {
         ...initValues,
         store: listOfManifests[manifestIndex]?.manifest.spec?.store?.type,
-        connectorRef: initValues?.connectorRef
+        connectorRef: initValues?.connectorRef,
+        selectedManifest: get(listOfManifests[manifestIndex], 'manifest.type', null)
       }
       return values
     }
     return {
       store: manifestStore,
-      connectorRef: undefined
+      connectorRef: undefined,
+      selectedManifest: selectedManifest
     }
   }
 

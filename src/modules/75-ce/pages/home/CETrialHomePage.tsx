@@ -20,7 +20,11 @@ const CETrialHomePage: React.FC = () => {
   const { source } = useQueryParams<{ source?: string }>()
   const { showError } = useToaster()
 
-  const { error, mutate: startTrial, loading } = useStartTrialLicense({
+  const {
+    error,
+    mutate: startTrial,
+    loading
+  } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }

@@ -8,12 +8,12 @@ import { getMultiTypeFromValue, MultiTypeInputType, FormInput, Text, Container }
 import { useStrings } from 'framework/strings'
 import List from '@common/components/List/List'
 
-import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
-import { Connectors } from '@connectors/constants'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+
 import type { TerraformData, TerraformProps } from '../TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -44,21 +44,23 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
       </Container>
 
       {getMultiTypeFromValue(remoteVar?.varFile?.spec?.store?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <FormConnectorReferenceField
+        <FormMultiTypeConnectorField
           accountIdentifier={accountId}
           selected={get(
             initialValues,
             `${path}.configuration?.spec?.varFiles[${index}].varFile.spec.store.spec.connectorRef`,
             ''
           )}
+          multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={400}
-          type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
+          type={[remoteVar?.varFile?.spec?.store?.type]}
           name={`${path}.spec.configuration.spec.varFiles[${index}].varFile.spec.store.spec.connectorRef`}
           label={getString('connector')}
           placeholder={getString('select')}
           disabled={readonly}
+          setRefValue
           gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
       )}
@@ -93,6 +95,7 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
           name={`${path}.spec.configuration.spec.varFiles[${index}].varFile.spec.store.spec.paths`}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          isNameOfArrayType
         />
       )}
     </>

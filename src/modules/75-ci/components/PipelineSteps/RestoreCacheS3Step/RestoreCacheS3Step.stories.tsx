@@ -1,7 +1,6 @@
 import React from 'react'
 import type { Meta, Story } from '@storybook/react'
 import { Card, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { stringify } from 'yaml'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import {
@@ -9,6 +8,7 @@ import {
   TestStepWidget,
   TestStepWidgetProps
 } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { RestoreCacheS3Step as RestoreCacheS3StepComponent } from './RestoreCacheS3Step'
 
 factory.registerStep(new RestoreCacheS3StepComponent())
@@ -42,7 +42,7 @@ export const RestoreCacheS3Step: Story<Omit<TestStepWidgetProps, 'factory'>> = a
         <TestStepWidget {...args} onUpdate={setValue} />
       </Card>
       <Card>
-        <pre>{stringify(value)}</pre>
+        <pre>{yamlStringify(value)}</pre>
       </Card>
     </div>
   )

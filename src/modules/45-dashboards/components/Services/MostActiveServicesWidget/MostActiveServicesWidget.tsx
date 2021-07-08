@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from 'react'
 import cx from 'classnames'
 import { Card, Color, LabelPosition, Layout, Text, WeightedStack } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { Ticker } from '@common/components/Ticker/Ticker'
+import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import { DeploymentsTimeRangeContext } from '@dashboards/components/Services/common'
 import type { TIME_RANGE_ENUMS } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
 import css from '@dashboards/components/Services/MostActiveServicesWidget/MostActiveServicesWidget.module.scss'
@@ -83,10 +83,20 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidgetProps> =
   const Tickers = useMemo(() => {
     return data.map((service, index) => {
       const { change } = service
-      const color = change > 0 ? Color.RED_500 : Color.GREEN_500
+      const [color, tickerValueStyle] =
+        change > 0 ? [Color.RED_500, css.tickerValueRed] : [Color.GREEN_600, css.tickerValueGreen]
       return (
         <div className={css.tickerContainer} key={index}>
-          {change ? <Ticker value={`${Math.abs(change)}%`} color={color} /> : <></>}
+          {change ? (
+            <Ticker
+              value={`${Math.abs(change)}%`}
+              color={color}
+              tickerValueStyles={cx(css.tickerValueStyles, tickerValueStyle)}
+              verticalAlign={TickerVerticalAlignment.CENTER}
+            />
+          ) : (
+            <></>
+          )}
         </div>
       )
     })
@@ -127,13 +137,17 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidgetProps> =
         <Layout.Vertical margin={{ bottom: 'xxlarge' }}>
           {EnvironmnentTypeComponent}
           {title && (
-            <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+            <Text font={{ weight: 'bold' }} color={Color.GREY_600}>
               {title}
             </Text>
           )}
         </Layout.Vertical>
         <Layout.Horizontal margin={{ bottom: 'large' }}>{TypeComponent}</Layout.Horizontal>
-        <Layout.Horizontal flex={{ distribution: 'space-between' }} height={150} className={css.stackTickerContainer}>
+        <Layout.Horizontal
+          flex={{ distribution: 'space-between', alignItems: 'flex-start' }}
+          height={150}
+          className={css.stackTickerContainer}
+        >
           <div className={css.weightedStackContainer}>
             <WeightedStack
               data={weightedStackData}

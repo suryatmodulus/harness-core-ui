@@ -26,7 +26,7 @@ const provisionerTypes: { name: string; icon: IconName; enabled: boolean }[] = [
   },
   {
     name: ProvisionerTypes.Script,
-    icon: 'command-shell-script',
+    icon: 'script',
     enabled: false
   }
 ]

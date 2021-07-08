@@ -347,8 +347,7 @@ describe('Test TerraformDestroy', () => {
             },
             'step-configBranch': {
               yamlProperties: {
-                fqn:
-                  'pipeline.stages.qaStage.execution.steps.terraformDestroy.configuration.spec.configFiles.store.spec.branch',
+                fqn: 'pipeline.stages.qaStage.execution.steps.terraformDestroy.configuration.spec.configFiles.store.spec.branch',
                 localName: 'step.terraformDestroy.configuration.spec.configFiles.store.spec.branch'
               }
             }

@@ -75,6 +75,7 @@ exports[`Tests for Validate Mapping cell Ensure that when in progress is passed 
         height="16"
         viewBox="0 0 128 128"
         width="16"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <g>
           <path

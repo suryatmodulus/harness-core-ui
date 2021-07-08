@@ -44,7 +44,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -91,6 +91,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="common.namePlaceholder"
                     type="text"
                     value=""
                   />
@@ -213,7 +214,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -260,6 +261,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="common.namePlaceholder"
                     type="text"
                     value="name-123"
                   />
@@ -289,6 +291,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
                   class="bp3-input bp3-fill"
                   maxlength="1024"
                   name="description"
+                  placeholder="common.descriptionPlaceholder"
                 >
                   test description
                 </textarea>

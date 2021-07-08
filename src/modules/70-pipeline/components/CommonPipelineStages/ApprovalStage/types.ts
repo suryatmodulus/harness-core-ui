@@ -1,5 +1,4 @@
 import type React from 'react'
-import type { IconName } from '@wings-software/uicore'
 import type { tagsType } from '@common/utils/types'
 import type { StageElementWrapper } from 'services/cd-ng'
 
@@ -21,13 +20,6 @@ export interface ApprovalStageMinimalValues {
   description?: string
   tags?: tagsType
   approvalType: ApprovalType
-}
-
-export interface ApprovalCardsViewData {
-  text: string
-  value: string
-  icon: IconName
-  disabled?: boolean
 }
 
 export interface ApprovalStageOverviewProps {

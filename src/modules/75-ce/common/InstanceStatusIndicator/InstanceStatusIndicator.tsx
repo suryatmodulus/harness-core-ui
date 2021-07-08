@@ -19,3 +19,12 @@ export const StoppedStatusIndicator = () => {
     </Layout.Horizontal>
   )
 }
+
+export const CreatedStatusIndicator = () => {
+  return (
+    <Layout.Horizontal className={css.instanceStatusIndicator}>
+      <Icon name={'full-circle'} size={10} />
+      <span style={{ color: '#42ab45' }}>Created</span>
+    </Layout.Horizontal>
+  )
+}

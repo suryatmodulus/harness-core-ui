@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { useParams } from 'react-router-dom'
 import { Collapse, Text, Container, Card, Color, Switch } from '@wings-software/uicore'
 import { useToaster } from '@common/components'
@@ -16,12 +16,18 @@ interface Props {
   authSettings: AuthenticationSettingsResponse
   refetchAuthSettings: () => void
   canEdit: boolean
+  setUpdating: Dispatch<SetStateAction<boolean>>
 }
 
-const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettings, canEdit }) => {
+const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettings, canEdit, setUpdating }) => {
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const { showError, showSuccess, showWarning } = useToaster()
+
+  const samlOrLdapSettings = authSettings.ngAuthSettings?.find(
+    settings =>
+      settings.settingsType === AuthenticationMechanisms.SAML || settings.settingsType === AuthenticationMechanisms.LDAP
+  )
 
   const oauthSettings: OAuthSettings | undefined = authSettings.ngAuthSettings?.find(
     settings => settings.settingsType === AuthenticationMechanisms.OAUTH
@@ -30,7 +36,8 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
   const oauthEnabled =
     !!oauthSettings &&
     (authSettings.authenticationMechanism === AuthenticationMechanisms.USER_PASSWORD ||
-      authSettings.authenticationMechanism === AuthenticationMechanisms.OAUTH)
+      authSettings.authenticationMechanism === AuthenticationMechanisms.OAUTH) &&
+    !samlOrLdapSettings
 
   const { mutate: updateOAuthProviders, loading: updatingOauthProviders } = useUpdateOauthProviders({
     queryParams: {
@@ -45,6 +52,10 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
   })
 
   const { mutate: updateAuthMechanism, loading: updatingAuthMechanism } = useUpdateAuthMechanism({})
+
+  React.useEffect(() => {
+    setUpdating(updatingOauthProviders || deletingOauthProviders || updatingAuthMechanism)
+  }, [updatingOauthProviders, deletingOauthProviders, updatingAuthMechanism, setUpdating])
 
   const { openDialog: confirmOAuthDisable } = useConfirmationDialog({
     titleText: getString('authSettings.disableOAuthLogin'),
@@ -82,6 +93,11 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
 
   const toggleOAuthProviders = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
     const enable = e.currentTarget.checked
+
+    if (samlOrLdapSettings) {
+      showWarning(getString('authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth'))
+      return
+    }
 
     if (!oauthEnabled && enable) {
       try {

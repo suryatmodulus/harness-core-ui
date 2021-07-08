@@ -18,6 +18,7 @@ exports[`RightBar renders correctly 1`] = `
           height="28"
           viewBox="0 0 20 20"
           width="28"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M4.167 10.05A5.833 5.833 0 0110 4.219v0-.885.885a5.833 5.833 0 015.833 5.833V15H8.765h2.445v1.666H8.765V15H4.166v-4.95z"
@@ -53,6 +54,8 @@ exports[`RightBar renders correctly 1`] = `
           height="20"
           viewBox="0 0 15.4 12.2"
           width="20"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
         >
           <defs>
             <path

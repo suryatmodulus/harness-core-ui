@@ -29,7 +29,8 @@ import type {
   GitQueryParams,
   ModuleHomeParams,
   InputSetGitQueryParams,
-  ModuleCardPathParams
+  ModuleCardPathParams,
+  ServiceAccountPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -213,6 +214,37 @@ const routes = {
   toAccessControl: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `access-control`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toServiceAccounts: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `access-control/service-accounts`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toServiceAccountDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      serviceAccountIdentifier,
+      module
+    }: Partial<ProjectPathProps & ModulePathParams & ServiceAccountPathProps>) => {
+      const path = `access-control/service-accounts/${serviceAccountIdentifier}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -668,7 +700,8 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/`
   ),
-
+  /********************************************************************************************************************/
+  toTemplatesListing: withAccountId(({ orgIdentifier }: OrgPathProps) => `/orgs/${orgIdentifier}/templates`),
   /********************************************************************************************************************/
   toCI: withAccountId(() => `/ci`),
   toCIHome: withAccountId(() => `/ci/home`),
@@ -1015,6 +1048,13 @@ const routes = {
   toCERecommendationDetails: withAccountId(
     ({ orgIdentifier, projectIdentifier, recommendation }: ProjectPathProps & { recommendation: string }) =>
       `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations/${recommendation}/details`
+  ),
+  toPerspectiveDetails: withAccountId(
+    ({ perspectiveId, perspectiveName }: AccountPathProps & { perspectiveId: string; perspectiveName: string }) =>
+      `/ce/perspective/${perspectiveId}/name/${perspectiveName}`
+  ),
+  toCECreatePerspective: withAccountId(
+    ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) => `/ce/perspective/${perspectiveId}/create`
   ),
   toCEBudgets: withAccountId(() => '/ce/budgets'),
   /********************************************************************************************************************/

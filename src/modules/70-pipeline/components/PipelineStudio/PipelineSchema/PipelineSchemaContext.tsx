@@ -18,9 +18,8 @@ export function usePipelineSchema(): PipelineSchemaData {
 }
 
 export function PipelineSchemaContextProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { showError } = useToaster()
   const { data: pipelineSchema, error } = useGetSchemaYaml({
     queryParams: {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { isEqual, cloneDeep, pick, isNil, isEmpty, omit } from 'lodash-es'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import merge from 'lodash-es/merge'
 import type {
@@ -32,6 +32,7 @@ import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlTogg
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -46,7 +47,7 @@ import {
 } from './PipelineActions'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
-import { usePipelineQuestParamState } from '../PipelineQueryParamState/usePipelineQueryParam'
+import { PipelineSelectionState, usePipelineQuestParamState } from '../PipelineQueryParamState/usePipelineQueryParam'
 import {
   getStagePathFromPipeline as _getStagePathFromPipeline,
   getStageFromPipeline as _getStageFromPipeline
@@ -100,12 +101,13 @@ export const savePipeline = (
 ): Promise<Failure | undefined> => {
   // we need to do this due to https://github.com/eemeli/yaml/issues/239
   // can remove it once fixed
-  const body = stringify(
+  const body = yamlStringify(
     JSON.parse(
       JSON.stringify({
         pipeline: { ...pipeline, ...pick(params, 'projectIdentifier', 'orgIdentifier') }
       })
-    )
+    ),
+    { version: '1.1' }
   )
   return isEdit
     ? putPipelinePromise({
@@ -130,9 +132,9 @@ export const savePipeline = (
         requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
       }).then(async (response: unknown) => {
         if (typeof response === 'string') {
-          return JSON.parse((response as unknown) as string) as Failure
+          return JSON.parse(response as unknown as string) as Failure
         } else {
-          return (response as unknown) as Failure
+          return response as unknown as Failure
         }
       })
 }
@@ -178,9 +180,13 @@ export interface PipelineContextInterface {
   runPipeline: (identifier: string) => void
   pipelineSaved: (pipeline: PipelineInfoConfig) => void
   updateStage: (stage: StageElementConfig) => Promise<void>
+  /** @deprecated use `setSelection` */
   setSelectedStageId: (selectedStageId: string | undefined) => void
+  /** @deprecated use `setSelection` */
   setSelectedStepId: (selectedStepId: string | undefined) => void
+  /** @deprecated use `setSelection` */
   setSelectedSectionId: (selectedSectionId: string | undefined) => void
+  setSelection: (selectionState: PipelineSelectionState) => void
   getStagePathFromPipeline(stageId: string, prefix?: string, pipeline?: PipelineInfoConfig): string
 }
 
@@ -394,7 +400,10 @@ interface UpdatePipelineArgs {
   gitDetails: EntityGitDetails
 }
 
-const _updatePipeline = async (args: UpdatePipelineArgs, pipeline: PipelineInfoConfig): Promise<void> => {
+const _updatePipeline = async (
+  args: UpdatePipelineArgs,
+  pipelineArg: PipelineInfoConfig | ((p: PipelineInfoConfig) => PipelineInfoConfig)
+): Promise<void> => {
   const { dispatch, queryParams, identifier, originalPipeline, gitDetails } = args
   const id = getId(
     queryParams.accountIdentifier,
@@ -405,16 +414,22 @@ const _updatePipeline = async (args: UpdatePipelineArgs, pipeline: PipelineInfoC
     gitDetails.branch || ''
   )
   if (IdbPipeline) {
+    let pipeline = pipelineArg
+
+    if (typeof pipelineArg === 'function') {
+      const dbPipeline = await IdbPipeline.get(IdbPipelineStoreName, id)
+      pipeline = pipelineArg(dbPipeline.pipeline)
+    }
     const isUpdated = !isEqual(omit(originalPipeline, 'repo', 'branch'), pipeline)
     const payload: PipelinePayload = {
       [KeyPath]: id,
-      pipeline,
+      pipeline: pipeline as PipelineInfoConfig,
       originalPipeline,
       isUpdated,
       gitDetails
     }
     await IdbPipeline.put(IdbPipelineStoreName, payload)
-    dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated }))
+    dispatch(PipelineContextActions.success({ error: '', pipeline: pipeline as PipelineInfoConfig, isUpdated }))
   }
 }
 
@@ -518,6 +533,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   setSelectedStageId: (_selectedStageId: string | undefined) => undefined,
   setSelectedStepId: (_selectedStepId: string | undefined) => undefined,
   setSelectedSectionId: (_selectedSectionId: string | undefined) => undefined,
+  setSelection: (_selectedState: PipelineSelectionState | undefined) => undefined,
   getStagePathFromPipeline: () => ''
 })
 
@@ -610,12 +626,18 @@ export const PipelineProvider: React.FC<{
 
   // stage/step selection
   const queryParamStateSelection = usePipelineQuestParamState()
+  const setSelection = (selectedState: PipelineSelectionState) => {
+    queryParamStateSelection.setPipelineQuestParamState(selectedState)
+  }
+  /** @deprecated use `setSelection` */
   const setSelectedStageId = (selectedStageId: string | undefined): void => {
     queryParamStateSelection.setPipelineQuestParamState({ stageId: selectedStageId })
   }
+  /** @deprecated use `setSelection` */
   const setSelectedStepId = (selectedStepId: string | undefined): void => {
     queryParamStateSelection.setPipelineQuestParamState({ stepId: selectedStepId })
   }
+  /** @deprecated use `setSelection` */
   const setSelectedSectionId = (selectedSectionId: string | undefined): void => {
     queryParamStateSelection.setPipelineQuestParamState({ sectionId: selectedSectionId })
   }
@@ -662,7 +684,7 @@ export const PipelineProvider: React.FC<{
             return { stage: newStage }
           } else if (node.parallel) {
             return {
-              parallel: _updateStages((node.parallel as unknown) as StageElementWrapperConfig[])
+              parallel: _updateStages(node.parallel as unknown as StageElementWrapperConfig[])
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any
           }
@@ -671,12 +693,12 @@ export const PipelineProvider: React.FC<{
         })
       }
 
-      return updatePipeline({
-        ...state.pipeline,
-        stages: _updateStages(state.pipeline.stages || [])
-      })
+      return updatePipeline(originalPipeline => ({
+        ...originalPipeline,
+        stages: _updateStages(originalPipeline.stages || [])
+      }))
     },
-    [state.pipeline, updatePipeline]
+    [updatePipeline]
   )
 
   useGlobalEventListener('focus', () => {
@@ -742,6 +764,7 @@ export const PipelineProvider: React.FC<{
         setSelectedStageId,
         setSelectedStepId,
         setSelectedSectionId,
+        setSelection,
         getStagePathFromPipeline
       }}
     >

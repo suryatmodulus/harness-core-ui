@@ -70,7 +70,11 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       accountIdentifier: accountId
     }
   })
-  const { data: vpcs, loading: vpcsLoading, refetch: vpcsReload } = useAllVPCs({
+  const {
+    data: vpcs,
+    loading: vpcsLoading,
+    refetch: vpcsReload
+  } = useAllVPCs({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -92,7 +96,11 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
     },
     lazy: true
   })
-  const { data: certificates, loading: certificatesLoading, refetch: certificatesReload } = useAllCertificates({
+  const {
+    data: certificates,
+    loading: certificatesLoading,
+    refetch: certificatesReload
+  } = useAllCertificates({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -103,7 +111,11 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
     },
     lazy: true
   })
-  const { data: securityGroups, loading: sgsLoading, refetch: sgsReload } = useAllSecurityGroups({
+  const {
+    data: securityGroups,
+    loading: sgsLoading,
+    refetch: sgsReload
+  } = useAllSecurityGroups({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line

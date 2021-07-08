@@ -78,6 +78,7 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
         stepName={labels.firstStepName}
         selectedManifest={selectedManifest}
         changeManifestType={changeManifestType}
+        initialValues={initialValues}
       />
       <ManifestStore
         name={getString('pipeline.manifestType.manifestSource')}

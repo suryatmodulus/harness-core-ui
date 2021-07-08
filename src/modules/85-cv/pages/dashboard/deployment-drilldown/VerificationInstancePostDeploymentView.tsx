@@ -114,7 +114,7 @@ export function VerificationInstancePostDeploymentView({
           </Container>
           <Tabs id="tabs1">
             <Tab
-              title={getString('cv.analysisScreens.analysisTab.metrics')}
+              title={getString('pipeline.verification.analysisTab.metrics')}
               id={TabIdentifier.METRICS_TAB}
               panel={
                 <Container className={styles.panel}>
@@ -131,7 +131,7 @@ export function VerificationInstancePostDeploymentView({
               }
             />
             <Tab
-              title={getString('cv.analysisScreens.analysisTab.logs')}
+              title={getString('pipeline.verification.analysisTab.logs')}
               id={TabIdentifier.LOGS_TAB}
               panel={
                 <Container>

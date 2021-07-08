@@ -453,6 +453,7 @@ exports[`OnboardingDetailPage SelectEnvironmentView should render data correctly
           height="16"
           viewBox="0 0 36 36"
           width="16"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
@@ -486,6 +487,7 @@ exports[`OnboardingDetailPage SelectEnvironmentView should render loading correc
           height="16"
           viewBox="0 0 36 36"
           width="16"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
@@ -701,6 +703,7 @@ exports[`OnboardingDetailPage SetUpYourApplicationView 1`] = `
                     height="16"
                     viewBox="0 0 36 36"
                     width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
@@ -1222,6 +1225,7 @@ exports[`OnboardingDetailPage TestYourFlagViewView 1`] = `
               height="24"
               viewBox="0 0 128 128"
               width="24"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <g>
                 <path

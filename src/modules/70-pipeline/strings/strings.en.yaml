@@ -1,4 +1,3 @@
-enterDescription: Enter Description
 verificationResult: 'Verification result:'
 estimatedTimeRemaining: 'Estimated time remaining:'
 progressPercentage: 'Progress percentage:'
@@ -27,6 +26,8 @@ runAPipeline: Run a Pipeline
 regionPlaceholder: Select Region
 repositoryUrlPlaceholder: Enter Repository URL
 lastSevenDays: In Last 7 days
+startedOn: Started On
+outOf: Out Of
 approvalStage:
   settingUpStage: Getting stage data
 filters:
@@ -415,11 +416,10 @@ triggers:
     event: 'Event'
     actions: Actions
     anyActions: Any Actions
-    recurrenceLabel: Recurrence
-    selectTimezonePlaceholder: Select timezone
     autoAbortPush: 'If a branch is updated, Harness will automatically cancel active builds for the same branch if invoked by the same Trigger.'
     autoAbortPR: 'If a PR is updated, Harness will automatically cancel active builds for the same PR if invoked by the same Trigger.'
     autoAbortIssueComment: 'If a PR is updated with a new comment, Harness will automatically cancel active builds for the same PR.'
+    eventPlaceholder: Select Event
   conditionsPanel:
     subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
     sourceBranch: Source Branch
@@ -436,6 +436,7 @@ triggers:
     matchesValue: 'Matches Value'
     jexlCondition: 'JEXL Condition'
     jexlConditionPlaceholder: Enter JEXL Condition
+    matchesValuePlaceholder: Enter Matches Value
   pipelineInputPanel:
     noRuntimeInputs: 'No Runtime Inputs'
     automaticallyExtractedFromText: Automatically extracted from event payload
@@ -578,6 +579,14 @@ provisionerSteps: Provisioner Steps
 addStage:
   title: Select a Stage
   description: In a pipeline, a stage involves a series of tasks or tests that must be satisfied in order to proceed to the next stage.
+aboutYourStage:
+  stageNamePlaceholder: Enter Stage Name
+infraSpecifications:
+  namespacePlaceholder: Enter Namespace
+  serviceAccountName: Service Account Name
+  serviceAccountNamePlaceholder: Enter Service Account Name
+  initTimeout: Init Timeout
+  initTimeoutPlaceholder: Enter Init Timeout
 imagePathLabel: Image Path
 artifactsSelection:
   artifactDetails: Artifact Details
@@ -607,3 +616,12 @@ variable:
 moveStage:
   title: 'Move Pipeline Stage'
   description: 'Propagation is set up between this stage and another stage. Moving the parent/child stage out of sequence resets any propagated settings to their defaults. Do you want to continue?'
+verification:
+  currentTest: Current test
+  testsRan: Tests ran
+  baselineTest: Baseline test
+  metricsInViolation: Metrics in violation
+  logClustersInViolation: Log Clusters in violation
+  analysisTab:
+    metrics: 'Metrics'
+    logs: 'Logs'

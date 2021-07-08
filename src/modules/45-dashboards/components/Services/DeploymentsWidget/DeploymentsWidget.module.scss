@@ -4,18 +4,22 @@
   padding: 0px;
   border: 0px;
   box-shadow: none;
+  padding: 0px !important;
   .text {
     font-size: 40px !important;
   }
-  .deploymentsTicker {
-    margin-right: 140px !important;
+  .timeRange {
+    align-self: flex-end;
   }
   .tickerCard {
     width: 100px !important;
-    background: var(--grey-100) !important;
+    background: var(--grey-50) !important;
     margin-left: 140px !important;
   }
   .tickerContainerStyles {
     width: fit-content;
+    .tickerValueStyles {
+      font-size: var(--font-size-xsmall);
+    }
   }
 }

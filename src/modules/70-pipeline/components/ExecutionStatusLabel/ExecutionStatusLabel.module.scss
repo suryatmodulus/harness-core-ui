@@ -1,9 +1,10 @@
 .status {
-  --execution-status-color: var(--grey-350);
+  --execution-status-bg-color: var(--grey-350);
   white-space: nowrap !important;
   font-size: var(--font-size-xsmall);
-  color: var(--execution-status-color) !important;
-  border: 1px solid var(--execution-status-color);
+  color: var(--white);
+  border: none;
+  background-color: var(--execution-status-bg-color) !important;
   border-radius: 8px;
   padding: 2px 12px !important;
   height: 20px;
@@ -21,19 +22,19 @@
   &.rejected,
   &.expired,
   &.approvalrejected {
-    --execution-status-color: var(--red-500);
+    --execution-status-bg-color: var(--red-600);
   }
 
   &.success,
   &.ignorefailed {
-    --execution-status-color: var(--green-500);
+    --execution-status-bg-color: var(--green-600);
   }
 
   &.running,
   &.asyncwaiting,
   &.taskwaiting,
   &.timedwaiting {
-    --execution-status-color: var(--primary-7);
+    --execution-status-bg-color: var(--primary-5);
   }
 
   &.resourcewaiting,
@@ -41,13 +42,13 @@
   &.interventionwaiting,
   &.pausing,
   &.paused {
-    --execution-status-color: var(--orange-500);
+    --execution-status-bg-color: var(--orange-500);
   }
 
   &.queued,
   &.skipped,
   &.suspended,
   &.notstarted {
-    --execution-status-color: var(--grey-350);
+    --execution-status-bg-color: var(--grey-350);
   }
 }

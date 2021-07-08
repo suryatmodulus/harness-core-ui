@@ -13,9 +13,9 @@ describe('CFUtils', () => {
     expect(
       CFUtils.featureFlagHasCustomRules({ envProperties: { variationMap: [{ variation: 'true' }] } } as Feature)
     ).toEqual(true)
-    expect(CFUtils.featureFlagHasCustomRules(({ envProperties: { rules: [] } } as unknown) as Feature)).toEqual(false)
+    expect(CFUtils.featureFlagHasCustomRules({ envProperties: { rules: [] } } as unknown as Feature)).toEqual(false)
     expect(CFUtils.featureFlagHasCustomRules({ envProperties: {} } as Feature)).toEqual(false)
-    expect(CFUtils.featureFlagHasCustomRules(({ envProperties: { variationMap: [] } } as unknown) as Feature)).toEqual(
+    expect(CFUtils.featureFlagHasCustomRules({ envProperties: { variationMap: [] } } as unknown as Feature)).toEqual(
       false
     )
   })

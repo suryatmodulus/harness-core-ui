@@ -11,9 +11,8 @@ import styles from './PipelineSummaryCards.module.scss'
 
 export default function PipelineSummaryCards() {
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
-    PipelineType<ExecutionPathProps>
-  >()
+  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } =
+    useParams<PipelineType<ExecutionPathProps>>()
   const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
   const { data, loading } = useGetPipelinedHealth({
     queryParams: {

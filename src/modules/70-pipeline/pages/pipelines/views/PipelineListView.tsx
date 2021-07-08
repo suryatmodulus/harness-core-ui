@@ -8,6 +8,7 @@ import Table from '@common/components/Table/Table'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { useConfirmationDialog, useToaster } from '@common/exports'
+import { GitDetailsColumn } from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
@@ -283,48 +284,6 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
   )
 }
 
-export const RenderGitDetails: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
-  const { gitDetails } = row.original
-
-  return !!gitDetails?.repoIdentifier && !!gitDetails.branch ? (
-    <Layout.Horizontal
-      style={{ alignItems: 'center' }}
-      padding={{ right: 'medium' }}
-      className={css.pipelineGitDetails}
-    >
-      <Text
-        style={{ fontSize: '13px', wordWrap: 'break-word', maxWidth: '100px' }}
-        color={Color.GREY_800}
-        margin={{ right: 'small' }}
-        lineClamp={1}
-        title={gitDetails.repoIdentifier}
-      >
-        {gitDetails.repoIdentifier}
-      </Text>
-      <Layout.Horizontal
-        border={{ color: Color.GREY_200 }}
-        spacing="xsmall"
-        style={{ borderRadius: '5px', alignItems: 'center' }}
-        padding={{ left: 'small', right: 'small', top: 'xsmall', bottom: 'xsmall' }}
-        background={Color.GREY_100}
-      >
-        <Icon name="git-new-branch" size={11} color={Color.GREY_600} />
-        <Text
-          style={{ wordWrap: 'break-word', maxWidth: '100px' }}
-          font={{ size: 'small' }}
-          color={Color.GREY_800}
-          title={gitDetails.branch}
-          lineClamp={1}
-        >
-          {gitDetails.branch}
-        </Text>
-      </Layout.Horizontal>
-    </Layout.Horizontal>
-  ) : (
-    <></>
-  )
-}
-
 const RenderLastRun: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const data = row.original
   const { getString } = useStrings()
@@ -402,7 +361,7 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
         Header: getString('common.gitSync.repoDetails').toUpperCase(),
         accessor: 'gitDetails',
         width: '20%',
-        Cell: RenderGitDetails,
+        Cell: GitDetailsColumn,
         disableSortBy: true
       },
       {

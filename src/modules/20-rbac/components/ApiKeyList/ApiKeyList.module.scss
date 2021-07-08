@@ -1,0 +1,24 @@
+.apiKeyList {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 5fr 2fr 2fr 1fr;
+}
+
+.card {
+  box-shadow: var(--card-shadow);
+  margin-bottom: var(--spacing-small);
+  width: 100%;
+}
+
+.wordBreak {
+  word-break: break-all;
+}
+
+.collapse {
+  border: none !important;
+  padding: 0px !important;
+}
+
+.noPadding {
+  padding: 0px !important;
+}

@@ -1,19 +1,13 @@
 .bodyContainer {
-  background-color: var(--grey-100) !important;
-  min-width: 1080px;
-  height: 100%;
-  padding: var(--spacing-large) !important;
+  padding-left: var(--spacing-xlarge) !important;
+  padding-right: var(--spacing-xlarge) !important;
 
   .collapse-features {
-    padding: var(--spacing-xsmall) var(--spacing-small) !important;
-
     & > div {
-      padding: 0 !important;
+      border: none;
     }
 
     .collapseHeader {
-      padding-top: var(--spacing-xsmall) !important;
-
       [class*='leftSection'] {
         width: inherit;
 
@@ -34,20 +28,13 @@
     }
   }
 
-  .entityTypeContainer {
-    background-color: var(--white) !important;
-    box-shadow: 0px 1px 2px 1px var(--grey-300);
-    border-radius: 8px;
-    margin-bottom: var(--spacing-small) !important;
-  }
-
   .table {
-    padding: 0 var(--spacing-large);
+    padding: 0;
 
     [role='row'] {
       box-shadow: none;
       border-radius: 0;
-      border-bottom: 1px solid var(--grey-250);
+      border-bottom: 1px solid var(--grey-200);
     }
 
     [role='row']:last-child {

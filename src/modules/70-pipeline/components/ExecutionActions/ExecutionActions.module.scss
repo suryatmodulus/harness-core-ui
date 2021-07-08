@@ -1,15 +1,27 @@
 .main {
-  margin-left: var(--spacing-large);
   display: flex;
   align-items: center;
 
+  & > :global(.bp3-popover-wrapper) {
+    display: inline-block;
+
+    & > :global(.bp3-popover-target) {
+      display: inline-block;
+    }
+  }
+
   & :global(.bp3-button) {
     height: 24px !important;
+    width: 24px !important;
+    padding: 0 !important;
     min-width: auto;
     min-height: auto;
+    color: var(--grey-600) !important;
   }
 
   .more {
+    margin-left: var(--spacing-2) !important;
+
     & svg[data-icon='more'] {
       transform: rotate(90deg);
       transform-origin: 50% 50%;

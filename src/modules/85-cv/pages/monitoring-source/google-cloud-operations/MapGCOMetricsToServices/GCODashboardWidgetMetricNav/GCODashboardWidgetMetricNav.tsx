@@ -301,11 +301,11 @@ export function GCODashboardWidgetMetricNav(props: GCODashboardWidgetMetricNavPr
         showError(getErrorMessage(error), 5000)
       }
     } else if (data?.data?.length) {
-      const { treeNodes, selectedMetricPath: metricPath, selectedMetric: metric } = transformWidgetsToTreeNodes(
-        data.data,
-        isFirstLoad,
-        selectedDashIndex
-      )
+      const {
+        treeNodes,
+        selectedMetricPath: metricPath,
+        selectedMetric: metric
+      } = transformWidgetsToTreeNodes(data.data, isFirstLoad, selectedDashIndex)
       navContent[selectedDashIndex].childNodes = treeNodes
       setNavContent([...navContent])
       const { data: datum } = metric?.nodeData || {}

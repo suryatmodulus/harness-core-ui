@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Container, Button } from '@wings-software/uicore'
-import { parse, stringify } from 'yaml'
+import { Container, Button, Layout } from '@wings-software/uicore'
+import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
@@ -14,12 +14,13 @@ import {
   useGetYamlSnippetMetadata,
   useGetYamlSnippet
 } from 'services/cd-ng'
-import { useToaster } from '@common/exports'
+import { useConfirmationDialog, useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 
 const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<ResponseJsonNode> }> = props => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
@@ -33,7 +34,28 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
+  const redirectToSecretsPage = (): void => {
+    history.push(routes.toSecrets({ accountId, projectIdentifier, orgIdentifier, module }))
+  }
+  const { openDialog: openConfirmationDialog } = useConfirmationDialog({
+    cancelButtonText: getString('cancel'),
+    contentText: getString('continueWithoutSavingText'),
+    titleText: getString('continueWithoutSavingTitle'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: isConfirmed => {
+      if (isConfirmed) {
+        redirectToSecretsPage()
+      }
+    }
+  })
 
+  const handleCancel = (): void => {
+    if (yamlHandler?.getLatestYaml()) {
+      openConfirmationDialog()
+    } else {
+      redirectToSecretsPage()
+    }
+  }
   const handleCreate = async (): Promise<void> => {
     const yamlData = yamlHandler?.getLatestYaml()
     let jsonData
@@ -78,17 +100,21 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
       arrayFormat: 'repeat'
     }
   })
-  const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
-    {
-      identifier: '',
-      lazy: true
-    }
-  )
+  const {
+    data: snippet,
+    refetch,
+    cancel,
+    loading: isFetchingSnippet,
+    error: errorFetchingSnippet
+  } = useGetYamlSnippet({
+    identifier: '',
+    lazy: true
+  })
 
   React.useEffect(() => {
     let snippetStr = ''
     try {
-      snippetStr = snippet?.data ? stringify(snippet.data, { indent: 4 }) : ''
+      snippetStr = snippet?.data ? yamlStringify(snippet.data, { indent: 4 }) : ''
     } catch {
       /**/
     }
@@ -122,12 +148,15 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
           snippets={snippetData?.data?.yamlSnippets}
           showSnippetSection={false}
         />
-        <Button
-          text={getString('createSecretYAML.create')}
-          intent="primary"
-          margin={{ top: 'xlarge' }}
-          onClick={handleCreate}
-        />
+        <Layout.Horizontal spacing="large">
+          <Button
+            text={getString('createSecretYAML.create')}
+            intent="primary"
+            margin={{ top: 'xlarge' }}
+            onClick={handleCreate}
+          />
+          <Button text={getString('cancel')} intent="none" margin={{ top: 'xlarge' }} onClick={handleCancel} />
+        </Layout.Horizontal>
       </Container>
     </Container>
   )

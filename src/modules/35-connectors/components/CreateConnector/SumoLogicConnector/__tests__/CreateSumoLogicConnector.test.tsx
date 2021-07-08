@@ -179,7 +179,7 @@ describe('Create Sumo Logic connector Wizard', () => {
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={
-            ({
+            {
               name: 'SumoLogicConnector101',
               identifier: 'SumoLogicConnector101',
               description: '',
@@ -195,7 +195,7 @@ describe('Create Sumo Logic connector Wizard', () => {
                 accessKeyRef: 'sumologic_app_key',
                 delegateSelectors: []
               }
-            } as unknown) as ConnectorInfoDTO
+            } as unknown as ConnectorInfoDTO
           }
         />
       </TestWrapper>
@@ -267,7 +267,7 @@ describe('Create Sumo Logic connector Wizard', () => {
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={
-            ({
+            {
               name: 'SumoLogicConnector101',
               identifier: 'SumoLogicConnector101',
               description: '',
@@ -282,7 +282,7 @@ describe('Create Sumo Logic connector Wizard', () => {
                 accessKeyRef: 'sumologic_app_key',
                 delegateSelectors: []
               }
-            } as unknown) as ConnectorInfoDTO
+            } as unknown as ConnectorInfoDTO
           }
         />
       </TestWrapper>

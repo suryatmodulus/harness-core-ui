@@ -13,6 +13,7 @@ import {
 import { Dialog, Classes, FormGroup, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import cx from 'classnames'
+import isEmpty from 'lodash/isEmpty'
 import { useStrings, String } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import css from './ConfigureOptions.module.scss'
@@ -67,7 +68,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
   const { getString } = useStrings()
   const [showModal, hideModal] = useModalHook(() => {
     if (!RegExInputExpression.test(input)) {
-      showError(getString('configureOptions.notValidExpression'))
+      showError(getString('common.configureOptions.notValidExpression'))
       return null
     }
     const response = input.match(RegExInputExpression)
@@ -101,7 +102,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
     return (
       <Dialog
         isOpen={true}
-        title={getString('configureOptions.configureOptions')}
+        title={getString('common.configureOptions.configureOptions')}
         className={cx(css.dialog, Classes.DIALOG, 'padded-dialog')}
         onClose={() => closeModal()}
       >
@@ -110,35 +111,86 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
           formName="configureOptionsForm"
           validationSchema={Yup.object().shape({
             validation: Yup.string().required(),
-            regExValues: Yup.string()
-              .when('validation', {
-                is: Validation.Regex,
-                then: Yup.string().required(getString('configureOptions.validationErrors.regExIsRequired'))
-              })
-              .when('validation', {
-                is: Validation.Regex,
-                then: Yup.string().test(
-                  'is-valid-regex',
-                  getString('configureOptions.validationErrors.regExNotValid'),
-                  (val: string) => {
+            regExValues: Yup.string().when('validation', {
+              is: Validation.Regex,
+              then: Yup.string()
+                .trim()
+                .test({
+                  test(val: string): boolean | Yup.ValidationError {
+                    if (isEmpty(val)) {
+                      return this.createError({
+                        message: getString('common.configureOptions.validationErrors.regExIsRequired')
+                      })
+                    }
                     let isValid = true
                     try {
                       val?.length > 0 && new RegExp(val)
                     } catch (_e) {
                       isValid = false
                     }
-                    return isValid
+                    if (!isValid) {
+                      return this.createError({
+                        message: getString('common.configureOptions.validationErrors.regExNotValid')
+                      })
+                    }
+                    return true
                   }
-                )
+                })
+            }),
+            defaultValue: Yup.string()
+              .trim()
+              .when('validation', {
+                is: Validation.Regex,
+                then: Yup.string()
+                  .trim()
+                  .test({
+                    test(val: string): boolean | Yup.ValidationError {
+                      if (!isEmpty(this.parent.regExValues) && val?.length > 0 && !this.parent.isAdvanced) {
+                        try {
+                          const reg = new RegExp(this.parent.regExValues)
+                          if (!reg.test(val)) {
+                            return this.createError({
+                              message: getString('common.configureOptions.validationErrors.defaultRegExValid')
+                            })
+                          }
+                        } catch (_e) {
+                          // Do nothing
+                        }
+                      }
+                      return true
+                    }
+                  })
+              })
+              .when('validation', {
+                is: Validation.AllowedValues,
+                then: Yup.string()
+                  .trim()
+                  .test({
+                    test(val: string): boolean | Yup.ValidationError {
+                      if (
+                        this.parent.allowedValues?.length > 0 &&
+                        !isEmpty(val) &&
+                        this.parent.allowedValues.indexOf(val) === -1
+                      ) {
+                        return this.createError({
+                          message: getString('common.configureOptions.validationErrors.defaultAllowedValid')
+                        })
+                      }
+                      return true
+                    }
+                  })
               }),
             isAdvanced: Yup.boolean(),
             advancedValue: Yup.string().when(['validation', 'isAdvanced'], {
               is: (validation: Validation, isAdv: boolean) => validation === Validation.AllowedValues && isAdv,
-              then: Yup.string().required(getString('configureOptions.validationErrors.jexlExpressionRequired'))
+              then: Yup.string().required(getString('common.configureOptions.validationErrors.jexlExpressionRequired'))
             }),
             allowedValues: Yup.array(Yup.string()).when(['validation', 'isAdvanced'], {
               is: (validation: Validation, isAdv: boolean) => validation === Validation.AllowedValues && !isAdv,
-              then: Yup.array(Yup.string()).min(1, getString('configureOptions.validationErrors.minOneAllowedValue'))
+              then: Yup.array(Yup.string()).min(
+                1,
+                getString('common.configureOptions.validationErrors.minOneAllowedValue')
+              )
             })
           })}
           onSubmit={data => {
@@ -175,14 +227,14 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                   (fetchValues ? (
                     <FormInput.Select
                       items={options}
-                      label={getString('configureOptions.defaultValue')}
+                      label={getString('common.configureOptions.defaultValue')}
                       name="defaultValue"
                       disabled={isReadonly}
                     />
                   ) : (
                     <FormInput.Text
                       inputGroup={{ type: type === 'Number' ? 'number' : 'text' }}
-                      label={getString('configureOptions.defaultValue')}
+                      label={getString('common.configureOptions.defaultValue')}
                       name="defaultValue"
                       disabled={isReadonly}
                     />
@@ -190,7 +242,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                 {showRequiredField && (
                   <FormInput.CheckBox
                     className={css.checkbox}
-                    label={getString('configureOptions.requiredDuringExecution')}
+                    label={getString('common.configureOptions.requiredDuringExecution')}
                     name="isRequired"
                     disabled={isReadonly}
                   />
@@ -199,11 +251,11 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                   <FormInput.RadioGroup
                     disabled={isReadonly}
                     name="validation"
-                    label={getString('configureOptions.validation')}
+                    label={getString('common.configureOptions.validation')}
                     items={[
                       { label: getString('none'), value: Validation.None },
                       { label: getString('allowedValues'), value: Validation.AllowedValues },
-                      { label: getString('configureOptions.regex'), value: Validation.Regex }
+                      { label: getString('common.configureOptions.regex'), value: Validation.Regex }
                     ]}
                   />
                   {values.validation !== Validation.None && <div className={css.line} />}
@@ -217,14 +269,14 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                             tooltip={
                               values.isAdvanced ? undefined : (
                                 <Layout.Horizontal padding="medium">
-                                  <String stringID="configureOptions.advancedHelp" useRichText={true} />
+                                  <String stringID="common.configureOptions.advancedHelp" useRichText={true} />
                                 </Layout.Horizontal>
                               )
                             }
                             tooltipProps={{ position: Position.RIGHT }}
                             text={
                               values.isAdvanced
-                                ? getString('configureOptions.returnToBasic')
+                                ? getString('common.configureOptions.returnToBasic')
                                 : getString('advancedTitle')
                             }
                             onClick={() => {
@@ -238,7 +290,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                         <FormInput.TextArea
                           name="advancedValue"
                           className={css.secondColumn}
-                          label={getString('configureOptions.jexlLabel')}
+                          label={getString('common.configureOptions.jexlLabel')}
                           placeholder={getString('inputTypes.EXPRESSION')}
                           disabled={isReadonly}
                         />
@@ -258,7 +310,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                                 showAddTagButton: false,
                                 showClearAllButton: true,
                                 allowNewTag: true,
-                                placeholder: getString('configureOptions.enterTags'),
+                                placeholder: getString('common.configureOptions.enterTags'),
                                 getTagProps: () => ({ intent: 'primary', minimal: true })
                               }}
                               disabled={isReadonly}
@@ -267,7 +319,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                             <FormInput.MultiSelect
                               className={css.secondColumn}
                               items={options}
-                              label={getString('configureOptions.values')}
+                              label={getString('common.configureOptions.values')}
                               name="allowedValues"
                               disabled={isReadonly}
                             />
@@ -279,7 +331,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                   {values.validation === Validation.Regex && (
                     <FormInput.TextArea
                       className={css.secondColumn}
-                      label={getString('configureOptions.regex')}
+                      label={getString('common.configureOptions.regex')}
                       name="regExValues"
                       disabled={isReadonly}
                     />

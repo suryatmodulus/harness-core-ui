@@ -1,7 +1,6 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import type { CellProps, Renderer } from 'react-table'
-import { Classes, Menu, Position } from '@blueprintjs/core'
-import { Button, Color, Layout, Popover, Text } from '@wings-software/uicore'
+import { Color, Layout, Text } from '@wings-software/uicore'
 import { DashboardList } from '@dashboards/components/DashboardList/DashboardList'
 import type { DashboardListProps } from '@dashboards/components/DashboardList/DashboardList'
 import type { ChangeValue } from '@dashboards/components/Services/DeploymentsWidget/DeploymentsWidget'
@@ -73,7 +72,7 @@ const TickerCard: React.FC<{ item: ChangeValue & { name: string } }> = props => 
     }
   })()
   return (
-    <Layout.Vertical padding={'small'} key={item.name} background={Color.GREY_100} width={'fit-content'}>
+    <Layout.Vertical padding={'small'} key={item.name} width={'fit-content'} className={css.tickerContainer}>
       <Ticker
         value={<Text color={color} font={{ size: 'small' }}>{`${Math.abs(item.change)}%`}</Text>}
         decreaseMode={item.change < 0}
@@ -88,12 +87,12 @@ const TickerCard: React.FC<{ item: ChangeValue & { name: string } }> = props => 
   )
 }
 
-const getRenderTickerCard: (
-  tickerCardKey: keyof ServiceListItem
-) => Renderer<CellProps<ServiceListItem>> = tickerCardKey => ({ row }) => {
-  const value = row.original[tickerCardKey] as ChangeValue
-  return <TickerCard item={{ ...value, name: tickerCardKey }} />
-}
+const getRenderTickerCard: (tickerCardKey: keyof ServiceListItem) => Renderer<CellProps<ServiceListItem>> =
+  tickerCardKey =>
+  ({ row }) => {
+    const value = row.original[tickerCardKey] as ChangeValue
+    return <TickerCard item={{ ...value, name: tickerCardKey }} />
+  }
 
 const RenderServiceInstances: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
   const { serviceInstances } = row.original
@@ -104,13 +103,13 @@ const RenderServiceInstances: Renderer<CellProps<ServiceListItem>> = ({ row }) =
         label: getString('dashboards.serviceDashboard.nonProd'),
         value: serviceInstances.nonProdCount,
         formattedValue: numberFormatter(serviceInstances.nonProdCount),
-        color: 'var(--blue-450)'
+        color: 'var(--primary-2)'
       },
       {
         label: getString('dashboards.serviceDashboard.prod'),
         value: serviceInstances.prodCount,
         formattedValue: numberFormatter(serviceInstances.prodCount),
-        color: 'var(--blue-500)'
+        color: 'var(--primary-7)'
       }
     ],
     size: 24,
@@ -129,7 +128,7 @@ const RenderServiceInstances: Renderer<CellProps<ServiceListItem>> = ({ row }) =
         font={{ weight: 'semi-bold', size: 'medium' }}
         margin={{ right: 'xsmall' }}
         padding={{ left: 'medium', top: 'medium', right: 'medium', bottom: 'medium' }}
-        background={Color.GREY_100}
+        className={css.tickerContainer}
       >
         {serviceInstances.count}
       </Text>
@@ -154,10 +153,10 @@ const RenderLastDeployment: Renderer<CellProps<ServiceListItem>> = ({ row }) => 
           <Text font={{ weight: 'semi-bold' }} color={Color.GREY_700} margin={{ right: 'xsmall' }}>
             {name}
           </Text>
-          <Text
-            font={{ size: 'small' }}
-            color={Color.GREY_500}
-          >{`(${getString('dashboards.serviceDashboard.executionId', { id })})`}</Text>
+          <Text font={{ size: 'small' }} color={Color.GREY_500}>{`(${getString(
+            'dashboards.serviceDashboard.executionId',
+            { id }
+          )})`}</Text>
         </Layout.Horizontal>
         <Text font={{ size: 'small' }} color={Color.GREY_500}>
           {timestamp}
@@ -175,41 +174,16 @@ const RenderLastDeployment: Renderer<CellProps<ServiceListItem>> = ({ row }) => 
   )
 }
 
-const RenderColumnMenu: Renderer<CellProps<ServiceListItem>> = () => {
-  const [menuOpen, setMenuOpen] = useState(false)
-  return (
-    <Layout.Horizontal>
-      <Popover
-        isOpen={menuOpen}
-        onInteraction={nextOpenState => {
-          setMenuOpen(nextOpenState)
-        }}
-        className={Classes.DARK}
-        position={Position.RIGHT_TOP}
-      >
-        <Button
-          minimal
-          icon="Options"
-          onClick={e => {
-            e.stopPropagation()
-            setMenuOpen(true)
-          }}
-        />
-        <Menu style={{ minWidth: 'unset' }}>{/* Add menu items */}</Menu>
-      </Popover>
-    </Layout.Horizontal>
-  )
-}
-
 export const ServicesList: React.FC<ServicesListProps> = props => {
   const { total, data, totalItems, totalPages } = props
   const { getString } = useStrings()
   const ServiceListHeaderCustomPrimary = useMemo(
-    () => () => (
-      <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_700}>
-        {getString('dashboards.serviceDashboard.totalServices', { total })}
-      </Text>
-    ),
+    () => () =>
+      (
+        <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_700}>
+          {getString('dashboards.serviceDashboard.totalServices', { total })}
+        </Text>
+      ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [total]
   )
@@ -225,7 +199,7 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
         {
           Header: getString('typeLabel').toLocaleUpperCase(),
           id: 'type',
-          width: '7%',
+          width: '10%',
           Cell: RenderType
         },
         {
@@ -257,12 +231,6 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
           id: 'lastDeployment',
           width: '30%',
           Cell: RenderLastDeployment
-        },
-        {
-          //Header: getString('dashboards.serviceDashboard.lastDeployment').toLocaleUpperCase(),
-          id: 'actions',
-          width: '3%',
-          Cell: RenderColumnMenu
         }
       ]
     },

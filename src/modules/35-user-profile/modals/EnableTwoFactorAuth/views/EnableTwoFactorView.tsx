@@ -20,7 +20,11 @@ const EnableTwoFactorAuthView: React.FC<EnableTwoFactorAuthViewProps> = ({ isRes
   const { mutate: enableTwoFactorAuth } = useEnableTwoFactorAuth({})
   const { updateAppStore } = useAppStore()
 
-  const { data, refetch: refetchTwoFactorAuthSettings, loading } = useGetTwoFactorAuthSettings({
+  const {
+    data,
+    refetch: refetchTwoFactorAuthSettings,
+    loading
+  } = useGetTwoFactorAuthSettings({
     authMechanism: 'TOTP'
   })
 

@@ -7,6 +7,7 @@ import cx from 'classnames'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
 import { String, useStrings } from 'framework/strings'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 
 import { PageError } from '@common/components/Page/PageError'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
@@ -107,14 +108,16 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
               <String stringID="variableLabel" />
               <String stringID="valueLabel" />
             </div>
-            <PipelineCard
-              variablePipeline={variablesPipeline}
-              pipeline={originalPipeline}
-              stepsFactory={stepsFactory}
-              updatePipeline={updatePipeline}
-              metadataMap={metadataMap}
-              readonly={isReadonly}
-            />
+            <GitSyncStoreProvider>
+              <PipelineCard
+                variablePipeline={variablesPipeline}
+                pipeline={originalPipeline}
+                stepsFactory={stepsFactory}
+                updatePipeline={updatePipeline}
+                metadataMap={metadataMap}
+                readonly={isReadonly}
+              />
+            </GitSyncStoreProvider>
             {stagesCards.length > 0 ? (
               <React.Fragment key="stages">
                 <String stringID="stages" className={css.title} />

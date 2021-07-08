@@ -2,14 +2,20 @@ import type * as React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { has, isEmpty } from 'lodash-es'
 
-import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import { ExecutionStatus, ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
 import {
   isExecutionSuccess,
   isExecutionCompletedWithBadState,
   isExecutionRunning,
   isExecutionWaiting
 } from '@pipeline/utils/statusHelpers'
-import type { GraphLayoutNode, PipelineExecutionSummary, ExecutionGraph, ExecutionNode } from 'services/pipeline-ng'
+import type {
+  GraphLayoutNode,
+  PipelineExecutionSummary,
+  ExecutionGraph,
+  ExecutionNode,
+  ExecutionNodeAdjacencyList
+} from 'services/pipeline-ng'
 import {
   ExecutionPipelineNode,
   ExecutionPipelineNodeType,
@@ -652,9 +658,11 @@ export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipeli
   return ExecutionPipelineNodeType.NORMAL
 }
 
-export function getIconDataBasedOnType(
-  nodeData?: ExecutionNode
-): { icon: IconName; iconSize: number; iconStyle?: { marginBottom: string } } {
+export function getIconDataBasedOnType(nodeData?: ExecutionNode): {
+  icon: IconName
+  iconSize: number
+  iconStyle?: { marginBottom: string }
+} {
   if (nodeData) {
     if (nodeData.stepType === StepType.Barrier) {
       return nodeData.status === 'Success'
@@ -673,5 +681,53 @@ export function getIconDataBasedOnType(
   return {
     icon: 'cross',
     iconSize: 20
+  }
+}
+
+/** Add dependency services to nodeMap */
+export const addServiceDependenciesFromLiteTaskEngine = (
+  nodeMap: { [key: string]: ExecutionNode },
+  adjacencyMap?: { [key: string]: ExecutionNodeAdjacencyList }
+): void => {
+  const liteEngineTask = Object.values(nodeMap).find(item => item.stepType === LITE_ENGINE_TASK)
+  if (liteEngineTask) {
+    const parentNodeId =
+      Object.entries(adjacencyMap || {}).find(([_, val]) => {
+        return (val?.children?.indexOf(liteEngineTask.uuid!) ?? -1) >= 0
+      })?.[0] || ''
+    const parentNode: ExecutionNode | undefined = nodeMap[parentNodeId]
+
+    // NOTE: liteEngineTask contains information about dependency services
+    const serviceDependencyList: ExecutionNode[] =
+      // Array check is required for legacy support
+      (Array.isArray(liteEngineTask.outcomes)
+        ? liteEngineTask.outcomes.find((_item: any) => !!_item.serviceDependencyList)?.serviceDependencyList
+        : liteEngineTask.outcomes?.dependencies?.serviceDependencyList) || []
+
+    // 1. add service dependencies to nodeMap
+    serviceDependencyList.forEach(service => {
+      if (service?.identifier) {
+        service.stepType = 'dependency-service'
+        service.executableResponses = [
+          {
+            task: {
+              logKeys: (service as any).logKeys
+            } as any
+          }
+        ]
+        if (parentNode && isExecutionRunning(parentNode.status)) {
+          // If execution is still running, we should be getting logs as stream, not blob
+          service.status = ExecutionStatusEnum.Running
+        }
+        nodeMap[service.identifier] = service
+      }
+    })
+
+    // 2. add Initialize (Initialize step is liteEngineTask step)
+    // override step name
+    if (liteEngineTask.uuid) {
+      liteEngineTask.name = 'Initialize'
+      nodeMap[liteEngineTask.uuid] = liteEngineTask
+    }
   }
 }

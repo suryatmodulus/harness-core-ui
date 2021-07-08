@@ -8,7 +8,7 @@ export const PipelineTemplates: React.FC = (): JSX.Element => {
   return (
     <div className={css.pipelineTemplates}>
       <div className={css.templatesContainer}>
-        <Text font={{ size: 'large' }}>{getString('templates')}</Text>
+        <Text font={{ size: 'large' }}>{getString('common.templates')}</Text>
       </div>
     </div>
   )

@@ -34,9 +34,8 @@ const runModalProps: IDialogProps = {
 }
 
 export function RunPipelineModal(): React.ReactElement {
-  const { projectIdentifier, orgIdentifier, pipelineIdentifier, accountId, module } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
-  >()
+  const { projectIdentifier, orgIdentifier, pipelineIdentifier, accountId, module } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
   const query = useQueryParams<Record<string, string>>()
   const history = useHistory()
 
@@ -64,7 +63,7 @@ export function RunPipelineModal(): React.ReactElement {
   const [inputSetYaml, setInputSetYaml] = React.useState('')
   React.useEffect(() => {
     if (data) {
-      ;((data as unknown) as Response).text().then(str => {
+      ;(data as unknown as Response).text().then(str => {
         setInputSetYaml(str)
       })
     }

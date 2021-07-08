@@ -14,7 +14,7 @@ import {
 } from 'services/lw'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { allProviders, PROVIDER_TYPES } from '@ce/constants'
+import { allProviders, GatewayKindType, PROVIDER_TYPES } from '@ce/constants'
 
 export const CECOEditGatewayPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier, gatewayIdentifier } = useParams<
@@ -24,24 +24,38 @@ export const CECOEditGatewayPage: React.FC = () => {
   const { data, loading } = useRouteDetails({
     org_id: orgIdentifier,
     project_id: projectIdentifier,
-    service_id: (gatewayIdentifier as unknown) as number,
+    service_id: gatewayIdentifier as unknown as number,
     queryParams: {
       accountIdentifier: accountId
     }
   })
-  const { data: resources, loading: resourcesLoading } = useAllServiceResources({
+  const {
+    data: resources,
+    loading: resourcesLoading,
+    refetch: fetchResources
+  } = useAllServiceResources({
     org_id: orgIdentifier,
     project_id: projectIdentifier,
-    service_id: (gatewayIdentifier as unknown) as number,
-    debounce: 300
+    service_id: gatewayIdentifier as unknown as number,
+    debounce: 300,
+    lazy: true
   })
 
   const [gatewayDetails, setGatewayDetails] = useState<GatewayDetails>()
+
   useEffect(() => {
-    if (loading || resourcesLoading) return
+    if (loading) return
     const service = data?.response?.service as Service
     const deps = data?.response?.deps as ServiceDep[]
     const hasAsg = !_isEmpty(service.routing?.instance?.scale_group)
+    const isK8sRule = service.kind === GatewayKindType.KUBERNETES
+
+    // If there is an instance kind rule, then only fetch resources
+    // don't fetch resources for ASG or K8s kind rule
+    if (!isK8sRule && !hasAsg && !resources) {
+      fetchResources()
+      return
+    }
     const routing: Routing = {
       instance: { filterText: service.routing?.instance?.filter_text as string },
       ports: service.routing?.ports as PortConfig[],
@@ -51,6 +65,8 @@ export const CECOEditGatewayPage: React.FC = () => {
     let providerType = PROVIDER_TYPES.AWS.valueOf()
     if (hasAsg) {
       routing.instance.scale_group = service.routing?.instance?.scale_group // eslint-disable-line
+    } else if (isK8sRule) {
+      routing.k8s = { RuleJson: service.routing?.k8s?.RuleJson as string }
     } else {
       providerType = resources?.response?.[0]?.provider_type || providerType
       const selectedResources = resources?.response ? resources?.response : []

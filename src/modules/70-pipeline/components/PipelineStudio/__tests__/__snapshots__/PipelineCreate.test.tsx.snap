@@ -72,6 +72,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="common.namePlaceholder"
                     type="text"
                     value="pipeline"
                   />
@@ -101,6 +102,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                   class="bp3-input bp3-fill"
                   maxlength="1024"
                   name="description"
+                  placeholder="common.descriptionPlaceholder"
                 >
                   desc
                 </textarea>
@@ -214,7 +216,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -261,6 +263,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="common.namePlaceholder"
                     type="text"
                     value=""
                   />
@@ -406,7 +409,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -453,6 +456,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="common.namePlaceholder"
                     type="text"
                     value=""
                   />
@@ -624,6 +628,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="common.namePlaceholder"
                     type="text"
                     value="pipeline"
                   />
@@ -653,6 +658,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                   class="bp3-input bp3-fill"
                   maxlength="1024"
                   name="description"
+                  placeholder="common.descriptionPlaceholder"
                 >
                   desc
                 </textarea>

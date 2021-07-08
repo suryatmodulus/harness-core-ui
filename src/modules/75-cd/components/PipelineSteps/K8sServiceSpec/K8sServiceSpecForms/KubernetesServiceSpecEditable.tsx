@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Card, HarnessDocTooltip } from '@wings-software/uicore'
+import { Card, HarnessDocTooltip } from '@wings-software/uicore'
 import cx from 'classnames'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
 import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
@@ -27,9 +27,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
           {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
           <HarnessDocTooltip tooltipId="deploymentTypeManifests" useStandAlone={true} />
         </div>
-        <Layout.Horizontal>
-          <ManifestSelection isPropagating={isPropagating} />
-        </Layout.Horizontal>
+        <ManifestSelection isPropagating={isPropagating} />
       </Card>
       <Card
         className={cx(css.sectionCard, css.shadow)}
@@ -39,9 +37,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
           {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
           <HarnessDocTooltip tooltipId="deploymentTypeArtifacts" useStandAlone={true} />
         </div>
-        <Layout.Horizontal>
-          <ArtifactsSelection isPropagating={isPropagating} />
-        </Layout.Horizontal>
+        <ArtifactsSelection isPropagating={isPropagating} />
       </Card>
 
       <div className={css.accordionTitle}>

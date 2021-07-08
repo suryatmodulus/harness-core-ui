@@ -12,21 +12,15 @@ import { useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetExecutionNode } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
-import factory from '@pipeline/factories/ExecutionStepDetailsFactory'
+import factory from '@pipeline/factories/ExecutionFactory'
 import { isCDStage, isCIStage, StageType } from '@pipeline/utils/stageHelpers'
 
 import type { StepType } from '../PipelineSteps/PipelineStepInterface'
 import css from './ExecutionStepDetails.module.scss'
 
 export default function ExecutionStepDetails(): React.ReactElement {
-  const {
-    allNodeMap,
-    addNewNodeToMap,
-    queryParams,
-    selectedStepId,
-    selectedStageId,
-    pipelineStagesMap
-  } = useExecutionContext()
+  const { allNodeMap, addNewNodeToMap, queryParams, selectedStepId, selectedStageId, pipelineStagesMap } =
+    useExecutionContext()
   const { retryStep } = queryParams
   const { getString } = useStrings()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
@@ -62,7 +56,7 @@ export default function ExecutionStepDetails(): React.ReactElement {
   }
 
   function goToCurrentExecution(): void {
-    updateQueryParams({ retryStep: ([] as unknown) as string /* this removes the param fro query */ })
+    updateQueryParams({ retryStep: [] as unknown as string /* this removes the param fro query */ })
   }
 
   React.useEffect(() => {

@@ -192,7 +192,7 @@ export default function PipelineFilterForm<
             <FormInput.Text
               name={'description'}
               label={getString('description')}
-              placeholder={getString('pipeline.enterDescription')}
+              placeholder={getString('common.descriptionPlaceholder')}
               key={'description'}
             />
             <FormInput.KVTagInput name="pipelineTags" label={getString('tagsLabel')} key="pipelineTags" />

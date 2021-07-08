@@ -8,6 +8,7 @@ import { authSettings, mockResponse } from '@auth-settings/pages/Configuration/_
 import AccountAndOAuth from '../AccountAndOAuth'
 
 const refetchAuthSettings = jest.fn()
+const setUpdating = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
   useUpdateAuthMechanism: jest.fn().mockImplementation(() => {
@@ -35,7 +36,12 @@ describe('AccountAndOAuth', () => {
         path={routes.toAuthenticationSettings({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
       >
-        <AccountAndOAuth authSettings={disabledAccountAndOauth} refetchAuthSettings={refetchAuthSettings} canEdit />
+        <AccountAndOAuth
+          authSettings={disabledAccountAndOauth}
+          refetchAuthSettings={refetchAuthSettings}
+          canEdit
+          setUpdating={setUpdating}
+        />
       </TestWrapper>
     )
     container = renderObj.container

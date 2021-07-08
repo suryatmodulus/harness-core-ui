@@ -19,6 +19,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
             height="37"
             viewBox="0 0 14 10"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
@@ -167,7 +168,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -214,6 +215,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value="dummy name"
                             />
@@ -349,6 +351,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
             height="37"
             viewBox="0 0 14 10"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
@@ -776,6 +779,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                             <svg
                               height="24"
                               width="24"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <g
                                 fill="none"
@@ -900,6 +904,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
             height="37"
             viewBox="0 0 14 10"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
@@ -1074,6 +1079,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value="dummy name"
                             />
@@ -1103,6 +1109,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                             class="bp3-input bp3-fill"
                             maxlength="1024"
                             name="description"
+                            placeholder="common.descriptionPlaceholder"
                           >
                             devConnector description
                           </textarea>
@@ -1206,6 +1213,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
             height="37"
             viewBox="0 0 14 10"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
@@ -1623,6 +1631,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                             <svg
                               height="24"
                               width="24"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <g
                                 fill="none"

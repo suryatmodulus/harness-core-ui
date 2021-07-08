@@ -19,8 +19,10 @@ import { EntityGitDetails, InputSetSummaryResponse, useGetInputSetsListForPipeli
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
-import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { useQueryParams } from '@common/hooks'
+import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { useStrings } from 'framework/strings'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import css from './InputSetSelector.module.scss'
 
 interface InputSetValue extends SelectOption {
@@ -33,7 +35,6 @@ export interface InputSetSelectorProps {
   pipelineIdentifier: string
   onChange?: (value?: InputSetValue[]) => void
   width?: number
-  gitFilter?: GitFilterScope
   selectedValueClass?: string
 }
 
@@ -174,17 +175,23 @@ const RenderValue = React.memo(function RenderValue({
 })
 
 const InputSetGitDetails = ({ gitDetails }: { gitDetails: GitQueryParams }) => {
+  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   return (
-    <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
+    <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small" className={css.inputSetGitDetails}>
       <Layout.Horizontal spacing="xsmall">
         <Icon name="repository" size={12}></Icon>
-        <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-          {gitDetails?.repoIdentifier || ''}
+        <Text
+          font={{ size: 'small', weight: 'light' }}
+          color={Color.GREY_450}
+          title={gitDetails?.repoIdentifier}
+          lineClamp={1}
+        >
+          {(!loadingRepos && getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name) || ''}
         </Text>
       </Layout.Horizontal>
       <Layout.Horizontal spacing="xsmall">
         <Icon size={12} name="git-new-branch"></Icon>
-        <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+        <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450} title={gitDetails?.branch} lineClamp={1}>
           {gitDetails?.branch || ''}
         </Text>
       </Layout.Horizontal>
@@ -196,7 +203,6 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   value,
   onChange,
   pipelineIdentifier,
-  gitFilter = {},
   selectedValueClass
 }): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
@@ -208,17 +214,21 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
     orgIdentifier: string
     accountId: string
   }>()
-
-  const { data: inputSetResponse, refetch, error } = useGetInputSetsListForPipeline({
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+  const {
+    data: inputSetResponse,
+    refetch,
+    error
+  } = useGetInputSetsListForPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,
-      ...(!isEmpty(gitFilter.repo)
+      ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
         ? {
-            repoIdentifier: gitFilter.repo,
-            branch: gitFilter.branch,
+            repoIdentifier,
+            branch,
             getDefaultFromOtherRepo: true
           }
         : {})

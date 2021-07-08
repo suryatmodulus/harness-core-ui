@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   Button,
   Color,
@@ -90,15 +90,49 @@ export interface CDPipelinesPageProps {
 }
 
 const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
-  const [initLoading, setInitLoading] = React.useState(true)
+  const { getString } = useStrings()
+  const sortOptions: SelectOption[] = [
+    {
+      label: getString('recentActivity'),
+      value: SortFields.RecentActivity
+    },
+    {
+      label: getString('lastUpdatedSort'),
+      value: SortFields.LastUpdatedAt
+    },
+    {
+      label: getString('AZ09'),
+      value: SortFields.AZ09
+    },
+    {
+      label: getString('ZA90'),
+      value: SortFields.ZA90
+    }
+  ]
+
+  const filterRef = useRef<FilterRef<FilterDTO> | null>(null)
+
+  const [initLoading, setInitLoading] = useState(true)
   const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
   const [filters, setFilters] = useState<FilterDTO[]>()
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
-  const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
   const [gitFilter, setGitFilter] = useState<GitFilterScope | null>(null)
   const [error, setError] = useState<Error | null>(null)
+
+  const [page, setPage] = useState(0)
+  const [view, setView] = useState<Views>(Views.GRID)
+  const [sort, setStort] = useState<string[]>([SortFields.LastUpdatedAt, Sort.DESC])
+
+  // Set Default to LastUpdated
+  const [selectedSort, setSelectedSort] = useState<SelectOption>(sortOptions[1])
+  const [searchParam, setSearchParam] = useState('')
+  const [pipelineList, setPipelineList] = useState<PagePMSPipelineSummaryResponse | undefined>()
+  const [isFetchingMetaData, setIsFetchingMetaData] = useState<boolean>(false)
+
   const history = useHistory()
   const { showError } = useToaster()
+  const { selectedProject, isGitSyncEnabled } = useAppStore()
+
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<
     PipelineType<{
       projectIdentifier: string
@@ -106,9 +140,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       accountId: string
     }>
   >()
-  const [isFetchingMetaData, setIsFetchingMetaData] = useState<boolean>(false)
 
-  const { selectedProject, isGitSyncEnabled } = useAppStore()
   const project = selectedProject
   const isCDEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CD') > -1) || false
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
@@ -147,34 +179,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     },
     [projectIdentifier, orgIdentifier, history, accountId]
   )
-  const [page, setPage] = React.useState(0)
-  const [view, setView] = React.useState<Views>(Views.GRID)
-  const { getString } = useStrings()
-  const [sort, setStort] = React.useState<string[]>([SortFields.LastUpdatedAt, Sort.DESC])
 
-  const sortOptions: SelectOption[] = [
-    {
-      label: getString('recentActivity'),
-      value: SortFields.RecentActivity
-    },
-    {
-      label: getString('lastUpdatedSort'),
-      value: SortFields.LastUpdatedAt
-    },
-    {
-      label: getString('AZ09'),
-      value: SortFields.AZ09
-    },
-    {
-      label: getString('ZA90'),
-      value: SortFields.ZA90
-    }
-  ]
-  // Set Default to LastUpdated
-  const [selectedSort, setSelectedSort] = React.useState<SelectOption>(sortOptions[1])
-
-  const [searchParam, setSearchParam] = React.useState('')
-  const [pipelineList, setPipelineList] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
   const defaultQueryParamsForPiplines = {
     accountIdentifier: accountId,
     projectIdentifier,
@@ -227,6 +232,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     setAppliedFilter(null)
     setGitFilter(null)
     setError(null)
+    setSearchParam('')
   }
 
   /* #region FIlter CRUD operations */
@@ -309,7 +315,11 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     identifier: StringUtils.getIdentifierFromName(UNSAVED_FILTER)
   }
 
-  const { data: servicesResponse, loading: isFetchingServices, refetch: fetchServices } = useGetServiceListForProject({
+  const {
+    data: servicesResponse,
+    loading: isFetchingServices,
+    refetch: fetchServices
+  } = useGetServiceListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
@@ -350,8 +360,12 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       }
     }
 
-    const { name: pipelineName, pipelineTags: _pipelineTags, moduleProperties, description } =
-      (appliedFilter?.filterProperties as PipelineFilterProperties) || {}
+    const {
+      name: pipelineName,
+      pipelineTags: _pipelineTags,
+      moduleProperties,
+      description
+    } = (appliedFilter?.filterProperties as PipelineFilterProperties) || {}
     const { name = '', filterVisibility, identifier = '' } = appliedFilter || {}
     const { ci, cd } = moduleProperties || {}
     const { branch, tag, ciExecutionInfoDTO, repoName } = ci || {}
@@ -513,7 +527,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           <HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} />
         </div>
       </div>
-      {(!!pipelineList?.content?.length || appliedFilter || isGitSyncEnabled) && (
+      {(!!pipelineList?.content?.length || appliedFilter || isGitSyncEnabled || searchParam) && (
         <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
           <Layout.Horizontal>
             <RbacButton
@@ -627,7 +641,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           </OverlaySpinner>
         ) : !pipelineList?.content?.length ? (
           <div className={css.noPipelineSection}>
-            {appliedFilter ? (
+            {appliedFilter || searchParam ? (
               <Layout.Vertical spacing="small" flex>
                 <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} margin={{ bottom: 'large' }} />
                 <Text
@@ -669,22 +683,26 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
               </Layout.Vertical>
             )}
           </div>
-        ) : view === Views.GRID ? (
-          <PipelineGridView
-            gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
-            data={pipelineList}
-            goToPipelineDetail={goToPipelineDetail}
-            goToPipelineStudio={goToPipeline}
-            refetchPipeline={fetchPipelines}
-          />
         ) : (
-          <PipelineListView
-            gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
-            data={pipelineList}
-            goToPipelineDetail={goToPipelineDetail}
-            goToPipelineStudio={goToPipeline}
-            refetchPipeline={fetchPipelines}
-          />
+          <GitSyncStoreProvider>
+            {view === Views.GRID ? (
+              <PipelineGridView
+                gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
+                data={pipelineList}
+                goToPipelineDetail={goToPipelineDetail}
+                goToPipelineStudio={goToPipeline}
+                refetchPipeline={fetchPipelines}
+              />
+            ) : (
+              <PipelineListView
+                gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
+                data={pipelineList}
+                goToPipelineDetail={goToPipelineDetail}
+                goToPipelineStudio={goToPipeline}
+                refetchPipeline={fetchPipelines}
+              />
+            )}
+          </GitSyncStoreProvider>
         )}
       </Page.Body>
     </>

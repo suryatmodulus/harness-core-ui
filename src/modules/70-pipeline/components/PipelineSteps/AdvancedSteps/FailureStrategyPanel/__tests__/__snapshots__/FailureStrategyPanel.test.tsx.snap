@@ -788,6 +788,7 @@ exports[`<FailureStrategyPanel /> tests removing a strategy works 1`] = `
                   height="10"
                   viewBox="0 0 12 12"
                   width="10"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <g
                     fill="none"

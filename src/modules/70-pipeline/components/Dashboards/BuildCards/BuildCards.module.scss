@@ -7,8 +7,18 @@
   .titleAndMessage {
     flex: 1;
     margin: 0 var(--spacing-small) !important;
+    min-width: 0;
+    > * {
+      display: block;
+      max-width: 100%;
+      :global(.bp3-popover-target) {
+        max-width: 100%;
+      }
+    }
     .title {
       font-size: var(--font-size-normal) !important;
+      display: block !important;
+      text-overflow: ellipsis;
     }
   }
   .title {

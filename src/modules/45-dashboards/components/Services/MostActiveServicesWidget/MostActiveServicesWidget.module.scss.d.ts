@@ -8,6 +8,9 @@ declare const styles: {
   readonly typeSelected: string
   readonly stackTickerContainer: string
   readonly tickerContainer: string
+  readonly tickerValueStyles: string
+  readonly tickerValueRed: string
+  readonly tickerValueGreen: string
   readonly weightedStackContainer: string
   readonly progressBar: string
   readonly label: string

@@ -5,6 +5,7 @@ import set from 'lodash-es/set'
 import reduce from 'lodash-es/reduce'
 import isObject from 'lodash-es/isObject'
 import memoize from 'lodash-es/memoize'
+import get from 'lodash-es/get'
 import type {
   NgPipeline,
   StageElementConfig,
@@ -41,7 +42,7 @@ export function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[
     } else if (item.stepGroup?.identifier === stepId) {
       responseStep = item
     } else if (item.parallel) {
-      return ((item.parallel as unknown) as StepElement[]).forEach((node: ExecutionWrapper) => {
+      return (item.parallel as unknown as StepElement[]).forEach((node: ExecutionWrapper) => {
         if (node.step?.identifier === stepId || node.stepGroup?.identifier === stepId) {
           responseStep = node
         }
@@ -61,7 +62,7 @@ export function getStageFromPipeline(
       if (item.stage && item.stage.identifier === stageId) {
         responseStage = item
       } else if (item.parallel) {
-        return ((item.parallel as unknown) as StageElementWrapperConfig[]).forEach(node => {
+        return (item.parallel as unknown as StageElementWrapperConfig[]).forEach(node => {
           if (node.stage?.identifier === stageId) {
             responseStage = node
           }
@@ -103,13 +104,13 @@ const validateStep = ({
         set(errors, `steps[${index}].step`, errorResponse)
       }
     } else if (stepObj.parallel) {
-      ;((stepObj.parallel as unknown) as StepElement[]).forEach((stepParallel, indexP) => {
+      ;(stepObj.parallel as unknown as StepElement[]).forEach((stepParallel, indexP) => {
         if (stepParallel.step) {
           const originalStep = getStepFromStage(stepParallel.step.identifier || '', originalSteps)
           const pipelineStep = factory.getStep(originalStep?.step?.type)
           const errorResponse = pipelineStep?.validateInputSet({
             data: stepParallel.step,
-            template: ((template?.[index]?.parallel as unknown) as StepElement[])?.[indexP]?.step,
+            template: (template?.[index]?.parallel as unknown as StepElement[])?.[indexP]?.step,
             getString,
             viewType
           })
@@ -306,10 +307,15 @@ export const validatePipeline = ({
 }: ValidatePipelineProps): FormikErrors<NgPipeline> => {
   const errors = {}
 
+  const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(stage =>
+    get(stage, 'stage.spec.cloneCodebase')
+  )
+
   // Validation for CI Codebase
   if (
-    getMultiTypeFromValue(((template as PipelineInfoConfig)?.properties?.ci?.codebase?.build as unknown) as string) ===
-    MultiTypeInputType.RUNTIME
+    isCloneCodebaseEnabledAtLeastAtOneStage &&
+    getMultiTypeFromValue((template as PipelineInfoConfig)?.properties?.ci?.codebase?.build as unknown as string) ===
+      MultiTypeInputType.RUNTIME
   ) {
     if (isEmpty((pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.type)) {
       set(
@@ -320,6 +326,7 @@ export const validatePipeline = ({
     }
 
     if (
+      isCloneCodebaseEnabledAtLeastAtOneStage &&
       (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.type === 'branch' &&
       isEmpty((pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.spec?.branch)
     ) {
@@ -331,6 +338,7 @@ export const validatePipeline = ({
     }
 
     if (
+      isCloneCodebaseEnabledAtLeastAtOneStage &&
       (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.type === 'tag' &&
       isEmpty((pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.spec?.tag)
     ) {

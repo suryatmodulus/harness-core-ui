@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react'
-import { Card, Color, Layout, Text } from '@wings-software/uicore'
+import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import {
@@ -31,13 +31,11 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const { timeRange, setTimeRange } = useContext(DeploymentsTimeRangeContext)
   const TIME_RANGE_OPTIONS: Record<TIME_RANGE_ENUMS, string> = useMemo(useTimeRangeOptions, [])
   const getTickerTextComponent = useMemo(
-    () => (value: number) => (
-      <Text color={value < 0 ? Color.RED_500 : Color.GREEN_500} font={{ size: 'small' }}>{`${Math.abs(value)}%`}</Text>
-    ),
+    () => (value: number, color: Color) => <Text font={{ size: 'xsmall' }} color={color}>{`${Math.abs(value)}%`}</Text>,
     []
   )
   const customChartOptions: Highcharts.Options = {
-    chart: { height: 185, spacing: [25, 0, 25, 0] },
+    chart: { height: 175, spacing: [25, 0, 25, 0] },
     legend: { padding: 0 },
     xAxis: {
       allowDecimals: false,
@@ -58,25 +56,28 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   return (
     <Card className={css.card}>
       <Layout.Vertical>
-        <Layout.Horizontal flex={{ distribution: 'space-between' }} margin={{ bottom: 'xsmall' }}>
-          <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
-            {getString('deploymentsText')}
-          </Text>
+        <Container className={css.timeRange}>
           <TimeRangeSelector mode={timeRange} setMode={setTimeRange} />
-        </Layout.Horizontal>
+        </Container>
+        <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+          {getString('deploymentsText')}
+        </Text>
         <Layout.Horizontal flex={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}>
-          <Layout.Horizontal className={css.deploymentsTicker}>
+          <Layout.Horizontal width={240}>
             <Ticker
-              value={getTickerTextComponent(deployments.change)}
+              value={getTickerTextComponent(
+                deployments.change,
+                deployments.change > 0 ? Color.GREEN_600 : Color.RED_500
+              )}
               decreaseMode={deployments.change < 0}
-              color={deployments.change > 0 ? Color.GREEN_500 : Color.RED_500}
+              color={deployments.change > 0 ? Color.GREEN_600 : Color.RED_500}
               verticalAlign={TickerVerticalAlignment.CENTER}
             >
               <Layout.Vertical>
                 <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} className={css.text}>
                   {deployments.value}
                 </Text>
-                <Text font={{ size: 'small' }}>
+                <Text font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_400}>
                   {getString('dashboards.serviceDashboard.in', {
                     timeRange: TIME_RANGE_OPTIONS[timeRange].toLowerCase()
                   })}
@@ -87,23 +88,36 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
           {[
             { ...failureRate, name: getString('common.failureRate') },
             { ...frequency, name: getString('dashboards.serviceDashboard.frequency') }
-          ].map(item => (
-            <Layout.Vertical padding={'small'} margin={{ right: 'medium' }} className={css.tickerCard} key={item.name}>
-              <Text font={{ size: 'small' }} margin={{ bottom: 'small' }}>
-                {item.name}
-              </Text>
-              <Ticker
-                value={getTickerTextComponent(item.change)}
-                decreaseMode={item.change < 0}
-                color={item.change > 0 ? Color.GREEN_500 : Color.RED_500}
-                tickerContainerStyles={css.tickerContainerStyles}
+          ].map((item, index) => {
+            const colors = index ? [Color.GREEN_600, Color.RED_500] : [Color.RED_500, Color.GREEN_600]
+            return (
+              <Layout.Vertical
+                padding={'small'}
+                margin={{ right: 'medium' }}
+                className={css.tickerCard}
+                key={item.name}
               >
-                <Text color={Color.BLACK} font={{ weight: 'semi-bold', size: 'medium' }} margin={{ right: 'xsmall' }}>
-                  {item.value}
+                <Text
+                  font={{ size: 'xsmall', weight: 'semi-bold' }}
+                  margin={{ bottom: 'small' }}
+                  color={Color.GREY_600}
+                >
+                  {item.name}
                 </Text>
-              </Ticker>
-            </Layout.Vertical>
-          ))}
+                <Ticker
+                  value={getTickerTextComponent(item.change, item.change > 0 ? colors[0] : colors[1])}
+                  decreaseMode={item.change < 0}
+                  color={item.change > 0 ? colors[0] : colors[1]}
+                  tickerContainerStyles={css.tickerContainerStyles}
+                  verticalAlign={TickerVerticalAlignment.CENTER}
+                >
+                  <Text color={Color.BLACK} font={{ weight: 'semi-bold', size: 'medium' }} margin={{ right: 'xsmall' }}>
+                    {item.value}
+                  </Text>
+                </Ticker>
+              </Layout.Vertical>
+            )
+          })}
         </Layout.Horizontal>
         <TimeSeriesAreaChart seriesData={data} customChartOptions={customChartOptions} />
       </Layout.Vertical>

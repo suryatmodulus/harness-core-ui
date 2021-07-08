@@ -45,6 +45,7 @@ exports[`CIBuildSettingsPage snapshot test should render properly 1`] = `
             height="48"
             viewBox="0 0 27 27"
             width="48"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <filter
               id="nav-dashboard_svg__a"

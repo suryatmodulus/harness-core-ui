@@ -19,6 +19,7 @@ exports[`Create CE K8s Connector Wizard Step One 1`] = `
             height="40"
             viewBox="0 0 32 30"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -160,7 +161,7 @@ exports[`Create CE K8s Connector Wizard Step One 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -207,6 +208,7 @@ exports[`Create CE K8s Connector Wizard Step One 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />
@@ -420,6 +422,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 1`] = `
             height="40"
             viewBox="0 0 32 30"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -563,7 +566,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -610,6 +613,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value="dummy name"
                             />
@@ -847,6 +851,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 2`] = `
             height="40"
             viewBox="0 0 32 30"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -956,10 +961,176 @@ exports[`Create CE K8s Connector Wizard Step one and step two 2`] = `
             Download YAML
           </span>
         </h2>
+        <div>
+          <ol
+            type="1"
+          >
+            <li>
+              Create an api key
+               
+              <a
+                href="http://localhost/#/account/undefined/access-management/api-keys"
+                rel="noreferrer"
+                target="_blank"
+              >
+                here
+              </a>
+            </li>
+            <li>
+              Run the following command to create namespace
+            </li>
+            <div
+              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                kubectl create namespace harness-autostopping
+              </p>
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="step-group"
+                title="copy"
+              >
+                <svg
+                  height="16"
+                  id="step-group_svg__Layer_1"
+                  viewBox="0 0 21 20"
+                  width="16"
+                  x="0"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  y="0"
+                >
+                  <style>
+                    .step-group_svg__st0{fill:#fff!important}
+                  </style>
+                  <path
+                    class="step-group_svg__st0"
+                    d="M1 .8h13v13.3H1z"
+                  />
+                  <path
+                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
+                  />
+                  <path
+                    class="step-group_svg__st0"
+                    d="M7 6h13v13H7z"
+                  />
+                  <path
+                    class="step-group_svg__st1"
+                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <li>
+              Replace the api key in the following Yaml
+            </li>
+            <div
+              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                apiVersion: v1
+data:
+  token: &lt;paste token here&gt;
+kind: Secret
+metadata:
+  name: harness-api-key
+  namespace: harness-autostopping
+type: Opaque
+
+              </p>
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="step-group"
+                title="copy"
+              >
+                <svg
+                  height="16"
+                  id="step-group_svg__Layer_1"
+                  viewBox="0 0 21 20"
+                  width="16"
+                  x="0"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  y="0"
+                >
+                  <style>
+                    .step-group_svg__st0{fill:#fff!important}
+                  </style>
+                  <path
+                    class="step-group_svg__st0"
+                    d="M1 .8h13v13.3H1z"
+                  />
+                  <path
+                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
+                  />
+                  <path
+                    class="step-group_svg__st0"
+                    d="M7 6h13v13H7z"
+                  />
+                  <path
+                    class="step-group_svg__st1"
+                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <li>
+              Run the following command
+            </li>
+            <div
+              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                kubectl apply -f secret.yaml
+              </p>
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="step-group"
+                title="copy"
+              >
+                <svg
+                  height="16"
+                  id="step-group_svg__Layer_1"
+                  viewBox="0 0 21 20"
+                  width="16"
+                  x="0"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  y="0"
+                >
+                  <style>
+                    .step-group_svg__st0{fill:#fff!important}
+                  </style>
+                  <path
+                    class="step-group_svg__st0"
+                    d="M1 .8h13v13.3H1z"
+                  />
+                  <path
+                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
+                  />
+                  <path
+                    class="step-group_svg__st0"
+                    d="M7 6h13v13H7z"
+                  />
+                  <path
+                    class="step-group_svg__st1"
+                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </ol>
+        </div>
         <p
           class="StyledProps--font StyledProps--main"
         >
-          To provide required permissions to your cluster, please download the YAML below and continue to apply it using instrstuctions given in the next step. You can preview the YAML file here.
+          To provide required permissions to your cluster, please download the YAML below and continue to apply it using instructions given in the next step. You can preview the YAML file here.
         </p>
         <div>
           <p
@@ -978,7 +1149,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 2`] = `
               Installing components to create Autostopping rules
             </li>
             <li>
-              Permissions to start and stop servies as per rules
+              Permissions to start and stop services as per rules
             </li>
           </ul>
           <button
@@ -1048,6 +1219,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 3`] = `
             height="40"
             viewBox="0 0 32 30"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -1157,10 +1329,176 @@ exports[`Create CE K8s Connector Wizard Step one and step two 3`] = `
             Download YAML
           </span>
         </h2>
+        <div>
+          <ol
+            type="1"
+          >
+            <li>
+              Create an api key
+               
+              <a
+                href="http://localhost/#/account/undefined/access-management/api-keys"
+                rel="noreferrer"
+                target="_blank"
+              >
+                here
+              </a>
+            </li>
+            <li>
+              Run the following command to create namespace
+            </li>
+            <div
+              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                kubectl create namespace harness-autostopping
+              </p>
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="step-group"
+                title="copy"
+              >
+                <svg
+                  height="16"
+                  id="step-group_svg__Layer_1"
+                  viewBox="0 0 21 20"
+                  width="16"
+                  x="0"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  y="0"
+                >
+                  <style>
+                    .step-group_svg__st0{fill:#fff!important}
+                  </style>
+                  <path
+                    class="step-group_svg__st0"
+                    d="M1 .8h13v13.3H1z"
+                  />
+                  <path
+                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
+                  />
+                  <path
+                    class="step-group_svg__st0"
+                    d="M7 6h13v13H7z"
+                  />
+                  <path
+                    class="step-group_svg__st1"
+                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <li>
+              Replace the api key in the following Yaml
+            </li>
+            <div
+              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                apiVersion: v1
+data:
+  token: &lt;paste token here&gt;
+kind: Secret
+metadata:
+  name: harness-api-key
+  namespace: harness-autostopping
+type: Opaque
+
+              </p>
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="step-group"
+                title="copy"
+              >
+                <svg
+                  height="16"
+                  id="step-group_svg__Layer_1"
+                  viewBox="0 0 21 20"
+                  width="16"
+                  x="0"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  y="0"
+                >
+                  <style>
+                    .step-group_svg__st0{fill:#fff!important}
+                  </style>
+                  <path
+                    class="step-group_svg__st0"
+                    d="M1 .8h13v13.3H1z"
+                  />
+                  <path
+                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
+                  />
+                  <path
+                    class="step-group_svg__st0"
+                    d="M7 6h13v13H7z"
+                  />
+                  <path
+                    class="step-group_svg__st1"
+                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <li>
+              Run the following command
+            </li>
+            <div
+              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                kubectl apply -f secret.yaml
+              </p>
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="step-group"
+                title="copy"
+              >
+                <svg
+                  height="16"
+                  id="step-group_svg__Layer_1"
+                  viewBox="0 0 21 20"
+                  width="16"
+                  x="0"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  y="0"
+                >
+                  <style>
+                    .step-group_svg__st0{fill:#fff!important}
+                  </style>
+                  <path
+                    class="step-group_svg__st0"
+                    d="M1 .8h13v13.3H1z"
+                  />
+                  <path
+                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
+                  />
+                  <path
+                    class="step-group_svg__st0"
+                    d="M7 6h13v13H7z"
+                  />
+                  <path
+                    class="step-group_svg__st1"
+                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </ol>
+        </div>
         <p
           class="StyledProps--font StyledProps--main"
         >
-          To provide required permissions to your cluster, please download the YAML below and continue to apply it using instrstuctions given in the next step. You can preview the YAML file here.
+          To provide required permissions to your cluster, please download the YAML below and continue to apply it using instructions given in the next step. You can preview the YAML file here.
         </p>
         <div>
           <p
@@ -1179,7 +1517,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 3`] = `
               Installing components to create Autostopping rules
             </li>
             <li>
-              Permissions to start and stop servies as per rules
+              Permissions to start and stop services as per rules
             </li>
           </ul>
           <div
@@ -1217,12 +1555,12 @@ exports[`Create CE K8s Connector Wizard Step one and step two 3`] = `
               Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster. Run the following command to apply the Harness delegate to your Kubernetes Cluster
             </p>
             <div
-              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between"
+              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
             >
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                $ kubectl apply -f harness-delegate.yaml
+                $ kubectl apply -f cost-optimisation-crd.yaml
               </p>
               <span
                 class="bp3-icon StyledProps--main"
@@ -1236,6 +1574,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 3`] = `
                   width="16"
                   x="0"
                   xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
                   y="0"
                 >
                   <style>

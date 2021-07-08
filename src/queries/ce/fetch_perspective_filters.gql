@@ -1,0 +1,5 @@
+query FetchPerspectiveFiltersValue($filters: [QLCEViewFilterWrapperInput], $offset: Int, $limit: Int) {
+  perspectiveFilters(filters: $filters, offset: $offset, limit: $limit) {
+    values
+  }
+}

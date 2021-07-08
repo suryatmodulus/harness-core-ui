@@ -139,7 +139,11 @@ const HomePage: React.FC = () => {
   const [view, setView] = useState(Views.CREATE)
   const [isHarness, setHarnessCheckbox] = React.useState<boolean>(false)
   const [isCustom, setCustomChecbox] = React.useState<boolean>(false)
-  const { data: dashboardList, loading, error } = useGet({
+  const {
+    data: dashboardList,
+    loading,
+    error
+  } = useGet({
     // Inferred from RestfulProvider in index.js
     path: 'dashboard/list',
     queryParams: { accountId: accountId }

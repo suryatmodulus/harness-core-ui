@@ -107,8 +107,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
         formName="k8InfraSpec"
         validate={value => {
           const data: Partial<K8SDirectInfrastructure> = {
-            namespace: value.namespace,
-            releaseName: value.releaseName,
+            namespace: value.namespace === '' ? undefined : value.namespace,
+            releaseName: value.releaseName === '' ? undefined : value.releaseName,
             connectorRef: undefined,
             allowSimultaneousDeployments: value.allowSimultaneousDeployments,
             infrastructureKey: value.infrastructureKey
@@ -133,7 +133,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   tooltipProps={{
                     dataTooltipId: 'k8InfraConnector'
                   }}
-                  placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
+                  placeholder={getString('connectors.selectConnector')}
                   disabled={readonly}
                   accountIdentifier={accountId}
                   multiTypeProps={{ expressions, disabled: readonly }}
@@ -174,7 +174,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   className={css.inputWidth}
                   disabled={readonly}
                   label={getString('common.namespace')}
-                  placeholder={getString('cd.steps.common.namespacePlaceholder')}
+                  placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
                   multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
                 />
                 {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && !readonly && (
@@ -299,7 +299,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
             name={`${path}.connectorRef`}
             label={getString('connector')}
             gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
-            placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
+            placeholder={getString('connectors.selectConnector')}
             disabled={readonly}
             setRefValue
             className={css.connectorMargin}
@@ -317,7 +317,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
               allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
               expressions
             }}
-            placeholder={getString('cd.steps.common.namespacePlaceholder')}
+            placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
           />
         </div>
       )}

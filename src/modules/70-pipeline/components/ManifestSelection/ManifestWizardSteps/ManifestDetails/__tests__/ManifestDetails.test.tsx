@@ -5,13 +5,14 @@ import { TestWrapper } from '@common/utils/testUtils'
 
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import type { ManifestTypes } from '@pipeline/components/ManifestSelection/ManifestInterface'
 import ManifestDetails from '../ManifestDetails'
 
 const props = {
   stepName: 'Manifest details',
   expressions: [],
   handleSubmit: jest.fn(),
-  selectedManifest: 'Values',
+  selectedManifest: 'Values' as ManifestTypes,
   manifestIdsList: []
 }
 const initialValues = {
@@ -98,7 +99,7 @@ describe('Manifest Details tests', () => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
-          type: 'K8sManifest',
+          type: 'Values',
           spec: {
             store: {
               spec: {
@@ -141,7 +142,7 @@ describe('Manifest Details tests', () => {
       prevStepData: {
         store: 'Git'
       },
-      selectedManifest: 'Values',
+      selectedManifest: 'Values' as ManifestTypes,
       handleSubmit: jest.fn()
     }
     const { container } = render(
@@ -177,7 +178,7 @@ describe('Manifest Details tests', () => {
       prevStepData: {
         store: 'Git'
       },
-      selectedManifest: 'Values',
+      selectedManifest: 'Values' as ManifestTypes,
       handleSubmit: jest.fn()
     }
     const { container } = render(
@@ -214,7 +215,7 @@ describe('Manifest Details tests', () => {
         store: 'Git',
         connectorRef: '<+input>'
       },
-      selectedManifest: 'Values',
+      selectedManifest: 'Values' as ManifestTypes,
       handleSubmit: jest.fn()
     }
     const { container } = render(
@@ -269,7 +270,7 @@ describe('Manifest Details tests', () => {
           }
         }
       },
-      selectedManifest: 'Values',
+      selectedManifest: 'Values' as ManifestTypes,
       handleSubmit: jest.fn()
     }
     const { container } = render(
@@ -313,7 +314,7 @@ describe('Manifest Details tests', () => {
           }
         }
       },
-      selectedManifest: 'Values',
+      selectedManifest: 'Values' as ManifestTypes,
       handleSubmit: jest.fn()
     }
     const { container } = render(
@@ -340,7 +341,6 @@ describe('Manifest Details tests', () => {
         }
       },
       initialValues,
-      selectedManifest: 'K8sManifest',
       handleSubmit: jest.fn()
     }
 
@@ -363,7 +363,7 @@ describe('Manifest Details tests', () => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
-          type: 'K8sManifest',
+          type: 'Values',
           spec: {
             store: {
               spec: {
@@ -396,7 +396,7 @@ describe('Manifest Details tests', () => {
         }
       },
       initialValues,
-      selectedManifest: 'K8sManifest',
+      selectedManifest: 'K8sManifest' as ManifestTypes,
       handleSubmit: jest.fn()
     }
 

@@ -85,7 +85,7 @@ describe('Unit tests for NewRelicMonitoringSources', () => {
           orgIdentifier: '1234_org',
           projectIdentifier: '1234_project'
         },
-        (MockDSConfig as unknown) as NewRelicDSConfig
+        MockDSConfig as unknown as NewRelicDSConfig
       )
     ).toEqual({
       accountId: '1234_accountId',

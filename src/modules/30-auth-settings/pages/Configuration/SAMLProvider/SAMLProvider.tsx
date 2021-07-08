@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Radio, Container, Collapse, Color, Card, Text, Button, Popover } from '@wings-software/uicore'
@@ -22,9 +22,16 @@ interface Props {
   refetchAuthSettings: () => void
   permissionRequest: PermissionRequest
   canEdit: boolean
+  setUpdating: Dispatch<SetStateAction<boolean>>
 }
 
-const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, permissionRequest, canEdit }) => {
+const SAMLProvider: React.FC<Props> = ({
+  authSettings,
+  refetchAuthSettings,
+  permissionRequest,
+  canEdit,
+  setUpdating
+}) => {
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
@@ -64,6 +71,10 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
       authenticationMechanism: AuthenticationMechanisms.SAML
     }
   })
+
+  React.useEffect(() => {
+    setUpdating(updatingAuthMechanismToSaml || deletingSamlSettings)
+  }, [updatingAuthMechanismToSaml, deletingSamlSettings, setUpdating])
 
   const { openDialog: confirmSamlSettingsDelete } = useConfirmationDialog({
     titleText: getString('authSettings.deleteSamlProvider'),

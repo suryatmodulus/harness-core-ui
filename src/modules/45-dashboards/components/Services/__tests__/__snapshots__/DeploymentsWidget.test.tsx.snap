@@ -9,13 +9,8 @@ exports[`DeploymentsWidget render 1`] = `
       class="Layout--vertical StyledProps--main"
     >
       <div
-        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--margin-bottom-xsmall"
+        class="StyledProps--font StyledProps--main timeRange"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
-        >
-          deploymentsText
-        </p>
         <span
           class="bp3-popover-wrapper timeRangeSelector"
         >
@@ -55,11 +50,17 @@ exports[`DeploymentsWidget render 1`] = `
           </span>
         </span>
       </div>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
+      >
+        deploymentsText
+      </p>
       <div
         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-end StyledProps--flex-justifyContent-flex-start"
       >
         <div
-          class="Layout--horizontal StyledProps--main deploymentsTicker"
+          class="Layout--horizontal StyledProps--main"
+          style="width: 240px;"
         >
           <div
             class="tickerContainer"
@@ -73,7 +74,7 @@ exports[`DeploymentsWidget render 1`] = `
                 211
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey400"
               >
                 dashboards.serviceDashboard.in
               </p>
@@ -85,13 +86,14 @@ exports[`DeploymentsWidget render 1`] = `
                 class="iconContainer"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green500"
+                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
                   data-icon="main-caret-up"
                 >
                   <svg
                     height="6"
                     viewBox="0 0 14 9"
                     width="6"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -104,7 +106,7 @@ exports[`DeploymentsWidget render 1`] = `
                 class="tickerValue"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--font-size-small"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
                 >
                   5%
                 </p>
@@ -116,7 +118,7 @@ exports[`DeploymentsWidget render 1`] = `
           class="Layout--vertical StyledProps--main tickerCard StyledProps--padding-small StyledProps--margin-right-medium"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-bottom-small"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small StyledProps--color StyledProps--color-grey600"
           >
             common.failureRate
           </p>
@@ -129,19 +131,20 @@ exports[`DeploymentsWidget render 1`] = `
               15%
             </p>
             <div
-              class="ticker"
+              class="ticker tickerCenterAlign"
             >
               <div
                 class="iconContainer"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green500"
+                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
                   data-icon="main-caret-up"
                 >
                   <svg
                     height="6"
                     viewBox="0 0 14 9"
                     width="6"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -154,7 +157,7 @@ exports[`DeploymentsWidget render 1`] = `
                 class="tickerValue"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--font-size-small"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
                 >
                   5%
                 </p>
@@ -166,7 +169,7 @@ exports[`DeploymentsWidget render 1`] = `
           class="Layout--vertical StyledProps--main tickerCard StyledProps--padding-small StyledProps--margin-right-medium"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-bottom-small"
+            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small StyledProps--color StyledProps--color-grey600"
           >
             dashboards.serviceDashboard.frequency
           </p>
@@ -179,19 +182,20 @@ exports[`DeploymentsWidget render 1`] = `
               3
             </p>
             <div
-              class="ticker"
+              class="ticker tickerCenterAlign"
             >
               <div
                 class="iconContainer"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green500"
+                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
                   data-icon="main-caret-up"
                 >
                   <svg
                     height="6"
                     viewBox="0 0 14 9"
                     width="6"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -204,7 +208,7 @@ exports[`DeploymentsWidget render 1`] = `
                 class="tickerValue"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--font-size-small"
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
                 >
                   5%
                 </p>

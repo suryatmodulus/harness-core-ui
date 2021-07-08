@@ -109,6 +109,8 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
           label={<Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipeline.targets.title')}</Text>}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          expressions={expressions}
+          isNameOfArrayType
         />
       )}
     </FormikForm>

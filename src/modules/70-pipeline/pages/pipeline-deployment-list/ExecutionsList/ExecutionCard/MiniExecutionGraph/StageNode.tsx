@@ -28,16 +28,8 @@ export interface StageNodeProps extends Omit<IPopoverProps, 'content'>, Pipeline
 }
 
 export function StageNode(props: StageNodeProps): React.ReactElement {
-  const {
-    accountId,
-    orgIdentifier,
-    projectIdentifier,
-    pipelineIdentifier,
-    module,
-    stage,
-    planExecutionId,
-    ...rest
-  } = props
+  const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier, module, stage, planExecutionId, ...rest } =
+    props
   const { status } = stage || {}
   const statusLower = status?.toLowerCase() || ''
   const history = useHistory()

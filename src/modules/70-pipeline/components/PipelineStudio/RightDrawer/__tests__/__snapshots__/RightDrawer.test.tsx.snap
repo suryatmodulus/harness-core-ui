@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Right Drawer tests Edit step works as expected 1`] = `
+Object {
+  "description": "",
+  "identifier": "s1",
+  "name": "s1",
+  "spec": Object {
+    "cloneCodebase": false,
+    "execution": Object {
+      "steps": Array [
+        Object {
+          "step": Object {
+            "description": "test desc",
+            "identifier": "step1",
+            "name": "step1",
+            "spec": Object {
+              "command": "echo 'run'",
+              "connectorRef": "harnessImage",
+              "image": "alpine",
+              "privileged": false,
+            },
+            "type": "Run",
+          },
+        },
+      ],
+    },
+    "infrastructure": Object {
+      "spec": Object {
+        "connectorRef": "account.yogesh",
+        "namespace": "harness-delegate",
+      },
+      "type": "KubernetesDirect",
+    },
+  },
+  "type": "CI",
+}
+`;

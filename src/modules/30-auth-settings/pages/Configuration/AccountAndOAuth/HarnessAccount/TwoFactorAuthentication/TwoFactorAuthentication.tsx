@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Card, Switch, Color, Text } from '@wings-software/uicore'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -14,23 +14,26 @@ interface Props {
   twoFactorEnabled: boolean
   onSuccess: () => void
   canEdit: boolean
+  setUpdating: Dispatch<SetStateAction<boolean>>
 }
 
-const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorEnabled, onSuccess, canEdit }) => {
+const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorEnabled, onSuccess, canEdit, setUpdating }) => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const history = useHistory()
   const { currentUserInfo } = useAppStore()
   const { showSuccess, showError } = useToaster()
 
-  const {
-    mutate: updateTwoFactorAuthentication,
-    loading: updatingTwoFactorAuthentication
-  } = useSetTwoFactorAuthAtAccountLevel({
-    queryParams: {
-      accountIdentifier: accountId
-    }
-  })
+  const { mutate: updateTwoFactorAuthentication, loading: updatingTwoFactorAuthentication } =
+    useSetTwoFactorAuthAtAccountLevel({
+      queryParams: {
+        accountIdentifier: accountId
+      }
+    })
+
+  React.useEffect(() => {
+    setUpdating(updatingTwoFactorAuthentication)
+  }, [updatingTwoFactorAuthentication, setUpdating])
 
   const submitUpdateTwoFactorAuthentication = async (
     adminOverrideTwoFactorEnabled: boolean,

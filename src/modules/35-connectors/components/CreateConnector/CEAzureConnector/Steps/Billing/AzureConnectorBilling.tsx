@@ -130,7 +130,7 @@ const BillingExport: React.FC<StepProps<CEAzureDTO>> = props => {
         ),
       directoryName: Yup.string().required(getString('connectors.ceAzure.validation.directoryName')),
       containerName: Yup.string().required(getString('connectors.ceAzure.validation.containerName')),
-      reportName: Yup.string().required(getString('connectors.ceAzure.validation.containerName')),
+      reportName: Yup.string().required(getString('connectors.ceAzure.validation.reportName')),
       subscriptionId: Yup.string()
         .required(getString('connectors.ceAzure.validation.subscriptionId'))
         .test('subscriptionId', getString('connectors.ceAzure.guidRegexError'), guidRegex)

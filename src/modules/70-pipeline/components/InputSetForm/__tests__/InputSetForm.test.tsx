@@ -30,26 +30,27 @@ const successResponse = (): Promise<{ status: string }> => Promise.resolve({ sta
 jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock(
   '@common/components/YAMLBuilder/YamlBuilder',
-  () => ({ children, bind }: { children: JSX.Element; bind: YamlBuilderProps['bind'] }) => {
-    const handler = React.useMemo(
-      () =>
-        ({
-          getLatestYaml: () => GetInputSetEdit.data?.data?.inputSetYaml || '',
-          getYAMLValidationErrorMap: () => new Map()
-        } as YamlBuilderHandlerBinding),
-      []
-    )
+  () =>
+    ({ children, bind }: { children: JSX.Element; bind: YamlBuilderProps['bind'] }) => {
+      const handler = React.useMemo(
+        () =>
+          ({
+            getLatestYaml: () => GetInputSetEdit.data?.data?.inputSetYaml || '',
+            getYAMLValidationErrorMap: () => new Map()
+          } as YamlBuilderHandlerBinding),
+        []
+      )
 
-    React.useEffect(() => {
-      bind?.(handler)
-    }, [bind, handler])
-    return (
-      <div>
-        <span>Yaml View</span>
-        {children}
-      </div>
-    )
-  }
+      React.useEffect(() => {
+        bind?.(handler)
+      }, [bind, handler])
+      return (
+        <div>
+          <span>Yaml View</span>
+          {children}
+        </div>
+      )
+    }
 )
 
 jest.useFakeTimers()
@@ -74,6 +75,13 @@ jest.mock('services/pipeline-ng', () => ({
   useGetInputSetsListForPipeline: jest.fn(() => GetInputSetsResponse),
   useGetSchemaYaml: jest.fn(() => ({}))
 }))
+
+const intersectionObserverMock = () => ({
+  observe: () => null,
+  unobserve: () => null
+})
+
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock)
 
 const TEST_INPUT_SET_PATH = routes.toInputSetList({
   ...accountPathProps,

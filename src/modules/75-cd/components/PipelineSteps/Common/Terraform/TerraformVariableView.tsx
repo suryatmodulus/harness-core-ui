@@ -10,51 +10,55 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
   const { variablesData = {} as TerraformData, metadataMap, initialValues } = props
 
   const { getString } = useStrings()
-  return (
-    <>
-      {initialValues?.spec?.configuration?.type === 'Inline' ||
-        (props?.stepType === 'TerrafomPlan' && (
-          <>
-            <Text className={css.stepTitle}>{getString('pipelineSteps.configFiles')}</Text>
 
-            <VariablesListTable
-              data={variablesData.spec?.provisionerIdentifier}
-              originalData={initialValues.spec?.provisionerIdentifier}
-              metadataMap={metadataMap}
-            />
-            <ConfigVariables {...props} />
+  if (initialValues?.spec?.configuration?.type === 'Inline') {
+    return (
+      <>
+        <VariablesListTable
+          data={variablesData.spec?.provisionerIdentifier}
+          originalData={initialValues.spec?.provisionerIdentifier}
+          metadataMap={metadataMap}
+        />
+        <ConfigVariables {...props} />
+
+        {variablesData?.spec?.configuration?.spec?.backendConfig?.spec && (
+          <>
             <Text className={css.stepTitle}>{getString('pipelineSteps.backendConfig')}</Text>
             <VariablesListTable
-              data={variablesData.spec?.configuration?.spec?.backendConfig}
+              data={variablesData.spec?.configuration?.spec?.backendConfig?.spec}
               originalData={initialValues.spec?.configuration?.spec?.backendConfig?.spec}
               metadataMap={metadataMap}
             />
-            <Text className={css.stepTitle}>{getString('pipeline.targets.title')}</Text>
-            <VariablesListTable
-              data={variablesData.spec?.configuration?.spec?.targets}
-              originalData={initialValues.spec?.configuration?.spec?.targets}
-              metadataMap={metadataMap}
-            />
-            <Text className={css.stepTitle}>{getString('environmentVariables')}</Text>
-
-            <VariablesListTable
-              data={variablesData.spec?.configuration?.spec?.environmentVariables}
-              originalData={initialValues.spec?.configuration?.spec?.environmentVariables}
-              metadataMap={metadataMap}
-            />
           </>
-        ))}
-      {initialValues?.spec?.configuration?.type !== TerraformStoreTypes.Inline && (
-        <>
-          <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+        )}
+        {variablesData.spec?.configuration?.spec?.environmentVariables && (
+          <Text className={css.stepTitle}>{getString('environmentVariables')}</Text>
+        )}
+        {((variablesData?.spec?.configuration?.spec?.environmentVariables as []) || [])?.map((envVar, index) => {
+          return (
+            <VariablesListTable
+              key={envVar}
+              data={variablesData.spec?.configuration?.spec?.environmentVariables?.[index]}
+              originalData={initialValues.spec?.configuration?.spec?.environmentVariables?.[index]}
+              metadataMap={metadataMap}
+            />
+          )
+        })}
+      </>
+    )
+  } else if (initialValues?.spec?.configuration?.type !== TerraformStoreTypes.Inline) {
+    return (
+      <>
+        <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
 
-          <VariablesListTable
-            data={variablesData.spec?.configuration?.type}
-            originalData={initialValues.spec?.configuration?.type}
-            metadataMap={metadataMap}
-          />
-        </>
-      )}
-    </>
-  )
+        <VariablesListTable
+          data={variablesData.spec?.configuration?.type}
+          originalData={initialValues.spec?.configuration?.type}
+          metadataMap={metadataMap}
+        />
+      </>
+    )
+  }
+
+  return <div />
 }

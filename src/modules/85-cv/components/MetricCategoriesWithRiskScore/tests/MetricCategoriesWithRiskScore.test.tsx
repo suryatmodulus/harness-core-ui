@@ -10,7 +10,7 @@ describe('Unit tests for MetricCategoriesWithRiskScore', () => {
     const { container, rerender } = render(
       <TestWrapper>
         <MetricCategoriesWithRiskScore
-          categoriesWithRiskScores={(undefined as unknown) as CategoriesWithRiskScoreProps['categoriesWithRiskScores']}
+          categoriesWithRiskScores={undefined as unknown as CategoriesWithRiskScoreProps['categoriesWithRiskScores']}
         />
       </TestWrapper>
     )

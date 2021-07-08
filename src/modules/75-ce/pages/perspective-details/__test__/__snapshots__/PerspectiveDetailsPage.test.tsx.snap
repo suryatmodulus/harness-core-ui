@@ -1,0 +1,364 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test cases for Perspective details Page should be able to render the details page 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+  >
+    <div
+      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex"
+      style="align-items: center; width: 100%;"
+    >
+      <div
+        class="StyledProps--font StyledProps--main"
+        style="flex-grow: 1;"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800"
+          level="2"
+          style="flex-grow: 1;"
+        />
+      </div>
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
+          icon="edit"
+        >
+          <svg
+            data-icon="edit"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              edit
+            </desc>
+            <path
+              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          Edit
+        </span>
+      </button>
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          Share
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--background-white StyledProps--padding-small"
+  >
+    <div
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+      style="justify-content: flex-end; align-items: center;"
+    >
+      <span
+        class="bp3-popover-wrapper"
+      >
+        <span
+          class="bp3-popover-target"
+        >
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-calendar StyledProps--main StyledProps--padding-right-xsmall"
+              icon="calendar"
+            >
+              <svg
+                data-icon="calendar"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  calendar
+                </desc>
+                <path
+                  d="M11 3c.6 0 1-.5 1-1V1c0-.6-.4-1-1-1s-1 .4-1 1v1c0 .5.4 1 1 1zm3-2h-1v1c0 1.1-.9 2-2 2s-2-.9-2-2V1H6v1c0 1.1-.9 2-2 2s-2-.9-2-2V1H1c-.6 0-1 .5-1 1v12c0 .6.4 1 1 1h13c.6 0 1-.4 1-1V2c0-.6-.5-1-1-1zM5 13H2v-3h3v3zm0-4H2V6h3v3zm4 4H6v-3h3v3zm0-4H6V6h3v3zm4 4h-3v-3h3v3zm0-4h-3V6h3v3zM4 3c.6 0 1-.5 1-1V1c0-.6-.4-1-1-1S3 .4 3 1v1c0 .5.4 1 1 1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              class="bp3-button-text"
+            >
+              ce.perspectives.timeRangeConstants.last7Days
+            </span>
+            <span
+              class="bp3-icon bp3-icon-caret-down StyledProps--main"
+              icon="caret-down"
+            >
+              <svg
+                data-icon="caret-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  caret-down
+                </desc>
+                <path
+                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
+      </span>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7"
+      >
+        |
+      </p>
+      <span
+        class="bp3-popover-wrapper"
+      >
+        <span
+          class="bp3-popover-target"
+        >
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              ce.perspectives.timeAggregation.daily
+            </span>
+            <span
+              class="bp3-icon bp3-icon-caret-down StyledProps--main"
+              icon="caret-down"
+            >
+              <svg
+                data-icon="caret-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  caret-down
+                </desc>
+                <path
+                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
+      </span>
+    </div>
+  </div>
+  <div
+    class="Layout--horizontal StyledProps--main StyledProps--margin-medium"
+  >
+    <div
+      class="bp3-card bp3-elevation-1 Card--card"
+    >
+      <div
+        class="StyledProps--font StyledProps--main mainCard"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
+        >
+          Total Cost
+        </p>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+          style="align-items: center;"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
+          >
+            $42,852.63
+          </p>
+          <span
+            style="flex-grow: 1;"
+          />
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500"
+            style="display: flex; align-items: center;"
+          >
+            <span
+              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+              icon="caret-down"
+            >
+              <svg
+                data-icon="caret-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  caret-down
+                </desc>
+                <path
+                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            28.63
+          </p>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-xsmall"
+        >
+          of Jun 25 - Jun 29
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--margin-medium StyledProps--background-white"
+  >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-small"
+    >
+      <div
+        class="StyledProps--font StyledProps--main groupByContainer StyledProps--background-white StyledProps--padding-small"
+      >
+        <section
+          class="groupByContainer"
+        >
+          <label
+            class="groupByLabel"
+          >
+             
+            ce.perspectives.createPerspective.preview.groupBy
+          </label>
+          <div
+            class="groupBys"
+          >
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="groupByItems activeItem"
+                >
+                  Cluster: Cluster Name
+                </div>
+              </span>
+            </span>
+            <div
+              class="groupByItems"
+            >
+              Region
+            </div>
+            <div
+              class="groupByItems"
+            >
+              Product
+            </div>
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="groupByItems"
+                >
+                  Label
+                </div>
+              </span>
+            </span>
+          </div>
+        </section>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          style="align-items: center; justify-content: flex-end;"
+        >
+          <span
+            class="bp3-icon bp3-icon-timeline-area-chart StyledProps--main StyledProps--color StyledProps--color-grey400"
+            icon="timeline-area-chart"
+          >
+            <svg
+              data-icon="timeline-area-chart"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                timeline-area-chart
+              </desc>
+              <path
+                d="M19 16H2V3c0-.55-.45-1-1-1s-1 .45-1 1v14c0 .55.45 1 1 1h18c.55 0 1-.45 1-1s-.45-1-1-1zm0-13.41l-7.07 7.07-4.3-3.44-.01.01A.987.987 0 007 6c-.24 0-.46.1-.63.24l-.01-.01L3 9.03V15h16V2.59z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-icon bp3-icon-timeline-bar-chart StyledProps--main StyledProps--color StyledProps--color-primary7"
+            icon="timeline-bar-chart"
+          >
+            <svg
+              data-icon="timeline-bar-chart"
+              height="18"
+              viewBox="0 0 16 16"
+              width="18"
+            >
+              <desc>
+                timeline-bar-chart
+              </desc>
+              <path
+                d="M8 12h1c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1H8c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1zm5 0h1c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1h-1c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1zm2 1H2c-.55 0-1 .45-1 1s.45 1 1 1h13c.55 0 1-.45 1-1s-.45-1-1-1zM3 12h1c.55 0 1-.45 1-1V7c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div>
+        <article>
+          <mock
+            options="[object Object]"
+          />
+          <span
+            class="bp3-icon StyledProps--main"
+            data-icon="spinner"
+          >
+            <svg
+              fill="none"
+              height="16"
+              viewBox="0 0 36 36"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
+                stroke="currentColor"
+                stroke-dasharray="75,100"
+                stroke-linecap="round"
+                stroke-width="2.8"
+                style="animation: 1s linear infinite spinner-rotation; transform-origin: 50% 50%; transform-box: fill-box;"
+              />
+            </svg>
+          </span>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+`;

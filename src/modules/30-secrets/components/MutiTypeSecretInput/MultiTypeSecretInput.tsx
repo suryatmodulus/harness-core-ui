@@ -67,7 +67,7 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
     allowableTypes,
     expressions = [],
     onSuccess,
-    type = 'SecretText',
+    type,
     secretsListMockData,
     isMultiType = true,
     ...restProps

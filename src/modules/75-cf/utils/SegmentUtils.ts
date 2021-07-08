@@ -18,28 +18,25 @@ const makeInstructions = (kind: string, targetIdentifiers: string[]) => ({
   ]
 })
 
-const makeTargetsToSegmentHook = (patchKind: string) => ({
-  accountIdentifier,
-  orgIdentifier,
-  environmentIdentifier,
-  projectIdentifier
-}: TargetSegmentParams) => {
-  const { mutate } = usePatchSegment({
-    identifier: '',
-    queryParams: {
-      account: accountIdentifier,
-      accountIdentifier,
-      org: orgIdentifier,
-      project: projectIdentifier,
-      environment: environmentIdentifier
-    } as PatchSegmentQueryParams
-  })
+const makeTargetsToSegmentHook =
+  (patchKind: string) =>
+  ({ accountIdentifier, orgIdentifier, environmentIdentifier, projectIdentifier }: TargetSegmentParams) => {
+    const { mutate } = usePatchSegment({
+      identifier: '',
+      queryParams: {
+        account: accountIdentifier,
+        accountIdentifier,
+        org: orgIdentifier,
+        project: projectIdentifier,
+        environment: environmentIdentifier
+      } as PatchSegmentQueryParams
+    })
 
-  return (segmentIdentifier: string, targetIdentifiers: string[]) => {
-    const body = makeInstructions(patchKind, targetIdentifiers)
-    return mutate(body, { pathParams: { identifier: segmentIdentifier } })
+    return (segmentIdentifier: string, targetIdentifiers: string[]) => {
+      const body = makeInstructions(patchKind, targetIdentifiers)
+      return mutate(body, { pathParams: { identifier: segmentIdentifier } })
+    }
   }
-}
 
 /** Add targets to an include segment list */
 export const useAddTargetsToIncludeList = makeTargetsToSegmentHook('addToIncludeList')

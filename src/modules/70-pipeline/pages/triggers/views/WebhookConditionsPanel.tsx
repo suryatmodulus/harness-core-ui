@@ -11,8 +11,6 @@ interface WebhookConditionsPanelPropsInterface {
   formikProps?: any
 }
 
-const enablePathBasedFilters = false
-
 export const ConditionRow = ({
   formikProps,
   name,
@@ -50,7 +48,11 @@ export const ConditionRow = ({
         onChange={() => {
           formikProps.setFieldTouched(operatorKey, true)
         }}
-        placeholder={inNotInArr.includes(operatorValue) ? inNotInPlaceholder : ''}
+        placeholder={
+          inNotInArr.includes(operatorValue)
+            ? inNotInPlaceholder
+            : getString('pipeline.triggers.conditionsPanel.matchesValuePlaceholder')
+        }
       />
     </div>
   )
@@ -96,15 +98,13 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
               }
             />
           )}
-          {enablePathBasedFilters &&
-            event !== eventTypes.TAG &&
-            sourceRepo !== GitSourceProviders.AWS_CODECOMMIT.value && (
-              <ConditionRow
-                formikProps={formikProps}
-                name="changedFiles"
-                label={getString('pipeline.triggers.conditionsPanel.changedFiles')}
-              />
-            )}
+          {event !== eventTypes.TAG && sourceRepo !== GitSourceProviders.AWS_CODECOMMIT.value && (
+            <ConditionRow
+              formikProps={formikProps}
+              name="changedFiles"
+              label={getString('pipeline.triggers.conditionsPanel.changedFiles')}
+            />
+          )}
           {event === eventTypes.TAG && (
             <ConditionRow
               formikProps={formikProps}

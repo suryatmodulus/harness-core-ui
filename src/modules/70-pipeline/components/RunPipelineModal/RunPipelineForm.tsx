@@ -18,7 +18,7 @@ import {
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import { pick, merge, isEmpty, isEqual, omit } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -47,7 +47,6 @@ import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/
 import type { GitQueryParams, InputSetGitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
-import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -61,6 +60,7 @@ import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlTog
 import { clearNullUndefined } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { ErrorsStrip } from '@pipeline/components/ErrorsStrip/ErrorsStrip'
 import { useQueryParams } from '@common/hooks'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -141,7 +141,7 @@ const SaveAsInputSet = ({
   ): Promise<UseSaveSuccessResponse> => {
     try {
       const response = await createInputSet(
-        stringify({
+        yamlStringify({
           inputSet: { ...clearNullUndefined(payload || inputSetObj), orgIdentifier, projectIdentifier }
         }) as any,
         {
@@ -316,9 +316,7 @@ function RunPipelineFormBasic({
   module,
   executionView,
   branch,
-  repoIdentifier,
-  inputSetRepoIdentifier,
-  inputSetBranch
+  repoIdentifier
 }: RunPipelineFormProps & InputSetGitQueryParams): React.ReactElement {
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
@@ -328,11 +326,6 @@ function RunPipelineFormBasic({
   const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>(
     inputSetYAML ? parse(inputSetYAML) : undefined
   )
-  const [gitFilter, setGitFilter] = React.useState<GitFilterScope | null>({
-    repo: inputSetRepoIdentifier || '',
-    branch: inputSetBranch || '',
-    getDefaultFromOtherRepo: true
-  })
   const { showError, showSuccess, showWarning } = useToaster()
   const history = useHistory()
   const { getString } = useStrings()
@@ -447,8 +440,13 @@ function RunPipelineFormBasic({
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,
-      repoIdentifier,
-      branch
+      ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
+        ? {
+            repoIdentifier,
+            branch,
+            getDefaultFromOtherRepo: true
+          }
+        : {})
     },
     lazy: true
   })
@@ -539,14 +537,15 @@ function RunPipelineFormBasic({
       projectIdentifier,
       orgIdentifier,
       pipelineIdentifier,
-      pipelineRepoID: repoIdentifier,
-      pipelineBranch: branch,
-      ...(gitFilter?.repo &&
-        gitFilter.branch && {
-          repoIdentifier: gitFilter.repo,
-          branch: gitFilter.branch,
-          getDefaultFromOtherRepo: true
-        })
+      ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
+        ? {
+            pipelineRepoID: repoIdentifier,
+            pipelineBranch: branch,
+            repoIdentifier,
+            branch,
+            getDefaultFromOtherRepo: true
+          }
+        : {})
     }
   })
 
@@ -591,10 +590,10 @@ function RunPipelineFormBasic({
       try {
         const response = isEmpty(executionId)
           ? await runPipeline(
-              !isEmpty(valuesPipelineRef.current) ? (stringify({ pipeline: valuesPipelineRef.current }) as any) : ''
+              !isEmpty(valuesPipelineRef.current) ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any) : ''
             )
           : await reRunPipeline(
-              !isEmpty(valuesPipelineRef.current) ? (stringify({ pipeline: valuesPipelineRef.current }) as any) : ''
+              !isEmpty(valuesPipelineRef.current) ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any) : ''
             )
         const data = response.data
         if (response.status === 'SUCCESS') {
@@ -796,7 +795,7 @@ function RunPipelineFormBasic({
                     {isGitSyncEnabled && (
                       <GitPopover
                         data={pipelineResponse?.data?.gitDetails ?? {}}
-                        iconMargin={{ left: 'small', top: 'xsmall' }}
+                        iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
                       />
                     )}
                     <div className={css.optionBtns}>
@@ -878,32 +877,21 @@ function RunPipelineFormBasic({
                                       </Text>
                                     </span>
                                   </Layout.Horizontal>
-                                  {isGitSyncEnabled && existingProvide === 'existing' && (
-                                    <Layout.Horizontal padding={{ bottom: 'small' }}>
-                                      <GitSyncStoreProvider>
-                                        <GitFilters
-                                          onChange={filter => {
-                                            setGitFilter(filter)
-                                          }}
-                                          defaultValue={gitFilter || undefined}
-                                        />
-                                      </GitSyncStoreProvider>
-                                    </Layout.Horizontal>
-                                  )}
                                 </div>
                                 {!executionView &&
                                   pipeline &&
                                   currentPipeline &&
                                   template?.data?.inputSetTemplateYaml &&
                                   existingProvide === 'existing' && (
-                                    <InputSetSelector
-                                      pipelineIdentifier={pipelineIdentifier}
-                                      onChange={inputsets => {
-                                        setSelectedInputSets(inputsets)
-                                      }}
-                                      value={selectedInputSets}
-                                      gitFilter={gitFilter || undefined}
-                                    />
+                                    <GitSyncStoreProvider>
+                                      <InputSetSelector
+                                        pipelineIdentifier={pipelineIdentifier}
+                                        onChange={inputsets => {
+                                          setSelectedInputSets(inputsets)
+                                        }}
+                                        value={selectedInputSets}
+                                      />
+                                    </GitSyncStoreProvider>
                                   )}
                               </Layout.Vertical>
                             )}

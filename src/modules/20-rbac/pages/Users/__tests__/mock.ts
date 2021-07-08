@@ -171,6 +171,7 @@ export const pendingUserMock: ResponsePageInvite = {
         id: 'id1',
         name: 'Admin_123_123',
         email: 'admin@harness.io',
+        accountIdentifier: 'testAcc',
         roleBindings: [
           {
             roleIdentifier: '_account_viewer',
@@ -187,6 +188,7 @@ export const pendingUserMock: ResponsePageInvite = {
         id: 'id2',
         name: 'default',
         email: 'default@harness.io',
+        accountIdentifier: 'testAcc',
         roleBindings: [
           {
             roleIdentifier: 'New_Role',

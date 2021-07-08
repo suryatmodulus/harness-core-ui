@@ -19,7 +19,13 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
 
   const { expressions } = useVariablesExpression()
 
-  const { accountId, projectIdentifier, orgIdentifier, branch, repoIdentifier = '' } = useParams<
+  const {
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    branch,
+    repoIdentifier = ''
+  } = useParams<
     {
       projectIdentifier: string
       orgIdentifier: string

@@ -177,13 +177,13 @@ export class CustomVariables extends Step<CustomVariablesData> {
         name: row.name,
         type: row.type,
         ...(!isNil(row.default)
-          ? { default: row.type === 'Number' ? parseFloat((row.default as unknown) as string) : row.default }
+          ? { default: row.type === 'Number' ? parseFloat(row.default as unknown as string) : row.default }
           : {}),
         value:
           row.type === 'Number' &&
-          getMultiTypeFromValue((row.value as unknown) as string) === MultiTypeInputType.FIXED &&
+          getMultiTypeFromValue(row.value as unknown as string) === MultiTypeInputType.FIXED &&
           row.value
-            ? parseFloat((row.value as unknown) as string)
+            ? parseFloat(row.value as unknown as string)
             : row.value
       })) as AllNGVariables[]
     }

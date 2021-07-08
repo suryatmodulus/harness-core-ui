@@ -45,6 +45,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                       height="16"
                       viewBox="0 0 14 14"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -299,6 +300,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                           <svg
                             height="24"
                             width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <g
                               fill="none"
@@ -443,6 +445,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                       height="16"
                       viewBox="0 0 14 14"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -707,6 +710,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                           <svg
                             height="24"
                             width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <g
                               fill="none"
@@ -856,6 +860,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                       height="16"
                       viewBox="0 0 14 14"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -1120,6 +1125,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                           <svg
                             height="24"
                             width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <g
                               fill="none"
@@ -1269,6 +1275,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                       height="16"
                       viewBox="0 0 14 14"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -1523,6 +1530,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                           <svg
                             height="24"
                             width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <g
                               fill="none"
@@ -1699,6 +1707,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                       height="16"
                       viewBox="0 0 14 14"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -1861,6 +1870,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                           <svg
                             height="24"
                             width="24"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <g
                               fill="none"
@@ -2037,6 +2047,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
                       height="16"
                       viewBox="0 0 14 14"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -2280,6 +2291,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       height="16"
                       viewBox="0 0 14 14"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -2572,6 +2584,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             <svg
                               height="24"
                               width="24"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <g
                                 fill="none"
@@ -2667,6 +2680,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             <svg
                               height="24"
                               width="24"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <g
                                 fill="none"
@@ -2757,6 +2771,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             <svg
                               height="24"
                               width="24"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <g
                                 fill="none"

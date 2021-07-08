@@ -75,7 +75,12 @@ export const TargetsPage: React.FC = () => {
     }),
     [accountId, orgIdentifier, projectIdentifier, activeEnvironment, pageNumber, searchTerm] // eslint-disable-line react-hooks/exhaustive-deps
   )
-  const { data: targetsData, loading: loadingTargets, error: errTargets, refetch: refetchTargets } = useGetAllTargets({
+  const {
+    data: targetsData,
+    loading: loadingTargets,
+    error: errTargets,
+    refetch: refetchTargets
+  } = useGetAllTargets({
     queryParams,
     lazy: !activeEnvironment
   })

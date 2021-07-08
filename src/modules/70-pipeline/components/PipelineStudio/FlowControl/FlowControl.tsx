@@ -3,7 +3,6 @@ import cx from 'classnames'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import produce from 'immer'
 import * as Yup from 'yup'
-import { stringify } from 'yaml'
 import { Icon, Accordion, Tag, Text, Formik } from '@wings-software/uicore'
 import { set, debounce, cloneDeep } from 'lodash-es'
 import { FieldArray } from 'formik'
@@ -14,6 +13,7 @@ import type { UseStringsReturn } from 'framework/strings'
 import { useGetBarriersSetupInfoList, StageDetail } from 'services/pipeline-ng'
 import { useMutateAsGet } from '@common/hooks'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './FlowControl.module.scss'
 
@@ -67,7 +67,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
   } = React.useContext(PipelineContext)
   const [barriers, updateBarriers] = React.useState<Barrier[]>(pipeline?.flowControl?.barriers || [])
   const { data, loading: loadingSetupInfo } = useMutateAsGet(useGetBarriersSetupInfoList, {
-    body: (stringify({ pipeline: originalPipeline }) as unknown) as void,
+    body: yamlStringify({ pipeline: originalPipeline }) as unknown as void,
     requestOptions: {
       headers: {
         'content-type': 'application/yaml'

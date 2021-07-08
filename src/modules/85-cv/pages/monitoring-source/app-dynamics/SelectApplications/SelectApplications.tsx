@@ -86,7 +86,12 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
     }
   }, [environmentError])
 
-  const { totalItems = 0, totalPages = 0, content = [], pageSize = PAGE_SIZE } = data?.data || {
+  const {
+    totalItems = 0,
+    totalPages = 0,
+    content = [],
+    pageSize = PAGE_SIZE
+  } = data?.data || {
     totalItems: 0,
     totalPages: 0,
     content: [],

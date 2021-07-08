@@ -10,7 +10,7 @@ interface ButtonProps extends CoreButtonProps {
   permission: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
 }
 
-const RbacButton: React.FC<ButtonProps> = ({ permission: permissionRequest, ...restProps }) => {
+const RbacButton: React.FC<ButtonProps> = ({ permission: permissionRequest, tooltipProps, ...restProps }) => {
   const [canDoAction] = usePermission(
     {
       ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),
@@ -34,7 +34,9 @@ const RbacButton: React.FC<ButtonProps> = ({ permission: permissionRequest, ...r
           restProps.tooltip
         ) : undefined
       }
-      tooltipProps={{ hoverCloseDelay: 50, interactionKind: PopoverInteractionKind.HOVER_TARGET_ONLY }}
+      tooltipProps={
+        !canDoAction ? { hoverCloseDelay: 50, interactionKind: PopoverInteractionKind.HOVER_TARGET_ONLY } : tooltipProps
+      }
     />
   )
 }

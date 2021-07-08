@@ -8,9 +8,8 @@ import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 
 export default function CDPipelineDeploymentList(): React.ReactElement {
-  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId, module } = useParams<
-    PipelineType<PipelinePathProps>
-  >()
+  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId, module } =
+    useParams<PipelineType<PipelinePathProps>>()
 
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
   const history = useHistory()

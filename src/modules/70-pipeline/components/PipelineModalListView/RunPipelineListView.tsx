@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Layout, Color, Text, Icon } from '@wings-software/uicore'
+import { Layout, Color, Text } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
@@ -9,6 +9,7 @@ import { String, useStrings } from 'framework/strings'
 
 import routes from '@common/RouteDefinitions'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import GitDetailsColumn from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -71,48 +72,6 @@ export default function RunPipelineListView({ data, refetch, gotoPage }: Pipelin
     )
   }
 
-  const RenderGitDetails: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
-    const { gitDetails } = row.original
-
-    return !!gitDetails?.repoIdentifier && !!gitDetails.branch ? (
-      <Layout.Horizontal
-        style={{ alignItems: 'center' }}
-        padding={{ right: 'medium' }}
-        className={css.pipelineGitDetails}
-      >
-        <Text
-          style={{ fontSize: '13px', wordWrap: 'break-word', maxWidth: '100px' }}
-          color={Color.GREY_800}
-          margin={{ right: 'small' }}
-          lineClamp={1}
-          title={gitDetails.repoIdentifier}
-        >
-          {gitDetails.repoIdentifier}
-        </Text>
-        <Layout.Horizontal
-          border={{ color: Color.GREY_200 }}
-          spacing="xsmall"
-          style={{ borderRadius: '5px', alignItems: 'center' }}
-          padding={{ left: 'small', right: 'small', top: 'xsmall', bottom: 'xsmall' }}
-          background={Color.GREY_100}
-        >
-          <Icon name="git-new-branch" size={11} color={Color.GREY_600} />
-          <Text
-            style={{ wordWrap: 'break-word', maxWidth: '100px' }}
-            font={{ size: 'small' }}
-            color={Color.GREY_800}
-            title={gitDetails.branch}
-            lineClamp={1}
-          >
-            {gitDetails.branch}
-          </Text>
-        </Layout.Horizontal>
-      </Layout.Horizontal>
-    ) : (
-      <></>
-    )
-  }
-
   const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
     const rowdata = row.original
 
@@ -158,7 +117,7 @@ export default function RunPipelineListView({ data, refetch, gotoPage }: Pipelin
         Header: getString('common.gitSync.repoDetails').toUpperCase(),
         accessor: 'gitDetails',
         width: isGitSyncEnabled ? '27.5%' : 0,
-        Cell: RenderGitDetails
+        Cell: GitDetailsColumn
       },
       {
         Header: getString('lastExecutionTs').toUpperCase(),

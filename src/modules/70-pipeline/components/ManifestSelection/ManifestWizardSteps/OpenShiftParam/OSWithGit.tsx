@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
   Layout,
   Button,
@@ -8,21 +8,23 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Color,
-  StepProps
+  StepProps,
+  Icon
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { Form } from 'formik'
+import { Form, FieldArray, FieldArrayRenderProps } from 'formik'
 import * as Yup from 'yup'
 
 import { get, isEmpty, set } from 'lodash-es'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings } from 'framework/strings'
-import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+
 import type { OpenShiftParamDataType } from '../../ManifestInterface'
 import {
   gitFetchTypeList,
@@ -35,6 +37,8 @@ import {
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OpenShiftParam.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+
 interface OpenshiftTemplateWithGITPropType {
   stepName: string
   expressions: string[]
@@ -118,10 +122,50 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
       branch: undefined,
       commitId: undefined,
       gitFetchType: 'Branch',
-      paths: [],
+      paths: [{ value: '', id: uuid('', nameSpace()) }],
       repoName: getRepoName()
     }
   }, [])
+  /* istanbul ignore next */
+  const onDragStart = useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
+    event.dataTransfer.setData('data', index.toString())
+    event.currentTarget.classList.add(css.dragging)
+  }, [])
+  /* istanbul ignore next */
+  const onDragEnd = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.currentTarget.classList.remove(css.dragging)
+  }, [])
+  /* istanbul ignore next */
+  const onDragLeave = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.currentTarget.classList.remove(css.dragOver)
+  }, [])
+  /* istanbul ignore next */
+  const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    /* istanbul ignore next */
+    if (event.preventDefault) {
+      event.preventDefault()
+    }
+    /* istanbul ignore next */
+    event.currentTarget.classList.add(css.dragOver)
+    event.dataTransfer.dropEffect = 'move'
+  }, [])
+  /* istanbul ignore next */
+  const onDrop = useCallback(
+    (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
+      /* istanbul ignore else */
+      if (event.preventDefault) {
+        event.preventDefault()
+      }
+      const data = event.dataTransfer.getData('data')
+      /* istanbul ignore else */
+      if (data) {
+        const index = parseInt(data, 10)
+        arrayHelpers.swap(index, droppedIndex)
+      }
+      event.currentTarget.classList.remove(css.dragOver)
+    },
+    []
+  )
 
   const submitFormData = (formData: OpenShiftParamDataType & { store?: string; connectorRef?: string }): void => {
     const manifestObj: ManifestConfigWrapper = {
@@ -287,16 +331,91 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                 )}
               </Layout.Horizontal>
 
-              <MultiTypeList
-                name="paths"
-                multiTextInputProps={{ expressions }}
-                multiTypeFieldSelectorProps={{
-                  label: (
+              <div
+                className={cx(stepCss.formGroup, {
+                  [css.folderRunTimeInput]: getMultiTypeFromValue(formik.values?.paths) === MultiTypeInputType.RUNTIME
+                })}
+              >
+                <MultiTypeFieldSelector
+                  defaultValueToReset={[{ value: '', id: uuid('', nameSpace()) }]}
+                  name={'paths'}
+                  label={
                     <Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipelineSteps.paths')}</Text>
-                  )
-                }}
-                style={{ marginBottom: 'var(--spacing-small)', height: '350', width: '400px' }}
-              />
+                  }
+                  style={
+                    getMultiTypeFromValue(formik.values?.paths) !== MultiTypeInputType.RUNTIME
+                      ? { width: 330 }
+                      : { width: 500 }
+                  }
+                >
+                  <FieldArray
+                    name="paths"
+                    render={(arrayHelpers: any) => (
+                      <Layout.Vertical>
+                        {formik.values?.paths?.map((path: { value: string; id: string }, index: number) => {
+                          return (
+                            <Layout.Horizontal
+                              key={path.id}
+                              flex={{ distribution: 'space-between' }}
+                              style={{ alignItems: 'end' }}
+                            >
+                              <Layout.Horizontal
+                                spacing="medium"
+                                style={{ alignItems: 'baseline' }}
+                                draggable={true}
+                                onDragStart={event => {
+                                  onDragStart(event, index)
+                                }}
+                                onDragEnd={onDragEnd}
+                                onDragOver={onDragOver}
+                                onDragLeave={onDragLeave}
+                                onDrop={event => onDrop(event, arrayHelpers, index)}
+                              >
+                                <Icon name="drag-handle-vertical" className={css.drag} />
+                                <Text width={12}>{`${index + 1}.`}</Text>
+                                <FormInput.MultiTextInput
+                                  label={''}
+                                  placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                                  name={`paths[${index}].value`}
+                                  style={{ width: 275 }}
+                                  multiTextInputProps={{
+                                    expressions,
+                                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                  }}
+                                />
+                              </Layout.Horizontal>
+                              {formik.values?.paths?.length > 1 && (
+                                <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                              )}
+                            </Layout.Horizontal>
+                          )
+                        })}
+                        <span>
+                          <Button
+                            minimal
+                            text={getString('addFileText')}
+                            intent="primary"
+                            className={css.addFileButton}
+                            onClick={() => arrayHelpers.push({ value: '', id: uuid('', nameSpace()) })}
+                          />
+                        </span>
+                      </Layout.Vertical>
+                    )}
+                  />
+                </MultiTypeFieldSelector>
+                {getMultiTypeFromValue(formik.values.paths) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formik.values.paths}
+                    type={getString('list')}
+                    variableName={'paths'}
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={val => formik?.setFieldValue('paths', val)}
+                    isReadonly={isReadonly}
+                  />
+                )}
+              </div>
             </div>
 
             <Layout.Horizontal spacing="xxlarge" margin={{ top: 'huge' }}>

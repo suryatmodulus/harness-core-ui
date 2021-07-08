@@ -17,7 +17,7 @@ exports[`VerificationStatusBar matches snapshot 1`] = `
         class="StyledProps--font StyledProps--main"
         style="font-size: 12px;"
       >
-        cv.startedOn: XX:YY
+        pipeline.startedOn: XX:YY
       </p>
     </div>
     <div

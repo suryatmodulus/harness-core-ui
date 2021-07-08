@@ -76,8 +76,9 @@ const useCreateSSHCredModal = (props: UseCreateSSHCredModalProps): UseCreateSSHC
             credentialType: ((_sshData.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO)?.credentialType,
             tgtGenerationMethod:
               ((_sshData.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).tgtGenerationMethod || 'None',
-            userName: (((_sshData.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO)
-              ?.spec as SSHKeyReferenceCredentialDTO)?.userName,
+            userName: (
+              ((_sshData.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO)?.spec as SSHKeyReferenceCredentialDTO
+            )?.userName,
             principal: ((_sshData.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO)?.principal,
             realm: ((_sshData.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO)?.realm,
             keyPath:

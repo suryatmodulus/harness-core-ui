@@ -1,9 +1,8 @@
 import React from 'react'
-import type { IconName, SelectOption } from '@wings-software/uicore'
-import type { FormikErrors } from 'formik'
+import type { IconName } from '@wings-software/uicore'
+import { connect, FormikErrors } from 'formik'
 import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 
-import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
@@ -14,6 +13,7 @@ import { ContinousVerificationVariableStep } from './components/ContinousVerific
 import { getSpecFormData, getSpecYamlData, validateField, validateTimeout } from './utils'
 import { cvDefaultValues } from './constants'
 
+const ContinousVerificationInputSetStepFormik = connect(ContinousVerificationInputSetStep)
 export class ContinousVerificationStep extends PipelineStep<ContinousVerificationData> {
   constructor() {
     super()
@@ -24,11 +24,6 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
   protected stepName = 'Verify'
   protected stepIcon: IconName = 'cv-main'
   protected isHarnessSpecific = true
-  protected invocationMap: Map<
-    RegExp,
-    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
-  > = new Map()
-
   protected defaultValues: ContinousVerificationData = cvDefaultValues
 
   renderStep(props: StepProps<ContinousVerificationData>): JSX.Element {
@@ -36,7 +31,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        <ContinousVerificationInputSetStep
+        <ContinousVerificationInputSetStepFormik
           initialValues={this.getInitialValues(initialValues)}
           onUpdate={data => onUpdate?.(this.processFormData(data))}
           stepViewType={stepViewType}
@@ -71,13 +66,12 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
     viewType
   }: ValidateInputSetProps<ContinousVerificationData>): FormikErrors<ContinousVerificationData> {
     const errors: FormikErrors<ContinousVerificationData> = {}
-    const { sensitivity, duration, baseline, trafficsplit, deploymentTag } = (template?.spec?.spec as spec) || {}
+    const { sensitivity, duration, baseline, deploymentTag } = (template?.spec?.spec as spec) || {}
     const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
       validateField(sensitivity as string, 'sensitivity', data, errors, getString, isRequired)
       validateField(duration as string, 'duration', data, errors, getString, isRequired)
       validateField(baseline as string, 'baseline', data, errors, getString, isRequired)
-      validateField(trafficsplit as string, 'trafficsplit', data, errors, getString, isRequired)
       validateField(deploymentTag as string, 'deploymentTag', data, errors, getString, isRequired)
       validateTimeout(getString, data, errors, template, isRequired)
     }
@@ -89,8 +83,6 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
       ...initialValues,
       spec: {
         ...initialValues.spec,
-        verificationJobRef: initialValues?.spec?.verificationJobRef,
-        type: initialValues.spec?.type,
         spec: getSpecFormData(initialValues?.spec?.spec)
       }
     }
@@ -101,9 +93,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
       ...data,
       spec: {
         ...data.spec,
-        verificationJobRef: (data.spec.verificationJobRef as SelectOption)?.value as string,
-        type: data.spec?.type,
-        spec: getSpecYamlData(data.spec.spec)
+        spec: getSpecYamlData(data?.spec?.spec, data?.spec?.type)
       }
     }
   }

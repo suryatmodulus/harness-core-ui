@@ -49,7 +49,7 @@ const fields = [
   },
   {
     name: 'spec.outputVariables',
-    type: Types.List
+    type: Types.OutputVariables
   },
   {
     name: 'spec.pull',
@@ -85,7 +85,14 @@ const formValues = {
       envVariable1: 'value1',
       envVariable2: 'value2'
     },
-    outputVariables: ['value1', 'value2'],
+    outputVariables: [
+      {
+        name: 'value1'
+      },
+      {
+        name: 'value2'
+      }
+    ],
     pull: 'value2',
     resources: {
       limits: {

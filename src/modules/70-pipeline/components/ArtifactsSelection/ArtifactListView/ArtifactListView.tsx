@@ -33,7 +33,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
   )
   const primaryConnectorName = getConnectorNameFromValue(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse)
   return (
-    <Layout.Vertical style={{ flexShrink: 'initial' }}>
+    <Layout.Vertical style={{ width: '100%' }}>
       <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
         {!!(sideCarArtifact?.length || primaryArtifact?.type) && (
           <div className={cx(css.artifactList, css.listHeader)}>
@@ -63,23 +63,24 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                     <Icon name="full-circle" size={12} color={primaryConnectorColor} />
                   )}
                 </div>
-
                 <div>
-                  <Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                  <Text lineClamp={1} style={{ color: Color.GREY_500 }}>
                     {primaryArtifact?.spec?.imagePath}
                   </Text>
                 </div>
                 {overrideSetIdentifier?.length === 0 && !isReadonly && (
-                  <span>
-                    <Layout.Horizontal spacing="medium" className={css.actionGrid}>
-                      <Icon
-                        name="Edit"
-                        size={16}
-                        onClick={() => editArtifact(ModalViewFor.PRIMARY, primaryArtifact.type)}
-                      />
-                      <Icon name="bin-main" size={25} onClick={removePrimary} />
-                    </Layout.Horizontal>
-                  </span>
+                  <Layout.Horizontal
+                    spacing="medium"
+                    flex={{ justifyContent: 'flex-end', alignItems: 'center' }}
+                    className={css.actionGrid}
+                  >
+                    <Icon
+                      name="Edit"
+                      size={16}
+                      onClick={() => editArtifact(ModalViewFor.PRIMARY, primaryArtifact.type)}
+                    />
+                    <Icon name="bin-main" size={25} onClick={removePrimary} />
+                  </Layout.Horizontal>
                 )}
               </section>
             )}

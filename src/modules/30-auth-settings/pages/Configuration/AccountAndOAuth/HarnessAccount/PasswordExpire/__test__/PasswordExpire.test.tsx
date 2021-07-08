@@ -16,6 +16,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 const refetchAuthSettings = jest.fn()
+const setUpdating = jest.fn()
 
 const disablePasswordExpire = {
   ...loginSettings,
@@ -32,7 +33,12 @@ describe('PasswordExpire', () => {
         path={routes.toAuthenticationSettings({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
       >
-        <PasswordExpire loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
+        <PasswordExpire
+          loginSettings={loginSettings}
+          refetchAuthSettings={refetchAuthSettings}
+          canEdit
+          setUpdating={setUpdating}
+        />
       </TestWrapper>
     )
 
@@ -60,7 +66,12 @@ describe('PasswordExpire', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <PasswordExpire loginSettings={disablePasswordExpire} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <PasswordExpire
+            loginSettings={disablePasswordExpire}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 
@@ -86,7 +97,12 @@ describe('PasswordExpire', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <PasswordExpire loginSettings={disablePasswordExpire} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <PasswordExpire
+            loginSettings={disablePasswordExpire}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 
@@ -112,7 +128,12 @@ describe('PasswordExpire', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <PasswordExpire loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <PasswordExpire
+            loginSettings={loginSettings}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 

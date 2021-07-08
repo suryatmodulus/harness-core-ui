@@ -167,7 +167,7 @@ const Wizard: React.FC<WizardProps> = ({
                   const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
                   parse(latestYaml)
                   const errorsYaml =
-                    ((yamlHandler?.getYAMLValidationErrorMap() as unknown) as Map<number, string>) ||
+                    (yamlHandler?.getYAMLValidationErrorMap() as unknown as Map<number, string>) ||
                     /* istanbul ignore next */ ''
                   if (errorsYaml?.size > 0) {
                     return
@@ -331,7 +331,7 @@ const Wizard: React.FC<WizardProps> = ({
                       onClick={() => {
                         const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
                         const errorsYaml =
-                          ((yamlHandler?.getYAMLValidationErrorMap() as unknown) as Map<number, string>) ||
+                          (yamlHandler?.getYAMLValidationErrorMap() as unknown as Map<number, string>) ||
                           /* istanbul ignore next */ ''
                         if (errorsYaml?.size > 0) {
                           showError(getString('invalidYamlText'))

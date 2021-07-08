@@ -67,12 +67,12 @@ describe('AccountDetails', () => {
   })
 
   test('should call update account name api when edit name and save', async () => {
-    const { getAllByText, getByText, container } = render(
+    const { getByText, container } = render(
       <TestWrapper>
         <AccountDetails />
       </TestWrapper>
     )
-    fireEvent.click(getAllByText('edit')[1])
+    fireEvent.click(container?.getElementsByClassName('bp3-icon-edit')[0])
     await waitFor(() => expect('save').toBeDefined())
     fireEvent.input(queryByNameAttribute('name', container)!, {
       target: { value: 'account name 2' },
@@ -92,12 +92,12 @@ describe('AccountDetails', () => {
         })
       }
     })
-    const { getByText, container, getAllByText } = render(
+    const { getByText, container } = render(
       <TestWrapper>
         <AccountDetails />
       </TestWrapper>
     )
-    fireEvent.click(getAllByText('edit')[1])
+    fireEvent.click(container?.getElementsByClassName('bp3-icon-edit')[0])
     await waitFor(() => expect('save').toBeDefined())
     fireEvent.input(queryByNameAttribute('name', container)!, {
       target: { value: 'account name 2' },

@@ -166,7 +166,7 @@ export const mockUsersResponse = {
   data: {
     status: 'SUCCESS',
     content: [{ name: 'ug11', uuid: 'uv1' }],
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     correlationId: 'someId'
   }
 }
@@ -176,7 +176,7 @@ export const mockUserGroupsResponse: UseGetMockData<ResponsePageUserGroupDTO> = 
   data: {
     correlationId: '',
     status: 'SUCCESS',
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     data: {
       content: [
         { name: 'ug1', identifier: 'ug1' },

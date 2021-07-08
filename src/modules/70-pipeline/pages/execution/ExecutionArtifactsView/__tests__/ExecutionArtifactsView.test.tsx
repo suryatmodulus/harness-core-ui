@@ -71,14 +71,12 @@ describe('<ExecutionArtifactsView /> tests', () => {
               {
                 imageName: 'harness/ci-automation',
                 tag: '1.2',
-                url:
-                  'https://hub.docker.com/layers/harness/ci-automation/1.2/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/'
+                url: 'https://hub.docker.com/layers/harness/ci-automation/1.2/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/'
               },
               {
                 imageName: 'harness/ci-automation',
                 tag: '1',
-                url:
-                  'https://hub.docker.com/layers/harness/ci-automation/1/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/'
+                url: 'https://hub.docker.com/layers/harness/ci-automation/1/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/'
               }
             ]
           }
@@ -129,15 +127,13 @@ describe('<ExecutionArtifactsView /> tests', () => {
             image: 'harness/ci-automation',
             tag: '1.2',
             type: 'Image',
-            url:
-              'https://hub.docker.com/layers/harness/ci-automation/1.2/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/'
+            url: 'https://hub.docker.com/layers/harness/ci-automation/1.2/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/'
           },
           {
             image: 'harness/ci-automation',
             tag: '1',
             type: 'Image',
-            url:
-              'https://hub.docker.com/layers/harness/ci-automation/1/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/'
+            url: 'https://hub.docker.com/layers/harness/ci-automation/1/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/'
           }
         ],
         icon: 'pipeline-deploy',

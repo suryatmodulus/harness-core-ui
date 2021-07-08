@@ -191,7 +191,9 @@ describe('Test GcpInfrastructureSpec behavior', () => {
     )
 
     await act(async () => {
-      const namespaceInput = container.querySelector('[placeholder="cd.steps.common.namespacePlaceholder"]')
+      const namespaceInput = container.querySelector(
+        '[placeholder="pipeline.infraSpecifications.namespacePlaceholder"]'
+      )
       fireEvent.change(namespaceInput!, { target: { value: 'namespace changed' } })
 
       // TODO: add other fields

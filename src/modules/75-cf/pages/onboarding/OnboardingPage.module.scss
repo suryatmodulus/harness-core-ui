@@ -14,3 +14,29 @@
   margin: auto;
   margin-left: var(--spacing-large);
 }
+
+.h2:before {
+  content: '';
+  flex: 1 1;
+  border-bottom: 1px solid #d8d8d8;
+  margin: auto;
+  margin-right: var(--spacing-large);
+}
+
+.basicImageContainer {
+  @media (min-height: 950px) {
+    padding-top: 60px !important;
+  }
+}
+
+.stepImageContainer {
+  @media (min-height: 950px) {
+    padding: 60px 0 70px !important;
+  }
+
+  .stepsImage {
+    @media (max-width: 1700px) {
+      transform: scale(1) !important;
+    }
+  }
+}

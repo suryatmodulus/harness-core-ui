@@ -1,0 +1,14 @@
+query FetchViewFields($filters: [QLCEViewFilterWrapperInput]) {
+  perspectiveFields(filters: $filters) {
+    fieldIdentifierData {
+      identifier
+      identifierName
+      values {
+        fieldId
+        fieldName
+        identifier
+        identifierName
+      }
+    }
+  }
+}

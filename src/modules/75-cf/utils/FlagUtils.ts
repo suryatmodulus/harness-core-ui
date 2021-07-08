@@ -49,29 +49,26 @@ const makeInstruction = (kind: string, featureFlag: Feature, variation: string, 
   }
 }
 
-const makePatchHook = (patchKind: string) => ({
-  accountIdentifier,
-  orgIdentifier,
-  projectIdentifier,
-  environmentIdentifier
-}: FlagPatchParams) => {
-  const { mutate } = usePatchFeature({
-    identifier: '',
-    queryParams: {
-      account: accountIdentifier,
-      accountIdentifier,
-      org: orgIdentifier,
-      project: projectIdentifier,
-      environment: environmentIdentifier
-    } as PatchFeatureQueryParams
-  })
+const makePatchHook =
+  (patchKind: string) =>
+  ({ accountIdentifier, orgIdentifier, projectIdentifier, environmentIdentifier }: FlagPatchParams) => {
+    const { mutate } = usePatchFeature({
+      identifier: '',
+      queryParams: {
+        account: accountIdentifier,
+        accountIdentifier,
+        org: orgIdentifier,
+        project: projectIdentifier,
+        environment: environmentIdentifier
+      } as PatchFeatureQueryParams
+    })
 
-  return (featureFlag: Feature, variation: any, targetIdentifiers: string[]) => {
-    const body = makeInstruction(patchKind, featureFlag, variation, targetIdentifiers)
+    return (featureFlag: Feature, variation: any, targetIdentifiers: string[]) => {
+      const body = makeInstruction(patchKind, featureFlag, variation, targetIdentifiers)
 
-    return mutate(body, { pathParams: { identifier: featureFlag.identifier } })
+      return mutate(body, { pathParams: { identifier: featureFlag.identifier } })
+    }
   }
-}
 
 export const useServeFeatureFlagVariationToTargets = makePatchHook('addTargetsToVariationTargetMap')
 

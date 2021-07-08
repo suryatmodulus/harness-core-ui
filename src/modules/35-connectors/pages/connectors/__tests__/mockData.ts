@@ -628,3 +628,38 @@ export const filters = {
   metaData: null,
   correlationId: 'c7a1b79e-6675-417f-8506-1c1522181f75'
 }
+
+export const connectorWithGitData = {
+  connector: {
+    name: 'docker',
+    identifier: 'docker',
+    description: 'sample',
+    orgIdentifier: 'default',
+    projectIdentifier: 'vbgitproject',
+    tags: {},
+    type: 'DockerRegistry',
+    spec: {
+      dockerRegistryUrl: 'https://registry.hub.docker.com/v2/',
+      providerType: 'DockerHub',
+      auth: { type: 'Anonymous' },
+      delegateSelectors: []
+    }
+  },
+  createdAt: 1234567890,
+  lastModifiedAt: 1234567890,
+  status: {
+    status: 'SUCCESS',
+    testedAt: 134567890,
+    lastTestedAt: 0,
+    lastConnectedAt: 1234567890
+  },
+  activityDetails: { lastActivityTime: 1234567890 },
+  harnessManaged: false,
+  gitDetails: {
+    objectId: 'objectId',
+    branch: 'main',
+    repoIdentifier: 'repoId',
+    rootFolder: 'vbsetup/.harness/',
+    filePath: 'docker.yaml'
+  }
+}

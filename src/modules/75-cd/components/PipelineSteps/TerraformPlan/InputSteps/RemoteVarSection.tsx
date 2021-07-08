@@ -7,13 +7,12 @@ import { get } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput, Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import List from '@common/components/List/List'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 
-import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
-import { Connectors } from '@connectors/constants'
 import type { TerraformPlanProps } from '../../Common/Terraform/TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -44,7 +43,7 @@ export default function TFRemoteSection(
       </Container>
 
       {getMultiTypeFromValue(remoteVar.varFile?.spec?.store?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <FormConnectorReferenceField
+        <FormMultiTypeConnectorField
           accountIdentifier={accountId}
           selected={get(
             initialValues,
@@ -54,11 +53,12 @@ export default function TFRemoteSection(
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={400}
-          type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
+          type={[remoteVar?.varFile?.spec?.store?.type]}
           name={`${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.connectorRef`}
           label={getString('connector')}
           placeholder={getString('select')}
           disabled={readonly}
+          setRefValue
           gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
       )}
@@ -93,6 +93,7 @@ export default function TFRemoteSection(
           name={`${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.paths`}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          isNameOfArrayType
         />
       )}
     </>

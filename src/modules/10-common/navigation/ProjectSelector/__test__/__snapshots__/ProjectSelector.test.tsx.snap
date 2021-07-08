@@ -24,7 +24,7 @@ exports[`ProjectSelector render with projects 1`] = `
           </p>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-            style="--text-line-clamp: 1; width: 100px;"
+            style="--text-line-clamp: 1;"
           >
             selectProject
           </p>
@@ -102,7 +102,7 @@ exports[`ProjectSelector render with projects 2`] = `
           </p>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-            style="--text-line-clamp: 1; width: 100px;"
+            style="--text-line-clamp: 1;"
           >
             selectProject
           </p>

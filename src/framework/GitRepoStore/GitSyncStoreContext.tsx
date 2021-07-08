@@ -10,6 +10,7 @@ export interface GitSyncStoreProps {
   readonly gitSyncRepos: GitSyncConfig[]
   readonly codeManagers: SourceCodeManagerDTO[]
   readonly loadingRepos: boolean
+  readonly loadingCodeManagers: boolean
   updateStore(data: Partial<Pick<GitSyncStoreProps, 'gitSyncRepos'>>): void
   refreshStore(): void
 }
@@ -18,6 +19,7 @@ export const GitSyncStoreContext = React.createContext<GitSyncStoreProps>({
   gitSyncRepos: [],
   codeManagers: [],
   loadingRepos: false,
+  loadingCodeManagers: false,
   updateStore: noop,
   refreshStore: noop
 })
@@ -30,24 +32,30 @@ export const GitSyncStoreProvider: React.FC = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   //Note: right now we support git-sync only at project level
-  const { data: dataAllGitSync, loading: loadingRepos, refetch } = useListGitSync({
+  const {
+    data: dataAllGitSync,
+    loading: loadingRepos,
+    refetch
+  } = useListGitSync({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
+
+  const { data: codeManagers, loading: loadingCodeManagers } = useGetSourceCodeManagers({})
 
   const [storeData, setStoreData] = React.useState<Omit<GitSyncStoreProps, 'updateStore' | 'strings'>>({
     gitSyncRepos: [],
     codeManagers: [],
     loadingRepos,
+    loadingCodeManagers,
     refreshStore: refetch
   })
-
-  const { data: codeManagers, loading: loadingCodeManagers } = useGetSourceCodeManagers({})
 
   useEffect(() => {
     if (!loadingCodeManagers) {
       setStoreData(prevStateData => ({
         ...prevStateData,
+        loadingCodeManagers: false,
         codeManagers: codeManagers?.data || []
       }))
     }
@@ -77,12 +85,13 @@ export const GitSyncStoreProvider: React.FC = props => {
   }, [projectIdentifier])
 
   const updateStore = useCallback(
-    () => (data: Partial<Pick<GitSyncStoreProps, 'gitSyncRepos'>>): void => {
-      setStoreData(prevState => ({
-        ...prevState,
-        gitSyncRepos: data.gitSyncRepos || prevState.gitSyncRepos
-      }))
-    },
+    () =>
+      (data: Partial<Pick<GitSyncStoreProps, 'gitSyncRepos'>>): void => {
+        setStoreData(prevState => ({
+          ...prevState,
+          gitSyncRepos: data.gitSyncRepos || prevState.gitSyncRepos
+        }))
+      },
     []
   )
 

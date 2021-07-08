@@ -16,7 +16,8 @@ import {
   delegatePathProps,
   delegateConfigProps,
   userGroupPathProps,
-  userPathProps
+  userPathProps,
+  serviceAccountProps
 } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import type {
@@ -79,12 +80,27 @@ import BuildTests from '@pipeline/pages/execution/ExecutionTestView/BuildTests'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
+import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
+import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
+import executionFactory from '@pipeline/factories/ExecutionFactory'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import CIHomePage from './pages/home/CIHomePage'
 import CIDashboardPage from './pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from './pages/pipeline-studio/CIPipelineStudio'
 import CISideNav from './components/CISideNav/CISideNav'
 import BuildCommits from './pages/build/sections/commits/BuildCommits'
 import CITrialHomePage from './pages/home/CITrialHomePage'
+import { CIExecutionCardSummary } from './components/CIExecutionCardSummary/CIExecutionCardSummary'
+import { CIExecutionSummary } from './components/CIExecutionSummary/CIExecutionSummary'
+
+executionFactory.registerCardInfo(StageType.BUILD, {
+  icon: 'ci-main',
+  component: CIExecutionCardSummary
+})
+
+executionFactory.registerSummary(StageType.BUILD, {
+  component: CIExecutionSummary
+})
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
@@ -672,6 +688,24 @@ export default (
       path={routes.toUserGroupDetails({ ...projectPathProps, ...pipelineModuleParams, ...userGroupPathProps })}
     >
       <UserGroupDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={routes.toServiceAccounts({ ...projectPathProps, ...pipelineModuleParams })}
+      exact
+    >
+      <AccessControlPage>
+        <ServiceAccountsPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={routes.toServiceAccountDetails({ ...projectPathProps, ...pipelineModuleParams, ...serviceAccountProps })}
+      exact
+    >
+      <ServiceAccountDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

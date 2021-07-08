@@ -27,7 +27,11 @@ const AccountNameForm: React.FC<AccountNameFormProps> = ({
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { mutate: updateAcctName, loading: updatingAcctName, cancel } = useUpdateAccountNameNG({
+  const {
+    mutate: updateAcctName,
+    loading: updatingAcctName,
+    cancel
+  } = useUpdateAccountNameNG({
     accountIdentifier: accountId
   })
 

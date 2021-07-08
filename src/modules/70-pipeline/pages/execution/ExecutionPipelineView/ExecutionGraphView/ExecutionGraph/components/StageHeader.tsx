@@ -21,7 +21,7 @@ export default function StageHeader(props: StageHeaderProps): React.ReactElement
     <Container>
       <Layout.Horizontal padding="medium">
         <Layout.Vertical style={{ flex: 1 }} flex={{ alignItems: 'flex-start' }} margin={{ right: 'medium' }}>
-          <Text style={{ fontSize: '14px' }} font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+          <Text width={300} lineClamp={1} font={{ weight: 'semi-bold', size: 'normal' }} color={Color.BLACK}>
             {data.name}
           </Text>
           {data.status !== ExecutionStatusEnum.Skipped && (

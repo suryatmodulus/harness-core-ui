@@ -10,6 +10,7 @@ import {
   useGetPipelineList
 } from 'services/pipeline-ng'
 import type { ResourceHandlerTableData } from '@rbac/components/ResourceHandlerTable/ResourceHandlerTable'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { RenderColumnPipeline, RenderLastRunDate } from '../PipelineResourceModal/PipelineResourceModal'
 
 const PipelineResourceRenderer: React.FC<RbacResourceRendererProps> = ({
@@ -20,14 +21,20 @@ const PipelineResourceRenderer: React.FC<RbacResourceRendererProps> = ({
 }) => {
   const { accountIdentifier, orgIdentifier = '', projectIdentifier = '' } = resourceScope
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
   const [pipelineData, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
 
-  const { loading, mutate: reloadPipelines, cancel } = useGetPipelineList({
+  const {
+    loading,
+    mutate: reloadPipelines,
+    cancel
+  } = useGetPipelineList({
     queryParams: {
       accountIdentifier,
       projectIdentifier,
       orgIdentifier,
-      size: 10
+      size: 10,
+      ...(isGitSyncEnabled ? { getDistinctFromBranches: true } : {})
     }
   })
 

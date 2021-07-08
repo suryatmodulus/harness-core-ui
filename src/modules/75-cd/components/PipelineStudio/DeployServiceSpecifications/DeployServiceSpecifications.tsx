@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Card, Icon, Text, SelectOption, IconName, Checkbox, HarnessDocTooltip } from '@wings-software/uicore'
+import { Layout, Card, SelectOption, Checkbox } from '@wings-software/uicore'
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
@@ -25,57 +25,11 @@ import PropagateWidget, {
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
 import css from './DeployServiceSpecifications.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const { getString } = useStrings()
-
-  const supportedDeploymentTypes: {
-    name: string
-    icon: IconName
-    enabled: boolean
-  }[] = [
-    {
-      name: getString('serviceDeploymentTypes.kubernetes'),
-      icon: 'service-kubernetes',
-      enabled: true
-    },
-    {
-      name: getString('serviceDeploymentTypes.amazonEcs'),
-      icon: 'service-ecs',
-      enabled: false
-    },
-    {
-      name: getString('serviceDeploymentTypes.amazonAmi'),
-      icon: 'main-service-ami',
-      enabled: false
-    },
-    {
-      name: getString('serviceDeploymentTypes.awsCodeDeploy'),
-      icon: 'app-aws-code-deploy',
-      enabled: false
-    },
-    {
-      name: getString('serviceDeploymentTypes.winrm'),
-      icon: 'command-winrm',
-      enabled: false
-    },
-    {
-      name: getString('serviceDeploymentTypes.awsLambda'),
-      icon: 'app-aws-lambda',
-      enabled: false
-    },
-    {
-      name: getString('serviceDeploymentTypes.pcf'),
-      icon: 'service-pivotal',
-      enabled: false
-    },
-    {
-      name: getString('serviceDeploymentTypes.ssh'),
-      icon: 'secret-ssh',
-      enabled: false
-    }
-  ]
   const [setupModeType, setSetupMode] = React.useState('')
   const [checkedItems, setCheckedItems] = React.useState({
     overrideSetCheckbox: false
@@ -428,45 +382,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               <div className={css.tabHeading} id="serviceDefinition">
                 {getString('pipelineSteps.deploy.serviceSpecifications.serviceDefinition')}
               </div>
-
-              <Card className={cx(css.sectionCard, css.shadow)} id="deploymentType">
-                <div
-                  className={cx(css.tabSubHeading, 'ng-tooltip-native')}
-                  data-tooltip-id="stageOverviewDeploymentType"
-                >
-                  Deployment Type
-                  <HarnessDocTooltip tooltipId="stageOverviewDeploymentType" useStandAlone={true} />
-                </div>
-                <Layout.Horizontal>
-                  {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
-                    <div key={type.name} className={css.squareCardContainer}>
-                      <Card
-                        disabled={!type.enabled || isReadonly}
-                        interactive={true}
-                        selected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
-                        cornerSelected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
-                        className={cx(
-                          {
-                            [css.disabled]: !type.enabled
-                          },
-                          css.squareCard
-                        )}
-                      >
-                        <Icon name={type.icon as IconName} size={26} height={26} />
-                      </Card>
-                      <Text
-                        style={{
-                          fontSize: '12px',
-                          color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
-                          textAlign: 'center'
-                        }}
-                      >
-                        {type.name}
-                      </Text>
-                    </div>
-                  ))}
-                </Layout.Horizontal>
-              </Card>
+              <SelectDeploymentType selectedDeploymentType={'kubernetes'} isReadonly={isReadonly} />
               <Layout.Horizontal>
                 <StepWidget<K8SDirectServiceStep>
                   factory={factory}

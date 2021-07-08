@@ -24,20 +24,20 @@ import { String, useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
-import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpecifications/SelectDeployementType'
+import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpecifications/SelectInfrastructureType'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './DeployInfraSpecifications.module.scss'
 
 // TODO: Add key once we have default value
 const DEFAULT_INFRA_KEY = ''
 
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
-  const isProvisionerEnabled = useFeatureFlag('NG_PROVISIONERS')
-  const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] = React.useState<
-    Infrastructure
-  >({})
+  const isProvisionerEnabled = useFeatureFlag(FeatureFlag.NG_PROVISIONERS)
+  const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] =
+    React.useState<Infrastructure>({})
   const [selectedDeploymentType, setSelectedDeploymentType] = React.useState<string | undefined>()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const { getString } = useStrings()
@@ -361,7 +361,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         </div>
         <SelectDeploymentType
           isReadonly={isReadonly}
-          selectedDeploymentType={selectedDeploymentType}
+          selectedInfrastructureType={selectedDeploymentType}
           onChange={deploymentType => {
             setSelectedDeploymentType(deploymentType)
             resetInfrastructureDefinition(deploymentType)
@@ -398,7 +398,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         ) : null}
 
         {selectedDeploymentType ? (
-          <Card className={css.sectionCard} id="clusterDetails">
+          <Card className={cx(css.sectionCard, css.shadow)} id="clusterDetails">
             <Text style={{ fontWeight: 600, fontSize: 16 }} color={Color.GREY_700} margin={{ bottom: 'medium' }}>
               {getString('cd.steps.common.clusterDetails')}
             </Text>

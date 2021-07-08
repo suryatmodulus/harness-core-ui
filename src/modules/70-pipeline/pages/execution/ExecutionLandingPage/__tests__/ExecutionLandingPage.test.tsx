@@ -66,7 +66,7 @@ describe('<ExecutionLandingPage /> tests', () => {
       data: null
     }))
     const { container } = render(
-      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
+      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={pathParams as unknown as Record<string, string>}>
         <ExecutionLandingPage>
           <div data-testid="children">Execution Landing Page</div>
         </ExecutionLandingPage>
@@ -86,7 +86,7 @@ describe('<ExecutionLandingPage /> tests', () => {
       data: null
     }))
     const { container, getByTestId } = render(
-      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
+      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={pathParams as unknown as Record<string, string>}>
         <ExecutionLandingPage>
           <div data-testid="children">Execution Landing Page</div>
         </ExecutionLandingPage>
@@ -101,7 +101,7 @@ describe('<ExecutionLandingPage /> tests', () => {
 
   test('Toggle between log/graph view works', async () => {
     const { container, getByTestId } = render(
-      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
+      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={pathParams as unknown as Record<string, string>}>
         <ExecutionLandingPage>
           <CurrentLocation />
         </ExecutionLandingPage>
@@ -144,7 +144,7 @@ describe('<ExecutionLandingPage /> tests', () => {
     }))
 
     render(
-      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
+      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={pathParams as unknown as Record<string, string>}>
         <ExecutionLandingPage>
           <div data-testid="children">Execution Landing Page</div>
         </ExecutionLandingPage>
@@ -177,13 +177,13 @@ describe('<ExecutionLandingPage /> tests', () => {
     }
 
     const { getByTestId } = render(
-      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
+      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={pathParams as unknown as Record<string, string>}>
         <ExecutionLandingPage>
           <Child />
         </ExecutionLandingPage>
       </TestWrapper>
     )
-    const testData = (mockData as unknown) as ResponsePipelineExecutionDetail
+    const testData = mockData as unknown as ResponsePipelineExecutionDetail
     const stage = getActiveStageForPipeline(testData.data?.pipelineExecutionSummary)
     const runningStep = getActiveStep(testData.data?.executionGraph || {})
     jest.runOnlyPendingTimers()
@@ -214,7 +214,7 @@ describe('<ExecutionLandingPage /> tests', () => {
       <TestWrapper
         path={TEST_EXECUTION_PIPELINE_PATH}
         queryParams={{ stage: 'qaStage' }}
-        pathParams={(pathParams as unknown) as Record<string, string>}
+        pathParams={pathParams as unknown as Record<string, string>}
       >
         <ExecutionLandingPage>
           <Child />

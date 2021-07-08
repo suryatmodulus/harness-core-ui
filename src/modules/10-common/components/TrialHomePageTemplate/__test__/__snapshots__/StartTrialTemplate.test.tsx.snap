@@ -4,7 +4,7 @@ exports[`StartTrialTemplate snapshot test should call prop onClick when there is
 <div>
   <div
     class="StyledProps--font StyledProps--main body"
-    style="--image-url: url();"
+    style="background: transparent url() no-repeat;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -67,7 +67,7 @@ exports[`StartTrialTemplate snapshot test should call the start button click han
 <div>
   <div
     class="StyledProps--font StyledProps--main body"
-    style="--image-url: url();"
+    style="background: transparent url() no-repeat;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -115,7 +115,7 @@ exports[`StartTrialTemplate snapshot test should display error msg when api call
 <div>
   <div
     class="StyledProps--font StyledProps--main body"
-    style="--image-url: url();"
+    style="background: transparent url() no-repeat;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -163,7 +163,7 @@ exports[`StartTrialTemplate snapshot test should open the modal when a button is
 <div>
   <div
     class="StyledProps--font StyledProps--main body"
-    style="--image-url: url();"
+    style="background: transparent url() no-repeat;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -211,7 +211,7 @@ exports[`StartTrialTemplate snapshot test should render start a trial by default
 <div>
   <div
     class="StyledProps--font StyledProps--main body"
-    style="--image-url: url();"
+    style="background: transparent url() no-repeat;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"

@@ -2,12 +2,11 @@ import React from 'react'
 import { Tabs, Tab } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
-import { isEmpty, merge } from 'lodash-es'
+import { isEmpty } from 'lodash-es'
 
 import { useStrings } from 'framework/strings'
 import { StepWidgetWithFormikRef } from '@pipeline/components/AbstractSteps/StepWidget'
 import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/AdvancedSteps/AdvancedSteps'
-
 import type { ExecutionWrapper } from 'services/cd-ng'
 import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -54,7 +53,6 @@ export function StepCommands(
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
   const advancedConfRef = React.useRef<FormikProps<unknown> | null>(null)
-  const [stepForAdvancedTab, setStepForAdvancedTab] = React.useState<ExecutionWrapper>(step)
 
   async function handleTabChange(newTab: StepCommandTabs, prevTab: StepCommandTabs): Promise<void> {
     if (prevTab === StepCommandTabs.StepConfiguration && stepRef.current) {
@@ -66,7 +64,6 @@ export function StepCommands(
       await stepRef.current.submitForm()
 
       if (isEmpty(stepRef.current.errors)) {
-        setStepForAdvancedTab(merge(stepRef.current?.values as ExecutionWrapper, stepForAdvancedTab))
         setActiveTab(newTab)
       }
     } else if (prevTab === StepCommandTabs.Advanced && advancedConfRef.current) {
@@ -81,9 +78,9 @@ export function StepCommands(
   }
 
   React.useImperativeHandle(ref, () => ({
-    setFieldError(key: string, error: string) {
+    setFieldError(fieldName: string, error: string) {
       if (activeTab === StepCommandTabs.StepConfiguration && stepRef.current) {
-        stepRef.current.setFieldError(key, error)
+        stepRef.current.setFieldError(fieldName, error)
       }
     },
     isDirty() {
@@ -154,7 +151,7 @@ export function StepCommands(
             title={getString('advancedTitle')}
             panel={
               <AdvancedStepsWithRef
-                step={stepForAdvancedTab}
+                step={step}
                 isReadonly={isReadonly}
                 stepsFactory={stepsFactory}
                 onChange={onChange}

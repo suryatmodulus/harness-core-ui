@@ -86,7 +86,7 @@ describe('Create prometheus connector Wizard', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={({ url: PrometheusURL + '/' } as unknown) as ConnectorInfoDTO}
+          connectorInfo={{ url: PrometheusURL + '/' } as unknown as ConnectorInfoDTO}
         />
       </TestWrapper>
     )
@@ -119,7 +119,7 @@ describe('Create prometheus connector Wizard', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={({ spec: { url: PrometheusURL } } as unknown) as ConnectorInfoDTO}
+          connectorInfo={{ spec: { url: PrometheusURL } } as unknown as ConnectorInfoDTO}
         />
       </TestWrapper>
     )

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uicore'
 import { useCreateFeatureFlag, FeatureFlagRequestRequestBody, CreateFeatureFlagQueryParams } from 'services/cf'
-import AppStorage from 'framework/utils/AppStorage'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
@@ -42,6 +42,8 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
       environment: activeEnvironment
     } as CreateFeatureFlagQueryParams
   })
+  const { currentUserInfo } = useAppStore()
+
   const onWizardStepSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {
     modalErrorHandler?.hide()
 
@@ -52,7 +54,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
       formData.tags = valTags
       // Note: Currently there's no official way to get current user. Rely on old token from
       // current gen login
-      formData.owner = AppStorage.decode64(localStorage.email || 'unknown')
+      formData.owner = currentUserInfo.email || 'unknown'
     }
 
     if (formData) {

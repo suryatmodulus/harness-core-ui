@@ -35,9 +35,7 @@ describe('SelectEnvironment', () => {
     const useCreateEnvironmentSpy = jest.spyOn(cdService, 'useCreateEnvironment')
     const useGetListEnvironmentsSpy = jest.spyOn(portalService, 'useGetListEnvironments')
 
-    useGetEnvironmentListForProjectSpy.mockReturnValue(
-      (mockEnvironments as unknown) as UseGetReturn<any, any, any, any>
-    )
+    useGetEnvironmentListForProjectSpy.mockReturnValue(mockEnvironments as unknown as UseGetReturn<any, any, any, any>)
     useCreateEnvironmentSpy.mockReturnValue({ mutate: jest.fn() as unknown } as UseMutateReturn<
       any,
       any,
@@ -68,9 +66,7 @@ describe('SelectEnvironment', () => {
     const useCreateEnvironmentSpy = jest.spyOn(cdService, 'useCreateEnvironment')
     const useGetListEnvironmentsSpy = jest.spyOn(portalService, 'useGetListEnvironments')
     const refetchMock = jest.fn()
-    useGetEnvironmentListForProjectSpy.mockReturnValue(
-      (mockEnvironments as unknown) as UseGetReturn<any, any, any, any>
-    )
+    useGetEnvironmentListForProjectSpy.mockReturnValue(mockEnvironments as unknown as UseGetReturn<any, any, any, any>)
     useCreateEnvironmentSpy.mockReturnValue({ mutate: jest.fn() as unknown } as UseMutateReturn<
       any,
       any,
@@ -130,9 +126,7 @@ describe('SelectEnvironment', () => {
     const useCreateEnvironmentSpy = jest.spyOn(cdService, 'useCreateEnvironment')
     const useGetListEnvironmentsSpy = jest.spyOn(portalService, 'useGetListEnvironments')
     const refetchMock = jest.fn()
-    useGetEnvironmentListForProjectSpy.mockReturnValue(
-      (mockEnvironments as unknown) as UseGetReturn<any, any, any, any>
-    )
+    useGetEnvironmentListForProjectSpy.mockReturnValue(mockEnvironments as unknown as UseGetReturn<any, any, any, any>)
     useCreateEnvironmentSpy.mockReturnValue({ mutate: jest.fn() as unknown } as UseMutateReturn<
       any,
       any,
@@ -226,9 +220,7 @@ describe('SelectEnvironment', () => {
     const useCreateEnvironmentSpy = jest.spyOn(cdService, 'useCreateEnvironment')
     const useGetListEnvironmentsSpy = jest.spyOn(portalService, 'useGetListEnvironments')
     const refetchMock = jest.fn()
-    useGetEnvironmentListForProjectSpy.mockReturnValue(
-      (mockEnvironments as unknown) as UseGetReturn<any, any, any, any>
-    )
+    useGetEnvironmentListForProjectSpy.mockReturnValue(mockEnvironments as unknown as UseGetReturn<any, any, any, any>)
     useCreateEnvironmentSpy.mockReturnValue({ mutate: jest.fn() as unknown } as UseMutateReturn<
       any,
       any,

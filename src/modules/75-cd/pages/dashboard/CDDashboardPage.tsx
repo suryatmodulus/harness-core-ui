@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Text } from '@wings-software/uicore'
+import { Container } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
@@ -46,28 +46,22 @@ export const CDDashboardPage: React.FC = () => {
 
   return (
     <>
-      <Page.Header
-        title={
-          <Container>
-            <Breadcrumbs
-              links={[
-                {
-                  label: project?.name || '',
-                  url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module: 'cd' })
-                },
-                {
-                  label: getString('overview'),
-                  url: ''
-                }
-              ]}
-            />
-            <Text font={{ size: 'medium', weight: 'bold' }} margin={{ top: 'xsmall' }}>
-              {getString('overview')}
-            </Text>
-          </Container>
-        }
-      />
-      <Page.Body loading={loading || loadingWorkloads}>
+      <div className={styles.header}>
+        <Breadcrumbs
+          links={[
+            {
+              label: project?.name || '',
+              url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module: 'cd' })
+            },
+            {
+              label: getString('overview'),
+              url: ''
+            }
+          ]}
+        />
+        <h2>{getString('overview')}</h2>
+      </div>
+      <Page.Body className={styles.content} loading={loading || loadingWorkloads}>
         <Container className={styles.page} padding="large">
           <DeploymentsHealthCards />
           <Container className={styles.executionsWrapper}>

@@ -3,6 +3,7 @@
 declare const styles: {
   readonly inputWidth: string
   readonly formRow: string
+  readonly connectorRef: string
   readonly simultaneousDeployment: string
   readonly clusterInputWrapper: string
 }

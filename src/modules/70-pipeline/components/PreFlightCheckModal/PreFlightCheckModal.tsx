@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { stringify } from 'yaml'
 import { isEmpty } from 'lodash-es'
 import { Link } from 'react-router-dom'
 import cx from 'classnames'
@@ -23,6 +22,7 @@ import { useToaster } from '@common/exports'
 import type { GitQueryParams, Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import css from './PreFlightCheckModal.module.scss'
 
 enum Section {
@@ -525,7 +525,7 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps & GitQueryPa
           pipelineIdentifier,
           ...(isGitSyncEnabled ? { repoIdentifier, branch, getDefaultFromOtherRepo: true } : {})
         },
-        body: !isEmpty(pipeline) ? (stringify({ pipeline }) as any) : ''
+        body: !isEmpty(pipeline) ? (yamlStringify({ pipeline }) as any) : ''
       })
         .then(response => {
           if (response?.status === 'ERROR' || response?.status === 'FAILURE') {

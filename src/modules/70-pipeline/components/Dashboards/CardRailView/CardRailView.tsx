@@ -8,7 +8,6 @@ import EmptyFailedBuilds from './EmptyFailedBuilds.svg'
 import EmptyActiveBuilds from './EmptyActiveBuilds.svg'
 import RepoIconUrl from './RepoIcon.svg'
 import FailedBuildIconUrl from './FailedBuildIcon.svg'
-import ActiveBuildIconUrl from './ActiveBuildIcon.svg'
 import styles from './CardRailView.module.scss'
 
 export interface CardRailViewProps {
@@ -49,7 +48,7 @@ export default function CardRailView({
   const icons = {
     REPOSITORY: <img src={RepoIconUrl} />,
     FAILED_BUILD: <img src={FailedBuildIconUrl} />,
-    ACTIVE_BUILD: <img src={ActiveBuildIconUrl} />,
+    ACTIVE_BUILD: <Icon name="ci-pending-build" className={styles.pendingBuildIcon} />,
     WORKLOAD: '',
     FAILED_DEPLOYMENT: <Icon name="ban-circle" size={20} color={Color.RED_500} />,
     ACTIVE_DEPLOYMENT: <Icon name="play" size={20} color={Color.GREEN_500} />,

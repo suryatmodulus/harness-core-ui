@@ -13,20 +13,19 @@ import type {
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
 
 import type { NgPipeline } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
+import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './CIPipelineStudio.module.scss'
 
 const CIPipelineStudio: React.FC = (): JSX.Element => {
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { getString } = useStrings()
-  const { selectedProject } = useAppStore()
   const history = useHistory()
 
   const getTrialPipelineCreateForm = (
@@ -51,7 +50,11 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
       })
     )
   }
-  const isApprovalStageEnabled = useFeatureFlag('NG_HARNESS_APPROVAL')
+  const isApprovalStageEnabled = useFeatureFlag(FeatureFlag.NG_HARNESS_APPROVAL)
+  const isCDEnabled = useFeatureFlag(FeatureFlag.CDNG_ENABLED)
+  const isCFEnabled = useFeatureFlag(FeatureFlag.CFNG_ENABLED)
+  const isCIEnabled = useFeatureFlag(FeatureFlag.CING_ENABLED)
+  const { CI_LICENSE_STATE, FF_LICENSE_STATE } = useLicenseStore()
   return (
     <PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
@@ -61,9 +64,9 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
         getCIPipelineStages(
           args,
           getString,
-          true,
-          selectedProject?.modules && selectedProject.modules.indexOf?.('CD') > -1,
-          selectedProject?.modules && selectedProject.modules.indexOf?.('CF') > -1,
+          CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCIEnabled,
+          isCDEnabled,
+          FF_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCFEnabled,
           isApprovalStageEnabled
         )
       }

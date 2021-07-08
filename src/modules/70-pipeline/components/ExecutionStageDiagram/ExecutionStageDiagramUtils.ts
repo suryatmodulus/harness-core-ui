@@ -3,7 +3,13 @@ import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Color, IconName } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import type { CSSProperties } from 'react'
-import { ExecutionStatusEnum, ExecutionStatus, isExecutionRunning } from '@pipeline/utils/statusHelpers'
+import {
+  ExecutionStatusEnum,
+  ExecutionStatus,
+  isExecutionRunning,
+  isExecutionNotStarted,
+  isExecutionFinishedAnyhow
+} from '@pipeline/utils/statusHelpers'
 import {
   PipelineOrStageStatus,
   statusToStatusMapping
@@ -152,6 +158,82 @@ export const getNodeStyles = (
   }
 
   return style
+}
+
+export const getParallelNodesStatusForOutLines = <T>(
+  parallel: ExecutionPipelineNode<T>[]
+): {
+  displayLines: boolean
+  status: ExecutionStatus
+} => {
+  if (parallel.length === 0) {
+    return {
+      displayLines: false,
+      status: ExecutionStatusEnum.NotStarted
+    }
+  }
+
+  // Success like status. This will be overwrite if status is not success like
+  const ret: {
+    displayLines: boolean
+    status: ExecutionStatus
+  } = {
+    displayLines: true,
+    status: ExecutionStatusEnum.Success
+  }
+
+  parallel.forEach(pItem => {
+    if (pItem.item) {
+      // if status set and node status is deferent than not started
+      if (!isExecutionFinishedAnyhow(pItem.item.status)) {
+        ret.displayLines = false
+        ret.status = pItem.item.status
+      }
+    } else if (pItem.group) {
+      // if status set and node status is deferent than not started
+      if (!isExecutionFinishedAnyhow(pItem.group.status)) {
+        ret.displayLines = false
+        ret.status = pItem.group.status
+      }
+    } else if (pItem.parallel) {
+      const parallelRet = getParallelNodesStatusForOutLines(pItem.parallel)
+      if (!isExecutionFinishedAnyhow(parallelRet.status)) {
+        ret.displayLines = false
+        ret.status = parallelRet.status
+      }
+    }
+  })
+
+  return ret
+}
+
+/**
+ * return ExecutionStatusEnum.NotStarted or one of the other
+ * Used for line on right side
+ */
+export const getParallelNodesStatusForInLine = <T>(parallel: ExecutionPipelineNode<T>[]) => {
+  let status = ExecutionStatusEnum.NotStarted
+
+  parallel.forEach(pItem => {
+    if (pItem.item) {
+      // if status set and node status is deferent than not started
+      if (pItem.item.status && !isExecutionNotStarted(pItem.item.status)) {
+        status = pItem.item.status
+      }
+    } else if (pItem.group) {
+      // if status set and node status is deferent than not started
+      if (pItem.group.status && !isExecutionNotStarted(pItem.group.status)) {
+        status = pItem.group.status
+      }
+    } else if (pItem.parallel) {
+      const parallelStatus = getParallelNodesStatusForInLine(pItem.parallel)
+      if (!isExecutionNotStarted(parallelStatus)) {
+        status = parallelStatus
+      }
+    }
+  })
+
+  return status
 }
 
 export const getArrowsColor = (

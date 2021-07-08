@@ -180,6 +180,13 @@ const Overview: React.FC<StepProps<CEAzureDTO> & OverviewProps> = props => {
     }
   }
 
+  const resetExistingConnectorError = () => {
+    if (!isUniqueConnector) {
+      setIsUniqueConnector(true)
+      setExistingConnectorDetails(undefined)
+    }
+  }
+
   return (
     <Layout.Vertical className={css.stepContainer}>
       <Heading level={2} className={css.header}>
@@ -213,18 +220,19 @@ const Overview: React.FC<StepProps<CEAzureDTO> & OverviewProps> = props => {
                 <Container className={cx(css.main, css.dataFields)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('connectors.name')}
-                    idLabel="Connector_name"
                     {...{ inputName: 'name', isIdentifierEditable: !isEditMode }}
                   />
                   <FormInput.Text
                     name={'tenantId'}
                     label={getString('connectors.ceAzure.overview.tenantId')}
                     placeholder={getString('connectors.ceAzure.guidPlaceholder')}
+                    onChange={resetExistingConnectorError}
                   />
                   <FormInput.Text
                     name={'subscriptionId'}
                     label={getString('connectors.ceAzure.overview.subscriptionId')}
                     placeholder={getString('connectors.ceAzure.guidPlaceholder')}
+                    onChange={resetExistingConnectorError}
                   />
                   <Description descriptionProps={{}} hasValue={!!formikProps?.values.description} />
                   <Tags tagsProps={{}} isOptional={true} hasValue={!isEmpty(formikProps?.values.tags)} />

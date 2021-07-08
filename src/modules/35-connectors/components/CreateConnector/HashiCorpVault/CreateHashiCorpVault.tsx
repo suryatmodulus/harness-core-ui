@@ -44,6 +44,7 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
         connectorInfo={props.connectorInfo}
         mock={props.mock}
         gitDetails={props.gitDetails}
+        disableGitSync={true}
       />
       <VaultConfigForm
         name={getString('connectors.hashiCorpVault.stepTwoName')}

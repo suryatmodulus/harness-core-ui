@@ -128,16 +128,8 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
   }
 
   renderStep(props: StepProps<RestoreCacheGCSStepData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (

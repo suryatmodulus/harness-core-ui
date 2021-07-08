@@ -4,7 +4,7 @@ import '@pipeline/components/CommonPipelineStages/CustomStage'
 import '@pipeline/components/CommonPipelineStages/PipelineStage'
 
 import RbacFactory from '@rbac/factories/RbacFactory'
-import ESDFactory from '@pipeline/factories/ExecutionStepDetailsFactory'
+import ExecFactory from '@pipeline/factories/ExecutionFactory'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { String } from 'framework/strings'
@@ -14,6 +14,7 @@ import ServiceResourceModal from '@pipeline/components/RbacResourceModals/Servic
 import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
 import { HarnessApprovalView } from '@pipeline/components/execution/StepDetails/views/HarnessApprovalView/HarnessApprovalView'
 import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/views/JiraApprovalView/JiraApprovalView'
+// import { VerifyExecution } from '@cv/components/PipelineSteps/VerifyExecution/VerifyExecution'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
 
@@ -64,10 +65,14 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ENVIRONMENT, {
 /**
  * Register execution step detail views
  */
-ESDFactory.registerStepDetails(StepType.HarnessApproval, {
+ExecFactory.registerStepDetails(StepType.HarnessApproval, {
   component: HarnessApprovalView
 })
 
-ESDFactory.registerStepDetails(StepType.JiraApproval, {
+ExecFactory.registerStepDetails(StepType.JiraApproval, {
   component: JiraApprovalView
 })
+
+// ESDFactory.registerStepDetails(StepType.Verify, {
+//   component: VerifyExecution
+// })

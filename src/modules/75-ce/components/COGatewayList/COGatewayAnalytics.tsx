@@ -161,7 +161,11 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     },
     debounce: 300
   })
-  const { data: resources, loading: resourcesLoading, error: resourceError } = useAllServiceResources({
+  const {
+    data: resources,
+    loading: resourcesLoading,
+    error: resourceError
+  } = useAllServiceResources({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     service_id: props.service?.data.id as number, // eslint-disable-line

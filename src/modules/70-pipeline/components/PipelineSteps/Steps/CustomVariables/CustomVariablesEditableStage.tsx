@@ -25,16 +25,14 @@ const getValidationSchema = (getString: UseStringsReturn['getString']): Yup.Sche
     variables: Yup.array().of(
       Yup.object().shape({
         name: Yup.string().trim().required(getString('common.validation.nameIsRequired')),
-        value: Yup.lazy(
-          (value): Yup.Schema<unknown> => {
-            if (typeof value === 'string') {
-              return Yup.string().trim().required(getString('common.validation.valueIsRequired'))
-            } else if (typeof value === 'number') {
-              return Yup.number().required(getString('common.validation.valueIsRequired'))
-            }
-            return Yup.mixed().required(getString('common.validation.valueIsRequired'))
+        value: Yup.lazy((value): Yup.Schema<unknown> => {
+          if (typeof value === 'string') {
+            return Yup.string().trim().required(getString('common.validation.valueIsRequired'))
+          } else if (typeof value === 'number') {
+            return Yup.number().required(getString('common.validation.valueIsRequired'))
           }
-        )
+          return Yup.mixed().required(getString('common.validation.valueIsRequired'))
+        })
       })
     )
   })

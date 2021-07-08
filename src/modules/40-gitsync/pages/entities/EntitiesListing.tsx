@@ -9,8 +9,7 @@ import {
   PageGitSyncEntityListDTO,
   useListGitSyncEntitiesByType,
   ListGitSyncEntitiesByTypePathParams,
-  GitSyncConfig,
-  GitEntityFilterProperties
+  GitSyncConfig
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -18,7 +17,6 @@ import { getTableColumns } from './EntityHelper'
 import css from './GitSyncEntityTab.module.scss'
 
 interface EntitiesListingProps {
-  selectedProduct: GitEntityFilterProperties['moduleType']
   entityType: ListGitSyncEntitiesByTypePathParams['entityType']
   gitSyncConfigId: GitSyncConfig['identifier']
   branch: GitSyncConfig['branch']
@@ -56,7 +54,11 @@ const EntitiesListing: React.FC<EntitiesListingProps> = props => {
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
 
-  const { loading: loadingEntityList, data: dataAllEntities, refetch } = useListGitSyncEntitiesByType({
+  const {
+    loading: loadingEntityList,
+    data: dataAllEntities,
+    refetch
+  } = useListGitSyncEntitiesByType({
     entityType: props.entityType,
     queryParams: {
       accountIdentifier: accountId,
@@ -65,22 +67,20 @@ const EntitiesListing: React.FC<EntitiesListingProps> = props => {
       page: page,
       branch: props.branch,
       gitSyncConfigId: props.gitSyncConfigId,
-      size: 2
+      size: 5
     }
   })
 
-  if (loadingEntityList) {
-    return <PageSpinner />
-  }
-
-  return (
+  return loadingEntityList ? (
+    <PageSpinner />
+  ) : (
     <Container padding="small">
       <EntityListView
         data={dataAllEntities?.data}
         refetch={refetch}
         gotoPage={pageNumber => setPage(pageNumber)}
       ></EntityListView>
-      <Text padding="large" color={Color.BLUE_500} onClick={() => props.backToSummary()}>
+      <Text padding="large" color={Color.PRIMARY_7} onClick={() => props.backToSummary()}>
         {getString('gitsync.seeLess')}
       </Text>
     </Container>

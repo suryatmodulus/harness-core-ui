@@ -5,7 +5,6 @@ response: Response
 responseBody: Response Body
 statusCode: Status Code
 failures: Failures
-startedOn: Started On
 initiated: Initiated
 verifications: Verifications
 verificationStatus: Verification Status
@@ -13,12 +12,9 @@ preProductionTests: Pre Production Tests
 postDeployment: Post Deployment
 logCluster: Log Cluster
 logsCluster: Logs Cluster
-showMore: Show More
-showLess: Show Less
-baselineTest: Baseline test
-testsRan: Tests ran
+showMore: '{{ $.common.showMore }}'
+showLess: '{{ $.common.showLess }}'
 queries: Queries
-currentTest: Current test
 timeline: Timeline
 changeTimeline: Change Timeline
 selectedTimeInterval: Selected time interval
@@ -113,9 +109,6 @@ riskCardTooltip:
   header: Performance risk was computed based on metrics from your data providers
   allServicesGreen: all services green
 analysisScreens:
-  analysisTab:
-    metrics: 'Metrics'
-    logs: 'Logs'
   totalClusters: 'TOTAL CLUSTERS:'
 navLinks:
   activities: 'Activities'

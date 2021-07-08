@@ -16,16 +16,44 @@ export interface AwsTemplateURLResponse {
 }
 
 export interface AzureStaticAPIResponse {
-  status?: string
   data?: string
+  status?: string
 }
+
+export type AzureStaticAPIProps = Omit<GetProps<AzureStaticAPIResponse, unknown, void, void>, 'path'>
+
+/**
+ * Azure Static API for connector
+ *
+ * Azure Static API for connector
+ */
+export const AzureStaticAPI = (props: AzureStaticAPIProps) => (
+  <Get<AzureStaticAPIResponse, unknown, void, void>
+    path={`/connector/azureappclientid`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseAzureStaticAPIProps = Omit<UseGetProps<AzureStaticAPIResponse, unknown, void, void>, 'path'>
+
+/**
+ * Azure Static API for connector
+ *
+ * Azure Static API for connector
+ */
+export const useAzureStaticAPI = (props: UseAzureStaticAPIProps) =>
+  useGet<AzureStaticAPIResponse, unknown, void, void>(`/connector/azureappclientid`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
 
 export interface DownloadYamlQueryParams {
   accountId: string
   connectorIdentifier: string
 }
 
-export type DownloadYamlProps = Omit<MutateProps<void, unknown, DownloadYamlQueryParams, void, void>, 'path' | 'verb'>
+export type DownloadYamlProps = Omit<MutateProps<void, unknown, DownloadYamlQueryParams, string, void>, 'path' | 'verb'>
 
 /**
  * Downloads YAML file for connector
@@ -33,7 +61,7 @@ export type DownloadYamlProps = Omit<MutateProps<void, unknown, DownloadYamlQuer
  * Downloads YAML file for connector
  */
 export const DownloadYaml = (props: DownloadYamlProps) => (
-  <Mutate<void, unknown, DownloadYamlQueryParams, void, void>
+  <Mutate<void, unknown, DownloadYamlQueryParams, string, void>
     verb="POST"
     path={`/yaml/generate-cost-optimisation-yaml`}
     base={getConfig('ccm/api')}
@@ -42,7 +70,7 @@ export const DownloadYaml = (props: DownloadYamlProps) => (
 )
 
 export type UseDownloadYamlProps = Omit<
-  UseMutateProps<void, unknown, DownloadYamlQueryParams, void, void>,
+  UseMutateProps<void, unknown, DownloadYamlQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -52,7 +80,7 @@ export type UseDownloadYamlProps = Omit<
  * Downloads YAML file for connector
  */
 export const useDownloadYaml = (props: UseDownloadYamlProps) =>
-  useMutate<void, unknown, DownloadYamlQueryParams, void, void>('POST', `/yaml/generate-cost-optimisation-yaml`, {
+  useMutate<void, unknown, DownloadYamlQueryParams, string, void>('POST', `/yaml/generate-cost-optimisation-yaml`, {
     base: getConfig('ccm/api'),
     ...props
   })
@@ -91,34 +119,6 @@ export type UseAwsUrlTemplateProps = Omit<
  */
 export const useAwsUrlTemplate = (props: UseAwsUrlTemplateProps) =>
   useGet<AwsTemplateURLResponse, unknown, AwsUrlTemplateQueryParams, void>(`connector/awsaccountconnectiondetail`, {
-    base: getConfig('ccm/api'),
-    ...props
-  })
-
-export type AzureStaticAPIProps = Omit<GetProps<AzureStaticAPIResponse, unknown, void, void>, 'path'>
-
-/**
- * Azure Static API for connector
- *
- * Azure Static API for connector
- */
-export const AzureStaticAPI = (props: AzureStaticAPIProps) => (
-  <Get<AzureStaticAPIResponse, unknown, void, void>
-    path={`/connector/azureappclientid`}
-    base={getConfig('ccm/api')}
-    {...props}
-  />
-)
-
-export type UseAzureStaticAPIProps = Omit<UseGetProps<AzureStaticAPIResponse, unknown, void, void>, 'path'>
-
-/**
- * Azure Static API for connector
- *
- * Azure Static API for connector
- */
-export const useAzureStaticAPI = (props: UseAzureStaticAPIProps) =>
-  useGet<AzureStaticAPIResponse, unknown, void, void>(`/connector/azureappclientid`, {
     base: getConfig('ccm/api'),
     ...props
   })

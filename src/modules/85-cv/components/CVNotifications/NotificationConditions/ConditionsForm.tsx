@@ -153,7 +153,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
     if (props.ruleData?.services?.length) {
       props.ruleData.services.forEach(item => {
         serviceResponse?.data?.content?.forEach(service => {
-          if (service.identifier == ((item as unknown) as string)) {
+          if (service.identifier == (item as unknown as string)) {
             initialVal.push({ label: service.name || '', value: service.identifier || '' })
           }
         })
@@ -181,7 +181,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
     if (props.ruleData?.environments?.length) {
       props.ruleData.environments.forEach(item => {
         environmentsResponse?.data?.content?.map(environment => {
-          if (environment.identifier == ((item as unknown) as string)) {
+          if (environment.identifier == (item as unknown as string)) {
             initialVal.push({ label: environment.name || '', value: environment.identifier || '' })
           }
         })
@@ -208,7 +208,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
     if (props.ruleData?.activityTypes?.length) {
       props.ruleData.activityTypes.forEach(item => {
         activityTypeResponse?.resource?.map(activity => {
-          if (activity === ((item as unknown) as string)) {
+          if (activity === (item as unknown as string)) {
             initialVal.push({ label: getLabelForActivity(activity) || '', value: activity || '' })
           }
         })
@@ -226,7 +226,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
     if (props.ruleData?.verificationStatuses?.length) {
       props.ruleData.verificationStatuses.forEach(status => {
         VerificationStatusOptions?.map(item => {
-          if (item.value === ((status as unknown) as string)) {
+          if (item.value === (status as unknown as string)) {
             initialVal.push(item)
           }
         })

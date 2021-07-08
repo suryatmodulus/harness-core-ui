@@ -72,7 +72,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   }>()
   const accessDetails = props.gatewayDetails.metadata.access_details as ConnectionMetadata // eslint-disable-line
   const customDomainProviderDetails = props.gatewayDetails.metadata.custom_domain_providers as CustomDomainDetails // eslint-disable-line
-  const { data: hostedZones, loading: hostedZonesLoading, refetch: loadHostedZones } = useAllHostedZones({
+  const {
+    data: hostedZones,
+    loading: hostedZonesLoading,
+    refetch: loadHostedZones
+  } = useAllHostedZones({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -156,14 +160,22 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     return params
   }
 
-  const { data: accessPoints, loading: accessPointsLoading, refetch } = useListAccessPoints({
+  const {
+    data: accessPoints,
+    loading: accessPointsLoading,
+    refetch
+  } = useListAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: getAccessPointFetchQueryParams()
   })
 
-  const { data: apCoresResponse, loading: apCoresLoading, refetch: apCoresRefetch } = useAccessPointResources({
+  const {
+    data: apCoresResponse,
+    loading: apCoresLoading,
+    refetch: apCoresRefetch
+  } = useAccessPointResources({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line

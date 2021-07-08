@@ -25,7 +25,7 @@ import {
 } from 'services/cd-ng'
 import { GitAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { String, useStrings } from 'framework/strings'
-import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { GitUrlType, GitConnectionType, saveCurrentStepData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Connectors } from '@connectors/constants'
 import css from './ConnectorDetailsStep.module.scss'
@@ -196,12 +196,12 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
           }}
           formName="gitDetailsStepForm"
           validationSchema={Yup.object().shape({
-            // url: Yup.string().trim().required(getString('common.validation.urlIsRequired')),
             url: Yup.string().test('isValidUrl', getString('validation.urlIsNotValid'), function (_url) {
               if (!_url) return false
 
               if (this.parent.connectionType === GitConnectionType.SSH) {
-                return _url?.startsWith('git@') ? true : false
+                const trimmedUrl = _url?.trim() || ''
+                return trimmedUrl.startsWith('git@') || trimmedUrl.startsWith('ssh://git@') ? true : false
               }
               try {
                 const url = new URL(_url)
@@ -224,6 +224,10 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
           }}
         >
           {(formikProps: FormikProps<DetailsStepInterface>) => {
+            saveCurrentStepData<ConnectorInfoDTO>(
+              props.getCurrentStepData,
+              formikProps.values as unknown as ConnectorInfoDTO
+            )
             return (
               <FormikForm>
                 <Container style={{ minHeight: 460 }}>

@@ -103,6 +103,7 @@ exports[`CIDashboardSummaryCards matches snapshot 1`] = `
                 height="18"
                 viewBox="0 0 16 18"
                 width="18"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   clip-rule="evenodd"
@@ -155,6 +156,7 @@ exports[`CIDashboardSummaryCards matches snapshot 1`] = `
                 height="18"
                 viewBox="0 0 16 18"
                 width="18"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   clip-rule="evenodd"

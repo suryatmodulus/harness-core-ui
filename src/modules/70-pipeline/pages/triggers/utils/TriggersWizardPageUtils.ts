@@ -183,21 +183,21 @@ export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterfa
   const sourceRepoParam = '&sourceRepo='
   const triggerType = searchStr.replace(`?${triggerTypeParam}`, '')
   if (triggerType.includes(TriggerTypes.WEBHOOK)) {
-    const sourceRepo = (searchStr.substring(
+    const sourceRepo = searchStr.substring(
       searchStr.lastIndexOf(sourceRepoParam) + sourceRepoParam.length
-    ) as unknown) as string
+    ) as unknown as string
     return {
-      triggerType: (searchStr.substring(
+      triggerType: searchStr.substring(
         searchStr.lastIndexOf(triggerTypeParam) + triggerTypeParam.length,
         searchStr.lastIndexOf(sourceRepoParam)
-      ) as unknown) as NGTriggerSourceV2['type'],
+      ) as unknown as NGTriggerSourceV2['type'],
       sourceRepo
     }
     // }
   } else {
     // SCHEDULED | unfound page
     return {
-      triggerType: (triggerType as unknown) as NGTriggerSourceV2['type']
+      triggerType: triggerType as unknown as NGTriggerSourceV2['type']
     }
   }
 }
@@ -205,9 +205,15 @@ export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterfa
 export const isUndefinedOrEmptyString = (str: string | undefined): boolean => isUndefined(str) || str?.trim() === ''
 
 const isRowUnfilled = (payloadCondition: AddConditionInterface): boolean => {
-  const truthyValuesLength = Object.values(payloadCondition).filter(val => isUndefinedOrEmptyString(val?.trim?.()))
-    ?.length
+  const truthyValuesLength = Object.values(payloadCondition).filter(val =>
+    isUndefinedOrEmptyString(val?.trim?.())
+  )?.length
   return truthyValuesLength > 0 && truthyValuesLength < 3
+}
+
+export const isRowFilled = (payloadCondition: AddConditionInterface): boolean => {
+  const truthyValuesLength = Object.values(payloadCondition).filter(val => val?.trim?.())?.length
+  return truthyValuesLength === 3
 }
 
 const isIdentifierIllegal = (identifier: string): boolean =>
@@ -607,13 +613,13 @@ export const getEventAndActions = ({
 
 export const mockOperators = [
   { label: '', value: '' },
-  { label: 'equals', value: 'Equals' },
-  { label: 'not equals', value: 'NotEquals' },
-  { label: 'in', value: 'In' },
-  { label: 'not in', value: 'NotIn' },
-  { label: 'starts with', value: 'StartsWith' },
-  { label: 'ends with', value: 'EndsWith' },
-  { label: 'regex', value: 'Regex' }
+  { label: 'Equals', value: 'Equals' },
+  { label: 'Not Equals', value: 'NotEquals' },
+  { label: 'In', value: 'In' },
+  { label: 'Not In', value: 'NotIn' },
+  { label: 'Starts With', value: 'StartsWith' },
+  { label: 'Ends With', value: 'EndsWith' },
+  { label: 'Regex', value: 'Regex' }
 ]
 
 export const inNotInArr = ['In', 'NotIn']

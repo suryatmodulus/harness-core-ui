@@ -338,6 +338,9 @@ export interface ResourcesResponse {
 
 export interface RoutingData {
   instance?: InstanceBasedRoutingData
+  k8s?: {
+    RuleJson?: string
+  }
   lb?: string
   ports?: PortConfig[]
 }
@@ -438,6 +441,7 @@ export interface ServiceMetadata {
     type?: string
   }
   custom_domain_providers?: { [key: string]: any }
+  kubernetes_connector_id?: string
   service_errors?: ServiceError[]
   target_group_details?: { [key: string]: any }
 }

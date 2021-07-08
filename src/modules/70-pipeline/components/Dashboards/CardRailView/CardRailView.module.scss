@@ -18,6 +18,7 @@
   .content {
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     &::-webkit-scrollbar {
       width: 5px;
     }
@@ -65,4 +66,8 @@
     margin-top: 2px !important;
     color: var(--ci-color-blue-500) !important;
   }
+}
+
+.pendingBuildIcon svg * {
+  fill: var(--grey-450);
 }

@@ -34,7 +34,12 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import routes from '@common/RouteDefinitions'
-import { getIconByType, GetTestConnectionValidationTextByType, DelegateTypes } from '../utils/ConnectorUtils'
+import {
+  getIconByType,
+  GetTestConnectionValidationTextByType,
+  DelegateTypes,
+  isSMConnector
+} from '../utils/ConnectorUtils'
 import css from './ConnectorsListView.module.scss'
 
 interface ConnectorListViewProps {
@@ -429,7 +434,8 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   const data = row.original
   const gitDetails = data?.gitDetails ?? {}
   const isHarnessManaged = data.harnessManaged
-  const { isGitSyncEnabled } = useAppStore()
+  const { isGitSyncEnabled: gitSyncAppStoreEnabled } = useAppStore()
+  const isGitSyncEnabled = gitSyncAppStoreEnabled && !isSMConnector(row.original.connector?.type)
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()

@@ -26,6 +26,8 @@ import CETrialHomePage from './pages/home/CETrialHomePage'
 
 import RecommendationList from './pages/recommendationList/RecommendationList'
 import RecommendationDetailsPage from './pages/recommendationDetails/RecommendationDetailsPage'
+import PerspectiveDetailsPage from './pages/perspective-details/PerspectiveDetailsPage'
+import CreatePerspectivePage from './pages/perspective-builder/CreatePerspectivePage'
 
 const RedirectToCEHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -166,6 +168,28 @@ const CERoutes: React.FC = () => {
           exact
         >
           <RecommendationDetailsPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toPerspectiveDetails({
+            ...accountPathProps,
+            perspectiveId: ':perspectiveId',
+            perspectiveName: ':perspectiveName'
+          })}
+          exact
+        >
+          <PerspectiveDetailsPage />
+        </RouteWithLayout>
+
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toCECreatePerspective({
+            ...accountPathProps,
+            perspectiveId: ':perspectiveId'
+          })}
+          exact
+        >
+          <CreatePerspectivePage />
         </RouteWithLayout>
         <Route path="*">
           <NotFoundPage />

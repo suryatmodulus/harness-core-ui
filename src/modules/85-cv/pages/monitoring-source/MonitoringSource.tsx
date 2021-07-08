@@ -35,7 +35,12 @@ const MonitoringSource = (): JSX.Element => {
     ProjectPathProps & { monitoringSource: string; identifier: string }
   >()
 
-  const { loading, error, refetch: fetchDSConfig, data: dsConfig } = useGetDSConfig({
+  const {
+    loading,
+    error,
+    refetch: fetchDSConfig,
+    data: dsConfig
+  } = useGetDSConfig({
     identifier,
     queryParams: {
       accountId,

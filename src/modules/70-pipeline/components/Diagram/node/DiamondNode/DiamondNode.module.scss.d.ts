@@ -7,7 +7,7 @@ declare const styles: {
   readonly diamondClose: string
   readonly secondaryIcon: string
   readonly tertiaryIcon: string
-  readonly сonditional: string
+  readonly conditional: string
   readonly inComplete: string
 }
 export default styles

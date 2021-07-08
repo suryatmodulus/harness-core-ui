@@ -76,7 +76,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
 
   useEffect(() => {
     if (!token) {
-      history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL()) })
+      history.push('/login')
     }
   }, [history, token])
 

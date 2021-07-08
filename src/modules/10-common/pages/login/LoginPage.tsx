@@ -18,6 +18,7 @@ import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import AuthLayout from '@common/components/AuthLayout/AuthLayout'
 import AuthFooter, { AuthPage } from '@common/components/AuthLayout/AuthFooter/AuthFooter'
+import { getConfig } from 'services/config'
 
 interface LoginForm {
   email: string
@@ -59,7 +60,7 @@ const LoginPage: React.FC = () => {
     try {
       setLoading(true)
       // hacky/temporary fetch call
-      const response = await fetch('/api/users/login', {
+      const response = await fetch(getConfig('api/users/login'), {
         method: 'POST',
         headers: {
           accept: 'application/json',

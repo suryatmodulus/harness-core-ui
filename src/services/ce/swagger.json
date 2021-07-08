@@ -7,6 +7,9 @@
   "basePath": "/ccm/api",
   "tags": [
     {
+      "name": "budgets"
+    },
+    {
       "name": "yaml"
     },
     {
@@ -33,35 +36,6 @@
   ],
   "schemes": ["https", "http"],
   "paths": {
-    "/yaml/generate-cost-optimisation-yaml": {
-      "post": {
-        "tags": ["yaml"],
-        "summary": "Get Cost Optimisation Yaml",
-        "description": "",
-        "operationId": "getCostOptimisationYamlTemplate",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "connectorIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        },
-        "deprecated": true
-      }
-    },
     "/yaml/cloudCostK8sClusterSetup": {
       "post": {
         "tags": ["yaml"],
@@ -90,6 +64,35 @@
             "description": "successful operation"
           }
         }
+      }
+    },
+    "/yaml/generate-cost-optimisation-yaml": {
+      "post": {
+        "tags": ["yaml"],
+        "summary": "Get Cost Optimisation Yaml",
+        "description": "",
+        "operationId": "getCostOptimisationYamlTemplate",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "connectorIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        },
+        "deprecated": true
       }
     },
     "/connector/azureappclientid": {
@@ -430,8 +433,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListCEReportSchedule"
+            }
           }
         }
       },
@@ -458,8 +464,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListCEReportSchedule"
+            }
           }
         }
       },
@@ -486,8 +495,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListCEReportSchedule"
+            }
           }
         }
       },
@@ -518,8 +530,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseString"
+            }
           }
         }
       }
@@ -643,8 +658,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseString"
+            }
           }
         }
       }
@@ -1484,6 +1502,49 @@
         "nextExecution": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "RestResponseListCEReportSchedule": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CEReportSchedule"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestResponseString": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "string"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
         }
       }
     },

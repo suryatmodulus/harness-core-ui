@@ -1,14 +1,28 @@
 import React, { useState, useMemo, ReactNode } from 'react'
 import cronstrue from 'cronstrue'
-
+import * as Yup from 'yup'
+import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Container, Text, Layout, Button, Icon, FlexExpander } from '@wings-software/uicore'
+import {
+  Container,
+  Text,
+  Layout,
+  useModalHook,
+  Button,
+  Icon,
+  FlexExpander,
+  Formik,
+  FormInput,
+  FormikForm
+} from '@wings-software/uicore'
 import { Popover, Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
-import { useGetReportSetting } from 'services/ce'
+import { useGetReportSetting, useCreateReportSetting, useDeleteReportSetting } from 'services/ce'
 import routes from '@common/RouteDefinitions'
 import { QlceViewFieldInputInput, ViewChartType } from 'services/ce/services'
+import { useStrings } from 'framework/strings'
+import { regexName } from '@common/utils/StringUtils'
 import type { CEView } from 'services/ce'
 
 import Table from './Table'
@@ -27,6 +41,7 @@ interface ListProps {
 }
 
 interface ReportTableParams {
+  uuid?: string
   name?: string
   userCron?: string
   recipients?: string[]
@@ -102,11 +117,31 @@ const ReportsAndBudgets = ({ values, onPrevButtonClick }: ReportsAndBudgetsProps
 }
 
 const ScheduledReports = () => {
+  const [openModal, hideModal] = useCreateReportModal()
   const { accountId, perspectiveId } = useParams<{ accountId: string; perspectiveId: string }>()
   const { data, loading } = useGetReportSetting({ accountId, queryParams: { perspectiveId } })
+  const { mutate: createReport } = useCreateReportSetting({ accountId })
+  // const { mutate: deleteReport } = useDeleteReportSetting({ pathParams: { accountId } }) // find out how to pass selected uuid
 
-  const handleCreateNewReport = () => {
-    console.log('Create new report clicked')
+  const handleCreateNewReport = async () => {
+    openModal()
+
+    const sampleCron = ['30 * * * * *', '0 13 * * 1 *', '*/5 * * * * *', '0 */2 * * * *']
+    const rand = ~~(Math.random() * 4)
+
+    try {
+      const response = await createReport({
+        viewsId: [perspectiveId],
+        name: `Bdj ${rand}`,
+        userCron: sampleCron[rand],
+        description: 'Hello, I am description',
+        recipients: ['akash.bhardwaj@harness.io', 'yo@lo.com', 'no@email.com']
+      })
+
+      console.log('response of create report: ', response)
+    } catch (e) {
+      console.log('error in creating report::::: ', e)
+    }
   }
 
   const handleEdit = (value: ReportTableParams) => {
@@ -114,7 +149,7 @@ const ScheduledReports = () => {
   }
 
   const handleDelete = (value: ReportTableParams) => {
-    console.log('Delete Values: ', value)
+    // deleteReport()
   }
 
   const columns: Column<ReportTableParams>[] = useMemo(
@@ -308,6 +343,118 @@ const RenderAlertThresholds: Renderer<CellProps<BudgetTableParams>> = ({ row }) 
   const alerts = row.original.alertThresholds || []
   const percentages = alerts.map((a: any) => a.percentage)
   return <span>{percentages.join(', ')}</span>
+}
+
+interface ReportDetailsForm {
+  name: string
+  viewsId: string[]
+  recipients: string[]
+  description: string
+  frequency: string
+  day: number
+  time: number
+}
+
+const NameSchema = () => {
+  const { getString } = useStrings()
+  return Yup.string()
+    .trim()
+    .required(getString('common.validation.nameIsRequired'))
+    .matches(regexName, getString('common.validation.namePatternIsNotValid'))
+}
+
+const useCreateReportModal = () => {
+  const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
+  const modalPropsLight: IDialogProps = {
+    isOpen: true,
+    usePortal: true,
+    autoFocus: true,
+    canEscapeKeyClose: true,
+    canOutsideClickClose: true,
+    enforceFocus: true,
+    className: Classes.DIALOG,
+    style: { width: 450, height: 650 }
+  }
+
+  const handleSubmit = (data: ReportDetailsForm) => {
+    console.log('onSubmit: ', data)
+  }
+
+  const [openModal, hideModal] = useModalHook(() => (
+    <Dialog onClose={hideModal} {...modalPropsLight}>
+      <Container padding="xlarge">
+        <Layout.Vertical spacing="xlarge">
+          <Container padding="small">
+            <Formik<ReportDetailsForm>
+              onSubmit={formData => {
+                handleSubmit(formData)
+              }}
+              formName="createReportScheduleForm"
+              // validationSchema={Yup.object().shape({
+              //   name: NameSchema(),
+              //   viewId: Yup.string().required(),
+              //   userCron: Yup.string().required(),
+              //   recipients: Yup.string().required()
+              // })}
+              initialValues={{
+                viewsId: [perspectiveId],
+                name: '',
+                recipients: ['a'],
+                description: '',
+                frequency: 'weekly',
+                day: 2,
+                time: 9
+              }}
+            >
+              {formikProps => {
+                return (
+                  <FormikForm>
+                    <Container style={{ minHeight: 560 }}>
+                      <FormInput.Text name={'name'} label={'Name'} />
+                      <FormInput.Select
+                        items={[
+                          { label: 'Weekly', value: 'weekly' },
+                          { label: 'Monthly', value: 'monthly' }
+                        ]}
+                        name={'frequency'}
+                        label={'Add a report schedule'}
+                      />
+                      <FormInput.Select
+                        items={[
+                          { label: 'Sunday', value: 0 },
+                          { label: 'Monday', value: 1 },
+                          { label: 'Tuesday', value: 2 },
+                          { label: 'Wednesday', value: 3 },
+                          { label: 'Thursday', value: 4 },
+                          { label: 'Friday', value: 5 },
+                          { label: 'Saturday', value: 6 }
+                        ]}
+                        name={'day'}
+                      />
+                      <FormInput.Select
+                        items={[
+                          { label: '9am', value: 9 },
+                          { label: '1pm', value: 13 }
+                        ]}
+                        name={'time'}
+                      />
+                    </Container>
+                    <Layout.Horizontal>
+                      <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={false}>
+                        Save
+                      </Button>
+                    </Layout.Horizontal>
+                  </FormikForm>
+                )
+              }}
+            </Formik>
+          </Container>
+        </Layout.Vertical>
+      </Container>
+    </Dialog>
+  ))
+
+  return [openModal, hideModal]
 }
 
 export default ReportsAndBudgets

@@ -87,20 +87,6 @@ const RenderNameCell = ({ row }: CellProps<GridData>): ReactNode => {
       <span>{name}</span>
     </span>
   )
-
-  // return (
-  //   <span className={css.nameCell}>
-  //     <span style={{ background: legendColor }} className={css.dot}></span>
-  //     <span>{name}</span>
-  //   </span>
-  // )
-
-  // return (
-  //   <span className={css.nameCellDot}>
-  //     <span style={{ background: legendColor }} className={css.dot}></span>
-  //     <span>{name}</span>
-  //   </span>
-  // )
 }
 
 export const RenderCostCell = (props: CellProps<GridData>) => <span>{formatCost(+props.value)}</span>
@@ -122,7 +108,7 @@ const COLUMNS: Record<string, Column> = {
     accessor: 'name',
     className: 'name',
     width: 250,
-    // sticky: 'left',
+    sticky: 'left',
     Cell: RenderNameCell
   },
   CLUSTER_NAME: {
@@ -148,7 +134,7 @@ const COLUMNS: Record<string, Column> = {
     Header: 'Total cost',
     accessor: 'cost',
     width: 200,
-    // sticky: 'left',
+    sticky: 'left',
     Cell: RenderCostCell
     // className: TOTAL_COST_CLASSNAME
   },
@@ -501,7 +487,6 @@ export const CLUSTER_COLS = [
   COLUMNS.NAME,
   COLUMNS.COST,
   COLUMNS.COST_TREND,
-  COLUMNS.CLUSTER_NAME,
   COLUMNS.IDLE_COST,
   COLUMNS.UNALLOCATED_COST,
   COLUMNS.STORAGE_COST,
@@ -656,7 +641,28 @@ export const ECS_TASK_ID_COLS = [
 export const LABELS_COLS = [COLUMNS.NAME, COLUMNS.COST, COLUMNS.COST_TREND, COLUMNS.IDLE_COST]
 
 // TODO: remove after demo
-export const PERSPECTIVE_PREVIEW_COLS = [COLUMNS.NAME, COLUMNS.COST, COLUMNS.COST_TREND]
+export const PERSPECTIVE_PREVIEW_COLS = [
+  {
+    Header: 'Name',
+    accessor: 'name',
+    className: 'name',
+    width: 250,
+    Cell: RenderNameCell
+  },
+  {
+    Header: 'Total cost',
+    accessor: 'cost',
+    width: 200,
+    Cell: RenderCostCell
+  },
+  {
+    Header: 'Cost trend',
+    accessor: 'costTrend',
+    width: 200,
+    className: 'cost-trend cost-column',
+    Cell: RenderPercentageCell
+  }
+]
 
 export const GroupByMapping: Record<string, Column[]> = {
   'Cluster Name': CLUSTER_COLS,

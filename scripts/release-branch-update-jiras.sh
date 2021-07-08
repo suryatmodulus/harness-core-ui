@@ -4,7 +4,10 @@ KEYS=`git log --pretty=oneline --abbrev-commit | awk "1;/Branching to release\/{
 echo --- List of JIRA ---
 echo $KEYS
 echo --- End
-
+keys='PL-14964'
+echo $KEYS
+echo $VERSION
+echo $PURPOSE
 if [ "${PURPOSE}" = "ui" ]
 then
     FIELD_ID="customfield_10645"
@@ -18,11 +21,11 @@ fi
 # => add a field to those tickets
 for KEY in ${KEYS}
 do
-    echo Updating JIRA: $KEY
-    curl \
-       -X PUT \
-       --data "{ \"fields\" : { \"${FIELD_ID}\" : \"${VERSION}00\" }}" \
-       -H "Content-Type: application/json" \
-       https://harness.atlassian.net/rest/api/2/issue/${KEY} \
-       --user $JIRA_USERNAME:$JIRA_PASSWORD
+    # echo Updating JIRA: $KEY
+    # curl \
+    #    -X PUT \
+    #    --data "{ \"fields\" : { \"${FIELD_ID}\" : \"${VERSION}00\" }}" \
+    #    -H "Content-Type: application/json" \
+    #    https://harness.atlassian.net/rest/api/2/issue/${KEY} \
+    #    --user $JIRA_USERNAME:$JIRA_PASSWORD
 done

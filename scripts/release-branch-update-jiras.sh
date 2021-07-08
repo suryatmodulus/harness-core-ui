@@ -22,11 +22,11 @@ fi
 # => add a field to those tickets
 for KEY in ${KEYS}
 do
-    # echo Updating JIRA: $KEY
-    # curl \
-    #    -X PUT \
-    #    --data "{ \"fields\" : { \"${FIELD_ID}\" : \"${VERSION}00\" }}" \
-    #    -H "Content-Type: application/json" \
-    #    https://harness.atlassian.net/rest/api/2/issue/${KEY} \
-    #    --user $JIRA_USERNAME:$JIRA_PASSWORD
+    echo Updating JIRA: $KEY
+    curl \
+       -X PUT \
+       --data "{ \"fields\" : { \"${FIELD_ID}\" : \"${VERSION}00\" }}" \
+       -H "Content-Type: application/json" \
+       https://harness.atlassian.net/rest/api/2/issue/${KEY} \
+       --user $JIRA_USERNAME:$JIRA_PASSWORD
 done

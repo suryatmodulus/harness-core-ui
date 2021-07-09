@@ -1,10 +1,15 @@
 import React from 'react'
 import { isEqual, isEqualWith, isNil, omit } from 'lodash-es'
 import { parse } from 'yaml'
-import { Button, Tag } from '@wings-software/uicore'
+import { Tag } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { useStrings } from 'framework/strings'
+import RbacButton from '@rbac/components/Button/Button'
+import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { useVariablesExpression } from '../PiplineHooks/useVariablesExpression'
 import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
@@ -36,6 +41,13 @@ const PipelineYamlView: React.FC = () => {
     updatePipeline,
     setYamlHandler: setYamlHandlerContext
   } = React.useContext(PipelineContext)
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<
+    PipelineType<{
+      orgIdentifier: string
+      projectIdentifier: string
+      accountId: string
+    }>
+  >()
   const { pipelineSchema } = usePipelineSchema()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const { getString } = useStrings()
@@ -100,7 +112,19 @@ const PipelineYamlView: React.FC = () => {
       {isReadonly || !isYamlEditable ? (
         <div className={css.buttonsWrapper}>
           <Tag>{getString('common.readOnly')}</Tag>
-          <Button
+          <RbacButton
+            permission={{
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              },
+              resource: {
+                resourceType: ResourceType.PIPELINE,
+                resourceIdentifier: pipeline?.identifier as string
+              },
+              permission: PermissionIdentifier.EDIT_PIPELINE
+            }}
             text={getString('common.editYaml')}
             onClick={() => {
               updatePipelineView({ ...pipelineView, isYamlEditable: true })

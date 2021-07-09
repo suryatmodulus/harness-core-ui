@@ -587,14 +587,20 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         <NavigationCheck
           when={getOtherModal && pipeline.identifier !== ''}
           shouldBlockNavigation={nextLocation => {
-            const matchDefault = matchPath(nextLocation.pathname, {
+            let localUpdated = isUpdated
+            let matchDefault = matchPath(nextLocation.pathname, {
               path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
               exact: true
             })
-            if (!matchDefault) return true
+            if (!matchDefault) {
+              matchDefault = matchPath(nextLocation.pathname, {
+                path: routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
+                exact: true
+              })
+            }
 
-            let localUpdated = isUpdated
-            if (isYaml && yamlHandler && isYamlEditable) {
+            // This is special handler when user update yaml and immediately click on run
+            if (isYaml && yamlHandler && isYamlEditable && !localUpdated) {
               try {
                 const parsedYaml = parse(yamlHandler.getLatestYaml())
                 if (!parsedYaml) {
@@ -602,12 +608,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   showError(getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')
                   return true
                 }
-                // TODO: only apply for CI as its schema is implemented
-                if (module === 'ci') {
-                  if (yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
-                    setYamlError(true)
-                    return true
-                  }
+                if (yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
+                  setYamlError(true)
+                  return true
                 }
                 localUpdated = !isEqual(omit(originalPipeline, 'repo', 'branch'), parsedYaml.pipeline)
                 updatePipeline(parsedYaml.pipeline)

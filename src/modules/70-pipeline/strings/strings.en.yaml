@@ -526,6 +526,7 @@ testsReports:
   executionOverview: Test Execution Overview
   numberOfSelectedTests: 'Selected Tests'
   totalDuration: Total Duration
+  testDuration: Test Duration
   timeSaved: Time Saved
   totalExecutedTest: Total Executed Tests
   selectionBreakdown: Test Selection Breakdown

@@ -100,7 +100,7 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
               style={{ backgroundColor: 'var(--white)' }}
             >
               <Text className={cx(css.statsTitle)} margin={{ bottom: 'large' }}>
-                {getString('pipeline.testsReports.totalDuration')}
+                {getString('pipeline.testsReports.testDuration')}
               </Text>
               <Duration
                 color={Color.GREY_700}

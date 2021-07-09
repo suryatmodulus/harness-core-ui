@@ -345,6 +345,12 @@ export function generateSchemaFields(
 
 export function validate(values: any, config: Field[], dependencies: GenerateSchemaDependencies): FormikErrors<any> {
   const errors = {}
+  if (isEmpty(dependencies.steps)) {
+    dependencies.steps = []
+  }
+  if (isEmpty(dependencies.serviceDependencies)) {
+    dependencies.serviceDependencies = []
+  }
   const schemaFields = generateSchemaFields(config, dependencies)
   schemaFields.forEach(({ name, validationRule, isActive = true }) => {
     if (!isActive) return

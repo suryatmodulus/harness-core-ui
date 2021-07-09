@@ -1808,6 +1808,7 @@ export interface StringsMap {
   'pipeline.testsReports.testCaseName': string
   'pipeline.testsReports.testCasesExecution': string
   'pipeline.testsReports.testCasesExecutionInfo': string
+  'pipeline.testsReports.testDuration': string
   'pipeline.testsReports.testExecutions': string
   'pipeline.testsReports.testMethods': string
   'pipeline.testsReports.testSuite': string

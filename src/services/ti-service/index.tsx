@@ -45,6 +45,7 @@ export interface SelectionOverview {
   selected_tests?: SelectionDetails
   skipped_tests?: number
   time_saved_ms?: number
+  time_taken_ms?: number
   total_tests?: number
 }
 

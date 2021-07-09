@@ -102,6 +102,7 @@ usersPage:
   invitationSuccess: Invitation sent successfully
   userAlreadyInvited: User already invited
   userAlreadyAdded: User already added
+  userAccountInvite: The invite has been accepted by this user, awaiting sign up
   resendInviteSuccess: Invitation has been resent to the user '{{name}}'
   invitationError: Could not Invite this user
   deleteConfirmation: Are you sure you want to delete the User '{{name}}'?

@@ -79,6 +79,8 @@ export const handleInvitationResponse = ({
       return showSuccess(getString('rbac.usersPage.userAlreadyAdded'))
     case 'USER_ALREADY_INVITED':
       return showSuccess(getString('rbac.usersPage.userAlreadyInvited'))
+    case 'ACCOUNT_INVITE_ACCEPTED':
+      return showSuccess(getString('rbac.usersPage.userAccountInvite'))
     default:
       return modalErrorHandler?.showDanger(getString('rbac.usersPage.invitationError'))
   }

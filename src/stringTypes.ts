@@ -545,6 +545,7 @@ export interface StringsMap {
   'rbac.usersPage.search': string
   'rbac.usersPage.selectResourceGroup': string
   'rbac.usersPage.selectRole': string
+  'rbac.usersPage.userAccountInvite': string
   'rbac.usersPage.userAlreadyAdded': string
   'rbac.usersPage.userAlreadyInvited': string
   'rbac.usersPage.validation.resourceGroup': string

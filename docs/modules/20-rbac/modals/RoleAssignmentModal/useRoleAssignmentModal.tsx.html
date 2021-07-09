@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.47% </span>
+                <span class="strong">78.79% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/34</span>
+                <span class='fraction'>26/33</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.44% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/9</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">77.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/32</span>
+                <span class='fraction'>24/31</span>
             </div>
         
             
@@ -162,10 +162,7 @@
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -204,22 +201,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,6 +218,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -309,13 +303,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
   const [principal, setPrincipal] = useState&lt;PrincipalType&gt;(PrincipalType.USER)
   const [showModal, hideModal] = useModalHook(
     () =&gt; (
-      &lt;Dialog
-        isOpen={true}
-        onClose={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >          hideModal()</span>
-        }}
-        className={cx(css.dialog, Classes.DIALOG)}
-      &gt;
+      &lt;Dialog isOpen={true} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}&gt;
         {principal === PrincipalType.USER ? (
           &lt;UserRoleAssignment
             roleBindings={roleBindings}
@@ -325,6 +313,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
 <span class="cstat-no" title="statement not covered" >              onSuccess()</span>
 <span class="cstat-no" title="statement not covered" >              hideModal()</span>
             }}
+            onSuccess={onSuccess}
           /&gt;
         ) : null}
         {principal === PrincipalType.USER_GROUP ? (
@@ -335,6 +324,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
 <span class="cstat-no" title="statement not covered" >              onSuccess()</span>
 <span class="cstat-no" title="statement not covered" >              hideModal()</span>
             }}
+            onSuccess={onSuccess}
           /&gt;
         ) : null}
 &nbsp;
@@ -346,6 +336,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
 <span class="cstat-no" title="statement not covered" >              onSuccess()</span>
 <span class="cstat-no" title="statement not covered" >              hideModal()</span>
             }}
+            onSuccess={onSuccess}
           /&gt;
         ) : null}
 &nbsp;
@@ -388,7 +379,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 09 2021 08:02:03 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 09 2021 09:18:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

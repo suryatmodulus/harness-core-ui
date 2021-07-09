@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.45% </span>
+                <span class="strong">59.02% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/55</span>
+                <span class='fraction'>36/61</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.06% </span>
+                <span class="strong">58.57% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>41/64</span>
+                <span class='fraction'>41/70</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.92% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/53</span>
+                <span class='fraction'>36/60</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -241,7 +241,18 @@
 <a name='L182'></a><a href='#L182'>182</a>
 <a name='L183'></a><a href='#L183'>183</a>
 <a name='L184'></a><a href='#L184'>184</a>
-<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -259,6 +270,7 @@
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -324,10 +336,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
@@ -345,9 +363,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -448,9 +470,10 @@ export enum InviteType {
 interface RoleAssignmentFormProps {
   noRoleAssignmentsText: string
   formik: FormikProps&lt;UserRoleAssignmentValues | UserGroupRoleAssignmentValues&gt;
+  onSuccess?: () =&gt; void
 }
 &nbsp;
-const RoleAssignmentForm: React.FC&lt;RoleAssignmentFormProps&gt; = ({ noRoleAssignmentsText, formik }) =&gt; {
+const RoleAssignmentForm: React.FC&lt;RoleAssignmentFormProps&gt; = ({ noRoleAssignmentsText, formik, onSuccess }) =&gt; {
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
@@ -501,17 +524,23 @@ const RoleAssignmentForm: React.FC&lt;RoleAssignmentFormProps&gt; = ({ noRoleAss
     [resourceGroupList]
   )
 &nbsp;
-  const handleRoleAssignmentDelete = <span class="fstat-no" title="function not covered" >async </span>(identifier: string): Promise&lt;void&gt; =&gt; {
+  const handleRoleAssignmentDelete = <span class="fstat-no" title="function not covered" >async </span>(identifier: string): Promise&lt;boolean&gt; =&gt; {
 <span class="cstat-no" title="statement not covered" >    try {</span>
       const deleted = <span class="cstat-no" title="statement not covered" >await deleteRoleAssignment(identifier, {</span>
         headers: { 'content-type': 'application/json' }
       })
-<span class="cstat-no" title="statement not covered" >      if (deleted) <span class="cstat-no" title="statement not covered" >showSuccess(getString('rbac.roleAssignment.deleteSuccess'))</span></span>
-      else <span class="cstat-no" title="statement not covered" >showError(getString('rbac.roleAssignment.deleteFailure'))</span>
+<span class="cstat-no" title="statement not covered" >      if (deleted) {</span>
+<span class="cstat-no" title="statement not covered" >        showSuccess(getString('rbac.roleAssignment.deleteSuccess'))</span>
+<span class="cstat-no" title="statement not covered" >        onSuccess?.()</span>
+<span class="cstat-no" title="statement not covered" >        return true</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        showError(getString('rbac.roleAssignment.deleteFailure'))</span>
+      }
     } catch (err) {
       /* istanbul ignore next */
       showError(err.data?.message || err.message)
     }
+<span class="cstat-no" title="statement not covered" >    return false</span>
   }
 &nbsp;
   return (
@@ -522,9 +551,12 @@ const RoleAssignmentForm: React.FC&lt;RoleAssignmentFormProps&gt; = ({ noRoleAss
         placeholder={noRoleAssignmentsText}
         insertRowAtBeginning={false}
         isDeleteOfRowAllowed={row =&gt; !(row as Assignment).role.managedRoleAssignment}
-        onDeleteOfRow={<span class="fstat-no" title="function not covered" >(r</span>ow, rowIndex) =&gt; {
+        onDeleteOfRow={<span class="fstat-no" title="function not covered" >async </span>(row, rowIndex) =&gt; {
           const assignment = (<span class="cstat-no" title="statement not covered" >row as Assignment).role.assignmentIdentifier</span>
-<span class="cstat-no" title="statement not covered" >          if (assignment) <span class="cstat-no" title="statement not covered" >handleRoleAssignmentDelete(assignment)</span></span>
+<span class="cstat-no" title="statement not covered" >          if (assignment) {</span>
+            const deleted = <span class="cstat-no" title="statement not covered" >await handleRoleAssignmentDelete(assignment)</span>
+<span class="cstat-no" title="statement not covered" >            if (!deleted) <span class="cstat-no" title="statement not covered" >return false</span></span>
+          }
 <span class="cstat-no" title="statement not covered" >          if (defaultRoleRows.has(rowIndex)) {</span>
 <span class="cstat-no" title="statement not covered" >            setDefaultRoleRows(</span>
               produce(defaultRoleRows, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
@@ -532,6 +564,7 @@ const RoleAssignmentForm: React.FC&lt;RoleAssignmentFormProps&gt; = ({ noRoleAss
               })
             )
           }
+<span class="cstat-no" title="statement not covered" >          return true</span>
         }}
         containerProps={{ className: css.containerProps }}
         fields={[
@@ -616,7 +649,7 @@ export default RoleAssignmentForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 09 2021 08:02:03 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 09 2021 09:18:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

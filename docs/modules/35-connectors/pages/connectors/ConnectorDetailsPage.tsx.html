@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.37% </span>
+                <span class="strong">48.73% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>131/255</span>
+                <span class='fraction'>134/275</span>
             </div>
         
             
@@ -449,8 +449,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -565,6 +563,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -749,10 +749,8 @@ const ConnectorDetailsPage: React.FC&lt;{ mockData?: any }&gt; = props =&gt; {
   })
 &nbsp;
   useEffect(() =&gt; {
-    const repoId = connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier</span>
+    const repoId = connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier </span>|| data<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier</span>
     <span class="missing-if-branch" title="if path not taken" >I</span>if (repoId) {
-      // connector fetch API is called after every branch change and Test connection
-      // Avoid fetching branchList on each connector response, once branchList is fetched, fetch only on searchTerm change
 <span class="cstat-no" title="statement not covered" >      getListOfBranchesWithStatus({</span>
         queryParams: {
           accountIdentifier: accountId,
@@ -858,12 +856,12 @@ const ConnectorDetailsPage: React.FC&lt;{ mockData?: any }&gt; = props =&gt; {
               )
             }}
           /&gt;
-          {loading ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;Icon margin={{ top: 'xsmall' }} name="spinner" /&gt; </span>: null}
+          {loadingBranchList ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;Icon margin={{ top: 'xsmall' }} name="spinner" /&gt; </span>: null}
         &lt;/Layout.Horizontal&gt;
       &lt;/Layout.Horizontal&gt;
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [branchSelectOptions])
+  }, [branchSelectOptions, selectedBranch, loadingBranchList])
 &nbsp;
   const renderTitle = useMemo(
     () =&gt; (
@@ -872,23 +870,25 @@ const ConnectorDetailsPage: React.FC&lt;{ mockData?: any }&gt; = props =&gt; {
         &lt;Layout.Horizontal spacing="small"&gt;
           &lt;Icon
             margin={{ left: 'xsmall', right: 'xsmall' }}
-            name={getIconByType(connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype)}
+            name={getIconByType(connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype || <span class="branch-1 cbranch-no" title="branch not covered" >data?.connector?.type)</span>}
             size={35}
           &gt;&lt;/Icon&gt;
           &lt;Container&gt;
             &lt;Text color={Color.GREY_800} font={{ size: 'medium', weight: 'bold' }}&gt;
-              {connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.objectId </span>? <span class="branch-0 cbranch-no" title="branch not covered" >connectorName </span>: connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame}
+              {connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || <span class="branch-1 cbranch-no" title="branch not covered" >connectorName}</span>
             &lt;/Text&gt;
             &lt;Layout.Horizontal spacing="small"&gt;
-              &lt;Text color={Color.GREY_400}&gt;{connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier}&lt;/Text&gt;
-              {<span class="branch-1 cbranch-no" title="branch not covered" >gitDetails?.objectId </span>? <span class="branch-0 cbranch-no" title="branch not covered" >RenderGitDetails </span>: null}
+              &lt;Text color={Color.GREY_400}&gt;
+                {connectorData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier || <span class="branch-1 cbranch-no" title="branch not covered" >data?.connector?.identifier}</span>
+              &lt;/Text&gt;
+              {activeCategory === 0 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >gitDetails?.objectId </span>? <span class="branch-0 cbranch-no" title="branch not covered" >RenderGitDetails </span>: null}
             &lt;/Layout.Horizontal&gt;
           &lt;/Container&gt;
         &lt;/Layout.Horizontal&gt;
       &lt;/Layout.Vertical&gt;
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [orgData, connectorData, branchSelectOptions]
+    [orgData, connectorData, branchSelectOptions, activeCategory, selectedBranch, loadingBranchList]
   )
 &nbsp;
   const getPageBody = (): React.ReactElement =&gt; {
@@ -970,7 +970,7 @@ export default ConnectorDetailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 09 2021 11:18:38 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 09 2021 12:48:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

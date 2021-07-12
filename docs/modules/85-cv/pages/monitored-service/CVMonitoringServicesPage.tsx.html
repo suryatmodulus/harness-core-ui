@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.79% </span>
+                <span class="strong">77.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/56</span>
+                <span class='fraction'>44/57</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.79% </span>
+                <span class="strong">77.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>43/56</span>
+                <span class='fraction'>44/57</span>
             </div>
         
             
@@ -307,7 +307,16 @@
 <a name='L248'></a><a href='#L248'>248</a>
 <a name='L249'></a><a href='#L249'>249</a>
 <a name='L250'></a><a href='#L250'>250</a>
-<a name='L251'></a><a href='#L251'>251</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -318,6 +327,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -556,6 +566,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
 import { Layout, Color, Text, Button, ExpandingSearchInput, SelectOption, Select } from '@wings-software/uicore'
@@ -571,6 +589,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import { BGColorWrapper, HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
 import {
   useListMonitoredService,
   useDeleteMonitoredService,
@@ -578,7 +597,7 @@ import {
   MonitoredServiceListDTO
 } from 'services/cv'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
-import { MonitoringServicesHeader, HorizontalLayout } from '../commonStyledComponents'
+import { MonitoringServicesHeader } from './commonStyledComponents'
 import { getFilterAndEnvironmentValue } from './CVMonitoringServicesPage.util'
 &nbsp;
 const ServiceCount = styled(Text)`
@@ -692,7 +711,7 @@ function CVMonitoringServicesPage(): JSX.Element {
   }
 &nbsp;
   return (
-    &lt;&gt;
+    &lt;BGColorWrapper&gt;
       &lt;MonitoringServicesHeader height={'80px'}&gt;
         &lt;HorizontalLayout alignItem={'flex-end'}&gt;
           &lt;div&gt;
@@ -783,11 +802,19 @@ function CVMonitoringServicesPage(): JSX.Element {
               )
             }}
             columns={[
-              { Header: 'Service Name', width: '20%', Cell: RenderServiceName },
-              { Header: 'Last 24HR Health Trends', width: '30%' },
-              { Header: 'service HealthScore', width: '10%' },
-              { Header: 'Tag', width: '20%' },
-              { Header: 'Health Monitoring', width: '20%', Cell: RenderEditDelete }
+              {
+                Header: getString('cv.monitoredServices.table.serviceName'),
+                width: '20%',
+                Cell: RenderServiceName
+              },
+              { Header: getString('cv.monitoredServices.table.lastestHealthTrend'), width: '30%' },
+              { Header: getString('cv.monitoredServices.table.serviceHealthScore'), width: '10%' },
+              { Header: getString('tagLabel'), width: '20%' },
+              {
+                Header: getString('cv.monitoredServices.table.healthMonitoring'),
+                width: '20%',
+                Cell: RenderEditDelete
+              }
             ]}
             data={content}
             pagination={{
@@ -802,7 +829,7 @@ function CVMonitoringServicesPage(): JSX.Element {
 <span class="branch-1 cbranch-no" title="branch not covered" >          &lt;NoDataCard icon={'join-table'} message={getString('cv.monitoredServices.noData')} /&gt;</span>
         )}
       &lt;/PageBody&gt;
-    &lt;/&gt;
+    &lt;/BGColorWrapper&gt;
   )
 }
 &nbsp;
@@ -814,7 +841,7 @@ export default CVMonitoringServicesPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 12 2021 09:26:58 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 12 2021 10:34:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

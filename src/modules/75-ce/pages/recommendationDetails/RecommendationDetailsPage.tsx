@@ -124,7 +124,7 @@ const RecommendationSavingsComponent: React.FC<RecommendationSavingsComponentPro
 }
 
 const RecommendationDetailsPage: React.FC = () => {
-  const { projectIdentifier, recommendation, orgIdentifier, accountId } = useParams<{
+  const { recommendation, accountId } = useParams<{
     projectIdentifier: string
     recommendation: string
     orgIdentifier: string
@@ -156,11 +156,7 @@ const RecommendationDetailsPage: React.FC = () => {
           className={css.breadCrumb}
           links={[
             {
-              url: routes.toCEProject({ accountId, orgIdentifier, projectIdentifier }),
-              label: projectIdentifier
-            },
-            {
-              url: routes.toCERecommendations({ accountId, orgIdentifier, projectIdentifier }),
+              url: routes.toCERecommendations({ accountId }),
               label: 'Recommendation'
             },
             {

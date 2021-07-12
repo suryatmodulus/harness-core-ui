@@ -62,18 +62,16 @@ export default function CESideNav(): React.ReactElement {
             label={getString('ce.co.accessPoint.loadbalancer')}
             to={routes.toCECOAccessPoints({ accountId, projectIdentifier, orgIdentifier })}
           />
-          {localStorage.RECOMMENDATIONS ? (
+          {/* {localStorage.RECOMMENDATIONS ? (
             <SidebarLink
               label={getString('ce.recommendation.sideNavText')}
               to={routes.toCERecommendations({ accountId, projectIdentifier, orgIdentifier })}
             />
-          ) : null}
+          ) : null} */}
         </React.Fragment>
       ) : null}
-      <SidebarLink
-        label={getString('ce.recommendation.sideNavText')}
-        to={routes.toCERecommendations({ accountId, projectIdentifier, orgIdentifier })}
-      />
+      <SidebarLink label={getString('ce.recommendation.sideNavText')} to={routes.toCERecommendations({ accountId })} />
+      <SidebarLink label={'Perspectives'} to={routes.toCEPerspectives({ accountId })} />
       <LaunchButton
         launchButtonText={getString('common.ce.visibilityLaunchButton')}
         redirectUrl={returnLaunchUrl(`#/account/${accountId}/continuous-efficiency/overview`)}

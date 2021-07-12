@@ -70,6 +70,10 @@ export default function CESideNav(): React.ReactElement {
           ) : null}
         </React.Fragment>
       ) : null}
+      <SidebarLink
+        label={getString('ce.recommendation.sideNavText')}
+        to={routes.toCERecommendations({ accountId, projectIdentifier, orgIdentifier })}
+      />
       <LaunchButton
         launchButtonText={getString('common.ce.visibilityLaunchButton')}
         redirectUrl={returnLaunchUrl(`#/account/${accountId}/continuous-efficiency/overview`)}

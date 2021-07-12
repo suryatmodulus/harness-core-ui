@@ -1,19 +1,22 @@
 import React from 'react'
-import { Link, useParams, useHistory } from 'react-router-dom'
-import { Layout, Button } from '@wings-software/uicore'
+import { useParams, useHistory } from 'react-router-dom'
+import { Layout, Button, Container } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
+import { Page } from '@common/components/Page/Page'
 import { useToaster } from '@common/components'
 import { useCreatePerspective, CEView } from 'services/ce'
 import { useFetchAllPerspectivesQuery } from 'services/ce/services'
 import { generateId, CREATE_CALL_OBJECT } from '@ce/utils/perspectiveUtils'
+import PerspectiveListView from '@ce/components/PerspectiveListView/PerspectiveListView'
+import css from './PerspectiveListPage.module.scss'
 
 const PerspectiveListPage: React.FC = () => {
   const [result] = useFetchAllPerspectivesQuery()
   const history = useHistory()
-  const { data } = result
   const { accountId } = useParams<{
     accountId: string
   }>()
+  const { data, fetching } = result
 
   const { showError } = useToaster()
 
@@ -72,28 +75,56 @@ const PerspectiveListPage: React.FC = () => {
     // }
   }
 
+  const navigateToPerspectiveDetailsPage: (perspectiveId: string) => void = perspectiveId => {
+    history.push(
+      routes.toPerspectiveDetails({
+        accountId: accountId,
+        perspectiveId: perspectiveId,
+        perspectiveName: perspectiveId
+      })
+    )
+  }
+
   const pespectiveList = data?.perspectives?.customerViews || []
   return (
-    <Layout.Vertical>
-      <Button
-        onClick={() => {
-          createNewPerspective({})
-        }}
-        text={'Create Perspective'}
-      />
-      {pespectiveList.map(perspective => (
-        <Link
-          to={routes.toPerspectiveDetails({
-            perspectiveId: perspective?.id || '',
-            perspectiveName: perspective?.name || '',
-            accountId
-          })}
-          key={perspective?.id}
-        >
-          {perspective?.name}
-        </Link>
-      ))}
-    </Layout.Vertical>
+    <>
+      <Page.Header title="Perspectives" />
+      <Layout.Horizontal spacing="large" className={css.header}>
+        <Button
+          intent="primary"
+          text="New Perspective"
+          icon="plus"
+          onClick={() => {
+            createNewPerspective({})
+          }}
+        />
+      </Layout.Horizontal>
+      <Page.Body>
+        {fetching && <Page.Spinner />}
+        <Container padding="xxxlarge">
+          {pespectiveList ? (
+            <PerspectiveListView
+              pespectiveData={pespectiveList}
+              navigateToPerspectiveDetailsPage={navigateToPerspectiveDetailsPage}
+            />
+          ) : null}
+        </Container>
+        {/* <Layout.Vertical>
+          {pespectiveList.map(perspective => (
+            <Link
+              to={routes.toPerspectiveDetails({
+                perspectiveId: perspective?.id || '',
+                perspectiveName: perspective?.name || '',
+                accountId
+              })}
+              key={perspective?.id}
+            >
+              {perspective?.name}
+            </Link>
+          ))} */}
+        {/* </Layout.Vertical> */}
+      </Page.Body>
+    </>
   )
 }
 

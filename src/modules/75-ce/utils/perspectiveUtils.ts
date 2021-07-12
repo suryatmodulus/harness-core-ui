@@ -1,3 +1,4 @@
+import type { IconName } from '@wings-software/uicore'
 import type { ViewRule, ViewIdCondition } from 'services/ce'
 import {
   QlceViewTimeFilterOperator,
@@ -140,4 +141,12 @@ export const getRuleFilters: (rules: QlceViewRuleInput[]) => QlceViewFilterWrapp
   return rules.map(rule => ({
     ruleFilter: rule
   })) as QlceViewFilterWrapperInput[]
+}
+
+export const SOURCE_ICON_MAPPING: Record<string, IconName> = {
+  AWS: 'service-aws',
+  GCP: 'gcp',
+  CLUSTER: 'blue-black-cluster',
+  CUSTOM: 'pipeline-custom',
+  AZURE: 'service-azure'
 }

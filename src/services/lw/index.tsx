@@ -1944,7 +1944,7 @@ export type GetServicesProps = Omit<
   GetServicesPathParams
 
 /**
- * Gets all Autostopping Gateways
+ * Gets all Auto-stopping Gateways
  *
  * Multiple status values can be provided with comma separated strings
  */
@@ -1963,7 +1963,7 @@ export type UseGetServicesProps = Omit<
   GetServicesPathParams
 
 /**
- * Gets all Autostopping Gateways
+ * Gets all Auto-stopping Gateways
  *
  * Multiple status values can be provided with comma separated strings
  */
@@ -1990,7 +1990,7 @@ export type SaveServiceProps = Omit<
   SaveServicePathParams
 
 /**
- * Create/Update Autostopping gateway
+ * Create/Update Auto-stopping gateway
  */
 export const SaveService = ({ org_id, project_id, ...props }: SaveServiceProps) => (
   <Mutate<ServicesResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>
@@ -2008,7 +2008,7 @@ export type UseSaveServiceProps = Omit<
   SaveServicePathParams
 
 /**
- * Create/Update Autostopping gateway
+ * Create/Update Auto-stopping gateway
  */
 export const useSaveService = ({ org_id, project_id, ...props }: UseSaveServiceProps) =>
   useMutate<ServicesResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>(
@@ -2280,7 +2280,7 @@ export type GetServiceDefinitionByIDProps = Omit<
   GetServiceDefinitionByIDPathParams
 
 /**
- * Gets autostopping gateway by id
+ * Gets auto-stopping gateway by id
  *
  * Get service definition of auto stopping gateway
  */
@@ -2304,7 +2304,7 @@ export type UseGetServiceDefinitionByIDProps = Omit<
   GetServiceDefinitionByIDPathParams
 
 /**
- * Gets autostopping gateway by id
+ * Gets auto-stopping gateway by id
  *
  * Get service definition of auto stopping gateway
  */
@@ -2334,7 +2334,7 @@ export type GetServiceRequestsProps = Omit<
 /**
  * Get service usage records
  *
- * Returns service usage records of requested autostopping gateway
+ * Returns service usage records of requested auto-stopping gateway
  */
 export const GetServiceRequests = ({ org_id, project_id, id, ...props }: GetServiceRequestsProps) => (
   <Get<ServiceUsageResponse, void, GetServiceRequestsQueryParams, GetServiceRequestsPathParams>
@@ -2353,7 +2353,7 @@ export type UseGetServiceRequestsProps = Omit<
 /**
  * Get service usage records
  *
- * Returns service usage records of requested autostopping gateway
+ * Returns service usage records of requested auto-stopping gateway
  */
 export const useGetServiceRequests = ({ org_id, project_id, id, ...props }: UseGetServiceRequestsProps) =>
   useGet<ServiceUsageResponse, void, GetServiceRequestsQueryParams, GetServiceRequestsPathParams>(
@@ -2379,9 +2379,9 @@ export type GetServiceStatsProps = Omit<
   GetServiceStatsPathParams
 
 /**
- * Get statuses of given autostopping gateway
+ * Get statuses of given auto-stopping gateway
  *
- * Returns duartion of idle time and down time
+ * Returns duration of idle time and down time
  */
 export const GetServiceStats = ({ org_id, project_id, id, ...props }: GetServiceStatsProps) => (
   <Get<ServiceStatsResponse, void, GetServiceStatsQueryParams, GetServiceStatsPathParams>
@@ -2398,9 +2398,9 @@ export type UseGetServiceStatsProps = Omit<
   GetServiceStatsPathParams
 
 /**
- * Get statuses of given autostopping gateway
+ * Get statuses of given auto-stopping gateway
  *
- * Returns duartion of idle time and down time
+ * Returns duration of idle time and down time
  */
 export const useGetServiceStats = ({ org_id, project_id, id, ...props }: UseGetServiceStatsProps) =>
   useGet<ServiceStatsResponse, void, GetServiceStatsQueryParams, GetServiceStatsPathParams>(

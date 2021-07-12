@@ -41,7 +41,7 @@
       ],
       "get": {
         "tags": ["services"],
-        "summary": "Gets all Autostopping Gateways",
+        "summary": "Gets all Auto-stopping Gateways",
         "description": "Multiple status values can be provided with comma separated strings",
         "operationId": "getServices",
         "produces": ["application/json"],
@@ -59,7 +59,7 @@
       },
       "post": {
         "tags": ["services"],
-        "summary": "Create/Update Autostopping gateway",
+        "summary": "Create/Update Auto-stopping gateway",
         "operationId": "saveService",
         "produces": ["application/json"],
         "parameters": [
@@ -115,7 +115,7 @@
       ],
       "get": {
         "tags": ["services"],
-        "summary": "Gets autostopping gateway by id",
+        "summary": "Gets auto-stopping gateway by id",
         "description": "Get service definition of auto stopping gateway",
         "operationId": "GetServiceDefinitionByID",
         "produces": ["application/json"],
@@ -161,8 +161,8 @@
       ],
       "get": {
         "tags": ["services"],
-        "summary": "Get statuses of given autostopping gateway",
-        "description": "Returns duartion of idle time and down time",
+        "summary": "Get statuses of given auto-stopping gateway",
+        "description": "Returns duration of idle time and down time",
         "operationId": "GetServiceStats",
         "produces": ["application/json"],
         "responses": {
@@ -208,7 +208,7 @@
       "get": {
         "tags": ["services"],
         "summary": "Get service usage records",
-        "description": "Returns service usage records of requested autostopping gateway",
+        "description": "Returns service usage records of requested auto-stopping gateway",
         "operationId": "GetServiceRequests",
         "produces": ["application/json"],
         "responses": {

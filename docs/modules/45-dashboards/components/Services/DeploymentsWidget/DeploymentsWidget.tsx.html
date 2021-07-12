@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.1% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>54/58</span>
+                <span class='fraction'>52/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.52% </span>
+                <span class="strong">64.23% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>57/87</span>
+                <span class='fraction'>79/123</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.64% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/56</span>
+                <span class='fraction'>51/54</span>
             </div>
         
             
@@ -336,21 +336,13 @@
 <a name='L277'></a><a href='#L277'>277</a>
 <a name='L278'></a><a href='#L278'>278</a>
 <a name='L279'></a><a href='#L279'>279</a>
-<a name='L280'></a><a href='#L280'>280</a>
-<a name='L281'></a><a href='#L281'>281</a>
-<a name='L282'></a><a href='#L282'>282</a>
-<a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a>
-<a name='L285'></a><a href='#L285'>285</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L280'></a><a href='#L280'>280</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -395,9 +387,7 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -633,10 +623,7 @@ import { useStrings } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import {
   getBucketSizeForTimeRange,
-  getMillisecondsEquivalentForTimeRange,
-  TimeRangeSelector,
-  TIME_RANGE_ENUMS,
-  useTimeRangeOptions
+  TimeRangeSelector
 } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
 import { PageSpinner, TimeSeriesAreaChart } from '@common/components'
 import type { TimeSeriesAreaChartProps } from '@common/components/TimeSeriesAreaChart/TimeSeriesAreaChart'
@@ -679,18 +666,16 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
   const { serviceIdentifier } = props
   const { timeRange, setTimeRange } = useContext(DeploymentsTimeRangeContext)
-  const TIME_RANGE_OPTIONS: Record&lt;TIME_RANGE_ENUMS, string&gt; = useTimeRangeOptions()
 &nbsp;
   const queryParams: GetServiceDeploymentsInfoQueryParams = useMemo(() =&gt; {
-    const now = Date.now()
     return {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
       serviceIdentifier,
-      startTime: now - getMillisecondsEquivalentForTimeRange(timeRange),
-      endTime: now,
-      bucketSizeInDays: getBucketSizeForTimeRange(timeRange)
+      startTime: <span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >timeRange?.r</span>ange[0]<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.getTime() </span>|| 0,
+      endTime: <span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >timeRange?.r</span>ange[1]<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.getTime() </span>|| 0,
+      bucketSizeInDays: getBucketSizeForTimeRange(<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >timeRange?.r</span>ange)</span>
     }
   }, [accountId, orgIdentifier, projectIdentifier, serviceIdentifier, timeRange])
 &nbsp;
@@ -760,7 +745,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
       &lt;Card className={css.card}&gt;
         &lt;Layout.Vertical height={'100%'}&gt;
           &lt;Container className={css.timeRange}&gt;
-            &lt;TimeRangeSelector mode={timeRange} setMode={setTimeRange} /&gt;
+            &lt;TimeRangeSelector timeRange={<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >timeRange?.r</span>ange}</span> setTimeRange={setTimeRange} /&gt;
           &lt;/Container&gt;
           {children}
         &lt;/Layout.Vertical&gt;
@@ -794,7 +779,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
           &lt;img width="150" height="100" src={DeploymentsEmptyState} style={{ alignSelf: 'center' }} /&gt;
           &lt;Text color={Color.GREY_400} margin={{ top: 'medium' }}&gt;
             {getString('dashboards.serviceDashboard.noDeployments', {
-              timeRange: TIME_RANGE_OPTIONS[timeRange].toLowerCase()
+              timeRange: <span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >timeRange?.l</span>abel</span>
             })}
           &lt;/Text&gt;
         &lt;/Layout.Vertical&gt;
@@ -806,7 +791,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
   const { deployments, failureRate, frequency, data, dateLabels } = parseData(serviceDeploymentsInfo.data)
 &nbsp;
   const customChartOptions: Highcharts.Options = {
-    chart: { height: 175, spacing: [25, 0, 25, 0] },
+    chart: { height: 170, spacing: [25, 0, 25, 0] },
     legend: { padding: 0 },
     xAxis: {
       allowDecimals: false,
@@ -859,7 +844,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
                 &lt;/Text&gt;
                 &lt;Text font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_400}&gt;
                   {getString('dashboards.serviceDashboard.in', {
-                    timeRange: TIME_RANGE_OPTIONS[timeRange].toLowerCase()
+                    timeRange: <span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >timeRange?.l</span>abel</span>
                   })}
                 &lt;/Text&gt;
               &lt;/Layout.Vertical&gt;
@@ -916,7 +901,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 12 2021 10:34:14 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 12 2021 11:41:45 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

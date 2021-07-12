@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.21% </span>
+                <span class="strong">77.78% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>61/78</span>
+                <span class='fraction'>63/81</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45% </span>
+                <span class="strong">44.53% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>117/260</span>
+                <span class='fraction'>122/274</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.56% </span>
+                <span class="strong">52.63% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/18</span>
+                <span class='fraction'>10/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.95% </span>
+                <span class="strong">78.48% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>60/76</span>
+                <span class='fraction'>62/79</span>
             </div>
         
             
@@ -413,7 +413,19 @@
 <a name='L354'></a><a href='#L354'>354</a>
 <a name='L355'></a><a href='#L355'>355</a>
 <a name='L356'></a><a href='#L356'>356</a>
-<a name='L357'></a><a href='#L357'>357</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
+<a name='L357'></a><a href='#L357'>357</a>
+<a name='L358'></a><a href='#L358'>358</a>
+<a name='L359'></a><a href='#L359'>359</a>
+<a name='L360'></a><a href='#L360'>360</a>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a>
+<a name='L363'></a><a href='#L363'>363</a>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -436,6 +448,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
@@ -558,11 +571,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -699,6 +716,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -794,6 +818,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
+import { getHelpeTextForTags } from '@pipeline/utils/stageHelpers'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../ArtifactConnector.module.scss'
@@ -913,15 +938,19 @@ export const ImagePath: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Im
   }
 &nbsp;
   const fetchTags = <span class="fstat-no" title="function not covered" >(i</span>magePath = <span class="branch-0 cbranch-no" title="branch not covered" >'')</span>: void =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (</span>
-      imagePath.length &amp;&amp;
-      lastImagePath !== imagePath &amp;&amp;
-      getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED
-    ) {
+<span class="cstat-no" title="statement not covered" >    if (canFetchTags(imagePath)) {</span>
 <span class="cstat-no" title="statement not covered" >      setLastImagePath(imagePath)</span>
     }
   }
-&nbsp;
+  const canFetchTags = <span class="fstat-no" title="function not covered" >(i</span>magePath: string): boolean =&gt; {
+<span class="cstat-no" title="statement not covered" >    return !!(</span>
+      imagePath.length &amp;&amp;
+      getConnectorIdValue().length &amp;&amp;
+      getMultiTypeFromValue(getConnectorIdValue()) === MultiTypeInputType.FIXED &amp;&amp;
+      lastImagePath !== imagePath &amp;&amp;
+      getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED
+    )
+  }
   const getConnectorIdValue = (): string =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (getMultiTypeFromValue(<span class="branch-1 cbranch-no" title="branch not covered" >prevStepData?.connectorId)</span> !== MultiTypeInputType.FIXED) {
 <span class="cstat-no" title="statement not covered" >      return prevStepData?.connectorId</span>
@@ -998,8 +1027,8 @@ export const ImagePath: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Im
                   name="imagePath"
                   placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
-                  onChange={val =&gt; {
-                    setLastImagePath(val as string)
+                  onChange={() =&gt; {
+                    tagList.length &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >setTagList([])</span>
                     formik.values.tagType === 'value' &amp;&amp;
 <span class="branch-1 cbranch-no" title="branch not covered" >                      getMultiTypeFromValue(formik.values.tag?.value) === MultiTypeInputType.FIXED </span>&amp;&amp;
 <span class="branch-2 cbranch-no" title="branch not covered" >                      formik.values.tag?.value?.length </span>&amp;&amp;
@@ -1037,6 +1066,13 @@ export const ImagePath: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Im
                   &lt;FormInput.MultiTypeInput
                     selectItems={tags}
                     disabled={!formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>magePath<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength}
+                    helperText={
+                      getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ag) === MultiTypeInputType.FIXED &amp;&amp;
+<span class="branch-1 cbranch-no" title="branch not covered" >                      getHelpeTextForTags(</span>
+                        { imagePath: formik.values?.imagePath, connectorRef: getConnectorIdValue() },
+                        getString
+                      )
+                    }
                     multiTypeInputProps={{
                       expressions,
                       selectProps: {
@@ -1045,7 +1081,7 @@ export const ImagePath: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Im
                           &lt;span className={css.padSmall}&gt;
                             &lt;Text lineClamp={1}&gt;
                               {get(dockerTagError, 'data.message', null) ||
-                                getString('pipelineSteps.deploy.errors.notags')}{' '}
+                                getString('pipelineSteps.deploy.errors.notags')}
                             &lt;/Text&gt;
                           &lt;/span&gt;
                         ),
@@ -1132,7 +1168,7 @@ export const ImagePath: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Im
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 12 2021 06:20:13 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 12 2021 07:21:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

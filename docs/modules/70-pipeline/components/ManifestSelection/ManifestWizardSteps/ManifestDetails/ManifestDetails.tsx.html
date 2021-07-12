@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69% </span>
+                <span class="strong">69.78% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>305/442</span>
+                <span class='fraction'>321/460</span>
             </div>
         
             
@@ -568,7 +568,14 @@
 <a name='L509'></a><a href='#L509'>509</a>
 <a name='L510'></a><a href='#L510'>510</a>
 <a name='L511'></a><a href='#L511'>511</a>
-<a name='L512'></a><a href='#L512'>512</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a>
+<a name='L516'></a><a href='#L516'>516</a>
+<a name='L517'></a><a href='#L517'>517</a>
+<a name='L518'></a><a href='#L518'>518</a>
+<a name='L519'></a><a href='#L519'>519</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -692,6 +699,9 @@
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -814,6 +824,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
@@ -821,6 +834,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1202,7 +1216,10 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
 &nbsp;
   const getRepoName = (): string =&gt; {
     let repoName = ''
-    if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
+    if (
+      getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME ||
+      getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
+    ) {
       repoName = prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef
     } else if (prevStepData?.connectorRef) {
       const connectorScope = getScopeFromValue(initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore?.spec?.connectorRef)
@@ -1324,7 +1341,10 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
 <span class="cstat-no" title="statement not covered" >            return Yup.string().required(getString('pipeline.manifestType.pathRequired'))</span>
           }),
           repoName: Yup.string().test('repoName', getString('common.validation.repositoryName'), value =&gt; {
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (connectionType === GitRepoName.Repo) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (
+              connectionType === GitRepoName.Repo ||
+              getMultiTypeFromValue(prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) === MultiTypeInputType.EXPRESSION
+            ) {
 <span class="cstat-no" title="statement not covered" >              return true</span>
             }
             return !isEmpty(value) &amp;&amp; value<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &gt; 0
@@ -1335,7 +1355,8 @@ const ManifestDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Man
             ...prevStepData,
             ...formData,
             connectorRef: prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef
-              ? getMultiTypeFromValue(prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) === MultiTypeInputType.RUNTIME
+              ? getMultiTypeFromValue(prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) === MultiTypeInputType.RUNTIME ||
+                getMultiTypeFromValue(prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) === MultiTypeInputType.EXPRESSION
                 ? <span class="branch-0 cbranch-no" title="branch not covered" >prevStepData?.connectorRef</span>
                 : prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue
               : <span class="branch-1 cbranch-no" title="branch not covered" >prevStepData?.identifier</span>
@@ -1597,7 +1618,7 @@ export default ManifestDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 12 2021 06:20:13 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 12 2021 07:21:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

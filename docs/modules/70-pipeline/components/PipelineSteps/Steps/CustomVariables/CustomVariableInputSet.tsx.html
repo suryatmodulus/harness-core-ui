@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/48</span>
+                <span class='fraction'>42/45</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.75% </span>
+                <span class="strong">71.05% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>75/106</span>
+                <span class='fraction'>81/114</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.65% </span>
+                <span class="strong">95.35% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/46</span>
+                <span class='fraction'>41/43</span>
             </div>
         
             
@@ -206,7 +206,11 @@
 <a name='L147'></a><a href='#L147'>147</a>
 <a name='L148'></a><a href='#L148'>148</a>
 <a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">23x</span>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">23x</span>
@@ -227,6 +231,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -263,15 +269,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -359,7 +367,7 @@
 import { useParams } from 'react-router-dom'
 import { Text, FormInput, MultiTypeInputType, getMultiTypeFromValue, SelectOption } from '@wings-software/uicore'
 import cx from 'classnames'
-import { cloneDeep, get, isUndefined } from 'lodash-es'
+import { get, isUndefined } from 'lodash-es'
 import { connect } from 'formik'
 import { String } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
@@ -381,6 +389,7 @@ export interface CustomVariableInputSetExtraProps {
   domId?: string
   template?: CustomVariablesData
   path?: string
+  allValues?: CustomVariablesData
 }
 export interface CustomVariableInputSetProps extends CustomVariableInputSetExtraProps {
   initialValues: CustomVariablesData
@@ -398,7 +407,8 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
     variableNamePrefix = '',
     domId,
     inputSetData,
-    formik
+    formik,
+    allValues
   } = props
   const basePath = path<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? `${path}.` : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
   const { expressions } = useVariablesExpression()
@@ -411,16 +421,18 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
       (isUndefined(executionIdentifier) &amp;&amp; isUndefined(executionId) &amp;&amp; isUndefined(triggerIdentifier)) ||
 <span class="branch-3 cbranch-no" title="branch not covered" >      triggerIdentifier === 'new'</span>
     ) {
-      const providedValues = get(formik.values, basePath)
-      let updatedVariables: AllNGVariables[] = cloneDeep(initialValues.variables) || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
-      updatedVariables =
+      const VariablesFromFormik = get(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues, 'variables', [])
+      const updatedVariables =
         template<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ariables<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((templateVariable: AllNGVariables, index: number) =&gt; {
-          const pipelineVariable = updatedVariables.find(
+          const pipelineVariable = allValues<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ariables<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind(
             (variable: AllNGVariables) =&gt; variable.name === templateVariable.name
           ) as AllNGVariables
-          const { default: defaultValue = '', ...restVar } = pipelineVariable || {}
-          restVar.value = <span class="branch-1 cbranch-no" title="branch not covered" >providedValues?.variables<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.[index]<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.value </span>|| defaultValue
-          return restVar
+&nbsp;
+          return {
+            name: pipelineVariable.name,
+            type: pipelineVariable.type,
+            value: VariablesFromFormik<span class="branch-0 cbranch-no" title="branch not covered" >?.[i</span>ndex]<span class="branch-1 cbranch-no" title="branch not covered" >?.value </span>|| pipelineVariable<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>efault || ''
+          }
         }) || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
       formik.setFieldValue(`${basePath}variables`, updatedVariables)
     }
@@ -511,7 +523,7 @@ export { CustomVariableInputSet }
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 09 2021 19:13:43 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 12 2021 04:33:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

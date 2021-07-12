@@ -34438,22 +34438,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -36661,22 +36653,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -36789,22 +36773,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.PipelineTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.PipelineTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -36917,22 +36893,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.SSOProviderTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.SSOProviderTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -37045,22 +37013,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -37173,22 +37133,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.ConnectionTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.ConnectionTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -37301,22 +37253,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.ConnectorTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.ConnectorTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -37429,22 +37373,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -37557,22 +37493,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.VerificationComponentTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.VerificationComponentTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -37685,22 +37613,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -37813,22 +37733,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.managerclient.VerificationManagerClientHelperTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.managerclient.VerificationManagerClientHelperTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -37941,22 +37853,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.ChangeSetTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.ChangeSetTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -38069,22 +37973,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -38197,22 +38093,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.userGroup.AddAppPermissionTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.userGroup.AddAppPermissionTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -38325,22 +38213,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -73387,22 +73267,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.graphql.datafetcher.billing.BillingTimeSeriesDataFetcherTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -75610,22 +75482,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.graphql.datafetcher.execution.PipelineExecutionControllerTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -75738,22 +75602,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.PipelineTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.PipelineTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -75866,22 +75722,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.SSOProviderTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.SSOProviderTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -75994,22 +75842,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.ngpipeline.inputset.services.impl.InputSetEntityServiceImplTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -76122,22 +75962,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.ConnectionTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.ConnectionTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -76250,22 +76082,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.ConnectorTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.ConnectorTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -76378,22 +76202,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.service.impl.analysis.MetricDataAnalysisServiceImplTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -76506,22 +76322,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.VerificationComponentTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.VerificationComponentTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -76634,22 +76442,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.graphql.datafetcher.budget.BudgetTrendStatsDataFetcherTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -76762,22 +76562,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.managerclient.VerificationManagerClientHelperTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.managerclient.VerificationManagerClientHelperTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -76890,22 +76682,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.ChangeSetTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.ChangeSetTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -77018,22 +76802,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.delegatetasks.aws.ecs.ecstaskhandler.deploy.EcsDeployCommandTaskHelperTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -77146,22 +76922,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        io.harness.userGroup.AddAppPermissionTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    io.harness.userGroup.AddAppPermissionTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"
@@ -77274,22 +77042,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main"
+                    style="--text-line-clamp: 1;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main testSuiteName"
-                        tabindex="0"
-                      >
-                        pipeline.testsReports.testSuite
-                         
-                        software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
-                      </p>
-                    </span>
-                  </span>
+                    pipeline.testsReports.testSuite
+                     
+                    software.wings.graphql.datafetcher.billing.SunburstChartStatsDataFetcherTest
+                  </p>
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main testSuiteHeading withSeparator StyledProps--color StyledProps--color-grey500 StyledProps--font-size-small StyledProps--padding-left-small StyledProps--padding-right-small"

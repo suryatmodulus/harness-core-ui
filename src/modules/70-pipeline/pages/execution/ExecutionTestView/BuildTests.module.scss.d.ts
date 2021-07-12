@@ -41,7 +41,6 @@ declare const styles: {
   readonly headingContainer: string
   readonly testSuiteHeading: string
   readonly withSeparator: string
-  readonly testSuiteName: string
   readonly progressBar: string
   readonly testSuiteTable: string
   readonly testCell: string

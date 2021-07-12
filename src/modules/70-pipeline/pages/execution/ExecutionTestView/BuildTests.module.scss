@@ -381,15 +381,6 @@
     }
   }
 
-  .testSuiteName {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: calc(50% - 375px);
-    white-space: nowrap !important;
-    flex-grow: 1;
-  }
-
   .progressBar {
     width: 65px;
     height: 11px;

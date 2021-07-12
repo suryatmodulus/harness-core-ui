@@ -199,7 +199,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           style={{ flexGrow: 1, textAlign: 'left', justifyContent: 'flex-start' }}
         >
           <Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={onExpand} />
-          <Text className={css.testSuiteName} tooltip={<Container padding="small">{executionSummary.name}</Container>}>
+          <Text lineClamp={1} tooltip={<Container padding="small">{executionSummary.name}</Container>}>
             {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
           </Text>
         </Text>

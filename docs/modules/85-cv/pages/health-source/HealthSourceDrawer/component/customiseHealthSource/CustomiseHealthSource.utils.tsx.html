@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/18</span>
+                <span class='fraction'>13/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.14% </span>
+                <span class="strong">2.22% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/14</span>
+                <span class='fraction'>1/45</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.75% </span>
+                <span class="strong">45.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/16</span>
+                <span class='fraction'>11/24</span>
             </div>
         
             
@@ -101,7 +101,17 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -122,32 +132,38 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import { isEmpty } from 'lodash-es'
+import { GCOProduct } from '@cv/pages/monitoring-source/google-cloud-operations/GoogleCloudOperationsMonitoringSourceUtils'
+import GCOLogsMonitoringSource from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GCOLogsMonitoringSource'
 import AppDMonitoredSource from '@cv/pages/health-source/connectors/AppDynamics/AppDMonitoredSource'
 import { Connectors } from '@connectors/constants'
+import { HealthSourceTypes } from '@cv/pages/health-source/types'
 import type { updatedHealthSource } from '../../HealthSourceDrawerContent'
 &nbsp;
 export const LoadSourceByType = ({
@@ -160,34 +176,36 @@ export const LoadSourceByType = ({
   onSubmit: (formdata: any, healthSourceList: updatedHealthSource) =&gt; Promise&lt;void&gt;
 }): JSX.Element =&gt; {
   switch (type) {
-    case Connectors.APP_DYNAMICS:
+    case 'AppDynamics':
       return &lt;AppDMonitoredSource data={data} onSubmit={onSubmit} /&gt;
-<span class="branch-1 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-1 cbranch-no" title="branch not covered" >    case Connectors.GCP:</span>
+<span class="cstat-no" title="statement not covered" >      if (data?.product?.value === GCOProduct.CLOUD_LOGS) {</span>
+<span class="cstat-no" title="statement not covered" >        return &lt;GCOLogsMonitoringSource data={data} onSubmit={onSubmit} /&gt;</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        return &lt;&gt;&lt;/&gt;</span>
+      }
+<span class="branch-2 cbranch-no" title="branch not covered" >    case HealthSourceTypes.StackdriverLog:</span>
+<span class="cstat-no" title="statement not covered" >      return &lt;GCOLogsMonitoringSource data={data} onSubmit={onSubmit} /&gt;</span>
+<span class="branch-3 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;&gt;&lt;/&gt;</span>
-<span class="cstat-no" title="statement not covered" >      break</span>
   }
 }
 &nbsp;
-export const createHealthsourceList = <span class="fstat-no" title="function not covered" >(f</span>ormData: any, healthSourcesPayload: updatedHealthSource) =&gt; {
-  const healthSources = <span class="cstat-no" title="statement not covered" >formData.healthSourceList</span>
-  // incase healthsource is editing replace eixting one
-  const editModeHealthSource = <span class="cstat-no" title="statement not covered" >healthSources</span>
-    ? healthSources.map(<span class="fstat-no" title="function not covered" >(h</span>ealthSource: { identifier: any }) =&gt; {
-<span class="cstat-no" title="statement not covered" >        if (healthSource.identifier === healthSourcesPayload.identifier) {</span>
-<span class="cstat-no" title="statement not covered" >          return healthSourcesPayload</span>
-        } else {
-<span class="cstat-no" title="statement not covered" >          return healthSource</span>
-        }
-      })
-    : []
-&nbsp;
-  const healthSourceList = <span class="cstat-no" title="statement not covered" >formData?.isEdit</span>
-    ? editModeHealthSource // editMode
-    : healthSources // previous health sources
-    ? [...healthSources, healthSourcesPayload]
-    : [healthSourcesPayload] // this is 1st HS of MS
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return healthSourceList</span>
+export const createHealthsourceList = <span class="fstat-no" title="function not covered" >(f</span>ormData: any, healthSourcesPayload: updatedHealthSource): any =&gt; {
+  const healthSources = <span class="cstat-no" title="statement not covered" >formData?.healthSourceList</span>
+  let updatedHealthSources = <span class="cstat-no" title="statement not covered" >[]</span>
+<span class="cstat-no" title="statement not covered" >  if (</span>
+    healthSources &amp;&amp;
+    !isEmpty(healthSources) &amp;&amp;
+    healthSources.some(<span class="fstat-no" title="function not covered" >(e</span>l: any) =&gt; <span class="cstat-no" title="statement not covered" >el?.identifier === healthSourcesPayload?.identifier)</span>
+  ) {
+<span class="cstat-no" title="statement not covered" >    updatedHealthSources = healthSources?.map(<span class="fstat-no" title="function not covered" >(e</span>l: any) =&gt;</span>
+<span class="cstat-no" title="statement not covered" >      el?.identifier === healthSourcesPayload?.identifier ? healthSourcesPayload : el</span>
+    )
+  } else {
+<span class="cstat-no" title="statement not covered" >    updatedHealthSources = [...healthSources, healthSourcesPayload]</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return updatedHealthSources</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -196,7 +214,7 @@ export const createHealthsourceList = <span class="fstat-no" title="function not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 15:13:21 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 13 2021 18:31:30 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

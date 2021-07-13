@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.3% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/23</span>
+                <span class='fraction'>18/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/12</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.3% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/23</span>
+                <span class='fraction'>18/20</span>
             </div>
         
             
@@ -172,12 +172,7 @@
 <a name='L113'></a><a href='#L113'>113</a>
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
-<a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a>
-<a name='L120'></a><a href='#L120'>120</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<a name='L116'></a><a href='#L116'>116</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -187,6 +182,8 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -229,6 +226,10 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -238,15 +239,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -295,26 +287,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useMemo } from 'react'
 import { SelectOption, Button } from '@wings-software/uicore'
 import { Drawer, Intent, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import { Connectors } from '@connectors/constants'
 import { useConfirmationDialog } from '@common/exports'
 import type { AppDynamicsHealthSourceSpec, HealthSource, MonitoredServiceResponse } from 'services/cv'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import DefineHealthSource from './component/defineHealthSource/DefineHealthSource'
 import CustomiseHealthSource from './component/customiseHealthSource/CustomiseHealthSource'
 import { createHealthSourceDrawerFormData } from './HealthSourceDrawerContent.utils'
+import type { GCOLogsHealthSourceSpec } from '../connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/types'
+import type { HealthSourceTypes } from '../types'
 import css from './HealthSourceDrawerContent.module.scss'
 &nbsp;
 export interface updatedHealthSource extends HealthSource {
   identifier: string
   name: string
-  spec: AppDynamicsHealthSourceSpec
-  type?: 'AppDynamics'
-  service: string
-  environment: string
+  spec: AppDynamicsHealthSourceSpec | GCOLogsHealthSourceSpec
+  type?: 'AppDynamics' | HealthSourceTypes.StackdriverLog
+  service?: string
+  environment?: string
   serviceRef?: string
   environmentRef?: string
 }
@@ -350,6 +343,10 @@ function HealthSourceDrawerContent({
     [rowData, tableData, monitoringSourcRef, serviceRef, environmentRef]
   )
 &nbsp;
+  const determineMaxTabBySourceType = useCallback(() =&gt; {
+    return isEdit ? 1 : 0
+  }, [isEdit])
+&nbsp;
   const { openDialog: showWarning } = useConfirmationDialog({
     intent: Intent.WARNING,
     contentText: getString('common.unsavedChanges'),
@@ -358,15 +355,6 @@ function HealthSourceDrawerContent({
     confirmButtonText: getString('confirm'),
     onCloseDialog: <span class="fstat-no" title="function not covered" >(i</span>sConfirmed: boolean) =&gt; <span class="cstat-no" title="statement not covered" >isConfirmed &amp;&amp; onClose(null)</span>
   })
-&nbsp;
-  const determineMaxTabBySourceType = (): number =&gt; {
-    switch (rowData?.type) {
-      case Connectors.APP_DYNAMICS:
-        return isEdit ? 1 : <span class="branch-1 cbranch-no" title="branch not covered" >0</span>
-      default:
-        return 0
-    }
-  }
 &nbsp;
   return (
     &lt;&gt;
@@ -421,7 +409,7 @@ export default HealthSourceDrawerContent
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 15:13:21 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 13 2021 18:31:30 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

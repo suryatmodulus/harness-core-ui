@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.3% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/33</span>
+                <span class='fraction'>11/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">4.55% </span>
+                <span class="strong">8.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/22</span>
+                <span class='fraction'>2/24</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.33% </span>
+                <span class="strong">26.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/30</span>
+                <span class='fraction'>8/30</span>
             </div>
         
             
@@ -143,8 +143,20 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">32x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,13 +174,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -229,32 +239,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const getIconBySourceType = (type: string) =&gt; {
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { IconName } from '@wings-software/uicore'
+&nbsp;
+export const getIconBySourceType = (type: string): IconName =&gt; {
   switch (type) {
 <span class="branch-0 cbranch-no" title="branch not covered" >    case 'KUBERNETES':</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-kubernetes'</span>
 <span class="branch-1 cbranch-no" title="branch not covered" >    case 'APP_DYNAMICS':</span>
-<span class="cstat-no" title="statement not covered" >      return 'service-appdynamics'</span>
-<span class="branch-2 cbranch-no" title="branch not covered" >    case 'HARNESS_CD10':</span>
+    case 'AppDynamics':
+      return 'service-appdynamics'
+<span class="branch-3 cbranch-no" title="branch not covered" >    case 'HARNESS_CD10':</span>
 <span class="cstat-no" title="statement not covered" >      return 'harness'</span>
-<span class="branch-3 cbranch-no" title="branch not covered" >    case 'STACKDRIVER':</span>
+<span class="branch-4 cbranch-no" title="branch not covered" >    case 'STACKDRIVER':</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-stackdriver'</span>
-<span class="branch-4 cbranch-no" title="branch not covered" >    case 'NEW_RELIC':</span>
+<span class="branch-5 cbranch-no" title="branch not covered" >    case 'NEW_RELIC':</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-newrelic'</span>
-<span class="branch-5 cbranch-no" title="branch not covered" >    case 'HEALTH':</span>
+<span class="branch-6 cbranch-no" title="branch not covered" >    case 'HEALTH':</span>
 <span class="cstat-no" title="statement not covered" >      return 'health'</span>
-<span class="branch-6 cbranch-no" title="branch not covered" >    case 'CANARY':</span>
+<span class="branch-7 cbranch-no" title="branch not covered" >    case 'CANARY':</span>
 <span class="cstat-no" title="statement not covered" >      return 'canary-outline'</span>
-<span class="branch-7 cbranch-no" title="branch not covered" >    case 'BLUE_GREEN':</span>
+<span class="branch-8 cbranch-no" title="branch not covered" >    case 'BLUE_GREEN':</span>
 <span class="cstat-no" title="statement not covered" >      return 'bluegreen'</span>
-<span class="branch-8 cbranch-no" title="branch not covered" >    case 'TEST':</span>
+<span class="branch-9 cbranch-no" title="branch not covered" >    case 'TEST':</span>
 <span class="cstat-no" title="statement not covered" >      return 'lab-test'</span>
-<span class="branch-9 cbranch-no" title="branch not covered" >    case 'PROMETHEUS':</span>
+<span class="branch-10 cbranch-no" title="branch not covered" >    case 'PROMETHEUS':</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-prometheus'</span>
-<span class="branch-10 cbranch-no" title="branch not covered" >    case 'STACKDRIVER_LOG':</span>
+    //TODO one type will be removed once it is full deprecated from backend.
+<span class="branch-11 cbranch-no" title="branch not covered" >    case 'STACKDRIVER_LOG':</span>
+<span class="branch-12 cbranch-no" title="branch not covered" >    case 'StackdriverLog':</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-stackdriver'</span>
     default:
-      return ''
+      return 'placeholder'
   }
 }
 &nbsp;
@@ -322,7 +337,7 @@ export interface BaseSetupTabsObject {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 15:13:21 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 13 2021 18:31:30 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

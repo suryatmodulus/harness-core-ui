@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.19% </span>
+                <span class="strong">78.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/57</span>
+                <span class='fraction'>43/55</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.55% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/11</span>
+                <span class='fraction'>6/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.19% </span>
+                <span class="strong">78.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/57</span>
+                <span class='fraction'>43/55</span>
             </div>
         
             
@@ -316,7 +316,12 @@
 <a name='L257'></a><a href='#L257'>257</a>
 <a name='L258'></a><a href='#L258'>258</a>
 <a name='L259'></a><a href='#L259'>259</a>
-<a name='L260'></a><a href='#L260'>260</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -371,7 +376,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -505,6 +510,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -517,7 +525,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -576,7 +586,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
-import { Layout, Color, Text, Button, ExpandingSearchInput, SelectOption, Select } from '@wings-software/uicore'
+import { Layout, Color, Text, Button, SelectOption, Select } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams, useHistory } from 'react-router-dom'
 import styled from '@emotion/styled'
@@ -630,7 +640,7 @@ function CVMonitoringServicesPage(): JSX.Element {
   const params = useParams&lt;ProjectPathProps&gt;()
   const [page, setPage] = useState(0)
   const [environment, setEnvironment] = useState&lt;SelectOption&gt;()
-  const [searchTerm, setSearchTerm] = useState('')
+  // const [searchTerm, setSearchTerm] = useState('') // TODO: Need clarificaition from product
   const { data: serviceList, loading: loadingServices } = useGetMonitoredServiceListEnvironments({
     queryParams: {
       accountId: params.accountId,
@@ -646,7 +656,7 @@ function CVMonitoringServicesPage(): JSX.Element {
       orgIdentifier: params.orgIdentifier,
       projectIdentifier: params.projectIdentifier,
       accountId: params.accountId,
-      ...getFilterAndEnvironmentValue(<span class="branch-1 cbranch-no" title="branch not covered" >environment?.value as string,</span> searchTerm)
+      ...getFilterAndEnvironmentValue(<span class="branch-1 cbranch-no" title="branch not covered" >environment?.value as string,</span> '')
     },
     debounce: 400
   })
@@ -759,6 +769,9 @@ function CVMonitoringServicesPage(): JSX.Element {
             &lt;Select
               name={''}
               value={environment}
+              inputProps={{
+                leftIcon: 'search'
+              }}
               defaultSelectedItem={{ label: getString('all'), value: getString('all') }}
               items={
                 loadingServices
@@ -772,13 +785,15 @@ function CVMonitoringServicesPage(): JSX.Element {
               }
               onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >setEnvironment(item)}</span>
             /&gt;
-            &lt;ExpandingSearchInput
+            {/* 
+            TODO: Need clarificaition from product
+            &lt;ExpandingSearchInput  
               placeholder={getString('search')}
               throttle={200}
-              onChange={<span class="fstat-no" title="function not covered" >(q</span>uery: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >                setSearchTerm(query)</span>
+              onChange={(query: string) =&gt; {
+                setSearchTerm(query)
               }}
-            /&gt;
+            /&gt; */}
           &lt;/HorizontalLayout&gt;
         &lt;/HorizontalLayout&gt;
       &lt;/MonitoringServicesHeader&gt;
@@ -841,7 +856,7 @@ export default CVMonitoringServicesPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:18:26 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 13 2021 09:52:05 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.83% </span>
+                <span class="strong">95.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/46</span>
+                <span class='fraction'>46/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">29.17% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>14/28</span>
+                <span class='fraction'>14/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">90.91% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.83% </span>
+                <span class="strong">95.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/46</span>
+                <span class='fraction'>46/48</span>
             </div>
         
             
@@ -212,9 +212,14 @@
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -314,17 +319,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -335,6 +329,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -357,6 +363,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -370,8 +378,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Color, Layout, Text, Button } from '@wings-software/uicore'
+import { Color, Layout, Text, Button, Container } from '@wings-software/uicore'
 import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
+import { PageError } from '@common/components/Page/PageError'
 import { Table, useToaster } from '@common/components'
 import { useMutateAsGet } from '@common/hooks'
 import type { PipelineType, ProjectPathProps, UserPathProps } from '@common/interfaces/RouteInterfaces'
@@ -468,6 +477,7 @@ const UserGroupTable: React.FC = () =&gt; {
   const {
     data: userGroupData,
     loading,
+    error,
     refetch
   } = useMutateAsGet(useGetBatchUserGroupList, {
     body: {
@@ -502,7 +512,7 @@ const UserGroupTable: React.FC = () =&gt; {
   )
 &nbsp;
   return (
-    &lt;div&gt;
+    &lt;Container margin={{ bottom: 'medium' }}&gt;
       &lt;Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }} padding={{ bottom: 'medium' }}&gt;
         {getString('common.userGroups')}
       &lt;/Text&gt;
@@ -510,14 +520,16 @@ const UserGroupTable: React.FC = () =&gt; {
 <span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Text color={Color.GREY_600}&gt;{getString('common.loading')}&lt;/Text&gt;</span>
       ) : userGroupData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? (
         &lt;Table&lt;UserGroupDTO&gt; hideHeaders={true} data={userGroupData.data} columns={columns} /&gt;
+      ) : <span class="branch-1 cbranch-no" title="branch not covered" >userGroupData?.data ? (</span>
+        &lt;Text color={Color.GREY_600}&gt;{getString('rbac.userGroupPage.noUserGroups')}&lt;/Text&gt;
       ) : (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;Text color={Color.GREY_600}&gt;{getString('rbac.userGroupPage.noUserGroups')}&lt;/Text&gt;</span>
+        &lt;PageError message={(error?.data as Error)?.message || error?.message} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span> /&gt;
       )}
       {/* ENABLE WHEN READY */}
       {/* &lt;Layout.Horizontal&gt;
         &lt;Button minimal text={getString('rbac.userDetails.userGroup.addToGroup')} intent="primary" /&gt;
       &lt;/Layout.Horizontal&gt; */}
-    &lt;/div&gt;
+    &lt;/Container&gt;
   )
 }
 &nbsp;
@@ -529,7 +541,7 @@ export default UserGroupTable
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:52:05 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 13 2021 10:39:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

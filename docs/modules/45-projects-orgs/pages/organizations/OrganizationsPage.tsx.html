@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.31% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/39</span>
+                <span class='fraction'>36/40</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.44% </span>
+                <span class="strong">52% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>25/36</span>
+                <span class='fraction'>26/50</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/13</span>
+                <span class='fraction'>10/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.31% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/39</span>
+                <span class='fraction'>36/40</span>
             </div>
         
             
@@ -169,7 +169,15 @@
 <a name='L110'></a><a href='#L110'>110</a>
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -242,7 +250,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -353,12 +369,20 @@ const OrganizationsPage: React.FC = () =&gt; {
         loading={loading}
         error={(<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >error?.d</span>ata as Error)<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.message </span>|| <span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >error?.m</span>essage}</span>
         retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span>
-        noData={{
-          when: () =&gt; !data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength,
-          icon: 'nav-dashboard',
-          message: getString('projectsOrgs.noDataMessage'),
-          button: newOrgButton()
-        }}
+        noData={
+          !searchParam
+            ? {
+                when: () =&gt; !data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength,
+                icon: 'nav-dashboard',
+                message: getString('projectsOrgs.noDataMessage'),
+                button: newOrgButton()
+              }
+            : <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
+                when: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >!data?.data?.content?.length,</span>
+                icon: 'nav-dashboard',
+                message: getString('projectsOrgs.noOrganizations')
+              }
+        }
         className={css.orgPage}
       &gt;
         &lt;Container className={css.masonry}&gt;
@@ -400,7 +424,7 @@ export default OrganizationsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 09:52:05 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 13 2021 10:39:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

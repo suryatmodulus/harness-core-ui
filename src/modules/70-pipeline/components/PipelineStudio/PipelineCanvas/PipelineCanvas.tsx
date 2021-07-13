@@ -636,7 +636,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       repoIdentifier,
       inputSetType,
       inputSetValue,
-      inputSetLabel
+      inputSetLabel,
+      pipelineIdentifier
     ]
   )
 

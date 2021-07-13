@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.42% </span>
+                <span class="strong">65.12% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>280/428</span>
+                <span class='fraction'>280/430</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.88% </span>
+                <span class="strong">56.44% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>57/102</span>
+                <span class='fraction'>57/101</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.64% </span>
+                <span class="strong">65.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>277/422</span>
+                <span class='fraction'>277/425</span>
             </div>
         
             
@@ -1616,7 +1616,14 @@
 <a name='L1557'></a><a href='#L1557'>1557</a>
 <a name='L1558'></a><a href='#L1558'>1558</a>
 <a name='L1559'></a><a href='#L1559'>1559</a>
-<a name='L1560'></a><a href='#L1560'>1560</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L1560'></a><a href='#L1560'>1560</a>
+<a name='L1561'></a><a href='#L1561'>1561</a>
+<a name='L1562'></a><a href='#L1562'>1562</a>
+<a name='L1563'></a><a href='#L1563'>1563</a>
+<a name='L1564'></a><a href='#L1564'>1564</a>
+<a name='L1565'></a><a href='#L1565'>1565</a>
+<a name='L1566'></a><a href='#L1566'>1566</a>
+<a name='L1567'></a><a href='#L1567'>1567</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -2132,7 +2139,7 @@
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -2147,6 +2154,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3694,21 +3708,28 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
       <span class="missing-if-branch" title="if path not taken" >I</span>if (isK8sSelected) {
         const yamlRuleName = <span class="cstat-no" title="statement not covered" >yamlData?.metadata?.name</span>
         const updatedName = <span class="cstat-no" title="statement not covered" >yamlRuleName &amp;&amp; Utils.getHyphenSpacedString(_nameString)</span>
-<span class="cstat-no" title="statement not covered" >        if (updatedName &amp;&amp; yamlRuleName !== _nameString) {</span>
-<span class="cstat-no" title="statement not covered" >          setYamlData(<span class="fstat-no" title="function not covered" >oldYaml </span>=&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
-            ...oldYaml,
+<span class="cstat-no" title="statement not covered" >        if (updatedName &amp;&amp; yamlRuleName !== updatedName) {</span>
+          const updatedYaml = <span class="cstat-no" title="statement not covered" >{</span>
+            ...yamlData,
             metadata: {
-              ...oldYaml.metadata,
+              ...yamlData.metadata,
               name: updatedName,
               annotations: {
-                ...oldYaml.metadata.annotations,
+                ...yamlData.metadata.annotations,
                 'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${orgIdentifier}-${projectIdentifier}-${updatedName}";`
               }
             }
-          }))
+          }
+<span class="cstat-no" title="statement not covered" >          setYamlData(updatedYaml)</span>
+          const updatedGatewayDetails: GatewayDetails = <span class="cstat-no" title="statement not covered" >{</span>
+            ...props.gatewayDetails,
+            name: _nameString,
+            routing: { ...props.gatewayDetails.routing, k8s: { RuleJson: JSON.stringify(updatedYaml) } }
+          }
+<span class="cstat-no" title="statement not covered" >          props.setGatewayDetails(updatedGatewayDetails)</span>
         }
       }
-    }, 300),
+    }, 500),
     [isK8sSelected, yamlData]
   )
 &nbsp;
@@ -4741,7 +4762,7 @@ export default COGatewayConfig
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 06:16:06 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 13 2021 07:41:01 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85% </span>
+                <span class="strong">85.44% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>136/160</span>
+                <span class='fraction'>176/206</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -179,7 +179,9 @@
 <a name='L120'></a><a href='#L120'>120</a>
 <a name='L121'></a><a href='#L121'>121</a>
 <a name='L122'></a><a href='#L122'>122</a>
-<a name='L123'></a><a href='#L123'>123</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
@@ -202,9 +204,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,6 +215,8 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -307,7 +311,7 @@ import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
 &nbsp;
-import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
+import { getMultiTypeFromValue, MultiTypeInputType, FormInput, Label, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 &nbsp;
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -324,8 +328,8 @@ export default function ConfigSection&lt;T extends TerraformData = TerraformData
 ): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-&nbsp;
   const { inputSetData, readonly, initialValues, path } = props
+  const config = inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;{
     projectIdentifier: string
     orgIdentifier: string
@@ -336,8 +340,16 @@ export default function ConfigSection&lt;T extends TerraformData = TerraformData
 &nbsp;
   return (
     &lt;&gt;
-      {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.workspace) ===
-        MultiTypeInputType.RUNTIME &amp;&amp; (
+      {(config<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.connectorRef ||
+        config<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.workspace </span>||
+        config<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.configFiles<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.store<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.branch </span>||
+        config<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.configFiles<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.store<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.commitId </span>||
+        config<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.configFiles<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.store<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.folderPath)</span> &amp;&amp; (
+        &lt;Label style={{ color: Color.GREY_900, paddingBottom: 'var(--spacing-medium)' }}&gt;
+          {getString('cd.configurationFile')}
+        &lt;/Label&gt;
+      )}
+      {getMultiTypeFromValue(config<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.workspace) === MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
           &lt;FormInput.MultiTextInput
             name={`${path}.spec.configuration.spec.workspace`}
@@ -350,9 +362,7 @@ export default function ConfigSection&lt;T extends TerraformData = TerraformData
           /&gt;
         &lt;/div&gt;
       )}
-      {getMultiTypeFromValue(
-        inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.connectorRef
-      ) === MultiTypeInputType.RUNTIME &amp;&amp; (
+      {getMultiTypeFromValue(config<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.connectorRef) === MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;</span>
           &lt;FormMultiTypeConnectorField
             accountIdentifier={accountId}
@@ -372,8 +382,7 @@ export default function ConfigSection&lt;T extends TerraformData = TerraformData
         &lt;/div&gt;
       )}
 &nbsp;
-      {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.branch) ===
-        MultiTypeInputType.RUNTIME &amp;&amp; (
+      {getMultiTypeFromValue(config<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.branch) === MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
           &lt;FormInput.MultiTextInput
             label={getString('pipelineSteps.deploy.inputSet.branch')}
@@ -388,8 +397,7 @@ export default function ConfigSection&lt;T extends TerraformData = TerraformData
         &lt;/div&gt;
       )}
 &nbsp;
-      {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.commitId) ===
-        MultiTypeInputType.RUNTIME &amp;&amp; (
+      {getMultiTypeFromValue(config<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.commitId) === MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;</span>
           &lt;FormInput.MultiTextInput
             label={getString('pipeline.manifestType.commitId')}
@@ -404,9 +412,7 @@ export default function ConfigSection&lt;T extends TerraformData = TerraformData
         &lt;/div&gt;
       )}
 &nbsp;
-      {getMultiTypeFromValue(
-        inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.folderPath
-      ) === MultiTypeInputType.RUNTIME &amp;&amp; (
+      {getMultiTypeFromValue(config<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configFiles?.store?.spec?.folderPath) === MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
           &lt;FormInput.MultiTextInput
             label={getString('cd.folderPath')}
@@ -430,7 +436,7 @@ export default function ConfigSection&lt;T extends TerraformData = TerraformData
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 08:41:43 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 13 2021 09:18:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

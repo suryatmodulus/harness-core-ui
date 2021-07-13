@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.72% </span>
+                <span class="strong">84.51% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>61/72</span>
+                <span class='fraction'>60/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.61% </span>
+                <span class="strong">52.91% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>504/958</span>
+                <span class='fraction'>491/928</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.29% </span>
+                <span class="strong">84.06% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>59/70</span>
+                <span class='fraction'>58/69</span>
             </div>
         
             
@@ -515,10 +515,7 @@
 <a name='L456'></a><a href='#L456'>456</a>
 <a name='L457'></a><a href='#L457'>457</a>
 <a name='L458'></a><a href='#L458'>458</a>
-<a name='L459'></a><a href='#L459'>459</a>
-<a name='L460'></a><a href='#L460'>460</a>
-<a name='L461'></a><a href='#L461'>461</a>
-<a name='L462'></a><a href='#L462'>462</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
+<a name='L459'></a><a href='#L459'>459</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -897,7 +894,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -954,8 +950,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1358,7 +1352,6 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData =&gt; {
   }
 &nbsp;
   const connectorValue = values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef as any
-  const secretManager = values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ecretManagerRef as any
 &nbsp;
   const configObject: TerraformPlanExecutionData = {
     command: values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommand,
@@ -1415,9 +1408,7 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData =&gt; {
 &nbsp;
   <span class="missing-if-branch" title="else path not taken" >E</span>if (values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ecretManagerRef) {
     configObject['secretManagerRef'] = values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ecretManagerRef
-      ? getMultiTypeFromValue(values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ecretManagerRef) === MultiTypeInputType.RUNTIME
-        ? <span class="branch-0 cbranch-no" title="branch not covered" >values?.spec?.configuration?.secretManagerRef</span>
-        : secretManager<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue
+      ? values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ecretManagerRef
       : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
   }
 &nbsp;
@@ -1447,7 +1438,7 @@ export interface InlineVar {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 11:13:30 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 13 2021 15:13:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

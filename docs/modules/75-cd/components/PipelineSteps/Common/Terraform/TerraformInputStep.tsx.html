@@ -174,7 +174,11 @@
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
 <a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -291,6 +295,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
@@ -339,7 +347,7 @@ export default function TerraformInputStep&lt;T extends TerraformData = Terrafor
         &lt;/div&gt;
       )}
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
-        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+        &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
           &lt;FormMultiTypeDurationField
             label={getString('pipelineSteps.timeoutLabel')}
             name={`${isEmpty(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) ? '' : `${inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath}.`}timeout`}
@@ -362,8 +370,8 @@ export default function TerraformInputStep&lt;T extends TerraformData = Terrafor
       {inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.varFiles?.<span class="branch-1 cbranch-no" title="branch not covered" >map(<span class="fstat-no" title="function not covered" >(v</span>arFile: any, index) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        if (varFile?.varFile?.type === TerraformStoreTypes.Inline) {</span>
 <span class="cstat-no" title="statement not covered" >          return (</span>
-            &lt;&gt;
-              &lt;Container flex width={120}&gt;
+            &lt;React.Fragment key={`${path}.spec.configuration.spec.varFiles[${index}]`}&gt;
+              &lt;Container flex width={120} padding={{ bottom: 'small' }}&gt;
                 &lt;Text font={{ weight: 'bold' }}&gt;{getString('cd.varFile')}:&lt;/Text&gt;
                 {varFile?.varFile?.identifier}
               &lt;/Container&gt;
@@ -380,7 +388,7 @@ export default function TerraformInputStep&lt;T extends TerraformData = Terrafor
                   /&gt;
                 &lt;/div&gt;
               )}
-            &lt;/&gt;
+            &lt;/React.Fragment&gt;
           )
         } else <span class="cstat-no" title="statement not covered" >if (varFile.varFile?.type === TerraformStoreTypes.Remote) {</span>
 <span class="cstat-no" title="statement not covered" >          return &lt;TFRemoteSection remoteVar={varFile} index={index} {...props} /&gt;</span>
@@ -389,21 +397,25 @@ export default function TerraformInputStep&lt;T extends TerraformData = Terrafor
 &nbsp;
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.backendConfig<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.content)</span> ===
         MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;FormInput.TextArea</span>
-          name={`${path}.spec.configuration.spec.backendConfig.spec.content`}
-          label={getString('cd.backEndConfig')}
-        /&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;</span>
+          &lt;FormInput.TextArea
+            name={`${path}.spec.configuration.spec.backendConfig.spec.content`}
+            label={getString('cd.backEndConfig')}
+          /&gt;
+        &lt;/div&gt;
       )}
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.targets as string) ===
         MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;List</span>
-          name={`${path}.spec.configuration.spec.targets`}
-          label={&lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;{getString('pipeline.targets.title')}&lt;/Text&gt;}
-          disabled={readonly}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          expressions={expressions}
-          isNameOfArrayType
-        /&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;</span>
+          &lt;List
+            name={`${path}.spec.configuration.spec.targets`}
+            label={&lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;{getString('pipeline.targets.title')}&lt;/Text&gt;}
+            disabled={readonly}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            expressions={expressions}
+            isNameOfArrayType
+          /&gt;
+        &lt;/div&gt;
       )}
     &lt;/FormikForm&gt;
   )
@@ -415,7 +427,7 @@ export default function TerraformInputStep&lt;T extends TerraformData = Terrafor
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 10:39:52 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 13 2021 11:13:30 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

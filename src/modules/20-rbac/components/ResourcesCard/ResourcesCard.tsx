@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text, Card, Color, Button, Radio } from '@wings-software/uicore'
+import { Layout, Text, Card, Color, Button, Radio, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
@@ -71,7 +71,7 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
           )}
         </Layout.Horizontal>
 
-        {Array.isArray(resourceValues) && (
+        {Array.isArray(resourceValues) && resourceValues.length > 0 ? (
           <Layout.Vertical padding={{ top: 'large' }}>
             {staticResourceRenderer
               ? staticResourceRenderer({
@@ -93,6 +93,8 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
                   </Layout.Horizontal>
                 ))}
           </Layout.Vertical>
+        ) : (
+          <Container padding={{ top: 'large' }}>{getString('rbac.staticResourceSelectorEmpty')}</Container>
         )}
       </Layout.Vertical>
     </Card>

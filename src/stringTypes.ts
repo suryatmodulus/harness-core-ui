@@ -477,6 +477,7 @@ export interface StringsMap {
   'rbac.serviceAccounts.noServiceAccounts': string
   'rbac.serviceAccounts.search': string
   'rbac.serviceAccounts.successMessage': string
+  'rbac.staticResourceSelectorEmpty': string
   'rbac.token.confirmDelete': string
   'rbac.token.confirmDeleteTitle': string
   'rbac.token.createLabel': string

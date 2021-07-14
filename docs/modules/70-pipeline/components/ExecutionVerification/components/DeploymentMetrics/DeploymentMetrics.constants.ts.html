@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/70-pipeline/components/ExecutionVerification/components/ExecutionVerificationSummary/VerifyExecution.tsx</title>
+    <title>Code coverage report for modules/70-pipeline/components/ExecutionVerification/components/DeploymentMetrics/DeploymentMetrics.constants.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">modules/70-pipeline/components/ExecutionVerification/components/ExecutionVerificationSummary</a> VerifyExecution.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">modules/70-pipeline/components/ExecutionVerification/components/DeploymentMetrics</a> DeploymentMetrics.constants.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -84,36 +84,14 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,55 +102,41 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Container, Text } from '@wings-software/uicore'
-import moment from 'moment'
-import type { StepDetailProps } from '@pipeline/factories/ExecutionFactory/types'
-import type { ExecutionNode } from 'services/pipeline-ng'
-import { useStrings } from 'framework/strings'
-import { PrimaryAndCanaryNodes } from './components/PrimaryandCanaryNodes/PrimaryAndCanaryNodes'
-import { SummaryOfDeployedNodes } from './components/SummaryOfDeployedNodes/SummaryOfDeployedNodes'
-import css from './VerifyExecution.module.scss'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 &nbsp;
-export interface VerifyExecutionProps extends StepDetailProps {
-  step: ExecutionNode
+export const MetricType = {
+  ANOMALOUS: 'Anomalous',
+  NON_ANOMALOUS: 'Non-Anomalous'
 }
 &nbsp;
-export function VerifyExecution(props: VerifyExecutionProps): JSX.Element {
-  const { step } = props
-  const { getString } = useStrings()
-  return (
-    &lt;Container className={css.main}&gt;
-      &lt;Container className={css.verifyHeader}&gt;
-        &lt;Container&gt;
-          &lt;Text font={{ size: 'small' }}&gt;{`${getString('pipeline.startedOn')}: ${moment(step.startTs).format(
-            'MMM DD, YYYY h:m a'
-          )}`}&lt;/Text&gt;
-          &lt;Text font={{ size: 'small' }}&gt;{getString('pipeline.duration')}&lt;/Text&gt;
-        &lt;/Container&gt;
-      &lt;/Container&gt;
-      &lt;Container className={css.details}&gt;
-        &lt;PrimaryAndCanaryNodes primaryNodeProps={{ totalNodes: 25 }} canaryNodeProps={{ totalNodes: 20 }} /&gt;
-        &lt;SummaryOfDeployedNodes
-          metricsInViolation={12}
-          totalMetrics={25}
-          logClustersInViolation={1}
-          totalLogClusters={35}
-        /&gt;
-      &lt;/Container&gt;
-    &lt;/Container&gt;
-  )
+export const MetricTypeOptions: SelectOption[] = [
+  {
+    label: `All Metrics`,
+    value: MetricType.NON_ANOMALOUS
+  },
+  {
+    label: `${MetricType.ANOMALOUS} Metrics`,
+    value: MetricType.ANOMALOUS
+  }
+]
+&nbsp;
+export const POLLING_INTERVAL = 15000
+export const PAGE_SIZE = 10
+export const DEFAULT_PAGINATION_VALUEE = {
+  pageIndex: -1,
+  pageItemCount: 0,
+  pageSize: 5,
+  totalPages: 0,
+  totalItems: 0
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -181,7 +145,7 @@ export function VerifyExecution(props: VerifyExecutionProps): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 14 2021 05:17:16 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 14 2021 06:24:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -291,7 +291,10 @@
 <a name='L232'></a><a href='#L232'>232</a>
 <a name='L233'></a><a href='#L233'>233</a>
 <a name='L234'></a><a href='#L234'>234</a>
-<a name='L235'></a><a href='#L235'>235</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">278x</span>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">278x</span>
 <span class="cline-any cline-yes">278x</span>
 <span class="cline-any cline-yes">278x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -333,6 +336,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">278x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
@@ -541,7 +547,7 @@ import {
 import { connect } from 'formik'
 import { get, isNil } from 'lodash-es'
 import * as Yup from 'yup'
-import { useStrings } from 'framework/strings'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import { errorCheck } from '@common/utils/formikHelpers'
 // import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 &nbsp;
@@ -566,7 +572,10 @@ export interface GetDurationValidationSchemaProps {
   maximumErrorMessage?: string
 }
 &nbsp;
-export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProps = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span>: Yup.ObjectSchema {
+export function getInstanceDropdownSchema(
+  props: GetDurationValidationSchemaProps = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span>
+  getString: UseStringsReturn['getString']
+): Yup.ObjectSchema {
   const { maximum } = props
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (maximum &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >typeof maximum !== 'number')</span> {
@@ -591,30 +600,30 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
           }
           <span class="missing-if-branch" title="if path not taken" >I</span>if (required &amp;&amp; isNil(value)) {
 <span class="cstat-no" title="statement not covered" >            return this.createError({</span>
-              message: requiredErrorMessage || `Instance is an required field`
+              message: requiredErrorMessage || getString('common.instanceValidation.required')
             })
-          } else <span class="missing-if-branch" title="if path not taken" >I</span>if (value &lt; 1) {
+          } else <span class="missing-if-branch" title="if path not taken" >I</span>if (value &lt; 0) {
 <span class="cstat-no" title="statement not covered" >            return this.createError({</span>
-              message: minimumErrorMessage || `Instances must be greater than or equal to 1`
+              message: minimumErrorMessage || getString('common.instanceValidation.minimumCountInstance')
             })
           } else <span class="missing-if-branch" title="if path not taken" >I</span>if (maximum &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >value &gt; maximum)</span> {
 <span class="cstat-no" title="statement not covered" >            return this.createError({</span>
-              message: maximumErrorMessage || `Instances must be less than or equal to "${maximum}"`
+              message: maximumErrorMessage || getString('common.instanceValidation.maximumCountInstance', { maximum })
             })
           }
         } else <span class="missing-if-branch" title="else path not taken" >E</span>if (type === InstanceTypes.Percentage) {
           const value = this.parent<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ercentage
           <span class="missing-if-branch" title="if path not taken" >I</span>if (required &amp;&amp; isNil(value)) {
 <span class="cstat-no" title="statement not covered" >            return this.createError({</span>
-              message: requiredErrorMessage || `Instance is a required field`
+              message: requiredErrorMessage || getString('common.instanceValidation.required')
             })
           } else <span class="missing-if-branch" title="if path not taken" >I</span>if (value &lt; 1) {
 <span class="cstat-no" title="statement not covered" >            return this.createError({</span>
-              message: minimumErrorMessage || `Percentage must be greater than or equal to 1`
+              message: minimumErrorMessage || getString('common.instanceValidation.minimumCountPercentage')
             })
           } else <span class="missing-if-branch" title="if path not taken" >I</span>if (value &gt; 100) {
 <span class="cstat-no" title="statement not covered" >            return this.createError({</span>
-              message: maximumErrorMessage || `Percentage must be less than or equal to 100`
+              message: maximumErrorMessage || getString('common.instanceValidation.maximumCountPercentage')
             })
           }
         }
@@ -766,7 +775,7 @@ export const FormInstanceDropdown = connect(FormInstanceDropdownField)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 13 2021 19:24:08 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 14 2021 05:17:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

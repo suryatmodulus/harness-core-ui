@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.75% </span>
+                <span class="strong">78.41% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>63/80</span>
+                <span class='fraction'>69/88</span>
             </div>
         
             
@@ -114,27 +114,7 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -150,26 +130,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,9 +174,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { SelectOption } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import type { AppDynamicsHealthSourceSpec } from 'services/cv'
-import type { updatedHealthSource } from './HealthSourceDrawerContent'
+import type { RowData, SourceDataInterface } from './HealthSourceDrawerContent.types'
 &nbsp;
-const getValueBySourceType = (type: string, rowData: updatedHealthSource) =&gt; {
+const getValueBySourceType = (type: string, rowData: RowData) =&gt; {
   switch (type) {
     case Connectors.APP_DYNAMICS:
       return getAppDFields(rowData)
@@ -225,42 +185,22 @@ const getValueBySourceType = (type: string, rowData: updatedHealthSource) =&gt; 
   }
 }
 &nbsp;
-export const getAppDFields = (rowData: updatedHealthSource) =&gt; {
+export const getAppDFields = (rowData: RowData) =&gt; {
   return {
     product: (rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as AppDynamicsHealthSourceSpec)<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>eature,
-    appdApplicationName: (rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as AppDynamicsHealthSourceSpec)<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ppdApplicationName,
-    appdTierName: (rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as AppDynamicsHealthSourceSpec).appdTierName,
-    metricPacks: (rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as AppDynamicsHealthSourceSpec).metricPacks
+    applicationName: (rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as AppDynamicsHealthSourceSpec)<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pplicationName,
+    tierName: (rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as AppDynamicsHealthSourceSpec)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ierName,
+    metricPacks: (rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as AppDynamicsHealthSourceSpec)<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricPacks
   }
 }
 &nbsp;
-interface SourceDataInterface {
-  isEdit: boolean
-  rowData?: updatedHealthSource | null
-  tableData?: Array&lt;updatedHealthSource&gt;
-  modalOpen?: boolean
-  createHeader?: () =&gt; JSX.Element
-  onClose?: (val: any) =&gt; void
-  serviceName: string
-  serviceIdentifier: string
-  environmentIdentifier: string
-  environmentName: string
-  sourceType?: string
-  connectorRef?: string
-  healthSourceName?: string
-  healthSourceidentifier?: string
-  monitoringSourceName: string
-  monitoredServiceIdentifier: string
-  healthSourceList?: Array&lt;updatedHealthSource&gt;
-}
-&nbsp;
 export const createHealthSourceDrawerFormData = (
-  rowData: updatedHealthSource | null,
   isEdit: boolean,
   monitoringSourcRef: { monitoredServiceIdentifier: string; monitoredServiceName: string },
   serviceRef: SelectOption | undefined,
   environmentRef: SelectOption | undefined,
-  tableData: Array&lt;updatedHealthSource&gt;
+  tableData: Array&lt;RowData&gt;,
+  rowData?: RowData | null
 ): SourceDataInterface =&gt; {
   let sourceData: SourceDataInterface = {
     isEdit,
@@ -280,7 +220,7 @@ export const createHealthSourceDrawerFormData = (
       ...sourceData,
       ...sourceTypeValue,
       healthSourceName: rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame,
-      healthSourceidentifier: rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier,
+      healthSourceIdentifier: rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier,
       sourceType: rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype,
       connectorRef: rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef
     }
@@ -295,7 +235,7 @@ export const createHealthSourceDrawerFormData = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 15 2021 16:51:09 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 15 2021 17:29:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.08% </span>
+                <span class="strong">82.26% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>54/65</span>
+                <span class='fraction'>51/62</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.45% </span>
+                <span class="strong">64.91% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>36/55</span>
+                <span class='fraction'>37/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.35% </span>
+                <span class="strong">81.25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>14/17</span>
+                <span class='fraction'>13/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.14% </span>
+                <span class="strong">81.13% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/56</span>
+                <span class='fraction'>43/53</span>
             </div>
         
             
@@ -225,15 +225,8 @@
 <a name='L166'></a><a href='#L166'>166</a>
 <a name='L167'></a><a href='#L167'>167</a>
 <a name='L168'></a><a href='#L168'>168</a>
-<a name='L169'></a><a href='#L169'>169</a>
-<a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a>
-<a name='L175'></a><a href='#L175'>175</a>
-<a name='L176'></a><a href='#L176'>176</a>
-<a name='L177'></a><a href='#L177'>177</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L169'></a><a href='#L169'>169</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,21 +237,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -411,6 +395,7 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Button, Text, Layout, Color, IconName } from '@wings-software/uicore'
+import isEmpty from 'lodash-es/isEmpty'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { UseStringsReturn } from 'framework/strings'
 import {
@@ -420,38 +405,29 @@ import {
   MetricPackDTO,
   MetricPackDTOArrayRequestBody
 } from 'services/cv'
-import type { updatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent'
+import { ValidationStatus } from './AppDMonitoredSource.constant'
+import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import css from './AppDMonitoredSource.module.scss'
 &nbsp;
-export enum ValidationStatus {
-  IN_PROGRESS = 'in-progress',
-  NO_DATA = 'no-data',
-  SUCCESS = 'success',
-  ERROR = 'error'
-}
-&nbsp;
-const createAppDPayload = (formData: any): updatedHealthSource =&gt; {
+const createAppDPayload = (formData: any): UpdatedHealthSource =&gt; {
   const healthSourcesPayload = {
     name: formData.healthSourceName as string,
-    environment: formData.environmentIdentifier as string,
-    service: formData.serviceIdentifier as string,
-    identifier: formData.healthSourceidentifier as string,
+    identifier: formData.healthSourceIdentifier as string,
     type: 'AppDynamics' as any,
     spec: {
       connectorRef: (formData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnector<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier as string) || (<span class="branch-1 cbranch-no" title="branch not covered" >formData.connectorRef as string),</span>
-      feature: formData.product as string,
-      appdApplicationName: formData.appdApplication as string,
-      appdTierName: formData.appDTier as string,
+      feature: formData.product<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue as string,
+      applicationName: formData.appdApplication as string,
+      tierName: formData.appDTier as string,
       metricPacks: Object.entries(formData.metricAppD)
         .map(item =&gt; {
-          // item [key , value] = ['Error', true]
           return item[1]
             ? {
-                identifier: item[0] // 'Error': true
+                identifier: item[0]
               }
             : <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
         })
-        .filter(item =&gt; !!item)
+        .filter(item =&gt; !isEmpty(item))
     }
   }
 &nbsp;
@@ -592,7 +568,7 @@ export { createAppDPayload }
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 15 2021 16:51:09 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 15 2021 17:29:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

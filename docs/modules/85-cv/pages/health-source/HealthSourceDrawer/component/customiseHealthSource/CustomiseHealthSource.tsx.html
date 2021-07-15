@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.83% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/24</span>
+                <span class='fraction'>21/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.79% </span>
+                <span class="strong">13.04% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/38</span>
+                <span class='fraction'>6/46</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.83% </span>
+                <span class="strong">74.07% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/24</span>
+                <span class='fraction'>20/27</span>
             </div>
         
             
@@ -126,21 +126,29 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,19 +183,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -195,7 +207,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useContext } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useContext, useMemo } from 'react'
+import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import {
@@ -209,7 +222,8 @@ import { BGColorWrapper } from '@cv/pages/health-source/common/StyledComponents'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { LoadSourceByType, createHealthsourceList } from './CustomiseHealthSource.utils'
-import type { updatedHealthSource } from '../../HealthSourceDrawerContent'
+import type { UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
+import { omitServiceEnvironmentKeys } from './CustomiseHealthSource.constant'
 &nbsp;
 export default function CustomiseHealthSource({
   onSuccess
@@ -228,18 +242,19 @@ export default function CustomiseHealthSource({
     queryParams: { accountId: params.accountId }
   })
 &nbsp;
-  const submitData = <span class="fstat-no" title="function not covered" >async </span>(formdata: any, healthSourcePayload: updatedHealthSource): Promise&lt;void&gt; =&gt; {
+  const submitData = <span class="fstat-no" title="function not covered" >async </span>(formdata: any, healthSourcePayload: UpdatedHealthSource): Promise&lt;void&gt; =&gt; {
     const healthSourceList = <span class="cstat-no" title="statement not covered" >createHealthsourceList(formdata, healthSourcePayload)</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
       const payload: MonitoredServiceDTO = <span class="cstat-no" title="statement not covered" >{</span>
         orgIdentifier: params.orgIdentifier,
         projectIdentifier: params.projectIdentifier,
-        environmentRef: formdata.environmentIdentifier,
+        environmentRef: sourceData.environmentIdentifier,
         identifier: formdata?.monitoredServiceIdentifier,
         name: formdata?.monitoringSourceName,
         description: '',
         type: 'Application',
-        serviceRef: formdata.serviceIdentifier,
+        tags: {},
+        serviceRef: sourceData.serviceIdentifier,
         sources: {
           healthSources: healthSourceList
         }
@@ -254,13 +269,16 @@ export default function CustomiseHealthSource({
           : getString('cv.monitoredServices.monitoredServiceCreated')
       )
     } catch (error) {
-<span class="cstat-no" title="statement not covered" >      showError(error.message)</span>
+<span class="cstat-no" title="statement not covered" >      showError(error?.data?.message)</span>
     }
   }
 &nbsp;
+  // Removing Service and Environment keys
+  const filteredSourceData = useMemo(() =&gt; omit(sourceData, omitServiceEnvironmentKeys), [])
+&nbsp;
   return (
     &lt;BGColorWrapper&gt;
-      &lt;LoadSourceByType type={sourceData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ourceType} data={sourceData} onSubmit={submitData} /&gt;
+      &lt;LoadSourceByType type={sourceData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ourceType} data={filteredSourceData} onSubmit={submitData} /&gt;
     &lt;/BGColorWrapper&gt;
   )
 }
@@ -271,7 +289,7 @@ export default function CustomiseHealthSource({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 15 2021 16:51:09 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 15 2021 17:29:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

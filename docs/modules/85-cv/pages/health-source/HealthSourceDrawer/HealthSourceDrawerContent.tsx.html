@@ -147,67 +147,17 @@
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a>
-<a name='L115'></a><a href='#L115'>115</a>
-<a name='L116'></a><a href='#L116'>116</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -288,41 +238,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useMemo } from 'react'
-import { SelectOption, Button } from '@wings-software/uicore'
+import { Button } from '@wings-software/uicore'
 import { Drawer, Intent, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
-import type { AppDynamicsHealthSourceSpec, HealthSource, MonitoredServiceResponse } from 'services/cv'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import DefineHealthSource from './component/defineHealthSource/DefineHealthSource'
 import CustomiseHealthSource from './component/customiseHealthSource/CustomiseHealthSource'
 import { createHealthSourceDrawerFormData } from './HealthSourceDrawerContent.utils'
-import type { GCOLogsHealthSourceSpec } from '../connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/types'
-import type { HealthSourceTypes } from '../types'
+import type { HealthSourceDrawerInterface } from './HealthSourceDrawerContent.types'
 import css from './HealthSourceDrawerContent.module.scss'
-&nbsp;
-export interface updatedHealthSource extends HealthSource {
-  identifier: string
-  name: string
-  spec: AppDynamicsHealthSourceSpec | GCOLogsHealthSourceSpec
-  type?: 'AppDynamics' | HealthSourceTypes.StackdriverLog
-  service?: string
-  environment?: string
-  serviceRef?: string
-  environmentRef?: string
-}
-export interface HealthSourceDrawerInterface {
-  rowData: updatedHealthSource | null
-  tableData: Array&lt;updatedHealthSource&gt;
-  serviceRef: SelectOption | undefined
-  environmentRef: SelectOption | undefined
-  monitoringSourcRef: { monitoredServiceIdentifier: string; monitoredServiceName: string }
-  onSuccess: (data: MonitoredServiceResponse) =&gt; void
-  modalOpen: boolean
-  createHeader: () =&gt; JSX.Element
-  onClose: (val: any) =&gt; void
-  isEdit: boolean
-}
 &nbsp;
 function HealthSourceDrawerContent({
   serviceRef,
@@ -339,7 +264,7 @@ function HealthSourceDrawerContent({
   const { getString } = useStrings()
 &nbsp;
   const sourceData = useMemo(
-    () =&gt; createHealthSourceDrawerFormData(rowData, isEdit, monitoringSourcRef, serviceRef, environmentRef, tableData),
+    () =&gt; createHealthSourceDrawerFormData(isEdit, monitoringSourcRef, serviceRef, environmentRef, tableData, rowData),
     [rowData, tableData, monitoringSourcRef, serviceRef, environmentRef]
   )
 &nbsp;
@@ -409,7 +334,7 @@ export default HealthSourceDrawerContent
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 15 2021 16:51:09 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 15 2021 17:29:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

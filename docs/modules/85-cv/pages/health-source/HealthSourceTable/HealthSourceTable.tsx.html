@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.36% </span>
+                <span class="strong">77.59% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/55</span>
+                <span class='fraction'>45/58</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.03% </span>
+                <span class="strong">60.92% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>35/66</span>
+                <span class='fraction'>53/87</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.33% </span>
+                <span class="strong">56.25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/15</span>
+                <span class='fraction'>9/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.47% </span>
+                <span class="strong">76.79% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/53</span>
+                <span class='fraction'>43/56</span>
             </div>
         
             
@@ -269,7 +269,13 @@
 <a name='L210'></a><a href='#L210'>210</a>
 <a name='L211'></a><a href='#L211'>211</a>
 <a name='L212'></a><a href='#L212'>212</a>
-<a name='L213'></a><a href='#L213'>213</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -283,6 +289,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -357,6 +364,7 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -403,13 +411,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -422,7 +433,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -481,7 +491,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useCallback } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useMemo, useCallback } from 'react'
+import cx from 'classnames'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import { Color, Container, Text, SelectOption } from '@wings-software/uicore'
@@ -494,11 +505,12 @@ import routes from '@common/RouteDefinitions'
 import { Table } from '@common/components'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import { getIconBySourceType } from '@cv/pages/admin/setup/SetupUtils'
-import HealthSourceDrawerContent, { updatedHealthSource } from '../HealthSourceDrawer/HealthSourceDrawerContent'
+import HealthSourceDrawerContent from '../HealthSourceDrawer/HealthSourceDrawerContent'
+import type { RowData } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import css from './HealthSourceTable.module.scss'
 &nbsp;
 interface HealthSourceTableInterface {
-  value: Array&lt;updatedHealthSource&gt;
+  value: Array&lt;RowData&gt;
   breadCrumbRoute?: {
     routeTitle: string
     redirect: () =&gt; void
@@ -527,7 +539,7 @@ export default function HealthSourceTable({
   const params = useParams&lt;ProjectPathProps &amp; { identifier: string }&gt;()
   const { getString } = useStrings()
   const { routeTitle, redirect } = breadCrumbRoute || {}
-  const [rowData, setrowData] = useState&lt;updatedHealthSource | null&gt;(null)
+  const [rowData, setrowData] = useState&lt;RowData | null&gt;(null)
 &nbsp;
   const { mutate: updateMonitoredService } = useUpdateMonitoredService({
     identifier: params.identifier,
@@ -566,7 +578,7 @@ export default function HealthSourceTable({
     )
   }, [rowData, isEdit])
 &nbsp;
-  const deleteHealthSource = <span class="fstat-no" title="function not covered" >async </span>(selectedRow: updatedHealthSource) =&gt; {
+  const deleteHealthSource = <span class="fstat-no" title="function not covered" >async </span>(selectedRow: RowData) =&gt; {
 <span class="cstat-no" title="statement not covered" >    try {</span>
       const payload: MonitoredServiceDTO = <span class="cstat-no" title="statement not covered" >{</span>
         orgIdentifier: params.orgIdentifier,
@@ -577,6 +589,7 @@ export default function HealthSourceTable({
         name: monitoringSourcRef?.monitoredServiceName,
         description: 'monitoredService',
         type: 'Application',
+        tags: {},
         sources: {
           healthSources: tableData?.filter(<span class="fstat-no" title="function not covered" >healthSource </span>=&gt; <span class="cstat-no" title="statement not covered" >healthSource.identifier !== selectedRow.identifier)</span>
         }
@@ -598,12 +611,12 @@ export default function HealthSourceTable({
 <span class="cstat-no" title="statement not covered" >    setrowData(null)</span>
   }
 &nbsp;
-  const renderTypeWithIcon: Renderer&lt;CellProps&lt;updatedHealthSource&gt;&gt; = ({ row }): JSX.Element =&gt; {
+  const renderTypeWithIcon: Renderer&lt;CellProps&lt;RowData&gt;&gt; = ({ row }): JSX.Element =&gt; {
     const rowdata = row<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>riginal
     return &lt;Text icon={getIconBySourceType(rowdata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype as string)}&gt;{rowdata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype}&lt;/Text&gt;
   }
 &nbsp;
-  const renderEditDelete: Renderer&lt;CellProps&lt;updatedHealthSource&gt;&gt; = ({ row }): JSX.Element =&gt; {
+  const renderEditDelete: Renderer&lt;CellProps&lt;RowData&gt;&gt; = ({ row }): JSX.Element =&gt; {
     const rowdata = row<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>riginal
     return (
       &lt;Container flex&gt;
@@ -614,15 +627,18 @@ export default function HealthSourceTable({
           onDelete={<span class="fstat-no" title="function not covered" >async </span>() =&gt; <span class="cstat-no" title="statement not covered" >deleteHealthSource(rowdata)}</span>
           onEdit={() =&gt; {
             const rowFilteredData =
-              tableData<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind((healthSource: updatedHealthSource) =&gt; healthSource.identifier === rowdata.identifier) ||
-<span class="branch-1 cbranch-no" title="branch not covered" >              null</span>
-            setrowData(rowFilteredData)
+              tableData<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind((healthSource: RowData) =&gt; healthSource.identifier === rowdata.identifier) || <span class="branch-1 cbranch-no" title="branch not covered" >null</span>
+            rowFilteredData &amp;&amp; setrowData(rowFilteredData)
             setModalOpen(true)
           }}
         /&gt;
       &lt;/Container&gt;
     )
   }
+&nbsp;
+  const disableAddNewHealthSource = useMemo(() =&gt; {
+    return !monitoringSourcRef<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>onitoredServiceName || !serviceRef<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue || !environmentRef<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue
+  }, [monitoringSourcRef, serviceRef, serviceRef])
 &nbsp;
   return (
     &lt;&gt;
@@ -633,9 +649,8 @@ export default function HealthSourceTable({
           sortable={true}
           onRowClick={data =&gt; {
             const rowFilteredData =
-              tableData<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind((healthSource: updatedHealthSource) =&gt; healthSource.identifier === data.identifier) ||
-<span class="branch-1 cbranch-no" title="branch not covered" >              null</span>
-            setrowData(rowFilteredData)
+              tableData<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind((healthSource: RowData) =&gt; healthSource.identifier === data.identifier) || <span class="branch-1 cbranch-no" title="branch not covered" >null</span>
+            rowFilteredData &amp;&amp; setrowData(rowFilteredData)
             setModalOpen(true)
           }}
           columns={[
@@ -673,7 +688,7 @@ export default function HealthSourceTable({
           &lt;NoDataCard icon={'join-table'} message={getString('cv.healthSource.noData')} /&gt;
         &lt;/Container&gt;
       )}
-      &lt;div className={css.drawerlink}&gt;
+      &lt;div className={cx(css.drawerlink, disableAddNewHealthSource &amp;&amp; css.disabled)}&gt;
         &lt;Link to={'#'} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setModalOpen(true)}</span>&gt;
           + {getString('cv.healthSource.addHealthSource')}
         &lt;/Link&gt;
@@ -700,7 +715,7 @@ export default function HealthSourceTable({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 15 2021 16:51:09 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 15 2021 17:29:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

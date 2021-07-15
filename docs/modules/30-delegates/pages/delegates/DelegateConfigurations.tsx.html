@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.76% </span>
+                <span class="strong">57.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/37</span>
+                <span class='fraction'>23/40</span>
             </div>
         
             
@@ -384,7 +384,10 @@
 <a name='L325'></a><a href='#L325'>325</a>
 <a name='L326'></a><a href='#L326'>326</a>
 <a name='L327'></a><a href='#L327'>327</a>
-<a name='L328'></a><a href='#L328'>328</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L328'></a><a href='#L328'>328</a>
+<a name='L329'></a><a href='#L329'>329</a>
+<a name='L330'></a><a href='#L330'>330</a>
+<a name='L331'></a><a href='#L331'>331</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -421,6 +424,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -450,6 +454,7 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -458,6 +463,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -728,7 +734,7 @@ import type {
   AccountPathProps
 } from '@common/interfaces/RouteInterfaces'
 import type { ScopingRuleDetails } from 'services/portal'
-import { useListDelegateProfilesNg, useDeleteDelegateProfileNg } from 'services/cd-ng'
+import { useListDelegateConfigsNgV2, useDeleteDelegateConfigNgV2 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
@@ -757,6 +763,7 @@ const fullSizeContentStyle: React.CSSProperties = {
 &nbsp;
 interface DelegateProfileDetails {
   uuid?: string
+  identifier?: string
   accountId?: string
   name?: string
   description?: string
@@ -774,8 +781,9 @@ export default function DelegateConfigurations(): JSX.Element {
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams&lt;
     Partial&lt;DelegateConfigProps &amp; ProjectPathProps &amp; ModulePathParams&gt; &amp; AccountPathProps
   &gt;()
-  const { data, loading, error, refetch } = useListDelegateProfilesNg({
-    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
+  const { data, loading, error, refetch } = useListDelegateConfigsNgV2({
+    accountId,
+    queryParams: { orgId: orgIdentifier, projectId: projectIdentifier }
   })
   const { showSuccess, showError } = useToaster()
   const profiles: Array&lt;DelegateProfileDetails&gt; = formatProfileList(data)
@@ -784,8 +792,9 @@ export default function DelegateConfigurations(): JSX.Element {
 <span class="cstat-no" title="statement not covered" >      refetch()</span>
     }
   })
-  const { mutate: deleteDelegateProfile } = useDeleteDelegateProfileNg({
-    queryParams: { accountId: accountId, orgId: orgIdentifier, projectId: projectIdentifier }
+  const { mutate: deleteDelegateProfile } = useDeleteDelegateConfigNgV2({
+    accountId,
+    queryParams: { orgId: orgIdentifier, projectId: projectIdentifier }
   })
 &nbsp;
   const DelegateConfigItem = ({ profile }: { profile: DelegateProfileDetails }) =&gt; {
@@ -795,9 +804,9 @@ export default function DelegateConfigurations(): JSX.Element {
       confirmButtonText: getString('delete'),
       cancelButtonText: getString('cancel'),
       onCloseDialog: async (isConfirmed: boolean) =&gt; {
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (isConfirmed &amp;&amp; profile &amp;&amp; profile.uuid) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (isConfirmed &amp;&amp; profile<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier) {
           try {
-            const deleted = await deleteDelegateProfile(profile<span class="branch-0 cbranch-no" title="branch not covered" >?.u</span>uid)
+            const deleted = await deleteDelegateProfile(profile<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier)
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            if (deleted) {</span>
 <span class="cstat-no" title="statement not covered" >              showSuccess(</span>
@@ -818,7 +827,7 @@ export default function DelegateConfigurations(): JSX.Element {
 <span class="cstat-no" title="statement not covered" >      history.push(</span>
         routes.toEditDelegateConfigsDetails({
           accountId,
-          delegateConfigId: profile.uuid as string,
+          delegateConfigIdentifier: profile.identifier as string,
           orgIdentifier,
           projectIdentifier,
           module
@@ -830,7 +839,7 @@ export default function DelegateConfigurations(): JSX.Element {
 <span class="cstat-no" title="statement not covered" >      history.push(</span>
         routes.toDelegateConfigsDetails({
           accountId,
-          delegateConfigId: profile.uuid as string,
+          delegateConfigIdentifier: profile.identifier as string,
           orgIdentifier,
           projectIdentifier,
           module
@@ -1045,7 +1054,7 @@ export default function DelegateConfigurations(): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 15 2021 13:16:12 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 15 2021 16:51:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

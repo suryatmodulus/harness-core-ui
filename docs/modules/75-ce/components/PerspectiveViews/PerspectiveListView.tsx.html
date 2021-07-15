@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.98% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>39/47</span>
+                <span class='fraction'>40/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.85% </span>
+                <span class="strong">48.28% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>14/27</span>
+                <span class='fraction'>14/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">52.94% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>9/15</span>
+                <span class='fraction'>9/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.98% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>39/47</span>
+                <span class='fraction'>40/48</span>
             </div>
         
             
@@ -234,7 +234,16 @@
 <a name='L175'></a><a href='#L175'>175</a>
 <a name='L176'></a><a href='#L176'>176</a>
 <a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,7 +261,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -325,7 +338,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -333,6 +345,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -345,8 +365,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,7 +434,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import moment from 'moment'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Icon, Text, Layout, Button, Popover, Container } from '@wings-software/uicore'
-import { Classes, Menu, Position } from '@blueprintjs/core'
+import { Menu, Position } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 import { QlceView, ViewTimeRangeType, ViewState } from 'services/ce/services'
@@ -427,11 +445,15 @@ import { useStrings } from 'framework/strings'
 interface PerspectiveListViewProps {
   pespectiveData: QlceView[]
   navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState: ViewState) =&gt; void
+  deletePerpsective: (perspectiveId: string) =&gt; void
+  clonePerspective: (values: QlceView | Record&lt;string, string&gt;, isClone: boolean) =&gt; void
 }
 &nbsp;
 const PerspectiveListView: React.FC&lt;PerspectiveListViewProps&gt; = ({
   pespectiveData,
-  navigateToPerspectiveDetailsPage
+  navigateToPerspectiveDetailsPage,
+  deletePerpsective,
+  clonePerspective
 }) =&gt; {
   const history = useHistory()
   const { accountId } = useParams&lt;{
@@ -500,38 +522,43 @@ const PerspectiveListView: React.FC&lt;PerspectiveListViewProps&gt; = ({
   const RenderColumnMenu: Renderer&lt;CellProps&lt;QlceView&gt;&gt; = ({ row }) =&gt; {
     const [menuOpen, setMenuOpen] = useState(false)
 &nbsp;
-    const editClick: (e: any) =&gt; void = <span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >      e.stopPropagation()</span>
+    const editClick: () =&gt; void = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >      row.original.id &amp;&amp; onEditClick(row.original.id)</span>
     }
 &nbsp;
-    const onActionButtonsClick: (e: React.MouseEvent&lt;Element, MouseEvent&gt;) =&gt; void = <span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >      e.stopPropagation()</span>
+    const onDeleteClick: () =&gt; void = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >      row.original.id &amp;&amp; deletePerpsective(row.original.id)</span>
+    }
+&nbsp;
+    const onCloneClick: () =&gt; void = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >      clonePerspective(row.original, true)</span>
     }
 &nbsp;
     return (
-      &lt;Layout.Horizontal&gt;
+      &lt;Layout.Horizontal
+        onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >          e.stopPropagation()</span>
+        }}
+      &gt;
         &lt;Popover
           isOpen={menuOpen}
           onInteraction={<span class="fstat-no" title="function not covered" >nextOpenState </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >            setMenuOpen(nextOpenState)</span>
           }}
-          className={Classes.DARK}
           position={Position.BOTTOM_RIGHT}
         &gt;
           &lt;Button
             minimal
             icon="Options"
-            onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >              e.stopPropagation()</span>
+            onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >              setMenuOpen(true)</span>
             }}
           /&gt;
           &lt;Container&gt;
             &lt;Menu&gt;
               &lt;Menu.Item onClick={editClick} icon="edit" text="Edit" /&gt;
-              &lt;Menu.Item onClick={onActionButtonsClick} icon="duplicate" text="Clone" /&gt;
-              &lt;Menu.Item onClick={onActionButtonsClick} icon="trash" text="Delete" /&gt;
+              &lt;Menu.Item onClick={onCloneClick} icon="duplicate" text="Clone" /&gt;
+              &lt;Menu.Item onClick={onDeleteClick} icon="trash" text="Delete" /&gt;
             &lt;/Menu&gt;
           &lt;/Container&gt;
         &lt;/Popover&gt;
@@ -595,7 +622,7 @@ export default PerspectiveListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 15 2021 07:09:25 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 15 2021 13:16:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

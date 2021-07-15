@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.03% </span>
+                <span class="strong">14% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/153</span>
+                <span class='fraction'>21/150</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/289</span>
+                <span class='fraction'>0/287</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.03% </span>
+                <span class="strong">14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/153</span>
+                <span class='fraction'>21/150</span>
             </div>
         
             
@@ -464,10 +464,7 @@
 <a name='L405'></a><a href='#L405'>405</a>
 <a name='L406'></a><a href='#L406'>406</a>
 <a name='L407'></a><a href='#L407'>407</a>
-<a name='L408'></a><a href='#L408'>408</a>
-<a name='L409'></a><a href='#L409'>409</a>
-<a name='L410'></a><a href='#L410'>410</a>
-<a name='L411'></a><a href='#L411'>411</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L408'></a><a href='#L408'>408</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -497,12 +494,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -879,7 +873,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Layout, Card, Text, Accordion, Color, Container } from '@wings-software/uicore'
+import { Layout, Card, Text, Accordion, Color } from '@wings-software/uicore'
 import { get, isEmpty, isNil, omit, debounce, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
@@ -898,7 +892,6 @@ import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { InfraProvisioningData } from '@cd/components/PipelineSteps/InfraProvisioning/InfraProvisioning'
 import type { GcpInfrastructureSpec } from '@cd/components/PipelineSteps/GcpInfrastructureSpec/GcpInfrastructureSpec'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { String, useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -907,12 +900,10 @@ import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpeci
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
-import { FeatureFlag } from '@common/featureFlags'
 import css from './DeployInfraSpecifications.module.scss'
 &nbsp;
 const DEFAULT_RELEASE_NAME = 'release-&lt;+INFRA_KEY&gt;'
 export default function <span class="fstat-no" title="function not covered" >DeployInfraSpecifications(</span>props: React.PropsWithChildren&lt;unknown&gt;): JSX.Element {
-  const isProvisionerEnabled = <span class="cstat-no" title="statement not covered" >useFeatureFlag(FeatureFlag.NG_PROVISIONERS)</span>
   const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] =
 <span class="cstat-no" title="statement not covered" >    React.useState&lt;Infrastructure&gt;({})</span>
   const [selectedDeploymentType, setSelectedDeploymentType] = <span class="cstat-no" title="statement not covered" >React.useState&lt;string | undefined&gt;()</span>
@@ -1237,14 +1228,14 @@ export default function <span class="fstat-no" title="function not covered" >Dep
 <span class="cstat-no" title="statement not covered" >            resetInfrastructureDefinition(deploymentType)</span>
           }}
         /&gt;
-        {!!selectedDeploymentType &amp;&amp; isProvisionerEnabled ? (
-          &lt;Accordion className={css.tabHeading} activeId="dynamicProvisioning"&gt;
+        {selectedDeploymentType ? (
+          &lt;Accordion className={css.deployProvisioning} activeId="dynamicProvisioning"&gt;
             &lt;Accordion.Panel
               id="dynamicProvisioning"
               addDomId={true}
-              summary={'Dynamic provisioning'}
+              summary={&lt;div className={css.tabHeading}&gt;{getString('cd.dynamicProvisioning')}&lt;/div&gt;}
               details={
-                &lt;Container padding="medium" style={{ backgroundColor: 'var(--white)' }} className={css.sectionCard}&gt;
+                &lt;Card className={cx(css.sectionCard, css.shadow)}&gt;
                   &lt;StepWidget&lt;InfraProvisioningData&gt;
                     factory={factory}
                     readonly={isReadonly}
@@ -1267,7 +1258,7 @@ export default function <span class="fstat-no" title="function not covered" >Dep
 <span class="cstat-no" title="statement not covered" >                      setProvisionerEnabled(value.provisionerEnabled)</span>
                     }}
                   /&gt;
-                &lt;/Container&gt;
+                &lt;/Card&gt;
               }
             /&gt;
           &lt;/Accordion&gt;
@@ -1294,7 +1285,7 @@ export default function <span class="fstat-no" title="function not covered" >Dep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 15 2021 07:09:25 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 15 2021 13:16:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>
